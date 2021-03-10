@@ -4,14 +4,20 @@ import { connect } from 'react-redux'
 import { type StackHeaderProps } from '@react-navigation/stack'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import Header from '../components/Header'
+import Header, { type PropsType as HeaderPropsType } from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
-import { CityModel } from 'api-client'
+import {
+  CityModel,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
+  OFFERS_ROUTE,
+  DISCLAIMER_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
+} from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
+import { cityContentUrl, url } from '../../navigation/url'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -23,7 +29,8 @@ type StatePropsType = {|
   goToLanguageChange?: () => void,
   peeking: boolean,
   categoriesAvailable: boolean,
-  routeCityModel?: CityModel
+  routeCityModel?: CityModel,
+  shareUrl: ?string
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
@@ -35,9 +42,22 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
-      state.cityContent.eventsRouteMapping[routeKey] ||
-      state.cityContent.newsRouteMapping[routeKey]
+    state.cityContent.eventsRouteMapping[routeKey] ||
+    state.cityContent.newsRouteMapping[routeKey] ||
+    state.cityContent.poisRouteMapping[routeKey]
     : null
+
+  const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
+  const routeName = ownProps.scene.route.name
+  const simpleRouteShareUrl = state.cityContent?.city && simpleRoutes.includes(routeName)
+    ? cityContentUrl({
+        cityCode: state.cityContent?.city,
+        languageCode: state.contentLanguage,
+        route: routeName,
+        path: null
+      })
+    : null
+
   const languages = state.cityContent?.languages
 
   // prevent re-rendering when city is there.
@@ -48,10 +68,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
-    !languages || languages.status !== 'ready') {
+    !languages || languages.status !== 'ready' || !stateCityCode) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
-    return { language: state.contentLanguage, routeCityModel, peeking: false, categoriesAvailable: false }
+    return {
+      language: state.contentLanguage,
+      routeCityModel,
+      peeking: false,
+      categoriesAvailable: false,
+      shareUrl: simpleRouteShareUrl
+    }
   }
 
   const goToLanguageChange = () => {
@@ -66,13 +92,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       }
     })
   }
-  const peeking = isPeekingRoute(state, { routeCity: route.city })
 
-  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable }
+  const peeking = isPeekingRoute(state, { routeCity: route.city })
+  const language = route.language
+  const path = route.path || undefined
+  const shareUrl = path
+    ? url(path)
+    : cityContentUrl({
+      cityCode: stateCityCode,
+      languageCode: route.language,
+      route: routeName,
+      path: route.type || null
+    })
+
+  return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
 
-export default withTranslation('layout')(
+export default withTranslation<OwnPropsType>('layout')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-    withTheme(Header)
+    withTheme<HeaderPropsType>(Header)
   )
 )

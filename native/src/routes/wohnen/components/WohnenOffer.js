@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { TFunction } from 'react-i18next'
-import { OfferModel, WohnenOfferModel } from 'api-client'
+import { WohnenOfferModel } from 'api-client'
 import OfferDetail from './OfferDetail'
 import Caption from '../../../modules/common/components/Caption'
 import OfferListItem from './OfferListItem'
@@ -15,7 +15,7 @@ import ErrorCodes from '../../../modules/error/ErrorCodes'
 type PropsType = {|
   offers: Array<WohnenOfferModel>,
   offerHash?: WohnenOfferModel,
-  wohnenOffer: OfferModel,
+  title: string,
   language: string,
   navigateToOffer: (offerHash: string) => void,
   t: TFunction,
@@ -38,14 +38,13 @@ class WohnenOffer extends React.Component<PropsType> {
   }
 
   render () {
-    const { offers, wohnenOffer, offerHash, t, theme } = this.props
+    const { offers, title, offerHash, t, theme } = this.props
 
     if (offerHash) {
       const offer = offers.find(_offer => hashWohnenOffer(_offer) === offerHash)
 
       if (!offer) {
-        return <Failure errorMessage='Angebot nicht gefunden.' code={ErrorCodes.PageNotFound} t={t}
-                        theme={theme} />
+        return <Failure code={ErrorCodes.PageNotFound} t={t} theme={theme} />
       }
 
       return (
@@ -55,7 +54,7 @@ class WohnenOffer extends React.Component<PropsType> {
 
     return (
       <>
-        <Caption title={wohnenOffer.title} theme={theme} />
+        <Caption title={title} theme={theme} />
         <List noItemsMessage={t('noOffersAvailable')}
               items={offers}
               renderItem={this.renderOfferListItem}

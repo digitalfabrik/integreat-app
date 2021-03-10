@@ -4,6 +4,8 @@
 <PROJECT_ROOT>/lib-dist/.*
 .*/node_modules/.*/__tests__/.*
 .*/build-configs/.*/assets/manifest\.json
+; TODO HEADROOM-9 Fix flow error
+.*/node_modules/@integreat-app/react-sticky-headroom/index\.js\.flow
 
 [untyped]
 .*/node_modules/react-select/src/.*
@@ -27,6 +29,10 @@
 module.system.node.resolve_dirname=node_modules
 esproposal.optional_chaining=enable
 
+; In order to upgrade to v0.143.0 the following has to be removed and flow errors have to be fixed.
+; See https://github.com/facebook/flow/releases/tag/v0.143.0 for more information.
+types_first=false
+
 module.file_ext=.js
 module.file_ext=.jsx
 module.file_ext=.json
@@ -35,9 +41,5 @@ suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 suppress_type=$FlowFixMeProps
 suppress_type=$FlowFixMeState
-
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)
-suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native\\(_ios\\)?_\\(oss\\|fb\\)[a-z,_]*\\)?)\\)?:? #[0-9]+
-suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [strict]

@@ -5,8 +5,7 @@ import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
-import { withTranslation } from 'react-i18next'
-import { type TFunction } from 'i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import buildConfig from '../../app/constants/buildConfig'
 
 type PropsType = {|
@@ -14,22 +13,22 @@ type PropsType = {|
   t: TFunction
 |}
 
-class GeneralHeader extends React.PureComponent<PropsType> {
-  render () {
-    const { viewportSmall, t } = this.props
-    const getPath = new I18nRedirectRouteConfig().getRoutePath
+const GeneralHeader = ({ viewportSmall, t }: PropsType) => {
+  const getPath = new I18nRedirectRouteConfig().getRoutePath
 
-    const actionItems = !buildConfig().featureFlags.fixedCity
-      ? [<HeaderActionItemLink key='landing'
+  const actionItems = !buildConfig().featureFlags.fixedCity
+    ? [<HeaderActionItemLink key='landing'
                                href={getPath({})}
                                iconSrc={landingIcon}
                                text={t('changeLocation')} />]
-      : []
+    : []
 
-    return <Header viewportSmall={viewportSmall}
-                   logoHref={getPath({})}
-                   actionItems={actionItems} />
-  }
+  const onStickyTopChanged = () => {}
+
+  return <Header viewportSmall={viewportSmall}
+                 onStickyTopChanged={onStickyTopChanged}
+                 logoHref={getPath({})}
+                 actionItems={actionItems} />
 }
 
-export default withTranslation('layout')(GeneralHeader)
+export default withTranslation<PropsType>('layout')(GeneralHeader)

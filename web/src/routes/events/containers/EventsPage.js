@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import { CityModel, EventModel, NotFoundError } from 'api-client'
 import Page, { THUMBNAIL_WIDTH } from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, type TFunction } from 'react-i18next'
 import type { StateType } from '../../../modules/app/StateType'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from '../components/EventListItem'
@@ -20,9 +19,13 @@ import CategoriesRouteConfig from '../../../modules/app/route-configs/Categories
 import featuredImageToSrcSet from '../../../modules/common/utils/featuredImageToSrcSet'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
-type PropsType = {|
+type OwnPropsType = {|
   events: Array<EventModel>,
-  cities: Array<CityModel>,
+  cities: Array<CityModel>
+|}
+
+type PropsType = {|
+  ...OwnPropsType,
   city: string,
   eventId: ?string,
   language: string,
@@ -99,7 +102,7 @@ const mapStateTypeToProps = (state: StateType) => ({
   eventId: state.location.payload.eventId
 })
 
-export default connect<*, *, *, *, *, *>(mapStateTypeToProps)(
-  withTranslation('events')(
+export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateTypeToProps, () => ({}))(
+  withTranslation<PropsType>('events')(
     EventsPage
   ))

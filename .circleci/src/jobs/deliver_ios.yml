@@ -15,7 +15,6 @@ shell: /bin/bash --login -o pipefail
 steps:
   - skip_job:
       build_config_name: << parameters.build_config_name >>
-  - run: 'curl -sL https://sentry.io/get-cli/ | bash'
   - checkout
   - prepare_workspace
   - restore_environment_variables
@@ -48,7 +47,9 @@ steps:
             command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
             working_directory: native
   - run:
-      name: "[FL] Upload to Sentry"
-      command: bundle exec fastlane ios sentry_upload version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >> sourcemap_path:attached_workspace/<< parameters.build_config_name >>.ios.bundle.map
-      working_directory: native
+     name: "Sentry Upload"
+     # A react-native app reports its version as: bundle_identifier@bundle_version+bundle_code
+     command: |
+       eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> ios)
+       tools/sentry-release "$BUILD_CONFIG_BUNDLE_IDENTIFIER" "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/<< parameters.build_config_name >> --version-code "${NEW_VERSION_CODE}"
   - notify

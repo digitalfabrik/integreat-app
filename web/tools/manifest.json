@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "This is replaced by webpack.config.babel.js",
+  "short_name": "This is replaced by webpack.config.babel.js",
+  "version": "This is replaced by webpack.config.babel.js",
+  "description": "This is replaced by webpack.config.babel.js",
+  "icons": [{
+    "src": "favicons/favicon-16x16.png",
+    "sizes": "16x16"
+  }, {
+    "src": "favicons/favicon-48x48.png",
+    "sizes": "48x48"
+  }, {
+    "src": "favicons/favicon-96x96.png",
+    "sizes": "96x96"
+  }, {
+    "src": "favicons/favicon-192x192.png",
+    "sizes": "192x192"
+  }, {
+    "src": "favicons/favicon-512x512.png",
+    "sizes": "512x512"
+  }],
+  "homepage_url": "",
+  "related_applications": [
+    {
+      "platform": "This is replaced by webpack.config.babel.js",
+      "id": "This is replaced by webpack.config.babel.js",
+      "url": "This is replaced by webpack.config.babel.js"
+    }
+  ],
+  "prefer_related_applications": true,
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "This is replaced by webpack.config.babel.js",
+  "background_color": "#ffffff"
+}

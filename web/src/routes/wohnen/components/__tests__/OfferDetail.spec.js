@@ -62,6 +62,7 @@ describe('OfferDetail', () => {
       <OfferDetail offer={offer} />
     )
 
+    // $FlowFixMe
     const concatenated = offerDetail.dive().instance().stringify(['a', 'b', 'c'])
     expect(concatenated).toBe('a, b, c')
   })
@@ -71,6 +72,7 @@ describe('OfferDetail', () => {
       <OfferDetail offer={offer} />
     )
 
+    // $FlowFixMe
     const translated = offerDetail.dive().instance().translate('runningServices', ['a', 'b'])
     expect(translated).toEqual(['wohnen:values.runningServices.a', 'wohnen:values.runningServices.b'])
   })
@@ -81,7 +83,9 @@ describe('OfferDetail', () => {
     )
 
     const instance = offerDetail.dive().instance()
+    // $FlowFixMe
     expect(instance.formatMonthlyPrice(0)).toBe('Keine')
+    // $FlowFixMe
     expect(instance.formatMonthlyPrice(42)).toBe('42 € monatlich')
   })
 

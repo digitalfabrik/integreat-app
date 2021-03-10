@@ -1,13 +1,14 @@
 // @flow
 
 import * as React from 'react'
-import { useCallback, useRef, useState } from 'react'
-import styled from 'styled-components'
-import type { ThemeType } from '../../theme/constants/theme'
+import { useRef, useState } from 'react'
+import styled, { type StyledComponent } from 'styled-components'
+import type { ThemeType } from 'build-configs/ThemeType'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import dimensions from '../../theme/constants/dimensions'
+import Tooltip from '../../common/components/Tooltip'
 
-export const Container = styled.div`
+export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
   width: calc(0.8 * ${dimensions.headerHeightLarge}px);
   height: calc(0.8 * ${dimensions.headerHeightLarge}px);
   box-sizing: border-box;
@@ -17,7 +18,7 @@ export const Container = styled.div`
     height: calc(0.8 * ${dimensions.headerHeightSmall}px);
   }
 
-  & > button {
+  & button {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -25,10 +26,9 @@ export const Container = styled.div`
     cursor: pointer;
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     border: none;
-
   }
 
-  & > button > img {
+  & button > img {
     box-sizing: border-box;
     padding: 22%;
     object-fit: contain;
@@ -37,7 +37,7 @@ export const Container = styled.div`
   }
 `
 
-export const DropDownContainer = styled.div`
+export const DropDownContainer: StyledComponent<{| active: boolean |}, ThemeType, *> = styled.div`
   position: absolute;
   top: ${dimensions.headerHeightLarge}px;
   right: 0;
@@ -66,7 +66,6 @@ export const DropDownContainer = styled.div`
 
 type PropsType = {|
   children: (closeDropDown: () => void) => React.Element<*>,
-  theme: ThemeType,
   iconSrc: string,
   text: string
 |}
@@ -77,12 +76,12 @@ type PropsType = {|
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
 const HeaderActionItemDropDown = (props: PropsType) => {
-  const { iconSrc, text, children, theme } = props
+  const { iconSrc, text, children } = props
   const [dropDownActive, setDropDownActive] = useState(false)
 
-  const toggleDropDown = useCallback(() => {
+  const toggleDropDown = () => {
     setDropDownActive(!dropDownActive)
-  }, [setDropDownActive, dropDownActive])
+  }
 
   const closeDropDown = () => {
     setDropDownActive(false)
@@ -91,16 +90,16 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   const wrapperRef = useRef(null)
   useOnClickOutside(wrapperRef, closeDropDown)
 
-  return <Container ref={wrapperRef} theme={theme}>
-    <button
-      data-tip={text} data-event='mouseover' data-event-off='click mouseout'
-      aria-label={text}
-      onClick={toggleDropDown}>
-      <img alt='' src={iconSrc} />
-    </button>
+  return <Container ref={wrapperRef}>
+    <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
+      <button
+        aria-label={text}
+        onClick={toggleDropDown}>
+        <img alt='' src={iconSrc} />
+      </button>
+    </Tooltip>
     <DropDownContainer aria-label={dropDownActive}
                        active={dropDownActive}
-                       theme={theme}
                        // We need to have th visibility here, else the jest-dom testing library can not assert on it
                        style={{ visibility: `${dropDownActive ? 'visible' : 'hidden'}` }}>
       {children(closeDropDown)}

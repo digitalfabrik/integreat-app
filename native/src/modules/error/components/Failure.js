@@ -10,7 +10,7 @@ import type { ThemeType } from '../../theme/constants'
 import { Button } from 'react-native-elements'
 import type { ErrorCodeType } from '../ErrorCodes'
 
-const ViewContainer: StyledComponent<{}, ThemeType, *> = styled.View`
+const ViewContainer: StyledComponent<{||}, ThemeType, *> = styled.View`
 flex: 1;
 align-items: center;
 margin-top: 15%;
@@ -20,8 +20,7 @@ const IconContainer = styled.Image`
 margin-bottom: 10px;
 `
 
-type PropsType = {|
-  errorMessage?: string,
+export type PropsType = {|
   code: ErrorCodeType,
   tryAgain?: () => void,
   t: TFunction,

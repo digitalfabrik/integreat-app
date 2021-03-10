@@ -17,6 +17,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from '../../../theme/constants/theme'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import OfferModelBuilder from 'api-client/src/testing/OffersModelBuilder'
 
 jest.mock('../../components/LocationFooter', () => {
   return () => <div>LocationFooter</div>
@@ -82,6 +83,7 @@ describe('LocationLayout', () => {
   ]
 
   const cities = new CityModelBuilder(1).build()
+  const offers = new OfferModelBuilder(2).build()
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -97,7 +99,7 @@ describe('LocationLayout', () => {
                     events={events} languageChangePaths={languageChangePaths}
                     feedbackTargetInformation={feedbackTargetInformation}
                     viewportSmall toggleDarkMode={() => {}} darkMode
-                    isLoading={isLoading}>
+                    isLoading={isLoading} offers={offers}>
       <MockNode />
     </LocationLayout>
 

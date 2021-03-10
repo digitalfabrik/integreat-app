@@ -1,0 +1,7 @@
+issue_key: IGAPP-448
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Local news are now correctly displaying special characters.
+de: Sonderzeichen werden nun in lokalen Nachrichten korrekt dargestellt.

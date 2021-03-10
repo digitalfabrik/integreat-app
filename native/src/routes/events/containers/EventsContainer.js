@@ -2,14 +2,14 @@
 
 import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import Events from '../components/Events'
+import Events, { type PropsType as EventsPropsType } from '../components/Events'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { CityModel, EventModel } from 'api-client'
+import { EventModel } from 'api-client'
 import * as React from 'react'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type {
@@ -21,6 +21,7 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import type { EventsRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 type NavigationPropsType = {|
   route: RoutePropType<EventsRouteType>,
@@ -38,8 +39,7 @@ type ContainerPropsType = {|
   ...NavigationPropsType,
   ...DispatchPropsType,
   path: ?string,
-  events: ?$ReadOnlyArray<EventModel>,
-  cities: $ReadOnlyArray<CityModel>,
+  events: Array<EventModel>,
   cityCode: string,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
@@ -139,7 +139,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  if (state.resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
+  const resourceCacheUrl = state.resourceCacheUrl
+  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
     (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
     return { status: 'loading', progress: 0 }
   }
@@ -149,15 +150,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     throw new Error('language not available route status not handled!')
   }
 
-  const cities = state.cities.models
   const innerProps = {
     path: route.path,
-    events: route.models,
-    cities: cities,
+    events: Array.from(route.models || []),
     cityCode: route.city,
     language: route.language,
     resourceCache: resourceCache.value,
-    resourceCacheUrl: state.resourceCacheUrl,
+    resourceCacheUrl,
     navigation: ownProps.navigation,
     route: ownProps.route
   }
@@ -179,8 +178,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({ dispatch })
 
-const ThemedTranslatedEvents = withTranslation('events')(
-  withTheme(Events)
+const ThemedTranslatedEvents = withTranslation<$Diff<EventsPropsType, {| theme: ThemeType |}>>('events')(
+  withTheme<EventsPropsType>(Events)
 )
 
 class EventsContainer extends React.Component<ContainerPropsType> {
@@ -191,10 +190,10 @@ class EventsContainer extends React.Component<ContainerPropsType> {
   }
 
   render () {
-    const { dispatch, ...rest } = this.props
+    const { dispatch, navigation, route, ...rest } = this.props
     return <ThemedTranslatedEvents {...rest}
-                                   navigateTo={createNavigate(dispatch, rest.navigation)}
-                                   navigateToFeedback={createNavigateToFeedbackModal(rest.navigation)}
+                                   navigateTo={createNavigate(dispatch, navigation)}
+                                   navigateToFeedback={createNavigateToFeedbackModal(navigation)}
                                    navigateToLink={this.navigateToLinkProp}
     />
   }
@@ -214,7 +213,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-export default withTranslation('error')(
+export default withTranslation<OwnPropsType>('error')(
   connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
     withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(
       EventsContainer
