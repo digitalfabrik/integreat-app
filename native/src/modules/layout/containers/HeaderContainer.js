@@ -9,10 +9,15 @@ import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
-import { CityModel } from 'api-client'
+import {
+  CityModel,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
+  OFFERS_ROUTE,
+  DISCLAIMER_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
+} from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { cityContentUrl, url } from '../../navigation/url'
-import { CHANGE_LANGUAGE_MODAL_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client/src/routes'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -32,17 +37,6 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
-const getShareUrl = (params: {| city: string, language: string, path: ?string, routeName: string |}): ?string => {
-  const { city, language, path, routeName } = params
-  if (path) {
-    return url(path)
-  } else if ([EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE].includes(routeName)) {
-    const params = { cityCode: city, languageCode: language, path: null }
-    return cityContentUrl({ route: routeName, ...params })
-  }
-  return null
-}
-
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
 
@@ -51,6 +45,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     state.cityContent.eventsRouteMapping[routeKey] ||
     state.cityContent.newsRouteMapping[routeKey] ||
     state.cityContent.poisRouteMapping[routeKey]
+    : null
+
+  const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
+  const routeName = ownProps.scene.route.name
+  const simpleRouteShareUrl = state.cityContent?.city && simpleRoutes.includes(routeName)
+    ? cityContentUrl({
+        cityCode: state.cityContent?.city,
+        languageCode: state.contentLanguage,
+        route: routeName,
+        path: null
+      })
     : null
 
   const languages = state.cityContent?.languages
@@ -63,7 +68,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
 
   if (!route || route.status !== 'ready' || state.cities.status !== 'ready' || !state.cityContent ||
-    !languages || languages.status !== 'ready') {
+    !languages || languages.status !== 'ready' || !stateCityCode) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return {
@@ -71,7 +76,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       routeCityModel,
       peeking: false,
       categoriesAvailable: false,
-      shareUrl: null
+      shareUrl: simpleRouteShareUrl
     }
   }
 
@@ -87,13 +92,20 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       }
     })
   }
-  const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const shareUrlFromScene: ?string = typeof ownProps.scene.route.params?.shareUrl === 'string' ? ownProps.scene.route.params?.shareUrl : null
-  const { city, language } = route
-  const path = route.path || null
-  const shareUrl = shareUrlFromScene || getShareUrl({ city, language, path, routeName: ownProps.scene.route.name })
 
-  return { peeking, routeCityModel, language: route.language, goToLanguageChange, categoriesAvailable, shareUrl }
+  const peeking = isPeekingRoute(state, { routeCity: route.city })
+  const language = route.language
+  const path = route.path || undefined
+  const shareUrl = path
+    ? url(path)
+    : cityContentUrl({
+      cityCode: stateCityCode,
+      languageCode: route.language,
+      route: routeName,
+      path: route.type || null
+    })
+
+  return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
 
 export default withTranslation<OwnPropsType>('layout')(
