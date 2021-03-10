@@ -6,7 +6,7 @@ type FontType = 'lateef'
   | 'openSans'
   | 'raleway'
   | 'varelaRound'
-  | 'noto-sans-cjk-sc' // https://www.google.com/get/noto/help/cjk/
+  | 'noto-sans-sc' // https://www.google.com/get/noto/help/cjk/
 type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
 type SupportedLanguagesType = { [languageTag: string]: LanguageType }
 type FallbacksType = { [languageTag: string]: string[] }
