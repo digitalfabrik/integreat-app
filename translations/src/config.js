@@ -2,7 +2,11 @@
 
 import { values } from './utils/object'
 
-type FontType = 'lateef' | 'openSans' | 'raleway' | 'varelaRound'
+type FontType = 'lateef'
+  | 'openSans'
+  | 'raleway'
+  | 'varelaRound'
+  | 'noto-sans-cjk-sc' // https://www.google.com/get/noto/help/cjk/
 type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
 type SupportedLanguagesType = { [languageTag: string]: LanguageType }
 type FallbacksType = { [languageTag: string]: string[] }
@@ -47,7 +51,10 @@ class Config {
     bg: { rtl: false },
     el: { rtl: false },
     it: { rtl: false },
-    'zh-CN': { rtl: false }
+    'zh-CN': {
+      rtl: false,
+      additionalFont: 'noto-sans-cjk-sc'
+    }
   }
 
   // Fallbacks for unnormalized language codes from our backend
