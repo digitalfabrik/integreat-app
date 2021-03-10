@@ -201,7 +201,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
       }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({
-        localesToKeep: translations.config.getSupportedLanguageCodes(),
+        localesToKeep: translations.config.getSupportedLanguageTags(),
         ignoreInvalidLocales: true
       })
     ],
