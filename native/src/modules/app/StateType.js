@@ -132,27 +132,27 @@ export type NewsRouteStateType = {|
   +page: number,
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
-  |} | {|
+|} | {|
   +routeType: 'news',
   +status: 'languageNotAvailable',
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
-  |} | {|
+|} | {|
   +routeType: 'news',
   +status: 'loading',
   ...NewsRouteConfigType
-  |} | {|
+|} | {|
   +routeType: 'news',
   +status: 'loadingMore',
-    +models: NewsModelsType,
-    ...NewsRouteConfigType
-  |} | {|
+  +models: NewsModelsType,
+  ...NewsRouteConfigType
+|} | {|
   +routeType: 'news',
   +status: 'error',
   ...NewsRouteConfigType,
   +code: ErrorCodeType,
   +message: ?string
-  |}
+|}
 
 export type PageResourceCacheEntryStateType = {|
   +filePath: string,
