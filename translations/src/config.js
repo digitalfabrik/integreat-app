@@ -53,7 +53,7 @@ class Config {
     it: { rtl: false },
     'zh-CN': {
       rtl: false,
-      additionalFont: 'noto-sans-cjk-sc'
+      additionalFont: 'noto-sans-sc'
     }
   }
 
