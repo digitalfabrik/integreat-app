@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { useContext } from 'react'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import styled from 'styled-components/native'
 import { type TFunction } from 'react-i18next'
@@ -10,6 +11,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { contentDirection, contentAlignment } from '../../../modules/i18n/contentDirection'
 import { config } from 'translations'
 import { Parser } from 'htmlparser2'
+import TimeStamp from '../../../modules/common/components/TimeStamp'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 type PropsType = {|
   newsItem: LocalNewsModel | TunewsModel,
@@ -87,6 +90,14 @@ export const Content: StyledComponent<{| language: string |}, ThemeType, *> = st
   color: ${props => props.theme.colors.textColor};
 `
 
+const TimeStampContent: StyledComponent<{|language: string |}, ThemeType, *> = styled.Text`
+  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-size: 14px;
+  padding: 10px 0px
+  text-align: ${props => contentAlignment(props.language)};
+  color: ${props => props.theme.colors.textColor};
+`
+
 export const ReadMore: StyledComponent<{| isTunews: ?boolean |}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.decorativeFontBold};
   font-size: 12px;
@@ -99,9 +110,11 @@ export const ReadMore: StyledComponent<{| isTunews: ?boolean |}, ThemeType, *> =
 `
 
 const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
   const content = localNewsContent || tuNewsContent
+  const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
 
   // Decode html entities
   let decodedContent = ''
@@ -123,6 +136,14 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
                   {decodedContent}
                 </Content>
               </ListItemView>
+              {timestamp && <ListItemView language={language} theme={theme}>
+                <TimeStampContent language={language} theme={theme}>
+                  <TimeStamp formatter={formatter}
+                             lastUpdate={timestamp}
+                             showText={false}
+                             language={language} theme={theme} />
+                </TimeStampContent>
+              </ListItemView>}
             </Description>
             <ReadMoreWrapper language={language}>
               <ReadMore
