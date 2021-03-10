@@ -1,6 +1,6 @@
 // @flow
 
-import type { CityContentStateType, EventRouteStateType } from '../../app/StateType'
+import type { CityContentStateType, EventRouteStateType, RouteStateType } from '../../app/StateType'
 import type { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
@@ -14,14 +14,18 @@ const getEventRouteState = (currentPath: ?string,
 
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
-  const otherEventPageLoading = values<EventRouteStateType>(state.eventsRouteMapping)
-    .filter(route => city === route.city && currentPath !== route.path && language === route.language)
+  const otherEventPageLoading = values<RouteStateType>(state.routeMapping)
+    .filter(route => route.routeType === 'event' &&
+      city === route.city &&
+      currentPath !== route.path &&
+      language === route.language)
     .some(route => route.status === 'loading')
 
   const status: 'loading' | 'ready' = (otherEventPageLoading && !refresh) ? 'loading' : 'ready'
   if (!currentPath) {
     const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
     const eventRouteState = {
+      routeType: 'event',
       path: null,
       language,
       city,
@@ -29,14 +33,15 @@ const getEventRouteState = (currentPath: ?string,
       allAvailableLanguages
     }
     if (status === 'loading') {
-      return { status: 'loading', ...eventRouteState }
+      return { routeType: 'event', status: 'loading', ...eventRouteState }
     } else {
-      return { status: 'ready', ...eventRouteState }
+      return { routeType: 'event', status: 'ready', ...eventRouteState }
     }
   }
   const event: ?EventModel = events.find(event => event.path === currentPath)
   if (!event) {
     return {
+      routeType: 'event',
       path: currentPath,
       language,
       city,
@@ -57,9 +62,9 @@ const getEventRouteState = (currentPath: ?string,
   }
 
   if (status === 'loading') {
-    return { status: 'loading', ...eventRouteState }
+    return { routeType: 'event', status: 'loading', ...eventRouteState }
   } else {
-    return { status: 'ready', ...eventRouteState }
+    return { routeType: 'event', status: 'ready', ...eventRouteState }
   }
 }
 
@@ -71,13 +76,16 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
     ? { ...state.resourceCache.value, ...resourceCache }
     : resourceCache
 
-  const newEventsRouteMapping = { ...state.eventsRouteMapping }
+  const newRouteMapping = { ...state.routeMapping }
 
   if (refresh) {
-    entries<EventRouteStateType>(state.eventsRouteMapping)
-      .filter(([_, route]) => city === route.city && path !== route.path && language === route.language)
+    entries<RouteStateType>(state.routeMapping)
+      .filter(([_, route]) => route.routeType === 'event' &&
+        city === route.city &&
+        path !== route.path &&
+        language === route.language)
       .forEach(([key, route]) => {
-        newEventsRouteMapping[key] = route.path
+        newRouteMapping[key] = route.path
           ? getEventRouteState(route.path, state, action)
           : getEventRouteState(null, state, action)
       })
@@ -85,8 +93,8 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
 
   return {
     ...state,
-    eventsRouteMapping: {
-      ...newEventsRouteMapping,
+    routeMapping: {
+      ...newRouteMapping,
       [key]: getEventRouteState(path, state, action)
     },
     resourceCache: {

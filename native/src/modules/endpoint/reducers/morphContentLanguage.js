@@ -4,7 +4,7 @@ import type {
   CategoryRouteStateType,
   CityContentStateType,
   EventRouteStateType,
-  PoiRouteStateType
+  PoiRouteStateType, RouteMappingType
 } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
 import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
@@ -23,6 +23,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
     if (!translatedPath) { // Route is not translatable
       return {
+        routeType: 'category',
         status: 'languageNotAvailable',
         allAvailableLanguages,
         city: route.city,
@@ -49,6 +50,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     })
 
     return {
+      routeType: 'category',
       path: translatedPath,
       models: resultModels,
       children: resultChildren,
@@ -70,6 +72,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
+        routeType: 'event',
         status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
@@ -81,6 +84,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     const translatedPath = allAvailableLanguages.get(newLanguage)
     if (!translatedPath) { // Route is a list of all events
       return {
+        routeType: 'event',
         status: 'ready',
         path: translatedPath,
         models: newEvents,
@@ -99,6 +103,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     }
 
     return {
+      routeType: 'event',
       status: 'ready',
       path: translatedPath,
       models: [translatedEvent],
@@ -118,6 +123,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
+        routeType: 'poi',
         status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
@@ -129,6 +135,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
     const translatedPath = allAvailableLanguages.get(newLanguage)
     if (!translatedPath) { // Route is a list of all pois
       return {
+        routeType: 'poi',
         status: 'ready',
         path: translatedPath,
         models: newPois,
@@ -142,11 +149,12 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
 
     if (!translatedPoi) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                    but is referenced as translation for ${newLanguage}.`)
+                but is referenced as translation for ${newLanguage}.`)
       return route
     }
 
     return {
+      routeType: 'poi',
       status: 'ready',
       path: translatedPath,
       models: [translatedPoi],
@@ -156,34 +164,39 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
     }
   }
 
+const translateRoutes = (state: CityContentStateType, action: MorphContentLanguageActionType): RouteMappingType => {
+  const { routeMapping, city } = state
+  const { newCategoriesMap, newEvents, newPois, newLanguage } = action.params
+
+  const categoryTranslator = categoryRouteTranslator(newCategoriesMap, city, newLanguage)
+  const eventTranslator = eventRouteTranslator(newEvents, newLanguage)
+  const poiTranslator = poiRouteTranslator(newPois, newLanguage)
+
+  return mapValues(routeMapping, route => {
+    if (route.routeType === 'category') {
+      return categoryTranslator(route)
+    } else if (route.routeType === 'event') {
+      return eventTranslator(route)
+    } else if (route.routeType === 'poi') {
+      return poiTranslator(route)
+    } else {
+      return route
+    }
+  })
+}
+
 const morphContentLanguage = (
   state: CityContentStateType, action: MorphContentLanguageActionType
 ): CityContentStateType => {
-  const { newCategoriesMap, newResourceCache, newEvents, newPois, newLanguage } = action.params
-  const { categoriesRouteMapping, eventsRouteMapping, poisRouteMapping, city } = state
+  const { newResourceCache, newCategoriesMap } = action.params
 
-  const translatedCategoriesRouteMapping = mapValues(
-    categoriesRouteMapping,
-    categoryRouteTranslator(newCategoriesMap, city, newLanguage)
-  )
-
-  const translatedEventsRouteMapping = mapValues(
-    eventsRouteMapping,
-    eventRouteTranslator(newEvents, newLanguage)
-  )
-
-  const translatedPoisRouteMapping = mapValues(
-    poisRouteMapping,
-    poiRouteTranslator(newPois, newLanguage)
-  )
+  const translatedRouteMapping = translateRoutes(state, action)
 
   return {
     ...state,
     resourceCache: { status: 'ready', progress: 1, value: newResourceCache },
     searchRoute: { categoriesMap: newCategoriesMap },
-    categoriesRouteMapping: translatedCategoriesRouteMapping,
-    eventsRouteMapping: translatedEventsRouteMapping,
-    poisRouteMapping: translatedPoisRouteMapping,
+    routeMapping: translatedRouteMapping,
     switchingLanguage: false
   }
 }

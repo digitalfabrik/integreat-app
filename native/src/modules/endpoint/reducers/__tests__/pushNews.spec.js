@@ -22,11 +22,9 @@ describe('pushNews', () => {
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'news',
           status: 'ready',
           city: 'augsburg',
           language: 'de',
@@ -47,10 +45,7 @@ describe('pushNews', () => {
   }
 
   it('should add general news route to newsRouteMapping', () => {
-    const prevState: CityContentStateType = prepareState({
-      newsRouteMapping: {},
-      eventsRouteMapping: {}
-    })
+    const prevState: CityContentStateType = prepareState({})
 
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
@@ -68,8 +63,9 @@ describe('pushNews', () => {
     }
 
     expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      newsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'news',
           status: 'ready',
           newsId: null,
           allAvailableLanguages: new Map([['en', null], ['de', null]]),
@@ -85,9 +81,7 @@ describe('pushNews', () => {
   })
 
   it('should add specific news item to routeMapping', () => {
-    const prevState = prepareState({
-      eventsRouteMapping: {}
-    })
+    const prevState = prepareState({})
 
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
@@ -105,8 +99,9 @@ describe('pushNews', () => {
     }
 
     expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      newsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'news',
           status: 'ready',
           newsId: '12',
           allAvailableLanguages: new Map([['en', null], ['de', null]]),

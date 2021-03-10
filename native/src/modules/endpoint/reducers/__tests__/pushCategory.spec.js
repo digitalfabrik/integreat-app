@@ -48,8 +48,9 @@ describe('pushCategory', () => {
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-1': {
+          routeType: 'category',
           status: 'ready',
           path: '/augsburg/de',
           depth: 2,
@@ -64,9 +65,6 @@ describe('pushCategory', () => {
           children: { '/augsburg/de': ['/augsburg/de/sub'], '/augsburg/de/sub': ['/augsburg/de/sub/sub'] }
         }
       },
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: {
         status: 'ready',
@@ -89,8 +87,7 @@ describe('pushCategory', () => {
 
   it('should add rootCategory to categoriesRouteMapping with depth 1', () => {
     const prevState: CityContentStateType = prepareState({
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
@@ -110,8 +107,9 @@ describe('pushCategory', () => {
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'category',
           status: 'ready',
           path: '/augsburg/de',
           allAvailableLanguages: new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']]),
@@ -127,7 +125,6 @@ describe('pushCategory', () => {
 
   it('should add subCategory to routeMapping with depth 1', () => {
     const prevState = prepareState({
-      categoriesRouteMapping: {},
       resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
@@ -147,8 +144,9 @@ describe('pushCategory', () => {
     }
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-1': {
+          routeType: 'category',
           status: 'ready',
           path: '/augsburg/de/sub',
           allAvailableLanguages: new Map([['en', '/augsburg/en/sub'], ['de', '/augsburg/de/sub']]),
@@ -215,8 +213,6 @@ describe('pushCategory', () => {
 
   it('should add categoriesMap to the searchRoute', () => {
     const prevState: CityContentStateType = prepareState({
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
       searchRoute: null,
       resourceCache: { status: 'ready', progress: 0, value: {} }
     })

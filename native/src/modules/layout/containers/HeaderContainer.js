@@ -46,12 +46,7 @@ const getShareUrl = (params: {| city: string, language: string, path: ?string, r
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
 
-  const route = state.cityContent
-    ? state.cityContent.categoriesRouteMapping[routeKey] ||
-    state.cityContent.eventsRouteMapping[routeKey] ||
-    state.cityContent.newsRouteMapping[routeKey] ||
-    state.cityContent.poisRouteMapping[routeKey]
-    : null
+  const route = state.cityContent?.routeMapping[routeKey]
 
   const languages = state.cityContent?.languages
 

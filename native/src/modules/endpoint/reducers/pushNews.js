@@ -40,6 +40,7 @@ const pushNews = (
         : { models: news }
 
       return {
+        routeType: 'news',
         status: 'ready',
         newsId: null,
         hasMoreNews,
@@ -57,6 +58,7 @@ const pushNews = (
 
     if (!newsItem) {
       return {
+        routeType: 'news',
         status: 'error',
         message: `News Item with newsId ${newsId} was not found in supplied models.`,
         code: ErrorCodes.PageNotFound,
@@ -70,6 +72,7 @@ const pushNews = (
     const allAvailableLanguages = availableLanguages.filter(languageModel => languageModel.code === language)
 
     return {
+      routeType: 'news',
       status: 'ready',
       newsId,
       models: [newsItem],
@@ -84,7 +87,7 @@ const pushNews = (
 
   return {
     ...state,
-    newsRouteMapping: { ...state.newsRouteMapping, [key]: getNewsRoute() }
+    routeMapping: { ...state.routeMapping, [key]: getNewsRoute() }
   }
 }
 

@@ -1,10 +1,8 @@
 // @flow
 
 import type {
-  CategoryRouteStateType,
   CityContentStateType,
-  EventRouteStateType,
-  PoiRouteStateType
+  RouteStateType
 } from '../../app/StateType'
 import { createSelector } from 'reselect'
 
@@ -12,34 +10,17 @@ export type CityRouteSelectorPropsType = {|
   routeKey: string
 |}
 
-const categoryRouteSelector = (
-  state: CityContentStateType,
-  props: CityRouteSelectorPropsType
-): ?CategoryRouteStateType => {
-  return state.categoriesRouteMapping[props.routeKey]
-}
-
-const eventRouteSelector = (state: CityContentStateType, props: CityRouteSelectorPropsType): ?EventRouteStateType => {
-  return state.eventsRouteMapping[props.routeKey]
-}
-
-const poiRouteSelector = (state: CityContentStateType, props: CityRouteSelectorPropsType): ?PoiRouteStateType => {
-  return state.poisRouteMapping[props.routeKey]
+const routeSelector = (state: CityContentStateType, props: CityRouteSelectorPropsType): RouteStateType => {
+  return state.routeMapping[props.routeKey]
 }
 
 export const currentCityRouteSelector = createSelector<
     CityContentStateType,
     CityRouteSelectorPropsType,
-    EventRouteStateType | CategoryRouteStateType | PoiRouteStateType | null,
-    ?CategoryRouteStateType,
-    ?EventRouteStateType,
-    ?PoiRouteStateType
+    RouteStateType,
+  RouteStateType
   >(
-    categoryRouteSelector,
-    eventRouteSelector,
-    poiRouteSelector, (
-      categoryRoute: ?CategoryRouteStateType, eventRoute: ?EventRouteStateType, poiRoute: ?PoiRouteStateType
-    ): CategoryRouteStateType | EventRouteStateType | PoiRouteStateType | null => {
-      return categoryRoute || eventRoute || poiRoute || null
+    routeSelector, (route): RouteStateType => {
+      return route
     }
   )

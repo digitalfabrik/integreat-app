@@ -14,7 +14,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
   const getPoiRoute = (): PoiRouteStateType => {
     const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
     if (!path) {
-      return { status: 'ready', path: null, models: pois, allAvailableLanguages, language, city }
+      return { routeType: 'poi', status: 'ready', path: null, models: pois, allAvailableLanguages, language, city }
     }
     const poi: ?PoiModel = pois.find(poi => poi.path === path)
     if (!poi) {
@@ -23,6 +23,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
     allAvailableLanguages.set(language, path)
 
     return {
+      routeType: 'poi',
       status: 'ready',
       path,
       models: [poi],
@@ -39,7 +40,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
 
   return {
     ...state,
-    poisRouteMapping: { ...state.poisRouteMapping, [key]: getPoiRoute() },
+    routeMapping: { ...state.routeMapping, [key]: getPoiRoute() },
     resourceCache: { status: 'ready', progress: 1, value: newResourceCache }
   }
 }

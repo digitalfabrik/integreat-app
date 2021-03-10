@@ -1,6 +1,6 @@
 // @flow
 
-import type { PoiRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { Dispatch } from 'redux'
@@ -74,9 +74,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, poisRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?PoiRouteStateType = poisRouteMapping[key]
-  if (!route) {
+  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
+  if (!route || route.routeType !== 'poi') {
     return { status: 'routeNotInitialized' }
   }
 

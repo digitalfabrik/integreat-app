@@ -35,14 +35,12 @@ describe('pushEvent', () => {
     })
   })
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
-
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           status: 'ready',
           models: [event1],
           city: 'augsburg',
@@ -51,7 +49,6 @@ describe('pushEvent', () => {
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']])
         }
       },
-      poisRouteMapping: {},
       languages: {
         status: 'ready',
         models: languageModels
@@ -77,8 +74,6 @@ describe('pushEvent', () => {
 
   it('should add general events route to eventsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
-      eventsRouteMapping: {},
-      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         progress: 0,
@@ -101,8 +96,9 @@ describe('pushEvent', () => {
     }
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           status: 'ready',
           path: null,
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),
@@ -116,7 +112,6 @@ describe('pushEvent', () => {
 
   it('should add specific event routeMapping', () => {
     const prevState = prepareState({
-      eventsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         progress: 0,
@@ -139,8 +134,9 @@ describe('pushEvent', () => {
     }
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: 'event',
           status: 'ready',
           path: '/augsburg/de/events/ev1',
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),

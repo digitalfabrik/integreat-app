@@ -84,10 +84,7 @@ describe('NewsContainer', () => {
           status: 'ready',
           models: [language]
         },
-        eventsRouteMapping: {},
-        categoriesRouteMapping: {},
-        poisRouteMapping: {},
-        newsRouteMapping: routeState ? { 'route-id-0': routeState } : {},
+        routeMapping: routeState ? { 'route-id-0': routeState } : {},
         searchRoute: null,
         resourceCache: {
           status: 'ready',
@@ -104,6 +101,7 @@ describe('NewsContainer', () => {
   }
 
   const successfulRouteState: NewsRouteStateType = {
+    routeType: 'news',
     status: 'ready',
     language: language.code,
     newsId: null,
@@ -145,6 +143,7 @@ describe('NewsContainer', () => {
 
   it('should display error if the route has the status error', () => {
     const state: StateType = prepareState({
+      routeType: 'news',
       status: 'error',
       language: language.code,
       city: city.code,
@@ -179,6 +178,7 @@ describe('NewsContainer', () => {
 
   it('should display loading spinner', () => {
     const state: StateType = prepareState({
+      routeType: 'news',
       newsId: null,
       status: 'loading',
       type: LOCAL_NEWS_TYPE,

@@ -41,7 +41,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const availableLanguages: Array<string> = ownProps.route.params.availableLanguages
   const previousKey = ownProps.route.params.previousKey
 
-  const newsRouteMapping = state.cityContent?.newsRouteMapping
+  const newsRouteMapping = state.cityContent?.routeMapping
   const newsType =
     (previousKey && newsRouteMapping && newsRouteMapping[previousKey] && newsRouteMapping[previousKey].type) || null
 
