@@ -39,8 +39,7 @@ describe('NotFoundRouteConfig', () => {
       pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
     })
-    expect(notFoundRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null }))
-      .toBe('pageTitles.notFound')
+    expect(notFoundRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null })).toBe('pageTitles.notFound')
   })
 
   it('should return the right meta description', () => {

@@ -35,26 +35,25 @@ type PropsType = {|
 /**
  * Displays a list of events or a single event, matching the route /<location>/<language>/events(/<id>)
  */
-export const EventsPage = ({
-  events,
-  eventId,
-  city,
-  language,
-  t,
-  cities
-}: PropsType) => {
+export const EventsPage = ({ events, eventId, city, language, t, cities }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
-  const renderEventListItem = () => (event: EventModel) =>
+  const renderEventListItem = () => (event: EventModel) => (
     <EventListItem event={event} formatter={formatter} key={event.path} />
+  )
 
   const cityModel = cities.find(_cityModel => _cityModel.code === city)
   if (!cityModel || !cityModel.eventsEnabled) {
-    return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
-                    goToPath={new CategoriesRouteConfig().getRoutePath({
-                      city,
-                      language
-                    })} />
+    return (
+      <Failure
+        errorMessage='notFound.category'
+        goToMessage='goTo.categories'
+        goToPath={new CategoriesRouteConfig().getRoutePath({
+          city,
+          language
+        })}
+      />
+    )
   }
 
   if (eventId) {
@@ -63,21 +62,24 @@ export const EventsPage = ({
     if (event) {
       const location = event.location.location
       const defaultThumbnail = event.featuredImage ? event.featuredImage.medium.url : event.thumbnail
-      return <>
-        <EventJsonLd event={event} formatter={formatter}/>
-        <Page defaultThumbnailSrc={defaultThumbnail}
-              thumbnailSrcSet={event.featuredImage && featuredImageToSrcSet(event.featuredImage, THUMBNAIL_WIDTH)}
-              lastUpdate={event.lastUpdate}
-              content={event.content}
-              title={event.title}
-              formatter={formatter}
-              onInternalLinkClick={push}>
-          <>
-            <PageDetail identifier={t('date')} information={event.date.toFormattedString(formatter)} />
-            {location && <PageDetail identifier={t('location')} information={location} />}
-          </>
-        </Page>
-      </>
+      return (
+        <>
+          <EventJsonLd event={event} formatter={formatter} />
+          <Page
+            defaultThumbnailSrc={defaultThumbnail}
+            thumbnailSrcSet={event.featuredImage && featuredImageToSrcSet(event.featuredImage, THUMBNAIL_WIDTH)}
+            lastUpdate={event.lastUpdate}
+            content={event.content}
+            title={event.title}
+            formatter={formatter}
+            onInternalLinkClick={push}>
+            <>
+              <PageDetail identifier={t('date')} information={event.date.toFormattedString(formatter)} />
+              {location && <PageDetail identifier={t('location')} information={location} />}
+            </>
+          </Page>
+        </>
+      )
     } else {
       const error = new NotFoundError({
         type: 'event',
@@ -88,12 +90,12 @@ export const EventsPage = ({
       return <FailureSwitcher error={error} />
     }
   }
-  return <>
-    <Caption title={t('events')} />
-    <List noItemsMessage={t('currentlyNoEvents')}
-          items={events}
-          renderItem={renderEventListItem()} />
-  </>
+  return (
+    <>
+      <Caption title={t('events')} />
+      <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem()} />
+    </>
+  )
 }
 
 const mapStateTypeToProps = (state: StateType) => ({
@@ -103,6 +105,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 })
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateTypeToProps, () => ({}))(
-  withTranslation<PropsType>('events')(
-    EventsPage
-  ))
+  withTranslation<PropsType>('events')(EventsPage)
+)

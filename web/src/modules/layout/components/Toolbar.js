@@ -46,12 +46,14 @@ type PropsType = {|
 |}
 
 class Toolbar extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { viewportSmall, t } = this.props
-    return <ToolbarContainer className={this.props.className} viewportSmall={viewportSmall}>
-      {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
-      {this.props.children}
-    </ToolbarContainer>
+    return (
+      <ToolbarContainer className={this.props.className} viewportSmall={viewportSmall}>
+        {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
+        {this.props.children}
+      </ToolbarContainer>
+    )
   }
 }
 

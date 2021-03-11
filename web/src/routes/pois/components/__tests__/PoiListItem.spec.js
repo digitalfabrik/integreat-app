@@ -11,8 +11,10 @@ describe('PoiListItem', () => {
     hash: '2fe6283485a93932',
     path: '/augsburg/en/locations/first_poi',
     title: 'first Event',
-    availableLanguages: new Map(
-      [['de', '/augsburg/de/locations/erster_poi'], ['ar', '/augsburg/ar/locations/erster_poi']]),
+    availableLanguages: new Map([
+      ['de', '/augsburg/de/locations/erster_poi'],
+      ['ar', '/augsburg/ar/locations/erster_poi']
+    ]),
     location: new LocationModel({
       name: 'name',
       address: 'address',
@@ -31,8 +33,6 @@ describe('PoiListItem', () => {
   })
 
   it('should render and match snapshot', () => {
-    expect(shallow(
-      <PoiListItem poi={poi} />
-    )).toMatchSnapshot()
+    expect(shallow(<PoiListItem poi={poi} />)).toMatchSnapshot()
   })
 })

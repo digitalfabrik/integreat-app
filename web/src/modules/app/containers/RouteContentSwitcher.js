@@ -28,7 +28,7 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     return null
   }
 
-  isWaitingForOffer = (offerType: 'wohnenOffer' | 'sprungbrettJobs', payloads: {[string]: Payload<any>}): boolean => {
+  isWaitingForOffer = (offerType: 'wohnenOffer' | 'sprungbrettJobs', payloads: { [string]: Payload<any> }): boolean => {
     const alias = offerType === 'wohnenOffer' ? WOHNEN_OFFER : SPRUNGBRETT_OFFER
     return payloads[offerType] && !find(payloads.offers.data, offer => offer.alias === alias)
   }
@@ -37,25 +37,34 @@ class RouteContentSwitcher extends React.PureComponent<PropsType> {
     const { payloads, location } = this.props
     if (payloads.offers && !payloads.offers.isFetching && payloads.offers.data && !payloads.offers.error) {
       if (this.isWaitingForOffer('wohnenOffer', payloads) || this.isWaitingForOffer('sprungbrettJobs', payloads)) {
-        return <FailureSwitcher error={new NotFoundError({
-          type: 'offer',
-          id: location.pathname,
-          city: location.payload.city,
-          language: location.payload.language
-        })} />
+        return (
+          <FailureSwitcher
+            error={
+              new NotFoundError({
+                type: 'offer',
+                id: location.pathname,
+                city: location.payload.city,
+                language: location.payload.language
+              })
+            }
+          />
+        )
       }
     }
     return null
   }
 
-  render () {
+  render() {
     const { location, payloads } = this.props
     const currentRoute = location.type
     const RouteContent = getRouteContent(currentRoute)
 
-    return this.renderOfferFailure() ||
-      this.renderFailureLoadingComponents() ||
-      <RouteContent {...reduce(payloads, (result, value, key: string) => ({ [key]: value.data, ...result }), {})} />
+    return (
+      this.renderOfferFailure() ||
+      this.renderFailureLoadingComponents() || (
+        <RouteContent {...reduce(payloads, (result, value, key: string) => ({ [key]: value.data, ...result }), {})} />
+      )
+    )
   }
 }
 

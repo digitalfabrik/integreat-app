@@ -30,13 +30,7 @@ type PropsType = {|
 /**
  * Displays a list of pois or a single poi, matching the route /<city>/<language>/locations(/<id>)
  */
-export const PoisPage = ({
-  pois,
-  poiId,
-  city,
-  language,
-  t
-}: PropsType) => {
+export const PoisPage = ({ pois, poiId, city, language, t }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
@@ -46,12 +40,13 @@ export const PoisPage = ({
     if (poi) {
       const location = poi.location.location
       return (
-        <Page defaultThumbnailSrc={poi.thumbnail}
-              lastUpdate={poi.lastUpdate}
-              content={poi.content}
-              title={poi.title}
-              formatter={formatter}
-              onInternalLinkClick={push}>
+        <Page
+          defaultThumbnailSrc={poi.thumbnail}
+          lastUpdate={poi.lastUpdate}
+          content={poi.content}
+          title={poi.title}
+          formatter={formatter}
+          onInternalLinkClick={push}>
           {location && <PageDetail identifier={t('location')} information={location} />}
         </Page>
       )
@@ -67,10 +62,12 @@ export const PoisPage = ({
   }
 
   const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
-  return <>
-    <Caption title={t('pois')} />
-    <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
-  </>
+  return (
+    <>
+      <Caption title={t('pois')} />
+      <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
+    </>
+  )
 }
 
 const mapStateTypeToProps = (state: StateType) => ({
@@ -80,6 +77,5 @@ const mapStateTypeToProps = (state: StateType) => ({
 })
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateTypeToProps, () => ({}))(
-  withTranslation<PropsType>('pois')(
-    PoisPage
-  ))
+  withTranslation<PropsType>('pois')(PoisPage)
+)

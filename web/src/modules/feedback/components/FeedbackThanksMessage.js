@@ -12,7 +12,7 @@ type PropsType = {|
 |}
 
 export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { closeFeedbackModal, t } = this.props
     return (
       <StyledFeedbackBox>

@@ -30,26 +30,23 @@ type PropsType = {|
 export const LocalNewsPage = ({ localNews, city, cities, path, language, t }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const renderLocalNewsListItem = (city: string, language: string) => (localNewsItem: LocalNewsModel) => {
-    const {
-      id,
-      title,
-      message,
-      timestamp
-    } = localNewsItem
-    return <NewsListItem
-      title={title}
-      content={message}
-      timestamp={timestamp}
-      key={id}
-      link={new LocalNewsDetailsRouteConfig().getRoutePath({
-        city,
-        language,
-        id
-      })}
-      t={t}
-      formatter={formatter}
-      type={LOCAL_NEWS}
-    />
+    const { id, title, message, timestamp } = localNewsItem
+    return (
+      <NewsListItem
+        title={title}
+        content={message}
+        timestamp={timestamp}
+        key={id}
+        link={new LocalNewsDetailsRouteConfig().getRoutePath({
+          city,
+          language,
+          id
+        })}
+        t={t}
+        formatter={formatter}
+        type={LOCAL_NEWS}
+      />
+    )
   }
 
   const currentCity: ?CityModel = cities.find(cityElement => cityElement.code === city)
@@ -59,12 +56,13 @@ export const LocalNewsPage = ({ localNews, city, cities, path, language, t }: Pr
   }
 
   return (
-    <NewsTabs type={LOCAL_NEWS}
-              city={city}
-              tunewsEnabled={currentCity.tunewsEnabled}
-              localNewsEnabled={currentCity.pushNotificationsEnabled}
-              t={t}
-              language={language}>
+    <NewsTabs
+      type={LOCAL_NEWS}
+      city={city}
+      tunewsEnabled={currentCity.tunewsEnabled}
+      localNewsEnabled={currentCity.pushNotificationsEnabled}
+      t={t}
+      language={language}>
       <LocalNewsList
         items={localNews}
         noItemsMessage={t('currentlyNoNews')}
@@ -84,6 +82,5 @@ const mapStateTypeToProps = (state: StateType) => {
 }
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateTypeToProps, () => ({}))(
-  withTranslation<PropsType>('news')(
-    LocalNewsPage
-  ))
+  withTranslation<PropsType>('news')(LocalNewsPage)
+)

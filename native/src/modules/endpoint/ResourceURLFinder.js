@@ -8,9 +8,9 @@ import { hashUrl } from 'api-client'
 import Url from 'url-parse'
 
 interface InputEntryType {
-  path: string,
-  content: string,
-  thumbnail: string
+  path: string;
+  content: string;
+  thumbnail: string;
 }
 
 /**
@@ -25,7 +25,7 @@ export default class ResourceURLFinder {
   _foundUrls: Set<string> = new Set<string>()
   _allowedHostNames: Array<string>
 
-  constructor (allowedHostNames: Array<string>) {
+  constructor(allowedHostNames: Array<string>) {
     this._allowedHostNames = allowedHostNames
   }
 
@@ -33,10 +33,7 @@ export default class ResourceURLFinder {
     if (name === 'href' || name === 'src') {
       try {
         const extension = getExtension(value)
-        if (
-          ['png', 'jpg', 'jpeg', 'pdf'].includes(extension) &&
-          this._allowedHostNames.includes(new Url(value).host)
-        ) {
+        if (['png', 'jpg', 'jpeg', 'pdf'].includes(extension) && this._allowedHostNames.includes(new Url(value).host)) {
           this._foundUrls.add(value)
         }
       } catch (ignored) {
@@ -45,11 +42,11 @@ export default class ResourceURLFinder {
     }
   }
 
-  init () {
+  init() {
     this._parser = new Parser({ onattribute: this._onAttributeTagFound }, { decodeEntities: true })
   }
 
-  finalize () {
+  finalize() {
     this._parser.end()
   }
 
@@ -59,31 +56,32 @@ export default class ResourceURLFinder {
     return this._foundUrls
   }
 
-  buildFetchMap (
-    inputs: Array<InputEntryType>,
-    buildFilePath: (url: string, urlHash: string) => string
-  ): FetchMapType {
-    return reduce<InputEntryType, FetchMapType>(inputs, (fetchMap, input: InputEntryType) => {
-      const path = input.path
+  buildFetchMap(inputs: Array<InputEntryType>, buildFilePath: (url: string, urlHash: string) => string): FetchMapType {
+    return reduce<InputEntryType, FetchMapType>(
+      inputs,
+      (fetchMap, input: InputEntryType) => {
+        const path = input.path
 
-      this.findResourceUrls(input.content)
+        this.findResourceUrls(input.content)
 
-      const urlSet = this._foundUrls
-      if (input.thumbnail) {
-        urlSet.add(input.thumbnail)
-      }
-
-      fetchMap[path] = Array.from(urlSet).map(url => {
-        const urlHash = hashUrl(url)
-        const filePath = buildFilePath(url, urlHash)
-        return {
-          url,
-          urlHash,
-          filePath
+        const urlSet = this._foundUrls
+        if (input.thumbnail) {
+          urlSet.add(input.thumbnail)
         }
-      })
 
-      return fetchMap
-    }, {})
+        fetchMap[path] = Array.from(urlSet).map(url => {
+          const urlHash = hashUrl(url)
+          const filePath = buildFilePath(url, urlHash)
+          return {
+            url,
+            urlHash,
+            filePath
+          }
+        })
+
+        return fetchMap
+      },
+      {}
+    )
   }
 }

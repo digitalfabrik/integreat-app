@@ -10,9 +10,7 @@ describe('HeaderNavigationItem', () => {
   const text = 'Kategorien'
 
   it('should render an ActiveNavigationItem', () => {
-    const headerNavigationItem = shallow(
-      <HeaderNavigationItem text={text} active href={href} icon='icon' />
-    )
+    const headerNavigationItem = shallow(<HeaderNavigationItem text={text} active href={href} icon='icon' />)
 
     expect(headerNavigationItem).toMatchSnapshot()
   })

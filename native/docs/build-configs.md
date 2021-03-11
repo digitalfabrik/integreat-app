@@ -12,6 +12,7 @@ Therefore, the build config has to be defined when compiling the javascript bund
 ### Runtime (Javascript)
 
 For each build config there is a script in the [package.json](../package.json) to ease the process of starting the packager:
+
 ```bash
 yarn start:<build config name>
 ```
@@ -23,6 +24,7 @@ To access the values of the build config import [buildConfig.js](../src/modules/
 ### Gradle (Android Build)
 
 For each build config there is a script in the [package.json](../package.json) to ease the process of building and installing the app on android:
+
 ```bash
 yarn android:<build config name>
 ```
@@ -50,7 +52,7 @@ whereas for XCode xcschemes are used as we don't have a bash command to build an
 
 To make the selected build config available in the javascript code, the [buildConfig module](../build-configs/index.js)
 reads the environment variable and returns the corresponding javascript object.
-If the env is not set or not a valid name, an error is thrown. 
+If the env is not set or not a valid name, an error is thrown.
 
 To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
 
@@ -67,4 +69,3 @@ In Xcode the build configs are converted with a so called `Pre Action` which is 
 
 For Gradle the build configs are converted to .json files for better typing and error handling.
 In Gradle the logic behind this can be found [here](../android/app/buildConfigs.gradle).
-

@@ -7,7 +7,10 @@ type CityContentRouteUrlType = {| cityCode: string, languageCode: string, route?
 
 const constructUrl = (parts: Array<?string>) => {
   const url = new Url(`https://${buildConfig().hostName}`)
-  const pathname = parts.filter(Boolean).map(part => part.toLowerCase()).join('/')
+  const pathname = parts
+    .filter(Boolean)
+    .map(part => part.toLowerCase())
+    .join('/')
   url.set('pathname', pathname)
   return url
 }

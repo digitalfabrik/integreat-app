@@ -36,10 +36,8 @@ describe('NewsDetail', () => {
     const dateFormatter = new DateFormatter('de')
     const timestamp = dateFormatter.format(localNews.timestamp, { format: 'LLL' })
     const { getByText, queryByText } = render(
-      <NewsDetail newsItem={localNews}
-                  language={language}
-                  navigateToLink={navigateToLink}
-                  theme={theme} />)
+      <NewsDetail newsItem={localNews} language={language} navigateToLink={navigateToLink} theme={theme} />
+    )
 
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('Some test text ')).toBeTruthy()
@@ -56,10 +54,8 @@ describe('NewsDetail', () => {
 
   it('should correctly render a tu news item', () => {
     const { getByText } = render(
-      <NewsDetail newsItem={tuNews}
-                  language={language}
-                  navigateToLink={navigateToLink}
-                  theme={theme} />)
+      <NewsDetail newsItem={tuNews} language={language} navigateToLink={navigateToLink} theme={theme} />
+    )
 
     expect(getByText(tuNews.title)).toBeTruthy()
     expect(getByText(tuNews.content)).toBeTruthy()

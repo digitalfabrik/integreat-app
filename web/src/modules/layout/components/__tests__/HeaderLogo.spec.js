@@ -6,9 +6,7 @@ import HeaderLogo from '../HeaderLogo'
 import lolex from 'lolex'
 import buildConfig from '../../../app/constants/buildConfig'
 
-jest.mock('redux-first-router-link', () =>
-  ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>
-)
+jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
 
 describe('HeaderLogo', () => {
   const womensDayCampaign = {

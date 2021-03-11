@@ -7,9 +7,7 @@ import { darkTheme } from '../../../theme/constants'
 
 describe('Caption', () => {
   it('should render and display a Caption', () => {
-    const { getByText } = render(
-      <Caption title='This is a test title!' theme={darkTheme} />
-    )
+    const { getByText } = render(<Caption title='This is a test title!' theme={darkTheme} />)
     getByText('This is a test title!')
   })
 })

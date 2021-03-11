@@ -38,7 +38,7 @@ class TunewsList extends React.PureComponent<PropsType> {
     this.props.fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
   }
 
-  render () {
+  render() {
     const { items, renderItem, noItemsMessage, city, hasMore, isFetching } = this.props
     if (isEmpty(items) && !hasMore) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
@@ -46,10 +46,7 @@ class TunewsList extends React.PureComponent<PropsType> {
 
     return (
       <StyledList>
-        <InfiniteScroll
-          loadMore={this.loadItems}
-          hasMore={!isFetching && hasMore}
-          loader={<LoadingSpinner key={0} />}>
+        <InfiniteScroll loadMore={this.loadItems} hasMore={!isFetching && hasMore} loader={<LoadingSpinner key={0} />}>
           <div>{items.map(item => renderItem(item, city))}</div>
         </InfiniteScroll>
       </StyledList>

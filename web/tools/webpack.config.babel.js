@@ -52,7 +52,8 @@ const generateManifest = (content: string, buildConfigName: string): string => {
       platform: 'play',
       id: androidBuildConfig.applicationId,
       url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
-    }, {
+    },
+    {
       platform: 'itunes',
       url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
     }
@@ -102,11 +103,7 @@ const createConfig = (
 
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
-  const polyfills = [
-    '@babel/polyfill',
-    'whatwg-fetch',
-    'url-polyfill'
-  ]
+  const polyfills = ['@babel/polyfill', 'whatwg-fetch', 'url-polyfill']
 
   const config = {
     mode: devServer ? 'development' : 'production',
@@ -177,7 +174,9 @@ const createConfig = (
           {
             from: manifestPreset,
             to: distDirectory,
-            transform (content: string, _: string): string { return generateManifest(content, buildConfigName) }
+            transform(content: string, _: string): string {
+              return generateManifest(content, buildConfigName)
+            }
           }
         ]
       }),
@@ -224,10 +223,12 @@ const createConfig = (
         },
         {
           test: /\.html$/,
-          use: [{
-            loader: 'html-loader',
-            options: { minimize: true }
-          }]
+          use: [
+            {
+              loader: 'html-loader',
+              options: { minimize: true }
+            }
+          ]
         },
         {
           test: /\.css$/,
@@ -260,10 +261,7 @@ const createConfig = (
                   speed: 2
                 },
                 svgo: {
-                  plugins: [
-                    { removeTitle: true },
-                    { convertPathData: false }
-                  ]
+                  plugins: [{ removeTitle: true }, { convertPathData: false }]
                 }
               }
             }

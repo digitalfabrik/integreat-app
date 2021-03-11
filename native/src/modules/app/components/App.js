@@ -63,10 +63,12 @@ const App = () => {
               <StatusBarContainer />
               <IOSSafeAreaView>
                 <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                  <NavigatorContainer routeKey={routeKey}
-                                      routeName={routeName}
-                                      languageCode={languageCode}
-                                      cityCode={cityCode} />
+                  <NavigatorContainer
+                    routeKey={routeKey}
+                    routeName={routeName}
+                    languageCode={languageCode}
+                    cityCode={cityCode}
+                  />
                 </NavigationContainer>
               </IOSSafeAreaView>
               {routeName && <PermissionSnackbarContainer routeName={routeName} />}

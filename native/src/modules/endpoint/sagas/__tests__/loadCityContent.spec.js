@@ -80,11 +80,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     ).run()
 
     expect(await new AppSettings().loadSelectedCity()).toBe('augsburg')
@@ -99,11 +106,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, true)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        true
+      )
     ).run()
 
     expect(await new AppSettings().loadSelectedCity()).toBe('nuernberg')
@@ -114,15 +128,23 @@ describe('loadCityContent', () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, true)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        true
+      )
     ).run()
 
-    expect(await new DatabaseConnector().loadLastUsages())
-      .toEqual([{ city: 'augsburg', lastUsage: moment('2000-01-05T11:10:00.000Z') }])
+    expect(await new DatabaseConnector().loadLastUsages()).toEqual([
+      { city: 'augsburg', lastUsage: moment('2000-01-05T11:10:00.000Z') }
+    ])
   })
 
   it('should load languages when not peeking', async () => {
@@ -132,11 +154,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     )
       .put({ type: 'PUSH_LANGUAGES', params: { languages } })
       .run()
@@ -151,11 +180,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, true)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        true
+      )
     )
       .not.put.like({ action: { type: 'PUSH_LANGUAGES' } })
       .run()
@@ -170,11 +206,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, '??', new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      '??',
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     )
       .returns(false)
       .run()
@@ -192,11 +235,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     )
       .returns(true)
       .run()
@@ -211,11 +261,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     )
       .call.like(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
@@ -230,11 +287,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: false
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: false
+        },
+        false
+      )
     )
       .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
@@ -260,11 +324,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     )
       .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
@@ -280,11 +351,18 @@ describe('loadCityContent', () => {
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, moment('1971-01-05T10:10:00.000Z'))
 
-    await expectSaga(loadCityContent,
-      dataContainer, city, language, new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: false
-      }, false)
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: false
+        },
+        false
+      )
     ).run()
 
     const date = await dataContainer.getLastUpdate(city, language)

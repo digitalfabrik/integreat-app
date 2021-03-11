@@ -53,7 +53,8 @@ const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
 
-    :first-child { /* this is only necessary for IE11 */
+    :first-child {
+      /* this is only necessary for IE11 */
       min-height: ${props => dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
     }
   }
@@ -112,25 +113,28 @@ export const Header = ({
   const height = viewportSmall
     ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
-  const scrollHeight = viewportSmall
-    ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
-    : headerHeightLarge
+  const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
 
   return (
-      <Headroom onStickyTopChanged={onStickyTopChanged}
-                scrollHeight={scrollHeight}
-                height={height}
-                positionStickyDisabled={platform.positionStickyDisabled}>
-        <HeaderContainer>
-          <Row hasTitle={!!cityName}>
-            <HeaderLogo link={logoHref} />
-            {!viewportSmall && cityName && <HeaderSeparator />}
-            {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
-            <ActionBar>{actionItems}</ActionBar>
+    <Headroom
+      onStickyTopChanged={onStickyTopChanged}
+      scrollHeight={scrollHeight}
+      height={height}
+      positionStickyDisabled={platform.positionStickyDisabled}>
+      <HeaderContainer>
+        <Row hasTitle={!!cityName}>
+          <HeaderLogo link={logoHref} />
+          {!viewportSmall && cityName && <HeaderSeparator />}
+          {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
+          <ActionBar>{actionItems}</ActionBar>
+        </Row>
+        {hasNavigationBar && (
+          <Row>
+            <NavigationBar>{navigationItems}</NavigationBar>
           </Row>
-          {hasNavigationBar && <Row><NavigationBar>{navigationItems}</NavigationBar></Row>}
-        </HeaderContainer>
-      </Headroom>
+        )}
+      </HeaderContainer>
+    </Headroom>
   )
 }
 

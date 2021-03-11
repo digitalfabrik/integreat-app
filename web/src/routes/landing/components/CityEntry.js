@@ -40,32 +40,40 @@ type PropsType = {|
 class CityEntry extends React.PureComponent<PropsType> {
   getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
     if (city.aliases && normalizedFilter.length >= 1) {
-      return Object.keys(city.aliases)
-        .filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
+      return Object.keys(city.aliases).filter(alias => normalizeSearchString(alias).includes(normalizedFilter))
     }
     return []
   }
 
-  render () {
+  render() {
     const { city, language, filterText, theme } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
     return (
       <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
-        <Highlighter searchWords={[filterText]} sanitize={normalizeSearchString} aria-label={city.name}
-                     textToHighlight={city.name} autoEscape
-                     highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+        <Highlighter
+          searchWords={[filterText]}
+          sanitize={normalizeSearchString}
+          aria-label={city.name}
+          textToHighlight={city.name}
+          autoEscape
+          highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+        />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
-          {
-            aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
-              <>
-                <AliasItem key={alias} aria-label={alias} searchWords={[filterText]} sanitize={normalizeSearchString}
-                           textToHighlight={alias} autoEscape
-                           highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
-                {index !== aliases.length - 1 && <span>, </span>}
-              </>
-            ))
-          }
+          {aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
+            <>
+              <AliasItem
+                key={alias}
+                aria-label={alias}
+                searchWords={[filterText]}
+                sanitize={normalizeSearchString}
+                textToHighlight={alias}
+                autoEscape
+                highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+              />
+              {index !== aliases.length - 1 && <span>, </span>}
+            </>
+          ))}
           {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
         </div>
       </CityListItem>

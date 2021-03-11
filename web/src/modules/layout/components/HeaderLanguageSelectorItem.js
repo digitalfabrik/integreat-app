@@ -17,16 +17,21 @@ type PropsType = {|
 const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType) => {
   const noLanguagesHint = t('noLanguages')
 
-  return selectorItems && selectorItems.length > 0
-    ? <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
-      {closeDropDown => <Selector
-        closeDropDown={closeDropDown}
-        verticalLayout={false}
-        items={selectorItems}
-        activeItemCode={activeItemCode}
-        disabledItemTooltip={t('noTranslation')} />}
+  return selectorItems && selectorItems.length > 0 ? (
+    <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+      {closeDropDown => (
+        <Selector
+          closeDropDown={closeDropDown}
+          verticalLayout={false}
+          items={selectorItems}
+          activeItemCode={activeItemCode}
+          disabledItemTooltip={t('noTranslation')}
+        />
+      )}
     </HeaderActionItemDropDown>
-    : <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
+  ) : (
+    <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
+  )
 }
 
 export default withTranslation<PropsType>('layout')(HeaderLanguageSelectorItem)

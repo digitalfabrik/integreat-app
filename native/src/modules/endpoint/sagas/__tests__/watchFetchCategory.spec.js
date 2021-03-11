@@ -168,44 +168,43 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put an action which refreshes the categories when peeking if the content should be refreshed',
-      async () => {
-        const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
-        const anotherCity = 'anotherCity'
+    it('should put an action which refreshes the categories when peeking if the content should be refreshed', async () => {
+      const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
+      const anotherCity = 'anotherCity'
 
-        const action: FetchCategoryActionType = {
-          type: 'FETCH_CATEGORY',
-          params: {
-            city,
-            language,
-            path: initialPath,
-            depth: 2,
-            key: 'categories-key',
-            criterion: {
-              forceUpdate: true,
-              shouldRefreshResources: false
-            }
+      const action: FetchCategoryActionType = {
+        type: 'FETCH_CATEGORY',
+        params: {
+          city,
+          language,
+          path: initialPath,
+          depth: 2,
+          key: 'categories-key',
+          criterion: {
+            forceUpdate: true,
+            shouldRefreshResources: false
           }
         }
+      }
 
-        return expectSaga(fetchCategory, dataContainer, action)
-          .withState({ cityContent: { city: anotherCity } })
-          .put({
-            type: 'PUSH_CATEGORY',
-            params: {
-              categoriesMap: categories,
-              resourceCache: resources,
-              path: initialPath,
-              cityLanguages: [],
-              depth: 2,
-              key: 'categories-key',
-              language,
-              city,
-              refresh: true
-            }
-          })
-          .run()
-      })
+      return expectSaga(fetchCategory, dataContainer, action)
+        .withState({ cityContent: { city: anotherCity } })
+        .put({
+          type: 'PUSH_CATEGORY',
+          params: {
+            categoriesMap: categories,
+            resourceCache: resources,
+            path: initialPath,
+            cityLanguages: [],
+            depth: 2,
+            key: 'categories-key',
+            language,
+            city,
+            refresh: true
+          }
+        })
+        .run()
+    })
 
     it('should put error action if language is not available for root model', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
@@ -236,7 +235,7 @@ describe('watchFetchCategories', () => {
               language: '??',
               depth: 2,
               path: '/augsburg/??',
-              allAvailableLanguages: new Map(languages.map(lng => ([lng.code, `/${city}/${lng.code}`]))),
+              allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city}/${lng.code}`])),
               key: 'categories-key'
             }
           }
@@ -367,8 +366,6 @@ describe('watchFetchCategories', () => {
   it('should correctly call fetchCategory when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    return testSaga(watchFetchCategory, dataContainer)
-      .next()
-      .takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
+    return testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
   })
 })

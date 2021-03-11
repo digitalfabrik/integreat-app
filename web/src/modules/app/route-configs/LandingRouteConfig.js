@@ -9,8 +9,8 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 import buildConfig from '../constants/buildConfig'
 
-type LandingRouteParamsType = {|language: string|}
-type RequiredPayloadsType = {|cities: Payload<Array<CityModel>>|}
+type LandingRouteParamsType = {| language: string |}
+type RequiredPayloadsType = {| cities: Payload<Array<CityModel>> |}
 
 export const LANDING_ROUTE = 'LANDING'
 

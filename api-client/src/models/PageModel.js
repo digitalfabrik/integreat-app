@@ -9,14 +9,18 @@ class PageModel {
   _lastUpdate: Moment
   _hash: string
 
-  constructor ({
+  constructor({
     path,
     title,
     content,
     lastUpdate,
     hash
   }: {|
-    path: string, title: string, content: string, lastUpdate: Moment, hash: string
+    path: string,
+    title: string,
+    content: string,
+    lastUpdate: Moment,
+    hash: string
   |}) {
     this._path = path
     this._title = title
@@ -25,31 +29,33 @@ class PageModel {
     this._hash = hash
   }
 
-  get path (): string {
+  get path(): string {
     return this._path
   }
 
-  get title (): string {
+  get title(): string {
     return this._title
   }
 
-  get content (): string {
+  get content(): string {
     return this._content
   }
 
-  get lastUpdate (): Moment {
+  get lastUpdate(): Moment {
     return this._lastUpdate
   }
 
-  get hash (): string {
+  get hash(): string {
     return this._hash
   }
 
-  isEqual (other: PageModel): boolean {
-    return this.path === other.path &&
+  isEqual(other: PageModel): boolean {
+    return (
+      this.path === other.path &&
       this.content === other.content &&
       this.lastUpdate.isSame(other.lastUpdate) &&
       this.hash === other.hash
+    )
   }
 }
 

@@ -29,19 +29,31 @@ import SettingsContainer from '../../../routes/settings/container/SettingsContai
 import DisclaimerContainer from '../../../routes/disclaimer/DisclaimerContainer'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import {
-  CATEGORIES_ROUTE, CHANGE_LANGUAGE_MODAL_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE,
-  DASHBOARD_ROUTE, DISCLAIMER_ROUTE, EVENTS_ROUTE, FEEDBACK_MODAL_ROUTE, IMAGE_VIEW_MODAL_ROUTE,
-  INTRO_ROUTE, EXTERNAL_OFFER_ROUTE,
-  LANDING_ROUTE, NEWS_ROUTE,
-  OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE,
-  POIS_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE, REDIRECT_ROUTE
+  CATEGORIES_ROUTE,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  WOHNEN_OFFER_ROUTE,
+  DASHBOARD_ROUTE,
+  DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  FEEDBACK_MODAL_ROUTE,
+  IMAGE_VIEW_MODAL_ROUTE,
+  INTRO_ROUTE,
+  EXTERNAL_OFFER_ROUTE,
+  LANDING_ROUTE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  PDF_VIEW_MODAL_ROUTE,
+  POIS_ROUTE,
+  SEARCH_ROUTE,
+  SETTINGS_ROUTE,
+  REDIRECT_ROUTE
 } from 'api-client/src/routes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
 import type { RoutesParamsType } from '../constants/NavigationTypes'
 import RedirectContainer from '../containers/RedirectContainer'
 
-const transparentHeader = (headerProps: StackHeaderProps) =>
-  <TransparentHeaderContainer {...headerProps} />
+const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 
 const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeaderContainer {...headerProps} />
 
@@ -56,8 +68,9 @@ type PropsType = {|
   languageCode: ?string
 |}
 
-type InitialRouteType = {| name: IntroRouteType | LandingRouteType |} |
-  {| name: DashboardRouteType, cityCode: string, languageCode: string |}
+type InitialRouteType =
+  | {| name: IntroRouteType | LandingRouteType |}
+  | {| name: DashboardRouteType, cityCode: string, languageCode: string |}
 
 const Stack = createStackNavigator<RoutesParamsType, _, _>()
 
@@ -143,12 +156,13 @@ const Navigator = (props: PropsType) => {
     return null
   }
 
-  const dashboardParams = initialRoute.name === DASHBOARD_ROUTE
-    ? {
-        cityCode: initialRoute.cityCode,
-        languageCode: initialRoute.languageCode
-      }
-    : {}
+  const dashboardParams =
+    initialRoute.name === DASHBOARD_ROUTE
+      ? {
+          cityCode: initialRoute.cityCode,
+          languageCode: initialRoute.languageCode
+        }
+      : {}
 
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
   const transitionPreset = Platform.select({
@@ -161,21 +175,42 @@ const Navigator = (props: PropsType) => {
       <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} options={{ header: () => null }} />
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={dashboardParams} />
+      <Stack.Screen
+        name={DASHBOARD_ROUTE}
+        component={DashboardContainer}
+        options={{ header: defaultHeader }}
+        initialParams={dashboardParams}
+      />
       <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{ header: defaultHeader }} />
-      <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} options={{ header: defaultHeader }} />
+      <Stack.Screen
+        name={SPRUNGBRETT_OFFER_ROUTE}
+        component={SprungbrettOfferContainer}
+        options={{ header: defaultHeader }}
+      />
+      <Stack.Screen
+        name={EXTERNAL_OFFER_ROUTE}
+        component={ExternalOfferContainer}
+        options={{ header: defaultHeader }}
+      />
       <Stack.Screen name={POIS_ROUTE} component={PoisContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} options={{ header: () => null }} />
       <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} options={{ header: transparentHeader }} />
-      <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} options={{ header: transparentHeader }} />
+      <Stack.Screen
+        name={CHANGE_LANGUAGE_MODAL_ROUTE}
+        component={ChangeLanguageModalContainer}
+        options={{ header: transparentHeader }}
+      />
       <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} options={{ header: transparentHeader }} />
-      <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} options={{ header: transparentHeader }} />
+      <Stack.Screen
+        name={FEEDBACK_MODAL_ROUTE}
+        component={FeedbackModalContainer}
+        options={{ header: transparentHeader }}
+      />
       <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
     </Stack.Navigator>
   )
