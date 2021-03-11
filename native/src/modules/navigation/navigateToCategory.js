@@ -38,7 +38,7 @@ const navigateToCategory = <T: RoutesType>({
 
   if (reset) {
     navigation.reset({
-      index: 1,
+      index: 0,
       routes: [route]
     })
   } else {
