@@ -11,14 +11,14 @@ const languages = [
 class LanguageModelBuilder {
   _languagesCount: number
 
-  constructor (citiesCount: number) {
+  constructor(citiesCount: number) {
     if (this._languagesCount > languages.length) {
       throw new Error(`Only ${languages.length} languages models can be created`)
     }
     this._languagesCount = citiesCount
   }
 
-  build (): Array<LanguageModel> {
+  build(): Array<LanguageModel> {
     return languages.slice(0, this._languagesCount)
   }
 }

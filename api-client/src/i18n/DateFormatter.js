@@ -11,7 +11,7 @@ class DateFormatter {
   fallbackFormat: string | void
   defaultLocale: string
 
-  constructor (defaultLocale: string, fallbackFormat: string | void = ISO8601_FORMAT) {
+  constructor(defaultLocale: string, fallbackFormat: string | void = ISO8601_FORMAT) {
     this.fallbackFormat = fallbackFormat
     this.defaultLocale = defaultLocale
   }
