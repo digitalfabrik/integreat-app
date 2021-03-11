@@ -33,14 +33,18 @@ export class Failure extends React.PureComponent<PropsType> {
     goToPath: new I18nRedirectRouteConfig().getRoutePath({})
   }
 
-  render () {
+  render() {
     const { t, errorMessage, goToPath, goToMessage } = this.props
 
-    return <Centered>
-      <div>{t(errorMessage)}</div>
-      <div><FontAwesomeIcon icon={faFrown} size='5x' /></div>
-      {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
-    </Centered>
+    return (
+      <Centered>
+        <div>{t(errorMessage)}</div>
+        <div>
+          <FontAwesomeIcon icon={faFrown} size='5x' />
+        </div>
+        {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
+      </Centered>
+    )
   }
 }
 

@@ -25,7 +25,7 @@ type StateType = {|
 |}
 
 export class FilterableCitySelector extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = { filterText: '', stickyTop: 0 }
   }
@@ -34,7 +34,7 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
 
   handleStickyTopChanged = (stickyTop: number) => this.setState({ stickyTop })
 
-  render () {
+  render() {
     const { cities, language, t } = this.props
     const { filterText, stickyTop } = this.state
 
@@ -47,12 +47,7 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
           placeholderText={t('searchCity')}
           spaceSearch={false}
           onStickyTopChanged={this.handleStickyTopChanged}>
-          <CitySelector
-            stickyTop={stickyTop}
-            cities={cities}
-            filterText={filterText}
-            language={language}
-          />
+          <CitySelector stickyTop={stickyTop} cities={cities} filterText={filterText} language={language} />
         </ScrollingSearchBox>
       </Container>
     )

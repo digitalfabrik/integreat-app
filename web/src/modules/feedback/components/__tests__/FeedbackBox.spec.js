@@ -34,7 +34,8 @@ describe('FeedbackBox', () => {
         onSubmit={onSubmit}
         sendingStatus='SUCCESS'
         t={t}
-        closeFeedbackModal={() => {}} />
+        closeFeedbackModal={() => {}}
+      />
     )
     expect(component).toMatchSnapshot()
   })

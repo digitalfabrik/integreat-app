@@ -42,26 +42,35 @@ type PropsType = {|
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.PureComponent<PropsType> {
-  render () {
-    const {
-      categories, query, onInternalLinkClick, formatter, category
-    } = this.props
+  render() {
+    const { categories, query, onInternalLinkClick, formatter, category } = this.props
     return (
       <div>
-        {category?.thumbnail && <Centering><CategoryIcon src={category.thumbnail} alt='' /></Centering>}
+        {category?.thumbnail && (
+          <Centering>
+            <CategoryIcon src={category.thumbnail} alt='' />
+          </Centering>
+        )}
         {category?.title && <Caption title={category.title} />}
-        {category?.content && <RemoteContent dangerouslySetInnerHTML={{ __html: category.content }}
-                                   onInternalLinkClick={onInternalLinkClick} />}
-        {category?.content && category.lastUpdate && formatter &&
-         <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />}
+        {category?.content && (
+          <RemoteContent
+            dangerouslySetInnerHTML={{ __html: category.content }}
+            onInternalLinkClick={onInternalLinkClick}
+          />
+        )}
+        {category?.content && category.lastUpdate && formatter && (
+          <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
+        )}
         <List>
-          {categories.map(categoryItem =>
-            <CategoryEntry key={categoryItem.model.hash}
-                              category={categoryItem.model}
-                              contentWithoutHtml={categoryItem.contentWithoutHtml}
-                              subCategories={categoryItem.subCategories}
-                              query={query} />
-          )}
+          {categories.map(categoryItem => (
+            <CategoryEntry
+              key={categoryItem.model.hash}
+              category={categoryItem.model}
+              contentWithoutHtml={categoryItem.contentWithoutHtml}
+              subCategories={categoryItem.subCategories}
+              query={query}
+            />
+          ))}
         </List>
       </div>
     )

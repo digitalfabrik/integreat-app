@@ -12,7 +12,7 @@ type PropsType = {|
 |}
 
 export class LandingPage extends React.Component<PropsType> {
-  render () {
+  render() {
     const { language, cities } = this.props
     return <FilterableCitySelector language={language} cities={cities} />
   }
