@@ -18,12 +18,9 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LanguageModel>> =>
       }
       return `${baseUrl}/${params.city}/de/wp-json/extensions/v3/languages`
     })
-    .withMapper((json: Array<JsonLanguageType>) => json
-      .map((language: JsonLanguageType) => new LanguageModel(
-        language.code,
-        language.native_name,
-        language.dir
-      ))
-      .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
+    .withMapper((json: Array<JsonLanguageType>) =>
+      json
+        .map((language: JsonLanguageType) => new LanguageModel(language.code, language.native_name, language.dir))
+        .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
     )
     .build()

@@ -10,9 +10,14 @@ class TunewsModel {
   _content: string
   _eNewsNo: string
 
-  constructor (params: {| id: number, title: string,
-    date: Moment, tags: Array<string>, content: string, eNewsNo: string
-    |}) {
+  constructor(params: {|
+    id: number,
+    title: string,
+    date: Moment,
+    tags: Array<string>,
+    content: string,
+    eNewsNo: string
+  |}) {
     const { id, date, title, tags, content, eNewsNo } = params
     this._id = id
     this._title = title
@@ -22,27 +27,27 @@ class TunewsModel {
     this._eNewsNo = eNewsNo
   }
 
-  get id (): number {
+  get id(): number {
     return this._id
   }
 
-  get title (): string {
+  get title(): string {
     return this._title
   }
 
-  get date (): Moment {
+  get date(): Moment {
     return this._date
   }
 
-  get tags (): Array<string> {
+  get tags(): Array<string> {
     return this._tags
   }
 
-  get content (): string {
+  get content(): string {
     return this._content
   }
 
-  get eNewsNo (): string {
+  get eNewsNo(): string {
     return this._eNewsNo
   }
 }

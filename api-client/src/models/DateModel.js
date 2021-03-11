@@ -8,25 +8,21 @@ class DateModel {
   _endDate: Moment
   _allDay: boolean
 
-  constructor ({
-    startDate,
-    endDate,
-    allDay
-  }: {| startDate: Moment, endDate: Moment, allDay: boolean |}) {
+  constructor({ startDate, endDate, allDay }: {| startDate: Moment, endDate: Moment, allDay: boolean |}) {
     this._allDay = allDay
     this._startDate = startDate
     this._endDate = endDate
   }
 
-  get startDate (): Moment {
+  get startDate(): Moment {
     return this._startDate
   }
 
-  get endDate (): Moment {
+  get endDate(): Moment {
     return this._endDate
   }
 
-  get allDay (): boolean {
+  get allDay(): boolean {
     return this._allDay
   }
 
@@ -35,7 +31,7 @@ class DateModel {
    * @param {DateFormatter} formatter formats the string according to the correct locale
    * @return {String} The formatted span string
    */
-  toFormattedString (formatter: DateFormatter): string {
+  toFormattedString(formatter: DateFormatter): string {
     // if allDay: only date, else: date + time
     let span = this._allDay
       ? formatter.format(this._startDate, { format: 'LL' })
@@ -61,10 +57,8 @@ class DateModel {
     return span
   }
 
-  isEqual (other: DateModel): boolean {
-    return this.startDate.isSame(other.startDate) &&
-      this.endDate.isSame(other.endDate) &&
-      this.allDay === other.allDay
+  isEqual(other: DateModel): boolean {
+    return this.startDate.isSame(other.startDate) && this.endDate.isSame(other.endDate) && this.allDay === other.allDay
   }
 }
 
