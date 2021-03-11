@@ -24,8 +24,10 @@ import type {
   WohnenOfferRouteType
 } from 'api-client/src/routes'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
+import type { RedirectRouteType } from 'api-client'
 
-export type RoutesType = IntroRouteType
+export type RoutesType = RedirectRouteType
+  | IntroRouteType
   | LandingRouteType
   | DashboardRouteType
   | CategoriesRouteType
@@ -48,6 +50,7 @@ type ShareUrlType = {| shareUrl: string |}
 type CityContentParamsType = {| cityCode: string, languageCode: string |}
 
 export type RoutesParamsType = {|
+  redirect: {| url: string |},
   intro: void,
   landing: void,
   dashboard: CityContentParamsType,
