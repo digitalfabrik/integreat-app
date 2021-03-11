@@ -5,7 +5,12 @@ import type { StoreActionType } from '../app/StoreActionType'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { DISCLAIMER_ROUTE } from 'api-client/src/routes'
 
-const navigateToDisclaimer = <T: RoutesType>({ dispatch, navigation, cityCode, languageCode }: {|
+const navigateToDisclaimer = <T: RoutesType>({
+  dispatch,
+  navigation,
+  cityCode,
+  languageCode
+}: {|
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
   cityCode: string,

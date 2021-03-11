@@ -23,20 +23,21 @@ class SettingsFooter extends React.Component<PropsType> {
   onDecline = () =>
     this.props.onDone({ allowPushNotifications: false, errorTracking: false, proposeNearbyCities: false })
 
-  onAccept = () =>
-    this.props.onDone({ allowPushNotifications: true, errorTracking: true, proposeNearbyCities: true })
+  onAccept = () => this.props.onDone({ allowPushNotifications: true, errorTracking: true, proposeNearbyCities: true })
 
-  render () {
+  render() {
     const { slideCount, currentSlide, goToSlide, toggleCustomizeSettings, theme, t } = this.props
 
-    return <View>
-      <ButtonContainer theme={theme}>
-        <SlideButton label={t('customize')} onPress={toggleCustomizeSettings} theme={theme} />
-        <SlideButton label={t('decline')} onPress={this.onDecline} theme={theme} />
-        <SlideButton label={t('accept')} onPress={this.onAccept} theme={theme} highlighted />
-      </ButtonContainer>
-      <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-    </View>
+    return (
+      <View>
+        <ButtonContainer theme={theme}>
+          <SlideButton label={t('customize')} onPress={toggleCustomizeSettings} theme={theme} />
+          <SlideButton label={t('decline')} onPress={this.onDecline} theme={theme} />
+          <SlideButton label={t('accept')} onPress={this.onAccept} theme={theme} highlighted />
+        </ButtonContainer>
+        <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
+      </View>
+    )
   }
 }
 

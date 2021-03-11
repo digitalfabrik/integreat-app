@@ -56,41 +56,46 @@ const CategoryThumbnail = styled(Image)`
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.Component<PropsType> {
-  getListContent (listContent: ListContentModelType): React.Node {
+  getListContent(listContent: ListContentModelType): React.Node {
     const { theme, language, navigateToLink } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
       return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
         : file.filePath
     })
-    return <CategoryListContent content={listContent.content}
-                                language={language}
-                                navigateToLink={navigateToLink}
-                                cacheDictionary={cacheDictionary}
-                                lastUpdate={listContent.lastUpdate}
-                                theme={theme} />
+    return (
+      <CategoryListContent
+        content={listContent.content}
+        language={language}
+        navigateToLink={navigateToLink}
+        cacheDictionary={cacheDictionary}
+        lastUpdate={listContent.lastUpdate}
+        theme={theme}
+      />
+    )
   }
 
-  render () {
+  render() {
     const { categories, title, listContent, query, theme, onItemPress, language, thumbnail } = this.props
 
-    return <>
-      {thumbnail && <CategoryThumbnail source={thumbnail} />}
-      {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!(thumbnail)} />}
-      {listContent && this.getListContent(listContent)}
-      {categories.map(({
-        model,
-        subCategories
-      }) =>
-          <CategoryListItem key={model.path}
-                            category={model}
-                            language={language}
-                            subCategories={subCategories}
-                            query={query}
-                            theme={theme}
-                            onItemPress={onItemPress} />
-      )}
-    </>
+    return (
+      <>
+        {thumbnail && <CategoryThumbnail source={thumbnail} />}
+        {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!thumbnail} />}
+        {listContent && this.getListContent(listContent)}
+        {categories.map(({ model, subCategories }) => (
+          <CategoryListItem
+            key={model.path}
+            category={model}
+            language={language}
+            subCategories={subCategories}
+            query={query}
+            theme={theme}
+            onItemPress={onItemPress}
+          />
+        ))}
+      </>
+    )
   }
 }
 

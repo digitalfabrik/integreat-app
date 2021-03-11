@@ -6,7 +6,7 @@ import { call } from 'redux-saga/effects'
 import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 
-function * loadEvents (
+function* loadEvents(
   city: string,
   language: string,
   eventsEnabled: boolean,
@@ -33,10 +33,12 @@ function * loadEvents (
   console.debug('Fetching events')
 
   const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() => createEventsEndpoint(apiUrl).request({
-    city,
-    language
-  }))
+  const payload = yield call(() =>
+    createEventsEndpoint(apiUrl).request({
+      city,
+      language
+    })
+  )
   const events: Array<EventModel> = payload.data
 
   yield call(dataContainer.setEvents, city, language, events)

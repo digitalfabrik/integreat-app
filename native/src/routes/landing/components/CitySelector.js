@@ -42,7 +42,7 @@ type PropsType = {|
   theme: ThemeType,
   location: LocationType,
   proposeNearbyCities: boolean,
-  tryAgain: null | () => void,
+  tryAgain: null | (() => void),
   t: TFunction
 |}
 
@@ -55,7 +55,7 @@ const byNameAndAliases = (name: string) => {
 }
 
 class CitySelector extends React.PureComponent<PropsType> {
-  _filter (): Array<CityModel> {
+  _filter(): Array<CityModel> {
     const normalizedFilter = normalizeSearchString(this.props.filterText)
     const cities = this.props.cities
     if (normalizedFilter === 'wirschaffendas') {
@@ -63,75 +63,101 @@ class CitySelector extends React.PureComponent<PropsType> {
     } else if (buildConfig().featureFlags.developerFriendly) {
       return cities
     } else {
-      return cities
-        .filter(_city => _city.live)
-        .filter(byNameAndAliases(normalizedFilter))
+      return cities.filter(_city => _city.live).filter(byNameAndAliases(normalizedFilter))
     }
   }
 
-  _renderFilteredLocations (cities: Array<CityModel>): React.Node {
+  _renderFilteredLocations(cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
-    return transform(groups, (result, cities, key) => {
-      result.push(<CityGroupContainer key={key}>
-        <CityGroup theme={this.props.theme}>{key}</CityGroup>
-        {cities.map(city => <CityEntry
-          key={city.code}
-          city={city}
-          filterText={this.props.filterText}
-          navigateToDashboard={this.props.navigateToDashboard}
-          theme={this.props.theme}
-        />)}
-      </CityGroupContainer>)
-    }, [])
+    return transform(
+      groups,
+      (result, cities, key) => {
+        result.push(
+          <CityGroupContainer key={key}>
+            <CityGroup theme={this.props.theme}>{key}</CityGroup>
+            {cities.map(city => (
+              <CityEntry
+                key={city.code}
+                city={city}
+                filterText={this.props.filterText}
+                navigateToDashboard={this.props.navigateToDashboard}
+                theme={this.props.theme}
+              />
+            ))}
+          </CityGroupContainer>
+        )
+      },
+      []
+    )
   }
 
-  _renderNearbyLocations (): React.Node {
+  _renderNearbyLocations(): React.Node {
     const { proposeNearbyCities, cities, location, t, theme, navigateToDashboard, filterText, tryAgain } = this.props
     if (!proposeNearbyCities) {
       return null
     }
 
     if (location.status === 'ready') {
-      const nearbyCities = getNearbyPlaces(cities.filter(city => city.live), location.longitude, location.latitude)
+      const nearbyCities = getNearbyPlaces(
+        cities.filter(city => city.live),
+        location.longitude,
+        location.latitude
+      )
 
       if (nearbyCities.length > 0) {
-        return <CityGroupContainer>
-          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-          {nearbyCities.map(city => <CityEntry
-            key={city.code}
-            city={city}
-            filterText={filterText}
-            navigateToDashboard={navigateToDashboard}
-            theme={theme}
-            />)}
-        </CityGroupContainer>
+        return (
+          <CityGroupContainer>
+            <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+            {nearbyCities.map(city => (
+              <CityEntry
+                key={city.code}
+                city={city}
+                filterText={filterText}
+                navigateToDashboard={navigateToDashboard}
+                theme={theme}
+              />
+            ))}
+          </CityGroupContainer>
+        )
       } else {
-        return <CityGroupContainer>
-          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-          <NearbyMessageContainer>
-            <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
-          </NearbyMessageContainer>
-        </CityGroupContainer>
+        return (
+          <CityGroupContainer>
+            <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+            <NearbyMessageContainer>
+              <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
+            </NearbyMessageContainer>
+          </CityGroupContainer>
+        )
       }
     } else {
-      return <CityGroupContainer>
-        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-        <NearbyMessageContainer>
-          <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
-          {tryAgain &&
-          <Button icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
-                  title='' type='clear' onPress={tryAgain} accessibilityLabel={t('refresh')}
-                  accessibilityRole='button' />}
-        </NearbyMessageContainer>
-      </CityGroupContainer>
+      return (
+        <CityGroupContainer>
+          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <NearbyMessageContainer>
+            <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
+            {tryAgain && (
+              <Button
+                icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                title=''
+                type='clear'
+                onPress={tryAgain}
+                accessibilityLabel={t('refresh')}
+                accessibilityRole='button'
+              />
+            )}
+          </NearbyMessageContainer>
+        </CityGroupContainer>
+      )
     }
   }
 
-  render () {
-    return <View>
-      {this._renderNearbyLocations()}
-      {this._renderFilteredLocations(this._filter())}
-    </View>
+  render() {
+    return (
+      <View>
+        {this._renderNearbyLocations()}
+        {this._renderFilteredLocations(this._filter())}
+      </View>
+    )
   }
 }
 

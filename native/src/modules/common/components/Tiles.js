@@ -18,7 +18,9 @@ type PropsType = {|
 |}
 
 type TilesRowPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
+  language: string,
+  children: React.Node,
+  theme: ThemeType
 |}
 
 const TilesRow: StyledComponent<TilesRowPropsType, ThemeType, *> = styled.View`
@@ -34,14 +36,18 @@ const TilesRow: StyledComponent<TilesRowPropsType, ThemeType, *> = styled.View`
  * Displays a table of Tiles
  */
 class Tiles extends React.Component<PropsType> {
-  render () {
+  render() {
     const { title, language, tiles, onTilePress, theme } = this.props
-    return <>
-      {title && <Caption title={title} theme={theme} />}
-      <TilesRow language={language} theme={theme}>
-        {tiles.map(tile => <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />)}
-      </TilesRow>
-    </>
+    return (
+      <>
+        {title && <Caption title={title} theme={theme} />}
+        <TilesRow language={language} theme={theme}>
+          {tiles.map(tile => (
+            <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />
+          ))}
+        </TilesRow>
+      </>
+    )
   }
 }
 

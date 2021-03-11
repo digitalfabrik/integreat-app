@@ -12,7 +12,7 @@ import Caption from './Caption'
 import { type TFunction } from 'react-i18next'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
-  position: absolute;  
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
@@ -33,21 +33,28 @@ class LanguageNotAvailablePage extends React.Component<PropsType> {
     this.props.changeLanguage(model.code)
   }
 
-  render () {
+  render() {
     const { t, languages, theme } = this.props
-    return <Wrapper theme={theme}>
-      <Caption title={t('languageNotAvailable')} theme={theme} />
-      <Text>{t('chooseALanguage')}</Text>
-      <Selector verticalLayout
-                items={languages.map(languageModel => new SelectorItemModel({
-                  code: languageModel.code,
-                  name: languageModel.name,
-                  enabled: true,
-                  onPress: () => this.onPress(languageModel)
-                }))}
-                selectedItemCode={null}
-                theme={theme} />
-    </Wrapper>
+    return (
+      <Wrapper theme={theme}>
+        <Caption title={t('languageNotAvailable')} theme={theme} />
+        <Text>{t('chooseALanguage')}</Text>
+        <Selector
+          verticalLayout
+          items={languages.map(
+            languageModel =>
+              new SelectorItemModel({
+                code: languageModel.code,
+                name: languageModel.name,
+                enabled: true,
+                onPress: () => this.onPress(languageModel)
+              })
+          )}
+          selectedItemCode={null}
+          theme={theme}
+        />
+      </Wrapper>
+    )
   }
 }
 

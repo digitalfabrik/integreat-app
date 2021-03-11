@@ -30,11 +30,13 @@ describe('CategoryListContent', () => {
     const content3 = '<a href="https://so.me/url/thingy">Click me!</a> with a link'
     const htmlContent = `<div><p dir="rtl">${content1}</p><p>${content2}</p><p>${content3}</p></div>`
     const { getByText } = render(
-      <CategoryListContent content={htmlContent}
-                           navigateToLink={navigateToLink}
-                           cacheDictionary={cacheDictionary}
-                           language='de'
-                           theme={lightTheme} />
+      <CategoryListContent
+        content={htmlContent}
+        navigateToLink={navigateToLink}
+        cacheDictionary={cacheDictionary}
+        language='de'
+        theme={lightTheme}
+      />
     )
     expect(getByText(content1)).toBeTruthy()
     expect(getByText(content2)).toBeTruthy()
@@ -48,11 +50,13 @@ describe('CategoryListContent', () => {
     const content2 = 'والأمر'
     const htmlContent = `<div><p dir="rtl">${content1}</p><p>${content2}</p></div>`
     const { getByText } = render(
-      <CategoryListContent content={htmlContent}
-                           navigateToLink={navigateToLink}
-                           cacheDictionary={cacheDictionary}
-                           language='ar'
-                           theme={lightTheme} />
+      <CategoryListContent
+        content={htmlContent}
+        navigateToLink={navigateToLink}
+        cacheDictionary={cacheDictionary}
+        language='ar'
+        theme={lightTheme}
+      />
     )
     expect(getByText(content1)).toBeTruthy()
     expect(getByText(content2)).toBeTruthy()
@@ -66,11 +70,13 @@ describe('CategoryListContent', () => {
     const htmlContent = `<div><p dir="rtl">${content1}</p><p>${content2}</p></div>`
 
     const { getByText } = render(
-      <CategoryListContent content={htmlContent}
-                           navigateToLink={navigateToLink}
-                           cacheDictionary={cacheDictionary}
-                           language='de'
-                           theme={lightTheme} />
+      <CategoryListContent
+        content={htmlContent}
+        navigateToLink={navigateToLink}
+        cacheDictionary={cacheDictionary}
+        language='de'
+        theme={lightTheme}
+      />
     )
     fireEvent.press(getByText(text1))
     expect(navigateToLink).toHaveBeenCalledTimes(1)
@@ -86,12 +92,14 @@ describe('CategoryListContent', () => {
     const iso = '2011-05-04T00:00:00.000Z'
     const lastUpdate = moment(iso)
     const { getByText } = render(
-      <CategoryListContent content={content1}
-                           navigateToLink={navigateToLink}
-                           cacheDictionary={cacheDictionary}
-                           language='de'
-                           lastUpdate={lastUpdate}
-                           theme={lightTheme} />
+      <CategoryListContent
+        content={content1}
+        navigateToLink={navigateToLink}
+        cacheDictionary={cacheDictionary}
+        language='de'
+        lastUpdate={lastUpdate}
+        theme={lightTheme}
+      />
     )
     expect(getByText(`lastUpdate ${iso}`)).toBeTruthy()
   })
