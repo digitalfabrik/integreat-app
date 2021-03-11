@@ -17,7 +17,8 @@ const navigateToCategory = <T: RoutesType>({
   languageCode,
   cityContentPath,
   key = generateKey(),
-  forceRefresh = false
+  forceRefresh = false,
+  reset = false
 }: {|
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
@@ -26,13 +27,23 @@ const navigateToCategory = <T: RoutesType>({
   languageCode: string,
   cityContentPath: string,
   key?: string,
-  forceRefresh?: boolean
+  forceRefresh?: boolean,
+  reset?: boolean
 |}) => {
-  navigation.navigate({
+  const route = {
     name: routeName,
     params: { cityCode, languageCode },
     key
-  })
+  }
+
+  if (reset) {
+    navigation.reset({
+      index: 1,
+      routes: [route]
+    })
+  } else {
+    navigation.navigate(route)
+  }
 
   const fetchCategory: FetchCategoryActionType = {
     type: 'FETCH_CATEGORY',
