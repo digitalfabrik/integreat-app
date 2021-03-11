@@ -31,8 +31,7 @@ describe('OffersContainer', () => {
   const navigation = createNavigationScreenPropMock()
   const cityCode = 'augsburg'
   const languageCode = 'de'
-  const shareUrl = 'https://integreat.app/augsburg/de'
-  const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: OFFERS_ROUTE }
+  const route = { key: 'route-id-0', params: { cityCode, languageCode }, name: OFFERS_ROUTE }
   const errorText = `Failure ${ErrorCodes.UnknownError}`
   const mockLoadFromEndpointOnce = mock => {
     // $FlowFixMe mockImplementationOnce is defined

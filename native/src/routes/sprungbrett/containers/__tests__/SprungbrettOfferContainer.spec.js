@@ -31,13 +31,12 @@ describe('SprungbrettOfferContainer', () => {
   const navigation = createNavigationScreenPropMock()
   const cityCode = 'augsburg'
   const languageCode = 'de'
-  const shareUrl = 'https://integreat.app/augsburg/de'
   const title = 'Sprungbrett'
   const apiUrl = 'https://my.sprung.br/ett/api'
   const alias = 'sprungbrett'
   const route = {
     key: 'route-id-0',
-    params: { cityCode, languageCode, shareUrl, title, apiUrl, alias },
+    params: { cityCode, languageCode, title, apiUrl, alias },
     name: SPRUNGBRETT_OFFER_ROUTE
   }
   const errorText = `Failure ${ErrorCodes.UnknownError}`
