@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
 
+const TIMEOUT = 50
+
 type PropsType = {|
   route: RoutePropType<RedirectRouteType>,
   navigation: NavigationPropType<RedirectRouteType>
@@ -20,11 +22,14 @@ const RedirectContainer = ({ route, navigation }: PropsType) => {
   const { language } = i18n
   const { url } = route.params
 
-  useEffect(() => { // TODO Listen for ready state instead of timeout
+  useEffect(() => {
+    // If actions are dispatched/navigate is called to early it fails and nothing happens
+    // Therefore we wait for a short time period
+    // https://github.com/react-navigation/react-navigation/issues/8537
     const timeout = setTimeout(() => {
       const navigateTo = createNavigate(dispatch, navigation, true)
       navigateToLink(url, navigation, language, navigateTo, url)
-    }, 1000)
+    }, TIMEOUT)
     return () => clearTimeout(timeout)
   }, [url, dispatch, navigation, route, language])
 

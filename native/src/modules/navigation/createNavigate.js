@@ -23,7 +23,6 @@ import buildConfig from '../app/constants/buildConfig'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import { cityContentPath as createCityContentPath } from './url'
 
-// TODO handle not enabled in city
 const createNavigate = <T: RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
@@ -43,7 +42,10 @@ const createNavigate = <T: RoutesType>(
       const cityContentPath = routeInformation.cityContentPath || null
       const params = { dispatch, navigation, cityCode, languageCode }
 
-      if (reset) {
+      if (reset && route !== DASHBOARD_ROUTE) {
+        // Reset the currently opened screens to just the dashboard of the corresponding city and language
+        // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
+        // Primarily used in combination with deep linking
         navigateToCategory({
           ...params,
           routeName: DASHBOARD_ROUTE,
