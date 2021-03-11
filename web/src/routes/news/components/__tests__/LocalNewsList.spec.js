@@ -5,7 +5,7 @@ import { LocalNewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import LocalNewsList from '../LocalNewsList'
-import NewsElement from '../NewsElement'
+import NewsListItem from '../NewsListItem'
 import { LOCAL_NEWS } from '../../constants'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
@@ -15,7 +15,7 @@ describe('LocalNewsList', () => {
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
-  const renderItem = ({ id, title, message, timestamp }, city) => <NewsElement
+  const renderItem = ({ id, title, message, timestamp }, city) => <NewsListItem
     title={title}
     content={message}
     timestamp={timestamp}
@@ -42,11 +42,11 @@ describe('LocalNewsList', () => {
 
   const items = [localNews1, localNews2]
 
-  it('should have two NewsElement', () => {
+  it('should have two NewsListItem', () => {
     const localNewsList = shallow(
       <LocalNewsList items={items} renderItem={renderItem} city={city} noItemsMessage='no item' />
     ).dive()
-    const newsElementList = localNewsList.find('NewsElement')
+    const newsElementList = localNewsList.find('NewsListItem')
 
     expect(newsElementList).toHaveLength(2)
     expect(newsElementList.find({ title: 'Love :)' })).toHaveLength(1)
