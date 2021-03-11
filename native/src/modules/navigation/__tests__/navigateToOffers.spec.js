@@ -21,7 +21,6 @@ describe('createNavigateToOffers', () => {
     expect(navigation.navigate).toHaveBeenCalledWith({
       name: OFFERS_ROUTE,
       params: {
-        shareUrl: cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE }),
         cityCode,
         languageCode
       }

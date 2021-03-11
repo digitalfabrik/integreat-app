@@ -16,7 +16,6 @@ import dimensions from '../../theme/constants/dimensions'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
-import { cityContentUrl } from '../../navigation/url'
 import navigateToLanding from '../../navigation/navigateToLanding'
 
 const Horizontal = styled.View`
@@ -131,8 +130,7 @@ const Header = (props: PropsType) => {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
     const cityCode = routeCityModel.code
-    const shareUrl = cityContentUrl({ cityCode, languageCode: language, route: DISCLAIMER_ROUTE })
-    navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
+    navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language })
   }
 
   const cityDisplayName = () => {
