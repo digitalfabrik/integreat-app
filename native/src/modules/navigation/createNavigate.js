@@ -21,10 +21,13 @@ import navigateToCategory from './navigateToCategory'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { cityContentPath as createCityContentPath } from './url'
 
+// TODO handle not enabled in city
 const createNavigate = <T: RoutesType>(
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>
+  navigation: NavigationPropType<T>,
+  reset: boolean = false
 ) => (
     routeInformation: RouteInformationType,
     key?: string,
@@ -40,6 +43,16 @@ const createNavigate = <T: RoutesType>(
       const cityContentPath = routeInformation.cityContentPath || null
       const params = { dispatch, navigation, cityCode, languageCode }
 
+      if (reset) {
+        navigateToCategory({
+          ...params,
+          routeName: DASHBOARD_ROUTE,
+          cityContentPath: createCityContentPath({ cityCode, languageCode }),
+          forceRefresh,
+          reset: true
+        })
+      }
+
       switch (route) {
         case CATEGORIES_ROUTE:
         case DASHBOARD_ROUTE:
@@ -47,11 +60,8 @@ const createNavigate = <T: RoutesType>(
             break
           }
           navigateToCategory({
-            dispatch,
-            navigation,
+            ...params,
             routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
-            cityCode,
-            languageCode,
             cityContentPath,
             key,
             forceRefresh

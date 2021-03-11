@@ -132,14 +132,14 @@ const Navigator = (props: PropsType) => {
   useEffect(() => {
     // Fetch categories if the initial route is the dashboard route and there was no route before
     // i.e. initial route was set by this component (Navigator)
-    if ((!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE)) {
+    if ((!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE && routeName === DASHBOARD_ROUTE)) {
       fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
     } else {
-      // Fetch categories if new route is the dashboard route and the previous route was the landing or redirect route
+      // Fetch categories if new route is the dashboard route and the previous route was the landing route
       // This is necessary because with react-navigation v5 it is not possible anymore to specify the key of a new route
       // https://github.com/react-navigation/react-navigation/issues/8313
       // https://github.com/react-navigation/react-navigation/issues/7685
-      if (routeName === DASHBOARD_ROUTE && [LANDING_ROUTE, REDIRECT_ROUTE].includes(previousRouteName.current) &&
+      if (routeName === DASHBOARD_ROUTE && previousRouteName.current === LANDING_ROUTE &&
         routeKey && cityCode && languageCode
       ) {
         fetchCategory(cityCode, languageCode, routeKey, true)
