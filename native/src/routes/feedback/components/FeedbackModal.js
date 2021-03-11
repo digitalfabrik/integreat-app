@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { Picker } from '@react-native-picker/picker'
-import { ActivityIndicator, ScrollView, TextInput } from 'react-native'
+import { ActivityIndicator, ScrollView, TextInput, Text, View  } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -14,9 +14,9 @@ import buildConfig from '../../../modules/app/constants/buildConfig'
 import type { SendingStatusType } from '../containers/FeedbackModalContainer'
 
 const Input = styled(TextInput)`
-  margin-bottom: 15px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+  padding: 15px;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.themeColor};
 `
 
 const Wrapper = styled.View`
@@ -24,15 +24,28 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Description = styled.Text`
+const DescriptionContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 15px 0 5px;
-    color: ${props => props.theme.colors.textColor};
+`
+
+const Description = styled.Text`
+    display: flex;
+    text-align: left;
+    color: ${props => props.theme.colors.textColor};    
     font-family: ${props => props.theme.fonts.decorativeFontRegular};
+    font-weight: bold;;
 `
 
 const RequiredText = styled.Text`
     color: red;
     fontSize: 25px
+`
+
+const OptionalText = styled.Text`
+    font-weight: normal;
 `
 
 export type PropsType = {|
@@ -62,14 +75,25 @@ class FeedbackModal extends React.Component<PropsType> {
                 mode='dropdown'>
           {feedbackOptions.map((item, index) => <Picker.Item label={item.label} value={index} key={index} />)}
         </Picker>
+
         <Description theme={theme}>
           {' '}
           {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
           {!isPositiveFeedback && <RequiredText>*</RequiredText>}
         </Description>
         <Input theme={theme} onChangeText={this.props.onCommentChanged}
-               autoFocus value={comment} multiline placeholderTextColor={theme.colors.textSecondaryColor}
-               placeholder={t('yourFeedback')} />
+               autoFocus value={comment} multiline
+               />
+
+        <DescriptionContainer theme={theme}>
+          <Description theme={theme}>{t('contactMailAddress')}</Description>
+          <OptionalText>({t('optionalInfo')})</OptionalText>
+        </DescriptionContainer>
+
+        <Input theme={theme} /* onChangeText={this.props.onCommentChanged}*/
+               autoFocus /*value={comment}*/
+               />
+
         {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
         <Button icon={<Icon name='send' size={15} color='black' style='material' />}
                 titleStyle={{ color: theme.colors.textColor }}
