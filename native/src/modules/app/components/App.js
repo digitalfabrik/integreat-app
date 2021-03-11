@@ -27,7 +27,7 @@ const linking: LinkingOptions = {
     }
   },
   getStateFromPath: path => {
-    return { index: 1, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
+    return { index: 0, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
   }
 }
 

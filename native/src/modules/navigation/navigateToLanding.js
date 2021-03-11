@@ -12,7 +12,7 @@ const navigateToLanding = <T: RoutesType>({ dispatch, navigation }: {|
   // We have to clear the whole navigation state if navigating to the landing route.
   // Otherwise there would still be open routes from the last city in the new city.
   navigation.reset({
-    index: 1,
+    index: 0,
     routes: [
       { name: LANDING_ROUTE }
     ]
