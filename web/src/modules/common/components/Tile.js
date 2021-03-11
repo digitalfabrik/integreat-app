@@ -68,16 +68,20 @@ const TileContainer: StyledComponent<{||}, ThemeType, *> = styled(Col)`
  * Displays a single Tile
  */
 class Tile extends React.PureComponent<PropsType> {
-  getTileContent (): React.Node {
-    return <>
-      <ThumbnailSizer>
-        <Thumbnail><img alt='' src={this.props.tile.thumbnail} /></Thumbnail>
-      </ThumbnailSizer>
-      <TileTitle>{this.props.tile.title}</TileTitle>
-    </>
+  getTileContent(): React.Node {
+    return (
+      <>
+        <ThumbnailSizer>
+          <Thumbnail>
+            <img alt='' src={this.props.tile.thumbnail} />
+          </Thumbnail>
+        </ThumbnailSizer>
+        <TileTitle>{this.props.tile.title}</TileTitle>
+      </>
+    )
   }
 
-  getTile (): React.Node {
+  getTile(): React.Node {
     const tile = this.props.tile
     if (!tile.isExternalUrl) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
@@ -86,14 +90,18 @@ class Tile extends React.PureComponent<PropsType> {
     } else {
       const inputs = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
-      return <form method='POST' action={tile.path}>
-        {inputs}
-        <button type='submit' role='link'>{this.getTileContent()}</button>
-      </form>
+      return (
+        <form method='POST' action={tile.path}>
+          {inputs}
+          <button type='submit' role='link'>
+            {this.getTileContent()}
+          </button>
+        </form>
+      )
     }
   }
 
-  render () {
+  render() {
     return (
       <TileContainer xs={6} sm={4} md={3}>
         {this.getTile()}

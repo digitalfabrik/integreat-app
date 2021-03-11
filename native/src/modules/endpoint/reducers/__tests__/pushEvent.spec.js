@@ -100,18 +100,23 @@ describe('pushEvent', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      eventsRouteMapping: {
-        'route-id-0': {
-          status: 'ready',
-          path: null,
-          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),
-          city: 'augsburg',
-          language: 'de',
-          models: [event1]
+    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+      expect.objectContaining({
+        eventsRouteMapping: {
+          'route-id-0': {
+            status: 'ready',
+            path: null,
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events/ev1'],
+              ['de', '/augsburg/de/events/ev1']
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            models: [event1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
   it('should add specific event routeMapping', () => {
@@ -138,21 +143,26 @@ describe('pushEvent', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      eventsRouteMapping: {
-        'route-id-0': {
-          status: 'ready',
-          path: '/augsburg/de/events/ev1',
-          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),
-          city: 'augsburg',
-          language: 'de',
-          models: [event1]
+    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+      expect.objectContaining({
+        eventsRouteMapping: {
+          'route-id-0': {
+            status: 'ready',
+            path: '/augsburg/de/events/ev1',
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events/ev1'],
+              ['de', '/augsburg/de/events/ev1']
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            models: [event1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
-  it('should merge the resource cache if there\'s already one', () => {
+  it("should merge the resource cache if there's already one", () => {
     const prevState = prepareState({})
     if (prevState.resourceCache.status !== 'ready') {
       throw Error('Preparation failed')
@@ -173,33 +183,35 @@ describe('pushEvent', () => {
       type: 'PUSH_EVENT',
       params: {
         resourceCache,
-        events: [new EventModel({
-          path: '/testumgebung/de/events/ev1',
-          title: 'T',
-          content: 'lul',
-          excerpt: 'lul',
-          thumbnail: '',
-          featuredImage: null,
-          location: new LocationModel({
-            name: 'name',
-            address: 'address',
-            town: 'town',
-            state: 'state',
-            postcode: 'postcode',
-            region: 'region',
-            country: 'country',
-            longitude: null,
-            latitude: null
-          }),
-          date: new DateModel({
-            startDate: moment('2000-01-05T10:10:00.000Z'),
-            endDate: moment('2000-01-05T10:10:00.000Z'),
-            allDay: false
-          }),
-          lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-          availableLanguages: new Map(),
-          hash: '123456'
-        })],
+        events: [
+          new EventModel({
+            path: '/testumgebung/de/events/ev1',
+            title: 'T',
+            content: 'lul',
+            excerpt: 'lul',
+            thumbnail: '',
+            featuredImage: null,
+            location: new LocationModel({
+              name: 'name',
+              address: 'address',
+              town: 'town',
+              state: 'state',
+              postcode: 'postcode',
+              region: 'region',
+              country: 'country',
+              longitude: null,
+              latitude: null
+            }),
+            date: new DateModel({
+              startDate: moment('2000-01-05T10:10:00.000Z'),
+              endDate: moment('2000-01-05T10:10:00.000Z'),
+              allDay: false
+            }),
+            lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
+            availableLanguages: new Map(),
+            hash: '123456'
+          })
+        ],
         cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
         city: 'testumgebung',
         language: 'de',
@@ -209,13 +221,15 @@ describe('pushEvent', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      city: 'augsburg',
-      resourceCache: {
-        status: 'ready',
-        progress: 1,
-        value: { ...prevResources, ...resourceCache }
-      }
-    }))
+    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+      expect.objectContaining({
+        city: 'augsburg',
+        resourceCache: {
+          status: 'ready',
+          progress: 1,
+          value: { ...prevResources, ...resourceCache }
+        }
+      })
+    )
   })
 })

@@ -30,37 +30,51 @@ class DefaultDataContainer implements DataContainer {
   _databaseConnector: DatabaseConnector
   caches: CacheType
 
-  constructor () {
+  constructor() {
     this._databaseConnector = new DatabaseConnector()
 
     this.caches = {
-      pois: new Cache<Array<PoiModel>>(this._databaseConnector,
+      pois: new Cache<Array<PoiModel>>(
+        this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadPois(context),
         (value: Array<PoiModel>, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storePois(value, context)),
-      cities: new Cache<Array<CityModel>>(this._databaseConnector,
+          connector.storePois(value, context)
+      ),
+      cities: new Cache<Array<CityModel>>(
+        this._databaseConnector,
         (connector: DatabaseConnector) => connector.loadCities(),
-        (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value)),
-      events: new Cache<Array<EventModel>>(this._databaseConnector,
+        (value: Array<CityModel>, connector: DatabaseConnector) => connector.storeCities(value)
+      ),
+      events: new Cache<Array<EventModel>>(
+        this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadEvents(context),
         (value: Array<EventModel>, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeEvents(value, context)),
-      categories: new Cache<CategoriesMapModel>(this._databaseConnector,
+          connector.storeEvents(value, context)
+      ),
+      categories: new Cache<CategoriesMapModel>(
+        this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadCategories(context),
         (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeCategories(value, context)),
-      languages: new Cache<Array<LanguageModel>>(this._databaseConnector,
+          connector.storeCategories(value, context)
+      ),
+      languages: new Cache<Array<LanguageModel>>(
+        this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLanguages(context),
         (value: Array<LanguageModel>, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeLanguages(value, context)),
-      resourceCache: new Cache<CityResourceCacheStateType>(this._databaseConnector,
+          connector.storeLanguages(value, context)
+      ),
+      resourceCache: new Cache<CityResourceCacheStateType>(
+        this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadResourceCache(context),
         (value: CityResourceCacheStateType, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeResourceCache(value, context)),
-      lastUpdate: new Cache<Moment | null>(this._databaseConnector,
+          connector.storeResourceCache(value, context)
+      ),
+      lastUpdate: new Cache<Moment | null>(
+        this._databaseConnector,
         (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLastUpdate(context),
         (value: Moment | null, connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeLastUpdate(value, context))
+          connector.storeLastUpdate(value, context)
+      )
     }
   }
 
@@ -72,7 +86,7 @@ class DefaultDataContainer implements DataContainer {
     await this._databaseConnector.deleteAllFiles()
   }
 
-  isCached (key: CacheKeyType, context: DatabaseContext): boolean {
+  isCached(key: CacheKeyType, context: DatabaseContext): boolean {
     return this.caches[key].isCached(context)
   }
 
@@ -151,12 +165,11 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(languages, context)
   }
 
-  getFilePathsFromLanguageResourceCache (languageResourceCache: LanguageResourceCacheStateType): Array<string> {
+  getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
     const pageResourceCaches: Array<PageResourceCacheStateType> = Object.values(languageResourceCache)
-    return flatMap(
-      pageResourceCaches,
-      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
+    return flatMap(pageResourceCaches, (file: PageResourceCacheStateType): Array<string> =>
+      map(file, ({ filePath }) => filePath)
     )
   }
 
@@ -183,9 +196,8 @@ class DefaultDataContainer implements DataContainer {
           previousResourceCache,
           (val, key: string) => key === language
         )
-        const pathsOfOtherLanguages = flatMap(
-          collection,
-          (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache)
+        const pathsOfOtherLanguages = flatMap(collection, (languageCache: LanguageResourceCacheStateType) =>
+          this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         console.debug('Cleaning up the following resources:')
@@ -229,8 +241,9 @@ class DefaultDataContainer implements DataContainer {
   }
 
   cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
-    return this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) &&
-      this.languagesAvailable(city)
+    return (
+      this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) && this.languagesAvailable(city)
+    )
   }
 
   storeLastUsage = async (city: string, peeking: boolean) => {

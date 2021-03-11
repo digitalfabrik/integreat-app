@@ -28,7 +28,7 @@ const StyledBanner: StyledComponent<{||}, ThemeType, *> = styled.div`
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  background-color: ${({ theme }) => (theme.colors.tunewsThemeColorLight)};
+  background-color: ${({ theme }) => theme.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
 const StyledBannerImage: StyledComponent<{||}, ThemeType, *> = styled.img`
@@ -40,8 +40,8 @@ const StyledTitle: StyledComponent<{||}, ThemeType, *> = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => (theme.colors.tunewsThemeColor)};
-  color: ${({ theme }) => (theme.colors.backgroundColor)};
+  background-color: ${({ theme }) => theme.colors.tunewsThemeColor};
+  color: ${({ theme }) => theme.colors.backgroundColor};
   font-size: 20px;
   font-weight: 700;
 `
@@ -62,13 +62,7 @@ type PropsType = {|
   cities: Array<CityModel>
 |}
 
-export const TunewsDetailsPage = ({
-  tunewsElement,
-  language,
-  id,
-  city,
-  cities
-}: PropsType) => {
+export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
   if (!currentCity || !currentCity.tunewsEnabled) {
@@ -79,12 +73,7 @@ export const TunewsDetailsPage = ({
     return <FailureSwitcher error={error} />
   }
 
-  const {
-    title,
-    content,
-    date,
-    eNewsNo
-  } = tunewsElement
+  const { title, content, date, eNewsNo } = tunewsElement
   return (
     <StyledContainer>
       <StyledWrapper>

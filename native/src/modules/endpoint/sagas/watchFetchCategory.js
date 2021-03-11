@@ -22,11 +22,11 @@ import type Moment from 'moment'
  * @param routeCity The key of the current route
  * @returns true if the fetch corresponds to a peek
  */
-function * isPeeking (routeCity: string): Saga<boolean> {
+function* isPeeking(routeCity: string): Saga<boolean> {
   return yield select(state => isPeekingRoute(state, { routeCity }))
 }
 
-export function * fetchCategory (dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
+export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
   try {
     const peeking = yield call(isPeeking, city)
@@ -52,9 +52,8 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
       }
       yield put(push)
     } else {
-      const allAvailableLanguages = path === `/${city}/${language}`
-        ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`]))
-        : null
+      const allAvailableLanguages =
+        path === `/${city}/${language}` ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`])) : null
       const failedAction: FetchCategoryFailedActionType = {
         type: 'FETCH_CATEGORY_FAILED',
         params: {
@@ -89,6 +88,6 @@ export function * fetchCategory (dataContainer: DataContainer, action: FetchCate
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }

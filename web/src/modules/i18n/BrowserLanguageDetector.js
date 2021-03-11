@@ -38,7 +38,8 @@ export default {
     // Adapted from:
     // https://github.com/i18next/i18next-browser-languageDetector/blob/a84df47faf3603ece04bc224e8e0f6f0ca1df923/src/browserLookups/navigator.js
     if (typeof navigator !== 'undefined') {
-      if (navigator.languages) { // chrome only; not an array, so can't use .push.apply instead of iterating
+      if (navigator.languages) {
+        // chrome only; not an array, so can't use .push.apply instead of iterating
         for (let i = 0; i < navigator.languages.length; i++) {
           bcp47Tags.push(navigator.languages[i])
         }

@@ -14,7 +14,7 @@ type PropsType = {|
 |}
 
 class Helmet extends React.PureComponent<PropsType> {
-  getLanguageLinks (): React.Node {
+  getLanguageLinks(): React.Node {
     const { languageChangePaths } = this.props
     if (!languageChangePaths) {
       return null
@@ -26,23 +26,25 @@ class Helmet extends React.PureComponent<PropsType> {
     })
   }
 
-  render () {
+  render() {
     const { pageTitle, cityModel, metaDescription } = this.props
     const previewImageUrl = new URL(`https://${buildConfig().hostName}`)
     previewImageUrl.pathname = buildConfig().icons.socialMediaPreview
 
-    return <ReactHelmet>
-      {pageTitle && <title>{pageTitle}</title>}
-      {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
-      {metaDescription && <meta name='description' content={metaDescription} />}
-      {this.getLanguageLinks()}
-      {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
-      {pageTitle && <meta property='og:title' content={pageTitle} />}
-      <meta property='og:image' content={previewImageUrl.href} />
-      {metaDescription && <meta property='og:description' content={metaDescription} />}
-      <meta property='og:url' content={window.location.href} />
-      <meta property='og:type' content='website' />
-    </ReactHelmet>
+    return (
+      <ReactHelmet>
+        {pageTitle && <title>{pageTitle}</title>}
+        {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
+        {metaDescription && <meta name='description' content={metaDescription} />}
+        {this.getLanguageLinks()}
+        {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
+        {pageTitle && <meta property='og:title' content={pageTitle} />}
+        <meta property='og:image' content={previewImageUrl.href} />
+        {metaDescription && <meta property='og:description' content={metaDescription} />}
+        <meta property='og:url' content={window.location.href} />
+        <meta property='og:type' content='website' />
+      </ReactHelmet>
+    )
   }
 }
 

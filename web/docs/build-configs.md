@@ -11,6 +11,7 @@ Build configs are used in two different places: In the javascript code during ru
 ### Runtime (Javascript)
 
 For each build config there is a script in the [package.json](../package.json) to ease the process of starting the packager:
+
 ```bash
 yarn start:<build config name>
 ```

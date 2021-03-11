@@ -15,14 +15,14 @@ const navigateToPois = <T: RoutesType>({
   key = generateKey(),
   forceRefresh = false
 }: {|
-    dispatch: Dispatch<StoreActionType>,
-    navigation: NavigationPropType<T>,
-    cityCode: string,
-    languageCode: string,
-    cityContentPath: ?string,
-    key?: string,
-    forceRefresh?: boolean
-  |}) => {
+  dispatch: Dispatch<StoreActionType>,
+  navigation: NavigationPropType<T>,
+  cityCode: string,
+  languageCode: string,
+  cityContentPath: ?string,
+  key?: string,
+  forceRefresh?: boolean
+|}) => {
   navigation.navigate({ name: POIS_ROUTE, key })
 
   const fetchPoi: FetchPoiActionType = {

@@ -5,7 +5,7 @@ import type { Saga } from 'redux-saga'
 import { LanguageModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 
-export default function * (
+export default function* (
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean

@@ -7,7 +7,11 @@ import { SprungbrettOfferPage } from '../SprungbrettOfferPage'
 
 describe('SprungbrettOfferPage', () => {
   const sprungbrettOffer = new OfferModel({
-    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
+    alias: 'sprungbrett',
+    path: 'path to fetch jobs from',
+    title: 'Sprungbrett',
+    thumbnail: 'xy',
+    postData: null
   })
 
   const sprungbrettJobs = [
@@ -41,19 +45,13 @@ describe('SprungbrettOfferPage', () => {
 
   it('should render list', () => {
     const sprunbrettPage = shallow(
-      <SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs}
-                            offers={[sprungbrettOffer]}
-                            t={t} />
+      <SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs} offers={[sprungbrettOffer]} t={t} />
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
 
   it('should render error if offer is not supported', () => {
-    const sprunbrettPage = shallow(
-      <SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs}
-                            offers={[]}
-                            t={t} />
-    )
+    const sprunbrettPage = shallow(<SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs} offers={[]} t={t} />)
     expect(sprunbrettPage).toMatchSnapshot()
   })
 })

@@ -21,8 +21,7 @@ describe('DisclaimerRouteConfig', () => {
   const disclaimerRouteConfig = new DisclaimerRouteConfig()
 
   it('should get the right path', () => {
-    expect(disclaimerRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' }))
-      .toBe('/augsburg/de/disclaimer')
+    expect(disclaimerRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/disclaimer')
   })
 
   it('should get the required payloads', () => {
@@ -51,10 +50,12 @@ describe('DisclaimerRouteConfig', () => {
       pathname: '/augsburg/de/disclaimer',
       type: disclaimerRouteConfig.name
     })
-    expect(disclaimerRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/disclaimer')
-    expect(disclaimerRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location }))
-      .toBe('/augsburg/fr/disclaimer')
+    expect(disclaimerRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe(
+      '/augsburg/en/disclaimer'
+    )
+    expect(disclaimerRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location })).toBe(
+      '/augsburg/fr/disclaimer'
+    )
   })
 
   it('should get the right page title', () => {
@@ -64,11 +65,11 @@ describe('DisclaimerRouteConfig', () => {
       type: disclaimerRouteConfig.name
     })
 
-    expect(disclaimerRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('pageTitles.disclaimer - Augsburg')
+    expect(disclaimerRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+      'pageTitles.disclaimer - Augsburg'
+    )
 
-    expect(disclaimerRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
-      .toBeNull()
+    expect(disclaimerRouteConfig.getPageTitle({ payloads, location, cityName: null, t })).toBeNull()
   })
 
   it('should return the right meta description', () => {
@@ -82,10 +83,11 @@ describe('DisclaimerRouteConfig', () => {
       type: disclaimerRouteConfig.name
     })
 
-    expect(disclaimerRouteConfig.getFeedbackTargetInformation({
-      payloads: { disclaimer: new Payload(false) },
-      location
-    }))
-      .toBeNull()
+    expect(
+      disclaimerRouteConfig.getFeedbackTargetInformation({
+        payloads: { disclaimer: new Payload(false) },
+        location
+      })
+    ).toBeNull()
   })
 })

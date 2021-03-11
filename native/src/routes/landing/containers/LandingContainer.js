@@ -11,10 +11,7 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import { CityModel } from 'api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import type { LandingRouteType } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -61,7 +58,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const ThemedTranslatedLanding = withTranslation<$Diff<LandingPropsType, {| theme: ThemeType|}>>('landing')(
+const ThemedTranslatedLanding = withTranslation<$Diff<LandingPropsType, {| theme: ThemeType |}>>('landing')(
   withTheme<LandingPropsType>(Landing)
 )
 
@@ -89,7 +86,5 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withPayloadProvider<ContainerPropsType, $Shape<{||}>, LandingRouteType>(refresh)(
-    LandingContainer
-  )
+  withPayloadProvider<ContainerPropsType, $Shape<{||}>, LandingRouteType>(refresh)(LandingContainer)
 )

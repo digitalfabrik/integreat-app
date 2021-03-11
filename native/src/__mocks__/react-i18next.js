@@ -5,11 +5,11 @@ import typeof I18nType from 'i18next'
 
 const realModule = jest.requireActual('react-i18next')
 
-const withTranslation = <S: {||}> (namespace: string) => (
+const withTranslation = <S: {||}>(namespace: string) => (
   Component: React.AbstractComponent<{| ...S, t: string => string |}>
 ): React.AbstractComponent<S> => {
   return class extends React.Component<S> {
-    render () {
+    render() {
       return <Component {...this.props} t={key => key} />
     }
   }

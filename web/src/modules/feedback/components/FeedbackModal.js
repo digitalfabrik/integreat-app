@@ -75,30 +75,34 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
     this.props.closeFeedbackModal()
   }
 
-  renderContent (): React.Node {
+  renderContent(): React.Node {
     const { feedbackRating, offers, ...otherProps } = this.props
     const { sendingStatus } = this.state
 
     if (['IDLE', 'ERROR'].includes(sendingStatus)) {
-      return <FeedbackBoxContainer isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
-                                   offers={offers}
-                                   onSubmit={this.handleSubmit}
-                                   sendingStatus={sendingStatus}
-                                   {...otherProps} />
+      return (
+        <FeedbackBoxContainer
+          isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
+          offers={offers}
+          onSubmit={this.handleSubmit}
+          sendingStatus={sendingStatus}
+          {...otherProps}
+        />
+      )
     } else {
       return <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
     }
   }
 
-  render () {
-    return <FocusTrap>
-      <ModalContainer role='dialog' aria-modal>
-        <Overlay onClick={this.handleOverlayClick} />
-        <FeedbackContainer>
-          {this.renderContent()}
-        </FeedbackContainer>
-      </ModalContainer>
-    </FocusTrap>
+  render() {
+    return (
+      <FocusTrap>
+        <ModalContainer role='dialog' aria-modal>
+          <Overlay onClick={this.handleOverlayClick} />
+          <FeedbackContainer>{this.renderContent()}</FeedbackContainer>
+        </ModalContainer>
+      </FocusTrap>
+    )
   }
 }
 

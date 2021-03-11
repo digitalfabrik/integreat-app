@@ -19,7 +19,7 @@ import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './DisclaimerRouteConfig
 import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteConfig'
 import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from './NotFoundRouteConfig'
 
-const routeConfigs: {[string]: RouteConfig<any, any>} = {
+const routeConfigs: { [string]: RouteConfig<any, any> } = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig(),
   [LANDING_ROUTE]: new LandingRouteConfig(),
@@ -42,12 +42,13 @@ export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
   const routeConfig = routeConfigs[routeName]
   if (!routeConfig) {
     throw new Error(
-      `There is no route config with the name ${routeName}. Did you forget to add it in the routes index?`)
+      `There is no route config with the name ${routeName}. Did you forget to add it in the routes index?`
+    )
   }
   return routeConfig
 }
 
-export const routesMap: {[string]: Route} = {
+export const routesMap: { [string]: Route } = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig().route,
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig().route,
   [LANDING_ROUTE]: new LandingRouteConfig().route,

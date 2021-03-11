@@ -8,31 +8,31 @@ type MockFilesType = {
 
 const mockFiles: MockFilesType = {}
 
-function deleteAllMockFiles () {
+function deleteAllMockFiles() {
   for (const path in mockFiles) {
     delete mockFiles[path]
   }
 }
 
-function writeMockFile (file: string, content: string, encoding: string): Promise<void> {
+function writeMockFile(file: string, content: string, encoding: string): Promise<void> {
   const filePath = path.normalize(file)
   mockFiles[filePath] = content
   return Promise.resolve()
 }
 
-function readMockFile (file: string, encoding: string): Promise<string> {
+function readMockFile(file: string, encoding: string): Promise<string> {
   const filePath = path.normalize(file)
   return Promise.resolve(mockFiles[filePath])
 }
 
-function existsMock (file: string): Promise<boolean> {
+function existsMock(file: string): Promise<boolean> {
   const filePath = path.normalize(file)
   const exists = filePath in mockFiles
   const isParentOfExisting = Object.keys(mockFiles).some(filePath => filePath.startsWith(file))
   return Promise.resolve(exists || isParentOfExisting)
 }
 
-function lsMock (path: string): Promise<Array<string>> {
+function lsMock(path: string): Promise<Array<string>> {
   const filesInPath = Object.keys(mockFiles).filter(filePath => filePath.startsWith(path))
   return Promise.resolve(filesInPath)
 }
@@ -42,7 +42,7 @@ function lsMock (path: string): Promise<Array<string>> {
  * @param file
  * @return {Promise<void>}
  */
-function unlink (file: string): Promise<void> {
+function unlink(file: string): Promise<void> {
   const filePath = path.normalize(file)
   Object.keys(mockFiles).forEach(path => {
     const slicedPath = path.slice(0, filePath.length)

@@ -71,11 +71,20 @@ describe('Dashboard', () => {
     }))
   }
 
-  const renderDashboard = (cityModel: CityModel) =>
-    <Dashboard navigateToLink={navigateToLink} navigateToFeedback={navigateToFeedback}
-               navigateTo={navigateTo} theme={theme} language={language}
-               cityModel={cityModel} stateView={stateView} resourceCache={resourceCache}
-               resourceCacheUrl={resourceCacheUrl} t={t} />
+  const renderDashboard = (cityModel: CityModel) => (
+    <Dashboard
+      navigateToLink={navigateToLink}
+      navigateToFeedback={navigateToFeedback}
+      navigateTo={navigateTo}
+      theme={theme}
+      language={language}
+      cityModel={cityModel}
+      stateView={stateView}
+      resourceCache={resourceCache}
+      resourceCacheUrl={resourceCacheUrl}
+      t={t}
+    />
+  )
 
   it('should show navigation tiles if there are is at least one feature enabled', () => {
     const cityModel = createCityModel(true, false, false, false, false)

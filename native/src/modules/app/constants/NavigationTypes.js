@@ -26,7 +26,8 @@ import type {
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 import type { RedirectRouteType } from 'api-client'
 
-export type RoutesType = RedirectRouteType
+export type RoutesType =
+  | RedirectRouteType
   | IntroRouteType
   | LandingRouteType
   | DashboardRouteType

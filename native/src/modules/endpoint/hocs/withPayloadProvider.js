@@ -45,26 +45,29 @@ export type SuccessType<S: {}, R: {}> = {|
 |}
 
 export type StatusPropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}> =
-  RouteNotInitializedType
+  | RouteNotInitializedType
   | LoadingType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
   | ErrorType<R>
   | LanguageNotAvailableType
   | SuccessType<$Diff<S, { dispatch: Dispatch<StoreActionType> }>, R>
 
-export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> = {|
-  ...StatusPropsType<S, R>,
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>,
-  route: RoutePropType<T>,
-  t: TFunction
-|} | {| // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
-  ...StatusPropsType<S, R>,
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>,
-  route: RoutePropType<T>
-|}
+export type PropsType<S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> =
+  | {|
+      ...StatusPropsType<S, R>,
+      dispatch: Dispatch<StoreActionType>,
+      navigation: NavigationPropType<T>,
+      route: RoutePropType<T>,
+      t: TFunction
+    |}
+  | {|
+      // Necessary because of weird flow error saying t is missing even though t is already optional in the first type
+      ...StatusPropsType<S, R>,
+      dispatch: Dispatch<StoreActionType>,
+      navigation: NavigationPropType<T>,
+      route: RoutePropType<T>
+    |}
 
-const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType> (
+const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, T: RoutesType>(
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
   onRouteClose?: (routeKey: string, dispatch: Dispatch<StoreActionType>) => void,
   noScrollView?: boolean
@@ -86,9 +89,12 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
         }
       }, [props.route.key, props.dispatch])
 
-      function refreshIfPossible () {
-        if (props.status === 'routeNotInitialized' || props.status === 'loading' ||
-          props.status === 'languageNotAvailable') {
+      function refreshIfPossible() {
+        if (
+          props.status === 'routeNotInitialized' ||
+          props.status === 'loading' ||
+          props.status === 'languageNotAvailable'
+        ) {
           throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
         }
         if (props.refreshProps) {
@@ -96,7 +102,7 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
         }
       }
 
-      function changeUnavailableLanguage (newLanguage: string) {
+      function changeUnavailableLanguage(newLanguage: string) {
         if (props.status !== 'languageNotAvailable') {
           throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }
@@ -106,35 +112,53 @@ const withPayloadProvider = <S: { dispatch: Dispatch<StoreActionType> }, R: {}, 
       if (props.status === 'routeNotInitialized') {
         return <LayoutContainer />
       } else if (props.status === 'error') {
-        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-          <FailureContainer tryAgain={refreshIfPossible} code={props.code} />
-        </LayoutedScrollView>
+        return (
+          <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
+            <FailureContainer tryAgain={refreshIfPossible} code={props.code} />
+          </LayoutedScrollView>
+        )
       } else if (props.status === 'languageNotAvailable') {
-        return <LanguageNotAvailableContainer languages={props.availableLanguages}
-                                              changeLanguage={changeUnavailableLanguage} />
+        return (
+          <LanguageNotAvailableContainer
+            languages={props.availableLanguages}
+            changeLanguage={changeUnavailableLanguage}
+          />
+        )
       } else if (props.status === 'loading') {
         const { innerProps, dispatch } = props
 
-        if (!timeoutExpired) { // Prevent jumpy behaviour by showing nothing until the timeout finishes
+        if (!timeoutExpired) {
+          // Prevent jumpy behaviour by showing nothing until the timeout finishes
           return <LayoutContainer />
-        } else if (!!innerProps && !!dispatch) { // Display previous content if available
-          return <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
-            <Component {...innerProps} dispatch={dispatch} />
-          </LayoutedScrollView>
-        } else { // Full screen loading spinner
-          return <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
-            <ProgressContainer progress={props.progress} />
-          </LayoutedScrollView>
+        } else if (!!innerProps && !!dispatch) {
+          // Display previous content if available
+          return (
+            <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
+              <Component {...innerProps} dispatch={dispatch} />
+            </LayoutedScrollView>
+          )
+        } else {
+          // Full screen loading spinner
+          return (
+            <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
+              <ProgressContainer progress={props.progress} />
+            </LayoutedScrollView>
+          )
         }
-      } else { // props.status === 'success'
+      } else {
+        // props.status === 'success'
         if (noScrollView) {
-          return <LayoutContainer>
-            <Component {...props.innerProps} dispatch={props.dispatch} />
-          </LayoutContainer>
+          return (
+            <LayoutContainer>
+              <Component {...props.innerProps} dispatch={props.dispatch} />
+            </LayoutContainer>
+          )
         }
-        return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-          <Component {...props.innerProps} dispatch={props.dispatch} />
-        </LayoutedScrollView>
+        return (
+          <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
+            <Component {...props.innerProps} dispatch={props.dispatch} />
+          </LayoutedScrollView>
+        )
       }
     }
     Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')

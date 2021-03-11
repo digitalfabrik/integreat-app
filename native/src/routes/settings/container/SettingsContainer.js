@@ -7,10 +7,7 @@ import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { SettingsRouteType } from 'api-client/src/routes'
 
 type OwnPropsType = {|

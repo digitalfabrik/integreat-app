@@ -13,9 +13,7 @@ export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 
 type ParamsType = {| city: string, language: string, id: string |}
 
-export default (
-  baseUrl: string
-): Endpoint<ParamsType, LocalNewsModel> =>
+export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
   new EndpointBuilder(LOCAL_NEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
