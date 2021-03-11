@@ -8,8 +8,9 @@ import ErrorCodes from '../../ErrorCodes'
 
 describe('Failure', () => {
   it('should render a retry button if tryAgain is passed', () => {
-    const { getByTestId } = render(<Failure theme={lightTheme} tryAgain={() => {}} code={ErrorCodes.UnknownError}
-                                            t={key => key} />)
+    const { getByTestId } = render(
+      <Failure theme={lightTheme} tryAgain={() => {}} code={ErrorCodes.UnknownError} t={key => key} />
+    )
 
     expect(getByTestId('button-tryAgain')).toBeTruthy()
   })
@@ -21,16 +22,16 @@ describe('Failure', () => {
   })
 
   it('should have a correct message as title', () => {
-    const { getByText } = render(<Failure theme={lightTheme} code={ErrorCodes.UnknownError}
-                                          t={key => key} />)
+    const { getByText } = render(<Failure theme={lightTheme} code={ErrorCodes.UnknownError} t={key => key} />)
 
     expect(getByText(ErrorCodes.UnknownError)).toBeTruthy()
   })
 
   it('should try again if button is pressed', () => {
     const tryAgain = jest.fn()
-    const { getByTestId } = render(<Failure theme={lightTheme} code={ErrorCodes.UnknownError} tryAgain={tryAgain}
-                                            t={key => key} />)
+    const { getByTestId } = render(
+      <Failure theme={lightTheme} code={ErrorCodes.UnknownError} tryAgain={tryAgain} t={key => key} />
+    )
     fireEvent.press(getByTestId('button-tryAgain'))
     expect(tryAgain).toHaveBeenCalled()
   })

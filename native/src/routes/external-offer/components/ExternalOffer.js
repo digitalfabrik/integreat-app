@@ -33,24 +33,28 @@ const ExternalOffer = (props: PropsType) => {
   const { url, postData } = props
   const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
 
-  const onNavigationStateChange = useCallback((navState: WebViewNavigation) => {
-    setCanGoBack(navState.canGoBack)
-  }, [setCanGoBack])
+  const onNavigationStateChange = useCallback(
+    (navState: WebViewNavigation) => {
+      setCanGoBack(navState.canGoBack)
+    },
+    [setCanGoBack]
+  )
 
-  return <WebView
-    source={postData ? createPostSource(url, body) : createGetSource(url, body)}
-    javaScriptEnabled
-    dataDetectorTypes='none'
-    domStorageEnabled={false}
-    ref={webviewRef}
-    /* The Lehrstellenradar does not work in the webview if you are navigating back (probably because of FormData?).
+  return (
+    <WebView
+      source={postData ? createPostSource(url, body) : createGetSource(url, body)}
+      javaScriptEnabled
+      dataDetectorTypes='none'
+      domStorageEnabled={false}
+      ref={webviewRef}
+      /* The Lehrstellenradar does not work in the webview if you are navigating back (probably because of FormData?).
         Without this the webview itself shows an error which looks more like it is our fault.}
         Also, without disabling cache it is not possible to navigate back with hardware buttons anymore. */
-    cacheEnabled={false}
-
-    renderError={renderWebviewError}
-    onNavigationStateChange={onNavigationStateChange}
-  />
+      cacheEnabled={false}
+      renderError={renderWebviewError}
+      onNavigationStateChange={onNavigationStateChange}
+    />
+  )
 }
 
 export default ExternalOffer

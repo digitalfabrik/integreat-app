@@ -9,7 +9,7 @@ type PropsType = {|
 |}
 
 class StatusBar extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     return (
       <ReactNativeStatusBar backgroundColor={this.props.theme.colors.backgroundAccentColor} barStyle='dark-content' />
     )

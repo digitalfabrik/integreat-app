@@ -27,7 +27,7 @@ const Heading: StyledComponent<{}, ThemeType, *> = styled.Text`
 `
 
 const ContentContainer: StyledComponent<{ description: boolean }, ThemeType, *> = styled.View`
-  flex: ${props => props.description ? 2 : 2 + 1};
+  flex: ${props => (props.description ? 2 : 2 + 1)};
 `
 
 const Description: StyledComponent<{}, ThemeType, *> = styled.Text`
@@ -51,22 +51,24 @@ type PropsType = {|
 |}
 
 class SlideContent extends React.Component<PropsType> {
-  render () {
+  render() {
     const { width, theme, item } = this.props
 
-    return <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <Container theme={theme} width={width}>
-        <TextContainer>
-          <Heading theme={theme}>{item.title}</Heading>
-        </TextContainer>
-        <ContentContainer description={item.description !== undefined}>
-          {item.renderContent()}
-        </ContentContainer>
-        {item.description && <TextContainer>
-          <Description theme={theme}>{item.description}</Description>
-        </TextContainer>}
-      </Container>
-    </ScrollView>
+    return (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Container theme={theme} width={width}>
+          <TextContainer>
+            <Heading theme={theme}>{item.title}</Heading>
+          </TextContainer>
+          <ContentContainer description={item.description !== undefined}>{item.renderContent()}</ContentContainer>
+          {item.description && (
+            <TextContainer>
+              <Description theme={theme}>{item.description}</Description>
+            </TextContainer>
+          )}
+        </Container>
+      </ScrollView>
+    )
   }
 }
 
