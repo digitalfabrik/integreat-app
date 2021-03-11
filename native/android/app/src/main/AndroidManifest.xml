@@ -1,28 +1,54 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="tuerantuer.app.integreat" xmlns:tools="http://schemas.android.com/tools">
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  <application tools:replace="android:label" android:name=".MainApplication" android:label="@string/BUILD_CONFIG_APP_NAME" android:icon="@mipmap/${icon}" android:roundIcon="@mipmap/${icon}_round" android:allowBackup="false" android:theme="${theme}" android:usesCleartextTraffic="true">
-    <activity android:name=".MainActivity" android:label="@string/BUILD_CONFIG_APP_NAME" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="integreat" android:host="@string/BUILD_CONFIG_HOST_NAME" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="https" android:host="@string/BUILD_CONFIG_HOST_NAME" />
-      </intent-filter>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="tuerantuer.app.integreat"
+          xmlns:tools="http://schemas.android.com/tools">
+
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+<application
+        tools:replace="android:label"
+        android:name=".MainApplication"
+        android:label="@string/BUILD_CONFIG_APP_NAME"
+        android:icon="@mipmap/${icon}"
+        android:roundIcon="@mipmap/${icon}_round"
+        android:allowBackup="false"
+        android:theme="${theme}"
+        android:usesCleartextTraffic="true">
+    <activity
+            android:name=".MainActivity"
+            android:label="@string/BUILD_CONFIG_APP_NAME"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|locale|uiMode"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="integreat" android:host="@string/BUILD_CONFIG_HOST_NAME" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="@string/BUILD_CONFIG_HOST_NAME" />
+        </intent-filter>
     </activity>
-    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
-    <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.provider" android:grantUriPermissions="true" android:exported="false" tools:replace="android:authorities">
-      <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths" tools:replace="android:resource"/>
+    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+    <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:grantUriPermissions="true"
+            android:exported="false"
+            tools:replace="android:authorities">
+        <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                tools:replace="android:resource" />
     </provider>
-  </application>
+</application>
+
 </manifest>
