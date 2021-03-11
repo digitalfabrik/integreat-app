@@ -144,7 +144,12 @@ const Navigator = (props: PropsType) => {
   useEffect(() => {
     // Fetch categories if the initial route is the dashboard route and there was no route before
     // i.e. initial route was set by this component (Navigator)
-    if (!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE && routeName === DASHBOARD_ROUTE) {
+    if (
+      !previousRouteKey.current &&
+      routeKey &&
+      initialRoute.name === DASHBOARD_ROUTE &&
+      routeName === DASHBOARD_ROUTE
+    ) {
       fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
     }
     previousRouteKey.current = routeKey

@@ -31,43 +31,39 @@ const createNavigate = <T: RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
   reset: boolean = false
-) => (
-    routeInformation: RouteInformationType,
-    key?: string,
-    forceRefresh?: boolean
-  ) => {
-    if (routeInformation) {
-      if (routeInformation.route === LANDING_ROUTE) {
-        navigateToLanding({ dispatch, navigation })
-        return
-      }
+) => (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean) => {
+  if (routeInformation) {
+    if (routeInformation.route === LANDING_ROUTE) {
+      navigateToLanding({ dispatch, navigation })
+      return
+    }
 
     const { route, cityCode, languageCode } = routeInformation
     const cityContentPath = routeInformation.cityContentPath || null
     const params = { dispatch, navigation, cityCode, languageCode }
 
     if (reset && route !== DASHBOARD_ROUTE) {
-        // Reset the currently opened screens to just the dashboard of the corresponding city and language
-        // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
-        // Primarily used in combination with deep linking
+      // Reset the currently opened screens to just the dashboard of the corresponding city and language
+      // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
+      // Primarily used in combination with deep linking
+      navigateToCategory({
+        ...params,
+        routeName: DASHBOARD_ROUTE,
+        cityContentPath: createCityContentPath({ cityCode, languageCode }),
+        forceRefresh,
+        reset: true
+      })
+    }
+
+    switch (route) {
+      case CATEGORIES_ROUTE:
+      case DASHBOARD_ROUTE:
+        if (!cityContentPath) {
+          break
+        }
         navigateToCategory({
           ...params,
-          routeName: DASHBOARD_ROUTE,
-          cityContentPath: createCityContentPath({ cityCode, languageCode }),
-          forceRefresh,
-          reset: true
-        })
-      }
-
-      switch (route) {
-        case CATEGORIES_ROUTE:
-        case DASHBOARD_ROUTE:
-          if (!cityContentPath) {
-            break
-          }
-          navigateToCategory({
-            ...params,
-            routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
+          routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
           cityContentPath,
           key,
           forceRefresh
