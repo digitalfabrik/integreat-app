@@ -26,22 +26,26 @@ const selectorItems = [
 describe('Selector', () => {
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <Selector verticalLayout={false}
-                closeDropDown={() => {}}
-                items={selectorItems}
-                activeItemCode='de'
-                disabledItemTooltip='random tooltip' />
+      <Selector
+        verticalLayout={false}
+        closeDropDown={() => {}}
+        items={selectorItems}
+        activeItemCode='de'
+        disabledItemTooltip='random tooltip'
+      />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should be vertical and match snapshot', () => {
     const wrapper = shallow(
-      <Selector verticalLayout
-                closeDropDown={() => {}}
-                items={selectorItems}
-                activeItemCode='de'
-                disabledItemTooltip='random tooltip' />
+      <Selector
+        verticalLayout
+        closeDropDown={() => {}}
+        items={selectorItems}
+        activeItemCode='de'
+        disabledItemTooltip='random tooltip'
+      />
     )
     expect(wrapper).toMatchSnapshot()
   })

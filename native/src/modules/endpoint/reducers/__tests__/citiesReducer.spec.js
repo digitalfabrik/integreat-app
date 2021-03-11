@@ -17,21 +17,23 @@ describe('citiesReducer', () => {
 
   it('should set models on PUSH_CITIES', () => {
     const prevState: CitiesStateType = { status: 'loading' }
-    const models = [new CityModel({
-      name: 'Stadt Augsburg',
-      code: 'augsburg',
-      live: true,
-      eventsEnabled: true,
-      offersEnabled: true,
-      poisEnabled: true,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'augsburg',
-      prefix: 'Stadt',
-      aliases: null,
-      latitude: null,
-      longitude: null
-    })]
+    const models = [
+      new CityModel({
+        name: 'Stadt Augsburg',
+        code: 'augsburg',
+        live: true,
+        eventsEnabled: true,
+        offersEnabled: true,
+        poisEnabled: true,
+        pushNotificationsEnabled: false,
+        tunewsEnabled: false,
+        sortingName: 'augsburg',
+        prefix: 'Stadt',
+        aliases: null,
+        latitude: null,
+        longitude: null
+      })
+    ]
     expect(citiesReducer(prevState, { type: 'PUSH_CITIES', params: { cities: models } })).toEqual({
       status: 'ready',
       models
@@ -41,10 +43,12 @@ describe('citiesReducer', () => {
   it('should set error status on FETCH_CITIES_FAILED', () => {
     const prevState: CitiesStateType = { status: 'loading' }
     const errorMessage = 'Some Error'
-    expect(citiesReducer(prevState, {
-      type: 'FETCH_CITIES_FAILED',
-      params: { message: errorMessage, code: ErrorCodes.UnknownError }
-    })).toEqual({
+    expect(
+      citiesReducer(prevState, {
+        type: 'FETCH_CITIES_FAILED',
+        params: { message: errorMessage, code: ErrorCodes.UnknownError }
+      })
+    ).toEqual({
       status: 'error',
       message: errorMessage,
       code: ErrorCodes.UnknownError

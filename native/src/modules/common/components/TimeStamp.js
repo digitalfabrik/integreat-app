@@ -16,7 +16,9 @@ const TimeStampText: StyledComponent<{||}, ThemeType, *> = styled.Text`
 `
 
 type DirectionContainerPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
+  language: string,
+  children: React.Node,
+  theme: ThemeType
 |}
 
 const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
@@ -35,16 +37,18 @@ type PropsType = {|
 |}
 
 export class TimeStamp extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { lastUpdate, formatter, t, language, theme, showText = true, format = 'LL' } = this.props
     // only show day, month and year
     const dateText = formatter.format(lastUpdate, {
       format
     })
-    return <DirectionContainer language={language} theme={theme}>
-      {showText && <TimeStampText theme={theme}>{t('lastUpdate')} </TimeStampText>}
-      <TimeStampText theme={theme}>{dateText}</TimeStampText>
-    </DirectionContainer>
+    return (
+      <DirectionContainer language={language} theme={theme}>
+        {showText && <TimeStampText theme={theme}>{t('lastUpdate')} </TimeStampText>}
+        <TimeStampText theme={theme}>{dateText}</TimeStampText>
+      </DirectionContainer>
+    )
   }
 }
 

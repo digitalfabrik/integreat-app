@@ -10,25 +10,24 @@ import DatabaseConnector from '../../DatabaseConnector'
 let mockCities
 jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
-jest.mock('api-client',
-  () => {
-    const actual = jest.requireActual('api-client')
-    return {
-      ...actual,
-      createCitiesEndpoint: () => {
-        const { EndpointBuilder } = require('api-client')
-        const { default: CityModelBuilder } = require('api-client/src/testing/CityModelBuilder')
+jest.mock('api-client', () => {
+  const actual = jest.requireActual('api-client')
+  return {
+    ...actual,
+    createCitiesEndpoint: () => {
+      const { EndpointBuilder } = require('api-client')
+      const { default: CityModelBuilder } = require('api-client/src/testing/CityModelBuilder')
 
-        mockCities = new CityModelBuilder(1).build()
+      mockCities = new CityModelBuilder(1).build()
 
-        return new EndpointBuilder('cities-mock')
-          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
-          .withResponseOverride(mockCities)
-          .withMapper(() => { })
-          .build()
-      }
+      return new EndpointBuilder('cities-mock')
+        .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
+        .withResponseOverride(mockCities)
+        .withMapper(() => {})
+        .build()
     }
-  })
+  }
+})
 
 describe('loadCities', () => {
   beforeEach(() => {

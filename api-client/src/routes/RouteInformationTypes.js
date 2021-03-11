@@ -2,11 +2,18 @@
 
 import type {
   CategoriesRouteType,
-  DashboardRouteType, DisclaimerRouteType, EventsRouteType,
+  DashboardRouteType,
+  DisclaimerRouteType,
+  EventsRouteType,
   LandingRouteType,
   LocalNewsType,
-  NewsRouteType, OffersRouteType, PoisRouteType, SearchRouteType, SprungbrettOfferRouteType,
-  TuNewsType, WohnenOfferRouteType
+  NewsRouteType,
+  OffersRouteType,
+  PoisRouteType,
+  SearchRouteType,
+  SprungbrettOfferRouteType,
+  TuNewsType,
+  WohnenOfferRouteType
 } from './'
 
 type ParamsType = {|
@@ -24,23 +31,27 @@ export type CategoriesRouteInformationType = {|
   cityContentPath: string,
   ...ParamsType
 |}
-export type NewsRouteInformationType = {| // Two levels of ids: news type and news id
+export type NewsRouteInformationType = {|
+  // Two levels of ids: news type and news id
   route: NewsRouteType,
   newsType: LocalNewsType | TuNewsType,
   newsId?: string,
   ...ParamsType
 |}
-export type SimpleCityContentFeatureType = {| // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
+export type SimpleCityContentFeatureType = {|
+  // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
   route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | WohnenOfferRouteType | SearchRouteType,
   ...ParamsType
 |}
-export type EventsPoisRouteInformationType = {| // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
+export type EventsPoisRouteInformationType = {|
+  // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
   route: EventsRouteType | PoisRouteType,
   cityContentPath?: string,
   ...ParamsType
 |}
 
-export type RouteInformationType = LandingRouteInformationType
+export type RouteInformationType =
+  | LandingRouteInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
   | SimpleCityContentFeatureType

@@ -70,11 +70,14 @@ export class Switcher extends React.Component<PropsType> {
   getLanguageChangePaths = (routeConfig: RouteConfig<*, *>): ?LanguageChangePathsType => {
     const { languagesPayload, location } = this.props
     const payloads = routeConfig.getRequiredPayloads(this.getAllPayloads())
-    return languagesPayload.data && languagesPayload.data.map(language => ({
-      path: routeConfig.getLanguageChangePath({ payloads, location, language: language.code }),
-      name: language.name,
-      code: language.code
-    }))
+    return (
+      languagesPayload.data &&
+      languagesPayload.data.map(language => ({
+        path: routeConfig.getLanguageChangePath({ payloads, location, language: language.code }),
+        name: language.name,
+        code: language.code
+      }))
+    )
   }
 
   renderHelmet = (): React.Node => {
@@ -86,20 +89,22 @@ export class Switcher extends React.Component<PropsType> {
     const metaDescription = routeConfig.getMetaDescription(t)
     const languageChangePaths = this.getLanguageChangePaths(routeConfig)
     return (
-      <Helmet pageTitle={pageTitle}
-              metaDescription={metaDescription}
-              languageChangePaths={languageChangePaths}
-              cityModel={cityModel} />
+      <Helmet
+        pageTitle={pageTitle}
+        metaDescription={metaDescription}
+        languageChangePaths={languageChangePaths}
+        cityModel={cityModel}
+      />
     )
   }
 
-  isLanguageInvalid (): boolean {
+  isLanguageInvalid(): boolean {
     const { location, languagesPayload } = this.props
     const { language } = location.payload
     return language && !!languagesPayload.data && !languagesPayload.data.find(lang => lang.code === language)
   }
 
-  renderLayoutWithContent (): React.Node {
+  renderLayoutWithContent(): React.Node {
     const {
       location,
       viewportSmall,
@@ -135,38 +140,40 @@ export class Switcher extends React.Component<PropsType> {
       const showHeader = invalidLanguage || routeConfig.requiresHeader
       const showFooter = (invalidLanguage || routeConfig.requiresFooter) && !isLoading
       return (
-        <Layout footer={showFooter && <GeneralFooter language={language} />}
-                header={showHeader && <GeneralHeader viewportSmall={viewportSmall} />}
-                darkMode={darkMode}>
-          {invalidCity
-            ? <FailureSwitcher error={new Error('notFound.category')} />
-            : invalidLanguage && cities
-              ? <LanguageFailure cities={cities}
-                                 location={location}
-                                 languageChangePaths={languageChangePaths || []} />
-              : <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />}
+        <Layout
+          footer={showFooter && <GeneralFooter language={language} />}
+          header={showHeader && <GeneralHeader viewportSmall={viewportSmall} />}
+          darkMode={darkMode}>
+          {invalidCity ? (
+            <FailureSwitcher error={new Error('notFound.category')} />
+          ) : invalidLanguage && cities ? (
+            <LanguageFailure cities={cities} location={location} languageChangePaths={languageChangePaths || []} />
+          ) : (
+            <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />
+          )}
         </Layout>
       )
     } else {
       return (
-        <LocationLayout feedbackTargetInformation={feedbackTargetInformation}
-                        location={location}
-                        categories={categoriesPayload.data}
-                        cities={citiesPayload.data}
-                        events={eventsPayload.data}
-                        offers={offersPayload.data}
-                        darkMode={darkMode}
-                        viewportSmall={viewportSmall}
-                        toggleDarkMode={toggleDarkMode}
-                        languageChangePaths={languageChangePaths}
-                        isLoading={isLoading}>
+        <LocationLayout
+          feedbackTargetInformation={feedbackTargetInformation}
+          location={location}
+          categories={categoriesPayload.data}
+          cities={citiesPayload.data}
+          events={eventsPayload.data}
+          offers={offersPayload.data}
+          darkMode={darkMode}
+          viewportSmall={viewportSmall}
+          toggleDarkMode={toggleDarkMode}
+          languageChangePaths={languageChangePaths}
+          isLoading={isLoading}>
           <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />
         </LocationLayout>
       )
     }
   }
 
-  render () {
+  render() {
     return (
       <>
         {this.renderHelmet()}
@@ -197,10 +204,12 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  toggleDarkMode: () => { dispatch(toggleDarkModeAction()) }
+  toggleDarkMode: () => {
+    dispatch(toggleDarkModeAction())
+  }
 })
 
-export default connect<$Diff<PropsType, {| t: TFunction |}>, {||}, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-  withTranslation<PropsType>('app')(
-    Switcher
-  ))
+export default connect<$Diff<PropsType, {| t: TFunction |}>, {||}, _, _, _, _>(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation<PropsType>('app')(Switcher))

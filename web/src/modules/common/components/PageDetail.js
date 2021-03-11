@@ -14,7 +14,7 @@ type PropsType = {|
 |}
 
 class PageDetail extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { identifier, information } = this.props
     return (
       <div>

@@ -7,10 +7,7 @@ import Tiles from '../../common/components/Tiles'
 import type { CategoryListModelType, ListContentModelType } from './CategoryList'
 import CategoryList from './CategoryList'
 import TileModel from '../../common/models/TileModel'
-import {
-  CategoryModel,
-  CityModel
-} from 'api-client'
+import { CategoryModel, CityModel } from 'api-client'
 import type { ThemeType } from '../../theme/constants'
 import { URL_PREFIX } from '../../platform/constants/webview'
 import CategoriesRouteStateView from '../../app/CategoriesRouteStateView'
@@ -73,7 +70,7 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
-  getCachedThumbnail (category: CategoryModel): ?string {
+  getCachedThumbnail(category: CategoryModel): ?string {
     if (category.thumbnail) {
       const resource = this.getCategoryResourceCache(category)[category.thumbnail]
 
@@ -84,21 +81,23 @@ class Categories extends React.Component<PropsType> {
     return null
   }
 
-  getTileModels (categories: Array<CategoryModel>): Array<TileModel> {
-    return categories.map(category =>
-      new TileModel({
-        title: category.title,
-        path: category.path,
-        thumbnail: this.getCachedThumbnail(category) || category.thumbnail,
-        isExternalUrl: false
-      }))
+  getTileModels(categories: Array<CategoryModel>): Array<TileModel> {
+    return categories.map(
+      category =>
+        new TileModel({
+          title: category.title,
+          path: category.path,
+          thumbnail: this.getCachedThumbnail(category) || category.thumbnail,
+          isExternalUrl: false
+        })
+    )
   }
 
-  getCategoryResourceCache (category: CategoryModel): PageResourceCacheStateType {
+  getCategoryResourceCache(category: CategoryModel): PageResourceCacheStateType {
     return this.props.resourceCache[category.path] || {}
   }
 
-  getListModel (category: CategoryModel): CategoryListModelType {
+  getListModel(category: CategoryModel): CategoryListModelType {
     return {
       title: category.title,
       path: category.path,
@@ -106,11 +105,11 @@ class Categories extends React.Component<PropsType> {
     }
   }
 
-  getListModels (categories: Array<CategoryModel>): Array<CategoryListModelType> {
+  getListModels(categories: Array<CategoryModel>): Array<CategoryListModelType> {
     return categories.map(category => this.getListModel(category))
   }
 
-  getListContentModel (category: CategoryModel): ?ListContentModelType {
+  getListContentModel(category: CategoryModel): ?ListContentModelType {
     const { resourceCacheUrl } = this.props
     return category.content
       ? {
@@ -129,7 +128,7 @@ class Categories extends React.Component<PropsType> {
    * c) list with categories
    * @return {*} The content to be displayed
    */
-  render () {
+  render() {
     const { stateView, navigateToLink, theme, language, resourceCacheUrl } = this.props
 
     const category = stateView.root()
@@ -138,50 +137,59 @@ class Categories extends React.Component<PropsType> {
     if (children.length === 0) {
       // last level, our category is a simple page
       const files = this.getCategoryResourceCache(category)
-      return <Page title={category.title}
-                   content={category.content}
-                   lastUpdate={category.lastUpdate}
-                   theme={theme}
-                   files={files}
-                   language={language}
-                   navigateToFeedback={this.navigateToFeedback}
-                   navigateToLink={navigateToLink}
-                   resourceCacheUrl={resourceCacheUrl} />
+      return (
+        <Page
+          title={category.title}
+          content={category.content}
+          lastUpdate={category.lastUpdate}
+          theme={theme}
+          files={files}
+          language={language}
+          navigateToFeedback={this.navigateToFeedback}
+          navigateToLink={navigateToLink}
+          resourceCacheUrl={resourceCacheUrl}
+        />
+      )
     } else if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
 
-      return <SpaceBetween>
-        <View>
-          <Tiles tiles={this.getTileModels(children)}
-                 language={language}
-                 onTilePress={this.onTilePress}
-                 theme={theme} />
-        </View>
-        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
-      </SpaceBetween>
+      return (
+        <SpaceBetween>
+          <View>
+            <Tiles
+              tiles={this.getTileModels(children)}
+              language={language}
+              onTilePress={this.onTilePress}
+              theme={theme}
+            />
+          </View>
+          <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
+        </SpaceBetween>
+      )
     }
     // some level between, we want to display a list
     return (
       <SpaceBetween>
-      <View>
-        <CategoryList
-          categories={children.map((model: CategoryModel) => {
-            const newStateView = stateView.stepInto(model.path)
-            const children = newStateView.children()
-            return ({
-              model: this.getListModel(model),
-              subCategories: this.getListModels(children)
-            })
-          })}
-          navigateToLink={navigateToLink}
-          thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
-          title={category.title}
-          listContent={this.getListContentModel(category)}
-          language={language}
-          onItemPress={this.onItemPress}
-          theme={theme} />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
+        <View>
+          <CategoryList
+            categories={children.map((model: CategoryModel) => {
+              const newStateView = stateView.stepInto(model.path)
+              const children = newStateView.children()
+              return {
+                model: this.getListModel(model),
+                subCategories: this.getListModels(children)
+              }
+            })}
+            navigateToLink={navigateToLink}
+            thumbnail={this.getCachedThumbnail(category) || category.thumbnail}
+            title={category.title}
+            listContent={this.getListContentModel(category)}
+            language={language}
+            onItemPress={this.onItemPress}
+            theme={theme}
+          />
+        </View>
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedback} theme={theme} />
       </SpaceBetween>
     )
   }

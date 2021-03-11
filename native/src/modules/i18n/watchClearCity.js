@@ -7,7 +7,7 @@ import * as NotificationsManager from '../push-notifications/PushNotificationsMa
 import buildConfig from '../app/constants/buildConfig'
 import type { SettingsType } from '../settings/AppSettings'
 
-export function * clearCity (): Saga<void> {
+export function* clearCity(): Saga<void> {
   const appSettings = new AppSettings()
   const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = yield call(appSettings.loadSettings)
 
@@ -18,6 +18,6 @@ export function * clearCity (): Saga<void> {
   yield call(appSettings.clearSelectedCity)
 }
 
-export default function * (): Saga<void> {
+export default function* (): Saga<void> {
   yield takeLatest('CLEAR_CITY', clearCity)
 }

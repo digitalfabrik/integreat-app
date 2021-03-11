@@ -10,7 +10,7 @@ type PropsType = {|
 |}
 
 class SprungbrettListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { job } = this.props
     return (
       <ListItem title={job.title} path={job.url} isExternalUrl>

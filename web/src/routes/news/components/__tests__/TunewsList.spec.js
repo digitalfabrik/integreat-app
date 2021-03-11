@@ -15,16 +15,18 @@ describe('TunewsList', () => {
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
-  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => <NewsListItem
-    title={title}
-    content={content}
-    timestamp={date}
-    type={TU_NEWS}
-    key={id}
-    link={link}
-    t={t}
-    formatter={new DateFormatter(language)}
-  />
+  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => (
+    <NewsListItem
+      title={title}
+      content={content}
+      timestamp={date}
+      type={TU_NEWS}
+      key={id}
+      link={link}
+      t={t}
+      formatter={new DateFormatter(language)}
+    />
+  )
   const date1 = moment('2018-07-24T00:00:00.000Z')
   const date2 = moment('2018-07-24T00:00:00.000Z')
 

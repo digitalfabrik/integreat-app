@@ -40,7 +40,7 @@ const ContentContainer = styled.View`
 
 const Title: StyledComponent<{ bigTitle: boolean }, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  ${props => props.bigTitle ? 'font-size: 18px;' : ''}
+  ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
 `
 
 const Description = styled.Text`
@@ -48,17 +48,27 @@ const Description = styled.Text`
 `
 
 export default class SettingItem extends React.Component<PropType> {
-  render () {
+  render() {
     const { title, description, onPress, children, bigTitle, theme, accessibilityRole } = this.props
 
-    return <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
-      <PadView theme={theme}>
-        <ContentContainer>
-          <View><Title theme={theme} bigTitle={bigTitle || false}>{title}</Title></View>
-          {description && <View><Description theme={theme}>{description}</Description></View>}
-        </ContentContainer>
-        <RightContentContainer>{children}</RightContentContainer>
-      </PadView>
-    </Touchable>
+    return (
+      <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
+        <PadView theme={theme}>
+          <ContentContainer>
+            <View>
+              <Title theme={theme} bigTitle={bigTitle || false}>
+                {title}
+              </Title>
+            </View>
+            {description && (
+              <View>
+                <Description theme={theme}>{description}</Description>
+              </View>
+            )}
+          </ContentContainer>
+          <RightContentContainer>{children}</RightContentContainer>
+        </PadView>
+      </Touchable>
+    )
   }
 }

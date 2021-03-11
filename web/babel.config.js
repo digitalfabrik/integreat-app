@@ -1,9 +1,5 @@
 module.exports = {
-  presets: [
-    ['@babel/preset-env', { modules: 'auto', loose: true }],
-    '@babel/preset-react',
-    '@babel/preset-flow'
-  ],
+  presets: [['@babel/preset-env', { modules: 'auto', loose: true }], '@babel/preset-react', '@babel/preset-flow'],
   plugins: [
     'react-hot-loader/babel',
     'babel-plugin-styled-components',

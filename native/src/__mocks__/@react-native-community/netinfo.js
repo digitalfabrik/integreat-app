@@ -14,10 +14,7 @@ export const fetch = jest.fn<[], Promise<NetInfoState>>(async (): Promise<NetInf
   }
 })
 
-export const addEventListener = (
-  listener: (NetInfoState) => mixed,
-  deprecatedHandler?: mixed
-): NetInfoSubscription => {
+export const addEventListener = (listener: NetInfoState => mixed, deprecatedHandler?: mixed): NetInfoSubscription => {
   if (deprecatedHandler) {
     throw Error('Function is deprecated')
   }
@@ -33,16 +30,28 @@ export const useNetInfo = (): NetInfoState => {
   throw Error('Not yet implemented in mock.')
 }
 
-export const removeEventListener = () => { throw Error('Function is deprecated') }
+export const removeEventListener = () => {
+  throw Error('Function is deprecated')
+}
 
-export const getConnectionInfo = () => { throw Error('Function is deprecated') }
+export const getConnectionInfo = () => {
+  throw Error('Function is deprecated')
+}
 
-export const isConnectionExpensive = () => { throw Error('Function is deprecated') }
+export const isConnectionExpensive = () => {
+  throw Error('Function is deprecated')
+}
 
 export const isConnected = {
-  addEventListener: () => { throw Error('Function is deprecated') },
-  removeEventListener: () => { throw Error('Function is deprecated') },
-  fetch: () => { throw Error('Function is deprecated') }
+  addEventListener: () => {
+    throw Error('Function is deprecated')
+  },
+  removeEventListener: () => {
+    throw Error('Function is deprecated')
+  },
+  fetch: () => {
+    throw Error('Function is deprecated')
+  }
 }
 
 export default {

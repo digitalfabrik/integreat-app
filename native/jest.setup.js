@@ -32,7 +32,7 @@ const jsdom = new JSDOM()
 const { FormData } = jsdom.window
 global.FormData = FormData
 
-function walkDir (dir, callback) {
+function walkDir(dir, callback) {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
     const isDirectory = fs.statSync(filePath).isDirectory()
@@ -50,8 +50,6 @@ walkDir(mocksPath, name => {
   }
 })
 
-jest.doMock('react-native/Libraries/ReactNative/I18nManager',
-  () => require('testing/I18nManagerMock.js')
-)
+jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => require('testing/I18nManagerMock.js'))
 
 jest.doMock('modules/app/constants/buildConfig')

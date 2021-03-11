@@ -17,8 +17,7 @@ describe('DisclaimerPage', () => {
   })
 
   it('should match snapshot', () => {
-    const wrapper = shallow(
-      <DisclaimerPage disclaimer={disclaimer} />)
+    const wrapper = shallow(<DisclaimerPage disclaimer={disclaimer} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

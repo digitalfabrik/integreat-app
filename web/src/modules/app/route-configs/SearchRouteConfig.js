@@ -16,8 +16,8 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 
-type SearchRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>>|}
+type SearchRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| categories: Payload<CategoriesMapModel>, cities: Payload<Array<CityModel>> |}
 
 export const SEARCH_ROUTE = 'SEARCH'
 
@@ -49,13 +49,14 @@ class SearchRouteConfig implements RouteConfig<SearchRouteParamsType, RequiredPa
 
   getRoutePath = ({ city, language }: SearchRouteParamsType): string => `/${city}/${language}/search`
 
-  getLanguageChangePath = ({ location, language }) =>
-    this.getRoutePath({ city: location.payload.city, language })
+  getLanguageChangePath = ({ location, language }) => this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({ cityName, t }) => cityName ? `${t('pageTitles.search')} - ${cityName}` : null
+  getPageTitle = ({ cityName, t }) => (cityName ? `${t('pageTitles.search')} - ${cityName}` : null)
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    categories: payloads.categoriesPayload,
+    cities: payloads.citiesPayload
+  })
 
   getMetaDescription = () => null
 

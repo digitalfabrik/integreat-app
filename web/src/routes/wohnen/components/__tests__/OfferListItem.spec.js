@@ -35,7 +35,8 @@ describe('OfferListItem', () => {
         additionalCosts: 200,
         ofRunningServicesDiff: ['heating', 'water', 'garbage'],
         ofAdditionalServicesDiff: []
-      })
+      }
+    )
   })
 
   const language = 'de'
@@ -44,8 +45,8 @@ describe('OfferListItem', () => {
   const hash = (offer: WohnenOfferModel) => offer.email
 
   it('should render and match snapshot', () => {
-    expect(shallow(
-      <OfferListItem offer={offer} language={language} city={city} hashFunction={hash} />
-    )).toMatchSnapshot()
+    expect(
+      shallow(<OfferListItem offer={offer} language={language} city={city} hashFunction={hash} />)
+    ).toMatchSnapshot()
   })
 })
