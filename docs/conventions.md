@@ -8,7 +8,7 @@ We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/re
 
 We mainly follow the [standard style](https://standardjs.com/rules) for JavaScript, although there may be smaller deviations.
 Run the linter (`yarn lint`) to show problems. Our eslint config can be found [here](https://github.com/Integreat/eslint-config-integreat).
-We use prettier to format code. Run (`yarn workspace web (or native) prettier --check .`) to show formatting problems.
+We use prettier to format code. Run (`yarn workspace <workspace> prettier --check .`) to show formatting problems.
 
 ## Git commit messages and Pull request names
 
