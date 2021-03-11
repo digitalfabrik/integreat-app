@@ -45,13 +45,13 @@ export type RoutesType = IntroRouteType
   | FeedbackModalRouteType
 
 type ShareUrlType = {| shareUrl: string |}
-type CityContentParamsType = {| ...ShareUrlType, cityCode: string, languageCode: string |}
+type CityContentParamsType = {| cityCode: string, languageCode: string |}
 
 export type RoutesParamsType = {|
   intro: void,
   landing: void,
-  dashboard: {| cityCode: string, languageCode: string |},
-  categories: {| cityCode: string, languageCode: string |},
+  dashboard: CityContentParamsType,
+  categories: CityContentParamsType,
   pois: void,
   events: void,
   news: void,
