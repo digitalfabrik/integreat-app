@@ -15,16 +15,18 @@ describe('LocalNewsList', () => {
   const t = (key: ?string): string => key || ''
   const city = 'testcity'
 
-  const renderItem = ({ id, title, message, timestamp }, city) => <NewsListItem
-    title={title}
-    content={message}
-    timestamp={timestamp}
-    type={LOCAL_NEWS}
-    key={localNews1.id}
-    link={link}
-    t={t}
-    formatter={new DateFormatter(language)}
-  />
+  const renderItem = ({ id, title, message, timestamp }, city) => (
+    <NewsListItem
+      title={title}
+      content={message}
+      timestamp={timestamp}
+      type={LOCAL_NEWS}
+      key={localNews1.id}
+      link={link}
+      t={t}
+      formatter={new DateFormatter(language)}
+    />
+  )
   const date = moment('2017-11-18T09:30:00.000Z')
   const localNews1 = new LocalNewsModel({
     id: 217,

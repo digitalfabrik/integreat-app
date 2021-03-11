@@ -41,11 +41,19 @@ type PropsType = {|
  * 'Change language', 'Change location' and similar items.
  */
 const HeaderActionItemLink = ({ href, text, iconSrc }: PropsType) => {
-  return <Tooltip text={text} flow='down' smallViewportFlow='left'>
-    {href
-      ? <StyledLink to={href} aria-label={text}><img alt='' src={iconSrc} /></StyledLink>
-      : <StyledSpan aria-label={text}><img alt='' src={iconSrc} /></StyledSpan>}
-  </Tooltip>
+  return (
+    <Tooltip text={text} flow='down' smallViewportFlow='left'>
+      {href ? (
+        <StyledLink to={href} aria-label={text}>
+          <img alt='' src={iconSrc} />
+        </StyledLink>
+      ) : (
+        <StyledSpan aria-label={text}>
+          <img alt='' src={iconSrc} />
+        </StyledSpan>
+      )}
+    </Tooltip>
+  )
 }
 
 export default HeaderActionItemLink

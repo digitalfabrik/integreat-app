@@ -17,9 +17,11 @@ jest.mock('redux-first-router', () => ({
   pathToAction: jest.fn(type => ({ type })),
   redirect: jest.fn(action => action)
 }))
-jest.mock('../../../../modules/app/constants/buildConfig', () => jest.fn(() => ({
-  featureFlags: { fixedCity: null }
-})))
+jest.mock('../../../../modules/app/constants/buildConfig', () =>
+  jest.fn(() => ({
+    featureFlags: { fixedCity: null }
+  }))
+)
 jest.mock('react-i18next', () => {
   return {
     useTranslation: jest.fn(() => ({

@@ -70,31 +70,34 @@ type DropdownPropsType = {|
 |}
 
 class Dropdown extends React.Component<DropdownPropsType> {
-  render () {
+  render() {
     const { onOptionChanged, items, selectedItem, theme } = this.props
 
     const renderMenuButton = () => {
-      return <StyledMenuButton>
-        <StyledMenuButtonText>{selectedItem.label}</StyledMenuButtonText>
-        <StyledMenuButtonIcon>
-          <FontAwesomeIcon icon={faAngleDown} size='lg' color={theme.colors.textDecorationColor} />
-        </StyledMenuButtonIcon>
-      </StyledMenuButton>
+      return (
+        <StyledMenuButton>
+          <StyledMenuButtonText>{selectedItem.label}</StyledMenuButtonText>
+          <StyledMenuButtonIcon>
+            <FontAwesomeIcon icon={faAngleDown} size='lg' color={theme.colors.textDecorationColor} />
+          </StyledMenuButtonIcon>
+        </StyledMenuButton>
+      )
     }
 
     const renderItems = () => {
-      return items.map((option, index) =>
+      return items.map((option, index) => (
         <StyledMenuItem key={index} value={option} text={option.label}>
           {option.label}
-        </StyledMenuItem>)
+        </StyledMenuItem>
+      ))
     }
 
-    return <StyledWrapper onSelection={onOptionChanged}>
-      {renderMenuButton()}
-      <StyledMenu>
-        {renderItems()}
-      </StyledMenu>
-    </StyledWrapper>
+    return (
+      <StyledWrapper onSelection={onOptionChanged}>
+        {renderMenuButton()}
+        <StyledMenu>{renderItems()}</StyledMenu>
+      </StyledWrapper>
+    )
   }
 }
 
