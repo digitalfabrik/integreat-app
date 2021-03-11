@@ -76,11 +76,18 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
     })
   }
 
-  const clearResourcesAndCache = () => { dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' }) }
+  const clearResourcesAndCache = () => {
+    dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
+  }
 
-  return <ThemedTranslatedLanding cities={cities} language={language}
-                                  navigateToDashboard={navigateToDashboard}
-                                  clearResourcesAndCache={clearResourcesAndCache} />
+  return (
+    <ThemedTranslatedLanding
+      cities={cities}
+      language={language}
+      navigateToDashboard={navigateToDashboard}
+      clearResourcesAndCache={clearResourcesAndCache}
+    />
+  )
 }
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}

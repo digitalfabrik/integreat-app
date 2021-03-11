@@ -17,7 +17,8 @@ const navigateToLink = <T: RoutesType>(
   navigateTo: RouteInformationType => void,
   shareUrl: string
 ) => {
-  if (HIJACK.test(url)) { // TODO check if it still works
+  if (HIJACK.test(url)) {
+    // TODO check if it still works
     if (url.includes('.pdf')) {
       navigation.navigate(PDF_VIEW_MODAL_ROUTE, { url, shareUrl })
     } else if (url.includes('.png') || url.includes('.jpg')) {
