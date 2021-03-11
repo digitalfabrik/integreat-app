@@ -20,7 +20,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 
 ## Testing
 * [Jest](https://facebook.github.io/jest/) is used for testing.
-* [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility
+* [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility and for E2E testing. ([documentation](../../docs/e2e-tests.md))
 
 ### Test CMS
 **Testing with the live cms instance should be avoided.**
