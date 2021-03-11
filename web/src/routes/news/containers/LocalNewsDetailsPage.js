@@ -29,7 +29,7 @@ export const LocalNewsDetailsPage = ({ localNewsElement, language, city, cities,
     const error = new NotFoundError({ type: LOCAL_NEWS_TYPE, id, city, language })
     return <FailureSwitcher error={error} />
   }
-  const linkedContent=replaceLinks(localNewsElement.message)
+  const linkedContent = replaceLinks(localNewsElement.message)
 
   return (
     <Page
