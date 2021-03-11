@@ -1,9 +1,6 @@
 // @flow
 
-import type {
-  FeedbackCategoryType,
-  FeedbackType
-} from 'api-client'
+import type { FeedbackCategoryType, FeedbackType } from 'api-client'
 
 class FeedbackVariant {
   feedbackType: FeedbackType
@@ -12,8 +9,16 @@ class FeedbackVariant {
   alias: ?string
   value: string
 
-  constructor ({ label, feedbackType, feedbackCategory, alias }: {|
-    label: string, feedbackType: FeedbackType, feedbackCategory: FeedbackCategoryType, alias?: string
+  constructor({
+    label,
+    feedbackType,
+    feedbackCategory,
+    alias
+  }: {|
+    label: string,
+    feedbackType: FeedbackType,
+    feedbackCategory: FeedbackCategoryType,
+    alias?: string
   |}) {
     this.feedbackType = feedbackType
     this.label = label

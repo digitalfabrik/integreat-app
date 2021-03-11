@@ -25,7 +25,8 @@ describe('watchFetchCities', () => {
       await dataContainer.setCities(cities)
 
       const action: FetchCitiesActionType = {
-        type: 'FETCH_CITIES', params: { forceRefresh: false }
+        type: 'FETCH_CITIES',
+        params: { forceRefresh: false }
       }
 
       return expectSaga(fetchCities, dataContainer, action)
@@ -65,8 +66,6 @@ describe('watchFetchCities', () => {
   it('should correctly call fetchCities when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    return testSaga(watchFetchCities, dataContainer)
-      .next()
-      .takeLatest('FETCH_CITIES', fetchCities, dataContainer)
+    return testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
   })
 })

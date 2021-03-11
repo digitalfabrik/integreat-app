@@ -11,7 +11,7 @@ export const StyledButton: StyledComponent<{| disabled: boolean |}, ThemeType, *
   border: none;
   text-align: center;
   border-radius: 0.25em;
-  cursor: ${props => props.disabled ? 'default' : 'pointer'};
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 `
 
 type ButtonPropsType = {|
@@ -21,9 +21,13 @@ type ButtonPropsType = {|
 |}
 
 class TextButton extends React.PureComponent<ButtonPropsType> {
-  render () {
+  render() {
     const { onClick, text, disabled } = this.props
-    return <StyledButton onClick={onClick} disabled={!!disabled}>{text}</StyledButton>
+    return (
+      <StyledButton onClick={onClick} disabled={!!disabled}>
+        {text}
+      </StyledButton>
+    )
   }
 }
 

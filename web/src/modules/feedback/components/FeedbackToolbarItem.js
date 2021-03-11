@@ -24,9 +24,10 @@ type PropsType = {|
 const StyledFeedbackToolbarItem: StyledComponent<{||}, ThemeType, *> = StyledToolbarItem.withComponent('button')
 
 const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, className, viewportSmall }: PropsType) => {
-  const handleLinkClick = useCallback(() =>
-    openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),
-  [isPositiveRatingLink, openFeedbackModal])
+  const handleLinkClick = useCallback(
+    () => openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),
+    [isPositiveRatingLink, openFeedbackModal]
+  )
 
   const dataTip = isPositiveRatingLink ? t('positiveRating') : t('negativeRating')
   const smallViewTip = isPositiveRatingLink ? t('useful') : t('notUseful')
@@ -34,9 +35,7 @@ const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, class
   return (
     <Tooltip text={viewportSmall ? null : dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
       <StyledFeedbackToolbarItem className={className} onClick={handleLinkClick} aria-label={dataTip}>
-        <FontAwesomeIcon
-          className={className}
-          icon={isPositiveRatingLink ? faSmile : faFrown} />
+        <FontAwesomeIcon className={className} icon={isPositiveRatingLink ? faSmile : faFrown} />
         {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}
       </StyledFeedbackToolbarItem>
     </Tooltip>

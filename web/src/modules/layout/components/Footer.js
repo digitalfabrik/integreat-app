@@ -38,19 +38,25 @@ const FooterContainer: StyledComponent<{||}, ThemeType, *> = styled.footer`
  * number if it's a dev build.
  */
 class Footer extends React.PureComponent<PropsType> {
-  static getVersion (): Node {
+  static getVersion(): Node {
     if (buildConfig().featureFlags.developerFriendly) {
-      return <span>{__VERSION_NAME__}+{__COMMIT_SHA__}</span>
+      return (
+        <span>
+          {__VERSION_NAME__}+{__COMMIT_SHA__}
+        </span>
+      )
     }
     return null
   }
 
-  render () {
+  render() {
     const { children, onClick } = this.props
-    return <FooterContainer onClick={onClick}>
-      {children}
-      {Footer.getVersion()}
-    </FooterContainer>
+    return (
+      <FooterContainer onClick={onClick}>
+        {children}
+        {Footer.getVersion()}
+      </FooterContainer>
+    )
   }
 }
 

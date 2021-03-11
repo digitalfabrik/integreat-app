@@ -2,11 +2,7 @@
 
 import type { Saga } from 'redux-saga'
 import { all, call, put, select, takeEvery } from 'redux-saga/effects'
-import type {
-  FetchEventActionType,
-  FetchEventFailedActionType,
-  PushEventActionType
-} from '../../app/StoreActionType'
+import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
@@ -14,7 +10,7 @@ import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 import type Moment from 'moment'
 
-export function * fetchEvent (dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
+export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
   try {
     const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
@@ -73,6 +69,6 @@ export function * fetchEvent (dataContainer: DataContainer, action: FetchEventAc
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
 }

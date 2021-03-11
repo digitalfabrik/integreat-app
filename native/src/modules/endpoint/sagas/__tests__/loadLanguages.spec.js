@@ -11,24 +11,23 @@ import DatabaseConnector from '../../DatabaseConnector'
 let mockLanguages
 jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
-jest.mock('api-client',
-  () => {
-    const actual = jest.requireActual('api-client')
-    return {
-      ...actual,
-      createLanguagesEndpoint: () => {
-        const { EndpointBuilder } = require('api-client')
-        const { default: LanguageModelBuilder } = require('api-client/src/testing/LanguageModelBuilder')
+jest.mock('api-client', () => {
+  const actual = jest.requireActual('api-client')
+  return {
+    ...actual,
+    createLanguagesEndpoint: () => {
+      const { EndpointBuilder } = require('api-client')
+      const { default: LanguageModelBuilder } = require('api-client/src/testing/LanguageModelBuilder')
 
-        mockLanguages = new LanguageModelBuilder(1).build()
-        return new EndpointBuilder('languages-mock')
-          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/languages')
-          .withResponseOverride(mockLanguages)
-          .withMapper(() => { })
-          .build()
-      }
+      mockLanguages = new LanguageModelBuilder(1).build()
+      return new EndpointBuilder('languages-mock')
+        .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/languages')
+        .withResponseOverride(mockLanguages)
+        .withMapper(() => {})
+        .build()
     }
-  })
+  }
+})
 
 describe('loadLanguages', () => {
   beforeEach(() => {

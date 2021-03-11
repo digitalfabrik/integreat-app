@@ -28,7 +28,10 @@ const categories = new CategoriesMapModel([
     hash: '2fe6283485ab3932',
     parentPath: 'parent/url',
     order: 4,
-    availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
+    availableLanguages: new Map([
+      ['en', '/augsburg/en/category01'],
+      ['fr', '/augsburg/fr/fr_category01']
+    ]),
     lastUpdate: moment('2017-11-18T09:30:00.000Z')
   })
 ])
@@ -73,10 +76,8 @@ describe('SearchRouteConfig', () => {
       pathname: '/augsburg/de/search',
       type: searchRouteConfig.name
     })
-    expect(searchRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/search')
-    expect(searchRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location }))
-      .toBe('/augsburg/fr/search')
+    expect(searchRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe('/augsburg/en/search')
+    expect(searchRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location })).toBe('/augsburg/fr/search')
   })
 
   it('should get the right page title', () => {
@@ -86,8 +87,9 @@ describe('SearchRouteConfig', () => {
       type: searchRouteConfig.name
     })
 
-    expect(searchRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('pageTitles.search - Augsburg')
+    expect(searchRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+      'pageTitles.search - Augsburg'
+    )
 
     expect(searchRouteConfig.getPageTitle({ payloads, location, cityName: null, t })).toBeNull()
   })

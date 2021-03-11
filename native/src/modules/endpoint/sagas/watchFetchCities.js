@@ -11,7 +11,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
 
-export function * fetchCities (dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
+export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {
     const cities = yield call(loadCities, dataContainer, action.params.forceRefresh)
 
@@ -26,13 +26,14 @@ export function * fetchCities (dataContainer: DataContainer, action: FetchCities
     const failed: FetchCitiesFailedActionType = {
       type: 'FETCH_CITIES_FAILED',
       params: {
-        message: `Error in fetchCities: ${e.message}`, code: fromError(e)
+        message: `Error in fetchCities: ${e.message}`,
+        code: fromError(e)
       }
     }
     yield put(failed)
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('FETCH_CITIES', fetchCities, dataContainer)
 }

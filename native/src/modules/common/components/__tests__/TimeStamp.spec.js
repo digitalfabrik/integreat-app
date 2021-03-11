@@ -16,11 +16,8 @@ describe('TimeStamp', () => {
     const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
 
     const { getByText } = render(
-      <TimeStamp formatter={dateFormatter}
-                 language={language}
-                 theme={lightTheme}
-                 lastUpdate={lastUpdate}
-                 t={t} />)
+      <TimeStamp formatter={dateFormatter} language={language} theme={lightTheme} lastUpdate={lastUpdate} t={t} />
+    )
 
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
@@ -35,12 +32,15 @@ describe('TimeStamp', () => {
     const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
 
     const { getByText } = render(
-      <TimeStamp formatter={dateFormatter}
-                 language={language}
-                 theme={lightTheme}
-                 lastUpdate={lastUpdate}
-                 t={t}
-                 showText={true} />)
+      <TimeStamp
+        formatter={dateFormatter}
+        language={language}
+        theme={lightTheme}
+        lastUpdate={lastUpdate}
+        t={t}
+        showText={true}
+      />
+    )
 
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
@@ -55,12 +55,15 @@ describe('TimeStamp', () => {
     const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
 
     const { getByText, queryByText } = render(
-      <TimeStamp formatter={dateFormatter}
-                 language={language}
-                 theme={lightTheme}
-                 lastUpdate={lastUpdate}
-                 t={t}
-                 showText={false} />)
+      <TimeStamp
+        formatter={dateFormatter}
+        language={language}
+        theme={lightTheme}
+        lastUpdate={lastUpdate}
+        t={t}
+        showText={false}
+      />
+    )
 
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
@@ -76,13 +79,16 @@ describe('TimeStamp', () => {
     const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
 
     const { getByText } = render(
-      <TimeStamp formatter={dateFormatter}
-                 language={language}
-                 theme={lightTheme}
-                 lastUpdate={lastUpdate}
-                 t={t}
-                 format={format}
-                 showText={false} />)
+      <TimeStamp
+        formatter={dateFormatter}
+        language={language}
+        theme={lightTheme}
+        lastUpdate={lastUpdate}
+        t={t}
+        format={format}
+        showText={false}
+      />
+    )
 
     const formattedDate = dateFormatter.format(lastUpdate, {
       format

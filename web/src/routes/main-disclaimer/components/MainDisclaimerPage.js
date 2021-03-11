@@ -7,7 +7,7 @@ import buildConfig from '../../../modules/app/constants/buildConfig'
 type PropsType = {||}
 
 class MainDisclaimerPage extends React.Component<PropsType> {
-  render () {
+  render() {
     return (
       <div>
         <Caption title='Impressum und Datenschutz' />

@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 
 const CityListParent = withPlatform(styled.div`
-  position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
+  position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
   height: 30px;
   margin-top: 10px;
   line-height: 30px;
@@ -30,7 +30,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     stickyTop: 0
   }
 
-  filter (): Array<CityModel> {
+  filter(): Array<CityModel> {
     const normalizedFilter = normalizeSearchString(this.props.filterText)
     const cities = this.props.cities
 
@@ -41,32 +41,35 @@ class CitySelector extends React.PureComponent<PropsType> {
         .filter(_city => _city.live)
         .filter(_city => {
           const isCityName = normalizeSearchString(_city.name).includes(normalizedFilter)
-          const isAlias = _city._aliases && Object
-            .keys(_city._aliases)
-            .some(alias => normalizeSearchString(alias).includes(normalizedFilter))
+          const isAlias =
+            _city._aliases &&
+            Object.keys(_city._aliases).some(alias => normalizeSearchString(alias).includes(normalizedFilter))
           return isCityName || isAlias
         })
     }
   }
 
-  renderList (cities: Array<CityModel>): React.Node {
+  renderList(cities: Array<CityModel>): React.Node {
     const groups = groupBy(cities, city => city.sortCategory)
-    return transform(groups, (result, cities, key) => {
-      const { language, stickyTop, filterText } = this.props
-      result.push(
-        <div key={key}>
-          <CityListParent style={{ top: `${stickyTop}px` }}>{key}</CityListParent>
-          {cities.map(city => <CityEntry key={city.code} city={city} language={language}
-                                         filterText={filterText} />)}
-        </div>
-      )
-    }, [])
+    return transform(
+      groups,
+      (result, cities, key) => {
+        const { language, stickyTop, filterText } = this.props
+        result.push(
+          <div key={key}>
+            <CityListParent style={{ top: `${stickyTop}px` }}>{key}</CityListParent>
+            {cities.map(city => (
+              <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+            ))}
+          </div>
+        )
+      },
+      []
+    )
   }
 
-  render () {
-    return <>
-      {this.renderList(this.filter())}
-    </>
+  render() {
+    return <>{this.renderList(this.filter())}</>
   }
 }
 

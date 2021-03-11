@@ -31,14 +31,25 @@ describe('Events', () => {
       throw Error('Something went wrong with the builder')
     }
     const result = TestRenderer.create(
-      <Events path={event.path} events={events} cityCode={city.code}
-              resourceCacheUrl='http://localhost:8080' language={language.code} resourceCache={{ notAvailable: {} }}
-              theme={lightTheme} t={key => key} navigateTo={() => {}} navigateToLink={() => {}}
-              navigateToFeedback={() => {}} />
+      <Events
+        path={event.path}
+        events={events}
+        cityCode={city.code}
+        resourceCacheUrl='http://localhost:8080'
+        language={language.code}
+        resourceCache={{ notAvailable: {} }}
+        theme={lightTheme}
+        t={key => key}
+        navigateTo={() => {}}
+        navigateToLink={() => {}}
+        navigateToFeedback={() => {}}
+      />
     )
     const pageInstance = result.root.findByType(Page)
-    expect(pageInstance.props).toEqual(expect.objectContaining({
-      files: {}
-    }))
+    expect(pageInstance.props).toEqual(
+      expect.objectContaining({
+        files: {}
+      })
+    )
   })
 })

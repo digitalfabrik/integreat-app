@@ -12,9 +12,9 @@ const Footer: StyledComponent<{||}, ThemeType, *> = styled.footer`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => (theme.colors.tunewsThemeColor)};
+  background-color: ${({ theme }) => theme.colors.tunewsThemeColor};
   padding: 5px 0;
-  color: ${({ theme }) => (theme.colors.backgroundColor)};
+  color: ${({ theme }) => theme.colors.backgroundColor};
   border-radius: 24px;
 `
 
@@ -23,15 +23,15 @@ const StyledContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
 `
 
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled.a`
-  color: ${({ theme }) => (theme.colors.backgroundColor)};
+  color: ${({ theme }) => theme.colors.backgroundColor};
   text-decoration: underline;
 `
 const CustomLastUpdateInfo: StyledComponent<{||}, ThemeType, *> = styled(LastUpdateInfo)`
   padding: 0 10px;
-  color: ${({ theme }) => (theme.colors.backgroundColor)};
+  color: ${({ theme }) => theme.colors.backgroundColor};
 
   &&& {
-    margin: 0
+    margin: 0;
   }
 `
 
@@ -42,16 +42,14 @@ type PropsType = {|
 |}
 
 class TunewsDetailsFooter extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { eNewsNo, date, formatter } = this.props
 
     return (
       <Footer>
         <StyledContainer>{eNewsNo}</StyledContainer>
         <StyledContainer>
-          <StyledLink href='https://tunewsinternational.com'>
-            tünews INTERNATIONAL
-          </StyledLink>
+          <StyledLink href='https://tunewsinternational.com'>tünews INTERNATIONAL</StyledLink>
         </StyledContainer>
         <CustomLastUpdateInfo lastUpdate={date} formatter={formatter} />
       </Footer>

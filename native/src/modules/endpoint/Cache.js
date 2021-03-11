@@ -13,13 +13,13 @@ export default class Cache<T> {
   store: StoreFunctionType<T>
   context: DatabaseContext | null
 
-  constructor (databaseConnector: DatabaseConnector, load: LoadFunctionType<T>, store: StoreFunctionType<T>) {
+  constructor(databaseConnector: DatabaseConnector, load: LoadFunctionType<T>, store: StoreFunctionType<T>) {
     this.databaseConnector = databaseConnector
     this.load = load
     this.store = store
   }
 
-  async get (context: DatabaseContext): Promise<T> {
+  async get(context: DatabaseContext): Promise<T> {
     if (!context.equals(this.context)) {
       this.evict()
     }
@@ -36,7 +36,7 @@ export default class Cache<T> {
     return value
   }
 
-  getCached (context: DatabaseContext): T | null {
+  getCached(context: DatabaseContext): T | null {
     if (!context.equals(this.context)) {
       this.evict()
     }
@@ -44,7 +44,7 @@ export default class Cache<T> {
     return this.value
   }
 
-  isCached (context: DatabaseContext): boolean {
+  isCached(context: DatabaseContext): boolean {
     if (!context.equals(this.context)) {
       return false
     }
@@ -52,13 +52,13 @@ export default class Cache<T> {
     return !!this.value
   }
 
-  async cache (value: T, context: DatabaseContext) {
+  async cache(value: T, context: DatabaseContext) {
     await this.store(value, this.databaseConnector, context)
     this.value = value
     this.context = context
   }
 
-  evict () {
+  evict() {
     this.value = null
     this.context = null
   }

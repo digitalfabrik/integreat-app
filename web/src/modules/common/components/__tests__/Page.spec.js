@@ -15,12 +15,17 @@ describe('Page', () => {
   const thumbnail = 'thumbnail'
 
   it('should render', () => {
-    expect(shallow(<Page title={title}
-                         lastUpdate={lastUpdate}
-                         content={content}
-                         defaultThumbnailSrc={thumbnail}
-                         formatter={new DateFormatter('en')}
-                         onInternalLinkClick={() => {}} />
-    )).toMatchSnapshot()
+    expect(
+      shallow(
+        <Page
+          title={title}
+          lastUpdate={lastUpdate}
+          content={content}
+          defaultThumbnailSrc={thumbnail}
+          formatter={new DateFormatter('en')}
+          onInternalLinkClick={() => {}}
+        />
+      )
+    ).toMatchSnapshot()
   })
 })

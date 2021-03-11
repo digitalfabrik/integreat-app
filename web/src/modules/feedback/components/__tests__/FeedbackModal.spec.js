@@ -32,19 +32,25 @@ describe('FeedbackModal', () => {
     const offers = new OffersModelBuilder(2).build()
 
     const location = createLocation({
-      type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' }
+      type: CATEGORIES_ROUTE,
+      payload: { city: 'augsburg', language: 'de' },
+      query: { feedback: 'up' }
     })
 
-    expect(shallow(
-      <FeedbackModal location={location}
-                     query='ab'
-                     cities={cities}
-                     path='path'
-                     title='title'
-                     alias='alias'
-                     closeFeedbackModal={() => {}}
-                     feedbackRating='up'
-                     offers={offers} />
-    )).toMatchSnapshot()
+    expect(
+      shallow(
+        <FeedbackModal
+          location={location}
+          query='ab'
+          cities={cities}
+          path='path'
+          title='title'
+          alias='alias'
+          closeFeedbackModal={() => {}}
+          feedbackRating='up'
+          offers={offers}
+        />
+      )
+    ).toMatchSnapshot()
   })
 })
