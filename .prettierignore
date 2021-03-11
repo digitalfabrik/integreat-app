@@ -2,6 +2,8 @@
 build-configs/
 docs/
 native/flow-typed/
+native/android/fastlane/README.md
+native/android/app/build/
 web/dist/
 web/flow-typed/
 web/reports/
