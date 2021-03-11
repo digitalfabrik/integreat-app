@@ -1,7 +1,6 @@
 #!/bin/sh
 
-yarn workspace web prettier --check .
-yarn workspace native prettier --check .
+yarn prettier --check .
 # yarn lint
 # yarn flow
 # yarn test
