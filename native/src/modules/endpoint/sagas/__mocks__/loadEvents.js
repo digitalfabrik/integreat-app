@@ -5,7 +5,7 @@ import type { Saga } from 'redux-saga'
 import { EventModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 
-export default function * loadEvents (
+export default function* loadEvents(
   city: string,
   language: string,
   eventsEnabled: boolean,

@@ -60,25 +60,35 @@ const Page = ({
   const formatter = useContext(DateFormatterContext)
   const cacheDict = cacheDictionary(files, resourceCacheUrl)
 
-  const onLinkPress = useCallback((url: string) => {
-    const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-    navigateToLink(url, language, shareUrl || url)
-  }, [navigateToLink, cacheDict, language])
+  const onLinkPress = useCallback(
+    (url: string) => {
+      const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
+      navigateToLink(url, language, shareUrl || url)
+    },
+    [navigateToLink, cacheDict, language]
+  )
 
   const onLoad = useCallback(() => setLoading(false), [setLoading])
 
-  return <SpaceBetween>
-    <Container>
-      <Caption title={title} theme={theme} />
-      {children}
-      <RemoteContent theme={theme} content={content} cacheDirectory={cacheDict}
-                     onLinkPress={onLinkPress} onLoad={onLoad} language={language}
-                     resourceCacheUrl={resourceCacheUrl} />
-      {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
-    </Container>
-    {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback}
-                                                       theme={theme} />}
-  </SpaceBetween>
+  return (
+    <SpaceBetween>
+      <Container>
+        <Caption title={title} theme={theme} />
+        {children}
+        <RemoteContent
+          theme={theme}
+          content={content}
+          cacheDirectory={cacheDict}
+          onLinkPress={onLinkPress}
+          onLoad={onLoad}
+          language={language}
+          resourceCacheUrl={resourceCacheUrl}
+        />
+        {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
+      </Container>
+      {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />}
+    </SpaceBetween>
+  )
 }
 
 export default Page

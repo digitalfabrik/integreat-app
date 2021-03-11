@@ -103,14 +103,14 @@ const cities = [
 class CityModelBuilder {
   _citiesCount: number
 
-  constructor (citiesCount: number) {
+  constructor(citiesCount: number) {
     if (this._citiesCount > cities.length) {
       throw new Error(`Only ${cities.length} city models can be created`)
     }
     this._citiesCount = citiesCount
   }
 
-  build (): Array<CityModel> {
+  build(): Array<CityModel> {
     return cities.slice(0, this._citiesCount)
   }
 }

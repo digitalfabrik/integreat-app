@@ -17,7 +17,7 @@ import * as NotificationsManager from '../../push-notifications/PushNotification
 import buildConfig from '../../app/constants/buildConfig'
 import type { SettingsType } from '../../settings/AppSettings'
 
-export function * switchContentLanguage (
+export function* switchContentLanguage(
   dataContainer: DataContainer,
   action: SwitchContentLanguageActionType
 ): Saga<void> {
@@ -29,11 +29,17 @@ export function * switchContentLanguage (
 
     // We never want to force a refresh when switching languages
     yield call(
-      loadCityContent, dataContainer, city, newLanguage,
-      new ContentLoadCriterion({
-        forceUpdate: false,
-        shouldRefreshResources: true
-      }, false)
+      loadCityContent,
+      dataContainer,
+      city,
+      newLanguage,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
     )
 
     const [categories, resourceCache, events, pois] = yield all([
@@ -88,6 +94,6 @@ export function * switchContentLanguage (
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
 }

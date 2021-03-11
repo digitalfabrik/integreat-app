@@ -43,16 +43,16 @@ export const DropDownContainer: StyledComponent<{| active: boolean |}, ThemeType
   right: 0;
   width: 100%;
   box-sizing: border-box;
-  opacity: ${props => props.active ? '1' : '0'};
+  opacity: ${props => (props.active ? '1' : '0')};
   z-index: 1; /* this is only necessary for IE11 to have the DropDown above NavigationItems */
 
-  transform: scale(${props => props.active ? '1' : '0.9'});
+  transform: scale(${props => (props.active ? '1' : '0.9')});
   transform-origin: center top;
   justify-content: center;
   box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => props.active ? '0s' : '0.2s'};
+  transition: transform 0.2s, opacity 0.2s, visibility 0s ${props => (props.active ? '0s' : '0.2s')};
   background-color: ${props => props.theme.colors.backgroundColor};
-  visibility: ${props => props.active ? 'visible' : 'hidden'};
+  visibility: ${props => (props.active ? 'visible' : 'hidden')};
 
   @media ${dimensions.smallViewport} {
     top: ${dimensions.headerHeightSmall}px;
@@ -90,21 +90,22 @@ const HeaderActionItemDropDown = (props: PropsType) => {
   const wrapperRef = useRef(null)
   useOnClickOutside(wrapperRef, closeDropDown)
 
-  return <Container ref={wrapperRef}>
-    <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
-      <button
-        aria-label={text}
-        onClick={toggleDropDown}>
-        <img alt='' src={iconSrc} />
-      </button>
-    </Tooltip>
-    <DropDownContainer aria-label={dropDownActive}
-                       active={dropDownActive}
-                       // We need to have th visibility here, else the jest-dom testing library can not assert on it
-                       style={{ visibility: `${dropDownActive ? 'visible' : 'hidden'}` }}>
-      {children(closeDropDown)}
-    </DropDownContainer>
-  </Container>
+  return (
+    <Container ref={wrapperRef}>
+      <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
+        <button aria-label={text} onClick={toggleDropDown}>
+          <img alt='' src={iconSrc} />
+        </button>
+      </Tooltip>
+      <DropDownContainer
+        aria-label={dropDownActive}
+        active={dropDownActive}
+        // We need to have th visibility here, else the jest-dom testing library can not assert on it
+        style={{ visibility: `${dropDownActive ? 'visible' : 'hidden'}` }}>
+        {children(closeDropDown)}
+      </DropDownContainer>
+    </Container>
+  )
 }
 
 export default HeaderActionItemDropDown

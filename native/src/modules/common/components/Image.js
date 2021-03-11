@@ -18,27 +18,30 @@ const ThumbnailImage = styled(FastImage)`
   flex: 1;
 `
 
-const getFastImageSource = (uri: string | number) => typeof uri === 'number'
-  ? uri
-  : {
-      uri: uri,
-      priority: FastImage.priority.normal,
-      // disable caching, we want to do it manually
-      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
-      cache: FastImage.cacheControl.web
-    }
+const getFastImageSource = (uri: string | number) =>
+  typeof uri === 'number'
+    ? uri
+    : {
+        uri: uri,
+        priority: FastImage.priority.normal,
+        // disable caching, we want to do it manually
+        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
+        cache: FastImage.cacheControl.web
+      }
 
 class Image extends React.Component<PropsType> {
-  render () {
+  render() {
     const { source, style } = this.props
 
     if (source === null) {
       return <View style={style} />
     }
 
-    return <View style={style}>
-      <ThumbnailImage source={getFastImageSource(source)} resizeMode={FastImage.resizeMode.contain} />
-    </View>
+    return (
+      <View style={style}>
+        <ThumbnailImage source={getFastImageSource(source)} resizeMode={FastImage.resizeMode.contain} />
+      </View>
+    )
   }
 }
 

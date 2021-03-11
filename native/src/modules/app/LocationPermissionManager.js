@@ -8,10 +8,7 @@ export const checkLocationPermission = async (): Promise<RESULTS> => {
   if (buildConfig().featureFlags.fixedCity) {
     return RESULTS.UNAVAILABLE
   }
-  return check(Platform.OS === 'ios'
-    ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-    : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-  )
+  return check(Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
 }
 
 export const requestLocationPermission = async (): Promise<void> => {
@@ -19,8 +16,5 @@ export const requestLocationPermission = async (): Promise<void> => {
     console.debug('Location permission disabled, no permissions requested.')
     return
   }
-  await request(Platform.OS === 'ios'
-    ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
-    : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-  )
+  await request(Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
 }

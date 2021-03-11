@@ -75,9 +75,7 @@ describe('sprungbrettJobs', () => {
   ]
 
   it('should map router to url', () => {
-    expect(sprungbrettJobs.mapParamsToUrl()).toEqual(
-      'https://sprungbrett-api-url.de'
-    )
+    expect(sprungbrettJobs.mapParamsToUrl()).toEqual('https://sprungbrett-api-url.de')
   })
 
   it('should map fetched data to models', () => {

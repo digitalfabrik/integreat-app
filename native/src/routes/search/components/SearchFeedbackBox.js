@@ -33,18 +33,25 @@ export class SearchFeedbackBox extends React.Component<PropsType, StateType> {
     this.setState({ boxOpenedForQuery: this.props.query })
   }
 
-  render (): React.Node {
+  render(): React.Node {
     const { resultsFound, query, t, theme, sendFeedback } = this.props
     if (!resultsFound || query === this.state.boxOpenedForQuery) {
-      return <FeedbackBox theme={theme}>
-        <NothingFoundFeedbackBox query={query} t={t} theme={theme} sendFeedback={sendFeedback} />
-      </FeedbackBox>
+      return (
+        <FeedbackBox theme={theme}>
+          <NothingFoundFeedbackBox query={query} t={t} theme={theme} sendFeedback={sendFeedback} />
+        </FeedbackBox>
+      )
     } else {
-      return <FeedbackBox theme={theme}>
-        <Button titleStyle={{ color: theme.colors.textColor }}
-                buttonStyle={{ backgroundColor: theme.colors.themeColor }}
-                onPress={this.openFeedbackBox} title={t('feedback:informationNotFound')} />
-      </FeedbackBox>
+      return (
+        <FeedbackBox theme={theme}>
+          <Button
+            titleStyle={{ color: theme.colors.textColor }}
+            buttonStyle={{ backgroundColor: theme.colors.themeColor }}
+            onPress={this.openFeedbackBox}
+            title={t('feedback:informationNotFound')}
+          />
+        </FeedbackBox>
+      )
     }
   }
 }

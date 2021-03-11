@@ -7,7 +7,7 @@ export default class TileModel {
   _isExternalUrl: boolean
   _postData: ?Map<string, string>
 
-  constructor (params: {|
+  constructor(params: {|
     title: string,
     path: string,
     thumbnail: string,
@@ -21,23 +21,23 @@ export default class TileModel {
     this._postData = params.postData
   }
 
-  get thumbnail (): string {
+  get thumbnail(): string {
     return this._thumbnail
   }
 
-  get title (): string {
+  get title(): string {
     return this._title
   }
 
-  get path (): string {
+  get path(): string {
     return this._path
   }
 
-  get isExternalUrl (): boolean {
+  get isExternalUrl(): boolean {
     return this._isExternalUrl
   }
 
-  get postData (): ?Map<string, string> {
+  get postData(): ?Map<string, string> {
     return this._postData
   }
 }

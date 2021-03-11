@@ -75,7 +75,8 @@ const categories = [
   {
     model: categoryModels[0],
     subCategories: [categoryModels[1], categoryModels[2]]
-  }, {
+  },
+  {
     model: categoryModels[2],
     subCategories: [categoryModels[3]]
   }
@@ -84,16 +85,13 @@ const categories = [
 describe('CategoryList', () => {
   it('should render and display a caption', () => {
     const wrapper = shallow(
-      <CategoryList categories={categories} onInternalLinkClick={() => {}}
-                    category={modelWithTitle} />
+      <CategoryList categories={categories} onInternalLinkClick={() => {}} category={modelWithTitle} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should render and not display a caption', () => {
-    const wrapper = shallow(
-      <CategoryList categories={categories} onInternalLinkClick={() => {}} />
-    )
+    const wrapper = shallow(<CategoryList categories={categories} onInternalLinkClick={() => {}} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

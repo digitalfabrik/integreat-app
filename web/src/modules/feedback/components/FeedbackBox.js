@@ -38,9 +38,9 @@ type PropsType = {|
   selectedFeedbackOption: FeedbackVariant,
   comment: string,
   contactMail: string,
-  onCommentChanged: SyntheticInputEvent<HTMLTextAreaElement> => void,
+  onCommentChanged: (SyntheticInputEvent<HTMLTextAreaElement>) => void,
   onFeedbackOptionChanged: FeedbackVariant => void,
-  onContactMailChanged: SyntheticInputEvent<HTMLInputElement> => void,
+  onContactMailChanged: (SyntheticInputEvent<HTMLInputElement>) => void,
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
@@ -67,21 +67,19 @@ export const FeedbackBox = ({
   <StyledFeedbackBox>
     <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
     <Description>{t('feedbackType')}</Description>
-    <Dropdown items={feedbackOptions}
-              selectedItem={selectedFeedbackOption}
-              onOptionChanged={onFeedbackOptionChanged} />
+    <Dropdown items={feedbackOptions} selectedItem={selectedFeedbackOption} onOptionChanged={onFeedbackOptionChanged} />
     <FeedbackComment
       comment={comment}
       commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
       onCommentChanged={onCommentChanged}
-      required={!isPositiveRatingSelected} />
-    <Description>{t('contactMailAddress')} ({t('optionalInfo')})</Description>
+      required={!isPositiveRatingSelected}
+    />
+    <Description>
+      {t('contactMailAddress')} ({t('optionalInfo')})
+    </Description>
     <TextInput onChange={onContactMailChanged} value={contactMail} />
     {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
-    <TextButton
-      disabled={!isPositiveRatingSelected && !comment}
-      onClick={onSubmit}
-      text={t('send')} />
+    <TextButton disabled={!isPositiveRatingSelected && !comment} onClick={onSubmit} text={t('send')} />
   </StyledFeedbackBox>
 )
 

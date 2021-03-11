@@ -6,3 +6,5 @@ reports/
 ios/main.jsbundle
 dist/
 lib-dist/
+android/fastlane/README.md
+android/app/build/

@@ -10,16 +10,16 @@ describe('feedback', () => {
   const feedback = createFeedbackEndponit(baseUrl)
 
   it('should map params to url', () => {
-    expect(feedback.mapParamsToUrl({
-      city: 'augsburg',
-      language: 'de',
-      comment: null,
-      feedbackType: null,
-      feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
-      isPositiveRating: true
-    })).toEqual(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback'
-    )
+    expect(
+      feedback.mapParamsToUrl({
+        city: 'augsburg',
+        language: 'de',
+        comment: null,
+        feedbackType: null,
+        feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
+        isPositiveRating: true
+      })
+    ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
 
   it('should map the params to the body', () => {
@@ -38,16 +38,18 @@ describe('feedback', () => {
       throw new Error('Should not happen because the previous assertion')
     }
 
-    expect(feedback.mapParamsToBody({
-      city: 'augsburg',
-      language: 'de',
-      permalink: '/augsburg/de/familie',
-      isPositiveRating: true,
-      feedbackType: 'categories',
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
-      comment: 'comment',
-      alias: 'alias',
-      query: 'query'
-    })).toEqual(formData)
+    expect(
+      feedback.mapParamsToBody({
+        city: 'augsburg',
+        language: 'de',
+        permalink: '/augsburg/de/familie',
+        isPositiveRating: true,
+        feedbackType: 'categories',
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+        comment: 'comment',
+        alias: 'alias',
+        query: 'query'
+      })
+    ).toEqual(formData)
   })
 })
