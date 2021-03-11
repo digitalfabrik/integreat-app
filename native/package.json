@@ -130,7 +130,6 @@
     "redux-flipper": "^1.4.2",
     "redux-mock-store": "^1.5.4",
     "redux-saga-test-plan": "^4.0.0-rc.1",
-    "uri-scheme": "^1.0.67",
     "wait-for-expect": "^3.0.2",
     "wd": "^1.12.1",
     "yo": "^3.1.1"
