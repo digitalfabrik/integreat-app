@@ -50,10 +50,14 @@ const createNavigate = <T: RoutesType>(
         ...params,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: createCityContentPath({ cityCode, languageCode }),
-        forceRefresh,
+        forceRefresh: forceRefresh,
         reset: true
       })
     }
+
+    // Resetting the state already triggers a refresh.
+    // Triggering a second refresh does not make sense and leads to problems.
+    const refresh = (!reset || DASHBOARD_ROUTE) && forceRefresh
 
     switch (route) {
       case CATEGORIES_ROUTE:
@@ -66,14 +70,15 @@ const createNavigate = <T: RoutesType>(
           routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
           cityContentPath,
           key,
-          forceRefresh
+          forceRefresh: refresh,
+          reset: route === DASHBOARD_ROUTE && reset
         })
         return
       case DISCLAIMER_ROUTE:
         navigateToDisclaimer(params)
         return
       case EVENTS_ROUTE:
-        navigateToEvents({ ...params, cityContentPath, key, forceRefresh })
+        navigateToEvents({ ...params, cityContentPath, key, forceRefresh: refresh })
         return
       case NEWS_ROUTE:
         if (!buildConfig().featureFlags.newsStream) {
@@ -84,7 +89,7 @@ const createNavigate = <T: RoutesType>(
           type: routeInformation.newsType || LOCAL_NEWS_TYPE,
           newsId: routeInformation.newsId || null,
           key,
-          forceRefresh
+          forceRefresh: refresh
         })
         return
       case OFFERS_ROUTE:
@@ -94,7 +99,7 @@ const createNavigate = <T: RoutesType>(
         if (!buildConfig().featureFlags.pois) {
           break
         }
-        navigateToPois({ ...params, cityContentPath, key, forceRefresh })
+        navigateToPois({ ...params, cityContentPath, key, forceRefresh: refresh })
         return
       case SEARCH_ROUTE:
         navigateToSearch(params)
