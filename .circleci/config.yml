@@ -759,6 +759,7 @@ jobs:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
+                channel: integreat-releases
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}
     notify_ios:
         docker:
@@ -781,6 +782,7 @@ jobs:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
+                channel: integreat-releases
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}
     notify_web:
         docker:
@@ -799,6 +801,7 @@ jobs:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
+                channel: integreat-releases
                 success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
     promote_android:
         docker:
