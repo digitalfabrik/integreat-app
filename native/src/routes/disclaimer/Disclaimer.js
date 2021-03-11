@@ -14,18 +14,22 @@ type PropsType = {|
 |}
 
 class Disclaimer extends React.Component<PropsType> {
-  render () {
+  render() {
     const { disclaimer, theme, language, resourceCacheUrl, navigateToLink } = this.props
     const { title, content, lastUpdate } = disclaimer
 
-    return <Page title={title}
-                 content={content}
-                 theme={theme}
-                 navigateToLink={navigateToLink}
-                 files={{}}
-                 language={language}
-                 resourceCacheUrl={resourceCacheUrl}
-                 lastUpdate={lastUpdate} />
+    return (
+      <Page
+        title={title}
+        content={content}
+        theme={theme}
+        navigateToLink={navigateToLink}
+        files={{}}
+        language={language}
+        resourceCacheUrl={resourceCacheUrl}
+        lastUpdate={lastUpdate}
+      />
+    )
   }
 }
 

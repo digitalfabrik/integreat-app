@@ -21,39 +21,63 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @param error
    * @return {*}
    */
-  static renderContentNotFoundComponent (error: NotFoundError): React.Node {
+  static renderContentNotFoundComponent(error: NotFoundError): React.Node {
     const { city, language } = error
     switch (error.type) {
       case 'category':
-        return <Failure goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.categories'
-                        errorMessage='notFound.category' />
+        return (
+          <Failure
+            goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
+            goToMessage='goTo.categories'
+            errorMessage='notFound.category'
+          />
+        )
       case 'event':
-        return <Failure goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.events'
-                        errorMessage='notFound.event' />
+        return (
+          <Failure
+            goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
+            goToMessage='goTo.events'
+            errorMessage='notFound.event'
+          />
+        )
       case LOCAL_NEWS_TYPE:
-        return <Failure goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.localNews'
-                        errorMessage='notFound.localNews' />
+        return (
+          <Failure
+            goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
+            goToMessage='goTo.localNews'
+            errorMessage='notFound.localNews'
+          />
+        )
       case TU_NEWS_TYPE:
-        return <Failure goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.tunews'
-                        errorMessage='notFound.tunews' />
+        return (
+          <Failure
+            goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
+            goToMessage='goTo.tunews'
+            errorMessage='notFound.tunews'
+          />
+        )
       case 'offer':
-        return <Failure goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.offers'
-                        errorMessage='notFound.offer' />
+        return (
+          <Failure
+            goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
+            goToMessage='goTo.offers'
+            errorMessage='notFound.offer'
+          />
+        )
       case 'poi':
-        return <Failure goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
-                        goToMessage='goTo.pois'
-                        errorMessage='notFound.poi' />
+        return (
+          <Failure
+            goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
+            goToMessage='goTo.pois'
+            errorMessage='notFound.poi'
+          />
+        )
     }
 
     throw new Error('Failed to find component to render a content error')
   }
 
-  render () {
+  render() {
     const error = this.props.error
     if (error instanceof NotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)

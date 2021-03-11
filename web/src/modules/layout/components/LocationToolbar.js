@@ -14,14 +14,18 @@ type PropsType = {|
 |}
 
 class LocationToolbar extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { viewportSmall, children, openFeedbackModal } = this.props
 
     return (
       <Toolbar viewportSmall={viewportSmall}>
         {children}
         <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
-        <FeedbackToolbarItem isPositiveRatingLink={false} openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
+        <FeedbackToolbarItem
+          isPositiveRatingLink={false}
+          openFeedbackModal={openFeedbackModal}
+          viewportSmall={viewportSmall}
+        />
       </Toolbar>
     )
   }

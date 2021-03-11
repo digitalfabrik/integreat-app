@@ -9,10 +9,7 @@ import SearchModal, { type PropsType as SearchModalPropsType } from '../componen
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import { withTranslation, type TFunction } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import React, { useCallback } from 'react'
 import type { SearchRouteType } from 'api-client/src/routes'
@@ -39,7 +36,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     categories: state.cityContent?.searchRoute?.categoriesMap || null,
     language: state.contentLanguage,
     cityCode,
-    closeModal: () => { ownProps.navigation.goBack() },
+    closeModal: () => {
+      ownProps.navigation.goBack()
+    },
     sendFeedback: async (comment: string, query: string) => {
       if (!cityCode) {
         return
@@ -66,17 +65,22 @@ const ThemedTranslatedSearch = withTheme<$Diff<SearchModalPropsType, {| t: TFunc
 const SearchModalContainer = (props: PropsType) => {
   const { dispatch, navigation, route, cityCode, ...rest } = props
 
-  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }, [dispatch, navigation])
+  const navigateToLinkProp = useCallback(
+    (url: string, language: string, shareUrl: string) => {
+      const navigateTo = createNavigate(dispatch, navigation)
+      navigateToLink(url, navigation, language, navigateTo, shareUrl)
+    },
+    [dispatch, navigation]
+  )
 
-  return cityCode
-    ? <ThemedTranslatedSearch cityCode={cityCode}
-                              navigateToLink={navigateToLinkProp}
-                              navigateTo={createNavigate(dispatch, navigation)}
-                              {...rest} />
-    : null
+  return cityCode ? (
+    <ThemedTranslatedSearch
+      cityCode={cityCode}
+      navigateToLink={navigateToLinkProp}
+      navigateTo={createNavigate(dispatch, navigation)}
+      {...rest}
+    />
+  ) : null
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(SearchModalContainer)

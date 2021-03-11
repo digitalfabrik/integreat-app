@@ -57,11 +57,13 @@ const Spinner: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-const LoadingSpinner = () => <Spinner>
-  <div />
-  <div />
-  <div />
-  <div />
-</Spinner>
+const LoadingSpinner = () => (
+  <Spinner>
+    <div />
+    <div />
+    <div />
+    <div />
+  </Spinner>
+)
 
 export default LoadingSpinner

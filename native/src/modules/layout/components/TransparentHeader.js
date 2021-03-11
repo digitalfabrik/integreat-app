@@ -12,14 +12,14 @@ import dimensions from '../../theme/constants/dimensions'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
-  flex:1;
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
 
 const HorizontalLeft = styled.View`
-  flex:1;
+  flex: 1;
   flex-direction: row;
   align-items: center;
 `
@@ -44,7 +44,8 @@ class TransparentHeader extends React.PureComponent<PropsType> {
   onShare = async () => {
     const { scene, t } = this.props
     const shareUrl = scene.route.params?.shareUrl
-    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
+    if (!shareUrl) {
+      // The share option should only be shown if there is a shareUrl
       return
     }
 
@@ -63,7 +64,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
     }
   }
 
-  render () {
+  render() {
     const { theme, scene, t } = this.props
     const shareUrl = scene.route.params?.shareUrl || null
 

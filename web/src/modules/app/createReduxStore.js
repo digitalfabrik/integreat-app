@@ -18,8 +18,10 @@ import type { StateType } from './StateType'
 import type { StoreActionType } from './StoreActionType'
 import buildConfig from './constants/buildConfig'
 
-const createReduxStore = (initialState: StateType = {}, routesMap: RoutesMap = defaultRoutesMap): Store<StateType,
-  StoreActionType> => {
+const createReduxStore = (
+  initialState: StateType = {},
+  routesMap: RoutesMap = defaultRoutesMap
+): Store<StateType, StoreActionType> => {
   const { reducer, middleware, enhancer } = connectRoutes(routesMap, {
     querySerializer: queryString,
     createHistory: () => createHistory()

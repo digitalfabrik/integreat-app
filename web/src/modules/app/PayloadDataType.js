@@ -14,6 +14,17 @@ import {
   WohnenOfferModel
 } from 'api-client'
 
-export type PayloadDataType = Array<CityModel> | Array<LanguageModel> | Array<OfferModel> | Array<EventModel>
-  | PageModel | CategoriesMapModel | Array<SprungbrettJobModel> | Array<WohnenOfferModel> | Array<LocalNewsModel>
-  | LocalNewsModel | Array<TunewsModel> | TunewsModel | Array<PoiModel>
+export type PayloadDataType =
+  | Array<CityModel>
+  | Array<LanguageModel>
+  | Array<OfferModel>
+  | Array<EventModel>
+  | PageModel
+  | CategoriesMapModel
+  | Array<SprungbrettJobModel>
+  | Array<WohnenOfferModel>
+  | Array<LocalNewsModel>
+  | LocalNewsModel
+  | Array<TunewsModel>
+  | TunewsModel
+  | Array<PoiModel>

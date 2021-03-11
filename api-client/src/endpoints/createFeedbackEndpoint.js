@@ -38,30 +38,32 @@ export type ParamsType = {
   query?: string
 }
 
-export default (baseUrl: string): Endpoint<ParamsType, {}> => new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
-  .withParamsToUrlMapper(params => {
-    return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
-      params.feedbackType ? `/${params.feedbackType}` : ''}`
-  })
-  .withParamsToBodyMapper((params: ParamsType): FormData => {
-    const formData = new FormData()
-    formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
-    if (params.permalink !== undefined) {
-      formData.append('permalink', `${params.permalink}`)
-    }
-    if (params.comment !== null) {
-      formData.append('comment', params.comment)
-    }
-    if (params.query !== undefined) {
-      formData.append('query', params.query)
-    }
-    if (params.alias !== undefined) {
-      formData.append('alias', params.alias)
-    }
-    if (params.feedbackCategory) {
-      formData.append('category', params.feedbackCategory)
-    }
-    return formData
-  })
-  .withMapper(() => ({}))
-  .build()
+export default (baseUrl: string): Endpoint<ParamsType, {}> =>
+  new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
+    .withParamsToUrlMapper(params => {
+      return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
+        params.feedbackType ? `/${params.feedbackType}` : ''
+      }`
+    })
+    .withParamsToBodyMapper((params: ParamsType): FormData => {
+      const formData = new FormData()
+      formData.append('rating', params.isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
+      if (params.permalink !== undefined) {
+        formData.append('permalink', `${params.permalink}`)
+      }
+      if (params.comment !== null) {
+        formData.append('comment', params.comment)
+      }
+      if (params.query !== undefined) {
+        formData.append('query', params.query)
+      }
+      if (params.alias !== undefined) {
+        formData.append('alias', params.alias)
+      }
+      if (params.feedbackCategory) {
+        formData.append('category', params.feedbackCategory)
+      }
+      return formData
+    })
+    .withMapper(() => ({}))
+    .build()

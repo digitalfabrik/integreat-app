@@ -24,8 +24,7 @@ type RequiredPayloadsType = {| wohnenOffers: Payload<Array<WohnenOfferModel>>, o
 
 export const WOHNEN_ROUTE = 'WOHNEN'
 
-export const hash = (offer: WohnenOfferModel) =>
-  new Hashids().encode(offer.email.length, offer.createdDate.seconds())
+export const hash = (offer: WohnenOfferModel) => new Hashids().encode(offer.email.length, offer.createdDate.seconds())
 
 const fetchOffers = async (dispatch, getState) => {
   const state: StateType = getState()
@@ -70,11 +69,12 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
   getRoutePath = ({ city, language, offerHash }: RouteParamsType): string =>
     `/${city}/${language}/offers/${WOHNEN_OFFER}${offerHash ? `/${offerHash}` : ''}`
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ wohnenOffers: payloads.wohnenOffersPayload, offers: payloads.offersPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    wohnenOffers: payloads.wohnenOffersPayload,
+    offers: payloads.offersPayload
+  })
 
-  getLanguageChangePath = ({ location, language }) =>
-    this.getRoutePath({ city: location.payload.city, language })
+  getLanguageChangePath = ({ location, language }) => this.getRoutePath({ city: location.payload.city, language })
 
   getPageTitle = ({ cityName, payloads, location }) => {
     if (!cityName) {
@@ -99,7 +99,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     if (!offer) {
       return null
     }
-    return ({ alias: WOHNEN_OFFER, title: offer.title })
+    return { alias: WOHNEN_OFFER, title: offer.title }
   }
 }
 

@@ -48,11 +48,9 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
 
-    'flowtype/delimiter-dangle': ['error', 'never'],
     'flowtype/newline-after-flow-annotation': ['error', 'always'],
     'flowtype/no-primitive-constructor-types': 'error',
     'flowtype/no-weak-types': 'warn',
-    'flowtype/object-type-delimiter': ['error', 'comma'],
     'flowtype/require-exact-type': ['warn', 'always'],
     'flowtype/require-parameter-type': ['error', { excludeArrowFunctions: true }],
     'flowtype/require-return-type': [
