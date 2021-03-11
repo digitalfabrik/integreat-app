@@ -17,14 +17,16 @@ const navigateToLink = <T: RoutesType>(
   navigateTo: RouteInformationType => void,
   shareUrl: string
 ) => {
-  if (url.includes('.pdf')) {
-    navigation.navigate(PDF_VIEW_MODAL_ROUTE, { url, shareUrl })
-  } else if (url.includes('.png') || url.includes('.jpg')) {
-    navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl })
-  } else if (HIJACK.test(url)) {
-    const pathname = (new Url(url)).pathname
-    const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
-    navigateTo(routeParser.route())
+  if (HIJACK.test(url)) { // TODO check if it still works
+    if (url.includes('.pdf')) {
+      navigation.navigate(PDF_VIEW_MODAL_ROUTE, { url, shareUrl })
+    } else if (url.includes('.png') || url.includes('.jpg')) {
+      navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl })
+    } else {
+      const pathname = (new Url(url)).pathname
+      const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
+      navigateTo(routeParser.route())
+    }
   } else {
     openExternalUrl(url)
   }
