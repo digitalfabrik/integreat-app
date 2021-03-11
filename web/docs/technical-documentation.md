@@ -25,8 +25,9 @@ Currently we do not use TypeScript but plan to look into Flow.
 The data which is received through the restful api of the CMS is "cached" and stored in this state container.
 
 ## Testing
-* [Jest](https://facebook.github.io/jest/) is used for testing.
-* [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility and for E2E testing. ([documentation](../../docs/e2e-tests.md))
+
+- [Jest](https://facebook.github.io/jest/) is used for testing.
+- [<img src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" width="150">](https://www.browserstack.com) is used for testing cross-browser compatibility and for E2E testing. ([documentation](../../docs/e2e-tests.md))
 
 ### Test CMS
 
