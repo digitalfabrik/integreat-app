@@ -18,6 +18,8 @@ import type {
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import type { LandingRouteType } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
+import navigateToCategory from '../../../modules/navigation/navigateToCategory'
+import { cityContentPath } from '../../../modules/navigation/url'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
@@ -63,28 +65,25 @@ const ThemedTranslatedLanding = withTranslation<$Diff<LandingPropsType, {| theme
   withTheme<LandingPropsType>(Landing)
 )
 
-class LandingContainer extends React.Component<ContainerPropsType> {
-  navigateToDashboard = (cityCode: string, languageCode: string) => {
-    const { navigation } = this.props
-
-    navigation.replace(
-      DASHBOARD_ROUTE,
-      {
-        cityCode,
-        languageCode
-      }
-    )
+const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerPropsType) => {
+  const navigateToDashboard = (cityCode: string, languageCode: string) => {
+    navigateToCategory({
+      routeName: DASHBOARD_ROUTE,
+      navigation,
+      dispatch,
+      cityCode,
+      languageCode,
+      cityContentPath: cityContentPath({ cityCode, languageCode }),
+      forceRefresh: true,
+      reset: true
+    })
   }
 
-  clearResourcesAndCache = () => { this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' }) }
+  const clearResourcesAndCache = () => { dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' }) }
 
-  render () {
-    const { cities, language } = this.props
-
-    return <ThemedTranslatedLanding cities={cities} language={language}
-                                    navigateToDashboard={this.navigateToDashboard}
-                                    clearResourcesAndCache={this.clearResourcesAndCache} />
-  }
+  return <ThemedTranslatedLanding cities={cities} language={language}
+                                  navigateToDashboard={navigateToDashboard}
+                                  clearResourcesAndCache={clearResourcesAndCache} />
 }
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
