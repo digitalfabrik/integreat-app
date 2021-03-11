@@ -34,10 +34,11 @@ import {
   INTRO_ROUTE, EXTERNAL_OFFER_ROUTE,
   LANDING_ROUTE, NEWS_ROUTE,
   OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE,
-  POIS_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE
+  POIS_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE, REDIRECT_ROUTE
 } from 'api-client/src/routes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
 import type { RoutesParamsType } from '../constants/NavigationTypes'
+import RedirectContainer from '../containers/RedirectContainer'
 
 const transparentHeader = (headerProps: StackHeaderProps) =>
   <TransparentHeaderContainer {...headerProps} />
@@ -58,7 +59,7 @@ type PropsType = {|
 type InitialRouteType = {| name: IntroRouteType | LandingRouteType |} |
   {| name: DashboardRouteType, cityCode: string, languageCode: string |}
 
-const Stack = createStackNavigator<RoutesParamsType, *, *>()
+const Stack = createStackNavigator<RoutesParamsType, _, _>()
 
 const Navigator = (props: PropsType) => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
@@ -134,11 +135,11 @@ const Navigator = (props: PropsType) => {
     if ((!previousRouteKey.current && routeKey && initialRoute.name === DASHBOARD_ROUTE)) {
       fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
     } else {
-      // Fetch categories if new route is the dashboard route and the previous route was the landing route
+      // Fetch categories if new route is the dashboard route and the previous route was the landing or redirect route
       // This is necessary because with react-navigation v5 it is not possible anymore to specify the key of a new route
       // https://github.com/react-navigation/react-navigation/issues/8313
       // https://github.com/react-navigation/react-navigation/issues/7685
-      if (routeName === DASHBOARD_ROUTE && previousRouteName.current === LANDING_ROUTE &&
+      if (routeName === DASHBOARD_ROUTE && [LANDING_ROUTE, REDIRECT_ROUTE].includes(previousRouteName.current) &&
         routeKey && cityCode && languageCode
       ) {
         fetchCategory(cityCode, languageCode, routeKey, true)
@@ -169,6 +170,7 @@ const Navigator = (props: PropsType) => {
 
   return (
     <Stack.Navigator initialRouteName={initialRoute.name} headerMode='screen' screenOptions={transitionPreset}>
+      <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} options={{ header: () => null }} />
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
       <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} initialParams={dashboardParams} />
