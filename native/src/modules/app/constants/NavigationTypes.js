@@ -52,7 +52,7 @@ type CityContentParamsType = {| cityCode: string, languageCode: string |}
 
 export type RoutesParamsType = {|
   redirect: {| url: string |},
-  intro: void,
+  intro: {| deepLink?: string |},
   landing: void,
   dashboard: CityContentParamsType,
   categories: CityContentParamsType,
