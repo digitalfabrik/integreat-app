@@ -3,11 +3,10 @@
 import React, { useEffect } from 'react'
 import type { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import type { RedirectRouteType } from 'api-client'
-import createNavigate from '../../navigation/createNavigate'
-import navigateToLink from '../../navigation/navigateToLink'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
+import navigateToDeepLink from '../../navigation/navigateToDeepLink'
 
 const TIMEOUT = 50
 
@@ -27,8 +26,7 @@ const RedirectContainer = ({ route, navigation }: PropsType) => {
     // Therefore we wait for a short time period
     // https://github.com/react-navigation/react-navigation/issues/8537
     const timeout = setTimeout(() => {
-      const navigateTo = createNavigate(dispatch, navigation, true)
-      navigateToLink(url, navigation, language, navigateTo, url)
+      navigateToDeepLink(dispatch, navigation, url, language)
     }, TIMEOUT)
     return () => clearTimeout(timeout)
   }, [url, dispatch, navigation, route, language])

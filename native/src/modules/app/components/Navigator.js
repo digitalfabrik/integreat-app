@@ -111,7 +111,7 @@ const Navigator = (props: PropsType) => {
         throw Error('The contentLanguage has not been set correctly by I18nProvider!')
       }
 
-      if (!buildConfig().featureFlags.introSlides) {
+      if (!buildConfig().featureFlags.introSlides && !introShown) {
         await appSettings.setIntroShown()
         await appSettings.setSettings({
           errorTracking: false,
