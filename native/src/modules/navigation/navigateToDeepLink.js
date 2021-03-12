@@ -31,6 +31,7 @@ const navigateToDeepLink = async (
   const languageCode = routeInformation?.languageCode || contentLanguage
 
   if (buildConfig().featureFlags.introSlides && !introShown) {
+    // Show intro slides first and handle deep link later
     navigation.replace(INTRO_ROUTE, { deepLink: url })
   } else {
     if (!cityCode || !languageCode) {
