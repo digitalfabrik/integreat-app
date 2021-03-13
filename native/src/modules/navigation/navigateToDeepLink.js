@@ -56,6 +56,10 @@ const navigateToDeepLink = async (
     } else {
       navigation.replace(LANDING_ROUTE)
     }
+
+    if (!routeInformation) {
+      // TODO show snackbar route not found
+    }
   }
 }
 
