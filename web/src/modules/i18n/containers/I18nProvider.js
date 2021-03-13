@@ -37,7 +37,7 @@ export default ({ children }: PropsType) => {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
-        load: 'languageOnly',
+        load: 'all',
         interpolation: {
           escapeValue: false /* Escaping is not needed for react apps:
                                 https://github.com/i18next/react-i18next/issues/277 */
