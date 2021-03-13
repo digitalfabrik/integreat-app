@@ -30,7 +30,7 @@ const FeedbackButtons: StyledComponent<{||}, {||}, *> = styled.View`
 
 const HelpfulText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   align-self: center;
 `
 

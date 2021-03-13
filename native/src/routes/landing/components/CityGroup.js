@@ -8,7 +8,7 @@ import type { ThemeType } from '../../../modules/theme/constants'
 const GroupText: StyledComponent<{}, ThemeType, *> = styled.Text`
   margin-top: 5px;
   padding: 10px 0;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
 

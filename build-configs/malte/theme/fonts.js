@@ -4,14 +4,17 @@ import type { FontsType } from '../../common/theme/fonts'
 import { commonFonts } from '../../common/theme/fonts'
 
 const fonts: FontsType = {
-  decorativeFontBold: 'Raleway-Bold',
-  decorativeFontRegular: 'Raleway-Regular',
-  decorativeFontFamily: '\'Raleway\', \'Lateef\', sans-serif',
-  contentFontRegular: 'OpenSans-Regular',
-  contentFontBold: 'OpenSans-Bold',
-  contentFontFamily: '\'Open Sans\', \'Lateef\', sans-serif',
-  arabicWebviewFontFamilies: '\'OpenSans\', \'Lateef\', sans-serif',
-  webviewFontFamilies: '\'OpenSans\', sans-serif',
+  native: {
+    decorativeFontBold: 'Raleway-Bold',
+    decorativeFontRegular: 'Raleway-Regular',
+    contentFontRegular: 'OpenSans-Regular',
+    contentFontBold: 'OpenSans-Bold',
+    webviewFont: '\'OpenSans\', Lateef, sans-serif'
+  },
+  web: {
+    decorativeFont: '\'Raleway\', \'Lateef\', sans-serif',
+    contentFont: '\'Open Sans\', \'Lateef\', sans-serif'
+  },
   ...commonFonts
 }
 

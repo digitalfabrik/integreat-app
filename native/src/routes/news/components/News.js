@@ -20,7 +20,7 @@ import type { NewsType } from 'api-client/src/routes'
 
 const NoNews: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
   align-self: center;
   margin-top: 20px;
 `

@@ -41,7 +41,7 @@ const HeaderImage: StyledComponent<{||}, ThemeType, *> = styled.Image`
 
 const NewsHeadLine: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-weight: 700;
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
   font-size: 18px;
   margin-top: 18px;
@@ -86,7 +86,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
                 contentWidth={width}
                 onLinkPress={onLinkPress}
                 baseFontStyle={{
-                  fontFamily: theme.fonts.decorativeFontRegular,
+                  fontFamily: theme.fonts.native.decorativeFontRegular,
                   fontSize: 16,
                   letterSpacing: 0.5,
                   lineHeight: 24,
