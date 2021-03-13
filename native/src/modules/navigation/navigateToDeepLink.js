@@ -19,24 +19,23 @@ const navigateToDeepLink = async (
   url: string,
   language: string
 ): Promise<void> => {
-  const pathname = new Url(url).pathname
-  const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
-  const routeInformation = routeParser.route()
-
   const appSettings = new AppSettings()
   const settings: SettingsType = await appSettings.loadSettings()
-  const { introShown, selectedCity, contentLanguage } = settings
+  const { introShown, selectedCity } = settings
+  const { introSlides, fixedCity } = buildConfig().featureFlags
 
-  const cityCode = buildConfig().featureFlags.fixedCity || routeInformation?.cityCode || selectedCity
-  const languageCode = routeInformation?.languageCode || contentLanguage
-
-  if (buildConfig().featureFlags.introSlides && !introShown) {
+  if (introSlides && !introShown) {
     // Show intro slides first and handle deep link later
     navigation.replace(INTRO_ROUTE, { deepLink: url })
   } else {
-    if (!cityCode || !languageCode) {
-      navigation.replace(LANDING_ROUTE)
-    } else {
+    const pathname = new Url(url).pathname
+    const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
+    const routeInformation = routeParser.route()
+
+    const cityCode = fixedCity || routeInformation?.cityCode || selectedCity
+    const languageCode = routeInformation?.languageCode || language
+
+    if (cityCode && languageCode) {
       // Reset the currently opened screens to just the dashboard of the corresponding city and language
       // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
       navigateToCategory({
@@ -50,10 +49,12 @@ const navigateToDeepLink = async (
         reset: true
       })
 
-      // Dashboard route was already handled with reset above
-      if (routeInformation && routeInformation.route !== DASHBOARD_ROUTE) {
+      // Dashboard and landing route were already handled with reset above
+      if (routeInformation && ![LANDING_ROUTE, DASHBOARD_ROUTE].includes(routeInformation.route)) {
         createNavigate(dispatch, navigation)(routeInformation, undefined, false)
       }
+    } else {
+      navigation.replace(LANDING_ROUTE)
     }
   }
 }
