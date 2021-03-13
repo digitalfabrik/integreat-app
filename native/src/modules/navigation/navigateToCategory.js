@@ -15,7 +15,7 @@ const navigateToCategory = <T: RoutesType>({
   cityContentPath,
   key = generateKey(),
   forceRefresh = false,
-  reset = false
+  resetNavigation = false
 }: {|
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
@@ -25,7 +25,7 @@ const navigateToCategory = <T: RoutesType>({
   cityContentPath: string,
   key?: string,
   forceRefresh?: boolean,
-  reset?: boolean
+  resetNavigation?: boolean
 |}) => {
   const route = {
     name: routeName,
@@ -33,7 +33,7 @@ const navigateToCategory = <T: RoutesType>({
     key
   }
 
-  if (reset) {
+  if (resetNavigation) {
     navigation.reset({
       index: 0,
       routes: [route]

@@ -42,6 +42,39 @@ describe('navigateToCategory', () => {
     )
   })
 
+  it('should reset the navigation to the specified route if resetNavigation was set', () => {
+    const dispatch = jest.fn()
+    const navigation = createNavigationScreenPropMock()
+
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de/erste-hilfe',
+      resetNavigation: true
+    })
+    expect(navigation.reset).toHaveBeenCalledWith({
+      index: 0,
+      routes: [expect.objectContaining({ name: CATEGORIES_ROUTE }) ]
+    })
+
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: DASHBOARD_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de',
+      resetNavigation: true
+    })
+    expect(navigation.reset).toHaveBeenCalledWith({
+      index: 0,
+      routes: [expect.objectContaining({ name: DASHBOARD_ROUTE }) ]
+    })
+  })
+
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
