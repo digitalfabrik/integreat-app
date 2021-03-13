@@ -89,7 +89,7 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
   }
 
   console.warn('This is not a supported route. Skipping.')
-  // TODO Show a snackbar
+  // TODO IGAPP-521 show snackbar route not found
 }
 
 export default createNavigate
