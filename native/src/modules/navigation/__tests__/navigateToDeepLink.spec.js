@@ -3,7 +3,15 @@
 import buildConfig from '../../app/constants/buildConfig'
 import createNavigationPropMock from '../../../testing/createNavigationPropMock'
 import navigateToDeepLink from '../navigateToDeepLink'
-import { DASHBOARD_ROUTE, EVENTS_ROUTE, INTRO_ROUTE, LANDING_ROUTE, OFFERS_ROUTE } from 'api-client'
+import {
+  DASHBOARD_ROUTE,
+  EVENTS_ROUTE,
+  INTRO_ROUTE,
+  LANDING_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE
+} from 'api-client'
 import AppSettings from '../../settings/AppSettings'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
@@ -89,7 +97,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${fixedCity}/${language}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -113,7 +121,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/${language}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -155,12 +163,11 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
     })
-
 
     it('should navigate to dashboard and use current language if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}`
@@ -180,10 +187,48 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${language}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
+    })
+
+    it('should open selected city dashboard and navigate to route', async () => {
+      const selectedCity = 'testumgebung'
+      const url = `https://integreat.app/${cityCode}`
+      // $FlowFixMe build config is a mock
+      buildConfig.mockImplementationOnce(() => ({ featureFlags: { introSlides: true } }))
+      await appSettings.setContentLanguage(language)
+      await appSettings.setSelectedCity(selectedCity)
+      await appSettings.setIntroShown()
+
+      await navigateToDeepLink(dispatch, navigation, url, language)
+
+      expect(navigateToCategory).toHaveBeenCalledTimes(1)
+      expect(navigateToCategory).toHaveBeenCalledWith({
+        dispatch,
+        navigation,
+        cityCode: selectedCity,
+        languageCode: language,
+        routeName: DASHBOARD_ROUTE,
+        cityContentPath: `/${selectedCity}/${language}`,
+        forceRefresh: true,
+        resetNavigation: true
+      })
+      expect(navigation.replace).not.toHaveBeenCalled()
+      expect(createNavigate).toHaveBeenCalledTimes(1)
+      expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
+      expect(navigateTo).toHaveBeenCalledTimes(1)
+      expect(navigateTo).toHaveBeenCalledWith(
+        {
+          cityCode,
+          languageCode: language,
+          cityContentPath: `/${cityCode}/${language}`,
+          route: DASHBOARD_ROUTE
+        },
+        undefined,
+        false
+      )
     })
 
     it('should navigate to fixed city if intro slides disabled', async () => {
@@ -203,7 +248,7 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${fixedCity}/${language}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
@@ -246,18 +291,22 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode,
-        languageCode,
-        cityContentPath: `/${cityCode}/${languageCode}/events/some-event`,
-        route: EVENTS_ROUTE
-      }, undefined, false)
+      expect(navigateTo).toHaveBeenCalledWith(
+        {
+          cityCode,
+          languageCode,
+          cityContentPath: `/${cityCode}/${languageCode}/events/some-event`,
+          route: EVENTS_ROUTE
+        },
+        undefined,
+        false
+      )
     })
 
     it('should open dashboard and navigate to offers route if intro slides already shown', async () => {
@@ -278,17 +327,60 @@ describe('navigateToDeepLink', () => {
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
         forceRefresh: true,
-        reset: true
+        resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
       expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode,
-        languageCode,
-        route: OFFERS_ROUTE
-      }, undefined, false)
+      expect(navigateTo).toHaveBeenCalledWith(
+        {
+          cityCode,
+          languageCode,
+          route: OFFERS_ROUTE
+        },
+        undefined,
+        false
+      )
+    })
+
+    it('should open selected city dashboard and navigate to route', async () => {
+      const selectedCity = 'testumgebung'
+      const url = `https://integreat.app/${cityCode}/en/news`
+      // $FlowFixMe build config is a mock
+      buildConfig.mockImplementationOnce(() => ({ featureFlags: { introSlides: true } }))
+      await appSettings.setContentLanguage(language)
+      await appSettings.setSelectedCity(selectedCity)
+      await appSettings.setIntroShown()
+
+      await navigateToDeepLink(dispatch, navigation, url, language)
+
+      expect(navigateToCategory).toHaveBeenCalledTimes(1)
+      expect(navigateToCategory).toHaveBeenCalledWith({
+        dispatch,
+        navigation,
+        cityCode: selectedCity,
+        languageCode: 'en',
+        routeName: DASHBOARD_ROUTE,
+        cityContentPath: `/${selectedCity}/en`,
+        forceRefresh: true,
+        resetNavigation: true
+      })
+      expect(navigation.replace).not.toHaveBeenCalled()
+      expect(createNavigate).toHaveBeenCalledTimes(1)
+      expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
+      expect(navigateTo).toHaveBeenCalledTimes(1)
+      expect(navigateTo).toHaveBeenCalledWith(
+        {
+          cityCode,
+          languageCode: 'en',
+          newsId: undefined,
+          newsType: LOCAL_NEWS_TYPE,
+          route: NEWS_ROUTE
+        },
+        undefined,
+        false
+      )
     })
   })
 })
