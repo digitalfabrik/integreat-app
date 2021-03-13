@@ -6,7 +6,7 @@ import buildConfig from '../../app/constants/buildConfig'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 const SandBox: StyledComponent<{| centered: boolean |}, ThemeType, *> = styled.div`
-  font-family: ${props => props.theme.fonts.contentFontFamily};
+  font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
   ${props => props.centered && css`

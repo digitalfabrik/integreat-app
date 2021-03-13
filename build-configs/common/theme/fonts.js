@@ -1,17 +1,20 @@
 // @flow
 
 export type FontsType = {|
+  native: {|
+    decorativeFontBold: string,
+    decorativeFontRegular: string,
+    contentFontRegular: string,
+    contentFontBold: string,
+    webviewFont: string
+  |},
+  web: {|
+    decorativeFont: string,
+    contentFont: string
+  |},
   fontSizeAdjust: number,
-  decorativeFontBold: string,
-  decorativeFontRegular: string,
   decorativeFontSize: string,
   decorativeLineHeight: number,
-  decorativeFontFamily: string,
-  contentFontRegular: string,
-  contentFontBold: string,
-  contentFontFamily: string,
-  arabicWebviewFontFamilies: string, // used for 'ar', 'fa' and 'ku'
-  webviewFontFamilies: string, // used for all other languages
   contentFontSize: string,
   contentLineHeight: number,
   standardParagraphMargin: string,
