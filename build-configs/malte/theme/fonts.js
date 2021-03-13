@@ -9,11 +9,11 @@ const fonts: FontsType = {
     decorativeFontRegular: 'Raleway-Regular',
     contentFontRegular: 'OpenSans-Regular',
     contentFontBold: 'OpenSans-Bold',
-    webviewFont: '\'OpenSans\', Lateef, sans-serif'
+    webviewFont: 'OpenSans, Lateef, Noto Sans SC, sans-serif'
   },
   web: {
-    decorativeFont: '\'Raleway\', \'Lateef\', sans-serif',
-    contentFont: '\'Open Sans\', \'Lateef\', sans-serif'
+    decorativeFont: 'Raleway, Lateef, Noto Sans SC, sans-serif',
+    contentFont: 'Open Sans, Lateef, Noto Sans SC, sans-serif'
   },
   ...commonFonts
 }
