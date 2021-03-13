@@ -23,12 +23,12 @@ const RedirectContainer = ({ route, navigation }: PropsType) => {
 
   useEffect(() => {
     // If actions are dispatched/navigate is called to early it fails and nothing happens
-    // Therefore we wait for a short time period
+    // Therefore we wait for a short time period and try again if the component is still rendered
     // https://github.com/react-navigation/react-navigation/issues/8537
-    const timeout = setTimeout(() => {
+    const interval = setInterval(() => {
       navigateToDeepLink(dispatch, navigation, url, language)
     }, TIMEOUT)
-    return () => clearTimeout(timeout)
+    return () => clearInterval(interval)
   }, [url, dispatch, navigation, route, language])
 
   return <LayoutContainer />
