@@ -32,25 +32,29 @@ const navigateToDeepLink = async (
     const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
     const routeInformation = routeParser.route()
 
-    const cityCode = fixedCity || routeInformation?.cityCode || selectedCity
+    // Don't overwrite already selected city
+    const selectedCityCode = fixedCity || selectedCity || routeInformation?.cityCode || null
     const languageCode = routeInformation?.languageCode || language
 
-    if (cityCode && languageCode) {
-      // Reset the currently opened screens to just the dashboard of the corresponding city and language
+    if (selectedCityCode && languageCode) {
+      // Reset the currently opened screens to just the dashboard of the  city and language
       // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
       navigateToCategory({
         dispatch,
         navigation,
-        cityCode,
+        cityCode: selectedCityCode,
         languageCode,
         routeName: DASHBOARD_ROUTE,
-        cityContentPath: createCityContentPath({ cityCode, languageCode }),
+        cityContentPath: createCityContentPath({ cityCode: selectedCityCode, languageCode }),
         forceRefresh: true,
         resetNavigation: true
       })
 
-      // Dashboard and landing route were already handled with reset above
-      if (routeInformation && ![LANDING_ROUTE, DASHBOARD_ROUTE].includes(routeInformation.route)) {
+      const isPeekingCity = routeInformation?.cityCode && selectedCity && routeInformation.cityCode !== selectedCity
+
+      // Only navigate again if either the city of the deep link differs from the currently selected city or
+      // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
+      if (routeInformation && (![LANDING_ROUTE, DASHBOARD_ROUTE].includes(routeInformation.route) || isPeekingCity)) {
         createNavigate(dispatch, navigation)(routeInformation, undefined, false)
       }
     } else {

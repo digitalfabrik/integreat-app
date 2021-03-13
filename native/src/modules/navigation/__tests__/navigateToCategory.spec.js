@@ -57,7 +57,7 @@ describe('navigateToCategory', () => {
     })
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
-      routes: [expect.objectContaining({ name: CATEGORIES_ROUTE }) ]
+      routes: [expect.objectContaining({ name: CATEGORIES_ROUTE })]
     })
 
     navigateToCategory({
@@ -71,7 +71,7 @@ describe('navigateToCategory', () => {
     })
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
-      routes: [expect.objectContaining({ name: DASHBOARD_ROUTE }) ]
+      routes: [expect.objectContaining({ name: DASHBOARD_ROUTE })]
     })
   })
 
