@@ -105,25 +105,17 @@ type PropsType = {|
   icon: string
 |}
 
-/**
- * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
- */
-class HeaderNavigationItem extends React.PureComponent<PropsType> {
-  render() {
-    const { active, text, tooltip, href, icon } = this.props
-    return (
-      <Container>
-        <Tooltip text={tooltip} flow={'up'}>
-          <StyledLink to={href} $active={active}>
-            <Circle>
-              <img src={icon} alt='' />
-            </Circle>
-            <div>{text}</div>
-          </StyledLink>
-        </Tooltip>
-      </Container>
-    )
-  }
-}
+const HeaderNavigationItem = ({ active, text, tooltip, href, icon }: PropsType) => (
+  <Container>
+    <Tooltip text={tooltip} flow={'up'}>
+      <StyledLink to={href} $active={active}>
+        <Circle>
+          <img src={icon} alt='' />
+        </Circle>
+        {text}
+      </StyledLink>
+    </Tooltip>
+  </Container>
+)
 
 export default HeaderNavigationItem
