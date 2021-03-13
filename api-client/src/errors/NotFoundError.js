@@ -4,8 +4,7 @@ import type { LocalNewsType, TuNewsType } from '../routes'
 
 type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'disclaimer' | TuNewsType | LocalNewsType
 
-const getMessage = (type: NotFoundType, id: string): string =>
-  `The ${type} ${id} does not exist here.`
+const getMessage = (type: NotFoundType, id: string): string => `The ${type} ${id} does not exist here.`
 
 class NotFoundError extends Error {
   _type: NotFoundType
@@ -13,7 +12,7 @@ class NotFoundError extends Error {
   _city: string
   _language: string
 
-  constructor (params: {| type: NotFoundType, id: string, city: string, language: string |}) {
+  constructor(params: {| type: NotFoundType, id: string, city: string, language: string |}) {
     super(getMessage(params.type, params.id))
 
     if (Error.captureStackTrace) {
@@ -27,19 +26,19 @@ class NotFoundError extends Error {
     this._language = params.language
   }
 
-  get type (): NotFoundType {
+  get type(): NotFoundType {
     return this._type
   }
 
-  get id (): string | number {
+  get id(): string | number {
     return this._id
   }
 
-  get city (): string {
+  get city(): string {
     return this._city
   }
 
-  get language (): string {
+  get language(): string {
     return this._language
   }
 }

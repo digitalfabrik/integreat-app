@@ -125,7 +125,12 @@ export type JsonOfferType = {
 }
 
 export type JsonSprungbrettJobType = {
-  title: string, zip: string, city: string, url: string, employment: string, apprenticeship: string
+  title: string,
+  zip: string,
+  city: string,
+  url: string,
+  employment: string,
+  apprenticeship: string
 }
 
 // Generated with: https://transform.now.sh/json-to-flow-types/

@@ -40,12 +40,10 @@ export const TunewsPage = ({
 }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
-  const renderTuNewsListItem = (city: string, language: string) => ({
-    id,
-    title,
-    content,
-    date
-  }: TunewsModel, city: string) => {
+  const renderTuNewsListItem = (city: string, language: string) => (
+    { id, title, content, date }: TunewsModel,
+    city: string
+  ) => {
     return (
       <NewsListItem
         title={title}
@@ -71,12 +69,13 @@ export const TunewsPage = ({
   }
 
   return (
-    <NewsTabs type={TU_NEWS}
-              city={city}
-              tunewsEnabled={currentCity.tunewsEnabled}
-              localNewsEnabled={currentCity.pushNotificationsEnabled}
-              t={t}
-              language={language}>
+    <NewsTabs
+      type={TU_NEWS}
+      city={city}
+      tunewsEnabled={currentCity.tunewsEnabled}
+      localNewsEnabled={currentCity.pushNotificationsEnabled}
+      t={t}
+      language={language}>
       <TunewsList
         items={tunews}
         renderItem={renderTuNewsListItem(city, language)}
@@ -102,6 +101,5 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, {||}, _, _, _, _>(mapStateToProps, { fetchTunews })(
-  withTranslation<PropsType>('news')(
-    TunewsPage
-  ))
+  withTranslation<PropsType>('news')(TunewsPage)
+)

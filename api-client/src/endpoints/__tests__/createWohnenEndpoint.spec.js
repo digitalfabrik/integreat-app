@@ -16,10 +16,7 @@ describe('createWohnenEndpoint', () => {
           phone: '0123 / 456789'
         },
         accommodation: {
-          ofRooms: [
-            'kitchen',
-            'child1'
-          ],
+          ofRooms: ['kitchen', 'child1'],
           title: '2 ZKB mit Balkon und Garten, WG-geeignet',
           location: 'Mittendrin',
           totalArea: 123,
@@ -39,21 +36,13 @@ describe('createWohnenEndpoint', () => {
           ]
         },
         costs: {
-          ofRunningServices: [
-            'heating',
-            'chimney'
-          ],
-          ofAdditionalServices: [
-            'garage'
-          ],
+          ofRunningServices: ['heating', 'chimney'],
+          ofAdditionalServices: ['garage'],
           baseRent: 300,
           runningCosts: 200,
           hotWaterInHeatingCosts: false,
           additionalCosts: 20,
-          ofRunningServicesDiff: [
-            'water',
-            'garbage'
-          ],
+          ofRunningServicesDiff: ['water', 'garbage'],
           ofAdditionalServicesDiff: []
         },
         version: 1
@@ -65,9 +54,7 @@ describe('createWohnenEndpoint', () => {
   const city = 'augsburg'
 
   it('should map router to url', () => {
-    expect(wohnen.mapParamsToUrl({ city })).toEqual(
-      'https://wohnen-api-url.de/augsburg/offer'
-    )
+    expect(wohnen.mapParamsToUrl({ city })).toEqual('https://wohnen-api-url.de/augsburg/offer')
   })
 
   it('should map fetched data to models', () => {

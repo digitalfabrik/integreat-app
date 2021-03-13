@@ -99,8 +99,14 @@ const cityCode = 'augsburg'
 const languageCode = 'de'
 const fetchCities = jest.fn()
 const fetchCategory = jest.fn()
-const props = ({ routeKey, routeName }: {| routeKey?: string, routeName: string | null |}) =>
-  ({ routeKey, routeName, cityCode, languageCode, fetchCategory, fetchCities })
+const props = ({ routeKey, routeName }: {| routeKey?: string, routeName: string | null |}) => ({
+  routeKey,
+  routeName,
+  cityCode,
+  languageCode,
+  fetchCategory,
+  fetchCities
+})
 
 describe('Navigator', () => {
   beforeEach(() => {
@@ -182,10 +188,12 @@ describe('Navigator', () => {
 
       rerender(
         <NavigationContainer>
-          <Navigator {...props({
-            routeName: DASHBOARD_ROUTE,
-            routeKey
-          })} />
+          <Navigator
+            {...props({
+              routeName: DASHBOARD_ROUTE,
+              routeKey
+            })}
+          />
         </NavigationContainer>
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
@@ -211,20 +219,24 @@ describe('Navigator', () => {
       // Simulate update of navigation state in reaction to initial route
       rerender(
         <NavigationContainer>
-          <Navigator {...props({
-            routeName: LANDING_ROUTE,
-            routeKey: generateKey()
-          })} />
+          <Navigator
+            {...props({
+              routeName: LANDING_ROUTE,
+              routeKey: generateKey()
+            })}
+          />
         </NavigationContainer>
       )
 
       // Simulate navigating to dashboard route
       rerender(
         <NavigationContainer>
-          <Navigator {...props({
-            routeName: DASHBOARD_ROUTE,
-            routeKey
-          })} />
+          <Navigator
+            {...props({
+              routeName: DASHBOARD_ROUTE,
+              routeKey
+            })}
+          />
         </NavigationContainer>
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, true))

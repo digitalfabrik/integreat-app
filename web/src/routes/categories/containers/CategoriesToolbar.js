@@ -19,7 +19,7 @@ type PropsType = {|
 |}
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
-  getPdfUrl (category: CategoryModel): string {
+  getPdfUrl(category: CategoryModel): string {
     const { city, language } = this.props.location.payload
 
     if (category.isRoot()) {
@@ -29,7 +29,7 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     }
   }
 
-  render () {
+  render() {
     const { t, location, categories, openFeedbackModal, viewportSmall } = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
@@ -37,7 +37,12 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
     }
     return (
       <LocationToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
-        <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={this.getPdfUrl(category)} viewportSmall={viewportSmall} />
+        <ToolbarItem
+          icon={faFilePdf}
+          text={t('createPdf')}
+          href={this.getPdfUrl(category)}
+          viewportSmall={viewportSmall}
+        />
       </LocationToolbar>
     )
   }

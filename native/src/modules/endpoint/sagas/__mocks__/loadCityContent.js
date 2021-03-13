@@ -5,8 +5,10 @@ import { call } from 'redux-saga/effects'
 import type { DataContainer } from '../../DataContainer'
 import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 
-const loadCityContent = function * loadCityContent (
-  dataContainer: DataContainer, newCity: string, newLanguage: string,
+const loadCityContent = function* loadCityContent(
+  dataContainer: DataContainer,
+  newCity: string,
+  newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
   const languagesAvailable = yield call(() => dataContainer.languagesAvailable(newCity))

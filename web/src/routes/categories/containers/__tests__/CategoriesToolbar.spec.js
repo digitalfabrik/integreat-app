@@ -22,14 +22,19 @@ describe('CategoriesToolbar', () => {
       parentPath: '',
       hash: '2fe6283485a93932',
       lastUpdate: moment('2017-11-18T19:30:00.000Z')
-    }), new CategoryModel({
+    }),
+    new CategoryModel({
       root: false,
       path: '/augsburg/de/anlaufstellen',
       title: 'Anlaufstellen zu sonstigen Themen',
       content: '',
       parentPath: '/augsburg/de',
       order: 75,
-      availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
+      availableLanguages: new Map([
+        ['en', '4361'],
+        ['ar', '4367'],
+        ['fa', '4368']
+      ]),
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
       hash: '2fe6283485b93932',
       lastUpdate: moment('2017-11-18T19:30:00.000Z')
@@ -41,7 +46,11 @@ describe('CategoriesToolbar', () => {
       content: '',
       parentPath: '/augsburg/de',
       order: 11,
-      availableLanguages: new Map([['en', '4361'], ['ar', '4367'], ['fa', '4368']]),
+      availableLanguages: new Map([
+        ['en', '4361'],
+        ['ar', '4367'],
+        ['fa', '4368']
+      ]),
       thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
       hash: '2fe6283485c93932',
       lastUpdate: moment('2017-11-18T19:30:00.000Z')
@@ -53,7 +62,11 @@ describe('CategoriesToolbar', () => {
       content: 'some content',
       parentPath: '/augsburg/de/willkommen',
       order: 1,
-      availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
+      availableLanguages: new Map([
+        ['en', '390'],
+        ['ar', '711'],
+        ['fa', '397']
+      ]),
       thumbnail: 'https://cms.integreat-ap…09/heart295-150x150.png',
       hash: '2fe6283485d93932',
       lastUpdate: moment('2017-11-18T19:30:00.000Z')
@@ -69,11 +82,13 @@ describe('CategoriesToolbar', () => {
 
   it('should render nothing, if category cannot be found', () => {
     const component = shallow(
-      <CategoriesToolbar categories={categories}
-                         location={createLocation({ type: 'INVALID_ROUTE', payload: {}, pathname: 'invalid_path' })}
-                         t={t}
-                         openFeedbackModal={() => {}}
-                         viewportSmall />
+      <CategoriesToolbar
+        categories={categories}
+        location={createLocation({ type: 'INVALID_ROUTE', payload: {}, pathname: 'invalid_path' })}
+        t={t}
+        openFeedbackModal={() => {}}
+        viewportSmall
+      />
     )
 
     expect(component.getElement()).toBeNull()
@@ -90,7 +105,8 @@ describe('CategoriesToolbar', () => {
           payload: { city, language }
         })}
         t={t}
-        openFeedbackModal={() => {}} />
+        openFeedbackModal={() => {}}
+      />
     )
 
     expect(component).toMatchSnapshot()
@@ -107,7 +123,8 @@ describe('CategoriesToolbar', () => {
           payload: { city, language }
         })}
         t={t}
-        openFeedbackModal={() => {}} />
+        openFeedbackModal={() => {}}
+      />
     )
 
     expect(component).toMatchSnapshot()

@@ -11,15 +11,13 @@ type PropsType = {|
 
 class Provider extends React.Component<PropsType> {
   platform: Platform
-  constructor () {
+  constructor() {
     super()
     this.platform = new Platform()
   }
 
-  render () {
-    return <PlatformContext.Provider value={this.platform}>
-      {this.props.children}
-    </PlatformContext.Provider>
+  render() {
+    return <PlatformContext.Provider value={this.platform}>{this.props.children}</PlatformContext.Provider>
   }
 }
 

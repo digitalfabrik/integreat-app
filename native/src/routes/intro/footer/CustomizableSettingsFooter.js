@@ -22,16 +22,18 @@ type PropsType = {|
 class CustomizableSettingsFooter extends React.Component<PropsType> {
   onSave = () => this.props.onDone(Object.seal({}))
 
-  render () {
+  render() {
     const { slideCount, currentSlide, goToSlide, toggleCustomizeSettings, theme, t } = this.props
 
-    return <View style={{ flexDirection: 'column' }}>
-      <ButtonContainer theme={theme}>
-        <SlideButton label={t('cancel')} onPress={toggleCustomizeSettings} theme={theme} />
-        <SlideButton label={t('save')} onPress={this.onSave} theme={theme} highlighted />
-      </ButtonContainer>
-      <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-    </View>
+    return (
+      <View style={{ flexDirection: 'column' }}>
+        <ButtonContainer theme={theme}>
+          <SlideButton label={t('cancel')} onPress={toggleCustomizeSettings} theme={theme} />
+          <SlideButton label={t('save')} onPress={this.onSave} theme={theme} highlighted />
+        </ButtonContainer>
+        <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
+      </View>
+    )
   }
 }
 

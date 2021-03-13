@@ -37,7 +37,8 @@ describe('OfferDetail', () => {
         additionalCosts: 200,
         ofRunningServicesDiff: ['heating', 'water', 'garbage'],
         ofAdditionalServicesDiff: []
-      })
+      }
+    )
   })
 
   class InvalidForm {
@@ -51,16 +52,12 @@ describe('OfferDetail', () => {
   })
 
   it('should render detail view', () => {
-    const offerDetail = shallow(
-      <OfferDetail offer={offer} />
-    )
+    const offerDetail = shallow(<OfferDetail offer={offer} />)
     expect(offerDetail).toMatchSnapshot()
   })
 
   it('should concat keys correctly', () => {
-    const offerDetail = shallow(
-      <OfferDetail offer={offer} />
-    )
+    const offerDetail = shallow(<OfferDetail offer={offer} />)
 
     // $FlowFixMe
     const concatenated = offerDetail.dive().instance().stringify(['a', 'b', 'c'])
@@ -68,9 +65,7 @@ describe('OfferDetail', () => {
   })
 
   it('should translate keys correctly', () => {
-    const offerDetail = shallow(
-      <OfferDetail offer={offer} />
-    )
+    const offerDetail = shallow(<OfferDetail offer={offer} />)
 
     // $FlowFixMe
     const translated = offerDetail.dive().instance().translate('runningServices', ['a', 'b'])
@@ -78,9 +73,7 @@ describe('OfferDetail', () => {
   })
 
   it('should format price correctly', () => {
-    const offerDetail = shallow(
-      <OfferDetail offer={offer} />
-    )
+    const offerDetail = shallow(<OfferDetail offer={offer} />)
 
     const instance = offerDetail.dive().instance()
     // $FlowFixMe

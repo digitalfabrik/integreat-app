@@ -31,7 +31,7 @@ class StaticServerProvider extends React.Component<PropsType, {| errorMessage: s
   staticServer = new StaticServer(SERVER_PORT, SERVER_PATH, { localOnly: true })
   state = { errorMessage: null }
 
-  async componentDidMount () {
+  async componentDidMount() {
     try {
       const url = await this.staticServer.start()
       this.props.setResourceCacheUrl(url)
@@ -40,11 +40,11 @@ class StaticServerProvider extends React.Component<PropsType, {| errorMessage: s
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.staticServer.stop()
   }
 
-  render () {
+  render() {
     if (this.state.errorMessage !== null) {
       return <Text>{this.state.errorMessage}</Text>
     }

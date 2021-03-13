@@ -14,10 +14,7 @@ import Categories, { type PropsType as CategoriesPropsType } from '../../../modu
 import React from 'react'
 import type { TFunction } from 'react-i18next'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
@@ -61,7 +58,8 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
-  dispatch: Dispatch<StoreActionType>, newLanguage: string
+  dispatch: Dispatch<StoreActionType>,
+  newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
@@ -71,7 +69,10 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, route: { key } } = ownProps
+  const {
+    t,
+    route: { key }
+  } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
@@ -126,8 +127,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const resourceCacheUrl = state.resourceCacheUrl
   const { models, children, allAvailableLanguages } = route
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || languages.status === 'loading' ||
-    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))) {
+  if (
+    resourceCacheUrl === null ||
+    state.cities.status === 'loading' ||
+    languages.status === 'loading' ||
+    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))
+  ) {
     return { status: 'loading', progress: resourceCache.progress }
   }
   // $FlowFixMe Flow does not get that models and children cannot be undefined as it is already checked above
@@ -169,14 +174,15 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, path, navigation, route } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo({
-    route: CATEGORIES_ROUTE,
-    cityCode,
-    languageCode: language,
-    cityContentPath: path
-  },
-  route.key,
-  true
+  navigateTo(
+    {
+      route: CATEGORIES_ROUTE,
+      cityCode,
+      languageCode: language,
+      cityContentPath: path
+    },
+    route.key,
+    true
   )
 }
 
@@ -187,21 +193,30 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
-  render () {
+  render() {
     const { dispatch, navigation, route, t, ...rest } = this.props
 
-    return <ThemedCategories
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToLink={this.navigateToLinkProp} />
+    return (
+      <ThemedCategories
+        {...rest}
+        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+        navigateTo={createNavigate(dispatch, navigation)}
+        navigateToLink={this.navigateToLinkProp}
+      />
+    )
   }
 }
 
 const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
 
 export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh, onRouteClose)(
-      CategoriesContainer
-    )))
+  connect<PropsType, OwnPropsType, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(
+    withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(
+      refresh,
+      onRouteClose
+    )(CategoriesContainer)
+  )
+)

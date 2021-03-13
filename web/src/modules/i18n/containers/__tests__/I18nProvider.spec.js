@@ -40,13 +40,13 @@ describe('I18nProvider', () => {
     BrowserLanguageDetector.detect.mockReturnValue(['ar'])
     const store = prepareStore()
     act(() => {
-      render(<Provider store={store}><I18nProvider>
-        <Translation>
-          {
-            (t, { i18n }) => <p>{i18n.language}</p>
-          }
-        </Translation>
-      </I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{i18n.language}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
     })
     await waitFor(() => screen.getByText('ar'))
 
@@ -57,13 +57,13 @@ describe('I18nProvider', () => {
     BrowserLanguageDetector.detect.mockReturnValue(['ckb'])
     const store = prepareStore()
     act(() => {
-      render(<Provider store={store}><I18nProvider>
-        <Translation>
-          {
-            (t, { i18n }) => <p>{t('dashboard:localInformation')}</p>
-          }
-        </Translation>
-      </I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
     })
     await waitFor(() => screen.getByText('Zanyariyên xwecihî'))
 
@@ -74,13 +74,13 @@ describe('I18nProvider', () => {
     BrowserLanguageDetector.detect.mockReturnValue(['en'])
     const store = prepareStore()
     act(() => {
-      render(<Provider store={store}><I18nProvider>
-        <Translation>
-          {
-            (t, { i18n }) => <p>{t('dashboard:localInformation')}</p>
-          }
-        </Translation>
-      </I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
     })
     await waitFor(() => screen.getByText('Lokale Informationen'))
 
@@ -91,13 +91,13 @@ describe('I18nProvider', () => {
     const store = prepareStore('ar')
 
     act(() => {
-      render(<Provider store={store}><I18nProvider>
-        <Translation>
-          {
-            (t, { i18n }) => <p>{i18n.language}</p>
-          }
-        </Translation>
-      </I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{i18n.language}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
     })
 
     await waitFor(() => screen.getByText('ar'))
@@ -108,7 +108,11 @@ describe('I18nProvider', () => {
   it('should choose rtl with ar as language', async () => {
     const store = prepareStore('ar')
     act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>Hello</I18nProvider>
+        </Provider>
+      )
     })
 
     await waitFor(() => screen.getByTestId('direction'))
@@ -120,7 +124,11 @@ describe('I18nProvider', () => {
     const store = prepareStore('en')
 
     act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>Hello</I18nProvider>
+        </Provider>
+      )
     })
 
     await waitFor(() => screen.getByTestId('direction'))
@@ -131,7 +139,11 @@ describe('I18nProvider', () => {
   it('should set document language', async () => {
     const store = prepareStore('ar')
     act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>Hello</I18nProvider>
+        </Provider>
+      )
     })
 
     await waitFor(() => screen.getByTestId('direction'))
@@ -142,7 +154,11 @@ describe('I18nProvider', () => {
   it('should use additional font for arabic', async () => {
     const store = prepareStore('ar')
     act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>Hello</I18nProvider>
+        </Provider>
+      )
     })
 
     await waitFor(() => screen.getByTestId('direction'))
@@ -155,7 +171,11 @@ describe('I18nProvider', () => {
   it('should use no additional font for english', async () => {
     const store = prepareStore('en')
     act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>Hello</I18nProvider>
+        </Provider>
+      )
     })
 
     await waitFor(() => screen.getByTestId('direction'))
@@ -168,7 +188,11 @@ describe('I18nProvider', () => {
   it('should dispatch action for setting ui direction', async () => {
     const store = prepareStore('en')
     act(() => {
-      render(<Provider store={store}><I18nProvider>Hello</I18nProvider></Provider>)
+      render(
+        <Provider store={store}>
+          <I18nProvider>Hello</I18nProvider>
+        </Provider>
+      )
     })
 
     expect(store.getActions()).toEqual([{ payload: 'ltr', type: 'SET_UI_DIRECTION' }])

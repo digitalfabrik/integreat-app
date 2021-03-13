@@ -23,14 +23,16 @@ type PropsType = {|
 |}
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { t, location, cities, languageChangePaths } = this.props
     const title = cities && CityModel.findCityName(cities, location.payload.city)
-    return <>
-      {title && <Caption title={title} />}
-      <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-      <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
-    </>
+    return (
+      <>
+        {title && <Caption title={title} />}
+        <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
+        <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
+      </>
+    )
   }
 }
 

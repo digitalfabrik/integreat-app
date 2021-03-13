@@ -19,13 +19,7 @@ type PropsType = {|
   cities: Array<CityModel>
 |}
 
-export const LocalNewsDetailsPage = ({
-  localNewsElement,
-  language,
-  city,
-  cities,
-  id
-}: PropsType) => {
+export const LocalNewsDetailsPage = ({ localNewsElement, language, city, cities, id }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
   if (!currentCity || !currentCity.pushNotificationsEnabled) {
@@ -48,13 +42,11 @@ export const LocalNewsDetailsPage = ({
   )
 }
 
-const mapStateTypeToProps = (state: StateType) => (
-  {
-    language: state.location.payload.language,
-    city: state.location.payload.city,
-    id: state.location.payload.id,
-    cities: state.cities.data
-  }
-)
+const mapStateTypeToProps = (state: StateType) => ({
+  language: state.location.payload.language,
+  city: state.location.payload.city,
+  id: state.location.payload.id,
+  cities: state.cities.data
+})
 
 export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps)(LocalNewsDetailsPage)

@@ -15,8 +15,12 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE,
-  OFFERS_ROUTE, POIS_ROUTE, SEARCH_ROUTE
+  LANDING_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  SEARCH_ROUTE
 } from 'api-client/src/routes'
 import buildConfig from '../../app/constants/buildConfig'
 

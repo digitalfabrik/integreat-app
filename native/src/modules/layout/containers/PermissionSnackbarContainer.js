@@ -29,7 +29,7 @@ type StateType = {|
 |}
 
 class PermissionSnackbarContainer extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = {
       showLocationSnackbar: false,
@@ -37,11 +37,11 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.updateSettingsAndPermissions()
   }
 
-  componentDidUpdate (prevProps: PropsType) {
+  componentDidUpdate(prevProps: PropsType) {
     if (prevProps.routeName !== this.props.routeName) {
       this.updateSettingsAndPermissions()
     }
@@ -52,11 +52,17 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     const locationStatus = await checkLocationPermission()
     const pushNotificationStatus = await checkPushNotificationPermission()
 
-    const showLocationSnackbar = settings && settings.proposeNearbyCities === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationStatus) && this.landingRoute()
+    const showLocationSnackbar =
+      settings &&
+      settings.proposeNearbyCities === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationStatus) &&
+      this.landingRoute()
 
-    const showPushNotificationSnackbar = settings && settings.allowPushNotifications === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationStatus) && this.dashboardRoute()
+    const showPushNotificationSnackbar =
+      settings &&
+      settings.allowPushNotifications === true &&
+      [RESULTS.BLOCKED, RESULTS.DENIED].includes(pushNotificationStatus) &&
+      this.dashboardRoute()
 
     this.setState({
       showLocationSnackbar,
@@ -102,39 +108,47 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
     return routeName === DASHBOARD_ROUTE
   }
 
-  getSnackbar (): ?React$Element<*> {
+  getSnackbar(): ?React$Element<*> {
     const { t, theme } = this.props
     const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
     if (showLocationSnackbar) {
-      return <Snackbar key='location'
-                       positiveAction={{
-                         label: t('grantPermission').toUpperCase(),
-                         onPress: this.requestLocationPermissionOrSettings
-                       }}
-                       negativeAction={{
-                         label: t('deactivate').toUpperCase(),
-                         onPress: this.deactivateProposeNearbyCities
-                       }}
-                       message={t('locationPermissionMissing')} theme={theme} />
+      return (
+        <Snackbar
+          key='location'
+          positiveAction={{
+            label: t('grantPermission').toUpperCase(),
+            onPress: this.requestLocationPermissionOrSettings
+          }}
+          negativeAction={{
+            label: t('deactivate').toUpperCase(),
+            onPress: this.deactivateProposeNearbyCities
+          }}
+          message={t('locationPermissionMissing')}
+          theme={theme}
+        />
+      )
     } else if (showPushNotificationSnackbar) {
-      return <Snackbar key='push'
-                       positiveAction={{
-                         label: t('grantPermission').toUpperCase(),
-                         onPress: this.requestPushNotificationPermissionOrSettings
-                       }}
-                       negativeAction={{
-                         label: t('deactivate').toUpperCase(),
-                         onPress: this.deactivateAllowPushNotifications
-                       }}
-                       message={t('pushNotificationPermissionMissing')} theme={theme} />
+      return (
+        <Snackbar
+          key='push'
+          positiveAction={{
+            label: t('grantPermission').toUpperCase(),
+            onPress: this.requestPushNotificationPermissionOrSettings
+          }}
+          negativeAction={{
+            label: t('deactivate').toUpperCase(),
+            onPress: this.deactivateAllowPushNotifications
+          }}
+          message={t('pushNotificationPermissionMissing')}
+          theme={theme}
+        />
+      )
     }
     return null
   }
 
-  render () {
-    return <SnackbarAnimator>
-      {this.getSnackbar()}
-    </SnackbarAnimator>
+  render() {
+    return <SnackbarAnimator>{this.getSnackbar()}</SnackbarAnimator>
   }
 }
 

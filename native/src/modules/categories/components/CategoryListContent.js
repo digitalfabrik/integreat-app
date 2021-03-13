@@ -46,118 +46,145 @@ const CategoryListContent = ({
 }: ContentPropsType) => {
   const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
-  const onLinkPress = useCallback((evt: GestureResponderEvent, url: string) => {
-    const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
-    navigateToLink(url, language, shareUrl || url)
-  }, [cacheDictionary, navigateToLink, language])
+  const onLinkPress = useCallback(
+    (evt: GestureResponderEvent, url: string) => {
+      const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
+      navigateToLink(url, language, shareUrl || url)
+    },
+    [cacheDictionary, navigateToLink, language]
+  )
 
-  const alterResources = useCallback((node: HTMLNode) => {
-    if (node.attribs) {
-      if (node.attribs.href) {
-        const newResource = cacheDictionary[decodeURI(node.attribs.href)]
-        if (newResource) {
-          node.attribs = {
-            ...(node.attribs || {}),
-            href: newResource
+  const alterResources = useCallback(
+    (node: HTMLNode) => {
+      if (node.attribs) {
+        if (node.attribs.href) {
+          const newResource = cacheDictionary[decodeURI(node.attribs.href)]
+          if (newResource) {
+            node.attribs = {
+              ...(node.attribs || {}),
+              href: newResource
+            }
+            return node
           }
-          return node
-        }
-      } else if (node.attribs.src) {
-        const newResource = cacheDictionary[decodeURI(node.attribs.src)]
-        if (newResource) {
-          node.attribs = {
-            ...(node.attribs || {}),
-            src: newResource
+        } else if (node.attribs.src) {
+          const newResource = cacheDictionary[decodeURI(node.attribs.src)]
+          if (newResource) {
+            node.attribs = {
+              ...(node.attribs || {}),
+              src: newResource
+            }
+            return node
           }
-          return node
         }
       }
-    }
-  }, [cacheDictionary])
+    },
+    [cacheDictionary]
+  )
 
   // TODO: remove with IGAPP-378
-  const renderUnorderedListPrefix = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { baseFontStyle } = passProps
-    const baseFontSize = baseFontStyle.fontSize
-    return <View style={{
-      width: baseFontSize / bulletSizeRelativeToFont,
-      height: baseFontSize / bulletSizeRelativeToFont,
-      borderRadius: baseFontSize / bulletSizeRelativeToFont,
-      marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-      marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
-      marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent,
-      backgroundColor: theme.colors.textColor
-    }} />
-  }, [language, theme])
+  const renderUnorderedListPrefix = useCallback(
+    (htmlAttribs, children, convertedCSSStyles, passProps) => {
+      const { baseFontStyle } = passProps
+      const baseFontSize = baseFontStyle.fontSize
+      return (
+        <View
+          style={{
+            width: baseFontSize / bulletSizeRelativeToFont,
+            height: baseFontSize / bulletSizeRelativeToFont,
+            borderRadius: baseFontSize / bulletSizeRelativeToFont,
+            marginTop: baseFontSize / bulletAlignmentRelativeToFont,
+            marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
+            marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent,
+            backgroundColor: theme.colors.textColor
+          }}
+        />
+      )
+    },
+    [language, theme]
+  )
 
   // TODO: remove with IGAPP-378
-  const renderOrderedListPrefix = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { baseFontSize, allowFontScaling, index } = passProps
-    return <Text allowFontScaling={allowFontScaling} style={{
-      fontSize: baseFontSize,
-      marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
-      marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent
-    }}>
-      {index})
-    </Text>
-  }, [language])
+  const renderOrderedListPrefix = useCallback(
+    (htmlAttribs, children, convertedCSSStyles, passProps) => {
+      const { baseFontSize, allowFontScaling, index } = passProps
+      return (
+        <Text
+          allowFontScaling={allowFontScaling}
+          style={{
+            fontSize: baseFontSize,
+            marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
+            marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent
+          }}>
+          {index})
+        </Text>
+      )
+    },
+    [language]
+  )
 
   // see https://github.com/archriss/react-native-render-html/issues/286
   // TODO: remove with IGAPP-378
-  const renderLists = useCallback((htmlAttribs, children, convertedCSSStyles, passProps) => {
-    const { transientChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
-    children = children && children.map((child, index) => {
-      const rawChild = transientChildren[index]
-      let prefix = false
-      if (rawChild && rawChild.tagName === 'li') {
-        if (rawChild.parentTag === 'ul') {
-          prefix = listsPrefixesRenderers.ul(htmlAttribs, children, convertedCSSStyles, { ...passProps })
-        } else if (rawChild.parentTag === 'ol') {
-          prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
-        }
-      }
-      return config.hasRTLScript(language)
-        ? (
-          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>{child}</View>
-            {prefix}
-          </View>
+  const renderLists = useCallback(
+    (htmlAttribs, children, convertedCSSStyles, passProps) => {
+      const { transientChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
+      children =
+        children &&
+        children.map((child, index) => {
+          const rawChild = transientChildren[index]
+          let prefix = false
+          if (rawChild && rawChild.tagName === 'li') {
+            if (rawChild.parentTag === 'ul') {
+              prefix = listsPrefixesRenderers.ul(htmlAttribs, children, convertedCSSStyles, { ...passProps })
+            } else if (rawChild.parentTag === 'ol') {
+              prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
+            }
+          }
+          return config.hasRTLScript(language) ? (
+            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+              <View style={{ flex: 1 }}>{child}</View>
+              {prefix}
+            </View>
+          ) : (
+            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
+              {prefix}
+              <View style={{ flex: 1 }}>{child}</View>
+            </View>
           )
-        : (
-          <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-            {prefix}
-            <View style={{ flex: 1 }}>{child}</View>
-          </View>
-          )
-    })
-    return <View key={key}>{children}</View>
-  }, [language])
+        })
+      return <View key={key}>{children}</View>
+    },
+    [language]
+  )
 
-  return <SpaceBetween>
-    <Container>
-      <Html source={{ html: content }}
-            onLinkPress={onLinkPress}
-            contentWidth={width}
-            defaultTextProps={{ selectable: true, allowFontStyling: true }}
-            alterNode={alterResources}
-            listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
-            renderers={{ ul: renderLists, ol: renderLists }}
-            baseFontStyle={{
-              fontSize: 14,
-              fontFamily: theme.fonts.contentFontRegular,
-              color: theme.colors.textColor
-            }}
-            tagsStyles={{
-              p: { textAlign: config.hasRTLScript(language) ? 'right' : 'left' },
-              img: { align: config.hasRTLScript(language) ? 'right' : 'left' }
-            }} />
-      {lastUpdate &&
-      <LastUpdateContainer>
-        <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />
-      </LastUpdateContainer>
-      }
-    </Container>
-  </SpaceBetween>
+  return (
+    <SpaceBetween>
+      <Container>
+        <Html
+          source={{ html: content }}
+          onLinkPress={onLinkPress}
+          contentWidth={width}
+          defaultTextProps={{ selectable: true, allowFontStyling: true }}
+          alterNode={alterResources}
+          listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
+          renderers={{ ul: renderLists, ol: renderLists }}
+          baseFontStyle={{
+            fontSize: 14,
+            fontFamily: theme.fonts.contentFontRegular,
+            color: theme.colors.textColor
+          }}
+          tagsStyles={{
+            p: { textAlign: config.hasRTLScript(language) ? 'right' : 'left' },
+            img: { align: config.hasRTLScript(language) ? 'right' : 'left' }
+          }}
+        />
+        {lastUpdate && (
+          <LastUpdateContainer>
+            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />
+          </LastUpdateContainer>
+        )}
+      </Container>
+    </SpaceBetween>
+  )
 }
 
 export default CategoryListContent

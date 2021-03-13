@@ -35,13 +35,7 @@ const getEventPlaceholder = (id: number): number => {
   return placeholders[id % placeholders.length]
 }
 
-const EventListItem = ({
-  event,
-  cityCode,
-  language,
-  navigateTo,
-  theme
-}: PropsType) => {
+const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
   const navigateToEventInCity = useCallback(() => {
@@ -55,11 +49,12 @@ const EventListItem = ({
 
   const thumbnail = event.thumbnail || getEventPlaceholder(event.path.length)
   return (
-    <ListItem thumbnail={thumbnail}
-              title={event.title}
-              language={language}
-              navigateTo={navigateToEventInCity}
-              theme={theme}>
+    <ListItem
+      thumbnail={thumbnail}
+      title={event.title}
+      language={language}
+      navigateTo={navigateToEventInCity}
+      theme={theme}>
       <Description theme={theme}>{event.date.toFormattedString(formatter)}</Description>
       {event.location.location && <Description theme={theme}>{event.location.location}</Description>}
     </ListItem>

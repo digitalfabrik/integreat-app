@@ -18,7 +18,7 @@ class ResponseError extends Error {
   _requestOptions: RequestOptionsType
   _message: string
 
-  constructor (params: ResponseErrorParamsType) {
+  constructor(params: ResponseErrorParamsType) {
     super()
 
     if (Error.captureStackTrace) {
@@ -34,36 +34,35 @@ class ResponseError extends Error {
     this._requestOptions = requestOptions
   }
 
-  createMessage ({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
-    const stringifiedFormData = requestOptions.method === 'POST'
-      ? ` and the formData ${stringifyFormData(requestOptions.body)}`
-      : ''
+  createMessage({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
+    const stringifiedFormData =
+      requestOptions.method === 'POST' ? ` and the formData ${stringifyFormData(requestOptions.body)}` : ''
 
     return `ResponseError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
      ${url}${stringifiedFormData}. Received response status ${response.status}: ${response.statusText}.`
   }
 
-  get message (): string {
+  get message(): string {
     return this._message
   }
 
-  set message (value: string) {
+  set message(value: string) {
     this._message = value
   }
 
-  get endpointName (): string {
+  get endpointName(): string {
     return this._endpointName
   }
 
-  get response (): Response {
+  get response(): Response {
     return this._response
   }
 
-  get url (): string {
+  get url(): string {
     return this._url
   }
 
-  get requestOptions (): RequestOptionsType {
+  get requestOptions(): RequestOptionsType {
     return this._requestOptions
   }
 }

@@ -10,7 +10,7 @@ import buildConfig from './modules/app/constants/buildConfig'
 const container = document.getElementById('container')
 
 if (container == null) {
-  throw new Error('Couldn\'t find element with id container.')
+  throw new Error("Couldn't find element with id container.")
 }
 
 const HMRApp = hot(module)(App)
@@ -18,7 +18,7 @@ const HMRApp = hot(module)(App)
 ReactDOM.render(<HMRApp />, container)
 
 if (buildConfig().splashScreen) {
-// Sets the splash to hidden when the page is rendered
+  // Sets the splash to hidden when the page is rendered
   const splash = document.getElementById('splash')
   if (splash) {
     splash.className += ' splash-hidden'

@@ -64,7 +64,7 @@ describe('fetchData', () => {
   })
 
   it('should fail if json is malformed', async () => {
-    const malformedJSON = 'I\'m so mean!'
+    const malformedJSON = "I'm so mean!"
     const dispatch = jest.fn()
     const oldPayload = new Payload<CityModel[]>(false, 'https://weird-endpoint/old-url/api.json', [], null)
     const params = { var1: 'a', var2: 'b' }

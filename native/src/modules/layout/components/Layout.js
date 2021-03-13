@@ -20,12 +20,8 @@ type AppPropsType = {
 }
 
 class Layout extends React.Component<AppPropsType> {
-  render () {
-    return (
-      <Wrapper theme={this.props.theme}>
-        {this.props.children}
-      </Wrapper>
-    )
+  render() {
+    return <Wrapper theme={this.props.theme}>{this.props.children}</Wrapper>
   }
 }
 

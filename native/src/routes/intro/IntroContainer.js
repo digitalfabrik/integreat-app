@@ -19,10 +19,7 @@ import { connect } from 'react-redux'
 import { requestLocationPermission } from '../../modules/app/LocationPermissionManager'
 import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
 import { requestPushNotificationPermission } from '../../modules/push-notifications/PushNotificationsManager'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
 import { LANDING_ROUTE } from 'api-client/src/routes'
 import type { IntroRouteType } from 'api-client/src/routes'
 
@@ -81,9 +78,9 @@ type StateType = {|
 
 class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
-  _flatList: {|current: null | React$ElementRef<typeof FlatList>|}
+  _flatList: {| current: null | React$ElementRef<typeof FlatList> |}
 
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = {
       slideCount: this.slides().length,
@@ -96,8 +93,8 @@ class Intro extends React.Component<PropsType, StateType> {
     }
     this._appSettings = new AppSettings()
     this._flatList = React.createRef()
-    Dimensions.addEventListener('change',
-      (event: {| window: {| width: number |}|}) => this.setState({ width: event.window.width })
+    Dimensions.addEventListener('change', (event: {| window: {| width: number |} |}) =>
+      this.setState({ width: event.window.width })
     )
   }
 
@@ -109,55 +106,64 @@ class Intro extends React.Component<PropsType, StateType> {
     const { t } = this.props
 
     if (!icons) {
-      return [{
+      return [
+        {
+          key: 'integreat',
+          title: t('appName', { appName: buildConfig().appName }),
+          description: t('appDescription', { appName: buildConfig().appName }),
+          renderContent: this.renderAppIcon()
+        },
+        {
+          key: 'inquiry',
+          title: t('inquiryTitle'),
+          renderContent: this.renderSettings
+        }
+      ]
+    }
+    return [
+      {
         key: 'integreat',
         title: t('appName', { appName: buildConfig().appName }),
         description: t('appDescription', { appName: buildConfig().appName }),
         renderContent: this.renderAppIcon()
       },
       {
+        key: 'search',
+        title: t('search'),
+        description: t('searchDescription'),
+        renderContent: this.renderImageContent(icons.search)
+      },
+      {
+        key: 'events',
+        title: t('events'),
+        description: t('eventsDescription'),
+        renderContent: this.renderImageContent(icons.events)
+      },
+      {
+        key: 'offers',
+        title: t('offers'),
+        description: t('offersDescription'),
+        renderContent: this.renderImageContent(icons.offers)
+      },
+      {
+        key: 'languageChange',
+        title: t('languageChange'),
+        description: t('languageChangeDescription'),
+        renderContent: this.renderImageContent(icons.language)
+      },
+      {
         key: 'inquiry',
         title: t('inquiryTitle'),
         renderContent: this.renderSettings
-      }]
-    }
-    return [{
-      key: 'integreat',
-      title: t('appName', { appName: buildConfig().appName }),
-      description: t('appDescription', { appName: buildConfig().appName }),
-      renderContent: this.renderAppIcon()
-    }, {
-      key: 'search',
-      title: t('search'),
-      description: t('searchDescription'),
-      renderContent: this.renderImageContent(icons.search)
-    }, {
-      key: 'events',
-      title: t('events'),
-      description: t('eventsDescription'),
-      renderContent: this.renderImageContent(icons.events)
-    }, {
-      key: 'offers',
-      title: t('offers'),
-      description: t('offersDescription'),
-      renderContent: this.renderImageContent(icons.offers)
-    }, {
-      key: 'languageChange',
-      title: t('languageChange'),
-      description: t('languageChangeDescription'),
-      renderContent: this.renderImageContent(icons.language)
-    }, {
-      key: 'inquiry',
-      title: t('inquiryTitle'),
-      renderContent: this.renderSettings
-    }]
+      }
+    ]
   }
 
-  toggleCustomizeSettings = () => this.setState(prevState =>
-    ({ customizableSettings: !prevState.customizableSettings }))
+  toggleCustomizeSettings = () =>
+    this.setState(prevState => ({ customizableSettings: !prevState.customizableSettings }))
 
-  toggleAllowPushNotifications = () => this.setState(prevState =>
-    ({ allowPushNotifications: !prevState.allowPushNotifications }))
+  toggleAllowPushNotifications = () =>
+    this.setState(prevState => ({ allowPushNotifications: !prevState.allowPushNotifications }))
 
   toggleProposeCities = () => this.setState(prevState => ({ proposeNearbyCities: !prevState.proposeNearbyCities }))
 
@@ -167,19 +173,27 @@ class Intro extends React.Component<PropsType, StateType> {
     const { customizableSettings, allowPushNotifications, proposeNearbyCities, errorTracking } = this.state
     const { language, theme, t } = this.props
     if (customizableSettings) {
-      return <CustomizableIntroSettings allowPushNotifications={allowPushNotifications}
-                                        toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
-                                        proposeNearbyCities={proposeNearbyCities}
-                                        toggleProposeNearbyCities={this.toggleProposeCities}
-                                        errorTracking={errorTracking}
-                                        toggleErrorTracking={this.toggleErrorTracking} theme={theme} t={t} />
+      return (
+        <CustomizableIntroSettings
+          allowPushNotifications={allowPushNotifications}
+          toggleSetAllowPushNotifications={this.toggleAllowPushNotifications}
+          proposeNearbyCities={proposeNearbyCities}
+          toggleProposeNearbyCities={this.toggleProposeCities}
+          errorTracking={errorTracking}
+          toggleErrorTracking={this.toggleErrorTracking}
+          theme={theme}
+          t={t}
+        />
+      )
     } else {
       return <IntroSettings theme={theme} language={language} t={t} />
     }
   }
 
   onDone = async ({
-    errorTracking: sentry, allowPushNotifications: pushNotifications, proposeNearbyCities: nearbyCities
+    errorTracking: sentry,
+    allowPushNotifications: pushNotifications,
+    proposeNearbyCities: nearbyCities
   }: $Shape<IntroSettingsType>) => {
     const errorTracking = sentry !== undefined ? sentry : this.state.errorTracking
     const proposeNearbyCities = nearbyCities !== undefined ? nearbyCities : this.state.proposeNearbyCities
@@ -226,18 +240,34 @@ class Intro extends React.Component<PropsType, StateType> {
     }
   }
 
-  render () {
+  render() {
     const { theme, t } = this.props
     const { customizableSettings, slideCount, currentSlide, width } = this.state
-    return <Container width={width}>
-      <FlatList ref={this._flatList} data={this.slides()} horizontal pagingEnabled
-                viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
-                onViewableItemsChanged={this.onViewableItemsChanged} showsHorizontalScrollIndicator={false}
-                bounces={false} renderItem={this.renderSlide} />
-      <SlideFooter slideCount={slideCount} onDone={this.onDone} toggleCustomizeSettings={this.toggleCustomizeSettings}
-                   customizableSettings={customizableSettings} currentSlide={currentSlide} goToSlide={this.goToSlide}
-                   theme={theme} t={t} />
-    </Container>
+    return (
+      <Container width={width}>
+        <FlatList
+          ref={this._flatList}
+          data={this.slides()}
+          horizontal
+          pagingEnabled
+          viewabilityConfig={{ itemVisiblePercentThreshold: 51, minimumViewTime: 0.1 }}
+          onViewableItemsChanged={this.onViewableItemsChanged}
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          renderItem={this.renderSlide}
+        />
+        <SlideFooter
+          slideCount={slideCount}
+          onDone={this.onDone}
+          toggleCustomizeSettings={this.toggleCustomizeSettings}
+          customizableSettings={customizableSettings}
+          currentSlide={currentSlide}
+          goToSlide={this.goToSlide}
+          theme={theme}
+          t={t}
+        />
+      </Container>
+    )
   }
 }
 
@@ -245,7 +275,5 @@ const mapStateToProps = (state: ReduxStateType): {| language: string |} => ({ la
 type ConnectType = {| ...OwnPropsType, language: string, dispatch: () => void |}
 
 export default connect<ConnectType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>(['intro', 'settings'])(
-    withTheme<PropsType>(Intro)
-  )
+  withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>(['intro', 'settings'])(withTheme<PropsType>(Intro))
 )

@@ -8,7 +8,7 @@ class SprungbrettModel {
   _isEmployment: boolean
   _isApprenticeship: boolean
 
-  constructor (params: {
+  constructor(params: {
     id: number,
     title: string,
     location: string,
@@ -24,27 +24,27 @@ class SprungbrettModel {
     this._isApprenticeship = params.isApprenticeship
   }
 
-  get id (): number {
+  get id(): number {
     return this._id
   }
 
-  get title (): string {
+  get title(): string {
     return this._title
   }
 
-  get location (): string {
+  get location(): string {
     return this._location
   }
 
-  get url (): string {
+  get url(): string {
     return this._url
   }
 
-  get isEmployment (): boolean {
+  get isEmployment(): boolean {
     return this._isEmployment
   }
 
-  get isApprenticeship (): boolean {
+  get isApprenticeship(): boolean {
     return this._isApprenticeship
   }
 }
