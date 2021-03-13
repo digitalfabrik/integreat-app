@@ -58,7 +58,8 @@ const navigateToDeepLink = async (
     }
 
     if (!routeInformation) {
-      // TODO show snackbar route not found
+      console.warn('This is not a supported route. Skipping.')
+      // TODO IGAPP-521 show snackbar route not found
     }
   }
 }
