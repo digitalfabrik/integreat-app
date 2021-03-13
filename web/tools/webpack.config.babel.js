@@ -143,8 +143,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
     stats: 'minimal',
     performance: {
       hints: !devServer ? 'error' : false,
-      maxEntrypointSize: MAX_BUNDLE_SIZE,
-      maxAssetSize: MAX_BUNDLE_SIZE
+      maxEntrypointSize: MAX_BUNDLE_SIZE
     },
     // The list of plugins for Webpack compiler
     plugins: [
