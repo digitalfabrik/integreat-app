@@ -15,11 +15,14 @@ export type FetchMapTargetType = {| url: string, filePath: string, urlHash: stri
 export type FetchMapType = { [path: string]: Array<FetchMapTargetType> }
 
 const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(fetchResult, (message, result, path) =>
-    `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`, '')
+  return reduce(
+    fetchResult,
+    (message, result, path) => `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`,
+    ''
+  )
 }
 
-function * watchOnProgress (): Saga<void> {
+function* watchOnProgress(): Saga<void> {
   const channel = new FetcherModule().createProgressChannel()
   try {
     let progress = 0
@@ -39,7 +42,7 @@ function * watchOnProgress (): Saga<void> {
   }
 }
 
-export default function * fetchResourceCache (
+export default function* fetchResourceCache(
   city: string,
   language: string,
   fetchMap: FetchMapType,
@@ -47,10 +50,14 @@ export default function * fetchResourceCache (
 ): Saga<void> {
   try {
     const fetchMapTargets = flatten<FetchMapTargetType, FetchMapTargetType>(values(fetchMap))
-    const targetFilePaths = reduce<FetchMapTargetType, TargetFilePathsType>(fetchMapTargets, (acc, value) => {
-      acc[value.filePath] = value.url
-      return acc
-    }, {})
+    const targetFilePaths = reduce<FetchMapTargetType, TargetFilePathsType>(
+      fetchMapTargets,
+      (acc, value) => {
+        acc[value.filePath] = value.url
+        return acc
+      },
+      {}
+    )
 
     if (FetcherModule.currentlyFetching) {
       throw new Error('Already fetching!')
@@ -70,7 +77,8 @@ export default function * fetchResourceCache (
 
     const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
       reduce<FetchMapTargetType, PageResourceCacheStateType>(
-        fetchMapEntry, (acc: {}, fetchMapTarget: FetchMapTargetType) => {
+        fetchMapEntry,
+        (acc: {}, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
           const downloadResult = successResults[filePath]
 
@@ -82,7 +90,9 @@ export default function * fetchResourceCache (
             }
           }
           return acc
-        }, {})
+        },
+        {}
+      )
     )
 
     yield call(dataContainer.setResourceCache, city, language, resourceCache)
@@ -91,7 +101,8 @@ export default function * fetchResourceCache (
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',
       params: {
-        message: `Error in fetchResourceCache: ${e.message}`, code: fromError(e)
+        message: `Error in fetchResourceCache: ${e.message}`,
+        code: fromError(e)
       }
     }
     yield put(failed)

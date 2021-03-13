@@ -6,7 +6,8 @@ import {
   DateModel,
   EventModel,
   LanguageModel,
-  LocationModel, PoiModel
+  LocationModel,
+  PoiModel
 } from 'api-client'
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
@@ -21,20 +22,31 @@ import pushEvent from '../pushEvent'
 import createCityContent from '../createCityContent'
 
 describe('morphContentLanguage', () => {
-  const createCategory = ({ root, path, order, availableLanguages, parentPath }: {|
-    root: boolean, path: string, order: number, availableLanguages: Map<string, string>, parentPath: string
-  |}) => new CategoryModel({
+  const createCategory = ({
     root,
     path,
     order,
     availableLanguages,
-    parentPath,
-    title: '',
-    content: '',
-    thumbnail: 'no_thumbnail',
-    hash: '',
-    lastUpdate: moment('2011-02-04T00:00:00.000Z')
-  })
+    parentPath
+  }: {|
+    root: boolean,
+    path: string,
+    order: number,
+    availableLanguages: Map<string, string>,
+    parentPath: string
+  |}) =>
+    new CategoryModel({
+      root,
+      path,
+      order,
+      availableLanguages,
+      parentPath,
+      title: '',
+      content: '',
+      thumbnail: 'no_thumbnail',
+      hash: '',
+      lastUpdate: moment('2011-02-04T00:00:00.000Z')
+    })
 
   const rootEnCategory = createCategory({
     root: true,
@@ -64,12 +76,7 @@ describe('morphContentLanguage', () => {
     order: 1,
     availableLanguages: new Map([['de', '/augsburg/de/willkommen/willkommen-in-augsburg']])
   })
-  const enCategoriesMap = new CategoriesMapModel([
-    rootEnCategory,
-    sub1EnCategory,
-    sub2EnCategory,
-    sub2subEnCategory
-  ])
+  const enCategoriesMap = new CategoriesMapModel([rootEnCategory, sub1EnCategory, sub2EnCategory, sub2subEnCategory])
 
   const createGermanCategoriesMap = ({ translatable }: { translatable: boolean } = { translatable: true }) => {
     const deCategories = [
@@ -219,14 +226,24 @@ describe('morphContentLanguage', () => {
     })
   ]
 
-  const prepareState = ({ path, categoriesMap, eventPath, events }: {
-    path: string, categoriesMap: CategoriesMapModel, eventPath: ?string, events: Array<EventModel>
-  } = {
-    path: '/augsburg/de',
-    categoriesMap: createGermanCategoriesMap(),
-    eventPath: '/augsburg/de/events/drittes_event',
-    events: createGermanEvents()
-  }): CityContentStateType => {
+  const prepareState = (
+    {
+      path,
+      categoriesMap,
+      eventPath,
+      events
+    }: {
+      path: string,
+      categoriesMap: CategoriesMapModel,
+      eventPath: ?string,
+      events: Array<EventModel>
+    } = {
+      path: '/augsburg/de',
+      categoriesMap: createGermanCategoriesMap(),
+      eventPath: '/augsburg/de/events/drittes_event',
+      events: createGermanEvents()
+    }
+  ): CityContentStateType => {
     const pushCategoryAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
@@ -255,10 +272,7 @@ describe('morphContentLanguage', () => {
         refresh: false
       }
     }
-    return pushEvent(
-      pushCategory(createCityContent('augsburg', cityLanguages), pushCategoryAction),
-      pushEventAction
-    )
+    return pushEvent(pushCategory(createCityContent('augsburg', cityLanguages), pushCategoryAction), pushEventAction)
   }
 
   it('should not change when language is equal', () => {
@@ -349,7 +363,10 @@ describe('morphContentLanguage', () => {
           language: 'en',
           depth: 2,
           path: '/augsburg/en',
-          allAvailableLanguages: new Map([['de', '/augsburg/de'], ['en', '/augsburg/en']]),
+          allAvailableLanguages: new Map([
+            ['de', '/augsburg/de'],
+            ['en', '/augsburg/en']
+          ]),
           models: {
             [rootEnCategory.path]: rootEnCategory,
             [sub1EnCategory.path]: sub1EnCategory,

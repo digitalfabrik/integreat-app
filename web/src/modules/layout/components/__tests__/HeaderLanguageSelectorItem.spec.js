@@ -24,14 +24,14 @@ describe('HeaderLanguageSelectorItem', () => {
   const activeItemCode = 'de'
 
   it('should render a HeaderDropDown with a Selector if there are selectorItems', () => {
-    expect(shallow(
-      <HeaderLanguageSelectorItem activeItemCode={activeItemCode} selectorItems={selectorItems} />
-    ).dive()).toMatchSnapshot()
+    expect(
+      shallow(<HeaderLanguageSelectorItem activeItemCode={activeItemCode} selectorItems={selectorItems} />).dive()
+    ).toMatchSnapshot()
   })
 
   it('should render an icon with a tooltip if there are no selectorItems', () => {
-    expect(shallow(
-      <HeaderLanguageSelectorItem activeItemCode={activeItemCode} selectorItems={[]} />
-    ).dive()).toMatchSnapshot()
+    expect(
+      shallow(<HeaderLanguageSelectorItem activeItemCode={activeItemCode} selectorItems={[]} />).dive()
+    ).toMatchSnapshot()
   })
 })

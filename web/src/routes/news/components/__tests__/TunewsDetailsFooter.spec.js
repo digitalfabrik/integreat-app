@@ -12,11 +12,7 @@ describe('TunewsDetailsFooter', () => {
 
   it('should render the right data', () => {
     const wrapper = shallow(
-      <TunewsDetailsFooter
-        eNewsNo='tun0000009902'
-        date={date}
-        formatter={new DateFormatter(language)}
-      />
+      <TunewsDetailsFooter eNewsNo='tun0000009902' date={date} formatter={new DateFormatter(language)} />
     )
     expect(wrapper.text()).toContain('tun0000009902')
   })

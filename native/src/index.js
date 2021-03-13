@@ -5,6 +5,4 @@ import { AppRegistry } from 'react-native'
 import App from './modules/app/components/App'
 import 'moment/min/locales'
 
-AppRegistry.registerComponent('Integreat', () =>
-  () => <App />
-)
+AppRegistry.registerComponent('Integreat', () => () => <App />)

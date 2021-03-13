@@ -12,15 +12,22 @@ type PropsType = {|
 |}
 
 class SlideButton extends React.Component<PropsType> {
-  render () {
+  render() {
     const { label, onPress, theme, highlighted } = this.props
-    return <Button type={highlighted ? 'solid' : 'clear'} title={label} borderless onPress={onPress}
-                   titleStyle={{ color: theme.colors.textColor }}
-                   containerStyle={{ flex: 1, margin: 0 }}
-                   buttonStyle={{
-                     margin: 0,
-                     backgroundColor: highlighted ? theme.colors.themeColor : theme.colors.backgroundColor
-                   }} />
+    return (
+      <Button
+        type={highlighted ? 'solid' : 'clear'}
+        title={label}
+        borderless
+        onPress={onPress}
+        titleStyle={{ color: theme.colors.textColor }}
+        containerStyle={{ flex: 1, margin: 0 }}
+        buttonStyle={{
+          margin: 0,
+          backgroundColor: highlighted ? theme.colors.themeColor : theme.colors.backgroundColor
+        }}
+      />
+    )
   }
 }
 

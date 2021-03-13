@@ -16,7 +16,11 @@ const category = new CategoryModel({
   content: 'this is a test content which is longer than usual',
   parentPath: '/augsburg/de',
   order: 11,
-  availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
+  availableLanguages: new Map([
+    ['en', '4861'],
+    ['ar', '4867'],
+    ['fa', '4868']
+  ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: 'a36a56'
@@ -28,7 +32,11 @@ const childCategory = new CategoryModel({
   content: 'this is a test content',
   parentPath: '/augsburg/de',
   order: 11,
-  availableLanguages: new Map([['en', '4861'], ['ar', '4867'], ['fa', '4868']]),
+  availableLanguages: new Map([
+    ['en', '4861'],
+    ['ar', '4867'],
+    ['fa', '4868']
+  ]),
   thumbnail: 'https://cms.integreat-ap…03/Beratung-150x150.png',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: 'a36a57'
@@ -40,34 +48,37 @@ const noThumbCategory = new CategoryModel({
   content: 'some content',
   parentPath: '/augsburg/de/willkommen',
   order: 1,
-  availableLanguages: new Map([['en', '390'], ['ar', '711'], ['fa', '397']]),
+  availableLanguages: new Map([
+    ['en', '390'],
+    ['ar', '711'],
+    ['fa', '397']
+  ]),
   thumbnail: '',
   lastUpdate: moment('2017-11-18T19:30:00.000Z'),
   hash: 'a36a58'
 })
 
 // helper to find StyledComponents without importing them
-function findComponent (wrapper: ShallowWrapper<*>, name: string): ShallowWrapper<*> {
+function findComponent(wrapper: ShallowWrapper<*>, name: string): ShallowWrapper<*> {
   return wrapper.findWhere(n => n.name()?.endsWith(name))
 }
 
 describe('CategoryEntry', () => {
   it('should render and match snapshot', () => {
-    const wrapper = shallow(<CategoryEntry
-      theme={lightTheme}
-      contentWithoutHtml={null}
-      category={category}
-      subCategories={[childCategory]} />
+    const wrapper = shallow(
+      <CategoryEntry theme={lightTheme} contentWithoutHtml={null} category={category} subCategories={[childCategory]} />
     ).dive()
 
     expect(findComponent(wrapper, 'StyledLink').at(0).prop('to')).toEqual(category.path)
     expect(findComponent(wrapper, 'CategoryThumbnail').prop('src')).toEqual(category.thumbnail)
-    expect(findComponent(wrapper, 'Highlighter').props()).toEqual(expect.objectContaining({
-      'aria-label': category.title,
-      searchWords: [],
-      sanitize: normalizeSearchString,
-      textToHighlight: category.title
-    }))
+    expect(findComponent(wrapper, 'Highlighter').props()).toEqual(
+      expect.objectContaining({
+        'aria-label': category.title,
+        searchWords: [],
+        sanitize: normalizeSearchString,
+        textToHighlight: category.title
+      })
+    )
 
     expect(wrapper.exists('div')).toBe(true)
     expect(findComponent(wrapper, 'SubCategory').key()).toEqual(childCategory.hash)
@@ -79,11 +90,13 @@ describe('CategoryEntry', () => {
   })
 
   it('should replace empty thumbnail', () => {
-    const wrapper = shallow(<CategoryEntry
-      theme={lightTheme}
-      contentWithoutHtml={null}
-      category={noThumbCategory}
-      subCategories={[childCategory]} />
+    const wrapper = shallow(
+      <CategoryEntry
+        theme={lightTheme}
+        contentWithoutHtml={null}
+        category={noThumbCategory}
+        subCategories={[childCategory]}
+      />
     ).dive()
 
     expect(findComponent(wrapper, 'CategoryThumbnail').prop('src')).toEqual(iconPlaceholder)
@@ -95,11 +108,13 @@ describe('CategoryEntry', () => {
       const selectedSection = 'this is a test content which is'
       const numWords = 3
       const wrapper = shallow(
-        <CategoryEntry category={category}
-                       theme={lightTheme}
-                       contentWithoutHtml={category.content}
-                       query={query}
-                       subCategories={[]} />
+        <CategoryEntry
+          category={category}
+          theme={lightTheme}
+          contentWithoutHtml={category.content}
+          query={query}
+          subCategories={[]}
+        />
       )
       const categoryEntry = wrapper.instance()
       // $FlowFixMe React.Portal is incompatible
@@ -116,11 +131,13 @@ describe('CategoryEntry', () => {
       const query = 'test'
       const numWords = 3
       const wrapper = shallow(
-        <CategoryEntry category={category}
-                       theme={lightTheme}
-                       contentWithoutHtml={category.content}
-                       query={query}
-                       subCategories={[]} />
+        <CategoryEntry
+          category={category}
+          theme={lightTheme}
+          contentWithoutHtml={category.content}
+          query={query}
+          subCategories={[]}
+        />
       )
       const categoryEntry = wrapper.instance()
       // $FlowFixMe getMatchedContent is not writable

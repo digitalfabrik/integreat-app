@@ -56,8 +56,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
 
   onMomentumScrollEnd = (event: ScrollEvent) => {
     const { nativeEvent } = event
-    const contentSizeDiff =
-      nativeEvent.contentSize.width - nativeEvent.layoutMeasurement.width
+    const contentSizeDiff = nativeEvent.contentSize.width - nativeEvent.layoutMeasurement.width
 
     this.setState({
       xPosition: nativeEvent.contentOffset.x,
@@ -65,15 +64,8 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
     })
   }
 
-  render () {
-    const {
-      tiles,
-      theme,
-      navigationItemWidth,
-      scrollViewWidth,
-      language,
-      isScrollable
-    } = this.props
+  render() {
+    const { tiles, theme, navigationItemWidth, scrollViewWidth, language, isScrollable } = this.props
     const { xPosition, contentSizeDiff } = this.state
 
     return (
@@ -104,7 +96,9 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
           bounces={false}
           onMomentumScrollEnd={this.onMomentumScrollEnd}
           snapToAlignment='center'>
-          {tiles.map(tile => <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />)}
+          {tiles.map(tile => (
+            <NavigationTile key={tile.path} tile={tile} theme={theme} width={navigationItemWidth} />
+          ))}
         </ScrollView>
         {isScrollable && (
           <AnchorIcon
@@ -131,9 +125,7 @@ const NavigationTilesWithScrollableView = (props: {|
   const layoutWidth = left && right ? width - (left + right) : width
   const isWideScreen = layoutWidth >= widthBreakPoint
   const scrollviewWidth: number = layoutWidth - anchorWidth * 2
-  const itemWidth = isWideScreen
-    ? scrollviewWidth / wideScreenItemsCount
-    : scrollviewWidth / smallScreenItemsCount
+  const itemWidth = isWideScreen ? scrollviewWidth / wideScreenItemsCount : scrollviewWidth / smallScreenItemsCount
   const allTilesWidth = props.tiles.length * itemWidth
   const isScrollable = allTilesWidth > layoutWidth
 

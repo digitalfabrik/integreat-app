@@ -25,7 +25,8 @@ import type {
 } from 'api-client/src/routes'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 
-export type RoutesType = IntroRouteType
+export type RoutesType =
+  | IntroRouteType
   | LandingRouteType
   | DashboardRouteType
   | CategoriesRouteType

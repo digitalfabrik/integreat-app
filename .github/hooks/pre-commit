@@ -1,0 +1,7 @@
+#!/bin/sh
+
+yarn prettier --check .
+# yarn lint
+# yarn flow
+# yarn test
+

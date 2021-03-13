@@ -47,30 +47,33 @@ describe('EventJsonLd', () => {
 
     const wrapper = shallow(<EventJsonLd event={eventModel} formatter={new DateFormatter('en')} />)
     const helmet = wrapper.find(Helmet)
-    expect(helmet.children().matchesElement(<script type='application/ld+json'>
-        {JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Event',
-          name: 'Sample Event',
-          startDate: '2017-11-18T10:30:00+01:00',
-          eventStatus: 'https://schema.org/EventScheduled',
-          description: 'This is a sample event. Have fun sampling.',
-          location: {
-            '@type': 'Place',
-            name: 'Café Tür an Tür',
-            address: {
-              '@type': 'PostalAddress',
-              streetAddress: 'Wertachstr. 29',
-              addressLocality: 'Augsburg',
-              postalCode: '86153',
-              addressRegion: 'Schwaben',
-              addressCountry: 'DE'
-            }
-          },
-          endDate: '2017-11-19T10:30:00+01:00',
-          image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg']
-        })}
-      </script>
-    )).toBe(true)
+    expect(
+      helmet.children().matchesElement(
+        <script type='application/ld+json'>
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Event',
+            name: 'Sample Event',
+            startDate: '2017-11-18T10:30:00+01:00',
+            eventStatus: 'https://schema.org/EventScheduled',
+            description: 'This is a sample event. Have fun sampling.',
+            location: {
+              '@type': 'Place',
+              name: 'Café Tür an Tür',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Wertachstr. 29',
+                addressLocality: 'Augsburg',
+                postalCode: '86153',
+                addressRegion: 'Schwaben',
+                addressCountry: 'DE'
+              }
+            },
+            endDate: '2017-11-19T10:30:00+01:00',
+            image: ['/thumbnail.jpg', '/medium.jpg', '/medium.jpg', '/full.jpg']
+          })}
+        </script>
+      )
+    ).toBe(true)
   })
 })

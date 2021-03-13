@@ -27,17 +27,25 @@ type PropsType = {|
 |}
 
 export class WohnenOfferPage extends React.Component<PropsType> {
-  renderOfferListItem = ({ city, language, hashFunction }: {
-    city: string, language: string,
+  renderOfferListItem = ({
+    city,
+    language,
+    hashFunction
+  }: {
+    city: string,
+    language: string,
     hashFunction: WohnenOfferModel => string
-  }) => (offer: WohnenOfferModel) =>
-    <OfferListItem key={hashFunction(offer)}
-                   offer={offer}
-                   language={language}
-                   city={city}
-                   hashFunction={hashFunction} />
+  }) => (offer: WohnenOfferModel) => (
+    <OfferListItem
+      key={hashFunction(offer)}
+      offer={offer}
+      language={language}
+      city={city}
+      hashFunction={hashFunction}
+    />
+  )
 
-  render () {
+  render() {
     const { wohnenOffers, offers, city, language, wohnenOfferHash, t } = this.props
     const offer: OfferModel | void = offers.find(offer => offer.alias === 'wohnen')
 
@@ -58,9 +66,11 @@ export class WohnenOfferPage extends React.Component<PropsType> {
     return (
       <>
         <Caption title={offer.title} />
-        <List noItemsMessage={t('noOffersAvailable')}
-              items={wohnenOffers}
-              renderItem={this.renderOfferListItem({ city, language, hashFunction })} />
+        <List
+          noItemsMessage={t('noOffersAvailable')}
+          items={wohnenOffers}
+          renderItem={this.renderOfferListItem({ city, language, hashFunction })}
+        />
       </>
     )
   }
@@ -73,6 +83,5 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
-  withTranslation<PropsType>('wohnen')(
-    WohnenOfferPage
-  ))
+  withTranslation<PropsType>('wohnen')(WohnenOfferPage)
+)

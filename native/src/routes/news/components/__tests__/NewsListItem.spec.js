@@ -34,12 +34,15 @@ describe('NewsListItem', () => {
 
   it('should correctly render a local news item', () => {
     const { getByText, queryByText } = render(
-      <NewsListItem newsItem={localNews}
-                    language={language}
-                    navigateToNews={navigateToNews}
-                    theme={buildConfig().lightTheme}
-                    t={t}
-                    isTunews={false} />)
+      <NewsListItem
+        newsItem={localNews}
+        language={language}
+        navigateToNews={navigateToNews}
+        theme={buildConfig().lightTheme}
+        t={t}
+        isTunews={false}
+      />
+    )
 
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('Some "test text with lots of "html entities" which won\'t be displayed.')).toBeTruthy()
@@ -52,12 +55,15 @@ describe('NewsListItem', () => {
 
   it('should correctly render a tu news item', () => {
     const { getByText } = render(
-      <NewsListItem newsItem={tuNews}
-                    language={language}
-                    navigateToNews={navigateToNews}
-                    theme={buildConfig().lightTheme}
-                    t={t}
-                    isTunews />)
+      <NewsListItem
+        newsItem={tuNews}
+        language={language}
+        navigateToNews={navigateToNews}
+        theme={buildConfig().lightTheme}
+        t={t}
+        isTunews
+      />
+    )
 
     expect(getByText(tuNews.title)).toBeTruthy()
     expect(getByText(tuNews.content)).toBeTruthy()

@@ -14,7 +14,7 @@ type PropsType = {|
 |}
 
 class SprungbrettListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { language, job, openJobInBrowser, theme } = this.props
     return (
       <ListItem thumbnail={null} title={job.title} navigateTo={openJobInBrowser} theme={theme} language={language}>
