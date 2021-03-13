@@ -51,7 +51,7 @@ export default {
       }
     }
 
-    return bcp47Tags.length > 0 ? bcp47Tags : undefined // Returning array: new i18next v19.5.0
+    return bcp47Tags.length > 0 ? bcp47Tags : undefined
   },
   cacheUserLanguage: language => {
     if (localStorageAvailable()) {
