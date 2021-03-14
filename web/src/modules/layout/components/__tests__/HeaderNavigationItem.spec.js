@@ -2,7 +2,14 @@
 
 import React from 'react'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../theme/constants/theme'
+import type { Node } from 'react'
+
+jest.mock('redux-first-router-link', () => ({ children, to }: { to: string, children: Array<Node>, ... }) => (
+  <a href={to}>{children}</a>
+))
 
 describe('HeaderNavigationItem', () => {
   const tooltip = 'random tooltip'
@@ -10,16 +17,14 @@ describe('HeaderNavigationItem', () => {
   const text = 'Kategorien'
 
   it('should render an ActiveNavigationItem', () => {
-    const headerNavigationItem = shallow(<HeaderNavigationItem text={text} active href={href} icon='icon' />)
-
-    expect(headerNavigationItem).toMatchSnapshot()
-  })
-
-  it('should render an InactiveNavigationItem', () => {
-    const headerNavigationItem = shallow(
-      <HeaderNavigationItem text={text} href={href} active={false} icon='icon' tooltip={tooltip} />
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>
+        <HeaderNavigationItem text={text} active href={href} icon='icon' />
+      </ThemeProvider>
     )
 
-    expect(headerNavigationItem).toMatchSnapshot()
+    const textNode = getByText(text)
+    expect(textNode).toBeTruthy()
+    expect(() => getByText(tooltip)).toThrow()
   })
 })
