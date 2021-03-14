@@ -4,15 +4,10 @@ import createNavigationScreenPropMock from '../../../testing/createNavigationPro
 import navigateToOffers from '../navigateToOffers'
 import { OFFERS_ROUTE } from 'api-client/src/routes'
 
-const cityContentUrl = ({ cityCode, languageCode, route }) => `/${cityCode}/${languageCode}/${route}`
-jest.mock('../url', () => ({
-  cityContentUrl: jest.fn(cityContentUrl)
-}))
-
 const cityCode = 'augsburg'
 const languageCode = 'de'
 
-describe('createNavigateToOffers', () => {
+describe('navigateToOffers', () => {
   it('should navigate to the Offers route with correct parameters', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
