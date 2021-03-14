@@ -1,10 +1,11 @@
 // @flow
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
-import { createOffersEndpoint, OfferModel } from 'api-client'
+import { createOffersEndpoint, NotFoundError, OfferModel } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -15,8 +16,9 @@ import openExternalUrl from '../../../modules/common/openExternalUrl'
 import type { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import { fromError } from '../../../modules/error/ErrorCodes'
-import loadFromEndpoint from '../../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../../modules/endpoint/loadFromEndpoint'
 import TileModel from '../../../modules/common/models/TileModel'
+import type { StateType } from '../../../modules/app/StateType'
 
 type OwnPropsType = {|
   route: RoutePropType<OffersRouteType>,
@@ -30,26 +32,13 @@ type OffersPropsType = {|
 |}
 
 const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
-  const [offers, setOffers] = useState<?Array<OfferModel>>(null)
-  const [error, setError] = useState<?Error>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-
   const { cityCode, languageCode } = route.params
+  const cities = useSelector((state: StateType) => state.cities.models || null)
 
-  const loadOffers = useCallback(async () => {
-    const request = async (apiUrl: string) =>
-      await createOffersEndpoint(apiUrl).request({ city: cityCode, language: languageCode })
-
-    await loadFromEndpoint<Array<OfferModel>>(request, setOffers, setError, setLoading)
-  }, [cityCode, languageCode, setOffers, setError, setLoading])
-
-  const tryAgain = useCallback(() => {
-    loadOffers().catch(e => setError(e))
-  }, [loadOffers])
-
-  useEffect(() => {
-    loadOffers().catch(e => setError(e))
-  }, [loadOffers])
+  const request = useCallback(async (apiUrl: string) =>
+    await createOffersEndpoint(apiUrl).request({ city: cityCode, language: languageCode }
+    ), [cityCode, languageCode])
+  const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
 
   const navigateToOffer = useCallback(
     (tile: TileModel) => {
@@ -94,17 +83,20 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     [offers, languageCode, cityCode, navigation]
   )
 
-  if (error) {
+  const cityModel = cities && cities.find(city => city.code === cityCode)
+  if (offersError || (cityModel && !cityModel.offersEnabled)) {
+    const error =
+      offersError || new NotFoundError({ type: 'category', id: 'offers', city: cityCode, language: languageCode })
     return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
-        <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
+        <FailureContainer code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }
 
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
-      {offers && (
+    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
+      {cities && offers && (
         <Offers
           offers={offers}
           navigateToOffer={navigateToOffer}
