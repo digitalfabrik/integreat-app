@@ -8,7 +8,7 @@ jest.mock('react-i18next')
 
 describe('GeneralFooter', () => {
   it('should match snapshot', () => {
-    const component = shallow(<GeneralFooter language='de'/>)
+    const component = shallow(<GeneralFooter language='de' />)
     expect(component.dive()).toMatchSnapshot()
   })
 })

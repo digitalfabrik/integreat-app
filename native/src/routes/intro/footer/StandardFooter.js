@@ -27,16 +27,18 @@ class StandardFooter extends React.Component<PropsType> {
   goToPreviousSlide = () => this.props.goToSlide(this.props.slideCount - 1)
   goToNextSlide = () => this.props.goToSlide(this.props.currentSlide + 1)
 
-  render () {
+  render() {
     const { theme, slideCount, goToSlide, currentSlide, t } = this.props
 
-    return <View>
-      <ButtonContainer theme={theme}>
-        <SlideButton label={t('skip')} onPress={this.goToPreviousSlide} theme={theme} />
-        <SlideButton label={t('next')} onPress={this.goToNextSlide} theme={theme} />
-      </ButtonContainer>
-      <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
-    </View>
+    return (
+      <View>
+        <ButtonContainer theme={theme}>
+          <SlideButton label={t('skip')} onPress={this.goToPreviousSlide} theme={theme} />
+          <SlideButton label={t('next')} onPress={this.goToNextSlide} theme={theme} />
+        </ButtonContainer>
+        <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} />
+      </View>
+    )
   }
 }
 

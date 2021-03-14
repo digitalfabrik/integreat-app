@@ -7,13 +7,17 @@ const MAXIMAL_DISTANCE = 90
 
 const degreesToRadians = (deg: number): number => {
   const degreesSemicircle = 180
-  return Math.PI * deg / degreesSemicircle
+  return (Math.PI * deg) / degreesSemicircle
 }
 
 const calculateDistance = (longitude0: number, latitude0: number, longitude1: number, latitude1: number): number => {
   const earthRadius = 6371
-  return Math.acos(Math.cos(longitude0) * Math.cos(longitude1) * Math.cos(latitude0 - latitude1) +
-    Math.sin(longitude1) * Math.sin(longitude0)) * earthRadius
+  return (
+    Math.acos(
+      Math.cos(longitude0) * Math.cos(longitude1) * Math.cos(latitude0 - latitude1) +
+        Math.sin(longitude1) * Math.sin(longitude0)
+    ) * earthRadius
+  )
 }
 
 const currentDistance = (cityModel: CityModel, longitude: number, latitude: number) => {
@@ -43,7 +47,8 @@ const compareDistance = (cityModelA: CityModel, cityModelB: CityModel, longitude
 }
 
 const getNearbyPlaces = (cities: Array<CityModel>, longitude: number, latitude: number): Array<CityModel> => {
-  return cities.sort((a: CityModel, b: CityModel) => compareDistance(a, b, longitude, latitude))
+  return cities
+    .sort((a: CityModel, b: CityModel) => compareDistance(a, b, longitude, latitude))
     .slice(0, NUMBER_OF_CLOSEST_CITIES)
     .filter(_city => currentDistance(_city, longitude, latitude) < MAXIMAL_DISTANCE)
 }

@@ -39,6 +39,9 @@ commands:
             - run:
                 command: yarn workspace << parameters.directory >> run lint:ci
                 name: Linting check
+            - run:
+                command: yarn workspace << parameters.directory >> prettier --check .
+                name: Prettier check
             - store_test_results:
                 path: << parameters.directory >>/reports/lint
     notify:

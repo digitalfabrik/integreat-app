@@ -11,13 +11,13 @@ import { Button } from 'react-native-elements'
 import type { ErrorCodeType } from '../ErrorCodes'
 
 const ViewContainer: StyledComponent<{||}, ThemeType, *> = styled.View`
-flex: 1;
-align-items: center;
-margin-top: 15%;
+  flex: 1;
+  align-items: center;
+  margin-top: 15%;
 `
 
 const IconContainer = styled.Image`
-margin-bottom: 10px;
+  margin-bottom: 10px;
 `
 
 export type PropsType = {|
@@ -28,17 +28,24 @@ export type PropsType = {|
 |}
 
 class Failure extends React.Component<PropsType> {
-  render () {
+  render() {
     const { t, code, tryAgain, theme } = this.props
 
-    return <ViewContainer>
-      <IconContainer source={FailureIcon} />
-      <Text>{t(code)}</Text>
-      {tryAgain &&
-      <Button testID='button-tryAgain' titleStyle={{ color: theme.colors.textColor }}
-              buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 20 }}
-              onPress={tryAgain} title={t('tryAgain')} />}
-    </ViewContainer>
+    return (
+      <ViewContainer>
+        <IconContainer source={FailureIcon} />
+        <Text>{t(code)}</Text>
+        {tryAgain && (
+          <Button
+            testID='button-tryAgain'
+            titleStyle={{ color: theme.colors.textColor }}
+            buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 20 }}
+            onPress={tryAgain}
+            title={t('tryAgain')}
+          />
+        )}
+      </ViewContainer>
+    )
   }
 }
 

@@ -31,9 +31,7 @@ class FetcherModule {
     })
   }
 
-  async fetchAsync (
-    targetFilePaths: TargetFilePathsType
-  ): Promise<FetchResultType> {
+  async fetchAsync(targetFilePaths: TargetFilePathsType): Promise<FetchResultType> {
     if (isEmpty(targetFilePaths)) {
       return {}
     }

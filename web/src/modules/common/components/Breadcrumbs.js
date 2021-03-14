@@ -8,7 +8,7 @@ import BreadcrumbModel from '../BreadcrumbModel'
 import BreadcrumbsJsonLd from '../../json-ld/components/BreadcrumbsJsonLd'
 import type { ThemeType } from 'build-configs/ThemeType'
 
-const opposite = (direction: UiDirectionType) => direction === 'ltr' ? 'rtl' : 'ltr'
+const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
 const Wrapper: StyledComponent<{| direction: UiDirectionType |}, ThemeType, *> = styled.div`
   margin: 10px 0;
@@ -44,7 +44,7 @@ type PropsType = {|
 class Breadcrumbs extends React.PureComponent<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
-  render () {
+  render() {
     const { direction, ancestorBreadcrumbs, currentBreadcrumb } = this.props
     // The current page should not be listed in the UI, but should be within the JsonLd.
     const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
@@ -53,12 +53,16 @@ class Breadcrumbs extends React.PureComponent<PropsType> {
     // https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
     // Basically we are inverting the direction on the wrapper and then making sure that the direction of the content
     // has the opposite direction of the wrapper.
-    return <Wrapper direction={direction}>
-      <BreadcrumbsJsonLd breadcrumbs={jsonLdBreadcrumbs} />
-      <OrderedList direction={direction}>
-        {ancestorBreadcrumbs.map((breadcrumb, key) => <Breadcrumb key={key}>{breadcrumb.node}</Breadcrumb>)}
-      </OrderedList>
-    </Wrapper>
+    return (
+      <Wrapper direction={direction}>
+        <BreadcrumbsJsonLd breadcrumbs={jsonLdBreadcrumbs} />
+        <OrderedList direction={direction}>
+          {ancestorBreadcrumbs.map((breadcrumb, key) => (
+            <Breadcrumb key={key}>{breadcrumb.node}</Breadcrumb>
+          ))}
+        </OrderedList>
+      </Wrapper>
+    )
   }
 }
 

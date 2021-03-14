@@ -8,11 +8,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { render, waitFor } from '@testing-library/react-native'
 import I18nProvider from '../I18nProvider'
-import type {
-  CitiesStateType,
-  LanguagesStateType,
-  StateType
-} from '../../../app/StateType'
+import type { CitiesStateType, LanguagesStateType, StateType } from '../../../app/StateType'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import AppSettings from '../../../settings/AppSettings'
@@ -29,26 +25,23 @@ const city = cities[0]
 const languages = new LanguageModelBuilder(1).build()
 const language = languages[0]
 
-const prepareState = (
-  {
-    contentLanguage = 'de',
-    switchingLanguage,
-    cities,
-    languages
-  }: {|
-    contentLanguage?: string,
-    switchingLanguage?: boolean,
-    cities?: CitiesStateType,
-    languages?: LanguagesStateType
-  |} = {}
-): StateType => {
+const prepareState = ({
+  contentLanguage = 'de',
+  switchingLanguage,
+  cities,
+  languages
+}: {|
+  contentLanguage?: string,
+  switchingLanguage?: boolean,
+  cities?: CitiesStateType,
+  languages?: LanguagesStateType
+|} = {}): StateType => {
   return {
     darkMode: false,
     resourceCacheUrl: 'http://localhost:8080',
     cityContent: {
       city: city.code,
-      switchingLanguage:
-        switchingLanguage !== undefined ? switchingLanguage : false,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
       languages: languages || {
         status: 'ready',
         models: [language]
@@ -83,7 +76,13 @@ describe('I18nProvider', () => {
     // $FlowFixMe
     NativeLanguageDetector.detect.mockReturnValue(['ckb'])
     const store = mockStore(prepareState())
-    render(<Provider store={store}><I18nProvider><Text>Hello</Text></I18nProvider></Provider>)
+    render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Text>Hello</Text>
+        </I18nProvider>
+      </Provider>
+    )
 
     await waitFor(() => {})
     expect(await new AppSettings().loadContentLanguage()).toEqual('ckb')
@@ -102,7 +101,8 @@ describe('I18nProvider', () => {
         <I18nProvider>
           <></>
         </I18nProvider>
-      </Provider>)
+      </Provider>
+    )
 
     await waitFor(() => getByText('An Error occurred while getting settings!'))
 
@@ -117,13 +117,13 @@ describe('I18nProvider', () => {
     NativeLanguageDetector.detect.mockReturnValue(['ckb'])
     const store = mockStore(prepareState())
 
-    const { getByText } = render(<Provider store={store}><I18nProvider>
-      <Translation>
-        {
-          (t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>
-        }
-      </Translation>
-    </I18nProvider></Provider>)
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+        </I18nProvider>
+      </Provider>
+    )
 
     await waitFor(() => getByText('Zanyariyên xwecihî'))
 
@@ -134,15 +134,13 @@ describe('I18nProvider', () => {
     // $FlowFixMe
     NativeLanguageDetector.detect.mockReturnValue(['en'])
     const store = mockStore(prepareState())
-    const {
-      getByText
-    } = render(<Provider store={store}><I18nProvider>
-      <Translation>
-        {
-          (t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>
-        }
-      </Translation>
-    </I18nProvider></Provider>)
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+        </I18nProvider>
+      </Provider>
+    )
 
     await waitFor(() => getByText('Lokale Informationen'))
 
@@ -152,12 +150,22 @@ describe('I18nProvider', () => {
   it('should dispatch content language', async () => {
     await new AppSettings().setContentLanguage('ar')
     const store = mockStore(prepareState())
-    render(<Provider store={store}><I18nProvider><Text>Hello</Text></I18nProvider></Provider>)
+    render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Text>Hello</Text>
+        </I18nProvider>
+      </Provider>
+    )
 
-    await waitFor(() => expect(store.getActions()).toEqual([{
-      params: { contentLanguage: 'ar' },
-      type: 'SET_CONTENT_LANGUAGE'
-    }]))
+    await waitFor(() =>
+      expect(store.getActions()).toEqual([
+        {
+          params: { contentLanguage: 'ar' },
+          type: 'SET_CONTENT_LANGUAGE'
+        }
+      ])
+    )
   })
 
   it('should have formatter with german fallback format', async () => {
@@ -167,9 +175,13 @@ describe('I18nProvider', () => {
       return <Text>{formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})}</Text>
     }
 
-    const { getByText } = render(<Provider store={store}><I18nProvider>
-      <ReceivingComponent />
-    </I18nProvider></Provider>)
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <ReceivingComponent />
+        </I18nProvider>
+      </Provider>
+    )
 
     await waitFor(() => getByText('2020-12-21T13:58:57Z'))
 
@@ -180,16 +192,22 @@ describe('I18nProvider', () => {
     await new AppSettings().setContentLanguage('ckb')
     const store = mockStore(prepareState({ contentLanguage: undefined }))
     const ReceivingComponent = () => {
-      expect(store.getActions()).toEqual([{
-        params: { contentLanguage: 'ckb' },
-        type: 'SET_CONTENT_LANGUAGE'
-      }])
+      expect(store.getActions()).toEqual([
+        {
+          params: { contentLanguage: 'ckb' },
+          type: 'SET_CONTENT_LANGUAGE'
+        }
+      ])
       return <Text>Hello</Text>
     }
 
-    const { getByText } = render(<Provider store={store}><I18nProvider>
-      <ReceivingComponent />
-    </I18nProvider></Provider>)
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <ReceivingComponent />
+        </I18nProvider>
+      </Provider>
+    )
 
     await waitFor(() => getByText('Hello'))
   })

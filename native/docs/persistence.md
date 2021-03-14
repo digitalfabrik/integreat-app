@@ -21,23 +21,25 @@ The structure of the data stored on the device is:
 In general, only files and metadata of maximal three instances are kept (this may differ if peeking).
 
 The `cities-meta.json` contains information about the last content update as well as the last usage of the city:
+
 ```json
-{  
-   "regensburg": {  
-      "languages": {  
-         "de": {  
-            "last_update": "2019-08-12T00:03:19.457Z"
-         }
-      },
-      "last_usage": "2019-008-13T00:03:19.457Z"
-   }
+{
+  "regensburg": {
+    "languages": {
+      "de": {
+        "last_update": "2019-08-12T00:03:19.457Z"
+      }
+    },
+    "last_usage": "2019-008-13T00:03:19.457Z"
+  }
 }
 ```
 
 The `cities.json` contains information about all cities:
+
 ```json
 [
-  {  
+  {
     "name": "Stadt Regensburg",
     "live": true,
     "code": "regensburg",
@@ -52,11 +54,12 @@ The `cities.json` contains information about all cities:
 The `content` is responsible to store the JSON data from the API.
 The `resource-cache` contains all the resources. Resources are files which are either referenced in the HTML content or used as thumbnails of pages.
 
-*Note: Temporary files, like files which are currently downloaded, are also stored in the cache directory. This is platform specific but exists on Android and iOS.*
+_Note: Temporary files, like files which are currently downloaded, are also stored in the cache directory. This is platform specific but exists on Android and iOS._
 
 The format of the files is:
 
 **files.json:**
+
 ```json
 {
   "en": {
@@ -70,9 +73,11 @@ The format of the files is:
   }
 }
 ```
+
 If an URL does not have an extension then `extension(url)` is an empty string. `hash(url)` returns a md5 sum of the URL. Note that the URL should be valid for both functions.
 
 **categories.json:**
+
 ```json
 [
   {
@@ -85,9 +90,7 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
       "de": "/ahaus/de/alltag-und-freizeit/spendenlager/"
     },
     "parent_path": "/ahaus/en/everyday-life-and-free-time/",
-    "children": [
-      "/ahaus/de/alltag-und-freizeit/spendenlager/"
-    ],
+    "children": ["/ahaus/de/alltag-und-freizeit/spendenlager/"],
     "order": 100,
     "hash": "1ebd072de279a714f831526b1861d4ec"
   }
@@ -95,6 +98,7 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
 ```
 
 **events.json:**
+
 ```json
 [
   {

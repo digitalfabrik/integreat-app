@@ -13,12 +13,7 @@ describe('CategoriesMapModel', () => {
     parentPath: '/augsburg/fa/erste-schritte',
     thumbnail: 'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2015/09/pin66-150x150.png',
     order: 3,
-    availableLanguages: new Map([
-      [
-        'ar',
-        '/augsburg/ar/erste-schritte/خريطة-المدينة'
-      ]
-    ]),
+    availableLanguages: new Map([['ar', '/augsburg/ar/erste-schritte/خريطة-المدينة']]),
     lastUpdate: moment('2016-01-07 10:36:24'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
@@ -94,7 +89,9 @@ describe('CategoriesMapModel', () => {
 
   it('should normalize url components correctly for special characters', () => {
     const map = new CategoriesMapModel([farsiCategory])
-    const foundFarsiCategory = map.findCategoryByPath('/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1')
+    const foundFarsiCategory = map.findCategoryByPath(
+      '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1'
+    )
     expect(foundFarsiCategory).toEqual(farsiCategory)
   })
 

@@ -55,10 +55,8 @@ describe('OffersRouteConfig', () => {
       type: extasRouteConfig.name
     })
 
-    expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/offers')
-    expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-      .toBe('/augsburg/ar/offers')
+    expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe('/augsburg/en/offers')
+    expect(extasRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location })).toBe('/augsburg/ar/offers')
   })
 
   it('should get the right page title', () => {
@@ -68,16 +66,16 @@ describe('OffersRouteConfig', () => {
       type: extasRouteConfig.name
     })
 
-    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('pageTitles.offers - Stadt Augsburg')
+    expect(extasRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+      'pageTitles.offers - Stadt Augsburg'
+    )
 
     const wrongLocation = createLocation({
       payload: { city: 'wrong-location', language: 'de' },
       pathname: '/wrong-location/de/offers',
       type: extasRouteConfig.name
     })
-    expect(extasRouteConfig.getPageTitle({ payloads, cityName: null, location: wrongLocation, t }))
-      .toBeNull()
+    expect(extasRouteConfig.getPageTitle({ payloads, cityName: null, location: wrongLocation, t })).toBeNull()
   })
 
   it('should return the right meta description', () => {
@@ -91,7 +89,6 @@ describe('OffersRouteConfig', () => {
       type: extasRouteConfig.name
     })
 
-    expect(extasRouteConfig.getFeedbackTargetInformation({ payloads, location }))
-      .toBeNull()
+    expect(extasRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
   })
 })

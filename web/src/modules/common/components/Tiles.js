@@ -21,12 +21,14 @@ const TilesRow: StyledComponent<{||}, ThemeType, *> = styled(Row)`
  * Displays a table of Tiles
  */
 class Tiles extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     return (
       <div>
         {this.props.title && <Caption title={this.props.title} />}
         <TilesRow>
-          {this.props.tiles.map(tile => <Tile key={tile.path} tile={tile} />)}
+          {this.props.tiles.map(tile => (
+            <Tile key={tile.path} tile={tile} />
+          ))}
         </TilesRow>
       </div>
     )

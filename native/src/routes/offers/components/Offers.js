@@ -23,9 +23,7 @@ type PropsType = {|
 const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
   return offer.map(offer => {
     const isInternalExtra = [SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE].includes(offer.alias)
-    const path = isInternalExtra
-      ? offer.alias
-      : offer.path
+    const path = isInternalExtra ? offer.alias : offer.path
 
     return new TileModel({
       title: offer.title,
@@ -41,8 +39,13 @@ const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, languag
   return (
     <SpaceBetween>
       <View>
-        <Tiles title={t('offers')} tiles={toTileModels(offers)} onTilePress={navigateToOffer} theme={theme}
-               language={language} />
+        <Tiles
+          title={t('offers')}
+          tiles={toTileModels(offers)}
+          onTilePress={navigateToOffer}
+          theme={theme}
+          language={language}
+        />
       </View>
       <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
     </SpaceBetween>

@@ -88,18 +88,18 @@ type PropsType = {|
 export class CategoryEntry extends React.PureComponent<PropsType> {
   contentMatcher = new ContentMatcher()
 
-  renderSubCategories (): Array<React.Node> {
+  renderSubCategories(): Array<React.Node> {
     const { subCategories } = this.props
-    return subCategories.map(subCategory =>
+    return subCategories.map(subCategory => (
       <SubCategory key={subCategory.hash}>
         <StyledLink to={subCategory.path}>
           <SubCategoryCaption aria-label={subCategory.title}>{subCategory.title}</SubCategoryCaption>
         </StyledLink>
       </SubCategory>
-    )
+    ))
   }
 
-  getMatchedContent (numWordsSurrounding: number): React.Node {
+  getMatchedContent(numWordsSurrounding: number): React.Node {
     const { query, theme, contentWithoutHtml } = this.props
     if (!contentWithoutHtml) {
       return null
@@ -109,39 +109,41 @@ export class CategoryEntry extends React.PureComponent<PropsType> {
       return null
     }
 
-    return <ContentMatchItem aria-label={textToHighlight}
-                             searchWords={[query]}
-                             autoEscape
-                             sanitize={normalizeSearchString}
-                             textToHighlight={textToHighlight}
-                             highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }} />
+    return (
+      <ContentMatchItem
+        aria-label={textToHighlight}
+        searchWords={[query]}
+        autoEscape
+        sanitize={normalizeSearchString}
+        textToHighlight={textToHighlight}
+        highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+      />
+    )
   }
 
-  renderTitle (): React.Node {
+  renderTitle(): React.Node {
     const { query, category, theme } = this.props
-    return <CategoryListItem>
-      <Highlighter searchWords={query ? [query] : []}
-                   aria-label={category.title}
-                   autoEscape
-                   sanitize={normalizeSearchString}
-                   highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-                   textToHighlight={category.title} />
-      <div style={{ margin: '0 5px', fontSize: '12px' }}>
-        {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
-      </div>
-    </CategoryListItem>
+    return (
+      <CategoryListItem>
+        <Highlighter
+          searchWords={query ? [query] : []}
+          aria-label={category.title}
+          autoEscape
+          sanitize={normalizeSearchString}
+          highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+          textToHighlight={category.title}
+        />
+        <div style={{ margin: '0 5px', fontSize: '12px' }}>{this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}</div>
+      </CategoryListItem>
+    )
   }
 
-  render () {
+  render() {
     const { category } = this.props
     return (
       <Row>
-        <StyledLink
-          to={category.path}>
-          <CategoryThumbnail
-            alt=''
-            src={category.thumbnail || iconPlaceholder}
-          />
+        <StyledLink to={category.path}>
+          <CategoryThumbnail alt='' src={category.thumbnail || iconPlaceholder} />
           {this.renderTitle()}
         </StyledLink>
         {this.renderSubCategories()}

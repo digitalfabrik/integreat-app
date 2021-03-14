@@ -14,16 +14,16 @@ type PropsType = {|
 /**
  * Displays the locations disclaimer matching the route /<location>/<language>/disclaimer
  */
-const DisclaimerPage = ({
-  disclaimer
-}: PropsType) => {
+const DisclaimerPage = ({ disclaimer }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   return (
-    <Page lastUpdate={disclaimer.lastUpdate}
-          title={disclaimer.title}
-          content={disclaimer.content}
-          formatter={formatter}
-          onInternalLinkClick={push} />
+    <Page
+      lastUpdate={disclaimer.lastUpdate}
+      title={disclaimer.title}
+      content={disclaimer.content}
+      formatter={formatter}
+      onInternalLinkClick={push}
+    />
   )
 }
 

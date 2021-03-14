@@ -101,18 +101,17 @@ describe('Switcher', () => {
         region: 'region',
         country: 'country'
       }),
-      availableLanguages: new Map(
-        [['de', '/augsburg/de/events/nulltes_event'], ['ar', '/augsburg/ar/events/nulltes_event']]),
+      availableLanguages: new Map([
+        ['de', '/augsburg/de/events/nulltes_event'],
+        ['ar', '/augsburg/ar/events/nulltes_event']
+      ]),
       lastUpdate: moment(0),
       hash: '2fe6283485a93932'
     })
   ]
 
   const cities = new CityModelBuilder(1).build()
-  const languages = [
-    new LanguageModel('de', 'Deutsch'),
-    new LanguageModel('en', 'English')
-  ]
+  const languages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
   const sprungbrettJobs = [
     new SprungbrettJobModel({
       id: 0,
@@ -152,7 +151,8 @@ describe('Switcher', () => {
           additionalCosts: 200,
           ofRunningServicesDiff: ['heating', 'water', 'garbage'],
           ofAdditionalServicesDiff: []
-        })
+        }
+      )
     })
   ]
 
@@ -161,8 +161,10 @@ describe('Switcher', () => {
       hash: '2fe6283485a93932',
       path: '/augsburg/en/locations/first_poi',
       title: 'first Event',
-      availableLanguages: new Map(
-        [['de', '/augsburg/de/locations/erster_poi'], ['ar', '/augsburg/ar/locations/erster_poi']]),
+      availableLanguages: new Map([
+        ['de', '/augsburg/de/locations/erster_poi'],
+        ['ar', '/augsburg/ar/locations/erster_poi']
+      ]),
       location: new LocationModel({
         name: 'name',
         address: 'address',
@@ -208,38 +210,45 @@ describe('Switcher', () => {
       prev: { payload: { param: 'param' }, type: 'RANDOM_TYPE', pathname: '/param' }
     })
     return (
-      <Switcher viewportSmall={false} location={location} citiesPayload={citiesPayload}
-                categoriesPayload={categoriesPayload} eventsPayload={eventsPayload} offersPayload={offersPayload}
-                localNewsPayload={localNewsPayload} localNewsElementPayload={localNewsElementPayload}
-                tunewsPayload={tunewsPayload} tunewsElementPayload={tunewsElementPayload} poisPayload={poisPayload}
-                disclaimerPayload={disclaimerPayload} languagesPayload={languagesPayload}
-                tunewsLanguagesPayload={tunewsLanguagesPayload} t={t}
-                sprungbrettJobsPayload={sprungbrettPayload} wohnenOffersPayload={wohnenOffersPayload} darkMode
-                toggleDarkMode={toggleDarkMode} />
+      <Switcher
+        viewportSmall={false}
+        location={location}
+        citiesPayload={citiesPayload}
+        categoriesPayload={categoriesPayload}
+        eventsPayload={eventsPayload}
+        offersPayload={offersPayload}
+        localNewsPayload={localNewsPayload}
+        localNewsElementPayload={localNewsElementPayload}
+        tunewsPayload={tunewsPayload}
+        tunewsElementPayload={tunewsElementPayload}
+        poisPayload={poisPayload}
+        disclaimerPayload={disclaimerPayload}
+        languagesPayload={languagesPayload}
+        tunewsLanguagesPayload={tunewsLanguagesPayload}
+        t={t}
+        sprungbrettJobsPayload={sprungbrettPayload}
+        wohnenOffersPayload={wohnenOffersPayload}
+        darkMode
+        toggleDarkMode={toggleDarkMode}
+      />
     )
   }
 
   describe('layout', () => {
     it('should render a location layout if the current route is a location layout route', () => {
-      const switcher = shallow(
-        createSwitcher(CATEGORIES_ROUTE, 'path01')
-      )
+      const switcher = shallow(createSwitcher(CATEGORIES_ROUTE, 'path01'))
 
       expect(switcher.find(LocationLayout)).not.toBeNull()
     })
 
     it('should render a layout with a footer if the current route is the landing route', () => {
-      const switcher = shallow(
-        createSwitcher(LANDING_ROUTE)
-      )
+      const switcher = shallow(createSwitcher(LANDING_ROUTE))
       expect(switcher.find(Layout)).not.toBeNull()
       expect(switcher.find(Footer)).not.toBeNull()
     })
 
     it('should render a layout with a header and a footer as default', () => {
-      const switcher = shallow(
-        createSwitcher(MAIN_DISCLAIMER_ROUTE)
-      )
+      const switcher = shallow(createSwitcher(MAIN_DISCLAIMER_ROUTE))
 
       expect(switcher.find(Layout)).not.toBeNull()
       expect(switcher.find(Footer)).not.toBeNull()

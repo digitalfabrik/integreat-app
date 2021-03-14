@@ -25,7 +25,7 @@ type PropsType = {|
 |}
 
 class OfferListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { language, offer, navigateToOffer, theme } = this.props
 
     if (offer.formData instanceof WohnenFormData) {
@@ -38,8 +38,7 @@ class OfferListItem extends React.PureComponent<PropsType> {
           title={accommodation.title}
           navigateTo={navigateToOffer}
           theme={theme}
-          language={language}
-          >
+          language={language}>
           <Description>
             <Text>{accommodation.totalArea} m²</Text>
             <Text>{accommodation.totalRooms} Zimmer</Text>

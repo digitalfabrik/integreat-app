@@ -29,14 +29,9 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]
 }
 
-const EventListItem = ({
-  event,
-  formatter
-}: PropsType) => {
+const EventListItem = ({ event, formatter }: PropsType) => {
   return (
-    <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)}
-              title={event.title}
-              path={event.path}>
+    <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
       <div>
         <div>{event.date.toFormattedString(formatter)}</div>
         {event.location.location && <div>{event.location.location}</div>}

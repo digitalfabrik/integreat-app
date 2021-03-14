@@ -5,9 +5,21 @@ import type { Location, LocationState, RoutesMap } from 'redux-first-router'
 /**
  * Testing utility to create a new Location object accepted by flow
  */
-const createLocation = ({ pathname, payload, type, query, prev, routesMap }: {|
-  pathname?: string, payload: Object,
-  type: string, query?: Object, prev?: Location, routesMap?: RoutesMap|}): LocationState => ({
+const createLocation = ({
+  pathname,
+  payload,
+  type,
+  query,
+  prev,
+  routesMap
+}: {|
+  pathname?: string,
+  payload: Object,
+  type: string,
+  query?: Object,
+  prev?: Location,
+  routesMap?: RoutesMap
+|}): LocationState => ({
   pathname: pathname || '/random_pathname',
   type,
   payload,

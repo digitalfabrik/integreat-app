@@ -14,30 +14,32 @@ type PropsType = {|
 |}
 
 class ThemedSearchBar extends React.Component<PropsType> {
-  render () {
+  render() {
     const { theme, onChangeText, value, autofocus, t } = this.props
     const { colors } = theme
 
-    return <SearchBar
-      accessibilityRole='search'
-      allowFontScaling={false}
-      containerStyle={{
-        flexGrow: 1,
-        backgroundColor: colors.backgroundAccentColor,
-        borderTopColor: colors.backgroundAccentColor,
-        borderBottomColor: colors.backgroundAccentColor
-      }}
-      inputContainerStyle={{
-        backgroundColor: colors.backgroundColor
-      }}
-      inputStyle={{
-        backgroundColor: colors.backgroundColor
-      }}
-      onChangeText={onChangeText}
-      value={value}
-      autoFocus={autofocus}
-      placeholder={t('searchPlaceholder')}
-    />
+    return (
+      <SearchBar
+        accessibilityRole='search'
+        allowFontScaling={false}
+        containerStyle={{
+          flexGrow: 1,
+          backgroundColor: colors.backgroundAccentColor,
+          borderTopColor: colors.backgroundAccentColor,
+          borderBottomColor: colors.backgroundAccentColor
+        }}
+        inputContainerStyle={{
+          backgroundColor: colors.backgroundColor
+        }}
+        inputStyle={{
+          backgroundColor: colors.backgroundColor
+        }}
+        onChangeText={onChangeText}
+        value={value}
+        autoFocus={autofocus}
+        placeholder={t('searchPlaceholder')}
+      />
+    )
   }
 }
 

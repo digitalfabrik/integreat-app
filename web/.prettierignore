@@ -1,0 +1,8 @@
+# Ignore artifacts:
+www/
+node_modules/
+flow-typed/
+reports/
+stylelint.config.js
+dist/
+lib-dist/
