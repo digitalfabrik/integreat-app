@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { createDisclaimerEndpoint, PageModel } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -19,7 +19,7 @@ import navigateToLink from '../../modules/navigation/navigateToLink'
 import type { DisclaimerRouteType } from 'api-client/src/routes'
 import createNavigate from '../../modules/navigation/createNavigate'
 import { fromError } from '../../modules/error/ErrorCodes'
-import loadFromEndpoint from '../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../modules/endpoint/loadFromEndpoint'
 
 type OwnPropsType = {|
   route: RoutePropType<DisclaimerRouteType>,
@@ -42,22 +42,21 @@ type DisclaimerPropsType = {|
 |}
 
 const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispatch }: DisclaimerPropsType) => {
-  const [disclaimer, setDisclaimer] = useState<?PageModel>(null)
-  const [error, setError] = useState<?Error>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-
   const { cityCode, languageCode } = route.params
 
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
+  const request = useCallback(async (apiUrl: string) =>
+    await createDisclaimerEndpoint(apiUrl).request({ city: cityCode, language: languageCode }),
+  [cityCode, languageCode])
 
-  const navigateToFeedback = useCallback(
-    (isPositiveFeedback: boolean) => {
+  const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
+
+
+  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
+  }
+
+  const navigateToFeedback = (isPositiveFeedback: boolean) => {
       createNavigateToFeedbackModal(navigation)({
         type: 'Disclaimer',
         cityCode,
@@ -65,39 +64,18 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
         isPositiveFeedback,
         path: disclaimer?.path
       })
-    },
-    [disclaimer, cityCode, languageCode, navigation]
-  )
-
-  const loadDisclaimer = useCallback(async () => {
-    const request = async (apiUrl: string) =>
-      await createDisclaimerEndpoint(apiUrl).request({ city: cityCode, language: languageCode })
-
-    await loadFromEndpoint<PageModel>(request, setDisclaimer, setError, setLoading)
-  }, [cityCode, languageCode, setError, setDisclaimer, setLoading])
-
-  const tryAgain = useCallback(() => {
-    loadDisclaimer().catch(e => setError(e))
-  }, [loadDisclaimer])
-
-  useEffect(() => {
-    loadDisclaimer().catch(e => setError(e))
-  }, [loadDisclaimer])
+    }
 
   if (error) {
     return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
-        <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
+        <FailureContainer code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }
 
-  if (!resourceCacheUrl) {
-    setError(new Error('Resource cache url must be defined!'))
-  }
-
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
+    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
       {disclaimer && resourceCacheUrl && (
         <Disclaimer
           resourceCacheUrl={resourceCacheUrl}
