@@ -148,7 +148,7 @@ describe('SprungbrettOfferContainer', () => {
         }
       }
     })
-    const store = mockStore({ cities: { models: [disabledOffersCity] }})
+    const store = mockStore({ cities: { models: [disabledOffersCity] } })
     mockUseLoadFromEndpointOnce(() => ({
       data: null,
       loading: false,

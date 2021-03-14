@@ -44,12 +44,13 @@ type DisclaimerPropsType = {|
 const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispatch }: DisclaimerPropsType) => {
   const { cityCode, languageCode } = route.params
 
-  const request = useCallback(async (apiUrl: string) =>
-    await createDisclaimerEndpoint(apiUrl).request({ city: cityCode, language: languageCode }),
-  [cityCode, languageCode])
+  const request = useCallback(
+    async (apiUrl: string) =>
+      await createDisclaimerEndpoint(apiUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
 
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
-
 
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
@@ -57,14 +58,14 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
   }
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
-      createNavigateToFeedbackModal(navigation)({
-        type: 'Disclaimer',
-        cityCode,
-        language: languageCode,
-        isPositiveFeedback,
-        path: disclaimer?.path
-      })
-    }
+    createNavigateToFeedbackModal(navigation)({
+      type: 'Disclaimer',
+      cityCode,
+      language: languageCode,
+      isPositiveFeedback,
+      path: disclaimer?.path
+    })
+  }
 
   if (error) {
     return (

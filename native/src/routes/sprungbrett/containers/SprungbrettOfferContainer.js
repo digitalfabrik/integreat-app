@@ -57,8 +57,9 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
     setTitle(sprungbrettOffer.title)
     return createSprungbrettJobsEndpoint(sprungbrettOffer.path).request()
   }, [cityCode, languageCode, alias, setTitle])
-  const { data: jobs, error: jobsError, loading, refresh } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(requestJobs)
-  
+  const { data: jobs, error: jobsError, loading, refresh } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(
+    requestJobs
+  )
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({

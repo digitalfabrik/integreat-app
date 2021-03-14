@@ -26,7 +26,6 @@ describe('Events', () => {
   const event = events[0]
 
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
-
     const result = TestRenderer.create(
       <Events
         path={event.path}
