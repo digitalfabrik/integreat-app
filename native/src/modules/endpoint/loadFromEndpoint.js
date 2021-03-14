@@ -2,9 +2,12 @@
 
 import determineApiUrl from './determineApiUrl'
 import { Payload } from 'api-client'
+import { useCallback, useEffect, useState } from 'react'
+
+type RequestType<T> = (apiUrl: string) => Promise<Payload<T>>
 
 const loadFromEndpoint = async <T>(
-  request: (apiUrl: string) => Promise<Payload<T>>,
+  request: RequestType<T>,
   setData: (?T) => void,
   setError: (?Error) => void,
   setLoading: boolean => void
@@ -28,6 +31,23 @@ const loadFromEndpoint = async <T>(
   } finally {
     setLoading(false)
   }
+}
+
+type ReturnType<T> = {| data: ?T, error: ?Error, loading: boolean, refresh: () => void |}
+export const useLoadFromEndpoint = <T>(request: RequestType<T>): ReturnType<T> => {
+  const [data, setData] = useState<?T>(null)
+  const [error, setError] = useState<?Error>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const load = useCallback(() => {
+    loadFromEndpoint<T>(request, setData, setError, setLoading).catch(e => setError(e))
+  }, [request, setData, setError, setLoading])
+
+  useEffect(() => {
+    load()
+  }, [load])
+
+  return { data, error, loading, refresh: load }
 }
 
 export default loadFromEndpoint
