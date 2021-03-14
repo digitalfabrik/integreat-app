@@ -57,7 +57,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
         }
       } else {
         if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
-          const params = { cityCode, languageCode, title, alias: offer.alias, apiUrl: offer.path }
+          const params = { cityCode, languageCode }
           navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
         } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
           const params = { city: cityCode, title, alias: offer.alias, postData, offerHash: null }
