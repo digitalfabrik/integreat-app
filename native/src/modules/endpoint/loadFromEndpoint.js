@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 type RequestType<T> = (apiUrl: string) => Promise<Payload<T>>
 
-const loadFromEndpoint = async <T>(
+export const loadFromEndpoint = async <T>(
   request: RequestType<T>,
   setData: (?T) => void,
   setError: (?Error) => void,
@@ -49,5 +49,3 @@ export const useLoadFromEndpoint = <T>(request: RequestType<T>): ReturnType<T> =
 
   return { data, error, loading, refresh: load }
 }
-
-export default loadFromEndpoint

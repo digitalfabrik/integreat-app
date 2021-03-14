@@ -20,21 +20,18 @@ jest.mock('../../../../modules/common/components/PageDetail', () => {
 })
 
 describe('Events', () => {
+  const [cityModel] = new CityModelBuilder(1).build()
+  const [language] = new LanguageModelBuilder(1).build()
+  const events = new EventModelBuilder('Events-component', 1, cityModel.code, language.code).build()
+  const event = events[0]
+
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
-    const cities = new CityModelBuilder(1).build()
-    const languages = new LanguageModelBuilder(1).build()
-    const city = cities[0]
-    const language = languages[0]
-    const events = new EventModelBuilder('Events-component', 1, city.code, language.code).build()
-    const event = events[0]
-    if (!city || !language || !event) {
-      throw Error('Something went wrong with the builder')
-    }
+
     const result = TestRenderer.create(
       <Events
         path={event.path}
         events={events}
-        cityCode={city.code}
+        cityModel={cityModel}
         resourceCacheUrl='http://localhost:8080'
         language={language.code}
         resourceCache={{ notAvailable: {} }}
