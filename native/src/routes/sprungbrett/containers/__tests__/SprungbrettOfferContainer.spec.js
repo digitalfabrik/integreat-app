@@ -1,16 +1,23 @@
 // @flow
 
 import React from 'react'
+import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import loadFromEndpoint from '../../../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../../../modules/endpoint/loadFromEndpoint'
+import configureMockStore from 'redux-mock-store'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CityModel } from 'api-client'
 
 jest.mock('react-i18next')
+jest.mock('@react-native-community/async-storage')
 jest.mock('../../../../modules/common/openExternalUrl')
-jest.mock('../../../../modules/endpoint/loadFromEndpoint', () => jest.fn())
+jest.mock('../../../../modules/endpoint/loadFromEndpoint', () => ({
+  useLoadFromEndpoint: jest.fn()
+}))
 
 jest.mock('../../components/SprungbrettOffer', () => {
   const Text = require('react-native').Text
@@ -31,18 +38,21 @@ describe('SprungbrettOfferContainer', () => {
   const navigation = createNavigationScreenPropMock()
   const cityCode = 'augsburg'
   const languageCode = 'de'
-  const title = 'Sprungbrett'
-  const apiUrl = 'https://my.sprung.br/ett/api'
-  const alias = 'sprungbrett'
-  const route = {
-    key: 'route-id-0',
-    params: { cityCode, languageCode, title, apiUrl, alias },
-    name: SPRUNGBRETT_OFFER_ROUTE
-  }
+  const route = { key: 'route-id-0', params: { cityCode, languageCode }, name: SPRUNGBRETT_OFFER_ROUTE }
   const errorText = `Failure ${ErrorCodes.UnknownError}`
-  const mockLoadFromEndpointOnce = mock => {
+  const refresh = () => {}
+  const cities = new CityModelBuilder(1).build()
+
+  const state = {
+    cities: { models: cities }
+  }
+
+  const mockStore = configureMockStore()
+  const store = mockStore(state)
+
+  const mockUseLoadFromEndpointOnce = mock => {
     // $FlowFixMe mockImplementationOnce is defined
-    loadFromEndpoint.mockImplementationOnce(mock)
+    useLoadFromEndpoint.mockImplementationOnce(mock)
   }
 
   beforeEach(() => {
@@ -50,44 +60,109 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockLoadFromEndpointOnce((request, setData, _, setLoading) => {
-      setData([])
-    })
-    const { getByText } = render(<SprungbrettOfferContainer navigation={navigation} route={route} />)
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: false,
+      error: null,
+      refresh
+    }))
+    const { getByText } = render(
+      <Provider store={store}>
+        <SprungbrettOfferContainer navigation={navigation} route={route} />
+      </Provider>
+    )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
     expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
     expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
   })
 
   it('should display offers with a Loading spinner', () => {
-    mockLoadFromEndpointOnce((request, setData, _, setLoading) => {
-      setData([])
-      setLoading(true)
-    })
-    const { getByText } = render(<SprungbrettOfferContainer navigation={navigation} route={route} />)
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: true,
+      error: null,
+      refresh
+    }))
+    const { getByText } = render(
+      <Provider store={store}>
+        <SprungbrettOfferContainer navigation={navigation} route={route} />
+      </Provider>
+    )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
     expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
   })
 
   it('should display error without a loading spinner', () => {
-    mockLoadFromEndpointOnce((request, _, setError) => {
-      setError(new Error('myError'))
-    })
-    const { getByText } = render(<SprungbrettOfferContainer navigation={navigation} route={route} />)
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: false,
+      error: new Error('myError'),
+      refresh
+    }))
+    const { getByText } = render(
+      <Provider store={store}>
+        <SprungbrettOfferContainer navigation={navigation} route={route} />
+      </Provider>
+    )
     expect(getByText(errorText)).toBeTruthy()
     expect(() => getByText('SprungbrettOffer')).toThrow('No instances found with text "SprungbrettOffer"')
     expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
   })
 
   it('should display error with spinner', () => {
-    mockLoadFromEndpointOnce((request, _, setError, setLoading) => {
-      setError(new Error('myError'))
-      setLoading(true)
-    })
-    const { getByText } = render(<SprungbrettOfferContainer navigation={navigation} route={route} />)
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: true,
+      error: new Error('myError'),
+      refresh
+    }))
+    const { getByText } = render(
+      <Provider store={store}>
+        <SprungbrettOfferContainer navigation={navigation} route={route} />
+      </Provider>
+    )
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
     expect(() => getByText('SprungbrettOffer')).toThrow('No instances found with text "SprungbrettOffer"')
+  })
+
+  it('should display a page not found error if offers disabled for city', () => {
+    const disabledOffersCity = new CityModel({
+      name: 'Stadt Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      offersEnabled: false,
+      poisEnabled: true,
+      pushNotificationsEnabled: true,
+      tunewsEnabled: true,
+      sortingName: 'Augsburg',
+      prefix: 'Stadt',
+      latitude: 48.369696,
+      longitude: 10.892578,
+      aliases: {
+        Konigsbrunn: {
+          latitude: 48.267499,
+          longitude: 10.889586
+        }
+      }
+    })
+    const store = mockStore({ cities: { models: [disabledOffersCity] }})
+    mockUseLoadFromEndpointOnce(() => ({
+      data: null,
+      loading: false,
+      error: null,
+      refresh
+    }))
+    const { getByText } = render(
+      <Provider store={store}>
+        <SprungbrettOfferContainer navigation={navigation} route={route} />
+      </Provider>
+    )
+    expect(() => getByText('Offers')).toThrow('No instances found with text "Offers"')
+    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
+    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(getByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy()
   })
 })
