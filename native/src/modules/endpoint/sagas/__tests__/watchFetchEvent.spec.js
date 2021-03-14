@@ -146,7 +146,7 @@ describe('watchFetchEvents', () => {
             message: 'Could not load event.',
             code: ErrorCodes.PageNotFound,
             path: null,
-            allAvailableLanguages: new Map(languages.map(lng => ([lng.code, null]))),
+            allAvailableLanguages: new Map(languages.map(lng => [lng.code, null])),
             key: 'route-0'
           }
         })
@@ -216,8 +216,6 @@ describe('watchFetchEvents', () => {
   it('should correctly call fetchEvent when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    return testSaga(watchFetchEvent, dataContainer)
-      .next()
-      .takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    return testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
   })
 })

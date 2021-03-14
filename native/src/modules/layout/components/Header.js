@@ -16,7 +16,6 @@ import dimensions from '../../theme/constants/dimensions'
 import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
-import { cityContentUrl } from '../../navigation/url'
 import navigateToLanding from '../../navigation/navigateToLanding'
 
 const Horizontal = styled.View`
@@ -53,7 +52,7 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   shadow-color: #000;
   shadow-offset: 0px 1px;
   shadow-opacity: 0.18;
-  shadow-radius: 1.00px;
+  shadow-radius: 1px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
@@ -103,7 +102,8 @@ const Header = (props: PropsType) => {
   }
 
   const onShare = async () => {
-    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
+    if (!shareUrl) {
+      // The share option should only be shown if there is a shareUrl
       return
     }
 
@@ -131,8 +131,7 @@ const Header = (props: PropsType) => {
       throw new Error('Impossible to go to disclaimer route if no city model is defined')
     }
     const cityCode = routeCityModel.code
-    const shareUrl = cityContentUrl({ cityCode, languageCode: language, route: DISCLAIMER_ROUTE })
-    navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language, shareUrl })
+    navigation.navigate(DISCLAIMER_ROUTE, { cityCode, languageCode: language })
   }
 
   const cityDisplayName = () => {
@@ -144,36 +143,51 @@ const Header = (props: PropsType) => {
   }
 
   const renderItem = (
-    title: string, iconName?: string, show: 'never' | 'always',
-    onPress: ?() => void | Promise<void>, accessibilityLabel: string
+    title: string,
+    iconName?: string,
+    show: 'never' | 'always',
+    onPress: ?() => void | Promise<void>,
+    accessibilityLabel: string
   ): Node => {
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
-    return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
-                 onPress={onPress} buttonStyle={buttonStyle} />
+    return (
+      <Item
+        title={title}
+        accessibilityLabel={accessibilityLabel}
+        iconName={iconName}
+        show={show}
+        onPress={onPress}
+        buttonStyle={buttonStyle}
+      />
+    )
   }
 
-  const showShare = !!(shareUrl)
+  const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {canGoBackInStack()
-            ? <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
-            : <Icon source={buildConfigAssets().appIcon} />}
-          {routeCityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>{cityDisplayName()}</HeaderText>}
+          {canGoBackInStack() ? (
+            <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
+          ) : (
+            <Icon source={buildConfigAssets().appIcon} />
+          )}
+          {routeCityModel && (
+            <HeaderText allowFontScaling={false} theme={theme}>
+              {cityDisplayName()}
+            </HeaderText>
+          )}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-          {!peeking && categoriesAvailable &&
-          renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
-          {!peeking && goToLanguageChange &&
-          renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
+          {!peeking && categoriesAvailable && renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
+          {!peeking &&
+            goToLanguageChange &&
+            renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
           {showShare && renderItem(t('share'), undefined, 'never', onShare, t('share'))}
-          {showChangeLocation &&
-          renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
+          {showChangeLocation && renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
           {renderItem(t('settings'), undefined, 'never', goToSettings, t('settings'))}
           {routeCityModel && renderItem(t('disclaimer'), undefined, 'never', goToDisclaimer, t('disclaimer'))}
         </MaterialHeaderButtons>

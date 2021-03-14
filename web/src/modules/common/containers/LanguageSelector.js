@@ -19,7 +19,7 @@ type PropsType = {|
  * Displays a dropDown menu to handle changing of the language
  */
 export class LanguageSelector extends React.PureComponent<PropsType> {
-  getSelectorItemModels (): Array<SelectorItemModel> {
+  getSelectorItemModels(): Array<SelectorItemModel> {
     const { languageChangePaths, location } = this.props
     const activeItemCode = location.payload.language
 
@@ -27,19 +27,17 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
       return []
     }
 
-    return (
-      languageChangePaths.map(languageChangePath => {
-        const { code, name, path } = languageChangePath
-        return new SelectorItemModel({
-          code,
-          name,
-          href: code !== activeItemCode ? path : location.pathname
-        })
+    return languageChangePaths.map(languageChangePath => {
+      const { code, name, path } = languageChangePath
+      return new SelectorItemModel({
+        code,
+        name,
+        href: code !== activeItemCode ? path : location.pathname
       })
-    )
+    })
   }
 
-  render () {
+  render() {
     const { location, isHeaderActionItem, t } = this.props
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = location.payload.language
@@ -48,12 +46,16 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
       return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
     }
 
-    return selectorItems &&
-      <Selector
-        verticalLayout
-        items={selectorItems}
-        activeItemCode={activeItemCode}
-        disabledItemTooltip={t('noTranslation')} />
+    return (
+      selectorItems && (
+        <Selector
+          verticalLayout
+          items={selectorItems}
+          activeItemCode={activeItemCode}
+          disabledItemTooltip={t('noTranslation')}
+        />
+      )
+    )
   }
 }
 

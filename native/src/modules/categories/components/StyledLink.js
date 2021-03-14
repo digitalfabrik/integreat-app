@@ -7,7 +7,7 @@ import type { ThemeType } from '../../theme/constants'
 const StyledLink: StyledComponent<{}, ThemeType, *> = styled.TouchableHighlight`
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content: center;
   margin: 0 20px;
 `
 

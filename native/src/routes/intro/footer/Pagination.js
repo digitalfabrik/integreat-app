@@ -21,9 +21,8 @@ const Dot: StyledComponent<{ isActive: boolean }, ThemeType, *> = styled.Touchab
   height: 10px;
   border-radius: 5px;
   margin-horizontal: 4px;
-  background-color: ${props => props.isActive
-    ? props.theme.colors.textSecondaryColor
-    : props.theme.colors.textDecorationColor};
+  background-color: ${props =>
+    props.isActive ? props.theme.colors.textSecondaryColor : props.theme.colors.textDecorationColor};
 `
 
 type PropsType = {|
@@ -34,14 +33,16 @@ type PropsType = {|
 |}
 
 class Pagination extends React.Component<PropsType> {
-  render () {
+  render() {
     const { slideCount, currentSlide, goToSlide, theme } = this.props
     const goToSlideIndex = (index: number) => () => goToSlide(index)
-    return <DotsContainer theme={theme}>
-      {range(slideCount).map(index =>
-        <Dot key={index} isActive={index === currentSlide} onPress={goToSlideIndex(index)} theme={theme} />
-      )}
-    </DotsContainer>
+    return (
+      <DotsContainer theme={theme}>
+        {range(slideCount).map(index => (
+          <Dot key={index} isActive={index === currentSlide} onPress={goToSlideIndex(index)} theme={theme} />
+        ))}
+      </DotsContainer>
+    )
   }
 }
 

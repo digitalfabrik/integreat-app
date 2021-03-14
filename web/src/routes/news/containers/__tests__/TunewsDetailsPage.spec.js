@@ -20,14 +20,16 @@ jest.mock('redux-first-router-link')
 describe('TunewsDetailsPage', () => {
   const cities = new CityModelBuilder(2).build()
 
-  const createTunewsItemModel = (id, date: Moment): TunewsModel => new TunewsModel({
-    id,
-    title: 'Tick bite - What to do?',
-    tags: ['8 Gesundheit'],
-    date: date,
-    content: 'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
-    eNewsNo: 'tun0000009902'
-  })
+  const createTunewsItemModel = (id, date: Moment): TunewsModel =>
+    new TunewsModel({
+      id,
+      title: 'Tick bite - What to do?',
+      tags: ['8 Gesundheit'],
+      date: date,
+      content:
+        'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
+      eNewsNo: 'tun0000009902'
+    })
 
   const tunewsElement = createTunewsItemModel(1, moment('2020-01-20T12:04:22.000Z'))
 

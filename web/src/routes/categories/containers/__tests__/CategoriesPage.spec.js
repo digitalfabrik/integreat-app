@@ -78,13 +78,15 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render a Page if page has no children', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      t={t}
-                      path={categoryModels[3].path}
-                      uiDirection='ltr' />
+      <CategoriesPage
+        categories={categories}
+        cities={cities}
+        city={city}
+        language={language}
+        t={t}
+        path={categoryModels[3].path}
+        uiDirection='ltr'
+      />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -92,13 +94,15 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render a CategoryList if the category is neither the root but has children', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      uiDirection='ltr'
-                      t={t}
-                      path={categoryModels[2].path} />
+      <CategoriesPage
+        categories={categories}
+        cities={cities}
+        city={city}
+        language={language}
+        uiDirection='ltr'
+        t={t}
+        path={categoryModels[2].path}
+      />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -106,13 +110,15 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render CategoryTiles if the path is the root category', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      language={language}
-                      uiDirection='ltr'
-                      t={t}
-                      path='/augsburg/de' />
+      <CategoriesPage
+        categories={categories}
+        cities={cities}
+        city={city}
+        language={language}
+        uiDirection='ltr'
+        t={t}
+        path='/augsburg/de'
+      />
     )
 
     expect(wrapper).toMatchSnapshot()
@@ -120,13 +126,15 @@ describe('CategoriesPage', () => {
 
   it('should match snapshot and render an error if path is not valid', () => {
     const wrapper = shallow(
-      <CategoriesPage categories={categories}
-                      cities={cities}
-                      city={city}
-                      uiDirection='ltr'
-                      t={t}
-                      language={language}
-                      path='/augsburg/de/not/valid' />
+      <CategoriesPage
+        categories={categories}
+        cities={cities}
+        city={city}
+        uiDirection='ltr'
+        t={t}
+        language={language}
+        path='/augsburg/de/not/valid'
+      />
     )
 
     expect(wrapper).toMatchSnapshot()

@@ -44,7 +44,7 @@ jest.mock('../../../../modules/common/containers/LanguageNotAvailableContainer',
 
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
   const Text = require('react-native').Text
-  return ({ refreshing }: {| refreshing: boolean |}) => refreshing ? <Text>loading</Text> : null
+  return ({ refreshing }: {| refreshing: boolean |}) => (refreshing ? <Text>loading</Text> : null)
 })
 
 const cityCode = 'augsburg'
@@ -103,13 +103,14 @@ describe('CategoriesContainer', () => {
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
   if (!rootCategory) {
-    throw Error('The root category was not found. Sth\'s odd.')
+    throw Error("The root category was not found. Sth's odd.")
   }
   const models = reduce(categoriesMap.toArray(), (acc, model) => ({ ...acc, [model.path]: model }), {})
   const children = reduce(
     [rootCategory, ...categoriesMap.getChildren(rootCategory)],
     (acc, model) => ({ ...acc, [model.path]: categoriesMap.getChildren(model).map(child => child.path) }),
-    {})
+    {}
+  )
 
   const successfulRouteState: CategoryRouteStateType = {
     status: 'ready',
@@ -128,7 +129,9 @@ describe('CategoriesContainer', () => {
     const navigation = createNavigationScreenPropMock()
 
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <CategoriesContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(() => getByText('Categories')).toThrow()
     expect(() => getByText('Failure')).toThrow()
@@ -141,7 +144,9 @@ describe('CategoriesContainer', () => {
     const navigation = createNavigationScreenPropMock()
 
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <CategoriesContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText(`Failure ${code}`)).toBeTruthy()
   }
@@ -185,7 +190,9 @@ describe('CategoriesContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <CategoriesContainer navigation={navigation} route={route} />
+      </Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
     expect(getByText('loading')).toBeTruthy()
@@ -229,7 +236,9 @@ describe('CategoriesContainer', () => {
     const navigation = createNavigationScreenPropMock()
 
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <CategoriesContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText('LanguageNotAvailable')).toBeTruthy()
   })
@@ -239,7 +248,9 @@ describe('CategoriesContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     const { getByText } = render(
-      <Provider store={store}><CategoriesContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <CategoriesContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText('Categories')).toBeTruthy()
   })

@@ -8,11 +8,14 @@ import dimensions from '../../theme/constants/dimensions'
 import Tooltip from '../../common/components/Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
+const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
+  flex: 1 1 135px;
+`
+
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
-  flex: 1 1 135px;
   color: ${props => props.theme.colors.textSecondaryColor};
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: 800;
   text-align: center;
   justify-content: space-evenly;
@@ -20,7 +23,7 @@ const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   flex-direction: column;
   display: flex;
   transition: color 0.2s;
-  
+
   height: 100%;
 
   @media ${dimensions.smallViewport} {
@@ -34,15 +37,16 @@ const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   }
 
   &:hover {
-    color: ${props => props.theme.colors.textColor}
+    color: ${props => props.theme.colors.textColor};
   }
 
   &:hover > div > img {
     opacity: 1;
   }
 
-  ${props => props.$active
-  ? `
+  ${props =>
+    props.$active
+      ? `
       color: ${props.theme.colors.textColor};
 
       & > div > img {
@@ -54,8 +58,7 @@ const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
         border-color: ${props.theme.colors.themeColor};
       }
    `
-  : ''}
-
+      : ''}
 `
 
 const ICON_SIZE_LARGE = 50
@@ -102,19 +105,17 @@ type PropsType = {|
   icon: string
 |}
 
-/**
- * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
- */
-class HeaderNavigationItem extends React.PureComponent<PropsType> {
-  render () {
-    const { active, text, tooltip, href, icon } = this.props
-    return <Tooltip text={tooltip} flow={'up'}>
+const HeaderNavigationItem = ({ active, text, tooltip, href, icon }: PropsType) => (
+  <Container>
+    <Tooltip text={tooltip} flow={'up'}>
       <StyledLink to={href} $active={active}>
-        <Circle><img src={icon} alt='' /></Circle>
-        <div>{text}</div>
+        <Circle>
+          <img src={icon} alt='' />
+        </Circle>
+        {text}
       </StyledLink>
     </Tooltip>
-  }
-}
+  </Container>
+)
 
 export default HeaderNavigationItem

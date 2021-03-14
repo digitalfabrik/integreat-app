@@ -60,8 +60,8 @@ const NewsDot = styled.Text`
   height: ${NEWS_DOT_RADIUS}px;
   width: ${NEWS_DOT_RADIUS}px;
   border-radius: ${NEWS_DOT_RADIUS / 2}px;
-  background-color: #EE5353;
-  color: #FFFFFF;
+  background-color: #ee5353;
+  color: #ffffff;
   elevation: 5;
   shadow-color: #000;
   shadow-offset: 0px 2px;
@@ -73,7 +73,7 @@ const NewsDot = styled.Text`
  * Displays a single NavigationTile
  */
 class NavigationTile extends React.Component<PropsType> {
-  getNewsDot (): React.Node {
+  getNewsDot(): React.Node {
     const notifications = this.props.tile.notifications
     if (notifications && notifications > 0) {
       return <NewsDot theme={this.props.theme}>{notifications}</NewsDot>
@@ -82,18 +82,20 @@ class NavigationTile extends React.Component<PropsType> {
     }
   }
 
-  getTileContent (): React.Node {
+  getTileContent(): React.Node {
     const { tile, theme } = this.props
-    return <>
-      <Circle theme={theme}>
-        <ThumbnailContainer source={tile.thumbnail} />
-        {this.getNewsDot()}
-      </Circle>
-      <TileTitle theme={theme}>{tile.title}</TileTitle>
-    </>
+    return (
+      <>
+        <Circle theme={theme}>
+          <ThumbnailContainer source={tile.thumbnail} />
+          {this.getNewsDot()}
+        </Circle>
+        <TileTitle theme={theme}>{tile.title}</TileTitle>
+      </>
+    )
   }
 
-  render () {
+  render() {
     const { tile, theme, width } = this.props
     return (
       <TileTouchable theme={theme} onPress={tile.onTilePress} width={width}>

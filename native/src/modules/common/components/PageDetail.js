@@ -12,7 +12,9 @@ const Identifier: StyledComponent<{}, ThemeType, *> = styled.Text`
 `
 
 type DetailContainerPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
+  language: string,
+  children: React.Node,
+  theme: ThemeType
 |}
 
 const DetailContainer: StyledComponent<DetailContainerPropsType, ThemeType, *> = styled.Text`
@@ -30,7 +32,7 @@ type PropsType = {|
 |}
 
 class PageDetail extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { identifier, information, theme, language } = this.props
     return (
       <DetailContainer theme={theme} language={language}>

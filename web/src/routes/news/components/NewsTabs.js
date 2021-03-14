@@ -26,7 +26,7 @@ type PropsType = {|
 |}
 
 class NewsTabs extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { children, language, city, localNewsEnabled, tunewsEnabled, t, type } = this.props
     const localNewsPath = new LocalNewsRouteConfig().getRoutePath({ city, language })
     const tunewsPath = new TunewsRouteConfig().getRoutePath({ city, language })
@@ -34,26 +34,8 @@ class NewsTabs extends React.PureComponent<PropsType> {
     return (
       <>
         <StyledTabs>
-          {
-            localNewsEnabled && (
-              <Tab
-                active={type === LOCAL_NEWS}
-                type={LOCAL_NEWS}
-                destination={localNewsPath}
-                t={t}
-              />
-            )
-          }
-          {
-            tunewsEnabled && (
-              <Tab
-                active={type === TU_NEWS}
-                type={TU_NEWS}
-                destination={tunewsPath}
-                t={t}
-              />
-            )
-          }
+          {localNewsEnabled && <Tab active={type === LOCAL_NEWS} type={LOCAL_NEWS} destination={localNewsPath} t={t} />}
+          {tunewsEnabled && <Tab active={type === TU_NEWS} type={TU_NEWS} destination={tunewsPath} t={t} />}
         </StyledTabs>
         {children}
       </>
