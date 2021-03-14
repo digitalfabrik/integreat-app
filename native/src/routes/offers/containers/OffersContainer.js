@@ -35,9 +35,10 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const { cityCode, languageCode } = route.params
   const cities = useSelector((state: StateType) => state.cities.models || null)
 
-  const request = useCallback(async (apiUrl: string) =>
-    await createOffersEndpoint(apiUrl).request({ city: cityCode, language: languageCode }
-    ), [cityCode, languageCode])
+  const request = useCallback(
+    async (apiUrl: string) => await createOffersEndpoint(apiUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
 
   const navigateToOffer = useCallback(

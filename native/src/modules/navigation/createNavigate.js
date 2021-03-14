@@ -12,7 +12,8 @@ import {
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  SEARCH_ROUTE, SPRUNGBRETT_OFFER_ROUTE
+  SEARCH_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client/src/routes'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToLanding from './navigateToLanding'
