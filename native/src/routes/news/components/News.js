@@ -41,48 +41,59 @@ export type PropsType = {|
 |}
 
 const News = (props: PropsType) => {
-  const { news, newsId, cityCode, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t, routeKey } = props
+  const {
+    news,
+    newsId,
+    cityCode,
+    language,
+    fetchMoreNews,
+    isFetchingMore,
+    selectedNewsType,
+    theme,
+    t,
+    routeKey
+  } = props
   const { navigateTo, navigateToLink } = props
 
-  const navigateToNews = useCallback((cityCode: string, language: string, newsId: string) => () => {
-    navigateTo({
-      route: NEWS_ROUTE,
-      cityCode,
-      languageCode: language,
-      newsId,
-      newsType: selectedNewsType
-    })
-  }, [selectedNewsType, navigateTo])
+  const navigateToNews = useCallback(
+    (cityCode: string, language: string, newsId: string) => () => {
+      navigateTo({
+        route: NEWS_ROUTE,
+        cityCode,
+        languageCode: language,
+        newsId,
+        newsType: selectedNewsType
+      })
+    },
+    [selectedNewsType, navigateTo]
+  )
 
   const renderNoItemsComponent = useCallback(() => {
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
   }, [theme, t])
 
-  const rendersNewsListItem = useCallback((cityCode: string, language: string) =>
-    ({ item }: { item: LocalNewsModel | TunewsModel, ... }) => {
+  const rendersNewsListItem = useCallback(
+    (cityCode: string, language: string) => ({ item }: { item: LocalNewsModel | TunewsModel, ... }) => {
       return (
-      <NewsListItem
-        key={item.id}
-        newsItem={item}
-        language={language}
-        theme={theme}
-        isTunews={selectedNewsType === TU_NEWS_TYPE}
-        navigateToNews={navigateToNews(cityCode, language, item.id.toString())}
-        t={t}
-      />
+        <NewsListItem
+          key={item.id}
+          newsItem={item}
+          language={language}
+          theme={theme}
+          isTunews={selectedNewsType === TU_NEWS_TYPE}
+          navigateToNews={navigateToNews(cityCode, language, item.id.toString())}
+          t={t}
+        />
       )
-    }, [selectedNewsType, navigateToNews, theme, t])
+    },
+    [selectedNewsType, navigateToNews, theme, t]
+  )
 
   if (newsId) {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
     if (selectedNewsItem) {
       return (
-          <NewsDetail
-            newsItem={selectedNewsItem}
-            theme={theme}
-            language={language}
-            navigateToLink={navigateToLink}
-          />
+        <NewsDetail newsItem={selectedNewsItem} theme={theme} language={language} navigateToLink={navigateToLink} />
       )
     } else {
       const error = new NotFoundError({ type: selectedNewsType, id: newsId, city: cityCode, language })
@@ -91,21 +102,21 @@ const News = (props: PropsType) => {
   }
 
   return (
-      <View style={{ flex: 1 }}>
-        <NewsList
-          renderNoItemsComponent={renderNoItemsComponent}
-          items={news}
-          isFetchingMore={isFetchingMore}
-          fetchMoreItems={fetchMoreNews}
-          renderItem={rendersNewsListItem(cityCode, language)}
-          navigateTo={navigateTo}
-          selectedNewsType={selectedNewsType}
-          newsId={newsId}
-          routeKey={routeKey}
-          cityCode={cityCode}
-          language={language}
-        />
-      </View>
+    <View style={{ flex: 1 }}>
+      <NewsList
+        renderNoItemsComponent={renderNoItemsComponent}
+        items={news}
+        isFetchingMore={isFetchingMore}
+        fetchMoreItems={fetchMoreNews}
+        renderItem={rendersNewsListItem(cityCode, language)}
+        navigateTo={navigateTo}
+        selectedNewsType={selectedNewsType}
+        newsId={newsId}
+        routeKey={routeKey}
+        cityCode={cityCode}
+        language={language}
+      />
+    </View>
   )
 }
 

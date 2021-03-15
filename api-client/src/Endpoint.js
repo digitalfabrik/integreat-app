@@ -21,12 +21,13 @@ class Endpoint<P, T> {
   responseOverride: ?T
   errorOverride: ?Error
 
-  constructor (
+  constructor(
     name: string,
     mapParamsToUrl: MapParamsToUrlType<P>,
     mapParamsToBody: ?MapParamsToBodyType<P>,
     mapResponse: MapResponseType<P, T>,
-    responseOverride: ?T, errorOverride: ?Error
+    responseOverride: ?T,
+    errorOverride: ?Error
   ) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapParamsToBody = mapParamsToBody
@@ -36,17 +37,17 @@ class Endpoint<P, T> {
     this._stateName = name
   }
 
-  get stateName (): string {
+  get stateName(): string {
     return this._stateName
   }
 
-  async fetchOrThrow (url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
+  async fetchOrThrow(url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
     return fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({ endpointName: this.stateName, innerError: e })
     })
   }
 
-  async request (params: P, overrideUrl?: string): Promise<Payload<T>> {
+  async request(params: P, overrideUrl?: string): Promise<Payload<T>> {
     if (this.errorOverride) {
       throw this.errorOverride
     }
@@ -73,7 +74,7 @@ class Endpoint<P, T> {
       const fetchedData = this.mapResponse(json, params)
       return new Payload(false, url, fetchedData, null)
     } catch (e) {
-      throw (e instanceof MappingError || e instanceof NotFoundError) ? e : new MappingError(this.stateName, e.message)
+      throw e instanceof MappingError || e instanceof NotFoundError ? e : new MappingError(this.stateName, e.message)
     }
   }
 }

@@ -9,7 +9,9 @@ import type { ImageSourceType } from './Image'
 import { contentDirection } from '../../i18n/contentDirection'
 
 type ListItemViewPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
+  language: string,
+  children: React.Node,
+  theme: ThemeType
 |}
 
 const ListItemView: StyledComponent<ListItemViewPropsType, ThemeType, *> = styled.View`
@@ -57,7 +59,7 @@ type PropsType = {|
 |}
 
 class ListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { language, title, thumbnail, children, theme } = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo} theme={theme}>

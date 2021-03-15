@@ -25,12 +25,7 @@ type PropsType = {|
 
 class AnchorIcon extends React.Component<PropsType> {
   onAnchorPress = () => {
-    const {
-      navigationItemWidth,
-      _scrollView,
-      xPosition,
-      contentSizeDiff
-    } = this.props
+    const { navigationItemWidth, _scrollView, xPosition, contentSizeDiff } = this.props
 
     const didReachLastItem = parseInt(xPosition.toFixed(0)) + widthThreshold > contentSizeDiff
     // when everything is at starting point and xPosition is zero
@@ -58,7 +53,7 @@ class AnchorIcon extends React.Component<PropsType> {
     }
   }
 
-  render () {
+  render() {
     const { name } = this.props
     return (
       <Icon

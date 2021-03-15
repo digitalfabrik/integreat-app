@@ -18,7 +18,11 @@ describe('OffersPage', () => {
   const language = 'de'
 
   const sprungbrettOffer = new OfferModel({
-    alias: 'sprungbrett', path: 'path to fetch jobs from', title: 'Sprungbrett', thumbnail: 'xy', postData: null
+    alias: 'sprungbrett',
+    path: 'path to fetch jobs from',
+    title: 'Sprungbrett',
+    thumbnail: 'xy',
+    postData: null
   })
 
   const lehrstellenRadarPostData = new Map()
@@ -50,24 +54,14 @@ describe('OffersPage', () => {
 
   it('should render offer tiles if no offer is selected', () => {
     const offersPage = shallow(
-      <OffersPage city={city}
-                  language={language}
-                  offers={offers}
-                  offerId={undefined}
-                  t={t}
-                  cities={cities} />
+      <OffersPage city={city} language={language} offers={offers} offerId={undefined} t={t} cities={cities} />
     )
     expect(offersPage).toMatchSnapshot()
   })
 
   it('should render a OfferNotFoundError if there is an offerId', () => {
     const offersPage = shallow(
-      <OffersPage city={city}
-                  language={language}
-                  offers={offers}
-                  offerId='invalid_offer'
-                  t={t}
-                  cities={cities} />
+      <OffersPage city={city} language={language} offers={offers} offerId='invalid_offer' t={t} cities={cities} />
     )
     expect(offersPage).toMatchSnapshot()
   })

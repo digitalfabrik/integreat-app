@@ -20,7 +20,8 @@ describe('Header', () => {
         navigationItems={[
           <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active tooltip='tooltip1' />
         ]}
-        viewportSmall />
+        viewportSmall
+      />
     )
     expect(component).toMatchSnapshot()
   })
@@ -35,7 +36,8 @@ describe('Header', () => {
         navigationItems={[
           <HeaderNavigationItem key={0} href='/another_route' icon='icon.jpg' text='text1' active tooltip='tooltip1' />
         ]}
-        viewportSmall={false} />
+        viewportSmall={false}
+      />
     )
     expect(component).toMatchSnapshot()
   })

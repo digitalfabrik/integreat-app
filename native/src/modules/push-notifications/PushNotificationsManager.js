@@ -25,7 +25,9 @@ export const requestPushNotificationPermission = async (): Promise<void> => {
 const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
 
 export const unsubscribeNews = async (
-  city: string, language: string, featureFlags: FeatureFlagsType
+  city: string,
+  language: string,
+  featureFlags: FeatureFlagsType
 ): Promise<void> => {
   if (!featureFlags.pushNotifications) {
     console.debug('Push notifications disabled, unsubscription skipped.')

@@ -1,6 +1,6 @@
 triggers:
   - schedule:
-      cron: "0 5 1,15 * *" # For sanity checks for this syntax: https://crontab.guru/
+      cron: "1 5 * * 4" # For sanity checks for this syntax: https://crontab.guru/
       filters:
         branches:
           only:
@@ -93,7 +93,7 @@ jobs:
         - browserstack
         - tuerantuer-google-play
         - tuerantuer-android
-      production_delivery: true
+      production_delivery: false
       requires:
         - check_native
         - e2e_android
@@ -117,7 +117,7 @@ jobs:
         - browserstack
         - tuerantuer-google-play
         - tuerantuer-android
-      production_delivery: true
+      production_delivery: false
       requires:
         - check_native
         - e2e_android
@@ -141,7 +141,7 @@ jobs:
         - browserstack
         - tuerantuer-google-play
         - tuerantuer-android
-      production_delivery: true
+      production_delivery: false
       requires:
         - check_native
         - e2e_android
@@ -151,7 +151,7 @@ jobs:
       context:
         - mattermost
         - deliverino
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_integreat_android
         - deliver_malte_android
@@ -191,7 +191,7 @@ jobs:
         - browserstack
         - tuerantuer-apple
         - tuerantuer-ios
-      production_delivery: true
+      production_delivery: false
       requires:
         - check_native
         - e2e_ios
@@ -215,7 +215,7 @@ jobs:
         - browserstack
         - tuerantuer-apple
         - tuerantuer-ios
-      production_delivery: true
+      production_delivery: false
       requires:
         - check_native
         - e2e_ios
@@ -239,7 +239,7 @@ jobs:
         - browserstack
         - tuerantuer-apple
         - tuerantuer-ios
-      production_delivery: true
+      production_delivery: false
       requires:
         - check_native
         - e2e_ios
@@ -249,7 +249,7 @@ jobs:
       context:
         - mattermost
         - deliverino
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_integreat_ios
         - deliver_malte_ios

@@ -9,7 +9,7 @@ const openExternalUrl = async (url: string) => {
   const protocol = new URL(url).protocol
   try {
     // Custom tabs are not available in all browsers and support only http and https
-    if (await InAppBrowser.isAvailable() && ['https:', 'http:'].includes(protocol)) {
+    if ((await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)) {
       await InAppBrowser.open(url, {
         toolbarColor: buildConfig().lightTheme.colors.themeColor
       })

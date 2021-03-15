@@ -20,9 +20,9 @@ import { POIS_ROUTE } from '../../../app/route-configs/PoisRouteConfig'
 
 jest.mock('react-i18next')
 jest.mock('redux-first-router-link')
-jest.mock('../../components/HeaderNavigationItem', () =>
-  ({ text, active }: {| text: string, active: boolean |}) => <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
-)
+jest.mock('../../components/HeaderNavigationItem', () => ({ text, active }: {| text: string, active: boolean |}) => (
+  <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
+))
 
 describe('LocationHeader', () => {
   const t = (key: ?string): string => key || ''
@@ -94,13 +94,15 @@ describe('LocationHeader', () => {
     it('should be empty if all other header items are disabled', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(CATEGORIES_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(false, false, false, false, false)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(CATEGORIES_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(false, false, false, false, false)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expectNavigationItems(getByText, false, false, false, false, false)
@@ -109,13 +111,15 @@ describe('LocationHeader', () => {
     it('should show categories if events are enabled', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(CATEGORIES_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(false, true, false, false, false)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(CATEGORIES_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(false, true, false, false, false)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expectNavigationItems(getByText, true, false, true, false, false)
@@ -124,13 +128,15 @@ describe('LocationHeader', () => {
     it('should show categories if news are enabled', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(CATEGORIES_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(false, false, false, false, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(CATEGORIES_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(false, false, false, false, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expectNavigationItems(getByText, true, false, false, false, true)
@@ -139,13 +145,15 @@ describe('LocationHeader', () => {
     it('should show categories, news, events, offers, pois', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(CATEGORIES_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(CATEGORIES_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expectNavigationItems(getByText, true, true, true, true, true)
@@ -154,13 +162,15 @@ describe('LocationHeader', () => {
     it('should highlight local information if route corresponds', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(CATEGORIES_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(CATEGORIES_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation active')).toBeTruthy()
@@ -173,13 +183,15 @@ describe('LocationHeader', () => {
     it('should highlight news if the local news route is selected', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(LOCAL_NEWS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(LOCAL_NEWS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -192,13 +204,15 @@ describe('LocationHeader', () => {
     it('should highlight news if the local news detail route is selected', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(LOCAL_NEWS_DETAILS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(LOCAL_NEWS_DETAILS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -210,13 +224,15 @@ describe('LocationHeader', () => {
     it('should highlight news if the tu news route is selected', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(TUNEWS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(TUNEWS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -229,13 +245,15 @@ describe('LocationHeader', () => {
     it('should highlight news if the tu news detail route is selected', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(TUNEWS_DETAILS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(TUNEWS_DETAILS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -248,13 +266,15 @@ describe('LocationHeader', () => {
     it('should highlight events if route corresponds', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(EVENTS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(EVENTS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -267,13 +287,15 @@ describe('LocationHeader', () => {
     it('should highlight offers if offers route is active', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(OFFERS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(OFFERS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -286,13 +308,15 @@ describe('LocationHeader', () => {
     it('should highlight offers if sprungbrett route is selected', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(SPRUNGBRETT_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(SPRUNGBRETT_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()
@@ -305,13 +329,15 @@ describe('LocationHeader', () => {
     it('should highlight pois if pois route is selected', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
-          <LocationHeader location={location(POIS_ROUTE)}
-                          viewportSmall
-                          cityModel={cityModel(true, true, true, true, true)}
-                          events={events}
-                          languageChangePaths={languageChangePaths}
-                          onStickyTopChanged={onStickyTopChanged}
-                          t={t} />
+          <LocationHeader
+            location={location(POIS_ROUTE)}
+            viewportSmall
+            cityModel={cityModel(true, true, true, true, true)}
+            events={events}
+            languageChangePaths={languageChangePaths}
+            onStickyTopChanged={onStickyTopChanged}
+            t={t}
+          />
         </ThemeProvider>
       )
       expect(getByText('localInformation inactive')).toBeTruthy()

@@ -24,7 +24,7 @@ type PropsType = {|
 |}
 
 class OfferListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { offer, city, language, hashFunction } = this.props
 
     if (offer.formData instanceof WohnenFormData) {

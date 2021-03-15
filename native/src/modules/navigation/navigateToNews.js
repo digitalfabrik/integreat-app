@@ -8,7 +8,14 @@ import { NEWS_ROUTE } from 'api-client/src/routes'
 import type { NewsType } from 'api-client/src/routes'
 
 const navigateToNews = <T: RoutesType>({
-  navigation, dispatch, cityCode, languageCode, type, newsId, key = generateKey(), forceRefresh = false
+  navigation,
+  dispatch,
+  cityCode,
+  languageCode,
+  type,
+  newsId,
+  key = generateKey(),
+  forceRefresh = false
 }: {|
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,

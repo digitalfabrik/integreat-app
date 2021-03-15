@@ -1,20 +1,11 @@
 // @flow
 
-import type {
-  CityContentStateType,
-  NewsRouteStateType
-} from '../../app/StateType'
+import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
-import {
-  LocalNewsModel,
-  TunewsModel
-} from 'api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
-const pushNews = (
-  state: CityContentStateType,
-  action: PushNewsActionType
-): CityContentStateType => {
+const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
   const {
     news,
     newsId,
@@ -32,12 +23,8 @@ const pushNews = (
   }
   const getNewsRoute = (): NewsRouteStateType => {
     if (!newsId) {
-      const allAvailableLanguages = new Map(
-        availableLanguages.map(language => [language.code, null])
-      )
-      const models = (page && previouslyFetchedNews)
-        ? { models: [...previouslyFetchedNews, ...news] }
-        : { models: news }
+      const allAvailableLanguages = new Map(availableLanguages.map(language => [language.code, null]))
+      const models = page && previouslyFetchedNews ? { models: [...previouslyFetchedNews, ...news] } : { models: news }
 
       return {
         status: 'ready',
@@ -51,9 +38,7 @@ const pushNews = (
         ...models
       }
     }
-    const newsItem: ?LocalNewsModel | TunewsModel = news.find(
-      newsItem => newsItem.id.toString() === newsId
-    )
+    const newsItem: ?LocalNewsModel | TunewsModel = news.find(newsItem => newsItem.id.toString() === newsId)
 
     if (!newsItem) {
       return {
