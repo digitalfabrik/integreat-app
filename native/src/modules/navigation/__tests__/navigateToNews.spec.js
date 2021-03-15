@@ -18,9 +18,11 @@ describe('createNavigateToNews', () => {
       type: LOCAL_NEWS_TYPE
     })
 
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
-    }))
+    expect(navigation.navigate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
+      })
+    )
     const key = (navigation.navigate: any).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_NEWS',

@@ -25,7 +25,7 @@ const TextInput: StyledComponent<{||}, ThemeType, *> = styled.input.attrs({ type
   border-radius: 0;
 
   &::placeholder {
-    color: ${props => props.theme.colors.textColor}
+    color: ${props => props.theme.colors.textColor};
   }
 `
 
@@ -46,27 +46,30 @@ const SearchIcon: StyledComponent<{||}, ThemeType, *> = styled(FontAwesomeIcon).
 type PropsType = {|
   placeholderText: string,
   filterText: string,
-  onFilterTextChange: (string) => void,
+  onFilterTextChange: string => void,
   spaceSearch: boolean,
   onClickInput?: () => void
 |}
 
 export class SearchInput extends React.PureComponent<PropsType> {
   static defaultProps = { spaceSearch: false }
-  handleFilterTextChange = (event: SyntheticInputEvent<EventTarget>) => this.props.onFilterTextChange(event.target.value)
+  handleFilterTextChange = (event: SyntheticInputEvent<EventTarget>) =>
+    this.props.onFilterTextChange(event.target.value)
 
-  render () {
+  render() {
     const { onClickInput, filterText, placeholderText } = this.props
     return (
       <Spacer space={this.props.spaceSearch}>
         <Wrapper>
           <SearchIcon />
-            <TextInput placeholder={placeholderText}
-                       aria-label={placeholderText}
-                       defaultValue={filterText}
-                       onChange={this.handleFilterTextChange}
-                       onClick={onClickInput}
-                       autoFocus />
+          <TextInput
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            defaultValue={filterText}
+            onChange={this.handleFilterTextChange}
+            onClick={onClickInput}
+            autoFocus
+          />
         </Wrapper>
       </Spacer>
     )

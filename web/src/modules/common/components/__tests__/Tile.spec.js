@@ -37,23 +37,17 @@ const tile3 = new TileModel({
 
 describe('Tile', () => {
   it('should render a Link if path is not an external url', () => {
-    const wrapper = shallow(
-      <Tile tile={tile1} />
-    )
+    const wrapper = shallow(<Tile tile={tile1} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should render a a-Tag if path is not an external url', () => {
-    const wrapper = shallow(
-      <Tile tile={tile2} />
-    )
+    const wrapper = shallow(<Tile tile={tile2} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should render a form-Tag if path is not an external url and has postData', () => {
-    const wrapper = shallow(
-      <Tile tile={tile3} />
-    )
+    const wrapper = shallow(<Tile tile={tile3} />)
     expect(wrapper).toMatchSnapshot()
   })
 })

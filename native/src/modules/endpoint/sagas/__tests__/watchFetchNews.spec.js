@@ -102,8 +102,6 @@ describe('watchFetchNews', () => {
   it('should correctly call fetch news when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
 
-    return testSaga(watchFetchNews, dataContainer)
-      .next()
-      .takeLatest('FETCH_NEWS', fetchNews, dataContainer)
+    return testSaga(watchFetchNews, dataContainer).next().takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   })
 })

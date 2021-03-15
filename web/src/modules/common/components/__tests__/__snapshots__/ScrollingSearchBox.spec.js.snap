@@ -54,7 +54,7 @@ exports[`ScrollingSearchBox should set correct reference 1`] = `
         </svg>
         <input
           aria-label="Placeholder"
-          class="SearchInput__TextInput-sc-1brkyza-1 cXA-dRB"
+          class="SearchInput__TextInput-sc-1brkyza-1 hckYOC"
           placeholder="Placeholder"
           type="text"
           value="Test"

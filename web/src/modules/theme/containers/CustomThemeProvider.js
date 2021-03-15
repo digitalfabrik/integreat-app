@@ -11,10 +11,12 @@ type PropsType = {|
 |}
 
 class CustomThemeProvider extends React.Component<PropsType> {
-  render () {
-    return <ThemeProvider theme={this.props.darkMode ? buildConfig().darkTheme : buildConfig().lightTheme}>
-      {this.props.children}
-    </ThemeProvider>
+  render() {
+    return (
+      <ThemeProvider theme={this.props.darkMode ? buildConfig().darkTheme : buildConfig().lightTheme}>
+        {this.props.children}
+      </ThemeProvider>
+    )
   }
 }
 

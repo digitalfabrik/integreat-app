@@ -5,8 +5,8 @@ import { Payload } from 'api-client'
 
 const loadFromEndpoint = async <T>(
   request: (apiUrl: string) => Promise<Payload<T>>,
-  setData: ?T => void,
-  setError: ?Error => void,
+  setData: (?T) => void,
+  setError: (?Error) => void,
   setLoading: boolean => void
 ) => {
   setLoading(true)

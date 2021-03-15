@@ -23,12 +23,12 @@ type PropsType = {|
 |}
 
 class BreadcrumbsJsonLd extends React.Component<PropsType> {
-  render () {
-    return <Helmet>
-      <script type='application/ld+json'>
-        {JSON.stringify(createJsonLd(this.props.breadcrumbs))}
-      </script>
-    </Helmet>
+  render() {
+    return (
+      <Helmet>
+        <script type='application/ld+json'>{JSON.stringify(createJsonLd(this.props.breadcrumbs))}</script>
+      </Helmet>
+    )
   }
 }
 

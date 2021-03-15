@@ -30,25 +30,26 @@ describe('pois', () => {
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
 
-  const createPoiModel = () => new PoiModel({
-    path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
-    title: 'Asylploitischer Frühschoppen',
-    excerpt: 'Am Sonntag...',
-    content: '<p>Am Sonntag...</p>',
-    availableLanguages: new Map(),
-    thumbnail: '',
-    location: new LocationModel({
-      name: 'Café Tür an Tür',
-      address: 'Wertachstr. 29',
-      town: 'Augsburg',
-      state: 'Bayern',
-      postcode: '86353',
-      region: 'Schwaben',
-      country: 'DE'
-    }),
-    lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
-    hash: '91d435afbc7aa83496137e81fd2832e3'
-  })
+  const createPoiModel = () =>
+    new PoiModel({
+      path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
+      title: 'Asylploitischer Frühschoppen',
+      excerpt: 'Am Sonntag...',
+      content: '<p>Am Sonntag...</p>',
+      availableLanguages: new Map(),
+      thumbnail: '',
+      location: new LocationModel({
+        name: 'Café Tür an Tür',
+        address: 'Wertachstr. 29',
+        town: 'Augsburg',
+        state: 'Bayern',
+        postcode: '86353',
+        region: 'Schwaben',
+        country: 'DE'
+      }),
+      lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
+      hash: '91d435afbc7aa83496137e81fd2832e3'
+    })
 
   const poi1 = createPoi(2730)
   const poi2 = createPoi(1889)
@@ -68,22 +69,12 @@ describe('pois', () => {
     )
   })
 
-  const json = [
-    poi1,
-    poi2,
-    poi3,
-    poi4
-  ]
+  const json = [poi1, poi2, poi3, poi4]
 
   it('should map fetched data to models', () => {
     const poisModels = pois.mapResponse(json, params)
 
-    const value = [
-      poiModel1,
-      poiModel2,
-      poiModel3,
-      poiModel4
-    ]
+    const value = [poiModel1, poiModel2, poiModel3, poiModel4]
     expect(poisModels).toEqual(value)
   })
 })

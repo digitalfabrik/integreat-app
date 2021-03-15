@@ -9,8 +9,12 @@ import { I18nManager } from 'react-native'
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
     const { queryByText } = render(
-      <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
-                  language='de' />
+      <PageDetail
+        identifier='Test Identifier'
+        information='Some important information'
+        theme={lightTheme}
+        language='de'
+      />
     )
     expect(queryByText(/Test Identifier/)).toBeTruthy()
     expect(queryByText(/Some important information/)).toBeTruthy()
@@ -21,8 +25,12 @@ describe('PageDetail', () => {
       I18nManager.forceRTL(false)
 
       const { queryAllByText } = render(
-        <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
-                    language='de' />
+        <PageDetail
+          identifier='Test Identifier'
+          information='Some important information'
+          theme={lightTheme}
+          language='de'
+        />
       )
 
       queryAllByText(/Some important information/).forEach(element => {
@@ -30,8 +38,12 @@ describe('PageDetail', () => {
       })
 
       const { queryAllByText: queryAllByTextReverse } = render(
-        <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
-                    language='ar' />
+        <PageDetail
+          identifier='Test Identifier'
+          information='Some important information'
+          theme={lightTheme}
+          language='ar'
+        />
       )
 
       queryAllByTextReverse(/Some important information/).forEach(element => {
@@ -43,8 +55,12 @@ describe('PageDetail', () => {
       I18nManager.forceRTL(true)
 
       const { queryAllByText: queryAllByTextReverse } = render(
-        <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
-                    language='de' />
+        <PageDetail
+          identifier='Test Identifier'
+          information='Some important information'
+          theme={lightTheme}
+          language='de'
+        />
       )
 
       queryAllByTextReverse(/Some important information/).forEach(element => {
@@ -52,8 +68,12 @@ describe('PageDetail', () => {
       })
 
       const { queryAllByText } = render(
-        <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
-                    language='ar' />
+        <PageDetail
+          identifier='Test Identifier'
+          information='Some important information'
+          theme={lightTheme}
+          language='ar'
+        />
       )
 
       queryAllByText(/Some important information/).forEach(element => {

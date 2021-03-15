@@ -27,29 +27,29 @@ class EventModelBuilder {
   _city: string
   _language: string
 
-  constructor (seed: string, eventCount: number, city: string, language: string) {
+  constructor(seed: string, eventCount: number, city: string, language: string) {
     this._seed = seed
     this._eventCount = eventCount
     this._city = city
     this._language = language
   }
 
-  _predictableNumber (index: number, max: number = MAX_PREDICTABLE_VALUE): number {
+  _predictableNumber(index: number, max: number = MAX_PREDICTABLE_VALUE): number {
     return seedrandom(index + this._seed)() * max
   }
 
-  build (): Array<EventModel> {
+  build(): Array<EventModel> {
     return this.buildAll().map(all => all.event)
   }
 
-  buildResources (): { [path: string]: PageResourceCacheStateType } {
+  buildResources(): { [path: string]: PageResourceCacheStateType } {
     return this.buildAll().reduce((result, { path, resources }) => {
       result[path] = resources
       return result
     }, {})
   }
 
-  createResource (url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
+  createResource(url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
     const hash = hashUrl(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
@@ -65,7 +65,7 @@ class EventModelBuilder {
    *
    * @returns The events and the corresponding resource cache
    */
-  buildAll (): Array<{ path: string, event: EventModel, resources: { [path: string]: PageResourceCacheStateType } }> {
+  buildAll(): Array<{ path: string, event: EventModel, resources: { [path: string]: PageResourceCacheStateType } }> {
     return Array.from({ length: this._eventCount }, (x, index) => {
       const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
       const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
@@ -85,9 +85,12 @@ class EventModelBuilder {
         event: new EventModel({
           path,
           title: 'first Event',
-          availableLanguages: new Map(LANGUAGES
-            .filter(language => language !== this._language)
-            .map(lng => [lng, `/${this._city}/${lng}/events/event${index}`])),
+          availableLanguages: new Map(
+            LANGUAGES.filter(language => language !== this._language).map(lng => [
+              lng,
+              `/${this._city}/${lng}/events/event${index}`
+            ])
+          ),
           date: new DateModel({
             startDate,
             endDate,
@@ -112,7 +115,10 @@ class EventModelBuilder {
                     <img src="${resourceUrl2}"/>`,
           thumbnail,
           featuredImage: null,
-          hash: md5.create().update(Buffer.from([index])).hex()
+          hash: md5
+            .create()
+            .update(Buffer.from([index]))
+            .hex()
         }),
         resources: {
           [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),

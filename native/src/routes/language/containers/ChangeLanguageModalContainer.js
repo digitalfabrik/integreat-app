@@ -9,10 +9,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel } from 'api-client'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
 
@@ -86,7 +83,8 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
 }
 
 export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withTheme<{| ...PropsType, theme: ThemeType |}>(ChangeLanguageModal)
-  )
+  connect<PropsType, OwnPropsType, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withTheme<{| ...PropsType, theme: ThemeType |}>(ChangeLanguageModal))
 )

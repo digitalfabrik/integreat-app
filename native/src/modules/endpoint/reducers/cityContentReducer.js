@@ -13,7 +13,8 @@ import pushCategory from './pushCategory'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
 
 export default (
-  state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
+  state: CityContentStateType | null = defaultCityContentState,
+  action: StoreActionType
 ): CityContentStateType | null => {
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
@@ -106,9 +107,8 @@ export default (
           ...state,
           switchingLanguage: true,
           searchRoute: null,
-          resourceCache: state.resourceCache.status !== 'error'
-            ? { ...state.resourceCache, progress: 0 }
-            : state.resourceCache
+          resourceCache:
+            state.resourceCache.status !== 'error' ? { ...state.resourceCache, progress: 0 } : state.resourceCache
         }
       case 'SWITCH_CONTENT_LANGUAGE_FAILED':
         return { ...state, switchingLanguage: false }
@@ -119,9 +119,10 @@ export default (
       case 'FETCH_RESOURCES_PROGRESS':
         return {
           ...state,
-          resourceCache: state.resourceCache.status !== 'error'
-            ? { ...state.resourceCache, progress: action.params.progress }
-            : state.resourceCache
+          resourceCache:
+            state.resourceCache.status !== 'error'
+              ? { ...state.resourceCache, progress: action.params.progress }
+              : state.resourceCache
         }
       case 'PUSH_CATEGORY':
         return pushCategory(state, action)

@@ -29,7 +29,10 @@ describe('pushNews', () => {
           city: 'augsburg',
           language: 'de',
           models: [news1],
-          allAvailableLanguages: new Map([['de', null], ['en', null]]),
+          allAvailableLanguages: new Map([
+            ['de', null],
+            ['en', null]
+          ]),
           newsId: null,
           page: 1,
           hasMoreNews: false,

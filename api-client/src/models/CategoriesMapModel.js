@@ -14,14 +14,14 @@ class CategoriesMapModel {
    * whose parent attributes are first changed from id to path
    * @param categories CategoryModel as array
    */
-  constructor (categories: Array<CategoryModel>) {
-    this._categories = new Map(categories.map(category => ([category.path, category])))
+  constructor(categories: Array<CategoryModel>) {
+    this._categories = new Map(categories.map(category => [category.path, category]))
   }
 
   /**
    * @return {CategoryModel[]} categories The categories as array
    */
-  toArray (): Array<CategoryModel> {
+  toArray(): Array<CategoryModel> {
     return Array.from(this._categories.values())
   }
 
@@ -30,7 +30,7 @@ class CategoriesMapModel {
    * @param {String} path The path
    * @return {CategoryModel | undefined} The category
    */
-  findCategoryByPath (path: string): ?CategoryModel {
+  findCategoryByPath(path: string): ?CategoryModel {
     return this._categories.get(decodeURIComponent(normalizePath(path)))
   }
 
@@ -39,10 +39,10 @@ class CategoriesMapModel {
    * @param category The category
    * @return {CategoryModel[]} The children
    */
-  getChildren (category: CategoryModel): Array<CategoryModel> {
+  getChildren(category: CategoryModel): Array<CategoryModel> {
     return this.toArray()
       .filter(_category => _category.parentPath === category.path)
-      .sort((category1, category2) => (category1.order - category2.order))
+      .sort((category1, category2) => category1.order - category2.order)
   }
 
   /**
@@ -50,7 +50,7 @@ class CategoriesMapModel {
    * @param category The category
    * @return {CategoryModel[]} The parents, with the immediate parent last
    */
-  getAncestors (category: CategoryModel): Array<CategoryModel> {
+  getAncestors(category: CategoryModel): Array<CategoryModel> {
     const parents = []
 
     while (!category.isRoot()) {
@@ -66,12 +66,14 @@ class CategoriesMapModel {
     return parents
   }
 
-  isEqual (other: CategoriesMapModel): boolean {
-    return this._categories.size === other._categories.size &&
+  isEqual(other: CategoriesMapModel): boolean {
+    return (
+      this._categories.size === other._categories.size &&
       Array.from(this._categories.entries()).every(([key, value]) => {
         const otherCategory = other._categories.get(key)
         return otherCategory && value.isEqual(otherCategory)
       })
+    )
   }
 }
 

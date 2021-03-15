@@ -160,7 +160,7 @@ describe('pushCategory', () => {
     }))
   })
 
-  it('should merge the resource cache if there\'s already one', () => {
+  it("should merge the resource cache if there's already one", () => {
     const prevState = prepareState({})
     if (prevState.resourceCache.status !== 'ready') {
       throw new Error('Preparation failed')
@@ -205,10 +205,12 @@ describe('pushCategory', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
-      city: 'augsburg',
-      resourceCache: { status: 'ready', progress: 1, value: { ...prevResources, ...resourceCache } }
-    }))
+    expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
+      expect.objectContaining({
+        city: 'augsburg',
+        resourceCache: { status: 'ready', progress: 1, value: { ...prevResources, ...resourceCache } }
+      })
+    )
   })
 
   it('should add categoriesMap to the searchRoute', () => {
@@ -232,8 +234,10 @@ describe('pushCategory', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
-      searchRoute: { categoriesMap }
-    }))
+    expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
+      expect.objectContaining({
+        searchRoute: { categoriesMap }
+      })
+    )
   })
 })

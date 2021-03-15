@@ -9,7 +9,8 @@ import {
   createLocalNewsElementEndpoint,
   createLanguagesEndpoint,
   LocalNewsModel,
-  Payload, CityModel
+  Payload,
+  CityModel
 } from 'api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -64,8 +65,8 @@ class LocalNewsDetailsRouteConfig implements RouteConfig<LocalNewsDetailsType, R
     if (!localNewsElement) {
       return null
     }
-    const cityModel = payloads.cities.data &&
-      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    const cityModel =
+      payloads.cities.data && payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
     if (!cityModel || !cityModel.pushNotificationsEnabled) {
       return null
     }

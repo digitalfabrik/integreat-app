@@ -11,15 +11,16 @@ import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiMode
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
-const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) =>
-  (route: CategoryRouteStateType): CategoryRouteStateType => {
-    if (route.status !== 'ready' && route.status !== 'languageNotAvailable') {
-      console.warn('Route was not ready when translating. Will not translate this route.')
-      return route
-    }
-    const { depth, allAvailableLanguages } = route
+const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) => (
+  route: CategoryRouteStateType
+): CategoryRouteStateType => {
+  if (route.status !== 'ready' && route.status !== 'languageNotAvailable') {
+    console.warn('Route was not ready when translating. Will not translate this route.')
+    return route
+  }
+  const { depth, allAvailableLanguages } = route
 
-    const translatedPath = allAvailableLanguages.get(newLanguage)
+  const translatedPath = allAvailableLanguages.get(newLanguage)
 
     if (!translatedPath) { // Route is not translatable
       return {
@@ -32,22 +33,27 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
       }
     }
 
-    const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
-    if (!rootModel) {
-      console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
+  const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
+  if (!rootModel) {
+    console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
                       but is referenced as translation for ${newLanguage}.`)
-      return route
-    }
+    return route
+  }
 
-    const resultModels = {}
-    const resultChildren = {}
+  const resultModels = {}
+  const resultChildren = {}
 
-    forEachTreeNode(rootModel, node => newCategoriesMap.getChildren(node), depth, (node, children) => {
+  forEachTreeNode(
+    rootModel,
+    node => newCategoriesMap.getChildren(node),
+    depth,
+    (node, children) => {
       resultModels[node.path] = node
       if (children) {
         resultChildren[node.path] = children.map(child => child.path)
       }
-    })
+    }
+  )
 
     return {
       routeType: CATEGORIES_ROUTE,
@@ -62,13 +68,14 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     }
   }
 
-const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage: string) =>
-  (route: EventRouteStateType): EventRouteStateType => {
-    if (route.status !== 'ready') {
-      console.warn('Route was not ready when translating. Will not translate this route.')
-      return route
-    }
-    const { allAvailableLanguages, city, path } = route
+const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage: string) => (
+  route: EventRouteStateType
+): EventRouteStateType => {
+  if (route.status !== 'ready') {
+    console.warn('Route was not ready when translating. Will not translate this route.')
+    return route
+  }
+  const { allAvailableLanguages, city, path } = route
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
@@ -94,13 +101,13 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
       }
     }
 
-    const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
+  const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
 
-    if (!translatedEvent) {
-      console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
+  if (!translatedEvent) {
+    console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
                     but is referenced as translation for ${newLanguage}.`)
-      return route
-    }
+    return route
+  }
 
     return {
       routeType: EVENTS_ROUTE,
@@ -113,13 +120,14 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     }
   }
 
-const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: string) =>
-  (route: PoiRouteStateType): PoiRouteStateType => {
-    if (route.status !== 'ready') {
-      console.warn('Route was not ready when translating. Will not translate this route.')
-      return route
-    }
-    const { allAvailableLanguages, city, path } = route
+const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: string) => (
+  route: PoiRouteStateType
+): PoiRouteStateType => {
+  if (route.status !== 'ready') {
+    console.warn('Route was not ready when translating. Will not translate this route.')
+    return route
+  }
+  const { allAvailableLanguages, city, path } = route
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
@@ -145,7 +153,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
       }
     }
 
-    const translatedPoi = newPois.find(newPoi => translatedPath === newPoi.path)
+  const translatedPoi = newPois.find(newPoi => translatedPath === newPoi.path)
 
     if (!translatedPoi) {
       console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
@@ -186,7 +194,8 @@ const translateRoutes = (state: CityContentStateType, action: MorphContentLangua
 }
 
 const morphContentLanguage = (
-  state: CityContentStateType, action: MorphContentLanguageActionType
+  state: CityContentStateType,
+  action: MorphContentLanguageActionType
 ): CityContentStateType => {
   const { newResourceCache, newCategoriesMap } = action.params
 

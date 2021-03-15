@@ -36,7 +36,9 @@ jest.mock('rn-fetch-blob')
 const mockStore = configureMockStore()
 
 class MockNavigator extends React.Component<{}> {
-  render () { return null }
+  render() {
+    return null
+  }
 }
 
 describe('NavigatorContainer', () => {
@@ -64,20 +66,22 @@ describe('NavigatorContainer', () => {
     const navigator = result.root.findByType(MockNavigator)
     store.clearActions()
     navigator.props.fetchCategory('augsburg', 'de', 'route-key-0', true)
-    expect(store.getActions()).toEqual([{
-      type: 'FETCH_CATEGORY',
-      params: {
-        city: 'augsburg',
-        language: 'de',
-        path: '/augsburg/de',
-        depth: 2,
-        key: 'route-key-0',
-        criterion: {
-          forceUpdate: true,
-          shouldRefreshResources: true
+    expect(store.getActions()).toEqual([
+      {
+        type: 'FETCH_CATEGORY',
+        params: {
+          city: 'augsburg',
+          language: 'de',
+          path: '/augsburg/de',
+          depth: 2,
+          key: 'route-key-0',
+          criterion: {
+            forceUpdate: true,
+            shouldRefreshResources: true
+          }
         }
       }
-    }])
+    ])
 
     jest.dontMock('../../components/Navigator')
   })
@@ -95,10 +99,12 @@ describe('NavigatorContainer', () => {
     const navigator = result.root.findByType(MockNavigator)
     store.clearActions()
     navigator.props.fetchCities(true)
-    expect(store.getActions()).toEqual([{
-      type: 'FETCH_CITIES',
-      params: { forceRefresh: true }
-    }])
+    expect(store.getActions()).toEqual([
+      {
+        type: 'FETCH_CITIES',
+        params: { forceRefresh: true }
+      }
+    ])
     jest.dontMock('../../components/Navigator')
   })
 })

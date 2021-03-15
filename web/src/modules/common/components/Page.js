@@ -51,8 +51,7 @@ const Page = ({
       {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
       <Caption title={title} />
       {children}
-      <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
-                     onInternalLinkClick={onInternalLinkClick} />
+      <RemoteContent dangerouslySetInnerHTML={{ __html: content }} onInternalLinkClick={onInternalLinkClick} />
       {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText={showLastUpdateText} />}
     </>
   )

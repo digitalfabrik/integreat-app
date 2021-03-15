@@ -174,15 +174,17 @@ export type LanguageResourceCacheStateType = $ReadOnly<{
   [path: string]: PageResourceCacheStateType
 }>
 
-export type ResourceCacheStateType = {|
-  +status: 'error',
-  +code: ErrorCodeType,
-  +message: ?string
-|} | {|
-  +status: 'ready',
-  +progress: number,
-  +value: LanguageResourceCacheStateType
-|}
+export type ResourceCacheStateType =
+  | {|
+      +status: 'error',
+      +code: ErrorCodeType,
+      +message: ?string
+    |}
+  | {|
+      +status: 'ready',
+      +progress: number,
+      +value: LanguageResourceCacheStateType
+    |}
 
 export type CityResourceCacheStateType = $ReadOnly<{
   [language: string]: LanguageResourceCacheStateType
@@ -205,16 +207,19 @@ export const defaultCitiesState: CitiesStateType = {
   message: 'Cities not yet initialized'
 }
 
-export type LanguagesStateType = {|
-  +status: 'ready',
-  +models: $ReadOnlyArray<LanguageModel>
-|} | {|
-  +status: 'loading'
-|} | {|
-  +status: 'error',
-  +code: ErrorCodeType,
-  +message: string
-|}
+export type LanguagesStateType =
+  | {|
+      +status: 'ready',
+      +models: $ReadOnlyArray<LanguageModel>
+    |}
+  | {|
+      +status: 'loading'
+    |}
+  | {|
+      +status: 'error',
+      +code: ErrorCodeType,
+      +message: string
+    |}
 
 export const defaultContentLanguageState = config.defaultFallback
 

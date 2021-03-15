@@ -1,0 +1,6 @@
+issue_key: IGAPP-15
+show_in_stores: false
+platforms:
+  - web
+en: Setup configuration for End-to-End tests.
+de: Aufsetzten der End-to-End Tests.

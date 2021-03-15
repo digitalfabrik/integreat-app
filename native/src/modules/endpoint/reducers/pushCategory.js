@@ -8,7 +8,10 @@ import ErrorCodes from '../../error/ErrorCodes'
 import { values, entries } from 'translations'
 
 const getAllAvailableLanguages = (
-  category: CategoryModel, city: string, language: string, cityLanguages: Array<LanguageModel>
+  category: CategoryModel,
+  city: string,
+  language: string,
+  cityLanguages: Array<LanguageModel>
 ) => {
   if (category.isRoot()) {
     return new Map(cityLanguages.map(model => [model.code, `/${city}/${model.code}`]))
@@ -19,7 +22,11 @@ const getAllAvailableLanguages = (
   return allAvailableLanguages
 }
 
-const extractResultModelsAndChildren = (root: CategoryModel, categoriesMap: CategoriesMapModel, depth: number): {|
+const extractResultModelsAndChildren = (
+  root: CategoryModel,
+  categoriesMap: CategoriesMapModel,
+  depth: number
+): {|
   resultModels: { [path: PathType]: CategoryModel },
   resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
 |} => {
@@ -27,12 +34,17 @@ const extractResultModelsAndChildren = (root: CategoryModel, categoriesMap: Cate
   const resultModels = {}
   const resultChildren = {}
 
-  forEachTreeNode(root, (node: CategoryModel) => categoriesMap.getChildren(node), depth, (node, children) => {
-    resultModels[node.path] = node
-    if (children) {
-      resultChildren[node.path] = children.map(child => child.path)
+  forEachTreeNode(
+    root,
+    (node: CategoryModel) => categoriesMap.getChildren(node),
+    depth,
+    (node, children) => {
+      resultModels[node.path] = node
+      if (children) {
+        resultChildren[node.path] = children.map(child => child.path)
+      }
     }
-  })
+  )
   return {
     resultModels,
     resultChildren
@@ -43,9 +55,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   const { categoriesMap, path, depth, key, language, city, resourceCache, cityLanguages, refresh } = action.params
 
   // If there is an error in the old resourceCache, we want to override it
-  const newResourceCache = state.resourceCache.status === 'ready'
-    ? { ...state.resourceCache.value, ...resourceCache }
-    : resourceCache
+  const newResourceCache =
+    state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
 
   const root: ?CategoryModel = categoriesMap.findCategoryByPath(path)
 
@@ -152,9 +163,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     city
   }
 
-  const newRoute: CategoryRouteStateType = (otherPageLoading && !refresh)
-    ? { status: 'loading', ...newRouteData }
-    : { status: 'ready', ...newRouteData }
+  const newRoute: CategoryRouteStateType =
+    otherPageLoading && !refresh ? { status: 'loading', ...newRouteData } : { status: 'ready', ...newRouteData }
 
   return {
     ...state,
