@@ -6,7 +6,7 @@ import type {
 } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
 import {
-  LocalNewsModel,
+  LocalNewsModel, NEWS_ROUTE,
   TunewsModel
 } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
@@ -40,7 +40,7 @@ const pushNews = (
         : { models: news }
 
       return {
-        routeType: 'news',
+        routeType: NEWS_ROUTE,
         status: 'ready',
         newsId: null,
         hasMoreNews,
@@ -58,7 +58,7 @@ const pushNews = (
 
     if (!newsItem) {
       return {
-        routeType: 'news',
+        routeType: NEWS_ROUTE,
         status: 'error',
         message: `News Item with newsId ${newsId} was not found in supplied models.`,
         code: ErrorCodes.PageNotFound,
@@ -72,7 +72,7 @@ const pushNews = (
     const allAvailableLanguages = availableLanguages.filter(languageModel => languageModel.code === language)
 
     return {
-      routeType: 'news',
+      routeType: NEWS_ROUTE,
       status: 'ready',
       newsId,
       models: [newsItem],

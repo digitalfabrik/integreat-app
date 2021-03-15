@@ -6,7 +6,7 @@ import type {
   FetchEventActionType,
   PushCategoryActionType
 } from '../../../app/StoreActionType'
-import { CategoriesMapModel, LanguageModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
 import ErrorCodes from '../../../error/ErrorCodes'
@@ -192,7 +192,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           language: 'de',
           city: 'augsburg',
           path: null,
@@ -211,7 +211,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'error',
           language: 'de',
           city: 'augsburg',
@@ -237,7 +237,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'loading',
           language: 'de',
           city: 'augsburg',
@@ -262,7 +262,7 @@ describe('cityContentReducer', () => {
         language: 'de'
       }
     })?.routeMapping['route-id-0']).toEqual({
-      routeType: 'event',
+      routeType: EVENTS_ROUTE,
       status: 'languageNotAvailable',
       code: ErrorCodes.PageNotFound,
       language: 'de',
@@ -276,7 +276,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'loading',
           language: 'de',
           city: 'augsburg',
@@ -301,7 +301,7 @@ describe('cityContentReducer', () => {
         allAvailableLanguages: null
       }
     })?.routeMapping['route-id-0']).toEqual({
-      routeType: 'event',
+      routeType: EVENTS_ROUTE,
       status: 'error',
       language: 'de',
       city: 'augsburg',
@@ -327,7 +327,7 @@ describe('cityContentReducer', () => {
     expect(cityContentReducer(null, action)).toEqual({
       routeMapping: {
         'route-id-0': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           city: 'augsburg',
           depth: 2,
           language: 'de',
@@ -348,7 +348,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'error',
           language: 'de',
           depth: 2,
@@ -376,7 +376,7 @@ describe('cityContentReducer', () => {
         city: 'augsburg',
         routeMapping: {
           'route-id-0': {
-            routeType: 'category',
+            routeType: CATEGORIES_ROUTE,
             status: 'loading',
             language: 'de',
             path: '/augsburg/de',
@@ -402,7 +402,7 @@ describe('cityContentReducer', () => {
           depth: 2
         }
       })?.routeMapping['route-id-0']).toEqual({
-        routeType: 'category',
+        routeType: CATEGORIES_ROUTE,
         status: 'languageNotAvailable',
         language: 'de',
         allAvailableLanguages: new Map([['en', '/augsburg/en']]),
@@ -416,7 +416,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'loading',
           language: 'de',
           path: '/augsburg/de',
@@ -443,7 +443,7 @@ describe('cityContentReducer', () => {
         depth: 2
       }
     })?.routeMapping['route-id-0']).toEqual({
-      routeType: 'category',
+      routeType: CATEGORIES_ROUTE,
       status: 'error',
       language: 'de',
       path: '/augsburg/de',

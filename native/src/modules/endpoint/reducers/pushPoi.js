@@ -2,7 +2,7 @@
 
 import type { CityContentStateType, PoiRouteStateType } from '../../app/StateType'
 import type { PushPoiActionType } from '../../app/StoreActionType'
-import { PoiModel } from 'api-client'
+import { PoiModel, POIS_ROUTE } from 'api-client'
 
 const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityContentStateType => {
   const { pois, path, key, language, resourceCache, cityLanguages, city } = action.params
@@ -14,7 +14,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
   const getPoiRoute = (): PoiRouteStateType => {
     const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
     if (!path) {
-      return { routeType: 'poi', status: 'ready', path: null, models: pois, allAvailableLanguages, language, city }
+      return { routeType: POIS_ROUTE, status: 'ready', path: null, models: pois, allAvailableLanguages, language, city }
     }
     const poi: ?PoiModel = pois.find(poi => poi.path === path)
     if (!poi) {
@@ -23,7 +23,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
     allAvailableLanguages.set(language, path)
 
     return {
-      routeType: 'poi',
+      routeType: POIS_ROUTE,
       status: 'ready',
       path,
       models: [poi],

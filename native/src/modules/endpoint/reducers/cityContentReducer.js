@@ -10,6 +10,7 @@ import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
 import pushCategory from './pushCategory'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState, action: StoreActionType
@@ -26,7 +27,7 @@ export default (
         ...initializedState.routeMapping,
         [key]: {
           ...oldContent,
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'loading',
           language,
           depth,
@@ -38,7 +39,7 @@ export default (
   } else if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === 'event'
+    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === EVENTS_ROUTE
     const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
 
     return {
@@ -47,7 +48,7 @@ export default (
         ...initializedState.routeMapping,
         [key]: {
           ...oldContent,
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'loading',
           language,
           city,
@@ -62,7 +63,7 @@ export default (
       ...initializedState,
       routeMapping: {
         ...initializedState.routeMapping,
-        [key]: { routeType: 'news', status: 'loading', language, city, newsId, type }
+        [key]: { routeType: NEWS_ROUTE, status: 'loading', language, city, newsId, type }
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
@@ -73,7 +74,7 @@ export default (
       routeMapping: {
         ...initializedState.routeMapping,
         [key]: {
-          routeType: 'news',
+          routeType: NEWS_ROUTE,
           status: 'loadingMore',
           models: previouslyFetchedNews,
           language,
@@ -91,7 +92,7 @@ export default (
       ...initializedState,
       routeMapping: {
         ...initializedState.routeMapping,
-        [key]: { routeType: 'poi', status: 'loading', language, city, path }
+        [key]: { routeType: POIS_ROUTE, status: 'loading', language, city, path }
       }
     }
   } else {
@@ -137,8 +138,8 @@ export default (
           routeMapping: {
             ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { routeType: 'news', status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
-              : { routeType: 'news', status: 'error', message, newsId, type, ...rest }
+              ? { routeType: NEWS_ROUTE, status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
+              : { routeType: NEWS_ROUTE, status: 'error', message, newsId, type, ...rest }
           }
         }
       }
@@ -160,8 +161,8 @@ export default (
           routeMapping: {
             ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { routeType: 'event', status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { routeType: 'event', status: 'error', message, path, ...rest }
+              ? { routeType: EVENTS_ROUTE, status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { routeType: EVENTS_ROUTE, status: 'error', message, path, ...rest }
           }
         }
       }
@@ -172,8 +173,8 @@ export default (
           routeMapping: {
             ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { routeType: 'category', status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { routeType: 'category', status: 'error', message, code, path, ...rest }
+              ? { routeType: CATEGORIES_ROUTE, status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { routeType: CATEGORIES_ROUTE, status: 'error', message, code, path, ...rest }
           }
         }
       }

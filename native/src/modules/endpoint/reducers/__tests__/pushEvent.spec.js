@@ -1,6 +1,6 @@
 // @flow
 
-import { DateModel, EventModel, LanguageModel, LocationModel } from 'api-client'
+import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -40,7 +40,7 @@ describe('pushEvent', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'ready',
           models: [event1],
           city: 'augsburg',
@@ -98,7 +98,7 @@ describe('pushEvent', () => {
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'ready',
           path: null,
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),
@@ -136,7 +136,7 @@ describe('pushEvent', () => {
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
       routeMapping: {
         'route-id-0': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'ready',
           path: '/augsburg/de/events/ev1',
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),

@@ -8,6 +8,7 @@ import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
 import { cityContentUrl } from '../../navigation/url'
 import {
+  CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -54,7 +55,7 @@ describe('HeaderContainer', () => {
         },
         routeMapping: {
           routeKey1: {
-            routeType: 'category',
+            routeType: CATEGORIES_ROUTE,
             status: 'ready',
             path: `${city.code}/${language.code}/abc`,
             depth: 1,
@@ -65,7 +66,7 @@ describe('HeaderContainer', () => {
             children: {}
           },
           routeKeyEvent1: {
-            routeType: 'event',
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: null,
             language: language.code,
@@ -74,7 +75,7 @@ describe('HeaderContainer', () => {
             allAvailableLanguages: new Map()
           },
           routeKeyEvent2: {
-            routeType: 'event',
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
             language: language.code,
@@ -83,7 +84,7 @@ describe('HeaderContainer', () => {
             allAvailableLanguages: new Map()
           },
           routeKeyPois1: {
-            routeType: 'poi',
+            routeType: POIS_ROUTE,
             status: 'ready',
             path: null,
             language: language.code,
@@ -92,7 +93,7 @@ describe('HeaderContainer', () => {
             models: []
           },
           routeKeyNews1: {
-            routeType: 'news',
+            routeType: NEWS_ROUTE,
             status: 'ready',
             models: [],
             hasMoreNews: false,

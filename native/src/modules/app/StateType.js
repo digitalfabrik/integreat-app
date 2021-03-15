@@ -14,7 +14,13 @@ import Moment from 'moment'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 import ErrorCodes from '../error/ErrorCodes'
 import { config } from 'translations'
-import type { NewsType } from 'api-client/src/routes'
+import type {
+  CategoriesRouteType,
+  PoisRouteType,
+  EventsRouteType,
+  NewsRouteType,
+  NewsType
+} from 'api-client/src/routes'
 
 export type PathType = string
 
@@ -26,7 +32,7 @@ export type CategoryRouteConfigType = {|
 |}
 
 export type CategoryRouteStateType = {|
-  +routeType: 'category',
+  +routeType: CategoriesRouteType,
   +status: 'ready',
   ...CategoryRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, string>, // including the current content language
@@ -35,21 +41,21 @@ export type CategoryRouteStateType = {|
                                                               in the state. This would be an optimization! */
   +children: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
-  +routeType: 'category',
+  +routeType: CategoriesRouteType,
   +status: 'languageNotAvailable',
   +depth: number,
   +city: string,
   +language: string,
   +allAvailableLanguages: $ReadOnlyMap<string, string>
 |} | {|
-  +routeType: 'category',
+  +routeType: CategoriesRouteType,
   +status: 'loading',
   ...CategoryRouteConfigType,
   +allAvailableLanguages?: $ReadOnlyMap<string, string>,
   +models?: $ReadOnly<{ [path: PathType]: CategoryModel }>,
   +children?: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
 |} | {|
-  +routeType: 'category',
+  +routeType: CategoriesRouteType,
   +status: 'error',
   ...CategoryRouteConfigType,
   +message: string,
@@ -63,22 +69,22 @@ export type PoiRouteConfigType = {|
 |}
 
 export type PoiRouteStateType = {|
-  +routeType: 'poi',
+  +routeType: PoisRouteType,
   +status: 'ready',
   ...PoiRouteConfigType,
   +models: $ReadOnlyArray<PoiModel>,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
-  +routeType: 'poi',
+  +routeType: PoisRouteType,
   +status: 'languageNotAvailable',
   ...PoiRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
-  +routeType: 'poi',
+  +routeType: PoisRouteType,
   +status: 'loading',
   ...PoiRouteConfigType
 |} | {|
-  +routeType: 'poi',
+  +routeType: PoisRouteType,
   +status: 'error',
   ...PoiRouteConfigType,
   +code: ErrorCodeType,
@@ -92,24 +98,24 @@ export type EventRouteConfigType = {|
 |}
 
 export type EventRouteStateType = {|
-  +routeType: 'event',
+  +routeType: EventsRouteType,
   +status: 'ready',
   ...EventRouteConfigType,
   +models: $ReadOnlyArray<EventModel>,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
 |} | {|
-  +routeType: 'event',
+  +routeType: EventsRouteType,
   +status: 'languageNotAvailable',
   ...EventRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
-  +routeType: 'event',
+  +routeType: EventsRouteType,
   +status: 'loading',
   ...EventRouteConfigType,
   +models?: $ReadOnlyArray<EventModel>,
   +allAvailableLanguages?: $ReadOnlyMap<string, ?string>
 |} | {|
-  +routeType: 'event',
+  +routeType: EventsRouteType,
   +status: 'error',
   ...EventRouteConfigType,
   +code: ErrorCodeType,
@@ -125,7 +131,7 @@ export type NewsRouteConfigType = {|
 
 export type NewsModelsType = $ReadOnlyArray<LocalNewsModel | TunewsModel>
 export type NewsRouteStateType = {|
-  +routeType: 'news',
+  +routeType: NewsRouteType,
   +status: 'ready',
   +models: NewsModelsType,
   +hasMoreNews: boolean,
@@ -133,21 +139,21 @@ export type NewsRouteStateType = {|
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
-  +routeType: 'news',
+  +routeType: NewsRouteType,
   +status: 'languageNotAvailable',
   ...NewsRouteConfigType,
   +allAvailableLanguages: $ReadOnlyMap<string, ?string>
 |} | {|
-  +routeType: 'news',
+  +routeType: NewsRouteType,
   +status: 'loading',
   ...NewsRouteConfigType
 |} | {|
-  +routeType: 'news',
+  +routeType: NewsRouteType,
   +status: 'loadingMore',
   +models: NewsModelsType,
   ...NewsRouteConfigType
 |} | {|
-  +routeType: 'news',
+  +routeType: NewsRouteType,
   +status: 'error',
   ...NewsRouteConfigType,
   +code: ErrorCodeType,
