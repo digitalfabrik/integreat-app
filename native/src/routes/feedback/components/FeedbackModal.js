@@ -41,7 +41,7 @@ const Description = styled.Text`
 
 const RequiredText = styled.Text`
   color: red;
-  fontsize: 25px;
+  font-size: 25px;
 `
 
 const OptionalText = styled.Text`
@@ -50,10 +50,12 @@ const OptionalText = styled.Text`
 
 export type PropsType = {|
   comment: string,
+  contactMail: string,
   selectedFeedbackIndex: number,
   sendingStatus: SendingStatusType,
   feedbackOptions: Array<FeedbackVariant>,
   onCommentChanged: (comment: string) => void,
+  onFeedbackContactMailChanged: (contactMail: string) => void,
   onFeedbackOptionChanged: (value: string | number, index: number) => void,
   isPositiveFeedback: boolean,
   onSubmit: () => Promise<void>,
@@ -61,9 +63,18 @@ export type PropsType = {|
   t: TFunction
 |}
 
-class FeedbackModal extends React.Component<PropsType> {
-  renderBox(): React.Node {
-    const { theme, t, isPositiveFeedback, feedbackOptions, selectedFeedbackIndex, comment, sendingStatus } = this.props
+const FeedbackModal = (props: PropsType) => {
+  const renderBox = (): React.Node => {
+    const {
+      theme,
+      t,
+      isPositiveFeedback,
+      feedbackOptions,
+      selectedFeedbackIndex,
+      comment,
+      contactMail,
+      sendingStatus
+    } = props
     const feedbackItem = feedbackOptions[selectedFeedbackIndex]
 
     if (['idle', 'failed'].includes(sendingStatus)) {
@@ -73,7 +84,7 @@ class FeedbackModal extends React.Component<PropsType> {
           <Description theme={theme}>{t('feedbackType')}</Description>
           <Picker
             selectedValue={feedbackOptions.indexOf(feedbackItem)}
-            onValueChange={this.props.onFeedbackOptionChanged}
+            onValueChange={props.onFeedbackOptionChanged}
             mode='dropdown'>
             {feedbackOptions.map((item, index) => (
               <Picker.Item label={item.label} value={index} key={index} />
@@ -85,14 +96,14 @@ class FeedbackModal extends React.Component<PropsType> {
             {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
             {!isPositiveFeedback && <RequiredText>*</RequiredText>}
           </Description>
-          <Input theme={theme} onChangeText={this.props.onCommentChanged} autoFocus value={comment} multiline />
+          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline />
 
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{t('contactMailAddress')}</Description>
             <OptionalText>({t('optionalInfo')})</OptionalText>
           </DescriptionContainer>
 
-          <Input theme={theme} /* onChangeText={this.props.onCommentChanged} */ autoFocus /* value={comment} */ />
+          <Input theme={theme} onChangeText={props.onFeedbackContactMailChanged} value={contactMail} />
 
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
           <Button
@@ -100,7 +111,7 @@ class FeedbackModal extends React.Component<PropsType> {
             titleStyle={{ color: theme.colors.textColor }}
             buttonStyle={{ backgroundColor: theme.colors.themeColor }}
             disabled={!isPositiveFeedback && !comment}
-            onPress={this.props.onSubmit}
+            onPress={props.onSubmit}
             title={t('send')}
           />
         </>
@@ -118,14 +129,12 @@ class FeedbackModal extends React.Component<PropsType> {
     }
   }
 
-  render() {
-    const { theme } = this.props
-    return (
-      <ScrollView>
-        <Wrapper theme={theme}>{this.renderBox()}</Wrapper>
-      </ScrollView>
-    )
-  }
+  const { theme } = props
+  return (
+    <ScrollView>
+      <Wrapper theme={theme}>{renderBox()}</Wrapper>
+    </ScrollView>
+  )
 }
 
 export default FeedbackModal
