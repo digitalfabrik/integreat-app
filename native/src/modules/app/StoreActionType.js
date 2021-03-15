@@ -20,11 +20,14 @@ export type FetchCitiesActionType = {|
   +params: {| +forceRefresh: boolean |}
 |}
 export type PushCitiesActionType = {|
-  type: 'PUSH_CITIES', +params: {| +cities: $ReadOnlyArray<CityModel> |}
+  type: 'PUSH_CITIES',
+  +params: {| +cities: $ReadOnlyArray<CityModel> |}
 |}
 export type FetchCitiesFailedActionType = {|
-  type: 'FETCH_CITIES_FAILED', +params: {|
-    +message: string, +code: ErrorCodeType
+  type: 'FETCH_CITIES_FAILED',
+  +params: {|
+    +message: string,
+    +code: ErrorCodeType
   |}
 |}
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
@@ -44,7 +47,8 @@ export type FetchLanguagesFailedActionType = {|
 |}
 
 export type SetContentLanguageActionType = {|
-  type: 'SET_CONTENT_LANGUAGE', +params: {| +contentLanguage: string |}
+  type: 'SET_CONTENT_LANGUAGE',
+  +params: {| +contentLanguage: string |}
 |}
 
 export type FetchCategoryActionType = {|
@@ -59,8 +63,10 @@ export type FetchCategoryActionType = {|
 export type FetchNewsActionType = {|
   type: 'FETCH_NEWS',
   +params: {|
-    +city: string, +language: string,
-    +newsId: ?string, +key: string,
+    +city: string,
+    +language: string,
+    +newsId: ?string,
+    +key: string,
     +criterion: ContentLoadCriterionType,
     +type: NewsType
   |}
@@ -69,9 +75,11 @@ export type FetchNewsActionType = {|
 export type FetchMoreNewsActionType = {|
   type: 'FETCH_MORE_NEWS',
   +params: {|
-    +city: string, +language: string,
+    +city: string,
+    +language: string,
     +previouslyFetchedNews: $ReadOnlyArray<LocalNewsModel | TunewsModel>,
-    +newsId: ?string, +key: string,
+    +newsId: ?string,
+    +key: string,
     +criterion: ContentLoadCriterionType,
     +type: NewsType,
     +page: number,
@@ -80,7 +88,8 @@ export type FetchMoreNewsActionType = {|
 |}
 
 export type ClearNewsActionType = {|
-  type: 'CLEAR_NEWS', +params: {| +key: string |}
+  type: 'CLEAR_NEWS',
+  +params: {| +key: string |}
 |}
 
 export type PushNewsActionType = {|
@@ -114,7 +123,7 @@ export type FetchNewsFailedActionType = {|
 |}
 
 export type NewsActionType =
-  FetchNewsActionType
+  | FetchNewsActionType
   | FetchMoreNewsActionType
   | FetchNewsFailedActionType
   | ClearNewsActionType
@@ -144,25 +153,30 @@ export type PushCategoryActionType = {|
 |}
 
 export type ClearCategoryActionType = {|
-  type: 'CLEAR_CATEGORY', +params: {| +key: string |}
+  type: 'CLEAR_CATEGORY',
+  +params: {| +key: string |}
 |}
 
 export type CategoriesActionType =
-  ClearCategoryActionType
+  | ClearCategoryActionType
   | FetchCategoryActionType
   | PushCategoryActionType
   | FetchCategoryFailedActionType
 
 export type FetchPoiActionType = {|
-  type: 'FETCH_POI', +params: {|
-    +city: string, +language: string,
-    +path: ?string, +key: string,
+  type: 'FETCH_POI',
+  +params: {|
+    +city: string,
+    +language: string,
+    +path: ?string,
+    +key: string,
     +criterion: ContentLoadCriterionType
   |}
 |}
 
 export type ClearPoiActionType = {|
-  type: 'CLEAR_POI', +params: {| +key: string |}
+  type: 'CLEAR_POI',
+  +params: {| +key: string |}
 |}
 
 export type PushPoiActionType = {|
@@ -190,22 +204,22 @@ export type FetchPoiFailedActionType = {|
   |}
 |}
 
-export type PoisActionType =
-  ClearPoiActionType
-  | FetchPoiActionType
-  | PushPoiActionType
-  | FetchPoiFailedActionType
+export type PoisActionType = ClearPoiActionType | FetchPoiActionType | PushPoiActionType | FetchPoiFailedActionType
 
 export type FetchEventActionType = {|
-  type: 'FETCH_EVENT', +params: {|
-    +city: string, +language: string,
-    +path: ?string, +key: string,
+  type: 'FETCH_EVENT',
+  +params: {|
+    +city: string,
+    +language: string,
+    +path: ?string,
+    +key: string,
     +criterion: ContentLoadCriterionType
   |}
 |}
 
 export type ClearEventActionType = {|
-  type: 'CLEAR_EVENT', +params: {| +key: string |}
+  type: 'CLEAR_EVENT',
+  +params: {| +key: string |}
 |}
 
 type PushEventParamsType = {|
@@ -238,20 +252,24 @@ export type FetchEventFailedActionType = {|
 |}
 
 export type EventsActionType =
-  ClearEventActionType
+  | ClearEventActionType
   | FetchEventActionType
   | PushEventActionType
   | FetchEventFailedActionType
 
 export type SwitchContentLanguageActionType = {|
-  type: 'SWITCH_CONTENT_LANGUAGE', +params: {|
+  type: 'SWITCH_CONTENT_LANGUAGE',
+  +params: {|
     // The TFunction should be removed again in https://issues.integreat-app.de/browse/NATIVE-359
-    +newLanguage: string, +city: string, +t: TFunction
+    +newLanguage: string,
+    +city: string,
+    +t: TFunction
   |}
 |}
 
 export type SwitchContentLanguageFailedActionType = {|
-  type: 'SWITCH_CONTENT_LANGUAGE_FAILED', +params: {|
+  type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
+  +params: {|
     +message: string
   |}
 |}
@@ -259,7 +277,8 @@ export type SwitchContentLanguageFailedActionType = {|
 export type ContentLanguageActionType = SwitchContentLanguageActionType | SwitchContentLanguageFailedActionType
 
 export type MorphContentLanguageActionType = {|
-  type: 'MORPH_CONTENT_LANGUAGE', +params: {|
+  type: 'MORPH_CONTENT_LANGUAGE',
+  +params: {|
     +newCategoriesMap: CategoriesMapModel,
     +newResourceCache: LanguageResourceCacheStateType,
     +newEvents: $ReadOnlyArray<EventModel>,
@@ -273,7 +292,8 @@ export type ClearCityActionType = {|
 |}
 
 export type ResourcesFetchProgressActionType = {|
-  type: 'FETCH_RESOURCES_PROGRESS', +params: {|
+  type: 'FETCH_RESOURCES_PROGRESS',
+  +params: {|
     +progress: number
   |}
 |}
@@ -287,7 +307,7 @@ export type ResourcesFetchFailedActionType = {|
 |}
 
 export type CityContentActionType =
-  CategoriesActionType
+  | CategoriesActionType
   | EventsActionType
   | PoisActionType
   | MorphContentLanguageActionType
@@ -308,11 +328,12 @@ export type ClearResourcesAndCacheActionType = {|
 |}
 
 export type SetResourceCacheUrlActionType = {|
-  type: 'SET_RESOURCE_CACHE_URL', +params: {| +url: string |}
+  type: 'SET_RESOURCE_CACHE_URL',
+  +params: {| +url: string |}
 |}
 
 export type StoreActionType =
-  ToggleDarkModeActionType
+  | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType

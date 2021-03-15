@@ -30,38 +30,41 @@ type PropsType = {|
  * Displays tiles with all available offers or the page for a selected offer
  */
 export class OffersPage extends React.Component<PropsType> {
-  toTileModels (offers: Array<OfferModel>): Array<TileModel> {
+  toTileModels(offers: Array<OfferModel>): Array<TileModel> {
     const { city, language } = this.props
-    return offers.map(
-      offer => {
-        let path = offer.path
-        if (offer.alias === SPRUNGBRETT_OFFER) {
-          path = new SprungbrettRouteConfig().getRoutePath({ city, language })
-        } else if (offer.alias === WOHNEN_OFFER) {
-          path = new WohnenRouteConfig().getRoutePath({ city, language })
-        }
-
-        return new TileModel({
-          title: offer.title,
-          // the url stored in the sprungbrett offer is the url of the endpoint
-          path: path,
-          thumbnail: offer.thumbnail,
-          // every offer except from the sprungbrett offer is just a link to an external site
-          isExternalUrl: path === offer.path,
-          postData: offer.postData
-        })
+    return offers.map(offer => {
+      let path = offer.path
+      if (offer.alias === SPRUNGBRETT_OFFER) {
+        path = new SprungbrettRouteConfig().getRoutePath({ city, language })
+      } else if (offer.alias === WOHNEN_OFFER) {
+        path = new WohnenRouteConfig().getRoutePath({ city, language })
       }
-    )
+
+      return new TileModel({
+        title: offer.title,
+        // the url stored in the sprungbrett offer is the url of the endpoint
+        path: path,
+        thumbnail: offer.thumbnail,
+        // every offer except from the sprungbrett offer is just a link to an external site
+        isExternalUrl: path === offer.path,
+        postData: offer.postData
+      })
+    })
   }
 
-  render () {
+  render() {
     const { city, offers, offerId, language, t, cities } = this.props
 
     const cityModel = cities.find(cityModel => cityModel.code === city)
 
     if (!cityModel || !cityModel.offersEnabled) {
-      return <Failure errorMessage='notFound.category' goToMessage='goTo.categories'
-                      goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })} />
+      return (
+        <Failure
+          errorMessage='notFound.category'
+          goToMessage='goTo.categories'
+          goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
+        />
+      )
     }
 
     if (offerId) {
@@ -70,9 +73,7 @@ export class OffersPage extends React.Component<PropsType> {
       return <FailureSwitcher error={error} />
     }
 
-    return (
-      <Tiles title={t('offers')} tiles={this.toTileModels(offers)} />
-    )
+    return <Tiles title={t('offers')} tiles={this.toTileModels(offers)} />
   }
 }
 
@@ -83,6 +84,5 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
-  withTranslation<PropsType>('offers')(
-    OffersPage
-  ))
+  withTranslation<PropsType>('offers')(OffersPage)
+)

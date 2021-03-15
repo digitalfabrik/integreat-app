@@ -20,23 +20,33 @@ type PropsType = {|
 |}
 
 const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language }: PropsType) => {
-  const openJob = useCallback((url: string) => () => {
-    openExternalUrl(url)
-  }, [])
+  const openJob = useCallback(
+    (url: string) => () => {
+      openExternalUrl(url)
+    },
+    []
+  )
 
-  const renderListItem = useCallback((job: SprungbrettJobModel): React$Node => (
-    <SprungbrettListItem key={job.id} job={job} openJobInBrowser={openJob(job.url)}
-                         theme={theme} language={language} />
-  ), [language, theme, openJob])
+  const renderListItem = useCallback(
+    (job: SprungbrettJobModel): React$Node => (
+      <SprungbrettListItem
+        key={job.id}
+        job={job}
+        openJobInBrowser={openJob(job.url)}
+        theme={theme}
+        language={language}
+      />
+    ),
+    [language, theme, openJob]
+  )
 
-  return <>
-        <Caption title={title} theme={theme} />
-        <List noItemsMessage={t('noOffersAvailable')}
-              renderItem={renderListItem}
-              items={jobs}
-              theme={theme} />
+  return (
+    <>
+      <Caption title={title} theme={theme} />
+      <List noItemsMessage={t('noOffersAvailable')} renderItem={renderListItem} items={jobs} theme={theme} />
       <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
     </>
+  )
 }
 
 export default SprungbrettOffer

@@ -23,7 +23,7 @@ type StateType = {|
 |}
 
 export class NothingFoundFeedbackBox extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = { comment: '', feedbackSent: false }
   }
@@ -47,23 +47,26 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     this.setState({ feedbackSent: true })
   }
 
-  render () {
+  render() {
     const { feedbackSent, comment } = this.state
     const { t } = this.props
 
-    return <StyledFeedbackBox>
-      {
-        feedbackSent
-          ? <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
-          : <>
+    return (
+      <StyledFeedbackBox>
+        {feedbackSent ? (
+          <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
+        ) : (
+          <>
             <FeedbackComment
               comment={comment}
               commentMessage={t('wantedInformation')}
-              onCommentChanged={this.handleCommentChanged} />
+              onCommentChanged={this.handleCommentChanged}
+            />
             <TextButton onClick={this.handleSubmit} text={t('send')} />
           </>
-      }
-    </StyledFeedbackBox>
+        )}
+      </StyledFeedbackBox>
+    )
   }
 }
 

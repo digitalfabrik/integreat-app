@@ -17,7 +17,8 @@ describe('cityContentReducer', () => {
     params: { newLanguage: 'de', city: 'augsburg', t: key => key }
   }
   const switchContentLanguageFailedAction = {
-    type: 'SWITCH_CONTENT_LANGUAGE_FAILED', params: { message: 'Some error' }
+    type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
+    params: { message: 'Some error' }
   }
   const pushLanguagesAction = { type: 'PUSH_LANGUAGES', params: { languages: [new LanguageModel('de', 'Deutsch')] } }
   const pushCategoryAction: PushCategoryActionType = {
@@ -159,8 +160,10 @@ describe('cityContentReducer', () => {
       searchRoute: null,
       switchingLanguage: false
     }
-    expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual(
-      { status: 'ready', models: pushLanguagesAction.params.languages })
+    expect(cityContentReducer(prevState, pushLanguagesAction)?.languages).toEqual({
+      status: 'ready',
+      models: pushLanguagesAction.params.languages
+    })
   })
 
   it('should set error on FETCH_LANGUAGES_FAILED', () => {
@@ -172,8 +175,10 @@ describe('cityContentReducer', () => {
       searchRoute: null,
       switchingLanguage: false
     }
-    expect(cityContentReducer(prevState, fetchLanguagesFailed)?.languages).toEqual(
-      { status: 'error', ...fetchLanguagesFailed.params })
+    expect(cityContentReducer(prevState, fetchLanguagesFailed)?.languages).toEqual({
+      status: 'error',
+      ...fetchLanguagesFailed.params
+    })
   })
 
   it('should initialize cityContentState on FETCH_EVENT with loading route', () => {
@@ -472,16 +477,20 @@ describe('cityContentReducer', () => {
       resourceCache: { status: 'ready', progress: 0.1, value: {} }
     }
 
-    expect(cityContentReducer(prevState, {
-      type: 'FETCH_RESOURCES_PROGRESS',
-      params: { progress: 0.2 }
-    })?.resourceCache).toEqual({ status: 'ready', progress: 0.2, value: {} })
+    expect(
+      cityContentReducer(prevState, {
+        type: 'FETCH_RESOURCES_PROGRESS',
+        params: { progress: 0.2 }
+      })?.resourceCache
+    ).toEqual({ status: 'ready', progress: 0.2, value: {} })
   })
 
   it('should set an errorState for the resourceCache on FETCH_RESOURCES_FAILED', () => {
-    expect(cityContentReducer(prevState, {
-      type: 'FETCH_RESOURCES_FAILED',
-      params: { message: 'No idea why it fails :/', code: ErrorCodes.UnknownError }
-    })?.resourceCache).toEqual({ status: 'error', message: 'No idea why it fails :/', code: ErrorCodes.UnknownError })
+    expect(
+      cityContentReducer(prevState, {
+        type: 'FETCH_RESOURCES_FAILED',
+        params: { message: 'No idea why it fails :/', code: ErrorCodes.UnknownError }
+      })?.resourceCache
+    ).toEqual({ status: 'error', message: 'No idea why it fails :/', code: ErrorCodes.UnknownError })
   })
 })

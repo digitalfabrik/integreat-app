@@ -5,7 +5,7 @@ import type { Saga } from 'redux-saga'
 import { CategoriesMapModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 
-export default function * loadCategories (
+export default function* loadCategories(
   city: string,
   language: string,
   dataContainer: DataContainer,

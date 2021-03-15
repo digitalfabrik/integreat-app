@@ -54,12 +54,11 @@ class OffersRouteConfig implements RouteConfig<OffersRouteParamsType, RequiredPa
     offers: payloads.offersPayload
   })
 
-  getLanguageChangePath = ({ location, language }) =>
-    this.getRoutePath({ city: location.payload.city, language })
+  getLanguageChangePath = ({ location, language }) => this.getRoutePath({ city: location.payload.city, language })
 
   getPageTitle = ({ t, payloads, location }) => {
-    const cityModel = payloads.cities.data &&
-      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    const cityModel =
+      payloads.cities.data && payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
     if (!cityModel || !cityModel.offersEnabled) {
       return null
     }

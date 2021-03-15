@@ -42,14 +42,19 @@ describe('isPeekingRoute', () => {
   })
 
   it('should return false if there is no content', () => {
-    expect(isPeekingRoute({
-      darkMode: false,
-      resourceCacheUrl: 'http://localhost:8080',
-      cityContent: null,
-      contentLanguage: 'en',
-      cities: {
-        status: 'loading'
-      }
-    }, { routeCity: 'augsburg' })).toBe(false)
+    expect(
+      isPeekingRoute(
+        {
+          darkMode: false,
+          resourceCacheUrl: 'http://localhost:8080',
+          cityContent: null,
+          contentLanguage: 'en',
+          cities: {
+            status: 'loading'
+          }
+        },
+        { routeCity: 'augsburg' }
+      )
+    ).toBe(false)
   })
 })

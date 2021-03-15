@@ -69,8 +69,8 @@ class TunewsRouteConfig implements RouteConfig<TunewsRouteParamsType, RequiredPa
     if (!cityName) {
       return null
     }
-    const cityModel = payloads.cities.data &&
-      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    const cityModel =
+      payloads.cities.data && payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
     if (!cityModel || !cityModel.tunewsEnabled) {
       return null
     }

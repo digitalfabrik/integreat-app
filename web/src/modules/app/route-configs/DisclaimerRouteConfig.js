@@ -15,8 +15,8 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 
-type DisclaimerRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|disclaimer: Payload<PageModel>|}
+type DisclaimerRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| disclaimer: Payload<PageModel> |}
 
 export const DISCLAIMER_ROUTE = 'DISCLAIMER'
 
@@ -46,16 +46,15 @@ class DisclaimerRouteConfig implements RouteConfig<DisclaimerRouteParamsType, Re
   requiresHeader = true
   requiresFooter = true
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ disclaimer: payloads.disclaimerPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    disclaimer: payloads.disclaimerPayload
+  })
 
-  getLanguageChangePath = ({ location, language }) =>
-    this.getRoutePath({ city: location.payload.city, language })
+  getLanguageChangePath = ({ location, language }) => this.getRoutePath({ city: location.payload.city, language })
 
-  getPageTitle = ({ t, cityName }) => cityName ? `${t('pageTitles.disclaimer')} - ${cityName}` : null
+  getPageTitle = ({ t, cityName }) => (cityName ? `${t('pageTitles.disclaimer')} - ${cityName}` : null)
 
-  getRoutePath = ({ city, language }: DisclaimerRouteParamsType): string =>
-    `/${city}/${language}/disclaimer`
+  getRoutePath = ({ city, language }: DisclaimerRouteParamsType): string => `/${city}/${language}/disclaimer`
 
   getMetaDescription = () => null
 

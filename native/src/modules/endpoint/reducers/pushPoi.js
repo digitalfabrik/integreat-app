@@ -34,9 +34,8 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
   }
 
   // If there is an error in the old resourceCache, we want to override it
-  const newResourceCache = state.resourceCache.status === 'ready'
-    ? { ...state.resourceCache.value, ...resourceCache }
-    : resourceCache
+  const newResourceCache =
+    state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
 
   return {
     ...state,

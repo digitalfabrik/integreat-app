@@ -22,7 +22,10 @@ const categories = new CategoriesMapModel([
   new CategoryModel({
     root: false,
     hash: '2fe6283485b93932',
-    availableLanguages: new Map([['en', '/augsburg/en/category01'], ['fr', '/augsburg/fr/fr_category01']]),
+    availableLanguages: new Map([
+      ['en', '/augsburg/en/category01'],
+      ['fr', '/augsburg/fr/fr_category01']
+    ]),
     content: 'contnentl',
     lastUpdate: moment('2017-11-18T08:30:00.000Z'),
     order: 4,
@@ -74,10 +77,12 @@ describe('CategoriesRouteConfig', () => {
         pathname: '/augsburg/de/categorie01',
         type: categoriesRouteConfig.name
       })
-      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBe('/augsburg/en/category01')
-      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location }))
-        .toBe('/augsburg/fr/fr_category01')
+      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe(
+        '/augsburg/en/category01'
+      )
+      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'fr', location })).toBe(
+        '/augsburg/fr/fr_category01'
+      )
       expect(categoriesRouteConfig.getLanguageChangePath({ payloads, location, language: 'ar' })).toBeNull()
     })
 
@@ -88,10 +93,8 @@ describe('CategoriesRouteConfig', () => {
         type: categoriesRouteConfig.name
       })
 
-      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBe('/augsburg/en')
-      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-        .toBe('/augsburg/ar')
+      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe('/augsburg/en')
+      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location })).toBe('/augsburg/ar')
     })
 
     it('no category with the given pathname exists', () => {
@@ -101,8 +104,7 @@ describe('CategoriesRouteConfig', () => {
         type: categoriesRouteConfig.name
       })
 
-      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBe('/augsburg/en')
+      expect(categoriesRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe('/augsburg/en')
     })
   })
 
@@ -114,8 +116,9 @@ describe('CategoriesRouteConfig', () => {
         type: categoriesRouteConfig.name
       })
 
-      expect(categoriesRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: 'Augsburg', t }))
-        .toBe('Augsburg')
+      expect(categoriesRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: 'Augsburg', t })).toBe(
+        'Augsburg'
+      )
 
       const location = createLocation({
         payload: { city: 'augsburg', language: 'de' },
@@ -123,8 +126,9 @@ describe('CategoriesRouteConfig', () => {
         type: categoriesRouteConfig.name
       })
 
-      expect(categoriesRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('Title01 - Augsburg')
+      expect(categoriesRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+        'Title01 - Augsburg'
+      )
     })
 
     it('no category with the given pathname does exist', () => {
@@ -134,8 +138,7 @@ describe('CategoriesRouteConfig', () => {
         type: categoriesRouteConfig.name
       })
 
-      expect(categoriesRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('Augsburg')
+      expect(categoriesRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe('Augsburg')
     })
 
     it('the city name is null', () => {
@@ -145,8 +148,7 @@ describe('CategoriesRouteConfig', () => {
         type: categoriesRouteConfig.name
       })
 
-      expect(categoriesRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: null, t }))
-        .toBeNull()
+      expect(categoriesRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: null, t })).toBeNull()
     })
   })
 
@@ -161,11 +163,10 @@ describe('CategoriesRouteConfig', () => {
       type: categoriesRouteConfig.name
     })
 
-    expect(categoriesRouteConfig.getFeedbackTargetInformation({ payloads, location }))
-      .toEqual({
-        title: 'Title01',
-        path: location.pathname
-      })
+    expect(categoriesRouteConfig.getFeedbackTargetInformation({ payloads, location })).toEqual({
+      title: 'Title01',
+      path: location.pathname
+    })
 
     const invalidLocation = createLocation({
       payload: { city: 'augsburg', language: 'de' },
@@ -173,7 +174,6 @@ describe('CategoriesRouteConfig', () => {
       type: categoriesRouteConfig.name
     })
 
-    expect(categoriesRouteConfig.getFeedbackTargetInformation({ payloads, location: invalidLocation }))
-      .toBeNull()
+    expect(categoriesRouteConfig.getFeedbackTargetInformation({ payloads, location: invalidLocation })).toBeNull()
   })
 })

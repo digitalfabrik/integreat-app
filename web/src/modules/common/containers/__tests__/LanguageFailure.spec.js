@@ -21,10 +21,12 @@ describe('LanguageFailure', () => {
 
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <LanguageFailure cities={cities}
-                       location={location}
-                       languageChangePaths={languageChangePaths}
-                       t={key => key || 'null'} />
+      <LanguageFailure
+        cities={cities}
+        location={location}
+        languageChangePaths={languageChangePaths}
+        t={key => key || 'null'}
+      />
     )
 
     expect(wrapper).toMatchSnapshot()

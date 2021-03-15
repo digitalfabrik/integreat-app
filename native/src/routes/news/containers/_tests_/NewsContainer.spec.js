@@ -40,7 +40,7 @@ jest.mock('../../../../modules/common/containers/LanguageNotAvailableContainer',
 
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
   const Text = require('react-native').Text
-  return ({ refreshing }: {| refreshing: boolean |}) => refreshing ? <Text>loading</Text> : null
+  return ({ refreshing }: {| refreshing: boolean |}) => (refreshing ? <Text>loading</Text> : null)
 })
 
 jest.mock('../../../../modules/common/components/LoadingSpinner', () => {
@@ -54,12 +54,7 @@ describe('NewsContainer', () => {
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
-  const news = new LocalNewsModelBuilder(
-    'NewsList-Component',
-    1,
-    city.code,
-    languages[0].code
-  ).build()
+  const news = new LocalNewsModelBuilder('NewsList-Component', 1, city.code, languages[0].code).build()
 
   const prepareState = (
     routeState: ?NewsRouteStateType,
@@ -78,8 +73,7 @@ describe('NewsContainer', () => {
       resourceCacheUrl: 'http://localhost:8080',
       cityContent: {
         city: city.code,
-        switchingLanguage:
-          switchingLanguage !== undefined ? switchingLanguage : false,
+        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
         languages: languages || {
           status: 'ready',
           models: [language]
@@ -170,7 +164,9 @@ describe('NewsContainer', () => {
     const navigation = createNavigationScreenPropMock()
     const store = mockStore(state)
     const { getByText } = render(
-      <Provider store={store}><NewsContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <NewsContainer navigation={navigation} route={route} />
+      </Provider>
     )
     jest.advanceTimersByTime(LOADING_TIMEOUT)
     expect(getByText('Loading')).toBeTruthy()
@@ -193,7 +189,9 @@ describe('NewsContainer', () => {
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     const { getByText } = render(
-      <Provider store={store}><NewsContainer navigation={navigation} route={route} /></Provider>
+      <Provider store={store}>
+        <NewsContainer navigation={navigation} route={route} />
+      </Provider>
     )
 
     expect(getByText('NewsList')).toBeTruthy()

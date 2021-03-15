@@ -17,7 +17,7 @@ const StyledList: StyledComponent<{||}, ThemeType, *> = styled.div`
   background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
-  background-color: ${({ theme }) => (theme.colors.backgroundColor)};
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
 
 type PropsType = {|
@@ -28,7 +28,7 @@ type PropsType = {|
 |}
 
 class LocalNewsList extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { items, renderItem, noItemsMessage, city } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
@@ -36,9 +36,7 @@ class LocalNewsList extends React.PureComponent<PropsType> {
 
     return (
       <StyledList>
-        <Wrapper>
-          {items.map(item => renderItem(item, city))}
-        </Wrapper>
+        <Wrapper>{items.map(item => renderItem(item, city))}</Wrapper>
       </StyledList>
     )
   }

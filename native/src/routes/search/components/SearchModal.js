@@ -19,7 +19,7 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
-  position: absolute;  
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
@@ -46,7 +46,7 @@ type StateType = {|
 class SearchModal extends React.Component<PropsType, StateType> {
   state = { query: '' }
 
-  findCategories (categories: CategoriesMapModel): Array<ListEntryType> {
+  findCategories(categories: CategoriesMapModel): Array<ListEntryType> {
     const { query } = this.state
     const normalizedFilter = normalizeSearchString(query)
     const categoriesArray = categories.toArray()
@@ -61,9 +61,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
           path: category.path
         },
         subCategories: []
-      })
-
-      )
+      }))
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
@@ -71,7 +69,11 @@ class SearchModal extends React.Component<PropsType, StateType> {
       .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
       .map((category: CategoryModel): ListEntryType => {
         const contentWithoutHtml = []
-        const parser = new Parser({ ontext (data: string) { contentWithoutHtml.push(data) } })
+        const parser = new Parser({
+          ontext(data: string) {
+            contentWithoutHtml.push(data)
+          }
+        })
         parser.write(category.content)
         parser.end()
         return {
@@ -84,13 +86,16 @@ class SearchModal extends React.Component<PropsType, StateType> {
           subCategories: []
         }
       })
-      .filter(category => category.model.contentWithoutHtml && category.model.contentWithoutHtml.length > 0 &&
-        normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter))
+      .filter(
+        category =>
+          category.model.contentWithoutHtml &&
+          category.model.contentWithoutHtml.length > 0 &&
+          normalizeSearchString(category.model.contentWithoutHtml).includes(normalizedFilter)
+      )
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // return all categories from above and remove the root category
-    return categoriesWithTitle
-      .concat(categoriesWithContent)
+    return categoriesWithTitle.concat(categoriesWithContent)
   }
 
   onItemPress = (category: { path: string, ... }) => {
@@ -119,33 +124,45 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    return <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
-      <SpaceBetween>
-        {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
+    return (
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
+        <SpaceBetween>
+          {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
               See NATIVE-430 for reference. */}
-        <View style={{ minHeight: minHeight }}>
-          <CategoryList categories={filteredCategories}
-                        navigateToLink={navigateToLink}
-                        query={query}
-                        onItemPress={this.onItemPress}
-                        theme={theme} language={language} />
-        </View>
-        <SearchFeedbackBox t={t} query={query} theme={theme} resultsFound={filteredCategories.length !== 0}
-                           sendFeedback={sendFeedback} />
-      </SpaceBetween>
-    </ScrollView>
+          <View style={{ minHeight: minHeight }}>
+            <CategoryList
+              categories={filteredCategories}
+              navigateToLink={navigateToLink}
+              query={query}
+              onItemPress={this.onItemPress}
+              theme={theme}
+              language={language}
+            />
+          </View>
+          <SearchFeedbackBox
+            t={t}
+            query={query}
+            theme={theme}
+            resultsFound={filteredCategories.length !== 0}
+            sendFeedback={sendFeedback}
+          />
+        </SpaceBetween>
+      </ScrollView>
+    )
   }
 
-  render () {
+  render() {
     const { theme, closeModal, t } = this.props
     const { query } = this.state
     return (
       <Wrapper theme={theme}>
-        <SearchHeader theme={theme}
-                      query={query}
-                      closeSearchBar={closeModal}
-                      onSearchChanged={this.onSearchChanged}
-                      t={t} />
+        <SearchHeader
+          theme={theme}
+          query={query}
+          closeSearchBar={closeModal}
+          onSearchChanged={this.onSearchChanged}
+          t={t}
+        />
         {this.renderContent()}
       </Wrapper>
     )
