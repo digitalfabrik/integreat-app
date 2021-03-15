@@ -13,22 +13,24 @@ const ItemWrapper = styled.View`
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
-  ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
+  ${props => (props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : '')};
   height: ${dimensions.headerHeight}px;
 `
 
 const Element = styled.Text`
   font-size: 20px;
-  ${props => props.enabled ? 'font-weight: 700' : ''};
-  color: ${props => props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor}};
+  ${props => (props.enabled ? 'font-weight: 700' : '')};
+  color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)}};
 `
 
 export const TouchTarget: StyledComponent<{}, {}, *> = styled(TouchableHighlight)`
-   width: 100%;
+  width: 100%;
 `
 
 type WrapperPropsType = {|
-  vertical: boolean, children: React.Node, theme: ThemeType
+  vertical: boolean,
+  children: React.Node,
+  theme: ThemeType
 |}
 
 export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, *> = styled.View`
@@ -39,12 +41,13 @@ export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, *> = styled.V
   color: ${props => props.theme.colors.textColor};
   text-align: center;
 
-  ${props => props.vertical
-  ? css`
-    flex-flow: column;
-    align-items: center;
-  `
-  : ''}
+  ${props =>
+    props.vertical
+      ? css`
+          flex-flow: column;
+          align-items: center;
+        `
+      : ''}
 `
 
 type PropsType = {
@@ -59,7 +62,7 @@ type PropsType = {
  * Displays a Selector showing different items
  */
 class Selector extends React.Component<PropsType> {
-  getItems (): React.Node {
+  getItems(): React.Node {
     const { items, selectedItemCode, theme } = this.props
     return items.map(item => {
       const isSelected = item.code === selectedItemCode
@@ -67,20 +70,24 @@ class Selector extends React.Component<PropsType> {
         return (
           <TouchTarget key={item.code} onPress={item.onPress}>
             <ItemWrapper selected={isSelected} theme={theme}>
-              <Element theme={theme} enabled>{item.name}</Element>
+              <Element theme={theme} enabled>
+                {item.name}
+              </Element>
             </ItemWrapper>
           </TouchTarget>
         )
       }
       return (
         <ItemWrapper key={item.code} selected={isSelected} theme={theme}>
-          <Element theme={theme} enabled={false}>{item.name}</Element>
+          <Element theme={theme} enabled={false}>
+            {item.name}
+          </Element>
         </ItemWrapper>
       )
     })
   }
 
-  render () {
+  render() {
     return (
       <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
         {this.getItems()}

@@ -15,7 +15,7 @@ type PropsType = {|
 |}
 
 class GeneralFooter extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { language, t } = this.props
     const { aboutUrls, privacyUrls } = buildConfig()
 
@@ -25,12 +25,8 @@ class GeneralFooter extends React.PureComponent<PropsType> {
     return (
       <Footer>
         <CleanLink to={new MainDisclaimerRouteConfig().getRoutePath()}>{t('imprintAndContact')}</CleanLink>
-        <CleanAnchor href={aboutUrl}>
-          {t('settings:about', { appName: buildConfig().appName })}
-        </CleanAnchor>
-        <CleanAnchor href={privacyUrl}>
-          {t('privacy')}
-        </CleanAnchor>
+        <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
+        <CleanAnchor href={privacyUrl}>{t('privacy')}</CleanAnchor>
       </Footer>
     )
   }

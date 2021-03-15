@@ -31,14 +31,17 @@ const ApiUrlText = styled.Text`
 `
 
 class EastereggImage extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = { clickCount: 0, apiUrlOverride: null, clickStart: null }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const appSettings = new AppSettings()
-    appSettings.loadApiUrlOverride().catch(() => {}).then(apiUrlOverride => this.setState({ apiUrlOverride }))
+    appSettings
+      .loadApiUrlOverride()
+      .catch(() => {})
+      .then(apiUrlOverride => this.setState({ apiUrlOverride }))
   }
 
   onImagePress = async () => {
@@ -54,7 +57,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
       const appSettings = new AppSettings()
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
-      const newApiUrl = (!apiUrlOverride || apiUrlOverride === cmsUrl) ? switchCmsUrl : cmsUrl
+      const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
 
       await appSettings.setApiUrlOverride(newApiUrl)
       this.setState({ clickCount: 0, clickStart: null })
@@ -82,15 +85,18 @@ class EastereggImage extends React.Component<PropsType, StateType> {
       return (
         <>
           <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <Button titleStyle={{ color: theme.colors.textColor }}
-                  buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 10 }}
-                  onPress={this.resetApiUrl} title='Switch back to default API' />
+          <Button
+            titleStyle={{ color: theme.colors.textColor }}
+            buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 10 }}
+            onPress={this.resetApiUrl}
+            title='Switch back to default API'
+          />
         </>
       )
     }
   }
 
-  render () {
+  render() {
     return (
       <>
         <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>

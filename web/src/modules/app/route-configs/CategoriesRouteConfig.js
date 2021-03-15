@@ -49,8 +49,10 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
 
   getRoutePath = ({ city, language }: CategoriesRouteParamsType): string => `/${city}/${language}`
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ categories: payloads.categoriesPayload, cities: payloads.citiesPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    categories: payloads.categoriesPayload,
+    cities: payloads.citiesPayload
+  })
 
   getLanguageChangePath = ({ location, payloads, language }) => {
     const { city } = location.payload

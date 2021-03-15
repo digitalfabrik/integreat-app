@@ -27,7 +27,7 @@ import watchFetchPoi from '../endpoint/sagas/watchFetchPoi'
 import buildConfig from './constants/buildConfig'
 import resourceCacheUrlReducer from '../static-server/reducers/resourceCacheUrlReducer'
 
-function * rootSaga (dataContainer: DataContainer): Saga<void> {
+function* rootSaga(dataContainer: DataContainer): Saga<void> {
   yield all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
@@ -40,9 +40,7 @@ function * rootSaga (dataContainer: DataContainer): Saga<void> {
   ])
 }
 
-const createReduxStore = (
-  dataContainer: DataContainer
-): Store<StateType, StoreActionType> => {
+const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
 
   const initialState: StateType = {

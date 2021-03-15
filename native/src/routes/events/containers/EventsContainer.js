@@ -12,10 +12,7 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { EventModel } from 'api-client'
 import * as React from 'react'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type { EventsRouteType } from 'api-client/src/routes'
@@ -61,7 +58,8 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
-  dispatch: Dispatch<StoreActionType>, newLanguage: string
+  dispatch: Dispatch<StoreActionType>,
+  newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
@@ -73,7 +71,10 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, route: { key } } = ownProps
+  const {
+    t,
+    route: { key }
+  } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
@@ -140,8 +141,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const resourceCacheUrl = state.resourceCacheUrl
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage ||
-    (route.status === 'loading' && !routeHasOldContent(route)) || languages.status === 'loading') {
+  if (
+    resourceCacheUrl === null ||
+    state.cities.status === 'loading' ||
+    switchingLanguage ||
+    (route.status === 'loading' && !routeHasOldContent(route)) ||
+    languages.status === 'loading'
+  ) {
     return { status: 'loading', progress: 0 }
   }
 
@@ -189,32 +195,37 @@ class EventsContainer extends React.Component<ContainerPropsType> {
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
-  render () {
+  render() {
     const { dispatch, navigation, route, ...rest } = this.props
-    return <ThemedTranslatedEvents {...rest}
-                                   navigateTo={createNavigate(dispatch, navigation)}
-                                   navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-                                   navigateToLink={this.navigateToLinkProp}
-    />
+    return (
+      <ThemedTranslatedEvents
+        {...rest}
+        navigateTo={createNavigate(dispatch, navigation)}
+        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+        navigateToLink={this.navigateToLinkProp}
+      />
+    )
   }
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo({
-    route: EVENTS_ROUTE,
-    cityCode,
-    languageCode: language,
-    cityContentPath: path || undefined
-  },
-  route.key,
-  true
+  navigateTo(
+    {
+      route: EVENTS_ROUTE,
+      cityCode,
+      languageCode: language,
+      cityContentPath: path || undefined
+    },
+    route.key,
+    true
   )
 }
 
 export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(
-      EventsContainer
-    )))
+  connect<PropsType, OwnPropsType, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))
+)

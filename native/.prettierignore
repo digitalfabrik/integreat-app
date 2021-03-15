@@ -1,0 +1,10 @@
+# Ignore artifacts:
+www/
+node_modules/
+flow-typed/
+reports/
+ios/main.jsbundle
+dist/
+lib-dist/
+android/fastlane/README.md
+android/app/build/

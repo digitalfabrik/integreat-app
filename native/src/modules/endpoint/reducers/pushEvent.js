@@ -6,7 +6,8 @@ import { EventModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 import { values, entries } from 'translations'
 
-const getEventRouteState = (currentPath: ?string,
+const getEventRouteState = (
+  currentPath: ?string,
   state: CityContentStateType,
   action: PushEventActionType
 ): EventRouteStateType => {
@@ -18,7 +19,7 @@ const getEventRouteState = (currentPath: ?string,
     .filter(route => city === route.city && currentPath !== route.path && language === route.language)
     .some(route => route.status === 'loading')
 
-  const status: 'loading' | 'ready' = (otherEventPageLoading && !refresh) ? 'loading' : 'ready'
+  const status: 'loading' | 'ready' = otherEventPageLoading && !refresh ? 'loading' : 'ready'
   if (!currentPath) {
     const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
     const eventRouteState = {
@@ -67,9 +68,8 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
   const { path, key, language, resourceCache, city, refresh } = action.params
 
   // If there is an error in the old resourceCache, we want to override it
-  const newResourceCache = state.resourceCache.status === 'ready'
-    ? { ...state.resourceCache.value, ...resourceCache }
-    : resourceCache
+  const newResourceCache =
+    state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
 
   const newEventsRouteMapping = { ...state.eventsRouteMapping }
 

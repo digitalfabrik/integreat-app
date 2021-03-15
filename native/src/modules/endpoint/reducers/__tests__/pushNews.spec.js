@@ -31,7 +31,10 @@ describe('pushNews', () => {
           city: 'augsburg',
           language: 'de',
           models: [news1],
-          allAvailableLanguages: new Map([['de', null], ['en', null]]),
+          allAvailableLanguages: new Map([
+            ['de', null],
+            ['en', null]
+          ]),
           newsId: null,
           page: 1,
           hasMoreNews: false,
@@ -67,21 +70,26 @@ describe('pushNews', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      newsRouteMapping: {
-        'route-id-0': {
-          status: 'ready',
-          newsId: null,
-          allAvailableLanguages: new Map([['en', null], ['de', null]]),
-          city: 'augsburg',
-          language: 'de',
-          hasMoreNews: false,
-          type: LOCAL_NEWS_TYPE,
-          page: 1,
-          models: [news1]
+    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
+      expect.objectContaining({
+        newsRouteMapping: {
+          'route-id-0': {
+            status: 'ready',
+            newsId: null,
+            allAvailableLanguages: new Map([
+              ['en', null],
+              ['de', null]
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            hasMoreNews: false,
+            type: LOCAL_NEWS_TYPE,
+            page: 1,
+            models: [news1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
   it('should add specific news item to routeMapping', () => {
@@ -104,20 +112,25 @@ describe('pushNews', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      newsRouteMapping: {
-        'route-id-0': {
-          status: 'ready',
-          newsId: '12',
-          allAvailableLanguages: new Map([['en', null], ['de', null]]),
-          city: 'augsburg',
-          language: 'de',
-          hasMoreNews: true,
-          page: 1,
-          type: LOCAL_NEWS_TYPE,
-          models: [news1]
+    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
+      expect.objectContaining({
+        newsRouteMapping: {
+          'route-id-0': {
+            status: 'ready',
+            newsId: '12',
+            allAvailableLanguages: new Map([
+              ['en', null],
+              ['de', null]
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            hasMoreNews: true,
+            page: 1,
+            type: LOCAL_NEWS_TYPE,
+            models: [news1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 })

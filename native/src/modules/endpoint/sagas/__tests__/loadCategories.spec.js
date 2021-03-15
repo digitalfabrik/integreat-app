@@ -11,27 +11,26 @@ import DatabaseContext from '../../DatabaseContext'
 let mockCategories
 jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
-jest.mock('api-client',
-  () => {
-    const actual = jest.requireActual('api-client')
-    const city = 'augsburg'
-    const language = 'de'
+jest.mock('api-client', () => {
+  const actual = jest.requireActual('api-client')
+  const city = 'augsburg'
+  const language = 'de'
 
-    return {
-      ...actual,
-      createCategoriesEndpoint: () => {
-        const { EndpointBuilder } = require('api-client')
-        const { default: CategoriesMapModelBuilder } = require('api-client/src/testing/CategoriesMapModelBuilder')
+  return {
+    ...actual,
+    createCategoriesEndpoint: () => {
+      const { EndpointBuilder } = require('api-client')
+      const { default: CategoriesMapModelBuilder } = require('api-client/src/testing/CategoriesMapModelBuilder')
 
-        mockCategories = new CategoriesMapModelBuilder(city, language, 2).build()
-        return new EndpointBuilder('categories-mock')
-          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/augsburg/de')
-          .withResponseOverride(mockCategories)
-          .withMapper(() => { })
-          .build()
-      }
+      mockCategories = new CategoriesMapModelBuilder(city, language, 2).build()
+      return new EndpointBuilder('categories-mock')
+        .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/augsburg/de')
+        .withResponseOverride(mockCategories)
+        .withMapper(() => {})
+        .build()
     }
-  })
+  }
+})
 
 describe('loadCategories', () => {
   beforeEach(() => {

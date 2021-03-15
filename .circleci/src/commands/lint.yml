@@ -6,5 +6,8 @@ steps:
   - run:
       name: Linting check
       command: yarn workspace << parameters.directory >> run lint:ci
+  - run:
+      name: Prettier check
+      command: yarn workspace << parameters.directory >> prettier --check .
   - store_test_results:
       path: << parameters.directory >>/reports/lint

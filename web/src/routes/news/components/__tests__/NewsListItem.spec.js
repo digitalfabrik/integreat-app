@@ -10,11 +10,14 @@ import { render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../../../modules/theme/constants/theme'
 
-jest.mock('redux-first-router-link', () =>
-  ({ children }: { children: Array<Node>, ...}) => <div>{children}</div>
-)
+jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
 jest.mock('../../../../modules/common/components/LastUpdateInfo', () =>
-  jest.fn(({ lastUpdate, withText }) => <div>{withText ? 'lastUpdate ' : ''}{lastUpdate.toISOString()}</div>)
+  jest.fn(({ lastUpdate, withText }) => (
+    <div>
+      {withText ? 'lastUpdate ' : ''}
+      {lastUpdate.toISOString()}
+    </div>
+  ))
 )
 
 describe('NewsListItem', () => {
@@ -44,7 +47,8 @@ describe('NewsListItem', () => {
           timestamp={lastUpdate}
           formatter={new DateFormatter(language)}
           t={t}
-          link={link} />
+          link={link}
+        />
       </ThemeProvider>
     )
 
@@ -67,7 +71,8 @@ describe('NewsListItem', () => {
           timestamp={lastUpdate}
           formatter={new DateFormatter(language)}
           t={t}
-          link={link} />
+          link={link}
+        />
       </ThemeProvider>
     )
 

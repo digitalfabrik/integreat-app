@@ -48,20 +48,26 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
 
   const { cityCode, languageCode } = route.params
 
-  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }, [dispatch, navigation])
+  const navigateToLinkProp = useCallback(
+    (url: string, language: string, shareUrl: string) => {
+      const navigateTo = createNavigate(dispatch, navigation)
+      navigateToLink(url, navigation, language, navigateTo, shareUrl)
+    },
+    [dispatch, navigation]
+  )
 
-  const navigateToFeedback = useCallback((isPositiveFeedback: boolean) => {
-    createNavigateToFeedbackModal(navigation)({
-      type: 'Disclaimer',
-      cityCode,
-      language: languageCode,
-      isPositiveFeedback,
-      path: disclaimer?.path
-    })
-  }, [disclaimer, cityCode, languageCode, navigation])
+  const navigateToFeedback = useCallback(
+    (isPositiveFeedback: boolean) => {
+      createNavigateToFeedbackModal(navigation)({
+        type: 'Disclaimer',
+        cityCode,
+        language: languageCode,
+        isPositiveFeedback,
+        path: disclaimer?.path
+      })
+    },
+    [disclaimer, cityCode, languageCode, navigation]
+  )
 
   const loadDisclaimer = useCallback(async () => {
     const request = async (apiUrl: string) =>
@@ -70,30 +76,40 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
     await loadFromEndpoint<PageModel>(request, setDisclaimer, setError, setLoading)
   }, [cityCode, languageCode, setError, setDisclaimer, setLoading])
 
-  const tryAgain = useCallback(() => { loadDisclaimer().catch(e => setError(e)) }, [loadDisclaimer])
+  const tryAgain = useCallback(() => {
+    loadDisclaimer().catch(e => setError(e))
+  }, [loadDisclaimer])
 
   useEffect(() => {
     loadDisclaimer().catch(e => setError(e))
   }, [loadDisclaimer])
 
   if (error) {
-    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
-      <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
-    </LayoutedScrollView>
+    return (
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
+        <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
+      </LayoutedScrollView>
+    )
   }
 
   if (!resourceCacheUrl) {
     setError(new Error('Resource cache url must be defined!'))
   }
 
-  return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
-    {disclaimer && resourceCacheUrl && <Disclaimer resourceCacheUrl={resourceCacheUrl}
-                                                   disclaimer={disclaimer}
-                                                   theme={theme}
-                                                   navigateToLink={navigateToLinkProp}
-                                                   language={languageCode} />}
-    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
-  </LayoutedScrollView>
+  return (
+    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadDisclaimer} refreshing={loading} />}>
+      {disclaimer && resourceCacheUrl && (
+        <Disclaimer
+          resourceCacheUrl={resourceCacheUrl}
+          disclaimer={disclaimer}
+          theme={theme}
+          navigateToLink={navigateToLinkProp}
+          language={languageCode}
+        />
+      )}
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+    </LayoutedScrollView>
+  )
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(

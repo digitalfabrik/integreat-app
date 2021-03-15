@@ -4,15 +4,15 @@
 
 ### Production
 
-* integreat.app
-* malteapp.de
-* aschaffenburg.app
+- integreat.app
+- malteapp.de
+- aschaffenburg.app
 
 ### Development
 
-* webnext.integreat.app
-* webnext.malteapp.de
-* webnext.aschaffenburg.app
+- webnext.integreat.app
+- webnext.malteapp.de
+- webnext.aschaffenburg.app
 
 ## Automatic delivery
 
@@ -23,7 +23,7 @@ See the [workflow section](../../docs/cicd.md#workflows) for more information.
 
 ### Development
 
-Every commit to the *main* branch triggers a delivery to the development environments.
+Every commit to the _main_ branch triggers a delivery to the development environments.
 See the [workflow section](../../docs/cicd.md#workflows) for more information.
 
 ## Manually trigger a delivery
