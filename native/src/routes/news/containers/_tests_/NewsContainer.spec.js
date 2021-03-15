@@ -101,7 +101,7 @@ describe('NewsContainer', () => {
   }
 
   const successfulRouteState: NewsRouteStateType = {
-    routeType: 'news',
+    routeType: NEWS_ROUTE,
     status: 'ready',
     language: language.code,
     newsId: null,
@@ -143,7 +143,7 @@ describe('NewsContainer', () => {
 
   it('should display error if the route has the status error', () => {
     const state: StateType = prepareState({
-      routeType: 'news',
+      routeType: NEWS_ROUTE,
       status: 'error',
       language: language.code,
       city: city.code,
@@ -178,7 +178,7 @@ describe('NewsContainer', () => {
 
   it('should display loading spinner', () => {
     const state: StateType = prepareState({
-      routeType: 'news',
+      routeType: NEWS_ROUTE,
       newsId: null,
       status: 'loading',
       type: LOCAL_NEWS_TYPE,

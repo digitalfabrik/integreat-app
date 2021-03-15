@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -50,7 +50,7 @@ describe('pushCategory', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-1': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'ready',
           path: '/augsburg/de',
           depth: 2,
@@ -109,7 +109,7 @@ describe('pushCategory', () => {
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
       routeMapping: {
         'route-id-0': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'ready',
           path: '/augsburg/de',
           allAvailableLanguages: new Map([['en', '/augsburg/en'], ['de', '/augsburg/de']]),
@@ -146,7 +146,7 @@ describe('pushCategory', () => {
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(expect.objectContaining({
       routeMapping: {
         'route-id-1': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'ready',
           path: '/augsburg/de/sub',
           allAvailableLanguages: new Map([['en', '/augsburg/en/sub'], ['de', '/augsburg/de/sub']]),

@@ -21,7 +21,7 @@ import moment from 'moment'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import DashboardContainer from '../DashboardContainer'
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client/src/routes'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -109,7 +109,7 @@ describe('DashboardContainer', () => {
     {})
 
   const successfulRouteState: CategoryRouteStateType = {
-    routeType: 'category',
+    routeType: CATEGORIES_ROUTE,
     status: 'ready',
     path: rootCategory.path,
     depth: 2,
@@ -146,7 +146,7 @@ describe('DashboardContainer', () => {
 
   it('should display error if the route has the status error', () => {
     const state: StateType = prepareState({
-      routeType: 'category',
+      routeType: CATEGORIES_ROUTE,
       status: 'error',
       path: rootCategory.path,
       depth: 2,
@@ -192,7 +192,7 @@ describe('DashboardContainer', () => {
 
   it('should display loading indicator if the route is loading long enough', () => {
     const state: StateType = prepareState({
-      routeType: 'category',
+      routeType: CATEGORIES_ROUTE,
       status: 'loading',
       path: rootCategory.path,
       depth: 2,
@@ -219,7 +219,7 @@ describe('DashboardContainer', () => {
 
   it('should display LanguageNotAvailable if the route has the corresponding status', () => {
     const state = prepareState({
-      routeType: 'category',
+      routeType: CATEGORIES_ROUTE,
       status: 'languageNotAvailable',
       depth: 2,
       city: city.code,

@@ -1,10 +1,11 @@
 // @flow
 
 import {
+  CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
   DateModel,
-  EventModel,
+  EventModel, EVENTS_ROUTE,
   LanguageModel,
   LocationModel, PoiModel
 } from 'api-client'
@@ -344,7 +345,7 @@ describe('morphContentLanguage', () => {
       },
       routeMapping: {
         'route-0': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'ready',
           city: 'augsburg',
           language: 'en',
@@ -364,7 +365,7 @@ describe('morphContentLanguage', () => {
           }
         },
         'route-1': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'ready',
           city: 'augsburg',
           language: 'en',
@@ -413,7 +414,7 @@ describe('morphContentLanguage', () => {
       },
       routeMapping: {
         'route-0': {
-          routeType: 'category',
+          routeType: CATEGORIES_ROUTE,
           status: 'languageNotAvailable',
           city: 'augsburg',
           language: 'en',
@@ -460,7 +461,7 @@ describe('morphContentLanguage', () => {
       routeMapping: {
         'route-0': expect.any(Object),
         'route-1': {
-          routeType: 'event',
+          routeType: EVENTS_ROUTE,
           status: 'languageNotAvailable',
           path: '/augsburg/de/events/drittes_event',
           city: 'augsburg',

@@ -2,7 +2,7 @@
 
 import type { CategoryRouteStateType, CityContentStateType, PathType, RouteStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
-import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
 import ErrorCodes from '../../error/ErrorCodes'
 import { values, entries } from 'translations'
@@ -51,7 +51,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
   if (!root) {
     const route: CategoryRouteStateType = {
-      routeType: 'category',
+      routeType: CATEGORIES_ROUTE,
       path: path,
       depth: depth,
       language,
@@ -103,7 +103,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
 
         if (!root) {
           newRouteMapping[key] = {
-            routeType: 'category',
+            routeType: CATEGORIES_ROUTE,
             status: 'error',
             message: `Could not find a category with path '${path}'.`,
             code: ErrorCodes.PageNotFound,
@@ -125,7 +125,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
           }
 
           newRouteMapping[key] = {
-            routeType: 'category',
+            routeType: CATEGORIES_ROUTE,
             status: 'ready',
             models: resultModels,
             children: resultChildren,
@@ -142,7 +142,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
 
   const newRouteData = {
-    routeType: 'category',
+    routeType: CATEGORIES_ROUTE,
     path: root.path,
     models: resultModels,
     children: resultChildren,

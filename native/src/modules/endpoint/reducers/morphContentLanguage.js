@@ -7,7 +7,7 @@ import type {
   PoiRouteStateType, RouteMappingType
 } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
-import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiModel, POIS_ROUTE } from 'api-client'
 import type { MorphContentLanguageActionType } from '../../app/StoreActionType'
 import forEachTreeNode from '../../common/forEachTreeNode'
 
@@ -23,7 +23,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
     if (!translatedPath) { // Route is not translatable
       return {
-        routeType: 'category',
+        routeType: CATEGORIES_ROUTE,
         status: 'languageNotAvailable',
         allAvailableLanguages,
         city: route.city,
@@ -50,7 +50,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     })
 
     return {
-      routeType: 'category',
+      routeType: CATEGORIES_ROUTE,
       path: translatedPath,
       models: resultModels,
       children: resultChildren,
@@ -72,7 +72,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
-        routeType: 'event',
+        routeType: EVENTS_ROUTE,
         status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
@@ -84,7 +84,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     const translatedPath = allAvailableLanguages.get(newLanguage)
     if (!translatedPath) { // Route is a list of all events
       return {
-        routeType: 'event',
+        routeType: EVENTS_ROUTE,
         status: 'ready',
         path: translatedPath,
         models: newEvents,
@@ -103,7 +103,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     }
 
     return {
-      routeType: 'event',
+      routeType: EVENTS_ROUTE,
       status: 'ready',
       path: translatedPath,
       models: [translatedEvent],
@@ -123,7 +123,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
 
     if (!allAvailableLanguages.has(newLanguage)) {
       return {
-        routeType: 'poi',
+        routeType: POIS_ROUTE,
         status: 'languageNotAvailable',
         allAvailableLanguages,
         language: newLanguage,
@@ -135,7 +135,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
     const translatedPath = allAvailableLanguages.get(newLanguage)
     if (!translatedPath) { // Route is a list of all pois
       return {
-        routeType: 'poi',
+        routeType: POIS_ROUTE,
         status: 'ready',
         path: translatedPath,
         models: newPois,
@@ -154,7 +154,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
     }
 
     return {
-      routeType: 'poi',
+      routeType: POIS_ROUTE,
       status: 'ready',
       path: translatedPath,
       models: [translatedPoi],
@@ -173,11 +173,11 @@ const translateRoutes = (state: CityContentStateType, action: MorphContentLangua
   const poiTranslator = poiRouteTranslator(newPois, newLanguage)
 
   return mapValues(routeMapping, route => {
-    if (route.routeType === 'category') {
+    if (route.routeType === CATEGORIES_ROUTE) {
       return categoryTranslator(route)
-    } else if (route.routeType === 'event') {
+    } else if (route.routeType === EVENTS_ROUTE) {
       return eventTranslator(route)
-    } else if (route.routeType === 'poi') {
+    } else if (route.routeType === POIS_ROUTE) {
       return poiTranslator(route)
     } else {
       return route

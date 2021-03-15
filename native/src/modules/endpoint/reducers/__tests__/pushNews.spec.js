@@ -1,6 +1,6 @@
 // @flow
 
-import { LocalNewsModel, LanguageModel } from 'api-client'
+import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
@@ -24,7 +24,7 @@ describe('pushNews', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: 'news',
+          routeType: NEWS_ROUTE,
           status: 'ready',
           city: 'augsburg',
           language: 'de',
@@ -65,7 +65,7 @@ describe('pushNews', () => {
     expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
       routeMapping: {
         'route-id-0': {
-          routeType: 'news',
+          routeType: NEWS_ROUTE,
           status: 'ready',
           newsId: null,
           allAvailableLanguages: new Map([['en', null], ['de', null]]),
@@ -101,7 +101,7 @@ describe('pushNews', () => {
     expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
       routeMapping: {
         'route-id-0': {
-          routeType: 'news',
+          routeType: NEWS_ROUTE,
           status: 'ready',
           newsId: '12',
           allAvailableLanguages: new Map([['en', null], ['de', null]]),
