@@ -11,8 +11,8 @@ type PropsType = {|
 |}
 
 // TODO IGAPP-526 Implement jpal evaluation screen
-const JpalEvaluationContainer = (props: PropsType) => {
-  return <Text>JpalEvaluationContainer</Text>
+const JpalEvaluationContainer = ({ route }: PropsType) => {
+  return <Text>JpalEvaluationContainer {route.params.trackingCode}</Text>
 }
 
 export default JpalEvaluationContainer
