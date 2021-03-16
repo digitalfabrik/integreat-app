@@ -14,7 +14,7 @@ const navigateToJpalEvaluation = <T: RoutesType>({
   navigation: NavigationPropType<T>,
   trackingCode: string | null
 |}) => {
-  navigation.navigate(JPAL_EVALUATION_ROUTE, { trackingCode })
+  navigation.navigate({ name: JPAL_EVALUATION_ROUTE, params: { trackingCode } })
 }
 
 export default navigateToJpalEvaluation

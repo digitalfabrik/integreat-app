@@ -50,7 +50,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
   const routeName = ownProps.scene.route.name
-  const simpleRouteShareUrl = typeof cityCode === 'string' && simpleRoutes.includes(routeName)
+  const simpleRouteShareUrl =
+    typeof cityCode === 'string' && simpleRoutes.includes(routeName)
       ? cityContentUrl({
           cityCode,
           languageCode: state.contentLanguage,

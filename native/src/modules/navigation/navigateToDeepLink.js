@@ -49,7 +49,6 @@ const navigateToDeepLink = async (
         forceRefresh: false,
         resetNavigation: true
       })
-
     } else {
       navigation.replace(LANDING_ROUTE)
     }
