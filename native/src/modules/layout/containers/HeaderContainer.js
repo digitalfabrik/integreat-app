@@ -39,6 +39,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
+  const cityCode = ownProps.scene.route.params?.cityCode || state.cityContent?.city
 
   const route = state.cityContent
     ? state.cityContent.categoriesRouteMapping[routeKey] ||
@@ -49,10 +50,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
   const routeName = ownProps.scene.route.name
-  const simpleRouteShareUrl =
-    state.cityContent?.city && simpleRoutes.includes(routeName)
+  const simpleRouteShareUrl = typeof cityCode === 'string' && simpleRoutes.includes(routeName)
       ? cityContentUrl({
-          cityCode: state.cityContent?.city,
+          cityCode,
           languageCode: state.contentLanguage,
           route: routeName,
           path: null
@@ -63,7 +63,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   // prevent re-rendering when city is there.
   const cities = state.cities.models || []
-  const stateCityCode = state.cityContent?.city
   const categoriesAvailable = state.cityContent?.searchRoute !== null
 
   const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
@@ -75,7 +74,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     !state.cityContent ||
     !languages ||
     languages.status !== 'ready' ||
-    !stateCityCode
+    !cityCode
   ) {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
@@ -94,7 +93,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       params: {
         currentLanguage: route.language,
         languages: languages.models,
-        cityCode: stateCityCode,
+        cityCode,
         availableLanguages: Array.from(route.allAvailableLanguages.keys()),
         previousKey: routeKey
       }
@@ -107,7 +106,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const shareUrl = path
     ? url(path)
     : cityContentUrl({
-        cityCode: stateCityCode,
+        cityCode: route.city,
         languageCode: route.language,
         route: routeName,
         path: route.type || null

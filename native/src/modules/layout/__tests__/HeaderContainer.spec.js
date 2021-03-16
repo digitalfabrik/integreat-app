@@ -51,7 +51,7 @@ describe('HeaderContainer', () => {
             status: 'ready',
             path: null,
             language: language.code,
-            city: city.name,
+            city: city.code,
             models: [],
             allAvailableLanguages: new Map()
           },
@@ -59,7 +59,7 @@ describe('HeaderContainer', () => {
             status: 'ready',
             path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
             language: language.code,
-            city: city.name,
+            city: city.code,
             models: [],
             allAvailableLanguages: new Map()
           }
@@ -70,7 +70,7 @@ describe('HeaderContainer', () => {
             path: `${city.code}/${language.code}/abc`,
             depth: 1,
             language: language.code,
-            city: city.name,
+            city: city.code,
             allAvailableLanguages: new Map(),
             models: {},
             children: {}
@@ -81,7 +81,7 @@ describe('HeaderContainer', () => {
             status: 'ready',
             path: null,
             language: language.code,
-            city: city.name,
+            city: city.code,
             allAvailableLanguages: new Map(),
             models: []
           }
@@ -94,7 +94,7 @@ describe('HeaderContainer', () => {
             page: 1,
             newsId: null,
             language: language.code,
-            city: city.name,
+            city: city.code,
             type: LOCAL_NEWS_TYPE,
             allAvailableLanguages: new Map()
           }
@@ -233,14 +233,15 @@ describe('HeaderContainer', () => {
     const ownProps = {
       scene: {
         route: {
-          name: DISCLAIMER_ROUTE
+          name: DISCLAIMER_ROUTE,
+          params: { cityCode: 'nuernberg' }
         }
       }
     }
 
     const result = render(ownProps)
     const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
+      cityCode: 'nuernberg',
       languageCode: state.contentLanguage,
       route: DISCLAIMER_ROUTE,
       path: null
