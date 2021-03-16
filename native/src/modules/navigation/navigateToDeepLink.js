@@ -50,15 +50,16 @@ const navigateToDeepLink = async (
         resetNavigation: true
       })
 
-      const isPeekingCity = routeInformation?.cityCode && selectedCity && routeInformation.cityCode !== selectedCity
-
-      // Only navigate again if either the city of the deep link differs from the currently selected city or
-      // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-      if (routeInformation && (![LANDING_ROUTE, DASHBOARD_ROUTE].includes(routeInformation.route) || isPeekingCity)) {
-        createNavigate(dispatch, navigation)(routeInformation, undefined, false)
-      }
     } else {
       navigation.replace(LANDING_ROUTE)
+    }
+
+    const isPeekingCity = routeInformation?.cityCode && selectedCity && routeInformation.cityCode !== selectedCity
+
+    // Only navigate again if either the city of the deep link differs from the currently selected city or
+    // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
+    if (routeInformation && (![LANDING_ROUTE, DASHBOARD_ROUTE].includes(routeInformation.route) || isPeekingCity)) {
+      createNavigate(dispatch, navigation)(routeInformation, undefined, false)
     }
 
     if (!routeInformation) {

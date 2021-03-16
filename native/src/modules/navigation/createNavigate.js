@@ -7,6 +7,7 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
+  JPAL_EVALUATION_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -25,6 +26,7 @@ import navigateToCategory from './navigateToCategory'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import navigateToJpalEvaluation from './navigateToJpalEvaluation'
 
 const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) => (
   routeInformation: RouteInformationType,
@@ -34,6 +36,9 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
   if (routeInformation) {
     if (routeInformation.route === LANDING_ROUTE) {
       navigateToLanding({ dispatch, navigation })
+      return
+    } else if (routeInformation.route === JPAL_EVALUATION_ROUTE) {
+      navigateToJpalEvaluation({ dispatch, navigation, trackingCode: routeInformation.trackingCode })
       return
     }
 
