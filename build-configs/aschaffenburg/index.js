@@ -27,6 +27,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     newsStream: false,
     pushNotifications: false,
     introSlides: false,
+    jpalEvaluation: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: 'abapp'

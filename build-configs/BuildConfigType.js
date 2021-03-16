@@ -23,6 +23,7 @@ export type FeatureFlagsType = {|
   pois: boolean, // Enables POIs and maps, can be disabled via our api on a per city basis.
   newsStream: boolean, // Enables local news and tünews, can be disabled via our api on a per city basis.
   pushNotifications: boolean, // Enables firebase push notifications, can be disabled by users.
+  jpalEvaluation: boolean, // Enables tracking campaign for the jpal evaluation
   sentry: boolean, // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
 |}
