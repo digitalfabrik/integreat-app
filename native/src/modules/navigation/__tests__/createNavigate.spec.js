@@ -14,7 +14,7 @@ import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
+  EVENTS_ROUTE, JPAL_EVALUATION_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -23,6 +23,7 @@ import {
   SEARCH_ROUTE
 } from 'api-client/src/routes'
 import buildConfig from '../../app/constants/buildConfig'
+import navigateToJpalEvaluation from '../navigateToJpalEvaluation'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())
@@ -32,6 +33,7 @@ jest.mock('../navigateToPois', () => jest.fn())
 jest.mock('../navigateToSearch', () => jest.fn())
 jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
+jest.mock('../navigateToJpalEvaluation', () => jest.fn())
 
 const dispatch = jest.fn()
 const navigation = createNavigationScreenPropMock()
@@ -78,6 +80,11 @@ describe('createNavigate', () => {
   it('should call navigateToLanding', () => {
     navigateTo({ route: LANDING_ROUTE, languageCode })
     assertOnlyCalled([navigateToLanding])
+  })
+
+  it('should call navigateToJpalEvaluation', () => {
+    navigateTo({ route: JPAL_EVALUATION_ROUTE, trackingCode: 'abcdef123456' })
+    assertOnlyCalled([navigateToJpalEvaluation])
   })
 
   it('should call navigateToCategory for dashboard route', () => {
