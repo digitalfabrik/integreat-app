@@ -19,7 +19,7 @@ export default (
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === 'category'
+    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === CATEGORIES_ROUTE
     const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
 
     return {
@@ -144,6 +144,7 @@ export default (
           }
         }
       }
+      case 'CLEAR_POI':
       case 'CLEAR_CATEGORY':
       case 'CLEAR_EVENT':
       case 'CLEAR_NEWS': {

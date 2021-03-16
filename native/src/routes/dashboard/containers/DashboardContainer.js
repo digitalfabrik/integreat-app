@@ -10,7 +10,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import { CityModel } from 'api-client'
+import { CATEGORIES_ROUTE, CityModel } from 'api-client'
 import React, { useCallback } from 'react'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
@@ -88,7 +88,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
   const route = routeMapping[key]
 
-  if (!route || route.routeType !== 'category') {
+  if (!route || route.routeType !== CATEGORIES_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 

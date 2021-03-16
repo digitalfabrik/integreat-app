@@ -15,8 +15,8 @@ import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { NewsRouteType, NewsType } from 'api-client/src/routes'
-import createNavigate from '../../../modules/navigation/createNavigate'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 
 type NavigationPropsType = {|
@@ -33,27 +33,27 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType =
   | {|
-      ...NavigationPropsType,
-      ...DispatchPropsType,
-      status: 'fetching',
-      newsId: ?string,
-      language: string,
-      cityModel: CityModel,
-      selectedNewsType: NewsType
-    |}
+  ...NavigationPropsType,
+  ...DispatchPropsType,
+  status: 'fetching',
+  newsId: ?string,
+  language: string,
+  cityModel: CityModel,
+  selectedNewsType: NewsType
+|}
   | {|
-      ...NavigationPropsType,
-      ...DispatchPropsType,
-      status: 'ready',
-      news: NewsModelsType,
-      hasMoreNews: ?boolean,
-      page: ?number,
-      isFetchingMore: boolean,
-      newsId: ?string,
-      language: string,
-      cityModel: CityModel,
-      selectedNewsType: NewsType
-    |}
+  ...NavigationPropsType,
+  ...DispatchPropsType,
+  status: 'ready',
+  news: NewsModelsType,
+  hasMoreNews: ?boolean,
+  page: ?number,
+  isFetchingMore: boolean,
+  newsId: ?string,
+  language: string,
+  cityModel: CityModel,
+  selectedNewsType: NewsType
+|}
 
 type RefreshPropsType = {|
   ...NavigationPropsType,
@@ -108,7 +108,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const route = routeMapping[key]
 
-  if (!route || route.routeType !== 'news') {
+  if (!route || route.routeType !== NEWS_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 
