@@ -14,7 +14,8 @@ import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
-  EVENTS_ROUTE, JPAL_EVALUATION_ROUTE,
+  EVENTS_ROUTE,
+  JPAL_EVALUATION_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -85,6 +86,13 @@ describe('createNavigate', () => {
   it('should call navigateToJpalEvaluation', () => {
     navigateTo({ route: JPAL_EVALUATION_ROUTE, trackingCode: 'abcdef123456' })
     assertOnlyCalled([navigateToJpalEvaluation])
+  })
+
+  it('should not call navigateToJpalEvaluation if it is disabled in the build config', () => {
+    // $FlowFixMe build config is a mock
+    buildConfig.mockImplementationOnce(() => ({ featureFlags: { jpalEvaluation: true } }))
+    navigateTo({ route: JPAL_EVALUATION_ROUTE, trackingCode: 'abcdef123456' })
+    assertNotCalled(allMocks)
   })
 
   it('should call navigateToCategory for dashboard route', () => {

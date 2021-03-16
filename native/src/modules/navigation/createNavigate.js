@@ -38,7 +38,9 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
       navigateToLanding({ dispatch, navigation })
       return
     } else if (routeInformation.route === JPAL_EVALUATION_ROUTE) {
-      navigateToJpalEvaluation({ dispatch, navigation, trackingCode: routeInformation.trackingCode })
+      if (buildConfig().featureFlags.jpalEvaluation) {
+        navigateToJpalEvaluation({ dispatch, navigation, trackingCode: routeInformation.trackingCode })
+      }
       return
     }
 
