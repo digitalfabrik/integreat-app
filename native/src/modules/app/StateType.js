@@ -16,10 +16,10 @@ import ErrorCodes from '../error/ErrorCodes'
 import { config } from 'translations'
 import type {
   CategoriesRouteType,
-  PoisRouteType,
   EventsRouteType,
   NewsRouteType,
-  NewsType
+  NewsType,
+  PoisRouteType
 } from 'api-client/src/routes'
 
 export type PathType = string
@@ -176,15 +176,15 @@ export type LanguageResourceCacheStateType = $ReadOnly<{
 
 export type ResourceCacheStateType =
   | {|
-      +status: 'error',
-      +code: ErrorCodeType,
-      +message: ?string
-    |}
+  +status: 'error',
+  +code: ErrorCodeType,
+  +message: ?string
+|}
   | {|
-      +status: 'ready',
-      +progress: number,
-      +value: LanguageResourceCacheStateType
-    |}
+  +status: 'ready',
+  +progress: number,
+  +value: LanguageResourceCacheStateType
+|}
 
 export type CityResourceCacheStateType = $ReadOnly<{
   [language: string]: LanguageResourceCacheStateType
@@ -209,17 +209,17 @@ export const defaultCitiesState: CitiesStateType = {
 
 export type LanguagesStateType =
   | {|
-      +status: 'ready',
-      +models: $ReadOnlyArray<LanguageModel>
-    |}
+  +status: 'ready',
+  +models: $ReadOnlyArray<LanguageModel>
+|}
   | {|
-      +status: 'loading'
-    |}
+  +status: 'loading'
+|}
   | {|
-      +status: 'error',
-      +code: ErrorCodeType,
-      +message: string
-    |}
+  +status: 'error',
+  +code: ErrorCodeType,
+  +message: string
+|}
 
 export const defaultContentLanguageState = config.defaultFallback
 

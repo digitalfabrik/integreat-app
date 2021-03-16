@@ -4,7 +4,8 @@ import type {
   CategoryRouteStateType,
   CityContentStateType,
   EventRouteStateType,
-  PoiRouteStateType, RouteMappingType
+  PoiRouteStateType,
+  RouteMappingType
 } from '../../app/StateType'
 import { mapValues } from 'lodash/object'
 import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiModel, POIS_ROUTE } from 'api-client'
@@ -22,16 +23,16 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
   const translatedPath = allAvailableLanguages.get(newLanguage)
 
-    if (!translatedPath) { // Route is not translatable
-      return {
-        routeType: CATEGORIES_ROUTE,
-        status: 'languageNotAvailable',
-        allAvailableLanguages,
-        city: route.city,
-        language: newLanguage,
-        depth: route.depth
-      }
+  if (!translatedPath) { // Route is not translatable
+    return {
+      routeType: CATEGORIES_ROUTE,
+      status: 'languageNotAvailable',
+      allAvailableLanguages,
+      city: route.city,
+      language: newLanguage,
+      depth: route.depth
     }
+  }
 
   const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
   if (!rootModel) {
@@ -55,18 +56,18 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     }
   )
 
-    return {
-      routeType: CATEGORIES_ROUTE,
-      path: translatedPath,
-      models: resultModels,
-      children: resultChildren,
-      depth,
-      allAvailableLanguages,
-      language: newLanguage,
-      status: 'ready',
-      city
-    }
+  return {
+    routeType: CATEGORIES_ROUTE,
+    path: translatedPath,
+    models: resultModels,
+    children: resultChildren,
+    depth,
+    allAvailableLanguages,
+    language: newLanguage,
+    status: 'ready',
+    city
   }
+}
 
 const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage: string) => (
   route: EventRouteStateType
@@ -77,29 +78,29 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
   }
   const { allAvailableLanguages, city, path } = route
 
-    if (!allAvailableLanguages.has(newLanguage)) {
-      return {
-        routeType: EVENTS_ROUTE,
-        status: 'languageNotAvailable',
-        allAvailableLanguages,
-        language: newLanguage,
-        path,
-        city
-      }
+  if (!allAvailableLanguages.has(newLanguage)) {
+    return {
+      routeType: EVENTS_ROUTE,
+      status: 'languageNotAvailable',
+      allAvailableLanguages,
+      language: newLanguage,
+      path,
+      city
     }
+  }
 
-    const translatedPath = allAvailableLanguages.get(newLanguage)
-    if (!translatedPath) { // Route is a list of all events
-      return {
-        routeType: EVENTS_ROUTE,
-        status: 'ready',
-        path: translatedPath,
-        models: newEvents,
-        allAvailableLanguages,
-        language: newLanguage,
-        city
-      }
+  const translatedPath = allAvailableLanguages.get(newLanguage)
+  if (!translatedPath) { // Route is a list of all events
+    return {
+      routeType: EVENTS_ROUTE,
+      status: 'ready',
+      path: translatedPath,
+      models: newEvents,
+      allAvailableLanguages,
+      language: newLanguage,
+      city
     }
+  }
 
   const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
 
@@ -109,16 +110,16 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
     return route
   }
 
-    return {
-      routeType: EVENTS_ROUTE,
-      status: 'ready',
-      path: translatedPath,
-      models: [translatedEvent],
-      allAvailableLanguages,
-      language: newLanguage,
-      city
-    }
+  return {
+    routeType: EVENTS_ROUTE,
+    status: 'ready',
+    path: translatedPath,
+    models: [translatedEvent],
+    allAvailableLanguages,
+    language: newLanguage,
+    city
   }
+}
 
 const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: string) => (
   route: PoiRouteStateType
@@ -129,48 +130,48 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
   }
   const { allAvailableLanguages, city, path } = route
 
-    if (!allAvailableLanguages.has(newLanguage)) {
-      return {
-        routeType: POIS_ROUTE,
-        status: 'languageNotAvailable',
-        allAvailableLanguages,
-        language: newLanguage,
-        path,
-        city
-      }
+  if (!allAvailableLanguages.has(newLanguage)) {
+    return {
+      routeType: POIS_ROUTE,
+      status: 'languageNotAvailable',
+      allAvailableLanguages,
+      language: newLanguage,
+      path,
+      city
     }
+  }
 
-    const translatedPath = allAvailableLanguages.get(newLanguage)
-    if (!translatedPath) { // Route is a list of all pois
-      return {
-        routeType: POIS_ROUTE,
-        status: 'ready',
-        path: translatedPath,
-        models: newPois,
-        allAvailableLanguages,
-        language: newLanguage,
-        city
-      }
-    }
-
-  const translatedPoi = newPois.find(newPoi => translatedPath === newPoi.path)
-
-    if (!translatedPoi) {
-      console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                but is referenced as translation for ${newLanguage}.`)
-      return route
-    }
-
+  const translatedPath = allAvailableLanguages.get(newLanguage)
+  if (!translatedPath) { // Route is a list of all pois
     return {
       routeType: POIS_ROUTE,
       status: 'ready',
       path: translatedPath,
-      models: [translatedPoi],
+      models: newPois,
       allAvailableLanguages,
       language: newLanguage,
       city
     }
   }
+
+  const translatedPoi = newPois.find(newPoi => translatedPath === newPoi.path)
+
+  if (!translatedPoi) {
+    console.warn(`Inconsistent data detected: ${translatedPath} does not exist, 
+      but is referenced as translation for ${newLanguage}.`)
+    return route
+  }
+
+  return {
+    routeType: POIS_ROUTE,
+    status: 'ready',
+    path: translatedPath,
+    models: [translatedPoi],
+    allAvailableLanguages,
+    language: newLanguage,
+    city
+  }
+}
 
 const translateRoutes = (state: CityContentStateType, action: MorphContentLanguageActionType): RouteMappingType => {
   const { routeMapping, city } = state

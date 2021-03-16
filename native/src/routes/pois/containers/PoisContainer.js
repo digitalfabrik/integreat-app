@@ -78,7 +78,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
   const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
   const route = routeMapping[key]
-  if (!route || route.routeType !== 'poi') {
+  if (!route || route.routeType !== POIS_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 
