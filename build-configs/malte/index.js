@@ -24,6 +24,7 @@ const commonMalteBuildConfig = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
+    jpalEvaluation: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: null
