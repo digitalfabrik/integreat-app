@@ -1,6 +1,6 @@
 // @flow
 
-import { CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -48,8 +48,9 @@ describe('pushCategory', () => {
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-id-1': {
+          routeType: CATEGORIES_ROUTE,
           status: 'ready',
           path: '/augsburg/de',
           depth: 2,
@@ -64,9 +65,6 @@ describe('pushCategory', () => {
           children: { '/augsburg/de': ['/augsburg/de/sub'], '/augsburg/de/sub': ['/augsburg/de/sub/sub'] }
         }
       },
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
       languages: { status: 'ready', models: languageModels },
       resourceCache: {
         status: 'ready',
@@ -89,8 +87,7 @@ describe('pushCategory', () => {
 
   it('should add rootCategory to categoriesRouteMapping with depth 1', () => {
     const prevState: CityContentStateType = prepareState({
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
@@ -111,8 +108,9 @@ describe('pushCategory', () => {
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
-        categoriesRouteMapping: {
+        routeMapping: {
           'route-id-0': {
+            routeType: CATEGORIES_ROUTE,
             status: 'ready',
             path: '/augsburg/de',
             allAvailableLanguages: new Map([
@@ -132,7 +130,6 @@ describe('pushCategory', () => {
 
   it('should add subCategory to routeMapping with depth 1', () => {
     const prevState = prepareState({
-      categoriesRouteMapping: {},
       resourceCache: { status: 'ready', progress: 0, value: {} }
     })
 
@@ -153,8 +150,9 @@ describe('pushCategory', () => {
 
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
-        categoriesRouteMapping: {
+        routeMapping: {
           'route-id-1': {
+            routeType: CATEGORIES_ROUTE,
             status: 'ready',
             path: '/augsburg/de/sub',
             allAvailableLanguages: new Map([
@@ -227,8 +225,6 @@ describe('pushCategory', () => {
 
   it('should add categoriesMap to the searchRoute', () => {
     const prevState: CityContentStateType = prepareState({
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
       searchRoute: null,
       resourceCache: { status: 'ready', progress: 0, value: {} }
     })

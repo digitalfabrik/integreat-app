@@ -1,10 +1,12 @@
 // @flow
 
 import {
+  CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
   DateModel,
   EventModel,
+  EVENTS_ROUTE,
   LanguageModel,
   LocationModel,
   PoiModel
@@ -318,7 +320,7 @@ describe('morphContentLanguage', () => {
 
     const previous = prepareState()
 
-    const route = previous.categoriesRouteMapping['route-0']
+    const route = previous.routeMapping['route-0']
     if (route.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
@@ -356,8 +358,9 @@ describe('morphContentLanguage', () => {
         status: 'ready',
         models: cityLanguages
       },
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-0': {
+          routeType: CATEGORIES_ROUTE,
           status: 'ready',
           city: 'augsburg',
           language: 'en',
@@ -378,23 +381,20 @@ describe('morphContentLanguage', () => {
             [sub1EnCategory.path]: [],
             [sub2EnCategory.path]: [sub2subEnCategory.path]
           }
-        }
-      },
-      eventsRouteMapping: {
+        },
         'route-1': {
+          routeType: EVENTS_ROUTE,
           status: 'ready',
           city: 'augsburg',
           language: 'en',
           path: '/augsburg/en/events/third_event',
           allAvailableLanguages: new Map([
-            ['de', '/augsburg/de/events/drittes_event'],
-            ['en', '/augsburg/en/events/third_event']
+            ['en', '/augsburg/en/events/third_event'],
+            ['de', '/augsburg/de/events/drittes_event']
           ]),
           models: [enThirdEvent]
         }
       },
-      poisRouteMapping: expect.any(Object),
-      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         progress: 1,
@@ -430,18 +430,17 @@ describe('morphContentLanguage', () => {
         status: 'ready',
         models: cityLanguages
       },
-      categoriesRouteMapping: {
+      routeMapping: {
         'route-0': {
+          routeType: CATEGORIES_ROUTE,
           status: 'languageNotAvailable',
           city: 'augsburg',
           language: 'en',
           depth: 2,
           allAvailableLanguages: new Map([['de', '/augsburg/de/anlaufstellen']])
-        }
+        },
+        'route-1': expect.any(Object)
       },
-      eventsRouteMapping: expect.any(Object),
-      poisRouteMapping: expect.any(Object),
-      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         progress: 1,
@@ -477,10 +476,10 @@ describe('morphContentLanguage', () => {
         status: 'ready',
         models: cityLanguages
       },
-      categoriesRouteMapping: expect.any(Object),
-      newsRouteMapping: {},
-      eventsRouteMapping: {
+      routeMapping: {
+        'route-0': expect.any(Object),
         'route-1': {
+          routeType: EVENTS_ROUTE,
           status: 'languageNotAvailable',
           path: '/augsburg/de/events/drittes_event',
           city: 'augsburg',
@@ -488,7 +487,6 @@ describe('morphContentLanguage', () => {
           allAvailableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
         }
       },
-      poisRouteMapping: expect.any(Object),
       resourceCache: {
         status: 'ready',
         progress: 1,
