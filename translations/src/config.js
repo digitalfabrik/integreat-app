@@ -129,6 +129,10 @@ class Config {
   }
 
   getFallbackLanguageTags (): string[] {
+    return Object.keys(this.fallbacks)
+  }
+  
+  getFallbackTargetLanguageTags (): string[] {
     const languageTags = []
     const fallbacks: string[][] = values(this.fallbacks)
 
@@ -144,7 +148,7 @@ class Config {
   checkConsistency () {
     const supportedLanguageTags = this.getSupportedLanguageTags()
 
-    this.getFallbackLanguageTags().forEach((languageTag: string) => {
+    this.getFallbackTargetLanguageTags().forEach((languageTag: string) => {
       if (!supportedLanguageTags.includes(languageTag)) {
         throw Error(`The code ${languageTag} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
       }
