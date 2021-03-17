@@ -21,10 +21,11 @@ import type {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  WohnenOfferRouteType
-} from 'api-client/src/routes'
+  WohnenOfferRouteType,
+  JpalEvaluationRouteType,
+  RedirectRouteType
+} from 'api-client'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
-import type { JpalEvaluationRouteType, RedirectRouteType } from 'api-client'
 
 export type RoutesType =
   | RedirectRouteType
