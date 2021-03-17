@@ -85,26 +85,32 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
         )}
         <Container>
           <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
-          <Html source={{ html: linkedContent }}
-                contentWidth={width}
-                onLinkPress={onLinkPress}
-                baseFontStyle={{
-                  fontFamily: theme.fonts.native.decorativeFontRegular,
-                  fontSize: 16,
-                  letterSpacing: 0.5,
-                  lineHeight: 24,
-                  textAlign: contentAlignment(language),
-                  color: theme.colors.textColor
-                }}
-                defaultTextProps={{ selectable: true, allowFontStyling: true }} />
-          {newsItem instanceof LocalNewsModel &&
-          <TimeStampContent language={language} theme={theme}>
-            <TimeStamp formatter={formatter}
-                       lastUpdate={newsItem.timestamp}
-                       showText={false}
-                       format={'LLL'}
-                       language={language} theme={theme} />
-          </TimeStampContent>}
+          <Html
+            source={{ html: linkedContent }}
+            contentWidth={width}
+            onLinkPress={onLinkPress}
+            baseFontStyle={{
+              fontFamily: theme.fonts.native.decorativeFontRegular,
+              fontSize: 16,
+              letterSpacing: 0.5,
+              lineHeight: 24,
+              textAlign: contentAlignment(language),
+              color: theme.colors.textColor
+            }}
+            defaultTextProps={{ selectable: true, allowFontStyling: true }}
+          />
+          {newsItem instanceof LocalNewsModel && (
+            <TimeStampContent language={language} theme={theme}>
+              <TimeStamp
+                formatter={formatter}
+                lastUpdate={newsItem.timestamp}
+                showText={false}
+                format={'LLL'}
+                language={language}
+                theme={theme}
+              />
+            </TimeStampContent>
+          )}
         </Container>
         {newsItem instanceof TunewsModel && (
           <TuNewsFooter language={language} eNewsNo={newsItem.eNewsNo} date={newsItem.date} theme={theme} />
