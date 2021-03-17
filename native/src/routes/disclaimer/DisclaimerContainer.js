@@ -19,7 +19,7 @@ import navigateToLink from '../../modules/navigation/navigateToLink'
 import type { DisclaimerRouteType } from 'api-client/src/routes'
 import createNavigate from '../../modules/navigation/createNavigate'
 import { fromError } from '../../modules/error/ErrorCodes'
-import { useLoadFromEndpoint } from '../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../modules/endpoint/hooks/useLoadFromEndpoint'
 
 type OwnPropsType = {|
   route: RoutePropType<DisclaimerRouteType>,

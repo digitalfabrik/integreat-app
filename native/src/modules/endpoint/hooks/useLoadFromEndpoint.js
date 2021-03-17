@@ -1,6 +1,6 @@
 // @flow
 
-import determineApiUrl from './determineApiUrl'
+import determineApiUrl from '../determineApiUrl'
 import { Payload } from 'api-client'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -49,3 +49,5 @@ export const useLoadFromEndpoint = <T>(request: RequestType<T>): ReturnType<T> =
 
   return { data, error, loading, refresh: load }
 }
+
+export default useLoadFromEndpoint

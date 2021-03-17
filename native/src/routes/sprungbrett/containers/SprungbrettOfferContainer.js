@@ -20,7 +20,7 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import type { SprungbrettOfferRouteType } from 'api-client/src/routes'
-import { useLoadFromEndpoint } from '../../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../../modules/endpoint/hooks/useLoadFromEndpoint'
 import type { StateType } from '../../../modules/app/StateType'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 
