@@ -35,6 +35,7 @@ export default ({ children }: PropsType) => {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
+        supportedLngs: config.getSupportedLanguageTags(),
         load: 'all',
         interpolation: {
           escapeValue: false /* Escaping is not needed for react apps:
@@ -47,6 +48,7 @@ export default ({ children }: PropsType) => {
 
       // Apply ui language as language
       i18nextInstance.on('languageChanged', () => {
+        console.log(i18nextInstance.languages)
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
         const matchedLanguage = i18nextInstance.languages[0]
         setLanguage(matchedLanguage)
