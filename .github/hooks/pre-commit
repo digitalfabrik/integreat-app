@@ -1,7 +1,17 @@
 #!/bin/sh
 
-yarn prettier --check .
-# yarn lint
-# yarn flow
-# yarn test
+#
+# Install this using:
+# ln -s ../../.github/hooks/pre-commit .git/hooks/pre-commit
+#
 
+FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+
+# Prettify all selected files
+echo "$FILES" | xargs ./node_modules/.bin/prettier --write
+
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+exit 0
