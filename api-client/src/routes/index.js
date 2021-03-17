@@ -40,6 +40,9 @@ export const TU_NEWS_TYPE: TuNewsType = 'tu-news'
 export type NewsType = LocalNewsType | TuNewsType
 
 // Internal native routes
+export type RedirectRouteType = 'redirect'
+export const REDIRECT_ROUTE: RedirectRouteType = 'redirect'
+
 export type IntroRouteType = 'intro'
 export const INTRO_ROUTE: IntroRouteType = 'intro'
 

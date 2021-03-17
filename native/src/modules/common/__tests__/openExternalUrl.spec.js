@@ -55,6 +55,6 @@ describe('openExternalUrl', () => {
     await openExternalUrl(url)
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(InAppBrowser.open).not.toHaveBeenCalled()
-    // TODO Assert snackbar is shown
+    // TODO IGAPP-521 assert snackbar is shown
   })
 })
