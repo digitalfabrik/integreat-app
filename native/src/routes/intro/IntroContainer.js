@@ -2,6 +2,7 @@
 
 import { withTranslation, type TFunction } from 'react-i18next'
 import * as React from 'react'
+import type { Dispatch } from 'redux'
 import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
@@ -22,6 +23,8 @@ import { requestPushNotificationPermission } from '../../modules/push-notificati
 import type { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
 import { LANDING_ROUTE } from 'api-client/src/routes'
 import type { IntroRouteType } from 'api-client/src/routes'
+import navigateToDeepLink from '../../modules/navigation/navigateToDeepLink'
+import type { StoreActionType } from '../../modules/app/StoreActionType'
 
 const Container: StyledComponent<{| width: number |}, {||}, *> = styled.View`
   display: flex;
@@ -59,7 +62,7 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   language: string,
-  dispatch: () => void
+  dispatch: Dispatch<StoreActionType>
 |}
 
 export type IntroSettingsType = {|
@@ -216,8 +219,14 @@ class Intro extends React.Component<PropsType, StateType> {
       console.warn(e)
     }
     await this._appSettings.setSettings({ errorTracking, allowPushNotifications, proposeNearbyCities })
-    this._appSettings.setIntroShown()
-    this.props.navigation.replace(LANDING_ROUTE)
+    await this._appSettings.setIntroShown()
+
+    const { dispatch, route, navigation, language } = this.props
+    if (route.params?.deepLink) {
+      navigateToDeepLink(dispatch, navigation, route.params.deepLink, language)
+    } else {
+      navigation.replace(LANDING_ROUTE)
+    }
   }
 
   goToSlide = (index: number) => {
@@ -272,7 +281,7 @@ class Intro extends React.Component<PropsType, StateType> {
 }
 
 const mapStateToProps = (state: ReduxStateType): {| language: string |} => ({ language: state.contentLanguage })
-type ConnectType = {| ...OwnPropsType, language: string, dispatch: () => void |}
+type ConnectType = {| ...OwnPropsType, language: string, dispatch: Dispatch<StoreActionType> |}
 
 export default connect<ConnectType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>(['intro', 'settings'])(withTheme<PropsType>(Intro))
