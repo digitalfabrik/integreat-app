@@ -40,12 +40,7 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
 
-  const route = state.cityContent
-    ? state.cityContent.categoriesRouteMapping[routeKey] ||
-      state.cityContent.eventsRouteMapping[routeKey] ||
-      state.cityContent.newsRouteMapping[routeKey] ||
-      state.cityContent.poisRouteMapping[routeKey]
-    : null
+  const route = state.cityContent?.routeMapping[routeKey]
 
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
   const routeName = ownProps.scene.route.name

@@ -1,6 +1,6 @@
 // @flow
 
-import type { NewsModelsType, NewsRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { NewsModelsType, StateType } from '../../../modules/app/StateType'
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
@@ -15,8 +15,8 @@ import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { NewsRouteType, NewsType } from 'api-client/src/routes'
-import createNavigate from '../../../modules/navigation/createNavigate'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 
 type NavigationPropsType = {|
@@ -104,10 +104,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const { newsRouteMapping, switchingLanguage, languages } = state.cityContent
+  const { routeMapping, switchingLanguage, languages } = state.cityContent
 
-  const route: ?NewsRouteStateType = newsRouteMapping[key]
-  if (!route) {
+  const route = routeMapping[key]
+
+  if (!route || route.routeType !== NEWS_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 

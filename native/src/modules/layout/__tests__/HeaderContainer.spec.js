@@ -7,7 +7,15 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
 import { cityContentUrl } from '../../navigation/url'
-import { DISCLAIMER_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE, OFFERS_ROUTE, POIS_ROUTE } from 'api-client'
+import {
+  CATEGORIES_ROUTE,
+  DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE
+} from 'api-client'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -35,7 +43,6 @@ describe('HeaderContainer', () => {
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
-
   const prepareState = (): StateType => {
     return {
       darkMode: false,
@@ -46,26 +53,9 @@ describe('HeaderContainer', () => {
           status: 'ready',
           models: [language]
         },
-        eventsRouteMapping: {
-          routeKeyEvent1: {
-            status: 'ready',
-            path: null,
-            language: language.code,
-            city: city.name,
-            models: [],
-            allAvailableLanguages: new Map()
-          },
-          routeKeyEvent2: {
-            status: 'ready',
-            path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
-            language: language.code,
-            city: city.name,
-            models: [],
-            allAvailableLanguages: new Map()
-          }
-        },
-        categoriesRouteMapping: {
+        routeMapping: {
           routeKey1: {
+            routeType: CATEGORIES_ROUTE,
             status: 'ready',
             path: `${city.code}/${language.code}/abc`,
             depth: 1,
@@ -74,20 +64,36 @@ describe('HeaderContainer', () => {
             allAvailableLanguages: new Map(),
             models: {},
             children: {}
-          }
-        },
-        poisRouteMapping: {
+          },
+          routeKeyEvent1: {
+            routeType: EVENTS_ROUTE,
+            status: 'ready',
+            path: null,
+            language: language.code,
+            city: city.name,
+            models: [],
+            allAvailableLanguages: new Map()
+          },
+          routeKeyEvent2: {
+            routeType: EVENTS_ROUTE,
+            status: 'ready',
+            path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
+            language: language.code,
+            city: city.name,
+            models: [],
+            allAvailableLanguages: new Map()
+          },
           routeKeyPois1: {
+            routeType: POIS_ROUTE,
             status: 'ready',
             path: null,
             language: language.code,
             city: city.name,
             allAvailableLanguages: new Map(),
             models: []
-          }
-        },
-        newsRouteMapping: {
+          },
           routeKeyNews1: {
+            routeType: NEWS_ROUTE,
             status: 'ready',
             models: [],
             hasMoreNews: false,
@@ -220,7 +226,7 @@ describe('HeaderContainer', () => {
 
     const state = prepareState()
     // $FlowFixMe Everything correct here, nothing to see.
-    state.cityContent.newsRouteMapping.routeKeyNews1.newsId = '12345'
+    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
 
     const result = render(ownProps, mockStore(state))
     const expectedShareUrl = cityContentUrl({

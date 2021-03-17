@@ -10,6 +10,7 @@ import createCityContent from './createCityContent'
 import { omit } from 'lodash'
 import pushPoi from './pushPoi'
 import pushCategory from './pushCategory'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState,
@@ -18,14 +19,16 @@ export default (
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const oldContent = state && state.categoriesRouteMapping[key] ? state.categoriesRouteMapping[key] : {}
+    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === CATEGORIES_ROUTE
+    const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
 
     return {
       ...initializedState,
-      categoriesRouteMapping: {
-        ...initializedState.categoriesRouteMapping,
+      routeMapping: {
+        ...initializedState.routeMapping,
         [key]: {
           ...oldContent,
+          routeType: CATEGORIES_ROUTE,
           status: 'loading',
           language,
           depth,
@@ -37,14 +40,16 @@ export default (
   } else if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const oldContent = state && state.eventsRouteMapping[key] ? state.eventsRouteMapping[key] : {}
+    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === EVENTS_ROUTE
+    const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
 
     return {
       ...initializedState,
-      eventsRouteMapping: {
-        ...initializedState.eventsRouteMapping,
+      routeMapping: {
+        ...initializedState.routeMapping,
         [key]: {
           ...oldContent,
+          routeType: EVENTS_ROUTE,
           status: 'loading',
           language,
           city,
@@ -57,9 +62,9 @@ export default (
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
-      newsRouteMapping: {
-        ...initializedState.newsRouteMapping,
-        [key]: { status: 'loading', language, city, newsId, type }
+      routeMapping: {
+        ...initializedState.routeMapping,
+        [key]: { routeType: NEWS_ROUTE, status: 'loading', language, city, newsId, type }
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
@@ -67,9 +72,18 @@ export default (
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
-      newsRouteMapping: {
-        ...initializedState.newsRouteMapping,
-        [key]: { status: 'loadingMore', language, city, newsId, type, page, models: previouslyFetchedNews }
+      routeMapping: {
+        ...initializedState.routeMapping,
+        [key]: {
+          routeType: NEWS_ROUTE,
+          status: 'loadingMore',
+          models: previouslyFetchedNews,
+          language,
+          city,
+          newsId,
+          type,
+          page
+        }
       }
     }
   } else if (action.type === 'FETCH_POI') {
@@ -77,9 +91,9 @@ export default (
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,
-      poisRouteMapping: {
-        ...initializedState.poisRouteMapping,
-        [key]: { status: 'loading', language, city, path }
+      routeMapping: {
+        ...initializedState.routeMapping,
+        [key]: { routeType: POIS_ROUTE, status: 'loading', language, city, path }
       }
     }
   } else {
@@ -122,58 +136,47 @@ export default (
         const { message, key, allAvailableLanguages, newsId, type, ...rest } = action.params
         return {
           ...state,
-          newsRouteMapping: {
-            ...state.newsRouteMapping,
+          routeMapping: {
+            ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
-              : { status: 'error', message, newsId, type, ...rest }
+              ? { routeType: NEWS_ROUTE, status: 'languageNotAvailable', type, allAvailableLanguages, ...rest }
+              : { routeType: NEWS_ROUTE, status: 'error', message, newsId, type, ...rest }
           }
         }
       }
+      case 'CLEAR_POI':
+      case 'CLEAR_CATEGORY':
+      case 'CLEAR_EVENT':
       case 'CLEAR_NEWS': {
         const { key } = action.params
         return {
           ...state,
-          newsRouteMapping: omit(state.newsRouteMapping, [key])
+          routeMapping: omit(state.routeMapping, [key])
         }
       }
       case 'MORPH_CONTENT_LANGUAGE':
         return morphContentLanguage(state, action)
-      case 'CLEAR_EVENT': {
-        const { key } = action.params
-        return {
-          ...state,
-          eventsRouteMapping: omit(state.eventsRouteMapping, [key])
-        }
-      }
       case 'FETCH_EVENT_FAILED': {
         const { message, key, allAvailableLanguages, path, ...rest } = action.params
         return {
           ...state,
-          eventsRouteMapping: {
-            ...state.eventsRouteMapping,
+          routeMapping: {
+            ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, path, ...rest }
+              ? { routeType: EVENTS_ROUTE, status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { routeType: EVENTS_ROUTE, status: 'error', message, path, ...rest }
           }
-        }
-      }
-      case 'CLEAR_CATEGORY': {
-        const { key } = action.params
-        return {
-          ...state,
-          categoriesRouteMapping: omit(state.categoriesRouteMapping, [key])
         }
       }
       case 'FETCH_CATEGORY_FAILED': {
         const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
         return {
           ...state,
-          categoriesRouteMapping: {
-            ...state.categoriesRouteMapping,
+          routeMapping: {
+            ...state.routeMapping,
             [key]: allAvailableLanguages
-              ? { status: 'languageNotAvailable', allAvailableLanguages, ...rest }
-              : { status: 'error', message, code, path, ...rest }
+              ? { routeType: CATEGORIES_ROUTE, status: 'languageNotAvailable', allAvailableLanguages, ...rest }
+              : { routeType: CATEGORIES_ROUTE, status: 'error', message, code, path, ...rest }
           }
         }
       }
