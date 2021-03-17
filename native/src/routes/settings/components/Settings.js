@@ -38,6 +38,7 @@ type ItemType = {|
   title: string,
   description?: string,
   hasSwitch?: true,
+  hasBadge?: true,
   getSettingValue?: (settings: SettingsType) => boolean | null,
   onPress?: () => void,
   accessibilityRole?: AccessibilityRole
@@ -123,8 +124,8 @@ export default class Settings extends React.Component<PropsType, StateType> {
         )}
         {hasBadge && (
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Badge status={getSettingValue(this.state.settings) ? 'success' : 'error'} />
-            <Text> {getSettingValue(this.state.settings) ? t('enabled') : t('disabled')}</Text>
+            <Badge status={value ? 'success' : 'error'} />
+            <Text> {value ? t('enabled') : t('disabled')}</Text>
             <Icon name='chevron-right' />
           </View>
         )}
@@ -159,7 +160,14 @@ export default class Settings extends React.Component<PropsType, StateType> {
       <LayoutContainer>
         <SectionList
           keyExtractor={this.keyExtractor}
-          sections={createSettingsSections({ setSetting: this.setSetting, t, languageCode, cityCode, navigation })}
+          sections={createSettingsSections({
+            setSetting: this.setSetting,
+            t,
+            languageCode,
+            cityCode,
+            navigation,
+            settings
+          })}
           extraData={settings}
           renderItem={this.renderItem}
           renderSectionHeader={this.renderSectionHeader}
