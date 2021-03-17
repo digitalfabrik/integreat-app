@@ -252,7 +252,7 @@ describe('I18nProvider', () => {
 
     expect(screen.getByText('Lokale Informationen')).toBeTruthy()
     expect(screen.getByText('de')).toBeTruthy()
-    expect(screen.getByText('de-DE')).toBeFalsy()
+    expect(screen.queryByText('de-DE')).toBeFalsy()
   })
 
   // We can not switch the language right now because it is bound to redux-first-router, we would need to trigger a
