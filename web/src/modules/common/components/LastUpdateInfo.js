@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { withTranslation, type TFunction } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import type Moment from 'moment'
 import styled, { type StyledComponent } from 'styled-components'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
