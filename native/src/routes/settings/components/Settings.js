@@ -102,7 +102,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   }
 
   renderItem = ({ item }: { item: ItemType, ... }) => {
-    const { theme } = this.props
+    const { theme, t } = this.props
     const { title, description, hasSwitch, hasBadge, onPress, getSettingValue, accessibilityRole } = item
     const value = getSettingValue ? getSettingValue(this.state.settings) : false
 
@@ -123,8 +123,8 @@ export default class Settings extends React.Component<PropsType, StateType> {
         )}
         {hasBadge && (
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Badge status='success' />
-            <Text> enabled</Text>
+            <Badge status={getSettingValue(this.state.settings) ? 'success' : 'error'} />
+            <Text> {getSettingValue(this.state.settings) ? t('enabled') : t('disabled')}</Text>
             <Icon name='chevron-right' />
           </View>
         )}
@@ -148,7 +148,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
   ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />
 
   render() {
-    const { t, languageCode, cityCode } = this.props
+    const { t, languageCode, cityCode, navigation } = this.props
     const { settings, settingsLoaded } = this.state
 
     if (!settingsLoaded) {
@@ -159,7 +159,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
       <LayoutContainer>
         <SectionList
           keyExtractor={this.keyExtractor}
-          sections={createSettingsSections({ setSetting: this.setSetting, t, languageCode, cityCode })}
+          sections={createSettingsSections({ setSetting: this.setSetting, t, languageCode, cityCode, navigation })}
           extraData={settings}
           renderItem={this.renderItem}
           renderSectionHeader={this.renderSectionHeader}

@@ -2714,7 +2714,11 @@
       "about": "Über {{appName}}",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
-      "openSourceLicenses": "Open-Source-Lizenzen"
+      "openSourceLicenses": "Open-Source-Lizenzen",
+      "evaluation": "Evaluation",
+      "evaluationDescription": "Durch das Senden von Tracking-Daten Integreat langfristig verbessern.",
+      "enabled": "aktiviert",
+      "disabled": "deaktiviert"
     },
     "ar": {
       "sentryTitle": "استقرار التطبيق",
