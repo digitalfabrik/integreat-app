@@ -52,6 +52,7 @@ export default ({ children }: PropsType) => {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
+        supportedLngs: config.getSupportedLanguageTags(),
         load: 'all',
         interpolation: {
           escapeValue: false /* Escaping is not needed for react apps:
