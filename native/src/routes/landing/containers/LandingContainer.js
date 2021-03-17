@@ -71,7 +71,7 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
       cityCode,
       languageCode,
       cityContentPath: cityContentPath({ cityCode, languageCode }),
-      forceRefresh: true,
+      forceRefresh: false,
       resetNavigation: true
     })
   }
