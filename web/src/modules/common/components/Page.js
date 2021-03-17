@@ -53,12 +53,15 @@ const Page = ({
       {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
       <Caption title={title} />
       {children}
-      <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
-                     onInternalLinkClick={onInternalLinkClick} />
-      {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate}
-                                     format={lastUpdateFormat}
-                                     formatter={formatter}
-                                     withText={showLastUpdateText} />}
+      <RemoteContent dangerouslySetInnerHTML={{ __html: content }} onInternalLinkClick={onInternalLinkClick} />
+      {lastUpdate && (
+        <LastUpdateInfo
+          lastUpdate={lastUpdate}
+          format={lastUpdateFormat}
+          formatter={formatter}
+          withText={showLastUpdateText}
+        />
+      )}
     </>
   )
 }
