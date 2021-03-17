@@ -31,6 +31,9 @@ export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
+export type JpalEvaluationRouteType = 'jpal-evaluation'
+export const JPAL_EVALUATION_ROUTE: JpalEvaluationRouteType = 'jpal-evaluation'
+
 // News types
 export type LocalNewsType = 'local'
 export const LOCAL_NEWS_TYPE: LocalNewsType = 'local'
@@ -40,6 +43,9 @@ export const TU_NEWS_TYPE: TuNewsType = 'tu-news'
 export type NewsType = LocalNewsType | TuNewsType
 
 // Internal native routes
+export type RedirectRouteType = 'redirect'
+export const REDIRECT_ROUTE: RedirectRouteType = 'redirect'
+
 export type IntroRouteType = 'intro'
 export const INTRO_ROUTE: IntroRouteType = 'intro'
 

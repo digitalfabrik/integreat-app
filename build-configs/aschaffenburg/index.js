@@ -19,7 +19,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   darkTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
-  shareBaseUrl: 'https://aschaffenburg.app',
+  hostName: 'aschaffenburg.app',
   allowedHostNames: ['cms.integreat-app.de'],
   internalLinksHijackPattern: 'https?:\\/\\/aschaffenburg\\.app(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
@@ -27,6 +27,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     newsStream: false,
     pushNotifications: false,
     introSlides: false,
+    jpalEvaluation: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: 'abapp'

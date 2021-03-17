@@ -15,16 +15,17 @@ import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
 import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
+import loadLanguages from './loadLanguages'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
 
 export function* fetchNews(dataContainer: DataContainer, action: FetchNewsActionType): Saga<void> {
-  const { city, language, newsId, key, type } = action.params
+  const { city, language, newsId, key, type, criterion } = action.params
   try {
     const isLocalNews = type === LOCAL_NEWS_TYPE
 
-    const languages = yield call(dataContainer.getLanguages, city)
+    const languages = yield call(loadLanguages, city, dataContainer, criterion.forceUpdate)
     const availableNewsLanguages = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
 
     const validLanguage = availableNewsLanguages.find(languageModel => languageModel.code === language)
