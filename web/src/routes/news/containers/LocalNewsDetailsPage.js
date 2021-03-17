@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'redux-first-router'
-import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
+import { CityModel, LocalNewsModel, NotFoundError, replaceLinks } from 'api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -29,11 +29,12 @@ export const LocalNewsDetailsPage = ({ localNewsElement, language, city, cities,
     const error = new NotFoundError({ type: LOCAL_NEWS_TYPE, id, city, language })
     return <FailureSwitcher error={error} />
   }
+  const linkedContent = replaceLinks(localNewsElement.message)
 
   return (
     <Page
       title={localNewsElement.title}
-      content={localNewsElement.message}
+      content={linkedContent}
       formatter={formatter}
       lastUpdate={localNewsElement.timestamp}
       showLastUpdateText={false}
