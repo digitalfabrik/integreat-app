@@ -2,7 +2,7 @@
 
 import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
 const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
@@ -27,6 +27,7 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
       const models = page && previouslyFetchedNews ? { models: [...previouslyFetchedNews, ...news] } : { models: news }
 
       return {
+        routeType: NEWS_ROUTE,
         status: 'ready',
         newsId: null,
         hasMoreNews,
@@ -42,6 +43,7 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
 
     if (!newsItem) {
       return {
+        routeType: NEWS_ROUTE,
         status: 'error',
         message: `News Item with newsId ${newsId} was not found in supplied models.`,
         code: ErrorCodes.PageNotFound,
@@ -55,6 +57,7 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
     const allAvailableLanguages = availableLanguages.filter(languageModel => languageModel.code === language)
 
     return {
+      routeType: NEWS_ROUTE,
       status: 'ready',
       newsId,
       models: [newsItem],
@@ -69,7 +72,7 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
 
   return {
     ...state,
-    newsRouteMapping: { ...state.newsRouteMapping, [key]: getNewsRoute() }
+    routeMapping: { ...state.routeMapping, [key]: getNewsRoute() }
   }
 }
 

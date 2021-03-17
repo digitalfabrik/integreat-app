@@ -222,7 +222,7 @@ class Intro extends React.Component<PropsType, StateType> {
     await this._appSettings.setIntroShown()
 
     const { dispatch, route, navigation, language } = this.props
-    if (route.params.deepLink) {
+    if (route.params?.deepLink) {
       navigateToDeepLink(dispatch, navigation, route.params.deepLink, language)
     } else {
       navigation.replace(LANDING_ROUTE)

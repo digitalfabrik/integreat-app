@@ -51,11 +51,9 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
       if (isExternalUrl && postData) {
         // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
-        if (postData) {
-          navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
-        } else {
-          openExternalUrl(path)
-        }
+        navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
+      } else if (isExternalUrl) {
+        openExternalUrl(path)
       } else {
         if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
           const params = { cityCode, languageCode }

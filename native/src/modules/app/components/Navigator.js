@@ -178,7 +178,7 @@ const Navigator = (props: PropsType) => {
   return (
     <Stack.Navigator initialRouteName={initialRoute.name} headerMode='screen' screenOptions={transitionPreset}>
       <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} options={{ header: () => null }} />
-      <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} />
+      <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} initialParams={{}} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
       <Stack.Screen
         name={DASHBOARD_ROUTE}
