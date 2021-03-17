@@ -7,8 +7,6 @@ import { shallow } from 'enzyme'
 describe('FeedbackThanksMessage', () => {
   it('should match snapshot', () => {
     const t = (key: ?string): string => key || ''
-    expect(shallow(
-      <FeedbackThanksMessage closeFeedbackModal={() => {}} t={t} />
-    )).toMatchSnapshot()
+    expect(shallow(<FeedbackThanksMessage closeFeedbackModal={() => {}} t={t} />)).toMatchSnapshot()
   })
 })

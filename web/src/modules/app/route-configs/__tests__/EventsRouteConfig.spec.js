@@ -11,8 +11,10 @@ const events = [
     hash: '425652fa',
     path: '/augsburg/de/events/erstes_event',
     title: 'Erstes Event',
-    availableLanguages: new Map(
-      [['en', '/augsburg/en/events/first_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+    availableLanguages: new Map([
+      ['en', '/augsburg/en/events/first_event'],
+      ['ar', '/augsburg/ar/events/erstes_event']
+    ]),
     date: new DateModel({
       startDate: moment('2017-11-18T09:30:00.000Z'),
       endDate: moment('2017-11-18T19:30:00.000Z'),
@@ -78,8 +80,9 @@ describe('EventsRouteConfig', () => {
         type: eventsRouteConfig.name
       })
 
-      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBe('/augsburg/en/events')
+      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe(
+        '/augsburg/en/events'
+      )
     })
     it('a event with the given pathname exists', () => {
       const location = createLocation({
@@ -87,10 +90,12 @@ describe('EventsRouteConfig', () => {
         pathname: '/augsburg/de/events/erstes_event',
         type: eventsRouteConfig.name
       })
-      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBe('/augsburg/en/events/first_event')
-      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-        .toBe('/augsburg/ar/events/erstes_event')
+      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe(
+        '/augsburg/en/events/first_event'
+      )
+      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location })).toBe(
+        '/augsburg/ar/events/erstes_event'
+      )
       expect(eventsRouteConfig.getLanguageChangePath({ payloads, location, language: 'fr' })).toBeNull()
     })
 
@@ -100,8 +105,7 @@ describe('EventsRouteConfig', () => {
         pathname: '/augsburg/de/events/invalid_event',
         type: eventsRouteConfig.name
       })
-      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-        .toBeNull()
+      expect(eventsRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBeNull()
     })
   })
 
@@ -113,8 +117,9 @@ describe('EventsRouteConfig', () => {
         type: eventsRouteConfig.name
       })
 
-      expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('Erstes Event - Stadt Augsburg')
+      expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+        'Erstes Event - Stadt Augsburg'
+      )
     })
 
     it('no event with the given pathname exists', () => {
@@ -124,8 +129,9 @@ describe('EventsRouteConfig', () => {
         type: eventsRouteConfig.name
       })
 
-      expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('pageTitles.events - Stadt Augsburg')
+      expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+        'pageTitles.events - Stadt Augsburg'
+      )
     })
 
     it('is the events root page', () => {
@@ -135,8 +141,9 @@ describe('EventsRouteConfig', () => {
         type: eventsRouteConfig.name
       })
 
-      expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-        .toBe('pageTitles.events - Stadt Augsburg')
+      expect(eventsRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe(
+        'pageTitles.events - Stadt Augsburg'
+      )
     })
 
     it('the city is wrong', () => {
@@ -146,8 +153,7 @@ describe('EventsRouteConfig', () => {
         type: eventsRouteConfig.name
       })
 
-      expect(eventsRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: null, t }))
-        .toBeNull()
+      expect(eventsRouteConfig.getPageTitle({ payloads, location: rootLocation, cityName: null, t })).toBeNull()
     })
   })
 
@@ -168,16 +174,14 @@ describe('EventsRouteConfig', () => {
     })
 
     it('should get feedback information', () => {
-      expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location }))
-        .toEqual({
-          title: 'Erstes Event',
-          path: '/augsburg/de/events/erstes_event'
-        })
+      expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location })).toEqual({
+        title: 'Erstes Event',
+        path: '/augsburg/de/events/erstes_event'
+      })
     })
 
     it('should get nothing for feedback information if location is invalid', () => {
-      expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location: invalidLocation }))
-        .toBeNull()
+      expect(eventsRouteConfig.getFeedbackTargetInformation({ payloads, location: invalidLocation })).toBeNull()
     })
   })
 })

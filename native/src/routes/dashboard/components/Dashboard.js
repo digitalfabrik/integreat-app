@@ -26,7 +26,8 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
-  POIS_ROUTE, TU_NEWS_TYPE
+  POIS_ROUTE,
+  TU_NEWS_TYPE
 } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
@@ -49,13 +50,8 @@ export type PropsType = {|
 |}
 
 class Dashboard extends React.Component<PropsType> {
-  getNavigationTileModels (): Array<TileModel> {
-    const {
-      navigateTo,
-      cityModel,
-      language,
-      t
-    } = this.props
+  getNavigationTileModels(): Array<TileModel> {
+    const { navigateTo, cityModel, language, t } = this.props
 
     const { featureFlags } = buildConfig()
     const { tunewsEnabled, pushNotificationsEnabled, code: cityCode } = cityModel
@@ -67,80 +63,94 @@ class Dashboard extends React.Component<PropsType> {
         path: 'categories',
         thumbnail: localInformationIcon,
         isExternalUrl: false,
-        onTilePress: () => navigateTo({
-          route: CATEGORIES_ROUTE,
-          cityCode,
-          languageCode: language,
-          cityContentPath: cityContentPath({ cityCode, languageCode: language })
-        }),
+        onTilePress: () =>
+          navigateTo({
+            route: CATEGORIES_ROUTE,
+            cityCode,
+            languageCode: language,
+            cityContentPath: cityContentPath({ cityCode, languageCode: language })
+          }),
         notifications: 0
-      })]
+      })
+    ]
 
     if (featureFlags.newsStream && isNewsEnabled) {
-      tiles.push(new TileModel({
-        title: t('news'),
-        path: 'news',
-        thumbnail: newsIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateTo({
-          route: NEWS_ROUTE,
-          cityCode,
-          languageCode: language,
-          newsType: pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE
-        }),
-        notifications: 0
-      }))
+      tiles.push(
+        new TileModel({
+          title: t('news'),
+          path: 'news',
+          thumbnail: newsIcon,
+          isExternalUrl: false,
+          onTilePress: () =>
+            navigateTo({
+              route: NEWS_ROUTE,
+              cityCode,
+              languageCode: language,
+              newsType: pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE
+            }),
+          notifications: 0
+        })
+      )
     }
 
     if (cityModel.eventsEnabled) {
-      tiles.push(new TileModel({
-        title: t('events'),
-        path: 'events',
-        thumbnail: eventsIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateTo({
-          route: EVENTS_ROUTE,
-          cityCode,
-          languageCode: language
-        }),
-        notifications: 0
-      }))
+      tiles.push(
+        new TileModel({
+          title: t('events'),
+          path: 'events',
+          thumbnail: eventsIcon,
+          isExternalUrl: false,
+          onTilePress: () =>
+            navigateTo({
+              route: EVENTS_ROUTE,
+              cityCode,
+              languageCode: language
+            }),
+          notifications: 0
+        })
+      )
     }
 
     if (cityModel.offersEnabled) {
-      tiles.push(new TileModel({
-        title: t('offers'),
-        path: 'offers',
-        thumbnail: offersIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateTo({
-          route: OFFERS_ROUTE,
-          cityCode,
-          languageCode: language
-        }),
-        notifications: 0
-      }))
+      tiles.push(
+        new TileModel({
+          title: t('offers'),
+          path: 'offers',
+          thumbnail: offersIcon,
+          isExternalUrl: false,
+          onTilePress: () =>
+            navigateTo({
+              route: OFFERS_ROUTE,
+              cityCode,
+              languageCode: language
+            }),
+          notifications: 0
+        })
+      )
     }
 
     if (cityModel.poisEnabled && featureFlags.pois) {
-      tiles.push(new TileModel({
-        title: t('pois'),
-        path: 'pois',
-        thumbnail: poisIcon,
-        isExternalUrl: false,
-        onTilePress: () => navigateTo({
-          route: POIS_ROUTE,
-          cityCode,
-          languageCode: language
-        }),
-        notifications: 0
-      }))
+      tiles.push(
+        new TileModel({
+          title: t('pois'),
+          path: 'pois',
+          thumbnail: poisIcon,
+          isExternalUrl: false,
+          onTilePress: () =>
+            navigateTo({
+              route: POIS_ROUTE,
+              cityCode,
+              languageCode: language
+            }),
+          notifications: 0
+        })
+      )
     }
 
     return tiles
   }
 
-  render () {
+  render() {
     const {
       stateView,
       theme,
@@ -157,9 +167,11 @@ class Dashboard extends React.Component<PropsType> {
 
     return (
       <SpaceBetween>
-        {navigationTiles.length > 1
-          ? <NavigationTiles tiles={navigationTiles} theme={theme} language={language} />
-          : <Spacing />}
+        {navigationTiles.length > 1 ? (
+          <NavigationTiles tiles={navigationTiles} theme={theme} language={language} />
+        ) : (
+          <Spacing />
+        )}
         <Categories
           stateView={stateView}
           resourceCache={resourceCache}

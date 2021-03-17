@@ -9,9 +9,8 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { EXTERNAL_OFFER_ROUTE, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
+import { EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
-import { cityContentUrl } from '../../../modules/navigation/url'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
 import type { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
@@ -44,60 +43,79 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     await loadFromEndpoint<Array<OfferModel>>(request, setOffers, setError, setLoading)
   }, [cityCode, languageCode, setOffers, setError, setLoading])
 
-  const tryAgain = useCallback(() => { loadOffers().catch(e => setError(e)) }, [loadOffers])
+  const tryAgain = useCallback(() => {
+    loadOffers().catch(e => setError(e))
+  }, [loadOffers])
 
   useEffect(() => {
     loadOffers().catch(e => setError(e))
   }, [loadOffers])
 
-  const navigateToOffer = useCallback((tile: TileModel) => {
-    const { title, path, isExternalUrl, postData } = tile
-    const offer = offers && offers.find(offer => offer.title === title)
-    if (!offer) {
-      return
-    }
+  const navigateToOffer = useCallback(
+    (tile: TileModel) => {
+      const { title, path, isExternalUrl, postData } = tile
+      const offer = offers && offers.find(offer => offer.title === title)
+      if (!offer) {
+        return
+      }
 
-    if (isExternalUrl && postData) {
-      // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
-      if (postData) {
-        navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
+      if (isExternalUrl && postData) {
+        // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
+        if (postData) {
+          navigation.push(EXTERNAL_OFFER_ROUTE, { url: path, shareUrl: path, postData })
+        } else {
+          openExternalUrl(path)
+        }
       } else {
-        openExternalUrl(path)
+        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+          const params = { cityCode, languageCode, title, alias: offer.alias, apiUrl: offer.path }
+          navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+        } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
+          const params = { city: cityCode, title, alias: offer.alias, postData, offerHash: null }
+          navigation.push(WOHNEN_OFFER_ROUTE, params)
+        }
       }
-    } else {
-      if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
-        const shareUrl = cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE, path: offer.alias })
-        const params = { cityCode, languageCode, title, alias: offer.alias, apiUrl: offer.path, shareUrl }
-        navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
-      } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
-        const params = { city: cityCode, title, alias: offer.alias, postData, offerHash: null }
-        navigation.push(WOHNEN_OFFER_ROUTE, params)
-      }
-    }
-  }, [offers, cityCode, languageCode, navigation])
+    },
+    [offers, cityCode, languageCode, navigation]
+  )
 
-  const navigateToFeedback = useCallback((isPositiveFeedback: boolean) => {
-    if (offers) {
-      createNavigateToFeedbackModal(navigation)({
-        type: 'Offers',
-        language: languageCode,
-        cityCode,
-        offers,
-        isPositiveFeedback
-      })
-    }
-  }, [offers, languageCode, cityCode, navigation])
+  const navigateToFeedback = useCallback(
+    (isPositiveFeedback: boolean) => {
+      if (offers) {
+        createNavigateToFeedbackModal(navigation)({
+          type: 'Offers',
+          language: languageCode,
+          cityCode,
+          offers,
+          isPositiveFeedback
+        })
+      }
+    },
+    [offers, languageCode, cityCode, navigation]
+  )
 
   if (error) {
-    return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
+    return (
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
         <FailureContainer code={fromError(error)} tryAgain={tryAgain} />
       </LayoutedScrollView>
+    )
   }
 
-  return <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
-    {offers && <Offers offers={offers} navigateToOffer={navigateToOffer} theme={theme} t={t}
-                       navigateToFeedback={navigateToFeedback} language={languageCode} /> }
+  return (
+    <LayoutedScrollView refreshControl={<RefreshControl onRefresh={loadOffers} refreshing={loading} />}>
+      {offers && (
+        <Offers
+          offers={offers}
+          navigateToOffer={navigateToOffer}
+          theme={theme}
+          t={t}
+          navigateToFeedback={navigateToFeedback}
+          language={languageCode}
+        />
+      )}
     </LayoutedScrollView>
+  )
 }
 
 export default withTranslation<$Diff<OffersPropsType, {| theme: ThemeType |}>>('offers')(

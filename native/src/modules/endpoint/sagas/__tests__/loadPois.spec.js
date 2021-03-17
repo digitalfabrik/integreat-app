@@ -11,25 +11,24 @@ import DatabaseContext from '../../DatabaseContext'
 let mockPois
 jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
-jest.mock('api-client',
-  () => {
-    const actual = jest.requireActual('api-client')
-    return {
-      ...actual,
-      createPOIsEndpoint: () => {
-        const { EndpointBuilder } = require('api-client')
-        const { default: PoiModelBuilder } = require('api-client/src/testing/PoiModelBuilder')
+jest.mock('api-client', () => {
+  const actual = jest.requireActual('api-client')
+  return {
+    ...actual,
+    createPOIsEndpoint: () => {
+      const { EndpointBuilder } = require('api-client')
+      const { default: PoiModelBuilder } = require('api-client/src/testing/PoiModelBuilder')
 
-        mockPois = new PoiModelBuilder(2).build()
+      mockPois = new PoiModelBuilder(2).build()
 
-        return new EndpointBuilder('pois-mock')
-          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
-          .withResponseOverride(mockPois)
-          .withMapper(() => { })
-          .build()
-      }
+      return new EndpointBuilder('pois-mock')
+        .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
+        .withResponseOverride(mockPois)
+        .withMapper(() => {})
+        .build()
     }
-  })
+  }
+})
 
 describe('loadPois', () => {
   beforeEach(() => {

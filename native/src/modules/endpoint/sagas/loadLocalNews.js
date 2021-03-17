@@ -5,10 +5,7 @@ import { createLocalNewsEndpoint, LocalNewsModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 import determineApiUrl from '../determineApiUrl'
 
-function * loadLocalNews (
-  city: string,
-  language: string
-): Saga<Array<LocalNewsModel>> {
+function* loadLocalNews(city: string, language: string): Saga<Array<LocalNewsModel>> {
   console.debug('Fetching news')
 
   const apiUrl = yield call(determineApiUrl)

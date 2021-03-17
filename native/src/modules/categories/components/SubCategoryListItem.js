@@ -18,7 +18,11 @@ const SubCategoryTitleContainer = styled.View`
 `
 
 type FlexStyledLinkPropsType = {|
-  language: string, children: React.Node, theme: ThemeType, onPress: () => void, underlayColor: string
+  language: string,
+  children: React.Node,
+  theme: ThemeType,
+  onPress: () => void,
+  underlayColor: string
 |}
 
 const FlexStyledLink: StyledComponent<FlexStyledLinkPropsType, ThemeType, *> = styled.TouchableHighlight`
@@ -44,11 +48,14 @@ class SubCategoryListItem extends React.PureComponent<PropsType> {
     this.props.onItemPress(this.props.subCategory)
   }
 
-  render () {
+  render() {
     const { language, subCategory, theme } = this.props
     return (
-      <FlexStyledLink onPress={this.onSubCategoryPress} underlayColor={theme.colors.backgroundAccentColor}
-                      language={language} theme={theme}>
+      <FlexStyledLink
+        onPress={this.onSubCategoryPress}
+        underlayColor={theme.colors.backgroundAccentColor}
+        language={language}
+        theme={theme}>
         <SubCategoryTitleContainer language={language} theme={theme}>
           <SubCategoryTitle theme={theme}>{subCategory.title}</SubCategoryTitle>
         </SubCategoryTitleContainer>

@@ -43,10 +43,12 @@ const endpointNames = [
   TUNEWS_ELEMENT_ENDPOINT_NAME
 ]
 
-export const startFetchReducer = (oldPayload?: Payload<*>, action: StartFetchActionType<*>
-): Payload<*> => action.payload
+export const startFetchReducer = (oldPayload?: Payload<*>, action: StartFetchActionType<*>): Payload<*> =>
+  action.payload
 
-export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>, action: FinishFetchActionType<T, *>
+export const finishFetchReducer = <T: PayloadDataType>(
+  oldPayload?: Payload<T>,
+  action: FinishFetchActionType<T, *>
 ): Payload<T> => {
   if (!oldPayload) {
     return action.payload
@@ -65,16 +67,15 @@ export const finishFetchReducer = <T: PayloadDataType> (oldPayload?: Payload<T>,
 const defaultState = new Payload(false)
 
 type ReducerType<T: PayloadDataType> = Reducer<Payload<T>, StartFetchActionType<T> | FinishFetchActionType<T>>
-const reducers: { [actionName: string]: ReducerType<*> } = endpointNames.reduce(
-  (result, endpointName) => {
-    result[endpointName] = handleActions(
-      {
-        [startFetchActionName(endpointName)]: startFetchReducer,
-        [finishFetchActionName(endpointName)]: finishFetchReducer
-      },
-      defaultState
-    )
-    return result
-  }, {})
+const reducers: { [actionName: string]: ReducerType<*> } = endpointNames.reduce((result, endpointName) => {
+  result[endpointName] = handleActions(
+    {
+      [startFetchActionName(endpointName)]: startFetchReducer,
+      [finishFetchActionName(endpointName)]: finishFetchReducer
+    },
+    defaultState
+  )
+  return result
+}, {})
 
 export default reducers

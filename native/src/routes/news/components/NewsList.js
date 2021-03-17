@@ -26,15 +26,19 @@ type PropType = {|
 const NewsList = (props: PropType) => {
   const { items, renderItem, isFetchingMore, fetchMoreItems, renderNoItemsComponent } = props
 
-  function onRefresh () {
+  function onRefresh() {
     const { routeKey, navigateTo, cityCode, language, newsId, selectedNewsType } = props
-    navigateTo({
-      route: NEWS_ROUTE,
-      cityCode,
-      newsType: selectedNewsType,
-      languageCode: language,
-      newsId: newsId || undefined
-    }, routeKey, true)
+    navigateTo(
+      {
+        route: NEWS_ROUTE,
+        cityCode,
+        newsType: selectedNewsType,
+        languageCode: language,
+        newsId: newsId || undefined
+      },
+      routeKey,
+      true
+    )
   }
 
   return (
@@ -45,9 +49,7 @@ const NewsList = (props: PropType) => {
         flexGrow: 1,
         paddingHorizontal: 10
       }}
-      refreshControl={<RefreshControl
-        refreshing={false}
-        onRefresh={onRefresh} />}
+      refreshControl={<RefreshControl refreshing={false} onRefresh={onRefresh} />}
       onEndReached={fetchMoreItems}
       ListEmptyComponent={renderNoItemsComponent}
       ListFooterComponent={isFetchingMore ? <LoadingSpinner /> : null}

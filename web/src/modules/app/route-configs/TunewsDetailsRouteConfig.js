@@ -8,7 +8,8 @@ import {
   Payload,
   createTunewsElementEndpoint,
   createCitiesEndpoint,
-  createEventsEndpoint, CityModel
+  createEventsEndpoint,
+  CityModel
 } from 'api-client'
 import fetchData from '../fetchData'
 import { cmsApiBaseUrl, tunewsApiBaseUrl } from '../constants/urls'
@@ -62,8 +63,8 @@ class TunewsDetailsRouteConfig implements RouteConfig<TunewsDetailsRouteParamsTy
     if (!tunewsElement) {
       return null
     }
-    const cityModel = payloads.cities.data &&
-      payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
+    const cityModel =
+      payloads.cities.data && payloads.cities.data.find(cityModel => cityModel.code === location.payload.city)
     if (!cityModel || !cityModel.tunewsEnabled) {
       return null
     }

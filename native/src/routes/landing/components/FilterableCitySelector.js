@@ -25,7 +25,7 @@ type PropsType = {|
   theme: ThemeType,
   location: LocationType,
   proposeNearbyCities: boolean,
-  tryAgain: null | () => void
+  tryAgain: null | (() => void)
 |}
 
 type StateType = {
@@ -33,7 +33,7 @@ type StateType = {
 }
 
 class FilterableCitySelector extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = {
       filterText: ''
@@ -42,18 +42,20 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
 
   onFilterTextChange = (filterText: string) => this.setState({ filterText })
 
-  render () {
+  render() {
     const { t, theme } = this.props
     const filterText = this.state.filterText
 
     return (
       <View>
         <SearchBar>
-          <SearchInput filterText={filterText}
-                       onFilterTextChange={this.onFilterTextChange}
-                       placeholderText={t('searchCity')}
-                       spaceSearch={false}
-                       theme={theme} />
+          <SearchInput
+            filterText={filterText}
+            onFilterTextChange={this.onFilterTextChange}
+            placeholderText={t('searchCity')}
+            spaceSearch={false}
+            theme={theme}
+          />
         </SearchBar>
         <CitySelector {...this.props} filterText={filterText} />
       </View>
