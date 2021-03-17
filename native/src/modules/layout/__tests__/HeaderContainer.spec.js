@@ -60,7 +60,7 @@ describe('HeaderContainer', () => {
             path: `${city.code}/${language.code}/abc`,
             depth: 1,
             language: language.code,
-            city: city.name,
+            city: city.code,
             allAvailableLanguages: new Map(),
             models: {},
             children: {}
@@ -81,6 +81,27 @@ describe('HeaderContainer', () => {
             language: language.code,
             city: city.code,
             models: [],
+            allAvailableLanguages: new Map()
+          },
+          routeKeyPois1: {
+            routeType: POIS_ROUTE,
+            status: 'ready',
+            path: null,
+            language: language.code,
+            city: city.code,
+            allAvailableLanguages: new Map(),
+            models: []
+          },
+          routeKeyNews1: {
+            routeType: NEWS_ROUTE,
+            status: 'ready',
+            models: [],
+            hasMoreNews: false,
+            page: 1,
+            newsId: null,
+            language: language.code,
+            city: city.code,
+            type: LOCAL_NEWS_TYPE,
             allAvailableLanguages: new Map()
           }
         },
