@@ -31,9 +31,9 @@ const FlexStyledLink: StyledComponent<FlexStyledLinkPropsType, ThemeType, *> = s
   margin: 0 20px 0 95px;
 `
 
-const SubCategoryTitle = styled.Text`
+const SubCategoryTitle: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 type PropsType = {|

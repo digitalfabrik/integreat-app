@@ -12,6 +12,7 @@ import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import type { SendingStatusType } from '../containers/FeedbackModalContainer'
+import type { StyledComponent } from 'styled-components'
 
 const Input = styled(TextInput)`
   margin-bottom: 15px;
@@ -24,10 +25,10 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Description = styled.Text`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.Text`
   padding: 15px 0 5px;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 const RequiredText = styled.Text`

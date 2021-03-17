@@ -16,16 +16,16 @@ const Input = styled(TextInput)`
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const DescriptionText: StyledComponent<{}, ThemeType, *> = styled(Text)`
+const DescriptionText: StyledComponent<{||}, ThemeType, *> = styled(Text)`
   margin-top: 20px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
-const TitleText = styled.Text`
+const TitleText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 type PropsType = {|
