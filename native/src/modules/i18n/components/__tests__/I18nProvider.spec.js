@@ -46,10 +46,7 @@ const prepareState = ({
         status: 'ready',
         models: [language]
       },
-      eventsRouteMapping: {},
-      categoriesRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       searchRoute: null,
       resourceCache: {
         status: 'ready',
