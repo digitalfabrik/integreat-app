@@ -1,10 +1,15 @@
-# Ignore artifacts:
+android/**/*
+ios/**/*
+
+# Dists/artifacts
 www/
-node_modules/
-flow-typed/
-reports/
 ios/main.jsbundle
 dist/
 lib-dist/
-android/fastlane/README.md
-android/app/build/
+
+# Ignore node_modules
+**/node_modules/**
+# Ignore external flow types
+**/flow-typed/**
+# Ignore all reports of code quality tools
+**/reports/**
