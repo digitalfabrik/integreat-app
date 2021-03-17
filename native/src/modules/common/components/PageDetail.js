@@ -6,7 +6,7 @@ import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 
-const Identifier: StyledComponent<{}, ThemeType, *> = styled.Text`
+const Identifier: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontBold};
   color: ${props => props.theme.colors.textColor};
 `

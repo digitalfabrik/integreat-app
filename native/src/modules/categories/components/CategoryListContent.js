@@ -169,7 +169,7 @@ const CategoryListContent = ({
           renderers={{ ul: renderLists, ol: renderLists }}
           baseFontStyle={{
             fontSize: 14,
-            fontFamily: theme.fonts.nativecontentFontRegular,
+            fontFamily: theme.fonts.native.contentFontRegular,
             color: theme.colors.textColor
           }}
           tagsStyles={{
