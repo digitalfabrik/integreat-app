@@ -52,8 +52,9 @@ export default ({ children }: PropsType) => {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
-        supportedLngs: config.getSupportedLanguageTags(),
-        load: 'all',
+        supportedLngs: config.getSupportedLanguageTags() /* Only allow supported languages (languages which can appear 
+                                                             in content of cms */,
+        load: 'currentOnly', // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
         interpolation: {
           escapeValue: false /* Escaping is not needed for react apps:
                                 https://github.com/i18next/react-i18next/issues/277 */
