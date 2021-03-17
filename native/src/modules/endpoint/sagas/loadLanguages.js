@@ -6,14 +6,12 @@ import { createLanguagesEndpoint, LanguageModel } from 'api-client'
 import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 
-export default function * loadLanguages (
+export default function* loadLanguages(
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): Saga<Array<LanguageModel>> {
-  const languagesAvailable = yield call(() =>
-    dataContainer.languagesAvailable(city)
-  )
+  const languagesAvailable = yield call(() => dataContainer.languagesAvailable(city))
 
   if (languagesAvailable && !forceRefresh) {
     try {

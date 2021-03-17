@@ -73,8 +73,8 @@ describe('RouteContentSwitcher', () => {
   it('should render and match snapshot', () => {
     const location = createLocation({ type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' } })
 
-    expect(shallow(
-      <RouteContentSwitcher location={location} payloads={payloads} isLoading={false} />)
+    expect(
+      shallow(<RouteContentSwitcher location={location} payloads={payloads} isLoading={false} />)
     ).toMatchSnapshot()
   })
 })

@@ -21,29 +21,30 @@ export default ({ children }: PropsType) => {
   const [i18nextInstance, setI18nextInstance] = useState(null)
   const dispatch = useDispatch()
 
-  const setContentLanguage = useCallback(async (uiLanguage: string) => {
-    const appSettings = new AppSettings()
-    const contentLanguage = await appSettings.loadContentLanguage()
+  const setContentLanguage = useCallback(
+    async (uiLanguage: string) => {
+      const appSettings = new AppSettings()
+      const contentLanguage = await appSettings.loadContentLanguage()
 
-    if (!contentLanguage) {
-      await appSettings.setContentLanguage(uiLanguage)
-    }
-
-    const setContentLanguageAction: SetContentLanguageActionType = {
-      type: 'SET_CONTENT_LANGUAGE',
-      params: {
-        contentLanguage: contentLanguage || uiLanguage
+      if (!contentLanguage) {
+        await appSettings.setContentLanguage(uiLanguage)
       }
-    }
-    dispatch(setContentLanguageAction)
-  }, [dispatch])
+
+      const setContentLanguageAction: SetContentLanguageActionType = {
+        type: 'SET_CONTENT_LANGUAGE',
+        params: {
+          contentLanguage: contentLanguage || uiLanguage
+        }
+      }
+      dispatch(setContentLanguageAction)
+    },
+    [dispatch]
+  )
 
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
-      const i18nextInstance = await i18next
-        .createInstance()
-        .use(NativeLanguageDetector)
+      const i18nextInstance = await i18next.createInstance().use(NativeLanguageDetector)
 
       await i18nextInstance.init({
         resources,
@@ -74,9 +75,7 @@ export default ({ children }: PropsType) => {
     })
   }, [setContentLanguage])
 
-  const dateFormatter = useMemo(
-    () => new DateFormatter(config.defaultFallback),
-    [])
+  const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
@@ -88,9 +87,7 @@ export default ({ children }: PropsType) => {
 
   return (
     <I18nextProvider i18n={i18nextInstance}>
-      <DateFormatterContext.Provider value={dateFormatter}>
-        {children}
-      </DateFormatterContext.Provider>
+      <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
     </I18nextProvider>
   )
 }

@@ -30,25 +30,31 @@ jest.mock('redux-first-router-link')
 describe('FeedbackBoxContainer', () => {
   const cities = new CityModelBuilder(1).build()
   const t = (key: ?string): string => key || ''
-  const location = createLocation(
-    { type: CATEGORIES_ROUTE, payload: { city: 'augsburg', language: 'de' }, query: { feedback: 'up' } })
+  const location = createLocation({
+    type: CATEGORIES_ROUTE,
+    payload: { city: 'augsburg', language: 'de' },
+    query: { feedback: 'up' }
+  })
 
   it('should match snapshot', () => {
-    expect(shallow(
-      <FeedbackBoxContainer
-        location={location}
-        query='ab'
-        cities={cities}
-        path='path'
-        title='title'
-        alias='alias'
-        isPositiveRatingSelected
-        offers={null}
-        t={t}
-        onSubmit={() => {}}
-        closeFeedbackModal={() => {}}
-        sendingStatus='SUCCESS' />
-    )).toMatchSnapshot()
+    expect(
+      shallow(
+        <FeedbackBoxContainer
+          location={location}
+          query='ab'
+          cities={cities}
+          path='path'
+          title='title'
+          alias='alias'
+          isPositiveRatingSelected
+          offers={null}
+          t={t}
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
+          sendingStatus='SUCCESS'
+        />
+      )
+    ).toMatchSnapshot()
   })
 
   describe('getFeedbackOptions', () => {
@@ -66,7 +72,8 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           sendingStatus='SUCCESS'
-          t={t} />
+          t={t}
+        />
       ).instance()
 
       const option = new FeedbackVariant({
@@ -95,7 +102,8 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           sendingStatus='SUCCESS'
-          t={t} />
+          t={t}
+        />
       ).instance()
 
       const option = new FeedbackVariant({
@@ -124,7 +132,8 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           sendingStatus='SUCCESS'
-          t={t} />
+          t={t}
+        />
       ).instance()
 
       const options = [
@@ -160,15 +169,17 @@ describe('FeedbackBoxContainer', () => {
           closeFeedbackModal={() => {}}
           offers={null}
           sendingStatus='SUCCESS'
-          t={t} />
+          t={t}
+        />
       ).instance()
 
-      expect(instance.getFeedbackOptions())
-        .toContainEqual(new FeedbackVariant({
+      expect(instance.getFeedbackOptions()).toContainEqual(
+        new FeedbackVariant({
           label: 'technicalTopics',
           feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
           feedbackType: CATEGORIES_FEEDBACK_TYPE
-        }))
+        })
+      )
     })
   })
 
@@ -190,30 +201,34 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         sendingStatus='SUCCESS'
-        t={t} />
+        t={t}
+      />
     )
-    expect(component.instance().getContentFeedbackOption())
-      .toEqual(new FeedbackVariant({
+    expect(component.instance().getContentFeedbackOption()).toEqual(
+      new FeedbackVariant({
         label: 'contentOfCity',
         feedbackType: CATEGORIES_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
-      }))
+      })
+    )
 
     component.setProps({ location: offersLocation })
-    expect(component.instance().getContentFeedbackOption())
-      .toEqual(new FeedbackVariant({
+    expect(component.instance().getContentFeedbackOption()).toEqual(
+      new FeedbackVariant({
         label: 'contentOfCity',
         feedbackType: OFFER_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
-      }))
+      })
+    )
 
     component.setProps({ location: eventsLocation })
-    expect(component.instance().getContentFeedbackOption())
-      .toEqual(new FeedbackVariant({
+    expect(component.instance().getContentFeedbackOption()).toEqual(
+      new FeedbackVariant({
         label: 'contentOfCity',
         feedbackType: EVENTS_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY
-      }))
+      })
+    )
 
     component.setProps({ cities: null })
     expect(component.instance().getContentFeedbackOption()).toBeUndefined()
@@ -257,7 +272,8 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={offers}
         sendingStatus='SUCCESS'
-        t={t} />
+        t={t}
+      />
     )
 
     expect(component.instance().getOffersFeedbackOptions()).toMatchSnapshot()
@@ -286,7 +302,7 @@ describe('FeedbackBoxContainer', () => {
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY
     })
     const searchOption = new FeedbackVariant({
-      label: 'searchFor \'my query\'',
+      label: "searchFor 'my query'",
       feedbackType: SEARCH_FEEDBACK_TYPE,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY
     })
@@ -298,31 +314,32 @@ describe('FeedbackBoxContainer', () => {
     const offersOption = null
 
     it.each`
-    type                 | path       | alias           | title              | query         | result
-    ${CATEGORIES_ROUTE}  | ${null}    | ${''}           | ${'Augsburg'}      | ${''}         | ${dashboardOption}
-    ${CATEGORIES_ROUTE}  | ${'path1'} | ${''}           | ${'Willkommen'}    | ${''}         | ${categoriesOption}
-    ${EVENTS_ROUTE}      | ${'path2'} | ${''}           | ${'Event1'}        | ${''}         | ${eventsOption}
-    ${WOHNEN_ROUTE}      | ${null}    | ${'wohnen'}     | ${'Wohnungsboerse'}| ${''}         | ${wohnenOption}
-    ${SPRUNGBRETT_ROUTE} | ${null}    | ${'sprungbrett'}| ${'Sprungbrett'}   | ${''}         | ${sprungbrettOption}
-    ${SEARCH_ROUTE}      | ${null}    | ${''}           | ${''}              | ${'my query'} | ${searchOption}
-    ${DISCLAIMER_ROUTE}  | ${null}    | ${''}           | ${''}              | ${''}         | ${disclaimerOption}
-    ${OFFERS_ROUTE}      | ${null}    | ${''}           | ${''}              | ${''}         | ${offersOption}
+      type                 | path       | alias            | title               | query         | result
+      ${CATEGORIES_ROUTE}  | ${null}    | ${''}            | ${'Augsburg'}       | ${''}         | ${dashboardOption}
+      ${CATEGORIES_ROUTE}  | ${'path1'} | ${''}            | ${'Willkommen'}     | ${''}         | ${categoriesOption}
+      ${EVENTS_ROUTE}      | ${'path2'} | ${''}            | ${'Event1'}         | ${''}         | ${eventsOption}
+      ${WOHNEN_ROUTE}      | ${null}    | ${'wohnen'}      | ${'Wohnungsboerse'} | ${''}         | ${wohnenOption}
+      ${SPRUNGBRETT_ROUTE} | ${null}    | ${'sprungbrett'} | ${'Sprungbrett'}    | ${''}         | ${sprungbrettOption}
+      ${SEARCH_ROUTE}      | ${null}    | ${''}            | ${''}               | ${'my query'} | ${searchOption}
+      ${DISCLAIMER_ROUTE}  | ${null}    | ${''}            | ${''}               | ${''}         | ${disclaimerOption}
+      ${OFFERS_ROUTE}      | ${null}    | ${''}            | ${''}               | ${''}         | ${offersOption}
     `('should return the right option', ({ type, path, alias, title, query, result }) => {
       const location = createLocation({ type, payload: { city: 'augsburg', language: 'de', categoryPath: path } })
       const component = shallow(
-          <FeedbackBoxContainer
-            location={location}
-            query={query}
-            cities={cities}
-            path={path}
-            title={title}
-            alias={alias}
-            isPositiveRatingSelected
-            onSubmit={() => {}}
-            closeFeedbackModal={() => {}}
-            offers={null}
-                sendingStatus='SUCCESS'
-            t={t} />
+        <FeedbackBoxContainer
+          location={location}
+          query={query}
+          cities={cities}
+          path={path}
+          title={title}
+          alias={alias}
+          isPositiveRatingSelected
+          onSubmit={() => {}}
+          closeFeedbackModal={() => {}}
+          offers={null}
+          sendingStatus='SUCCESS'
+          t={t}
+        />
       )
 
       expect(component.instance().getCurrentPageFeedbackOption()).toEqual(result)
@@ -346,7 +363,8 @@ describe('FeedbackBoxContainer', () => {
         offers={null}
         postFeedbackDataOverride={mockPostFeedbackData}
         sendingStatus='SUCCESS'
-        t={t} />
+        t={t}
+      />
     )
 
     component.instance().handleSubmit()
@@ -365,7 +383,8 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         sendingStatus='ERROR'
-        t={t} />
+        t={t}
+      />
     )
 
     const instance = component.instance()
@@ -389,7 +408,8 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         sendingStatus='SUCCESS'
-        t={t} />
+        t={t}
+      />
     ).instance()
 
     const prevState = instance.state
@@ -413,7 +433,8 @@ describe('FeedbackBoxContainer', () => {
         closeFeedbackModal={() => {}}
         offers={null}
         sendingStatus='SUCCESS'
-        t={t} />
+        t={t}
+      />
     ).instance()
 
     const prevState = instance.state

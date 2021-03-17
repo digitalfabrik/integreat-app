@@ -9,7 +9,7 @@ export default class TileModel {
   _onTilePress: ?() => void
   _notifications: ?number
 
-  constructor (params: {|
+  constructor(params: {|
     title: string,
     path: string,
     thumbnail: string | number,
@@ -27,31 +27,31 @@ export default class TileModel {
     this._notifications = params.notifications
   }
 
-  get thumbnail (): string | number {
+  get thumbnail(): string | number {
     return this._thumbnail
   }
 
-  get title (): string {
+  get title(): string {
     return this._title
   }
 
-  get path (): string {
+  get path(): string {
     return this._path
   }
 
-  get isExternalUrl (): boolean {
+  get isExternalUrl(): boolean {
     return this._isExternalUrl
   }
 
-  get postData (): ?Map<string, string> {
+  get postData(): ?Map<string, string> {
     return this._postData
   }
 
-  get onTilePress (): ?() => void {
+  get onTilePress(): ?() => void {
     return this._onTilePress
   }
 
-  get notifications (): ?number {
+  get notifications(): ?number {
     return this._notifications
   }
 }

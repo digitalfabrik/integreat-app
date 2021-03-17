@@ -46,27 +46,33 @@ type PropsType = {|
 class IntroSettings extends React.Component<PropsType> {
   renderItem = (title: string, text: string): React.Node => {
     const { theme } = this.props
-    return <Item>
-      <MainText theme={theme}>{title}</MainText>
-      <Description theme={theme}>{text}</Description>
-    </Item>
+    return (
+      <Item>
+        <MainText theme={theme}>{title}</MainText>
+        <Description theme={theme}>{text}</Description>
+      </Item>
+    )
   }
 
   showPrivacyPolicy = () => openPrivacyPolicy(this.props.language)
 
-  render () {
+  render() {
     const { theme, t } = this.props
-    return <Padding>
-      <View>
-        <MainText theme={theme}>{t('inquiryIntro', { accept: t('accept'), appName: buildConfig().appName })}</MainText>
-        {this.renderItem(t('settings:pushNewsTitle'), t('pushNewsCondition'))}
-        {this.renderItem(t('settings:proposeCitiesTitle'), t('proposeCitiesCondition'))}
-        {this.renderItem(t('settings:sentryTitle'), t('sentryCondition', { appName: buildConfig().appName }))}
-      </View>
-      <View>
-        <Link onPress={this.showPrivacyPolicy}>{t('privacyPolicy')}</Link>
-      </View>
-    </Padding>
+    return (
+      <Padding>
+        <View>
+          <MainText theme={theme}>
+            {t('inquiryIntro', { accept: t('accept'), appName: buildConfig().appName })}
+          </MainText>
+          {this.renderItem(t('settings:pushNewsTitle'), t('pushNewsCondition'))}
+          {this.renderItem(t('settings:proposeCitiesTitle'), t('proposeCitiesCondition'))}
+          {this.renderItem(t('settings:sentryTitle'), t('sentryCondition', { appName: buildConfig().appName }))}
+        </View>
+        <View>
+          <Link onPress={this.showPrivacyPolicy}>{t('privacyPolicy')}</Link>
+        </View>
+      </Padding>
+    )
   }
 }
 

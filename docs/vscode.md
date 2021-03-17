@@ -19,13 +19,15 @@ Download and Install [Visual Studio Code](https://code.visualstudio.com/) or use
 https://code.visualstudio.com/Download  
 https://code.visualstudio.com/docs/setup/linux  
 or
+
 ```
 choco install vscode
 ```
 
 ## Settings
 
-Adjust the following settings corresponding to your preferences: 
+Adjust the following settings corresponding to your preferences:
+
 ```
 File > Preferences > Keyboard Shortcuts
 # or install a known ones (e.g. IntelliJ)
@@ -37,9 +39,10 @@ File > Preferences > Keymaps
 ```
 File > Preferences > Settings (Ctrl+,)
 ```
+
 ```
 // Do not close file when opening another one
-"workbench.editor.enablePreviewFromQuickOpen": false,    
+"workbench.editor.enablePreviewFromQuickOpen": false,
 "workbench.editor.enablePreview": false,
 
 // Do not show mini code preview on the right side
@@ -59,48 +62,59 @@ File > Preferences > Settings (Ctrl+,)
 The following extensions (or any alternatives) should be installed.
 
 ### Flow Type Checker
+
 (Alternative: Flow Language Support)
 
 Hint: Use "yarn flow check" instead of "yarn flow" in the console, currently there is a [Bug](https://github.com/facebook/flow/issues/6592) on Windows
+
 ```
 code --install-extension gcazaciuc.vscode-flow-ide
 ```
+
 **Important:** Deactivate internal standard javascript validator in settings:
+
 ```
-"javascript.validate.enable": false,    
+"javascript.validate.enable": false,
 ```
 
 ### Eslint Code Formatter
 
 ```
 code --install-extension dbaeumer.vscode-eslint
-code --install-extension rvest.vs-code-prettier-eslint
+code --install-extension esbenp.prettier-vscode
 ```
+
 Activate vs-code-prettier as default formatter. VSCode should ask you, otherwise set it manually:
+
 ```
 "[javascript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
 ```
+
 Until now Integreat uses an external repo for the eslint configuration. After Checking out the repo allow eslint to use the npm module in node_modules/eslint.  
 The eslint extension button is in the bottom right corner of the IDE
 
 ## Recommended Extensions
 
 ### Git History
+
 (Alternative: Git Lens)
 
 ```
-code --install-extension donjayamanne.githistory      
+code --install-extension donjayamanne.githistory
 ```
 
 ### ... Save your ass
+
 (Changes History)
 
 ```
 code --install-extension xyz.local-history
 ```
+
 Set path in settings:
+
 ```
 "local-history.path": "<Path outside of project to not use .gitignore>",
 ```
@@ -109,13 +123,15 @@ Set path in settings:
 
 Use Visual Studio Code in Windows as GUI for code running in WSL  
 https://code.visualstudio.com/docs/remote/wsl
+
 ```
 code --install-extension ms-vscode-remote.remote-wsl
 ```
 
-### .md-Files 
+### .md-Files
 
 use button in top right corner see the formatted markup
+
 ```
-code --install-extension yzhang.markdown-all-in-one   
+code --install-extension yzhang.markdown-all-in-one
 ```

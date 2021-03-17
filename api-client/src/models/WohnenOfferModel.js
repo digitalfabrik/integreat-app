@@ -7,25 +7,21 @@ class WohnenOfferModel {
   _createdDate: Moment
   _formData: *
 
-  constructor (params: {
-    email: string,
-    createdDate: Moment,
-    formData: *
-  }) {
+  constructor(params: { email: string, createdDate: Moment, formData: * }) {
     this._email = params.email
     this._createdDate = params.createdDate
     this._formData = params.formData
   }
 
-  get email (): string {
+  get email(): string {
     return this._email
   }
 
-  get createdDate (): Moment {
+  get createdDate(): Moment {
     return this._createdDate
   }
 
-  get formData (): * {
+  get formData(): * {
     return this._formData
   }
 }

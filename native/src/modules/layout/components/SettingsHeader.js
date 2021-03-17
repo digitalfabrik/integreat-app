@@ -26,7 +26,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, *> = styled.View`
   shadow-color: #000;
   shadow-offset: 0px 1px;
   shadow-opacity: 0.18;
-  shadow-radius: 1.00px;
+  shadow-radius: 1px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
@@ -52,15 +52,17 @@ class SettingsHeader extends React.PureComponent<PropsType> {
     this.props.navigation.goBack()
   }
 
-  render () {
-    return <BoxShadow theme={this.props.theme}>
-      <Horizontal>
-        <HorizontalLeft>
-          <HeaderBackButton onPress={this.goBack} labelVisible={false} />
-          <HeaderText theme={this.props.theme}>{this.props.t('settings')}</HeaderText>
-        </HorizontalLeft>
-      </Horizontal>
-    </BoxShadow>
+  render() {
+    return (
+      <BoxShadow theme={this.props.theme}>
+        <Horizontal>
+          <HorizontalLeft>
+            <HeaderBackButton onPress={this.goBack} labelVisible={false} />
+            <HeaderText theme={this.props.theme}>{this.props.t('settings')}</HeaderText>
+          </HorizontalLeft>
+        </Horizontal>
+      </BoxShadow>
+    )
   }
 }
 

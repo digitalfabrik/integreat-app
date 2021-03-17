@@ -15,14 +15,14 @@ export const Input: StyledComponent<{}, ThemeType, *> = styled.TextInput.attrs((
 }))`
   margin: 0 5px;
   flex-grow: 1;
-  
+
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 export const Wrapper: StyledComponent<{ space: boolean }, ThemeType, *> = styled.View`
   flex-direction: row;
-  ${props => props.space ? 'margin: 50px 0;' : ''}
+  ${props => (props.space ? 'margin: 50px 0;' : '')}
   justify-content: center;
   align-items: center;
   padding: 10px 0;
@@ -38,7 +38,7 @@ export const SearchIcon: StyledComponent<{}, ThemeType, *> = styled(Icon).attrs(
 type PropsType = {
   placeholderText: string,
   filterText: string,
-  onFilterTextChange: (string) => void,
+  onFilterTextChange: string => void,
   spaceSearch: boolean,
   onClickInput?: () => void,
   theme: ThemeType
@@ -48,7 +48,7 @@ class SearchInput extends React.Component<PropsType> {
   static defaultProps = { spaceSearch: false }
   onFilterTextChange = (text: string) => this.props.onFilterTextChange(text)
 
-  render () {
+  render() {
     const { onClickInput, filterText, placeholderText, theme, spaceSearch } = this.props
     return (
       <Wrapper theme={theme} space={spaceSearch}>
@@ -60,7 +60,8 @@ class SearchInput extends React.Component<PropsType> {
           aria-label={placeholderText}
           defaultValue={filterText}
           onChangeText={this.onFilterTextChange}
-          onClick={onClickInput} />
+          onClick={onClickInput}
+        />
       </Wrapper>
     )
   }

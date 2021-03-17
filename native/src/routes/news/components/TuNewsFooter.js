@@ -46,11 +46,7 @@ const TuNewsFooter = ({ theme, language, eNewsNo, date }: PropsType) => {
       <TunewsFooter theme={theme} rightMargin={3}>
         {eNewsNo}
       </TunewsFooter>
-      <TunewsFooter
-        rightMargin={3}
-        onPress={openTunewsLink}
-        theme={theme}
-        underlined>
+      <TunewsFooter rightMargin={3} onPress={openTunewsLink} theme={theme} underlined>
         tünews INTERNATIONAL
       </TunewsFooter>
       <TunewsFooter theme={theme} rightMargin={3}>

@@ -25,15 +25,13 @@ type PropsType<T> = {|
 |}
 
 class List<T> extends React.PureComponent<PropsType<T>> {
-  render () {
+  render() {
     const { items, renderItem, noItemsMessage, theme } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledView theme={theme}>
-      {items.map(item => renderItem(item))}
-    </StyledView>
+    return <StyledView theme={theme}>{items.map(item => renderItem(item))}</StyledView>
   }
 }
 

@@ -57,15 +57,19 @@ class Snackbar extends React.Component<PropsType> {
     this.props.negativeAction.onPress()
   }
 
-  render () {
+  render() {
     const { theme, message, positiveAction, negativeAction } = this.props
 
     return (
       <Container theme={theme}>
         <Message theme={theme}>{message}</Message>
         <ActionContainer>
-          <Action theme={theme} onPress={this.onNegative}>{negativeAction.label}</Action>
-          <Action theme={theme} onPress={this.onPositive}>{positiveAction.label}</Action>
+          <Action theme={theme} onPress={this.onNegative}>
+            {negativeAction.label}
+          </Action>
+          <Action theme={theme} onPress={this.onPositive}>
+            {positiveAction.label}
+          </Action>
         </ActionContainer>
       </Container>
     )

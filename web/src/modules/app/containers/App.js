@@ -19,24 +19,26 @@ type PropsType = {||}
 class App extends React.Component<PropsType> {
   store: Store<StateType, StoreActionType>
 
-  constructor () {
+  constructor() {
     super()
     this.store = createReduxStore()
     initSentry().catch(e => console.error(e))
   }
 
-  render () {
-    return <React.StrictMode>
-      <Provider store={this.store}>
-        <PlatformProvider>
-          <I18nProvider>
-            <CustomThemeProvider>
-              <Switcher />
-            </CustomThemeProvider>
-          </I18nProvider>
-        </PlatformProvider>
-      </Provider>
-    </React.StrictMode>
+  render() {
+    return (
+      <React.StrictMode>
+        <Provider store={this.store}>
+          <PlatformProvider>
+            <I18nProvider>
+              <CustomThemeProvider>
+                <Switcher />
+              </CustomThemeProvider>
+            </I18nProvider>
+          </PlatformProvider>
+        </Provider>
+      </React.StrictMode>
+    )
   }
 }
 

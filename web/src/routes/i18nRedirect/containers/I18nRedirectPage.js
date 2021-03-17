@@ -67,7 +67,9 @@ const I18nRedirectPage = (props: PropsType) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>) => ({
-  redirect: (action: Action) => { dispatch(redirect(action)) }
+  redirect: (action: Action) => {
+    dispatch(redirect(action))
+  }
 })
 
 const mapStateToProps = (state: StateType) => ({

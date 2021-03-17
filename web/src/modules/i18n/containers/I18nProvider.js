@@ -27,9 +27,7 @@ export default ({ children }: PropsType) => {
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
-      const i18nextInstance = await i18next
-        .createInstance()
-        .use(BrowserLanguageDetector)
+      const i18nextInstance = await i18next.createInstance().use(BrowserLanguageDetector)
 
       await i18nextInstance.init({
         resources,
@@ -84,9 +82,7 @@ export default ({ children }: PropsType) => {
 
   const additionalFont = config.getAdditionalFont(language)
 
-  const dateFormatter = useMemo(
-    () => new DateFormatter(config.defaultFallback),
-    [])
+  const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
 
   if (errorMessage) {
     return errorMessage
@@ -100,9 +96,7 @@ export default ({ children }: PropsType) => {
     <I18nextProvider i18n={i18nextInstance}>
       <div
         data-testid={'direction'}
-        dir={config.isSupportedLanguage(language)
-          ? config.hasRTLScript(language) ? 'rtl' : 'ltr'
-          : undefined}>
+        dir={config.isSupportedLanguage(language) ? (config.hasRTLScript(language) ? 'rtl' : 'ltr') : undefined}>
         <ReactHelmet>
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
           {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
@@ -110,9 +104,7 @@ export default ({ children }: PropsType) => {
           <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
           <link href='/fonts/varela-round/varela-round.css' rel='stylesheet' />
         </ReactHelmet>
-        <DateFormatterContext.Provider value={dateFormatter}>
-          {children}
-        </DateFormatterContext.Provider>
+        <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
       </div>
     </I18nextProvider>
   )

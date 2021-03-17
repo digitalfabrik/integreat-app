@@ -8,7 +8,7 @@ import type { TunewsStateType } from '../StateType'
 import type { StartFetchActionType } from '../actions/startFetchAction'
 import type { FinishFetchActionType } from '../actions/finishFetchAction'
 
-type TunewsFetchActionType = StartFetchActionType<{language: string}> | FinishFetchActionType<Array<TunewsModel>, *>
+type TunewsFetchActionType = StartFetchActionType<{ language: string }> | FinishFetchActionType<Array<TunewsModel>, *>
 
 const defaultState = {
   allData: [],

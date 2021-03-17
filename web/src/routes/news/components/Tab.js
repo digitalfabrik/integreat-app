@@ -22,10 +22,9 @@ const StyledTab: StyledComponent<{||}, ThemeType, *> = styled(NewsLink)`
   margin-right: 30px;
   cursor: pointer;
   padding: 13px 15px;
-  color: ${({ theme }) => (theme.colors.backgroundColor)};
+  color: ${({ theme }) => theme.colors.backgroundColor};
   object-fit: contain;
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors.themeColor : theme.colors.textDisabledColor};
+  background-color: ${({ active, theme }) => (active ? theme.colors.themeColor : theme.colors.textDisabledColor)};
   border-radius: 11px;
   font-size: 18px;
   font-weight: 700;
@@ -33,10 +32,8 @@ const StyledTab: StyledComponent<{||}, ThemeType, *> = styled(NewsLink)`
 `
 
 const TuStyledTab: StyledComponent<{||}, ThemeType, *> = styled(StyledTab)`
-  background-image: ${({ active, theme }) =>
-    active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`};
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
+  background-image: ${({ active, theme }) => (active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`)};
+  background-color: ${({ active, theme }) => (active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor)};
   background-size: cover;
   background-position: center center;
 `
@@ -49,13 +46,11 @@ type PropsType = {|
 |}
 
 class Tab extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { type, active, destination, t } = this.props
 
     if (type === TU_NEWS) {
-      return (
-        <TuStyledTab active={active} to={destination} />
-      )
+      return <TuStyledTab active={active} to={destination} />
     }
 
     return (

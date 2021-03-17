@@ -11,28 +11,27 @@ import DatabaseConnector from '../../DatabaseConnector'
 let mockEvents
 jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
-jest.mock('api-client',
-  () => {
-    const actual = jest.requireActual('api-client')
-    const city = 'augsburg'
-    const language = 'de'
+jest.mock('api-client', () => {
+  const actual = jest.requireActual('api-client')
+  const city = 'augsburg'
+  const language = 'de'
 
-    return {
-      ...actual,
-      createEventsEndpoint: () => {
-        const { EndpointBuilder } = require('api-client')
-        const { default: EventModelBuilder } = require('api-client/src/testing/EventModelBuilder')
+  return {
+    ...actual,
+    createEventsEndpoint: () => {
+      const { EndpointBuilder } = require('api-client')
+      const { default: EventModelBuilder } = require('api-client/src/testing/EventModelBuilder')
 
-        mockEvents = new EventModelBuilder('mockEvents', 1, city, language).build()
+      mockEvents = new EventModelBuilder('mockEvents', 1, city, language).build()
 
-        return new EndpointBuilder('events-mock')
-          .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
-          .withResponseOverride(mockEvents)
-          .withMapper(() => { })
-          .build()
-      }
+      return new EndpointBuilder('events-mock')
+        .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
+        .withResponseOverride(mockEvents)
+        .withMapper(() => {})
+        .build()
     }
-  })
+  }
+})
 
 describe('loadEvents', () => {
   beforeEach(() => {

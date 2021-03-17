@@ -21,7 +21,7 @@ type PropsType = {|
 |}
 
 class Caption extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { title, className } = this.props
     return <H1 className={className}>{title}</H1>
   }

@@ -25,7 +25,7 @@ type PropsType = {|
 export class SprungbrettOfferPage extends React.Component<PropsType> {
   renderSprungbrettListItem = (job: SprungbrettJobModel): React.Node => <SprungbrettListItem key={job.id} job={job} />
 
-  render () {
+  render() {
     const { sprungbrettJobs, offers, t } = this.props
     const offer: OfferModel | void = offers.find(offer => offer.alias === 'sprungbrett')
 
@@ -36,9 +36,11 @@ export class SprungbrettOfferPage extends React.Component<PropsType> {
     return (
       <>
         <Caption title={offer.title} />
-        <List noItemsMessage={t('noOffersAvailable')}
-              renderItem={this.renderSprungbrettListItem}
-              items={sprungbrettJobs} />
+        <List
+          noItemsMessage={t('noOffersAvailable')}
+          renderItem={this.renderSprungbrettListItem}
+          items={sprungbrettJobs}
+        />
         <CleanAnchor href='https://www.sprungbrett-intowork.de'>
           <Image src={offer.thumbnail} />
         </CleanAnchor>
