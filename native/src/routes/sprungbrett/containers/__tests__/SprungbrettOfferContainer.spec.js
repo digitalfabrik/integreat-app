@@ -7,7 +7,7 @@ import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import { useLoadFromEndpoint } from '../../../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../../../modules/endpoint/hooks/useLoadFromEndpoint'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { CityModel } from 'api-client'
@@ -15,7 +15,7 @@ import { CityModel } from 'api-client'
 jest.mock('react-i18next')
 jest.mock('@react-native-community/async-storage')
 jest.mock('../../../../modules/common/openExternalUrl')
-jest.mock('../../../../modules/endpoint/loadFromEndpoint', () => ({
+jest.mock('../../../../modules/endpoint/hooks/useLoadFromEndpoint', () => ({
   useLoadFromEndpoint: jest.fn()
 }))
 

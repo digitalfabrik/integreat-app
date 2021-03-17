@@ -16,7 +16,7 @@ import openExternalUrl from '../../../modules/common/openExternalUrl'
 import type { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import { fromError } from '../../../modules/error/ErrorCodes'
-import { useLoadFromEndpoint } from '../../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../../modules/endpoint/hooks/useLoadFromEndpoint'
 import TileModel from '../../../modules/common/models/TileModel'
 import type { StateType } from '../../../modules/app/StateType'
 

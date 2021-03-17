@@ -1,9 +1,9 @@
 // @flow
 
 import { Payload } from 'api-client'
-import { loadFromEndpoint } from '../loadFromEndpoint'
+import { loadFromEndpoint } from '../useLoadFromEndpoint'
 
-jest.mock('../determineApiUrl', () => () => 'https://my-cust.om/api-url')
+jest.mock('../../determineApiUrl', () => () => 'https://my-cust.om/api-url')
 
 describe('loadFromEndpoint', () => {
   const apiUrl = 'https://my-cust.om/api-url'
