@@ -121,10 +121,10 @@ describe('HeaderContainer', () => {
     }
   }
 
-  const render = props => {
+  const render = (props, customStore = store) => {
     const HeaderContainer = require('../containers/HeaderContainer').default
     return TestRenderer.create(
-      <Provider store={store}>
+      <Provider store={customStore}>
         {/* $FlowFixMe not all props passed */}
         <HeaderContainer {...props} />
       </Provider>
@@ -208,6 +208,32 @@ describe('HeaderContainer', () => {
       languageCode: language.code,
       route: NEWS_ROUTE,
       path: LOCAL_NEWS_TYPE
+    })
+    assertProps(result, { shareUrl: expectedShareUrl })
+  })
+
+  it('shareUrl should be set correctly for local news details route', () => {
+    jest.doMock('../components/Header', () => Header)
+
+    const ownProps = {
+      scene: {
+        route: {
+          name: NEWS_ROUTE,
+          key: 'routeKeyNews1'
+        }
+      }
+    }
+
+    const state = prepareState()
+    // $FlowFixMe Everything correct here, nothing to see.
+    state.cityContent.newsRouteMapping.routeKeyNews1.newsId = '12345'
+
+    const result = render(ownProps, mockStore(state))
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: language.code,
+      route: NEWS_ROUTE,
+      path: `${LOCAL_NEWS_TYPE}/12345`
     })
     assertProps(result, { shareUrl: expectedShareUrl })
   })

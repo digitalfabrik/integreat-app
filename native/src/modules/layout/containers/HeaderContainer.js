@@ -99,13 +99,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const peeking = isPeekingRoute(state, { routeCity: route.city })
   const language = route.language
   const path = route.path || undefined
+  const newsPath = [route.type || null, route.newsId || null].filter(Boolean).join('/')
   const shareUrl = path
     ? url(path)
     : cityContentUrl({
         cityCode: stateCityCode,
         languageCode: route.language,
         route: routeName,
-        path: route.type || null
+        path: newsPath
       })
 
   return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
