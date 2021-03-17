@@ -18,7 +18,7 @@ const commonMalteBuildConfig = {
   allowedHostNames: ['cms.malteapp.de'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
-  shareBaseUrl: 'https://malteapp.de',
+  hostName: 'malteapp.de',
   featureFlags: {
     pois: false,
     newsStream: true,
