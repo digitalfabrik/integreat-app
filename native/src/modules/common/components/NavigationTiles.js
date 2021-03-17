@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AnchorIcon from './AnchorIcon'
 import type { ScrollEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 
-const widthBreakPoint = 375
+const widthBreakPoint = 400
 const anchorWidth = 30
 const wideScreenItemsCount = 4
 const smallScreenItemsCount = 3
