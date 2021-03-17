@@ -13,10 +13,7 @@ import FailureContainer from '../../../modules/error/containers/FailureContainer
 import { LOADING_TIMEOUT } from '../../../modules/common/constants'
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { WohnenOfferRouteType } from 'api-client/src/routes'
 import { WOHNEN_OFFER_ROUTE } from 'api-client/src/routes'
 import { fromError } from '../../../modules/error/ErrorCodes'
@@ -93,12 +90,12 @@ type WohnenStateType = {|
 
 // HINT: If you are copy-pasting this container think about generalizing this way of fetching
 class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateType> {
-  constructor (props: WohnenPropsType) {
+  constructor(props: WohnenPropsType) {
     super(props)
     this.state = { offers: null, error: null, timeoutExpired: false }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.loadWohnen()
   }
 
@@ -114,9 +111,9 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
     setTimeout(() => this.setState({ timeoutExpired: true }), LOADING_TIMEOUT)
 
     try {
-      const payload: Payload<Array<WohnenOfferModel>> = await createWohnenEndpoint(WOHNEN_API_URL).request(
-        { city: apiName }
-      )
+      const payload: Payload<Array<WohnenOfferModel>> = await createWohnenEndpoint(WOHNEN_API_URL).request({
+        city: apiName
+      })
 
       if (payload.error) {
         this.setState({ error: payload.error, offers: null })
@@ -132,34 +129,46 @@ class WohnenOfferContainer extends React.Component<WohnenPropsType, WohnenStateT
     this.loadWohnen()
   }
 
-  render () {
+  render() {
     const { language, offerHash, navigateToOffer, navigateToFeedback, t, theme, title } = this.props
     const { offers, error, timeoutExpired } = this.state
 
     if (error) {
-      return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
-                         contentContainerStyle={{ flexGrow: 1 }}>
-        <FailureContainer code={fromError(error)} tryAgain={this.tryAgain} />
-      </ScrollView>
+      return (
+        <ScrollView
+          refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
+          contentContainerStyle={{ flexGrow: 1 }}>
+          <FailureContainer code={fromError(error)} tryAgain={this.tryAgain} />
+        </ScrollView>
+      )
     }
 
     if (!offers) {
-      return timeoutExpired
-        ? <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
-        : null
+      return timeoutExpired ? (
+        <ScrollView refreshControl={<RefreshControl refreshing />} contentContainerStyle={{ flexGrow: 1 }} />
+      ) : null
     }
 
-    return <ScrollView refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
-                       contentContainerStyle={{ flexGrow: 1 }}>
-      <WohnenOffer title={title} offerHash={offerHash} navigateToOffer={navigateToOffer} offers={offers}
-                          t={t} theme={theme} language={language} />
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
-    </ScrollView>
+    return (
+      <ScrollView
+        refreshControl={<RefreshControl onRefresh={this.loadWohnen} refreshing={false} />}
+        contentContainerStyle={{ flexGrow: 1 }}>
+        <WohnenOffer
+          title={title}
+          offerHash={offerHash}
+          navigateToOffer={navigateToOffer}
+          offers={offers}
+          t={t}
+          theme={theme}
+          language={language}
+        />
+        <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+      </ScrollView>
+    )
   }
 }
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   // $FlowFixMe
-  withTranslation('wohnen')(
-    withTheme(WohnenOfferContainer)
-  ))
+  withTranslation('wohnen')(withTheme(WohnenOfferContainer))
+)

@@ -14,13 +14,17 @@ export default (baseUrl: string): Endpoint<*, Array<SprungbrettJobModel>> =>
     .withParamsToUrlMapper(() => {
       return baseUrl
     })
-    .withMapper((json: {| results: Array<JsonSprungbrettJobType> |}): Array<SprungbrettJobModel> => json.results
-      .map((job, index) => new SprungbrettJobModel({
-        id: index,
-        title: job.title,
-        location: `${job.zip} ${job.city}`,
-        url: job.url,
-        isEmployment: job.employment === '1',
-        isApprenticeship: job.apprenticeship === '1'
-      })))
+    .withMapper((json: {| results: Array<JsonSprungbrettJobType> |}): Array<SprungbrettJobModel> =>
+      json.results.map(
+        (job, index) =>
+          new SprungbrettJobModel({
+            id: index,
+            title: job.title,
+            location: `${job.zip} ${job.city}`,
+            url: job.url,
+            isEmployment: job.employment === '1',
+            isApprenticeship: job.apprenticeship === '1'
+          })
+      )
+    )
     .build()

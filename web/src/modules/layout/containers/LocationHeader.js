@@ -44,24 +44,36 @@ type PropsType = {|
 |}
 
 export class LocationHeader extends React.Component<PropsType> {
-  getActionItems (): Array<React.Node> {
+  getActionItems(): Array<React.Node> {
     const { location, languageChangePaths, t } = this.props
     const { city, language } = location.payload
     return [
-      <HeaderActionBarItemLink key='search' href={new SearchRouteConfig().getRoutePath({ city, language })}
-                               text={t('search')} iconSrc={searchIcon} />,
+      <HeaderActionBarItemLink
+        key='search'
+        href={new SearchRouteConfig().getRoutePath({ city, language })}
+        text={t('search')}
+        iconSrc={searchIcon}
+      />,
       ...(!buildConfig().featureFlags.fixedCity
-        ? [<HeaderActionBarItemLink key='location'
-                                    href={new LandingRouteConfig().getRoutePath({ language })}
-                                    text={t('changeLocation')}
-                                    iconSrc={landingIcon} />]
+        ? [
+            <HeaderActionBarItemLink
+              key='location'
+              href={new LandingRouteConfig().getRoutePath({ language })}
+              text={t('changeLocation')}
+              iconSrc={landingIcon}
+            />
+          ]
         : []),
-      <LanguageSelector key='language' languageChangePaths={languageChangePaths} isHeaderActionItem
-                        location={location} />
+      <LanguageSelector
+        key='language'
+        languageChangePaths={languageChangePaths}
+        isHeaderActionItem
+        location={location}
+      />
     ]
   }
 
-  getNavigationItems (): Array<React.Node> {
+  getNavigationItems(): Array<React.Node> {
     const { t, cityModel, location, events } = this.props
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
@@ -125,7 +137,8 @@ export class LocationHeader extends React.Component<PropsType> {
           active={currentRoute === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
-        />)
+        />
+      )
     }
 
     if (isOffersVisible) {
@@ -143,7 +156,7 @@ export class LocationHeader extends React.Component<PropsType> {
     return items
   }
 
-  render () {
+  render() {
     const { cityModel, location } = this.props
     const { city, language } = location.payload
 

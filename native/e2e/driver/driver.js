@@ -6,7 +6,8 @@ import childProcess from 'child_process'
 import serverConfigs from '../config/configs'
 import { clone } from 'lodash'
 
-const BROWSERSTACK_EXHAUSTED_MESSAGE = 'All parallel tests are currently in use, including the queued tests. ' +
+const BROWSERSTACK_EXHAUSTED_MESSAGE =
+  'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
 const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
@@ -48,7 +49,7 @@ const getAdditionalTags = () => {
   return ADDITIONAL_ENV_VARIABLES.map(variable => process.env[variable]).filter(value => !!value)
 }
 
-export const select = <T, K> (input: { android: T, ios: K }): T | K => {
+export const select = <T, K>(input: { android: T, ios: K }): T | K => {
   const config = getConfig()
 
   if (!config) {
@@ -94,19 +95,15 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
     return
   }
 
-  const auth = `Basic ${Buffer.from(
-    `${user}:${password}`
-  ).toString('base64')}`
+  const auth = `Basic ${Buffer.from(`${user}:${password}`).toString('base64')}`
 
   try {
-    const response = await fetch(
-      `https://api.browserstack.com/app-automate/sessions/${driver.sessionID}.json`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: auth
-        }
-      })
+    const response = await fetch(`https://api.browserstack.com/app-automate/sessions/${driver.sessionID}.json`, {
+      method: 'GET',
+      headers: {
+        Authorization: auth
+      }
+    })
     const json = await response.json()
     console.log(`View the results here: ${json.automation_session.public_url}`)
   } catch (error) {

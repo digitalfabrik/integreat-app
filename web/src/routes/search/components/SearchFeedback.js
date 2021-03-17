@@ -48,17 +48,21 @@ export class SearchFeedback extends React.Component<PropsType, StateType> {
     this.setState({ boxOpenedForQuery: this.props.query })
   }
 
-  render (): React.Node {
+  render(): React.Node {
     const { resultsFound, query, location, t } = this.props
     if (!resultsFound || query === this.state.boxOpenedForQuery) {
-      return <FeedbackContainer>
-        <NothingFound>{t('nothingFound')}</NothingFound>
-        <NothingFoundFeedbackBox location={location} query={query} />
-      </FeedbackContainer>
+      return (
+        <FeedbackContainer>
+          <NothingFound>{t('nothingFound')}</NothingFound>
+          <NothingFoundFeedbackBox location={location} query={query} />
+        </FeedbackContainer>
+      )
     } else {
-      return <FeedbackContainer>
-        <TextButton onClick={this.handleFeedbackLinkClicked} text={t('informationNotFound')} />
-      </FeedbackContainer>
+      return (
+        <FeedbackContainer>
+          <TextButton onClick={this.handleFeedbackLinkClicked} text={t('informationNotFound')} />
+        </FeedbackContainer>
+      )
     }
   }
 }

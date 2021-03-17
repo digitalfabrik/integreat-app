@@ -33,7 +33,11 @@ export const LastUpdateInfo = ({
 }: PropsType) => {
   // only show day, month and year
   const timestamp = formatter.format(lastUpdate, { format })
-  return <TimeStamp className={className}>{withText && t('lastUpdate')} {timestamp}</TimeStamp>
+  return (
+    <TimeStamp className={className}>
+      {withText && t('lastUpdate')} {timestamp}
+    </TimeStamp>
+  )
 }
 
 export default withTranslation<PropsType>('common')(LastUpdateInfo)

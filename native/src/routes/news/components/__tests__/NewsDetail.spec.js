@@ -1,7 +1,7 @@
 // @flow
 
 import { render, fireEvent } from '@testing-library/react-native'
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
 import buildConfig from '../../../../modules/app/constants/buildConfig'
 import React from 'react'
@@ -33,18 +33,19 @@ describe('NewsDetail', () => {
   })
 
   it('should correctly render a local news item', () => {
-    const { getByText } = render(
-      <NewsDetail newsItem={localNews}
-                  language={language}
-                  navigateToLink={navigateToLink}
-                  theme={theme} />)
+    const dateFormatter = new DateFormatter('de')
+    const timestamp = dateFormatter.format(localNews.timestamp, { format: 'LLL' })
+    const { getByText, queryByText } = render(
+      <NewsDetail newsItem={localNews} language={language} navigateToLink={navigateToLink} theme={theme} />
+    )
 
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('Some test text ')).toBeTruthy()
     expect(getByText('mailto:app@integreat-app.de')).toBeTruthy()
     expect(getByText(' with lots of links ')).toBeTruthy()
     expect(getByText('https://integreat.app')).toBeTruthy()
-
+    expect(getByText(timestamp)).toBeTruthy()
+    expect(queryByText('Last Update')).toBeNull()
     fireEvent.press(getByText('mailto:app@integreat-app.de'))
     expect(navigateToLink).toHaveBeenCalledWith('mailto:app@integreat-app.de', language, 'mailto:app@integreat-app.de')
     fireEvent.press(getByText('https://integreat.app'))
@@ -53,10 +54,8 @@ describe('NewsDetail', () => {
 
   it('should correctly render a tu news item', () => {
     const { getByText } = render(
-      <NewsDetail newsItem={tuNews}
-                  language={language}
-                  navigateToLink={navigateToLink}
-                  theme={theme} />)
+      <NewsDetail newsItem={tuNews} language={language} navigateToLink={navigateToLink} theme={theme} />
+    )
 
     expect(getByText(tuNews.title)).toBeTruthy()
     expect(getByText(tuNews.content)).toBeTruthy()

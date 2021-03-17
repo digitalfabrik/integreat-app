@@ -19,15 +19,11 @@ const Description = styled.Text`
 `
 
 class PoiListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { poi, language, navigateToPois, theme } = this.props
     const thumbnail = poi.thumbnail
     return (
-      <ListItem thumbnail={thumbnail}
-        title={poi.title}
-                language={language}
-                navigateTo={navigateToPois}
-                theme={theme}>
+      <ListItem thumbnail={thumbnail} title={poi.title} language={language} navigateTo={navigateToPois} theme={theme}>
         {poi.location && <Description theme={theme}>{poi.location.location}</Description>}
       </ListItem>
     )

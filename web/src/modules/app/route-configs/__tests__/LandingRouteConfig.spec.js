@@ -44,13 +44,11 @@ describe('LandingRouteConfig', () => {
       pathname: '/landing/de',
       type: landingRouteConfig.name
     })
-    expect(landingRouteConfig.getPageTitle({ t, payloads, location, cityName: null }))
-      .toBe('pageTitles.landing')
+    expect(landingRouteConfig.getPageTitle({ t, payloads, location, cityName: null })).toBe('pageTitles.landing')
   })
 
   it('should return the right meta description', () => {
-    expect(landingRouteConfig.getMetaDescription(t))
-      .toBe('metaDescription')
+    expect(landingRouteConfig.getMetaDescription(t)).toBe('metaDescription')
   })
 
   it('should return the right language change path', () => {

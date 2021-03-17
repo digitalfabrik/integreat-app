@@ -21,8 +21,10 @@ describe('EventsPage', () => {
     new EventModel({
       path: '/augsburg/en/events/first_event',
       title: 'first Event',
-      availableLanguages: new Map(
-        [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+      availableLanguages: new Map([
+        ['de', '/augsburg/de/events/erstes_event'],
+        ['ar', '/augsburg/ar/events/erstes_event']
+      ]),
       date: new DateModel({
         startDate: moment('2017-11-18T09:30:00.000Z'),
         endDate: moment('2017-11-18T19:30:00.000Z'),
@@ -49,8 +51,10 @@ describe('EventsPage', () => {
     new EventModel({
       path: '/augsburg/en/events/second_event',
       title: 'second Event',
-      availableLanguages: new Map(
-        [['en', '/augsburg/de/events/zwotes_event'], ['ar', '/augsburg/ar/events/zwotes_event']]),
+      availableLanguages: new Map([
+        ['en', '/augsburg/de/events/zwotes_event'],
+        ['ar', '/augsburg/ar/events/zwotes_event']
+      ]),
       date: new DateModel({
         startDate: moment('2017-11-18T09:30:00.000Z'),
         endDate: moment('2017-11-18T19:30:00.000Z'),
@@ -77,8 +81,10 @@ describe('EventsPage', () => {
     new EventModel({
       path: '/augsburg/en/events/third_event',
       title: 'third Event',
-      availableLanguages: new Map(
-        [['de', '/augsburg/de/events/drittes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+      availableLanguages: new Map([
+        ['de', '/augsburg/de/events/drittes_event'],
+        ['ar', '/augsburg/ar/events/erstes_event']
+      ]),
       date: new DateModel({
         startDate: moment('2017-11-18T09:30:00.000Z'),
         endDate: moment('2017-11-18T19:30:00.000Z'),
@@ -112,24 +118,14 @@ describe('EventsPage', () => {
 
   it('should match snapshot and render EventList', () => {
     const wrapper = shallow(
-      <EventsPage events={events}
-                  cities={cities}
-                  city={city}
-                  eventId={undefined}
-                  t={t}
-                  language={language} />
+      <EventsPage events={events} cities={cities} city={city} eventId={undefined} t={t} language={language} />
     )
     expect(wrapper).toMatchSnapshot()
   })
 
   it('should match snapshot and render EventDetail', () => {
     const wrapper = shallow(
-      <EventsPage events={events}
-                  cities={cities}
-                  city={city}
-                  t={t}
-                  language={language}
-                  eventId='first_event' />
+      <EventsPage events={events} cities={cities} city={city} t={t} language={language} eventId='first_event' />
     )
     const jsonLd = wrapper.find(EventJsonLd)
     expect(jsonLd.props().event).toEqual(events[0])
@@ -139,12 +135,7 @@ describe('EventsPage', () => {
 
   it('should match snapshot and render Failure if event does not exist', () => {
     const wrapper = shallow(
-      <EventsPage events={events}
-                  cities={cities}
-                  city={city}
-                  t={t}
-                  language={language}
-                  eventId='invalid_event' />
+      <EventsPage events={events} cities={cities} city={city} t={t} language={language} eventId='invalid_event' />
     )
     expect(wrapper).toMatchSnapshot()
   })

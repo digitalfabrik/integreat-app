@@ -34,34 +34,35 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   return new BreadcrumbModel({
     title,
     link: urlFromPath(category.path),
-    node: <Link to={category.path} key={category.path}>{title}</Link>
+    node: (
+      <Link to={category.path} key={category.path}>
+        {title}
+      </Link>
+    )
   })
 }
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<city>/<language>*
  */
-export const CategoriesPage = ({
-  categories,
-  language,
-  cities,
-  city,
-  uiDirection,
-  t,
-  path
-}: PropsType) => {
+export const CategoriesPage = ({ categories, language, cities, city, uiDirection, t, path }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const categoryModel = categories.findCategoryByPath(path)
 
   if (categoryModel) {
     const cityName = CityModel.findCityName(cities, city)
-    const ancestorBreadcrumbs = categories.getAncestors(categoryModel)
+    const ancestorBreadcrumbs = categories
+      .getAncestors(categoryModel)
       .map(categoryModel => getBreadcrumb(categoryModel, cityName))
-    return <div>
-      <Breadcrumbs ancestorBreadcrumbs={ancestorBreadcrumbs}
-                   currentBreadcrumb={getBreadcrumb(categoryModel, cityName)}
-                   direction={uiDirection} />
-      <CategoriesContent categories={categories} categoryModel={categoryModel} formatter={formatter} t={t}/>
-    </div>
+    return (
+      <div>
+        <Breadcrumbs
+          ancestorBreadcrumbs={ancestorBreadcrumbs}
+          currentBreadcrumb={getBreadcrumb(categoryModel, cityName)}
+          direction={uiDirection}
+        />
+        <CategoriesContent categories={categories} categoryModel={categoryModel} formatter={formatter} t={t} />
+      </div>
+    )
   } else {
     const error = new NotFoundError({
       type: 'category',

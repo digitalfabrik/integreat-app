@@ -9,11 +9,7 @@ describe('CitySelector', () => {
   const cities = new CityModelBuilder(5).build()
 
   it('should filter for existing and live cities', () => {
-    const wrapper = shallow(<CitySelector
-      filterText=''
-      language='de'
-      cities={cities} />
-    )
+    const wrapper = shallow(<CitySelector filterText='' language='de' cities={cities} />)
 
     const component = wrapper.instance()
     const filteredCities = component.filter()
@@ -23,33 +19,21 @@ describe('CitySelector', () => {
   })
 
   it('should exclude location if location does not exist', () => {
-    const wrapper = shallow(<CitySelector
-      filterText='Does not exist'
-      language='de'
-      cities={cities} />
-    )
+    const wrapper = shallow(<CitySelector filterText='Does not exist' language='de' cities={cities} />)
 
     const component = wrapper.instance()
     expect(component.filter()).toHaveLength(0)
   })
 
   it('should exclude location if location is not live', () => {
-    const wrapper = shallow(<CitySelector
-      filterText='oldtown'
-      language='de'
-      cities={cities} />
-    )
+    const wrapper = shallow(<CitySelector filterText='oldtown' language='de' cities={cities} />)
 
     const component = wrapper.instance()
     expect(component.filter()).toHaveLength(0)
   })
 
   it('should filter for all non-live cities if filterText is "wirschaffendas"', () => {
-    const wrapper = shallow(<CitySelector
-      filterText='wirschaffendas'
-      language='de'
-      cities={cities} />
-    )
+    const wrapper = shallow(<CitySelector filterText='wirschaffendas' language='de' cities={cities} />)
 
     const component = wrapper.instance()
     expect(component.filter()).toHaveLength(2)

@@ -39,7 +39,7 @@ class Tile extends React.Component<PropsType> {
     this.props.onTilePress(this.props.tile)
   }
 
-  render () {
+  render() {
     const { tile, theme } = this.props
 
     return (

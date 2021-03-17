@@ -7,7 +7,11 @@ import moment from 'moment'
 
 const offers = [
   new OfferModel({
-    alias: 'wohnen', path: 'path to fetch offers from', title: 'Raumfrei', thumbnail: 'xy', postData: null
+    alias: 'wohnen',
+    path: 'path to fetch offers from',
+    title: 'Raumfrei',
+    thumbnail: 'xy',
+    postData: null
   })
 ]
 const offersPayload = new Payload(false, 'https://random.api.json', offers, null)
@@ -41,7 +45,8 @@ const wohnenOffers = [
         additionalCosts: 200,
         ofRunningServicesDiff: ['heating', 'water', 'garbage'],
         ofAdditionalServicesDiff: []
-      })
+      }
+    )
   })
 ]
 const wohnenOffersPayload = new Payload(false, 'https://random.api.json', wohnenOffers, null)
@@ -53,8 +58,7 @@ describe('WohnenRouteConfig', () => {
   const wohnenRouteConfig = new WohnenRouteConfig()
 
   it('should get the right path', () => {
-    expect(wohnenRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' }))
-      .toBe('/augsburg/de/offers/wohnen')
+    expect(wohnenRouteConfig.getRoutePath({ city: 'augsburg', language: 'de' })).toBe('/augsburg/de/offers/wohnen')
   })
 
   it('should get the required payloads', () => {
@@ -84,10 +88,12 @@ describe('WohnenRouteConfig', () => {
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'en', location }))
-      .toBe('/augsburg/en/offers/wohnen')
-    expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location }))
-      .toBe('/augsburg/ar/offers/wohnen')
+    expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'en', location })).toBe(
+      '/augsburg/en/offers/wohnen'
+    )
+    expect(wohnenRouteConfig.getLanguageChangePath({ payloads, language: 'ar', location })).toBe(
+      '/augsburg/ar/offers/wohnen'
+    )
   })
 
   it('should get the right page title', () => {
@@ -97,8 +103,7 @@ describe('WohnenRouteConfig', () => {
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t }))
-      .toBe('Raumfrei - Augsburg')
+    expect(wohnenRouteConfig.getPageTitle({ payloads, location, cityName: 'Augsburg', t })).toBe('Raumfrei - Augsburg')
 
     const offerLocation = createLocation({
       payload: { city: 'augsburg', language: 'de', offerHash: hash(wohnenOffers[0]) },
@@ -106,11 +111,11 @@ describe('WohnenRouteConfig', () => {
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getPageTitle({ payloads, location: offerLocation, cityName: 'Augsburg', t }))
-      .toBe('Test Angebot - Augsburg')
+    expect(wohnenRouteConfig.getPageTitle({ payloads, location: offerLocation, cityName: 'Augsburg', t })).toBe(
+      'Test Angebot - Augsburg'
+    )
 
-    expect(wohnenRouteConfig.getPageTitle({ payloads, location, cityName: null, t }))
-      .toBeNull()
+    expect(wohnenRouteConfig.getPageTitle({ payloads, location, cityName: null, t })).toBeNull()
   })
 
   it('should return the right meta description', () => {
@@ -124,10 +129,9 @@ describe('WohnenRouteConfig', () => {
       type: wohnenRouteConfig.name
     })
 
-    expect(wohnenRouteConfig.getFeedbackTargetInformation({ payloads, location }))
-      .toEqual({
-        alias: 'wohnen',
-        title: 'Raumfrei'
-      })
+    expect(wohnenRouteConfig.getFeedbackTargetInformation({ payloads, location })).toEqual({
+      alias: 'wohnen',
+      title: 'Raumfrei'
+    })
   })
 })

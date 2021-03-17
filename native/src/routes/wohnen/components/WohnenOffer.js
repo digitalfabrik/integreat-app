@@ -26,18 +26,21 @@ class WohnenOffer extends React.Component<PropsType> {
   renderOfferListItem = (offer: WohnenOfferModel) => {
     const hashedOffer = hashWohnenOffer(offer)
     return (
-      <OfferListItem key={hashedOffer}
-                     offer={offer}
-                     language={this.props.language}
-                     navigateToOffer={this.navigateToOffer(hashedOffer)}
-                     theme={this.props.theme} />)
+      <OfferListItem
+        key={hashedOffer}
+        offer={offer}
+        language={this.props.language}
+        navigateToOffer={this.navigateToOffer(hashedOffer)}
+        theme={this.props.theme}
+      />
+    )
   }
 
   navigateToOffer = (offerHash: string) => () => {
     this.props.navigateToOffer(offerHash)
   }
 
-  render () {
+  render() {
     const { offers, title, offerHash, t, theme } = this.props
 
     if (offerHash) {
@@ -47,18 +50,18 @@ class WohnenOffer extends React.Component<PropsType> {
         return <Failure code={ErrorCodes.PageNotFound} t={t} theme={theme} />
       }
 
-      return (
-        <OfferDetail offer={offer} theme={theme} />
-      )
+      return <OfferDetail offer={offer} theme={theme} />
     }
 
     return (
       <>
         <Caption title={title} theme={theme} />
-        <List noItemsMessage={t('noOffersAvailable')}
-              items={offers}
-              renderItem={this.renderOfferListItem}
-              theme={theme} />
+        <List
+          noItemsMessage={t('noOffersAvailable')}
+          items={offers}
+          renderItem={this.renderOfferListItem}
+          theme={theme}
+        />
       </>
     )
   }

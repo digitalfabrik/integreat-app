@@ -24,15 +24,14 @@ jest.mock('../../../../modules/error/containers/FailureContainer', () => {
 
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
   const Text = require('react-native').Text
-  return ({ refreshing }: {| refreshing: boolean |}) => refreshing ? <Text>loading</Text> : null
+  return ({ refreshing }: {| refreshing: boolean |}) => (refreshing ? <Text>loading</Text> : null)
 })
 
 describe('OffersContainer', () => {
   const navigation = createNavigationScreenPropMock()
   const cityCode = 'augsburg'
   const languageCode = 'de'
-  const shareUrl = 'https://integreat.app/augsburg/de'
-  const route = { key: 'route-id-0', params: { cityCode, languageCode, shareUrl }, name: OFFERS_ROUTE }
+  const route = { key: 'route-id-0', params: { cityCode, languageCode }, name: OFFERS_ROUTE }
   const errorText = `Failure ${ErrorCodes.UnknownError}`
   const mockLoadFromEndpointOnce = mock => {
     // $FlowFixMe mockImplementationOnce is defined
@@ -44,10 +43,10 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockLoadFromEndpointOnce((request, setData, _, setLoading) => { setData([]) })
-    const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
-    )
+    mockLoadFromEndpointOnce((request, setData, _, setLoading) => {
+      setData([])
+    })
+    const { getByText } = render(<OffersContainer navigation={navigation} route={route} />)
     expect(getByText('Offers')).toBeTruthy()
     expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
     expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
@@ -58,19 +57,17 @@ describe('OffersContainer', () => {
       setData([])
       setLoading(true)
     })
-    const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
-    )
+    const { getByText } = render(<OffersContainer navigation={navigation} route={route} />)
     expect(getByText('Offers')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
     expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
   })
 
   it('should display error without a loading spinner', () => {
-    mockLoadFromEndpointOnce((request, _, setError) => { setError(new Error('myError')) })
-    const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
-    )
+    mockLoadFromEndpointOnce((request, _, setError) => {
+      setError(new Error('myError'))
+    })
+    const { getByText } = render(<OffersContainer navigation={navigation} route={route} />)
     expect(getByText(errorText)).toBeTruthy()
     expect(() => getByText('Offers')).toThrow('No instances found with text "Offers"')
     expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
@@ -81,9 +78,7 @@ describe('OffersContainer', () => {
       setError(new Error('myError'))
       setLoading(true)
     })
-    const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
-    )
+    const { getByText } = render(<OffersContainer navigation={navigation} route={route} />)
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
     expect(() => getByText('Offers')).toThrow('No instances found with text "Offers"')

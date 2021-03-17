@@ -5,7 +5,7 @@ import { detect } from 'detect-browser'
 class Platform {
   _browser: {| name: string, version: string |}
 
-  constructor () {
+  constructor() {
     this._browser = detect()
   }
 
@@ -14,11 +14,11 @@ class Platform {
    *
    * @returns {boolean}
    */
-  get supportsLogicalProperties (): boolean {
+  get supportsLogicalProperties(): boolean {
     return this._browser && !this._browser.name.includes('ie')
   }
 
-  get positionStickyDisabled (): boolean {
+  get positionStickyDisabled(): boolean {
     return !!(this._browser && this._browser.name === 'edge' && /^16\..*/.test(this._browser.version))
   }
 }

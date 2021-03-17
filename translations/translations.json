@@ -104,6 +104,21 @@
       },
       "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
     },
+    "it": {
+      "pageTitles": {
+        "search": "Ricerca",
+        "events": "Eventi",
+        "offers": "Offerte",
+        "landing": "Selezione della posizione",
+        "disclaimer": "Impressum e contatti",
+        "mainDisclaimer": "Impressum e contatti - {{appName}}",
+        "pois": "Points of Interest",
+        "notFound": "Pagina non trovata",
+        "tunews": "tünews",
+        "localNews": "Notizie locali"
+      },
+      "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
+    },
     "ku": {
       "pageTitles": {
         "search": "Lêgerîn",
@@ -129,7 +144,8 @@
         "mainDisclaimer": "Nota prawna i kontakt - {{appName}}",
         "pois": "Points of Interest",
         "notFound": "Nie znaleziono strony",
-        "tunews": "tünews"
+        "tunews": "tünews",
+        "localNews": "Wiadomości lokalne"
       },
       "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku."
     },
@@ -158,7 +174,8 @@
         "mainDisclaimer": "Caseta tehnică și contact - {{appName}}",
         "pois": "Points of Interest",
         "notFound": "Pagină nu a fost găsită",
-        "tunews": "tünews"
+        "tunews": "tünews",
+        "localNews": "Știri locale"
       },
       "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs."
     },
@@ -259,6 +276,9 @@
     "hr": {
       "createPdf": "Kreiraj PDF"
     },
+    "it": {
+      "createPdf": "Crea PDF"
+    },
     "ku": {
       "createPdf": "Pêkanîna PDF'ê"
     },
@@ -297,7 +317,8 @@
     "ar": {
       "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
       "chooseALanguage": "اختر لغة.",
-      "lastUpdate": "التغيير الأخير:"
+      "lastUpdate": "التغيير الأخير:",
+      "loading": "حمّل..."
     },
     "en": {
       "languageNotAvailable": "Sorry, but your language is not available here.",
@@ -319,12 +340,19 @@
     "fr": {
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
-      "lastUpdate": "Dernière modification :"
+      "lastUpdate": "Dernière modification :",
+      "loading": "Chargement ..."
     },
     "hr": {
       "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnja promjena: "
+    },
+    "it": {
+      "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
+      "chooseALanguage": "Scegli una lingua.",
+      "lastUpdate": "Ultima modifica:",
+      "loading": "Caricamento..."
     },
     "ku": {
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
@@ -334,7 +362,8 @@
     "pl": {
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
       "chooseALanguage": "Wybierz język.",
-      "lastUpdate": "Ostania zmiana: "
+      "lastUpdate": "Ostania zmiana:",
+      "loading": "Załaduj..."
     },
     "ps": {
       "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
@@ -344,12 +373,14 @@
     "ro": {
       "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
       "chooseALanguage": "Alege o limbă.",
-      "lastUpdate": "Ultima modificare: "
+      "lastUpdate": "Ultima modificare:",
+      "loading": "Se încarcă ..."
     },
     "ru": {
       "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
       "chooseALanguage": "Выбор языка.",
-      "lastUpdate": "Последнее изменение:"
+      "lastUpdate": "Последнее изменение:",
+      "loading": "Загрузка..."
     },
     "so": {
       "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
@@ -369,7 +400,8 @@
     "tr": {
       "languageNotAvailable": "Senin dilin burada maalesef yok.",
       "chooseALanguage": "Bir dil seçin.",
-      "lastUpdate": "Son değişiklik:"
+      "lastUpdate": "Son değişiklik:",
+      "loading": "Yükleniyor ..."
     }
   },
   "dashboard": {
@@ -420,6 +452,13 @@
       "offers": "Ponude",
       "events": "Događanja"
     },
+    "it": {
+      "localInformation": "Informazioni locali",
+      "offers": "Offerte",
+      "events": "Eventi",
+      "news": "Messaggi",
+      "newsAlternative": "Novità"
+    },
     "ku": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
@@ -430,7 +469,9 @@
     "pl": {
       "localInformation": "Informacje lokalne",
       "offers": "Oferty",
-      "events": "Wydarzenia"
+      "events": "Wydarzenia",
+      "news": "Wiadomości",
+      "newsAlternative": "Aktualności"
     },
     "ps": {
       "localInformation": "سیمه ییز معلومات",
@@ -442,7 +483,9 @@
     "ro": {
       "localInformation": "Informații locale",
       "offers": "Oferte",
-      "events": "Evenimente"
+      "events": "Evenimente",
+      "news": "Știri",
+      "newsAlternative": "Noutăți"
     },
     "ru": {
       "localInformation": "Местная информация",
@@ -521,7 +564,9 @@
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
         "offer": "للأسف، تعذر العثور على هذا العرض.",
-        "poi": "للأسف، تعذر العثور على هذه النقطة المثيرة للاهتمام."
+        "poi": "للأسف، تعذر العثور على هذه النقطة المثيرة للاهتمام.",
+        "localNews": "للأسف، لم يتم العثور على هذا الخبر.",
+        "tunews": "للأسف، لم يتم العثور على tünews."
       },
       "pageNotFound": "للأسف، تعذر العثور على هذه الصفحة.",
       "networkConnectionFailed": "فشل في الاتصال بالخادم.",
@@ -535,7 +580,10 @@
         "start": "إلى الصفحة الرئيسية",
         "categories": "إلى الفئات",
         "events": "إلى الفعاليات",
-        "offers": "إلى العروض"
+        "offers": "إلى العروض",
+        "pois": "إلى النقاط المثيرة للاهتمام",
+        "localNews": "إلى الأخبار",
+        "tunews": "إلى tünews"
       },
       "pageTitle": "خطأ",
       "generalError": "حدث خطأ ما",
@@ -549,7 +597,9 @@
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
-        "poi": "Sorry, but this point of interest could not be found."
+        "poi": "Sorry, but this point of interest could not be found.",
+        "localNews": "Sorry, but this message could not be found.",
+        "tunews": "Sorry, but this tünews could not be found."
       },
       "pageNotFound": "Sorry, but the requested page could not be found.",
       "networkConnectionFailed": "The connection to the server failed.",
@@ -563,7 +613,10 @@
         "start": "Go to the homepage",
         "categories": "Go to categories",
         "events": "Go to events",
-        "offers": "Go to offers"
+        "offers": "Go to offers",
+        "pois": "Go to points of interest",
+        "localNews": "Go to news",
+        "tunews": "Go to tünews"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
@@ -577,7 +630,9 @@
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
         "offer": "No se ha encontrado esta oferta.",
-        "poi": "No se ha encontrado este punto de interés."
+        "poi": "No se ha encontrado este punto de interés.",
+        "localNews": "No se ha encontrado este mensaje.",
+        "tunews": "No se ha encontrado este tünews."
       },
       "pageNotFound": "No se ha encontrado esta página.",
       "networkConnectionFailed": "No se ha establecido la conexión con el servidor.",
@@ -591,7 +646,10 @@
         "start": "Ir a la página de inicio",
         "categories": "Ir a las categorías",
         "events": "Ir a las actividades",
-        "offers": "Ir a las ofertas"
+        "offers": "Ir a las ofertas",
+        "pois": "Ir a los puntos de interés",
+        "localNews": "Ir a los mensajes",
+        "tunews": "Ir a los tünews"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
@@ -633,7 +691,9 @@
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
         "offer": "Malheureusement, cette offre est introuvable.",
-        "poi": "Malheureusement, ce point d'intérêt est introuvable."
+        "poi": "Malheureusement, ce point d'intérêt est introuvable.",
+        "localNews": "Malheureusement, ce message est introuvable.",
+        "tunews": "Malheureusement, cette tünews est introuvable."
       },
       "pageNotFound": "Malheureusement, cette page est introuvable.",
       "networkConnectionFailed": "Échec de la connexion au serveur.",
@@ -647,7 +707,10 @@
         "start": "Vers la page de démarrage",
         "categories": "Vers les catégories",
         "events": "Vers les événements",
-        "offers": "Vers les offres"
+        "offers": "Vers les offres",
+        "pois": "Accéder aux points d'intérêt",
+        "localNews": "Accéder aux messages",
+        "tunews": "Accéder aux tünews"
       },
       "pageTitle": "Erreur",
       "generalError": "Une erreur s'est produite",
@@ -681,6 +744,39 @@
       "generalError": "Došlo je do pogreške",
       "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
       "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
+    },
+    "it": {
+      "notFound": {
+        "language": "Purtroppo questa lingua non è disponibile qui.",
+        "city": "Purtroppo questa città non è stata trovata.",
+        "category": "Purtroppo questa pagina non è stata trovata.",
+        "event": "Purtroppo questo evento non è stato trovato.",
+        "offer": "Purtroppo questa offerta non è stata trovata.",
+        "poi": "Purtroppo questo Point of Interest non è stato trovato.",
+        "localNews": "Purtroppo questo messaggio non è stato trovato.",
+        "tunews": "Purtroppo questo tünews non è stato trovato."
+      },
+      "pageNotFound": "Purtroppo questa pagina non è stata trovata.",
+      "networkConnectionFailed": "La connessione al server non è riuscita.",
+      "networkRequestFailed": "La richiesta non può essere elaborata.",
+      "responseMappingFailed": "La risposta del server non può essere elaborata.",
+      "unknownError": "Si è verificato un errore sconosciuto.",
+      "tryAgain": "Riprova",
+      "loadingFailed": "Purtroppo non è stato possibile trovare la pagina richiesta.",
+      "chooseALanguage": "Scegli una lingua:",
+      "goTo": {
+        "start": "Vai alla home page",
+        "categories": "Vai su Categorie",
+        "events": "Vai su Eventi",
+        "offers": "Vai su Offerte",
+        "pois": "Vai su Points of Interest",
+        "localNews": "Vai su Messaggi",
+        "tunews": "Vai su tünews"
+      },
+      "pageTitle": "Errore",
+      "generalError": "Si è verificato un errore",
+      "languageSwitchFailedTitle": "Purtroppo il cambio di lingua non è riuscito.",
+      "languageSwitchFailedMessage": "La lingua selezionata non è disponibile offline. È necessaria una connessione Internet attiva."
     },
     "ku": {
       "notFound": {
@@ -717,7 +813,9 @@
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
         "offer": "Niestety nie znaleziono tej oferty.",
-        "poi": "Niestety nie znaleziono tego Point of Interest."
+        "poi": "Niestety nie znaleziono tego Point of Interest.",
+        "localNews": "Niestety nie znaleziono tej wiadomości.",
+        "tunews": "Niestety nie znaleziono tej tünews."
       },
       "pageNotFound": "Niestety nie znaleziono tej strony.",
       "networkConnectionFailed": "Połączenie z serwerem nie powiodło się.",
@@ -731,7 +829,10 @@
         "start": "Do strony startowej",
         "categories": "Do kategorii",
         "events": "Do wydarzeń",
-        "offers": "Do ofert"
+        "offers": "Do ofert",
+        "pois": "Do Points of Interest",
+        "localNews": "Do wiadomości",
+        "tunews": "Do tünews"
       },
       "pageTitle": "Błąd",
       "generalError": "Wystąpił błąd",
@@ -773,7 +874,9 @@
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
         "offer": "Această ofertă nu a fost găsită, din păcate.",
-        "poi": "Acest Point of Interest nu a fost găsit, din păcate."
+        "poi": "Acest Point of Interest nu a fost găsit, din păcate.",
+        "localNews": "Această știre nu a fost găsită, din păcate.",
+        "tunews": "Această tünews nu a fost găsită, din păcate."
       },
       "pageNotFound": "Această pagină nu a fost găsită, din păcate.",
       "networkConnectionFailed": "Conectarea la server a eșuat.",
@@ -787,7 +890,10 @@
         "start": "Spre pagina de start",
         "categories": "Spre categorii",
         "events": "Spre evenimente",
-        "offers": "Spre oferte"
+        "offers": "Spre oferte",
+        "pois": "Spre puncte de interes",
+        "localNews": "Spre știri",
+        "tunews": "Spre tünews"
       },
       "pageTitle": "Erori",
       "generalError": "A apărut o eroare",
@@ -801,7 +907,9 @@
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
         "offer": "К сожалению, это предложение не найдено.",
-        "poi": "К сожалению, эта достопримечательность не найдена."
+        "poi": "К сожалению, эта достопримечательность не найдена.",
+        "localNews": "К сожалению, это сообщение не найдено.",
+        "tunews": "К сожалению, эта новость tünews не найдена."
       },
       "pageNotFound": "К сожалению, эта страница не найдена.",
       "networkConnectionFailed": "Не удалось соединиться с сервером.",
@@ -815,7 +923,10 @@
         "start": "К начальной странице",
         "categories": "К категориям",
         "events": "К мероприятиям",
-        "offers": "К предложениям"
+        "offers": "К предложениям",
+        "pois": "Перейти к достопримечательностям",
+        "localNews": "К сообщениям",
+        "tunews": "К новостям tünews"
       },
       "pageTitle": "Ошибка",
       "generalError": "Произошла ошибка",
@@ -913,7 +1024,9 @@
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
         "offer": "Bu teklif maalesef bulunamadı.",
-        "poi": "Bu ilgi alanı maalesef bulunamadı."
+        "poi": "Bu ilgi alanı maalesef bulunamadı.",
+        "localNews": "Bu mesaj ne yazık ki bulunamadı.",
+        "tunews": "Bu tünews ne yazık ki bulunamadı."
       },
       "pageNotFound": "Bu sayfa maalesef bulunamadı.",
       "networkConnectionFailed": "Sunucu bağlantısı başarısız.",
@@ -927,7 +1040,10 @@
         "start": "Ana sayfaya git",
         "categories": "Kategorilere git",
         "events": "Etkinliklere git",
-        "offers": "Tekliflere git"
+        "offers": "Tekliflere git",
+        "pois": "İlgi alanlarına git",
+        "localNews": "Mesajlara git",
+        "tunews": "tünews'a git"
       },
       "pageTitle": "Hata",
       "generalError": "Bir hata oluştu",
@@ -977,6 +1093,12 @@
       "date": "Datum",
       "events": "Događanja",
       "currentlyNoEvents": "Trenutačno nema događanja."
+    },
+    "it": {
+      "location": "Posizione",
+      "date": "Data",
+      "events": "Eventi",
+      "currentlyNoEvents": "Al momento non ci sono eventi."
     },
     "ku": {
       "location": "Mekan",
@@ -1070,6 +1192,7 @@
       "contentOfOffer": "عرض \"{{offer}}\"",
       "disclaimer": "جهة الاتصال وهيئة التحرير",
       "searchFor": "البحث عن",
+      "contentOfPoi": "محتوى المكان \"{{poi}}\"",
       "contentOfPage": "محتوى الصفحة \"{{page}}\"",
       "contentOfEvent": "مضمون الفعالية \"{{event}}\"",
       "send": "إرسال",
@@ -1097,6 +1220,7 @@
       "contentOfOffer": "Offer \"{{offer}}\"",
       "disclaimer": "Contacts and imprint",
       "searchFor": "Search for",
+      "contentOfPoi": "Content of the place \"{{poi}}\"",
       "contentOfPage": "Content of the page \"{{page}}\"",
       "contentOfEvent": "Content of the event \"{{event}}\"",
       "send": "Send",
@@ -1124,6 +1248,7 @@
       "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Contacto y aviso legal",
       "searchFor": "Buscar por",
+      "contentOfPoi": "Contenido del lugar \"{{poi}}\"",
       "contentOfPage": "Contenido de la página \"{{page}}\"",
       "contentOfEvent": "Contenido de la actividad \"{{event}}\"",
       "send": "Enviar",
@@ -1178,6 +1303,7 @@
       "contentOfOffer": "Offre « {{offer}} »",
       "disclaimer": "Contact et mentions légales",
       "searchFor": "Rechercher",
+      "contentOfPoi": "Contenu du lieu \"{{poi}}\"",
       "contentOfPage": "Contenu de la page « {{page}} »",
       "contentOfEvent": "Contenu de l'événement « {{event}} »",
       "send": "Envoyer",
@@ -1226,6 +1352,34 @@
       "negativeRating": "Ova stranica nije korisna",
       "positiveRating": "Ova stranica je korisna"
     },
+    "it": {
+      "technicalTopics": "Funzionalità tecniche",
+      "contentOfCity": "Contenuti di {{city}}",
+      "contentOfOffer": "Offerta \"{{offer}}\"",
+      "disclaimer": "Contatti e impressum",
+      "searchFor": "Ricerca per",
+      "contentOfPoi": "Contenuti del luogo \"{{poi}}\"",
+      "contentOfPage": "Contenuti della pagina \"{{page}}\"",
+      "contentOfEvent": "Contenuti dell’evento \"{{event}}\"",
+      "send": "Invia",
+      "failedSendingFeedback": "Si è verificato un errore nell’invio del feedback.",
+      "feedback": "Feedback",
+      "positiveComment": "Cosa è stato utile?",
+      "negativeComment": "Cosa possiamo migliorare?",
+      "feedbackType": "A cosa serve il feedback?",
+      "isThisSiteUseful": "Questa pagina è utile?",
+      "useful": "Utile",
+      "notUseful": "Non utile",
+      "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
+      "yourFeedback": "Il tuo feedback...",
+      "informationNotFound": "Non hai trovato quello che cercavi?",
+      "wantedInformation": "Quali informazioni mancano qui?",
+      "feedbackSent": "Feedback inviato",
+      "thanksMessage": "Grazie per il tuo feedback. Ci aiuterà a migliorare i nostri contenuti e l’app {{appName}}. Saremo felici di ricevere ulteriori feedback.",
+      "close": "Chiudi",
+      "negativeRating": "Questa pagina non è utile",
+      "positiveRating": "Questa pagina è utile"
+    },
     "ku": {
       "technicalTopics": "Kirdeyên Teknîkî",
       "contentOfCity": "Naverok {{city}}",
@@ -1259,6 +1413,7 @@
       "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Kontakt i nota prawna",
       "searchFor": "Wyszukaj",
+      "contentOfPoi": "Treść lokalizacji \"{{poi}}\"",
       "contentOfPage": "Treść strony \"{{page}}\"",
       "contentOfEvent": "Treść wydarzenia \"{{event}}\"",
       "send": "Wyślij",
@@ -1312,6 +1467,7 @@
       "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Contact și caseta tehnică",
       "searchFor": "Căutare pentru",
+      "contentOfPoi": "Conținutul locației \"{{poi}}\"",
       "contentOfPage": "Conținutul paginii \"{{page}}\"",
       "contentOfEvent": "Conținutul evenimentului \"{{event}}\"",
       "send": "Trimiteți",
@@ -1339,6 +1495,7 @@
       "contentOfOffer": "Предложение \"{{offer}}\"",
       "disclaimer": "Контактная информация и выходные данные",
       "searchFor": "Поиск по",
+      "contentOfPoi": "Содержимое местоположения \"{{poi}}\"",
       "contentOfPage": "Содержимое страницы \"{{page}}\"",
       "contentOfEvent": "Содержимое мероприятия \"{{event}}\"",
       "send": "Отправить",
@@ -1447,6 +1604,7 @@
       "contentOfOffer": "Teklif \"{{offer}}\"",
       "disclaimer": "İletişim ve künye",
       "searchFor": "Ara",
+      "contentOfPoi": "Yer \"{{poi}}\" içeriği",
       "contentOfPage": "Sayfa \"{{page}}\" içeriği",
       "contentOfEvent": "Etkinlik \"{{event}}\" içeriği",
       "send": "Gönder",
@@ -1665,6 +1823,34 @@
       "decline": "Odbaci",
       "accept": "Prihvati",
       "privacyPolicy": "Izjava o zaštiti podataka"
+    },
+    "it": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} è la tua guida digitale per la Germania",
+      "search": "Ricerca",
+      "searchDescription": "Trova rapidamente le informazioni corrette utilizzando le parole chiave",
+      "languageChange": "Cambia lingua",
+      "languageChangeDescription": "Cambia facilmente la lingua delle singole pagine",
+      "events": "Eventi",
+      "eventsDescription": "Eventi e appuntamenti nei dintorni",
+      "offers": "Offerte",
+      "offersDescription": "Offerte di lavoro, tirocini e altro nei dintorni",
+      "inquiryTitle": "Impostazioni",
+      "inquiryIntro": "Cliccando su \"{{accept}}\" consento all’app {{appName}} di ...",
+      "sentryTitle": "Stabilità dell’app",
+      "sentryCondition": "... migliorare {{appName}} con l’invio automatico di rapporti sugli arresti anomali",
+      "pushNewsTitle": "Notifiche push",
+      "pushNewsCondition": "... inviarmi notifiche push per le ultime notizie locali",
+      "proposeCitiesTitle": "Luoghi vicini",
+      "proposeCitiesCondition": "... suggerirmi luoghi vicini utilizzando la mia posizione GPS",
+      "skip": "Salta",
+      "next": "Avanti",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "customize": "Adatta",
+      "decline": "Rifiuta",
+      "accept": "Accetta",
+      "privacyPolicy": "Informativa sulla privacy"
     },
     "ku": {
       "appName": "{{appName}}",
@@ -1999,6 +2185,18 @@
       "alert": "Napomena",
       "locationError": "Za prikaz mjesta u blizini mora biti aktivirana usluga geolokacije."
     },
+    "it": {
+      "searchCity": "Cerca luogo",
+      "nearbyPlaces": "Luoghi nelle vicinanze",
+      "noNearbyPlaces": "Non è stato trovato nessun luogo nelle vicinanze.",
+      "alert": "Nota",
+      "locationError": "I servizi di localizzazione devono essere attivati per visualizzare i luoghi nelle vicinanze.",
+      "noPermission": "È necessario l’accesso alla posizione",
+      "loading": "Determina la posizione...",
+      "notAvailable": "Geolocalizzazione disattivata",
+      "timeout": "Geolocalizzazione non riuscita",
+      "refresh": "Aggiorna l’elenco dei luoghi"
+    },
     "ku": {
       "searchCity": "Lêgerîna li Mekan",
       "nearbyPlaces": "Cihên nêzik",
@@ -2016,7 +2214,12 @@
       "nearbyPlaces": "lokalizacje w pobliżu",
       "noNearbyPlaces": "Nie znaleziono lokalizacji w pobliżu.",
       "alert": "Wskazówka",
-      "locationError": "Usługi lokalizacyjne muszą być włączone, aby wyświetlić lokalizacje w pobliżu."
+      "locationError": "Usługi lokalizacyjne muszą być włączone, aby wyświetlić lokalizacje w pobliżu.",
+      "noPermission": "Wymagany dostęp do placówki",
+      "loading": "Ustal placówkę...",
+      "notAvailable": "Ustalenie placówki wyłączone",
+      "timeout": "Ustalenie placówki nie powiodło się",
+      "refresh": "Aktualizuj listę placówek"
     },
     "ps": {
       "searchCity": "ځای لټول",
@@ -2035,7 +2238,12 @@
       "nearbyPlaces": "Locații în apropiere",
       "noNearbyPlaces": "Nu s-au găsit locații în apropiere.",
       "alert": "Indicație",
-      "locationError": "Pentru a putea să arătăm locații în apropiere, trebuie să se activeze servicii de localizare."
+      "locationError": "Pentru a putea să arătăm locații în apropiere, trebuie să se activeze servicii de localizare.",
+      "noPermission": "Este necesară accesarea locației",
+      "loading": "Anumită locație...",
+      "notAvailable": "Identificare locație dezactivată",
+      "timeout": "Identificare locație eșuată",
+      "refresh": "Actualizare listă de locații"
     },
     "ru": {
       "searchCity": "Поиск населенного пункта",
@@ -2238,6 +2446,26 @@
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
       "disclaimer": "Impresum"
     },
+    "it": {
+      "imprintAndContact": "Impressum e contatti",
+      "privacy": "Protezione dei dati",
+      "offers": "Offerte",
+      "localInformation": "Informazioni locali",
+      "events": "Eventi",
+      "noEvents": "Nessun evento",
+      "news": "Messaggi",
+      "noLanguages": "Non disponibile in altre lingue",
+      "noTranslation": "Nessuna traduzione disponibile",
+      "search": "Cerca",
+      "changeLocation": "Cambia posizione",
+      "changeLanguage": "Cambia lingua",
+      "settings": "Impostazioni",
+      "share": "Condividi",
+      "cancel": "Annulla",
+      "shareMessage": "Appena trovato: {{message}}",
+      "shareFailDefaultMessage": "Purtroppo la condivisione del contenuto non è riuscita.",
+      "disclaimer": "Impressum"
+    },
     "ku": {
       "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
       "privacy": "Parastina daneyan",
@@ -2265,6 +2493,7 @@
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
       "noEvents": "Brak wydarzeń",
+      "news": "Wiadomości",
       "noLanguages": "Niedostępne w innych językach",
       "noTranslation": "Brak dostępnego tłumaczenia",
       "search": "Wyszukaj",
@@ -2304,6 +2533,7 @@
       "localInformation": "Informații locale",
       "events": "Evenimente",
       "noEvents": "Nici un fel de evenimente",
+      "news": "Știri",
       "noLanguages": "Indisponibil în alte limbi",
       "noTranslation": "Nicio traducere disponibilă",
       "search": "Căutare",
@@ -2445,19 +2675,25 @@
     "hr": {
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji."
     },
+    "it": {
+      "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
+      "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
+    },
     "ku": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
       "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
     },
     "pl": {
-      "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii."
+      "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii.",
+      "NSLocationWhenInUseUsageDescription": "Aby znaleźć lokalizacje w pobliżu, {{appName}} wymaga dostępu do placówki."
     },
     "ps": {
       "NSPhotoLibraryAddUsageDescription": "د انځورونو خوندي کولو لپاره {{appName}} انځورتون ته لاسرسي ته اړتیا لري.",
       "NSLocationWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري."
     },
     "ro": {
-      "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie."
+      "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie.",
+      "NSLocationWhenInUseUsageDescription": "Pentru a putea găsi locații aflate în apropiere, {{appName}} are nevoie de acces la locația dvs."
     },
     "ru": {
       "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению {{appName}} требуется доступ к галерее изображений.",
@@ -2541,6 +2777,16 @@
       "currentlyNoNews": "Aucune nouvelle pour l'instant",
       "currentlyNoNewsAlternative": "Aucune nouveauté pour l'instant"
     },
+    "it": {
+      "news": "Messaggi",
+      "newsAlternative": "Novità",
+      "localNews": "Notizie locali",
+      "localNewsAlternative": "Novità locali",
+      "local": "Locale",
+      "readMore": "Continua",
+      "currentlyNoNews": "Attualmente non ci sono notizie.",
+      "currentlyNoNewsAlternative": "Attualmente non ci sono novità."
+    },
     "ku": {
       "news": "Nûçe",
       "newsAlternative": "Nûçe",
@@ -2551,6 +2797,16 @@
       "currentlyNoNews": "Niha nûçe tune.",
       "currentlyNoNewsAlternative": "Niha nûçe tune."
     },
+    "pl": {
+      "news": "Wiadomości",
+      "newsAlternative": "Aktualności",
+      "localNews": "Wiadomości lokalne",
+      "localNewsAlternative": "Aktualności lokalne",
+      "local": "Lokalnie",
+      "readMore": "Czytaj dalej",
+      "currentlyNoNews": "Obecnie nie ma żadnej wiadomości.",
+      "currentlyNoNewsAlternative": "Obecnie nie ma żadnej wiadomości."
+    },
     "ps": {
       "news": "خبرونه",
       "newsAlternative": "نوې زړې",
@@ -2560,6 +2816,16 @@
       "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته.",
       "currentlyNoNewsAlternative": "دا مهال کومې نوې زړې نشته."
+    },
+    "ro": {
+      "news": "Știri",
+      "newsAlternative": "Noutăți",
+      "localNews": "Știri locale",
+      "localNewsAlternative": "Noutăți locale",
+      "local": "Local",
+      "readMore": "Citire mai departe",
+      "currentlyNoNews": "În prezent nu există nicio știre.",
+      "currentlyNoNewsAlternative": "În prezent nu există noutăți."
     },
     "ru": {
       "news": "Новости",
@@ -2634,6 +2900,9 @@
     "hr": {
       "offers": "Ponude"
     },
+    "it": {
+      "offers": "Offerte"
+    },
     "ku": {
       "offers": "Xizmet"
     },
@@ -2681,11 +2950,20 @@
     "fr": {
       "searchPlaceholder": "Recherche"
     },
+    "it": {
+      "searchPlaceholder": "Ricerca"
+    },
     "ku": {
       "searchPlaceholder": "Lêgerîn"
     },
+    "pl": {
+      "searchPlaceholder": "Wyszukaj"
+    },
     "ps": {
       "searchPlaceholder": "لټون"
+    },
+    "ro": {
+      "searchPlaceholder": "Căutare"
     },
     "ru": {
       "searchPlaceholder": "Поиск"
@@ -2786,6 +3064,18 @@
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licencije otvorenog koda"
+    },
+    "it": {
+      "sentryTitle": "Stabilità dell’app",
+      "sentryDescription": "Migliora l’app {{appName}} inviando automaticamente rapporti sugli arresti anomali",
+      "pushNewsTitle": "Notifiche push",
+      "pushNewsDescription": "Ricevi notifiche push per le ultime notizie locali",
+      "proposeCitiesTitle": "Luoghi vicini",
+      "proposeCitiesDescription": "Ottieni suggerimenti per luoghi nelle vicinanze utilizzando la posizione GPS",
+      "about": "Info su {{appName}}",
+      "privacyPolicy": "Informativa sulla privacy",
+      "version": "Versione: {{version}}",
+      "openSourceLicenses": "Licenze open source"
     },
     "ku": {
       "sentryTitle": "Mayîndetiya App'ê",
@@ -2910,7 +3200,7 @@
       "grantPermission": "السماح",
       "deactivateFeature": "إلغاء تنشيط الخدمة",
       "locationPermissionMissing": "مطلوب إذن بالوصول إلى الموقع لاقتراح المواقع القريبة  ",
-      "pushNotificationPermissionMissing": "مطلوب تصاريح لإرسال إشعارات لحظية ",
+      "pushNotificationPermissionMissing": "مطلوب تصاريح لإرسال إشعارات لحظية",
       "deactivate": "إلغاء التفعيل",
       "learnMore": "مزيد من المعلومات",
       "dismiss": "إغلاق"
@@ -2955,6 +3245,15 @@
       "grantPermission": "Dozvoli",
       "deactivateFeature": "Deaktiviraj opciju"
     },
+    "it": {
+      "grantPermission": "Consenti",
+      "deactivateFeature": "Disattiva funzione",
+      "locationPermissionMissing": "Richiede l’accesso alla posizione per suggerire posizioni nelle vicinanze",
+      "pushNotificationPermissionMissing": "Richiede le autorizzazioni necessarie per inviare notifiche push",
+      "deactivate": "Disattiva",
+      "learnMore": "Maggiori informazioni",
+      "dismiss": "Chiudi"
+    },
     "ku": {
       "grantPermission": "Rêdan",
       "deactivateFeature": "Neçalakkirina taybetmendiyê",
@@ -2966,7 +3265,12 @@
     },
     "pl": {
       "grantPermission": "Zezwól",
-      "deactivateFeature": "Deaktywuj funkcje"
+      "deactivateFeature": "Deaktywuj funkcje",
+      "locationPermissionMissing": "Aby zaproponować pobliskie lokalizacje wymagany jest dostęp do placówki",
+      "pushNotificationPermissionMissing": "Aby wysłać powiadomienia Push, wymagane są uprawnienia",
+      "deactivate": "Deaktywuj",
+      "learnMore": "Więcej informacji",
+      "dismiss": "Zamknij"
     },
     "ps": {
       "grantPermission": "اجازه ورکول",
@@ -2979,7 +3283,12 @@
     },
     "ro": {
       "grantPermission": "Permiteți",
-      "deactivateFeature": "Dezactivați feature"
+      "deactivateFeature": "Dezactivați feature",
+      "locationPermissionMissing": "Accesarea locației necesară pentru propunerea de locații aflate în apropiere",
+      "pushNotificationPermissionMissing": "Autorizări necesare pentru trimiterea de notificări push",
+      "deactivate": "Dezactivare",
+      "learnMore": "Mai multe informații",
+      "dismiss": "Închidere"
     },
     "ru": {
       "grantPermission": "Разрешить",
@@ -3048,6 +3357,9 @@
     },
     "hr": {
       "noOffersAvailable": "Nema dostupnih ponuda"
+    },
+    "it": {
+      "noOffersAvailable": "Non sono disponibili offerte"
     },
     "ku": {
       "noOffersAvailable": "Tu xizmetek li ber dest nîne"
