@@ -6,7 +6,7 @@ import Url from 'url-parse'
 type CityContentRouteUrlType = {| cityCode: string, languageCode: string, route?: string, path?: ?string |}
 
 const constructUrl = (parts: Array<?string>) => {
-  const url = new Url(buildConfig().shareBaseUrl)
+  const url = new Url(`https://${buildConfig().hostName}`)
   const pathname = parts
     .filter(Boolean)
     .map(part => part.toLowerCase())
