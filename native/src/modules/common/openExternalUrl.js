@@ -18,7 +18,8 @@ const openExternalUrl = async (url: string) => {
       if (canOpen) {
         await Linking.openURL(url)
       } else {
-        // TODO Show a snackbar to indicate there is no suitable app to open the url
+        console.warn('This is not a supported route. Skipping.')
+        // TODO IGAPP-521 show snackbar route not found
       }
     }
   } catch (error) {

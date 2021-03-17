@@ -8,10 +8,7 @@ const createCityContent = (city: string, languages: ?Array<LanguageModel>): City
     city,
     languages: !languages ? { status: 'loading' } : { status: 'ready', models: languages },
     switchingLanguage: false,
-    categoriesRouteMapping: {},
-    eventsRouteMapping: {},
-    poisRouteMapping: {},
-    newsRouteMapping: {},
+    routeMapping: {},
     resourceCache: { status: 'ready', progress: 0, value: {} },
     searchRoute: null
   }

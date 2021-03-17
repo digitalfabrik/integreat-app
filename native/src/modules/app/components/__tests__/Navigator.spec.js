@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Navigator from '../Navigator'
 import AppSettings from '../../../settings/AppSettings'
 import { generateKey } from '../../generateRouteKey'
-import { DASHBOARD_ROUTE, LANDING_ROUTE } from 'api-client/src/routes'
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
 
@@ -197,49 +197,6 @@ describe('Navigator', () => {
         </NavigationContainer>
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
-    })
-  })
-
-  it('should call fetch category if the navigating from landing to dashboard', async () => {
-    await act(async () => {
-      const appSettings = new AppSettings()
-      const routeKey = generateKey()
-      await appSettings.setContentLanguage(languageCode)
-      await appSettings.setIntroShown()
-
-      const { findByText, rerender } = render(
-        <NavigationContainer>
-          <Navigator {...props({ routeName: null })} />
-        </NavigationContainer>
-      )
-
-      // Don't remove this, the rerender only triggers a fetch category if the initial route is already set
-      await findByText('Landing')
-
-      // Simulate update of navigation state in reaction to initial route
-      rerender(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: LANDING_ROUTE,
-              routeKey: generateKey()
-            })}
-          />
-        </NavigationContainer>
-      )
-
-      // Simulate navigating to dashboard route
-      rerender(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: DASHBOARD_ROUTE,
-              routeKey
-            })}
-          />
-        </NavigationContainer>
-      )
-      await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, true))
     })
   })
 })
