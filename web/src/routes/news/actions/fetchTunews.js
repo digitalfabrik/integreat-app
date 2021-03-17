@@ -10,12 +10,16 @@ import fetchData from '../../../modules/app/fetchData'
 const TUNEWS_ITEMS_PER_PAGE = 20
 const DEFAULT_PAGE_NUMBER = 1
 
-export const fetchTunews = (
-  page: number = DEFAULT_PAGE_NUMBER,
-  count: number = TUNEWS_ITEMS_PER_PAGE
-) => (dispatch: Dispatch<StoreActionType>, getState: () => StateType) => {
+export const fetchTunews = (page: number = DEFAULT_PAGE_NUMBER, count: number = TUNEWS_ITEMS_PER_PAGE) => (
+  dispatch: Dispatch<StoreActionType>,
+  getState: () => StateType
+) => {
   const state: StateType = getState()
   const { city, language } = state.location.payload
-  return fetchData<*, *>(
-    createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, { city, language, page, count })
+  return fetchData<*, *>(createTunewsEndpoint(tunewsApiBaseUrl), dispatch, state.tunews.payload, {
+    city,
+    language,
+    page,
+    count
+  })
 }

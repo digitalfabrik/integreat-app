@@ -6,7 +6,7 @@ import { call } from 'redux-saga/effects'
 import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 
-function * loadPois (
+function* loadPois(
   city: string,
   language: string,
   poisEnabled: boolean,
@@ -33,10 +33,12 @@ function * loadPois (
   console.debug('Fetching pois')
 
   const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() => createPOIsEndpoint(apiUrl).request({
-    city,
-    language
-  }))
+  const payload = yield call(() =>
+    createPOIsEndpoint(apiUrl).request({
+      city,
+      language
+    })
+  )
   const pois: Array<PoiModel> = payload.data
 
   yield call(dataContainer.setPois, city, language, pois)

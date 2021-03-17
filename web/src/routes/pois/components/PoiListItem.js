@@ -9,12 +9,10 @@ type PropsType = {|
 |}
 
 class PoiListItem extends React.PureComponent<PropsType> {
-  render () {
+  render() {
     const { poi } = this.props
     return (
-      <ListItem key={poi.path}
-                title={poi.title}
-                path={poi.path}>
+      <ListItem key={poi.path} title={poi.title} path={poi.path}>
         {poi.location.location && <div>{poi.location.location}</div>}
       </ListItem>
     )

@@ -82,23 +82,13 @@ describe('FilterableCitySelector', () => {
   ]
 
   it('should render', () => {
-    const component = shallow(
-      <FilterableCitySelector
-        language='de'
-        cities={cities}
-        t={t} />
-    )
+    const component = shallow(<FilterableCitySelector language='de' cities={cities} t={t} />)
 
     expect(component).toMatchSnapshot()
   })
 
   it('should update filter text', () => {
-    const wrapper = shallow(
-      <FilterableCitySelector
-        t={t}
-        language='de'
-        cities={cities} />
-    )
+    const wrapper = shallow(<FilterableCitySelector t={t} language='de' cities={cities} />)
 
     wrapper.instance().handleFilterTextChanged('City')
     expect(wrapper).toMatchSnapshot()

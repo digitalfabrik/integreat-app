@@ -9,7 +9,7 @@ import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 
-export function * fetchPoi (dataContainer: DataContainer, action: FetchPoiActionType): Saga<void> {
+export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
   try {
     const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
@@ -65,6 +65,6 @@ export function * fetchPoi (dataContainer: DataContainer, action: FetchPoiAction
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('FETCH_POI', fetchPoi, dataContainer)
 }

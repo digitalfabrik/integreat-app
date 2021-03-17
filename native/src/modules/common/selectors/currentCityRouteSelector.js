@@ -28,18 +28,21 @@ const poiRouteSelector = (state: CityContentStateType, props: CityRouteSelectorP
 }
 
 export const currentCityRouteSelector = createSelector<
-    CityContentStateType,
-    CityRouteSelectorPropsType,
-    EventRouteStateType | CategoryRouteStateType | PoiRouteStateType | null,
-    ?CategoryRouteStateType,
-    ?EventRouteStateType,
-    ?PoiRouteStateType
-  >(
-    categoryRouteSelector,
-    eventRouteSelector,
-    poiRouteSelector, (
-      categoryRoute: ?CategoryRouteStateType, eventRoute: ?EventRouteStateType, poiRoute: ?PoiRouteStateType
-    ): CategoryRouteStateType | EventRouteStateType | PoiRouteStateType | null => {
-      return categoryRoute || eventRoute || poiRoute || null
-    }
-  )
+  CityContentStateType,
+  CityRouteSelectorPropsType,
+  EventRouteStateType | CategoryRouteStateType | PoiRouteStateType | null,
+  ?CategoryRouteStateType,
+  ?EventRouteStateType,
+  ?PoiRouteStateType
+>(
+  categoryRouteSelector,
+  eventRouteSelector,
+  poiRouteSelector,
+  (
+    categoryRoute: ?CategoryRouteStateType,
+    eventRoute: ?EventRouteStateType,
+    poiRoute: ?PoiRouteStateType
+  ): CategoryRouteStateType | EventRouteStateType | PoiRouteStateType | null => {
+    return categoryRoute || eventRoute || poiRoute || null
+  }
+)

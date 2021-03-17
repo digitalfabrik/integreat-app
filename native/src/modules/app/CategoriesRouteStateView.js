@@ -8,7 +8,7 @@ class CategoriesRouteStateView {
   +rawModels: $ReadOnly<{ [path: string]: CategoryModel }>
   +rawChildren: $ReadOnly<{ [path: string]: $ReadOnlyArray<string> }>
 
-  constructor (
+  constructor(
     path: string,
     models: $ReadOnly<{ [path: string]: CategoryModel }>,
     children: $ReadOnly<{ [path: string]: $ReadOnlyArray<string> }>
@@ -18,14 +18,14 @@ class CategoriesRouteStateView {
     this.rawPath = path
   }
 
-  root (): CategoryModel {
+  root(): CategoryModel {
     if (!has(this.rawModels, this.rawPath)) {
       throw new Error(`CategoriesRouteStateView doesn't have the root model for '${this.rawPath}'!`)
     }
     return this.rawModels[this.rawPath]
   }
 
-  children (): Array<CategoryModel> {
+  children(): Array<CategoryModel> {
     const childrenPaths = this.rawChildren[this.rawPath]
 
     if (!childrenPaths) {
@@ -35,7 +35,7 @@ class CategoriesRouteStateView {
     return childrenPaths.map(childPath => this.rawModels[childPath])
   }
 
-  stepInto (path: string): CategoriesRouteStateView {
+  stepInto(path: string): CategoriesRouteStateView {
     return new CategoriesRouteStateView(path, this.rawModels, this.rawChildren)
   }
 }

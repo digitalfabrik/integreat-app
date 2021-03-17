@@ -11,13 +11,16 @@ import { type TFunction } from 'react-i18next'
 import { push } from 'redux-first-router'
 
 const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
-  return categories.map(category => new TileModel({
-    title: category.title,
-    path: category.path,
-    thumbnail: category.thumbnail,
-    isExternalUrl: false,
-    postData: null
-  }))
+  return categories.map(
+    category =>
+      new TileModel({
+        title: category.title,
+        path: category.path,
+        thumbnail: category.thumbnail,
+        isExternalUrl: false,
+        postData: null
+      })
+  )
 }
 
 type PropsType = {|
@@ -33,34 +36,35 @@ type PropsType = {|
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({
-  categories,
-  categoryModel,
-  formatter,
-  t
-}: PropsType) => {
+const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsType) => {
   const children = categories.getChildren(categoryModel)
   if (categoryModel.isLeaf(categories)) {
     // last level, our category is a simple page
-    return <Page title={categoryModel.title}
-                 content={categoryModel.content}
-                 lastUpdate={categoryModel.lastUpdate}
-                 formatter={formatter}
-                 onInternalLinkClick={push} />
+    return (
+      <Page
+        title={categoryModel.title}
+        content={categoryModel.content}
+        lastUpdate={categoryModel.lastUpdate}
+        formatter={formatter}
+        onInternalLinkClick={push}
+      />
+    )
   } else if (categoryModel.isRoot()) {
     // first level, we want to display a table with all first order categories
-    return <Tiles tiles={getTileModels(children)}
-                  title={t('localInformation')} />
+    return <Tiles tiles={getTileModels(children)} title={t('localInformation')} />
   }
   // some level between, we want to display a list
-  return <CategoryList
-    categories={children.map(model => ({
-      model,
-      subCategories: categories.getChildren(model)
-    }))}
-    category={categoryModel}
-    onInternalLinkClick={push}
-    formatter={formatter} />
+  return (
+    <CategoryList
+      categories={children.map(model => ({
+        model,
+        subCategories: categories.getChildren(model)
+      }))}
+      category={categoryModel}
+      onInternalLinkClick={push}
+      formatter={formatter}
+    />
+  )
 }
 
 export default CategoriesContent

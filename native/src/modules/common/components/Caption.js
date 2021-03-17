@@ -19,7 +19,7 @@ type PropsType = {|
 |}
 
 class Caption extends React.Component<PropsType> {
-  render () {
+  render() {
     return <H1 theme={this.props.theme}>{this.props.title}</H1>
   }
 }

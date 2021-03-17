@@ -38,64 +38,79 @@ type FlowType = 'left' | 'right' | 'up' | 'down'
 const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css`
   /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
   ::before {
-    ${flow === 'up' && `
+    ${flow === 'up' &&
+    `
       bottom: 100%;
       border-bottom-width: 0;
       border-top-color: #333;
     `}
-    ${flow === 'down' && `
+    ${flow === 'down' &&
+    `
       top: 100%;
       border-top-width: 0;
       border-bottom-color: #333;
     `}
-    ${flow === 'left' && `
+    ${flow === 'left' &&
+    `
       ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
       ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
       ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
     `}
-    ${flow === 'right' && `
+    ${flow === 'right' &&
+    `
       ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
       ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333;
       ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
     `}
   }
-  
+
   ::after {
-    ${flow === 'up' && `
+    ${flow === 'up' &&
+    `
       bottom: calc(99% + 5px);
     `}
-    ${flow === 'down' && `
+    ${flow === 'down' &&
+    `
       top: calc(99% + 5px);
     `}
-    ${flow === 'left' && `
+    ${flow === 'left' &&
+    `
       ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
     `}
-    ${flow === 'right' && `
+    ${flow === 'right' &&
+    `
       ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
     `}
   }
-  
+
   ::before,
   ::after {
-    ${(flow === 'left' || flow === 'right') && `
+    ${(flow === 'left' || flow === 'right') &&
+    `
       top: 50%;
       transform: translate(0, -50%);
     `}
-    ${(flow === 'up' || flow === 'down') && `
+    ${(flow === 'up' || flow === 'down') &&
+    `
       left: 50%;
       transform: translate(-50%, 0);
     `}
   }
 `
 
-const TooltipContainer: StyledComponent<{|
-  text: string, flow: FlowType,
-  smallViewportFlow: FlowType,
-  mediumViewportFlow: FlowType,
-  supportsLogicalProperties: boolean
-|}, ThemeType, *> = styled.div`
+const TooltipContainer: StyledComponent<
+  {|
+    text: string,
+    flow: FlowType,
+    smallViewportFlow: FlowType,
+    mediumViewportFlow: FlowType,
+    supportsLogicalProperties: boolean
+  |},
+  ThemeType,
+  *
+> = styled.div`
   position: relative;
-  
+
   ::before,
   ::after {
     line-height: 1;
@@ -125,14 +140,14 @@ const TooltipContainer: StyledComponent<{|
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-       
+
     /* visible design of the tooltip bubbles */
     padding: 10px 15px;
     border-radius: 3px;
     background: #333;
     color: #fff;
   }
-  
+
   :hover::before,
   :hover::after {
     display: block;
@@ -150,13 +165,13 @@ const TooltipContainer: StyledComponent<{|
   @media screen and ${dimensions.mediumViewport} {
     ${props => pseudosMixin(props.mediumViewportFlow, props.supportsLogicalProperties)}
   }
-  
+
   @keyframes tooltips {
     to {
       opacity: 1;
     }
   }
-  
+
   :hover::before,
   :hover::after {
     animation: tooltips 300ms ease-out forwards;
@@ -178,10 +193,14 @@ export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }:
     return children
   }
 
-  return <TooltipContainer text={text} flow={flow}
-                           mediumViewportFlow={mediumViewportFlow ?? flow}
-                           smallViewportFlow={smallViewportFlow ?? (mediumViewportFlow ?? flow)}
-                           supportsLogicalProperties={platform.supportsLogicalProperties}>
-    {children}
-  </TooltipContainer>
+  return (
+    <TooltipContainer
+      text={text}
+      flow={flow}
+      mediumViewportFlow={mediumViewportFlow ?? flow}
+      smallViewportFlow={smallViewportFlow ?? mediumViewportFlow ?? flow}
+      supportsLogicalProperties={platform.supportsLogicalProperties}>
+      {children}
+    </TooltipContainer>
+  )
 }

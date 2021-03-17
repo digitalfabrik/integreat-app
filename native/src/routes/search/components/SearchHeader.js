@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next'
 import dimensions from '../../../modules/theme/constants/dimensions'
 
 const HorizontalLeft = styled.View`
-  flex:1;
+  flex: 1;
   flex-direction: row;
   align-items: center;
 `
@@ -19,7 +19,7 @@ const BoxShadow = styled.View`
   shadow-color: #000;
   shadow-offset: 0px 1px;
   shadow-opacity: 0.18;
-  shadow-radius: 1.00px;
+  shadow-radius: 1px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
@@ -33,7 +33,7 @@ type PropsType = {|
 |}
 
 class SearchHeader extends React.Component<PropsType> {
-  render () {
+  render() {
     const { theme, query, closeSearchBar, onSearchChanged, t } = this.props
 
     return (

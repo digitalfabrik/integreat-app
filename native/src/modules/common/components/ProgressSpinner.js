@@ -44,7 +44,7 @@ export type PropsType = {|
 |}
 
 class ProgressSpinner extends React.Component<PropsType> {
-  render () {
+  render() {
     const { t, progress, theme } = this.props
     return (
       <Container>

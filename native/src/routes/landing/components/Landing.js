@@ -30,14 +30,16 @@ export type PropsType = {|
   clearResourcesAndCache: () => void
 |}
 
-export type LocationType = {|
-  status: 'unavailable',
-  message: string
-|} | {|
-  status: 'ready',
-  longitude: number,
-  latitude: number
-|}
+export type LocationType =
+  | {|
+      status: 'unavailable',
+      message: string
+    |}
+  | {|
+      status: 'ready',
+      longitude: number,
+      latitude: number
+    |}
 
 type StateType = {|
   proposeNearbyCities: boolean | null,
@@ -45,7 +47,7 @@ type StateType = {|
 |}
 
 class Landing extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = {
       proposeNearbyCities: null,
@@ -56,7 +58,7 @@ class Landing extends React.Component<PropsType, StateType> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.initializeProposeCities()
   }
 
@@ -64,7 +66,7 @@ class Landing extends React.Component<PropsType, StateType> {
     const appSettings = new AppSettings()
     const { proposeNearbyCities } = await appSettings.loadSettings()
     this.setState({ proposeNearbyCities: proposeNearbyCities })
-    const permissionGranted = await checkLocationPermission() === RESULTS.GRANTED
+    const permissionGranted = (await checkLocationPermission()) === RESULTS.GRANTED
 
     if (!permissionGranted) {
       this.setState({
@@ -95,8 +97,7 @@ class Landing extends React.Component<PropsType, StateType> {
           }
         })
       },
-      (error: GeolocationError) => this.setLocationErrorMessage(error)
-      ,
+      (error: GeolocationError) => this.setLocationErrorMessage(error),
       {
         enableHighAccuracy: true,
         timeout: 50000,
@@ -135,17 +136,26 @@ class Landing extends React.Component<PropsType, StateType> {
     navigateToDashboard(cityModel.code, language)
   }
 
-  render () {
+  render() {
     const { theme, cities, t, clearResourcesAndCache } = this.props
     const { proposeNearbyCities, ...state } = this.state
     const tryAgain = this.state.location.message === 'loading' ? null : this.determineCurrentPosition
 
     if (proposeNearbyCities !== null) {
-      return <Wrapper theme={theme}>
-        <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-        <FilterableCitySelector theme={theme} cities={cities} t={t} {...state} proposeNearbyCities={proposeNearbyCities}
-                                tryAgain={tryAgain} navigateToDashboard={this.navigateToDashboard} />
-      </Wrapper>
+      return (
+        <Wrapper theme={theme}>
+          <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
+          <FilterableCitySelector
+            theme={theme}
+            cities={cities}
+            t={t}
+            {...state}
+            proposeNearbyCities={proposeNearbyCities}
+            tryAgain={tryAgain}
+            navigateToDashboard={this.navigateToDashboard}
+          />
+        </Wrapper>
+      )
     } else {
       return null
     }

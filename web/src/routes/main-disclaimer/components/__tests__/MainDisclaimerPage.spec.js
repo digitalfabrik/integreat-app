@@ -8,6 +8,10 @@ import theme from '../../../../modules/theme/constants/theme'
 
 describe('MainDisclaimerPage', () => {
   it('should render', () => {
-    mount(<ThemeProvider theme={theme}><MainDisclaimerPage /></ThemeProvider>)
+    mount(
+      <ThemeProvider theme={theme}>
+        <MainDisclaimerPage />
+      </ThemeProvider>
+    )
   })
 })

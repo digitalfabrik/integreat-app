@@ -8,7 +8,10 @@ export type StartFetchMoreActionType<T: PayloadDataType> = { type: string, paylo
 
 export const startFetchMoreActionName = (stateName: string): string => `START_FETCH_MORE_${stateName.toUpperCase()}`
 
-const startFetchMoreAction = <T: PayloadDataType> (stateName: string, formattedUrl: string): StartFetchMoreActionType<T> => {
+const startFetchMoreAction = <T: PayloadDataType>(
+  stateName: string,
+  formattedUrl: string
+): StartFetchMoreActionType<T> => {
   const payload = new Payload<T>(true, formattedUrl)
   return createAction(startFetchMoreActionName(stateName))(payload)
 }

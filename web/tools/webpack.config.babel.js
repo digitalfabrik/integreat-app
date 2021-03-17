@@ -55,7 +55,8 @@ const generateManifest = (content: string, buildConfigName: string): string => {
       platform: 'play',
       id: androidBuildConfig.applicationId,
       url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
-    }, {
+    },
+    {
       platform: 'itunes',
       url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
     }
@@ -64,8 +65,15 @@ const generateManifest = (content: string, buildConfigName: string): string => {
   return JSON.stringify(manifest, null, 2)
 }
 
-const createConfig = (env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}) => {
-  const { config_name: buildConfigName, commit_sha: passedCommitSha, version_name: passedVersionName, dev_server: devServer } = env
+const createConfig = (
+  env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}
+) => {
+  const {
+    config_name: buildConfigName,
+    commit_sha: passedCommitSha,
+    version_name: passedVersionName,
+    dev_server: devServer
+  } = env
 
   if (!buildConfigName) {
     throw new Error('Please specify a build config name')
@@ -98,11 +106,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
 
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
-  const polyfills = [
-    '@babel/polyfill',
-    'whatwg-fetch',
-    'url-polyfill'
-  ]
+  const polyfills = ['@babel/polyfill', 'whatwg-fetch', 'url-polyfill']
 
   const config = {
     mode: devServer ? 'development' : 'production',
@@ -173,7 +177,9 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
           {
             from: manifestPreset,
             to: distDirectory,
-            transform (content: string, path: any): string { return generateManifest(content, buildConfigName) }
+            transform(content: string, path: any): string {
+              return generateManifest(content, buildConfigName)
+            }
           }
         ]
       }),
@@ -220,10 +226,12 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
         },
         {
           test: /\.html$/,
-          use: [{
-            loader: 'html-loader',
-            options: { minimize: true }
-          }]
+          use: [
+            {
+              loader: 'html-loader',
+              options: { minimize: true }
+            }
+          ]
         },
         {
           test: /\.css$/,
@@ -256,10 +264,7 @@ const createConfig = (env: { config_name?: string, dev_server?: boolean, version
                   speed: 2
                 },
                 svgo: {
-                  plugins: [
-                    { removeTitle: true },
-                    { convertPathData: false }
-                  ]
+                  plugins: [{ removeTitle: true }, { convertPathData: false }]
                 }
               }
             }

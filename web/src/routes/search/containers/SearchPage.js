@@ -31,7 +31,7 @@ type LocalStateType = {|
 const noop = () => {}
 
 export class SearchPage extends React.Component<PropsType, LocalStateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     const initialFilterText = props.location.query?.query ? props.location.query.query : ''
     this.state = {
@@ -39,19 +39,25 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     }
   }
 
-  findCategories (): Array<CategoryEntryType> {
+  findCategories(): Array<CategoryEntryType> {
     const categories = this.props.categories
     const filterText = normalizeSearchString(this.state.filterText)
 
     // find all categories whose titles include the filter text and sort them lexicographically
-    const categoriesWithTitle = categories.toArray()
+    const categoriesWithTitle = categories
+      .toArray()
       .filter(category => normalizeSearchString(category.title).includes(filterText))
       .sort((category1, category2) => category1.title.localeCompare(category2.title))
 
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     let contentWithoutHtml = []
-    const parser = new Parser({ ontext (text: string) { contentWithoutHtml.push(text) } })
-    const categoriesWithContent = categories.toArray()
+    const parser = new Parser({
+      ontext(text: string) {
+        contentWithoutHtml.push(text)
+      }
+    })
+    const categoriesWithContent = categories
+      .toArray()
       .filter(category => !normalizeSearchString(category.title).includes(filterText))
       .map((category: CategoryModel): CategoryEntryType => {
         contentWithoutHtml = []
@@ -62,9 +68,12 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
           contentWithoutHtml: contentWithoutHtml.join(' '),
           subCategories: []
         }
-      }).filter(categoryEntry =>
-        categoryEntry.contentWithoutHtml &&
-        normalizeSearchString(categoryEntry.contentWithoutHtml).includes(filterText))
+      })
+      .filter(
+        categoryEntry =>
+          categoryEntry.contentWithoutHtml &&
+          normalizeSearchString(categoryEntry.contentWithoutHtml).includes(filterText)
+      )
       .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
 
     // return all categories from above and remove the root category
@@ -80,22 +89,21 @@ export class SearchPage extends React.Component<PropsType, LocalStateType> {
     history.replaceState(null, '', `${this.props.location.pathname}${appendToUrl}`)
   }
 
-  render () {
+  render() {
     const categories = this.findCategories()
     const { t, location } = this.props
     const { filterText } = this.state
 
     return (
       <>
-        <SearchInput filterText={this.state.filterText}
-                     placeholderText={t('searchPlaceholder')}
-                     onFilterTextChange={this.handleFilterTextChanged}
-                     spaceSearch />
+        <SearchInput
+          filterText={this.state.filterText}
+          placeholderText={t('searchPlaceholder')}
+          onFilterTextChange={this.handleFilterTextChanged}
+          spaceSearch
+        />
         <CategoryList categories={categories} query={this.state.filterText} onInternalLinkClick={noop} />
-        <SearchFeedback
-          location={location}
-          resultsFound={categories.length !== 0}
-          query={filterText} />
+        <SearchFeedback location={location} resultsFound={categories.length !== 0} query={filterText} />
       </>
     )
   }
@@ -106,6 +114,5 @@ const mapStateToProps = (state: StateType) => ({
 })
 
 export default connect<$Diff<PropsType, {| t: TFunction |}>, OwnPropsType, _, _, _, _>(mapStateToProps, () => ({}))(
-  withTranslation<PropsType>('search')(
-    SearchPage
-  ))
+  withTranslation<PropsType>('search')(SearchPage)
+)

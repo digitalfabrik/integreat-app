@@ -15,8 +15,8 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 
-type PoisRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|pois: Payload<Array<PoiModel>>|}
+type PoisRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {| pois: Payload<Array<PoiModel>> |}
 
 export const POIS_ROUTE = 'POI'
 

@@ -39,8 +39,9 @@ describe('MainDisclaimerRouteConfig', () => {
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null }))
-      .toBe('pageTitles.mainDisclaimer')
+    expect(mainDisclaimerRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null })).toBe(
+      'pageTitles.mainDisclaimer'
+    )
   })
 
   it('should return the right meta description', () => {
@@ -53,11 +54,13 @@ describe('MainDisclaimerRouteConfig', () => {
       pathname: '/disclaimer',
       type: mainDisclaimerRouteConfig.name
     })
-    expect(mainDisclaimerRouteConfig.getLanguageChangePath({
-      payloads: {},
-      location,
-      language: 'de'
-    })).toBeNull()
+    expect(
+      mainDisclaimerRouteConfig.getLanguageChangePath({
+        payloads: {},
+        location,
+        language: 'de'
+      })
+    ).toBeNull()
   })
 
   it('all functions should return the right feedback target information', () => {

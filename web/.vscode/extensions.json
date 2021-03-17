@@ -1,16 +1,16 @@
 {
-    "recommendations": [
-        "dbaeumer.vscode-eslint",
-        "mgmcdermott.vscode-language-babel",
-        "flowtype.flow-for-vscode",
-        "eamodio.gitlens",
-        "yzhang.markdown-all-in-one",
-        "IBM.output-colorizer",
-        "gamunu.vscode-yarn",
-        "christian-kohler.npm-intellisense",
-        "eg2.vscode-npm-script",
-        "msjsdiag.debugger-for-chrome",
-        "Orta.vscode-jest",
-        "KnisterPeter.vscode-jira"
-    ]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "mgmcdermott.vscode-language-babel",
+    "flowtype.flow-for-vscode",
+    "eamodio.gitlens",
+    "yzhang.markdown-all-in-one",
+    "IBM.output-colorizer",
+    "gamunu.vscode-yarn",
+    "christian-kohler.npm-intellisense",
+    "eg2.vscode-npm-script",
+    "msjsdiag.debugger-for-chrome",
+    "Orta.vscode-jest",
+    "KnisterPeter.vscode-jira"
+  ]
 }
