@@ -46,7 +46,7 @@ const navigateToDeepLink = async (
         languageCode,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: createCityContentPath({ cityCode: selectedCityCode, languageCode }),
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
 

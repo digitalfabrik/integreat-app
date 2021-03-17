@@ -96,7 +96,7 @@ describe('navigateToDeepLink', () => {
         languageCode: language,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${fixedCity}/${language}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -120,7 +120,7 @@ describe('navigateToDeepLink', () => {
         languageCode: language,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/${language}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -162,7 +162,7 @@ describe('navigateToDeepLink', () => {
         languageCode,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -186,7 +186,7 @@ describe('navigateToDeepLink', () => {
         languageCode: language,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${language}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -212,7 +212,7 @@ describe('navigateToDeepLink', () => {
         languageCode: language,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/${language}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -247,7 +247,7 @@ describe('navigateToDeepLink', () => {
         languageCode: language,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${fixedCity}/${language}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -290,7 +290,7 @@ describe('navigateToDeepLink', () => {
         languageCode,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -326,7 +326,7 @@ describe('navigateToDeepLink', () => {
         languageCode,
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${cityCode}/${languageCode}`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
@@ -363,7 +363,7 @@ describe('navigateToDeepLink', () => {
         languageCode: 'en',
         routeName: DASHBOARD_ROUTE,
         cityContentPath: `/${selectedCity}/en`,
-        forceRefresh: true,
+        forceRefresh: false,
         resetNavigation: true
       })
       expect(navigation.replace).not.toHaveBeenCalled()
