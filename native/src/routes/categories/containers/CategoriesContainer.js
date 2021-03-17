@@ -76,9 +76,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route = categoriesRouteMapping[key]
-  if (!route) {
+  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
+  if (!route || route.routeType !== CATEGORIES_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 

@@ -7,7 +7,15 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
 import { cityContentUrl } from '../../navigation/url'
-import { DISCLAIMER_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE, OFFERS_ROUTE, POIS_ROUTE } from 'api-client'
+import {
+  CATEGORIES_ROUTE,
+  DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE
+} from 'api-client'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -35,7 +43,6 @@ describe('HeaderContainer', () => {
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
-
   const prepareState = (): StateType => {
     return {
       darkMode: false,
@@ -46,8 +53,20 @@ describe('HeaderContainer', () => {
           status: 'ready',
           models: [language]
         },
-        eventsRouteMapping: {
+        routeMapping: {
+          routeKey1: {
+            routeType: CATEGORIES_ROUTE,
+            status: 'ready',
+            path: `${city.code}/${language.code}/abc`,
+            depth: 1,
+            language: language.code,
+            city: city.name,
+            allAvailableLanguages: new Map(),
+            models: {},
+            children: {}
+          },
           routeKeyEvent1: {
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: null,
             language: language.code,
@@ -56,46 +75,12 @@ describe('HeaderContainer', () => {
             allAvailableLanguages: new Map()
           },
           routeKeyEvent2: {
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
             language: language.code,
             city: city.code,
             models: [],
-            allAvailableLanguages: new Map()
-          }
-        },
-        categoriesRouteMapping: {
-          routeKey1: {
-            status: 'ready',
-            path: `${city.code}/${language.code}/abc`,
-            depth: 1,
-            language: language.code,
-            city: city.code,
-            allAvailableLanguages: new Map(),
-            models: {},
-            children: {}
-          }
-        },
-        poisRouteMapping: {
-          routeKeyPois1: {
-            status: 'ready',
-            path: null,
-            language: language.code,
-            city: city.code,
-            allAvailableLanguages: new Map(),
-            models: []
-          }
-        },
-        newsRouteMapping: {
-          routeKeyNews1: {
-            status: 'ready',
-            models: [],
-            hasMoreNews: false,
-            page: 1,
-            newsId: null,
-            language: language.code,
-            city: city.code,
-            type: LOCAL_NEWS_TYPE,
             allAvailableLanguages: new Map()
           }
         },
@@ -115,10 +100,10 @@ describe('HeaderContainer', () => {
     }
   }
 
-  const render = props => {
+  const render = (props, customStore = store) => {
     const HeaderContainer = require('../containers/HeaderContainer').default
     return TestRenderer.create(
-      <Provider store={store}>
+      <Provider store={customStore}>
         {/* $FlowFixMe not all props passed */}
         <HeaderContainer {...props} />
       </Provider>
@@ -202,6 +187,32 @@ describe('HeaderContainer', () => {
       languageCode: language.code,
       route: NEWS_ROUTE,
       path: LOCAL_NEWS_TYPE
+    })
+    assertProps(result, { shareUrl: expectedShareUrl })
+  })
+
+  it('shareUrl should be set correctly for local news details route', () => {
+    jest.doMock('../components/Header', () => Header)
+
+    const ownProps = {
+      scene: {
+        route: {
+          name: NEWS_ROUTE,
+          key: 'routeKeyNews1'
+        }
+      }
+    }
+
+    const state = prepareState()
+    // $FlowFixMe Everything correct here, nothing to see.
+    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
+
+    const result = render(ownProps, mockStore(state))
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: language.code,
+      route: NEWS_ROUTE,
+      path: `${LOCAL_NEWS_TYPE}/12345`
     })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
