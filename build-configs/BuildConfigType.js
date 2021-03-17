@@ -25,8 +25,7 @@ export type FeatureFlagsType = {|
   pushNotifications: boolean, // Enables firebase push notifications, can be disabled by users.
   jpalEvaluation: boolean, // Enables tracking campaign for the jpal evaluation
   sentry: boolean, // Enables error tracking to sentry, can be disabled by users.
-  developerFriendly: boolean, // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
-  jpalEvaluation: boolean
+  developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
 |}
 
 // Available on all platforms
