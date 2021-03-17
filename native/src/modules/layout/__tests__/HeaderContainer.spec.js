@@ -226,7 +226,7 @@ describe('HeaderContainer', () => {
 
     const state = prepareState()
     // $FlowFixMe Everything correct here, nothing to see.
-    state.cityContent.newsRouteMapping.routeKeyNews1.newsId = '12345'
+    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
 
     const result = render(ownProps, mockStore(state))
     const expectedShareUrl = cityContentUrl({
