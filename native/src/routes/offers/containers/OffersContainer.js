@@ -97,7 +97,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
   return (
     <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-      {cities && offers && (
+      {offers && (
         <Offers
           offers={offers}
           navigateToOffer={navigateToOffer}
