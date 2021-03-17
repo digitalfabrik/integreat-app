@@ -65,22 +65,27 @@ describe('pushNews', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      routeMapping: {
-        'route-id-0': {
-          routeType: NEWS_ROUTE,
-          status: 'ready',
-          newsId: null,
-          allAvailableLanguages: new Map([['en', null], ['de', null]]),
-          city: 'augsburg',
-          language: 'de',
-          hasMoreNews: false,
-          type: LOCAL_NEWS_TYPE,
-          page: 1,
-          models: [news1]
+    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: NEWS_ROUTE,
+            status: 'ready',
+            newsId: null,
+            allAvailableLanguages: new Map([
+              ['en', null],
+              ['de', null]
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            hasMoreNews: false,
+            type: LOCAL_NEWS_TYPE,
+            page: 1,
+            models: [news1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
   it('should add specific news item to routeMapping', () => {
@@ -101,21 +106,26 @@ describe('pushNews', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      routeMapping: {
-        'route-id-0': {
-          routeType: NEWS_ROUTE,
-          status: 'ready',
-          newsId: '12',
-          allAvailableLanguages: new Map([['en', null], ['de', null]]),
-          city: 'augsburg',
-          language: 'de',
-          hasMoreNews: true,
-          page: 1,
-          type: LOCAL_NEWS_TYPE,
-          models: [news1]
+    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: NEWS_ROUTE,
+            status: 'ready',
+            newsId: '12',
+            allAvailableLanguages: new Map([
+              ['en', null],
+              ['de', null]
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            hasMoreNews: true,
+            page: 1,
+            type: LOCAL_NEWS_TYPE,
+            models: [news1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 })

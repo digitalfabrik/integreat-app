@@ -95,19 +95,24 @@ describe('pushEvent', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      routeMapping: {
-        'route-id-0': {
-          routeType: EVENTS_ROUTE,
-          status: 'ready',
-          path: null,
-          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),
-          city: 'augsburg',
-          language: 'de',
-          models: [event1]
+    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: EVENTS_ROUTE,
+            status: 'ready',
+            path: null,
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events/ev1'],
+              ['de', '/augsburg/de/events/ev1']
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            models: [event1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
   it('should add specific event routeMapping', () => {
@@ -133,19 +138,24 @@ describe('pushEvent', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(expect.objectContaining({
-      routeMapping: {
-        'route-id-0': {
-          routeType: EVENTS_ROUTE,
-          status: 'ready',
-          path: '/augsburg/de/events/ev1',
-          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1'], ['de', '/augsburg/de/events/ev1']]),
-          city: 'augsburg',
-          language: 'de',
-          models: [event1]
+    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: EVENTS_ROUTE,
+            status: 'ready',
+            path: '/augsburg/de/events/ev1',
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events/ev1'],
+              ['de', '/augsburg/de/events/ev1']
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            models: [event1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
   it("should merge the resource cache if there's already one", () => {

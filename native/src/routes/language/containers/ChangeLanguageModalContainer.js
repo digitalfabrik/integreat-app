@@ -44,7 +44,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       newsRouteMapping &&
       newsRouteMapping[previousKey] &&
       newsRouteMapping[previousKey].routeType === NEWS_ROUTE &&
-      newsRouteMapping[previousKey].type) || null
+      newsRouteMapping[previousKey].type) ||
+    null
 
   return {
     currentLanguage,

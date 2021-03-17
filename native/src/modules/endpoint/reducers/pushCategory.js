@@ -90,10 +90,13 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
   const otherPageLoading = values<RouteStateType>(state.routeMapping)
-    .filter(route => route.routeType === CATEGORIES_ROUTE &&
-      city === route.city &&
-      path !== route.path &&
-      language === route.language)
+    .filter(
+      route =>
+        route.routeType === CATEGORIES_ROUTE &&
+        city === route.city &&
+        path !== route.path &&
+        language === route.language
+    )
     .some(route => route.status === 'loading')
 
   const newRouteMapping = { ...state.routeMapping }
@@ -101,10 +104,13 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   if (refresh) {
     // Update all open routes in the same city with the new content in case the content has been refreshed
     entries<RouteStateType>(state.routeMapping)
-      .filter(([_, route]) => route.routeType === CATEGORIES_ROUTE &&
-        city === route.city &&
-        path !== route.path &&
-        language === route.language)
+      .filter(
+        ([_, route]) =>
+          route.routeType === CATEGORIES_ROUTE &&
+          city === route.city &&
+          path !== route.path &&
+          language === route.language
+      )
       .forEach(([key, route]) => {
         if (route.routeType !== CATEGORIES_ROUTE || route.status === 'languageNotAvailable') {
           return
