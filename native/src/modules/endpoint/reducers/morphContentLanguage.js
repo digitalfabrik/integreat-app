@@ -191,7 +191,8 @@ const translateRoutes = (state: CityContentStateType, action: MorphContentLangua
       return eventTranslator(route)
     } else if (route.routeType === POIS_ROUTE) {
       return poiTranslator(route)
-    } else { // We currently don't support language change for news
+    } else {
+      // We currently don't support language change for news
       return route
     }
   })
