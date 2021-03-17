@@ -5,7 +5,8 @@ import {
   CategoriesMapModel,
   CategoryModel,
   DateModel,
-  EventModel, EVENTS_ROUTE,
+  EventModel,
+  EVENTS_ROUTE,
   LanguageModel,
   LocationModel,
   PoiModel

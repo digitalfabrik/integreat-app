@@ -33,27 +33,27 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
 type ContainerPropsType =
   | {|
-  ...NavigationPropsType,
-  ...DispatchPropsType,
-  status: 'fetching',
-  newsId: ?string,
-  language: string,
-  cityModel: CityModel,
-  selectedNewsType: NewsType
-|}
+      ...NavigationPropsType,
+      ...DispatchPropsType,
+      status: 'fetching',
+      newsId: ?string,
+      language: string,
+      cityModel: CityModel,
+      selectedNewsType: NewsType
+    |}
   | {|
-  ...NavigationPropsType,
-  ...DispatchPropsType,
-  status: 'ready',
-  news: NewsModelsType,
-  hasMoreNews: ?boolean,
-  page: ?number,
-  isFetchingMore: boolean,
-  newsId: ?string,
-  language: string,
-  cityModel: CityModel,
-  selectedNewsType: NewsType
-|}
+      ...NavigationPropsType,
+      ...DispatchPropsType,
+      status: 'ready',
+      news: NewsModelsType,
+      hasMoreNews: ?boolean,
+      page: ?number,
+      isFetchingMore: boolean,
+      newsId: ?string,
+      language: string,
+      cityModel: CityModel,
+      selectedNewsType: NewsType
+    |}
 
 type RefreshPropsType = {|
   ...NavigationPropsType,

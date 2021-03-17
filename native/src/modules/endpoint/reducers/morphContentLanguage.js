@@ -23,7 +23,8 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
   const translatedPath = allAvailableLanguages.get(newLanguage)
 
-  if (!translatedPath) { // Route is not translatable
+  if (!translatedPath) {
+    // Route is not translatable
     return {
       routeType: CATEGORIES_ROUTE,
       status: 'languageNotAvailable',
@@ -90,7 +91,8 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
   }
 
   const translatedPath = allAvailableLanguages.get(newLanguage)
-  if (!translatedPath) { // Route is a list of all events
+  if (!translatedPath) {
+    // Route is a list of all events
     return {
       routeType: EVENTS_ROUTE,
       status: 'ready',
@@ -142,7 +144,8 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
   }
 
   const translatedPath = allAvailableLanguages.get(newLanguage)
-  if (!translatedPath) { // Route is a list of all pois
+  if (!translatedPath) {
+    // Route is a list of all pois
     return {
       routeType: POIS_ROUTE,
       status: 'ready',

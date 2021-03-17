@@ -231,10 +231,12 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
 
-    expect(cityContentReducer(prevState, {
-      type: 'CLEAR_EVENT',
-      params: { key: 'route-id-0' }
-    })?.routeMapping).toEqual({})
+    expect(
+      cityContentReducer(prevState, {
+        type: 'CLEAR_EVENT',
+        params: { key: 'route-id-0' }
+      })?.routeMapping
+    ).toEqual({})
   })
 
   it('should set the route status to languageNotAvailable on FETCH_EVENT_FAILED with available languages', () => {
@@ -255,18 +257,20 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
 
-    expect(cityContentReducer(prevState, {
-      type: 'FETCH_EVENT_FAILED',
-      params: {
-        message: 'Invalid language...',
-        code: ErrorCodes.PageNotFound,
-        key: 'route-id-0',
-        path: null,
-        allAvailableLanguages: new Map([['en', null]]),
-        city: 'augsburg',
-        language: 'de'
-      }
-    })?.routeMapping['route-id-0']).toEqual({
+    expect(
+      cityContentReducer(prevState, {
+        type: 'FETCH_EVENT_FAILED',
+        params: {
+          message: 'Invalid language...',
+          code: ErrorCodes.PageNotFound,
+          key: 'route-id-0',
+          path: null,
+          allAvailableLanguages: new Map([['en', null]]),
+          city: 'augsburg',
+          language: 'de'
+        }
+      })?.routeMapping['route-id-0']
+    ).toEqual({
       routeType: EVENTS_ROUTE,
       status: 'languageNotAvailable',
       code: ErrorCodes.PageNotFound,
@@ -294,18 +298,20 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
 
-    expect(cityContentReducer(prevState, {
-      type: 'FETCH_EVENT_FAILED',
-      params: {
-        key: 'route-id-0',
-        message: 'No idea why it fails :/',
-        code: ErrorCodes.UnknownError,
-        path: null,
-        city: 'augsburg',
-        language: 'de',
-        allAvailableLanguages: null
-      }
-    })?.routeMapping['route-id-0']).toEqual({
+    expect(
+      cityContentReducer(prevState, {
+        type: 'FETCH_EVENT_FAILED',
+        params: {
+          key: 'route-id-0',
+          message: 'No idea why it fails :/',
+          code: ErrorCodes.UnknownError,
+          path: null,
+          city: 'augsburg',
+          language: 'de',
+          allAvailableLanguages: null
+        }
+      })?.routeMapping['route-id-0']
+    ).toEqual({
       routeType: EVENTS_ROUTE,
       status: 'error',
       language: 'de',
@@ -369,32 +375,34 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
 
-    expect(cityContentReducer(prevState, {
-      type: 'CLEAR_CATEGORY',
-      params: { key: 'route-id-0' }
-    })?.routeMapping).toEqual({})
+    expect(
+      cityContentReducer(prevState, {
+        type: 'CLEAR_CATEGORY',
+        params: { key: 'route-id-0' }
+      })?.routeMapping
+    ).toEqual({})
   })
 
-  it('should set route status to languageNotAvailable on FETCH_CATEGORY_FAILED if allAvailableLanguages is not null',
-    () => {
-      const prevState: CityContentStateType = {
-        city: 'augsburg',
-        routeMapping: {
-          'route-id-0': {
-            routeType: CATEGORIES_ROUTE,
-            status: 'loading',
-            language: 'de',
-            path: '/augsburg/de',
-            depth: 2,
-            city: 'augsburg'
-          }
-        },
-        languages: { status: 'ready', models: languageModels },
-        resourceCache: { status: 'ready', progress: 0, value: {} },
-        searchRoute: null,
-        switchingLanguage: false
-      }
-      expect(cityContentReducer(prevState, {
+  it('should set route status to languageNotAvailable on FETCH_CATEGORY_FAILED if allAvailableLanguages is not null', () => {
+    const prevState: CityContentStateType = {
+      city: 'augsburg',
+      routeMapping: {
+        'route-id-0': {
+          routeType: CATEGORIES_ROUTE,
+          status: 'loading',
+          language: 'de',
+          path: '/augsburg/de',
+          depth: 2,
+          city: 'augsburg'
+        }
+      },
+      languages: { status: 'ready', models: languageModels },
+      resourceCache: { status: 'ready', progress: 0, value: {} },
+      searchRoute: null,
+      switchingLanguage: false
+    }
+    expect(
+      cityContentReducer(prevState, {
         type: 'FETCH_CATEGORY_FAILED',
         params: {
           key: 'route-id-0',
@@ -406,15 +414,16 @@ describe('cityContentReducer', () => {
           path: '/augsburg/de',
           depth: 2
         }
-      })?.routeMapping['route-id-0']).toEqual({
-        routeType: CATEGORIES_ROUTE,
-        status: 'languageNotAvailable',
-        language: 'de',
-        allAvailableLanguages: new Map([['en', '/augsburg/en']]),
-        city: 'augsburg',
-        depth: 2
-      })
+      })?.routeMapping['route-id-0']
+    ).toEqual({
+      routeType: CATEGORIES_ROUTE,
+      status: 'languageNotAvailable',
+      language: 'de',
+      allAvailableLanguages: new Map([['en', '/augsburg/en']]),
+      city: 'augsburg',
+      depth: 2
     })
+  })
 
   it('should pass the error to the corresponding route on FETCH_CATEGORY_FAILED', () => {
     const prevState: CityContentStateType = {
@@ -435,19 +444,21 @@ describe('cityContentReducer', () => {
       switchingLanguage: false
     }
 
-    expect(cityContentReducer(prevState, {
-      type: 'FETCH_CATEGORY_FAILED',
-      params: {
-        key: 'route-id-0',
-        message: 'No idea why it fails :/',
-        code: ErrorCodes.UnknownError,
-        path: '/augsburg/de',
-        city: 'augsburg',
-        allAvailableLanguages: null,
-        language: 'de',
-        depth: 2
-      }
-    })?.routeMapping['route-id-0']).toEqual({
+    expect(
+      cityContentReducer(prevState, {
+        type: 'FETCH_CATEGORY_FAILED',
+        params: {
+          key: 'route-id-0',
+          message: 'No idea why it fails :/',
+          code: ErrorCodes.UnknownError,
+          path: '/augsburg/de',
+          city: 'augsburg',
+          allAvailableLanguages: null,
+          language: 'de',
+          depth: 2
+        }
+      })?.routeMapping['route-id-0']
+    ).toEqual({
       routeType: CATEGORIES_ROUTE,
       status: 'error',
       language: 'de',

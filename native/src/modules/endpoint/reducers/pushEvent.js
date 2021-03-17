@@ -16,10 +16,13 @@ const getEventRouteState = (
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
   const otherEventPageLoading = values<RouteStateType>(state.routeMapping)
-    .filter(route => route.routeType === EVENTS_ROUTE &&
-      city === route.city &&
-      currentPath !== route.path &&
-      language === route.language)
+    .filter(
+      route =>
+        route.routeType === EVENTS_ROUTE &&
+        city === route.city &&
+        currentPath !== route.path &&
+        language === route.language
+    )
     .some(route => route.status === 'loading')
 
   const status: 'loading' | 'ready' = otherEventPageLoading && !refresh ? 'loading' : 'ready'
@@ -80,10 +83,10 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
 
   if (refresh) {
     entries<RouteStateType>(state.routeMapping)
-      .filter(([_, route]) => route.routeType === EVENTS_ROUTE &&
-        city === route.city &&
-        path !== route.path &&
-        language === route.language)
+      .filter(
+        ([_, route]) =>
+          route.routeType === EVENTS_ROUTE && city === route.city && path !== route.path && language === route.language
+      )
       .forEach(([key, route]) => {
         newRouteMapping[key] = route.path
           ? getEventRouteState(route.path, state, action)
