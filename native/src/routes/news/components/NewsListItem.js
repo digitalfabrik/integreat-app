@@ -87,7 +87,7 @@ export const Content: StyledComponent<{| language: string |}, ThemeType, *> = st
   color: ${props => props.theme.colors.textColor};
 `
 
-const TimeStampContent: StyledComponent<{|language: string |}, ThemeType, *> = styled.Text`
+const TimeStampContent: StyledComponent<{| language: string |}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0px
