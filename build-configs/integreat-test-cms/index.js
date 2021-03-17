@@ -19,7 +19,8 @@ const integreatTestCms = {
     introSlides: true,
     sentry: false,
     developerFriendly: true,
-    fixedCity: null
+    fixedCity: null,
+    jpalEvaluation: true
   }
 }
 

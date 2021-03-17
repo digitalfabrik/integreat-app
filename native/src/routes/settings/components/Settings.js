@@ -2,15 +2,16 @@
 
 import * as React from 'react'
 import { type Dispatch } from 'redux'
-import { SectionList, StyleSheet, Switch, View } from 'react-native'
+import { SectionList, StyleSheet, Switch, Text, View } from 'react-native'
+import { Badge, Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import type { SettingsType } from '../../../modules/settings/AppSettings'
-import createSettingsSections from '../createSettingsSections'
 import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
+import createSettingsSections from '../createSettingsSections'
 import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
@@ -102,7 +103,7 @@ export default class Settings extends React.Component<PropsType, StateType> {
 
   renderItem = ({ item }: { item: ItemType, ... }) => {
     const { theme } = this.props
-    const { title, description, hasSwitch, onPress, getSettingValue, accessibilityRole } = item
+    const { title, description, hasSwitch, hasBadge, onPress, getSettingValue, accessibilityRole } = item
     const value = getSettingValue ? getSettingValue(this.state.settings) : false
 
     return (
@@ -119,6 +120,13 @@ export default class Settings extends React.Component<PropsType, StateType> {
             value={value}
             onValueChange={onPress}
           />
+        )}
+        {hasBadge && (
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Badge status='success' />
+            <Text> enabled</Text>
+            <Icon name='chevron-right' />
+          </View>
         )}
       </SettingItem>
     )

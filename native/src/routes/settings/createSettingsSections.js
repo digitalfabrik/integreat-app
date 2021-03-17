@@ -113,7 +113,17 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
             throw Error('This error was thrown for testing purposes. Please ignore this error.')
           }
         }
-      }
+      },
+      ...(!buildConfig().featureFlags.jpalEvaluation
+        ? []
+        : [
+            {
+              accessibilityRole: 'none',
+              title: `JPAL Evaluation`,
+              getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
+              hasBadge: true
+            }
+          ])
     ]
   }
 ]

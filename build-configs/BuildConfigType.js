@@ -24,7 +24,8 @@ export type FeatureFlagsType = {|
   newsStream: boolean, // Enables local news and tünews, can be disabled via our api on a per city basis.
   pushNotifications: boolean, // Enables firebase push notifications, can be disabled by users.
   sentry: boolean, // Enables error tracking to sentry, can be disabled by users.
-  developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  developerFriendly: boolean, // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  jpalEvaluation: boolean
 |}
 
 // Available on all platforms
