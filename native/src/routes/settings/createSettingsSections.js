@@ -9,6 +9,9 @@ import * as Sentry from '@sentry/react-native'
 import * as NotificationsManager from '../../modules/push-notifications/PushNotificationsManager'
 import initSentry from '../../modules/app/initSentry'
 import openExternalUrl from '../../modules/common/openExternalUrl'
+import type { SettingsRouteType } from 'api-client'
+import { JPAL_EVALUATION_ROUTE } from 'api-client'
+import type { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
@@ -25,10 +28,17 @@ type CreateSettingsSectionsPropsType = {|
   setSetting: SetSettingFunctionType,
   t: TFunction,
   languageCode: string,
-  cityCode: ?string
+  cityCode: ?string,
+  navigation: NavigationPropType<SettingsRouteType>
 |}
 
-const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: CreateSettingsSectionsPropsType) => [
+const createSettingsSections = ({
+  setSetting,
+  t,
+  languageCode,
+  cityCode,
+  navigation
+}: CreateSettingsSectionsPropsType) => [
   {
     title: null,
     data: [
@@ -119,9 +129,13 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
         : [
             {
               accessibilityRole: 'none',
-              title: `JPAL Evaluation`,
+              title: `JPAL ${t('evaluation')}`,
+              description: t('evaluationDescription'),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
-              hasBadge: true
+              hasBadge: true,
+              onPress: (settings: SettingsType) => {
+                navigation.navigate(JPAL_EVALUATION_ROUTE, { trackingCode: settings.jpalTrackingCode })
+              }
             }
           ])
     ]

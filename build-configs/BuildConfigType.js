@@ -26,7 +26,6 @@ export type FeatureFlagsType = {|
   jpalEvaluation: boolean, // Enables tracking campaign for the jpal evaluation
   sentry: boolean, // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean, // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
-  jpalEvaluation: boolean
 |}
 
 // Available on all platforms
