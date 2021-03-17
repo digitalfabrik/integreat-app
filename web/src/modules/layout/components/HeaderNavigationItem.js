@@ -8,9 +8,12 @@ import dimensions from '../../theme/constants/dimensions'
 import Tooltip from '../../common/components/Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
+const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
+  flex: 1 1 135px;
+`
+
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
-  flex: 1 1 135px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-size: 0.9em;
   font-weight: 800;
@@ -102,23 +105,17 @@ type PropsType = {|
   icon: string
 |}
 
-/**
- * Renders a Link or a Span in the HeaderNavigationBar depending on the active prop
- */
-class HeaderNavigationItem extends React.PureComponent<PropsType> {
-  render() {
-    const { active, text, tooltip, href, icon } = this.props
-    return (
-      <Tooltip text={tooltip} flow={'up'}>
-        <StyledLink to={href} $active={active}>
-          <Circle>
-            <img src={icon} alt='' />
-          </Circle>
-          <div>{text}</div>
-        </StyledLink>
-      </Tooltip>
-    )
-  }
-}
+const HeaderNavigationItem = ({ active, text, tooltip, href, icon }: PropsType) => (
+  <Container>
+    <Tooltip text={tooltip} flow={'up'}>
+      <StyledLink to={href} $active={active}>
+        <Circle>
+          <img src={icon} alt='' />
+        </Circle>
+        {text}
+      </StyledLink>
+    </Tooltip>
+  </Container>
+)
 
 export default HeaderNavigationItem

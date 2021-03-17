@@ -1,0 +1,6 @@
+issue_key: IGAPP-450
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: Unified navigation mappings into one object.
