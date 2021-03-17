@@ -36,6 +36,7 @@ export const LocalNewsDetailsPage = ({ localNewsElement, language, city, cities,
       title={localNewsElement.title}
       content={linkedContent}
       formatter={formatter}
+      lastUpdateFormat={'LLL'}
       lastUpdate={localNewsElement.timestamp}
       showLastUpdateText={false}
       onInternalLinkClick={push}
