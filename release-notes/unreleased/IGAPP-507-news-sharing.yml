@@ -1,0 +1,7 @@
+issue_key: IGAPP-507
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Sharing specific news is now possible.
+de: Es können nun einzelne Nachrichten geteilt werden.
