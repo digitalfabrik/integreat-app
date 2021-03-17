@@ -29,7 +29,8 @@ type CreateSettingsSectionsPropsType = {|
   t: TFunction,
   languageCode: string,
   cityCode: ?string,
-  navigation: NavigationPropType<SettingsRouteType>
+  navigation: NavigationPropType<SettingsRouteType>,
+  settings: SettingsType
 |}
 
 const createSettingsSections = ({
@@ -37,7 +38,8 @@ const createSettingsSections = ({
   t,
   languageCode,
   cityCode,
-  navigation
+  navigation,
+  settings
 }: CreateSettingsSectionsPropsType) => [
   {
     title: null,
@@ -133,7 +135,7 @@ const createSettingsSections = ({
               description: t('evaluationDescription'),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
-              onPress: (settings: SettingsType) => {
+              onPress: () => {
                 navigation.navigate(JPAL_EVALUATION_ROUTE, { trackingCode: settings.jpalTrackingCode })
               }
             }
