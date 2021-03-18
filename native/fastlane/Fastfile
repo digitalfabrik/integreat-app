@@ -319,6 +319,8 @@ platform :ios do
 
     # https://docs.fastlane.tools/actions/deliver/#submit-build
     deliver(
+      app_version: testflight_version,
+      build_number: testflight_build_number.to_s,
       app_identifier: bundle_identifier,
       submit_for_review: true,
       automatic_release: true,
