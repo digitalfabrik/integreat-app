@@ -14,7 +14,7 @@ const cityCode = 'augsburg'
 const languageCode = 'de'
 const cityContentPath = '/augsburg/de/integrationskurs'
 
-describe('createNavigateToEvents', () => {
+describe('navigateToEvents', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()

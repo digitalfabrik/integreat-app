@@ -1,6 +1,6 @@
 // @flow
 
-import { DateModel, EventModel, LanguageModel, LocationModel } from 'api-client'
+import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -35,14 +35,12 @@ describe('pushEvent', () => {
     })
   })
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
-
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      newsRouteMapping: {},
-      eventsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: EVENTS_ROUTE,
           status: 'ready',
           models: [event1],
           city: 'augsburg',
@@ -51,7 +49,6 @@ describe('pushEvent', () => {
           allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']])
         }
       },
-      poisRouteMapping: {},
       languages: {
         status: 'ready',
         models: languageModels
@@ -77,8 +74,6 @@ describe('pushEvent', () => {
 
   it('should add general events route to eventsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
-      eventsRouteMapping: {},
-      newsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         progress: 0,
@@ -102,8 +97,9 @@ describe('pushEvent', () => {
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
-        eventsRouteMapping: {
+        routeMapping: {
           'route-id-0': {
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: null,
             allAvailableLanguages: new Map([
@@ -121,7 +117,6 @@ describe('pushEvent', () => {
 
   it('should add specific event routeMapping', () => {
     const prevState = prepareState({
-      eventsRouteMapping: {},
       resourceCache: {
         status: 'ready',
         progress: 0,
@@ -145,8 +140,9 @@ describe('pushEvent', () => {
 
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
-        eventsRouteMapping: {
+        routeMapping: {
           'route-id-0': {
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: '/augsburg/de/events/ev1',
             allAvailableLanguages: new Map([

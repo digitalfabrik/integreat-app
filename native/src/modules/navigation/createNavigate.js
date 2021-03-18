@@ -12,7 +12,8 @@ import {
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  SEARCH_ROUTE
+  SEARCH_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client/src/routes'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToLanding from './navigateToLanding'
@@ -25,6 +26,7 @@ import navigateToCategory from './navigateToCategory'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 
 const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) => (
   routeInformation: RouteInformationType,
@@ -48,11 +50,8 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
           break
         }
         navigateToCategory({
-          dispatch,
-          navigation,
+          ...params,
           routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
-          cityCode,
-          languageCode,
           cityContentPath,
           key,
           forceRefresh
@@ -79,6 +78,9 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
       case OFFERS_ROUTE:
         navigateToOffers(params)
         return
+      case SPRUNGBRETT_OFFER_ROUTE:
+        navigateToSprungbrettOffer(params)
+        return
       case POIS_ROUTE:
         if (!buildConfig().featureFlags.pois) {
           break
@@ -92,7 +94,7 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
   }
 
   console.warn('This is not a supported route. Skipping.')
-  // TODO Show a snackbar
+  // TODO IGAPP-521 show snackbar route not found
 }
 
 export default createNavigate
