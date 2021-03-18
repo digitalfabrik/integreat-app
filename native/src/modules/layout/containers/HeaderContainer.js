@@ -51,11 +51,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeName = ownProps.scene.route.name
   const simpleRouteShareUrl = state.cityContent?.city && simpleRoutes.includes(routeName)
     ? cityContentUrl({
-        cityCode: state.cityContent?.city,
-        languageCode: state.contentLanguage,
-        route: routeName,
-        path: null
-      })
+      cityCode: state.cityContent?.city,
+      languageCode: state.contentLanguage,
+      route: routeName,
+      path: null
+    })
     : null
 
   const languages = state.cityContent?.languages
