@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { Picker } from '@react-native-picker/picker'
-import { ActivityIndicator, ScrollView, TextInput } from 'react-native'
+import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -17,6 +17,11 @@ const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
   border-color: ${props => props.theme.colors.themeColor};
+  text-align-vertical: top;
+`
+
+const MailInput = styled(Input)`
+  height: 50px;
 `
 
 const Wrapper = styled.View`
@@ -31,21 +36,15 @@ const DescriptionContainer = styled.View`
   padding: 15px 0 5px;
 `
 
-const Description = styled.Text`
+const ThemedText = styled.Text`
   display: flex;
   text-align: left;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
+`
+
+const Description = styled(ThemedText)`
   font-weight: bold;
-`
-
-const RequiredText = styled.Text`
-  color: red;
-  font-size: 25px;
-`
-
-const OptionalText = styled.Text`
-  font-weight: normal;
 `
 
 export type PropsType = {|
@@ -91,25 +90,25 @@ const FeedbackModal = (props: PropsType) => {
             ))}
           </Picker>
 
-          <Description theme={theme}>
-            {' '}
-            {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
-            {!isPositiveFeedback && <RequiredText>*</RequiredText>}
-          </Description>
-          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline />
+          <DescriptionContainer theme={theme}>
+            <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
+            {isPositiveFeedback && <Text>({t('optionalInfo')})</Text>}
+          </DescriptionContainer>
+          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline numberOfLines={3} />
 
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{t('contactMailAddress')}</Description>
-            <OptionalText>({t('optionalInfo')})</OptionalText>
+            <Text>({t('optionalInfo')})</Text>
           </DescriptionContainer>
 
-          <Input theme={theme} onChangeText={props.onFeedbackContactMailChanged} value={contactMail} />
+          <MailInput theme={theme} onChangeText={props.onFeedbackContactMailChanged} value={contactMail} />
 
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
+
           <Button
             icon={<Icon name='send' size={15} color='black' style='material' />}
             titleStyle={{ color: theme.colors.textColor }}
-            buttonStyle={{ backgroundColor: theme.colors.themeColor }}
+            buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 15 }}
             disabled={!isPositiveFeedback && !comment}
             onPress={props.onSubmit}
             title={t('send')}
@@ -123,7 +122,7 @@ const FeedbackModal = (props: PropsType) => {
       return (
         <>
           <Caption theme={theme} title={t('feedback:feedbackSent')} />
-          <Description theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</Description>
+          <ThemedText theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</ThemedText>
         </>
       )
     }
