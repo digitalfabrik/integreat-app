@@ -552,12 +552,12 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         featuredImage: jsonObject.featured_image
           ? new FeaturedImageModel({
-              description: jsonObject.featured_image.description,
-              thumbnail: jsonObject.featured_image.thumbnail,
-              medium: jsonObject.featured_image.medium,
-              large: jsonObject.featured_image.large,
-              full: jsonObject.featured_image.full
-            })
+            description: jsonObject.featured_image.description,
+            thumbnail: jsonObject.featured_image.thumbnail,
+            medium: jsonObject.featured_image.medium,
+            large: jsonObject.featured_image.large,
+            full: jsonObject.featured_image.full
+          })
           : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
