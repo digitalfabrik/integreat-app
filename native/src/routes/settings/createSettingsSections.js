@@ -131,12 +131,12 @@ const createSettingsSections = ({
         : [
             {
               accessibilityRole: 'none',
-              title: `JPAL ${t('evaluation')}`,
-              description: t('evaluationDescription'),
-              getSettingValue: (settings: SettingsType) => settings.trackingEnabled,
+              title: t('tracking'),
+              description: t('trackingDescription'),
+              getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {
-                navigation.navigate(JPAL_EVALUATION_ROUTE, { trackingCode: settings.trackingCode })
+                navigation.navigate(JPAL_EVALUATION_ROUTE, { trackingCode: settings.jpalTrackingCode })
               }
             }
           ])

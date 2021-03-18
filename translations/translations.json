@@ -2715,8 +2715,8 @@
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open-Source-Lizenzen",
-      "evaluation": "Evaluation",
-      "evaluationDescription": "Durch das Senden von Tracking-Daten Integreat langfristig verbessern.",
+      "tracking": "J-PAL Evaluation",
+      "trackingDescription": "Durch das Senden von Tracking-Daten Integreat langfristig verbessern.",
       "enabled": "aktiviert",
       "disabled": "deaktiviert"
     },
