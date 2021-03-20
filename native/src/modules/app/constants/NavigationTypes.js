@@ -63,7 +63,7 @@ export type RoutesParamsType = {|
   news: void,
   disclaimer: CityContentParamsType,
   offers: CityContentParamsType,
-  'jpal-tracking': {| trackingCode: string | null |},
+  jpal: {| trackingCode: string | null |},
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
   sprungbrett: CityContentParamsType,
   wohnen: {| offerHash: ?string, city: string, title: string, alias: string, postData: ?Map<string, string> |},
