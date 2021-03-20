@@ -22,14 +22,14 @@ import type {
   SettingsRouteType,
   SprungbrettOfferRouteType,
   WohnenOfferRouteType,
-  JpalEvaluationRouteType,
+  JpalTrackingRouteType,
   RedirectRouteType
 } from 'api-client'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 
 export type RoutesType =
   | RedirectRouteType
-  | JpalEvaluationRouteType
+  | JpalTrackingRouteType
   | IntroRouteType
   | LandingRouteType
   | DashboardRouteType
@@ -63,7 +63,7 @@ export type RoutesParamsType = {|
   news: void,
   disclaimer: CityContentParamsType,
   offers: CityContentParamsType,
-  'jpal-evaluation': {| trackingCode: string | null |},
+  'jpal-tracking': {| trackingCode: string | null |},
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
   sprungbrett: {| ...CityContentParamsType, title: string, alias: string, apiUrl: string |},
   wohnen: {| offerHash: ?string, city: string, title: string, alias: string, postData: ?Map<string, string> |},

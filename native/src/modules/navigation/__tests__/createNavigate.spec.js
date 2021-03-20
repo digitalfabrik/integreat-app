@@ -15,7 +15,7 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_EVALUATION_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -24,7 +24,7 @@ import {
   SEARCH_ROUTE
 } from 'api-client/src/routes'
 import buildConfig from '../../app/constants/buildConfig'
-import navigateToJpalEvaluation from '../navigateToJpalEvaluation'
+import navigateToJpalTracking from '../navigateToJpalTracking'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())
@@ -34,7 +34,7 @@ jest.mock('../navigateToPois', () => jest.fn())
 jest.mock('../navigateToSearch', () => jest.fn())
 jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
-jest.mock('../navigateToJpalEvaluation', () => jest.fn())
+jest.mock('../navigateToJpalTracking', () => jest.fn())
 
 const dispatch = jest.fn()
 const navigation = createNavigationScreenPropMock()
@@ -83,15 +83,15 @@ describe('createNavigate', () => {
     assertOnlyCalled([navigateToLanding])
   })
 
-  it('should call navigateToJpalEvaluation', () => {
-    navigateTo({ route: JPAL_EVALUATION_ROUTE, trackingCode: 'abcdef123456' })
-    assertOnlyCalled([navigateToJpalEvaluation])
+  it('should call navigateToJpalTracking', () => {
+    navigateTo({ route: JPAL_TRACKING_ROUTE, trackingCode: 'abcdef123456' })
+    assertOnlyCalled([navigateToJpalTracking])
   })
 
-  it('should not call navigateToJpalEvaluation if it is disabled in the build config', () => {
+  it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
     // $FlowFixMe build config is a mock
-    buildConfig.mockImplementationOnce(() => ({ featureFlags: { jpalEvaluation: true } }))
-    navigateTo({ route: JPAL_EVALUATION_ROUTE, trackingCode: 'abcdef123456' })
+    buildConfig.mockImplementationOnce(() => ({ featureFlags: { jpalTracking: true } }))
+    navigateTo({ route: JPAL_TRACKING_ROUTE, trackingCode: 'abcdef123456' })
     assertNotCalled(allMocks)
   })
 
