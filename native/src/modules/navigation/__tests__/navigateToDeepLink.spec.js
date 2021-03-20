@@ -387,7 +387,7 @@ describe('navigateToDeepLink', () => {
 
   describe('jpal tracking links', () => {
     it('should open landing and navigate to tracking links if there is no seleceted city', async () => {
-      const url = `https://integreat.app/jpal-evaluation/abcdef123456`
+      const url = `https://integreat.app/jpal/abcdef123456`
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
 
@@ -411,7 +411,7 @@ describe('navigateToDeepLink', () => {
 
     it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
       const selectedCity = 'testumgebung'
-      const url = `https://integreat.app/jpal-evaluation/abcdef123456`
+      const url = `https://integreat.app/jpal/abcdef123456`
       await appSettings.setContentLanguage(language)
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
