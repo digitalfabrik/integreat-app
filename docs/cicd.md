@@ -91,7 +91,7 @@ You can read more about managing metadata for iOS [here](https://docs.fastlane.t
 
 #### Authenticating
 
-Authentication happens by setting the `APP_STORE_CONNECT_API_KEY` environment variable as documented [above](#ios-variables). For more information visit the documentation [here](https://docs.fastlane.tools/app-store-connect-api/).
+Authentication happens by setting the `APP_STORE_CONNECT_API_KEY_CONTENT` environment variable as documented [above](#ios-variables). For more information visit the documentation [here](https://docs.fastlane.tools/app-store-connect-api/).
 
 ### BrowserStack
 
@@ -162,7 +162,7 @@ More information on the version naming schema used can be found [here](docs/conv
 |---|---|---|---|---|
 |APP_STORE_CONNECT_API_KEY_ID|Key ID for App Store Connect API|Password Manager|D83848D23|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
 |APP_STORE_CONNECT_API_ISSUER_ID|Issuer ID for App Store Connect API|Password Manager|227b0bbf-ada8-458c-9d62-3d8022b7d07f|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
-|APP_STORE_CONNECT_API_KEY|Key for App Store Connect API|Password Manager|-----BEGIN EC PRIVATE KEY-----\nfewfawefawfe\n-----END EC PRIVATE KEY-----|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
+|APP_STORE_CONNECT_API_KEY_CONTENT|Key content for App Store Connect API|Password Manager|-----BEGIN EC PRIVATE KEY-----\nfewfawefawfe\n-----END EC PRIVATE KEY-----|[app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/)|
 |MATCH_PASSWORD|Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/)|Password Manager|123456|[Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password)|
 
 ## Skipping specific jobs
