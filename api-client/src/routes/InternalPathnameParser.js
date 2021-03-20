@@ -5,7 +5,7 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_EVALUATION_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -51,10 +51,10 @@ class InternalPathnameParser {
     return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
   }
 
-  jpalEvaluation = (): RouteInformationType => {
-    if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_EVALUATION_ROUTE) {
+  jpalTracking = (): RouteInformationType => {
+    if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
       const trackingCode = this._length === 2 ? this._parts[1] : null
-      return { route: JPAL_EVALUATION_ROUTE, trackingCode }
+      return { route: JPAL_TRACKING_ROUTE, trackingCode }
     }
     return null
   }
@@ -196,7 +196,7 @@ class InternalPathnameParser {
   route = (): RouteInformationType => {
     return (
       this.landing() ||
-      this.jpalEvaluation() ||
+      this.jpalTracking() ||
       this.events() ||
       this.pois() ||
       this.offers() ||

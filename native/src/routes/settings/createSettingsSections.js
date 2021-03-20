@@ -10,7 +10,7 @@ import * as NotificationsManager from '../../modules/push-notifications/PushNoti
 import initSentry from '../../modules/app/initSentry'
 import openExternalUrl from '../../modules/common/openExternalUrl'
 import type { SettingsRouteType } from 'api-client'
-import { JPAL_EVALUATION_ROUTE } from 'api-client'
+import { JPAL_TRACKING_ROUTE } from 'api-client'
 import type { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
 
 export type SetSettingFunctionType = (
@@ -126,7 +126,7 @@ const createSettingsSections = ({
           }
         }
       },
-      ...(!buildConfig().featureFlags.jpalEvaluation
+      ...(!buildConfig().featureFlags.jpalTracking
         ? []
         : [
             {
@@ -136,7 +136,7 @@ const createSettingsSections = ({
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {
-                navigation.navigate(JPAL_EVALUATION_ROUTE, { trackingCode: settings.jpalTrackingCode })
+                navigation.navigate(JPAL_TRACKING_ROUTE, { trackingCode: settings.jpalTrackingCode })
               }
             }
           ])

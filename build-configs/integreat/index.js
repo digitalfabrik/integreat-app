@@ -28,7 +28,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
-    jpalEvaluation: false,
+    jpalTracking: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: null

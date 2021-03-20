@@ -7,7 +7,7 @@ import {
   DASHBOARD_ROUTE,
   EVENTS_ROUTE,
   INTRO_ROUTE,
-  JPAL_EVALUATION_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -385,8 +385,8 @@ describe('navigateToDeepLink', () => {
     })
   })
 
-  describe('jpal evaluation links', () => {
-    it('should open landing and navigate to evaluation links if there is no seleceted city', async () => {
+  describe('jpal tracking links', () => {
+    it('should open landing and navigate to tracking links if there is no seleceted city', async () => {
       const url = `https://integreat.app/jpal-evaluation/abcdef123456`
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
@@ -401,7 +401,7 @@ describe('navigateToDeepLink', () => {
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith(
         {
-          route: JPAL_EVALUATION_ROUTE,
+          route: JPAL_TRACKING_ROUTE,
           trackingCode: 'abcdef123456'
         },
         undefined,
@@ -409,7 +409,7 @@ describe('navigateToDeepLink', () => {
       )
     })
 
-    it('should open dashboard and navigate to evaluation links if there is a selected city', async () => {
+    it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/jpal-evaluation/abcdef123456`
       await appSettings.setContentLanguage(language)
@@ -435,7 +435,7 @@ describe('navigateToDeepLink', () => {
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith(
         {
-          route: JPAL_EVALUATION_ROUTE,
+          route: JPAL_TRACKING_ROUTE,
           trackingCode: 'abcdef123456'
         },
         undefined,
