@@ -65,7 +65,7 @@ export type RoutesParamsType = {|
   offers: CityContentParamsType,
   'jpal-tracking': {| trackingCode: string | null |},
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
-  sprungbrett: {| ...CityContentParamsType, title: string, alias: string, apiUrl: string |},
+  sprungbrett: CityContentParamsType,
   wohnen: {| offerHash: ?string, city: string, title: string, alias: string, postData: ?Map<string, string> |},
   settings: void,
   search: void,

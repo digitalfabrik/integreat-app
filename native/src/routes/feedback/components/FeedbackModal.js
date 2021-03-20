@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { Picker } from '@react-native-picker/picker'
-import { ActivityIndicator, ScrollView, TextInput } from 'react-native'
+import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -14,9 +14,14 @@ import buildConfig from '../../../modules/app/constants/buildConfig'
 import type { SendingStatusType } from '../containers/FeedbackModalContainer'
 
 const Input = styled(TextInput)`
-  margin-bottom: 15px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+  padding: 15px;
+  border-width: 1px;
+  border-color: ${props => props.theme.colors.themeColor};
+  text-align-vertical: top;
+`
+
+const MailInput = styled(Input)`
+  height: 50px;
 `
 
 const Wrapper = styled.View`
@@ -24,23 +29,32 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Description = styled.Text`
+const DescriptionContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: 15px 0 5px;
+`
+
+const ThemedText = styled.Text`
+  display: flex;
+  text-align: left;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
 `
 
-const RequiredText = styled.Text`
-  color: red;
-  fontsize: 25px;
+const Description = styled(ThemedText)`
+  font-weight: bold;
 `
 
 export type PropsType = {|
   comment: string,
+  contactMail: string,
   selectedFeedbackIndex: number,
   sendingStatus: SendingStatusType,
   feedbackOptions: Array<FeedbackVariant>,
   onCommentChanged: (comment: string) => void,
+  onFeedbackContactMailChanged: (contactMail: string) => void,
   onFeedbackOptionChanged: (value: string | number, index: number) => void,
   isPositiveFeedback: boolean,
   onSubmit: () => Promise<void>,
@@ -48,9 +62,18 @@ export type PropsType = {|
   t: TFunction
 |}
 
-class FeedbackModal extends React.Component<PropsType> {
-  renderBox(): React.Node {
-    const { theme, t, isPositiveFeedback, feedbackOptions, selectedFeedbackIndex, comment, sendingStatus } = this.props
+const FeedbackModal = (props: PropsType) => {
+  const renderBox = (): React.Node => {
+    const {
+      theme,
+      t,
+      isPositiveFeedback,
+      feedbackOptions,
+      selectedFeedbackIndex,
+      comment,
+      contactMail,
+      sendingStatus
+    } = props
     const feedbackItem = feedbackOptions[selectedFeedbackIndex]
 
     if (['idle', 'failed'].includes(sendingStatus)) {
@@ -60,33 +83,34 @@ class FeedbackModal extends React.Component<PropsType> {
           <Description theme={theme}>{t('feedbackType')}</Description>
           <Picker
             selectedValue={feedbackOptions.indexOf(feedbackItem)}
-            onValueChange={this.props.onFeedbackOptionChanged}
+            onValueChange={props.onFeedbackOptionChanged}
             mode='dropdown'>
             {feedbackOptions.map((item, index) => (
               <Picker.Item label={item.label} value={index} key={index} />
             ))}
           </Picker>
-          <Description theme={theme}>
-            {' '}
-            {isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
-            {!isPositiveFeedback && <RequiredText>*</RequiredText>}
-          </Description>
-          <Input
-            theme={theme}
-            onChangeText={this.props.onCommentChanged}
-            autoFocus
-            value={comment}
-            multiline
-            placeholderTextColor={theme.colors.textSecondaryColor}
-            placeholder={t('yourFeedback')}
-          />
+
+          <DescriptionContainer theme={theme}>
+            <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
+            {isPositiveFeedback && <Text>({t('optionalInfo')})</Text>}
+          </DescriptionContainer>
+          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline numberOfLines={3} />
+
+          <DescriptionContainer theme={theme}>
+            <Description theme={theme}>{t('contactMailAddress')}</Description>
+            <Text>({t('optionalInfo')})</Text>
+          </DescriptionContainer>
+
+          <MailInput theme={theme} onChangeText={props.onFeedbackContactMailChanged} value={contactMail} />
+
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
+
           <Button
             icon={<Icon name='send' size={15} color='black' style='material' />}
             titleStyle={{ color: theme.colors.textColor }}
-            buttonStyle={{ backgroundColor: theme.colors.themeColor }}
+            buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 15 }}
             disabled={!isPositiveFeedback && !comment}
-            onPress={this.props.onSubmit}
+            onPress={props.onSubmit}
             title={t('send')}
           />
         </>
@@ -98,20 +122,18 @@ class FeedbackModal extends React.Component<PropsType> {
       return (
         <>
           <Caption theme={theme} title={t('feedback:feedbackSent')} />
-          <Description theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</Description>
+          <ThemedText theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</ThemedText>
         </>
       )
     }
   }
 
-  render() {
-    const { theme } = this.props
-    return (
-      <ScrollView>
-        <Wrapper theme={theme}>{this.renderBox()}</Wrapper>
-      </ScrollView>
-    )
-  }
+  const { theme } = props
+  return (
+    <ScrollView>
+      <Wrapper theme={theme}>{renderBox()}</Wrapper>
+    </ScrollView>
+  )
 }
 
 export default FeedbackModal
