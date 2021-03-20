@@ -8,3 +8,5 @@ dist/
 lib-dist/
 android/fastlane/README.md
 android/app/build/
+
+**/fastlane/README.md
