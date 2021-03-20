@@ -47,11 +47,13 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  REDIRECT_ROUTE
+  REDIRECT_ROUTE,
+  JPAL_TRACKING_ROUTE
 } from 'api-client/src/routes'
 import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
 import type { RoutesParamsType } from '../constants/NavigationTypes'
 import RedirectContainer from '../containers/RedirectContainer'
+import JpalTrackingContainer from '../../../routes/japl-tracking/JpalTrackingContainer'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 
@@ -217,6 +219,7 @@ const Navigator = (props: PropsType) => {
         options={{ header: transparentHeader }}
       />
       <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
+      <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTrackingContainer} />
     </Stack.Navigator>
   )
 }
