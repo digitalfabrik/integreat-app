@@ -7,6 +7,7 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -26,6 +27,7 @@ import navigateToCategory from './navigateToCategory'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import navigateToJpalTracking from './navigateToJpalTracking'
 import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 
 const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) => (
@@ -36,6 +38,11 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
   if (routeInformation) {
     if (routeInformation.route === LANDING_ROUTE) {
       navigateToLanding({ dispatch, navigation })
+      return
+    } else if (routeInformation.route === JPAL_TRACKING_ROUTE) {
+      if (buildConfig().featureFlags.jpalTracking) {
+        navigateToJpalTracking({ dispatch, navigation, trackingCode: routeInformation.trackingCode })
+      }
       return
     }
 

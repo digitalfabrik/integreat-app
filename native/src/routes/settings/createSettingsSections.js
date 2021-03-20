@@ -9,6 +9,9 @@ import * as Sentry from '@sentry/react-native'
 import * as NotificationsManager from '../../modules/push-notifications/PushNotificationsManager'
 import initSentry from '../../modules/app/initSentry'
 import openExternalUrl from '../../modules/common/openExternalUrl'
+import type { SettingsRouteType } from 'api-client'
+import { JPAL_TRACKING_ROUTE } from 'api-client'
+import type { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
@@ -25,10 +28,19 @@ type CreateSettingsSectionsPropsType = {|
   setSetting: SetSettingFunctionType,
   t: TFunction,
   languageCode: string,
-  cityCode: ?string
+  cityCode: ?string,
+  navigation: NavigationPropType<SettingsRouteType>,
+  settings: SettingsType
 |}
 
-const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: CreateSettingsSectionsPropsType) => [
+const createSettingsSections = ({
+  setSetting,
+  t,
+  languageCode,
+  cityCode,
+  navigation,
+  settings
+}: CreateSettingsSectionsPropsType) => [
   {
     title: null,
     data: [
@@ -113,7 +125,21 @@ const createSettingsSections = ({ setSetting, t, languageCode, cityCode }: Creat
             throw Error('This error was thrown for testing purposes. Please ignore this error.')
           }
         }
-      }
+      },
+      ...(!buildConfig().featureFlags.jpalTracking
+        ? []
+        : [
+            {
+              accessibilityRole: 'none',
+              title: t('tracking'),
+              description: t('trackingDescription'),
+              getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
+              hasBadge: true,
+              onPress: () => {
+                navigation.navigate(JPAL_TRACKING_ROUTE, { trackingCode: settings.jpalTrackingCode })
+              }
+            }
+          ])
     ]
   }
 ]

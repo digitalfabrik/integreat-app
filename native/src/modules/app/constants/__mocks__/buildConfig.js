@@ -29,6 +29,7 @@ const buildConfig = jest.fn<[], CommonBuildConfigType>((): CommonBuildConfigType
     newsStream: false,
     pushNotifications: false,
     introSlides: true,
+    jpalTracking: false,
     sentry: true,
     developerFriendly: true,
     fixedCity: null

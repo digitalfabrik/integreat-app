@@ -7,6 +7,7 @@ import {
   DASHBOARD_ROUTE,
   EVENTS_ROUTE,
   INTRO_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -377,6 +378,65 @@ describe('navigateToDeepLink', () => {
           newsId: undefined,
           newsType: LOCAL_NEWS_TYPE,
           route: NEWS_ROUTE
+        },
+        undefined,
+        false
+      )
+    })
+  })
+
+  describe('jpal tracking links', () => {
+    it('should open landing and navigate to tracking links if there is no seleceted city', async () => {
+      const url = `https://integreat.app/jpal/abcdef123456`
+      await appSettings.setContentLanguage(language)
+      await appSettings.setIntroShown()
+
+      await navigateToDeepLink(dispatch, navigation, url, language)
+
+      expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+      expect(createNavigate).toHaveBeenCalledTimes(1)
+      expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
+      expect(navigateTo).toHaveBeenCalledTimes(1)
+      expect(navigateTo).toHaveBeenCalledWith(
+        {
+          route: JPAL_TRACKING_ROUTE,
+          trackingCode: 'abcdef123456'
+        },
+        undefined,
+        false
+      )
+    })
+
+    it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
+      const selectedCity = 'testumgebung'
+      const url = `https://integreat.app/jpal/abcdef123456`
+      await appSettings.setContentLanguage(language)
+      await appSettings.setSelectedCity(selectedCity)
+      await appSettings.setIntroShown()
+
+      await navigateToDeepLink(dispatch, navigation, url, language)
+
+      expect(navigateToCategory).toHaveBeenCalledTimes(1)
+      expect(navigateToCategory).toHaveBeenCalledWith({
+        dispatch,
+        navigation,
+        cityCode: selectedCity,
+        languageCode: language,
+        routeName: DASHBOARD_ROUTE,
+        cityContentPath: `/${selectedCity}/${language}`,
+        forceRefresh: false,
+        resetNavigation: true
+      })
+      expect(navigation.replace).not.toHaveBeenCalled()
+      expect(createNavigate).toHaveBeenCalledTimes(1)
+      expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
+      expect(navigateTo).toHaveBeenCalledTimes(1)
+      expect(navigateTo).toHaveBeenCalledWith(
+        {
+          route: JPAL_TRACKING_ROUTE,
+          trackingCode: 'abcdef123456'
         },
         undefined,
         false
