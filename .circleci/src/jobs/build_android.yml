@@ -5,9 +5,9 @@ parameters:
     default: integreat
 docker:
   - image: circleci/android:api-29-node
-resource_class: medium
+resource_class: medium+
 environment:
-  TOTAL_CPUS: 2 # For resource_class medium, used in metro.config.ci.js.
+  TOTAL_CPUS: 3 # For resource_class medium+, used in metro.config.ci.js. For memory estimations see IGAPP-557
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash -eo pipefail
 steps:
