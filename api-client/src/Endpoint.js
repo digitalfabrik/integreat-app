@@ -11,7 +11,7 @@ import type { RequestOptionsType } from './errors/ResponseError'
 import NotFoundError from './errors/NotFoundError'
 
 const JSON_HEADERS = {
-  'Accept': 'application/json',
+  Accept: 'application/json',
   'Content-Type': 'application/json'
 }
 
