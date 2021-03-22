@@ -3,10 +3,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { type Dispatch } from 'redux'
+import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal, { type PropsType as FeedbackModalPropsType } from '../components/FeedbackModal'
 import FeedbackVariant from '../FeedbackVariant'
+import type { FeedbackParamsType } from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CityModel,
@@ -20,9 +22,7 @@ import {
   PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
 } from 'api-client'
-import type { FeedbackParamsType } from 'api-client'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
-import type { TFunction } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import type { StateType } from '../../../modules/app/StateType'
@@ -92,6 +92,7 @@ type FeedbackModalStateType = {|
   feedbackOptions: Array<FeedbackVariant>,
   selectedFeedbackIndex: number,
   comment: string,
+  contactMail: string,
   sendingStatus: SendingStatusType
 |}
 
@@ -104,7 +105,7 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
   constructor(props: ContainerPropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
-    this.state = { feedbackOptions, selectedFeedbackIndex: 0, comment: '', sendingStatus: 'idle' }
+    this.state = { feedbackOptions, selectedFeedbackIndex: 0, comment: '', contactMail: '', sendingStatus: 'idle' }
   }
 
   getCityName = (): string => {
@@ -238,10 +239,15 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
 
   onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
 
+  onFeedbackContactMailChanged = (contactMail: string) => this.setState({ contactMail })
+
   handleSubmit = async () => {
-    const { selectedFeedbackIndex, feedbackOptions, comment } = this.state
+    const { selectedFeedbackIndex, feedbackOptions, comment, contactMail } = this.state
     const feedbackItem = feedbackOptions[selectedFeedbackIndex]
-    const feedbackData = this.getFeedbackData(feedbackItem, comment)
+    const feedbackData = this.getFeedbackData(
+      feedbackItem,
+      `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
+    )
     this.setState({ sendingStatus: 'sending' })
     try {
       const apiUrl = await determineApiUrl()
@@ -256,16 +262,18 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
 
   render() {
     const { route, t } = this.props
-    const { comment, selectedFeedbackIndex, feedbackOptions, sendingStatus } = this.state
+    const { comment, contactMail, selectedFeedbackIndex, feedbackOptions, sendingStatus } = this.state
     const { isPositiveFeedback } = route.params
 
     return (
       <ThemedFeedbackModal
         comment={comment}
+        contactMail={contactMail}
         selectedFeedbackIndex={selectedFeedbackIndex}
         sendingStatus={sendingStatus}
         feedbackOptions={feedbackOptions}
         onCommentChanged={this.onFeedbackCommentChanged}
+        onFeedbackContactMailChanged={this.onFeedbackContactMailChanged}
         onFeedbackOptionChanged={this.onFeedbackOptionChanged}
         isPositiveFeedback={isPositiveFeedback}
         onSubmit={this.handleSubmit}

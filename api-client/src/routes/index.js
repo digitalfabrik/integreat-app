@@ -31,6 +31,9 @@ export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
+export type JpalTrackingRouteType = 'jpal'
+export const JPAL_TRACKING_ROUTE: JpalTrackingRouteType = 'jpal'
+
 // News types
 export type LocalNewsType = 'local'
 export const LOCAL_NEWS_TYPE: LocalNewsType = 'local'
