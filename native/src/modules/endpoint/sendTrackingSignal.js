@@ -29,7 +29,7 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
           timestamp: moment().toISOString(),
           currentCity: selectedCity,
           currentLanguage: contentLanguage,
-          systemLanguage: '', // TODO
+          systemLanguage: '', // TODO IGAPP-566 Include system language
           appSettings: {
             allowPushNotifications,
             proposeNearbyCities,
