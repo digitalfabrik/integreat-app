@@ -1,8 +1,13 @@
-# Ignore artifacts:
-www/
-node_modules/
-flow-typed/
-reports/
 stylelint.config.js
+
+# Dists/artifacts
+www/
 dist/
 lib-dist/
+
+# Ignore node_modules
+**/node_modules/**
+# Ignore external flow types
+**/flow-typed/**
+# Ignore all reports of code quality tools
+**/reports/**

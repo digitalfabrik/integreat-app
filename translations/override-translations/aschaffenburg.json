@@ -29,6 +29,9 @@
     },
     "tr": {
       "metaDescription": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
+    },
+    "zh-CN": {
+      "metaDescription": "{{appName}}是您在 Aschaffenburg 的数字伙伴。您能够以此查找本地信息、联系点和各项服务。"
     }
   },
   "feedback": {
@@ -61,6 +64,9 @@
     },
     "tr": {
       "thanksMessage": "Geri bildiriminiz için çok teşekkürler. Bu, {{appName}} ve içeriklerimizi iyileştirmemize yardımcı olacak. Başka geri bildirimlerinizi de bekliyoruz."
+    },
+    "zh-CN": {
+      "thanksMessage": "感谢您的反馈。这将帮助我们改进我们的网站内容和 {{appName}}。我们期待更多的反馈。"
     }
   },
   "native": {
@@ -103,6 +109,10 @@
     "tr": {
       "NSPhotoLibraryAddUsageDescription": "Resimleri kaydetmek için {{appName}} uygulamasının galeriye erişmesi gerekiyor.",
       "NSLocationWhenInUseUsageDescription": "Yakındaki yerleri bulmak için {{appName}} uygulamasının konum bilgisine erişmesi gerekiyor."
+    },
+    "zh-CN": {
+      "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
+      "NSLocationWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。"
     }
   },
   "settings": {
@@ -145,6 +155,10 @@
     "tr": {
       "sentryDescription": "Çökme raporlarını otomatik olarak göndererek {{appName}} uygulamasını iyileştirin",
       "about": "{{appName}} hakkında"
+    },
+    "zh-CN": {
+      "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}",
+      "about": "关于{{appName}}"
     }
   }
 }

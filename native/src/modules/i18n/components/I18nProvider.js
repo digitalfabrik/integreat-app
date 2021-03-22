@@ -52,7 +52,9 @@ export default ({ children }: PropsType) => {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
-        load: 'languageOnly',
+        /* Only allow supported languages (languages which can appear  in content of cms */
+        supportedLngs: [...config.getSupportedLanguageTags(), ...config.getFallbackLanguageTags()],
+        load: 'currentOnly', // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
         interpolation: {
           escapeValue: false /* Escaping is not needed for react apps:
                                 https://github.com/i18next/react-i18next/issues/277 */
@@ -60,7 +62,9 @@ export default ({ children }: PropsType) => {
         debug: buildConfig().featureFlags.developerFriendly
       })
 
-      await setContentLanguage(i18nextInstance.language).catch(e => {
+      // A language mentioned in the supportedLanguages array of the config.js in the translations package
+      const matchedLanguage = i18nextInstance.languages[0]
+      await setContentLanguage(matchedLanguage).catch(e => {
         console.error(e)
       })
 

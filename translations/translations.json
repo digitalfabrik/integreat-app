@@ -252,6 +252,21 @@
         "localNews": "yerel bildirimler"
       },
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
+    },
+    "zh-CN": {
+      "pageTitles": {
+        "search": "搜索",
+        "events": "活动",
+        "offers": "提供项目",
+        "landing": "选择地点",
+        "disclaimer": "版本说明和联系方式",
+        "mainDisclaimer": "版本说明和联系方式- {{appName}}",
+        "pois": "Points of Interest",
+        "notFound": "未找到网页",
+        "tunews": "tünews",
+        "localNews": "本地新闻"
+      },
+      "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
     }
   },
   "categories": {
@@ -305,6 +320,9 @@
     },
     "tr": {
       "createPdf": "PDF oluşturun"
+    },
+    "zh-CN": {
+      "createPdf": "创建 PDF"
     }
   },
   "common": {
@@ -402,6 +420,12 @@
       "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son değişiklik:",
       "loading": "Yükleniyor ..."
+    },
+    "zh-CN": {
+      "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
+      "chooseALanguage": "请选择一种语言。",
+      "lastUpdate": "上次更新：",
+      "loading": "加载中。。。"
     }
   },
   "dashboard": {
@@ -521,6 +545,13 @@
       "events": "Etkinlikler",
       "news": "Mesajlar",
       "newsAlternative": "Yenilikler"
+    },
+    "zh-CN": {
+      "localInformation": "本地信息",
+      "offers": "提供项目",
+      "events": "活动",
+      "news": "新闻",
+      "newsAlternative": "新消息"
     }
   },
   "error": {
@@ -1049,6 +1080,39 @@
       "generalError": "Bir hata oluştu",
       "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
       "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
+    },
+    "zh-CN": {
+      "notFound": {
+        "language": "很抱歉，这里没有提供该语言。",
+        "city": "很抱歉，找不到此城市。",
+        "category": "很抱歉，找不到此页面。",
+        "event": "很抱歉，找不到此活动。",
+        "offer": "很抱歉，找不到此提供项目。",
+        "poi": "很抱歉，找不到此 Point of Interest。",
+        "localNews": "很抱歉，找不到此新闻。",
+        "tunews": "很抱歉，找不到此 tünews。"
+      },
+      "pageNotFound": "很抱歉，找不到此页面。",
+      "networkConnectionFailed": "与服务器的连接失败。",
+      "networkRequestFailed": "无法处理该询问。",
+      "responseMappingFailed": "处理服务器响应时出错。",
+      "unknownError": "发生未知的错误。",
+      "tryAgain": "请重试",
+      "loadingFailed": "很抱歉，此页面无法加载。",
+      "chooseALanguage": "请选择一种语言：",
+      "goTo": {
+        "start": "前往主页",
+        "categories": "前往类别",
+        "events": "前往活动",
+        "offers": "前往提供项目",
+        "pois": "前往 Points of Interest",
+        "localNews": "前往新闻",
+        "tunews": "前往 tünews"
+      },
+      "pageTitle": "错误",
+      "generalError": "发生了错误",
+      "languageSwitchFailedTitle": "很抱歉，更改语言失败。",
+      "languageSwitchFailedMessage": "所选语言无法离线使用。需要有效的互联网连接。"
     }
   },
   "events": {
@@ -1153,6 +1217,12 @@
       "date": "Tarih",
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok."
+    },
+    "zh-CN": {
+      "location": "位置",
+      "date": "日期",
+      "events": "活动",
+      "currentlyNoEvents": "目前没有活动。"
     }
   },
   "feedback": {
@@ -1625,6 +1695,34 @@
       "close": "Kapat",
       "negativeRating": "Bu sayfa yardımcı olmadı",
       "positiveRating": "Bu sayfa yardımcı oldu"
+    },
+    "zh-CN": {
+      "technicalTopics": "技术功能",
+      "contentOfCity": "{{city}}的内容",
+      "contentOfOffer": "提供项目\"{{offer}}\"",
+      "disclaimer": "版本说明和联系方式",
+      "searchFor": "搜索",
+      "contentOfPoi": "\"{{poi}}\"地方的内容",
+      "contentOfPage": "\"{{page}}\"网页的内容",
+      "contentOfEvent": "\"{{event}}\"活动的内容",
+      "send": "发送",
+      "failedSendingFeedback": "发送反馈时出错。",
+      "feedback": "反馈",
+      "positiveComment": "这些信息对您有什么帮助？",
+      "negativeComment": "我们还能在哪些方面做得更好？",
+      "feedbackType": "反馈的目的是什么？",
+      "isThisSiteUseful": "这个网站对您有帮助吗？",
+      "useful": "有帮助",
+      "notUseful": "没有帮助",
+      "nothingFound": "很抱歉，找不到匹配的结果。",
+      "yourFeedback": "您的反馈...",
+      "informationNotFound": "找不到您要找的？",
+      "wantedInformation": "这里缺少什么信息？",
+      "feedbackSent": "反馈已发送",
+      "thanksMessage": "感谢您的反馈。这将帮助我们改进网站内容和{{appName}}应用程序。我们期待更多的反馈。",
+      "close": "关闭",
+      "negativeRating": "这个网站没有帮助",
+      "positiveRating": "这个网站很有帮助"
     }
   },
   "intro": {
@@ -2103,6 +2201,34 @@
       "decline": "Sil",
       "accept": "Kabul et",
       "privacyPolicy": "Gizlilik politikası"
+    },
+    "zh-CN": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}}是您在德国生活的数字指南",
+      "search": "搜索",
+      "searchDescription": "使用关键词快速查找正确的信息",
+      "languageChange": "更改语言",
+      "languageChangeDescription": "轻松更改个别页面的语言",
+      "events": "活动",
+      "eventsDescription": "该地区当前的活动及其日期",
+      "offers": "提供项目",
+      "offersDescription": "该地区的求职、实习等方面的信息",
+      "inquiryTitle": "设置",
+      "inquiryIntro": "通过点击\"{{accept}}\"，本人允许{{appName}}应用程序...",
+      "sentryTitle": "应用程序稳定性",
+      "sentryCondition": "…通过自动发送崩溃报告来改进{{appName}}",
+      "pushNewsTitle": "推送通知",
+      "pushNewsCondition": "...向我发送有关最新本地新闻的推送通知",
+      "proposeCitiesTitle": "附近地点",
+      "proposeCitiesCondition": "…通过我的GPS定位向我建议附近的地点",
+      "skip": "跳过",
+      "next": "继续",
+      "cancel": "取消",
+      "save": "保存",
+      "customize": "调整",
+      "decline": "拒绝",
+      "accept": "接受",
+      "privacyPolicy": "数据保护政策"
     }
   },
   "landing": {
@@ -2304,6 +2430,18 @@
       "notAvailable": "Konum belirlemeyi devre dışı bırak",
       "timeout": "Konum belirleme başarısız",
       "refresh": "Konum listesini güncelle"
+    },
+    "zh-CN": {
+      "searchCity": "搜索地点",
+      "nearbyPlaces": "附近的地点",
+      "noNearbyPlaces": "找不到附近的地点。",
+      "alert": "提示",
+      "locationError": "要查看附近的地点，必须启用定位服务。",
+      "noPermission": "需要位置访问权限",
+      "loading": "定位中。。。",
+      "notAvailable": "定位功能已停用",
+      "timeout": "定位失败",
+      "refresh": "更新地点清单"
     }
   },
   "layout": {
@@ -2645,6 +2783,26 @@
       "shareMessage": "Şimdi bulundu: {{message}}",
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
       "disclaimer": "Künye"
+    },
+    "zh-CN": {
+      "imprintAndContact": "版本说明和联系方式",
+      "privacy": "数据保护",
+      "offers": "提供项目",
+      "localInformation": "本地信息",
+      "events": "活动",
+      "noEvents": "没有活动",
+      "news": "新闻",
+      "noLanguages": "没有其他语言版本",
+      "noTranslation": "没有翻译",
+      "search": "搜索",
+      "changeLocation": "更改位置",
+      "changeLanguage": "更改语言",
+      "settings": "设置",
+      "share": "分享",
+      "cancel": "取消",
+      "shareMessage": "刚找到：{{message}}",
+      "shareFailDefaultMessage": "很抱歉，共享内容时出错。",
+      "disclaimer": "版本说明"
     }
   },
   "native": {
@@ -2714,6 +2872,10 @@
     "tr": {
       "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir.",
       "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
+    },
+    "zh-CN": {
+      "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
+      "NSLocationWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。"
     }
   },
   "news": {
@@ -2876,6 +3038,16 @@
       "readMore": "Okumaya devam edin",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır.",
       "currentlyNoNewsAlternative": "Şu an yenilik bulunmamaktadır."
+    },
+    "zh-CN": {
+      "news": "新闻",
+      "newsAlternative": "新消息",
+      "localNews": "本地新闻",
+      "localNewsAlternative": "本地新消息",
+      "local": "本地",
+      "readMore": "继续阅读",
+      "currentlyNoNews": "目前没有新闻。",
+      "currentlyNoNewsAlternative": "目前没有新消息。"
     }
   },
   "offers": {
@@ -2929,6 +3101,9 @@
     },
     "tr": {
       "offers": "Teklifler"
+    },
+    "zh-CN": {
+      "offers": "提供项目"
     }
   },
   "search": {
@@ -2979,6 +3154,9 @@
     },
     "tr": {
       "searchPlaceholder": "Arama"
+    },
+    "zh-CN": {
+      "searchPlaceholder": "搜索"
     }
   },
   "settings": {
@@ -3188,6 +3366,18 @@
       "privacyPolicy": "Gizlilik politikası",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Açık kaynak lisansları"
+    },
+    "zh-CN": {
+      "sentryTitle": "应用程序稳定性",
+      "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
+      "pushNewsTitle": "推送通知",
+      "pushNewsDescription": "获取有关最新本地新闻的推送通知",
+      "proposeCitiesTitle": "附近地点",
+      "proposeCitiesDescription": "通过GPS定位服务获取附近地点的建议",
+      "about": "关于{{appName}}",
+      "privacyPolicy": "数据保护政策",
+      "version": "版本：{{version}}",
+      "openSourceLicenses": "开源许可证"
     }
   },
   "snackbar": {
@@ -3338,6 +3528,15 @@
       "deactivate": "Devre dışı bırak",
       "learnMore": "Daha fazla bilgi",
       "dismiss": "Kapat"
+    },
+    "zh-CN": {
+      "grantPermission": "允许",
+      "deactivateFeature": "停用功能",
+      "locationPermissionMissing": "需要位置访问权限以建议附近的地点",
+      "pushNotificationPermissionMissing": "需要权限以发送推送通知",
+      "deactivate": "停用",
+      "learnMore": "更多信息",
+      "dismiss": "关闭"
     }
   },
   "sprungbrett": {
@@ -3391,6 +3590,9 @@
     },
     "tr": {
       "noOffersAvailable": "Teklif yok"
+    },
+    "zh-CN": {
+      "noOffersAvailable": "目前没有提供项目"
     }
   },
   "wohnen": {
@@ -3811,6 +4013,36 @@
           "store": "Kiler",
           "basement": "Depo",
           "balcony": "Balkon / Teras"
+        }
+      }
+    },
+    "zh-CN": {
+      "noOffersAvailable": "目前没有提供项目。",
+      "values": {
+        "runningServices": {
+          "heating": "暖气",
+          "water": "水/污水",
+          "garbage": "垃圾收集",
+          "chimney": "烟囱清扫工",
+          "other": "其他"
+        },
+        "additionalServices": {
+          "garage": "车库/停车位",
+          "other": "其他"
+        },
+        "rooms": {
+          "kitchen": "廚房",
+          "bath": "浴室",
+          "wc": "厕所",
+          "child1": "儿童房 1",
+          "child2": "儿童室 2",
+          "child3": "儿童室 3",
+          "bed": "卧室",
+          "livingroom": "客厅",
+          "hallway": "门厅",
+          "store": "储藏室",
+          "basement": "地窖",
+          "balcony": "阳台/露台"
         }
       }
     }
