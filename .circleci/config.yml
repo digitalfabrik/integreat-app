@@ -679,15 +679,6 @@ jobs:
                     - run:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
                         name: Aschaffenburg development delivery
-                    - run:
-                        command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
-                        name: 'Sentry Upload: integreat-test-cms'
-                    - run:
-                        command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                        name: 'Sentry Upload: malte'
-                    - run:
-                        command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-                        name: 'Sentry Upload: aschaffenburg'
             - notify
     e2e_android:
         docker:
