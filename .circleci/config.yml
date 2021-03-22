@@ -276,7 +276,7 @@ jobs:
             - image: circleci/android:api-29-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
-            TOTAL_CPUS: 2
+            TOTAL_CPUS: 3
         parameters:
             build_config_name:
                 default: integreat
@@ -287,7 +287,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: medium
+        resource_class: medium+
         shell: /bin/bash -eo pipefail
         steps:
             - skip_job:
