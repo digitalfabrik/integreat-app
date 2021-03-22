@@ -1,0 +1,8 @@
+issue_key: IGAPP-449
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Add support for simplified chinese.
+de: Vereinfachtes Chinesisch wird nun unterstützt. 
