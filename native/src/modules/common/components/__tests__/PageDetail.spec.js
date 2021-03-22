@@ -8,11 +8,11 @@ import { I18nManager } from 'react-native'
 
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
-    const { queryByText } = render(
+    const { queryAllByText, queryByText } = render(
       <PageDetail identifier='Test Identifier' information='Some important information' theme={lightTheme}
                   language='de' />
     )
-    expect(queryByText(/Test Identifier/)).toBeTruthy()
+    expect(queryAllByText(/Test Identifier/)).toBeTruthy()
     expect(queryByText(/Some important information/)).toBeTruthy()
   })
 

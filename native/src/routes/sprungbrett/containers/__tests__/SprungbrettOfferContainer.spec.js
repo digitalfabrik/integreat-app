@@ -51,12 +51,12 @@ describe('SprungbrettOfferContainer', () => {
 
   it('should display offers without a Loading spinner', () => {
     mockLoadFromEndpointOnce((request, setData, _, setLoading) => { setData([]) })
-    const { getByText } = render(
+    const { getByText, debug } = render(
       <SprungbrettOfferContainer navigation={navigation} route={route} />
     )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
   })
 
   it('should display offers with a Loading spinner', () => {
@@ -69,7 +69,7 @@ describe('SprungbrettOfferContainer', () => {
     )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
   })
 
   it('should display error without a loading spinner', () => {
@@ -78,8 +78,8 @@ describe('SprungbrettOfferContainer', () => {
       <SprungbrettOfferContainer navigation={navigation} route={route} />
     )
     expect(getByText(errorText)).toBeTruthy()
-    expect(() => getByText('SprungbrettOffer')).toThrow('No instances found with text "SprungbrettOffer"')
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
+    expect(() => getByText('SprungbrettOffer')).toThrow('Unable to find an element with text: SprungbrettOffer')
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
   })
 
   it('should display error with spinner', () => {
@@ -92,6 +92,6 @@ describe('SprungbrettOfferContainer', () => {
     )
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText('SprungbrettOffer')).toThrow('No instances found with text "SprungbrettOffer"')
+    expect(() => getByText('SprungbrettOffer')).toThrow('Unable to find an element with text: SprungbrettOffer')
   })
 })
