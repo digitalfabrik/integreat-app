@@ -16,7 +16,7 @@ import normalizeSearchString from '../../../modules/common/normalizeSearchString
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -29,7 +29,7 @@ const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
 
 export type PropsType = {|
   categories: CategoriesMapModel | null,
-  navigateTo: RouteInformationType => void,
+  navigateTo: NullableRouteInformationType => void,
   theme: ThemeType,
   language: string,
   cityCode: string,

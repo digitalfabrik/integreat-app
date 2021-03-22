@@ -29,14 +29,14 @@ import {
   POIS_ROUTE,
   TU_NEWS_TYPE
 } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;
 `
 
 export type PropsType = {|
-  navigateTo: RouteInformationType => void,
+  navigateTo: NullableRouteInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   navigateToFeedback: FeedbackInformationType => void,
   theme: ThemeType,
