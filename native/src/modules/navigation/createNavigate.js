@@ -26,16 +26,22 @@ import navigateToNews from './navigateToNews'
 import navigateToCategory from './navigateToCategory'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import navigateToJpalTracking from './navigateToJpalTracking'
 import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
+import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import sendTrackingSignal from '../endpoint/sendTrackingSignal'
+import { urlFromRouteInformation } from './url'
 
 const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) => (
-  routeInformation: RouteInformationType,
+  routeInformation: NullableRouteInformationType,
   key?: string,
   forceRefresh?: boolean
 ) => {
   if (routeInformation) {
+    const url = urlFromRouteInformation(routeInformation)
+    sendTrackingSignal({ signal: { name: OPEN_PAGE_SIGNAL_NAME, pageType: routeInformation.route, url }})
+
     if (routeInformation.route === LANDING_ROUTE) {
       navigateToLanding({ dispatch, navigation })
       return
