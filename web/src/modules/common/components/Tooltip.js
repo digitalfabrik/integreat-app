@@ -183,10 +183,11 @@ type PropsType = {|
   text: ?string,
   flow: FlowType,
   mediumViewportFlow?: FlowType,
-  smallViewportFlow?: FlowType
+  smallViewportFlow?: FlowType,
+  className?: string
 |}
 
-export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }: PropsType) => {
+export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, className }: PropsType) => {
   const platform = useContext(PlatformContext)
 
   if (!text) {
@@ -195,6 +196,7 @@ export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }:
 
   return (
     <TooltipContainer
+      className={className}
       text={text}
       flow={flow}
       mediumViewportFlow={mediumViewportFlow ?? flow}
