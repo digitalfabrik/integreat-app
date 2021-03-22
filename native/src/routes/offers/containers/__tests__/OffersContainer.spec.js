@@ -48,8 +48,8 @@ describe('OffersContainer', () => {
       <OffersContainer navigation={navigation} route={route} />
     )
     expect(getByText('Offers')).toBeTruthy()
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
   })
 
   it('should display offers with a Loading spinner', () => {
@@ -62,7 +62,7 @@ describe('OffersContainer', () => {
     )
     expect(getByText('Offers')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
   })
 
   it('should display error without a loading spinner', () => {
@@ -71,8 +71,8 @@ describe('OffersContainer', () => {
       <OffersContainer navigation={navigation} route={route} />
     )
     expect(getByText(errorText)).toBeTruthy()
-    expect(() => getByText('Offers')).toThrow('No instances found with text "Offers"')
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
+    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
   })
 
   it('should display error with spinner', () => {
@@ -85,6 +85,6 @@ describe('OffersContainer', () => {
     )
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText('Offers')).toThrow('No instances found with text "Offers"')
+    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
   })
 })

@@ -36,7 +36,8 @@ module.exports = {
   ],
   moduleFileExtensions: [
     'js',
-    'json'
+    'json',
+    'ts'
   ],
   modulePaths: [
     '<rootDir>'
