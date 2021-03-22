@@ -2,10 +2,12 @@
 
 exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] = `
 <LocationToolbar
+  direction="ltr"
   openFeedbackModal={[Function]}
   viewportSmall={true}
 >
   <ToolbarItem
+    direction="ltr"
     href="https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fwillkommen"
     icon={
       Object {
@@ -28,10 +30,12 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
 
 exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
 <LocationToolbar
+  direction="ltr"
   openFeedbackModal={[Function]}
   viewportSmall={true}
 >
   <ToolbarItem
+    direction="ltr"
     href="https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf"
     icon={
       Object {

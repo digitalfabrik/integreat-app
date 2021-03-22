@@ -2,6 +2,7 @@
 
 exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Selector if there are selectorItems 1`] = `
 <HeaderActionItemDropDown
+  direction="ltr"
   iconSrc="test-file-stub"
   text="layout:changeLanguage"
 >
@@ -11,6 +12,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
 
 exports[`HeaderLanguageSelectorItem should render an icon with a tooltip if there are no selectorItems 1`] = `
 <HeaderActionItemLink
+  direction="ltr"
   iconSrc="test-file-stub"
   text="layout:noLanguages"
 />

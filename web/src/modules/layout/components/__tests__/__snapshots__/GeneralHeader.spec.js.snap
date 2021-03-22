@@ -5,6 +5,7 @@ exports[`GeneralHeader should match snapshot 1`] = `
   actionItems={
     Array [
       <HeaderActionItemLink
+        direction="ltr"
         href="/"
         iconSrc="test-file-stub"
         text="layout:changeLocation"
