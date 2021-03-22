@@ -1,43 +1,23 @@
 // @flow
 
 import * as React from 'react'
-import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
-import PlatformContext from '../../platform/PlatformContext'
 import type { StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 
-// Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE and Safari
-const toLogicalProperty = (prop: string, direction: 'ltr' | 'rtl', supportsLogicalProperties: boolean): string => {
-  if (!supportsLogicalProperties) {
-    if (direction === 'rtl') {
-      if (prop.includes('left')) {
-        return prop.replace('left', 'right')
-      } else {
-        return prop.replace('right', 'left')
-      }
+// The previous implementation of this function used css logical properties. Therefore the name
+// The support is so bad that, we instead use the directionality of the app.
+const toLogicalProperty = (prop: string, direction: 'ltr' | 'rtl'): string => {
+  if (direction === 'rtl') {
+    if (prop.includes('left')) {
+      return prop.replace('left', 'right')
+    } else {
+      return prop.replace('right', 'left')
     }
-
-    return prop
   }
 
-  switch (prop) {
-    case 'right':
-      return 'inset-inline-end'
-    case 'left':
-      return 'inset-inline-start'
-    case 'border-left-width':
-      return 'border-inline-start-width'
-    case 'border-right-width':
-      return 'border-inline-end-width'
-    case 'border-left-color':
-      return 'border-inline-start-color'
-    case 'border-right-color':
-      return 'border-inline-end-color'
-  }
-
-  throw Error('Unknown property.')
+  return prop
 }
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
@@ -189,9 +169,6 @@ type PropsType = {|
   children: React.Node,
   text: ?string,
   flow: FlowType,
-  /**
-   * For browsers which do not support logical props like IE and Safari you need to pass this explicitly
-   */
   direction?: 'ltr' | 'rtl',
   mediumViewportFlow?: FlowType,
   smallViewportFlow?: FlowType,
@@ -199,8 +176,6 @@ type PropsType = {|
 |}
 
 const Tooltip = ({ children, text, flow, mediumViewportFlow, smallViewportFlow, className, direction }: PropsType) => {
-  const platform = useContext(PlatformContext)
-
   if (!text) {
     return children
   }
@@ -212,9 +187,7 @@ const Tooltip = ({ children, text, flow, mediumViewportFlow, smallViewportFlow, 
       flow={flow}
       mediumViewportFlow={mediumViewportFlow ?? flow}
       smallViewportFlow={smallViewportFlow ?? mediumViewportFlow ?? flow}
-      toLogicalProperty={(prop: string) =>
-        toLogicalProperty(prop, direction || 'ltr', platform.supportsLogicalProperties)
-      }>
+      toLogicalProperty={(prop: string) => toLogicalProperty(prop, direction || 'ltr')}>
       {children}
     </TooltipContainer>
   )
