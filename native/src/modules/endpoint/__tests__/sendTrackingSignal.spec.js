@@ -48,7 +48,7 @@ describe('sendTrackingSignal', () => {
         offline: true,
         currentCity: 'muenchen',
         currentLanguage: 'ar',
-        systemLanguage: '', // TODO,
+        systemLanguage: '', // TODO IGAPP-566 Include system language
         appSettings: {
           allowPushNotifications: true,
           errorTracking: false,

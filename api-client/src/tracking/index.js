@@ -110,7 +110,7 @@ export type SendFeedbackSignalType = {|
   name: SendFeedbackSignalNameType,
   url: string,
   feedback: {|
-    // TODO IGAPP-xxx: Implement feedback signal
+    // TODO IGAPP-564: Implement feedback signal
   |}
 |}
 

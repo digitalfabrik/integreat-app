@@ -20,7 +20,7 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
       page_type: signal.pageType || undefined,
       url: signal.url || undefined,
       query: signal.query || undefined,
-      feedback: signal.feedback || undefined, // TODO IGAPP-xxx: Implement feedback signal
+      feedback: signal.feedback || undefined, // TODO IGAPP-564: Implement feedback signal
       from_url: signal.fromUrl || undefined,
       tracking_code: signal.trackingCode,
       metadata: {
