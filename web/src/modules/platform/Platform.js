@@ -15,7 +15,7 @@ class Platform {
    * @returns {boolean}
    */
   get supportsLogicalProperties(): boolean {
-    return this._browser && !this._browser.name.includes('ie')
+    return this._browser && !this._browser.name.includes('ie') && !this._browser.name.includes('safari')
   }
 
   get positionStickyDisabled(): boolean {
