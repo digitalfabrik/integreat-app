@@ -2,7 +2,7 @@
 
 import { stringifyFormData } from '../stringifyFormData'
 
-export type RequestOptionsType = { method: 'GET' } | { method: 'POST', body: FormData }
+export type RequestOptionsType = {| method: 'GET' |} | { method: 'POST', body: FormData | string, ... }
 
 type ResponseErrorParamsType = {|
   endpointName: string,
@@ -35,8 +35,12 @@ class ResponseError extends Error {
   }
 
   createMessage({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
-    const stringifiedFormData =
-      requestOptions.method === 'POST' ? ` and the formData ${stringifyFormData(requestOptions.body)}` : ''
+    let stringifiedFormData = ''
+    if (requestOptions.body && typeof requestOptions.body === 'string') {
+      stringifiedFormData = ` and the body ${requestOptions.body}`
+    } else if (requestOptions.body) {
+      stringifiedFormData = ` and the formData ${stringifyFormData(requestOptions.body)}`
+    }
 
     return `ResponseError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
      ${url}${stringifiedFormData}. Received response status ${response.status}: ${response.statusText}.`
