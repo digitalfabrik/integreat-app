@@ -4,6 +4,7 @@ import { createTrackingEndpoint, type SpecificSignalType } from 'api-client'
 import AppSettings from '../settings/AppSettings'
 import moment from 'moment'
 import type { SettingsType } from '../settings/AppSettings'
+import buildConfig from '../app/constants/buildConfig'
 
 const sendTrackingSignal = async ({ signal, offline = false }: {| signal: SpecificSignalType, offline?: boolean |}) => {
   try {
@@ -19,7 +20,7 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
       jpalTrackingCode
     } = settings
 
-    if (jpalTrackingCode && jpalTrackingEnabled) {
+    if (buildConfig().featureFlags.jpalTracking && jpalTrackingEnabled && jpalTrackingCode) {
       await createTrackingEndpoint().request({
         ...signal,
         trackingCode: jpalTrackingCode,
@@ -28,7 +29,7 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
           timestamp: moment().toISOString(),
           currentCity: selectedCity,
           currentLanguage: contentLanguage,
-          systemLanguage: '',
+          systemLanguage: '', // TODO
           appSettings: {
             allowPushNotifications,
             proposeNearbyCities,
