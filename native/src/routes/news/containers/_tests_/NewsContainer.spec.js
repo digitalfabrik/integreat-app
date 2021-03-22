@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import configureMockStore from 'redux-mock-store'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
@@ -18,6 +17,7 @@ import ErrorCodes from '../../../../modules/error/ErrorCodes'
 import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client/src/routes'
 import NewsContainer from '../NewsContainer'
+import { CityModel } from 'api-client'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -51,7 +51,26 @@ jest.mock('../../../../modules/common/components/LoadingSpinner', () => {
 const route = { key: 'route-id-0', params: undefined, name: NEWS_ROUTE }
 
 describe('NewsContainer', () => {
-  const [city] = new CityModelBuilder(1).build()
+  const city = new CityModel({
+    name: 'Stadt Augsburg',
+    code: 'augsburg',
+    live: true,
+    eventsEnabled: true,
+    offersEnabled: true,
+    poisEnabled: true,
+    pushNotificationsEnabled: true,
+    tunewsEnabled: true,
+    sortingName: 'Augsburg',
+    prefix: 'Stadt',
+    latitude: 48.369696,
+    longitude: 10.892578,
+    aliases: {
+      Konigsbrunn: {
+        latitude: 48.267499,
+        longitude: 10.889586
+      }
+    }
+  })
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
   const news = new LocalNewsModelBuilder('NewsList-Component', 1, city.code, languages[0].code).build()

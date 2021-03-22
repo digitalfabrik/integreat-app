@@ -17,6 +17,7 @@ const integreatTestCms = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
+    jpalTracking: true,
     sentry: false,
     developerFriendly: true,
     fixedCity: null

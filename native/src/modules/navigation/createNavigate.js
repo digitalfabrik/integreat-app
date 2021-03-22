@@ -7,12 +7,14 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  SEARCH_ROUTE
+  SEARCH_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client/src/routes'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToLanding from './navigateToLanding'
@@ -25,6 +27,8 @@ import navigateToCategory from './navigateToCategory'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import navigateToJpalTracking from './navigateToJpalTracking'
+import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 
 const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) => (
   routeInformation: RouteInformationType,
@@ -34,6 +38,11 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
   if (routeInformation) {
     if (routeInformation.route === LANDING_ROUTE) {
       navigateToLanding({ dispatch, navigation })
+      return
+    } else if (routeInformation.route === JPAL_TRACKING_ROUTE) {
+      if (buildConfig().featureFlags.jpalTracking) {
+        navigateToJpalTracking({ dispatch, navigation, trackingCode: routeInformation.trackingCode })
+      }
       return
     }
 
@@ -75,6 +84,9 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
         return
       case OFFERS_ROUTE:
         navigateToOffers(params)
+        return
+      case SPRUNGBRETT_OFFER_ROUTE:
+        navigateToSprungbrettOffer(params)
         return
       case POIS_ROUTE:
         if (!buildConfig().featureFlags.pois) {

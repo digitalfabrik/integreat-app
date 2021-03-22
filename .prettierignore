@@ -18,3 +18,5 @@ native/ios/**/*
 **/flow-typed/**
 # Ignore all reports of code quality tools
 **/reports/**
+
+**/fastlane/README.md

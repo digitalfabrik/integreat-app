@@ -29,14 +29,7 @@ If you only want to quickly push an update to the stores then take a look at the
 
 #### Certificates Setup
 
-- Prepare the necessary environment variables:
-
-```bash
-export APP_STORE_CONNECT_API_KEY=<secret>
-export MATCH_PASSWORD=<secret>
-```
-
-More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
+- Prepare the necessary environment variables as specified [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 - Install the certificates locally:
 

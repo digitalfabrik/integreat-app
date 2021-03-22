@@ -5,6 +5,7 @@ import type {
   DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
+  JpalTrackingRouteType,
   LandingRouteType,
   LocalNewsType,
   NewsRouteType,
@@ -24,6 +25,11 @@ type ParamsType = {|
 export type LandingRouteInformationType = {|
   route: LandingRouteType,
   languageCode: string
+|}
+
+export type JpalTrackingRouteInformationType = {|
+  route: JpalTrackingRouteType,
+  trackingCode: string | null
 |}
 
 export type CategoriesRouteInformationType = {|
@@ -52,6 +58,7 @@ export type EventsPoisRouteInformationType = {|
 
 export type RouteInformationType =
   | LandingRouteInformationType
+  | JpalTrackingRouteInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
   | SimpleCityContentFeatureType

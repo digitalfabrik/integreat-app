@@ -73,7 +73,7 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
 
   if (!fs.existsSync(source)) {
     console.warn('Source not found. Nothing to do...')
-    return
+    return DEFAULT_NOTES[language] || DEFAULT_NOTES[DEFAULT_LANGUAGE]
   }
 
   const fileNames = fs.readdirSync(source)

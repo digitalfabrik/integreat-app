@@ -3170,7 +3170,11 @@
       "about": "Über {{appName}}",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
-      "openSourceLicenses": "Open-Source-Lizenzen"
+      "openSourceLicenses": "Open-Source-Lizenzen",
+      "tracking": "J-PAL Evaluation",
+      "trackingDescription": "Durch das Senden von Tracking-Daten Integreat langfristig verbessern.",
+      "enabled": "aktiviert",
+      "disabled": "deaktiviert"
     },
     "ar": {
       "sentryTitle": "استقرار التطبيق",
