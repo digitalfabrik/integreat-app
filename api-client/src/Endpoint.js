@@ -10,11 +10,6 @@ import FetchError from './errors/FetchError'
 import type { RequestOptionsType } from './errors/ResponseError'
 import NotFoundError from './errors/NotFoundError'
 
-const JSON_HEADERS = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json'
-}
-
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
@@ -62,12 +57,10 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const body = this.mapParamsToBody ? this.mapParamsToBody(params) : null
-    const requestOptions: RequestOptionsType = body
+    const requestOptions: RequestOptionsType = this.mapParamsToBody
       ? {
           method: 'POST',
-          body: body,
-          headers: typeof body === 'string' ? JSON_HEADERS : undefined
+          body: this.mapParamsToBody(params)
         }
       : { method: 'GET' }
     const response = await this.fetchOrThrow(url, requestOptions)
