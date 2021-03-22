@@ -8,10 +8,17 @@ import PlatformContext from '../../platform/PlatformContext'
 import type { StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 
-// Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE
-
-const toLogicalProperty = (prop: string, supportsLogicalProperties: boolean): string => {
+// Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE and Safari
+const toLogicalProperty = (prop: string, direction: 'ltr' | 'rtl', supportsLogicalProperties: boolean): string => {
   if (!supportsLogicalProperties) {
+    if (direction === 'rtl') {
+      if (prop.includes('left')) {
+        return prop.replace('left', 'right')
+      } else {
+        return prop.replace('right', 'left')
+      }
+    }
+
     return prop
   }
 
@@ -35,7 +42,7 @@ const toLogicalProperty = (prop: string, supportsLogicalProperties: boolean): st
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
-const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css`
+const pseudosMixin = (flow: FlowType, toLogicalProperty: (prop: string) => string) => css`
   /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
   ::before {
     ${flow === 'up' &&
@@ -52,15 +59,15 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
     `}
     ${flow === 'left' &&
     `
-      ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
-      ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
-      ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
+      ${toLogicalProperty('border-right-width')}: 0;
+      ${toLogicalProperty('border-left-color')}: #333;
+      ${toLogicalProperty('left')}: -5px;
     `}
     ${flow === 'right' &&
     `
-      ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
-      ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333;
-      ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
+      ${toLogicalProperty('border-left-width')}: 0;
+      ${toLogicalProperty('border-right-color')}: #333;
+      ${toLogicalProperty('right')}: -5px;
     `}
   }
 
@@ -75,11 +82,11 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
     `}
     ${flow === 'left' &&
     `
-      ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
+      ${toLogicalProperty('right')}: calc(99% + 5px);
     `}
     ${flow === 'right' &&
     `
-      ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
+      ${toLogicalProperty('left')}: calc(99% + 5px);
     `}
   }
 
@@ -104,7 +111,7 @@ const TooltipContainer: StyledComponent<
     flow: FlowType,
     smallViewportFlow: FlowType,
     mediumViewportFlow: FlowType,
-    supportsLogicalProperties: boolean
+    toLogicalProperty: (prop: string) => string
   |},
   ThemeType,
   *
@@ -155,15 +162,15 @@ const TooltipContainer: StyledComponent<
 
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
-    ${props => pseudosMixin(props.flow, props.supportsLogicalProperties)}
+    ${props => pseudosMixin(props.flow, props.toLogicalProperty)}
   }
   /* below 750px */
   @media screen and ${dimensions.smallViewport} {
-    ${props => pseudosMixin(props.smallViewportFlow, props.supportsLogicalProperties)}
+    ${props => pseudosMixin(props.smallViewportFlow, props.toLogicalProperty)}
   }
   /* inbetween */
   @media screen and ${dimensions.mediumViewport} {
-    ${props => pseudosMixin(props.mediumViewportFlow, props.supportsLogicalProperties)}
+    ${props => pseudosMixin(props.mediumViewportFlow, props.toLogicalProperty)}
   }
 
   @keyframes tooltips {
@@ -182,12 +189,16 @@ type PropsType = {|
   children: React.Node,
   text: ?string,
   flow: FlowType,
+  /**
+   * For browsers which do not support logical props like IE and Safari you need to pass this explicitly
+   */
+  direction?: 'ltr' | 'rtl',
   mediumViewportFlow?: FlowType,
   smallViewportFlow?: FlowType,
   className?: string
 |}
 
-export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, className }: PropsType) => {
+const Tooltip = ({ children, text, flow, mediumViewportFlow, smallViewportFlow, className, direction }: PropsType) => {
   const platform = useContext(PlatformContext)
 
   if (!text) {
@@ -201,8 +212,12 @@ export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, c
       flow={flow}
       mediumViewportFlow={mediumViewportFlow ?? flow}
       smallViewportFlow={smallViewportFlow ?? mediumViewportFlow ?? flow}
-      supportsLogicalProperties={platform.supportsLogicalProperties}>
+      toLogicalProperty={(prop: string) =>
+        toLogicalProperty(prop, direction || 'ltr', platform.supportsLogicalProperties)
+      }>
       {children}
     </TooltipContainer>
   )
 }
+
+export default Tooltip
