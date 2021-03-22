@@ -90,7 +90,7 @@ const NavigationBar: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
-  justify-content: center;
+  justify-content: space-evenly;
 `
 
 /**

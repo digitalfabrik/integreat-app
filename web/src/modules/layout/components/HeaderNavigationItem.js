@@ -8,10 +8,6 @@ import dimensions from '../../theme/constants/dimensions'
 import Tooltip from '../../common/components/Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
-const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
-  flex: 1 1 135px;
-`
-
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -28,7 +24,7 @@ const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
 
   @media ${dimensions.smallViewport} {
     font-size: 0.8em;
-    min-width: 135px;
+    min-width: 105px;
   }
 
   &:hover > div:first-child {
@@ -106,16 +102,14 @@ type PropsType = {|
 |}
 
 const HeaderNavigationItem = ({ active, text, tooltip, href, icon }: PropsType) => (
-  <Container>
-    <Tooltip text={tooltip} flow={'up'}>
-      <StyledLink to={href} $active={active}>
-        <Circle>
-          <img src={icon} alt='' />
-        </Circle>
-        {text}
-      </StyledLink>
-    </Tooltip>
-  </Container>
+  <Tooltip text={tooltip} flow={'up'}>
+    <StyledLink to={href} $active={active}>
+      <Circle>
+        <img src={icon} alt='' />
+      </Circle>
+      <div>{text}</div>
+    </StyledLink>
+  </Tooltip>
 )
 
 export default HeaderNavigationItem
