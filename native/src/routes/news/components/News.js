@@ -14,7 +14,7 @@ import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import NewsDetail from './NewsDetail'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import type { NewsType } from 'api-client/src/routes'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 
@@ -35,7 +35,7 @@ export type PropsType = {|
   selectedNewsType: NewsType,
   isFetchingMore: boolean,
   fetchMoreNews: () => void,
-  navigateTo: RouteInformationType => void,
+  navigateTo: NullableRouteInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   routeKey: string
 |}

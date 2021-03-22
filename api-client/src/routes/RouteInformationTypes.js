@@ -63,4 +63,5 @@ export type RouteInformationType =
   | NewsRouteInformationType
   | SimpleCityContentFeatureType
   | EventsPoisRouteInformationType
-  | null
+
+export type NullableRouteInformationType = RouteInformationType | null

@@ -17,7 +17,7 @@ import { fromError } from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
 import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
 import { POIS_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 export type PropsType = {|
   path: ?string,
@@ -28,7 +28,7 @@ export type PropsType = {|
   resourceCacheUrl: string,
   theme: ThemeType,
   t: TFunction,
-  navigateTo: RouteInformationType => void,
+  navigateTo: NullableRouteInformationType => void,
   navigateToFeedback: FeedbackInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 |}
