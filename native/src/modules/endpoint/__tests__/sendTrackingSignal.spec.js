@@ -14,7 +14,7 @@ jest.mock('api-client', () => {
     createTrackingEndpoint: jest.fn(() => ({ request: mock }))
   }
 })
-jest.mock('moment', () => () => ({ toISOString: () => '2020-01-20T00:00:00.000Z'}))
+jest.mock('moment', () => () => ({ toISOString: () => '2020-01-20T00:00:00.000Z' }))
 
 describe('sendTrackingSignal', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('sendTrackingSignal', () => {
     jest.clearAllMocks()
   })
 
-  const signal = { name: OPEN_PAGE_SIGNAL_NAME, pageType: DASHBOARD_ROUTE, url: 'https://example.com'}
+  const signal = { name: OPEN_PAGE_SIGNAL_NAME, pageType: DASHBOARD_ROUTE, url: 'https://example.com' }
 
   it('should request the tracking endpoint if tracking enabled and tracking code set', async () => {
     // $FlowFixMe flow is not aware that buildConfig is a mock function
@@ -52,7 +52,7 @@ describe('sendTrackingSignal', () => {
         appSettings: {
           allowPushNotifications: true,
           errorTracking: false,
-          proposeNearbyCities: false,
+          proposeNearbyCities: false
         },
         timestamp: '2020-01-20T00:00:00.000Z'
       }

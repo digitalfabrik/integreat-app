@@ -38,10 +38,10 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
     }
     const body = JSON.stringify(mappedSignal)
     const requestOptions: RequestOptionsType = {
-        method: 'POST',
-        body: body,
-        headers: JSON_HEADERS
-      }
+      method: 'POST',
+      body: body,
+      headers: JSON_HEADERS
+    }
     const response = await fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({ endpointName: TRACKING_ENDPOINT_NAME, innerError: e })
     })
