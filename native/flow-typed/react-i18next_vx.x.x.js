@@ -1,5 +1,5 @@
 declare module 'react-i18next' {
-  declare type I18nType = {| language: string |}
+  declare type I18nType = {| language: string, languages: string[] |}
   declare export type TFunction = (key: string, options?: {}) => string
   declare export function useTranslation(namespace?: string | Array<string>): {
     t: TFunction,

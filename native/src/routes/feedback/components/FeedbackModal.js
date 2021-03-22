@@ -12,6 +12,7 @@ import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import type { SendingStatusType } from '../containers/FeedbackModalContainer'
+import type { StyledComponent } from 'styled-components'
 
 const Input = styled(TextInput)`
   padding: 15px;
@@ -29,7 +30,7 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const DescriptionContainer = styled.View`
+const DescriptionContainer: StyledComponent<{||}, ThemeType, *> = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -40,7 +41,7 @@ const ThemedText = styled.Text`
   display: flex;
   text-align: left;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 const Description = styled(ThemedText)`

@@ -34,18 +34,18 @@ const Thumbnail = styled(Image)`
   flex-shrink: 0;
 `
 
-const Description = styled.View`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex: 1;
   height: 100%;
   flex-direction: column;
   flex-grow: 1;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 10px;
 `
 
-const Title = styled.Text`
+const Title: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-weight: 700;
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
 `
 

@@ -20,7 +20,7 @@ const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex-direction: column;
   justify-content: space-between;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontFamily};
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size-adjust: ${props => props.theme.fonts.fontSizeAdjust};
   background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
