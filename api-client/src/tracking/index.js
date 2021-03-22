@@ -5,13 +5,16 @@ import type {
   DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
-  FeedbackModalRouteType, JpalTrackingRouteType, LandingRouteType,
+  FeedbackModalRouteType,
+  JpalTrackingRouteType,
+  LandingRouteType,
   NewsRouteType,
   OffersRouteType,
   PoisRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType, WohnenOfferRouteType
+  SprungbrettOfferRouteType,
+  WohnenOfferRouteType
 } from '../routes'
 
 type OpenPageSignalNameType = 'open_page'

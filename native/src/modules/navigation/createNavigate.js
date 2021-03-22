@@ -40,7 +40,7 @@ const createNavigate = <T: RoutesType>(dispatch: Dispatch<StoreActionType>, navi
 ) => {
   if (routeInformation) {
     const url = urlFromRouteInformation(routeInformation)
-    sendTrackingSignal({ signal: { name: OPEN_PAGE_SIGNAL_NAME, pageType: routeInformation.route, url }})
+    sendTrackingSignal({ signal: { name: OPEN_PAGE_SIGNAL_NAME, pageType: routeInformation.route, url } })
 
     if (routeInformation.route === LANDING_ROUTE) {
       navigateToLanding({ dispatch, navigation })

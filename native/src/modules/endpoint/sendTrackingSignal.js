@@ -1,6 +1,6 @@
 // @flow
 
-import { createTrackingEndpoint, type SpecificSignalType  } from 'api-client'
+import { createTrackingEndpoint, type SpecificSignalType } from 'api-client'
 import AppSettings from '../settings/AppSettings'
 import moment from 'moment'
 import type { SettingsType } from '../settings/AppSettings'
@@ -9,7 +9,15 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
   try {
     const appSettings = new AppSettings()
     const settings: SettingsType = await appSettings.loadSettings()
-    const { jpalTrackingEnabled, selectedCity, contentLanguage, allowPushNotifications, proposeNearbyCities, errorTracking, jpalTrackingCode } = settings
+    const {
+      jpalTrackingEnabled,
+      selectedCity,
+      contentLanguage,
+      allowPushNotifications,
+      proposeNearbyCities,
+      errorTracking,
+      jpalTrackingCode
+    } = settings
 
     if (jpalTrackingCode && jpalTrackingEnabled) {
       await createTrackingEndpoint().request({
