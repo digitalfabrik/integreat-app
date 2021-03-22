@@ -5,13 +5,13 @@ import type {
   DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
-  FeedbackModalRouteType,
+  FeedbackModalRouteType, JpalTrackingRouteType, LandingRouteType,
   NewsRouteType,
   OffersRouteType,
   PoisRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType
+  SprungbrettOfferRouteType, WohnenOfferRouteType
 } from '../routes'
 
 type OpenPageSignalNameType = 'open_page'
@@ -21,7 +21,7 @@ type ClosePageSignalNameType = 'close_page'
 export const CLOSE_PAGE_SIGNAL_NAME: ClosePageSignalNameType = 'close_page'
 
 export type PageSignalType = {|
-  signalName: OpenPageSignalNameType | ClosePageSignalNameType,
+  name: OpenPageSignalNameType | ClosePageSignalNameType,
   pageType:
     | DashboardRouteType
     | CategoriesRouteType
@@ -33,7 +33,10 @@ export type PageSignalType = {|
     | PoisRouteType
     | SearchRouteType
     | SettingsRouteType
-    | FeedbackModalRouteType,
+    | FeedbackModalRouteType
+    | WohnenOfferRouteType
+    | LandingRouteType
+    | JpalTrackingRouteType,
   url: string
 |}
 
@@ -41,7 +44,7 @@ type OpenDeepLinkSignalNameType = 'open_deep_link'
 export const OPEN_DEEP_LINK_SIGNAL_NAME: OpenDeepLinkSignalNameType = 'open_deep_link'
 
 export type OpenDeepLinkSignalType = {|
-  signalName: OpenDeepLinkSignalNameType,
+  name: OpenDeepLinkSignalNameType,
   url: string
 |}
 
@@ -58,20 +61,20 @@ type OpenMediaSignalNameType = 'open_media'
 export const OPEN_MEDIA_SIGNAL_NAME: OpenMediaSignalNameType = 'open_media'
 
 export type OpenLinkSignalType = {|
-  signalName:
+  name:
     | OpenInternalLinkSignalNameType
     | OpenExternalLinkSignalNameType
     | OpenOsLinkSignalNameType
     | OpenMediaSignalNameType,
   url: string,
-  from_url: string
+  fromUrl: string
 |}
 
 type SearchFinishedSignalNameType = 'search_finished'
 export const SEARCH_FINISHED_SIGNAL_NAME: SearchFinishedSignalNameType = 'search_finished'
 
 export type SearchFinishedSignalType = {|
-  signalName: SearchFinishedSignalNameType,
+  name: SearchFinishedSignalNameType,
   query: string,
   url: string | null
 |}
@@ -86,14 +89,14 @@ type SuspendSignalNameType = 'suspend'
 export const SUSPEND_SIGNAL_NAME: SuspendSignalNameType = 'suspend'
 
 export type AppStateChangeSignalType = {|
-  signalName: LaunchSignalNameType | ResumeSignalNameType | SuspendSignalNameType
+  name: LaunchSignalNameType | ResumeSignalNameType | SuspendSignalNameType
 |}
 
 type ShareSignalNameType = 'share'
 export const SHARE_SIGNAL_NAME: ShareSignalNameType = 'share'
 
 export type ShareSignalType = {|
-  signalName: ShareSignalNameType,
+  name: ShareSignalNameType,
   url: string
 |}
 
@@ -101,28 +104,30 @@ type SendFeedbackSignalNameType = 'send_feedback'
 export const SEND_FEEDBACK_SIGNAL_NAME: SendFeedbackSignalNameType = 'send_feedback'
 
 export type SendFeedbackSignalType = {|
-  signalName: SendFeedbackSignalNameType,
+  name: SendFeedbackSignalNameType,
   url: string,
   feedback: {|
     // TODO IGAPP-xxx: Implement feedback signal
   |}
 |}
 
+export type SpecificSignalType =
+  | PageSignalType
+  | OpenDeepLinkSignalType
+  | OpenLinkSignalType
+  | SearchFinishedSignalType
+  | AppStateChangeSignalType
+  | ShareSignalType
+  | SendFeedbackSignalType
+
 export type SignalType = {|
-  ...
-    | PageSignalType
-    | OpenDeepLinkSignalType
-    | OpenLinkSignalType
-    | SearchFinishedSignalType
-    | AppStateChangeSignalType
-    | ShareSignalType
-    | SendFeedbackSignalType,
+  ...SpecificSignalType,
   trackingCode: string,
   metadata: {|
     offline: boolean,
     systemLanguage: string,
     currentCity: string | null,
-    currentLanguage: string,
+    currentLanguage: string | null,
     appSettings: {|
       errorTracking: boolean | null,
       allowPushNotifications: boolean | null,
