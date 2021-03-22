@@ -19,7 +19,7 @@ describe('HeaderActionItemDropDown', () => {
     wrapperComponent = render(
       <ThemeProvider theme={theme}>
         <span>Click me to trigger dropdown!</span>
-        <HeaderActionItemDropDown iconSrc='/someImg' text='some text'>
+        <HeaderActionItemDropDown iconSrc='/someImg' text='some text' direction={'ltr'}>
           {closeDropDown => <InnerComponent closeDropDown={closeDropDown} />}
         </HeaderActionItemDropDown>
       </ThemeProvider>

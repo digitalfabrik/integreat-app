@@ -7,18 +7,20 @@ import Selector from '../../common/components/Selector'
 import { withTranslation, type TFunction } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 type PropsType = {|
   selectorItems: Array<SelectorItemModel>,
   activeItemCode: string,
+  direction: UiDirectionType,
   t: TFunction
 |}
 
-const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType) => {
+const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, direction, t }: PropsType) => {
   const noLanguagesHint = t('noLanguages')
 
   return selectorItems && selectorItems.length > 0 ? (
-    <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
+    <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')} direction={direction}>
       {closeDropDown => (
         <Selector
           closeDropDown={closeDropDown}
@@ -26,11 +28,12 @@ const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsT
           items={selectorItems}
           activeItemCode={activeItemCode}
           disabledItemTooltip={t('noTranslation')}
+          direction={direction}
         />
       )}
     </HeaderActionItemDropDown>
   ) : (
-    <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} />
+    <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={languageIcon} direction={direction} />
   )
 }
 

@@ -8,7 +8,7 @@ jest.mock('react-i18next')
 
 describe('GeneralHeader', () => {
   it('should match snapshot', () => {
-    const component = shallow(<GeneralHeader viewportSmall />).dive()
+    const component = shallow(<GeneralHeader viewportSmall direction={'ltr'} />).dive()
     expect(component).toMatchSnapshot()
   })
 })

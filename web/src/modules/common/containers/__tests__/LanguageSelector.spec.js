@@ -31,6 +31,7 @@ describe('LanguageSelector', () => {
         location={location}
         isHeaderActionItem
         t={key => key || 'null'}
+        direction={'ltr'}
       />
     )
 
@@ -50,6 +51,7 @@ describe('LanguageSelector', () => {
         location={location}
         isHeaderActionItem={false}
         t={key => key || 'null'}
+        direction={'ltr'}
       />
     )
 

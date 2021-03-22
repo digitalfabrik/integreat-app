@@ -6,6 +6,7 @@ import styled, { type StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import dimensions from '../../theme/constants/dimensions'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 import Tooltip from '../../common/components/Tooltip'
 
 export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -67,7 +68,8 @@ export const DropDownContainer: StyledComponent<{| active: boolean |}, ThemeType
 type PropsType = {|
   children: (closeDropDown: () => void) => React.Element<*>,
   iconSrc: string,
-  text: string
+  text: string,
+  direction: UiDirectionType
 |}
 
 /**
@@ -75,8 +77,7 @@ type PropsType = {|
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = (props: PropsType) => {
-  const { iconSrc, text, children } = props
+const HeaderActionItemDropDown = ({ iconSrc, text, children, direction }: PropsType) => {
   const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = () => {
@@ -92,7 +93,7 @@ const HeaderActionItemDropDown = (props: PropsType) => {
 
   return (
     <Container ref={wrapperRef}>
-      <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
+      <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'} direction={direction}>
         <button aria-label={text} onClick={toggleDropDown}>
           <img alt='' src={iconSrc} />
         </button>

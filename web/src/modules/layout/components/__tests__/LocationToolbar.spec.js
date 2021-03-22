@@ -10,7 +10,7 @@ jest.mock('react-i18next')
 describe('LocationToolbar', () => {
   it('should match snapshot', () => {
     const component = shallow(
-      <LocationToolbar openFeedbackModal={() => {}} viewportSmall>
+      <LocationToolbar openFeedbackModal={() => {}} viewportSmall direction={'ltr'}>
         <div>MockNode</div>
       </LocationToolbar>
     )

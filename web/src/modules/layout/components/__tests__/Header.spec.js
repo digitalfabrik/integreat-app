@@ -15,10 +15,26 @@ describe('Header', () => {
       <Header
         platform={new Platform()}
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
+        actionItems={[
+          <HeaderActionItemLink
+            key={0}
+            href='/random_route'
+            text='random route'
+            iconSrc='/icon.jpg'
+            direction={'ltr'}
+          />
+        ]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={[
-          <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active tooltip='tooltip1' />
+          <HeaderNavigationItem
+            key={0}
+            href='/another_route'
+            text='text1'
+            icon='icon.jpg'
+            active
+            tooltip='tooltip1'
+            direction={'ltr'}
+          />
         ]}
         viewportSmall
       />
@@ -31,10 +47,20 @@ describe('Header', () => {
       <Header
         platform={new Platform()}
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon' text='text' />]}
+        actionItems={[
+          <HeaderActionItemLink key={0} href='/random_route' iconSrc='icon' text='text' direction={'ltr'} />
+        ]}
         onStickyTopChanged={onStickyTopChanged}
         navigationItems={[
-          <HeaderNavigationItem key={0} href='/another_route' icon='icon.jpg' text='text1' active tooltip='tooltip1' />
+          <HeaderNavigationItem
+            key={0}
+            href='/another_route'
+            icon='icon.jpg'
+            text='text1'
+            active
+            tooltip='tooltip1'
+            direction={'ltr'}
+          />
         ]}
         viewportSmall={false}
       />
@@ -49,9 +75,19 @@ describe('Header', () => {
       <Header
         platform={new Platform()}
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon.jpg' text='text' />]}
+        actionItems={[
+          <HeaderActionItemLink key={0} href='/random_route' iconSrc='icon.jpg' text='text' direction={'ltr'} />
+        ]}
         navigationItems={[
-          <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon' active tooltip='tooltip1' />
+          <HeaderNavigationItem
+            key={0}
+            href='/another_route'
+            text='text1'
+            icon='icon'
+            active
+            tooltip='tooltip1'
+            direction={'ltr'}
+          />
         ]}
         viewportSmall={false}
         onStickyTopChanged={callback}

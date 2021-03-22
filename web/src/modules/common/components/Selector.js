@@ -8,6 +8,7 @@ import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
 import Tooltip from './Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 const Element: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
@@ -73,13 +74,21 @@ type PropsType = {|
   closeDropDown?: () => void,
   items: Array<SelectorItemModel>,
   activeItemCode?: string,
-  disabledItemTooltip: string
+  disabledItemTooltip: string,
+  direction: UiDirectionType
 |}
 
 /**
  * Displays a Selector showing different items
  */
-const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabledItemTooltip }: PropsType) => {
+const Selector = ({
+  items,
+  activeItemCode,
+  verticalLayout,
+  closeDropDown,
+  disabledItemTooltip,
+  direction
+}: PropsType) => {
   return (
     <Wrapper vertical={verticalLayout}>
       {items.map(item => {
@@ -95,7 +104,7 @@ const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabl
           )
         } else {
           return (
-            <Tooltip key={item.code} text={disabledItemTooltip} flow='up'>
+            <Tooltip key={item.code} text={disabledItemTooltip} flow='up' direction={direction}>
               <DisabledElement>{item.name}</DisabledElement>
             </Tooltip>
           )

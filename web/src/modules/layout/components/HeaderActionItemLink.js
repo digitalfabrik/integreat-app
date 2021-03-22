@@ -6,6 +6,7 @@ import styled, { type StyledComponent } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
 import type { ThemeType } from 'build-configs/ThemeType'
 import Tooltip from '../../common/components/Tooltip'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   display: block;
@@ -33,16 +34,17 @@ const StyledSpan: StyledComponent<{||}, ThemeType, *> = StyledLink.withComponent
 type PropsType = {|
   href?: string,
   text: string,
-  iconSrc: string
+  iconSrc: string,
+  direction: UiDirectionType
 |}
 
 /**
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
  * 'Change language', 'Change location' and similar items.
  */
-const HeaderActionItemLink = ({ href, text, iconSrc }: PropsType) => {
+const HeaderActionItemLink = ({ href, text, iconSrc, direction }: PropsType) => {
   return (
-    <Tooltip text={text} flow='down' smallViewportFlow='left'>
+    <Tooltip text={text} flow='down' smallViewportFlow='left' direction={direction}>
       {href ? (
         <StyledLink to={href} aria-label={text}>
           <img alt='' src={iconSrc} />

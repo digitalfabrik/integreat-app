@@ -101,6 +101,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -118,6 +119,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -135,6 +137,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -152,6 +155,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -169,6 +173,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -190,6 +195,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -211,6 +217,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -231,6 +238,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -252,6 +260,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -273,6 +282,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -294,6 +304,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -315,6 +326,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>
@@ -336,6 +348,7 @@ describe('LocationHeader', () => {
             events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
+            direction={'ltr'}
             t={t}
           />
         </ThemeProvider>

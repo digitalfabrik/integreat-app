@@ -4,6 +4,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Selector from '../Selector'
 import SelectorItemModel from '../../models/SelectorItemModel'
+import { Switcher } from '../../../app/containers/Switcher'
 
 const selectorItems = [
   new SelectorItemModel({
@@ -32,6 +33,7 @@ describe('Selector', () => {
         items={selectorItems}
         activeItemCode='de'
         disabledItemTooltip='random tooltip'
+        direction={'ltr'}
       />
     )
     expect(wrapper).toMatchSnapshot()
@@ -45,6 +47,7 @@ describe('Selector', () => {
         items={selectorItems}
         activeItemCode='de'
         disabledItemTooltip='random tooltip'
+        direction={'ltr'}
       />
     )
     expect(wrapper).toMatchSnapshot()

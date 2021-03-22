@@ -11,19 +11,28 @@ import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { StyledComponent } from 'styled-components'
 import Tooltip from '../../common/components/Tooltip'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 type PropsType = {|
   isPositiveRatingLink: boolean,
   t: TFunction,
   openFeedbackModal: FeedbackRatingType => void,
   className?: string,
-  viewportSmall: boolean
+  viewportSmall: boolean,
+  direction: UiDirectionType
 |}
 
 // $FlowFixMe withComponent exists
 const StyledFeedbackToolbarItem: StyledComponent<{||}, ThemeType, *> = StyledToolbarItem.withComponent('button')
 
-const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, className, viewportSmall }: PropsType) => {
+const FeedbackToolbarItem = ({
+  openFeedbackModal,
+  t,
+  isPositiveRatingLink,
+  className,
+  viewportSmall,
+  direction
+}: PropsType) => {
   const handleLinkClick = useCallback(
     () => openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),
     [isPositiveRatingLink, openFeedbackModal]
@@ -33,7 +42,12 @@ const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, class
   const smallViewTip = isPositiveRatingLink ? t('useful') : t('notUseful')
 
   return (
-    <Tooltip text={viewportSmall ? null : dataTip} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
+    <Tooltip
+      text={viewportSmall ? null : dataTip}
+      flow='up'
+      mediumViewportFlow='right'
+      smallViewportFlow='down'
+      direction={direction}>
       <StyledFeedbackToolbarItem className={className} onClick={handleLinkClick} aria-label={dataTip}>
         <FontAwesomeIcon className={className} icon={isPositiveRatingLink ? faSmile : faFrown} />
         {viewportSmall && <StyledSmallViewTip>{smallViewTip}</StyledSmallViewTip>}

@@ -101,7 +101,8 @@ describe('LocationLayout', () => {
       toggleDarkMode={() => {}}
       darkMode
       isLoading={isLoading}
-      offers={offers}>
+      offers={offers}
+      direction={'ltr'}>
       <MockNode />
     </LocationLayout>
   )

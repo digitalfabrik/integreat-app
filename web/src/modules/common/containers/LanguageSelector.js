@@ -7,20 +7,21 @@ import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSe
 import type { LocationState } from 'redux-first-router'
 import { withTranslation, type TFunction } from 'react-i18next'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 type PropsType = {|
   location: LocationState,
   isHeaderActionItem: boolean,
   languageChangePaths: ?LanguageChangePathsType,
+  direction: UiDirectionType,
   t: TFunction
 |}
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
-export class LanguageSelector extends React.PureComponent<PropsType> {
-  getSelectorItemModels(): Array<SelectorItemModel> {
-    const { languageChangePaths, location } = this.props
+export const LanguageSelector = ({ location, isHeaderActionItem, languageChangePaths, direction, t }: PropsType) => {
+  const getSelectorItemModels = (): Array<SelectorItemModel> => {
     const activeItemCode = location.payload.language
 
     if (!languageChangePaths) {
@@ -37,26 +38,26 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
     })
   }
 
-  render() {
-    const { location, isHeaderActionItem, t } = this.props
-    const selectorItems = this.getSelectorItemModels()
-    const activeItemCode = location.payload.language
+  const selectorItems = getSelectorItemModels()
+  const activeItemCode = location.payload.language
 
-    if (isHeaderActionItem) {
-      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
-    }
-
+  if (isHeaderActionItem) {
     return (
-      selectorItems && (
-        <Selector
-          verticalLayout
-          items={selectorItems}
-          activeItemCode={activeItemCode}
-          disabledItemTooltip={t('noTranslation')}
-        />
-      )
+      <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} direction={direction} />
     )
   }
+
+  return (
+    selectorItems && (
+      <Selector
+        verticalLayout
+        items={selectorItems}
+        activeItemCode={activeItemCode}
+        disabledItemTooltip={t('noTranslation')}
+        direction={direction}
+      />
+    )
+  )
 }
 
 export default withTranslation<PropsType>('layout')(LanguageSelector)

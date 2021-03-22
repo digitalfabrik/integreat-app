@@ -1,0 +1,152 @@
+[11:10:50]: [32m----------------------------------------[0m
+[11:10:50]: [32m--- Step: Verifying fastlane version ---[0m
+[11:10:50]: [32m----------------------------------------[0m
+[11:10:50]: Your fastlane version 2.178.0 matches the minimum requirement of 2.156.1  ✅
+[11:10:50]: [32mDriving the lane 'build' 🚀[0m
+[11:10:50]: [32m-----------------------------[0m
+[11:10:50]: [32m--- Step: assembleRelease ---[0m
+[11:10:50]: [32m-----------------------------[0m
+[11:10:51]: ▸ [35mTo honour the JVM settings for this build a new JVM will be forked. Please consider using the daemon: https://docs.gradle.org/6.2/userguide/gradle_daemon.html.[0m
+[11:10:52]: ▸ [35m[2A[1B[1m> Starting Daemon[m[17D[1B[2ADaemon will be stopped at the end of the build stopping after processing[0m
+[11:10:52]: ▸ [35m[1B[0K[0m
+[11:10:57]: ▸ [35m[2A[0K[1B> IDLE[6D[1B[2A[1m<[0;1m-------------> 0% INITIALIZING [86ms][m[38D[1B[1m> Evaluating settings[m[21D[1B[2A[1m<[0;1m-------------> 0% INITIALIZING [186ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [286ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [386ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [486ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [586ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [686ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [786ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [886ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [986ms][m[39D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [1s][m[0K[36D[2B[2A[1m<[0;1m-------------> 0% INITIALIZING [2s][m[36D[2B[2A[1m<[0;1m-------------> 0% CONFIGURING [2s][m[0K[35D[1B[1m> Loading projects[m[0K[18D[1B[1A[1m> root project[m[0K[14D[1B[1A[1m> root project > Resolve dependencies of :classpath[m[51D[1B[2A[1m<[0;1m-------------> 0% CONFIGURING [3s][m[35D[1B[1m> root project[m[0K[14D[1B[2A[1m<[0;1m-------------> 3% CONFIGURING [3s][m[35D[1B[1m> :app[m[0K[6D[1B[2A[1m<[0;1m-------------> 3% CONFIGURING [4s][m[35D[2B[2A[1m<[0;1m-------------> 3% CONFIGURING [5s][m[35D[2B[2A[0K[0m
+[11:10:57]: ▸ [35m[1m> Configure project :app[m[0K[0m
+[11:10:57]: ▸ [35mUsing build config integreat[0m
+[11:10:57]: ▸ [35mBuild Config Command: yarn workspace --silent build-configs --silent manage to-json integreat android[0m
+[11:10:57]: ▸ [35m[0K[0m
+[11:10:57]: ▸ [35m[0K[0m
+[11:10:58]: ▸ [35m[2A[1m<[0;1m-------------> 3% CONFIGURING [5s][m[35D[1B[1m> :app[m[6D[1B[2ABuild Config exitValue: 0[0K[0m
+[11:10:58]: ▸ [35m{"appName":"Integreat","appIcon":"app_icon_integreat","lightTheme":{"colors":{"themeColor":"#fbda16","backgroundAccentColor":"#fafafa","textColor":"#000000","textSecondaryColor":"#585858","textDecorationColor":"#c7c7c7","textDisabledColor":"#d0d0d0","backgroundColor":"#ffffff","tunewsThemeColor":"#007aa8","tunewsThemeColorLight":"rgba(0, 122, 168, 0.4)"},"fonts":{"native":{"decorativeFontBold":"Raleway-Bold","decorativeFontRegular":"Raleway-Regular","contentFontRegular":"OpenSans-Regular","contentFontBold":"OpenSans-Bold","webviewFont":"OpenSans, Lateef, Noto Sans SC, sans-serif"},"web":{"decorativeFont":"Raleway, Lateef, Noto Sans SC, sans-serif","contentFont":"Open Sans, Lateef, Noto Sans SC, sans-serif"},"fontSizeAdjust":0.55,"decorativeFontSize":"0.95rem","decorativeLineHeight":1.3,"contentFontSize":"0.95rem","contentLineHeight":1.4,"standardParagraphMargin":"0.75rem","subTitleFontSize":"1.8rem"}},"darkTheme":{"colors":{"themeColor":"#fbda16","backgroundAccentColor":"#fafafa","textColor":"#000000","textSecondaryColor":"#585858","textDecorationColor":"#c7c7c7","textDisabledColor":"#d0d0d0","backgroundColor":"#ffffff","tunewsThemeColor":"#007aa8","tunewsThemeColorLight":"rgba(0, 122, 168, 0.4)"},"fonts":{"native":{"decorativeFontBold":"Raleway-Bold","decorativeFontRegular":"Raleway-Regular","contentFontRegular":"OpenSans-Regular","contentFontBold":"OpenSans-Bold","webviewFont":"OpenSans, Lateef, Noto Sans SC, sans-serif"},"web":{"decorativeFont":"Raleway, Lateef, Noto Sans SC, sans-serif","contentFont":"Open Sans, Lateef, Noto Sans SC, sans-serif"},"fontSizeAdjust":0.55,"decorativeFontSize":"0.95rem","decorativeLineHeight":1.3,"contentFontSize":"0.95rem","contentLineHeight":1.4,"standardParagraphMargin":"0.75rem","subTitleFontSize":"1.8rem"}},"assets":"integreat","cmsUrl":"https://cms.integreat-app.de","switchCmsUrl":"https://cms-test.integreat-app.de","hostName":"integreat.app","allowedHostNames":["cms.integreat-app.de","cms-test.integreat-app.de"],"internalLinksHijackPattern":"https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*","featureFlags":{"pois":false,"newsStream":true,"pushNotifications":true,"introSlides":true,"jpalTracking":false,"sentry":true,"developerFriendly":false,"fixedCity":null},"aboutUrls":{"default":"https://integreat-app.de/about/","en":"https://integreat-app.de/en/about/"},"privacyUrls":{"default":"https://integreat-app.de/datenschutz/","en":"https://integreat-app.de/en/privacy/"},"splashScreen":true,"applicationId":"tuerantuer.app.integreat","googleServices":{"googleAppId":"1:164298278764:android:3fc1f67f3883df306fd549","gcmDefaultSenderId":"164298278764","defaultWebClientId":"164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com","gaTrackingId":null,"firebaseDatabaseUrl":"https://integreat-2020.firebaseio.com","googleApiKey":"AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4","googleCrashReportingApiKey":"AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4","projectId":"integreat-2020"}}[0K[0m
+[11:10:58]: ▸ [35mUsing build config integreat[0m
+[11:10:58]: ▸ [35mBuild Config Command: yarn workspace --silent build-configs --silent manage to-properties integreat android[0m
+[11:10:58]: ▸ [35m[0K[0m
+[11:10:58]: ▸ [35m[0K[0m
+[11:10:59]: ▸ [35m[2A[1m<[0;1m-------------> 3% CONFIGURING [5s][m[35D[1B[1m> :app[m[6D[1B[2A[1m<[0;1m-------------> 3% CONFIGURING [6s][m[35D[2B[2A[1m<[0;1m-------------> 3% CONFIGURING [7s][m[35D[2B[2ABuild Config exitValue: 0[0K[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_APP_NAME = Integreat[0K[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_APP_ICON = app_icon_integreat[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_THEME_COLOR = #fbda16[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_BACKGROUND_ACCENT_COLOR = #fafafa[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_TEXT_COLOR = #000000[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_TEXT_SECONDARY_COLOR = #585858[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_TEXT_DECORATION_COLOR = #c7c7c7[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_TEXT_DISABLED_COLOR = #d0d0d0[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_BACKGROUND_COLOR = #ffffff[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_TUNEWS_THEME_COLOR = #007aa8[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_COLORS_TUNEWS_THEME_COLOR_LIGHT = rgba(0, 122, 168, 0.4)[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_NATIVE_DECORATIVE_FONT_BOLD = Raleway-Bold[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_NATIVE_DECORATIVE_FONT_REGULAR = Raleway-Regular[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_NATIVE_CONTENT_FONT_REGULAR = OpenSans-Regular[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_NATIVE_CONTENT_FONT_BOLD = OpenSans-Bold[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_NATIVE_WEBVIEW_FONT = OpenSans, Lateef, Noto Sans SC, sans-serif[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_WEB_DECORATIVE_FONT = Raleway, Lateef, Noto Sans SC, sans-serif[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_WEB_CONTENT_FONT = Open Sans, Lateef, Noto Sans SC, sans-serif[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_FONT_SIZE_ADJUST = 0.55[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_DECORATIVE_FONT_SIZE = 0.95rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_DECORATIVE_LINE_HEIGHT = 1.3[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_CONTENT_FONT_SIZE = 0.95rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_CONTENT_LINE_HEIGHT = 1.4[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_STANDARD_PARAGRAPH_MARGIN = 0.75rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_LIGHT_THEME_FONTS_SUB_TITLE_FONT_SIZE = 1.8rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_THEME_COLOR = #fbda16[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_BACKGROUND_ACCENT_COLOR = #fafafa[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_TEXT_COLOR = #000000[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_TEXT_SECONDARY_COLOR = #585858[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_TEXT_DECORATION_COLOR = #c7c7c7[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_TEXT_DISABLED_COLOR = #d0d0d0[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_BACKGROUND_COLOR = #ffffff[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_TUNEWS_THEME_COLOR = #007aa8[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_COLORS_TUNEWS_THEME_COLOR_LIGHT = rgba(0, 122, 168, 0.4)[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_NATIVE_DECORATIVE_FONT_BOLD = Raleway-Bold[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_NATIVE_DECORATIVE_FONT_REGULAR = Raleway-Regular[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_NATIVE_CONTENT_FONT_REGULAR = OpenSans-Regular[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_NATIVE_CONTENT_FONT_BOLD = OpenSans-Bold[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_NATIVE_WEBVIEW_FONT = OpenSans, Lateef, Noto Sans SC, sans-serif[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_WEB_DECORATIVE_FONT = Raleway, Lateef, Noto Sans SC, sans-serif[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_WEB_CONTENT_FONT = Open Sans, Lateef, Noto Sans SC, sans-serif[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_FONT_SIZE_ADJUST = 0.55[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_DECORATIVE_FONT_SIZE = 0.95rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_DECORATIVE_LINE_HEIGHT = 1.3[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_CONTENT_FONT_SIZE = 0.95rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_CONTENT_LINE_HEIGHT = 1.4[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_STANDARD_PARAGRAPH_MARGIN = 0.75rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_DARK_THEME_FONTS_SUB_TITLE_FONT_SIZE = 1.8rem[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_ASSETS = integreat[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_CMS_URL = https://cms.integreat-app.de[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_SWITCH_CMS_URL = https://cms-test.integreat-app.de[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_HOST_NAME = integreat.app[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_ALLOWED_HOST_NAMES_0 = cms.integreat-app.de[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_ALLOWED_HOST_NAMES_1 = cms-test.integreat-app.de[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_INTERNAL_LINKS_HIJACK_PATTERN = https?:\/\/(cms(-test)?\.integreat-app\.de|web\.integreat-app\.de|integreat\.app)(?!\/[^/]*\/(wp-content|wp-admin|wp-json)\/.*).*[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_POIS = false[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_NEWS_STREAM = true[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_PUSH_NOTIFICATIONS = true[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_INTRO_SLIDES = true[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_JPAL_TRACKING = false[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_SENTRY = true[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_DEVELOPER_FRIENDLY = false[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_FEATURE_FLAGS_FIXED_CITY = null[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_ABOUT_URLS_DEFAULT = https://integreat-app.de/about/[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_ABOUT_URLS_EN = https://integreat-app.de/en/about/[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_PRIVACY_URLS_DEFAULT = https://integreat-app.de/datenschutz/[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_PRIVACY_URLS_EN = https://integreat-app.de/en/privacy/[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_SPLASH_SCREEN = true[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_APPLICATION_ID = tuerantuer.app.integreat[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_GOOGLE_APP_ID = 1:164298278764:android:3fc1f67f3883df306fd549[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_GCM_DEFAULT_SENDER_ID = 164298278764[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_DEFAULT_WEB_CLIENT_ID = 164298278764-hhup7orh5rvg0oumhbabqvp5giudaste.apps.googleusercontent.com[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_GA_TRACKING_ID = null[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_FIREBASE_DATABASE_URL = https://integreat-2020.firebaseio.com[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_GOOGLE_API_KEY = AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_GOOGLE_CRASH_REPORTING_API_KEY = AIzaSyBvc08_Cqww8z2Dh-EXtwHW98HXBk8T7V4[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_GOOGLE_SERVICES_PROJECT_ID = integreat-2020[0m
+[11:10:59]: ▸ [35mBUILD_CONFIG_NAME = integreat[0m
+[11:10:59]: ▸ [35m[0K[0m
+[11:10:59]: ▸ [35m[0K[0m
+[11:11:00]: ▸ [35m[2A[1m<[0;1m-------------> 3% CONFIGURING [7s][m[35D[1B[1m> :app[m[6D[1B[2AYou should provide a keystore using the KEYSTORE_PATH, KEYSTORE_PASSWORD, KEYSTORE_KEY_ALIAS and KEYSTORE_KEY_PASSWORD project properties! Using a keystore for testing![0K[0m
+[11:11:00]: ▸ [35m[1B[0K[0m
+[11:11:02]: ▸ [35m[2A[1m<[0;1m-------------> 3% CONFIGURING [7s][m[35D[1B[1m> :app[m[6D[1B[2A[1m<[0;1m-------------> 3% CONFIGURING [8s][m[35D[2B[2A[1m<[0;1m-------------> 3% CONFIGURING [9s][m[35D[2B[2Axxxxxddf[0K[0m
+[11:11:02]: ▸ [35m[--config, ./metro.config.ci.js][0K[0m
+[11:11:02]: ▸ [35m/home/max/projects/integreat/integreat-app/native/android/app[0m
+[11:11:02]: ▸ [35m[0K[0m
+[11:11:02]: ▸ [35m[0K[0m
+[11:11:02]: ▸ [35m[2A[1m<[0;1m-------------> 3% CONFIGURING [10s][m[36D[1B[1m> :app[m[6D[1B[2Axxxxxddf[0K[0m
+[11:11:02]: ▸ [35m[--config, ./metro.config.ci.js][0K[0m
+[11:11:02]: ▸ [35m/home/max/projects/integreat/integreat-app/native/android/app[0m
+[11:11:02]: ▸ [35m[0K[0m
+[11:11:02]: ▸ [35m[0K[0m
+[11:11:03]: ▸ [35m[2A[1m<[0;1m-------------> 7% CONFIGURING [10s][m[36D[1B[1m> :react-native-community_art > Resolve dependencies of :react-native-community[m[79D[1B[1A[1m> :react-native-community_art[m[0K[29D[1B[2A[1m<[0;32;1m=[0;39;1m------------> 10% CONFIGURING [10s][m[37D[1B[1m> :react-native-community_async-storage[m[39D[1B[2A[1m<[0;32;1m=[0;39;1m------------> 14% CONFIGURING [10s][m[37D[1B[1m> :react-native-community_geolocation[m[0K[37D[1B[2A[1m<[0;32;1m==[0;39;1m-----------> 21% CONFIGURING [10s][m[37D[1B[1m> :react-native-community_netinfo[m[0K[33D[1B[2A[1m<[0;32;1m===[0;39;1m----------> 28% CONFIGURING [10s][m[37D[1B[1m> :react-native-community_progress-view[m[39D[1B[2A[1m<[0;32;1m====[0;39;1m---------> 32% CONFIGURING [10s][m[37D[1B[1m> :react-native-fast-image[m[0K[26D[1B[2A[1m<[0;32;1m====[0;39;1m---------> 35% CONFIGURING [11s][m[37D[1B[1m> :react-native-firebase_app[m[28D[1B[2A[0K[0m
+[11:11:03]: ▸ [35m[1m> Configure project :react-native-firebase_app[m[0K[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app package.json found at /home/max/projects/integreat/integreat-app/native/node_modules/@react-native-firebase/app/package.json[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:firebase.bom using default value: 26.3.0[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:play.play-services-auth using default value: 19.0.0[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app package.json found at /home/max/projects/integreat/integreat-app/native/node_modules/@react-native-firebase/app/package.json[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:version set from package.json: 10.5.0 (10,5,0 - 10005000)[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:android.compileSdk using custom value: 29[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:android.targetSdk using custom value: 29[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:android.minSdk using custom value: 21[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app:reactNativeAndroidDir /home/max/projects/integreat/integreat-app/native/node_modules/react-native/android[0m
+[11:11:03]: ▸ [35m[1m> Configure project :react-native-firebase_messaging[m[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging package.json found at /home/max/projects/integreat/integreat-app/native/node_modules/@react-native-firebase/messaging/package.json[0m
+[11:11:03]: ▸ [35m:react-native-firebase_app package.json found at /home/max/projects/integreat/integreat-app/native/node_modules/@react-native-firebase/app/package.json[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging:firebase.bom using default value: 26.3.0[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging package.json found at /home/max/projects/integreat/integreat-app/native/node_modules/@react-native-firebase/messaging/package.json[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging:version set from package.json: 10.5.1 (10,5,1 - 10005001)[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging:android.compileSdk using custom value: 29[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging:android.targetSdk using custom value: 29[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging:android.minSdk using custom value: 21[0m
+[11:11:03]: ▸ [35m:react-native-firebase_messaging:reactNativeAndroidDir /home/max/projects/integreat/integreat-app/native/node_modules/react-native/android[0m
+[11:11:03]: ▸ [35m[0K[0m
+[11:11:03]: ▸ [35m[0K[0m
+[11:11:05]: ▸ [35m[2A[1m<[0;32;1m=====[0;39;1m--------> 42% CONFIGURING [11s][m[37D[1B[1m> :react-native-flipper[m[23D[1B[2A[1m<[0;32;1m======[0;39;1m-------> 50% CONFIGURING [11s][m[37D[1B[1m> :react-native-inappbrowser-reborn[m[35D[1B[2A[1m<[0;32;1m=======[0;39;1m------> 57% CONFIGURING [11s][m[37D[1B[1m> :react-native-pdf[m[0K[19D[1B[2A[1m<[0;32;1m========[0;39;1m-----> 64% CONFIGURING [12s][m[37D[1B[1m> :react-native-picker_picker[m[29D[1B[2A[1m<[0;32;1m=========[0;39;1m----> 75% CONFIGURING [12s][m[37D[1B[1m> :react-native-screens[m[0K[23D[1B[2A[1m<[0;32;1m==========[0;39;1m---> 82% CONFIGURING [12s][m[37D[1B[1m> :react-native-svg[m[0K[19D[1B[2A[1m<[0;32;1m===========[0;39;1m--> 89% CONFIGURING [12s][m[37D[1B[1m> :react-native-webview[m[23D[1B[2A[1m<[0;32;1m============[0;39;1m-> 92% CONFIGURING [12s][m[37D[1B[1m> :rn-fetch-blob[m[0K[16D[1B[2A[1m<[0;32;1m=============[0;39;1m> 100% CONFIGURING [12s][m[38D[1B> IDLE[0K[6D[1B[1A[1m> Resolve dependencies of :app:debugCompileClasspath > Resolve dependencies of [m[79D[1B[2A[1m<[0;32;1m=============[0;39;1m> 100% CONFIGURING [13s][m[38D[1B[1m> Resolve dependencies of :app:debugCompileClasspath[m[0K[52D[1B[0m
+[11:11:20]: ▸ [35m[3A[1m> Resolve files of :app:debugCompileClasspath > Transform artifact hermes-debug[m[79D[1B[1m> Resolve files of :app:debugCompileClasspath > Transform artifact flipper-0.54[m[79D[1B[1m> Resolve files of :app:debugCompileClasspath > Transform artifact soloader-0.9[m[79D[1B[3A[1m> Resolve files of :app:debugCompileClasspath > Transform artifact appcompat-1.[m[79D[1B[1m> Resolve files of :app:debugCompileClasspath > Transform artifact versionedpar[m[79D[1B[1m> Resolve files of :app:debugCompileClasspath > Transform artifact lifecycle-ru[m[79D[1B[3A> IDLE[0K[6D[1B[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact flipper-2.2.[m[79D[1B[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact legacy-suppo[m[79D[1B[3A[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact firebase-mea[m[79D[1B[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact play-service[m[79D[1B[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact play-service[m[79D[1B[3A[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact print-1.0.0.[m[79D[1B[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact documentfile[m[79D[1B[1m> Resolve files of :app:debugRuntimeClasspath > Transform artifact localbroadca[m[79D[1B[3A> IDLE[0K[6D[1B> IDLE[0K[6D[1B[1m> Resolve dependencies of :app:debugUnitTestCompileClasspath > Resolve dependen[m[79D[1B[1A[1m> Resolve files of :app:releaseRuntimeClasspath[m[0K[47D[1B[1A> IDLE[0K[6D[1B[4A[1m<[0;32;1m=============[0;39;1m> 100% CONFIGURING [14s][m[38D[3B[1m> Resolve dependencies of :react-native-reanimated:releaseCompileClasspath[m[74D[1B[1A> IDLE[0K[6D[1B[1A[1m> Resolve dependencies of :react-native-community_async-storage:releaseCompileC[m[79D[1B[1A> IDLE[0K[6D[1B[1A[1m> Resolve dependencies of :react-native-screens:lintClassPath[m[61D[1B[4A[1m<[0;32;1m=============[0;39;1m> 100% CONFIGURING [15s][m[38D[3B> IDLE[0K[6D[1B[4A[1m<[0;1m-------------> 1% EXECUTING [15s][m[0K[34D[3B[1m> :app:generatePackageList[m[26D[1B[4A[1m<[0;1m-------------> 2% EXECUTING [15s][m[34D[3B[1m> :react-native-community_art:compileReleaseAidl[m[48D[1B[4A[1m<[0;32;1m==[0;39;1m-----------> 17% EXECUTING [15s][m[35D[1B[1m> Transforming artifact react-native-0.63.3.aar (com.facebook.react:react-nativ[m[79D[2B[1m> Transforming artifact core-1.1.0.aar (androidx.core:core:1.1.0) with ExtractA[m[79D[1B[4A[1m<[0;32;1m===[0;39;1m----------> 29% EXECUTING [15s][m[35D[1B[1m> Transforming artifact fragment-1.0.0.aar (androidx.fragment:fragment:1.0.0) w[m[79D[2B[1m> Transforming artifact react-native-0.63.3.aar (com.facebook.react:react-nativ[m[79D[1B[4A[1m<[0;32;1m====[0;39;1m---------> 33% EXECUTING [15s][m[35D[1B[1m> :app:checkReleaseManifest[m[0K[27D[2B> IDLE[0K[6D[1B[4A[1m<[0;32;1m====[0;39;1m---------> 34% EXECUTING [15s][m[35D[1B[1m> :react-native-community_art:compileReleaseJavaWithJavac[m[57D[3B[4A[1m<[0;32;1m====[0;39;1m---------> 37% EXECUTING [15s][m[35D[1B[1m> :react-native-community_geolocation:parseReleaseLibraryResources > Resolve fi[m[79D[3B[4A[1m<[0;32;1m=====[0;39;1m--------> 41% EXECUTING [15s][m[35D[1B[1m> :react-native-community_progress-bar-android:packageReleaseResources[m[0K[70D[3B[4A[1m<[0;32;1m=====[0;39;1m--------> 45% EXECUTING [15s][m[35D[1B[1m> Transforming artifact annotation-1.1.0.jar (androidx.annotation:annotation:1.[m[79D[1B[1m> Transforming artifact firebase-annotations-16.0.0.jar (com.google.firebase:fi[m[79D[1B[1m> Transforming artifact okhttp-urlconnection-3.12.1.jar (com.squareup.okhttp3:o[m[79D[1B[4A[1m<[0;32;1m======[0;39;1m-------> 50% EXECUTING [16s][m[35D[1B> IDLE[0K[6D[1B[1m> :react-native-flipper:compileReleaseJavaWithJavac[m[0K[51D[1B> IDLE[0K[6D[1B[4A[1m<[0;32;1m=======[0;39;1m------> 55% EXECUTING [16s][m[35D[2B> IDLE[0K[6D[2B[4A[1m<[0;32;1m=======[0;39;1m------> 60% EXECUTING [16s][m[35D[4B[4A[1m<[0;32;1m========[0;39;1m-----> 65% EXECUTING [16s][m[35D[2B[1m> :react-native-static-server:packageReleaseResources[m[53D[2B[4A[1m<[0;32;1m=========[0;39;1m----> 69% EXECUTING [16s][m[35D[2B[1m> :react-native-webview:processReleaseManifest[m[0K[46D[2B[2A[1m> :react-native-webview:compileReleaseKotlin[m[0K[44D[2B[4A[1m<[0;32;1m=========[0;39;1m----> 75% EXECUTING [16s][m[35D[1B[1m> Transforming artifact coordinatorlayout-1.1.0.aar (androidx.coordinatorlayout[m[79D[1B[1m> Transforming artifact play-services-basement-17.1.1.aar (com.google.android.g[m[79D[1B[1m> Transforming artifact legacy-support-core-utils-1.0.0.aar (androidx.legacy:le[m[79D[1B[4A[1m<[0;32;1m=========[0;39;1m----> 76% EXECUTING [16s][m[35D[1B> IDLE[0K[6D[1B> IDLE[0K[6D[1B[1m> :react-native-vector-icons:packageReleaseAssets[m[0K[49D[1B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [17s][m[35D[3B[1m> :app:bundleReleaseJsAndAssets[m[0K[31D[1B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [18s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [19s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [20s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [21s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [22s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [23s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [24s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [25s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [26s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [27s][m[35D[4B[4A[1m<[0;32;1m==========[0;39;1m---> 77% EXECUTING [28s][m[35D[4B[4A[0K[0m
+[11:11:20]: ▸ [35m[1m> Task :app:bundleReleaseJsAndAssets[m[0K[0m
+[11:11:20]: ▸ [35m./metro.config.js[0K[0m
+[11:11:20]: ▸ [35m./metro.config.ci.js[0K[0m
+[11:11:20]: ▸ [35m{"resolver":{"extraNodeModules":{}},"watchFolders":["/home/max/projects/integreat/integreat-app"],"transformer":{"assetPlugins":["react-native-svg-asset-plugin"]},"maxWorkers":"3","cacheStores":[]}[0m
+[11:11:20]: ▸ [35mwarning: the transform cache was reset.[0m
+[11:11:20]: ▸ [35mWelcome to React Native![0m
+[11:11:20]: ▸ [35mLearn once, write anywhere[0m
+[11:11:20]: ▸ [35m[0K[0m
+[11:11:20]: ▸ [35m[0K[0m
+[11:11:20]: ▸ [35m[0K[0m
+[11:11:20]: ▸ [35m[0K[0m

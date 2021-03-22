@@ -88,6 +88,7 @@ describe('CategoriesToolbar', () => {
         t={t}
         openFeedbackModal={() => {}}
         viewportSmall
+        direction={'ltr'}
       />
     )
 
@@ -106,6 +107,7 @@ describe('CategoriesToolbar', () => {
         })}
         t={t}
         openFeedbackModal={() => {}}
+        direction={'ltr'}
       />
     )
 
@@ -124,6 +126,7 @@ describe('CategoriesToolbar', () => {
         })}
         t={t}
         openFeedbackModal={() => {}}
+        direction={'ltr'}
       />
     )
 

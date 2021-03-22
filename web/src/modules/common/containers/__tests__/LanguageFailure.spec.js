@@ -26,6 +26,7 @@ describe('LanguageFailure', () => {
         location={location}
         languageChangePaths={languageChangePaths}
         t={key => key || 'null'}
+        direction={'ltr'}
       />
     )
 

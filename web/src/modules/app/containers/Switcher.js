@@ -33,6 +33,7 @@ import RouteContentSwitcher from './RouteContentSwitcher'
 import type { StoreActionType } from '../StoreActionType'
 import FailureSwitcher from '../../common/components/FailureSwitcher'
 import buildConfig from '../constants/buildConfig'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 export type LanguageChangePathsType = Array<{| code: string, path: string | null, name: string |}>
 
@@ -52,6 +53,7 @@ type PropsType = {|
   disclaimerPayload: Payload<PageModel>,
   languagesPayload: Payload<Array<LanguageModel>>,
   viewportSmall: boolean,
+  direction: UiDirectionType,
   darkMode: boolean,
   location: LocationState,
   toggleDarkMode: () => void,
@@ -63,7 +65,16 @@ type PropsType = {|
  */
 export class Switcher extends React.Component<PropsType> {
   getAllPayloads = () => {
-    const { location, languagesPayload, viewportSmall, darkMode, toggleDarkMode, t, ...payloads } = this.props
+    const {
+      location,
+      languagesPayload,
+      viewportSmall,
+      direction,
+      darkMode,
+      toggleDarkMode,
+      t,
+      ...payloads
+    } = this.props
     return payloads
   }
 
@@ -108,6 +119,7 @@ export class Switcher extends React.Component<PropsType> {
     const {
       location,
       viewportSmall,
+      direction,
       darkMode,
       categoriesPayload,
       citiesPayload,
@@ -142,12 +154,17 @@ export class Switcher extends React.Component<PropsType> {
       return (
         <Layout
           footer={showFooter && <GeneralFooter language={language} />}
-          header={showHeader && <GeneralHeader viewportSmall={viewportSmall} />}
+          header={showHeader && <GeneralHeader viewportSmall={viewportSmall} direction={direction} />}
           darkMode={darkMode}>
           {invalidCity ? (
             <FailureSwitcher error={new Error('notFound.category')} />
           ) : invalidLanguage && cities ? (
-            <LanguageFailure cities={cities} location={location} languageChangePaths={languageChangePaths || []} />
+            <LanguageFailure
+              cities={cities}
+              location={location}
+              languageChangePaths={languageChangePaths || []}
+              direction={direction}
+            />
           ) : (
             <RouteContentSwitcher location={location} payloads={payloads} isLoading={isLoading} />
           )}
@@ -164,6 +181,7 @@ export class Switcher extends React.Component<PropsType> {
           offers={offersPayload.data}
           darkMode={darkMode}
           viewportSmall={viewportSmall}
+          direction={direction}
           toggleDarkMode={toggleDarkMode}
           languageChangePaths={languageChangePaths}
           isLoading={isLoading}>
@@ -199,6 +217,7 @@ const mapStateToProps = (state: StateType) => ({
   disclaimerPayload: state.disclaimer,
   languagesPayload: state.languages,
   viewportSmall: state.viewport.is.small,
+  direction: state.uiDirection,
   darkMode: state.darkMode,
   location: state.location
 })

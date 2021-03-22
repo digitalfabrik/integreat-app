@@ -21,6 +21,7 @@ import { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
 import { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import type { FeedbackTargetInformationType } from '../../app/route-configs/RouteConfig'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 export type FeedbackRatingType = 'up' | 'down'
 
@@ -36,7 +37,8 @@ type PropsType = {|
   darkMode: boolean,
   feedbackTargetInformation: FeedbackTargetInformationType,
   languageChangePaths: ?LanguageChangePathsType,
-  isLoading: boolean
+  isLoading: boolean,
+  direction: UiDirectionType
 |}
 
 type LocalStateType = {|
@@ -91,7 +93,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): React.Node => {
-    const { viewportSmall, location, categories } = this.props
+    const { viewportSmall, location, categories, direction } = this.props
     const type = location.type
     const feedbackRoutes = [
       OFFERS_ROUTE,
@@ -110,17 +112,33 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
           location={location}
           openFeedbackModal={this.openFeedbackModal}
           viewportSmall={viewportSmall}
+          direction={direction}
         />
       )
     } else if (feedbackRoutes.includes(type)) {
-      return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
+      return (
+        <LocationToolbar
+          openFeedbackModal={this.openFeedbackModal}
+          viewportSmall={viewportSmall}
+          direction={direction}
+        />
+      )
     } else {
       return null
     }
   }
 
   render() {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, events, isLoading } = this.props
+    const {
+      viewportSmall,
+      children,
+      location,
+      darkMode,
+      languageChangePaths,
+      events,
+      isLoading,
+      direction
+    } = this.props
     const type = location.type
     const { city, language } = location.payload
 
@@ -141,6 +159,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
             events={events}
             viewportSmall={viewportSmall}
             onStickyTopChanged={this.handleStickyTopChanged}
+            direction={direction}
           />
         }
         footer={

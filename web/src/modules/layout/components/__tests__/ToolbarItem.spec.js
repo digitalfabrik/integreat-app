@@ -12,7 +12,7 @@ describe('ToolbarItem', () => {
   it('should render', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ToolbarItem href='http://example.com' icon={faSmile} text='Click here!' viewportSmall />
+        <ToolbarItem href='http://example.com' icon={faSmile} text='Click here!' viewportSmall direction={'ltr'} />
       </ThemeProvider>
     )
   })

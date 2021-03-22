@@ -9,13 +9,15 @@ import type { LocationState } from 'redux-first-router'
 import LocationToolbar from '../../../modules/layout/components/LocationToolbar'
 import type { FeedbackRatingType } from '../../../modules/layout/containers/LocationLayout'
 import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
+import type { UiDirectionType } from '../../../modules/i18n/types/UiDirectionType'
 
 type PropsType = {|
   categories: ?CategoriesMapModel,
   location: LocationState,
   openFeedbackModal: FeedbackRatingType => void,
   t: TFunction,
-  viewportSmall: boolean
+  viewportSmall: boolean,
+  direction: UiDirectionType
 |}
 
 export class CategoriesToolbar extends React.PureComponent<PropsType> {
@@ -30,18 +32,19 @@ export class CategoriesToolbar extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { t, location, categories, openFeedbackModal, viewportSmall } = this.props
+    const { t, location, categories, openFeedbackModal, viewportSmall, direction } = this.props
     const category = categories && categories.findCategoryByPath(location.pathname)
     if (!category) {
       return null
     }
     return (
-      <LocationToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
+      <LocationToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} direction={direction}>
         <ToolbarItem
           icon={faFilePdf}
           text={t('createPdf')}
           href={this.getPdfUrl(category)}
           viewportSmall={viewportSmall}
+          direction={direction}
         />
       </LocationToolbar>
     )

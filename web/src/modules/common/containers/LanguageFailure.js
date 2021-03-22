@@ -9,6 +9,7 @@ import type { LocationState } from 'redux-first-router'
 import styled, { type StyledComponent } from 'styled-components'
 import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 import type { ThemeType } from 'build-configs/ThemeType'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 const ChooseLanguage: StyledComponent<{||}, ThemeType, *> = styled.p`
   margin: 25px 0;
@@ -19,21 +20,24 @@ type PropsType = {|
   cities: Array<CityModel>,
   location: LocationState,
   languageChangePaths: LanguageChangePathsType,
+  direction: UiDirectionType,
   t: TFunction
 |}
 
-export class LanguageFailure extends React.PureComponent<PropsType> {
-  render() {
-    const { t, location, cities, languageChangePaths } = this.props
-    const title = cities && CityModel.findCityName(cities, location.payload.city)
-    return (
-      <>
-        {title && <Caption title={title} />}
-        <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-        <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
-      </>
-    )
-  }
+export const LanguageFailure = ({ t, location, cities, direction, languageChangePaths }: PropsType) => {
+  const title = cities && CityModel.findCityName(cities, location.payload.city)
+  return (
+    <>
+      {title && <Caption title={title} />}
+      <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
+      <LanguageSelector
+        isHeaderActionItem={false}
+        location={location}
+        languageChangePaths={languageChangePaths}
+        direction={direction}
+      />
+    </>
+  )
 }
 
 export default withTranslation<PropsType>('error')(LanguageFailure)

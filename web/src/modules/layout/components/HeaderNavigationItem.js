@@ -7,6 +7,8 @@ import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
 import Tooltip from '../../common/components/Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
+import LocationToolbar from './LocationToolbar'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
@@ -98,11 +100,12 @@ type PropsType = {|
   href: string,
   active: boolean,
   tooltip?: string,
-  icon: string
+  icon: string,
+  direction: UiDirectionType
 |}
 
-const HeaderNavigationItem = ({ active, text, tooltip, href, icon }: PropsType) => (
-  <Tooltip text={tooltip} flow={'up'}>
+const HeaderNavigationItem = ({ active, text, tooltip, href, icon, direction }: PropsType) => (
+  <Tooltip text={tooltip} flow={'up'} direction={direction}>
     <StyledLink to={href} $active={active}>
       <Circle>
         <img src={icon} alt='' />

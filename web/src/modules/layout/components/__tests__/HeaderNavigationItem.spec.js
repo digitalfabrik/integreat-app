@@ -19,7 +19,7 @@ describe('HeaderNavigationItem', () => {
   it('should render an ActiveNavigationItem', () => {
     const { getByText } = render(
       <ThemeProvider theme={theme}>
-        <HeaderNavigationItem text={text} active href={href} icon='icon' />
+        <HeaderNavigationItem text={text} active href={href} icon='icon' direction={'ltr'} />
       </ThemeProvider>
     )
 

@@ -29,6 +29,7 @@ import poisIcon from '../assets/pois.svg'
 import PoisRouteConfig, { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../../../modules/app/constants/buildConfig'
+import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
 
 const newsRoutes = [LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE]
 const offersRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
@@ -38,14 +39,23 @@ type PropsType = {|
   events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
+  direction: UiDirectionType,
   t: TFunction,
   onStickyTopChanged: number => void,
   languageChangePaths: ?LanguageChangePathsType
 |}
 
-export class LocationHeader extends React.Component<PropsType> {
-  getActionItems(): Array<React.Node> {
-    const { location, languageChangePaths, t } = this.props
+export const LocationHeader = ({
+  location,
+  languageChangePaths,
+  direction,
+  cityModel,
+  events,
+  viewportSmall,
+  onStickyTopChanged,
+  t
+}: PropsType) => {
+  const getActionItems = (): Array<React.Node> => {
     const { city, language } = location.payload
     return [
       <HeaderActionBarItemLink
@@ -53,6 +63,7 @@ export class LocationHeader extends React.Component<PropsType> {
         href={new SearchRouteConfig().getRoutePath({ city, language })}
         text={t('search')}
         iconSrc={searchIcon}
+        direction={direction}
       />,
       ...(!buildConfig().featureFlags.fixedCity
         ? [
@@ -61,6 +72,7 @@ export class LocationHeader extends React.Component<PropsType> {
               href={new LandingRouteConfig().getRoutePath({ language })}
               text={t('changeLocation')}
               iconSrc={landingIcon}
+              direction={direction}
             />
           ]
         : []),
@@ -69,12 +81,12 @@ export class LocationHeader extends React.Component<PropsType> {
         languageChangePaths={languageChangePaths}
         isHeaderActionItem
         location={location}
+        direction={direction}
       />
     ]
   }
 
-  getNavigationItems(): Array<React.Node> {
-    const { t, cityModel, location, events } = this.props
+  const getNavigationItems = (): Array<React.Node> => {
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
     const { city, language } = location.payload
@@ -97,6 +109,7 @@ export class LocationHeader extends React.Component<PropsType> {
         active={currentRoute === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={localInformationIcon}
+        direction={direction}
       />
     ]
 
@@ -112,6 +125,7 @@ export class LocationHeader extends React.Component<PropsType> {
           active={newsRoutes.includes(currentRoute)}
           text={t('news')}
           icon={newsIcon}
+          direction={direction}
         />
       )
     }
@@ -125,6 +139,7 @@ export class LocationHeader extends React.Component<PropsType> {
           text={t('events')}
           tooltip={events?.length === 0 ? t('noEvents') : ''}
           icon={eventsIcon}
+          direction={direction}
         />
       )
     }
@@ -137,6 +152,7 @@ export class LocationHeader extends React.Component<PropsType> {
           active={currentRoute === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
+          direction={direction}
         />
       )
     }
@@ -149,6 +165,7 @@ export class LocationHeader extends React.Component<PropsType> {
           active={offersRoutes.includes(currentRoute)}
           text={t('offers')}
           icon={offersIcon}
+          direction={direction}
         />
       )
     }
@@ -156,21 +173,18 @@ export class LocationHeader extends React.Component<PropsType> {
     return items
   }
 
-  render() {
-    const { cityModel, location } = this.props
-    const { city, language } = location.payload
+  const { city, language } = location.payload
 
-    return (
-      <Header
-        viewportSmall={this.props.viewportSmall}
-        logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
-        actionItems={this.getActionItems()}
-        cityName={cityModel.name}
-        navigationItems={this.getNavigationItems()}
-        onStickyTopChanged={this.props.onStickyTopChanged}
-      />
-    )
-  }
+  return (
+    <Header
+      viewportSmall={viewportSmall}
+      logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
+      actionItems={getActionItems()}
+      cityName={cityModel.name}
+      navigationItems={getNavigationItems()}
+      onStickyTopChanged={onStickyTopChanged}
+    />
+  )
 }
 
 export default withTranslation<PropsType>('layout')(LocationHeader)
