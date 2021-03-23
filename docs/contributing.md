@@ -23,6 +23,7 @@ To merge a pull request, the pull request has to match our Definition of Done. I
 * All checks (linting, flow, unit and e2e tests, ...) have to pass.
 * No changes are requested.
 * Two approvals are needed.
+* New and changed functionality should be tested sufficiently.
 
 **Creating a pull request from a fork prevents checks from the CI. It is a good way to make contact though.**
 
