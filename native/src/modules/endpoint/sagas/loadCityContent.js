@@ -133,8 +133,7 @@ export default function* loadCityContent(
   console.debug('Last previous city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
 
   const netInfo = yield call(NetInfo.fetch)
-  // Only try to update if there is an internet connection
-  const shouldUpdate = criterion.shouldUpdate(lastUpdate) && netInfo.isInternetReachable
+  const shouldUpdate = criterion.shouldUpdate(lastUpdate)
   console.debug('City content should be refreshed: ', shouldUpdate)
 
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and

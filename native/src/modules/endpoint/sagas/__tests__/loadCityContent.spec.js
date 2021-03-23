@@ -259,7 +259,7 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
-  it('should force a content refresh if internet is reachable and criterion says so', async () => {
+  it('should force a content refresh if criterion says so', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
 
@@ -284,44 +284,6 @@ describe('loadCityContent', () => {
       .call(loadCategories, city, language, dataContainer, true)
       .call(loadEvents, city, language, true, dataContainer, true)
       .call(loadPois, city, language, false, dataContainer, true)
-      .run()
-  })
-
-  it('should not force a content refresh if internet is not reachable', async () => {
-    NetInfo.fetch.mockImplementationOnce(() => {
-      return {
-        type: 'cellular',
-        isConnected: true,
-        isInternetReachable: false,
-        details: {
-          isConnectionExpensive: false
-        }
-      }
-    })
-    const dataContainer = new DefaultDataContainer()
-    await prepareDataContainer(dataContainer, city, language)
-
-    await dataContainer.storeLastUsage(city, false)
-    await dataContainer.setLastUpdate(city, language, lastUpdate)
-
-    await expectSaga(
-      loadCityContent,
-      dataContainer,
-      city,
-      language,
-      new ContentLoadCriterion(
-        {
-          forceUpdate: true,
-          shouldRefreshResources: true
-        },
-        false
-      )
-    )
-      .call(loadLanguages, city, dataContainer, false)
-      .call(loadCities, dataContainer, false)
-      .call(loadCategories, city, language, dataContainer, false)
-      .call(loadEvents, city, language, true, dataContainer, false)
-      .call(loadPois, city, language, false, dataContainer, false)
       .run()
   })
 
