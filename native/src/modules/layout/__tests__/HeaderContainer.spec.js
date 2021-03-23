@@ -13,7 +13,8 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
-  POIS_ROUTE, SPRUNGBRETT_OFFER_ROUTE
+  POIS_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 
 const mockStore = configureMockStore()
@@ -230,7 +231,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl =`https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -246,7 +247,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const shareUrl =`https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
+    const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
     assertProps(result, { shareUrl })
   })
 
@@ -263,7 +264,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl =`https://integreat.app/nuernberg/${language.code}/${DISCLAIMER_ROUTE}`
+    const expectedShareUrl = `https://integreat.app/nuernberg/${language.code}/${DISCLAIMER_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -280,7 +281,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl =`https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 })
