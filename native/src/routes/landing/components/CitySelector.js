@@ -8,7 +8,7 @@ import { View } from 'react-native'
 import { CityModel } from 'api-client'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import getNearbyPlaces from '../getNearbyPlaces'
 import type { LocationType } from './Landing'
@@ -18,20 +18,20 @@ import CityGroup from './CityGroup'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
-const CityGroupContainer: StyledComponent<{}, {}, *> = styled.View`
+const CityGroupContainer: StyledComponent<{||}, {||}, *> = styled.View`
   flex: 0;
   flex-direction: column;
 `
 
-const NearbyMessageContainer: StyledComponent<{}, {}, *> = styled.View`
+const NearbyMessageContainer: StyledComponent<{||}, {||}, *> = styled.View`
   padding: 7px;
   flex-direction: row;
   justify-content: space-between;
 `
 
-const NearbyMessage = styled.Text`
+const NearbyMessage: StyledComponent<{| theme: ThemeType |}, {||}, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding-top: 15px;
 `
 

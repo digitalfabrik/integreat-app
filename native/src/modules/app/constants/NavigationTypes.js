@@ -21,11 +21,15 @@ import type {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  WohnenOfferRouteType
-} from 'api-client/src/routes'
+  WohnenOfferRouteType,
+  JpalTrackingRouteType,
+  RedirectRouteType
+} from 'api-client'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 
 export type RoutesType =
+  | RedirectRouteType
+  | JpalTrackingRouteType
   | IntroRouteType
   | LandingRouteType
   | DashboardRouteType
@@ -49,7 +53,8 @@ type ShareUrlType = {| shareUrl: string |}
 type CityContentParamsType = {| cityCode: string, languageCode: string |}
 
 export type RoutesParamsType = {|
-  intro: void,
+  redirect: {| url: string |},
+  intro: {| deepLink?: string |},
   landing: void,
   dashboard: CityContentParamsType,
   categories: CityContentParamsType,
@@ -58,8 +63,9 @@ export type RoutesParamsType = {|
   news: void,
   disclaimer: CityContentParamsType,
   offers: CityContentParamsType,
+  jpal: {| trackingCode: string | null |},
   externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
-  sprungbrett: {| ...CityContentParamsType, title: string, alias: string, apiUrl: string |},
+  sprungbrett: CityContentParamsType,
   wohnen: {| offerHash: ?string, city: string, title: string, alias: string, postData: ?Map<string, string> |},
   settings: void,
   search: void,

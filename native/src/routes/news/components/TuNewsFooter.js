@@ -21,7 +21,7 @@ const Container: StyledComponent<{| language: string |}, ThemeType, *> = styled.
 `
 
 const TunewsFooter: StyledComponent<{| underlined?: boolean, rightMargin: number |}, ThemeType, *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 12px;
   color: white;
   margin-right: ${props => props.rightMargin || 0}px;

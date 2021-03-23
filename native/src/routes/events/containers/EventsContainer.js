@@ -9,7 +9,7 @@ import type { StoreActionType, SwitchContentLanguageActionType } from '../../../
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { EventModel } from 'api-client'
+import { CityModel, EventModel } from 'api-client'
 import * as React from 'react'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
@@ -37,7 +37,7 @@ type ContainerPropsType = {|
   ...DispatchPropsType,
   path: ?string,
   events: Array<EventModel>,
-  cityCode: string,
+  cityModel: CityModel,
   language: string,
   resourceCache: LanguageResourceCacheStateType,
   resourceCacheUrl: string
@@ -78,9 +78,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, eventsRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?EventRouteStateType = eventsRouteMapping[key]
-  if (!route) {
+  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
+  if (!route || route.routeType !== EVENTS_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 
@@ -151,6 +151,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'loading', progress: 0 }
   }
 
+  const cities = state.cities.models
+  const cityModel = cities.find(city => city.code === route.city)
+
+  if (!cityModel) {
+    throw new Error('cityModel is undefined!')
+  }
+
   if (route.status === 'languageNotAvailable') {
     // Necessary for flow type checking, already handled above
     throw new Error('language not available route status not handled!')
@@ -159,7 +166,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const innerProps = {
     path: route.path,
     events: Array.from(route.models || []),
-    cityCode: route.city,
+    cityModel,
     language: route.language,
     resourceCache: resourceCache.value,
     resourceCacheUrl,
@@ -188,24 +195,20 @@ const ThemedTranslatedEvents = withTranslation<$Diff<EventsPropsType, {| theme: 
   withTheme<EventsPropsType>(Events)
 )
 
-class EventsContainer extends React.Component<ContainerPropsType> {
-  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const { dispatch, navigation } = this.props
+const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
-  render() {
-    const { dispatch, navigation, route, ...rest } = this.props
-    return (
-      <ThemedTranslatedEvents
-        {...rest}
-        navigateTo={createNavigate(dispatch, navigation)}
-        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-        navigateToLink={this.navigateToLinkProp}
-      />
-    )
-  }
+  return (
+    <ThemedTranslatedEvents
+      {...rest}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateToLink={navigateToLinkProp}
+    />
+  )
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {

@@ -35,7 +35,7 @@ const LocalTabWrapper: StyledComponent<{| isSelected: boolean |}, ThemeType, *> 
 
 const LocalText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-size: 18px;
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   text-transform: uppercase;
   color: ${props => props.theme.colors.backgroundColor};
 `

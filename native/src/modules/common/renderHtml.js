@@ -2,7 +2,6 @@
 
 import { getFontFaceSource } from '../platform/constants/webview'
 import type { ThemeType } from '../theme/constants'
-import webviewFontFamilies from '../theme/webviewFontFamilies'
 import type { ParsedCacheDictionaryType } from './components/Page'
 import { config } from 'translations'
 
@@ -130,7 +129,7 @@ const renderHtml = (html: string, cacheDictionary: ParsedCacheDictionaryType, th
         margin: 0;
         padding: 0;
 
-        font-family: ${webviewFontFamilies(theme, language)};
+        font-family: ${theme.fonts.native.webviewFont};
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};

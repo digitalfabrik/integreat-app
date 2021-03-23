@@ -3,9 +3,8 @@
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
 import { type TFunction, withTranslation } from 'react-i18next'
-import { LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
+import { CityModel, LOCAL_NEWS_TYPE, LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
 import NewsList from './NewsList'
-import Failure from '../../../modules/error/components/Failure'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { NewsModelsType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
@@ -17,10 +16,11 @@ import NewsDetail from './NewsDetail'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import type { NewsType } from 'api-client/src/routes'
+import FailureContainer from '../../../modules/error/containers/FailureContainer'
 
 const NoNews: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
   align-self: center;
   margin-top: 20px;
 `
@@ -28,7 +28,7 @@ const NoNews: StyledComponent<{||}, ThemeType, *> = styled.Text`
 export type PropsType = {|
   newsId: ?string,
   news: NewsModelsType,
-  cityCode: string,
+  cityModel: CityModel,
   language: string,
   theme: ThemeType,
   t: TFunction,
@@ -41,39 +41,25 @@ export type PropsType = {|
 |}
 
 const News = (props: PropsType) => {
-  const {
-    news,
-    newsId,
-    cityCode,
-    language,
-    fetchMoreNews,
-    isFetchingMore,
-    selectedNewsType,
-    theme,
-    t,
-    routeKey
-  } = props
-  const { navigateTo, navigateToLink } = props
+  const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t, routeKey } = props
+  const { navigateTo, navigateToLink, cityModel } = props
 
-  const navigateToNews = useCallback(
-    (cityCode: string, language: string, newsId: string) => () => {
-      navigateTo({
-        route: NEWS_ROUTE,
-        cityCode,
-        languageCode: language,
-        newsId,
-        newsType: selectedNewsType
-      })
-    },
-    [selectedNewsType, navigateTo]
-  )
-
-  const renderNoItemsComponent = useCallback(() => {
+  const renderNoItemsComponent = () => {
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
-  }, [theme, t])
+  }
 
   const rendersNewsListItem = useCallback(
     (cityCode: string, language: string) => ({ item }: { item: LocalNewsModel | TunewsModel, ... }) => {
+      const navigateToNews = () => {
+        navigateTo({
+          route: NEWS_ROUTE,
+          cityCode,
+          languageCode: language,
+          newsId: item.id.toString(),
+          newsType: selectedNewsType
+        })
+      }
+
       return (
         <NewsListItem
           key={item.id}
@@ -81,13 +67,18 @@ const News = (props: PropsType) => {
           language={language}
           theme={theme}
           isTunews={selectedNewsType === TU_NEWS_TYPE}
-          navigateToNews={navigateToNews(cityCode, language, item.id.toString())}
+          navigateToNews={navigateToNews}
           t={t}
         />
       )
     },
-    [selectedNewsType, navigateToNews, theme, t]
+    [selectedNewsType, theme, t, navigateTo]
   )
+
+  if (selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled) {
+    const error = new NotFoundError({ type: 'category', id: selectedNewsType, city: cityModel.code, language })
+    return <FailureContainer code={fromError(error)} />
+  }
 
   if (newsId) {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
@@ -96,8 +87,8 @@ const News = (props: PropsType) => {
         <NewsDetail newsItem={selectedNewsItem} theme={theme} language={language} navigateToLink={navigateToLink} />
       )
     } else {
-      const error = new NotFoundError({ type: selectedNewsType, id: newsId, city: cityCode, language })
-      return <Failure code={fromError(error)} t={t} theme={theme} />
+      const error = new NotFoundError({ type: selectedNewsType, id: newsId, city: cityModel.code, language })
+      return <FailureContainer code={fromError(error)} />
     }
   }
 
@@ -108,12 +99,12 @@ const News = (props: PropsType) => {
         items={news}
         isFetchingMore={isFetchingMore}
         fetchMoreItems={fetchMoreNews}
-        renderItem={rendersNewsListItem(cityCode, language)}
+        renderItem={rendersNewsListItem(cityModel.code, language)}
         navigateTo={navigateTo}
         selectedNewsType={selectedNewsType}
         newsId={newsId}
         routeKey={routeKey}
-        cityCode={cityCode}
+        cityCode={cityModel.code}
         language={language}
       />
     </View>

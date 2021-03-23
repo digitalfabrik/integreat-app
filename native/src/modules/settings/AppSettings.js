@@ -12,7 +12,9 @@ export type SettingsType = {|
   errorTracking: boolean | null,
   allowPushNotifications: boolean | null,
   proposeNearbyCities: boolean | null,
-  apiUrlOverride: string | null
+  apiUrlOverride: string | null,
+  jpalTrackingEnabled: boolean | null,
+  jpalTrackingCode: string | null
 |}
 
 export const defaultSettings: SettingsType = {
@@ -23,7 +25,9 @@ export const defaultSettings: SettingsType = {
   errorTracking: null,
   allowPushNotifications: null,
   proposeNearbyCities: null,
-  apiUrlOverride: null
+  apiUrlOverride: null,
+  jpalTrackingEnabled: null,
+  jpalTrackingCode: null
 }
 
 class AppSettings {

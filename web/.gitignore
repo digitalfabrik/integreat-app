@@ -8,11 +8,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # Ignore everything in www folder except some static files
-www
-!www/humans.txt
-!www/robots.txt
-!www/warn-ie.js
-!www/fonts/*
+./www
+!./www/humans.txt
+!./www/robots.txt
+!./www/warn-ie.js
+!./www/fonts/**/*
 
 
 # Runtime data
