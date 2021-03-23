@@ -16,6 +16,7 @@ import { Alert } from 'react-native'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import type { SettingsType } from '../../settings/AppSettings'
+import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
@@ -74,7 +75,7 @@ export function* switchContentLanguage(
     }
     yield put(insert)
   } catch (e) {
-    if (e.message === 'Network request failed') {
+    if (fromError(e) === ErrorCodes.NetworkConnectionFailed) {
       // TODO IGAPP-498 The alert should be replaced with a snackbar, hence the TFunction should also be removed.
       Alert.alert(t('languageSwitchFailedTitle'), t('languageSwitchFailedMessage'))
     }
