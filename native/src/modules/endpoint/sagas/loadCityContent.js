@@ -130,7 +130,7 @@ export default function* loadCityContent(
   }
 
   const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
-  console.debug('Last previous city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
+  console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
 
   const netInfo = yield call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
