@@ -1,11 +1,20 @@
 // @flow
 
+import type { Node } from 'react'
 import React from 'react'
-import { EventModel, LocationModel, DateModel } from 'api-client'
+import { DateModel, EventModel, LocationModel } from 'api-client'
 import moment from 'moment'
-import { shallow } from 'enzyme'
-import EventListItem from '../EventListItem'
+import EventPlaceholder1 from '../../assets/EventPlaceholder1.jpg'
+import EventPlaceholder2 from '../../assets/EventPlaceholder2.jpg'
+import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
+import { render } from '@testing-library/react'
+import EventListItem, { NUM_OF_WORDS_ALLOWED } from '../EventListItem'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import textTruncator from '../../../../modules/common/utils/textTruncator'
+import { ThemeProvider } from 'styled-components'
+import theme from '../../../../modules/theme/constants/theme'
+
+jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
 
 describe('EventListItem', () => {
   const language = 'de'
@@ -36,14 +45,42 @@ describe('EventListItem', () => {
     excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),
     content: 'content',
-    thumbnail: 'thumbnail',
+    thumbnail: 'https://cms.integreat-app/03/Hotline-150x150.png',
     hash: '2fe6283485a93932',
     featuredImage: null
   })
 
-  // TODO IGAPP-399: Reactivate test
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should render and match snapshot', () => {
-    expect(shallow(<EventListItem event={event} formatter={new DateFormatter(language)} />)).toMatchSnapshot()
+  it('should show event list item with specific thumbnail', () => {
+    const formatter = new DateFormatter(language)
+    const { getByText, getByRole } = render(
+      <ThemeProvider theme={theme}>
+        <EventListItem event={event} formatter={formatter} />
+      </ThemeProvider>
+    )
+
+    expect(getByText(event.title)).toBeTruthy()
+    expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
+    expect(getByText(event.location.location)).toBeTruthy()
+    expect(getByRole('img')).toBeTruthy()
+    expect(getByRole('img').src).toEqual(event.thumbnail)
+    expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+  })
+
+  it('should show event list item with placeholder thumbnail and no location', () => {
+    const eventWithoutThumbnail = Object.assign(event, { _thumbnail: undefined })
+    const formatter = new DateFormatter(language)
+    const { getByText, getByRole } = render(
+      <ThemeProvider theme={theme}>
+        <EventListItem event={eventWithoutThumbnail} formatter={formatter} />
+      </ThemeProvider>
+    )
+
+    expect(getByText(event.title)).toBeTruthy()
+    expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
+    expect(getByText(event.location.location)).toBeTruthy()
+    expect(getByRole('img')).toBeTruthy()
+    const src = getByRole('img').src
+    expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
+    expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
   })
 })
