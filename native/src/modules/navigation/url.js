@@ -3,7 +3,7 @@
 import buildConfig from '../app/constants/buildConfig'
 import Url from 'url-parse'
 import type { RouteInformationType } from 'api-client'
-import { JPAL_TRACKING_ROUTE } from 'api-client'
+import { JPAL_TRACKING_ROUTE, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 
 type CityContentRouteUrlType = {| cityCode: string, languageCode: string, route?: string, path?: ?string |}
 
@@ -32,16 +32,15 @@ export const url = (pathname?: string): string => {
   return url.href
 }
 
-export const path = (pathname?: string): string => {
-  const url = constructUrl([pathname])
-  return url.pathname
-}
-
 export const urlFromRouteInformation = (routeInformation: RouteInformationType): string => {
   const { route } = routeInformation
   if (route === JPAL_TRACKING_ROUTE) {
     // https://integreat.app/jpal
     return url(route)
+  } else if (route === SPRUNGBRETT_OFFER_ROUTE) {
+    const { cityCode, languageCode } = routeInformation
+    // https://integreat.app/augsburg/de/offers/sprungbrett
+    return cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE, path: route })
   } else if (routeInformation.cityContentPath) {
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
     return url(routeInformation.cityContentPath)
