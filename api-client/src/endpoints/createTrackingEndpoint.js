@@ -1,7 +1,6 @@
 // @flow
 
 import type { SignalType } from '../tracking'
-import type { RequestOptionsType } from '../errors/ResponseError'
 import ResponseError from '../errors/ResponseError'
 import FetchError from '../errors/FetchError'
 
@@ -37,17 +36,25 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
       }
     }
     const body = JSON.stringify(mappedSignal)
-    const requestOptions: RequestOptionsType = {
+    const response = await fetch(url, {
       method: 'POST',
       body: body,
       headers: JSON_HEADERS
-    }
-    const response = await fetch(url, requestOptions).catch((e: Error) => {
+    }).catch((e: Error) => {
       throw new FetchError({ endpointName: TRACKING_ENDPOINT_NAME, innerError: e })
     })
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: TRACKING_ENDPOINT_NAME, response, url, requestOptions })
+      throw new ResponseError({
+        endpointName: TRACKING_ENDPOINT_NAME,
+        response,
+        url,
+        requestOptions: {
+          method: 'POST',
+          body: body,
+          headers: JSON_HEADERS
+        }
+      })
     }
   }
 

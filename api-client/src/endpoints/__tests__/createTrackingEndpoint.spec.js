@@ -29,6 +29,7 @@ describe('createTrackingEndpoint', () => {
   }
 
   it('should throw fetch error if fetch fails', async () => {
+    // $FlowFixMe fetch is a mock
     fetch.mockRejectOnce(() => Promise.reject(new Error('Das Internet ist kaputt!!!1!!!11elf!')))
     expect.assertions(1)
     return createTrackingEndpoint()
@@ -41,6 +42,7 @@ describe('createTrackingEndpoint', () => {
   })
 
   it('should throw response error if response is not ok', async () => {
+    // $FlowFixMe fetch is a mock
     fetch.mockResponseOnce('Invalid endpoint', {
       ok: false,
       status: 500,
