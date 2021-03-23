@@ -19,7 +19,7 @@ Before starting to write code and opening a pull request, please take a look [at
 
 Pull requests should always belong to an [issue in our issue tracker](#bug-reporting).
 
-To merge a pull request, the pull request has to match our Definition of Done. It includes among others:
+To merge a pull request, it has to match our Definition of Done. It includes among others:
 * All checks (linting, flow, unit and e2e tests, ...) have to pass.
 * No changes are requested.
 * Two approvals are needed.
