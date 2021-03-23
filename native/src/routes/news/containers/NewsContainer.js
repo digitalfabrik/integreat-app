@@ -1,6 +1,6 @@
 // @flow
 
-import type { NewsModelsType, NewsRouteStateType, StateType } from '../../../modules/app/StateType'
+import type { NewsModelsType, StateType } from '../../../modules/app/StateType'
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
@@ -15,8 +15,8 @@ import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { NewsRouteType, NewsType } from 'api-client/src/routes'
-import createNavigate from '../../../modules/navigation/createNavigate'
 import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 
 type NavigationPropsType = {|
@@ -39,7 +39,8 @@ type ContainerPropsType =
       newsId: ?string,
       language: string,
       cityModel: CityModel,
-      selectedNewsType: NewsType
+      selectedNewsType: NewsType,
+      page: null
     |}
   | {|
       ...NavigationPropsType,
@@ -47,7 +48,7 @@ type ContainerPropsType =
       status: 'ready',
       news: NewsModelsType,
       hasMoreNews: ?boolean,
-      page: ?number,
+      page: number | null,
       isFetchingMore: boolean,
       newsId: ?string,
       language: string,
@@ -104,10 +105,11 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'routeNotInitialized' }
   }
 
-  const { newsRouteMapping, switchingLanguage, languages } = state.cityContent
+  const { routeMapping, switchingLanguage, languages } = state.cityContent
 
-  const route: ?NewsRouteStateType = newsRouteMapping[key]
-  if (!route) {
+  const route = routeMapping[key]
+
+  if (!route || route.routeType !== NEWS_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 
@@ -172,7 +174,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         selectedNewsType: route.type,
         cityModel,
         navigation,
-        route: ownProps.route
+        route: ownProps.route,
+        page: null
       }
     }
   }
@@ -190,7 +193,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       navigation,
       route: ownProps.route,
       hasMoreNews: route.hasMoreNews || null,
-      page: route.page || null,
+      page: route.page !== undefined ? route.page : null,
       isFetchingMore: route.status === 'loadingMore'
     }
   }
@@ -228,8 +231,8 @@ const NewsContainer = (props: ContainerPropsType) => {
   )
 
   const fetchMoreNews = useCallback(
-    ({ hasMoreNews, news, page }: {| hasMoreNews: ?boolean, news: NewsModelsType, page: ?number |}) => () => {
-      if (!hasMoreNews || !page) {
+    ({ hasMoreNews, news, page }: {| hasMoreNews: ?boolean, news: NewsModelsType, page: number | null |}) => () => {
+      if (!hasMoreNews || page === null) {
         // Already fetching more
         return
       }
@@ -271,7 +274,7 @@ const NewsContainer = (props: ContainerPropsType) => {
           selectedNewsType={selectedNewsType}
           isFetchingMore={isFetchingMore}
           fetchMoreNews={fetchMoreNews({ news, hasMoreNews, page })}
-          cityCode={cityModel.code}
+          cityModel={cityModel}
           language={language}
           navigateTo={createNavigate(dispatch, navigation)}
           navigateToLink={navigateToLinkProp}

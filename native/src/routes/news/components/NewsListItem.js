@@ -67,12 +67,12 @@ const Divider: StyledComponent<{||}, ThemeType, *> = styled.View`
 
 export const Description: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex-direction: column;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 export const Title: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-weight: 700;
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
   font-size: 16px;
   margin-bottom: 8px;
@@ -80,7 +80,7 @@ export const Title: StyledComponent<{||}, ThemeType, *> = styled.Text`
 `
 
 export const Content: StyledComponent<{| language: string |}, ThemeType, *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
   text-align: ${props => contentAlignment(props.language)};
@@ -88,7 +88,7 @@ export const Content: StyledComponent<{| language: string |}, ThemeType, *> = st
 `
 
 const TimeStampContent: StyledComponent<{| language: string |}, ThemeType, *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0px
   text-align: ${props => contentAlignment(props.language)};
@@ -96,7 +96,7 @@ const TimeStampContent: StyledComponent<{| language: string |}, ThemeType, *> = 
 `
 
 export const ReadMore: StyledComponent<{| isTunews: ?boolean |}, ThemeType, *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
   margin-top: 5px;

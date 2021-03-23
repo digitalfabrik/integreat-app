@@ -46,10 +46,7 @@ const prepareState = ({
         status: 'ready',
         models: [language]
       },
-      eventsRouteMapping: {},
-      categoriesRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {},
+      routeMapping: {},
       searchRoute: null,
       resourceCache: {
         status: 'ready',
@@ -210,5 +207,59 @@ describe('I18nProvider', () => {
     )
 
     await waitFor(() => getByText('Hello'))
+  })
+
+  it('should use zh-CN if any chinese variant is chosen', async () => {
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockReturnValue(['zh-CN'])
+    const store = mockStore(prepareState())
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+        </I18nProvider>
+      </Provider>
+    )
+
+    await waitFor(() => getByText('本地信息'))
+
+    expect(getByText('本地信息')).toBeTruthy()
+  })
+
+  it('should support language tags with dashes', async () => {
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockReturnValue(['zh-hans'])
+    const store = mockStore(prepareState())
+    const { getByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+        </I18nProvider>
+      </Provider>
+    )
+
+    await waitFor(() => getByText('本地信息'))
+
+    expect(getByText('本地信息')).toBeTruthy()
+  })
+
+  it('should support de-DE and select de', async () => {
+    // $FlowFixMe
+    NativeLanguageDetector.detect.mockReturnValue(['de-DE'])
+    const store = mockStore(prepareState())
+    const { getByText, queryByText } = render(
+      <Provider store={store}>
+        <I18nProvider>
+          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+          <Translation>{(t, { i18n }) => <Text>{i18n.languages[0]}</Text>}</Translation>
+        </I18nProvider>
+      </Provider>
+    )
+
+    await waitFor(() => getByText('Lokale Informationen'))
+
+    expect(getByText('Lokale Informationen')).toBeTruthy()
+    expect(getByText('de')).toBeTruthy()
+    expect(queryByText('de-DE')).toBeFalsy()
   })
 })

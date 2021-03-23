@@ -43,7 +43,7 @@ describe('I18nProvider', () => {
       render(
         <Provider store={store}>
           <I18nProvider>
-            <Translation>{(t, { i18n }) => <p>{i18n.language}</p>}</Translation>
+            <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
           </I18nProvider>
         </Provider>
       )
@@ -65,6 +65,7 @@ describe('I18nProvider', () => {
         </Provider>
       )
     })
+    await waitFor(() => screen.debug())
     await waitFor(() => screen.getByText('Zanyariyên xwecihî'))
 
     expect(screen.getByText('Zanyariyên xwecihî')).toBeTruthy()
@@ -94,7 +95,7 @@ describe('I18nProvider', () => {
       render(
         <Provider store={store}>
           <I18nProvider>
-            <Translation>{(t, { i18n }) => <p>{i18n.language}</p>}</Translation>
+            <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
           </I18nProvider>
         </Provider>
       )
@@ -196,6 +197,62 @@ describe('I18nProvider', () => {
     })
 
     expect(store.getActions()).toEqual([{ payload: 'ltr', type: 'SET_UI_DIRECTION' }])
+  })
+
+  it('should use zh-CN if any chinese variant is chosen', async () => {
+    BrowserLanguageDetector.detect.mockReturnValue(['zh-CN'])
+    const store = prepareStore()
+    act(() => {
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
+    })
+    await waitFor(() => screen.getByText('本地信息'))
+
+    expect(screen.getByText('本地信息')).toBeTruthy()
+  })
+
+  it('should support language tags with dashes', async () => {
+    BrowserLanguageDetector.detect.mockReturnValue(['zh-hans'])
+    const store = prepareStore()
+    act(() => {
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
+    })
+    await waitFor(() => screen.getByText('本地信息'))
+
+    expect(screen.getByText('本地信息')).toBeTruthy()
+  })
+
+  it('should support de-DE and select de', async () => {
+    BrowserLanguageDetector.detect.mockReturnValue(['de-DE'])
+    const store = prepareStore()
+    act(() => {
+      render(
+        <Provider store={store}>
+          <I18nProvider>
+            <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+            <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+          </I18nProvider>
+        </Provider>
+      )
+    })
+
+    await waitFor(() => screen.getByText('Lokale Informationen'))
+    await waitFor(() => screen.debug())
+
+    expect(screen.getByText('Lokale Informationen')).toBeTruthy()
+    expect(screen.getByText('de')).toBeTruthy()
+    expect(screen.queryByText('de-DE')).toBeFalsy()
   })
 
   // We can not switch the language right now because it is bound to redux-first-router, we would need to trigger a

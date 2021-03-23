@@ -1,14 +1,19 @@
 // @flow
 
 import { lightTheme, darkTheme } from './theme'
-import type { AndroidBuildConfigType, iOSBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
+import type {
+  AndroidBuildConfigType,
+  CommonBuildConfigType,
+  iOSBuildConfigType,
+  WebBuildConfigType
+} from '../BuildConfigType'
 import { MALTE_ASSETS } from '../AssetsType'
 import malteOverrideTranslations from 'translations/override-translations/malte.json'
 import mainImprint from './mainImprint'
 
 const APPLE_APP_ID = '1535758339'
 
-const commonMalteBuildConfig = {
+const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,
@@ -18,12 +23,13 @@ const commonMalteBuildConfig = {
   allowedHostNames: ['cms.malteapp.de'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
-  shareBaseUrl: 'https://malteapp.de',
+  hostName: 'malteapp.de',
   featureFlags: {
     pois: false,
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
+    jpalTracking: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: null

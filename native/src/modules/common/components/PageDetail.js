@@ -6,8 +6,8 @@ import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 
-const Identifier: StyledComponent<{}, ThemeType, *> = styled.Text`
-  font-family: ${props => props.theme.fonts.contentFontBold};
+const Identifier: StyledComponent<{||}, ThemeType, *> = styled.Text`
+  font-family: ${props => props.theme.fonts.native.contentFontBold};
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -20,7 +20,7 @@ type DetailContainerPropsType = {|
 const DetailContainer: StyledComponent<DetailContainerPropsType, ThemeType, *> = styled.Text`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
 
