@@ -1,6 +1,6 @@
 // @flow
 
-import { cityContentPath, cityContentUrl, url, urlFromRouteInformation } from '../url'
+import { cityContentPath, urlFromRouteInformation } from '../url'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE, DISCLAIMER_ROUTE,
@@ -15,28 +15,6 @@ import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser
 describe('url', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
-
-  describe('cityContentUrl', () => {
-    it('should return correct href for city content routes with path', () => {
-      const href = cityContentUrl({ cityCode, languageCode, route: OFFERS_ROUTE, path: SPRUNGBRETT_OFFER_ROUTE })
-      expect(href).toBe('https://integreat.app/augsburg/de/offers/sprungbrett')
-    })
-
-    it('should return correct href for city content routes without path', () => {
-      const href = cityContentUrl({ cityCode, languageCode, route: EVENTS_ROUTE })
-      expect(href).toBe('https://integreat.app/augsburg/de/events')
-    })
-
-    it('should return correct href for city content routes without route', () => {
-      const href = cityContentUrl({ cityCode, languageCode, path: 'willkommen/ankommen' })
-      expect(href).toBe('https://integreat.app/augsburg/de/willkommen/ankommen')
-    })
-
-    it('should return correct href for city content routes without route or path', () => {
-      const href = cityContentUrl({ cityCode, languageCode })
-      expect(href).toBe('https://integreat.app/augsburg/de')
-    })
-  })
 
   describe('cityContentPath', () => {
     it('should return correct pathname for city content routes with path', () => {
@@ -60,17 +38,6 @@ describe('url', () => {
     })
   })
 
-  describe('url', () => {
-    it('should return correct href for routes with pathname', () => {
-      const href = url('/augsburg/de/willkommen/ankommen')
-      expect(href).toBe('https://integreat.app/augsburg/de/willkommen/ankommen')
-    })
-
-    it('should return correct href for routes without pathname', () => {
-      const href = url()
-      expect(href).toBe(`https://integreat.app`)
-    })
-  })
 
   describe('urlFromRouteInformation', () => {
     it('should return right url for landing route', () => {
