@@ -9,12 +9,8 @@ If you don't know where to start or if you want to know more about Integreat, co
 [Steffen](mailto:kleinle@integreat-app.de) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 Other team members you can contact are 
-[Lutz](mailto:lonnemann@integreat-app.de),
 [Sarah](mailto:sporck@integreat-app.de),
-[Michi](mailto:markl@integreat-app.de),
-[Simon](mailto:vortkamp@integreat-app.de),
-[Nick](mailto:klug@integreat-app.de),
-[Anja](mailto:stricker@integreat-app.de) and
+[Steffi](mailto:metzger@integreat-app.de) and
 [Sven](mailto:seeberg@integreat-app.de).
 
 ## Pull requests
@@ -23,8 +19,8 @@ Before starting to write code and opening a pull request, please take a look [at
 
 Pull requests should always belong to an [issue in our issue tracker](#bug-reporting).
 
-To merge a pull request, the following is necessary:
-* All checks (linting, flow, unit and e2e tests) have to pass.
+To merge a pull request, the pull request has to match our Definition of Done. It includes among others:
+* All checks (linting, flow, unit and e2e tests, ...) have to pass.
 * No changes are requested.
 * Two approvals are needed.
 
@@ -40,10 +36,10 @@ To add a release note:
 * Add a new release note to the [unreleased directory](release-notes/unreleased).
 
 This gives users, members of other teams and us developers a simple overview over which changes and features belong to which release.
-The release notes can be found [here](release-notes) and [here](release-notes) and are automatically moved to a new release directory during a release.
+The release notes can be found [here](release-notes) and are automatically moved to a new release directory during a release.
 They are also shown in the stores and the [release section of github](https://github.com/Integreat/integreat-react-native-app/releases).
 
 ## Bug reporting
 
-You can [view our issues](https://issues.integreat-app.de/projects/NATIVE) or
+You can [view our issues](https://issues.integreat-app.de/projects/IGAPP) or
 [create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.

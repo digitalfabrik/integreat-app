@@ -14,40 +14,40 @@
 
 The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflows *triggered_native_development_delivery* and *triggered_production_delivery*:
 
-* Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-pi-tokens/).
+* Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
 * Trigger a delivery using the tool [trigger-pipeline](.circleci/trigger-pipeline).
-If no branch is specified, main is used as default. Per default the delivery is set to development
-* For more information on how to use it, execute it without parameters to see usage information.
+  * If no branch is specified, main is used as default. This should normally not be changed.
+  * Per default a development delivery is made.
+  * For more information on how to use it, execute it without parameters to see usage information.
 
 ## Workflows
 
 Several workflows exist for different purposes:
-* **commit**: Run for all commits of PRs to ensure good code quality and working code. Delivers Integreat, Malte and Aschaffenburg webapps on the main branch.
-* **scheduled_native_development_delivery**: Delivers Integreat, Malte and Aschaffenburg native builds to development (Testflight and Beta channel)
-twice a month.
-* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and Aschaffenburg builds for native to development.
-* **scheduled_production_delivery**: Delivers Integreat, Malte and Aschaffenburg native builds to production twice a month.
-* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers Integreat, Malte and Aschaffenburg builds for native and web to production.
+* **commit**: Executed for all commits of PRs to ensure good code quality and working code. Delivers web development builds to https.//webnext.\<domain>.
+* **scheduled_native_promotion**: Promotes the latest native development builds to production. Executed every Thursday morning.
+* **scheduled_delivery**: Delivers native builds to development and web builds to production. Executed every Thursday morning.
+* **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers native builds to development.
+* **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers web and native builds to production.
 
 See the table below for a more detailed overview:
 
 |Workflow|Checks|E2E tests|native delivery|web delivery|Version bump|Move release notes|
 |---|---|---|---|---|---|---|
-|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|Only on main|:x:|:x:|
-|scheduled_native_development_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
-|triggered_native_development_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:x:|:heavy_check_mark:|:x:|
-|scheduled_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
-|triggered_production_delivery|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|commit|:heavy_check_mark:|:heavy_check_mark:|:x:|development (main only)|:x:|:x:|
+|scheduled_native_promotion|:x:|:x:|promotion|:x:|:x:|:x:|
+|scheduled_delivery|:heavy_check_mark:|:heavy_check_mark:|development|production|:heavy_check_mark:|:heavy_check_mark:|
+|triggered_native_development_delivery|:heavy_check_mark:|:heavy_check_mark:|development|:x:|:heavy_check_mark:|:x:|
+|triggered_production_delivery|:heavy_check_mark:|:heavy_check_mark:|production|production|:heavy_check_mark:|:heavy_check_mark:|
 
 Steps executed if *Checks* is checked :heavy_check_mark::
 * Linting
+* Prettier formatting
 * Flow type checking
 * Unit testing with jest
 * Building the app
 
 Steps executed if *Version bump* is checked :heavy_check_mark::
-* Jira releases
-* Move release notes
+* Jira release
 * Bump version: Bump the version(s) and create a tag and release on github
 
 ## Services
@@ -115,7 +115,8 @@ Fastlane is a task-runner for triggering build relevant tasks. It offers integra
 
 ### Lanes
 
-Lanes for Android live in `./android/fastlane` and for iOS in `./ios/fastlane`. Shared lanes are in `./fastlane`.
+Lanes for Android live in [./native/android/fastlane](./native/android/fastlane) and for iOS in [./native/ios/fastlane](./native/ios/fastlane).
+Shared lanes are in [./native/fastlane](./native/ios/fastlane).
 
 An overview about FL lanes is available in several documents:
 * [General](../native/fastlane/README.md#available-actions) - Responsible for delivering and uploading artifacts.
@@ -167,11 +168,15 @@ More information on the version naming schema used can be found [here](docs/conv
 
 ## Skipping specific jobs
 
-You can control which jobs should be skipped through environment variables. Set the variable `SKIP_JOB_deliver_ios` to `"all"` to skip all jobs with the name `deliver_ios`. Set the variable to `"malte"` in order to skip jobs which use the build config `malte` and have the name `deliver_ios`. You can also set it to `"malte|integreat"` in order to match multiple build configs.
+You can control which jobs should be skipped through environment variables. 
+Set the variable `SKIP_JOB_deliver_aschaffenburg_ios` to `"aschaffenburg"` to skip the job with the name `deliver_aschaffenburg_ios`.
+You can also set it to `"malte|aschaffenburg"` in order to match multiple build configs or to `"all"` to match all build configs.
 
 Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/Integreat/integreat-app/environment-variables) of CircleCI.
 
-Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`
+**Note: Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`.**
+
+**Note: Most of the time job names contain the build config name as well, therefore setting e.g. the environment variable `SKIP_JOB_deliver_ios` won't work.**
 
 ## Hints and Quirks
 

@@ -6,16 +6,14 @@ We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/re
 
 ## Code style
 
-We mainly follow the [standard style](https://standardjs.com/rules) for JavaScript, although there may be smaller deviations.
-Run the linter (`yarn lint`) to show problems. Our eslint config can be found [here](https://github.com/Integreat/eslint-config-integreat).
-We use prettier to format code. Run (`yarn workspace <workspace> prettier --check .`) to show formatting problems.
+We use [prettier](https://prettier.io) to format code. Run `yarn workspace <workspace> prettier --check .` to show formatting problems or `yarn workspace <workspace> prettier --write .` to fix them.
 
 ## Git commit messages and Pull request names
 
 See [this guide](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for a general reference on how to write
 good commit messages.
 Commit messages should have the following schema:
-**`<Issue key>: Your commit message`**, e.g. `WEBAPP-612: Add commit message documentation`
+**`<Issue key>: Your commit message`**, e.g. `IGAPP-612: Add commit message documentation`
 
 The same applies for PR names.
 
@@ -25,7 +23,7 @@ Versions consist of a version name and a version code.
 
 ### Version name
 
-The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.M.PATCH-22bfda.svg) is used for versioning.
+The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg) is used for versioning.
 `PATCH` is a counter for the number of releases in the corresponding month starting with 0.
 
 Examples:
@@ -41,8 +39,6 @@ The first version code was `100000`.
 
 ## Folder structure
 
-### Native
-
 ```
 ├── __mocks__
 ├── modules
@@ -55,7 +51,7 @@ The first version code was `100000`.
 │       ├── hocs
 │       └── reducers
 └── routes
-    └── route-name
+    └── <route-name>
 │       ├── assets
 │       ├── components
 │       ├── containers
@@ -65,15 +61,10 @@ The first version code was `100000`.
 │       └── reducers
 ```
 
-A component always follows the following structure (Uppercase files always contain a single class):
+Tests should always be positioned in a `__tests__` directory on the same level as the file which is tested.
 
 ```
 ├── __tests__
-│   └── Caption.js
-├── Caption.css (Web only)
+│   └── Caption.spec.js
 └── Caption.js
 ```
-
-### Assets
-
-Assets like icons for the native platform (e.g. Android or iOS) are managed by yo and generator-rn-toolbox. See [here](https://github.com/bamlab/generator-rn-toolbox/blob/master/generators/assets/README.md) for more information.
