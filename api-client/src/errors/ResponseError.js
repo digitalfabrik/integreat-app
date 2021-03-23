@@ -2,7 +2,7 @@
 
 import { stringifyFormData } from '../stringifyFormData'
 
-export type RequestOptionsType = {| method: 'GET' |} | { method: 'POST', body: FormData | string, ... }
+export type RequestOptionsType = { method: 'GET', ... } | { method: 'POST', body: FormData | string, ... }
 
 type ResponseErrorParamsType = {|
   endpointName: string,
