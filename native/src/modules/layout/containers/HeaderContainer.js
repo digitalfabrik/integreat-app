@@ -49,6 +49,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeName = ownProps.scene.route.name
   const simpleRouteShareUrl =
     typeof cityCode === 'string' && simpleRoutes.includes(routeName)
+      // $FlowFixMe Flow does not understand life and just hates the whole world :/
       ? urlFromRouteInformation({ cityCode, languageCode: state.contentLanguage, route: routeName })
       : null
 
@@ -98,8 +99,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const routeInformation: RouteInformationType =
     routeType === NEWS_ROUTE
-      ? { route: routeType, languageCode: language, cityCode: city, newsType: route.type, newsId: route.newsId }
-      : { route: routeType, languageCode: language, cityCode: city, cityContentPath: route.path }
+      // $FlowFixMe Flow does not get anything and hates the whole world :/ I am already checking the routeType!
+      ? { route: NEWS_ROUTE, languageCode: language, cityCode: city, newsType: route.type, newsId: route.newsId }
+      // $FlowFixMe Flow does not understand life and just hates the whole world :/
+      : { route: routeType, languageCode: language, cityCode: city, cityContentPath: route.path || undefined }
 
   const shareUrl = urlFromRouteInformation(routeInformation)
 
