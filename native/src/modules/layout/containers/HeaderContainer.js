@@ -14,7 +14,8 @@ import {
   CHANGE_LANGUAGE_MODAL_ROUTE,
   OFFERS_ROUTE,
   DISCLAIMER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE, NEWS_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  NEWS_ROUTE
 } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { urlFromRouteInformation } from '../../navigation/url'
@@ -95,11 +96,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const peeking = isPeekingRoute(state, { routeCity: route.city })
   const { routeType, language, city } = route
 
-  const routeInformation: RouteInformationType = routeType === NEWS_ROUTE
-    ? { route: routeType, languageCode: language, cityCode: city, newsType: route.type, newsId: route.newsId }
-    : { route: routeType, languageCode: language, cityCode: city, cityContentPath: route.path }
+  const routeInformation: RouteInformationType =
+    routeType === NEWS_ROUTE
+      ? { route: routeType, languageCode: language, cityCode: city, newsType: route.type, newsId: route.newsId }
+      : { route: routeType, languageCode: language, cityCode: city, cityContentPath: route.path }
 
- const shareUrl = urlFromRouteInformation(routeInformation)
+  const shareUrl = urlFromRouteInformation(routeInformation)
 
   return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
