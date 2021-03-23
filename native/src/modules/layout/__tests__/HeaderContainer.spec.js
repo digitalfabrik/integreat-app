@@ -14,7 +14,7 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
-  POIS_ROUTE
+  POIS_ROUTE, SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 
 const mockStore = configureMockStore()
@@ -257,6 +257,21 @@ describe('HeaderContainer', () => {
       path: null
     })
     assertProps(result, { shareUrl: expectedShareUrl })
+  })
+
+  it('shareUrl should be set correctly for sprungbrett offer route', () => {
+    jest.doMock('../components/Header', () => Header)
+
+    const ownProps = {
+      scene: {
+        route: {
+          name: SPRUNGBRETT_OFFER_ROUTE
+        }
+      }
+    }
+
+    const result = render(ownProps)
+    assertProps(result, { shareUrl: `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}` })
   })
 
   it('shareUrl should be set correctly for disclaimer route', () => {

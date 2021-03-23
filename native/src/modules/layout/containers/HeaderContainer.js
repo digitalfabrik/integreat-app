@@ -14,10 +14,11 @@ import {
   CHANGE_LANGUAGE_MODAL_ROUTE,
   OFFERS_ROUTE,
   DISCLAIMER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE, NEWS_ROUTE
 } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { cityContentUrl, url } from '../../navigation/url'
+import { urlFromRouteInformation } from '../../navigation/url'
+import type { RouteInformationType } from 'api-client'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -47,12 +48,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const routeName = ownProps.scene.route.name
   const simpleRouteShareUrl =
     typeof cityCode === 'string' && simpleRoutes.includes(routeName)
-      ? cityContentUrl({
-          cityCode,
-          languageCode: state.contentLanguage,
-          route: routeName,
-          path: null
-        })
+      ? urlFromRouteInformation({ cityCode, languageCode: state.contentLanguage, route: routeName })
       : null
 
   const languages = state.cityContent?.languages
@@ -97,17 +93,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const language = route.language
-  const path = route.path || undefined
-  const newsPath = [route.type || null, route.newsId || null].filter(Boolean).join('/')
-  const shareUrl = path
-    ? url(path)
-    : cityContentUrl({
-        cityCode: route.city,
-        languageCode: route.language,
-        route: routeName,
-        path: newsPath
-      })
+  const { routeType, language, city } = route
+
+  const routeInformation: RouteInformationType = routeType === NEWS_ROUTE
+    ? { route: routeType, languageCode: language, cityCode: city, newsType: route.type, newsId: route.newsId }
+    : { route: routeType, languageCode: language, cityCode: city, cityContentPath: route.path }
+
+ const shareUrl = urlFromRouteInformation(routeInformation)
 
   return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
 }
