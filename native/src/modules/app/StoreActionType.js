@@ -96,11 +96,6 @@ export type PushCategoryActionType = {|
   |}
 |}
 
-export type ClearCategoryActionType = {|
-  type: 'CLEAR_CATEGORY',
-  +params: {| +key: string |}
-|}
-
 export type CategoriesActionType =
   | ClearCategoryActionType
   | FetchCategoryActionType
