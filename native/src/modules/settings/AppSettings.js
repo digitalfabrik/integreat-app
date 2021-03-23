@@ -26,8 +26,8 @@ export const defaultSettings: SettingsType = {
   allowPushNotifications: null,
   proposeNearbyCities: null,
   apiUrlOverride: null,
-  jpalTrackingEnabled: null,
-  jpalTrackingCode: null
+  jpalTrackingEnabled: false,
+  jpalTrackingCode: 'abc'
 }
 
 class AppSettings {
@@ -81,6 +81,22 @@ class AppSettings {
 
   clearSelectedCity = async () => {
     await this.setSettings({ selectedCity: null })
+  }
+
+  setJpalTrackingCode = async (jpalTrackingCode: string) => {
+    await this.setSettings({ jpalTrackingCode })
+  }
+
+  clearJpalTrackingCode = async () => {
+    await this.setSettings({ jpalTrackingCode: null })
+  }
+
+  setJpalTrackingEnabled = async (jpalTrackingEnabled: boolean) => {
+    await this.setSettings({ jpalTrackingEnabled })
+  }
+
+  clearJpalTrackingCode = async () => {
+    await this.setSettings({ jpalTrackingEnabled: false })
   }
 
   loadSelectedCity = async (): Promise<?string> => {
