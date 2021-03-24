@@ -9,7 +9,7 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import textTruncator from '../../../modules/common/utils/textTruncator'
 
-export const NUM_OF_WORDS_ALLOWED = 8
+export const NUM_OF_WORDS_ALLOWED = 15
 
 type PropsType = {|
   event: EventModel,
