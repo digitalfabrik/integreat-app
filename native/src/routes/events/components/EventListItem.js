@@ -11,14 +11,14 @@ import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
-import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import type { StyledComponent } from 'styled-components'
 
 type PropsType = {|
   cityCode: string,
   event: EventModel,
   language: string,
-  navigateTo: NullableRouteInformationType => void,
+  navigateTo: RouteInformationType => void,
   theme: ThemeType
 |}
 
