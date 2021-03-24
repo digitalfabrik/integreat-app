@@ -43,20 +43,21 @@ export type PropsType = {|
   navigation: NavigationPropType<JpalTrackingRouteType>
 |}
 
-// ToDo write test
-// ToDo fix flow
-
 const JpalTracking = (props: PropsType, state: StateType) => {
   const [appSettings] = useState(new AppSettings())
   const [settings, setSettings] = useState(defaultSettings)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
   const [settingsUpdated, setSettingsUpdated] = useState(false)
   const [displayedTrackingCode, setDisplayedTrackingCode] = useState('')
+  const routeTrackingCode = props.route.params.trackingCode
 
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const loadedSettings = await appSettings.loadSettings()
+        if(routeTrackingCode) {
+          appSettings.setJpalTrackingCode(routeTrackingCode)
+        }
         setSettingsLoaded(true)
         setSettingsUpdated(false)
         setSettings(loadedSettings)
@@ -66,7 +67,7 @@ const JpalTracking = (props: PropsType, state: StateType) => {
       }
     }
     loadSettings()
-  }, [appSettings, settingsUpdated])
+  }, [appSettings, settingsUpdated, routeTrackingCode])
 
   const onPress = () => {
     appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).then(setSettingsUpdated(true))
@@ -97,6 +98,7 @@ const JpalTracking = (props: PropsType, state: StateType) => {
           trackColor={{ true: props.theme.colors.themeColor }}
           value={jpalTrackingEnabled}
           onValueChange={onPress}
+          testID='switch'
         />
       </DescriptionContainer>
 
@@ -105,7 +107,8 @@ const JpalTracking = (props: PropsType, state: StateType) => {
         value={displayedTrackingCode}
         onChangeText={setTrackingCode}
         theme={theme}
-        editable={jpalTrackingEnabled}></Input>
+        editable={jpalTrackingEnabled}
+        testID='input'></Input>
     </View>
   )
 }
