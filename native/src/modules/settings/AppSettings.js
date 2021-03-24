@@ -26,8 +26,8 @@ export const defaultSettings: SettingsType = {
   allowPushNotifications: null,
   proposeNearbyCities: null,
   apiUrlOverride: null,
-  jpalTrackingEnabled: false,
-  jpalTrackingCode: 'abc'
+  jpalTrackingEnabled: null,
+  jpalTrackingCode: null
 }
 
 class AppSettings {
