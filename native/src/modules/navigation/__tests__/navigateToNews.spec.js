@@ -4,7 +4,7 @@ import createNavigationScreenPropMock from '../../../testing/createNavigationPro
 import navigateToNews from '../navigateToNews'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
-describe('createNavigateToNews', () => {
+describe('navigateToNews', () => {
   it('should generate key if not supplied with at least 6 chars and use it for navigation and redux actions', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
@@ -18,9 +18,11 @@ describe('createNavigateToNews', () => {
       type: LOCAL_NEWS_TYPE
     })
 
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
-    }))
+    expect(navigation.navigate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
+      })
+    )
     const key = (navigation.navigate: any).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_NEWS',

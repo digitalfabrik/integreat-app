@@ -1,6 +1,6 @@
 // @flow
 
-import type { PoiRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { Dispatch } from 'redux'
@@ -12,10 +12,7 @@ import { PoiModel } from 'api-client'
 import * as React from 'react'
 import Pois, { type PropsType as PoisPropsType } from '../components/Pois'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type { PoisRouteType } from 'api-client/src/routes'
@@ -60,7 +57,8 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
-  dispatch: Dispatch<StoreActionType>, newLanguage: string
+  dispatch: Dispatch<StoreActionType>,
+  newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
@@ -70,13 +68,17 @@ const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, navigation, route: { key } } = ownProps
+  const {
+    t,
+    navigation,
+    route: { key }
+  } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, poisRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?PoiRouteStateType = poisRouteMapping[key]
-  if (!route) {
+  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
+  if (!route || route.routeType !== POIS_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 
@@ -115,8 +117,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const resourceCacheUrl = state.resourceCacheUrl
-  if (resourceCacheUrl === null || switchingLanguage ||
-    route.status === 'loading' || languages.status === 'loading') {
+  if (resourceCacheUrl === null || switchingLanguage || route.status === 'loading' || languages.status === 'loading') {
     return { status: 'loading', progress: 0 }
   }
 
@@ -155,29 +156,37 @@ class PoisContainer extends React.Component<ContainerPropsType> {
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
-  render () {
+  render() {
     const { dispatch, navigation, route, t, ...rest } = this.props
-    return <ThemedTranslatedPois {...rest}
-                                 navigateTo={createNavigate(dispatch, navigation)}
-                                 navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-                                 navigateToLink={this.navigateToLinkProp}
-    />
+    return (
+      <ThemedTranslatedPois
+        {...rest}
+        navigateTo={createNavigate(dispatch, navigation)}
+        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+        navigateToLink={this.navigateToLinkProp}
+      />
+    )
   }
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo({
-    route: POIS_ROUTE,
-    cityCode,
-    languageCode: language,
-    cityContentPath: path || undefined
-  }, route.key, true)
+  navigateTo(
+    {
+      route: POIS_ROUTE,
+      cityCode,
+      languageCode: language,
+      cityContentPath: path || undefined
+    },
+    route.key,
+    true
+  )
 }
 
 export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(
-      PoisContainer
-    )))
+  connect<PropsType, OwnPropsType, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(PoisContainer))
+)

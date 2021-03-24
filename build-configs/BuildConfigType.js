@@ -23,6 +23,7 @@ export type FeatureFlagsType = {|
   pois: boolean, // Enables POIs and maps, can be disabled via our api on a per city basis.
   newsStream: boolean, // Enables local news and tünews, can be disabled via our api on a per city basis.
   pushNotifications: boolean, // Enables firebase push notifications, can be disabled by users.
+  jpalTracking: boolean, // Enables tracking campaign for the jpal evaluation.
   sentry: boolean, // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
 |}
@@ -34,7 +35,7 @@ export type CommonBuildConfigType = {|
   cmsUrl: string,
   // Secondary api url to use, selectable by clicking ten times on the location marker (works only on native).
   switchCmsUrl?: string,
-  shareBaseUrl: string, // Base url of the web app, used for correct share urls.
+  hostName: string, // Host name of the web app, used for sharing, deep linking and social media previews.
   allowedHostNames: Array<string>, // Hostnames from which resources are automatically downloaded for offline usage.
   internalLinksHijackPattern: string, // Regex defining which urls to intercept as they are internal ones.
   featureFlags: FeatureFlagsType,

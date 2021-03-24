@@ -29,14 +29,14 @@ const offers = [
 class OfferModelBuilder {
   _offersCount: number
 
-  constructor (offersCount: number) {
+  constructor(offersCount: number) {
     if (this._offersCount > offers.length) {
       throw new Error(`Only ${offers.length} offers models can be created`)
     }
     this._offersCount = offersCount
   }
 
-  build (): Array<OfferModel> {
+  build(): Array<OfferModel> {
     return offers.slice(0, this._offersCount)
   }
 }

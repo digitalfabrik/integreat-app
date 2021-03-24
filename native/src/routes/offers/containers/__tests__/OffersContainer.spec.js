@@ -1,16 +1,22 @@
 // @flow
 
 import React from 'react'
+import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import { OFFERS_ROUTE } from 'api-client/src/routes'
 import OffersContainer from '../OffersContainer'
 import { render } from '@testing-library/react-native'
 import ErrorCodes from '../../../../modules/error/ErrorCodes'
-import loadFromEndpoint from '../../../../modules/endpoint/loadFromEndpoint'
+import { useLoadFromEndpoint } from '../../../../modules/endpoint/hooks/useLoadFromEndpoint'
+import configureMockStore from 'redux-mock-store'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CityModel } from 'api-client'
 
 jest.mock('react-i18next')
 jest.mock('../../../../modules/common/openExternalUrl')
-jest.mock('../../../../modules/endpoint/loadFromEndpoint', () => jest.fn())
+jest.mock('../../../../modules/endpoint/hooks/useLoadFromEndpoint', () => ({
+  useLoadFromEndpoint: jest.fn()
+}))
 
 jest.mock('../../components/Offers', () => {
   const Text = require('react-native').Text
@@ -24,7 +30,7 @@ jest.mock('../../../../modules/error/containers/FailureContainer', () => {
 
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
   const Text = require('react-native').Text
-  return ({ refreshing }: {| refreshing: boolean |}) => refreshing ? <Text>loading</Text> : null
+  return ({ refreshing }: {| refreshing: boolean |}) => (refreshing ? <Text>loading</Text> : null)
 })
 
 describe('OffersContainer', () => {
@@ -33,9 +39,19 @@ describe('OffersContainer', () => {
   const languageCode = 'de'
   const route = { key: 'route-id-0', params: { cityCode, languageCode }, name: OFFERS_ROUTE }
   const errorText = `Failure ${ErrorCodes.UnknownError}`
-  const mockLoadFromEndpointOnce = mock => {
+  const cities = new CityModelBuilder(1).build()
+  const refresh = () => {}
+
+  const state = {
+    cities: { models: cities }
+  }
+
+  const mockStore = configureMockStore()
+  const store = mockStore(state)
+
+  const mockUseLoadFromEndpointOnce = mock => {
     // $FlowFixMe mockImplementationOnce is defined
-    loadFromEndpoint.mockImplementationOnce(mock)
+    useLoadFromEndpoint.mockImplementationOnce(mock)
   }
 
   beforeEach(() => {
@@ -43,9 +59,16 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockLoadFromEndpointOnce((request, setData, _, setLoading) => { setData([]) })
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: false,
+      error: null,
+      refresh
+    }))
     const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText('Offers')).toBeTruthy()
     expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
@@ -53,12 +76,16 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers with a Loading spinner', () => {
-    mockLoadFromEndpointOnce((request, setData, _, setLoading) => {
-      setData([])
-      setLoading(true)
-    })
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: true,
+      error: null,
+      refresh
+    }))
     const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText('Offers')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
@@ -66,9 +93,16 @@ describe('OffersContainer', () => {
   })
 
   it('should display error without a loading spinner', () => {
-    mockLoadFromEndpointOnce((request, _, setError) => { setError(new Error('myError')) })
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: false,
+      error: new Error('myError'),
+      refresh
+    }))
     const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText(errorText)).toBeTruthy()
     expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
@@ -76,15 +110,58 @@ describe('OffersContainer', () => {
   })
 
   it('should display error with spinner', () => {
-    mockLoadFromEndpointOnce((request, _, setError, setLoading) => {
-      setError(new Error('myError'))
-      setLoading(true)
-    })
+    mockUseLoadFromEndpointOnce(() => ({
+      data: [],
+      loading: true,
+      error: new Error('myError'),
+      refresh
+    }))
     const { getByText } = render(
-      <OffersContainer navigation={navigation} route={route} />
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
     )
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
     expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
+  })
+
+  it('should display a page not found error if offers disabled for city', () => {
+    const disabledOffersCity = new CityModel({
+      name: 'Stadt Augsburg',
+      code: 'augsburg',
+      live: true,
+      eventsEnabled: true,
+      offersEnabled: false,
+      poisEnabled: true,
+      pushNotificationsEnabled: true,
+      tunewsEnabled: true,
+      sortingName: 'Augsburg',
+      prefix: 'Stadt',
+      latitude: 48.369696,
+      longitude: 10.892578,
+      aliases: {
+        Konigsbrunn: {
+          latitude: 48.267499,
+          longitude: 10.889586
+        }
+      }
+    })
+    const store = mockStore({ cities: { models: [disabledOffersCity] } })
+    mockUseLoadFromEndpointOnce(() => ({
+      data: null,
+      loading: false,
+      error: null,
+      refresh
+    }))
+    const { getByText } = render(
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
+    )
+    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
+    expect(getByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy()
   })
 })

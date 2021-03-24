@@ -34,9 +34,10 @@ const Element: StyledComponent<{||}, ThemeType, *> = styled(Link)`
 
 const ActiveElement: StyledComponent<{| selected: boolean |}, ThemeType, *> = styled(Element)`
   color: ${props => props.theme.colors.textColor};
-  ${props => props.selected
-  ? 'font-weight: 700;'
-  : `:hover {
+  ${props =>
+    props.selected
+      ? 'font-weight: 700;'
+      : `:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
@@ -55,14 +56,16 @@ const Wrapper: StyledComponent<{| vertical: boolean |}, ThemeType, *> = styled.d
   color: ${props => props.theme.colors.textColor};
   text-align: center;
 
-  ${props => props.vertical && css`
-    flex-flow: column;
-    align-items: center;
+  ${props =>
+    props.vertical &&
+    css`
+      flex-flow: column;
+      align-items: center;
 
-    & ${Element} {
-      flex: 1;
-    }
-  `}
+      & ${Element} {
+        flex: 1;
+      }
+    `}
 `
 
 type PropsType = {|
@@ -82,19 +85,18 @@ const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabl
       {items.map(item => {
         if (item.href) {
           return (
-            <ActiveElement key={item.code}
-                           onClick={closeDropDown}
-                           to={item.href}
-                           selected={item.code === activeItemCode}>
+            <ActiveElement
+              key={item.code}
+              onClick={closeDropDown}
+              to={item.href}
+              selected={item.code === activeItemCode}>
               {item.name}
             </ActiveElement>
           )
         } else {
           return (
             <Tooltip key={item.code} text={disabledItemTooltip} flow='up'>
-              <DisabledElement>
-                {item.name}
-              </DisabledElement>
+              <DisabledElement>{item.name}</DisabledElement>
             </Tooltip>
           )
         }

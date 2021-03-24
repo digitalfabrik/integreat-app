@@ -8,10 +8,15 @@ export type FinishFetchActionType<T: PayloadDataType, P> = { type: string, paylo
 
 export const finishFetchActionName = (stateName: string): string => `FINISH_FETCH_${stateName.toUpperCase()}`
 
-const finishFetchAction = <T: PayloadDataType, P> (
+const finishFetchAction = <T: PayloadDataType, P>(
   stateName: string,
   payload: Payload<T>,
   meta: P
-): FinishFetchActionType<T, P> => createAction(finishFetchActionName(stateName), () => payload, () => meta)()
+): FinishFetchActionType<T, P> =>
+  createAction(
+    finishFetchActionName(stateName),
+    () => payload,
+    () => meta
+  )()
 
 export default finishFetchAction

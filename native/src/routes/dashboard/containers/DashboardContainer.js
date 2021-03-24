@@ -3,20 +3,17 @@
 import type { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import Dashboard, { type PropsType as DashboardPropsType } from '../components/Dashboard'
-import type { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import type { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import { type TFunction, withTranslation } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import { CityModel } from 'api-client'
+import { CATEGORIES_ROUTE, CityModel } from 'api-client'
 import React, { useCallback } from 'react'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import type { DashboardRouteType } from 'api-client/src/routes'
@@ -58,33 +55,40 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
-  navigateTo({
-    route: DASHBOARD_ROUTE,
-    cityCode,
-    languageCode: language,
-    cityContentPath: path
-  },
-  route.key,
-  true
+  navigateTo(
+    {
+      route: DASHBOARD_ROUTE,
+      cityCode,
+      languageCode: language,
+      cityContentPath: path
+    },
+    route.key,
+    true
   )
 }
 
-const createChangeUnavailableLanguage = (city: string, t: TFunction) =>
-  (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
-    dispatch({
-      type: 'SWITCH_CONTENT_LANGUAGE',
-      params: { newLanguage, city, t }
-    })
-  }
+const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
+  dispatch: Dispatch<StoreActionType>,
+  newLanguage: string
+) => {
+  dispatch({
+    type: 'SWITCH_CONTENT_LANGUAGE',
+    params: { newLanguage, city, t }
+  })
+}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { t, route: { key } } = ownProps
+  const {
+    t,
+    route: { key }
+  } = ownProps
   if (!state.cityContent) {
     return { status: 'routeNotInitialized' }
   }
-  const { resourceCache, categoriesRouteMapping, switchingLanguage, languages } = state.cityContent
-  const route: ?CategoryRouteStateType = categoriesRouteMapping[key]
-  if (!route) {
+  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
+
+  if (!route || route.routeType !== CATEGORIES_ROUTE) {
     return { status: 'routeNotInitialized' }
   }
 
@@ -133,8 +137,12 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const resourceCacheUrl = state.resourceCacheUrl
   const { models, children, allAvailableLanguages } = route
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || languages.status === 'loading' ||
-    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))) {
+  if (
+    resourceCacheUrl === null ||
+    state.cities.status === 'loading' ||
+    languages.status === 'loading' ||
+    (route.status === 'loading' && (!models || !allAvailableLanguages || !children))
+  ) {
     return {
       status: 'loading',
       progress: resourceCache.progress
@@ -183,20 +191,27 @@ const ThemedTranslatedDashboard = withTranslation<$Diff<DashboardPropsType, {| t
 const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, navigation, route, t, ...rest } = props
 
-  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }, [dispatch, navigation])
+  const navigateToLinkProp = useCallback(
+    (url: string, language: string, shareUrl: string) => {
+      const navigateTo = createNavigate(dispatch, navigation)
+      navigateToLink(url, navigation, language, navigateTo, shareUrl)
+    },
+    [dispatch, navigation]
+  )
 
-  return <ThemedTranslatedDashboard
-    {...rest}
-    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    navigateToLink={navigateToLinkProp}
-    navigateTo={createNavigate(dispatch, navigation)} />
+  return (
+    <ThemedTranslatedDashboard
+      {...rest}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateToLink={navigateToLinkProp}
+      navigateTo={createNavigate(dispatch, navigation)}
+    />
+  )
 }
 
 export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(
-      DashboardContainer
-    )))
+  connect<PropsType, OwnPropsType, _, _, _, _>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(DashboardContainer))
+)

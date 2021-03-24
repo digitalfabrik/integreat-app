@@ -27,6 +27,7 @@ type PropsType = {|
   content: string,
   lastUpdate?: Moment,
   showLastUpdateText?: boolean,
+  lastUpdateFormat?: string,
   formatter: DateFormatter,
   onInternalLinkClick: string => void,
   children?: React.Node
@@ -42,6 +43,7 @@ const Page = ({
   content,
   lastUpdate,
   showLastUpdateText = true,
+  lastUpdateFormat,
   formatter,
   children,
   onInternalLinkClick
@@ -51,9 +53,15 @@ const Page = ({
       {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
       <Caption title={title} />
       {children}
-      <RemoteContent dangerouslySetInnerHTML={{ __html: content }}
-                     onInternalLinkClick={onInternalLinkClick} />
-      {lastUpdate && <LastUpdateInfo lastUpdate={lastUpdate} formatter={formatter} withText={showLastUpdateText} />}
+      <RemoteContent dangerouslySetInnerHTML={{ __html: content }} onInternalLinkClick={onInternalLinkClick} />
+      {lastUpdate && (
+        <LastUpdateInfo
+          lastUpdate={lastUpdate}
+          format={lastUpdateFormat}
+          formatter={formatter}
+          withText={showLastUpdateText}
+        />
+      )}
     </>
   )
 }

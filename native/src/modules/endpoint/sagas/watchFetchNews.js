@@ -15,19 +15,17 @@ import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
 import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
+import loadLanguages from './loadLanguages'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
 
-export function * fetchNews (
-  dataContainer: DataContainer,
-  action: FetchNewsActionType
-): Saga<void> {
-  const { city, language, newsId, key, type } = action.params
+export function* fetchNews(dataContainer: DataContainer, action: FetchNewsActionType): Saga<void> {
+  const { city, language, newsId, key, type, criterion } = action.params
   try {
     const isLocalNews = type === LOCAL_NEWS_TYPE
 
-    const languages = yield call(dataContainer.getLanguages, city)
+    const languages = yield call(loadLanguages, city, dataContainer, criterion.forceUpdate)
     const availableNewsLanguages = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
 
     const validLanguage = availableNewsLanguages.find(languageModel => languageModel.code === language)
@@ -36,9 +34,9 @@ export function * fetchNews (
       const news = isLocalNews
         ? yield call(loadLocalNews, city, language)
         : newsId
-          // A better solution to prevent re-fetching news again from page 1
-          ? yield call(loadTunewsElement, city, language, parseInt(newsId, 0))
-          : yield call(loadTunews, city, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
+        ? // A better solution to prevent re-fetching news again from page 1
+          yield call(loadTunewsElement, city, language, parseInt(newsId, 0))
+        : yield call(loadTunews, city, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
 
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
@@ -94,19 +92,8 @@ export function * fetchNews (
   }
 }
 
-export function * fetchMoreNews (
-  dataContainer: DataContainer,
-  action: FetchMoreNewsActionType
-): Saga<void> {
-  const {
-    city,
-    language,
-    newsId,
-    key,
-    type,
-    page,
-    previouslyFetchedNews
-  } = action.params
+export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNewsActionType): Saga<void> {
+  const { city, language, newsId, key, type, page, previouslyFetchedNews } = action.params
 
   if (type === LOCAL_NEWS_TYPE) {
     throw new Error('Cannot fetch more local news!')
@@ -152,7 +139,7 @@ export function * fetchMoreNews (
   }
 }
 
-export default function * (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
 }

@@ -1,1 +1,164 @@
-{}
+{
+  "app": {
+    "de": {
+      "metaDescription": "Die {{appName}} ist Ihr digitaler Begleiter für die Stadt Aschaffenburg. Hier finden Sie lokale Informationen, Anlaufstellen und Services."
+    },
+    "ar": {
+      "metaDescription": "التطبيق {{appName}} هو المُرافق الرقمي في مدينة أشافنبورج. تجدون فيه المعلومات وجهات الاتصال والخدمات المحلية."
+    },
+    "en": {
+      "metaDescription": "{{appName}} is your digital companion for the town of Aschaffenburg. Here you can find local information, advice centres and services."
+    },
+    "es": {
+      "metaDescription": "{{appName}} es su acompañante digital para la ciudad de Aschaffenburg. Aquí encontrará información local, puntos de encuentro y servicios."
+    },
+    "fr": {
+      "metaDescription": "{{appName}} est votre compagnon numérique dans la ville de Aschaffenburg. Vous trouverez ici des information locales, les points de contact et les services."
+    },
+    "it": {
+      "metaDescription": "{{appName}} è il tuo compagno digitale per la città di Aschaffenburg. Qui troverai informazioni locali, contatti e servizi."
+    },
+    "pl": {
+      "metaDescription": "{{appName}} to Twój towarzysz w mieście Aschaffenburg. Tu znajdziesz lokalne informacje, punkty kontaktowe i serwisy."
+    },
+    "ro": {
+      "metaDescription": "{{appName}} este însoțitorul dvs. digital pentru orașul Aschaffenburg. Aici veți găsi informații locale, puncte de contact și servicii."
+    },
+    "ru": {
+      "metaDescription": "{{appName}} — это ваш цифровой гид по городу Aschaffenburg. Здесь вы найдете местную информацию, координационные пункты и службы."
+    },
+    "tr": {
+      "metaDescription": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
+    },
+    "zh-CN": {
+      "metaDescription": "{{appName}}是您在 Aschaffenburg 的数字伙伴。您能够以此查找本地信息、联系点和各项服务。"
+    }
+  },
+  "feedback": {
+    "de": {
+      "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die {{appName}} zu verbessern. Wir würden uns über weiteres Feedback freuen."
+    },
+    "ar": {
+      "thanksMessage": "شكرًا جزيلاً على تعليقك. فمن خلاله تساعدنا على تطوير محتوياتنا وتحسين تطبيق {{appName}}. تُسعدنا تعليقاتك الأخرى."
+    },
+    "en": {
+      "thanksMessage": "Thank you for your feedback. This helps us to improve our content and {{appName}}. We would be delighted to get more feedback from you."
+    },
+    "es": {
+      "thanksMessage": "Muchas gracias por sus comentarios. Con ellos nos ayuda a mejorar nuestros contenidos y la app {{appName}}. Le invitamos a enviarnos más comentarios."
+    },
+    "fr": {
+      "thanksMessage": "Nous vous remercions pour votre feedback. Vous nous aidez ainsi à améliorer le contenu et {{appName}}. Faites-nous part de tous vos commentaires."
+    },
+    "it": {
+      "thanksMessage": "Grazie per il tuo feedback. Ci aiuterà a migliorare i nostri contenuti e {{appName}}. Saremo felici di ricevere ulteriori feedback."
+    },
+    "pl": {
+      "thanksMessage": "Bardzo dziękujemy za opinię. Dzięki temu pomagasz nam ulepszać nasze treści i {{appName}}. Będzie nam miło otrzymać kolejne komentarze."
+    },
+    "ro": {
+      "thanksMessage": "Vă mulțumim pentru feedback-ul dvs. Astfel ne ajutați să ne înbunătățim conținuturile și {{appName}}. Așteptăm cu nerăbdare feedback-uri în continuare."
+    },
+    "ru": {
+      "thanksMessage": "Большое спасибо за отзыв. Ваши отзывы помогают нам улучшать содержимое и функции приложения {{appName}}. Мы будем рады получению дополнительной обратной связи."
+    },
+    "tr": {
+      "thanksMessage": "Geri bildiriminiz için çok teşekkürler. Bu, {{appName}} ve içeriklerimizi iyileştirmemize yardımcı olacak. Başka geri bildirimlerinizi de bekliyoruz."
+    },
+    "zh-CN": {
+      "thanksMessage": "感谢您的反馈。这将帮助我们改进我们的网站内容和 {{appName}}。我们期待更多的反馈。"
+    }
+  },
+  "native": {
+    "de": {
+      "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt die {{appName}} Zugriff auf die Galerie.",
+      "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt die {{appName}} Zugriff auf den Standort."
+    },
+    "ar": {
+      "NSPhotoLibraryAddUsageDescription": "من أجل حفظ الصور، يحتاج التطبيق {{appName}} إلى الدخول إلى معرض الصور.",
+      "NSLocationWhenInUseUsageDescription": "من أجل العثور على الأماكن القريبة، يحتاج التطبيق {{appName}} إلى الوصول إلى المكان."
+    },
+    "en": {
+      "NSPhotoLibraryAddUsageDescription": "To save photos, {{appName}} needs to be able to access your gallery.",
+      "NSLocationWhenInUseUsageDescription": "To find places nearby, {{appName}} needs to be able to access your location."
+    },
+    "es": {
+      "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita acceso a la galería.",
+      "NSLocationWhenInUseUsageDescription": "Para poder encontrar lugar cercanos, {{appName}} necesita acceso a su ubicación."
+    },
+    "fr": {
+      "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des images, {{appName}} doit avoir accès à la galerie.",
+      "NSLocationWhenInUseUsageDescription": "Pour trouver des lieux à proximité, {{appName}} doit avoir accès à votre localisation."
+    },
+    "it": {
+      "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
+      "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
+    },
+    "pl": {
+      "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii.",
+      "NSLocationWhenInUseUsageDescription": "Aby znaleźć lokalizacje w pobliżu, {{appName}} wymaga dostępu do placówki."
+    },
+    "ro": {
+      "NSPhotoLibraryAddUsageDescription": "Pentru a salva fotografii, {{appName}} are nevoie de acces la galerie.",
+      "NSLocationWhenInUseUsageDescription": "Pentru a putea găsi locații aflate în apropiere, {{appName}} are nevoie de acces la locația dvs."
+    },
+    "ru": {
+      "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению {{appName}} требуется доступ к галерее изображений.",
+      "NSLocationWhenInUseUsageDescription": "Для поиска мест рядом с вами приложению {{appName}} необходим доступ к определению местоположения."
+    },
+    "tr": {
+      "NSPhotoLibraryAddUsageDescription": "Resimleri kaydetmek için {{appName}} uygulamasının galeriye erişmesi gerekiyor.",
+      "NSLocationWhenInUseUsageDescription": "Yakındaki yerleri bulmak için {{appName}} uygulamasının konum bilgisine erişmesi gerekiyor."
+    },
+    "zh-CN": {
+      "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
+      "NSLocationWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。"
+    }
+  },
+  "settings": {
+    "de": {
+      "sentryDescription": "Durch das automatische Senden von Absturzberichten die {{appName}} verbessern",
+      "about": "Über die {{appName}}"
+    },
+    "ar": {
+      "sentryDescription": "تحسين التطبيق {{appName}} من خلال الإرسال الآلي لتقارير الأعطال",
+      "about": "عبر التطبيق {{appName}}"
+    },
+    "en": {
+      "sentryDescription": "The automatic sending of system crash reports helps to improve {{appName}}",
+      "about": "Via {{appName}}"
+    },
+    "es": {
+      "sentryDescription": "Mejorar {{appName}} mediante el envío automático de informes de interrupciones del servicio",
+      "about": "Acerca de {{appName}}"
+    },
+    "fr": {
+      "sentryDescription": "Améliorer {{appName}} par l'envoi automatique de rapports d'erreur",
+      "about": "Via {{appName}}"
+    },
+    "it": {
+      "sentryDescription": "Migliora {{appName}} inviando automaticamente rapporti sugli arresti anomali",
+      "about": "Info su {{appName}}"
+    },
+    "pl": {
+      "sentryDescription": "Ulepszanie {{appName}} przez automatycznie wysyłanie raportów o awariach",
+      "about": "O {{appName}}"
+    },
+    "ro": {
+      "sentryDescription": "Prin trimiterea automată de rapoarte de închidere neașteptată {{appName}} se îmbunătățește",
+      "about": "Despre {{appName}}"
+    },
+    "ru": {
+      "sentryDescription": "Повышение стабильности работы приложения {{appName}} путем автоматической отправки сообщений о сбоях",
+      "about": "Информация о приложении {{appName}}"
+    },
+    "tr": {
+      "sentryDescription": "Çökme raporlarını otomatik olarak göndererek {{appName}} uygulamasını iyileştirin",
+      "about": "{{appName}} hakkında"
+    },
+    "zh-CN": {
+      "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}",
+      "about": "关于{{appName}}"
+    }
+  }
+}

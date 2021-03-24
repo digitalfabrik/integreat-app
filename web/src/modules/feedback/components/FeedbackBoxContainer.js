@@ -58,7 +58,7 @@ type StateType = {|
  * Renders a FeedbackBox with all possible feedback options the User can select
  */
 export class FeedbackBoxContainer extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     const feedbackOptions = this.getFeedbackOptions()
     this.state = { feedbackOptions, selectedFeedbackOption: feedbackOptions[0], comment: '', contactMail: '' }
@@ -140,13 +140,14 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { offers, location, t } = this.props
     const currentRoute = location.type
     if (offers && currentRoute === OFFERS_ROUTE) {
-      return offers.map(offer =>
-        new FeedbackVariant({
-          label: t('contentOfOffer', { offer: offer.title }),
-          feedbackType: OFFER_FEEDBACK_TYPE,
-          feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
-          alias: offer.alias
-        })
+      return offers.map(
+        offer =>
+          new FeedbackVariant({
+            label: t('contentOfOffer', { offer: offer.title }),
+            feedbackType: OFFER_FEEDBACK_TYPE,
+            feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+            alias: offer.alias
+          })
       )
     }
     return []
@@ -178,7 +179,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
         feedbackType: PAGE_FEEDBACK_TYPE,
         feedbackCategory
       })
-    } else if (([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type)) && alias && title) {
+    } else if ([WOHNEN_ROUTE, SPRUNGBRETT_ROUTE].includes(type) && alias && title) {
       return new FeedbackVariant({
         label: t('contentOfOffer', { offer: title }),
         feedbackType: OFFER_FEEDBACK_TYPE,
@@ -240,7 +241,8 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     const { selectedFeedbackOption, comment, contactMail } = this.state
     try {
       await this.postFeedbackData(
-        this.getFeedbackData(selectedFeedbackOption, `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`))
+        this.getFeedbackData(selectedFeedbackOption, `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`)
+      )
       onSubmit('SUCCESS')
     } catch (e) {
       console.error(e)
@@ -252,17 +254,21 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
     this.submitFeedback()
   }
 
-  render () {
+  render() {
     const { closeFeedbackModal, isPositiveRatingSelected, sendingStatus } = this.props
 
-    return <FeedbackBox onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
-                        onCommentChanged={this.handleCommentChanged}
-                        onContactMailChanged={this.handleContactMailChanged}
-                        onSubmit={this.handleSubmit}
-                        sendingStatus={sendingStatus}
-                        closeFeedbackModal={closeFeedbackModal}
-                        isPositiveRatingSelected={isPositiveRatingSelected}
-                        {...this.state} />
+    return (
+      <FeedbackBox
+        onFeedbackOptionChanged={this.handleFeedbackOptionChanged}
+        onCommentChanged={this.handleCommentChanged}
+        onContactMailChanged={this.handleContactMailChanged}
+        onSubmit={this.handleSubmit}
+        sendingStatus={sendingStatus}
+        closeFeedbackModal={closeFeedbackModal}
+        isPositiveRatingSelected={isPositiveRatingSelected}
+        {...this.state}
+      />
+    )
   }
 }
 

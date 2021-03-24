@@ -4,9 +4,7 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../theme/constants'
 import type { StyledComponent } from 'styled-components'
-import type {
-  ViewStyleProp
-} from 'react-native/Libraries/StyleSheet/StyleSheet'
+import type { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet'
 
 type PropsType = {| style?: ViewStyleProp |}
 

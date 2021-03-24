@@ -20,13 +20,14 @@ type PropsType = {|
 |}
 
 class SlideFooter extends React.Component<PropsType> {
-  render () {
+  render() {
     const { customizableSettings, ...footerProps } = this.props
     const { currentSlide, slideCount, goToSlide, theme, t } = footerProps
 
     if (currentSlide < slideCount - 1) {
-      return <StandardFooter slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme}
-                             t={t} />
+      return (
+        <StandardFooter slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} theme={theme} t={t} />
+      )
     } else if (customizableSettings) {
       return <CustomizableSettingsFooter {...footerProps} />
     } else {

@@ -1,6 +1,6 @@
 // @flow
 
-import { LocalNewsModel, LanguageModel } from 'api-client'
+import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
@@ -22,16 +22,17 @@ describe('pushNews', () => {
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
-      categoriesRouteMapping: {},
-      eventsRouteMapping: {},
-      poisRouteMapping: {},
-      newsRouteMapping: {
+      routeMapping: {
         'route-id-0': {
+          routeType: NEWS_ROUTE,
           status: 'ready',
           city: 'augsburg',
           language: 'de',
           models: [news1],
-          allAvailableLanguages: new Map([['de', null], ['en', null]]),
+          allAvailableLanguages: new Map([
+            ['de', null],
+            ['en', null]
+          ]),
           newsId: null,
           page: 1,
           hasMoreNews: false,
@@ -47,10 +48,7 @@ describe('pushNews', () => {
   }
 
   it('should add general news route to newsRouteMapping', () => {
-    const prevState: CityContentStateType = prepareState({
-      newsRouteMapping: {},
-      eventsRouteMapping: {}
-    })
+    const prevState: CityContentStateType = prepareState({})
 
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
@@ -67,27 +65,31 @@ describe('pushNews', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      newsRouteMapping: {
-        'route-id-0': {
-          status: 'ready',
-          newsId: null,
-          allAvailableLanguages: new Map([['en', null], ['de', null]]),
-          city: 'augsburg',
-          language: 'de',
-          hasMoreNews: false,
-          type: LOCAL_NEWS_TYPE,
-          page: 1,
-          models: [news1]
+    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: NEWS_ROUTE,
+            status: 'ready',
+            newsId: null,
+            allAvailableLanguages: new Map([
+              ['en', null],
+              ['de', null]
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            hasMoreNews: false,
+            type: LOCAL_NEWS_TYPE,
+            page: 1,
+            models: [news1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 
   it('should add specific news item to routeMapping', () => {
-    const prevState = prepareState({
-      eventsRouteMapping: {}
-    })
+    const prevState = prepareState({})
 
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
@@ -104,20 +106,26 @@ describe('pushNews', () => {
       }
     }
 
-    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(expect.objectContaining({
-      newsRouteMapping: {
-        'route-id-0': {
-          status: 'ready',
-          newsId: '12',
-          allAvailableLanguages: new Map([['en', null], ['de', null]]),
-          city: 'augsburg',
-          language: 'de',
-          hasMoreNews: true,
-          page: 1,
-          type: LOCAL_NEWS_TYPE,
-          models: [news1]
+    expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: NEWS_ROUTE,
+            status: 'ready',
+            newsId: '12',
+            allAvailableLanguages: new Map([
+              ['en', null],
+              ['de', null]
+            ]),
+            city: 'augsburg',
+            language: 'de',
+            hasMoreNews: true,
+            page: 1,
+            type: LOCAL_NEWS_TYPE,
+            models: [news1]
+          }
         }
-      }
-    }))
+      })
+    )
   })
 })

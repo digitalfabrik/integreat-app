@@ -5,6 +5,7 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -14,10 +15,7 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from './'
-import type {
-  LocalNewsType,
-  TuNewsType
-} from './'
+import type { LocalNewsType, TuNewsType } from './'
 import type { RouteInformationType } from './RouteInformationTypes'
 
 const ENTITY_ID_INDEX = 3
@@ -29,7 +27,7 @@ class InternalPathnameParser {
   _fallbackLanguageCode: string
   _fixedCity: string | null
 
-  constructor (pathname: string, languageCode: string, fixedCity: string | null) {
+  constructor(pathname: string, languageCode: string, fixedCity: string | null) {
     this._pathname = pathname
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(pathname)
@@ -53,13 +51,22 @@ class InternalPathnameParser {
     return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
   }
 
+  jpalTracking = (): RouteInformationType => {
+    if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
+      const trackingCode = this._length === 2 ? this._parts[1] : null
+      return { route: JPAL_TRACKING_ROUTE, trackingCode }
+    }
+    return null
+  }
+
   landing = (): RouteInformationType => {
     // There is no landing route if there is a fixed city
     if (this._fixedCity) {
       return null
     }
 
-    if (this._length === 0 || this._parts[0] === LANDING_ROUTE) { // '/', '/landing' or '/landing/de'
+    if (this._length === 0 || this._parts[0] === LANDING_ROUTE) {
+      // '/', '/landing' or '/landing/de'
       return { route: LANDING_ROUTE, languageCode: this.languageCode() }
     }
 
@@ -74,7 +81,8 @@ class InternalPathnameParser {
         const cityContentPath = `/${fixedCity}/${this.languageCode()}`
         return { route: DASHBOARD_ROUTE, cityCode: fixedCity, languageCode: this.languageCode(), cityContentPath }
       }
-    } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) { // '/ansbach/de', '/ansbach'
+    } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
+      // '/ansbach/de', '/ansbach'
       const cityContentPath = `/${this._parts[0]}/${this.languageCode()}`
       return { route: DASHBOARD_ROUTE, cityCode: this._parts[0], languageCode: this.languageCode(), cityContentPath }
     }
@@ -171,8 +179,10 @@ class InternalPathnameParser {
     if (this._fixedCity && !this.isFixedCity()) {
       return null
     }
-    if (this._length > 2 &&
-      ![SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE].includes(this._parts[2])) {
+    if (
+      this._length > 2 &&
+      ![SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE].includes(this._parts[2])
+    ) {
       return {
         route: CATEGORIES_ROUTE,
         cityCode: this._parts[0],
@@ -184,7 +194,9 @@ class InternalPathnameParser {
   }
 
   route = (): RouteInformationType => {
-    return this.landing() ||
+    return (
+      this.landing() ||
+      this.jpalTracking() ||
       this.events() ||
       this.pois() ||
       this.offers() ||
@@ -193,6 +205,7 @@ class InternalPathnameParser {
       this.search() ||
       this.dashboard() ||
       this.categories()
+    )
   }
 }
 

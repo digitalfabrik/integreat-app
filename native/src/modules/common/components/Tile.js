@@ -19,11 +19,11 @@ const ThumbnailContainer = styled(Image)`
   height: 150px;
 `
 
-const TileTitle = styled.Text`
+const TileTitle: StyledComponent<{||}, ThemeType, *> = styled.Text`
   margin: 5px;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 const TileContainer: StyledComponent<{}, {}, *> = styled.View`
@@ -39,7 +39,7 @@ class Tile extends React.Component<PropsType> {
     this.props.onTilePress(this.props.tile)
   }
 
-  render () {
+  render() {
     const { tile, theme } = this.props
 
     return (

@@ -2,10 +2,14 @@
 
 import { values } from './utils/object'
 
-type FontType = 'lateef' | 'openSans' | 'raleway' | 'varelaRound'
+type FontType = 'lateef'
+  | 'openSans'
+  | 'raleway'
+  | 'varelaRound'
+  | 'noto-sans-sc' // https://www.google.com/get/noto/help/cjk/
 type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
-type SupportedLanguagesType = { [languageCode: string]: LanguageType}
-type FallbacksType = { [languageCode: string]: string[] }
+type SupportedLanguagesType = { [languageTag: string]: LanguageType }
+type FallbacksType = { [languageTag: string]: string[] }
 
 class Config {
   // The language from which we translate
@@ -46,7 +50,11 @@ class Config {
     am: { rtl: false },
     bg: { rtl: false },
     el: { rtl: false },
-    it: { rtl: false }
+    it: { rtl: false },
+    'zh-CN': {
+      rtl: false,
+      additionalFont: 'noto-sans-sc'
+    }
   }
 
   // Fallbacks for unnormalized language codes from our backend
@@ -65,12 +73,12 @@ class Config {
     this.checkConsistency()
   }
 
-  getSupportedLanguageCodes (): string[] {
+  getSupportedLanguageTags (): string[] {
     return Object.keys(this.supportedLanguages)
   }
 
-  getSupportedLanguage (languageCode: string): LanguageType | void {
-    const fallbacks = this.fallbacks[languageCode]
+  getSupportedLanguage (languageTag: string): LanguageType | void {
+    const fallbacks = this.fallbacks[languageTag]
 
     if (fallbacks) {
       const found = fallbacks.find(fallback => !!this.supportedLanguages[fallback])
@@ -80,15 +88,15 @@ class Config {
       }
     }
 
-    return this.supportedLanguages[languageCode]
+    return this.supportedLanguages[languageTag]
   }
 
-  isSupportedLanguage (languageCode: string): boolean {
-    return !!this.getSupportedLanguage(languageCode)
+  isSupportedLanguage (languageTag: string): boolean {
+    return !!this.getSupportedLanguage(languageTag)
   }
 
   /**
-   * Checks whether the languageCode has an RTL script. This decision is made by the project "Integreat".
+   * Checks whether the languageTag has an RTL script. This decision is made by the project "Integreat".
    * Writing direction is not an attribute of "language", but of "scripts". That means that there are languages which
    * can have RTL and LTR scripts.
    *
@@ -102,43 +110,47 @@ class Config {
    * it and cannot know it.
    *
    * @see http://www.i18nguy.com/temp/rtl.html
-   * @param languageCode for the check
+   * @param languageTag for the check
    * @returns {*} whether script is RTL
    */
-  hasRTLScript (languageCode: string): boolean {
-    const language = this.getSupportedLanguage(languageCode)
+  hasRTLScript (languageTag: string): boolean {
+    const language = this.getSupportedLanguage(languageTag)
 
     if (!language) {
-      throw new Error(`Unable to determine whether ${languageCode} uses a RTL script. 
+      throw new Error(`Unable to determine whether ${languageTag} uses a RTL script. 
                         Only supported languages have a defined direction.`)
     }
 
     return language.rtl
   }
 
-  getAdditionalFont (languageCode: string): ?FontType {
-    return this.getSupportedLanguage(languageCode)?.additionalFont
+  getAdditionalFont (languageTag: string): ?FontType {
+    return this.getSupportedLanguage(languageTag)?.additionalFont
   }
 
-  getFallbackLanguageCodes (): string[] {
-    const languageCodes = []
+  getFallbackLanguageTags (): string[] {
+    return Object.keys(this.fallbacks)
+  }
+  
+  getFallbackTargetLanguageTags (): string[] {
+    const languageTags = []
     const fallbacks: string[][] = values(this.fallbacks)
 
     fallbacks.forEach((languagesInFallbacks: string[]) => {
-      languagesInFallbacks.forEach((languageCode: string) => {
-        languageCodes.push(languageCode)
+      languagesInFallbacks.forEach((languageTag: string) => {
+        languageTags.push(languageTag)
       })
     })
 
-    return languageCodes
+    return languageTags
   }
 
   checkConsistency () {
-    const supportedLanguageCodes = this.getSupportedLanguageCodes()
+    const supportedLanguageTags = this.getSupportedLanguageTags()
 
-    this.getFallbackLanguageCodes().forEach((languageCode: string) => {
-      if (!supportedLanguageCodes.includes(languageCode)) {
-        throw Error(`The code ${languageCode} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
+    this.getFallbackTargetLanguageTags().forEach((languageTag: string) => {
+      if (!supportedLanguageTags.includes(languageTag)) {
+        throw Error(`The code ${languageTag} was mentioned in the fallbacks but is not included in 'targetLanguage'`)
       }
     })
   }

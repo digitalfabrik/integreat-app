@@ -17,14 +17,16 @@ jest.mock('redux-first-router', () => ({
   pathToAction: jest.fn(type => ({ type })),
   redirect: jest.fn(action => action)
 }))
-jest.mock('../../../../modules/app/constants/buildConfig', () => jest.fn(() => ({
-  featureFlags: { fixedCity: null }
-})))
+jest.mock('../../../../modules/app/constants/buildConfig', () =>
+  jest.fn(() => ({
+    featureFlags: { fixedCity: null }
+  }))
+)
 jest.mock('react-i18next', () => {
   return {
     useTranslation: jest.fn(() => ({
       t: key => key,
-      i18n: { language: 'ar' }
+      i18n: { language: 'de-DE', languages: ['de'] }
     }))
   }
 })
@@ -34,7 +36,7 @@ describe('I18nRedirectPage', () => {
     jest.clearAllMocks()
   })
 
-  const language = 'ar'
+  const language = 'de'
 
   const cities = new CityModelBuilder(2).build()
   const city = cities[0].code

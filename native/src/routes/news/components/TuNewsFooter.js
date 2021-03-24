@@ -21,7 +21,7 @@ const Container: StyledComponent<{| language: string |}, ThemeType, *> = styled.
 `
 
 const TunewsFooter: StyledComponent<{| underlined?: boolean, rightMargin: number |}, ThemeType, *> = styled.Text`
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 12px;
   color: white;
   margin-right: ${props => props.rightMargin || 0}px;
@@ -46,11 +46,7 @@ const TuNewsFooter = ({ theme, language, eNewsNo, date }: PropsType) => {
       <TunewsFooter theme={theme} rightMargin={3}>
         {eNewsNo}
       </TunewsFooter>
-      <TunewsFooter
-        rightMargin={3}
-        onPress={openTunewsLink}
-        theme={theme}
-        underlined>
+      <TunewsFooter rightMargin={3} onPress={openTunewsLink} theme={theme} underlined>
         tünews INTERNATIONAL
       </TunewsFooter>
       <TunewsFooter theme={theme} rightMargin={3}>

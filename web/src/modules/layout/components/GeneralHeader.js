@@ -17,18 +17,19 @@ const GeneralHeader = ({ viewportSmall, t }: PropsType) => {
   const getPath = new I18nRedirectRouteConfig().getRoutePath
 
   const actionItems = !buildConfig().featureFlags.fixedCity
-    ? [<HeaderActionItemLink key='landing'
-                               href={getPath({})}
-                               iconSrc={landingIcon}
-                               text={t('changeLocation')} />]
+    ? [<HeaderActionItemLink key='landing' href={getPath({})} iconSrc={landingIcon} text={t('changeLocation')} />]
     : []
 
   const onStickyTopChanged = () => {}
 
-  return <Header viewportSmall={viewportSmall}
-                 onStickyTopChanged={onStickyTopChanged}
-                 logoHref={getPath({})}
-                 actionItems={actionItems} />
+  return (
+    <Header
+      viewportSmall={viewportSmall}
+      onStickyTopChanged={onStickyTopChanged}
+      logoHref={getPath({})}
+      actionItems={actionItems}
+    />
+  )
 }
 
 export default withTranslation<PropsType>('layout')(GeneralHeader)

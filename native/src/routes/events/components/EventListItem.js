@@ -12,6 +12,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { StyledComponent } from 'styled-components'
 
 type PropsType = {|
   cityCode: string,
@@ -21,9 +22,9 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-const Description = styled.Text`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
 /**
@@ -35,13 +36,7 @@ const getEventPlaceholder = (id: number): number => {
   return placeholders[id % placeholders.length]
 }
 
-const EventListItem = ({
-  event,
-  cityCode,
-  language,
-  navigateTo,
-  theme
-}: PropsType) => {
+const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
 
   const navigateToEventInCity = useCallback(() => {
@@ -55,11 +50,12 @@ const EventListItem = ({
 
   const thumbnail = event.thumbnail || getEventPlaceholder(event.path.length)
   return (
-    <ListItem thumbnail={thumbnail}
-              title={event.title}
-              language={language}
-              navigateTo={navigateToEventInCity}
-              theme={theme}>
+    <ListItem
+      thumbnail={thumbnail}
+      title={event.title}
+      language={language}
+      navigateTo={navigateToEventInCity}
+      theme={theme}>
       <Description theme={theme}>{event.date.toFormattedString(formatter)}</Description>
       {event.location.location && <Description theme={theme}>{event.location.location}</Description>}
     </ListItem>

@@ -14,8 +14,22 @@ import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 import I18nProvider from '../../i18n/components/I18nProvider'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
+import { REDIRECT_ROUTE } from 'api-client'
+
+const linking: LinkingOptions = {
+  prefixes: ['https://', 'integreat://'],
+  // $FlowFixMe redirect is part of available routes
+  config: {
+    screens: {
+      [REDIRECT_ROUTE]: '*'
+    }
+  },
+  getStateFromPath: path => {
+    return { index: 0, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
+  }
+}
 
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
@@ -48,11 +62,13 @@ const App = () => {
             <>
               <StatusBarContainer />
               <IOSSafeAreaView>
-                <NavigationContainer onStateChange={onStateChange}>
-                  <NavigatorContainer routeKey={routeKey}
-                                      routeName={routeName}
-                                      languageCode={languageCode}
-                                      cityCode={cityCode} />
+                <NavigationContainer onStateChange={onStateChange} linking={linking}>
+                  <NavigatorContainer
+                    routeKey={routeKey}
+                    routeName={routeName}
+                    languageCode={languageCode}
+                    cityCode={cityCode}
+                  />
                 </NavigationContainer>
               </IOSSafeAreaView>
               {routeName && <PermissionSnackbarContainer routeName={routeName} />}

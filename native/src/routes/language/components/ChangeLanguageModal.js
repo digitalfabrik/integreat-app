@@ -9,10 +9,7 @@ import Selector from '../../../modules/common/components/Selector'
 import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
 import type { TFunction } from 'react-i18next'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.ScrollView`
@@ -41,23 +38,31 @@ class ChangeLanguageModal extends React.Component<PropsType> {
     })
   }
 
-  closeModal = () => { this.props.navigation.goBack() }
+  closeModal = () => {
+    this.props.navigation.goBack()
+  }
 
-  render () {
+  render() {
     const { theme, languages, availableLanguages, currentLanguage } = this.props
 
-    return <Wrapper theme={theme} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-      <Selector theme={theme} selectedItemCode={currentLanguage} verticalLayout
-                items={languages.map(languageModel => {
-                  const isLanguageAvailable = availableLanguages.includes(languageModel.code)
-                  return new SelectorItemModel({
-                    code: languageModel.code,
-                    name: languageModel.name,
-                    enabled: isLanguageAvailable,
-                    onPress: () => this.onPress(languageModel)
-                  })
-                })} />
-    </Wrapper>
+    return (
+      <Wrapper theme={theme} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+        <Selector
+          theme={theme}
+          selectedItemCode={currentLanguage}
+          verticalLayout
+          items={languages.map(languageModel => {
+            const isLanguageAvailable = availableLanguages.includes(languageModel.code)
+            return new SelectorItemModel({
+              code: languageModel.code,
+              name: languageModel.name,
+              enabled: isLanguageAvailable,
+              onPress: () => this.onPress(languageModel)
+            })
+          })}
+        />
+      </Wrapper>
+    )
   }
 }
 

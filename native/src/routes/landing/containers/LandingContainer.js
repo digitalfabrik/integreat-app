@@ -11,13 +11,12 @@ import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvi
 import { CityModel } from 'api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import type { LandingRouteType } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
+import navigateToCategory from '../../../modules/navigation/navigateToCategory'
+import { cityContentPath } from '../../../modules/navigation/url'
 
 type OwnPropsType = {|
   route: RoutePropType<LandingRouteType>,
@@ -59,38 +58,40 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const ThemedTranslatedLanding = withTranslation<$Diff<LandingPropsType, {| theme: ThemeType|}>>('landing')(
+const ThemedTranslatedLanding = withTranslation<$Diff<LandingPropsType, {| theme: ThemeType |}>>('landing')(
   withTheme<LandingPropsType>(Landing)
 )
 
-class LandingContainer extends React.Component<ContainerPropsType> {
-  navigateToDashboard = (cityCode: string, languageCode: string) => {
-    const { navigation } = this.props
-
-    navigation.replace(
-      DASHBOARD_ROUTE,
-      {
-        cityCode,
-        languageCode
-      }
-    )
+const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerPropsType) => {
+  const navigateToDashboard = (cityCode: string, languageCode: string) => {
+    navigateToCategory({
+      routeName: DASHBOARD_ROUTE,
+      navigation,
+      dispatch,
+      cityCode,
+      languageCode,
+      cityContentPath: cityContentPath({ cityCode, languageCode }),
+      forceRefresh: false,
+      resetNavigation: true
+    })
   }
 
-  clearResourcesAndCache = () => { this.props.dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' }) }
-
-  render () {
-    const { cities, language } = this.props
-
-    return <ThemedTranslatedLanding cities={cities} language={language}
-                                    navigateToDashboard={this.navigateToDashboard}
-                                    clearResourcesAndCache={this.clearResourcesAndCache} />
+  const clearResourcesAndCache = () => {
+    dispatch({ type: 'CLEAR_RESOURCES_AND_CACHE' })
   }
+
+  return (
+    <ThemedTranslatedLanding
+      cities={cities}
+      language={language}
+      navigateToDashboard={navigateToDashboard}
+      clearResourcesAndCache={clearResourcesAndCache}
+    />
+  )
 }
 
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withPayloadProvider<ContainerPropsType, $Shape<{||}>, LandingRouteType>(refresh)(
-    LandingContainer
-  )
+  withPayloadProvider<ContainerPropsType, $Shape<{||}>, LandingRouteType>(refresh)(LandingContainer)
 )

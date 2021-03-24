@@ -15,10 +15,16 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE,
-  OFFERS_ROUTE, POIS_ROUTE, SEARCH_ROUTE
+  JPAL_TRACKING_ROUTE,
+  LANDING_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  SEARCH_ROUTE
 } from 'api-client/src/routes'
 import buildConfig from '../../app/constants/buildConfig'
+import navigateToJpalTracking from '../navigateToJpalTracking'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())
@@ -28,6 +34,7 @@ jest.mock('../navigateToPois', () => jest.fn())
 jest.mock('../navigateToSearch', () => jest.fn())
 jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
+jest.mock('../navigateToJpalTracking', () => jest.fn())
 
 const dispatch = jest.fn()
 const navigation = createNavigationScreenPropMock()
@@ -74,6 +81,18 @@ describe('createNavigate', () => {
   it('should call navigateToLanding', () => {
     navigateTo({ route: LANDING_ROUTE, languageCode })
     assertOnlyCalled([navigateToLanding])
+  })
+
+  it('should call navigateToJpalTracking', () => {
+    navigateTo({ route: JPAL_TRACKING_ROUTE, trackingCode: 'abcdef123456' })
+    assertOnlyCalled([navigateToJpalTracking])
+  })
+
+  it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
+    // $FlowFixMe build config is a mock
+    buildConfig.mockImplementationOnce(() => ({ featureFlags: { jpalTracking: true } }))
+    navigateTo({ route: JPAL_TRACKING_ROUTE, trackingCode: 'abcdef123456' })
+    assertNotCalled(allMocks)
   })
 
   it('should call navigateToCategory for dashboard route', () => {

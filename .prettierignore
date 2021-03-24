@@ -1,0 +1,22 @@
+.circleci/
+build-configs/
+docs/
+release-notes/
+tools/
+translations/
+e2e-tests/
+
+web/dist/
+web/www/
+
+native/android/**/*
+native/ios/**/*
+
+# Ignore node_modules
+**/node_modules/**
+# Ignore external flow types
+**/flow-typed/**
+# Ignore all reports of code quality tools
+**/reports/**
+
+**/fastlane/README.md

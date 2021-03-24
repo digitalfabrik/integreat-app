@@ -24,7 +24,9 @@ const FlexStyledLink: StyledComponent<{}, ThemeType, *> = styled(StyledLink)`
 `
 
 type DirectionContainerPropsType = {|
-  language: string, children: React.Node, theme: ThemeType
+  language: string,
+  children: React.Node,
+  theme: ThemeType
 |}
 
 const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, *> = styled.View`
@@ -41,9 +43,9 @@ const CategoryEntryContainer: StyledComponent<DirectionContainerPropsType, Theme
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const CategoryTitle = styled(Highlighter)`
+const CategoryTitle: StyledComponent<{| language: string |}, ThemeType, *> = styled(Highlighter)`
   flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -75,18 +77,20 @@ class CategoryListItem extends React.Component<PropsType> {
     this.props.onItemPress(this.props.category)
   }
 
-  renderSubCategories (): Array<React.Node> {
+  renderSubCategories(): Array<React.Node> {
     const { language, subCategories, theme, onItemPress } = this.props
-    return subCategories.map(subCategory =>
-      <SubCategoryListItem key={subCategory.path}
-                           subCategory={subCategory}
-                           onItemPress={onItemPress}
-                           language={language}
-                           theme={theme} />
-    )
+    return subCategories.map(subCategory => (
+      <SubCategoryListItem
+        key={subCategory.path}
+        subCategory={subCategory}
+        onItemPress={onItemPress}
+        language={language}
+        theme={theme}
+      />
+    ))
   }
 
-  getMatchedContent (numWordsSurrounding: number): ?Highlighter {
+  getMatchedContent(numWordsSurrounding: number): ?Highlighter {
     const { query, theme, category } = this.props
     const textToHighlight = this.contentMatcher.getMatchedContent(
       query,
@@ -96,32 +100,40 @@ class CategoryListItem extends React.Component<PropsType> {
     if (textToHighlight == null) {
       return null
     }
-    return <Highlighter theme={theme}
-                        searchWords={[query]}
-                        sanitize={normalizeSearchString}
-                        textToHighlight={textToHighlight}
-                        autoEscape
-                        highlightStyle={{
-                          backgroundColor: theme.colors.backgroundColor,
-                          fontWeight: 'bold'
-                        }} />
+    return (
+      <Highlighter
+        theme={theme}
+        searchWords={[query]}
+        sanitize={normalizeSearchString}
+        textToHighlight={textToHighlight}
+        autoEscape
+        highlightStyle={{
+          backgroundColor: theme.colors.backgroundColor,
+          fontWeight: 'bold'
+        }}
+      />
+    )
   }
 
-  renderTitle (): React.Node {
+  renderTitle(): React.Node {
     const { query, theme, category, language } = this.props
-    return (<CategoryEntryContainer theme={theme} language={language}>
-      <CategoryTitle theme={theme}
-                     language={language}
-                     autoEscape
-                     textToHighlight={category.title}
-                     sanitize={normalizeSearchString}
-                     searchWords={query ? [query] : []}
-                     highlightStyle={{ fontWeight: 'bold' }} />
-      {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
-    </CategoryEntryContainer>)
+    return (
+      <CategoryEntryContainer theme={theme} language={language}>
+        <CategoryTitle
+          theme={theme}
+          language={language}
+          autoEscape
+          textToHighlight={category.title}
+          sanitize={normalizeSearchString}
+          searchWords={query ? [query] : []}
+          highlightStyle={{ fontWeight: 'bold' }}
+        />
+        {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
+      </CategoryEntryContainer>
+    )
   }
 
-  render () {
+  render() {
     const { language, category, theme } = this.props
     return (
       <>

@@ -31,11 +31,13 @@ type PropsType = {|
  * Displays breadcrumbs (Links) for lower category levels
  */
 class Breadcrumb extends React.PureComponent<PropsType> {
-  render () {
-    return <ListItem>
-      <Separator aria-hidden />
-      {this.props.children}
-    </ListItem>
+  render() {
+    return (
+      <ListItem>
+        <Separator aria-hidden />
+        {this.props.children}
+      </ListItem>
+    )
   }
 }
 

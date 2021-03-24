@@ -18,12 +18,12 @@ export const NUM_OF_WORDS_ALLOWED = 30
 
 const Link: StyledComponent<{||}, ThemeType, *> = styled(CleanLink)`
   display: flex;
-  background-color: ${({ theme }) => (theme.colors.backgroundColor)};
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
 const ReadMoreLink: StyledComponent<{||}, ThemeType, *> = styled(({ type, ...props }) => <Link {...props} />)`
   align-self: flex-end;
-  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
-  color: ${({ theme, type }) => type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
+  color: ${({ theme, type }) => (type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
+  color: ${({ theme, type }) => (type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
   font-weight: 600;
 `
 
@@ -62,7 +62,14 @@ type PropsType = {|
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType) => {
   // Decode html entities
   let decodedContent = ''
-  const parser = new Parser({ ontext (data: string) { decodedContent += data } }, { decodeEntities: true })
+  const parser = new Parser(
+    {
+      ontext(data: string) {
+        decodedContent += data
+      }
+    },
+    { decodeEntities: true }
+  )
   parser.write(content)
   parser.end()
 
@@ -74,7 +81,9 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
           <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
-            <ReadMoreLink to={link} type={type}>{t('readMore')} ></ReadMoreLink>
+            <ReadMoreLink to={link} type={type}>
+              {t('readMore')} >
+            </ReadMoreLink>
           </StyledContainer>
         </Description>
       </Link>

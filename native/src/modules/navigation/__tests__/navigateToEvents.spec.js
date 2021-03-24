@@ -14,16 +14,18 @@ const cityCode = 'augsburg'
 const languageCode = 'de'
 const cityContentPath = '/augsburg/de/integrationskurs'
 
-describe('createNavigateToEvents', () => {
+describe('navigateToEvents', () => {
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
     const dispatch = jest.fn()
     const navigation = createNavigationScreenPropMock()
 
     navigateToEvents({ dispatch, navigation, cityCode, languageCode, cityContentPath })
 
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
-    }))
+    expect(navigation.navigate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
+      })
+    )
     const key = (navigation.navigate: any).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_EVENT',

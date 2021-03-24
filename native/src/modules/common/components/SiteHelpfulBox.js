@@ -30,7 +30,7 @@ const FeedbackButtons: StyledComponent<{||}, {||}, *> = styled.View`
 
 const HelpfulText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   align-self: center;
 `
 
@@ -40,7 +40,7 @@ const FeedbackTouchableOpacity: StyledComponent<{||}, {||}, *> = styled(Touchabl
 
 const FeedbackText: StyledComponent<{||}, ThemeType, *> = styled(Text)`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 12px;
   margin-top: -2px;
 `
@@ -74,23 +74,29 @@ type PropsType = {|
 class SiteHelpfulBox extends React.Component<PropsType> {
   navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
 
-  render () {
+  render() {
     const { theme, t } = this.props
-    return <FeedbackBoxContainer>
+    return (
+      <FeedbackBoxContainer>
         <FeedbackBox theme={theme}>
           <HelpfulText theme={theme}>{t('isThisSiteUseful')}</HelpfulText>
           <FeedbackButtons>
             <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
-              <Circle theme={theme}><Thumbnail source={happyIcon} /></Circle>
+              <Circle theme={theme}>
+                <Thumbnail source={happyIcon} />
+              </Circle>
               <FeedbackText theme={theme}>{t('useful')}</FeedbackText>
             </FeedbackTouchableOpacity>
             <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
-              <Circle theme={theme}><Thumbnail source={sadIcon} /></Circle>
+              <Circle theme={theme}>
+                <Thumbnail source={sadIcon} />
+              </Circle>
               <FeedbackText theme={theme}>{t('notUseful')}</FeedbackText>
             </FeedbackTouchableOpacity>
           </FeedbackButtons>
         </FeedbackBox>
-    </FeedbackBoxContainer>
+      </FeedbackBoxContainer>
+    )
   }
 }
 

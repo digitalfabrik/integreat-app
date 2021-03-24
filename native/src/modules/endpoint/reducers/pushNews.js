@@ -1,20 +1,11 @@
 // @flow
 
-import type {
-  CityContentStateType,
-  NewsRouteStateType
-} from '../../app/StateType'
+import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
-import {
-  LocalNewsModel,
-  TunewsModel
-} from 'api-client'
+import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 
-const pushNews = (
-  state: CityContentStateType,
-  action: PushNewsActionType
-): CityContentStateType => {
+const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
   const {
     news,
     newsId,
@@ -32,14 +23,11 @@ const pushNews = (
   }
   const getNewsRoute = (): NewsRouteStateType => {
     if (!newsId) {
-      const allAvailableLanguages = new Map(
-        availableLanguages.map(language => [language.code, null])
-      )
-      const models = (page && previouslyFetchedNews)
-        ? { models: [...previouslyFetchedNews, ...news] }
-        : { models: news }
+      const allAvailableLanguages = new Map(availableLanguages.map(language => [language.code, null]))
+      const models = page && previouslyFetchedNews ? { models: [...previouslyFetchedNews, ...news] } : { models: news }
 
       return {
+        routeType: NEWS_ROUTE,
         status: 'ready',
         newsId: null,
         hasMoreNews,
@@ -51,12 +39,11 @@ const pushNews = (
         ...models
       }
     }
-    const newsItem: ?LocalNewsModel | TunewsModel = news.find(
-      newsItem => newsItem.id.toString() === newsId
-    )
+    const newsItem: ?LocalNewsModel | TunewsModel = news.find(newsItem => newsItem.id.toString() === newsId)
 
     if (!newsItem) {
       return {
+        routeType: NEWS_ROUTE,
         status: 'error',
         message: `News Item with newsId ${newsId} was not found in supplied models.`,
         code: ErrorCodes.PageNotFound,
@@ -70,6 +57,7 @@ const pushNews = (
     const allAvailableLanguages = availableLanguages.filter(languageModel => languageModel.code === language)
 
     return {
+      routeType: NEWS_ROUTE,
       status: 'ready',
       newsId,
       models: [newsItem],
@@ -84,7 +72,7 @@ const pushNews = (
 
   return {
     ...state,
-    newsRouteMapping: { ...state.newsRouteMapping, [key]: getNewsRoute() }
+    routeMapping: { ...state.routeMapping, [key]: getNewsRoute() }
   }
 }
 

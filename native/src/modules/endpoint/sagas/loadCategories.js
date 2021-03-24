@@ -6,7 +6,7 @@ import { call } from 'redux-saga/effects'
 import type { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 
-function * loadCategories (
+function* loadCategories(
   city: string,
   language: string,
   dataContainer: DataContainer,
