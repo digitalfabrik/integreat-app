@@ -1,0 +1,5 @@
+issue_key: IGAPP-370
+show_in_stores: false
+platforms:
+  - ios
+en: The city name is now centered in the header.
