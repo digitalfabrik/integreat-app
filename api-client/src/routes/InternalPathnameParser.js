@@ -16,7 +16,7 @@ import {
   TU_NEWS_TYPE
 } from './'
 import type { LocalNewsType, TuNewsType } from './'
-import type { NullableRouteInformationType } from './RouteInformationTypes'
+import type { RouteInformationType } from './RouteInformationTypes'
 
 const ENTITY_ID_INDEX = 3
 
@@ -51,7 +51,7 @@ class InternalPathnameParser {
     return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
   }
 
-  jpalTracking = (): NullableRouteInformationType => {
+  jpalTracking = (): RouteInformationType => {
     if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
       const trackingCode = this._length === 2 ? this._parts[1] : null
       return { route: JPAL_TRACKING_ROUTE, trackingCode }
@@ -59,7 +59,7 @@ class InternalPathnameParser {
     return null
   }
 
-  landing = (): NullableRouteInformationType => {
+  landing = (): RouteInformationType => {
     // There is no landing route if there is a fixed city
     if (this._fixedCity) {
       return null
@@ -73,7 +73,7 @@ class InternalPathnameParser {
     return null
   }
 
-  dashboard = (): NullableRouteInformationType => {
+  dashboard = (): RouteInformationType => {
     const fixedCity = this._fixedCity
     if (fixedCity) {
       // '/', '/landing', '/abapp' or '/abapp/'de'
@@ -99,7 +99,7 @@ class InternalPathnameParser {
     return { cityCode: this._parts[0], languageCode: this._parts[1] }
   }
 
-  events = (): NullableRouteInformationType => {
+  events = (): RouteInformationType => {
     const params = this.cityContentParams(EVENTS_ROUTE)
     if (!params) {
       return null
@@ -114,7 +114,7 @@ class InternalPathnameParser {
     }
   }
 
-  pois = (): NullableRouteInformationType => {
+  pois = (): RouteInformationType => {
     const params = this.cityContentParams(POIS_ROUTE)
     if (!params) {
       return null
@@ -129,7 +129,7 @@ class InternalPathnameParser {
     }
   }
 
-  news = (): NullableRouteInformationType => {
+  news = (): RouteInformationType => {
     const params = this.cityContentParams(NEWS_ROUTE)
     if (!params) {
       return null
@@ -145,7 +145,7 @@ class InternalPathnameParser {
     return { route: NEWS_ROUTE, cityCode: this._parts[0], languageCode: this._parts[1], newsType, newsId }
   }
 
-  offers = (): NullableRouteInformationType => {
+  offers = (): RouteInformationType => {
     const params = this.cityContentParams(OFFERS_ROUTE)
     const route = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : OFFERS_ROUTE
 
@@ -159,7 +159,7 @@ class InternalPathnameParser {
     return null
   }
 
-  disclaimer = (): NullableRouteInformationType => {
+  disclaimer = (): RouteInformationType => {
     const params = this.cityContentParams(DISCLAIMER_ROUTE)
     if (!params) {
       return null
@@ -167,7 +167,7 @@ class InternalPathnameParser {
     return { route: DISCLAIMER_ROUTE, ...params }
   }
 
-  search = (): NullableRouteInformationType => {
+  search = (): RouteInformationType => {
     const params = this.cityContentParams(SEARCH_ROUTE)
     if (!params) {
       return null
@@ -175,7 +175,7 @@ class InternalPathnameParser {
     return { route: SEARCH_ROUTE, ...params }
   }
 
-  categories = (): NullableRouteInformationType => {
+  categories = (): RouteInformationType => {
     if (this._fixedCity && !this.isFixedCity()) {
       return null
     }
@@ -193,7 +193,7 @@ class InternalPathnameParser {
     return null
   }
 
-  route = (): NullableRouteInformationType => {
+  route = (): RouteInformationType => {
     return (
       this.landing() ||
       this.jpalTracking() ||

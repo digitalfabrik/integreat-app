@@ -2,7 +2,7 @@
 
 import buildConfig from '../app/constants/buildConfig'
 import Url from 'url-parse'
-import type { RouteInformationType } from 'api-client'
+import type { NonNullableRouteInformationType } from 'api-client'
 import { JPAL_TRACKING_ROUTE, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 
 type CityContentRouteUrlType = {| cityCode: string, languageCode: string, route?: string, path?: ?string |}
@@ -22,7 +22,7 @@ export const cityContentPath = ({ cityCode, languageCode, route, path }: CityCon
   return url.pathname
 }
 
-const constructUrlFromRouteInformation = (routeInformation: RouteInformationType) => {
+const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInformationType) => {
   const { route } = routeInformation
   if (route === JPAL_TRACKING_ROUTE) {
     // https://integreat.app/jpal
@@ -46,7 +46,7 @@ const constructUrlFromRouteInformation = (routeInformation: RouteInformationType
   }
 }
 
-export const urlFromRouteInformation = (routeInformation: RouteInformationType): string => {
+export const urlFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
   const url = constructUrlFromRouteInformation(routeInformation)
   return url.href
 }

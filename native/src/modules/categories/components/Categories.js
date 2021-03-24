@@ -16,14 +16,14 @@ import SpaceBetween from '../../common/components/SpaceBetween'
 import SiteHelpfulBox from '../../common/components/SiteHelpfulBox'
 import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
-import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
 export type PropsType = {|
   cityModel: CityModel,
   language: string,
 
   stateView: CategoriesRouteStateView,
-  navigateTo: NullableRouteInformationType => void,
+  navigateTo: RouteInformationType => void,
   navigateToFeedback: FeedbackInformationType => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
 

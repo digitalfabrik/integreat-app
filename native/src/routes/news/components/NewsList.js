@@ -3,7 +3,7 @@
 import React from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
-import type { NewsType, NullableRouteInformationType } from 'api-client'
+import type { NewsType, RouteInformationType } from 'api-client'
 import type { NewsModelsType } from '../../../modules/app/StateType'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
@@ -16,7 +16,7 @@ type PropType = {|
   fetchMoreItems: () => void,
   renderNoItemsComponent: () => React$Node,
   routeKey: string,
-  navigateTo: (NullableRouteInformationType, string, boolean) => void,
+  navigateTo: (RouteInformationType, string, boolean) => void,
   selectedNewsType: NewsType,
   newsId: ?string,
   cityCode: string,

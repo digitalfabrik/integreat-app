@@ -19,7 +19,7 @@ import {
 } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { urlFromRouteInformation } from '../../navigation/url'
-import type { RouteInformationType } from 'api-client'
+import type { NonNullableRouteInformationType } from 'api-client'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -98,7 +98,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const { language, city } = route
   const newsId = route.newsId || undefined
 
-  const routeInformation: RouteInformationType =
+  const routeInformation: NonNullableRouteInformationType =
     route.routeType === NEWS_ROUTE
       ? { route: NEWS_ROUTE, languageCode: language, cityCode: city, newsType: route.type, newsId }
       : // $FlowFixMe route.path is always defined if relevant

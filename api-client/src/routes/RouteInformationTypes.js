@@ -56,7 +56,7 @@ export type EventsPoisRouteInformationType = {|
   ...ParamsType
 |}
 
-export type RouteInformationType =
+export type NonNullableRouteInformationType =
   | LandingRouteInformationType
   | JpalTrackingRouteInformationType
   | CategoriesRouteInformationType
@@ -64,4 +64,4 @@ export type RouteInformationType =
   | SimpleCityContentFeatureType
   | EventsPoisRouteInformationType
 
-export type NullableRouteInformationType = RouteInformationType | null
+export type RouteInformationType = NonNullableRouteInformationType | null

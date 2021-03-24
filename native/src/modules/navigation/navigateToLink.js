@@ -5,7 +5,7 @@ import type { NavigationPropType, RoutesType } from '../app/constants/Navigation
 import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
 import openExternalUrl from '../common/openExternalUrl'
 import Url from 'url-parse'
-import type { NullableRouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
@@ -14,7 +14,7 @@ const navigateToLink = <T: RoutesType>(
   url: string,
   navigation: NavigationPropType<T>,
   language: string,
-  navigateTo: NullableRouteInformationType => void,
+  navigateTo: RouteInformationType => void,
   shareUrl: string
 ) => {
   if (url.includes('.pdf')) {
