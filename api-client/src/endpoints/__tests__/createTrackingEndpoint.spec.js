@@ -14,18 +14,16 @@ describe('createTrackingEndpoint', () => {
     pageType: DASHBOARD_ROUTE,
     url: 'https://example.com',
     trackingCode: 'abcdef123456',
-    metadata: {
-      offline: true,
-      currentCity: 'muenchen',
-      currentLanguage: 'ar',
-      systemLanguage: 'de',
-      appSettings: {
-        allowPushNotifications: true,
-        errorTracking: false,
-        proposeNearbyCities: false
-      },
-      timestamp: '2020-01-20T00:00:00.000Z'
-    }
+    offline: true,
+    currentCity: 'muenchen',
+    currentLanguage: 'ar',
+    systemLanguage: 'de',
+    appSettings: {
+      allowPushNotifications: true,
+      errorTracking: false,
+      proposeNearbyCities: false
+    },
+    timestamp: '2020-01-20T00:00:00.000Z'
   }
 
   it('should throw fetch error if fetch fails', async () => {
@@ -84,23 +82,23 @@ describe('createTrackingEndpoint', () => {
       expect.objectContaining({
         body: JSON.stringify({
           name: signal.name,
-          page_type: signal.pageType,
-          url: signal.url,
-          query: 'some query',
-          feedback: {},
-          from_url: 'https://example.com/another/example',
           tracking_code: signal.trackingCode,
+          timestamp: signal.timestamp,
           metadata: {
-            offline: signal.metadata.offline,
-            system_language: signal.metadata.systemLanguage,
-            current_language: signal.metadata.currentLanguage,
-            current_city: signal.metadata.currentCity,
+            page_type: signal.pageType,
+            url: signal.url,
+            query: 'some query',
+            feedback: {},
+            from_url: 'https://example.com/another/example',
+            offline: signal.offline,
+            system_language: signal.systemLanguage,
+            current_language: signal.currentLanguage,
+            current_city: signal.currentCity,
             app_settings: {
-              error_tracking: signal.metadata.appSettings.errorTracking,
-              allow_push_notifications: signal.metadata.appSettings.allowPushNotifications,
-              propose_nearby_cities: signal.metadata.appSettings.proposeNearbyCities
-            },
-            timestamp: signal.metadata.timestamp
+              error_tracking: signal.appSettings.errorTracking,
+              allow_push_notifications: signal.appSettings.allowPushNotifications,
+              propose_nearby_cities: signal.appSettings.proposeNearbyCities
+            }
           }
         })
       })

@@ -24,17 +24,15 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
       await createTrackingEndpoint().request({
         ...signal,
         trackingCode: jpalTrackingCode,
-        metadata: {
-          offline,
-          timestamp: moment().toISOString(),
-          currentCity: selectedCity,
-          currentLanguage: contentLanguage,
-          systemLanguage: '', // TODO IGAPP-566 Include system language
-          appSettings: {
-            allowPushNotifications,
-            proposeNearbyCities,
-            errorTracking
-          }
+        offline,
+        timestamp: moment().toISOString(),
+        currentCity: selectedCity,
+        currentLanguage: contentLanguage,
+        systemLanguage: '', // TODO IGAPP-566 Include system language
+        appSettings: {
+          allowPushNotifications,
+          proposeNearbyCities,
+          errorTracking
         }
       })
     }

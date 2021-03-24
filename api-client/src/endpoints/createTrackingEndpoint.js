@@ -16,23 +16,23 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
   const request = async (signal: SignalType) => {
     const mappedSignal = {
       name: signal.name,
-      page_type: signal.pageType || undefined,
-      url: signal.url || undefined,
-      query: signal.query || undefined,
-      feedback: signal.feedback || undefined, // TODO IGAPP-564: Implement feedback signal
-      from_url: signal.fromUrl || undefined,
       tracking_code: signal.trackingCode,
+      timestamp: signal.timestamp,
       metadata: {
-        offline: signal.metadata.offline,
-        system_language: signal.metadata.systemLanguage,
-        current_language: signal.metadata.currentLanguage,
-        current_city: signal.metadata.currentCity,
+        page_type: signal.pageType || undefined,
+        url: signal.url || undefined,
+        query: signal.query || undefined,
+        feedback: signal.feedback || undefined, // TODO IGAPP-564: Implement feedback signal
+        from_url: signal.fromUrl || undefined,
+        offline: signal.offline,
+        system_language: signal.systemLanguage,
+        current_language: signal.currentLanguage,
+        current_city: signal.currentCity,
         app_settings: {
-          error_tracking: signal.metadata.appSettings.errorTracking,
-          allow_push_notifications: signal.metadata.appSettings.allowPushNotifications,
-          propose_nearby_cities: signal.metadata.appSettings.proposeNearbyCities
+          error_tracking: signal.appSettings.errorTracking,
+          allow_push_notifications: signal.appSettings.allowPushNotifications,
+          propose_nearby_cities: signal.appSettings.proposeNearbyCities
         },
-        timestamp: signal.metadata.timestamp
       }
     }
     const body = JSON.stringify(mappedSignal)
