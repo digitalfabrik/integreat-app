@@ -38,6 +38,10 @@ The data which is received through the restful api of the CMS is "cached" and st
 - [Unit/Integration Testing](testing.md)
 - [E2E Testing](e2e-testing.md)
 
+The app supports opening deep links in the app. To test deep links manually, you can:
+* Click on the link you want to test in any other app of your choice 
+* Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios).
+
 ## Code Quality
 
 ### Formatting
@@ -48,7 +52,7 @@ Run `yarn workspace <workspace> prettier --check .` to show formatting problems 
 ### Linting
 
 Linting is responsible to embrace best practice coding style.
-We use [eslint](http://eslint.org/) for JavaScript and [stylelint](https://stylelint.io/) for CSS.
+We use [eslint](http://eslint.org/) for JavaScript.
 
 You can run the linter by calling `yarn lint`.
 

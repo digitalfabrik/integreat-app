@@ -23,7 +23,7 @@ Refer to the documentation in [StateType](../src/modules/app/StateType.js).
 - `switchingLanguage`: Whether a language switch is currently in progress.
 - `languages`: All available languages of the city.
 - `routeMapping`: A map of navigation route keys to the necessary information of category, event, news or poi routes.
-- `resourceCache`: A map of used cms resources to the actually downloaded files.
+- `resourceCache`: A map of used cms resources to actually downloaded files.
 - `searchRoute`: Category models for the search route. Should be removed in IGAPP-126.
 
 ## Actions
