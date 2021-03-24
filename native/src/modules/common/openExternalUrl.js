@@ -9,7 +9,7 @@ const openExternalUrl = async (url: string) => {
   const protocol = new URL(url).protocol
   try {
     // Custom tabs are not available in all browsers and support only http and https
-    if (await InAppBrowser.isAvailable() && ['https:', 'http:'].includes(protocol)) {
+    if ((await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)) {
       await InAppBrowser.open(url, {
         toolbarColor: buildConfig().lightTheme.colors.themeColor
       })
@@ -18,7 +18,8 @@ const openExternalUrl = async (url: string) => {
       if (canOpen) {
         await Linking.openURL(url)
       } else {
-        // TODO Show a snackbar to indicate there is no suitable app to open the url
+        console.warn('This is not a supported route. Skipping.')
+        // TODO IGAPP-521 show snackbar route not found
       }
     }
   } catch (error) {

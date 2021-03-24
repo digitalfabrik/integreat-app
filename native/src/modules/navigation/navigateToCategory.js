@@ -3,10 +3,7 @@
 import type { Dispatch } from 'redux'
 import type { FetchCategoryActionType, StoreActionType } from '../app/StoreActionType'
 import { generateKey } from '../app/generateRouteKey'
-import type {
-  NavigationPropType,
-  RoutesType
-} from '../app/constants/NavigationTypes'
+import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import type { CategoriesRouteType, DashboardRouteType } from 'api-client/src/routes'
 
 const navigateToCategory = <T: RoutesType>({
@@ -17,7 +14,8 @@ const navigateToCategory = <T: RoutesType>({
   languageCode,
   cityContentPath,
   key = generateKey(),
-  forceRefresh = false
+  forceRefresh = false,
+  resetNavigation = false
 }: {|
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>,
@@ -26,13 +24,23 @@ const navigateToCategory = <T: RoutesType>({
   languageCode: string,
   cityContentPath: string,
   key?: string,
-  forceRefresh?: boolean
+  forceRefresh?: boolean,
+  resetNavigation?: boolean
 |}) => {
-  navigation.navigate({
+  const route = {
     name: routeName,
     params: { cityCode, languageCode },
     key
-  })
+  }
+
+  if (resetNavigation) {
+    navigation.reset({
+      index: 0,
+      routes: [route]
+    })
+  } else {
+    navigation.navigate(route)
+  }
 
   const fetchCategory: FetchCategoryActionType = {
     type: 'FETCH_CATEGORY',

@@ -13,8 +13,10 @@ describe('EventListItem', () => {
   const event = new EventModel({
     path: '/augsburg/en/events/first_event',
     title: 'first Event',
-    availableLanguages: new Map(
-      [['de', '/augsburg/de/events/erstes_event'], ['ar', '/augsburg/ar/events/erstes_event']]),
+    availableLanguages: new Map([
+      ['de', '/augsburg/de/events/erstes_event'],
+      ['ar', '/augsburg/ar/events/erstes_event']
+    ]),
     date: new DateModel({
       startDate: moment('2017-11-18T09:30:00.000Z'),
       endDate: moment('2017-11-18T19:30:00.000Z'),
@@ -42,8 +44,6 @@ describe('EventListItem', () => {
   // TODO IGAPP-399: Reactivate test
   // eslint-disable-next-line jest/no-disabled-tests
   it.skip('should render and match snapshot', () => {
-    expect(shallow(
-      <EventListItem event={event} formatter={new DateFormatter(language)} />
-    )).toMatchSnapshot()
+    expect(shallow(<EventListItem event={event} formatter={new DateFormatter(language)} />)).toMatchSnapshot()
   })
 })

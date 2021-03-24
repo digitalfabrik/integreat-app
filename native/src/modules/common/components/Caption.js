@@ -5,12 +5,12 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
 
-const H1: StyledComponent<{}, ThemeType, *> = styled.Text`
+const H1: StyledComponent<{||}, ThemeType, *> = styled.Text`
   padding: 20px 0;
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 type PropsType = {|
@@ -19,7 +19,7 @@ type PropsType = {|
 |}
 
 class Caption extends React.Component<PropsType> {
-  render () {
+  render() {
     return <H1 theme={this.props.theme}>{this.props.title}</H1>
   }
 }

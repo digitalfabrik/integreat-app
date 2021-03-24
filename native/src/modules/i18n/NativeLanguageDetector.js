@@ -13,7 +13,7 @@ export default {
       throw new Error('Failed to get language code from native side!')
     }
 
-    return locales.map(locale => locale.languageCode)
+    return locales.map(locale => locale.languageTag)
   },
   init: () => {},
   cacheUserLanguage: (newLanguage: string) => {}

@@ -10,7 +10,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 `
 
 const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -20,7 +20,7 @@ const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex-direction: column;
   justify-content: space-between;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontFamily};
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size-adjust: ${props => props.theme.fonts.fontSizeAdjust};
   background-color: ${props => props.theme.colors.backgroundColor};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
@@ -120,7 +120,7 @@ class Layout extends React.PureComponent<PropsType> {
     darkMode: false
   }
 
-  render () {
+  render() {
     const { asideStickyTop, footer, header, toolbar, modal, children } = this.props
     const modalVisible = !!modal
     return (
@@ -129,18 +129,12 @@ class Layout extends React.PureComponent<PropsType> {
           <div aria-hidden={modalVisible}>
             {header}
             <Body>
-              <Aside style={{ top: `${asideStickyTop}px` }}>
-                {toolbar}
-              </Aside>
-              <Main>
-                {children}
-              </Main>
+              <Aside style={{ top: `${asideStickyTop}px` }}>{toolbar}</Aside>
+              <Main>{children}</Main>
             </Body>
           </div>
           {modal}
-          <div aria-hidden={modalVisible}>
-            {footer}
-          </div>
+          <div aria-hidden={modalVisible}>{footer}</div>
         </RichLayout>
       </FlexWrapper>
     )

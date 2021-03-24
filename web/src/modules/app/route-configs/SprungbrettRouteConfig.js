@@ -18,8 +18,11 @@ import fetchData from '../fetchData'
 import { cmsApiBaseUrl } from '../constants/urls'
 import type { StateType } from '../StateType'
 
-type SprungbrettRouteParamsType = {|city: string, language: string|}
-type RequiredPayloadsType = {|sprungbrettJobs: Payload<Array<SprungbrettJobModel>>, offers: Payload<Array<OfferModel>>|}
+type SprungbrettRouteParamsType = {| city: string, language: string |}
+type RequiredPayloadsType = {|
+  sprungbrettJobs: Payload<Array<SprungbrettJobModel>>,
+  offers: Payload<Array<OfferModel>>
+|}
 
 export const SPRUNGBRETT_ROUTE = 'SPRUNGBRETT'
 
@@ -67,11 +70,12 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
   getRoutePath = ({ city, language }: SprungbrettRouteParamsType): string =>
     `/${city}/${language}/offers/${SPRUNGBRETT_OFFER}`
 
-  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType =>
-    ({ sprungbrettJobs: payloads.sprungbrettJobsPayload, offers: payloads.offersPayload })
+  getRequiredPayloads = (payloads: AllPayloadsType): RequiredPayloadsType => ({
+    sprungbrettJobs: payloads.sprungbrettJobsPayload,
+    offers: payloads.offersPayload
+  })
 
-  getLanguageChangePath = ({ location, language }) =>
-    this.getRoutePath({ city: location.payload.city, language })
+  getLanguageChangePath = ({ location, language }) => this.getRoutePath({ city: location.payload.city, language })
 
   getPageTitle = ({ cityName, payloads }) => {
     if (!cityName) {
@@ -88,7 +92,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
     const offers = payloads.offers.data
     const offer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
     if (offer) {
-      return ({ alias: SPRUNGBRETT_OFFER, title: offer.title })
+      return { alias: SPRUNGBRETT_OFFER, title: offer.title }
     }
     return null
   }

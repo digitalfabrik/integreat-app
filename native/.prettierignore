@@ -1,0 +1,17 @@
+android/**/*
+ios/**/*
+
+# Dists/artifacts
+www/
+ios/main.jsbundle
+dist/
+lib-dist/
+
+# Ignore node_modules
+**/node_modules/**
+# Ignore external flow types
+**/flow-typed/**
+# Ignore all reports of code quality tools
+**/reports/**
+
+**/fastlane/README.md

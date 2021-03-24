@@ -31,8 +31,10 @@ import type { SettingsType } from '../../settings/AppSettings'
  * @returns Returns a saga which returns whether the newLanguage is available for newCity
  * @throws if the saga was unable to load necessary data
  */
-export default function * loadCityContent (
-  dataContainer: DataContainer, newCity: string, newLanguage: string,
+export default function* loadCityContent(
+  dataContainer: DataContainer,
+  newCity: string,
+  newLanguage: string,
   criterion: ContentLoadCriterion
 ): Saga<boolean> {
   yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
@@ -67,7 +69,12 @@ export default function * loadCityContent (
 
     if (criterion.shouldLoadLanguages()) {
       try {
-        yield call(loadLanguages, newCity, dataContainer, shouldUpdate) /* The languages for a city get updated if a any
+        yield call(
+          loadLanguages,
+          newCity,
+          dataContainer,
+          shouldUpdate
+        ) /* The languages for a city get updated if a any
                                                                        language of the city is:
                                                                           * older than MAX_CONTENT_AGE,
                                                                           * has no "lastUpdate" or
@@ -115,9 +122,8 @@ export default function * loadCityContent (
       const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
       resourceURLFinder.init()
 
-      const fetchMap = resourceURLFinder.buildFetchMap(
-        categoriesMap.toArray().concat(events),
-        (url, urlHash) => buildResourceFilePath(url, newCity, urlHash)
+      const fetchMap = resourceURLFinder.buildFetchMap(categoriesMap.toArray().concat(events), (url, urlHash) =>
+        buildResourceFilePath(url, newCity, urlHash)
       )
 
       resourceURLFinder.finalize()

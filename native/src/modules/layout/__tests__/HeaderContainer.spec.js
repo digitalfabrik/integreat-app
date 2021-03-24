@@ -8,6 +8,7 @@ import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
 import { cityContentUrl } from '../../navigation/url'
 import {
+  CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -42,7 +43,6 @@ describe('HeaderContainer', () => {
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
-
   const prepareState = (): StateType => {
     return {
       darkMode: false,
@@ -53,55 +53,54 @@ describe('HeaderContainer', () => {
           status: 'ready',
           models: [language]
         },
-        eventsRouteMapping: {
-          routeKeyEvent1: {
-            status: 'ready',
-            path: null,
-            language: language.code,
-            city: city.name,
-            models: [],
-            allAvailableLanguages: new Map()
-          },
-          routeKeyEvent2: {
-            status: 'ready',
-            path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
-            language: language.code,
-            city: city.name,
-            models: [],
-            allAvailableLanguages: new Map()
-          }
-        },
-        categoriesRouteMapping: {
+        routeMapping: {
           routeKey1: {
+            routeType: CATEGORIES_ROUTE,
             status: 'ready',
             path: `${city.code}/${language.code}/abc`,
             depth: 1,
             language: language.code,
-            city: city.name,
+            city: city.code,
             allAvailableLanguages: new Map(),
             models: {},
             children: {}
-          }
-        },
-        poisRouteMapping: {
-          routeKeyPois1: {
+          },
+          routeKeyEvent1: {
+            routeType: EVENTS_ROUTE,
             status: 'ready',
             path: null,
             language: language.code,
-            city: city.name,
+            city: city.code,
+            models: [],
+            allAvailableLanguages: new Map()
+          },
+          routeKeyEvent2: {
+            routeType: EVENTS_ROUTE,
+            status: 'ready',
+            path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
+            language: language.code,
+            city: city.code,
+            models: [],
+            allAvailableLanguages: new Map()
+          },
+          routeKeyPois1: {
+            routeType: POIS_ROUTE,
+            status: 'ready',
+            path: null,
+            language: language.code,
+            city: city.code,
             allAvailableLanguages: new Map(),
             models: []
-          }
-        },
-        newsRouteMapping: {
+          },
           routeKeyNews1: {
+            routeType: NEWS_ROUTE,
             status: 'ready',
             models: [],
             hasMoreNews: false,
             page: 1,
             newsId: null,
             language: language.code,
-            city: city.name,
+            city: city.code,
             type: LOCAL_NEWS_TYPE,
             allAvailableLanguages: new Map()
           }
@@ -122,21 +121,19 @@ describe('HeaderContainer', () => {
     }
   }
 
-  const render = props => {
+  const render = (props, customStore = store) => {
     const HeaderContainer = require('../containers/HeaderContainer').default
     return TestRenderer.create(
-      <Provider store={store}>
+      <Provider store={customStore}>
         {/* $FlowFixMe not all props passed */}
-        <HeaderContainer {...props}/>
+        <HeaderContainer {...props} />
       </Provider>
     )
   }
 
   const assertProps = (rendered, expected) => {
     const header = rendered.root.findByType(Header)
-    expect(header.props).toEqual(
-      expect.objectContaining(expected)
-    )
+    expect(header.props).toEqual(expect.objectContaining(expected))
   }
 
   it('shareUrl should be set correctly for categories route', () => {
@@ -164,7 +161,12 @@ describe('HeaderContainer', () => {
       }
     }
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: language.code, route: EVENTS_ROUTE, path: null })
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: language.code,
+      route: EVENTS_ROUTE,
+      path: null
+    })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -179,7 +181,12 @@ describe('HeaderContainer', () => {
       }
     }
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: language.code, route: EVENTS_ROUTE, path: 'specific-event' })
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: language.code,
+      route: EVENTS_ROUTE,
+      path: 'specific-event'
+    })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -196,7 +203,38 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: language.code, route: NEWS_ROUTE, path: LOCAL_NEWS_TYPE })
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: language.code,
+      route: NEWS_ROUTE,
+      path: LOCAL_NEWS_TYPE
+    })
+    assertProps(result, { shareUrl: expectedShareUrl })
+  })
+
+  it('shareUrl should be set correctly for local news details route', () => {
+    jest.doMock('../components/Header', () => Header)
+
+    const ownProps = {
+      scene: {
+        route: {
+          name: NEWS_ROUTE,
+          key: 'routeKeyNews1'
+        }
+      }
+    }
+
+    const state = prepareState()
+    // $FlowFixMe Everything correct here, nothing to see.
+    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
+
+    const result = render(ownProps, mockStore(state))
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: language.code,
+      route: NEWS_ROUTE,
+      path: `${LOCAL_NEWS_TYPE}/12345`
+    })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -212,7 +250,12 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: state.contentLanguage, route: OFFERS_ROUTE, path: null })
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: state.contentLanguage,
+      route: OFFERS_ROUTE,
+      path: null
+    })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -222,13 +265,19 @@ describe('HeaderContainer', () => {
     const ownProps = {
       scene: {
         route: {
-          name: DISCLAIMER_ROUTE
+          name: DISCLAIMER_ROUTE,
+          params: { cityCode: 'nuernberg' }
         }
       }
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: state.contentLanguage, route: DISCLAIMER_ROUTE, path: null })
+    const expectedShareUrl = cityContentUrl({
+      cityCode: 'nuernberg',
+      languageCode: state.contentLanguage,
+      route: DISCLAIMER_ROUTE,
+      path: null
+    })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -245,7 +294,12 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: state.contentLanguage, route: POIS_ROUTE, path: null })
+    const expectedShareUrl = cityContentUrl({
+      cityCode: city.code,
+      languageCode: state.contentLanguage,
+      route: POIS_ROUTE,
+      path: null
+    })
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 })

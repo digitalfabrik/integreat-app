@@ -22,7 +22,7 @@ const navigateToLink = <T: RoutesType>(
   } else if (url.includes('.png') || url.includes('.jpg')) {
     navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl })
   } else if (HIJACK.test(url)) {
-    const pathname = (new Url(url)).pathname
+    const pathname = new Url(url).pathname
     const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
     navigateTo(routeParser.route())
   } else {

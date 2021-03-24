@@ -44,7 +44,7 @@ const HeaderText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   height: 50px;
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
@@ -52,7 +52,7 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   shadow-color: #000;
   shadow-offset: 0px 1px;
   shadow-opacity: 0.18;
-  shadow-radius: 1.00px;
+  shadow-radius: 1px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
@@ -102,7 +102,8 @@ const Header = (props: PropsType) => {
   }
 
   const onShare = async () => {
-    if (!shareUrl) { // The share option should only be shown if there is a shareUrl
+    if (!shareUrl) {
+      // The share option should only be shown if there is a shareUrl
       return
     }
 
@@ -142,36 +143,51 @@ const Header = (props: PropsType) => {
   }
 
   const renderItem = (
-    title: string, iconName?: string, show: 'never' | 'always',
-    onPress: ?() => void | Promise<void>, accessibilityLabel: string
+    title: string,
+    iconName?: string,
+    show: 'never' | 'always',
+    onPress: ?() => void | Promise<void>,
+    accessibilityLabel: string
   ): Node => {
     const buttonStyle = onPress ? {} : { color: theme.colors.textSecondaryColor }
 
-    return <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show}
-                 onPress={onPress} buttonStyle={buttonStyle} />
+    return (
+      <Item
+        title={title}
+        accessibilityLabel={accessibilityLabel}
+        iconName={iconName}
+        show={show}
+        onPress={onPress}
+        buttonStyle={buttonStyle}
+      />
+    )
   }
 
-  const showShare = !!(shareUrl)
+  const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
 
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {canGoBackInStack()
-            ? <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
-            : <Icon source={buildConfigAssets().appIcon} />}
-          {routeCityModel &&
-          <HeaderText allowFontScaling={false} theme={theme}>{cityDisplayName()}</HeaderText>}
+          {canGoBackInStack() ? (
+            <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
+          ) : (
+            <Icon source={buildConfigAssets().appIcon} />
+          )}
+          {routeCityModel && (
+            <HeaderText allowFontScaling={false} theme={theme}>
+              {cityDisplayName()}
+            </HeaderText>
+          )}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-          {!peeking && categoriesAvailable &&
-          renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
-          {!peeking && goToLanguageChange &&
-          renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
+          {!peeking && categoriesAvailable && renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
+          {!peeking &&
+            goToLanguageChange &&
+            renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
           {showShare && renderItem(t('share'), undefined, 'never', onShare, t('share'))}
-          {showChangeLocation &&
-          renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
+          {showChangeLocation && renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
           {renderItem(t('settings'), undefined, 'never', goToSettings, t('settings'))}
           {routeCityModel && renderItem(t('disclaimer'), undefined, 'never', goToDisclaimer, t('disclaimer'))}
         </MaterialHeaderButtons>

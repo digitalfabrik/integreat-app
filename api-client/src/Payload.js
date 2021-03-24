@@ -10,7 +10,7 @@ class Payload<T> {
   _requestUrl: ?string
   _fetchDate: number
 
-  constructor (
+  constructor(
     isFetching: boolean,
     requestUrl: ?string = null,
     data: ?T = null,
@@ -28,23 +28,23 @@ class Payload<T> {
     }
   }
 
-  get fetchDate (): number {
+  get fetchDate(): number {
     return this._fetchDate
   }
 
-  get isFetching (): boolean {
+  get isFetching(): boolean {
     return this._isFetching
   }
 
-  get data (): ?T {
+  get data(): ?T {
     return this._data
   }
 
-  get error (): ?Error {
+  get error(): ?Error {
     return this._error
   }
 
-  get requestUrl (): ?string {
+  get requestUrl(): ?string {
     return this._requestUrl
   }
 }

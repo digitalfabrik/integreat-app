@@ -11,7 +11,7 @@ export type SetCurrentCityActionType = { type: 'SET_CURRENT_CITY', payload: stri
 export type ToggleDarkModeActionType = { type: 'TOGGLE_DARK_MODE' }
 
 export type StoreActionType =
-  StartFetchActionType<*>
+  | StartFetchActionType<*>
   | FinishFetchActionType<*, *>
   | SetLanguageActionType
   | SetCurrentCityActionType

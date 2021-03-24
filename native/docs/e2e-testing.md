@@ -14,6 +14,7 @@ To build for e2e tests, use the [corresponding build config](../../build-configs
 ### Using appium-desktop
 
 [Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app. To set it up I recommend to clone the repository and run the electron app manually:
+
 ```bash
 git clone https://github.com/appium/appium-desktop.git
 cd appium-desktop
@@ -33,6 +34,7 @@ You can find your browserstack `user` and `key` here: https://app-automate.brows
 #### Uploading the app
 
 You can upload the app and give the upload a name by running:
+
 ```bash
 curl -u "user:key" \
 -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
@@ -56,8 +58,7 @@ yarn test:e2e
 
 Please note that there is a limit of concurrent tasks **AND** how many tasks can be queued. If you want to experiment with this you can run jest with `--maxWorkers=15`.
 
-
-* [BrowserStack API](https://www.browserstack.com/app-automate/rest-api)
+- [BrowserStack API](https://www.browserstack.com/app-automate/rest-api)
 
 # Webdriver
 

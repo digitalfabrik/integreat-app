@@ -16,8 +16,6 @@ describe('SprungbrettListItem', () => {
   })
 
   it('should render and match snapshot', () => {
-    expect(shallow(
-      <SprungbrettListItem job={job} />
-    )).toMatchSnapshot()
+    expect(shallow(<SprungbrettListItem job={job} />)).toMatchSnapshot()
   })
 })

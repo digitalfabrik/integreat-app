@@ -57,11 +57,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       this.props.toggleDarkMode()
     }
     this.setState(prevState => {
-      return ({ ...prevState, footerClicked: prevState.footerClicked + 1 })
+      return { ...prevState, footerClicked: prevState.footerClicked + 1 }
     })
   }
 
-  getCurrentCity (): ?CityModel {
+  getCurrentCity(): ?CityModel {
     const { location, cities } = this.props
     const city = location.payload.city
 
@@ -74,12 +74,16 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     }
 
     const { cities, offers, location, feedbackTargetInformation } = this.props
-    return <FeedbackModal cities={cities}
-                          offers={offers}
-                          feedbackRating={this.state.feedbackModalRating}
-                          closeFeedbackModal={this.closeFeedbackModal}
-                          location={location}
-                          {...feedbackTargetInformation} />
+    return (
+      <FeedbackModal
+        cities={cities}
+        offers={offers}
+        feedbackRating={this.state.feedbackModalRating}
+        closeFeedbackModal={this.closeFeedbackModal}
+        location={location}
+        {...feedbackTargetInformation}
+      />
+    )
   }
 
   openFeedbackModal = (rating: FeedbackRatingType) => this.setState({ feedbackModalRating: rating })
@@ -97,12 +101,17 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       DISCLAIMER_ROUTE,
       WOHNEN_ROUTE,
       SPRUNGBRETT_ROUTE,
-      POIS_ROUTE]
+      POIS_ROUTE
+    ]
     if (type === CATEGORIES_ROUTE) {
-      return <CategoriesToolbar categories={categories}
-                                location={location}
-                                openFeedbackModal={this.openFeedbackModal}
-                                viewportSmall={viewportSmall} />
+      return (
+        <CategoriesToolbar
+          categories={categories}
+          location={location}
+          openFeedbackModal={this.openFeedbackModal}
+          viewportSmall={viewportSmall}
+        />
+      )
     } else if (feedbackRoutes.includes(type)) {
       return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
     } else {
@@ -110,7 +119,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     }
   }
 
-  render () {
+  render() {
     const { viewportSmall, children, location, darkMode, languageChangePaths, events, isLoading } = this.props
     const type = location.type
     const { city, language } = location.payload
@@ -121,21 +130,28 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    return <Layout asideStickyTop={this.state.asideStickyTop}
-                   header={<LocationHeader cityModel={cityModel}
-                                           languageChangePaths={languageChangePaths}
-                                           location={location}
-                                           events={events}
-                                           viewportSmall={viewportSmall}
-                                           onStickyTopChanged={this.handleStickyTopChanged} />}
-                   footer={!isLoading
-                     ? <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} />
-                     : null}
-                   toolbar={this.renderToolbar()}
-                   modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
-                   darkMode={darkMode}>
-      {children}
-    </Layout>
+    return (
+      <Layout
+        asideStickyTop={this.state.asideStickyTop}
+        header={
+          <LocationHeader
+            cityModel={cityModel}
+            languageChangePaths={languageChangePaths}
+            location={location}
+            events={events}
+            viewportSmall={viewportSmall}
+            onStickyTopChanged={this.handleStickyTopChanged}
+          />
+        }
+        footer={
+          !isLoading ? <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} /> : null
+        }
+        toolbar={this.renderToolbar()}
+        modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
+        darkMode={darkMode}>
+        {children}
+      </Layout>
+    )
   }
 }
 

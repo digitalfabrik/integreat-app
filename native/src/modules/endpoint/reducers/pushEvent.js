@@ -1,12 +1,13 @@
 // @flow
 
-import type { CityContentStateType, EventRouteStateType } from '../../app/StateType'
+import type { CityContentStateType, EventRouteStateType, RouteStateType } from '../../app/StateType'
 import type { PushEventActionType } from '../../app/StoreActionType'
-import { EventModel } from 'api-client'
+import { EventModel, EVENTS_ROUTE } from 'api-client'
 import ErrorCodes from '../../error/ErrorCodes'
 import { values, entries } from 'translations'
 
-const getEventRouteState = (currentPath: ?string,
+const getEventRouteState = (
+  currentPath: ?string,
   state: CityContentStateType,
   action: PushEventActionType
 ): EventRouteStateType => {
@@ -14,14 +15,21 @@ const getEventRouteState = (currentPath: ?string,
 
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
-  const otherEventPageLoading = values<EventRouteStateType>(state.eventsRouteMapping)
-    .filter(route => city === route.city && currentPath !== route.path && language === route.language)
+  const otherEventPageLoading = values<RouteStateType>(state.routeMapping)
+    .filter(
+      route =>
+        route.routeType === EVENTS_ROUTE &&
+        city === route.city &&
+        currentPath !== route.path &&
+        language === route.language
+    )
     .some(route => route.status === 'loading')
 
-  const status: 'loading' | 'ready' = (otherEventPageLoading && !refresh) ? 'loading' : 'ready'
+  const status: 'loading' | 'ready' = otherEventPageLoading && !refresh ? 'loading' : 'ready'
   if (!currentPath) {
     const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
     const eventRouteState = {
+      routeType: EVENTS_ROUTE,
       path: null,
       language,
       city,
@@ -29,14 +37,15 @@ const getEventRouteState = (currentPath: ?string,
       allAvailableLanguages
     }
     if (status === 'loading') {
-      return { status: 'loading', ...eventRouteState }
+      return { routeType: EVENTS_ROUTE, status: 'loading', ...eventRouteState }
     } else {
-      return { status: 'ready', ...eventRouteState }
+      return { routeType: EVENTS_ROUTE, status: 'ready', ...eventRouteState }
     }
   }
   const event: ?EventModel = events.find(event => event.path === currentPath)
   if (!event) {
     return {
+      routeType: EVENTS_ROUTE,
       path: currentPath,
       language,
       city,
@@ -57,9 +66,9 @@ const getEventRouteState = (currentPath: ?string,
   }
 
   if (status === 'loading') {
-    return { status: 'loading', ...eventRouteState }
+    return { routeType: EVENTS_ROUTE, status: 'loading', ...eventRouteState }
   } else {
-    return { status: 'ready', ...eventRouteState }
+    return { routeType: EVENTS_ROUTE, status: 'ready', ...eventRouteState }
   }
 }
 
@@ -67,17 +76,19 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
   const { path, key, language, resourceCache, city, refresh } = action.params
 
   // If there is an error in the old resourceCache, we want to override it
-  const newResourceCache = state.resourceCache.status === 'ready'
-    ? { ...state.resourceCache.value, ...resourceCache }
-    : resourceCache
+  const newResourceCache =
+    state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
 
-  const newEventsRouteMapping = { ...state.eventsRouteMapping }
+  const newRouteMapping = { ...state.routeMapping }
 
   if (refresh) {
-    entries<EventRouteStateType>(state.eventsRouteMapping)
-      .filter(([_, route]) => city === route.city && path !== route.path && language === route.language)
+    entries<RouteStateType>(state.routeMapping)
+      .filter(
+        ([_, route]) =>
+          route.routeType === EVENTS_ROUTE && city === route.city && path !== route.path && language === route.language
+      )
       .forEach(([key, route]) => {
-        newEventsRouteMapping[key] = route.path
+        newRouteMapping[key] = route.path
           ? getEventRouteState(route.path, state, action)
           : getEventRouteState(null, state, action)
       })
@@ -85,8 +96,8 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
 
   return {
     ...state,
-    eventsRouteMapping: {
-      ...newEventsRouteMapping,
+    routeMapping: {
+      ...newRouteMapping,
       [key]: getEventRouteState(path, state, action)
     },
     resourceCache: {

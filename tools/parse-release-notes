@@ -71,6 +71,11 @@ const parseReleaseNotes = ({ language, source, android, ios, web, production }) 
     throw new Error('Usage of multiple platforms in production mode is not supported.')
   }
 
+  if (!fs.existsSync(source)) {
+    console.warn('Source not found. Nothing to do...')
+    return DEFAULT_NOTES[language] || DEFAULT_NOTES[DEFAULT_LANGUAGE]
+  }
+
   const fileNames = fs.readdirSync(source)
 
   // Load all notes not belonging to a release

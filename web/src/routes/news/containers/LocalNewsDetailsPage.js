@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'redux-first-router'
-import { CityModel, LocalNewsModel, NotFoundError } from 'api-client'
+import { CityModel, LocalNewsModel, NotFoundError, replaceLinks } from 'api-client'
 import type { StateType } from '../../../modules/app/StateType'
 import Page from '../../../modules/common/components/Page'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
@@ -19,13 +19,7 @@ type PropsType = {|
   cities: Array<CityModel>
 |}
 
-export const LocalNewsDetailsPage = ({
-  localNewsElement,
-  language,
-  city,
-  cities,
-  id
-}: PropsType) => {
+export const LocalNewsDetailsPage = ({ localNewsElement, language, city, cities, id }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
   if (!currentCity || !currentCity.pushNotificationsEnabled) {
@@ -35,12 +29,14 @@ export const LocalNewsDetailsPage = ({
     const error = new NotFoundError({ type: LOCAL_NEWS_TYPE, id, city, language })
     return <FailureSwitcher error={error} />
   }
+  const linkedContent = replaceLinks(localNewsElement.message)
 
   return (
     <Page
       title={localNewsElement.title}
-      content={localNewsElement.message}
+      content={linkedContent}
       formatter={formatter}
+      lastUpdateFormat={'LLL'}
       lastUpdate={localNewsElement.timestamp}
       showLastUpdateText={false}
       onInternalLinkClick={push}
@@ -48,13 +44,11 @@ export const LocalNewsDetailsPage = ({
   )
 }
 
-const mapStateTypeToProps = (state: StateType) => (
-  {
-    language: state.location.payload.language,
-    city: state.location.payload.city,
-    id: state.location.payload.id,
-    cities: state.cities.data
-  }
-)
+const mapStateTypeToProps = (state: StateType) => ({
+  language: state.location.payload.language,
+  city: state.location.payload.city,
+  id: state.location.payload.id,
+  cities: state.cities.data
+})
 
 export default connect<PropsType, *, *, *, *, *>(mapStateTypeToProps)(LocalNewsDetailsPage)

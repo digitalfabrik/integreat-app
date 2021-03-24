@@ -18,7 +18,7 @@ const Wrapper: StyledComponent<{| children: React.Node |}, {}, *> = styled.View`
 `
 
 class Heading extends React.Component<PropsType> {
-  render () {
+  render() {
     const { clearResourcesAndCache, theme } = this.props
     return (
       <Wrapper>

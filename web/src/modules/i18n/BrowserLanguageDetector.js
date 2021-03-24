@@ -38,7 +38,8 @@ export default {
     // Adapted from:
     // https://github.com/i18next/i18next-browser-languageDetector/blob/a84df47faf3603ece04bc224e8e0f6f0ca1df923/src/browserLookups/navigator.js
     if (typeof navigator !== 'undefined') {
-      if (navigator.languages) { // chrome only; not an array, so can't use .push.apply instead of iterating
+      if (navigator.languages) {
+        // chrome only; not an array, so can't use .push.apply instead of iterating
         for (let i = 0; i < navigator.languages.length; i++) {
           bcp47Tags.push(navigator.languages[i])
         }
@@ -51,14 +52,7 @@ export default {
       }
     }
 
-    const iso639Codes = bcp47Tags.map(bcp47Tag => {
-      if (bcp47Tag.includes('-')) {
-        return bcp47Tag.split('-')[0]
-      }
-      return bcp47Tag
-    })
-
-    return iso639Codes.length > 0 ? iso639Codes : undefined // Returning array: new i18next v19.5.0
+    return bcp47Tags.length > 0 ? bcp47Tags : undefined
   },
   cacheUserLanguage: language => {
     if (localStorageAvailable()) {

@@ -27,19 +27,20 @@ const Container: StyledComponent<{}, {}, *> = styled(Animated.View)`
 const ANIMATION_DURATION = 300
 const MAX_HEIGHT = 9999
 
-const getKey = (element: ?React$Element<*>): ?React$Key => element ? React.Children.only(element).key : null
+const getKey = (element: ?React$Element<*>): ?React$Key => (element ? React.Children.only(element).key : null)
 
 class SnackbarAnimator extends React.Component<PropsType, StateType> {
   state = { translate: new Animated.Value(1), height: null, displayed: null, status: 'out' }
 
-  componentDidMount () {
+  componentDidMount() {
     this.checkForUpdate()
   }
 
   checkForUpdate = () => {
     const { displayed, status } = this.state
     const children = this.props.children
-    if (getKey(displayed) !== getKey(children)) { // displayed doesn't correspond to current
+    if (getKey(displayed) !== getKey(children)) {
+      // displayed doesn't correspond to current
       if (status === 'in') {
         this.setState({ status: 'animating' })
         this.hide()
@@ -50,17 +51,19 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
     }
   }
 
-  show = () => Animated.timing(this.state.translate, {
-    toValue: 0,
-    duration: ANIMATION_DURATION,
-    useNativeDriver: true
-  }).start(this.onShowEnd)
+  show = () =>
+    Animated.timing(this.state.translate, {
+      toValue: 0,
+      duration: ANIMATION_DURATION,
+      useNativeDriver: true
+    }).start(this.onShowEnd)
 
-  hide = () => Animated.timing(this.state.translate, {
-    toValue: 1,
-    duration: ANIMATION_DURATION,
-    useNativeDriver: true
-  }).start(this.onHideEnd)
+  hide = () =>
+    Animated.timing(this.state.translate, {
+      toValue: 1,
+      duration: ANIMATION_DURATION,
+      useNativeDriver: true
+    }).start(this.onHideEnd)
 
   onShowEnd = () => {
     this.setState({ status: 'in' })
@@ -72,7 +75,7 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
     this.checkForUpdate()
   }
 
-  componentDidUpdate (prevProps: PropsType) {
+  componentDidUpdate(prevProps: PropsType) {
     const children = this.props.children
     const displayed = this.state.displayed
     if (prevProps.children !== children) {
@@ -85,13 +88,15 @@ class SnackbarAnimator extends React.Component<PropsType, StateType> {
 
   onLayout = (event: ViewLayoutEvent) => this.setState({ height: event.nativeEvent.layout.height })
 
-  render () {
+  render() {
     const { translate, height, displayed } = this.state
     const outputRange: number[] = [0, height || MAX_HEIGHT]
     const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: outputRange })
-    return <Container onLayout={this.onLayout} style={{ transform: [{ translateY: interpolated }] }}>
-      {displayed}
-    </Container>
+    return (
+      <Container onLayout={this.onLayout} style={{ transform: [{ translateY: interpolated }] }}>
+        {displayed}
+      </Container>
+    )
   }
 }
 

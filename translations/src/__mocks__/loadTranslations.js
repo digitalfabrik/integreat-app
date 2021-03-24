@@ -29,6 +29,9 @@ export const testTranslations: TranslationsType = {
       localInformation: 'معلومات محلية',
       offers: 'العروض',
       events: 'الفعاليات'
+    },
+    "zh-CN": {
+      "localInformation": "本地信息",
     }
   }
 }

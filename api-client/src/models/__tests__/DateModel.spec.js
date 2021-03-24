@@ -16,9 +16,7 @@ describe('DateModel', () => {
       const allDay = false
       const date = new DateModel({ startDate, endDate, allDay })
 
-      expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)
-      ).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
 
     it('should return only start date + time and end time if the dates are the same', () => {

@@ -6,11 +6,11 @@ import { type StyledComponent } from 'styled-components'
 import type { ThemeType } from '../../theme/constants'
 
 const H1: StyledComponent<{ withThumbnail: boolean }, ThemeType, *> = styled.Text`
-  padding : ${props => props.withThumbnail ? '0 0' : '20px 0'};
+  padding: ${props => (props.withThumbnail ? '0 0' : '20px 0')};
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 type PropsType = {|
@@ -20,8 +20,12 @@ type PropsType = {|
 |}
 
 class CategoryListCaption extends React.Component<PropsType> {
-  render () {
-    return <H1 withThumbnail={this.props.withThumbnail} theme={this.props.theme}>{this.props.title}</H1>
+  render() {
+    return (
+      <H1 withThumbnail={this.props.withThumbnail} theme={this.props.theme}>
+        {this.props.title}
+      </H1>
+    )
   }
 }
 

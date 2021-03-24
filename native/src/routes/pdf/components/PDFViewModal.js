@@ -6,10 +6,7 @@ import { View } from 'react-native'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import type {
-  NavigationPropType,
-  RoutePropType
-} from '../../../modules/app/constants/NavigationTypes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { PdfViewModalRouteType } from 'api-client/src/routes'
 
 type PropsType = {|
@@ -23,14 +20,14 @@ type StateType = {|
 |}
 
 class PDFViewModal extends React.Component<PropsType, StateType> {
-  constructor (props: PropsType) {
+  constructor(props: PropsType) {
     super(props)
     this.state = { error: null }
   }
 
   onError = (error: Error) => this.setState(() => ({ error }))
 
-  render () {
+  render() {
     const { theme, route } = this.props
     const url = route.params.url
     const { error } = this.state

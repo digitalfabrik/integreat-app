@@ -21,9 +21,11 @@ describe('navigateToCategory', () => {
       languageCode: 'de',
       cityContentPath: '/augsburg/de/erste-hilfe'
     })
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      name: CATEGORIES_ROUTE
-    }))
+    expect(navigation.navigate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: CATEGORIES_ROUTE
+      })
+    )
 
     navigateToCategory({
       dispatch,
@@ -33,9 +35,44 @@ describe('navigateToCategory', () => {
       languageCode: 'de',
       cityContentPath: '/augsburg/de'
     })
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      name: DASHBOARD_ROUTE
-    }))
+    expect(navigation.navigate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: DASHBOARD_ROUTE
+      })
+    )
+  })
+
+  it('should reset the navigation to the specified route if resetNavigation was set', () => {
+    const dispatch = jest.fn()
+    const navigation = createNavigationScreenPropMock()
+
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de/erste-hilfe',
+      resetNavigation: true
+    })
+    expect(navigation.reset).toHaveBeenCalledWith({
+      index: 0,
+      routes: [expect.objectContaining({ name: CATEGORIES_ROUTE })]
+    })
+
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: DASHBOARD_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de',
+      resetNavigation: true
+    })
+    expect(navigation.reset).toHaveBeenCalledWith({
+      index: 0,
+      routes: [expect.objectContaining({ name: DASHBOARD_ROUTE })]
+    })
   })
 
   it('should generate key if not supplied with at least 6 chars and use it for both navigation and redux actions', () => {
@@ -51,9 +88,11 @@ describe('navigateToCategory', () => {
       cityContentPath: '/augsburg/de/erste-hilfe'
     })
 
-    expect(navigation.navigate).toHaveBeenCalledWith(expect.objectContaining({
-      key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
-    }))
+    expect(navigation.navigate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
+      })
+    )
     const key = (navigation.navigate: any).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_CATEGORY',

@@ -1,0 +1,7 @@
+issue_key: IGAPP-93
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: You can now open links directly with the app.
+de: Links können nun direkt mit der App geöffnet werden.

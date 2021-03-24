@@ -3,11 +3,11 @@
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 
 class ContentMatcher {
-  getWords (content: string): Array<string> {
+  getWords(content: string): Array<string> {
     return content.split(/\s+/).filter(Boolean)
   }
 
-  getContentBeforeMatchIndex (content: string, matchIndex: number, startOfWord: boolean, numWords: number): string {
+  getContentBeforeMatchIndex(content: string, matchIndex: number, startOfWord: boolean, numWords: number): string {
     const wordsBeforeMatch = this.getWords(content.slice(0, matchIndex))
     const additionalWordBefore = startOfWord ? 0 : 1
     const limitedMatchBefore = wordsBeforeMatch
@@ -16,14 +16,12 @@ class ContentMatcher {
     return limitedMatchBefore + (startOfWord ? ' ' : '')
   }
 
-  getContentAfterMatchIndex (content: string, matchIndex: number, numWords: number): string {
+  getContentAfterMatchIndex(content: string, matchIndex: number, numWords: number): string {
     const wordsAfterMatch = this.getWords(content.slice(matchIndex))
-    return wordsAfterMatch
-      .slice(0, numWords + 1)
-      .join(' ')
+    return wordsAfterMatch.slice(0, numWords + 1).join(' ')
   }
 
-  getMatchedContent (query: ?string, content: ?string, numWordsSurrounding: number): ?string {
+  getMatchedContent(query: ?string, content: ?string, numWordsSurrounding: number): ?string {
     if (!query || !query.length || !content) {
       return null
     }
@@ -39,7 +37,8 @@ class ContentMatcher {
       content,
       matchIndex,
       queryMatchesStartOfWord,
-      numWordsSurrounding)
+      numWordsSurrounding
+    )
     const contentAfter = this.getContentAfterMatchIndex(content, matchIndex, numWordsSurrounding)
     return contentBefore + contentAfter
   }

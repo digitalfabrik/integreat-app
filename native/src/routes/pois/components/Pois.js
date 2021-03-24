@@ -44,11 +44,15 @@ class Pois extends React.Component<PropsType> {
 
   renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
     const { theme } = this.props
-    return <PoiListItem key={poi.path}
-                          poi={poi}
-                          language={language}
-                          theme={theme}
-                          navigateToPois={this.navigateToPois(cityCode, language, poi.path)} />
+    return (
+      <PoiListItem
+        key={poi.path}
+        poi={poi}
+        language={language}
+        theme={theme}
+        navigateToPois={this.navigateToPois(cityCode, language, poi.path)}
+      />
+    )
   }
 
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
@@ -74,7 +78,7 @@ class Pois extends React.Component<PropsType> {
     })
   }
 
-  render () {
+  render() {
     const { pois, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToLink, t } = this.props
 
     const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
@@ -83,37 +87,44 @@ class Pois extends React.Component<PropsType> {
       if (poi) {
         const location = poi.location.location
         const files = resourceCache[poi.path] || {}
-        return <Page content={poi.content}
-                     title={poi.title}
-                     lastUpdate={poi.lastUpdate}
-                     language={language}
-                     files={files}
-                     theme={theme}
-                     resourceCacheUrl={resourceCacheUrl}
-                     navigateToLink={navigateToLink}
-                     navigateToFeedback={this.createNavigateToFeedbackForPoi(poi)}>
-          <>
-            {location && <PageDetail identifier={t('location')}
-                                                    information={location} theme={theme}
-                                                    language={language} />}
-          </>
-        </Page>
+        return (
+          <Page
+            content={poi.content}
+            title={poi.title}
+            lastUpdate={poi.lastUpdate}
+            language={language}
+            files={files}
+            theme={theme}
+            resourceCacheUrl={resourceCacheUrl}
+            navigateToLink={navigateToLink}
+            navigateToFeedback={this.createNavigateToFeedbackForPoi(poi)}>
+            <>
+              {location && (
+                <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+              )}
+            </>
+          </Page>
+        )
       }
 
       const error = new NotFoundError({ type: 'poi', id: path, city: cityCode, language })
       return <Failure code={fromError(error)} t={t} theme={theme} />
     }
 
-    return <SpaceBetween>
-      <View>
-        <Caption title={t('poi')} theme={theme} />
-        <List noItemsMessage={t('currentlyNoPois')}
-              items={sortedPois}
-              renderItem={this.renderPoiListItem(cityCode, language)}
-              theme={theme} />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} />
-    </SpaceBetween>
+    return (
+      <SpaceBetween>
+        <View>
+          <Caption title={t('poi')} theme={theme} />
+          <List
+            noItemsMessage={t('currentlyNoPois')}
+            items={sortedPois}
+            renderItem={this.renderPoiListItem(cityCode, language)}
+            theme={theme}
+          />
+        </View>
+        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} />
+      </SpaceBetween>
+    )
   }
 }
 

@@ -6,13 +6,15 @@ import buildConfig from '../../app/constants/buildConfig'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 const SandBox: StyledComponent<{| centered: boolean |}, ThemeType, *> = styled.div`
-  font-family: ${props => props.theme.fonts.contentFontFamily};
+  font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
-  ${props => props.centered && css`
-    text-align: center;
-    list-style-position: inside;
-  `}
+  ${props =>
+    props.centered &&
+    css`
+      text-align: center;
+      list-style-position: inside;
+    `}
 
   & img {
     max-width: 100%;
@@ -88,12 +90,12 @@ class RemoteContent extends React.Component<PropsType> {
     }
   }
 
-  constructor () {
+  constructor() {
     super()
     this.sandBoxRef = React.createRef<*>()
   }
 
-  hijackATags () {
+  hijackATags() {
     if (!this.sandBoxRef.current) {
       return
     }
@@ -105,18 +107,22 @@ class RemoteContent extends React.Component<PropsType> {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.hijackATags()
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.hijackATags()
   }
 
-  render () {
-    return <SandBox centered={this.props.centered}
-                    dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
-                    ref={this.sandBoxRef} />
+  render() {
+    return (
+      <SandBox
+        centered={this.props.centered}
+        dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
+        ref={this.sandBoxRef}
+      />
+    )
   }
 }
 
