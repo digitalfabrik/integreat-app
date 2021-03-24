@@ -161,6 +161,9 @@ android {
         // https://rnfirebase.io/enabling-multidex
         multiDexEnabled true
     }
+    dexOptions {
+        javaMaxHeapSize "1g" // 2GB Gradle + 1GB dex + 2-2.5GB RN < 6GB of circleci resource class medium+
+    }
     signingConfigs {
         release {
             if (project.hasProperty('KEYSTORE_PATH')) {
