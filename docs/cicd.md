@@ -23,7 +23,7 @@ The easiest way to deliver a new build to production or development is to trigge
 ## Workflows
 
 Several workflows exist for different purposes:
-* **commit**: Executed for all commits of PRs to ensure good code quality and working code. Delivers web development builds to https.//webnext.\<domain>.
+* **commit**: Executed for all commits of PRs to ensure good code quality and working code. Delivers web development builds to https://webnext.\<domain>.
 * **scheduled_native_promotion**: Promotes the latest native development builds to production. Executed every Thursday morning.
 * **scheduled_delivery**: Delivers native builds to development and web builds to production. Executed every Thursday morning.
 * **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers native builds to development.
