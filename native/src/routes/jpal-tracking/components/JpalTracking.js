@@ -52,12 +52,15 @@ const JpalTracking = (props: PropsType, state: StateType) => {
   const routeTrackingCode = props.route.params.trackingCode
 
   useEffect(() => {
+    if (routeTrackingCode) {
+      appSettings.setJpalTrackingCode(routeTrackingCode)
+    }
+  }, [appSettings, routeTrackingCode])
+
+  useEffect(() => {
     const loadSettings = async () => {
       try {
         const loadedSettings = await appSettings.loadSettings()
-        if(routeTrackingCode) {
-          appSettings.setJpalTrackingCode(routeTrackingCode)
-        }
         setSettingsLoaded(true)
         setSettingsUpdated(false)
         setSettings(loadedSettings)
@@ -67,7 +70,7 @@ const JpalTracking = (props: PropsType, state: StateType) => {
       }
     }
     loadSettings()
-  }, [appSettings, settingsUpdated, routeTrackingCode])
+  }, [appSettings, settingsUpdated])
 
   const onPress = () => {
     appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).then(setSettingsUpdated(true))
