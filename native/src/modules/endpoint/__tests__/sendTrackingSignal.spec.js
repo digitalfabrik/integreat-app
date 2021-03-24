@@ -44,18 +44,16 @@ describe('sendTrackingSignal', () => {
     expect(mockRequest).toHaveBeenCalledWith({
       ...signal,
       trackingCode: 'abcdef123456',
-      metadata: {
-        offline: true,
-        currentCity: 'muenchen',
-        currentLanguage: 'ar',
-        systemLanguage: '', // TODO IGAPP-566 Include system language
-        appSettings: {
-          allowPushNotifications: true,
-          errorTracking: false,
-          proposeNearbyCities: false
-        },
-        timestamp: '2020-01-20T00:00:00.000Z'
-      }
+      offline: true,
+      currentCity: 'muenchen',
+      currentLanguage: 'ar',
+      systemLanguage: '', // TODO IGAPP-566 Include system language
+      appSettings: {
+        allowPushNotifications: true,
+        errorTracking: false,
+        proposeNearbyCities: false
+      },
+      timestamp: '2020-01-20T00:00:00.000Z'
     })
   })
 

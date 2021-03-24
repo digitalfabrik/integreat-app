@@ -126,16 +126,14 @@ export type SpecificSignalType =
 export type SignalType = {|
   ...SpecificSignalType,
   trackingCode: string,
-  metadata: {|
-    offline: boolean,
-    systemLanguage: string,
-    currentCity: string | null,
-    currentLanguage: string | null,
-    appSettings: {|
-      errorTracking: boolean | null,
-      allowPushNotifications: boolean | null,
-      proposeNearbyCities: boolean | null
-    |},
-    timestamp: string
-  |}
+  offline: boolean,
+  systemLanguage: string,
+  currentCity: string | null,
+  currentLanguage: string | null,
+  appSettings: {|
+    errorTracking: boolean | null,
+    allowPushNotifications: boolean | null,
+    proposeNearbyCities: boolean | null
+  |},
+  timestamp: string
 |}
