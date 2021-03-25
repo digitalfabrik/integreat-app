@@ -211,34 +211,6 @@ describe('cityContentReducer', () => {
     })
   })
 
-  it('should clear the event route on CLEAR_EVENT', () => {
-    const prevState: CityContentStateType = {
-      city: 'augsburg',
-      routeMapping: {
-        'route-id-0': {
-          routeType: EVENTS_ROUTE,
-          status: 'error',
-          language: 'de',
-          city: 'augsburg',
-          path: null,
-          message: 'No idea why it fails :/',
-          code: ErrorCodes.UnknownError
-        }
-      },
-      languages: { status: 'ready', models: languageModels },
-      resourceCache: { status: 'ready', progress: 0, value: {} },
-      searchRoute: null,
-      switchingLanguage: false
-    }
-
-    expect(
-      cityContentReducer(prevState, {
-        type: 'CLEAR_EVENT',
-        params: { key: 'route-id-0' }
-      })?.routeMapping
-    ).toEqual({})
-  })
-
   it('should set the route status to languageNotAvailable on FETCH_EVENT_FAILED with available languages', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
@@ -354,7 +326,7 @@ describe('cityContentReducer', () => {
     })
   })
 
-  it('should clear the category route on CLEAR_CATEGORY', () => {
+  it('should clear the route on CLEAR_ROUTE', () => {
     const prevState: CityContentStateType = {
       city: 'augsburg',
       routeMapping: {
@@ -377,7 +349,7 @@ describe('cityContentReducer', () => {
 
     expect(
       cityContentReducer(prevState, {
-        type: 'CLEAR_CATEGORY',
+        type: 'CLEAR_ROUTE',
         params: { key: 'route-id-0' }
       })?.routeMapping
     ).toEqual({})
