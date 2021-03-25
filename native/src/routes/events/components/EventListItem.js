@@ -12,6 +12,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import type { StyledComponent } from 'styled-components'
 
 type PropsType = {|
   cityCode: string,
@@ -21,9 +22,9 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-const Description = styled.Text`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
 /**

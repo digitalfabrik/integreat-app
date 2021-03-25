@@ -2,7 +2,7 @@
 
 const textTruncator = (text: string, numOfWordsAllowed: number): string => {
   const ellipsis = '...'
-  const words = text.split(' ')
+  const words = text.replace('\n', '').split(' ')
 
   if (words.length < numOfWordsAllowed) {
     return text

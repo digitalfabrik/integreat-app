@@ -29,7 +29,6 @@ jest.mock('../../../layout/containers/PermissionSnackbarContainer', () => {
 
 jest.mock('../../../push-notifications/PushNotificationsManager')
 jest.mock('../../../native-constants/NativeConstants')
-jest.mock('@react-native-community/async-storage')
 jest.mock('react-native-share')
 jest.mock('rn-fetch-blob')
 

@@ -38,6 +38,11 @@ Object {
       "localInformation": "Zanyariyên xwecihî",
     },
   },
+  "zh-CN": Object {
+    "dashboard": Object {
+      "localInformation": "本地信息",
+    },
+  },
 }
 `;
 
@@ -70,6 +75,11 @@ Object {
   "ku": Object {
     "dashboard": Object {
       "localInformation": "Zanyariyên xwecihî",
+    },
+  },
+  "zh-CN": Object {
+    "dashboard": Object {
+      "localInformation": "本地信息",
     },
   },
 }

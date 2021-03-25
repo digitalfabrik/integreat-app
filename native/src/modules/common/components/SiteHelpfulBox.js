@@ -30,7 +30,7 @@ const FeedbackButtons: StyledComponent<{||}, {||}, *> = styled.View`
 
 const HelpfulText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   align-self: center;
 `
 
@@ -40,7 +40,7 @@ const FeedbackTouchableOpacity: StyledComponent<{||}, {||}, *> = styled(Touchabl
 
 const FeedbackText: StyledComponent<{||}, ThemeType, *> = styled(Text)`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 12px;
   margin-top: -2px;
 `

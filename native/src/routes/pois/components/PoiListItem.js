@@ -5,6 +5,7 @@ import { PoiModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
 import type { ThemeType } from '../../../modules/theme/constants'
+import type { StyledComponent } from 'styled-components'
 
 type PropsType = {|
   poi: PoiModel,
@@ -13,9 +14,9 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-const Description = styled.Text`
+const Description: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
 class PoiListItem extends React.PureComponent<PropsType> {

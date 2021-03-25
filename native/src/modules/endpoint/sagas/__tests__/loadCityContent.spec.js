@@ -20,7 +20,6 @@ import DatabaseConnector from '../../DatabaseConnector'
 import mockDate from '../../../../testing/mockDate'
 import { createFetchMap } from '../../../../testing/builder/util'
 
-jest.mock('@react-native-community/async-storage')
 jest.mock('@react-native-community/netinfo')
 jest.mock('rn-fetch-blob')
 jest.mock('../fetchResourceCache')

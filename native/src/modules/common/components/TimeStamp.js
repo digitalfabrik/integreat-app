@@ -12,7 +12,7 @@ import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 const TimeStampText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.contentFontRegular};
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
 
 type DirectionContainerPropsType = {|

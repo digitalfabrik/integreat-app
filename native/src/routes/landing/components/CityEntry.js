@@ -20,24 +20,24 @@ const CityListItem: StyledComponent<{}, {}, *> = styled.TouchableHighlight`
   align-items: flex-start;
 `
 
-const Label = styled(Highlighter)`
+const Label: StyledComponent<{||}, ThemeType, *> = styled(Highlighter)`
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
-const AliasLabel = styled(Highlighter)`
+const AliasLabel: StyledComponent<{||}, ThemeType, *> = styled(Highlighter)`
   font-size: 11px;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const Separator = styled(Text)`
+const Separator: StyledComponent<{||}, ThemeType, *> = styled(Text)`
   font-size: 11px;
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const Aliases = styled.View`
+const Aliases: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex: 1;
   flex-wrap: wrap;
   flex-direction: row;
