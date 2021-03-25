@@ -42,7 +42,7 @@ You can use [Browserstack](https://www.browserstack.com) for testing cross-brows
 
 ### Formatting
 
-We use [prettier](https://prettier.io) to format code. 
+We use [prettier](https://prettier.io) to format code.
 Run `yarn workspace <workspace> prettier --check .` to show formatting problems or `yarn workspace <workspace> prettier --write .` to fix them.
 
 ### Linting
@@ -61,6 +61,7 @@ You can run flow using `yarn flow`.
 ## Backend
 
 **Testing with the live cms instance should be avoided:**
+
 - In debug builds (`yarn start`, `yarn build:debug` and `webnext.integreat-app.de`) the test cms is used as default, so it is **only required for release builds**, i.e. on `integreat.app`.
 - To switch the used cms instance:
   - Enter `window.localStorage.setItem('api-url', <cms url>)` in the console of your web browser.
