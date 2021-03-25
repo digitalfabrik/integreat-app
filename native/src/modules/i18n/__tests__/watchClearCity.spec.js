@@ -5,7 +5,6 @@ import { clearCity } from '../watchClearCity'
 import AppSettings from '../../settings/AppSettings'
 
 jest.mock('../../push-notifications/PushNotificationsManager')
-jest.mock('@react-native-community/async-storage')
 
 describe('watchClearCity', () => {
   it('should clear selected city of app settings', async () => {
