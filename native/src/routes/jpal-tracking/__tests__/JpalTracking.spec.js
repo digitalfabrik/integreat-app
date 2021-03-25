@@ -2,7 +2,6 @@
 
 import React from 'react'
 import JpalTracking from '../JpalTracking'
-import lightTheme from '../../../modules/theme/constants'
 import { act, render } from '@testing-library/react-native'
 import createNavigationMock from '../../../testing/createNavigationPropMock'
 import AsyncStorage from '@react-native-community/async-storage'
