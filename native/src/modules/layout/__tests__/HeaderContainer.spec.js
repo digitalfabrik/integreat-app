@@ -6,7 +6,6 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import type { StateType } from '../../app/StateType'
 import Header from '../components/Header'
-import { cityContentUrl } from '../../navigation/url'
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -14,7 +13,8 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
-  POIS_ROUTE
+  POIS_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 
 const mockStore = configureMockStore()
@@ -146,7 +146,7 @@ describe('HeaderContainer', () => {
       }
     }
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({ cityCode: city.code, languageCode: language.code, path: 'abc' })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -161,12 +161,7 @@ describe('HeaderContainer', () => {
       }
     }
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
-      languageCode: language.code,
-      route: EVENTS_ROUTE,
-      path: null
-    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -181,12 +176,7 @@ describe('HeaderContainer', () => {
       }
     }
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
-      languageCode: language.code,
-      route: EVENTS_ROUTE,
-      path: 'specific-event'
-    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -203,12 +193,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
-      languageCode: language.code,
-      route: NEWS_ROUTE,
-      path: LOCAL_NEWS_TYPE
-    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -229,12 +214,8 @@ describe('HeaderContainer', () => {
     state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
 
     const result = render(ownProps, mockStore(state))
-    const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
-      languageCode: language.code,
-      route: NEWS_ROUTE,
-      path: `${LOCAL_NEWS_TYPE}/12345`
-    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
+
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -250,13 +231,24 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
-      languageCode: state.contentLanguage,
-      route: OFFERS_ROUTE,
-      path: null
-    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
+  })
+
+  it('shareUrl should be set correctly for sprungbrett offer route', () => {
+    jest.doMock('../components/Header', () => Header)
+
+    const ownProps = {
+      scene: {
+        route: {
+          name: SPRUNGBRETT_OFFER_ROUTE
+        }
+      }
+    }
+
+    const result = render(ownProps)
+    const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
+    assertProps(result, { shareUrl })
   })
 
   it('shareUrl should be set correctly for disclaimer route', () => {
@@ -272,12 +264,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({
-      cityCode: 'nuernberg',
-      languageCode: state.contentLanguage,
-      route: DISCLAIMER_ROUTE,
-      path: null
-    })
+    const expectedShareUrl = `https://integreat.app/nuernberg/${language.code}/${DISCLAIMER_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
@@ -294,12 +281,7 @@ describe('HeaderContainer', () => {
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = cityContentUrl({
-      cityCode: city.code,
-      languageCode: state.contentLanguage,
-      route: POIS_ROUTE,
-      path: null
-    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 })
