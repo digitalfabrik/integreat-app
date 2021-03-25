@@ -26,7 +26,7 @@ export type FeedbackCategoryType = 'Inhalte' | 'Technisches Feedback'
 export const INTEGREAT_INSTANCE = 'Integreat'
 export const DEFAULT_FEEDBACK_LANGUAGE = 'de'
 
-export type ParamsType = {
+export type ParamsType = {|
   feedbackType: FeedbackType,
   feedbackCategory?: FeedbackCategoryType,
   permalink?: string,
@@ -36,9 +36,9 @@ export type ParamsType = {
   alias?: string,
   isPositiveRating: boolean,
   query?: string
-}
+|}
 
-export default (baseUrl: string): Endpoint<ParamsType, {}> =>
+export default (baseUrl: string): Endpoint<ParamsType, void> =>
   new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
@@ -65,5 +65,5 @@ export default (baseUrl: string): Endpoint<ParamsType, {}> =>
       }
       return formData
     })
-    .withMapper(() => ({}))
+    .withMapper(() => {})
     .build()

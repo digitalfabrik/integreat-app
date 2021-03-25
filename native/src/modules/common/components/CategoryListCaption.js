@@ -10,7 +10,7 @@ const H1: StyledComponent<{ withThumbnail: boolean }, ThemeType, *> = styled.Tex
   font-size: 20px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 type PropsType = {|

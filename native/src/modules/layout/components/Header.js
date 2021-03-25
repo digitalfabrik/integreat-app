@@ -40,11 +40,9 @@ const Icon = styled.Image`
 const HeaderText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   flex: 1;
   flex-direction: column;
-  text-align-vertical: center;
-  height: 50px;
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.decorativeFontBold};
+  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
 const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`

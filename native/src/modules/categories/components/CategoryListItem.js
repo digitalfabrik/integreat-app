@@ -43,9 +43,9 @@ const CategoryEntryContainer: StyledComponent<DirectionContainerPropsType, Theme
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const CategoryTitle = styled(Highlighter)`
+const CategoryTitle: StyledComponent<{| language: string |}, ThemeType, *> = styled(Highlighter)`
   flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
 

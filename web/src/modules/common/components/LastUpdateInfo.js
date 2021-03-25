@@ -10,7 +10,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 const TimeStamp: StyledComponent<{||}, ThemeType, *> = styled.p`
   padding-top: 15px;
   color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.contentFontFamily};
+  font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 

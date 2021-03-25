@@ -35,10 +35,12 @@ export default ({ children }: PropsType) => {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
-        load: 'languageOnly',
+        /* Only allow supported languages (languages which can appear  in content of cms */
+        supportedLngs: [...config.getSupportedLanguageTags(), ...config.getFallbackLanguageTags()],
+        load: 'currentOnly', // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
         interpolation: {
           escapeValue: false /* Escaping is not needed for react apps:
-                                https://github.com/i18next/react-i18next/issues/277 */
+                                  https://github.com/i18next/react-i18next/issues/277 */
         },
         debug: buildConfig().featureFlags.developerFriendly
       })
@@ -46,8 +48,11 @@ export default ({ children }: PropsType) => {
       setI18nextInstance(i18nextInstance)
 
       // Apply ui language as language
-      i18nextInstance.on('languageChanged', uiLanguage => {
-        setLanguage(uiLanguage)
+      i18nextInstance.on('languageChanged', () => {
+        console.log(i18nextInstance.languages)
+        // A language mentioned in the supportedLanguages array of the config.js in the translations package
+        const matchedLanguage = i18nextInstance.languages[0]
+        setLanguage(matchedLanguage)
       })
     }
 
@@ -97,6 +102,7 @@ export default ({ children }: PropsType) => {
         dir={config.isSupportedLanguage(language) ? (config.hasRTLScript(language) ? 'rtl' : 'ltr') : undefined}>
         <ReactHelmet>
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
+          {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
           <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />
           <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
           <link href='/fonts/varela-round/varela-round.css' rel='stylesheet' />
