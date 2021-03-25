@@ -1,60 +1,59 @@
 // @flow
 
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { render, fireEvent } from '@testing-library/react'
 import RemoteContent from '../RemoteContent'
 import { ThemeProvider } from 'styled-components'
 import lightTheme from '../../../theme/constants/theme'
 
 describe('RemoteContent', () => {
-  it('should render', () => {
-    expect(
-      shallow(
-        <RemoteContent dangerouslySetInnerHTML={{ __html: '<div> Test html </div>' }} onInternalLinkClick={() => {}} />
-      )
-    ).toMatchSnapshot()
+  it('should render the html content', () => {
+    const content = 'Test html'
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <RemoteContent dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}
+                       onInternalLinkClick={() => {}} />
+      </ThemeProvider>)
+    expect(getByText(content)).toBeTruthy()
   })
 
-  it('should render and have centered props', () => {
-    expect(
-      shallow(
-        <RemoteContent
-          centered
-          dangerouslySetInnerHTML={{ __html: '<div> Test html </div>' }}
-          onInternalLinkClick={() => {}}
-        />
-      )
-    ).toMatchSnapshot()
-  })
-
-  it('should trigger on internalLinkClick', () => {
+  it('should trigger on internalLinkClick for internal links', () => {
     const path = '/augsburg/de'
     const href = `https://integreat.app${path}`
     const html = `<a href=${href}>Test Anchor</a>`
     const onInternalLinkClick = jest.fn()
 
-    // Solution to test onClick event on dangerouslySetInnerHtml:
-    // https://stackoverflow.com/a/64251522
-    const body = document.getElementsByTagName('body')[0]
-    const child = document.createElement('div')
-
-    body.appendChild(child)
-
-    mount(
+    const { getByRole, getAllByRole } = render(
       <ThemeProvider theme={lightTheme}>
         <RemoteContent dangerouslySetInnerHTML={{ __html: html }}
                        onInternalLinkClick={onInternalLinkClick}
         />
-      </ThemeProvider>, { attachTo: child }
+      </ThemeProvider>
     )
 
-    expect(document.querySelectorAll('a')).toHaveLength(1)
-    const event = new Event('click')
-    document.querySelector('a')?.dispatchEvent(event)
+    expect(getAllByRole('link')).toHaveLength(1)
+    fireEvent.click(getByRole('link'))
 
     expect(onInternalLinkClick).toHaveBeenCalledTimes(1)
     expect(onInternalLinkClick).toHaveBeenLastCalledWith(path)
+  })
 
-    body.removeChild(child)
+  it('should not trigger on internalLinkClick for external links', () => {
+    const href = `https://some.external/link`
+    const html = `<a href=${href}>Test Anchor</a>`
+    const onInternalLinkClick = jest.fn()
+
+    const { getByRole, getAllByRole } = render(
+      <ThemeProvider theme={lightTheme}>
+        <RemoteContent dangerouslySetInnerHTML={{ __html: html }}
+                       onInternalLinkClick={onInternalLinkClick}
+        />
+      </ThemeProvider>
+    )
+
+    expect(getAllByRole('link')).toHaveLength(1)
+    fireEvent.click(getByRole('link'))
+
+    expect(onInternalLinkClick).toHaveBeenCalledTimes(0)
   })
 })
