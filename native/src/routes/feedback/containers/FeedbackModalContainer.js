@@ -7,20 +7,30 @@ import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FeedbackModal, { type PropsType as FeedbackModalPropsType } from '../components/FeedbackModal'
-import FeedbackVariant from '../FeedbackVariant'
-import type { FeedbackParamsType } from 'api-client'
+import type {
+  CategoriesRouteType,
+  DisclaimerRouteType,
+  EventsRouteType,
+  FeedbackParamsType,
+  FeedbackType,
+  OffersRouteType,
+  PoisRouteType
+} from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
+  CATEGORIES_ROUTE,
   CityModel,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
-  DEFAULT_FEEDBACK_LANGUAGE,
+  DISCLAIMER_ROUTE,
   EVENTS_FEEDBACK_TYPE,
+  EVENTS_ROUTE,
   OFFER_FEEDBACK_TYPE,
   OfferModel,
   OFFERS_FEEDBACK_TYPE,
+  OFFERS_ROUTE,
   PAGE_FEEDBACK_TYPE,
-  TECHNICAL_FEEDBACK_CATEGORY
+  POIS_ROUTE
 } from 'api-client'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -31,15 +41,14 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { FeedbackModalRouteType } from 'api-client/src/routes'
 
-type FeedbackType = 'Category' | 'Event' | 'Pois' | 'Offers' | 'Disclaimer'
+type RouteType = CategoriesRouteType | EventsRouteType | PoisRouteType | OffersRouteType | DisclaimerRouteType
 
 export type FeedbackInformationType = {|
-  type: FeedbackType,
+  routeType: RouteType,
   isPositiveFeedback: boolean,
   language: string,
   cityCode: string,
   path?: string,
-  title?: string,
   alias?: string,
   offers?: Array<OfferModel>
 |}
@@ -89,8 +98,6 @@ const refresh = (refreshProps: OwnPropsType) => {
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type FeedbackModalStateType = {|
-  feedbackOptions: Array<FeedbackVariant>,
-  selectedFeedbackIndex: number,
   comment: string,
   contactMail: string,
   sendingStatus: SendingStatusType
@@ -104,8 +111,7 @@ type ContainerPropsType = {|
 class FeedbackModalContainer extends React.Component<ContainerPropsType, FeedbackModalStateType> {
   constructor(props: ContainerPropsType) {
     super(props)
-    const feedbackOptions = this.getFeedbackOptions()
-    this.state = { feedbackOptions, selectedFeedbackIndex: 0, comment: '', contactMail: '', sendingStatus: 'idle' }
+    this.state = { comment: '', contactMail: '', sendingStatus: 'idle' }
   }
 
   getCityName = (): string => {
@@ -115,139 +121,52 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
     return CityModel.findCityName(cities, cityCode)
   }
 
-  getFeedbackOptions = (): Array<FeedbackVariant> => {
-    const options = []
-    const currentPageFeedbackOption = this.getCurrentPageFeedbackOption()
-    if (currentPageFeedbackOption) {
-      options.push(currentPageFeedbackOption)
-    }
-
-    const contentFeedbackOption = this.getContentFeedbackOption()
-    if (contentFeedbackOption) {
-      options.push(contentFeedbackOption)
-    }
-
-    options.push(...this.getOffersFeedbackOptions(), this.getTechnicalFeedbackVariant())
-
-    return options
-  }
-
-  getTechnicalFeedbackVariant = () => {
-    return new FeedbackVariant({
-      label: this.props.t('technicalTopics'),
-      feedbackType: CATEGORIES_FEEDBACK_TYPE,
-      feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY
-    })
-  }
-
-  getContentFeedbackOption = (): ?FeedbackVariant => {
-    const { route, t } = this.props
-    const cityName = this.getCityName()
-
-    const label = t('contentOfCity', { city: cityName })
-    const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
-    const feedbackType = route.params.type
-
-    // TODO: add 'POIS' in IGAPP-438
-    switch (feedbackType) {
-      case 'Event':
-        return new FeedbackVariant({ label, feedbackType: EVENTS_FEEDBACK_TYPE, feedbackCategory })
-      case 'Offers':
-        return new FeedbackVariant({ label, feedbackType: OFFERS_FEEDBACK_TYPE, feedbackCategory })
-      default:
-        return new FeedbackVariant({ label, feedbackType: CATEGORIES_FEEDBACK_TYPE, feedbackCategory })
-    }
-  }
-
-  getOffersFeedbackOptions = (): Array<FeedbackVariant> => {
-    const { route, t } = this.props
-    const { offers } = route.params
-    if (offers) {
-      return offers.map(
-        offer =>
-          new FeedbackVariant({
-            label: t('contentOfOffer', { offer: offer.title }),
-            feedbackType: OFFER_FEEDBACK_TYPE,
-            feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
-            alias: offer.alias
-          })
-      )
-    }
-    return []
-  }
-
-  getCurrentPageFeedbackOption = (): ?FeedbackVariant => {
-    const { route, t } = this.props
-    const { type, path, title, alias } = route.params
-
-    const feedbackCategory = CONTENT_FEEDBACK_CATEGORY
-    if (type === 'Category' && path && title) {
-      return new FeedbackVariant({
-        label: t('contentOfPage', { page: title }),
-        feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory
-      })
-    } else if (type === 'Pois' && path && title) {
-      return new FeedbackVariant({
-        label: t('contentOfPoi', { poi: title }),
-        feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory
-      })
-    } else if (type === 'Event' && path && title) {
-      return new FeedbackVariant({
-        label: t('contentOfEvent', { event: title }),
-        feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory
-      })
-    } else if (type === 'Offers' && alias && title) {
-      return new FeedbackVariant({
-        label: t('contentOfOffer', { offer: title }),
-        feedbackType: OFFER_FEEDBACK_TYPE,
-        feedbackCategory
-      })
-    } else if (type === 'Disclaimer') {
-      return new FeedbackVariant({
-        label: `${t('disclaimer')}`,
-        feedbackType: PAGE_FEEDBACK_TYPE,
-        feedbackCategory
-      })
-    } else {
-      return null
-    }
-  }
-
-  getFeedbackData = (selectedFeedbackOption: FeedbackVariant, comment: string): FeedbackParamsType => {
+  getFeedbackType = (): FeedbackType => {
     const { route } = this.props
-    const feedbackInformation = route.params
-    const isOfferOptionSelected = selectedFeedbackOption.feedbackType === OFFER_FEEDBACK_TYPE
-    const alias = feedbackInformation.alias || (isOfferOptionSelected && selectedFeedbackOption.alias) || ''
-    const city = this.getCityName().toLocaleLowerCase(feedbackInformation.language)
+    const { routeType, path, alias } = route.params
+
+    switch (routeType) {
+      case EVENTS_ROUTE:
+        return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
+      case OFFERS_ROUTE:
+        return alias ? OFFER_FEEDBACK_TYPE : OFFERS_FEEDBACK_TYPE
+      case DISCLAIMER_ROUTE:
+        return PAGE_FEEDBACK_TYPE
+      case POIS_ROUTE:
+        // TODO IGAPP-438 Handle pois list feedback correctly instead of returning categories feedback type
+        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+      case CATEGORIES_ROUTE:
+        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+      default:
+        return CATEGORIES_FEEDBACK_TYPE
+    }
+  }
+
+  getFeedbackData = (comment: string): FeedbackParamsType => {
+    const { route } = this.props
+    const { path, alias, language, isPositiveFeedback } = route.params
+    const feedbackType = this.getFeedbackType()
+    const city = this.getCityName().toLocaleLowerCase(language)
 
     return {
-      feedbackType: selectedFeedbackOption.feedbackType,
-      feedbackCategory: selectedFeedbackOption.feedbackCategory,
-      isPositiveRating: feedbackInformation.isPositiveFeedback,
-      permalink: feedbackInformation.path,
+      feedbackType,
+      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+      isPositiveRating: isPositiveFeedback,
+      permalink: path,
       city,
-      language: feedbackInformation.language || DEFAULT_FEEDBACK_LANGUAGE,
+      language,
       comment,
       alias
     }
   }
-
-  onFeedbackOptionChanged = (value: string | number, index: number) => this.setState({ selectedFeedbackIndex: index })
 
   onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
 
   onFeedbackContactMailChanged = (contactMail: string) => this.setState({ contactMail })
 
   handleSubmit = async () => {
-    const { selectedFeedbackIndex, feedbackOptions, comment, contactMail } = this.state
-    const feedbackItem = feedbackOptions[selectedFeedbackIndex]
-    const feedbackData = this.getFeedbackData(
-      feedbackItem,
-      `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
-    )
+    const { comment, contactMail } = this.state
+    const feedbackData = this.getFeedbackData(`${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`)
     this.setState({ sendingStatus: 'sending' })
     try {
       const apiUrl = await determineApiUrl()
@@ -262,19 +181,16 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
 
   render() {
     const { route, t } = this.props
-    const { comment, contactMail, selectedFeedbackIndex, feedbackOptions, sendingStatus } = this.state
+    const { comment, contactMail, sendingStatus } = this.state
     const { isPositiveFeedback } = route.params
 
     return (
       <ThemedFeedbackModal
         comment={comment}
         contactMail={contactMail}
-        selectedFeedbackIndex={selectedFeedbackIndex}
         sendingStatus={sendingStatus}
-        feedbackOptions={feedbackOptions}
         onCommentChanged={this.onFeedbackCommentChanged}
         onFeedbackContactMailChanged={this.onFeedbackContactMailChanged}
-        onFeedbackOptionChanged={this.onFeedbackOptionChanged}
         isPositiveFeedback={isPositiveFeedback}
         onSubmit={this.handleSubmit}
         t={t}
