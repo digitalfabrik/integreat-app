@@ -1,23 +1,30 @@
 // @flow
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
-import Caption from '../../../modules/common/components/Caption'
 import type { ThemeType } from 'build-configs/ThemeType'
 import { Switch, Text, TextInput, View } from 'react-native'
-import type { TFunction } from 'react-i18next'
-import type { StateType } from '../../../modules/app/StateType'
-import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
-import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import { useTranslation } from 'react-i18next'
+import type { StateType } from '../../modules/app/StateType'
+import AppSettings, { defaultSettings } from '../../modules/settings/AppSettings'
+import type { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
 import type { JpalTrackingRouteType } from 'api-client'
 import styled from 'styled-components/native'
-import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
+import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
+import withTheme from '../../modules/theme/hocs/withTheme'
+import Caption from '../../modules/common/components/Caption'
 
 const ThemedText = styled.Text`
   display: flex;
   text-align: left;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.decorativeFontRegular};
+  padding: 10px 0;
+`
+
+const ErrorText = styled.Text`
+  color: red;
+  font-weight: bold;
   padding: 10px 0;
 `
 
@@ -38,18 +45,23 @@ const Input = styled(TextInput)`
 
 export type PropsType = {|
   theme: ThemeType,
-  t: TFunction,
   route: RoutePropType<JpalTrackingRouteType>,
   navigation: NavigationPropType<JpalTrackingRouteType>
 |}
 
+const errorDisplayTime = 5000
+
 const JpalTracking = (props: PropsType, state: StateType) => {
-  const [appSettings] = useState(new AppSettings())
+  const appSettings = useMemo(() => new AppSettings(), [])
   const [settings, setSettings] = useState(defaultSettings)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
   const [settingsUpdated, setSettingsUpdated] = useState(false)
   const [displayedTrackingCode, setDisplayedTrackingCode] = useState('')
+  const [displayedTrackingEnabled, setDisplayedTrackingEnabled] = useState(false)
+  const [error, setError] = useState(false)
   const routeTrackingCode = props.route.params.trackingCode
+
+  const { t } = useTranslation(['settings', 'error'])
 
   useEffect(() => {
     if (routeTrackingCode) {
@@ -65,20 +77,29 @@ const JpalTracking = (props: PropsType, state: StateType) => {
         setSettingsUpdated(false)
         setSettings(loadedSettings)
         setDisplayedTrackingCode(loadedSettings.jpalTrackingCode)
+        setDisplayedTrackingEnabled(loadedSettings.jpalTrackingEnabled)
+        setTimeout(() => setError(false), errorDisplayTime)
       } catch (e) {
-        console.error('Failed to load settings.')
+        // setError(true)
       }
     }
     loadSettings()
   }, [appSettings, settingsUpdated])
 
-  const onPress = () => {
-    appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).then(setSettingsUpdated(true))
+  const toggleTrackingEnabled = () => {
+    setDisplayedTrackingEnabled(!displayedTrackingEnabled)
+    appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).catch(() => {
+      setError(true)
+      setSettingsUpdated(true)
+    })
   }
 
   const setTrackingCode = (value: string) => {
     setDisplayedTrackingCode(value)
-    appSettings.setJpalTrackingCode(value).then(setSettingsUpdated(true))
+    appSettings.setJpalTrackingCode(value).catch(() => {
+      setError(true)
+      setSettingsUpdated(true)
+    })
     props.navigation.setParams({ trackingCode: value })
   }
 
@@ -86,21 +107,22 @@ const JpalTracking = (props: PropsType, state: StateType) => {
     return <LayoutContainer />
   }
 
-  const { t, theme } = props
-  const { jpalTrackingEnabled } = settings
+  const { theme } = props
 
   return (
     <View style={{ padding: 40 }}>
       <Caption title={t('tracking')} theme={theme} />
       <Text>{t('trackingDescription')}</Text>
 
+      {error && <ErrorText>{t('error:generalError')}</ErrorText>}
+
       <DescriptionContainer>
-        <ThemedText theme={props.theme}>{t('trackingAllowed')}</ThemedText>
+        <ThemedText theme={props.theme}>{t('allowTracking')}</ThemedText>
         <Switch
           thumbColor={props.theme.colors.themeColor}
           trackColor={{ true: props.theme.colors.themeColor }}
-          value={jpalTrackingEnabled}
-          onValueChange={onPress}
+          value={displayedTrackingEnabled}
+          onValueChange={toggleTrackingEnabled}
           testID='switch'
         />
       </DescriptionContainer>
@@ -110,10 +132,10 @@ const JpalTracking = (props: PropsType, state: StateType) => {
         value={displayedTrackingCode}
         onChangeText={setTrackingCode}
         theme={theme}
-        editable={jpalTrackingEnabled}
+        editable={displayedTrackingEnabled}
         testID='input'></Input>
     </View>
   )
 }
 
-export default JpalTracking
+export default withTheme<PropsType>(JpalTracking)
