@@ -39,8 +39,9 @@ The data which is received through the restful api of the CMS is "cached" and st
 - [E2E Testing](e2e-testing.md)
 
 The app supports opening deep links in the app. To test deep links manually, you can:
-* Click on the link you want to test in any other app of your choice 
-* Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios).
+
+- Click on the link you want to test in any other app of your choice
+- Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios).
 
 ## Code Quality
 
@@ -65,9 +66,10 @@ You can run flow using `yarn flow`.
 ## Backend
 
 **Testing with the live cms instance should be avoided:**
+
 - In debug builds the test cms is used as default, so it is **only required for release builds**, i.e. the versions in the stores.
 - To switch between test and live cms, click the location image on the landing page 10 times.
-On iOS it may be required to close and reopen the app after changing the cms instance.
+  On iOS it may be required to close and reopen the app after changing the cms instance.
 
 The endpoints for the webapp and this project are defined in the [api-client](../../api-client).
 

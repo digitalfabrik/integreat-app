@@ -1,6 +1,5 @@
 .circleci/
 build-configs/
-docs/
 release-notes/
 tools/
 translations/
