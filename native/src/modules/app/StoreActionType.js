@@ -97,7 +97,6 @@ export type PushCategoryActionType = {|
 |}
 
 export type CategoriesActionType =
-  | ClearCategoryActionType
   | FetchCategoryActionType
   | PushCategoryActionType
   | FetchCategoryFailedActionType
