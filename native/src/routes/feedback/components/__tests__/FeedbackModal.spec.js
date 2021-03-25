@@ -19,12 +19,9 @@ describe('FeedbackModal', () => {
       comment,
       isPositiveFeedback,
       contactMail: 'test@mail.de',
-      selectedFeedbackIndex: 1,
       sendingStatus: 'idle',
-      feedbackOptions: [],
       onCommentChanged: dummy,
       onFeedbackContactMailChanged: dummy,
-      onFeedbackOptionChanged: dummy,
       onSubmit: submit,
       theme: lightTheme,
       t

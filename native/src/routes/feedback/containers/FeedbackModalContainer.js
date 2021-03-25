@@ -201,9 +201,9 @@ class FeedbackModalContainer extends React.Component<ContainerPropsType, Feedbac
 
 const ThemedFeedbackModal = withTheme<FeedbackModalPropsType>(FeedbackModal)
 
-const ThemedTranslatedFeedbackContainer = withTranslation<ContainerPropsType>('feedback')(FeedbackModalContainer)
+const TranslatedFeedbackContainer = withTranslation<ContainerPropsType>('feedback')(FeedbackModalContainer)
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(
   mapStateToProps,
   mapDispatchToProps
-)(withPayloadProvider<InnerPropsType, OwnPropsType, FeedbackModalRouteType>(refresh)(ThemedTranslatedFeedbackContainer))
+)(withPayloadProvider<InnerPropsType, OwnPropsType, FeedbackModalRouteType>(refresh)(TranslatedFeedbackContainer))
