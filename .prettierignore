@@ -12,5 +12,6 @@ release-notes/
 tools/
 translations/
 e2e-tests/
+version.json
 
 **/fastlane/README.md
