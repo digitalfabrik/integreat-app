@@ -10,6 +10,17 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 
+const Container: StyledComponent<{||}, ThemeType, *> = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+`
+
+const FeedbackBox: StyledComponent<{||}, ThemeType, *> = styled.View`
+  margin-top: 25px;
+  padding: 15px 25px 75px;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+`
+
 const Input: StyledComponent<{||}, ThemeType, *> = styled(TextInput)`
   margin-bottom: 15px;
   border-bottom-width: 1px;
@@ -17,7 +28,7 @@ const Input: StyledComponent<{||}, ThemeType, *> = styled(TextInput)`
 `
 
 const DescriptionText: StyledComponent<{||}, ThemeType, *> = styled(Text)`
-  margin-top: 20px;
+  margin: 20px 0 10px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
@@ -85,4 +96,10 @@ const NothingFoundFeedbackBox = ({ query, t, theme, sendFeedback }: PropsType) =
   }
 }
 
-export default NothingFoundFeedbackBox
+export default (props: PropsType) => (
+  <Container>
+    <FeedbackBox>
+      <NothingFoundFeedbackBox {...props} />
+    </FeedbackBox>
+  </Container>
+)
