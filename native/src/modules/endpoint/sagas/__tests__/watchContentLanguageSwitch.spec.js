@@ -16,7 +16,6 @@ import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 jest.mock('rn-fetch-blob')
 jest.mock('../../../push-notifications/PushNotificationsManager')
 jest.mock('../loadCityContent')
-jest.mock('@react-native-community/async-storage')
 
 describe('watchContentLanguageSwitch', () => {
   beforeEach(async () => {
