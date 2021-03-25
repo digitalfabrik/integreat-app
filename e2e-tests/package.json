@@ -5,6 +5,7 @@
   "scripts": {
     "test:web": "yarn workspace web start & yarn wdio run web/wdio.conf.ts",
     "test:web:browserstack": "yarn workspace web start & yarn wdio run web/browserstack/wdio-browserstack.conf.ts",
+    "test:native": "yarn wdio run native/wdio.conf.ts",
     "lint": "yarn eslint ./"
   },
   "devDependencies": {
