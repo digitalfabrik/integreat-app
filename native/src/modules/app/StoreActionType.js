@@ -96,10 +96,7 @@ export type PushCategoryActionType = {|
   |}
 |}
 
-export type CategoriesActionType =
-  | FetchCategoryActionType
-  | PushCategoryActionType
-  | FetchCategoryFailedActionType
+export type CategoriesActionType = FetchCategoryActionType | PushCategoryActionType | FetchCategoryFailedActionType
 
 // Adds a new news route to the state and starts fetching relevant data
 export type FetchNewsActionType = {|
