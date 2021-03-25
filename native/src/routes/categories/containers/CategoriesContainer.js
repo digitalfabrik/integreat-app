@@ -54,7 +54,7 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({ type: 'CLEAR_CATEGORY', params: { key: routeKey } })
+  dispatch({ type: 'CLEAR_ROUTE', params: { key: routeKey } })
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
