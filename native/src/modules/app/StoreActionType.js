@@ -87,11 +87,6 @@ export type FetchMoreNewsActionType = {|
   |}
 |}
 
-export type ClearNewsActionType = {|
-  type: 'CLEAR_NEWS',
-  +params: {| +key: string |}
-|}
-
 export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
@@ -126,7 +121,6 @@ export type NewsActionType =
   | FetchNewsActionType
   | FetchMoreNewsActionType
   | FetchNewsFailedActionType
-  | ClearNewsActionType
   | PushNewsActionType
 
 export type FetchCategoryFailedActionType = {|
@@ -152,16 +146,7 @@ export type PushCategoryActionType = {|
   |}
 |}
 
-export type ClearCategoryActionType = {|
-  type: 'CLEAR_CATEGORY',
-  +params: {| +key: string |}
-|}
-
-export type CategoriesActionType =
-  | ClearCategoryActionType
-  | FetchCategoryActionType
-  | PushCategoryActionType
-  | FetchCategoryFailedActionType
+export type CategoriesActionType = FetchCategoryActionType | PushCategoryActionType | FetchCategoryFailedActionType
 
 export type FetchPoiActionType = {|
   type: 'FETCH_POI',
@@ -172,11 +157,6 @@ export type FetchPoiActionType = {|
     +key: string,
     +criterion: ContentLoadCriterionType
   |}
-|}
-
-export type ClearPoiActionType = {|
-  type: 'CLEAR_POI',
-  +params: {| +key: string |}
 |}
 
 export type PushPoiActionType = {|
@@ -204,7 +184,7 @@ export type FetchPoiFailedActionType = {|
   |}
 |}
 
-export type PoisActionType = ClearPoiActionType | FetchPoiActionType | PushPoiActionType | FetchPoiFailedActionType
+export type PoisActionType = FetchPoiActionType | PushPoiActionType | FetchPoiFailedActionType
 
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT',
@@ -215,11 +195,6 @@ export type FetchEventActionType = {|
     +key: string,
     +criterion: ContentLoadCriterionType
   |}
-|}
-
-export type ClearEventActionType = {|
-  type: 'CLEAR_EVENT',
-  +params: {| +key: string |}
 |}
 
 type PushEventParamsType = {|
@@ -251,11 +226,7 @@ export type FetchEventFailedActionType = {|
   |}
 |}
 
-export type EventsActionType =
-  | ClearEventActionType
-  | FetchEventActionType
-  | PushEventActionType
-  | FetchEventFailedActionType
+export type EventsActionType = FetchEventActionType | PushEventActionType | FetchEventFailedActionType
 
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE',
@@ -287,6 +258,11 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
+export type ClearRouteActionType = {|
+  type: 'CLEAR_ROUTE',
+  +params: {| +key: string |}
+|}
+
 export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
@@ -312,6 +288,7 @@ export type CityContentActionType =
   | PoisActionType
   | MorphContentLanguageActionType
   | ContentLanguageActionType
+  | ClearRouteActionType
   | ClearCityActionType
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
