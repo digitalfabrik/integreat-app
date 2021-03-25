@@ -43,12 +43,13 @@ type PropsType = {|
   query: string,
   t: TFunction,
   theme: ThemeType,
+  resultsFound: boolean,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
 type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
-const NothingFoundFeedbackBox = ({ query, t, theme, sendFeedback }: PropsType) => {
+const NothingFoundFeedbackBox = ({ resultsFound, query, t, theme, sendFeedback }: PropsType) => {
   const [comment, setComment] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
 
@@ -64,7 +65,7 @@ const NothingFoundFeedbackBox = ({ query, t, theme, sendFeedback }: PropsType) =
   if (['idle', 'failed'].includes(sendingStatus)) {
     return (
       <>
-        <TitleText>{t('feedback:nothingFound')}</TitleText>
+        <TitleText>{resultsFound ? t('feedback:informationNotFound') : t('feedback:nothingFound')}</TitleText>
         {sendingStatus === 'failed' && <DescriptionText>{t('feedback:failedSendingFeedback')}</DescriptionText>}
         <DescriptionText>{t('feedback:wantedInformation')}</DescriptionText>
         <Input
