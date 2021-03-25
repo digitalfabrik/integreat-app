@@ -53,7 +53,9 @@ describe('FeedbackModal', () => {
   })
 
   it('should call callback on comment changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(<FeedbackModal {...buildProps(false, 'my old comment')} />)
+    const { getByDisplayValue, queryByDisplayValue } = render(
+      <FeedbackModal {...buildProps(false, 'my old comment')} />
+    )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
     expect(onCommentChanged).not.toHaveBeenCalled()
