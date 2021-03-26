@@ -19,6 +19,7 @@ const Container: StyledComponent<{||}, ThemeType, *> = styled(Animated.View)`
 `
 
 const ANIMATION_DURATION = 300
+const SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 
 const translate = new Animated.Value(1)
@@ -28,7 +29,7 @@ const SnackbarContainer = () => {
   const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
   const snackbarState: Array<SnackbarType> = useSelector((state: StateType) => state.snackbar)
   const dispatch = useDispatch()
-  const { t } = useTranslation()
+  const { t } = useTranslation('error')
 
   const show = useCallback(() => {
     Animated.timing(translate, {
@@ -58,13 +59,11 @@ const SnackbarContainer = () => {
     if (displayed) {
       show()
 
-      if (displayed.duration) {
-        const timeout = setTimeout(() => {
-          hide()
-        }, displayed.duration)
+      const timeout = setTimeout(() => {
+        hide()
+      }, SHOW_DURATION)
 
-        return () => clearTimeout(timeout)
-      }
+      return () => clearTimeout(timeout)
     }
   }, [displayed, hide, show])
 

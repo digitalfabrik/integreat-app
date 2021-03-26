@@ -267,8 +267,7 @@ export type CityContentStateType = {|
 export const defaultCityContentState = null
 
 export type SnackbarType = {|
-  text: string,
-  duration: number | null
+  text: string
 |}
 
 export type SnackbarStateType = Array<SnackbarType>
