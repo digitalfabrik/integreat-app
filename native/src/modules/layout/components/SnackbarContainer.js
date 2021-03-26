@@ -9,7 +9,7 @@ import styled from 'styled-components/native'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import type { SnackbarType, StateType } from '../../app/StateType'
 import Snackbar from './Snackbar'
-import buildConfig from '../../app/constants/buildConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 const Container: StyledComponent<{||}, ThemeType, *> = styled(Animated.View)`
   position: absolute;
@@ -50,10 +50,9 @@ const SnackbarContainer = () => {
     if (!displayed && snackbarState.length > 0) {
       const newSnackbar = snackbarState[0]
       setDisplayed(newSnackbar)
-      dispatch({ type: 'POP_SNACKBAR'} )
+      dispatch({ type: 'POP_SNACKBAR' })
     }
   }, [snackbarState, displayed, dispatch])
-
 
   useEffect(() => {
     if (displayed) {
@@ -73,11 +72,11 @@ const SnackbarContainer = () => {
 
   const outputRange: number[] = [0, height || MAX_HEIGHT]
   const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: outputRange })
-  return (
+  return displayed ? (
     <Container onLayout={onLayout} style={{ transform: [{ translateY: interpolated }] }}>
-      <Snackbar message={t('displayed.text')} theme={buildConfig().lightTheme} />
+      <Snackbar message={t(displayed.text)} />
     </Container>
-  )
+  ) : null
 }
 
 export default SnackbarContainer
