@@ -10,7 +10,6 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
 
-jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
 

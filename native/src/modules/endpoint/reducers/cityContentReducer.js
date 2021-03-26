@@ -144,10 +144,7 @@ export default (
           }
         }
       }
-      case 'CLEAR_POI':
-      case 'CLEAR_CATEGORY':
-      case 'CLEAR_EVENT':
-      case 'CLEAR_NEWS': {
+      case 'CLEAR_ROUTE': {
         const { key } = action.params
         return {
           ...state,
