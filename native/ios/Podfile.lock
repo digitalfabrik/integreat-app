@@ -312,11 +312,11 @@ PODS:
     - React-Core
   - react-native-geolocation (2.0.2):
     - React
-  - react-native-netinfo (6.0.0):
+  - react-native-netinfo (5.9.10):
     - React-Core
   - react-native-pdf (6.3.0):
     - React-Core
-  - react-native-progress-bar-android (1.0.4):
+  - react-native-progress-bar-android (1.0.3):
     - React
   - react-native-progress-view (1.2.4):
     - React
@@ -325,8 +325,8 @@ PODS:
   - react-native-static-server (0.5.0):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (11.2.3):
-    - React-Core
+  - react-native-webview (10.8.2):
+    - React
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
   - React-RCTAnimation (0.63.4):
@@ -395,7 +395,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
-  - RNCPicker (1.9.12):
+  - RNCPicker (1.12.0):
     - React-Core
   - RNFastImage (8.3.4):
     - React-Core
@@ -416,7 +416,7 @@ PODS:
     - React-Core
   - RNPermissions (3.0.1):
     - React-Core
-  - RNReanimated (2.0.0):
+  - RNReanimated (2.0.1):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -447,7 +447,7 @@ PODS:
     - Yoga
   - RNScreens (2.18.1):
     - React-Core
-  - RNSentry (2.3.0):
+  - RNSentry (2.4.0):
     - React-Core
     - Sentry (= 6.1.4)
   - RNSVG (12.1.0):
@@ -727,13 +727,13 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-flipper: 8f36be6b8300d4e156d5164fde091287c9cf4563
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
-  react-native-netinfo: e849fc21ca2f4128a5726c801a82fc6f4a6db50d
+  react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
   react-native-pdf: ef641e79a6d550cfabe5d7ec1916799726514c43
-  react-native-progress-bar-android: be43138ab7da30d51fc038bafa98e9ed594d0c40
+  react-native-progress-bar-android: d1ec460350b7c0d27418b0c0b9ebf073646db016
   react-native-progress-view: 5e9560b491a149035b869d63603d4fc7f9258cb1
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-static-server: 201b2a945a35096be3ae7f43e367c65bcbd61343
-  react-native-webview: 6520e3e7b4933de76b95ef542c8d7115cf45b68e
+  react-native-webview: 0e49a2e85f42b20ea5579928a8b254a07fa901dc
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -748,7 +748,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNCPicker: b1e22287e5feb38fb10cac877753b924ba1c05d1
+  RNCPicker: a3f85bfd04ab192fe9a8fe7485b5ef4f80e59022
   RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
   RNFBApp: 1624ffcfc328c00ec3049d2f1bbf09d3e78dcdb7
   RNFBMessaging: 43d7ae1f8b93d20ad3194cac3e31ca446d4e9828
@@ -756,9 +756,9 @@ SPEC CHECKSUMS:
   RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
   RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
-  RNReanimated: 5231286440b796e09df3bfa5c1b12b02bfe07664
+  RNReanimated: c5e9d841d33ed7f83861462756cec7146e73afaa
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
-  RNSentry: 4f6907f9a4a41058988ebaa17666e9a402b50ff2
+  RNSentry: b0d55027200c96f52e26b9bfb20296d47fc5051d
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
