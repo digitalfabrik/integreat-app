@@ -1,0 +1,83 @@
+// @flow
+
+import React, { useState, useEffect, useCallback } from 'react'
+import { Animated } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import type { StyledComponent } from 'styled-components'
+import styled from 'styled-components/native'
+import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
+import type { SnackbarType, StateType } from '../../app/StateType'
+import Snackbar from './Snackbar'
+import buildConfig from '../../app/constants/buildConfig'
+
+const Container: StyledComponent<{||}, ThemeType, *> = styled(Animated.View)`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`
+
+const ANIMATION_DURATION = 300
+const MAX_HEIGHT = 9999
+
+const translate = new Animated.Value(1)
+
+const SnackbarContainer = () => {
+  const [height, setHeight] = useState<number | null>(null)
+  const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
+  const snackbarState: Array<SnackbarType> = useSelector((state: StateType) => state.snackbar)
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
+
+  const show = useCallback(() => {
+    Animated.timing(translate, {
+      toValue: 0,
+      duration: ANIMATION_DURATION,
+      useNativeDriver: true
+    }).start()
+  }, [])
+
+  const hide = useCallback(() => {
+    Animated.timing(translate, {
+      toValue: 1,
+      duration: ANIMATION_DURATION,
+      useNativeDriver: true
+    }).start(() => setDisplayed(null))
+  }, [])
+
+  useEffect(() => {
+    if (!displayed && snackbarState.length > 0) {
+      const newSnackbar = snackbarState[0]
+      setDisplayed(newSnackbar)
+      dispatch({ type: 'POP_SNACKBAR'} )
+    }
+  }, [snackbarState, displayed, dispatch])
+
+
+  useEffect(() => {
+    if (displayed) {
+      show()
+
+      if (displayed.duration) {
+        const timeout = setTimeout(() => {
+          hide()
+        }, displayed.duration)
+
+        return () => clearTimeout(timeout)
+      }
+    }
+  }, [displayed, hide, show])
+
+  const onLayout = (event: ViewLayoutEvent) => setHeight(event.nativeEvent.layout.height)
+
+  const outputRange: number[] = [0, height || MAX_HEIGHT]
+  const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: outputRange })
+  return (
+    <Container onLayout={onLayout} style={{ transform: [{ translateY: interpolated }] }}>
+      <Snackbar message={t('displayed.text')} theme={buildConfig().lightTheme} />
+    </Container>
+  )
+}
+
+export default SnackbarContainer

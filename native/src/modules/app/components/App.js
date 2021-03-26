@@ -13,12 +13,13 @@ import type { DataContainer } from '../../endpoint/DataContainer'
 import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
-import I18nProvider from '../../i18n/components/I18nProvider'
+import I19nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 import { REDIRECT_ROUTE } from 'api-client'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
+import SnackbarContainer from '../../layout/components/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
 
 NetInfo.configure({
@@ -34,7 +35,7 @@ const linking: LinkingOptions = {
     }
   },
   getStateFromPath: path => {
-    return { index: 0, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
+    return { index: 1, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
   }
 }
 
@@ -65,7 +66,7 @@ const App = () => {
     <Provider store={store}>
       <ThemeProvider theme={buildConfig().lightTheme}>
         <StaticServerProvider>
-          <I18nProvider>
+          <I19nProvider>
             <SafeAreaProvider>
               <>
                 <StatusBarContainer />
@@ -80,9 +81,10 @@ const App = () => {
                   </NavigationContainer>
                 </IOSSafeAreaView>
                 {routeName && <PermissionSnackbarContainer routeName={routeName} />}
+                <SnackbarContainer />
               </>
             </SafeAreaProvider>
-          </I18nProvider>
+          </I19nProvider>
         </StaticServerProvider>
       </ThemeProvider>
     </Provider>
