@@ -8,9 +8,10 @@ import type { ThemeType } from '../../theme/constants'
 
 const Container: StyledComponent<{| row: boolean |}, ThemeType, *> = styled(Animated.View)`
   background-color: ${props => props.theme.colors.textSecondaryColor};
-  flex-direction: ${props => props.row ? 'row' : 'column'};
+  flex-direction: ${props => (props.row ? 'row' : 'column')};
   align-items: center;
   padding: 10px;
+  min-height: 70px;
 `
 
 const Message: StyledComponent<{||}, ThemeType, *> = styled.Text`
@@ -21,7 +22,7 @@ const Message: StyledComponent<{||}, ThemeType, *> = styled.Text`
 `
 
 const ActionContainer: StyledComponent<{| row: boolean |}, ThemeType, *> = styled.View`
-  flex-direction: ${props => props.row ? 'row' : 'column'};
+  flex-direction: ${props => (props.row ? 'row' : 'column')};
   justify-content: space-around;
   align-items: center;
 `
@@ -54,12 +55,8 @@ const Snackbar = ({ message, positiveAction, negativeAction }: PropsType) => {
     <Container row={horizontal}>
       <Message>{message}</Message>
       <ActionContainer row={!horizontal}>
-        {negativeAction && <Action onPress={negativeAction.onPress}>
-          {negativeAction.label}
-        </Action>}
-        {positiveAction && <Action onPress={positiveAction.onPress}>
-          {positiveAction.label}
-        </Action>}
+        {negativeAction && <Action onPress={negativeAction.onPress}>{negativeAction.label}</Action>}
+        {positiveAction && <Action onPress={positiveAction.onPress}>{positiveAction.label}</Action>}
       </ActionContainer>
     </Container>
   )
