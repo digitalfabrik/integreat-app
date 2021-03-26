@@ -19,7 +19,7 @@ import PermissionSnackbarContainer from '../../layout/containers/PermissionSnack
 import { REDIRECT_ROUTE } from 'api-client'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
-import SnackbarContainer from '../../layout/components/SnackbarContainer'
+import SnackbarContainer from '../../layout/containers/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
 
 NetInfo.configure({

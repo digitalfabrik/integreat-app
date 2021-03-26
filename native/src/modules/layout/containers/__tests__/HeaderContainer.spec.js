@@ -4,8 +4,8 @@ import * as React from 'react'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import type { StateType } from '../../app/StateType'
-import Header from '../components/Header'
+import type { StateType } from '../../../app/StateType'
+import Header from '../../components/Header'
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -117,12 +117,13 @@ describe('HeaderContainer', () => {
       cities: {
         status: 'ready',
         models: [city]
-      }
+      },
+      snackbar: []
     }
   }
 
   const render = (props, customStore = store) => {
-    const HeaderContainer = require('../containers/HeaderContainer').default
+    const HeaderContainer = require('../HeaderContainer').default
     return TestRenderer.create(
       <Provider store={customStore}>
         {/* $FlowFixMe not all props passed */}

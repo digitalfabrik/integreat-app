@@ -8,7 +8,7 @@ import type { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import type { SnackbarType, StateType } from '../../app/StateType'
-import Snackbar from './Snackbar'
+import Snackbar from '../components/Snackbar'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 const Container: StyledComponent<{||}, ThemeType, *> = styled(Animated.View)`
@@ -69,7 +69,7 @@ const SnackbarContainer = () => {
 
   const onLayout = (event: ViewLayoutEvent) => setHeight(event.nativeEvent.layout.height)
 
-  const outputRange: number[] = [0, height || MAX_HEIGHT]
+  const outputRange: number[] = [0, height ?? MAX_HEIGHT]
   const interpolated = translate.interpolate({ inputRange: [0, 1], outputRange: outputRange })
   return displayed ? (
     <Container onLayout={onLayout} style={{ transform: [{ translateY: interpolated }] }}>
