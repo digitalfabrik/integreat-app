@@ -9,7 +9,7 @@ import {
   PoiModel,
   TunewsModel
 } from 'api-client'
-import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType } from './StateType'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
 import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
@@ -341,7 +341,20 @@ export type SetResourceCacheUrlActionType = {|
   +params: {| +url: string |}
 |}
 
+// Pushes a new snackbar to the query
+export type PushSnackbarActionType = {|
+  type: 'PUSH_SNACKBAR',
+  +params: SnackbarType
+|}
+
+// Pops the first snackbar from the query
+export type PopSnackbarActionType = {|
+  type: 'POP_SNACKBAR'
+|}
+
 export type StoreActionType =
+  | PushSnackbarActionType
+  | PopSnackbarActionType
   | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
