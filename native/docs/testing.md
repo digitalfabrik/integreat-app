@@ -1,12 +1,7 @@
 # Unit/Integration Testing
 
-The goals of testing are the following with decreasing importance:
-
-- Unit test all public functions and classes
-- Unit test all components
-- Unit test all containers
-- Test the integration between HOCs and components
-  ...
+**For testing of React components the [testing-library](https://testing-library.com) should be used whenever possible.**
+Testing the application components should be done in the way the user would use it as stated in its [guiding principles](https://testing-library.com/docs/guiding-principles).
 
 ## Testing components which use Higher Order Components (HOCs)
 

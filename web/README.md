@@ -1,6 +1,6 @@
 # integreat-app-web
 
-React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app)
+React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app).
 
 ## Contents
 
@@ -34,13 +34,14 @@ _Make sure to have read and followed the steps in the [general README](../README
 
 ### Additional Configuration
 
-- Run > Edit Configurations > Defaults > Jest:
-  - Set _Configuration file_ to _jest.config.js_
-- Settings > Languages & Frameworks > JavaScript:
-  - Choose _Flow_ as Language version
-  - Set _Flow package or executable_ to _<project_dir>/node_modules/flow-bin_
-- [optional] Associate the _\*.snap_ files with the file type _JavaScript_.
+- `Run > Edit Configurations > Defaults > Jest`:
+  - Set `Configuration file` to `jest.config.js`
+- `Settings > Languages & Frameworks > JavaScript`:
+  - Choose `Flow` as Language version
+  - Set `Flow package or executable` to `<project_dir>/node_modules/flow-bin`
+- [optional] Associate `.snap` files with the file type `JavaScript`.
 - [optional] Install the following plugins:
+  - [Prettier](https://plugins.jetbrains.com/plugin/10456-prettier)
   - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
   - [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs)
 

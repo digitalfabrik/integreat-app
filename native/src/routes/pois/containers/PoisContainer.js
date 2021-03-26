@@ -53,7 +53,7 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({ type: 'CLEAR_POI', params: { key: routeKey } })
+  dispatch({ type: 'CLEAR_ROUTE', params: { key: routeKey } })
 }
 
 const createChangeUnavailableLanguage = (city: string, t: TFunction) => (

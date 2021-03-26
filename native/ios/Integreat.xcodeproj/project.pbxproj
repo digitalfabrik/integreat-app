@@ -26,6 +26,7 @@
 		A330D33522AA9F54005736D0 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33022AA9F54005736D0 /* OpenSans-Regular.ttf */; };
 		A330D33622AA9F54005736D0 /* Lateef.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33122AA9F54005736D0 /* Lateef.ttf */; };
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
+		B8BF8F3C260B402B00F436B7 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		B848D0B2252DF2A200D4695A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B3252DF2A500D4695A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B4252DF2A800D4695A /* so */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = so; path = so.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
 		B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildConfig.xcconfig; sourceTree = "<group>"; };
 		BCE07220C56B492D6ABF304B /* Pods-IntegreatTests.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegreatTests.integreat.xcconfig"; path = "Target Support Files/Pods-IntegreatTests/Pods-IntegreatTests.integreat.xcconfig"; sourceTree = "<group>"; };
 		BED3EA7415E0AF75A9DBA8B5 /* Pods-Integreat.integreat release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.integreat release.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.integreat release.xcconfig"; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		A330D32D22AA9F42005736D0 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */,
 				A330D33122AA9F54005736D0 /* Lateef.ttf */,
 				A330D32F22AA9F54005736D0 /* OpenSans-Bold.ttf */,
 				A330D33022AA9F54005736D0 /* OpenSans-Regular.ttf */,
@@ -309,6 +312,7 @@
 				7B7EDC2D2428EE0900E64563 /* fastlane in Resources */,
 				A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */,
 				A330D33422AA9F54005736D0 /* OpenSans-Bold.ttf in Resources */,
+				B8BF8F3C260B402B00F436B7 /* VarelaRound-Regular.ttf in Resources */,
 				17287B1D24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */,
