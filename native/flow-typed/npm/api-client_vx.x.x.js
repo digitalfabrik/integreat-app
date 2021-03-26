@@ -1,4 +1,4 @@
-// flow-typed signature: 508e9c49de1ce0c9919a322dc73c133a
+// flow-typed signature: f1fa1e545c05e81858d0ff60492b30b8
 // flow-typed version: <<STUB>>/api-client_v0.0.1/flow_v0.122.0
 
 /**
@@ -106,6 +106,10 @@ declare module 'api-client/src/endpoints/__tests__/createSprungbrettJobsEndpoint
   declare module.exports: any;
 }
 
+declare module 'api-client/src/endpoints/__tests__/createTrackingEndpoint.spec' {
+  declare module.exports: any;
+}
+
 declare module 'api-client/src/endpoints/__tests__/createTunewsElementEndpoint.spec' {
   declare module.exports: any;
 }
@@ -163,6 +167,10 @@ declare module 'api-client/src/endpoints/createPOIsEndpoint' {
 }
 
 declare module 'api-client/src/endpoints/createSprungbrettJobsEndpoint' {
+  declare module.exports: any;
+}
+
+declare module 'api-client/src/endpoints/createTrackingEndpoint' {
   declare module.exports: any;
 }
 
@@ -382,6 +390,10 @@ declare module 'api-client/src/testing/PoiModelBuilder' {
   declare module.exports: any;
 }
 
+declare module 'api-client/src/tracking' {
+  declare module.exports: any;
+}
+
 declare module 'api-client/src/types' {
   declare module.exports: any;
 }
@@ -450,6 +462,9 @@ declare module 'api-client/src/endpoints/__tests__/createPOIsEndpoint.spec.js' {
 declare module 'api-client/src/endpoints/__tests__/createSprungbrettJobsEndpoint.spec.js' {
   declare module.exports: $Exports<'api-client/src/endpoints/__tests__/createSprungbrettJobsEndpoint.spec'>;
 }
+declare module 'api-client/src/endpoints/__tests__/createTrackingEndpoint.spec.js' {
+  declare module.exports: $Exports<'api-client/src/endpoints/__tests__/createTrackingEndpoint.spec'>;
+}
 declare module 'api-client/src/endpoints/__tests__/createTunewsElementEndpoint.spec.js' {
   declare module.exports: $Exports<'api-client/src/endpoints/__tests__/createTunewsElementEndpoint.spec'>;
 }
@@ -494,6 +509,9 @@ declare module 'api-client/src/endpoints/createPOIsEndpoint.js' {
 }
 declare module 'api-client/src/endpoints/createSprungbrettJobsEndpoint.js' {
   declare module.exports: $Exports<'api-client/src/endpoints/createSprungbrettJobsEndpoint'>;
+}
+declare module 'api-client/src/endpoints/createTrackingEndpoint.js' {
+  declare module.exports: $Exports<'api-client/src/endpoints/createTrackingEndpoint'>;
 }
 declare module 'api-client/src/endpoints/createTunewsElementEndpoint.js' {
   declare module.exports: $Exports<'api-client/src/endpoints/createTunewsElementEndpoint'>;
@@ -662,6 +680,12 @@ declare module 'api-client/src/testing/OffersModelBuilder.js' {
 }
 declare module 'api-client/src/testing/PoiModelBuilder.js' {
   declare module.exports: $Exports<'api-client/src/testing/PoiModelBuilder'>;
+}
+declare module 'api-client/src/tracking/index' {
+  declare module.exports: $Exports<'api-client/src/tracking'>;
+}
+declare module 'api-client/src/tracking/index.js' {
+  declare module.exports: $Exports<'api-client/src/tracking'>;
 }
 declare module 'api-client/src/types.js' {
   declare module.exports: $Exports<'api-client/src/types'>;
