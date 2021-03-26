@@ -61,9 +61,9 @@ describe('EventListItem', () => {
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
     expect(getByText(String(event.location.location))).toBeTruthy()
-    
+
     expect(getByRole('img')).toBeTruthy()
-    // eslint-disable-next-line flowtype/no-weak-types    
+    // eslint-disable-next-line flowtype/no-weak-types
     const src = ((getByRole('img'): any): HTMLMediaElement).src
     expect(src).toEqual(event.thumbnail)
     expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
@@ -82,7 +82,7 @@ describe('EventListItem', () => {
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
     expect(getByText(String(event.location.location))).toBeTruthy()
     expect(getByRole('img')).toBeTruthy()
-    // eslint-disable-next-line flowtype/no-weak-types    
+    // eslint-disable-next-line flowtype/no-weak-types
     const src = ((getByRole('img'): any): HTMLMediaElement).src
     expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
     expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
