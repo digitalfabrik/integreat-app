@@ -38,7 +38,7 @@ type PropsType = {|
  */
 const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsType) => {
   const children = categories.getChildren(categoryModel)
-  if (categoryModel.isLeaf(categories)) {
+  if (categories.isLeaf(categoryModel)) {
     // last level, our category is a simple page
     return (
       <Page
