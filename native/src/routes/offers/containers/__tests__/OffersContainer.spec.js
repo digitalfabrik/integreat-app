@@ -65,14 +65,14 @@ describe('OffersContainer', () => {
       error: null,
       refresh
     }))
-    const { getByText } = render(
+    const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(getByText('Offers')).toBeTruthy()
-    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
-    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
+    expect(queryByText('Offers')).toBeTruthy()
+    expect(queryByText('loading')).toBeFalsy()
+    expect(queryByText(errorText)).toBeFalsy()
   })
 
   it('should display offers with a Loading spinner', () => {
@@ -82,14 +82,14 @@ describe('OffersContainer', () => {
       error: null,
       refresh
     }))
-    const { getByText } = render(
+    const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(getByText('Offers')).toBeTruthy()
-    expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
+    expect(queryByText('Offers')).toBeTruthy()
+    expect(queryByText('loading')).toBeTruthy()
+    expect(queryByText(errorText)).toBeFalsy()
   })
 
   it('should display error without a loading spinner', () => {
@@ -99,14 +99,15 @@ describe('OffersContainer', () => {
       error: new Error('myError'),
       refresh
     }))
-    const { getByText } = render(
+    const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(getByText(errorText)).toBeTruthy()
-    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
-    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+
+    expect(queryByText(errorText)).toBeTruthy()
+    expect(queryByText('Offers')).toBeFalsy()
+    expect(queryByText('loading')).toBeFalsy()
   })
 
   it('should display error with spinner', () => {
@@ -116,14 +117,14 @@ describe('OffersContainer', () => {
       error: new Error('myError'),
       refresh
     }))
-    const { getByText } = render(
+    const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(getByText(errorText)).toBeTruthy()
-    expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
+    expect(queryByText(errorText)).toBeTruthy()
+    expect(queryByText('loading')).toBeTruthy()
+    expect(queryByText('Offers')).toBeFalsy()
   })
 
   it('should display a page not found error if offers disabled for city', () => {
@@ -154,14 +155,15 @@ describe('OffersContainer', () => {
       error: null,
       refresh
     }))
-    const { getByText } = render(
+    const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
-    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
-    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
-    expect(getByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy()
+
+    expect(queryByText('Offers')).toBeFalsy()
+    expect(queryByText('loading')).toBeFalsy()
+    expect(queryByText(errorText)).toBeFalsy()
+    expect(queryByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy()
   })
 })
