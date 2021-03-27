@@ -14,7 +14,7 @@ import ErrorCodes from '../../../error/ErrorCodes'
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage: 'de', city: 'augsburg', t: key => key }
+    params: { newLanguage: 'de', city: 'augsburg' }
   }
   const switchContentLanguageFailedAction = {
     type: 'SWITCH_CONTENT_LANGUAGE_FAILED',

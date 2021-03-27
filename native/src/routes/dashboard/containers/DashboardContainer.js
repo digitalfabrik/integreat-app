@@ -7,7 +7,7 @@ import type { LanguageResourceCacheStateType, StateType } from '../../../modules
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import { type TFunction, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CATEGORIES_ROUTE, CityModel } from 'api-client'
@@ -27,8 +27,7 @@ type NavigationPropsType = {|
 |}
 
 type OwnPropsType = {|
-  ...NavigationPropsType,
-  t: TFunction
+  ...NavigationPropsType
 |}
 
 type RefreshPropsType = {|
@@ -67,19 +66,18 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
+const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
   newLanguage: string
 ) => {
   dispatch({
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city, t }
+    params: { newLanguage, city }
   })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
-    t,
     route: { key }
   } = ownProps
   if (!state.cityContent) {
@@ -113,7 +111,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
     }
   }
 
@@ -189,7 +187,7 @@ const ThemedTranslatedDashboard = withTranslation<$Diff<DashboardPropsType, {| t
 )
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, route, t, ...rest } = props
+  const { dispatch, navigation, route, ...rest } = props
 
   const navigateToLinkProp = useCallback(
     (url: string, language: string, shareUrl: string) => {
@@ -209,9 +207,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
   )
 }
 
-export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(DashboardContainer))
-)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(
+  mapStateToProps,
+  mapDispatchToProps
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(DashboardContainer))
