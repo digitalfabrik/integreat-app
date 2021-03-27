@@ -12,17 +12,16 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
-import { Alert } from 'react-native'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import type { SettingsType } from '../../settings/AppSettings'
-import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import { fromError } from '../../error/ErrorCodes'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
   action: SwitchContentLanguageActionType
 ): Saga<void> {
-  const { newLanguage, city, t } = action.params
+  const { newLanguage, city } = action.params
   try {
     // We never want to force a refresh when switching languages
     yield call(
@@ -75,10 +74,8 @@ export function* switchContentLanguage(
     }
     yield put(insert)
   } catch (e) {
-    if (fromError(e) === ErrorCodes.NetworkConnectionFailed) {
-      // TODO IGAPP-498 The alert should be replaced with a snackbar, hence the TFunction should also be removed.
-      Alert.alert(t('languageSwitchFailedTitle'), t('languageSwitchFailedMessage'))
-    }
+    yield put({ type: 'PUSH_SNACKBAR', params: { text: fromError(e) } })
+
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
