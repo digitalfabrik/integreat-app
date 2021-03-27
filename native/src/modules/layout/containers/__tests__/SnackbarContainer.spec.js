@@ -40,27 +40,21 @@ describe('SnackbarContainer', () => {
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
 
-    const { update, queryByText } = render(
-      <SnackbarContainer />
-    )
+    const { update, queryByText } = render(<SnackbarContainer />)
 
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeFalsy()
 
     // Simulate two new snackbars have been pushed to the redux store
     mockUseSelector.mockImplementation(() => [{ text: snackbarText1 }, { text: snackbarText2 }])
-    await update(
-      <SnackbarContainer />
-    )
+    await update(<SnackbarContainer />)
 
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'POP_SNACKBAR' })
 
     // Simulate pop of snackbar from the redux store (triggered by POP_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [{ text: snackbarText2 }])
-    await update(
-      <SnackbarContainer />
-    )
+    await update(<SnackbarContainer />)
 
     expect(queryByText(snackbarText1)).toBeTruthy()
     expect(queryByText(snackbarText2)).toBeFalsy()
@@ -72,9 +66,7 @@ describe('SnackbarContainer', () => {
 
     // Simulate pop of snackbar from the redux store (triggered by POP_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [])
-    await update(
-      <SnackbarContainer />
-    )
+    await update(<SnackbarContainer />)
 
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeTruthy()
