@@ -54,7 +54,8 @@ class Config {
     'zh-CN': {
       rtl: false,
       additionalFont: 'noto-sans-sc'
-    }
+    },
+    mk: { rtl: false }
   }
 
   // Fallbacks for unnormalized language codes from our backend
