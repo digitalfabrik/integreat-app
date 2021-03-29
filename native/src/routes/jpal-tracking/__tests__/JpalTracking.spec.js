@@ -2,7 +2,7 @@
 
 import React from 'react'
 import JpalTracking from '../JpalTracking'
-import { act, render } from '@testing-library/react-native'
+import { render, fireEvent } from '@testing-library/react-native'
 import createNavigationMock from '../../../testing/createNavigationPropMock'
 import AsyncStorage from '@react-native-community/async-storage'
 import type { RoutePropType } from '../../../modules/app/constants/NavigationTypes'
@@ -12,7 +12,7 @@ import AppSettings from '../../../modules/settings/AppSettings'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ i18n: { language: 'ckb' } })
+  useTranslation: () => ({ t: jest.fn() })
 }))
 
 describe('JpalTracking', () => {
@@ -28,15 +28,16 @@ describe('JpalTracking', () => {
     name: JPAL_TRACKING_ROUTE
   }
 
-  // Error: Unable to find node on an unmounted component.
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('Textfield should not be editable, when tracking is disabled', async () => {
-    await act(async () => {
-      const appSettings = new AppSettings()
-      await appSettings.setJpalTrackingEnabled(true)
-      const { findByTestId } = render(<JpalTracking route={route} navigation={navigation} />)
-      const inputElem = await findByTestId('input')
-      expect(Object.prototype.hasOwnProperty.call(inputElem, 'editable')).toBeTrue()
-    })
+  it('Textfield should get editable, when tracking is enabled', async () => {
+    const appSettings = new AppSettings()
+    await appSettings.setJpalTrackingEnabled(true)
+    const { findByTestId } = render(<JpalTracking route={route} navigation={navigation} />)
+    let inputElem = await findByTestId('input')
+    expect(inputElem.props.editable).toBeTrue()
+
+    const switchElem = await findByTestId('switch')
+    await fireEvent(switchElem, 'onValueChange')
+    inputElem = await findByTestId('input')
+    expect(Object.prototype.hasOwnProperty.call(inputElem, 'editable')).toBeFalse()
   })
 })
