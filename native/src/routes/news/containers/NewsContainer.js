@@ -68,7 +68,7 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({ type: 'CLEAR_NEWS', params: { key: routeKey } })
+  dispatch({ type: 'CLEAR_ROUTE', params: { key: routeKey } })
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {

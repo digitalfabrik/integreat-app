@@ -4,8 +4,6 @@ import determineApiUrl from '../determineApiUrl'
 import AppSettings from '../../settings/AppSettings'
 import buildConfig from '../../app/constants/buildConfig'
 
-jest.mock('@react-native-community/async-storage')
-
 describe('determineApiUrl', () => {
   it('should return the default baseURL if no overrideApiUrl is set', async () => {
     const apiUrl = await determineApiUrl()

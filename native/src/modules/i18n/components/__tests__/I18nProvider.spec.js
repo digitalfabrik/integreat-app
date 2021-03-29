@@ -17,7 +17,6 @@ import DateFormatterContext from '../../context/DateFormatterContext'
 import moment from 'moment'
 
 jest.mock('../../NativeLanguageDetector')
-jest.mock('@react-native-community/async-storage')
 jest.mock('translations/src/loadTranslations')
 
 const cities = new CityModelBuilder(1).build()

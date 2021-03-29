@@ -9,7 +9,6 @@ import loadPois from '../loadPois'
 import DatabaseContext from '../../DatabaseContext'
 
 let mockPois
-jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')

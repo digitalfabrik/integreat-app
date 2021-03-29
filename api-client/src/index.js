@@ -22,6 +22,8 @@ export { default as InternalPathnameParser } from './routes/InternalPathnamePars
 export * from './routes'
 export * from './routes/RouteInformationTypes'
 
+export * from './tracking'
+
 export { default as Endpoint } from './Endpoint'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
@@ -48,6 +50,7 @@ export {
 } from './endpoints/createTunewsElementEndpoint'
 export { default as createOffersEndpoint, OFFERS_ENDPOINT_NAME } from './endpoints/createOffersEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
+export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
 
 export * from './i18n/DateFormatter'
 export { default as DateFormatter } from './i18n/DateFormatter'
