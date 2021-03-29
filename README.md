@@ -1,5 +1,8 @@
-[![Dependency Status](https://gemnasium.com/badges/github.com/Integreat/integreat-app.svg)](https://gemnasium.com/github.com/Integreat/integreat-app)
-versioning: ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
+![Integreat](build-configs/integreat/assets/app-logo.png)
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/master/LICENSE)
+[![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)](version.json)
+[![CircleCI Status](https://circleci.com/gh/Integreat/integreat-app.svg?style=shield)](https://circleci.com/gh/facebook/react)
 
 # integreat-app
 
@@ -58,15 +61,14 @@ We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE.
 If you are using a different IDE like Visual Studio Code ([./docs/vscode.md](./docs/vscode.md)) the steps might differ.
 
 - Import this project (VCS > Get from Version Control).
-- Install Prettier Plugin (InteilliJ should recognize everything and format code with prettier, if not got to Settings > Languages and Framworks > Javascript > Prettier and select the installed prettier package)
-- Open either the [web](web) or [native](native) project separately in IntelliJ (File > Open).
-- Follow the steps mentioned in the projects README.
+- **Open either the [web](web) or [native](native) directory separately in IntelliJ (File > Open).**
+- Follow the steps mentioned in the [web README](web/README.md) or the [native README](native/README.md).
 
-\*We are recommending to use either a Linux distribution or MacOS for development.
-If you want to develop on Windows anyway, follow the steps in [./docs/windows-setup.md](./docs/windows-setup.md)
-or use the Windows Subsystem for Linux: [./docs/wsl-setup.md](./docs/wsl-setup.md)
+_We are recommending to use either a Linux distribution or MacOS for development.
+If you want to develop on Windows anyway, follow the steps [here](./docs/windows-setup.md)
+or use the Windows Subsystem for Linux following the information [here](./docs/wsl-setup.md)._
 
 ## Further Reading
 
 More information on both the webapp and the native app can be found in the [web documentation](web/docs) and the [app documentation](native/docs).
-Documentation on [ci](docs/cicd.md), [contributing](docs/contributing.md) and our [conventions](docs/conventions.md) can be found [here](docs).
+Documentation on [CI/CD](docs/cicd.md), [contributing](docs/contributing.md) and our [conventions](docs/conventions.md) can be found [here](docs).
