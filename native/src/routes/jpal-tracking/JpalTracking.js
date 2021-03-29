@@ -37,7 +37,7 @@ const DescriptionContainer = styled.TouchableOpacity`
 const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
-  border-color: ${props => props.theme.colors.themeColor};
+  border-color: ${props => (props.editable ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor)};
   text-align-vertical: top;
   height: 50px;
 `
@@ -55,8 +55,6 @@ const appSettings = new AppSettings()
 const JpalTracking = (props: PropsType) => {
   const [settings, setSettings] = useState(defaultSettings)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
-  const [displayedTrackingCode, setDisplayedTrackingCode] = useState('')
-  const [displayedTrackingEnabled, setDisplayedTrackingEnabled] = useState(false)
   const [error, setError] = useState(false)
   const routeTrackingCode = props.route.params.trackingCode
 
@@ -74,8 +72,6 @@ const JpalTracking = (props: PropsType) => {
         const loadedSettings = await appSettings.loadSettings()
         setSettingsLoaded(true)
         setSettings(loadedSettings)
-        setDisplayedTrackingCode(loadedSettings.jpalTrackingCode)
-        setDisplayedTrackingEnabled(loadedSettings.jpalTrackingEnabled)
         setTimeout(() => setError(false), errorDisplayTime)
       } catch (e) {
         setError(true)
@@ -85,14 +81,16 @@ const JpalTracking = (props: PropsType) => {
   }, [])
 
   const toggleTrackingEnabled = () => {
-    setDisplayedTrackingEnabled(!displayedTrackingEnabled)
+    setSettings({...settings, jpalTrackingEnabled: !settings.jpalTrackingEnabled})
     appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).catch(() => {
       setError(true)
     })
   }
 
   const setTrackingCode = (value: string) => {
-    setDisplayedTrackingCode(value)
+    setSettings({
+      ...settings,
+      jpalTrackingCode: value})
     appSettings.setJpalTrackingCode(value).catch(() => {
       setError(true)
     })
@@ -117,7 +115,7 @@ const JpalTracking = (props: PropsType) => {
           <Switch
             thumbColor={props.theme.colors.themeColor}
             trackColor={{ true: props.theme.colors.themeColor }}
-            value={displayedTrackingEnabled}
+            value={settings.jpalTrackingEnabled}
             onValueChange={toggleTrackingEnabled}
             testID='switch'
           />
@@ -125,10 +123,10 @@ const JpalTracking = (props: PropsType) => {
 
         <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
         <Input
-          value={displayedTrackingCode}
+          value={settings.jpalTrackingCode}
           onChangeText={setTrackingCode}
           theme={theme}
-          editable={displayedTrackingEnabled}
+          editable={settings.jpalTrackingEnabled}
           testID='input'></Input>
       </View>
     </LayoutContainer>
