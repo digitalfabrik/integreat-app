@@ -15086,11 +15086,6 @@ react-native-elements@^2.0.3:
     react-native-ratings "^7.2.0"
     react-native-status-bar-height "^2.5.0"
 
-react-native-fast-image@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-7.0.2.tgz#e06b21f42f4a9786eaa86f3db35d919070fb8403"
-  integrity sha512-MfuzJbC0RjYobR2gFCdqe1I7jvNOCfDkjQ7VGOHXniqjohhULMkcWNBE9Umovi9Dx93lJ6t5utcE2wf/09zvlg==
-
 react-native-flipper@^0.54:
   version "0.54.0"
   resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.54.0.tgz#520a6cd99ebfd52db687564db0eea83ab7648b80"
