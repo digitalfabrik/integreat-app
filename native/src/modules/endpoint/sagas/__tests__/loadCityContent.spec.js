@@ -19,6 +19,11 @@ import NetInfo from '@react-native-community/netinfo'
 import DatabaseConnector from '../../DatabaseConnector'
 import mockDate from '../../../../testing/mockDate'
 import { createFetchMap } from '../../../../testing/builder/util'
+import loadLanguages from '../loadLanguages'
+import loadCities from '../loadCities'
+import loadCategories from '../loadCategories'
+import loadEvents from '../loadEvents'
+import loadPois from '../loadPois'
 
 jest.mock('@react-native-community/netinfo')
 jest.mock('rn-fetch-blob')
@@ -253,6 +258,34 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
+  it('should force a content refresh if criterion says so', async () => {
+    const dataContainer = new DefaultDataContainer()
+    await prepareDataContainer(dataContainer, city, language)
+
+    await dataContainer.storeLastUsage(city, false)
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
+
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: true,
+          shouldRefreshResources: true
+        },
+        false
+      )
+    )
+      .call(loadLanguages, city, dataContainer, true)
+      .call(loadCities, dataContainer, true)
+      .call(loadCategories, city, language, dataContainer, true)
+      .call(loadEvents, city, language, true, dataContainer, true)
+      .call(loadPois, city, language, false, dataContainer, true)
+      .run()
+  })
+
   it('should fetch resources when requested and connection type is not cellular', async () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
@@ -273,7 +306,7 @@ describe('loadCityContent', () => {
         false
       )
     )
-      .call.like(fetchResourceCache, city, language, fetchMap, dataContainer)
+      .call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
 
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)

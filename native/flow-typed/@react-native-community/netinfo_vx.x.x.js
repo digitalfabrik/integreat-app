@@ -1,5 +1,4 @@
-// flow-typed signature: ada35f3b623392b56bfaaf711d07f4a8
-// flow-typed version: aa7d70b0b9/@react-native-community/netinfo_v4.x.x/flow_>=v0.69.x
+import buildConfig from '../../src/modules/app/constants/buildConfig'
 
 declare module '@react-native-community/netinfo' {
   declare export type CellularGeneration = '2g' | '3g' | '4g';
@@ -29,27 +28,30 @@ declare module '@react-native-community/netinfo' {
   // https://github.com/react-native-community/react-native-netinfo/blob/master/README.md#netinfostate
   declare export type NetInfoState =
     | NetInfoStateDescriptor<UnknownStateType, null>
-    | NetInfoStateDescriptor<
-        CellularStateType,
-        {|
-          +isConnectionExpensive: boolean,
-          +cellularGeneration: ?CellularGeneration,
-        |}
-      >
-    | NetInfoStateDescriptor<
-        OtherStateType,
-        {|
-          +isConnectionExpensive: boolean,
-        |}
-      >;
+    | NetInfoStateDescriptor<CellularStateType,
+    {|
+      +isConnectionExpensive: boolean,
+      +cellularGeneration: ?CellularGeneration,
+    |}>
+    | NetInfoStateDescriptor<OtherStateType,
+    {|
+      +isConnectionExpensive: boolean,
+    |}>;
 
   declare export type NetInfoSubscription = () => void;
 
-  declare export function useNetInfo(): NetInfoState;
+  declare export function useNetInfo (): NetInfoState;
 
-  declare export function fetch(): Promise<NetInfoState>;
+  declare export function fetch (): Promise<NetInfoState>;
 
-  declare export function addEventListener(
+  declare type ConfigureParamsType = {
+    reachabilityUrl: string,
+    reachabilityTest: (response: { status: number }) => Promise<boolean>
+  }
+
+  declare export function configure ($Shape<ConfigureParamsType>): void;
+
+  declare export function addEventListener (
     listener: (NetInfoState) => mixed
   ): NetInfoSubscription;
 
@@ -57,5 +59,6 @@ declare module '@react-native-community/netinfo' {
     fetch: typeof fetch,
     addEventListener: typeof addEventListener,
     useNetInfo: typeof useNetInfo,
+    configure: typeof configure
   |}>;
 }
