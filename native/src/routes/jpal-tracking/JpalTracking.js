@@ -81,7 +81,7 @@ const JpalTracking = (props: PropsType) => {
   }, [])
 
   const toggleTrackingEnabled = () => {
-    setSettings({...settings, jpalTrackingEnabled: !settings.jpalTrackingEnabled})
+    setSettings({ ...settings, jpalTrackingEnabled: !settings.jpalTrackingEnabled })
     appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).catch(() => {
       setError(true)
     })
@@ -90,7 +90,8 @@ const JpalTracking = (props: PropsType) => {
   const setTrackingCode = (value: string) => {
     setSettings({
       ...settings,
-      jpalTrackingCode: value})
+      jpalTrackingCode: value
+    })
     appSettings.setJpalTrackingCode(value).catch(() => {
       setError(true)
     })
