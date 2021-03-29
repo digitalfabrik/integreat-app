@@ -10,7 +10,6 @@ import { REDIRECT_ROUTE } from 'api-client'
 import navigateToDeepLink from '../../../navigation/navigateToDeepLink'
 import configureMockStore from 'redux-mock-store'
 
-jest.mock('@react-native-community/async-storage')
 jest.mock('../../../navigation/navigateToDeepLink')
 jest.mock('../../../i18n/NativeLanguageDetector')
 jest.mock('react-i18next', () => ({

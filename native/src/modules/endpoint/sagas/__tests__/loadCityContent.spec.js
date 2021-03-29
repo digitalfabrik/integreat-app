@@ -25,7 +25,6 @@ import loadCategories from '../loadCategories'
 import loadEvents from '../loadEvents'
 import loadPois from '../loadPois'
 
-jest.mock('@react-native-community/async-storage')
 jest.mock('@react-native-community/netinfo')
 jest.mock('rn-fetch-blob')
 jest.mock('../fetchResourceCache')
