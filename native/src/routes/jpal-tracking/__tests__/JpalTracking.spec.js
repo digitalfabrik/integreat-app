@@ -2,7 +2,7 @@
 
 import React from 'react'
 import JpalTracking from '../JpalTracking'
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import createNavigationMock from '../../../testing/createNavigationPropMock'
 import AsyncStorage from '@react-native-community/async-storage'
 import type { RoutePropType } from '../../../modules/app/constants/NavigationTypes'
