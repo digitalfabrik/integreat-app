@@ -5,7 +5,6 @@
 * [Conversion between JSON, CSV and ODS](#conversion-between-json-csv-and-ods)
 * [Used file formats](#used-file-formats)
 
-
 ## Export and import workflow
 
 ### Submitting for translation
