@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { type TFunction, withTranslation } from 'react-i18next'
-import { createOffersEndpoint, NotFoundError, OfferModel } from 'api-client'
+import { createOffersEndpoint, NotFoundError, OfferModel, OFFERS_ROUTE } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -71,7 +71,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     (isPositiveFeedback: boolean) => {
       if (offers) {
         createNavigateToFeedbackModal(navigation)({
-          type: 'Offers',
+          routeType: OFFERS_ROUTE,
           language: languageCode,
           cityCode,
           offers,
