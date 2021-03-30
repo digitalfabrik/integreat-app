@@ -119,7 +119,7 @@
       },
       "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
     },
-    "ku": {
+    "ckb": {
       "pageTitles": {
         "search": "Lêgerîn",
         "events": "Rûdan",
@@ -294,7 +294,7 @@
     "it": {
       "createPdf": "Crea PDF"
     },
-    "ku": {
+    "ckb": {
       "createPdf": "Pêkanîna PDF'ê"
     },
     "pl": {
@@ -372,7 +372,7 @@
       "lastUpdate": "Ultima modifica:",
       "loading": "Caricamento..."
     },
-    "ku": {
+    "ckb": {
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Guhertinên herî dawî:"
@@ -483,7 +483,7 @@
       "news": "Messaggi",
       "newsAlternative": "Novità"
     },
-    "ku": {
+    "ckb": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
       "events": "Rûdan",
@@ -809,7 +809,7 @@
       "languageSwitchFailedTitle": "Purtroppo il cambio di lingua non è riuscito.",
       "languageSwitchFailedMessage": "La lingua selezionata non è disponibile offline. È necessaria una connessione Internet attiva."
     },
-    "ku": {
+    "ckb": {
       "notFound": {
         "language": "Mixabin zimanê te li vir li ber dest nîne.",
         "city": "Mixabin ev bajar nehat vedîtin.",
@@ -1164,7 +1164,7 @@
       "events": "Eventi",
       "currentlyNoEvents": "Al momento non ci sono eventi."
     },
-    "ku": {
+    "ckb": {
       "location": "Mekan",
       "date": "Roj",
       "events": "Rûdan",
@@ -1450,7 +1450,7 @@
       "negativeRating": "Questa pagina non è utile",
       "positiveRating": "Questa pagina è utile"
     },
-    "ku": {
+    "ckb": {
       "technicalTopics": "Kirdeyên Teknîkî",
       "contentOfCity": "Naverok {{city}}",
       "contentOfOffer": "Xizmet \"{{offer}}\"",
@@ -1950,7 +1950,7 @@
       "accept": "Accetta",
       "privacyPolicy": "Informativa sulla privacy"
     },
-    "ku": {
+    "ckb": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} rêbera te ya dîcîtal derbarê Almanyayê ye",
       "search": "Lêgerîn",
@@ -2323,7 +2323,7 @@
       "timeout": "Geolocalizzazione non riuscita",
       "refresh": "Aggiorna l’elenco dei luoghi"
     },
-    "ku": {
+    "ckb": {
       "searchCity": "Lêgerîna li Mekan",
       "nearbyPlaces": "Cihên nêzik",
       "noNearbyPlaces": "Tu cihek li vê nêzikatiyê nehat dîtin.",
@@ -2604,7 +2604,7 @@
       "shareFailDefaultMessage": "Purtroppo la condivisione del contenuto non è riuscita.",
       "disclaimer": "Impressum"
     },
-    "ku": {
+    "ckb": {
       "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
       "privacy": "Parastina daneyan",
       "offers": "Xizmet",
@@ -2837,7 +2837,7 @@
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
     },
-    "ku": {
+    "ckb": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
       "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
     },
@@ -2949,7 +2949,7 @@
       "currentlyNoNews": "Attualmente non ci sono notizie.",
       "currentlyNoNewsAlternative": "Attualmente non ci sono novità."
     },
-    "ku": {
+    "ckb": {
       "news": "Nûçe",
       "newsAlternative": "Nûçe",
       "localNews": "Nûçeyên herêmî",
@@ -3075,7 +3075,7 @@
     "it": {
       "offers": "Offerte"
     },
-    "ku": {
+    "ckb": {
       "offers": "Xizmet"
     },
     "pl": {
@@ -3128,7 +3128,7 @@
     "it": {
       "searchPlaceholder": "Ricerca"
     },
-    "ku": {
+    "ckb": {
       "searchPlaceholder": "Lêgerîn"
     },
     "pl": {
@@ -3259,7 +3259,7 @@
       "version": "Versione: {{version}}",
       "openSourceLicenses": "Licenze open source"
     },
-    "ku": {
+    "ckb": {
       "sentryTitle": "Mayîndetiya App'ê",
       "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa '{{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
@@ -3448,7 +3448,7 @@
       "learnMore": "Maggiori informazioni",
       "dismiss": "Chiudi"
     },
-    "ku": {
+    "ckb": {
       "grantPermission": "Rêdan",
       "deactivateFeature": "Neçalakkirina taybetmendiyê",
       "locationPermissionMissing": "Destûr hewce ye ji bo pêşniyarkirina mekanên nû",
@@ -3564,7 +3564,7 @@
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"
     },
-    "ku": {
+    "ckb": {
       "noOffersAvailable": "Tu xizmetek li ber dest nîne"
     },
     "pl": {
@@ -3806,7 +3806,7 @@
         }
       }
     },
-    "ku": {
+    "ckb": {
       "noOffersAvailable": "Tu xizmetek li ber dest nîne.",
       "values": {
         "runningServices": {
