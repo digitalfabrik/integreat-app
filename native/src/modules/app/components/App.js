@@ -19,6 +19,11 @@ import PermissionSnackbarContainer from '../../layout/containers/PermissionSnack
 import { REDIRECT_ROUTE } from 'api-client'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
+import NetInfo from '@react-native-community/netinfo'
+
+NetInfo.configure({
+  reachabilityUrl: 'https://cms.integreat-app.de/ping'
+})
 
 const linking: LinkingOptions = {
   prefixes: ['https://', 'integreat://'],
