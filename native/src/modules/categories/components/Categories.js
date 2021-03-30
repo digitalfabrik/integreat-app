@@ -61,10 +61,9 @@ class Categories extends React.Component<PropsType> {
     const category = stateView.root()
 
     navigateToFeedback({
-      type: 'Category',
+      routeType: CATEGORIES_ROUTE,
       language,
       cityCode: cityModel.code,
-      title: !category.isRoot() ? category.title : undefined,
       path: !category.isRoot() ? category.path : undefined,
       isPositiveFeedback
     })
