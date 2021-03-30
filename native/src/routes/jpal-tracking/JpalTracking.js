@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import type { ThemeType } from 'build-configs/ThemeType'
 import { Switch, Text, TextInput, View } from 'react-native'
@@ -60,30 +60,38 @@ const JpalTracking = (props: PropsType) => {
 
   const { t } = useTranslation(['settings', 'error'])
 
-  useEffect(() => {
-    if (routeTrackingCode) {
-      appSettings.setJpalTrackingCode(routeTrackingCode)
+  const loadSettings = useCallback(async () => {
+    try {
+      const loadedSettings = await appSettings.loadSettings().catch()
+      setSettingsLoaded(true)
+      setSettings(loadedSettings)
+      setTimeout(() => setError(false), errorDisplayTime)
+    } catch (e) {
+      setError(true)
     }
-  }, [routeTrackingCode])
+  }, [])
 
   useEffect(() => {
-    const loadSettings = async () => {
-      try {
-        const loadedSettings = await appSettings.loadSettings()
-        setSettingsLoaded(true)
-        setSettings(loadedSettings)
-        setTimeout(() => setError(false), errorDisplayTime)
-      } catch (e) {
-        setError(true)
-      }
+    if (routeTrackingCode) {
+      appSettings
+        .setJpalTrackingCode(routeTrackingCode)
+        .then(() => loadSettings())
+        .catch(() => {
+          setError(true)
+          loadSettings()
+        })
     }
+  }, [routeTrackingCode, loadSettings])
+
+  useEffect(() => {
     loadSettings()
-  }, [])
+  }, [loadSettings])
 
   const toggleTrackingEnabled = () => {
     setSettings({ ...settings, jpalTrackingEnabled: !settings.jpalTrackingEnabled })
     appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).catch(() => {
       setError(true)
+      loadSettings()
     })
   }
 
@@ -94,6 +102,7 @@ const JpalTracking = (props: PropsType) => {
     })
     appSettings.setJpalTrackingCode(value).catch(() => {
       setError(true)
+      loadSettings()
     })
   }
 
@@ -128,7 +137,8 @@ const JpalTracking = (props: PropsType) => {
           onChangeText={setTrackingCode}
           theme={theme}
           editable={settings.jpalTrackingEnabled}
-          testID='input'></Input>
+          testID='input'
+        />
       </View>
     </LayoutContainer>
   )
