@@ -74,7 +74,7 @@ describe('createTrackingEndpoint', () => {
   })
 
   it('should correctly map signal to body', async () => {
-    const remainingProps = { query: 'some query', feedback: {}, fromUrl: 'https://example.com/another/example' }
+    const remainingProps = { query: 'some query', feedback: {} }
     // $FlowFixMe Test all possible properties
     await createTrackingEndpoint().request({ ...signal, ...remainingProps })
     expect(fetch).toHaveBeenCalledWith(
@@ -89,7 +89,6 @@ describe('createTrackingEndpoint', () => {
             url: signal.url,
             query: 'some query',
             feedback: {},
-            from_url: 'https://example.com/another/example',
             offline: signal.offline,
             system_language: signal.systemLanguage,
             current_language: signal.currentLanguage,

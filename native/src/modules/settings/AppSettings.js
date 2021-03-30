@@ -83,6 +83,22 @@ class AppSettings {
     await this.setSettings({ selectedCity: null })
   }
 
+  setJpalTrackingCode = async (jpalTrackingCode: string) => {
+    await this.setSettings({ jpalTrackingCode })
+  }
+
+  clearJpalTrackingCode = async () => {
+    await this.setSettings({ jpalTrackingCode: null })
+  }
+
+  setJpalTrackingEnabled = async (jpalTrackingEnabled: boolean) => {
+    await this.setSettings({ jpalTrackingEnabled })
+  }
+
+  clearJpalTrackingCode = async () => {
+    await this.setSettings({ jpalTrackingEnabled: false })
+  }
+
   loadSelectedCity = async (): Promise<?string> => {
     const settings = await this.loadSettings()
     return settings.selectedCity
