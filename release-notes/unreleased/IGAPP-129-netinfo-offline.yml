@@ -1,0 +1,7 @@
+issue_key: IGAPP-129
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Re-Opening previous cities is now possible even if offline.
+de: Vorherige Städte können nun ohne Internet wieder geöffnet werden.
