@@ -15,7 +15,7 @@ export const testTranslations: TranslationsType = {
     }
   },
   dashboard: {
-    ku: {
+    ckb: {
       localInformation: 'Zanyariyên xwecihî'
     },
     de: {
