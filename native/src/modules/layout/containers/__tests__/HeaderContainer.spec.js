@@ -25,7 +25,7 @@ jest.useFakeTimers()
 
 jest.mock('../../components/Header', () => {
   const Text = require('react-native').Text
-  // $FLowFixMe props are incompatible with text props, but this is just for testing purposes to assert on props
+  // $FlowFixMe props are incompatible with text props, but this is just for testing purposes to assert on props
   return (props: { ... }) => <Text {...props}>Header</Text>
 })
 
