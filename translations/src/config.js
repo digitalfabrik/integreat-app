@@ -16,6 +16,7 @@ class Config {
   sourceLanguage = 'de'
 
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
+  // See https://wiki.tuerantuer.org/integreat-languages and https://iso639-3.sil.org/code_tables/639/data
   supportedLanguages: SupportedLanguagesType = {
     de: { rtl: false },
     ar: {
@@ -55,7 +56,8 @@ class Config {
       rtl: false,
       additionalFont: 'noto-sans-sc'
     },
-    mk: { rtl: false }
+    mk: { rtl: false },
+    sq: { rtl: false }
   }
 
   // Fallbacks for unnormalized language codes from our backend
