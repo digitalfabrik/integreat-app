@@ -33,8 +33,8 @@ class Config {
     tr: { rtl: false },
     pl: { rtl: false },
     ti: { rtl: false },
-    ku: {
-      rtl: false,
+    ckb: {
+      rtl: true,
       additionalFont: 'lateef'
     },
     ru: { rtl: false },
@@ -60,7 +60,7 @@ class Config {
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
     kmr: ['kmr'],
-    ckb: ['ku'],
+    ku: ['ckb'],
     'fa-AF': ['fa'],
     fa_pr: ['fa'],
     per: ['fa'],
