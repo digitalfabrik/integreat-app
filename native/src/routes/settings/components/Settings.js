@@ -58,6 +58,7 @@ const SectionHeader = styled.Text`
 
 export default class Settings extends React.Component<PropsType, StateType> {
   appSettings: AppSettings
+  unsubscribeNavigationListener: () => void
 
   constructor(props: PropsType) {
     super(props)
@@ -66,6 +67,10 @@ export default class Settings extends React.Component<PropsType, StateType> {
     this.appSettings = new AppSettings()
 
     this.loadSettings()
+
+    this.unsubscribeNavigationListener = this.props.navigation.addListener('focus', () => {
+      this.loadSettings()
+    })
   }
 
   async loadSettings() {
@@ -76,6 +81,10 @@ export default class Settings extends React.Component<PropsType, StateType> {
     } catch (e) {
       console.error('Failed to load settings.')
     }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeNavigationListener()
   }
 
   setSetting = async (
