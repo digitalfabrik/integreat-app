@@ -64,43 +64,47 @@ const NothingFoundFeedbackBox = ({ resultsFound, query, t, theme, sendFeedback }
 
   if (['idle', 'failed'].includes(sendingStatus)) {
     return (
-      <>
-        <TitleText>{resultsFound ? t('feedback:informationNotFound') : t('feedback:nothingFound')}</TitleText>
-        {sendingStatus === 'failed' && <DescriptionText>{t('feedback:failedSendingFeedback')}</DescriptionText>}
-        <DescriptionText>{t('feedback:wantedInformation')}</DescriptionText>
-        <Input
-          onChangeText={onCommentChanged}
-          value={comment}
-          multiline
-          placeholderTextColor={theme.colors.textSecondaryColor}
-          placeholder={t('feedback:yourFeedback')}
-        />
-        <Button
-          icon={<Icon name='send' size={15} color='black' style='material' />}
-          titleStyle={{ color: theme.colors.textColor }}
-          buttonStyle={{ backgroundColor: theme.colors.themeColor }}
-          onPress={onSubmit}
-          title={t('feedback:send')}
-        />
-      </>
+      <Container>
+        <FeedbackBox>
+          <TitleText>{resultsFound ? t('feedback:informationNotFound') : t('feedback:nothingFound')}</TitleText>
+          {sendingStatus === 'failed' && <DescriptionText>{t('feedback:failedSendingFeedback')}</DescriptionText>}
+          <DescriptionText>{t('feedback:wantedInformation')}</DescriptionText>
+          <Input
+            onChangeText={onCommentChanged}
+            value={comment}
+            multiline
+            placeholderTextColor={theme.colors.textSecondaryColor}
+            placeholder={t('feedback:yourFeedback')}
+          />
+          <Button
+            icon={<Icon name='send' size={15} color='black' style='material' />}
+            titleStyle={{ color: theme.colors.textColor }}
+            buttonStyle={{ backgroundColor: theme.colors.themeColor }}
+            onPress={onSubmit}
+            title={t('feedback:send')}
+          />
+        </FeedbackBox>
+      </Container>
     )
   } else if (sendingStatus === 'sending') {
-    return <ActivityIndicator size='large' color='#0000ff' />
+    return (
+      <Container>
+        <FeedbackBox>
+          <ActivityIndicator size='large' color={theme.colors.textDecorationColor} />
+        </FeedbackBox>
+      </Container>
+    )
   } else {
     // sendingStatus === 'successful'
     return (
-      <>
-        <TitleText>{t('feedback:feedbackSent')}</TitleText>
-        <DescriptionText>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</DescriptionText>
-      </>
+      <Container>
+        <FeedbackBox>
+          <TitleText>{t('feedback:feedbackSent')}</TitleText>
+          <DescriptionText>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</DescriptionText>
+        </FeedbackBox>
+      </Container>
     )
   }
 }
 
-export default (props: PropsType) => (
-  <Container>
-    <FeedbackBox>
-      <NothingFoundFeedbackBox {...props} />
-    </FeedbackBox>
-  </Container>
-)
+export default NothingFoundFeedbackBox
