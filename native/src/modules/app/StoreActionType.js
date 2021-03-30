@@ -341,13 +341,13 @@ export type SetResourceCacheUrlActionType = {|
   +params: {| +url: string |}
 |}
 
-// Pushes a new snackbar to the query
+// Pushes a new snackbar to the queue
 export type PushSnackbarActionType = {|
   type: 'PUSH_SNACKBAR',
   +params: SnackbarType
 |}
 
-// Pops the first snackbar from the query
+// Pops the first snackbar from the queue
 export type PopSnackbarActionType = {|
   type: 'POP_SNACKBAR'
 |}

@@ -13,7 +13,7 @@ import type { DataContainer } from '../../endpoint/DataContainer'
 import NavigatorContainer from '../containers/NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
-import I19nProvider from '../../i18n/components/I18nProvider'
+import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 import { REDIRECT_ROUTE } from 'api-client'
@@ -35,7 +35,7 @@ const linking: LinkingOptions = {
     }
   },
   getStateFromPath: path => {
-    return { index: 1, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
+    return { index: 0, routes: [{ name: REDIRECT_ROUTE, params: { url: `https://${path}` } }] }
   }
 }
 
@@ -66,7 +66,7 @@ const App = () => {
     <Provider store={store}>
       <ThemeProvider theme={buildConfig().lightTheme}>
         <StaticServerProvider>
-          <I19nProvider>
+          <I18nProvider>
             <SafeAreaProvider>
               <>
                 <StatusBarContainer />
@@ -84,7 +84,7 @@ const App = () => {
                 <SnackbarContainer />
               </>
             </SafeAreaProvider>
-          </I19nProvider>
+          </I18nProvider>
         </StaticServerProvider>
       </ThemeProvider>
     </Provider>
