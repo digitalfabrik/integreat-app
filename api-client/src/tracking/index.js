@@ -69,8 +69,7 @@ export type OpenLinkSignalType = {|
     | OpenExternalLinkSignalNameType
     | OpenOsLinkSignalNameType
     | OpenMediaSignalNameType,
-  url: string,
-  fromUrl: string
+  url: string
 |}
 
 type SearchFinishedSignalNameType = 'search_finished'
@@ -108,7 +107,6 @@ export const SEND_FEEDBACK_SIGNAL_NAME: SendFeedbackSignalNameType = 'send_feedb
 
 export type SendFeedbackSignalType = {|
   name: SendFeedbackSignalNameType,
-  url: string,
   feedback: {|
     // TODO IGAPP-564: Implement feedback signal
   |}

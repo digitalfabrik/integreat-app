@@ -23,7 +23,6 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
         url: signal.url || undefined,
         query: signal.query || undefined,
         feedback: signal.feedback || undefined, // TODO IGAPP-564: Implement feedback signal
-        from_url: signal.fromUrl || undefined,
         offline: signal.offline,
         system_language: signal.systemLanguage,
         current_language: signal.currentLanguage,
