@@ -258,13 +258,13 @@ describe('HeaderContainer', () => {
       scene: {
         route: {
           name: DISCLAIMER_ROUTE,
-          params: { cityCode: 'nuernberg' }
+          params: { cityCode: 'nuernberg', languageCode: 'ar' }
         }
       }
     }
 
     const result = render(ownProps)
-    const expectedShareUrl = `https://integreat.app/nuernberg/${language.code}/${DISCLAIMER_ROUTE}`
+    const expectedShareUrl = `https://integreat.app/nuernberg/ar/${DISCLAIMER_ROUTE}`
     assertProps(result, { shareUrl: expectedShareUrl })
   })
 
