@@ -3172,6 +3172,8 @@
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open-Source-Lizenzen",
       "tracking": "J-PAL Evaluation",
+      "allowTracking": "Tracking zulassen",
+      "trackingCode": "Tracking Code",
       "trackingDescription": "Durch das Senden von Tracking-Daten Integreat langfristig verbessern.",
       "enabled": "aktiviert",
       "disabled": "deaktiviert"
