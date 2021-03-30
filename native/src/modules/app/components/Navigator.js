@@ -1,12 +1,12 @@
 // @flow
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AppSettings from '../../settings/AppSettings'
-import { Text, Platform } from 'react-native'
+import { Platform, Text } from 'react-native'
 import initSentry from '../initSentry'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
 import buildConfig from '../constants/buildConfig'
-import { createStackNavigator, TransitionPresets, type StackHeaderProps } from '@react-navigation/stack'
+import { createStackNavigator, type StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import IntroContainer from '../../../routes/intro/IntroContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
 import DashboardContainer from '../../../routes/dashboard/containers/DashboardContainer'
@@ -28,32 +28,32 @@ import FeedbackModalContainer from '../../../routes/feedback/containers/Feedback
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import DisclaimerContainer from '../../../routes/disclaimer/DisclaimerContainer'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
+import type { DashboardRouteType, IntroRouteType, LandingRouteType } from 'api-client/src/routes'
 import {
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  WOHNEN_OFFER_ROUTE,
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
+  EXTERNAL_OFFER_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
-  EXTERNAL_OFFER_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE,
+  REDIRECT_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  REDIRECT_ROUTE,
-  JPAL_TRACKING_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  WOHNEN_OFFER_ROUTE
 } from 'api-client/src/routes'
-import type { IntroRouteType, DashboardRouteType, LandingRouteType } from 'api-client/src/routes'
 import type { RoutesParamsType } from '../constants/NavigationTypes'
 import RedirectContainer from '../containers/RedirectContainer'
-import JpalTrackingContainer from '../../../routes/japl-tracking/JpalTrackingContainer'
+import JpalTracking from '../../../routes/jpal-tracking/JpalTracking'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 
@@ -219,7 +219,7 @@ const Navigator = (props: PropsType) => {
         options={{ header: transparentHeader }}
       />
       <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} options={{ header: settingsHeader }} />
-      <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTrackingContainer} />
+      <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} options={{ header: transparentHeader }} />
     </Stack.Navigator>
   )
 }
