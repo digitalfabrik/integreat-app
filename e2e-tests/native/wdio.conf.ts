@@ -50,7 +50,7 @@ export const config = {
         }),
         browserstackCaps({
             platformName: 'ios',
-            'appium:platformVersion': '8',
+            'appium:platformVersion': '12',
             'appium:deviceName': 'iPhone 8'
         })
     ],
@@ -77,6 +77,6 @@ export const config = {
     },
 
     before: async function (): Promise<void> {
-        await browser.setTimeout({implicit: 80000})
+        // await browser.setTimeout({implicit: 80000})
     }
 }
