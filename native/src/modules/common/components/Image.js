@@ -29,7 +29,7 @@ class Image extends React.Component<PropsType> {
 
     return (
       <View>
-        <ThumbnailImage source={getImageSource(source)} resizeMode={'contain'} style={style} />
+        <ThumbnailImage source={getImageSource(source)} resizeMode='contain' style={style} />
       </View>
     )
   }
