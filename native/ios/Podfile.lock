@@ -120,15 +120,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.2.2):
     - GoogleUtilities/Logger
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
-    - libwebp/webp
-  - libwebp/mux (1.1.0):
-    - libwebp/demux
-  - libwebp/webp (1.1.0)
   - nanopb (2.30907.0):
     - nanopb/decode (= 2.30907.0)
     - nanopb/encode (= 2.30907.0)
@@ -395,10 +386,6 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNFastImage (7.0.2):
-    - React
-    - SDWebImage (~> 5.0)
-    - SDWebImageWebPCoder (~> 0.2.3)
   - RNFBApp (10.5.0):
     - Firebase/CoreOnly (~> 7.4.0)
     - React-Core
@@ -425,12 +412,6 @@ PODS:
     - React
   - RNVectorIcons (7.1.0):
     - React
-  - SDWebImage (5.10.4):
-    - SDWebImage/Core (= 5.10.4)
-  - SDWebImage/Core (5.10.4)
-  - SDWebImageWebPCoder (0.2.5):
-    - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.0)
   - Sentry (5.2.2):
     - Sentry/Core (= 5.2.2)
   - Sentry/Core (5.2.2)
@@ -500,7 +481,6 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
-  - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -535,12 +515,9 @@ SPEC REPOS:
     - GCDWebServer
     - GoogleDataTransport
     - GoogleUtilities
-    - libwebp
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
-    - SDWebImage
-    - SDWebImageWebPCoder
     - Sentry
     - YogaKit
 
@@ -625,8 +602,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
-  RNFastImage:
-    :path: "../node_modules/react-native-fast-image"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBMessaging:
@@ -677,7 +652,6 @@ SPEC CHECKSUMS:
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleDataTransport: 1024b1a4dfbd7a0e92cb20d7e0a6f1fb66b449a4
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   Permission-LocationWhenInUse: 9133db2ae6ce48da6ca513ec44a24ccce613fe4f
@@ -716,7 +690,6 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: 2a692bcb9b69b76a2f1a95f33db057129700af64
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNFBApp: 43a062dc6a1a88edd934d2229d1ba64f25381598
   RNFBMessaging: 7ca5248796434376c186b65029b1cec7d3e0990b
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
@@ -728,8 +701,6 @@ SPEC CHECKSUMS:
   RNSentry: cff88174a0b2e0289b2efe5be1abba1f6c54269d
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
-  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
-  SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   Sentry: 8fa58a051237554f22507fb483b9a1de0171a2dc
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
