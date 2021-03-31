@@ -9,6 +9,7 @@ import {
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
   NotFoundError,
+  OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel
 } from 'api-client'
@@ -63,9 +64,8 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
-      type: 'Offers',
+      routeType: OFFERS_ROUTE,
       cityCode,
-      title,
       alias,
       language: languageCode,
       isPositiveFeedback

@@ -7,16 +7,15 @@ import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, ScrollView, View } from 'react-native'
+import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
-import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import SearchFeedbackBox from './SearchFeedbackBox'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -126,27 +125,25 @@ class SearchModal extends React.Component<PropsType, StateType> {
     const filteredCategories = this.findCategories(categories)
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
-        <SpaceBetween>
-          {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
+        {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
               See NATIVE-430 for reference. */}
-          <View style={{ minHeight: minHeight }}>
-            <CategoryList
-              categories={filteredCategories}
-              navigateToLink={navigateToLink}
-              query={query}
-              onItemPress={this.onItemPress}
-              theme={theme}
-              language={language}
-            />
-          </View>
-          <SearchFeedbackBox
-            t={t}
+        <View style={{ minHeight: minHeight }}>
+          <CategoryList
+            categories={filteredCategories}
+            navigateToLink={navigateToLink}
             query={query}
+            onItemPress={this.onItemPress}
             theme={theme}
-            resultsFound={filteredCategories.length !== 0}
-            sendFeedback={sendFeedback}
+            language={language}
           />
-        </SpaceBetween>
+        </View>
+        <NothingFoundFeedbackBox
+          t={t}
+          query={query}
+          theme={theme}
+          resultsFound={filteredCategories.length !== 0}
+          sendFeedback={sendFeedback}
+        />
       </ScrollView>
     )
   }
@@ -163,7 +160,9 @@ class SearchModal extends React.Component<PropsType, StateType> {
           onSearchChanged={this.onSearchChanged}
           t={t}
         />
-        {this.renderContent()}
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={{ flex: 1 }}>
+          {this.renderContent()}
+        </KeyboardAvoidingView>
       </Wrapper>
     )
   }

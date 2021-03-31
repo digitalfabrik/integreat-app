@@ -1,0 +1,6 @@
+issue_key: IGAPP-406
+show_in_stores: true
+platforms:
+  - ios
+en: Prevent the keyboard from hiding your feedback for search results.
+de: Feedback in der Suche wird nun nicht mehr von der Tastatur verdeckt.

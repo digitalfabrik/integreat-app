@@ -10,7 +10,6 @@ const transformNodeModules = [
   'translations',
   '@sentry/react-native',
   'hashids',
-  '@react-native-picker/picker',
   'build-configs'
 ]
 

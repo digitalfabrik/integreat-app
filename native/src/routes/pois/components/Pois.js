@@ -59,9 +59,9 @@ class Pois extends React.Component<PropsType> {
     const { navigateToFeedback, cityCode, language } = this.props
 
     navigateToFeedback({
-      type: 'Pois',
+      routeType: POIS_ROUTE,
       language,
-      title: poi.title,
+      path: poi.path,
       cityCode,
       isPositiveFeedback
     })
@@ -71,7 +71,7 @@ class Pois extends React.Component<PropsType> {
     const { navigateToFeedback, cityCode, language } = this.props
 
     navigateToFeedback({
-      type: 'Pois',
+      routeType: POIS_ROUTE,
       language,
       cityCode,
       isPositiveFeedback
