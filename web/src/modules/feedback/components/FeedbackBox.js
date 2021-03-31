@@ -1,14 +1,12 @@
 // @flow
 
 import * as React from 'react'
-import { withTranslation, type TFunction } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import styled, { type StyledComponent } from 'styled-components'
 import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
-import FeedbackVariant from '../FeedbackVariant'
 import TextButton from '../../common/components/TextButton'
 import type { ThemeType } from 'build-configs/ThemeType'
-import Dropdown from '../../common/components/Dropdown'
 import type { SendingStatusType } from './FeedbackModal'
 
 export const StyledFeedbackBox: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -34,12 +32,9 @@ export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
 
 type PropsType = {|
   isPositiveRatingSelected: boolean,
-  feedbackOptions: Array<FeedbackVariant>,
-  selectedFeedbackOption: FeedbackVariant,
   comment: string,
   contactMail: string,
   onCommentChanged: (SyntheticInputEvent<HTMLTextAreaElement>) => void,
-  onFeedbackOptionChanged: FeedbackVariant => void,
   onContactMailChanged: (SyntheticInputEvent<HTMLInputElement>) => void,
   onSubmit: () => void,
   t: TFunction,
@@ -51,11 +46,8 @@ type PropsType = {|
  * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
  */
 export const FeedbackBox = ({
-  selectedFeedbackOption,
-  feedbackOptions,
   t,
   isPositiveRatingSelected,
-  onFeedbackOptionChanged,
   onCommentChanged,
   onContactMailChanged,
   onSubmit,
@@ -66,8 +58,6 @@ export const FeedbackBox = ({
 }: PropsType) => (
   <StyledFeedbackBox>
     <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
-    <Description>{t('feedbackType')}</Description>
-    <Dropdown items={feedbackOptions} selectedItem={selectedFeedbackOption} onOptionChanged={onFeedbackOptionChanged} />
     <FeedbackComment
       comment={comment}
       commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}

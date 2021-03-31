@@ -1,35 +1,39 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import { FeedbackBox } from '../FeedbackBox'
-import FeedbackVariant from '../../FeedbackVariant'
-import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from 'api-client'
 
 describe('FeedbackBox', () => {
   const t = (key: ?string): string => key || ''
-  const feedbackOptions = [
-    new FeedbackVariant({
-      label: 'label',
-      feedbackType: CATEGORIES_FEEDBACK_TYPE,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
-    })
-  ]
-  const onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => {}
-  const onContactMailChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {}
-  const onFeedbackOptionChanged = (option: FeedbackVariant) => {}
-  const onSubmit = () => {}
+  const onCommentChanged = jest.fn()
+  const onContactMailChanged = jest.fn()
+  const onSubmit = jest.fn()
+  const closeFeedbackModal = jest.fn()
 
-  it('should match snapshot', () => {
-    const component = shallow(
+  const buildProps = (isPositiveFeedback: boolean, comment: string) => {
+    return {
+      comment,
+      isPositiveFeedback,
+      contactMail: 'test@example.com',
+      sendingStatuse: 'IDLE',
+      onCommentChanged,
+      onContactMailChanged,
+      onSubmit,
+      t,
+      closeFeedbackModal
+    }
+  }
+
+  it('should display comment and contact mail', () => {
+    const comment = 'Some Comment'
+    const contactMail = 'xyz@iga.de'
+    const { getByText } = render(
       <FeedbackBox
         isPositiveRatingSelected={false}
-        contactMail=''
-        comment=''
-        feedbackOptions={feedbackOptions}
-        selectedFeedbackOption={feedbackOptions[0]}
+        contactMail={contactMail}
+        comment={comment}
         onCommentChanged={onCommentChanged}
-        onFeedbackOptionChanged={onFeedbackOptionChanged}
         onContactMailChanged={onContactMailChanged}
         onSubmit={onSubmit}
         sendingStatus='SUCCESS'
@@ -37,6 +41,30 @@ describe('FeedbackBox', () => {
         closeFeedbackModal={() => {}}
       />
     )
-    expect(component).toMatchSnapshot()
+
+    expect(getByText(contactMail)).toBeTruthy()
+    expect(getByText(comment)).toBeTruthy()
+  })
+
+  it('should call callback on contact mail changed', () => {
+    const comment = 'Some Comment'
+    const contactMail = 'xyz@iga.de'
+
+    const { getByText } = render(
+      <FeedbackBox
+        isPositiveRatingSelected={false}
+        contactMail={contactMail}
+        comment={comment}
+        onCommentChanged={onCommentChanged}
+        onContactMailChanged={onContactMailChanged}
+        onSubmit={onSubmit}
+        sendingStatus='SUCCESS'
+        t={t}
+        closeFeedbackModal={() => {}}
+      />
+    )
+
+    expect(getByText(contactMail)).toBeTruthy()
+    expect(getByText(comment)).toBeTruthy()
   })
 })
