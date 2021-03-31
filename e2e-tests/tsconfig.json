@@ -15,7 +15,8 @@
       "@wdio/types",
       "@wdio/selenium-standalone-service",
       "@wdio/browserstack-service",
-      "@wdio/junit-reporter"
+      "@wdio/junit-reporter",
+      "@wdio/appioum"
     ],
     "allowSyntheticDefaultImports": true
   },
