@@ -101,8 +101,6 @@ const fetchCategory = jest.fn()
 const props = ({ routeKey, routeName }: {| routeKey?: string, routeName: string | null |}) => ({
   routeKey,
   routeName,
-  cityCode,
-  languageCode,
   fetchCategory,
   fetchCities
 })

@@ -45,20 +45,12 @@ const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 const App = () => {
   const [routeName, setRouteName] = useState<?string>(null)
   const [routeKey, setRouteKey] = useState<?string>(null)
-  const [cityCode, setCityCode] = useState<?string>(null)
-  const [languageCode, setLanguageCode] = useState<?string>(null)
 
   const onStateChange = useCallback(state => {
     if (state) {
       const route = state.routes[state.index]
       setRouteName(route.name)
       setRouteKey(route.key)
-      if (route.params?.cityCode) {
-        setCityCode(typeof route.params.cityCode === 'string' ? route.params.cityCode : null)
-      }
-      if (route.params?.languageCode) {
-        setLanguageCode(typeof route.params.languageCode === 'string' ? route.params.languageCode : null)
-      }
     }
   }, [])
 
@@ -72,12 +64,7 @@ const App = () => {
                 <StatusBarContainer />
                 <IOSSafeAreaView>
                   <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                    <NavigatorContainer
-                      routeKey={routeKey}
-                      routeName={routeName}
-                      languageCode={languageCode}
-                      cityCode={cityCode}
-                    />
+                    <NavigatorContainer routeKey={routeKey} routeName={routeName} />
                   </NavigationContainer>
                 </IOSSafeAreaView>
                 {routeName && <PermissionSnackbarContainer routeName={routeName} />}
