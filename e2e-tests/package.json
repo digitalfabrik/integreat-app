@@ -5,12 +5,14 @@
   "scripts": {
     "test:web": "yarn workspace web start & yarn wdio run web/wdio.conf.ts",
     "test:web:browserstack": "yarn workspace web start & yarn wdio run web/browserstack/wdio-browserstack.conf.ts",
+    "test:native:browserstack": "yarn wdio run native/wdio-browserstack.conf.ts",
     "test:native": "yarn wdio run native/wdio.conf.ts",
     "lint": "yarn eslint ./"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
+    "@wdio/appium-service": "^7.3.0",
     "@wdio/browserstack-service": "^7.0.5",
     "@wdio/cli": "^7.0.9",
     "@wdio/jasmine-framework": "^7.0.4",
