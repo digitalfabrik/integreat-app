@@ -2034,11 +2034,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-11.0.0.tgz#21c93acb5899399b0ca28fd3a6f4c7c5555b6c95"
   integrity sha512-d1lnVyqwQ7Jzy6S4Nyn6OJ551WTF1vjaHscoh16o5Lj78UhyVMgTvz9RxdJIWlYz7W1SAvdIM3rPuwQK/qtF/g==
 
-"@react-native-picker/picker@^1.9.11":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-1.12.0.tgz#215d7c950935c8f1a834af0832a93122b4bab0f1"
-  integrity sha512-LxtFcuQ/jxsNwH9byM4mMSusqGfaj0LHXTh6fJgvIKOBjAWwV+FjWHszQSPCbnycdezirf8dFLhF9phcNuE8CA==
-
 "@react-navigation/core@^5.15.2":
   version "5.15.2"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.15.2.tgz#6aa374c7bcb6ffcaac8e2a7f8bdb2f9aba469b31"
@@ -13233,11 +13228,6 @@ react-native-elements@2.3.2:
     prop-types "^15.7.2"
     react-native-ratings "^7.2.0"
     react-native-status-bar-height "^2.5.0"
-
-react-native-fast-image@^8.3.4:
-  version "8.3.4"
-  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.4.tgz#79edca177e30311b19d59ff335625bcbe22650d7"
-  integrity sha512-LpzAdjUphihUpVEBn5fEv5AILe55rHav0YiZroPZ1rumKDhAl4u2cG01ku2Pb7l8sayjTsNu7FuURAlXUUDsow==
 
 react-native-flipper@^0.79.1:
   version "0.79.1"

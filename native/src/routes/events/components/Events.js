@@ -4,7 +4,7 @@ import * as React from 'react'
 import { useContext } from 'react'
 import { View } from 'react-native'
 import type { TFunction } from 'react-i18next'
-import { CityModel, EventModel, NotFoundError } from 'api-client'
+import { CityModel, EventModel, EVENTS_ROUTE, NotFoundError } from 'api-client'
 import Page from '../../../modules/common/components/Page'
 import PageDetail from '../../../modules/common/components/PageDetail'
 import EventListItem from './EventListItem'
@@ -67,8 +67,7 @@ const Events = ({
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
-      type: 'Event',
-      title: event.title,
+      routeType: EVENTS_ROUTE,
       path: event.path,
       cityCode: cityModel.code,
       language,
@@ -78,7 +77,7 @@ const Events = ({
 
   const navigateToFeedbackForEvents = (isPositiveFeedback: boolean) => {
     navigateToFeedback({
-      type: 'Event',
+      routeType: EVENTS_ROUTE,
       cityCode: cityModel.code,
       language,
       isPositiveFeedback
