@@ -59,7 +59,6 @@ class Config {
 
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
-    kmr: ['kmr'],
     ku: ['kmr'],
     'fa-AF': ['fa'],
     fa_pr: ['fa'],
