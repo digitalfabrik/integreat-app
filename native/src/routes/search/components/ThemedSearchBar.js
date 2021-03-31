@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import { SearchBar } from 'react-native-elements'
 import type { TFunction } from 'react-i18next'
 
@@ -26,7 +26,8 @@ class ThemedSearchBar extends React.Component<PropsType> {
           flexGrow: 1,
           backgroundColor: colors.backgroundAccentColor,
           borderTopColor: colors.backgroundAccentColor,
-          borderBottomColor: colors.backgroundAccentColor
+          borderBottomColor: colors.backgroundAccentColor,
+          padding: 4
         }}
         inputContainerStyle={{
           backgroundColor: colors.backgroundColor

@@ -42,6 +42,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Integreat/main.m; sourceTree = "<group>"; };
 		17287B1C24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenIntegreat.storyboard; sourceTree = "<group>"; };
 		17287B1E24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenDefault.storyboard; sourceTree = "<group>"; };
+		17DE87222614AEEB00455C76 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		402A5479E2DCF9E7D5AD48AD /* libPods-Integreat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Integreat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F4682A920316F66FAD98FD /* Pods-Integreat.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.integreat.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.integreat.xcconfig"; sourceTree = "<group>"; };
@@ -57,12 +58,9 @@
 		7B9749D622DC7AEE0078B456 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B9749D722DC7B1B0078B456 /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592D623D855BA0012BF03 /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7BB592D723D8562E0012BF03 /* fa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592D823D8563B0012BF03 /* ro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592D923D856440012BF03 /* tr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592DB23D856710012BF03 /* ti */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ti; path = ti.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7BB592DE23D857DF0012BF03 /* ku */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ku; path = ku.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7BB592E023D85A210012BF03 /* sr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sr; path = sr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592E123D85A830012BF03 /* hr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592E223D85AA70012BF03 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7BB592E323D85B1F0012BF03 /* ps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ps; path = ps.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -279,17 +277,15 @@
 				ru,
 				de,
 				fr,
-				fa,
 				ro,
 				tr,
 				ti,
-				ku,
 				so,
 				hr,
 				es,
 				pl,
-				sr,
 				ps,
+				ckb,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -466,18 +462,16 @@
 				7B9749D722DC7B1B0078B456 /* ru */,
 				7B0E54CE2369C1480016A7C1 /* de */,
 				7BB592D623D855BA0012BF03 /* fr */,
-				7BB592D723D8562E0012BF03 /* fa */,
 				7BB592D823D8563B0012BF03 /* ro */,
 				7BB592D923D856440012BF03 /* tr */,
 				7BB592DB23D856710012BF03 /* ti */,
-				7BB592DE23D857DF0012BF03 /* ku */,
-				7BB592E023D85A210012BF03 /* sr */,
 				7BB592E123D85A830012BF03 /* hr */,
 				7BB592E223D85AA70012BF03 /* es */,
 				7BB592E323D85B1F0012BF03 /* ps */,
 				B848D0B2252DF2A200D4695A /* ar */,
 				B848D0B3252DF2A500D4695A /* pl */,
 				B848D0B4252DF2A800D4695A /* so */,
+				17DE87222614AEEB00455C76 /* ckb */,
 			);
 			name = InfoPlist.strings;
 			path = Integreat;
@@ -490,7 +484,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 49EED0C36D66FA4AB70F7809 /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -597,7 +591,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DD14BEF1244BF70E95AA783F /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
