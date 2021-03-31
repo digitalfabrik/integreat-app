@@ -44,10 +44,7 @@ class Config {
     es: { rtl: false },
     sr: { rtl: false },
     ps: { rtl: true },
-    kmr: {
-      rtl: true,
-      additionalFont: 'lateef'
-    },
+    kmr: { rtl: false },
     am: { rtl: false },
     bg: { rtl: false },
     el: { rtl: false },
