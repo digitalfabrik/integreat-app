@@ -2,19 +2,20 @@
 
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import { HeaderBackButton } from '@react-navigation/stack'
 import ThemedSearchBar from './ThemedSearchBar'
 import type { TFunction } from 'react-i18next'
 import dimensions from '../../../modules/theme/constants/dimensions'
+import type { StyledComponent } from 'styled-components'
 
-const HorizontalLeft = styled.View`
+const HorizontalLeft: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
 `
 
-const BoxShadow = styled.View`
+const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
   elevation: 1;
   shadow-color: #000;
   shadow-offset: 0px 1px;
@@ -32,21 +33,13 @@ type PropsType = {|
   t: TFunction
 |}
 
-class SearchHeader extends React.Component<PropsType> {
-  render() {
-    const { theme, query, closeSearchBar, onSearchChanged, t } = this.props
-
-    return (
-      <>
-        <BoxShadow theme={theme}>
-          <HorizontalLeft theme={theme}>
-            <HeaderBackButton onPress={closeSearchBar} labelVisible={false} />
-            <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
-          </HorizontalLeft>
-        </BoxShadow>
-      </>
-    )
-  }
-}
+const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: PropsType) => (
+  <BoxShadow theme={theme}>
+    <HorizontalLeft theme={theme}>
+      <HeaderBackButton onPress={closeSearchBar} labelVisible={false} />
+      <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
+    </HorizontalLeft>
+  </BoxShadow>
+)
 
 export default SearchHeader
