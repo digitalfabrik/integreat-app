@@ -350,7 +350,7 @@
       "lastUpdate": "Última modificación:",
       "loading": "Cargando ..."
     },
-    "fa": {
+    "pes": {
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:"
@@ -457,7 +457,7 @@
       "news": "Noticias",
       "newsAlternative": "Novedades"
     },
-    "fa": {
+    "pes": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
       "events": "رویدادها",
@@ -687,7 +687,7 @@
       "languageSwitchFailedTitle": "No se ha podido cambiar el idioma.",
       "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Se necesita una conexión a internet activada."
     },
-    "fa": {
+    "pes": {
       "notFound": {
         "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
         "city": "متاسفانه این شهر یافت نشد.",
@@ -1140,7 +1140,7 @@
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades."
     },
-    "fa": {
+    "pes": {
       "location": "محل",
       "date": "تاریخ",
       "events": "رویدادها",
@@ -1340,7 +1340,7 @@
       "negativeRating": "Esta página no sirve de ayuda",
       "positiveRating": "Esta página sirve de ayuda"
     },
-    "fa": {
+    "pes": {
       "technicalTopics": "عملکردهای فنی",
       "contentOfCity": "محتوای {{city}}",
       "contentOfOffer": "خدمات ‎\"‎{{offer}}‎\"",
@@ -1838,7 +1838,7 @@
       "accept": "Aceptar",
       "privacyPolicy": "Declaración de privacidad"
     },
-    "fa": {
+    "pes": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
@@ -2280,7 +2280,7 @@
       "timeout": "La localización falló",
       "refresh": "Actualizar lista de ubicaciones"
     },
-    "fa": {
+    "pes": {
       "searchCity": "جستجوی مکان",
       "nearbyPlaces": "مکان های نزدیک",
       "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
@@ -2525,7 +2525,7 @@
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
       "disclaimer": "Aviso legal"
     },
-    "fa": {
+    "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
       "offers": "خدمات",
@@ -2822,7 +2822,7 @@
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
       "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
     },
-    "fa": {
+    "pes": {
       "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
       "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
     },
@@ -2919,7 +2919,7 @@
       "currentlyNoNews": "En la actualidad no hay noticias",
       "currentlyNoNewsAlternative": "En la actualidad no hay novedades"
     },
-    "fa": {
+    "pes": {
       "news": "اخبار",
       "newsAlternative": "تازه‌ها",
       "localNews": "اخبار محلی",
@@ -3063,7 +3063,7 @@
     "es": {
       "offers": "Ofertas"
     },
-    "fa": {
+    "pes": {
       "offers": "خدمات"
     },
     "fr": {
@@ -3119,7 +3119,7 @@
     "es": {
       "searchPlaceholder": "Búsqueda   "
     },
-    "fa": {
+    "pes": {
       "searchPlaceholder": "جستجو"
     },
     "fr": {
@@ -3214,7 +3214,7 @@
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta"
     },
-    "fa": {
+    "pes": {
       "sentryTitle": "پایداری اپلیکیشن",
       "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ {{appName}} را بهبود بخشید",
       "pushNewsTitle": "پیام های فوری",
@@ -3419,7 +3419,7 @@
       "learnMore": "Más información",
       "dismiss": "Cerrar"
     },
-    "fa": {
+    "pes": {
       "grantPermission": "اجازه دادن",
       "deactivateFeature": "غیرفعال کردن ویژگی",
       "locationPermissionMissing": "دسترسی به موقعیت مکانی برای پرای ارائه پیشنهادات موجود در نزدیکی الزامی است",
@@ -3554,7 +3554,7 @@
     "es": {
       "noOffersAvailable": "No hay ofertas disponibles"
     },
-    "fa": {
+    "pes": {
       "noOffersAvailable": "هیچ خدماتی در دسترس نیست"
     },
     "fr": {
@@ -3718,7 +3718,7 @@
         }
       }
     },
-    "fa": {
+    "pes": {
       "noOffersAvailable": "هیچ خدماتی در دسترس نیست.",
       "values": {
         "runningServices": {

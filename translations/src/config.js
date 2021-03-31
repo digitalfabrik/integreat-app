@@ -25,7 +25,7 @@ class Config {
       additionalFont: 'lateef'
     },
     en: { rtl: false },
-    fa: {
+    pes: {
       rtl: true,
       additionalFont: 'lateef'
     },
@@ -64,9 +64,10 @@ class Config {
   fallbacks: FallbacksType = {
     kmr: ['kmr'],
     ckb: ['ku'],
-    'fa-AF': ['fa'],
-    fa_pr: ['fa'],
-    per: ['fa'],
+    'fa': ['pes'],
+    'fa-AF': ['pes'],
+    fa_pr: ['pes'],
+    per: ['pes'],
     'de-si': ['de']
   }
 
