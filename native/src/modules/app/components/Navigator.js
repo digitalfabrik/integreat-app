@@ -172,8 +172,7 @@ const Navigator = (props: PropsType) => {
       <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} options={{ header: () => null }} />
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} initialParams={{}} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }}
-      />
+      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
