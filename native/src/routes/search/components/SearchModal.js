@@ -1,13 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
@@ -16,6 +16,8 @@ import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
+import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
+import { cityContentPath } from '../../../modules/navigation/url'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -32,7 +34,7 @@ export type PropsType = {|
   theme: ThemeType,
   language: string,
   cityCode: string,
-  closeModal: () => void,
+  closeModal: (query: string) => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   t: TFunction,
   sendFeedback: (comment: string, query: string) => Promise<void>
@@ -99,6 +101,15 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
   onItemPress = (category: { path: string, ... }) => {
     const { cityCode, language, navigateTo } = this.props
+    const { query } = this.state
+
+    const url = cityContentPath({
+      cityCode,
+      languageCode: language,
+      route: CATEGORIES_ROUTE,
+      path: category.path
+    })
+    sendTrackingSignal({ signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query, url } })
 
     navigateTo({
       route: CATEGORIES_ROUTE,
