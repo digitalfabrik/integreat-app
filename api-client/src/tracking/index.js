@@ -47,7 +47,6 @@ export type ClosePageSignalType = {|
   name: ClosePageSignalNameType
 |}
 
-
 type OpenDeepLinkSignalNameType = 'open_deep_link'
 export const OPEN_DEEP_LINK_SIGNAL_NAME: OpenDeepLinkSignalNameType = 'open_deep_link'
 

@@ -48,17 +48,20 @@ const App = () => {
   const [routeKey, setRouteKey] = useState<?string>(null)
   const [routeIndex, setRouteIndex] = useState<number>(0)
 
-  const onStateChange = useCallback(state => {
-    if (state) {
-      if (state.index === routeIndex - 1) {
-        sendTrackingSignal({ signal: { name: CLOSE_PAGE_SIGNAL_NAME }})
+  const onStateChange = useCallback(
+    state => {
+      if (state) {
+        if (state.index === routeIndex - 1) {
+          sendTrackingSignal({ signal: { name: CLOSE_PAGE_SIGNAL_NAME } })
+        }
+        const route = state.routes[state.index]
+        setRouteName(route.name)
+        setRouteKey(route.key)
+        setRouteIndex(state.index)
       }
-      const route = state.routes[state.index]
-      setRouteName(route.name)
-      setRouteKey(route.key)
-      setRouteIndex(state.index)
-    }
-  }, [routeIndex])
+    },
+    [routeIndex]
+  )
 
   return (
     <Provider store={store}>
