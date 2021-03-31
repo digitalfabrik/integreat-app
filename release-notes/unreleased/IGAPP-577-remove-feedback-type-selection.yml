@@ -1,0 +1,7 @@
+issue_key: IGAPP-577
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: To make it easier to send feedback we now automatically select the type of feedback for you!
+de: Um das Senden von Feedback einfacher zu machen wählen wir nun die Art von Feedback automatisch aus!
