@@ -20,11 +20,8 @@ import type {
 type OpenPageSignalNameType = 'open_page'
 export const OPEN_PAGE_SIGNAL_NAME: OpenPageSignalNameType = 'open_page'
 
-type ClosePageSignalNameType = 'close_page'
-export const CLOSE_PAGE_SIGNAL_NAME: ClosePageSignalNameType = 'close_page'
-
-export type PageSignalType = {|
-  name: OpenPageSignalNameType | ClosePageSignalNameType,
+export type OpenPageSignalType = {|
+  name: OpenPageSignalNameType,
   pageType:
     | DashboardRouteType
     | CategoriesRouteType
@@ -42,6 +39,14 @@ export type PageSignalType = {|
     | JpalTrackingRouteType,
   url: string
 |}
+
+type ClosePageSignalNameType = 'close_page'
+export const CLOSE_PAGE_SIGNAL_NAME: ClosePageSignalNameType = 'close_page'
+
+export type ClosePageSignalType = {|
+  name: ClosePageSignalNameType
+|}
+
 
 type OpenDeepLinkSignalNameType = 'open_deep_link'
 export const OPEN_DEEP_LINK_SIGNAL_NAME: OpenDeepLinkSignalNameType = 'open_deep_link'
@@ -113,7 +118,8 @@ export type SendFeedbackSignalType = {|
 |}
 
 export type SpecificSignalType =
-  | PageSignalType
+  | OpenPageSignalType
+  | ClosePageSignalType
   | OpenDeepLinkSignalType
   | OpenLinkSignalType
   | SearchFinishedSignalType
