@@ -2,13 +2,11 @@
 
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { Picker } from '@react-native-picker/picker'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
-import FeedbackVariant from '../FeedbackVariant'
 import Caption from '../../../modules/common/components/Caption'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import type { SendingStatusType } from '../containers/FeedbackModalContainer'
@@ -51,12 +49,9 @@ const Description = styled(ThemedText)`
 export type PropsType = {|
   comment: string,
   contactMail: string,
-  selectedFeedbackIndex: number,
   sendingStatus: SendingStatusType,
-  feedbackOptions: Array<FeedbackVariant>,
   onCommentChanged: (comment: string) => void,
   onFeedbackContactMailChanged: (contactMail: string) => void,
-  onFeedbackOptionChanged: (value: string | number, index: number) => void,
   isPositiveFeedback: boolean,
   onSubmit: () => Promise<void>,
   theme: ThemeType,
@@ -65,31 +60,12 @@ export type PropsType = {|
 
 const FeedbackModal = (props: PropsType) => {
   const renderBox = (): React.Node => {
-    const {
-      theme,
-      t,
-      isPositiveFeedback,
-      feedbackOptions,
-      selectedFeedbackIndex,
-      comment,
-      contactMail,
-      sendingStatus
-    } = props
-    const feedbackItem = feedbackOptions[selectedFeedbackIndex]
+    const { theme, t, isPositiveFeedback, comment, contactMail, sendingStatus } = props
 
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
           <Caption theme={theme} title={t('feedback')} />
-          <Description theme={theme}>{t('feedbackType')}</Description>
-          <Picker
-            selectedValue={feedbackOptions.indexOf(feedbackItem)}
-            onValueChange={props.onFeedbackOptionChanged}
-            mode='dropdown'>
-            {feedbackOptions.map((item, index) => (
-              <Picker.Item label={item.label} value={index} key={index} />
-            ))}
-          </Picker>
 
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{isPositiveFeedback ? t('positiveComment') : t('negativeComment')}</Description>
