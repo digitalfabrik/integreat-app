@@ -42,14 +42,14 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
   const cityCode = ownProps.scene.route.params?.cityCode || state.cityContent?.city
-  const languageCode = state.contentLanguage
+  const languageCode = ownProps.scene.route.params?.languageCode || state.contentLanguage
 
   const route = state.cityContent?.routeMapping[routeKey]
 
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
   const routeName = ownProps.scene.route.name
   const simpleRouteShareUrl =
-    typeof cityCode === 'string' && simpleRoutes.includes(routeName)
+    typeof cityCode === 'string' && typeof languageCode === 'string' && simpleRoutes.includes(routeName)
       ? urlFromRouteInformation({ cityCode, languageCode, route: (routeName: $Values<typeof simpleRoutes>) })
       : null
 
