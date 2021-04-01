@@ -103,13 +103,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
     const { cityCode, language, navigateTo } = this.props
     const { query } = this.state
 
-    const url = cityContentPath({
-      cityCode,
-      languageCode: language,
-      route: CATEGORIES_ROUTE,
-      path: category.path
-    })
-    sendTrackingSignal({ signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query, url } })
+    sendTrackingSignal({ signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query, url: category.path } })
 
     navigateTo({
       route: CATEGORIES_ROUTE,
@@ -141,7 +135,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
         <View style={{ minHeight: minHeight }}>
           <CategoryList
             categories={filteredCategories}
-            navigateToLink={navigateToLink}
+            navigateToLink={navigateToLink} // Do i have to add changes to navigateToLink too? When ist this used?
             query={query}
             onItemPress={this.onItemPress}
             theme={theme}

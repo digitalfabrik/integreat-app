@@ -137,7 +137,7 @@ class CategoryListItem extends React.Component<PropsType> {
     const { language, category, theme } = this.props
     return (
       <>
-        <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+        <FlexStyledLink testID={'CategoryListItem'} onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
           <DirectionContainer theme={theme} language={language}>
             <CategoryThumbnail source={category.thumbnail || iconPlaceholder} theme={theme} />
             {this.renderTitle()}
