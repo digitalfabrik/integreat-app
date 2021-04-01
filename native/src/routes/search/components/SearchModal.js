@@ -17,7 +17,6 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
-import { cityContentPath } from '../../../modules/navigation/url'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
