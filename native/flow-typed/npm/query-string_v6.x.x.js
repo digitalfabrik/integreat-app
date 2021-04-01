@@ -1,4 +1,4 @@
-// flow-typed signature: 4a4ede4f7f12b874598b0b727b9a1c4c
+// flow-typed signature: 95160bc223de1c693dec603af1341240
 // flow-typed version: f898dad1b0/query-string_v6.x.x/flow_>=v0.104.x
 
 declare module 'query-string' {
