@@ -4,7 +4,6 @@ release-notes/
 tools/
 translations/
 e2e-tests/
-version.json
 
 web/dist/
 web/www/
