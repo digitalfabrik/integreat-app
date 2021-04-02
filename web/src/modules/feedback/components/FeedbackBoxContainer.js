@@ -4,13 +4,11 @@ import * as React from 'react'
 import type { FeedbackParamsType, FeedbackType } from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
-  CityModel,
   createFeedbackEndpoint,
   DEFAULT_FEEDBACK_LANGUAGE,
   EVENTS_FEEDBACK_TYPE,
   INTEGREAT_INSTANCE,
   OFFER_FEEDBACK_TYPE,
-  OfferModel,
   OFFERS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE
 } from 'api-client'
@@ -26,15 +24,10 @@ import { cmsApiBaseUrl } from '../../app/constants/urls'
 import type { SendingStatusType } from './FeedbackModal'
 
 type PropsType = {|
-  cities: ?Array<CityModel>,
-  title?: string,
   alias?: string,
   path?: string,
-  query?: string,
   isPositiveRatingSelected: boolean,
   location: LocationState,
-  offers: ?Array<OfferModel>,
-  postFeedbackDataOverride?: FeedbackParamsType => void,
   closeFeedbackModal: () => void,
   sendingStatus: SendingStatusType,
   onSubmit: (sendingStatus: SendingStatusType) => void,
@@ -56,12 +49,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
   }
 
   postFeedbackData = async (feedbackData: FeedbackParamsType) => {
-    const { postFeedbackDataOverride } = this.props
-    if (postFeedbackDataOverride) {
-      postFeedbackDataOverride(feedbackData)
-    } else {
-      await createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
-    }
+    await createFeedbackEndpoint(cmsApiBaseUrl).request(feedbackData)
   }
 
   getFeedbackType = (): FeedbackType => {
@@ -88,7 +76,7 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
    * Returns the data that should be posted to the feedback endpoint
    */
   getFeedbackData = (comment: string): FeedbackParamsType => {
-    const { location, query, isPositiveRatingSelected, path, alias } = this.props
+    const { location, isPositiveRatingSelected, path, alias } = this.props
     const { city, language } = location.payload
     const feedbackType = this.getFeedbackType()
 
@@ -99,16 +87,13 @@ export class FeedbackBoxContainer extends React.Component<PropsType, StateType> 
       permalink: path,
       city: city || INTEGREAT_INSTANCE,
       language: language || DEFAULT_FEEDBACK_LANGUAGE,
-      alias,
-      query
+      alias
     }
   }
 
-  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) =>
-    this.setState({ comment: event.target.value })
+  handleCommentChanged = (comment: string) => this.setState({ comment })
 
-  handleContactMailChanged = (event: SyntheticInputEvent<HTMLInputElement>) =>
-    this.setState({ contactMail: event.target.value })
+  handleContactMailChanged = (contactMail: string) => this.setState({ contactMail })
 
   submitFeedback = async () => {
     const { onSubmit } = this.props

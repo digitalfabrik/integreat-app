@@ -1,22 +1,28 @@
 // @flow
 
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { FeedbackBox } from '../FeedbackBox'
+import { ThemeProvider } from 'styled-components'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('FeedbackBox', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   const t = (key: ?string): string => key || ''
   const onCommentChanged = jest.fn()
   const onContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
   const closeFeedbackModal = jest.fn()
 
-  const buildProps = (isPositiveFeedback: boolean, comment: string) => {
+  const buildProps = (isPositiveRatingSelected: boolean, comment: string) => {
     return {
       comment,
-      isPositiveFeedback,
+      isPositiveRatingSelected,
       contactMail: 'test@example.com',
-      sendingStatuse: 'IDLE',
+      sendingStatus: 'IDLE',
       onCommentChanged,
       onContactMailChanged,
       onSubmit,
@@ -25,46 +31,58 @@ describe('FeedbackBox', () => {
     }
   }
 
-  it('should display comment and contact mail', () => {
-    const comment = 'Some Comment'
-    const contactMail = 'xyz@iga.de'
+  it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(
-      <FeedbackBox
-        isPositiveRatingSelected={false}
-        contactMail={contactMail}
-        comment={comment}
-        onCommentChanged={onCommentChanged}
-        onContactMailChanged={onContactMailChanged}
-        onSubmit={onSubmit}
-        sendingStatus='SUCCESS'
-        t={t}
-        closeFeedbackModal={() => {}}
-      />
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, '')} />
+      </ThemeProvider>
     )
+    expect(getByText('send')).toBeDisabled()
+  })
 
-    expect(getByText(contactMail)).toBeTruthy()
-    expect(getByText(comment)).toBeTruthy()
+  it('button should be enabled for positive Feedback and no input', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(true, '')} />
+      </ThemeProvider>
+    )
+    expect(getByText('send')).not.toBeDisabled()
+  })
+
+  it('button should be enabled for negative Feedback and input', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, 'comment')} />
+      </ThemeProvider>
+    )
+    expect(getByText('send')).not.toBeDisabled()
+  })
+
+  it('onSubmit should be called on button press', async () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, 'comment')} />
+      </ThemeProvider>
+    )
+    const button = getByText('send')
+    fireEvent.click(button)
+
+    expect(onSubmit).toBeCalled()
   })
 
   it('should call callback on contact mail changed', () => {
-    const comment = 'Some Comment'
-    const contactMail = 'xyz@iga.de'
-
-    const { getByText } = render(
-      <FeedbackBox
-        isPositiveRatingSelected={false}
-        contactMail={contactMail}
-        comment={comment}
-        onCommentChanged={onCommentChanged}
-        onContactMailChanged={onContactMailChanged}
-        onSubmit={onSubmit}
-        sendingStatus='SUCCESS'
-        t={t}
-        closeFeedbackModal={() => {}}
-      />
+    const { getByDisplayValue, queryByDisplayValue } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, 'my comment')} />
+      </ThemeProvider>
     )
+    expect(getByDisplayValue('test@example.com')).toBeTruthy()
+    expect(queryByDisplayValue('new@example.com')).toBeFalsy()
+    expect(onContactMailChanged).not.toHaveBeenCalled()
 
-    expect(getByText(contactMail)).toBeTruthy()
-    expect(getByText(comment)).toBeTruthy()
+    fireEvent.change(getByDisplayValue('test@example.com'), { target: { value: 'new@example.com' } })
+
+    expect(onContactMailChanged).toHaveBeenCalledTimes(1)
+    expect(onContactMailChanged).toBeCalledWith('new@example.com')
   })
 })
