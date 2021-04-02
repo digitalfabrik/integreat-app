@@ -8,15 +8,7 @@ class FeedbackVariant {
   alias: ?string
   value: string
 
-  constructor({
-    label,
-    feedbackType,
-    alias
-  }: {|
-    label: string,
-    feedbackType: FeedbackType,
-    alias?: string
-  |}) {
+  constructor({ label, feedbackType, alias }: {| label: string, feedbackType: FeedbackType, alias?: string |}) {
     this.feedbackType = feedbackType
     this.label = label
     this.alias = alias
