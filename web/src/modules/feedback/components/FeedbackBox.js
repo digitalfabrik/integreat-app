@@ -34,8 +34,8 @@ type PropsType = {|
   isPositiveRatingSelected: boolean,
   comment: string,
   contactMail: string,
-  onCommentChanged: (SyntheticInputEvent<HTMLTextAreaElement>) => void,
-  onContactMailChanged: (SyntheticInputEvent<HTMLInputElement>) => void,
+  onCommentChanged: (comment: string) => void,
+  onContactMailChanged: (contactMail: string) => void,
   onSubmit: () => void,
   t: TFunction,
   closeFeedbackModal: () => void,
@@ -67,7 +67,7 @@ export const FeedbackBox = ({
     <Description>
       {t('contactMailAddress')} ({t('optionalInfo')})
     </Description>
-    <TextInput onChange={onContactMailChanged} value={contactMail} />
+    <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
     {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
     <TextButton disabled={!isPositiveRatingSelected && !comment} onClick={onSubmit} text={t('send')} />
   </StyledFeedbackBox>

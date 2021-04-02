@@ -130,8 +130,7 @@ describe('WohnenRouteConfig', () => {
     })
 
     expect(wohnenRouteConfig.getFeedbackTargetInformation({ payloads, location })).toEqual({
-      alias: 'wohnen',
-      title: 'Raumfrei'
+      alias: 'wohnen'
     })
   })
 })
