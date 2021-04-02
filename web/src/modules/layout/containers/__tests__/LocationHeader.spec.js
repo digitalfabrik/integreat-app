@@ -105,6 +105,7 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, false, false, false, false, false)
     })
 
@@ -122,6 +123,7 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, false, true, false, false)
     })
 
@@ -139,6 +141,7 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, false, false, false, true)
     })
 
@@ -156,6 +159,7 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, true, true, true, true)
     })
 
