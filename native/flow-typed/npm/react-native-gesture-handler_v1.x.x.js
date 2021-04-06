@@ -1,4 +1,4 @@
-// flow-typed signature: 6a23c8ddaf07480ea74ff74320570ac1
+// flow-typed signature: 8c5259d64e3edd2e10377c960e5349a5
 // flow-typed version: a5104a7a2f/react-native-gesture-handler_v1.x.x/flow_>=v0.104.x
 
 // Since now there is no possibility to import types from other libraries I had to use such a crutch
