@@ -13,6 +13,7 @@ import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
+import type { SettingsType } from '../../settings/AppSettings'
 import AppSettings from '../../settings/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
@@ -20,7 +21,92 @@ import { fromError } from '../../error/ErrorCodes'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import loadPois from './loadPois'
-import type { SettingsType } from '../../settings/AppSettings'
+import { CategoriesMapModel, EventModel } from 'api-client'
+
+/**
+ * Persists the newCity as selected city and subscribes to the corresponding push notifications.
+ * @param newCity
+ * @param newLanguage
+ */
+function* selectCity(newCity: string, newLanguage: string): Saga<void> {
+  const appSettings = new AppSettings()
+  const settings: SettingsType = yield call(appSettings.loadSettings)
+
+  if (settings.allowPushNotifications) {
+    yield spawn(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
+  }
+
+  yield call(appSettings.setSelectedCity, newCity)
+}
+
+/**
+ * Downloads and refreshes resources linked and used in the categories and events
+ * @param dataContainer
+ * @param categoriesMap
+ * @param events
+ * @param newCity
+ * @param newLanguage
+ */
+function* refreshResources(
+  dataContainer: DataContainer,
+  categoriesMap: CategoriesMapModel,
+  events: Array<EventModel>,
+  newCity: string,
+  newLanguage: string
+): Saga<void> {
+  const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
+  resourceURLFinder.init()
+
+  const input = categoriesMap
+    .toArray()
+    .concat(events)
+    .map(it => ({ path: it.path, thumbnail: it.thumbnail, content: it.content }))
+  const fetchMap = resourceURLFinder.buildFetchMap(input, (url, urlHash) =>
+    buildResourceFilePath(url, newCity, urlHash)
+  )
+
+  resourceURLFinder.finalize()
+  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
+}
+
+/**
+ * Loads the languages of newCity and pushes them to the redux store.
+ * @param dataContainer
+ * @param newCity
+ * @param newLanguage
+ * @param shouldUpdate
+ * @returns Whether newLanguage is a valid language of the newCity.
+ */
+function* prepareLanguages(
+  dataContainer: DataContainer,
+  newCity: string,
+  newLanguage: string,
+  shouldUpdate: boolean
+): Saga<boolean> {
+  try {
+    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    const languages = yield call(dataContainer.getLanguages, newCity)
+
+    const pushLanguages: PushLanguagesActionType = {
+      type: 'PUSH_LANGUAGES',
+      params: { languages }
+    }
+    yield put(pushLanguages)
+
+    return languages.map(language => language.code).includes(newLanguage)
+  } catch (e) {
+    console.error(e)
+    const languagesFailed: FetchLanguagesFailedActionType = {
+      type: 'FETCH_LANGUAGES_FAILED',
+      params: {
+        message: `Error in fetchCategoryhttps://en.wikipedia.org/wiki/Serbian_language: ${e.message}`,
+        code: fromError(e)
+      }
+    }
+    yield put(languagesFailed)
+    return false
+  }
+}
 
 /**
  *
@@ -40,19 +126,13 @@ export default function* loadCityContent(
   yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
 
   if (!criterion.peeking()) {
-    const appSettings = new AppSettings()
-    const settings: SettingsType = yield call(appSettings.loadSettings)
-
-    if (settings.allowPushNotifications) {
-      yield spawn(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
-    }
-
-    yield call(appSettings.setSelectedCity, newCity)
+    yield call(selectCity, newCity, newLanguage)
   }
 
   const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
-  console.debug('Last city content update on ', lastUpdate ? lastUpdate.toISOString() : 'never')
+  console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
 
+  const netInfo = yield call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
   console.debug('City content should be refreshed: ', shouldUpdate)
 
@@ -68,40 +148,9 @@ export default function* loadCityContent(
     }
 
     if (criterion.shouldLoadLanguages()) {
-      try {
-        yield call(
-          loadLanguages,
-          newCity,
-          dataContainer,
-          shouldUpdate
-        ) /* The languages for a city get updated if a any
-                                                                       language of the city is:
-                                                                          * older than MAX_CONTENT_AGE,
-                                                                          * has no "lastUpdate" or
-                                                                          * an update is forced
-                                                                        This means the loading of languages depends on
-                                                                        language AND the city */
-        const languages = yield call(dataContainer.getLanguages, newCity)
-
-        const pushLanguages: PushLanguagesActionType = {
-          type: 'PUSH_LANGUAGES',
-          params: { languages }
-        }
-        yield put(pushLanguages)
-
-        if (!languages.map(language => language.code).includes(newLanguage)) {
-          return false
-        }
-      } catch (e) {
-        console.error(e)
-        const languagesFailed: FetchLanguagesFailedActionType = {
-          type: 'FETCH_LANGUAGES_FAILED',
-          params: {
-            message: `Error in fetchCategory: ${e.message}`,
-            code: fromError(e)
-          }
-        }
-        yield put(languagesFailed)
+      const languageAvailable = yield call(prepareLanguages, dataContainer, newCity, newLanguage, shouldUpdate)
+      if (!languageAvailable) {
+        return false
       }
     }
 
@@ -112,22 +161,11 @@ export default function* loadCityContent(
       call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
     ])
 
-    const netInfo = yield call(NetInfo.fetch)
-    const isCellularConnection = netInfo.type === 'cellular'
-
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
     // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
     // failed to download some resources an other call could fix this and download missing files.
-    if (criterion.shouldRefreshResources() && !isCellularConnection) {
-      const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
-      resourceURLFinder.init()
-
-      const fetchMap = resourceURLFinder.buildFetchMap(categoriesMap.toArray().concat(events), (url, urlHash) =>
-        buildResourceFilePath(url, newCity, urlHash)
-      )
-
-      resourceURLFinder.finalize()
-      yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
+    if (criterion.shouldRefreshResources() && netInfo.type !== 'cellular') {
+      yield call(refreshResources, dataContainer, categoriesMap, events, newCity, newLanguage)
     }
 
     if (!shouldUpdate && lastUpdate) {

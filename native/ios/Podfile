@@ -17,6 +17,6 @@ target 'Integreat' do
   end
 
   permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
-  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications.podspec"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 end

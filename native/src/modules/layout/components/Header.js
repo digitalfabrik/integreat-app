@@ -9,7 +9,7 @@ import { Item } from 'react-navigation-header-buttons'
 import { HeaderBackButton, type StackHeaderProps } from '@react-navigation/stack'
 import type { ThemeType } from '../../theme/constants'
 import type { TFunction } from 'react-i18next'
-import { CityModel } from 'api-client'
+import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../../app/constants/buildConfig'
 import dimensions from '../../theme/constants/dimensions'
@@ -17,6 +17,7 @@ import type { StoreActionType } from '../../app/StoreActionType'
 import type { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../../navigation/navigateToLanding'
+import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -40,8 +41,6 @@ const Icon = styled.Image`
 const HeaderText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   flex: 1;
   flex-direction: column;
-  text-align-vertical: center;
-  height: 50px;
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
@@ -112,6 +111,7 @@ const Header = (props: PropsType) => {
       interpolation: { escapeValue: false }
     })
 
+    sendTrackingSignal({ signal: { name: SHARE_SIGNAL_NAME, url: shareUrl } })
     try {
       await Share.share({
         message,
