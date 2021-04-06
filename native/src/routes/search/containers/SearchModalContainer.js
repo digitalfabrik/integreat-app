@@ -6,20 +6,14 @@ import type { StateType } from '../../../modules/app/StateType'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import SearchModal, { type PropsType as SearchModalPropsType } from '../components/SearchModal'
-import {
-  CategoriesMapModel,
-  createFeedbackEndpoint,
-  SEARCH_FEEDBACK_TYPE,
-  SEARCH_FINISHED_SIGNAL_NAME
-} from 'api-client'
-import { withTranslation, type TFunction } from 'react-i18next'
+import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
+import { type TFunction, withTranslation } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import React, { useCallback } from 'react'
 import type { SearchRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
-import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
 
 type OwnPropsType = {|
   route: RoutePropType<SearchRouteType>,
@@ -43,7 +37,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     language: state.contentLanguage,
     cityCode,
     closeModal: (query: string) => {
-      sendTrackingSignal({ signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query, url: null } })
       ownProps.navigation.goBack()
     },
     sendFeedback: async (comment: string, query: string) => {
