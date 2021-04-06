@@ -1,5 +1,5 @@
-// flow-typed signature: 4ee29aa0a1a5b8e43b88d95e7a9e55aa
-// flow-typed version: c6154227d1/react-native-webview_v5.x.x/flow_>=v0.104.x
+// flow-typed signature: a9e597bb2bc3dc6a75ab47073b571872
+// flow-typed version: 4141a9d353/react-native-webview_v6.x.x/flow_>=v0.104.x
 
 /*
  * The next module declaration need to show which types was copy from `react-native`
@@ -128,8 +128,8 @@ declare module 'react-native-webview' {
 
   declare export type WebViewNativeConfig = {|
     component?: React$ComponentType<WebViewSharedProps>,
-    props?: {...},
-    viewManager?: {...},
+    props?: { ... },
+    viewManager?: { ... },
   |};
 
   declare export type WebViewEvent = NativeSyntheticEvent<WebViewNativeEvent>;
@@ -143,13 +143,17 @@ declare module 'react-native-webview' {
 
   declare export type IOSWebViewProps = {
     useWebKit?: boolean,
-    incognito?: boolean,
     bounces?: boolean,
     decelerationRate?: DecelerationRateConstant | number,
     scrollEnabled?: boolean,
     pagingEnabled?: boolean,
     automaticallyAdjustContentInsets?: boolean,
     contentInset?: ContentInsetProp,
+    contentInsetAdjustmentBehavior?:
+      | 'automatic'
+      | 'scrollableAxes'
+      | 'never'
+      | 'always',
     dataDetectorTypes?: DataDetectorTypes | Array<DataDetectorTypes>,
     allowsInlineMediaPlayback?: boolean,
     hideKeyboardAccessoryView?: boolean,
@@ -207,6 +211,8 @@ declare module 'react-native-webview' {
     nativeConfig?: WebViewNativeConfig,
     cacheEnabled?: boolean,
     userAgent?: string,
+    incognito?: boolean,
+    applicationNameForUserAgent?: string,
     ...
   };
 
@@ -220,6 +226,7 @@ declare module 'react-native-webview' {
     reload(): void;
     stopLoading(): void;
     injectJavaScript(script: string): void;
+    requestFocus(): void;
   }
 
   declare export default typeof WebView;
