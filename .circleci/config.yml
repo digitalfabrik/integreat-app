@@ -140,15 +140,15 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 2-pods-{{ arch }}-
+                    - 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 3-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install --deployment
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
-                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                key: 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
@@ -276,7 +276,7 @@ jobs:
             - image: circleci/android:api-29-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
-            TOTAL_CPUS: 2
+            TOTAL_CPUS: 3
         parameters:
             build_config_name:
                 default: integreat
@@ -287,7 +287,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: medium
+        resource_class: medium+
         shell: /bin/bash -eo pipefail
         steps:
             - skip_job:
@@ -337,7 +337,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -576,7 +576,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -837,7 +837,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -1222,12 +1222,6 @@ workflows:
                     - mattermost
                     - tuerantuer-google-play
                 name: promote_malte_android
-            - promote_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                name: promote_aschaffenburg_android
             - promote_ios:
                 build_config_name: integreat
                 context:
@@ -1240,12 +1234,6 @@ workflows:
                     - mattermost
                     - tuerantuer-apple
                 name: promote_malte_ios
-            - promote_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                name: promote_aschaffenburg_ios
         triggers:
             - schedule:
                 cron: 1 3 * * 4
@@ -1585,7 +1573,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: deliver_aschaffenburg_android
-                production_delivery: true
+                production_delivery: false
                 requires:
                     - check_native
                     - e2e_android
@@ -1678,7 +1666,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: deliver_aschaffenburg_ios
-                production_delivery: true
+                production_delivery: false
                 requires:
                     - check_native
                     - e2e_ios

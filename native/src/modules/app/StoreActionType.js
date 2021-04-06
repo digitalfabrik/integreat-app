@@ -5,9 +5,9 @@ import {
   CityModel,
   EventModel,
   LanguageModel,
-  TunewsModel,
   LocalNewsModel,
-  PoiModel
+  PoiModel,
+  TunewsModel
 } from 'api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
@@ -15,14 +15,19 @@ import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 import type { NewsType } from 'api-client/src/routes'
 
+// Starts fetching all available cities
 export type FetchCitiesActionType = {|
   type: 'FETCH_CITIES',
   +params: {| +forceRefresh: boolean |}
 |}
+
+// Pushes fetched cities to the state
 export type PushCitiesActionType = {|
   type: 'PUSH_CITIES',
   +params: {| +cities: $ReadOnlyArray<CityModel> |}
 |}
+
+// Adds an error occurred during fetching of cities to the state
 export type FetchCitiesFailedActionType = {|
   type: 'FETCH_CITIES_FAILED',
   +params: {|
@@ -30,14 +35,18 @@ export type FetchCitiesFailedActionType = {|
     +code: ErrorCodeType
   |}
 |}
+
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
 
+// Pushes fetched languages to the state
 export type PushLanguagesActionType = {|
   type: 'PUSH_LANGUAGES',
   +params: {|
     +languages: $ReadOnlyArray<LanguageModel>
   |}
 |}
+
+// Adds an error occurred during fetching of languages to the state
 export type FetchLanguagesFailedActionType = {|
   type: 'FETCH_LANGUAGES_FAILED',
   +params: {|
@@ -46,11 +55,13 @@ export type FetchLanguagesFailedActionType = {|
   |}
 |}
 
+// Sets the currently used content language
 export type SetContentLanguageActionType = {|
   type: 'SET_CONTENT_LANGUAGE',
   +params: {| +contentLanguage: string |}
 |}
 
+// Adds a new category route to the state and starts fetching relevant data
 export type FetchCategoryActionType = {|
   type: 'FETCH_CATEGORY',
   +params: {|
@@ -60,6 +71,34 @@ export type FetchCategoryActionType = {|
   |}
 |}
 
+// Sets an occurred error to the corresponding category route
+export type FetchCategoryFailedActionType = {|
+  type: 'FETCH_CATEGORY_FAILED',
+  +params: {|
+    +key: string,
+    ...CategoryRouteConfigType,
+    +message: string,
+    +code: ErrorCodeType,
+    +allAvailableLanguages: $ReadOnlyMap<string, ?string> | null
+  |}
+|}
+
+// Pushes fetched category to the corresponding route the state
+export type PushCategoryActionType = {|
+  type: 'PUSH_CATEGORY',
+  +params: {|
+    +categoriesMap: CategoriesMapModel,
+    +resourceCache: LanguageResourceCacheStateType,
+    +cityLanguages: Array<LanguageModel>,
+    ...CategoryRouteConfigType,
+    +key: string,
+    +refresh: boolean
+  |}
+|}
+
+export type CategoriesActionType = FetchCategoryActionType | PushCategoryActionType | FetchCategoryFailedActionType
+
+// Adds a new news route to the state and starts fetching relevant data
 export type FetchNewsActionType = {|
   type: 'FETCH_NEWS',
   +params: {|
@@ -72,6 +111,7 @@ export type FetchNewsActionType = {|
   |}
 |}
 
+// Starts fetching the next page of news for a selected city and language
 export type FetchMoreNewsActionType = {|
   type: 'FETCH_MORE_NEWS',
   +params: {|
@@ -87,11 +127,7 @@ export type FetchMoreNewsActionType = {|
   |}
 |}
 
-export type ClearNewsActionType = {|
-  type: 'CLEAR_NEWS',
-  +params: {| +key: string |}
-|}
-
+// Pushes fetched news to the corresponding route the state
 export type PushNewsActionType = {|
   type: 'PUSH_NEWS',
   +params: {|
@@ -108,6 +144,7 @@ export type PushNewsActionType = {|
   |}
 |}
 
+// Sets an occurred error to the corresponding news route
 export type FetchNewsFailedActionType = {|
   type: 'FETCH_NEWS_FAILED',
   +params: {|
@@ -126,43 +163,9 @@ export type NewsActionType =
   | FetchNewsActionType
   | FetchMoreNewsActionType
   | FetchNewsFailedActionType
-  | ClearNewsActionType
   | PushNewsActionType
 
-export type FetchCategoryFailedActionType = {|
-  type: 'FETCH_CATEGORY_FAILED',
-  +params: {|
-    +key: string,
-    ...CategoryRouteConfigType,
-    +message: string,
-    +code: ErrorCodeType,
-    +allAvailableLanguages: $ReadOnlyMap<string, ?string> | null
-  |}
-|}
-
-export type PushCategoryActionType = {|
-  type: 'PUSH_CATEGORY',
-  +params: {|
-    +categoriesMap: CategoriesMapModel,
-    +resourceCache: LanguageResourceCacheStateType,
-    +cityLanguages: Array<LanguageModel>,
-    ...CategoryRouteConfigType,
-    +key: string,
-    +refresh: boolean
-  |}
-|}
-
-export type ClearCategoryActionType = {|
-  type: 'CLEAR_CATEGORY',
-  +params: {| +key: string |}
-|}
-
-export type CategoriesActionType =
-  | ClearCategoryActionType
-  | FetchCategoryActionType
-  | PushCategoryActionType
-  | FetchCategoryFailedActionType
-
+// Adds a new pois route to the state and starts fetching relevant data
 export type FetchPoiActionType = {|
   type: 'FETCH_POI',
   +params: {|
@@ -174,11 +177,7 @@ export type FetchPoiActionType = {|
   |}
 |}
 
-export type ClearPoiActionType = {|
-  type: 'CLEAR_POI',
-  +params: {| +key: string |}
-|}
-
+// Pushes fetched pois to the corresponding route the state
 export type PushPoiActionType = {|
   type: 'PUSH_POI',
   +params: {|
@@ -191,6 +190,8 @@ export type PushPoiActionType = {|
     +city: string
   |}
 |}
+
+// Sets an occurred error to the corresponding pois route
 export type FetchPoiFailedActionType = {|
   type: 'FETCH_POI_FAILED',
   +params: {|
@@ -204,8 +205,9 @@ export type FetchPoiFailedActionType = {|
   |}
 |}
 
-export type PoisActionType = ClearPoiActionType | FetchPoiActionType | PushPoiActionType | FetchPoiFailedActionType
+export type PoisActionType = FetchPoiActionType | PushPoiActionType | FetchPoiFailedActionType
 
+// Adds a new event route to the state and starts fetching relevant data
 export type FetchEventActionType = {|
   type: 'FETCH_EVENT',
   +params: {|
@@ -217,27 +219,22 @@ export type FetchEventActionType = {|
   |}
 |}
 
-export type ClearEventActionType = {|
-  type: 'CLEAR_EVENT',
-  +params: {| +key: string |}
-|}
-
-type PushEventParamsType = {|
-  +events: $ReadOnlyArray<EventModel>,
-  +path: ?string,
-  +key: string,
-  +resourceCache: LanguageResourceCacheStateType,
-  +cityLanguages: $ReadOnlyArray<LanguageModel>,
-  +language: string,
-  +city: string,
-  +refresh: boolean
-|}
-
+// Pushes fetched events to the corresponding route the state
 export type PushEventActionType = {|
   type: 'PUSH_EVENT',
-  +params: PushEventParamsType
+  +params: {|
+    +events: $ReadOnlyArray<EventModel>,
+    +path: ?string,
+    +key: string,
+    +resourceCache: LanguageResourceCacheStateType,
+    +cityLanguages: $ReadOnlyArray<LanguageModel>,
+    +language: string,
+    +city: string,
+    +refresh: boolean
+  |}
 |}
 
+// Sets an occurred error to the corresponding event route
 export type FetchEventFailedActionType = {|
   type: 'FETCH_EVENT_FAILED',
   +params: {|
@@ -251,22 +248,20 @@ export type FetchEventFailedActionType = {|
   |}
 |}
 
-export type EventsActionType =
-  | ClearEventActionType
-  | FetchEventActionType
-  | PushEventActionType
-  | FetchEventFailedActionType
+export type EventsActionType = FetchEventActionType | PushEventActionType | FetchEventFailedActionType
 
+// Initiates a content language switch, i.e. switching the content language and morphing all opened routes.
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE',
   +params: {|
-    // The TFunction should be removed again in https://issues.integreat-app.de/browse/NATIVE-359
+    // TODO IGAPP-498 The alert should be replaced with a snackbar, hence the TFunction should also be removed.
     +newLanguage: string,
     +city: string,
     +t: TFunction
   |}
 |}
 
+// Stops the content language switch if an error occurred.
 export type SwitchContentLanguageFailedActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
   +params: {|
@@ -276,6 +271,7 @@ export type SwitchContentLanguageFailedActionType = {|
 
 export type ContentLanguageActionType = SwitchContentLanguageActionType | SwitchContentLanguageFailedActionType
 
+// Initiates replacing (morphing) the routes in the old with corresponding ones in the new language.
 export type MorphContentLanguageActionType = {|
   type: 'MORPH_CONTENT_LANGUAGE',
   +params: {|
@@ -287,10 +283,18 @@ export type MorphContentLanguageActionType = {|
   |}
 |}
 
+// Removes the corresponding route from the state
+export type ClearRouteActionType = {|
+  type: 'CLEAR_ROUTE',
+  +params: {| +key: string |}
+|}
+
+// Clears the selected city by removing the corresponding state and setting and unsubscribing from push notifications.
 export type ClearCityActionType = {|
   type: 'CLEAR_CITY'
 |}
 
+// Updates the progress of the resource fetching, used for showing the loading spinner
 export type ResourcesFetchProgressActionType = {|
   type: 'FETCH_RESOURCES_PROGRESS',
   +params: {|
@@ -298,6 +302,7 @@ export type ResourcesFetchProgressActionType = {|
   |}
 |}
 
+// Sets an occurred error to the resource cache
 export type ResourcesFetchFailedActionType = {|
   type: 'FETCH_RESOURCES_FAILED',
   +params: {|
@@ -312,6 +317,7 @@ export type CityContentActionType =
   | PoisActionType
   | MorphContentLanguageActionType
   | ContentLanguageActionType
+  | ClearRouteActionType
   | ClearCityActionType
   | PushLanguagesActionType
   | FetchLanguagesFailedActionType
@@ -319,14 +325,17 @@ export type CityContentActionType =
   | ResourcesFetchFailedActionType
   | NewsActionType
 
+// Toggles the dark mode flag in the state
 export type ToggleDarkModeActionType = {|
   type: 'TOGGLE_DARK_MODE'
 |}
 
+// Removes all downloaded resources and files
 export type ClearResourcesAndCacheActionType = {|
   type: 'CLEAR_RESOURCES_AND_CACHE'
 |}
 
+// Sets the url of the resource server (localhost)
 export type SetResourceCacheUrlActionType = {|
   type: 'SET_RESOURCE_CACHE_URL',
   +params: {| +url: string |}

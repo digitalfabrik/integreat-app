@@ -16,6 +16,7 @@ import { Alert } from 'react-native'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import type { SettingsType } from '../../settings/AppSettings'
+import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
@@ -23,10 +24,6 @@ export function* switchContentLanguage(
 ): Saga<void> {
   const { newLanguage, city, t } = action.params
   try {
-    // TODO IGAPP-129 Use netinfo to decide whether offline and language not yet downloaded
-    // netInfo.isInternetReachable only available since v4.1.0, but with v4.0.0 netinfo was migrated to androidx
-    // https://issues.integreat-app.de/browse/NATIVE-354
-
     // We never want to force a refresh when switching languages
     yield call(
       loadCityContent,
@@ -78,9 +75,8 @@ export function* switchContentLanguage(
     }
     yield put(insert)
   } catch (e) {
-    if (e.message === 'Network request failed') {
-      // The alert should be replaced with an error component in https://issues.integreat-app.de/browse/NATIVE-359
-      // Hence the TFunction should also be removed
+    if (fromError(e) === ErrorCodes.NetworkConnectionFailed) {
+      // TODO IGAPP-498 The alert should be replaced with a snackbar, hence the TFunction should also be removed.
       Alert.alert(t('languageSwitchFailedTitle'), t('languageSwitchFailedMessage'))
     }
     console.error(e)

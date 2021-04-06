@@ -6,7 +6,7 @@ import type { StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { type TFunction, withTranslation } from 'react-i18next'
 import WohnenOffer from '../components/WohnenOffer'
-import { createWohnenEndpoint, Payload, WohnenOfferModel } from 'api-client'
+import { createWohnenEndpoint, OFFERS_ROUTE, Payload, WohnenOfferModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import type { ThemeType } from '../../../modules/theme/constants'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -52,9 +52,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(ownProps.navigation)({
-      type: 'Offers',
+      routeType: OFFERS_ROUTE,
       cityCode,
-      title,
       alias,
       language: state.contentLanguage,
       isPositiveFeedback

@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
-import { createDisclaimerEndpoint, PageModel } from 'api-client'
+import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, PageModel } from 'api-client'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { StateType } from '../../modules/app/StateType'
 import withTheme from '../../modules/theme/hocs/withTheme'
@@ -59,7 +59,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
-      type: 'Disclaimer',
+      routeType: DISCLAIMER_ROUTE,
       cityCode,
       language: languageCode,
       isPositiveFeedback,

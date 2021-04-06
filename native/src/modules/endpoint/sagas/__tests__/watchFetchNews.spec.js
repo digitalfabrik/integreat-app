@@ -12,7 +12,6 @@ import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
-jest.mock('@react-native-community/async-storage')
 
 describe('watchFetchNews', () => {
   beforeEach(() => {
