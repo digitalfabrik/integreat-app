@@ -42,7 +42,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Integreat/main.m; sourceTree = "<group>"; };
 		17287B1C24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenIntegreat.storyboard; sourceTree = "<group>"; };
 		17287B1E24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenDefault.storyboard; sourceTree = "<group>"; };
-		17DE87222614AEEB00455C76 /* ckb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ckb; path = ckb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		402A5479E2DCF9E7D5AD48AD /* libPods-Integreat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Integreat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41F4682A920316F66FAD98FD /* Pods-Integreat.integreat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.integreat.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.integreat.xcconfig"; sourceTree = "<group>"; };
@@ -285,7 +284,6 @@
 				es,
 				pl,
 				ps,
-				ckb,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -471,7 +469,6 @@
 				B848D0B2252DF2A200D4695A /* ar */,
 				B848D0B3252DF2A500D4695A /* pl */,
 				B848D0B4252DF2A800D4695A /* so */,
-				17DE87222614AEEB00455C76 /* ckb */,
 			);
 			name = InfoPlist.strings;
 			path = Integreat;
