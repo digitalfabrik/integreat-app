@@ -10,7 +10,7 @@ class LandingPage {
     }
 
     get cities () {
-      return $$('//main//a')
+      return $$('~City-Entry')
     }
 
     get search () {
