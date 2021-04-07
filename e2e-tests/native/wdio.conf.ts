@@ -40,6 +40,7 @@ export const config = {
     capabilities: [
         {
             platformName: 'android',
+            'appium:app': '../native/android/app/build/outputs/apk/debug/app-debug.apk'
         }
     ],
 
