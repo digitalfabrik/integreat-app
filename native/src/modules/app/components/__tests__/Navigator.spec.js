@@ -10,7 +10,6 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
 
-jest.mock('@react-native-community/async-storage')
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
 
@@ -115,6 +114,7 @@ describe('Navigator', () => {
   })
 
   it('should fetch cities on mount', async () => {
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
@@ -170,6 +170,7 @@ describe('Navigator', () => {
   })
 
   it('should call fetch category if the dashboard route is the initial route', async () => {
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       const routeKey = generateKey()

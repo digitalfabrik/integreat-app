@@ -25,6 +25,8 @@ import {
 } from 'api-client/src/routes'
 import buildConfig from '../../app/constants/buildConfig'
 import navigateToJpalTracking from '../navigateToJpalTracking'
+import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
+import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())
@@ -35,6 +37,8 @@ jest.mock('../navigateToSearch', () => jest.fn())
 jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
 jest.mock('../navigateToJpalTracking', () => jest.fn())
+jest.mock('../../endpoint/sendTrackingSignal', () => jest.fn())
+jest.mock('../url', () => ({ urlFromRouteInformation: jest.fn(() => 'https://example.com') }))
 
 const dispatch = jest.fn()
 const navigation = createNavigationScreenPropMock()
@@ -81,6 +85,9 @@ describe('createNavigate', () => {
   it('should call navigateToLanding', () => {
     navigateTo({ route: LANDING_ROUTE, languageCode })
     assertOnlyCalled([navigateToLanding])
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: OPEN_PAGE_SIGNAL_NAME, pageType: LANDING_ROUTE, url: 'https://example.com' }
+    })
   })
 
   it('should call navigateToJpalTracking', () => {
@@ -106,6 +113,9 @@ describe('createNavigate', () => {
       ...params,
       key,
       forceRefresh
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: OPEN_PAGE_SIGNAL_NAME, pageType: DASHBOARD_ROUTE, url: 'https://example.com' }
     })
   })
 
@@ -193,7 +203,7 @@ describe('createNavigate', () => {
     assertNotCalled(allMocks)
   })
 
-  it('should call navigateToSearch for serach route', () => {
+  it('should call navigateToSearch for search route', () => {
     navigateTo({ route: SEARCH_ROUTE, ...params })
     assertOnlyCalled([navigateToSearch])
     expect(navigateToSearch).toHaveBeenCalledWith({ dispatch, navigation, ...params })

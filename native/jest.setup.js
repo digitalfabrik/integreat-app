@@ -1,7 +1,9 @@
 import { JSDOM } from 'jsdom' // jsdom is included in jest and therefore shouldn't be added as dev dependency
+import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock'
+import path from 'path'
+import fs from 'fs'
 
-const fs = require('fs')
-const path = require('path')
+jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
 
 // react-navigation jest setup
 // https://reactnavigation.org/docs/testing#mocking-native-modules
@@ -53,3 +55,9 @@ walkDir(mocksPath, name => {
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => require('testing/I18nManagerMock.js'))
 
 jest.doMock('modules/app/constants/buildConfig')
+
+// See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
+jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
+  const mockComponent = require('react-native/jest/mockComponent')
+  return mockComponent('react-native/Libraries/Components/Switch/Switch')
+})

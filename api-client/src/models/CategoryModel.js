@@ -1,7 +1,6 @@
 // @flow
 
 import type Moment from 'moment'
-import CategoriesMapModel from './CategoriesMapModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import PageModel from './PageModel'
 
@@ -39,10 +38,6 @@ class CategoryModel extends ExtendedPageModel {
 
   isRoot(): boolean {
     return this._root
-  }
-
-  isLeaf(categories: CategoriesMapModel): boolean {
-    return categories.getChildren(this).length === 0
   }
 
   isEqual(other: PageModel): boolean {

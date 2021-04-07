@@ -13,7 +13,6 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { CityModel } from 'api-client'
 
 jest.mock('react-i18next')
-jest.mock('@react-native-community/async-storage')
 jest.mock('../../../../modules/common/openExternalUrl')
 jest.mock('../../../../modules/endpoint/hooks/useLoadFromEndpoint', () => ({
   useLoadFromEndpoint: jest.fn()
@@ -72,8 +71,8 @@ describe('SprungbrettOfferContainer', () => {
       </Provider>
     )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
   })
 
   it('should display offers with a Loading spinner', () => {
@@ -90,7 +89,7 @@ describe('SprungbrettOfferContainer', () => {
     )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
   })
 
   it('should display error without a loading spinner', () => {
@@ -106,8 +105,8 @@ describe('SprungbrettOfferContainer', () => {
       </Provider>
     )
     expect(getByText(errorText)).toBeTruthy()
-    expect(() => getByText('SprungbrettOffer')).toThrow('No instances found with text "SprungbrettOffer"')
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
+    expect(() => getByText('SprungbrettOffer')).toThrow('Unable to find an element with text: SprungbrettOffer')
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
   })
 
   it('should display error with spinner', () => {
@@ -124,7 +123,7 @@ describe('SprungbrettOfferContainer', () => {
     )
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText('SprungbrettOffer')).toThrow('No instances found with text "SprungbrettOffer"')
+    expect(() => getByText('SprungbrettOffer')).toThrow('Unable to find an element with text: SprungbrettOffer')
   })
 
   it('should display a page not found error if offers disabled for city', () => {
@@ -160,9 +159,9 @@ describe('SprungbrettOfferContainer', () => {
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(() => getByText('Offers')).toThrow('No instances found with text "Offers"')
-    expect(() => getByText('loading')).toThrow('No instances found with text "loading"')
-    expect(() => getByText(errorText)).toThrow(`No instances found with text "${errorText}"`)
+    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
+    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
     expect(getByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy()
   })
 })

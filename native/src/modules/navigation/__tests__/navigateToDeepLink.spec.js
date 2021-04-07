@@ -18,7 +18,6 @@ import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
 
 let navigateTo
-jest.mock('@react-native-community/async-storage')
 jest.mock('../createNavigate', () => {
   const mockFunction = jest.fn()
   navigateTo = mockFunction
