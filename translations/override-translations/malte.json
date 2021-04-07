@@ -36,7 +36,7 @@
       },
       "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
     },
-    "ku": {
+    "kmr": {
       "pageTitles": {
         "events": "Randevû"
       },
@@ -98,7 +98,7 @@
     "fr": {
       "events": "Rendez-vous"
     },
-    "ku": {
+    "kmr": {
       "events": "Randevû"
     },
     "ps": {
@@ -169,7 +169,7 @@
         "events": "Vers les rendez-vous"
       }
     },
-    "ku": {
+    "kmr": {
       "notFound": {
         "event": "Mixabin vê randevûyê nehat dîtin."
       },
@@ -251,7 +251,7 @@
       "events": "Rendez-vous",
       "currentlyNoEvents": "Il n'y a actuellement aucun rendez-vous."
     },
-    "ku": {
+    "kmr": {
       "events": "Randevû",
       "currentlyNoEvents": "Niha randevû tuneye"
     },
@@ -299,7 +299,7 @@
     "fr": {
       "contentOfEvent": "Contenu du rendez-vous \"{{event}}\""
     },
-    "ku": {
+    "kmr": {
       "contentOfEvent": "Naveroka randevûyê \"{{event}}\""
     },
     "ps": {
@@ -352,7 +352,7 @@
       "events": "Rendez-vous",
       "eventsDescription": "Rendez-vous actuels et évènements"
     },
-    "ku": {
+    "kmr": {
       "appDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê",
       "events": "Randevû",
       "eventsDescription": "Randevû û bûyerên niha"
@@ -413,7 +413,7 @@
       "events": "Rendez-vous",
       "noEvents": "Aucun rendez-vous"
     },
-    "ku": {
+    "kmr": {
       "events": "Randevû",
       "noEvents": "Randevû tuneye"
     },
