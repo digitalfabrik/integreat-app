@@ -140,15 +140,15 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 2-pods-{{ arch }}-
+                    - 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 3-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install --deployment
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
-                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                key: 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
@@ -337,7 +337,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -576,7 +576,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -837,7 +837,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat

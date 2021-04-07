@@ -2,6 +2,7 @@
 
 // Transpile and load build-configs in root directory
 require('@babel/register')({
+  // $FlowFixMe Wrong type in register_v7.x.x.js
   only: [/(build-configs|translations)/]
 })
 const loadBuildConfig = require('build-configs').default

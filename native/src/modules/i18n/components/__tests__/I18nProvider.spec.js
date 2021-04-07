@@ -70,7 +70,7 @@ describe('I18nProvider', () => {
 
   it('should set content language if not yet set', async () => {
     // $FlowFixMe
-    NativeLanguageDetector.detect.mockReturnValue(['ckb'])
+    NativeLanguageDetector.detect.mockReturnValue(['kmr'])
     const store = mockStore(prepareState())
     render(
       <Provider store={store}>
@@ -81,7 +81,7 @@ describe('I18nProvider', () => {
     )
 
     await waitFor(() => {})
-    expect(await new AppSettings().loadContentLanguage()).toEqual('ckb')
+    expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
   })
 
   it('should show error if loading fails', async () => {
@@ -110,7 +110,7 @@ describe('I18nProvider', () => {
 
   it('should use fallbacks for ui translations', async () => {
     // $FlowFixMe
-    NativeLanguageDetector.detect.mockReturnValue(['ckb'])
+    NativeLanguageDetector.detect.mockReturnValue(['ku'])
     const store = mockStore(prepareState())
 
     const { getByText } = render(
@@ -185,12 +185,12 @@ describe('I18nProvider', () => {
   })
 
   it('should have content language set when rendering children', async () => {
-    await new AppSettings().setContentLanguage('ckb')
+    await new AppSettings().setContentLanguage('kmr')
     const store = mockStore(prepareState({ contentLanguage: undefined }))
     const ReceivingComponent = () => {
       expect(store.getActions()).toEqual([
         {
-          params: { contentLanguage: 'ckb' },
+          params: { contentLanguage: 'kmr' },
           type: 'SET_CONTENT_LANGUAGE'
         }
       ])

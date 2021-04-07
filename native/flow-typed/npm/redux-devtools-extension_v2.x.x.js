@@ -1,4 +1,4 @@
-// flow-typed signature: da9e3a934faed5aec97160e69a2578c8
+// flow-typed signature: 062e3288725caa9dd4a4dfab63c1e292
 // flow-typed version: 9931c6ffb0/redux-devtools-extension_v2.x.x/flow_>=v0.104.x
 
 import type { ActionCreator, StoreEnhancer } from 'redux';
