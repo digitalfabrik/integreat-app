@@ -7,8 +7,6 @@ import type { PushNewsActionType } from '../../../app/StoreActionType'
 import moment from 'moment'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
-jest.mock('@react-native-community/async-storage')
-
 describe('pushNews', () => {
   const news1: LocalNewsModel = new LocalNewsModel({
     id: 12,

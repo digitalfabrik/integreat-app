@@ -14,10 +14,12 @@ import {
   CHANGE_LANGUAGE_MODAL_ROUTE,
   OFFERS_ROUTE,
   DISCLAIMER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  NEWS_ROUTE
 } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { cityContentUrl, url } from '../../navigation/url'
+import { urlFromRouteInformation } from '../../navigation/url'
+import type { NonNullableRouteInformationType } from 'api-client'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -40,19 +42,15 @@ type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
   const cityCode = ownProps.scene.route.params?.cityCode || state.cityContent?.city
+  const languageCode = ownProps.scene.route.params?.languageCode || state.contentLanguage
 
   const route = state.cityContent?.routeMapping[routeKey]
 
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
   const routeName = ownProps.scene.route.name
   const simpleRouteShareUrl =
-    typeof cityCode === 'string' && simpleRoutes.includes(routeName)
-      ? cityContentUrl({
-          cityCode,
-          languageCode: state.contentLanguage,
-          route: routeName,
-          path: null
-        })
+    typeof cityCode === 'string' && typeof languageCode === 'string' && simpleRoutes.includes(routeName)
+      ? urlFromRouteInformation({ cityCode, languageCode, route: (routeName: $Values<typeof simpleRoutes>) })
       : null
 
   const languages = state.cityContent?.languages
@@ -97,17 +95,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const peeking = isPeekingRoute(state, { routeCity: route.city })
-  const language = route.language
-  const path = route.path || undefined
-  const newsPath = [route.type || null, route.newsId || null].filter(Boolean).join('/')
-  const shareUrl = path
-    ? url(path)
-    : cityContentUrl({
-        cityCode: route.city,
-        languageCode: route.language,
-        route: routeName,
-        path: newsPath
-      })
+  const { language, city } = route
+  const newsId = route.newsId || undefined
+
+  const routeInformation: NonNullableRouteInformationType =
+    route.routeType === NEWS_ROUTE
+      ? { route: NEWS_ROUTE, languageCode: language, cityCode: city, newsType: route.type, newsId }
+      : // $FlowFixMe route.path is always defined if relevant
+        { route: route.routeType, languageCode: language, cityCode: city, cityContentPath: route.path || undefined }
+
+  const shareUrl = urlFromRouteInformation(routeInformation)
 
   return { peeking, routeCityModel, language, goToLanguageChange, categoriesAvailable, shareUrl }
 }

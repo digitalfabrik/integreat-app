@@ -2,9 +2,8 @@
 
 import * as React from 'react'
 
-import { View } from 'react-native'
+import { Image as RNImage, View } from 'react-native'
 import styled from 'styled-components/native'
-import FastImage from 'react-native-fast-image'
 import type { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet'
 
 export type ImageSourceType = string | number | null
@@ -14,20 +13,11 @@ type PropsType = {|
   style?: ViewStyleProp
 |}
 
-const ThumbnailImage = styled(FastImage)`
+const ThumbnailImage = styled(RNImage)`
   flex: 1;
 `
 
-const getFastImageSource = (uri: string | number) =>
-  typeof uri === 'number'
-    ? uri
-    : {
-        uri: uri,
-        priority: FastImage.priority.normal,
-        // disable caching, we want to do it manually
-        headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' },
-        cache: FastImage.cacheControl.web
-      }
+const getImageSource = (uri: string | number) => (typeof uri === 'number' ? uri : { uri: uri, cache: 'reload' })
 
 class Image extends React.Component<PropsType> {
   render() {
@@ -38,8 +28,8 @@ class Image extends React.Component<PropsType> {
     }
 
     return (
-      <View style={style}>
-        <ThumbnailImage source={getFastImageSource(source)} resizeMode={FastImage.resizeMode.contain} />
+      <View>
+        <ThumbnailImage source={getImageSource(source)} resizeMode='contain' style={style} />
       </View>
     )
   }

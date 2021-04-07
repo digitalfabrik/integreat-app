@@ -18,12 +18,12 @@
 
 ### Production
 
-Every two weeks an automatic delivery to the production environments is made.
+Every week an automatic delivery to the production environments is made.
 See the [workflow section](../../docs/cicd.md#workflows) for more information.
 
 ### Development
 
-Every commit to the _main_ branch triggers a delivery to the development environments.
+Every commit to the `main` branch triggers a delivery to the development environments.
 See the [workflow section](../../docs/cicd.md#workflows) for more information.
 
 ## Manually trigger a delivery

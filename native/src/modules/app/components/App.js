@@ -17,6 +17,13 @@ import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 import { REDIRECT_ROUTE } from 'api-client'
+import { ThemeProvider } from 'styled-components'
+import buildConfig from '../constants/buildConfig'
+import NetInfo from '@react-native-community/netinfo'
+
+NetInfo.configure({
+  reachabilityUrl: 'https://cms.integreat-app.de/ping'
+})
 
 const linking: LinkingOptions = {
   prefixes: ['https://', 'integreat://'],
@@ -56,26 +63,28 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <StaticServerProvider>
-        <I18nProvider>
-          <SafeAreaProvider>
-            <>
-              <StatusBarContainer />
-              <IOSSafeAreaView>
-                <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                  <NavigatorContainer
-                    routeKey={routeKey}
-                    routeName={routeName}
-                    languageCode={languageCode}
-                    cityCode={cityCode}
-                  />
-                </NavigationContainer>
-              </IOSSafeAreaView>
-              {routeName && <PermissionSnackbarContainer routeName={routeName} />}
-            </>
-          </SafeAreaProvider>
-        </I18nProvider>
-      </StaticServerProvider>
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <StaticServerProvider>
+          <I18nProvider>
+            <SafeAreaProvider>
+              <>
+                <StatusBarContainer />
+                <IOSSafeAreaView>
+                  <NavigationContainer onStateChange={onStateChange} linking={linking}>
+                    <NavigatorContainer
+                      routeKey={routeKey}
+                      routeName={routeName}
+                      languageCode={languageCode}
+                      cityCode={cityCode}
+                    />
+                  </NavigationContainer>
+                </IOSSafeAreaView>
+                {routeName && <PermissionSnackbarContainer routeName={routeName} />}
+              </>
+            </SafeAreaProvider>
+          </I18nProvider>
+        </StaticServerProvider>
+      </ThemeProvider>
     </Provider>
   )
 }

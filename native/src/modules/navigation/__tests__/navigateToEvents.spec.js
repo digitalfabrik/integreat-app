@@ -3,10 +3,8 @@
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import navigateToEvents from '../navigateToEvents'
 
-const cityContentUrl = ({ cityCode, languageCode, route, path }) => `/${cityCode}/${languageCode}/${route}${path || ''}`
 const url = path => `some.base.url/${path}`
 jest.mock('../url', () => ({
-  cityContentUrl: jest.fn(cityContentUrl),
   url: jest.fn(url)
 }))
 
