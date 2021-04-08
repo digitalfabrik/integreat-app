@@ -799,6 +799,7 @@ jobs:
             - run:
                 command: echo "export ANDROID_ARTIFACT_URLS=$(echo $(cat $(ls | grep apk-url)))" >> ${BASH_ENV}
                 name: Prepare artifact urls
+                working_directory: ~/attached_workspace
             - run:
                 command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
@@ -825,6 +826,7 @@ jobs:
             - run:
                 command: echo "export IOS_ARTIFACT_URLS=$(echo $(cat $(ls | grep ipa-url)))" >> ${BASH_ENV}
                 name: Prepare artifact urls
+                working_directory: ~/attached_workspace
             - run:
                 command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
