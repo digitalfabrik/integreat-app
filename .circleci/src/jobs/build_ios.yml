@@ -43,14 +43,4 @@ steps:
       root: native/ios/output/gym
       paths:
         - << parameters.build_config_name >>.ipa
-  - unless:
-      condition:
-        or:
-          - equal: [ integreat-e2e, << parameters.build_config_name >>]
-          - equal: [ integreat-test-cms, << parameters.build_config_name >>]
-      steps:
-        - run:
-            name: Set artifact url
-            command: echo 'export IOS_DOWNLOAD_LINKS="$IOS_DOWNLOAD_LINKS  [<< parameters.build_config_name >> IPA](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/<< parameters.build_config_name >>.ipa)"' >> ${BASH_ENV}
-        - persist_environment_variables
   - notify
