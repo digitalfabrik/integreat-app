@@ -51,4 +51,14 @@ steps:
       root: native/android
       paths:
         - << parameters.build_config_name >>.apk
+  - unless:
+      condition:
+        or:
+          - equal: [ integreat-e2e, << parameters.build_config_name >>]
+          - equal: [ integreat-test-cms, << parameters.build_config_name >>]
+      steps:
+        - run:
+            name: Set artifact url
+            command: echo 'export ANDROID_DOWNLOAD_LINKS="$ANDROID_DOWNLOAD_LINKS\n[<< parameters.build_config_name >> APK](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)"' >> ${BASH_ENV}
+        - persist_environment_variables
   - notify
