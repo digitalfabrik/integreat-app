@@ -59,6 +59,6 @@ steps:
       steps:
         - run:
             name: Set artifact url
-            command: echo 'export ANDROID_DOWNLOAD_LINKS="$ANDROID_DOWNLOAD_LINKS\n[<< parameters.build_config_name >> APK](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)"' >> ${BASH_ENV}
+            command: echo 'export ANDROID_DOWNLOAD_LINKS="$ANDROID_DOWNLOAD_LINKS  [<< parameters.build_config_name >> APK](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)"' >> ${BASH_ENV}
         - persist_environment_variables
   - notify
