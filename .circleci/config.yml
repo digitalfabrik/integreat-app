@@ -797,7 +797,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo "export ANDROID_ARTIFACT_URLS=$(echo $(cat $(ls | grep apk-url)))" >> ${BASH_ENV}
+                command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
@@ -824,7 +824,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo "export IOS_ARTIFACT_URLS=$(echo $(cat $(ls | grep ipa-url)))" >> ${BASH_ENV}
+                command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
