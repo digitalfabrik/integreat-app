@@ -14,7 +14,7 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Prepare artifact urls
-      command: echo "export IOS_ARTIFACT_URLS=$(echo $(cat $(ls | grep ipa-url)))" >> ${BASH_ENV}
+      command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
       working_directory: ~/attached_workspace
   - run:
       name: Create github release
