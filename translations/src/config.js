@@ -25,7 +25,7 @@ class Config {
       additionalFont: 'lateef'
     },
     en: { rtl: false },
-    fa: {
+    pes: {
       rtl: true,
       additionalFont: 'lateef'
     },
@@ -60,9 +60,9 @@ class Config {
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
     ku: ['kmr'],
-    'fa-AF': ['fa'],
-    fa_pr: ['fa'],
-    per: ['fa'],
+    fa: ['pes'],
+    'fa-AF': ['pes'],
+    fa_pr: ['pes'],
     'de-si': ['de']
   }
 
