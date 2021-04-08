@@ -13,15 +13,15 @@ steps:
   - restore_environment_variables
   - restore_yarn_tools_cache
   - run:
-      name: Prepare artifact links
-      command: echo 'export ANDROID_DOWNLOAD_LINKS="[integreat.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/integreat.apk) [malte.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/malte.apk) [aschaffenburg.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/aschaffenburg.apk)"' >> ${BASH_ENV}
+      name: Prepare artifact urls
+      command: echo "export ANDROID_ARTIFACT_URLS=$(echo $(cat $(ls | grep apk-url)))" >> ${BASH_ENV}
   - run:
       name: Create github release
-      command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_DOWNLOAD_LINKS}"
+      command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
   - run:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
   - notify:
-      success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_DOWNLOAD_LINKS}
+      success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
       channel: integreat-releases
 

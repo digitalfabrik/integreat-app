@@ -343,6 +343,23 @@ jobs:
                 paths:
                     - << parameters.build_config_name >>.apk
                 root: native/android
+            - unless:
+                condition:
+                    or:
+                        - equal:
+                            - integreat-e2e
+                            - << parameters.build_config_name >>
+                        - equal:
+                            - integreat-test-cms
+                            - << parameters.build_config_name >>
+                steps:
+                    - run:
+                        command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+                        name: Persist artifact url
+                    - persist_to_workspace:
+                        paths:
+                            - << parameters.build_config_name >>-apk-url
+                        root: ./
             - notify
     build_ios:
         environment:
@@ -395,6 +412,23 @@ jobs:
                 paths:
                     - << parameters.build_config_name >>.ipa
                 root: native/ios/output/gym
+            - unless:
+                condition:
+                    or:
+                        - equal:
+                            - integreat-e2e
+                            - << parameters.build_config_name >>
+                        - equal:
+                            - integreat-test-cms
+                            - << parameters.build_config_name >>
+                steps:
+                    - run:
+                        command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+                        name: Persist artifact url
+                    - persist_to_workspace:
+                        paths:
+                            - << parameters.build_config_name >>-ipa-url
+                        root: ./
             - notify
     build_web:
         docker:
@@ -763,17 +797,17 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo 'export ANDROID_DOWNLOAD_LINKS="[integreat.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/integreat.apk) [malte.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/malte.apk) [aschaffenburg.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/aschaffenburg.apk)"' >> ${BASH_ENV}
-                name: Prepare artifact links
+                command: echo "export ANDROID_ARTIFACT_URLS=$(echo $(cat $(ls | grep apk-url)))" >> ${BASH_ENV}
+                name: Prepare artifact urls
             - run:
-                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_DOWNLOAD_LINKS}"
+                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
             - run:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: integreat-releases
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_DOWNLOAD_LINKS}
+                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
             - image: circleci/node:12.16.3
@@ -789,17 +823,17 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo 'export IOS_DOWNLOAD_LINKS="[integreat.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa) [malte.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/malte.ipa) [aschaffenburg.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/aschaffenburg.ipa)"' >> ${BASH_ENV}
-                name: Prepare artifact links
+                command: echo "export IOS_ARTIFACT_URLS=$(echo $(cat $(ls | grep ipa-url)))" >> ${BASH_ENV}
+                name: Prepare artifact urls
             - run:
-                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_DOWNLOAD_LINKS}"
+                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
             - run:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: integreat-releases
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_DOWNLOAD_LINKS}
+                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
             - image: circleci/node:12.16.3
