@@ -10,6 +10,9 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import sendTrackingSignal from '../../../../modules/endpoint/sendTrackingSignal'
 import { urlFromRouteInformation } from '../../../../modules/navigation/url'
 
+// $FlowFixMe
+import { ThemeProvider } from 'styled-components/native'
+
 jest.mock('rn-fetch-blob')
 jest.mock('../../../../modules/endpoint/sendTrackingSignal')
 
@@ -22,22 +25,26 @@ describe('SearchModal', () => {
   const language = 'de'
   const cityCode = 'augsburg'
 
-  it('search modal should send tracking signal on Press', () => {
-    const { getAllByTestId } = render(
-      <SearchModal
-        categories={categoriesMapModel}
-        navigateTo={dummy}
-        theme={lightTheme}
-        language={language}
-        cityCode={cityCode}
-        closeModal={dummy}
-        navigateToLink={dummy}
-        t={t}
-        sendFeedback={dummy}
-      />
+  it('search modal should send tracking signal on Press', async () => {
+    const { getByText, getByPlaceholderText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <SearchModal
+          categories={categoriesMapModel}
+          navigateTo={dummy}
+          language={language}
+          cityCode={cityCode}
+          closeModal={dummy}
+          navigateToLink={dummy}
+          t={t}
+          theme={lightTheme}
+          sendFeedback={dummy}
+        />
+      </ThemeProvider>
     )
-    const categoryListItem = getAllByTestId('CategoryListItem')[1]
-    fireEvent.press(categoryListItem)
+    const categoryListItem = getByText('Category with id 1')
+    const searchBar = getByPlaceholderText('searchPlaceholder')
+    await fireEvent.changeText(searchBar, 'Category')
+    await fireEvent.press(categoryListItem)
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
 
     const routeInformation: CategoriesRouteInformationType = {
@@ -49,7 +56,7 @@ describe('SearchModal', () => {
     const expectedUrl = urlFromRouteInformation(routeInformation)
 
     expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query: '', url: expectedUrl }
+      signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query: 'Category', url: expectedUrl }
     })
   })
 })
