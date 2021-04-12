@@ -26,7 +26,7 @@ module.exports = {
   setupFiles: ['<rootDir>/../jest.setup.js'],
   setupFilesAfterEnv: ['jest-extended', '@testing-library/jest-native/extend-expect'],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
-  moduleFileExtensions: ['js', 'json'],
+  moduleFileExtensions: ['js', 'json', 'ts'],
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   coverageDirectory: '<rootDir>/../reports/coverage',

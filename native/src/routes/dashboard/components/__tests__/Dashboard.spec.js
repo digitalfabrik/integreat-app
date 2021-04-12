@@ -19,7 +19,7 @@ jest.mock('rn-fetch-blob')
 
 describe('Dashboard', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
-  const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
+  const categoryLeaf = categoriesMapModel.toArray().find(category => categoriesMapModel.isLeaf(category))
   const language = 'de'
 
   const navigateTo = jest.fn()

@@ -66,6 +66,10 @@ class CategoriesMapModel {
     return parents
   }
 
+  isLeaf(category: CategoryModel): boolean {
+    return this.getChildren(category).length === 0
+  }
+
   isEqual(other: CategoriesMapModel): boolean {
     return (
       this._categories.size === other._categories.size &&
