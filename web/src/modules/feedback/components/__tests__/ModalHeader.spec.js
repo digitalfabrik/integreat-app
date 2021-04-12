@@ -1,16 +1,24 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { fireEvent, render } from '@testing-library/react'
 
 import { ModalHeader } from '../ModalHeader'
+import { ThemeProvider } from 'styled-components'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('ModalHeader', () => {
   it('should call close function when clicking on close', () => {
-    const jestMockFn = jest.fn()
-    const component = shallow(<ModalHeader t={key => key} closeFeedbackModal={jestMockFn} title='title' />)
+    const onCloseFeedbackModal = jest.fn()
+    const { getByRole } = render(
+      <ThemeProvider theme={lightTheme}>
+        <ModalHeader t={key => key} closeFeedbackModal={onCloseFeedbackModal} title='title' />
+      </ThemeProvider>
+    )
 
-    component.findWhere(elem => (elem.name() ? elem.name().includes('CloseButton') : false)).simulate('click')
-    expect(jestMockFn).toHaveBeenCalled()
+    const closeButton = getByRole('button', { name: 'close' })
+    fireEvent.click(closeButton)
+
+    expect(onCloseFeedbackModal).toBeCalled()
   })
 })

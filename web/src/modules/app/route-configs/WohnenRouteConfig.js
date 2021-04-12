@@ -99,7 +99,7 @@ class WohnenRouteConfig implements RouteConfig<RouteParamsType, RequiredPayloads
     if (!offer) {
       return null
     }
-    return { alias: WOHNEN_OFFER, title: offer.title }
+    return { alias: WOHNEN_OFFER }
   }
 }
 
