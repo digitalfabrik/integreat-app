@@ -24,21 +24,39 @@ describe('SearchModal', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
   const language = 'de'
   const cityCode = 'augsburg'
+  const props = {
+    categories: categoriesMapModel,
+    navigateTo: dummy,
+    language: language,
+    cityCode: cityCode,
+    closeModal: dummy,
+    navigateToLink: dummy,
+    t: t,
+    theme: lightTheme,
+    sendFeedback: dummy
+  }
 
-  it('search modal should send tracking signal on Press', async () => {
+  it('should send tracking signal when closing search site', async () => {
+    const { getByPlaceholderText, getAllByRole } = render(
+      <ThemeProvider theme={lightTheme}>
+        <SearchModal {...props} />
+      </ThemeProvider>
+    )
+    const button = getAllByRole('button')[0]
+    const searchBar = getByPlaceholderText('searchPlaceholder')
+    await fireEvent.changeText(searchBar, 'Category')
+    await fireEvent.press(button)
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query: 'Category', url: null }
+    })
+  })
+
+  it('should send tracking signal when opening a search result', async () => {
     const { getByText, getByPlaceholderText } = render(
       <ThemeProvider theme={lightTheme}>
-        <SearchModal
-          categories={categoriesMapModel}
-          navigateTo={dummy}
-          language={language}
-          cityCode={cityCode}
-          closeModal={dummy}
-          navigateToLink={dummy}
-          t={t}
-          theme={lightTheme}
-          sendFeedback={dummy}
-        />
+        <SearchModal {...props} />
       </ThemeProvider>
     )
     const categoryListItem = getByText('Category with id 1')
