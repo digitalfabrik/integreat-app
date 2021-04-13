@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import SearchModal from '../SearchModal'
 import lightTheme from '../../../../modules/theme/constants'
 import type { CategoriesRouteInformationType } from 'api-client'
@@ -46,6 +46,9 @@ describe('SearchModal', () => {
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
     await fireEvent.press(button)
+
+    await waitFor(() => expect(button).not.toBeDisabled())
+
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
 
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -54,15 +57,18 @@ describe('SearchModal', () => {
   })
 
   it('should send tracking signal when opening a search result', async () => {
-    const { getByText, getByPlaceholderText } = render(
+    const { getByText, getByPlaceholderText, getAllByRole } = render(
       <ThemeProvider theme={lightTheme}>
         <SearchModal {...props} />
       </ThemeProvider>
     )
+    const button = getAllByRole('button')[0]
     const categoryListItem = getByText('Category with id 1')
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
     await fireEvent.press(categoryListItem)
+    await waitFor(() => expect(button).not.toBeDisabled())
+
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
 
     const routeInformation: CategoriesRouteInformationType = {
