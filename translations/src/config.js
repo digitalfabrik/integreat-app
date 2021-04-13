@@ -25,7 +25,7 @@ class Config {
       additionalFont: 'lateef'
     },
     en: { rtl: false },
-    fa: {
+    pes: {
       rtl: true,
       additionalFont: 'lateef'
     },
@@ -34,8 +34,8 @@ class Config {
     tr: { rtl: false },
     pl: { rtl: false },
     ti: { rtl: false },
-    ku: {
-      rtl: false,
+    ckb: {
+      rtl: true,
       additionalFont: 'lateef'
     },
     ru: { rtl: false },
@@ -44,10 +44,7 @@ class Config {
     es: { rtl: false },
     sr: { rtl: false },
     ps: { rtl: true },
-    kmr: {
-      rtl: true,
-      additionalFont: 'lateef'
-    },
+    kmr: { rtl: false },
     am: { rtl: false },
     bg: { rtl: false },
     el: { rtl: false },
@@ -62,11 +59,10 @@ class Config {
 
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
-    kmr: ['kmr'],
-    ckb: ['ku'],
-    'fa-AF': ['fa'],
-    fa_pr: ['fa'],
-    per: ['fa'],
+    ku: ['kmr'],
+    fa: ['pes'],
+    'fa-AF': ['pes'],
+    fa_pr: ['pes'],
     'de-si': ['de']
   }
 
