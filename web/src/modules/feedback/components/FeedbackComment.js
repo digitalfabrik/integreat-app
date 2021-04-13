@@ -17,7 +17,7 @@ type PropsType = {|
   comment: string,
   commentMessage: string,
   required?: boolean,
-  onCommentChanged: (SyntheticInputEvent<HTMLTextAreaElement>) => void
+  onCommentChanged: (comment: string) => void
 |}
 
 class FeedbackComment extends React.PureComponent<PropsType> {
@@ -29,7 +29,7 @@ class FeedbackComment extends React.PureComponent<PropsType> {
           {commentMessage}
           {required && <RequiredText>*</RequiredText>}
         </Description>
-        <CommentField rows={7} value={comment} onChange={onCommentChanged} />
+        <CommentField rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       </>
     )
   }
