@@ -17,7 +17,9 @@ jest.mock('rn-fetch-blob')
 jest.mock('../../../../modules/endpoint/sendTrackingSignal')
 
 describe('SearchModal', () => {
-  beforeEach(() => {})
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
 
   const dummy = jest.fn()
   const t = key => key
