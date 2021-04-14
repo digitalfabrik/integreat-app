@@ -78,7 +78,7 @@ class EventsRouteConfig implements RouteConfig<EventsRouteParamsType, RequiredPa
   getFeedbackTargetInformation = ({ payloads, location }) => {
     const events = payloads.events.data
     const event = events && events.find(event => event.path === location.pathname)
-    return event ? { title: event.title, path: event.path } : null
+    return event ? { path: event.path } : null
   }
 }
 

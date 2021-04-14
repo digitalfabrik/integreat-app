@@ -27,7 +27,7 @@ describe('Categories', () => {
     const cityModel = new CityModelBuilder(1).build()[0]
     const languages = new LanguageModelBuilder(1).build()
     const categoriesMapModel = new CategoriesMapModelBuilder(cityModel.code, languages[0].code).build()
-    const categoryLeaf = categoriesMapModel.toArray().find(category => category.isLeaf(categoriesMapModel))
+    const categoryLeaf = categoriesMapModel.toArray().find(category => categoriesMapModel.isLeaf(category))
     if (!categoryLeaf) {
       throw Error('There should be a leaf!')
     }

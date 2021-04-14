@@ -29,7 +29,8 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    expect(getByAltText('IntegreatTestCms').src).toContain(config.icons.appLogo)
+    // eslint-disable-next-line flowtype/no-weak-types
+    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(config.icons.appLogo)
   })
 
   it('should show the campaign logo if the current date is between start and end date', () => {
@@ -38,7 +39,8 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    expect(getByAltText('IntegreatTestCms').src).toContain(womensDayCampaign.campaignAppLogo)
+    // eslint-disable-next-line flowtype/no-weak-types
+    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(womensDayCampaign.campaignAppLogo)
   })
 
   it('should show the regular logo if the current date is before the start date', () => {
@@ -47,7 +49,8 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    expect(getByAltText('IntegreatTestCms').src).toContain(config.icons.appLogo)
+    // eslint-disable-next-line flowtype/no-weak-types
+    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(config.icons.appLogo)
   })
 
   it('should show the regular logo if the current date is after the end date', () => {
@@ -56,6 +59,6 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    expect(getByAltText('IntegreatTestCms').src).toContain(config.icons.appLogo)
+    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(config.icons.appLogo)
   })
 })

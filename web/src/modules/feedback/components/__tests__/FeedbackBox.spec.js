@@ -1,42 +1,88 @@
 // @flow
 
 import React from 'react'
-import { shallow } from 'enzyme'
+import { fireEvent, render } from '@testing-library/react'
 import { FeedbackBox } from '../FeedbackBox'
-import FeedbackVariant from '../../FeedbackVariant'
-import { CATEGORIES_FEEDBACK_TYPE, CONTENT_FEEDBACK_CATEGORY } from 'api-client'
+import { ThemeProvider } from 'styled-components'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('FeedbackBox', () => {
-  const t = (key: ?string): string => key || ''
-  const feedbackOptions = [
-    new FeedbackVariant({
-      label: 'label',
-      feedbackType: CATEGORIES_FEEDBACK_TYPE,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY
-    })
-  ]
-  const onCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) => {}
-  const onContactMailChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {}
-  const onFeedbackOptionChanged = (option: FeedbackVariant) => {}
-  const onSubmit = () => {}
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
 
-  it('should match snapshot', () => {
-    const component = shallow(
-      <FeedbackBox
-        isPositiveRatingSelected={false}
-        contactMail=''
-        comment=''
-        feedbackOptions={feedbackOptions}
-        selectedFeedbackOption={feedbackOptions[0]}
-        onCommentChanged={onCommentChanged}
-        onFeedbackOptionChanged={onFeedbackOptionChanged}
-        onContactMailChanged={onContactMailChanged}
-        onSubmit={onSubmit}
-        sendingStatus='SUCCESS'
-        t={t}
-        closeFeedbackModal={() => {}}
-      />
+  const t = (key: ?string): string => key || ''
+  const onCommentChanged = jest.fn()
+  const onContactMailChanged = jest.fn()
+  const onSubmit = jest.fn()
+  const closeFeedbackModal = jest.fn()
+
+  const buildProps = (isPositiveRatingSelected: boolean, comment: string) => {
+    return {
+      comment,
+      isPositiveRatingSelected,
+      contactMail: 'test@example.com',
+      sendingStatus: 'IDLE',
+      onCommentChanged,
+      onContactMailChanged,
+      onSubmit,
+      t,
+      closeFeedbackModal
+    }
+  }
+
+  it('button should be disabled for negative Feedback and no input', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, '')} />
+      </ThemeProvider>
     )
-    expect(component).toMatchSnapshot()
+    expect(getByText('send')).toBeDisabled()
+  })
+
+  it('button should be enabled for positive Feedback and no input', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(true, '')} />
+      </ThemeProvider>
+    )
+    expect(getByText('send')).not.toBeDisabled()
+  })
+
+  it('button should be enabled for negative Feedback and input', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, 'comment')} />
+      </ThemeProvider>
+    )
+    expect(getByText('send')).not.toBeDisabled()
+  })
+
+  it('onSubmit should be called on button press', async () => {
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, 'comment')} />
+      </ThemeProvider>
+    )
+    const button = getByText('send')
+    fireEvent.click(button)
+
+    expect(onSubmit).toBeCalled()
+  })
+
+  it('should call callback on contact mail changed', () => {
+    const { getByDisplayValue, queryByDisplayValue } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackBox {...buildProps(false, 'my comment')} />
+      </ThemeProvider>
+    )
+    expect(getByDisplayValue('test@example.com')).toBeTruthy()
+    expect(queryByDisplayValue('new@example.com')).toBeFalsy()
+    expect(onContactMailChanged).not.toHaveBeenCalled()
+
+    fireEvent.change(getByDisplayValue('test@example.com'), { target: { value: 'new@example.com' } })
+
+    expect(onContactMailChanged).toHaveBeenCalledTimes(1)
+    expect(onContactMailChanged).toBeCalledWith('new@example.com')
   })
 })
