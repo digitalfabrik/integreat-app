@@ -1,47 +1,28 @@
 // @flow
 
-import * as React from 'react'
 import { connect } from 'react-redux'
 import { type Dispatch } from 'redux'
-import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-import withTheme from '../../../modules/theme/hocs/withTheme'
-import FeedbackModal, { type PropsType as FeedbackModalPropsType } from '../components/FeedbackModal'
+
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import type {
   CategoriesRouteType,
   DisclaimerRouteType,
   EventsRouteType,
-  FeedbackParamsType,
-  FeedbackType,
+  FeedbackModalRouteType,
   OffersRouteType,
-  PoisRouteType
+  PoisRouteType,
+  SearchRouteType
 } from 'api-client'
-import {
-  CATEGORIES_FEEDBACK_TYPE,
-  CATEGORIES_ROUTE,
-  CityModel,
-  CONTENT_FEEDBACK_CATEGORY,
-  createFeedbackEndpoint,
-  DISCLAIMER_ROUTE,
-  EVENTS_FEEDBACK_TYPE,
-  EVENTS_ROUTE,
-  OFFER_FEEDBACK_TYPE,
-  OfferModel,
-  OFFERS_FEEDBACK_TYPE,
-  OFFERS_ROUTE,
-  PAGE_FEEDBACK_TYPE,
-  POIS_ROUTE
-} from 'api-client'
-import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
-import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import { CityModel, OfferModel } from 'api-client'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { StateType } from '../../../modules/app/StateType'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
-import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import type { FeedbackModalRouteType } from 'api-client/src/routes'
+import FeedbackContainer, { type PropsType as FeedbackContainerPropsType } from './FeedbackContainer'
 
-type RouteType = CategoriesRouteType | EventsRouteType | PoisRouteType | OffersRouteType | DisclaimerRouteType
+type RouteType = CategoriesRouteType | EventsRouteType | PoisRouteType | OffersRouteType | DisclaimerRouteType | SearchRouteType
 
 export type FeedbackInformationType = {|
   routeType: RouteType,
@@ -53,9 +34,11 @@ export type FeedbackInformationType = {|
   offers?: Array<OfferModel>
 |}
 
+export type FeedbackOriginType = 'positive' | 'negative' | 'searchInformationNotFound' | 'searchNotingFound'
+
 type OwnPropsType = {|
   route: RoutePropType<FeedbackModalRouteType>,
-  navigation: NavigationPropType<FeedbackModalRouteType>
+  navigation: NavigationPropType<FeedbackModalRouteType>,
 |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
@@ -77,10 +60,25 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (state.cities.status === 'loading') {
     return { status: 'loading', progress: 0 }
   }
+
+  /*
+    t: TFunction,
+  routeType: RouteType,
+  feedbackOrigin: string,
+  language: string,
+  cityCode: string,
+  cities: $ReadOnlyArray<CityModel>,
+  path?: string,
+  alias?: string,
+  offers?: Array<OfferModel>
+   */
+  const feedbackOrigin = ownProps.route.params.isPositiveFeedback ? 'positive' : 'negative'
   return {
     status: 'success',
     innerProps: {
-      ...ownProps,
+      // ...ownProps,
+      ...ownProps.route.params,
+      feedbackOrigin: feedbackOrigin,
       cities: state.cities.models
     },
     refreshProps
@@ -95,113 +93,7 @@ const refresh = (refreshProps: OwnPropsType) => {
   navigateToFeedback(refreshProps.route.params)
 }
 
-export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
-
-type FeedbackModalStateType = {|
-  comment: string,
-  contactMail: string,
-  sendingStatus: SendingStatusType
-|}
-
-type ContainerPropsType = {|
-  ...InnerPropsType,
-  t: TFunction
-|}
-
-class FeedbackModalContainer extends React.Component<ContainerPropsType, FeedbackModalStateType> {
-  constructor(props: ContainerPropsType) {
-    super(props)
-    this.state = { comment: '', contactMail: '', sendingStatus: 'idle' }
-  }
-
-  getCityName = (): string => {
-    const { cities, route } = this.props
-    const cityCode = route.params.cityCode
-
-    return CityModel.findCityName(cities, cityCode)
-  }
-
-  getFeedbackType = (): FeedbackType => {
-    const { route } = this.props
-    const { routeType, path, alias } = route.params
-
-    switch (routeType) {
-      case EVENTS_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
-      case OFFERS_ROUTE:
-        return alias ? OFFER_FEEDBACK_TYPE : OFFERS_FEEDBACK_TYPE
-      case DISCLAIMER_ROUTE:
-        return PAGE_FEEDBACK_TYPE
-      case POIS_ROUTE:
-        // TODO IGAPP-438 Handle pois list feedback correctly instead of returning categories feedback type
-        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
-      case CATEGORIES_ROUTE:
-        return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
-      default:
-        return CATEGORIES_FEEDBACK_TYPE
-    }
-  }
-
-  getFeedbackData = (comment: string): FeedbackParamsType => {
-    const { route } = this.props
-    const { path, alias, language, isPositiveFeedback } = route.params
-    const feedbackType = this.getFeedbackType()
-    const city = this.getCityName().toLocaleLowerCase(language)
-
-    return {
-      feedbackType,
-      feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
-      isPositiveRating: isPositiveFeedback,
-      permalink: path,
-      city,
-      language,
-      comment,
-      alias
-    }
-  }
-
-  onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
-
-  onFeedbackContactMailChanged = (contactMail: string) => this.setState({ contactMail })
-
-  handleSubmit = async () => {
-    const { comment, contactMail } = this.state
-    const feedbackData = this.getFeedbackData(`${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`)
-    this.setState({ sendingStatus: 'sending' })
-    try {
-      const apiUrl = await determineApiUrl()
-      const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
-      await feedbackEndpoint.request(feedbackData)
-      this.setState({ sendingStatus: 'successful' })
-    } catch (e) {
-      console.error(e)
-      this.setState({ sendingStatus: 'failed' })
-    }
-  }
-
-  render() {
-    const { route, t } = this.props
-    const { comment, contactMail, sendingStatus } = this.state
-    const { isPositiveFeedback } = route.params
-
-    return (
-      <ThemedFeedbackModal
-        comment={comment}
-        contactMail={contactMail}
-        sendingStatus={sendingStatus}
-        onCommentChanged={this.onFeedbackCommentChanged}
-        onFeedbackContactMailChanged={this.onFeedbackContactMailChanged}
-        isPositiveFeedback={isPositiveFeedback}
-        onSubmit={this.handleSubmit}
-        t={t}
-      />
-    )
-  }
-}
-
-const ThemedFeedbackModal = withTheme<FeedbackModalPropsType>(FeedbackModal)
-
-const TranslatedFeedbackContainer = withTranslation<ContainerPropsType>('feedback')(FeedbackModalContainer)
+const TranslatedFeedbackContainer = withTranslation<FeedbackContainerPropsType>('feedback')(FeedbackContainer)
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(
   mapStateToProps,

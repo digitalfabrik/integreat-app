@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react'
 import { ActivityIndicator, Text, TextInput } from 'react-native'
-import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import buildConfig from '../../../modules/app/constants/buildConfig'
+import Feedback from '../../feedback/components/Feedback'
+import FeedbackContainer from '../../feedback/containers/FeedbackContainer'
+import { SEARCH_ROUTE } from 'api-client'
 
 const Container: StyledComponent<{||}, ThemeType, *> = styled.View`
   flex: 1;
@@ -39,7 +40,7 @@ const TitleText: StyledComponent<{||}, ThemeType, *> = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
-type PropsType = {|
+export type PropsType = {|
   query: string,
   t: TFunction,
   theme: ThemeType,
@@ -63,34 +64,36 @@ const NothingFoundFeedbackBox = ({ resultsFound, query, t, theme, sendFeedback }
   }
 
   if (['idle', 'failed'].includes(sendingStatus)) {
+    const feedbackOrigin = resultsFound ? 'searchInformationNotFound' : 'searchNotingFound'
     return (
       <Container>
-        <FeedbackBox>
-          <TitleText>{resultsFound ? t('feedback:informationNotFound') : t('feedback:nothingFound')}</TitleText>
-          {sendingStatus === 'failed' && <DescriptionText>{t('feedback:failedSendingFeedback')}</DescriptionText>}
-          <DescriptionText>{t('feedback:wantedInformation')}</DescriptionText>
-          <Input
-            onChangeText={onCommentChanged}
-            value={comment}
-            multiline
-            placeholderTextColor={theme.colors.textSecondaryColor}
-            placeholder={t('feedback:yourFeedback')}
-          />
-          <Button
-            icon={<Icon name='send' size={15} color='black' style='material' />}
-            titleStyle={{ color: theme.colors.textColor }}
-            buttonStyle={{ backgroundColor: theme.colors.themeColor }}
-            onPress={onSubmit}
-            title={t('feedback:send')}
-          />
-        </FeedbackBox>
+        <FeedbackContainer t={t} routeType={SEARCH_ROUTE} feedbackOrigin={feedbackOrigin} language={'de'} cityCode={'augs'} cities={null} />
+        {/*<FeedbackBox>*/}
+        {/*  <TitleText>{resultsFound ? t('feedback:informationNotFound') : t('feedback:nothingFound')}</TitleText>*/}
+        {/*  {sendingStatus === 'failed' && <DescriptionText>{t('feedback:failedSendingFeedback')}</DescriptionText>}*/}
+        {/*  <DescriptionText>{t('feedback:wantedInformation')}</DescriptionText>*/}
+        {/*  <Input*/}
+        {/*    onChangeText={onCommentChanged}*/}
+        {/*    value={comment}*/}
+        {/*    multiline*/}
+        {/*    placeholderTextColor={theme.colors.textSecondaryColor}*/}
+        {/*    placeholder={t('feedback:yourFeedback')}*/}
+        {/*  />*/}
+        {/*  <Button*/}
+        {/*    icon={<Icon name='send' size={15} color='black' style='material' />}*/}
+        {/*    titleStyle={{ color: theme.colors.textColor }}*/}
+        {/*    buttonStyle={{ backgroundColor: theme.colors.themeColor }}*/}
+        {/*    onPress={onSubmit}*/}
+        {/*    title={t('feedback:send')}*/}
+        {/*  />*/}
+        {/*</FeedbackBox>*/}
       </Container>
     )
   } else if (sendingStatus === 'sending') {
     return (
       <Container>
         <FeedbackBox>
-          <ActivityIndicator size='large' color={theme.colors.textDecorationColor} />
+          <ActivityIndicator size='large' color={theme.colors.textDecorationColor} /> // todo
         </FeedbackBox>
       </Container>
     )
@@ -100,7 +103,7 @@ const NothingFoundFeedbackBox = ({ resultsFound, query, t, theme, sendFeedback }
       <Container>
         <FeedbackBox>
           <TitleText>{t('feedback:feedbackSent')}</TitleText>
-          <DescriptionText>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</DescriptionText>
+          <DescriptionText>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</DescriptionText> //todo
         </FeedbackBox>
       </Container>
     )

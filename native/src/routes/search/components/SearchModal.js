@@ -1,21 +1,24 @@
 // @flow
 
 import * as React from 'react'
+import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
+import { type TFunction, withTranslation } from 'react-i18next'
+
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
-import type { TFunction } from 'react-i18next'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
+import NothingFoundFeedbackBox, { type PropsType as NothingFoundFeedbackBoxPropsType } from './NothingFoundFeedbackBox'
+import FeedbackContainer from '../../feedback/containers/FeedbackContainer'
+
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -41,6 +44,8 @@ export type PropsType = {|
 type StateType = {|
   query: string
 |}
+
+const NothingFoundFeedbackBoxWithTranslation = withTranslation<NothingFoundFeedbackBoxPropsType>(['feedback'])(NothingFoundFeedbackBox)
 
 class SearchModal extends React.Component<PropsType, StateType> {
   state = { query: '' }
@@ -137,8 +142,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
             language={language}
           />
         </View>
-        <NothingFoundFeedbackBox
-          t={t}
+        <NothingFoundFeedbackBoxWithTranslation
           query={query}
           theme={theme}
           resultsFound={filteredCategories.length !== 0}
