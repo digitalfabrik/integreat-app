@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { withTranslation, type TFunction } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import { Description, StyledFeedbackBox } from '../../../modules/feedback/components/FeedbackBox'
@@ -28,8 +28,7 @@ export class NothingFoundFeedbackBox extends React.Component<PropsType, StateTyp
     this.state = { comment: '', feedbackSent: false }
   }
 
-  handleCommentChanged = (event: SyntheticInputEvent<HTMLTextAreaElement>) =>
-    this.setState({ comment: event.target.value })
+  handleCommentChanged = (comment: string) => this.setState({ comment })
 
   handleSubmit = () => {
     const { query, location } = this.props

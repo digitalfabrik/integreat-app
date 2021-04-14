@@ -43,4 +43,17 @@ steps:
       root: native/ios/output/gym
       paths:
         - << parameters.build_config_name >>.ipa
+  - unless:
+      condition:
+        or:
+          - equal: [ integreat-e2e, << parameters.build_config_name >>]
+          - equal: [ integreat-test-cms, << parameters.build_config_name >>]
+      steps:
+        - run:
+            name: Persist artifact url
+            command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+        - persist_to_workspace:
+            root: ./
+            paths:
+              - << parameters.build_config_name >>-ipa-url
   - notify
