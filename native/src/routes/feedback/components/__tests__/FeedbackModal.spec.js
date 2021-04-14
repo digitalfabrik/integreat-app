@@ -1,11 +1,11 @@
 // @flow
 
 import React from 'react'
-import FeedbackModal from '../FeedbackModal'
+import Feedback from '../Feedback'
 import lightTheme from '../../../../modules/theme/constants'
 import { fireEvent, render } from '@testing-library/react-native'
 
-describe('FeedbackModal', () => {
+describe('Feedback', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -30,22 +30,22 @@ describe('FeedbackModal', () => {
   }
 
   it('button should be disabled for negative Feedback and no input', async () => {
-    const { getByText } = render(<FeedbackModal {...buildProps(false, '')} />)
+    const { getByText } = render(<Feedback {...buildProps(false, '')} />)
     expect(getByText('send')).toBeDisabled()
   })
 
   it('button should be enabled for positive Feedback and no input', async () => {
-    const { getByText } = render(<FeedbackModal {...buildProps(true, '')} />)
+    const { getByText } = render(<Feedback {...buildProps(true, '')} />)
     expect(getByText('send')).not.toBeDisabled()
   })
 
   it('button should be enabled for negative Feedback and input', async () => {
-    const { getByText } = render(<FeedbackModal {...buildProps(false, 'comment')} />)
+    const { getByText } = render(<Feedback {...buildProps(false, 'comment')} />)
     expect(getByText('send')).not.toBeDisabled()
   })
 
   it('onSubmit should be called on button press', async () => {
-    const { getByText } = render(<FeedbackModal {...buildProps(false, 'My test comment')} />)
+    const { getByText } = render(<Feedback {...buildProps(false, 'My test comment')} />)
     const button = getByText('send')
     fireEvent.press(button)
 
@@ -54,7 +54,7 @@ describe('FeedbackModal', () => {
 
   it('should call callback on comment changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
-      <FeedbackModal {...buildProps(false, 'my old comment')} />
+      <Feedback {...buildProps(false, 'my old comment')} />
     )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
@@ -67,7 +67,7 @@ describe('FeedbackModal', () => {
   })
 
   it('should call callback on contact mail changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(<FeedbackModal {...buildProps(false, 'my comment')} />)
+    const { getByDisplayValue, queryByDisplayValue } = render(<Feedback {...buildProps(false, 'my comment')} />)
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
     expect(onFeedbackContactMailChanged).not.toHaveBeenCalled()
