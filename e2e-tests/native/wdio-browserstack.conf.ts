@@ -9,10 +9,10 @@ const getGitHeadReference = () => {
     return execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-const browserstackCaps = (config: Capabilities): Capabilities => {
+const browserstackCaps = (config: Capabilities, platform: 'android' | 'ios'): Capabilities => {
     const isCi = !!process.env.E2E_CI
     const prefix = isCi ? 'IG CI' : 'IG DEV'
-    const app = config.platformName === 'android' ? process.env.E2E_BROWSERSTACK_APP_ANDROID : process.env.E2E_BROWSERSTACK_APP_IOS
+    const app = platform === 'android' ? process.env.E2E_BROWSERSTACK_APP_ANDROID : process.env.E2E_BROWSERSTACK_APP_IOS
     return {
         'bstack:options': {
             buildName: `${prefix}: ${getGitBranch()}`,
@@ -44,15 +44,15 @@ export const config = {
 
     capabilities: [
         browserstackCaps({
-            platformName: 'android',
             'appium:platformVersion': '9.0',
             'appium:deviceName': 'Google Pixel 3',
-        }),
+            'appium:automationName': 'UiAutomator2'
+        }, 'android'),
         browserstackCaps({
-            platformName: 'ios',
             'appium:platformVersion': '12',
-            'appium:deviceName': 'iPhone 8'
-        })
+            'appium:deviceName': 'iPhone 8',
+            'appium:automationName': 'XCUITest'
+        }, 'ios')
     ],
 
     logLevel: 'info',
@@ -70,13 +70,4 @@ export const config = {
     jasmineNodeOpts: {
         defaultTimeoutInterval: 120000
     },
-
-    onPrepare: async function (): Promise<void> {
-        const startupDelay = 3000
-        await new Promise(resolve => setTimeout(resolve, startupDelay))
-    },
-
-    before: async function (): Promise<void> {
-        // await browser.setTimeout({implicit: 80000})
-    }
 }

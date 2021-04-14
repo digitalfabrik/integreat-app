@@ -8,7 +8,7 @@
     "start:integreat": "cross-env BUILD_CONFIG_NAME='integreat' react-native start --reset-cache",
     "start:malte": "cross-env BUILD_CONFIG_NAME='malte' react-native start --reset-cache",
     "start:aschaffenburg": "cross-env BUILD_CONFIG_NAME='aschaffenburg' react-native start --reset-cache",
-    "start:integreat-e2e": "cross-env BUILD_CONFIG_NAME='integerat-e2e' react-native start --reset-cache",
+    "start:integreat-e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' react-native start --reset-cache",
     "android": "yarn android:integreat-test-cms",
     "android:integreat-test-cms": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' react-native run-android --no-packager",
     "android:malte": "cross-env BUILD_CONFIG_NAME='malte' react-native run-android --no-packager",

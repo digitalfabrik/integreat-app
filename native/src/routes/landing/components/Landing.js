@@ -13,6 +13,7 @@ import AppSettings from '../../../modules/settings/AppSettings'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import { checkLocationPermission } from '../../../modules/app/LocationPermissionManager'
 import { RESULTS } from 'react-native-permissions'
+import testID from '../../../modules/e2e/testID'
 
 const Wrapper: StyledComponent<{}, ThemeType, *> = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -143,7 +144,7 @@ class Landing extends React.Component<PropsType, StateType> {
 
     if (proposeNearbyCities !== null) {
       return (
-        <Wrapper theme={theme}>
+        <Wrapper theme={theme} {...testID('Landing-Page')}>
           <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
           <FilterableCitySelector
             theme={theme}
