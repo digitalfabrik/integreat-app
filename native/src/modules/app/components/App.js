@@ -17,6 +17,7 @@ import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
 import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 import { REDIRECT_ROUTE } from 'api-client'
+import AppStateListener from './AppStateListener'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 import SnackbarContainer from '../../layout/containers/SnackbarContainer'
@@ -87,6 +88,7 @@ const App = () => {
           </I18nProvider>
         </StaticServerProvider>
       </ThemeProvider>
+      <AppStateListener />
     </Provider>
   )
 }

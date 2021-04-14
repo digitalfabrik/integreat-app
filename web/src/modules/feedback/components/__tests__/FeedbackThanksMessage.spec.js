@@ -2,11 +2,21 @@
 
 import React from 'react'
 import { FeedbackThanksMessage } from '../FeedbackThanksMessage'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
+import { ThemeProvider } from 'styled-components'
+import lightTheme from '../../../theme/constants/theme'
 
 describe('FeedbackThanksMessage', () => {
-  it('should match snapshot', () => {
+  const onCloseFeedbackModal = jest.fn()
+  it('should display information sending information', () => {
     const t = (key: ?string): string => key || ''
-    expect(shallow(<FeedbackThanksMessage closeFeedbackModal={() => {}} t={t} />)).toMatchSnapshot()
+    const { getByText } = render(
+      <ThemeProvider theme={lightTheme}>
+        <FeedbackThanksMessage closeFeedbackModal={onCloseFeedbackModal} t={t} />
+      </ThemeProvider>
+    )
+
+    expect(getByText('feedbackSent')).toBeTruthy()
+    expect(getByText('thanksMessage')).toBeTruthy()
   })
 })
