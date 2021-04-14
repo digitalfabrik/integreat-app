@@ -24,7 +24,7 @@
       },
       "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
     },
-    "fa": {
+    "pes": {
       "pageTitles": {
         "events": "رویدادها"
       },
@@ -36,7 +36,7 @@
       },
       "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
     },
-    "ku": {
+    "kmr": {
       "pageTitles": {
         "events": "Randevû"
       },
@@ -92,13 +92,13 @@
     "es": {
       "events": "Fechas"
     },
-    "fa": {
+    "pes": {
       "events": "رویدادها"
     },
     "fr": {
       "events": "Rendez-vous"
     },
-    "ku": {
+    "kmr": {
       "events": "Randevû"
     },
     "ps": {
@@ -153,7 +153,7 @@
         "events": "Ir a fechas"
       }
     },
-    "fa": {
+    "pes": {
       "notFound": {
         "event": "متأسفانه این رویداد یافت نشد."
       },
@@ -169,7 +169,7 @@
         "events": "Vers les rendez-vous"
       }
     },
-    "ku": {
+    "kmr": {
       "notFound": {
         "event": "Mixabin vê randevûyê nehat dîtin."
       },
@@ -243,7 +243,7 @@
       "events": "Fechas",
       "currentlyNoEvents": "Actualmente no hay fechas."
     },
-    "fa": {
+    "pes": {
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد."
     },
@@ -251,7 +251,7 @@
       "events": "Rendez-vous",
       "currentlyNoEvents": "Il n'y a actuellement aucun rendez-vous."
     },
-    "ku": {
+    "kmr": {
       "events": "Randevû",
       "currentlyNoEvents": "Niha randevû tuneye"
     },
@@ -293,13 +293,13 @@
     "es": {
       "contentOfEvent": "Contenido de la fecha \"{{event}}\""
     },
-    "fa": {
+    "pes": {
       "contentOfEvent": "محتوای رویداد \"{{event}}\""
     },
     "fr": {
       "contentOfEvent": "Contenu du rendez-vous \"{{event}}\""
     },
-    "ku": {
+    "kmr": {
       "contentOfEvent": "Naveroka randevûyê \"{{event}}\""
     },
     "ps": {
@@ -342,7 +342,7 @@
       "events": "Fechas",
       "eventsDescription": "Eventos actuales y fechas"
     },
-    "fa": {
+    "pes": {
       "appDescription": "{{appName}} یاور دیجیتال شما از مالتسر است",
       "events": "رویدادها",
       "eventsDescription": "رویدادهای فعلی و مراسمات"
@@ -352,7 +352,7 @@
       "events": "Rendez-vous",
       "eventsDescription": "Rendez-vous actuels et évènements"
     },
-    "ku": {
+    "kmr": {
       "appDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê",
       "events": "Randevû",
       "eventsDescription": "Randevû û bûyerên niha"
@@ -405,7 +405,7 @@
       "events": "Fechas",
       "noEvents": "No hay fechas"
     },
-    "fa": {
+    "pes": {
       "events": "رویدادها",
       "noEvents": "هیچ رویدادی وجود ندارد"
     },
@@ -413,7 +413,7 @@
       "events": "Rendez-vous",
       "noEvents": "Aucun rendez-vous"
     },
-    "ku": {
+    "kmr": {
       "events": "Randevû",
       "noEvents": "Randevû tuneye"
     },

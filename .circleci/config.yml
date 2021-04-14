@@ -124,6 +124,19 @@ commands:
                       Send_notification
                 name: Mattermost Status Alert
                 when: always
+    persist_environment_variables:
+        description: Sets the environment variables specified in the file 'environment_variables'. Make sure the file is persisted and has been attached.
+        steps:
+            - run:
+                command: cat ${BASH_ENV}
+                name: List environment variables
+            - run:
+                command: cat ${BASH_ENV} >> environment_variables
+                name: Save environment variables to file
+            - persist_to_workspace:
+                paths:
+                    - environment_variables
+                root: ./
     prepare_workspace:
         description: Attach the workspace at ~/attached_workspace and list its contents
         steps:
@@ -140,15 +153,15 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 2-pods-{{ arch }}-
+                    - 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 3-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install --deployment
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
-                key: 2-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                key: 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
@@ -330,6 +343,23 @@ jobs:
                 paths:
                     - << parameters.build_config_name >>.apk
                 root: native/android
+            - unless:
+                condition:
+                    or:
+                        - equal:
+                            - integreat-e2e
+                            - << parameters.build_config_name >>
+                        - equal:
+                            - integreat-test-cms
+                            - << parameters.build_config_name >>
+                steps:
+                    - run:
+                        command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+                        name: Persist artifact url
+                    - persist_to_workspace:
+                        paths:
+                            - << parameters.build_config_name >>-apk-url
+                        root: ./
             - notify
     build_ios:
         environment:
@@ -337,7 +367,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -382,6 +412,23 @@ jobs:
                 paths:
                     - << parameters.build_config_name >>.ipa
                 root: native/ios/output/gym
+            - unless:
+                condition:
+                    or:
+                        - equal:
+                            - integreat-e2e
+                            - << parameters.build_config_name >>
+                        - equal:
+                            - integreat-test-cms
+                            - << parameters.build_config_name >>
+                steps:
+                    - run:
+                        command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+                        name: Persist artifact url
+                    - persist_to_workspace:
+                        paths:
+                            - << parameters.build_config_name >>-ipa-url
+                        root: ./
             - notify
     build_web:
         docker:
@@ -440,14 +487,11 @@ jobs:
             - checkout
             - restore_yarn_tools_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
             - run:
-                command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
+                command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
-            - run:
-                command: cat environment_variables >> ${BASH_ENV}
-                name: Set environment varibales
             - unless:
                 condition:
                     equal:
@@ -466,10 +510,7 @@ jobs:
                     - run:
                         command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
                         name: Create jira release
-            - persist_to_workspace:
-                paths:
-                    - environment_variables
-                root: ./
+            - persist_environment_variables
             - notify
     check_native:
         docker:
@@ -576,7 +617,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat
@@ -756,14 +797,18 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+                name: Prepare artifact urls
+                working_directory: ~/attached_workspace
+            - run:
+                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
             - run:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: integreat-releases
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}
+                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
             - image: circleci/node:12.16.3
@@ -779,14 +824,18 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >>
+                command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
+                name: Prepare artifact urls
+                working_directory: ~/attached_workspace
+            - run:
+                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
             - run:
                 command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: integreat-releases
-                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}
+                success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
             - image: circleci/node:12.16.3
@@ -837,7 +886,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 11.7.0
+            xcode: 12.4.0
         parameters:
             build_config_name:
                 default: integreat

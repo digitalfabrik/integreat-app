@@ -114,6 +114,7 @@ describe('Navigator', () => {
   })
 
   it('should fetch cities on mount', async () => {
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
@@ -169,6 +170,7 @@ describe('Navigator', () => {
   })
 
   it('should call fetch category if the dashboard route is the initial route', async () => {
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       const routeKey = generateKey()
