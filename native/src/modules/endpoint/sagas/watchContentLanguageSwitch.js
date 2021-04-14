@@ -3,6 +3,7 @@
 import type { Saga } from 'redux-saga'
 import { all, call, put, takeLatest, spawn } from 'redux-saga/effects'
 import type {
+  EnqueueSnackbarActionType,
   MorphContentLanguageActionType,
   SetContentLanguageActionType,
   SwitchContentLanguageActionType,
@@ -74,7 +75,8 @@ export function* switchContentLanguage(
     }
     yield put(insert)
   } catch (e) {
-    yield put({ type: 'PUSH_SNACKBAR', params: { text: fromError(e) } })
+    const enqueueSnackbar: EnqueueSnackbarActionType = { type: 'ENQUEUE_SNACKBAR', params: { text: fromError(e) } }
+    yield put(enqueueSnackbar)
 
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
