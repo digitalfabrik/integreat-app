@@ -5,9 +5,9 @@ import type { StoreActionType } from './StoreActionType'
 
 export default (state: SnackbarStateType = [], action: StoreActionType): SnackbarStateType => {
   switch (action.type) {
-    case 'PUSH_SNACKBAR':
+    case 'ENQUEUE_SNACKBAR':
       return [...state, action.params]
-    case 'POP_SNACKBAR':
+    case 'DEQUEUE_SNACKBAR':
       return state.slice(1)
     default:
       return state

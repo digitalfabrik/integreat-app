@@ -51,7 +51,7 @@ const SnackbarContainer = () => {
     if (!displayed && snackbarState.length > 0) {
       const newSnackbar = snackbarState[0]
       setDisplayed(newSnackbar)
-      dispatch({ type: 'POP_SNACKBAR' })
+      dispatch({ type: 'DEQUEUE_SNACKBAR' })
     }
   }, [snackbarState, displayed, dispatch])
 

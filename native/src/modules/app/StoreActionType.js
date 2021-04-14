@@ -338,20 +338,20 @@ export type SetResourceCacheUrlActionType = {|
   +params: {| +url: string |}
 |}
 
-// Pushes a new snackbar to the queue
-export type PushSnackbarActionType = {|
-  type: 'PUSH_SNACKBAR',
+// Enqueues a new snackbar
+export type EnqueueSnackbarActionType = {|
+  type: 'ENQUEUE_SNACKBAR',
   +params: SnackbarType
 |}
 
-// Pops the first snackbar from the queue
-export type PopSnackbarActionType = {|
-  type: 'POP_SNACKBAR'
+// Dequeue the first snackbar
+export type DequeueSnackbarActionType = {|
+  type: 'DEQUEUE_SNACKBAR'
 |}
 
 export type StoreActionType =
-  | PushSnackbarActionType
-  | PopSnackbarActionType
+  | EnqueueSnackbarActionType
+  | DequeueSnackbarActionType
   | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
