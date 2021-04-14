@@ -584,9 +584,7 @@
         "tunews": "Zu den tünews"
       },
       "pageTitle": "Fehler",
-      "generalError": "Ein Fehler ist aufgetreten",
-      "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "generalError": "Ein Fehler ist aufgetreten"
     },
     "ar": {
       "notFound": {
@@ -617,9 +615,7 @@
         "tunews": "إلى tünews"
       },
       "pageTitle": "خطأ",
-      "generalError": "حدث خطأ ما",
-      "languageSwitchFailedTitle": "للأسف، فشل في تغيير اللغة.",
-      "languageSwitchFailedMessage": "اللغة المُختارة غير متاحة دون الاتصال بالإنترنت. يلزم وجود اتصال نشط بالإنترنت."
+      "generalError": "حدث خطأ ما"
     },
     "en": {
       "notFound": {
@@ -650,9 +646,7 @@
         "tunews": "Go to tünews"
       },
       "pageTitle": "Error",
-      "generalError": "An error occurred",
-      "languageSwitchFailedTitle": "Unfortunately, changing the language failed.",
-      "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required."
+      "generalError": "An error occurred"
     },
     "es": {
       "notFound": {
@@ -683,9 +677,7 @@
         "tunews": "Ir a los tünews"
       },
       "pageTitle": "Error",
-      "generalError": "Se ha producido un error",
-      "languageSwitchFailedTitle": "No se ha podido cambiar el idioma.",
-      "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Se necesita una conexión a internet activada."
+      "generalError": "Se ha producido un error"
     },
     "pes": {
       "notFound": {
@@ -711,9 +703,7 @@
         "offers": "به سوی خدمات"
       },
       "pageTitle": "خطا",
-      "generalError": "خطایی رخ داده است",
-      "languageSwitchFailedTitle": "متأسفانه تغییر زبان انجام نشد.",
-      "languageSwitchFailedMessage": "زبان انتخابی بصورت آفلاین در دسترس نیست. اتصال اینترنت فعال ضروری است."
+      "generalError": "خطایی رخ داده است"
     },
     "fr": {
       "notFound": {
@@ -744,9 +734,7 @@
         "tunews": "Accéder aux tünews"
       },
       "pageTitle": "Erreur",
-      "generalError": "Une erreur s'est produite",
-      "languageSwitchFailedTitle": "Malheureusement, le changement de langue a échoué.",
-      "languageSwitchFailedMessage": "La langue sélectionnée n'est pas disponible hors ligne. Une connexion Internet active est requise."
+      "generalError": "Une erreur s'est produite"
     },
     "hr": {
       "notFound": {
@@ -772,9 +760,7 @@
         "offers": "Na ponude"
       },
       "pageTitle": "Pogreške",
-      "generalError": "Došlo je do pogreške",
-      "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
-      "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
+      "generalError": "Došlo je do pogreške"
     },
     "it": {
       "notFound": {
@@ -805,9 +791,7 @@
         "tunews": "Vai su tünews"
       },
       "pageTitle": "Errore",
-      "generalError": "Si è verificato un errore",
-      "languageSwitchFailedTitle": "Purtroppo il cambio di lingua non è riuscito.",
-      "languageSwitchFailedMessage": "La lingua selezionata non è disponibile offline. È necessaria una connessione Internet attiva."
+      "generalError": "Si è verificato un errore"
     },
     "kmr": {
       "notFound": {
@@ -833,9 +817,7 @@
         "offers": "Ber bi xizmetan va"
       },
       "pageTitle": "Şaşitî (Eror)",
-      "generalError": "Şaşitiyek qewimiye",
-      "languageSwitchFailedTitle": "Mixabin guhertina Ziman pêk nehat.",
-      "languageSwitchFailedMessage": "Zimanê bijartî bi awayê ne-serxet (Offline) li ber dest nîne. Girêdana Înterneta çalak pêwîst e."
+      "generalError": "Şaşitiyek qewimiye"
     },
     "pl": {
       "notFound": {
@@ -866,9 +848,7 @@
         "tunews": "Do tünews"
       },
       "pageTitle": "Błąd",
-      "generalError": "Wystąpił błąd",
-      "languageSwitchFailedTitle": "Niestety zmiana języka się nie powiodła.",
-      "languageSwitchFailedMessage": "Wybrany język nie jest dostępny offline. Konieczne jest aktywne połączenie z Internetem."
+      "generalError": "Wystąpił błąd"
     },
     "ps": {
       "notFound": {
@@ -894,9 +874,7 @@
         "offers": "وړاندیزونو ته تلل"
       },
       "pageTitle": "اشتباه",
-      "generalError": "یوه اشتباه رامینځته شوه",
-      "languageSwitchFailedTitle": "له بده مرغه د ژبې انتخاب ناکام شو.",
-      "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی."
+      "generalError": "یوه اشتباه رامینځته شوه"
     },
     "ro": {
       "notFound": {
@@ -927,9 +905,7 @@
         "tunews": "Spre tünews"
       },
       "pageTitle": "Erori",
-      "generalError": "A apărut o eroare",
-      "languageSwitchFailedTitle": "Din păcate, schimbarea limbii a eșuat.",
-      "languageSwitchFailedMessage": "Limba selectată nu este disponibilă offline. Este necesară o conexiune activă la internet."
+      "generalError": "A apărut o eroare"
     },
     "ru": {
       "notFound": {
@@ -960,9 +936,7 @@
         "tunews": "К новостям tünews"
       },
       "pageTitle": "Ошибка",
-      "generalError": "Произошла ошибка",
-      "languageSwitchFailedTitle": "К сожалению, сменить язык не удалось.",
-      "languageSwitchFailedMessage": "Выбранный язык недоступен в автономном режиме. Необходимо подключение к Интернету."
+      "generalError": "Произошла ошибка"
     },
     "so": {
       "notFound": {
@@ -988,9 +962,7 @@
         "offers": "Ku saabsan dalabyada"
       },
       "pageTitle": "Qalad",
-      "generalError": "Khalad ayaa dhacay",
-      "languageSwitchFailedTitle": "Nasiib darro, bedelidda luqadda ayaa lagu guuldareystay.",
-      "languageSwitchFailedMessage": "Luqadda aad dooratay laguma heli karo ofleen(offline) ahaan. Xiriir internet oo shaqeeya ayaa loo baahan yahay."
+      "generalError": "Khalad ayaa dhacay"
     },
     "sr": {
       "notFound": {
@@ -1016,9 +988,7 @@
         "offers": "Na ponude"
       },
       "pageTitle": "Greška",
-      "generalError": "Pojavila se greška",
-      "languageSwitchFailedTitle": "Promena jezika nažalost nije uspela.",
-      "languageSwitchFailedMessage": "Odabrani jezik nažalost nije dostupan oflajn. Potrebna je aktivna internetska veza."
+      "generalError": "Pojavila se greška"
     },
     "ti": {
       "notFound": {
@@ -1044,9 +1014,7 @@
         "offers": "ብዛዕባ እቶም ኣቕርቦታት"
       },
       "pageTitle": "ጌጋ",
-      "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
-      "languageSwitchFailedTitle": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እቲ ናይ ቋንቋ ለውጢ ኣይተዓወተን።",
-      "languageSwitchFailedMessage": "እቲ ዝተመርጸ ቋንቋ ካብ መስመር ኢንተርነት ወጻኢ የለን። ንጡፍ ናይ ኢንተርነት መስመር ኣድላዪ እዩ።"
+      "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ"
     },
     "tr": {
       "notFound": {
@@ -1077,9 +1045,7 @@
         "tunews": "tünews'a git"
       },
       "pageTitle": "Hata",
-      "generalError": "Bir hata oluştu",
-      "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
-      "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
+      "generalError": "Bir hata oluştu"
     },
     "zh-CN": {
       "notFound": {
@@ -1110,9 +1076,7 @@
         "tunews": "前往 tünews"
       },
       "pageTitle": "错误",
-      "generalError": "发生了错误",
-      "languageSwitchFailedTitle": "很抱歉，更改语言失败。",
-      "languageSwitchFailedMessage": "所选语言无法离线使用。需要有效的互联网连接。"
+      "generalError": "发生了错误"
     }
   },
   "events": {
