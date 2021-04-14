@@ -9,11 +9,12 @@ program
   .requiredOption('--owner <owner>', 'owner of the current repository, usually "Integreat"')
   .requiredOption('--repo <repo>', 'the current repository, should be integreat-app')
   .requiredOption('--release-notes <release-notes>', 'the release notes (for the selected platform) as JSON string')
+  .option('--download-links <download-links>', 'the download links of the artifacts (for the selected platform)')
   .option('--development-release', 'whether the release is a development release which is not delivered to production')
   .option('--dry-run', 'dry run without actually creating a release on github')
 
 const githubRelease = async (platform, newVersionName, newVersionCode, {
-  deliverinoPrivateKey, owner, repo, releaseNotes, developmentRelease, dryRun
+  deliverinoPrivateKey, owner, repo, releaseNotes, downloadLinks, developmentRelease, dryRun
 }) => {
   const versionCode = parseInt(newVersionCode)
   if (isNaN(versionCode)) {
@@ -25,7 +26,7 @@ const githubRelease = async (platform, newVersionName, newVersionCode, {
 
   const developmentMessage = developmentRelease ? 'This release is only delivered to development and not yet visible for users.\n\n' : ''
 
-  const body = `${developmentMessage}${JSON.parse(releaseNotes)}`
+  const body = `${developmentMessage}${JSON.parse(releaseNotes)}${downloadLinks ? `\nArtifacts:\n${downloadLinks}` : ''}`
   console.warn('and body ', body)
 
   if (dryRun) {
