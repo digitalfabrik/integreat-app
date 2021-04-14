@@ -19,7 +19,7 @@ const integreatE2e = {
     introSlides: false,
     jpalTracking: false,
     sentry: false,
-    developerFriendly: true,
+    developerFriendly: false,
     fixedCity: null
   }
 }

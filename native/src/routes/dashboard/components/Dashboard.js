@@ -30,6 +30,7 @@ import {
   TU_NEWS_TYPE
 } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import testID from '../../../modules/e2e/testID'
 
 const Spacing: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 10px;
@@ -166,7 +167,7 @@ class Dashboard extends React.Component<PropsType> {
     const navigationTiles = this.getNavigationTileModels()
 
     return (
-      <SpaceBetween>
+      <SpaceBetween {...testID('Dashboard-Page')}>
         {navigationTiles.length > 1 ? (
           <NavigationTiles tiles={navigationTiles} theme={theme} language={language} />
         ) : (

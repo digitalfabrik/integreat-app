@@ -1,24 +1,25 @@
-
 /**
  * sub page containing specific selectors and methods for a specific page
  */
+import { Selector } from "../Selector";
+
 class LandingPage {
-    public language: string;
-
-    public constructor (language = 'en') {
-      this.language = language
+    async exists() {
+        const page = await $('~Landing-Page')
+        return await page.waitForExist()
     }
 
-    get cities () {
-      return $$('~City-Entry')
+    get cities() {
+        return $$('~City-Entry')
     }
 
-    get search () {
-      return $('~Search-Input')
+    get search() {
+        return $('~Search-Input')
     }
 
-    city (name: string) {
-      return $(`*=${name}`)
+    async city(name: string) {
+        const selector = new Selector().ByContainsText(name).build()
+        return $(selector)
     }
 }
 
