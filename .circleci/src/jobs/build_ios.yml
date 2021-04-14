@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 macos:
-  xcode: 11.7.0
+  xcode: 12.4.0
 resource_class: medium
 environment:
   FL_OUTPUT_DIR: output

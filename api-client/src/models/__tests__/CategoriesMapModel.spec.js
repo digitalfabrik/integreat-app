@@ -112,7 +112,7 @@ describe('CategoriesMapModel', () => {
   })
 
   it('should instruct CategoryModel to be leaf', () => {
-    expect(category4.isLeaf(categoriesMapModel)).toBe(true)
-    expect(category3.isLeaf(categoriesMapModel)).toBe(false)
+    expect(categoriesMapModel.isLeaf(category4)).toBe(true)
+    expect(categoriesMapModel.isLeaf(category3)).toBe(false)
   })
 })
