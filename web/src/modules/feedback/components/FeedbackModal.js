@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { CityModel, OfferModel, POSITIVE_RATING } from 'api-client'
+import { POSITIVE_RATING } from 'api-client'
 import styled, { type StyledComponent } from 'styled-components'
 import type { LocationState } from 'redux-first-router'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
@@ -46,12 +46,8 @@ const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 type PropsType = {|
-  cities: ?Array<CityModel>,
-  offers: ?Array<OfferModel>,
-  title?: string,
   path?: string,
   alias?: string,
-  query?: string,
   feedbackRating: FeedbackRatingType,
   closeFeedbackModal: () => void,
   location: LocationState
@@ -76,14 +72,13 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent(): React.Node {
-    const { feedbackRating, offers, ...otherProps } = this.props
+    const { feedbackRating, ...otherProps } = this.props
     const { sendingStatus } = this.state
 
     if (['IDLE', 'ERROR'].includes(sendingStatus)) {
       return (
         <FeedbackBoxContainer
           isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
-          offers={offers}
           onSubmit={this.handleSubmit}
           sendingStatus={sendingStatus}
           {...otherProps}

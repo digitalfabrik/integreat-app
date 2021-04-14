@@ -86,7 +86,7 @@ describe('LocationLayout', () => {
     { code: 'en', name: 'English', path: '/augsburg/en' }
   ]
 
-  const feedbackTargetInformation = { path: '/path/to/category', title: 'Category_Title' }
+  const feedbackTargetInformation = { path: '/path/to/category' }
 
   const MockNode = () => <div />
   const renderLocationLayout = (location, isLoading) => (
