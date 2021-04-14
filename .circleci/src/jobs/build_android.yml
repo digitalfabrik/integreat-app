@@ -51,4 +51,17 @@ steps:
       root: native/android
       paths:
         - << parameters.build_config_name >>.apk
+  - unless:
+      condition:
+        or:
+          - equal: [ integreat-e2e, << parameters.build_config_name >>]
+          - equal: [ integreat-test-cms, << parameters.build_config_name >>]
+      steps:
+        - run:
+            name: Persist artifact url
+            command: echo "[<< parameters.build_config_name >>.apk](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/android/<< parameters.build_config_name >>.apk)" >> << parameters.build_config_name >>-apk-url
+        - persist_to_workspace:
+            root: ./
+            paths:
+              - << parameters.build_config_name >>-apk-url
   - notify
