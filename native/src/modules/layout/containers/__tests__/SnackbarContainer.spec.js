@@ -50,9 +50,9 @@ describe('SnackbarContainer', () => {
     await update(<SnackbarContainer />)
 
     expect(mockDispatch).toHaveBeenCalledTimes(1)
-    expect(mockDispatch).toHaveBeenCalledWith({ type: 'POP_SNACKBAR' })
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'DEQUEUE_SNACKBAR' })
 
-    // Simulate pop of snackbar from the redux store (triggered by POP_SNACKBAR action)
+    // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [{ text: snackbarText2 }])
     await update(<SnackbarContainer />)
 
@@ -62,9 +62,9 @@ describe('SnackbarContainer', () => {
     jest.advanceTimersByTime(5000)
 
     expect(mockDispatch).toHaveBeenCalledTimes(2)
-    expect(mockDispatch).toHaveBeenCalledWith({ type: 'POP_SNACKBAR' })
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'DEQUEUE_SNACKBAR' })
 
-    // Simulate pop of snackbar from the redux store (triggered by POP_SNACKBAR action)
+    // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [])
     await update(<SnackbarContainer />)
 
