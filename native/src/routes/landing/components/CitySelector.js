@@ -46,7 +46,7 @@ type PropsType = {|
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
   location: LocationType,
-  retryDetermineLocation: null | () => Promise<void>,
+  retryDetermineLocation: null | (() => Promise<void>),
   t: TFunction
 |}
 

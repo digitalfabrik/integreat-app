@@ -99,7 +99,7 @@ class Landing extends React.Component<PropsType, StateType> {
     } else if (locationPermissionStatus === RESULTS.GRANTED) {
       this.determineLocation()
     } else {
-      if (await requestLocationPermission() === RESULTS.GRANTED) {
+      if ((await requestLocationPermission()) === RESULTS.GRANTED) {
         this.determineLocation()
       } else {
         this.setState({
@@ -168,7 +168,7 @@ class Landing extends React.Component<PropsType, StateType> {
     const retryDetermineLocation = location?.message === 'loading' ? null : this.requestAndDetermineLocation
 
     return (
-      <Wrapper theme={theme}>
+      <Wrapper>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
         <FilterableCitySelector
           theme={theme}
