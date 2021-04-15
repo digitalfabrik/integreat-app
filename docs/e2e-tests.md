@@ -28,3 +28,21 @@ The [E2E test folder](../e2e-tests/web/test) contains two important subdirectori
 
 When writing new tests create helper classes for each Page you are using in the tests to keep the tests uniform and readable. This is also called the [page object pattern](https://webdriver.io/docs/pageobjects/).
 The tests itself are then created in the test folder and have to end on `*.e2e.ts`.
+
+### Native
+
+#### Selectors
+
+Selectors are used to select an element in the app programatically.
+However, during native development most of the common selectors are not available. 
+Therefore, you should use the accessibility identifier for this.
+Add the accessibility-id to a react component using `testID('Example-Component')`. You can query this component with `$('~Example-Component')` in your test.
+
+For more complex queries you should add/use a custom [Selector]('../e2e/native/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
+
+## Troubleshooting
+
+### Cannot hide Keyboard on iOS
+
+https://stackoverflow.com/a/54995267
+>The Appium method hideKeyboard() is known to be unstable when used on iPhone devices, as listed in Appium’s currently known open issues. Using this method for an iOS device may cause the Appium script to hang. Appium identifies that the problem is because - "There is no automation hook for hiding the keyboard,...rather than using this method, to think about how a user would hide the keyboard in your app, and tell Appium to do that instead (swipe, tap on a certain coordinate, etc..

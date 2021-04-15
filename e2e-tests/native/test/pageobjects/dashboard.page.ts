@@ -1,9 +1,9 @@
+import {Page} from "./page";
 
-class DashboardPage {
+class DashboardPage extends Page {
 
-    async exists () {
-        const res = await $('~Dashboard-Page')
-        return await res.waitForExist()
+    constructor() {
+        super('Dashboard-Page')
     }
 }
 

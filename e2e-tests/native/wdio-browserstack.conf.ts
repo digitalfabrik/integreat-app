@@ -9,10 +9,10 @@ const getGitHeadReference = () => {
     return execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-const browserstackCaps = (config: Capabilities, platform: 'android' | 'ios'): Capabilities => {
+const browserstackCaps = (config: Capabilities): Capabilities => {
     const isCi = !!process.env.E2E_CI
     const prefix = isCi ? 'IG CI' : 'IG DEV'
-    const app = platform === 'android' ? process.env.E2E_BROWSERSTACK_APP_ANDROID : process.env.E2E_BROWSERSTACK_APP_IOS
+    const app = config.platformName === 'android' ? process.env.E2E_BROWSERSTACK_APP_ANDROID : process.env.E2E_BROWSERSTACK_APP_IOS
     return {
         'bstack:options': {
             buildName: `${prefix}: ${getGitBranch()}`,
@@ -29,8 +29,6 @@ const browserstackCaps = (config: Capabilities, platform: 'android' | 'ios'): Ca
 }
 
 export const config = {
-
-
     runner: 'local',
     specs: [
         './native/test/specs/**/*.ts'
@@ -46,13 +44,15 @@ export const config = {
         browserstackCaps({
             'appium:platformVersion': '9.0',
             'appium:deviceName': 'Google Pixel 3',
-            'appium:automationName': 'UiAutomator2'
-        }, 'android'),
+            'appium:automationName': 'UiAutomator2',
+            platformName: 'android'
+        }),
         browserstackCaps({
             'appium:platformVersion': '12',
             'appium:deviceName': 'iPhone 8',
-            'appium:automationName': 'XCUITest'
-        }, 'ios')
+            'appium:automationName': 'XCUITest',
+            platformName: 'ios'
+        })
     ],
 
     logLevel: 'info',
@@ -60,14 +60,15 @@ export const config = {
     bail: 0,
     baseUrl: 'http://localhost:9000',
     waitforTimeout: 100000,
-    connectionRetryTimeout: 120000,
+    waitforInterval: 2000,
+    connectionRetryTimeout: 50000,
     connectionRetryCount: 3,
     services: [['browserstack', {browserstackLocal: true}]],
     host: 'hub.browserstack.com',
     framework: 'jasmine',
     reporters: ['junit'],
 
-    jasmineNodeOpts: {
-        defaultTimeoutInterval: 120000
+    jasmineOpts: {
+        defaultTimeoutInterval: 20000
     },
 }
