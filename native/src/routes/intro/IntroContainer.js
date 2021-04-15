@@ -135,7 +135,6 @@ class Intro extends React.Component<PropsType, StateType> {
     ]
   }
 
-  // TODO Request permissions
   onDone = async () => {
     try {
       const { dispatch, route, navigation, language } = this.props
