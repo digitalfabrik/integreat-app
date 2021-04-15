@@ -6,39 +6,19 @@ import { withTranslation } from 'react-i18next'
 
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
-import type {
-  CategoriesRouteType,
-  DisclaimerRouteType,
-  EventsRouteType,
-  FeedbackModalRouteType,
-  OffersRouteType,
-  PoisRouteType,
-  SearchRouteType
-} from 'api-client'
-import { CityModel, OfferModel } from 'api-client'
+import type { FeedbackModalRouteType } from 'api-client'
+import { CityModel } from 'api-client'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { StateType } from '../../../modules/app/StateType'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import FeedbackContainer, { type PropsType as FeedbackContainerPropsType } from './FeedbackContainer'
-
-type RouteType = CategoriesRouteType | EventsRouteType | PoisRouteType | OffersRouteType | DisclaimerRouteType | SearchRouteType
-
-export type FeedbackInformationType = {|
-  routeType: RouteType,
-  isPositiveFeedback: boolean,
-  language: string,
-  cityCode: string,
-  path?: string,
-  alias?: string,
-  offers?: Array<OfferModel>
-|}
-
-export type FeedbackOriginType = 'positive' | 'negative' | 'searchInformationNotFound' | 'searchNotingFound'
+import FeedbackContainer, {
+  type PropsType as FeedbackContainerPropsType
+} from '../../../modules/feedback/FeedbackContainer'
 
 type OwnPropsType = {|
   route: RoutePropType<FeedbackModalRouteType>,
-  navigation: NavigationPropType<FeedbackModalRouteType>,
+  navigation: NavigationPropType<FeedbackModalRouteType>
 |}
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 
@@ -61,22 +41,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     return { status: 'loading', progress: 0 }
   }
 
-  /*
-    t: TFunction,
-  routeType: RouteType,
-  feedbackOrigin: string,
-  language: string,
-  cityCode: string,
-  cities: $ReadOnlyArray<CityModel>,
-  path?: string,
-  alias?: string,
-  offers?: Array<OfferModel>
-   */
   const feedbackOrigin = ownProps.route.params.isPositiveFeedback ? 'positive' : 'negative'
   return {
     status: 'success',
     innerProps: {
-      // ...ownProps,
       ...ownProps.route.params,
       feedbackOrigin: feedbackOrigin,
       cities: state.cities.models
