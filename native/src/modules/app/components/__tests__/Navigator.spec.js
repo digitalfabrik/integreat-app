@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native'
 
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
+jest.mock('../../initSentry')
 
 jest.mock('../../../../routes/intro/IntroContainer', () => {
   const Text = require('react-native').Text
