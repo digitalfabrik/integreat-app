@@ -2,15 +2,18 @@
 
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { ActivityIndicator, Button, ScrollView, Text, TextInput } from 'react-native'
+import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import Caption from '../../../modules/common/components/Caption'
-import type { SendingStatusType } from '../containers/FeedbackContainer'
+import { Button } from 'react-native-elements'
+import Caption from '../common/components/Caption'
+import type { SendingStatusType } from './FeedbackContainer'
 import type { StyledComponent } from 'styled-components'
-import type { FeedbackOriginType } from '../containers/FeedbackModalContainer'
-import buildConfig from '../../../modules/app/constants/buildConfig'
+import type { FeedbackOriginType } from '../../routes/feedback/containers/FeedbackModalContainer'
+import buildConfig from '../app/constants/buildConfig'
+import HappyIcon from '../common/components/assets/smile-happy.svg'
+import SadIcon from '../common/components/assets/smile-sad.svg'
 
 const Input = styled(TextInput)`
   padding: 15px;
@@ -46,6 +49,20 @@ const Description = styled(ThemedText)`
   font-weight: bold;
 `
 
+const Heading = styled(ThemedText)`
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 30px 30px;
+`
+
+const HappyIconContainer = styled.Image`
+  margin: 100px auto 10px;
+`
+
+const SadIconContainer = styled.Image`
+  margin: 0px auto 10px;
+`
+
 export type PropsType = {|
   comment: string,
   contactMail: string,
@@ -62,6 +79,7 @@ const Feedback = (props: PropsType) => {
   const renderBox = (): React.Node => {
     const { theme, t, feedbackOrigin, comment, contactMail, sendingStatus } = props
     let title
+    let isSearchFeedback = false
     switch (feedbackOrigin) {
       case 'positive':
         title = t('positiveComment')
@@ -70,22 +88,30 @@ const Feedback = (props: PropsType) => {
         title = t('negativeComment')
         break
       case 'searchInformationNotFound':
-        title = t('informationNotFound')
+        title = t('wantedInformation')
+        isSearchFeedback = true
         break
-      case 'searchNotingFound':
-        title = t('nothingFound')
+      case 'searchNothingFound':
+        title = t('wantedInformation')
+        isSearchFeedback = true
         break
     }
 
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
-          <Caption theme={theme} title={t('feedback')} />
+          {!isSearchFeedback && <Caption theme={theme} title={t('feedback')} />}
+          {feedbackOrigin === 'searchNothingFound' && (
+            <>
+              <SadIconContainer source={SadIcon} />
+              <Heading theme={theme}>{t('nothingFound')}</Heading>
+            </>
+          )}
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{title}</Description>
-            {feedbackOrigin !== 'negative' && <Text>({t('optionalInfo')})</Text>}
+            {feedbackOrigin === 'positive' && <Text>({t('optionalInfo')})</Text>}
           </DescriptionContainer>
-          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline numberOfLines={3} />
+          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline numberOfLines={3} autoFocus />
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{t('contactMailAddress')}</Description>
             <Text>({t('optionalInfo')})</Text>
@@ -96,7 +122,7 @@ const Feedback = (props: PropsType) => {
             icon={<Icon name='send' size={15} color='black' style='material' />}
             titleStyle={{ color: theme.colors.textColor }}
             buttonStyle={{ backgroundColor: theme.colors.themeColor, marginTop: 15 }}
-            disabled={feedbackOrigin === 'negative' && !comment}
+            disabled={feedbackOrigin !== 'positive' && !comment}
             onPress={props.onSubmit}
             title={t('send')}
           />
@@ -108,6 +134,7 @@ const Feedback = (props: PropsType) => {
       // sendingStatus === 'successful') {
       return (
         <>
+          <HappyIconContainer source={HappyIcon} />
           <Caption theme={theme} title={t('feedback:feedbackSent')} />
           <ThemedText theme={theme}>{t('feedback:thanksMessage', { appName: buildConfig().appName })}</ThemedText>
         </>
@@ -117,7 +144,7 @@ const Feedback = (props: PropsType) => {
 
   const { theme } = props
   return (
-    <ScrollView>
+    <ScrollView keyboardShouldPersistTaps='handled'>
       <Wrapper theme={theme}>{renderBox()}</Wrapper>
     </ScrollView>
   )

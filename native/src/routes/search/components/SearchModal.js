@@ -1,8 +1,9 @@
 // @flow
 
 import * as React from 'react'
-import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+import { connect } from 'react-redux'
+import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
+import { CategoriesMapModel, CategoryModel, CityModel, SEARCH_ROUTE } from 'api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
@@ -16,8 +17,10 @@ import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import NothingFoundFeedbackBox, { type PropsType as NothingFoundFeedbackBoxPropsType } from './NothingFoundFeedbackBox'
-import FeedbackContainer from '../../feedback/containers/FeedbackContainer'
+import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
+import type { StateType } from '../../../modules/app/StateType'
+import type { PropsType as FeedbackContainerPropsType } from '../../../modules/feedback/FeedbackContainer'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
@@ -38,16 +41,32 @@ export type PropsType = {|
   closeModal: () => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   t: TFunction,
-  sendFeedback: (comment: string, query: string) => Promise<void>
+  sendFeedback: (comment: string, query: string) => Promise<void>,
+  cities: $ReadOnlyArray<CityModel>
 |}
 
-type StateType = {|
+type SearchStateType = {|
   query: string
 |}
 
-const NothingFoundFeedbackBoxWithTranslation = withTranslation<NothingFoundFeedbackBoxPropsType>(['feedback'])(NothingFoundFeedbackBox)
+const TranslatedFeedbackContainer = withTranslation<FeedbackContainerPropsType>('feedback')(FeedbackContainer)
 
-class SearchModal extends React.Component<PropsType, StateType> {
+function mapStateToProps(state: StateType): StatusPropsType<PropsType> {
+  if (state.cities.status === 'error') {
+    return { status: 'error', message: state.cities.message, code: state.cities.code }
+  }
+
+  if (state.cities.status === 'loading') {
+    return { status: 'loading', progress: 0 }
+  }
+
+  return {
+    status: 'success',
+    cities: state.cities.models
+  }
+}
+
+class SearchModal extends React.Component<PropsType, SearchStateType> {
   state = { query: '' }
 
   findCategories(categories: CategoriesMapModel): Array<ListEntryType> {
@@ -118,7 +137,7 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   renderContent = () => {
-    const { language, theme, categories, t, sendFeedback, navigateToLink } = this.props
+    const { language, cityCode, theme, categories, navigateToLink } = this.props
     const { query } = this.state
 
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -128,6 +147,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
+    const feedbackOrigin = filteredCategories.length !== 0 ? 'searchInformationNotFound' : 'searchNothingFound'
+
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
@@ -142,11 +163,13 @@ class SearchModal extends React.Component<PropsType, StateType> {
             language={language}
           />
         </View>
-        <NothingFoundFeedbackBoxWithTranslation
+        <TranslatedFeedbackContainer
+          routeType={SEARCH_ROUTE}
+          feedbackOrigin={feedbackOrigin}
+          language={language}
+          cityCode={cityCode}
+          cities={this.props.cities}
           query={query}
-          theme={theme}
-          resultsFound={filteredCategories.length !== 0}
-          sendFeedback={sendFeedback}
         />
       </ScrollView>
     )
@@ -172,4 +195,4 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 }
 
-export default SearchModal
+export default connect(mapStateToProps)(SearchModal)

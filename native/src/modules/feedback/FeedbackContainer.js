@@ -2,15 +2,17 @@
 
 import * as React from 'react'
 import type { TFunction } from 'react-i18next'
-import withTheme from '../../../modules/theme/hocs/withTheme'
-import Feedback, { type PropsType as FeedbackPropsType } from '../components/Feedback'
+import withTheme from '../theme/hocs/withTheme'
+import Feedback, { type PropsType as FeedbackPropsType } from './Feedback'
 import type {
-  CategoriesRouteType, DisclaimerRouteType,
+  CategoriesRouteType,
+  DisclaimerRouteType,
   EventsRouteType,
   FeedbackParamsType,
   FeedbackType,
   OffersRouteType,
-  PoisRouteType, SearchRouteType
+  PoisRouteType,
+  SearchRouteType
 } from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
@@ -26,11 +28,30 @@ import {
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
   PAGE_FEEDBACK_TYPE,
-  POIS_ROUTE
+  POIS_ROUTE, SEARCH_FEEDBACK_TYPE, SEARCH_ROUTE
 } from 'api-client'
-import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+import determineApiUrl from '../endpoint/determineApiUrl'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
+export type FeedbackOriginType = 'positive' | 'negative' | 'searchInformationNotFound' | 'searchNothingFound'
+
+type RouteType =
+  | CategoriesRouteType
+  | EventsRouteType
+  | PoisRouteType
+  | OffersRouteType
+  | DisclaimerRouteType
+  | SearchRouteType
+
+export type FeedbackInformationType = {|
+  routeType: RouteType,
+  isPositiveFeedback: boolean,
+  language: string,
+  cityCode: string,
+  path?: string,
+  alias?: string,
+  offers?: Array<OfferModel>
+|}
 
 type StateType = {|
   comment: string,
@@ -47,6 +68,7 @@ export type PropsType = {|
   cities: $ReadOnlyArray<CityModel>,
   path?: string,
   alias?: string,
+  query?: string,
   offers?: Array<OfferModel>
 |}
 
@@ -54,7 +76,6 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
   constructor(props: PropsType) {
     super(props)
     this.state = { comment: '', contactMail: '', sendingStatus: 'idle' }
-    console.log(props.feedbackOrigin)
   }
 
   getCityName = (): string => {
@@ -78,15 +99,18 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
         return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
       case CATEGORIES_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
+      case SEARCH_ROUTE:
+        return SEARCH_FEEDBACK_TYPE
       default:
         return CATEGORIES_FEEDBACK_TYPE
     }
   }
 
-  getFeedbackData = (comment: string): FeedbackParamsType => {
-    const { path, alias, language, feedbackOrigin } = this.props
+  getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
+    const { path, alias, query, language, feedbackOrigin } = this.props
     const feedbackType = this.getFeedbackType()
     const city = this.getCityName().toLocaleLowerCase(language)
+    const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
 
     return {
       feedbackType,
@@ -95,8 +119,9 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
       permalink: path,
       city,
       language,
-      comment,
-      alias
+      comment: commentWithMail,
+      alias,
+      query
     }
   }
 
@@ -106,7 +131,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
 
   handleSubmit = async () => {
     const { comment, contactMail } = this.state
-    const feedbackData = this.getFeedbackData(`${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`)
+    const feedbackData = this.getFeedbackData(comment, contactMail)
     this.setState({ sendingStatus: 'sending' })
     try {
       const apiUrl = await determineApiUrl()
