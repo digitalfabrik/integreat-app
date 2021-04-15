@@ -14,20 +14,20 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
-    "@wdio/appium-service": "^7.3.0",
-    "@wdio/browserstack-service": "^7.0.5",
-    "@wdio/cli": "^7.0.9",
-    "@wdio/jasmine-framework": "^7.0.4",
-    "@wdio/junit-reporter": "^7.0.4",
-    "@wdio/local-runner": "^7.0.9",
-    "@wdio/selenium-standalone-service": "^7.0.4",
-    "@wdio/types": "^7.0.4",
+    "@wdio/appium-service": "^7.4.2",
+    "@wdio/browserstack-service": "^7.4.6",
+    "@wdio/cli": "^7.4.6",
+    "@wdio/jasmine-framework": "^7.4.6",
+    "@wdio/junit-reporter": "^7.4.2",
+    "@wdio/local-runner": "^7.4.6",
+    "@wdio/selenium-standalone-service": "^7.4.2",
+    "@wdio/types": "^7.4.2",
     "appium": "^1.20.2",
     "eslint": "^7.20.0",
     "eslint-plugin-jasmine": "^4.1.2",
-    "eslint-plugin-wdio": "^7.0.0",
+    "eslint-plugin-wdio":  "^7.4.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5",
-    "webdriverio": "^7.0.9"
+    "webdriverio": "^7.4.6"
   }
 }

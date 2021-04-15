@@ -1,12 +1,9 @@
-/**
- * sub page containing specific selectors and methods for a specific page
- */
-import { Selector } from "../Selector";
+import {Page} from "./page";
+import {Selector} from "../Selector";
 
-class LandingPage {
-    async exists() {
-        const page = await $('~Landing-Page')
-        return await page.waitForExist()
+class LandingPage extends Page{
+    constructor() {
+        super('Landing-Page');
     }
 
     get cities() {
@@ -18,8 +15,7 @@ class LandingPage {
     }
 
     async city(name: string) {
-        const selector = new Selector().ByContainsText(name).build()
-        return $(selector)
+        return $(new Selector().ByText(name).build())
     }
 }
 
