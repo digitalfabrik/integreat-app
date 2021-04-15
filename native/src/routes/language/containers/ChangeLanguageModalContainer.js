@@ -7,16 +7,13 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel, NEWS_ROUTE } from 'api-client'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 type OwnPropsType = {|
   route: RoutePropType<ChangeLanguageModalRouteType>,
-  navigation: NavigationPropType<ChangeLanguageModalRouteType>,
-  t: TFunction
+  navigation: NavigationPropType<ChangeLanguageModalRouteType>
 |}
 
 type StatePropsType = {|
@@ -64,7 +61,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
     changeLanguage: (newLanguage: string, newsType: ?NewsType) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
-        params: { newLanguage, city: cityCode, t: ownProps.t }
+        params: { newLanguage, city: cityCode }
       })
 
       if (newsType) {
@@ -87,9 +84,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
   }
 }
 
-export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withTheme<{| ...PropsType, theme: ThemeType |}>(ChangeLanguageModal))
-)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTheme<{| ...PropsType, theme: ThemeType |}>(ChangeLanguageModal))

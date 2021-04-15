@@ -11,7 +11,6 @@ import {
 } from 'api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
-import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 import type { NewsType } from 'api-client/src/routes'
 
@@ -254,10 +253,8 @@ export type EventsActionType = FetchEventActionType | PushEventActionType | Fetc
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE',
   +params: {|
-    // TODO IGAPP-498 The alert should be replaced with a snackbar, hence the TFunction should also be removed.
     +newLanguage: string,
-    +city: string,
-    +t: TFunction
+    +city: string
   |}
 |}
 
