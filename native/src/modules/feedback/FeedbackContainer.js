@@ -28,7 +28,9 @@ import {
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
   PAGE_FEEDBACK_TYPE,
-  POIS_ROUTE, SEARCH_FEEDBACK_TYPE, SEARCH_ROUTE
+  POIS_ROUTE,
+  SEARCH_FEEDBACK_TYPE,
+  SEARCH_ROUTE
 } from 'api-client'
 import determineApiUrl from '../endpoint/determineApiUrl'
 
@@ -62,7 +64,7 @@ type StateType = {|
 export type PropsType = {|
   t: TFunction,
   routeType: RouteType,
-  feedbackOrigin: string,
+  feedbackOrigin: FeedbackOriginType,
   language: string,
   cityCode: string,
   cities: $ReadOnlyArray<CityModel>,
@@ -80,7 +82,6 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
 
   getCityName = (): string => {
     const { cities, cityCode } = this.props
-
     return CityModel.findCityName(cities, cityCode)
   }
 
