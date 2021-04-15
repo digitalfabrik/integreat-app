@@ -41,8 +41,7 @@ type PropsType = {|
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
   location: LocationType,
-  proposeNearbyCities: boolean,
-  tryAgain: null | (() => void),
+  retryDetermineLocation: null | () => Promise<void>,
   t: TFunction
 |}
 
@@ -92,12 +91,8 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations(): React.Node {
-    const { proposeNearbyCities, cities, location, t, theme, navigateToDashboard, filterText, tryAgain } = this.props
-    if (!proposeNearbyCities) {
-      return null
-    }
-
-    if (location.status === 'ready') {
+    const { cities, location, t, theme, navigateToDashboard, filterText, retryDetermineLocation } = this.props
+    if (location?.status === 'ready') {
       const nearbyCities = getNearbyPlaces(
         cities.filter(city => city.live),
         location.longitude,
@@ -134,13 +129,13 @@ class CitySelector extends React.PureComponent<PropsType> {
         <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
-            <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
-            {tryAgain && (
+            <NearbyMessage theme={theme}>{location ? t(location.message) : ''}</NearbyMessage>
+            {retryDetermineLocation && (
               <Button
                 icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
                 title=''
                 type='clear'
-                onPress={tryAgain}
+                onPress={retryDetermineLocation}
                 accessibilityLabel={t('refresh')}
                 accessibilityRole='button'
               />

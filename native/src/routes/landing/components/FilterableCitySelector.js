@@ -24,13 +24,12 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   location: LocationType,
-  proposeNearbyCities: boolean,
-  tryAgain: null | (() => void)
+  retryDetermineLocation: null | () => Promise<void>
 |}
 
-type StateType = {
+type StateType = {|
   filterText: string
-}
+|}
 
 class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
