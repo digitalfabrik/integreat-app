@@ -1,13 +1,14 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+import type { CategoriesRouteInformationType } from 'api-client'
+import { CategoriesMapModel, CategoryModel, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
@@ -16,6 +17,8 @@ import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
+import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
+import { urlFromRouteInformation } from '../../../modules/navigation/url'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -32,7 +35,7 @@ export type PropsType = {|
   theme: ThemeType,
   language: string,
   cityCode: string,
-  closeModal: () => void,
+  closeModal: (query: string) => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   t: TFunction,
   sendFeedback: (comment: string, query: string) => Promise<void>
@@ -99,6 +102,21 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
   onItemPress = (category: { path: string, ... }) => {
     const { cityCode, language, navigateTo } = this.props
+    const { query } = this.state
+
+    const routeInformation: CategoriesRouteInformationType = {
+      route: CATEGORIES_ROUTE,
+      cityContentPath: category.path,
+      cityCode,
+      languageCode: language
+    }
+    sendTrackingSignal({
+      signal: {
+        name: SEARCH_FINISHED_SIGNAL_NAME,
+        query,
+        url: urlFromRouteInformation(routeInformation)
+      }
+    })
 
     navigateTo({
       route: CATEGORIES_ROUTE,
@@ -106,6 +124,12 @@ class SearchModal extends React.Component<PropsType, StateType> {
       languageCode: language,
       cityContentPath: category.path
     })
+  }
+
+  onClose = () => {
+    const { query } = this.state
+    sendTrackingSignal({ signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query, url: null } })
+    this.props.closeModal(query)
   }
 
   onSearchChanged = (query: string) => {
@@ -149,14 +173,14 @@ class SearchModal extends React.Component<PropsType, StateType> {
   }
 
   render() {
-    const { theme, closeModal, t } = this.props
+    const { theme, t } = this.props
     const { query } = this.state
     return (
       <Wrapper theme={theme}>
         <SearchHeader
           theme={theme}
           query={query}
-          closeSearchBar={closeModal}
+          closeSearchBar={this.onClose}
           onSearchChanged={this.onSearchChanged}
           t={t}
         />
