@@ -59,7 +59,7 @@ class Landing extends React.Component<PropsType, StateType> {
 
   determineLocationIfGranted = async () => {
     const locationPermissionStatus = await checkLocationPermission()
-    
+
     if (locationPermissionStatus === RESULTS.GRANTED) {
       this.setState({
         location: {

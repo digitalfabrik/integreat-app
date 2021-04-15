@@ -29,6 +29,11 @@ const NearbyMessageContainer: StyledComponent<{||}, {||}, *> = styled.View`
   justify-content: space-between;
 `
 
+const RetryButtonContainer: StyledComponent<{||}, {||}, *> = styled.View`
+  flex-direction: column;
+  height: 46px;
+`
+
 const NearbyMessage: StyledComponent<{| theme: ThemeType |}, {||}, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
@@ -130,16 +135,18 @@ class CitySelector extends React.PureComponent<PropsType> {
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>{location ? t(location.message) : ''}</NearbyMessage>
-            {retryDetermineLocation && (
-              <Button
-                icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
-                title=''
-                type='clear'
-                onPress={retryDetermineLocation}
-                accessibilityLabel={t('refresh')}
-                accessibilityRole='button'
-              />
-            )}
+            <RetryButtonContainer>
+              {retryDetermineLocation && (
+                <Button
+                  icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                  title=''
+                  type='clear'
+                  onPress={retryDetermineLocation}
+                  accessibilityLabel={t('refresh')}
+                  accessibilityRole='button'
+                />
+              )}
+            </RetryButtonContainer>
           </NearbyMessageContainer>
         </CityGroupContainer>
       )
