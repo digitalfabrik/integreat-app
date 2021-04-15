@@ -24,7 +24,7 @@ type PropsType = {|
   t: TFunction,
   theme: ThemeType,
   location: LocationType,
-  retryDetermineLocation: null | () => Promise<void>
+  retryDetermineLocation: null | (() => Promise<void>)
 |}
 
 type StateType = {|
