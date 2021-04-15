@@ -1,0 +1,7 @@
+issue_key: IGAPP-498
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: We now show an error message if switching to a new language fails.
+de: Wir zeigen jetzt eine Fehlermeldung an wenn das Wechseln zu einer neuen Sprache fehlschlägt.
