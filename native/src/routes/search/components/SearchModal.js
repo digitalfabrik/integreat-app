@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import { CategoriesMapModel, CategoryModel, CityModel, SEARCH_ROUTE } from 'api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
@@ -17,11 +16,8 @@ import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
-import type { StateType } from '../../../modules/app/StateType'
 import type { PropsType as FeedbackContainerPropsType } from '../../../modules/feedback/FeedbackContainer'
-import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-
+import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -50,21 +46,6 @@ type SearchStateType = {|
 |}
 
 const TranslatedFeedbackContainer = withTranslation<FeedbackContainerPropsType>('feedback')(FeedbackContainer)
-
-function mapStateToProps(state: StateType): StatusPropsType<PropsType> {
-  if (state.cities.status === 'error') {
-    return { status: 'error', message: state.cities.message, code: state.cities.code }
-  }
-
-  if (state.cities.status === 'loading') {
-    return { status: 'loading', progress: 0 }
-  }
-
-  return {
-    status: 'success',
-    cities: state.cities.models
-  }
-}
 
 class SearchModal extends React.Component<PropsType, SearchStateType> {
   state = { query: '' }
@@ -195,4 +176,4 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
   }
 }
 
-export default connect(mapStateToProps)(SearchModal)
+export default SearchModal

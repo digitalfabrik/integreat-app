@@ -1,5 +1,6 @@
 // @flow
 
+import React from 'react'
 import { connect } from 'react-redux'
 import { type Dispatch } from 'redux'
 import { withTranslation } from 'react-i18next'
@@ -12,6 +13,7 @@ import type { NavigationPropType, RoutePropType } from '../../../modules/app/con
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { StateType } from '../../../modules/app/StateType'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { FeedbackOriginType } from '../../../modules/feedback/FeedbackContainer'
 import FeedbackContainer, {
   type PropsType as FeedbackContainerPropsType
 } from '../../../modules/feedback/FeedbackContainer'
@@ -25,7 +27,8 @@ type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
 type InnerPropsType = {|
   ...OwnPropsType,
   ...DispatchPropsType,
-  cities: $ReadOnlyArray<CityModel>
+  cities: $ReadOnlyArray<CityModel>,
+  feedbackOrigin: FeedbackOriginType
 |}
 
 type StatePropsType = StatusPropsType<InnerPropsType, OwnPropsType>
@@ -45,7 +48,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   return {
     status: 'success',
     innerProps: {
-      ...ownProps.route.params,
+      ...ownProps,
       feedbackOrigin: feedbackOrigin,
       cities: state.cities.models
     },
@@ -63,7 +66,21 @@ const refresh = (refreshProps: OwnPropsType) => {
 
 const TranslatedFeedbackContainer = withTranslation<FeedbackContainerPropsType>('feedback')(FeedbackContainer)
 
+const FeedbackModalContainer = (props: InnerPropsType) => {
+  const { routeType, language, cityCode, isPositiveFeedback } = props.route.params
+  const feedbackOrigin = isPositiveFeedback ? 'positive' : 'negative'
+  return (
+    <TranslatedFeedbackContainer
+      routeType={routeType}
+      feedbackOrigin={feedbackOrigin}
+      language={language}
+      cityCode={cityCode}
+      cities={props.cities}
+    />
+  )
+}
+
 export default connect<PropsType, OwnPropsType, _, _, _, _>(
   mapStateToProps,
   mapDispatchToProps
-)(withPayloadProvider<InnerPropsType, OwnPropsType, FeedbackModalRouteType>(refresh)(TranslatedFeedbackContainer))
+)(withPayloadProvider<InnerPropsType, OwnPropsType, FeedbackModalRouteType>(refresh)(FeedbackModalContainer))

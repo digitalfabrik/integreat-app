@@ -8,9 +8,8 @@ import type { TFunction } from 'react-i18next'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import Caption from '../common/components/Caption'
-import type { SendingStatusType } from './FeedbackContainer'
+import type { FeedbackOriginType, SendingStatusType } from './FeedbackContainer'
 import type { StyledComponent } from 'styled-components'
-import type { FeedbackOriginType } from '../../routes/feedback/containers/FeedbackModalContainer'
 import buildConfig from '../app/constants/buildConfig'
 import HappyIcon from '../common/components/assets/smile-happy.svg'
 import SadIcon from '../common/components/assets/smile-sad.svg'
@@ -111,7 +110,14 @@ const Feedback = (props: PropsType) => {
             <Description theme={theme}>{title}</Description>
             {feedbackOrigin === 'positive' && <Text>({t('optionalInfo')})</Text>}
           </DescriptionContainer>
-          <Input theme={theme} onChangeText={props.onCommentChanged} value={comment} multiline numberOfLines={3} autoFocus />
+          <Input
+            theme={theme}
+            onChangeText={props.onCommentChanged}
+            value={comment}
+            multiline
+            numberOfLines={3}
+            autoFocus={!isSearchFeedback}
+          />
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{t('contactMailAddress')}</Description>
             <Text>({t('optionalInfo')})</Text>
