@@ -57,7 +57,8 @@ const prepareState = ({
     cities: cities || {
       status: 'ready',
       models: [city]
-    }
+    },
+    snackbar: []
   }
 }
 
