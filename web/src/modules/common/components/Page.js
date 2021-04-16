@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react'
+import { sanitize } from "dompurify";
 import styled, { type StyledComponent } from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
@@ -53,7 +54,7 @@ const Page = ({
       {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
       <Caption title={title} />
       {children}
-      <RemoteContent dangerouslySetInnerHTML={{ __html: content }} onInternalLinkClick={onInternalLinkClick} />
+      <RemoteContent dangerouslySetInnerHTML={{ __html: sanitize(content) }} onInternalLinkClick={onInternalLinkClick} />
       {lastUpdate && (
         <LastUpdateInfo
           lastUpdate={lastUpdate}
