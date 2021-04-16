@@ -69,9 +69,6 @@ export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }:
   }
 
   const { title, content, date, eNewsNo } = tunewsElement
-  // Removes Last Update Timestamp in content
-  const filterPattern = `<p>${eNewsNo}</p>`
-  const filteredContent = content.replace(filterPattern,"")
 
   return (
     <StyledContainer>
@@ -83,7 +80,7 @@ export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }:
         </StyledBanner>
         <Page
           title={title}
-          content={filteredContent}
+          content={content}
           formatter={formatter}
           lastUpdateFormat={lastUpdateDateFormat}
           lastUpdate={date}
