@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import { sanitize } from "dompurify";
+import { sanitize } from "dompurify"
 import styled, { type StyledComponent } from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
