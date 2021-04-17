@@ -1,41 +1,15 @@
 // @flow
 
 import * as React from 'react'
-import { useContext } from 'react'
 import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
-import PlatformContext from '../../platform/PlatformContext'
 import type { StyledComponent } from 'styled-components'
 import type { ThemeType } from 'build-configs/ThemeType'
-
-// Works for Chrome > 69, Firefox > 41, RTL/LTR support does not work for IE
-
-const toLogicalProperty = (prop: string, supportsLogicalProperties: boolean): string => {
-  if (!supportsLogicalProperties) {
-    return prop
-  }
-
-  switch (prop) {
-    case 'right':
-      return 'inset-inline-end'
-    case 'left':
-      return 'inset-inline-start'
-    case 'border-left-width':
-      return 'border-inline-start-width'
-    case 'border-right-width':
-      return 'border-inline-end-width'
-    case 'border-left-color':
-      return 'border-inline-start-color'
-    case 'border-right-color':
-      return 'border-inline-end-color'
-  }
-
-  throw Error('Unknown property.')
-}
+import { useCallback, useEffect, useState } from 'react'
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
-const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css`
+const pseudosMixin = (flow: FlowType) => css`
   /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
   ::before {
     ${flow === 'up' &&
@@ -52,15 +26,15 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
     `}
     ${flow === 'left' &&
     `
-      ${toLogicalProperty('border-right-width', supportsLogicalProperties)}: 0;
-      ${toLogicalProperty('border-left-color', supportsLogicalProperties)}: #333;
-      ${toLogicalProperty('left', supportsLogicalProperties)}: -5px;
+      border-right-width: 0;
+      border-left-color: #333;
+      left: -5px;
     `}
     ${flow === 'right' &&
     `
-      ${toLogicalProperty('border-left-width', supportsLogicalProperties)}: 0;
-      ${toLogicalProperty('border-right-color', supportsLogicalProperties)}: #333;
-      ${toLogicalProperty('right', supportsLogicalProperties)}: -5px;
+      border-left-width: 0;
+      border-right-color: #333;
+      right: -5px;
     `}
   }
 
@@ -75,11 +49,11 @@ const pseudosMixin = (flow: FlowType, supportsLogicalProperties: boolean) => css
     `}
     ${flow === 'left' &&
     `
-      ${toLogicalProperty('right', supportsLogicalProperties)}: calc(99% + 5px);
+      right: calc(99% + 5px);
     `}
     ${flow === 'right' &&
     `
-      ${toLogicalProperty('left', supportsLogicalProperties)}: calc(99% + 5px);
+      left: calc(99% + 5px);
     `}
   }
 
@@ -103,8 +77,7 @@ const TooltipContainer: StyledComponent<
     text: string,
     flow: FlowType,
     smallViewportFlow: FlowType,
-    mediumViewportFlow: FlowType,
-    supportsLogicalProperties: boolean
+    mediumViewportFlow: FlowType
   |},
   ThemeType,
   *
@@ -125,7 +98,7 @@ const TooltipContainer: StyledComponent<
 
   ::before {
     content: '';
-    z-index: 1001;
+    z-index: 2000;
     border: 5px solid transparent;
   }
 
@@ -135,8 +108,9 @@ const TooltipContainer: StyledComponent<
 
     /* Content props */
     text-align: center;
-    min-width: 3em;
-    max-width: 21em;
+    min-width: 50px;
+    max-width: 200px;
+    max-height: 50px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -155,15 +129,15 @@ const TooltipContainer: StyledComponent<
 
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
-    ${props => pseudosMixin(props.flow, props.supportsLogicalProperties)}
+    ${props => pseudosMixin(props.flow)}
   }
   /* below 750px */
   @media screen and ${dimensions.smallViewport} {
-    ${props => pseudosMixin(props.smallViewportFlow, props.supportsLogicalProperties)}
+    ${props => pseudosMixin(props.smallViewportFlow)}
   }
   /* inbetween */
   @media screen and ${dimensions.mediumViewport} {
-    ${props => pseudosMixin(props.mediumViewportFlow, props.supportsLogicalProperties)}
+    ${props => pseudosMixin(props.mediumViewportFlow)}
   }
 
   @keyframes tooltips {
@@ -186,20 +160,105 @@ type PropsType = {|
   smallViewportFlow?: FlowType
 |}
 
+// maximum widths and heights
+const HEIGHT = 50
+const WIDTH = 200
+
+type ViewportDimensionsType = {|
+  width: number,
+  height: number
+|}
+
+const spaceCheckers: {
+  [FlowType]: {|
+    fallbacks: FlowType[],
+    check: (element: Element, dimensions: ViewportDimensionsType) => boolean
+  |}
+} = {
+  up: {
+    fallbacks: ['down', 'left', 'right'],
+    check: (element: Element) => element.getBoundingClientRect().top - HEIGHT >= 0
+  },
+  down: {
+    fallbacks: ['up', 'left', 'right'],
+    check: (element: Element, { height }) => element.getBoundingClientRect().bottom + HEIGHT <= height
+  },
+  left: {
+    fallbacks: ['right', 'up', 'left'],
+    check: (element, _) => element.getBoundingClientRect().left - WIDTH >= 0
+  },
+  right: {
+    fallbacks: ['left', 'up', 'left'],
+    check: (element, { width }) => element.getBoundingClientRect().right + HEIGHT <= width
+  }
+}
+
+const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: ViewportDimensionsType) => {
+  if (!element) {
+    return preferredFlow
+  }
+
+  const checker = spaceCheckers[preferredFlow]
+  if (!checker) {
+    throw new Error('Fallback not found')
+  }
+
+  if (checker.check(element, dimensions)) {
+    return preferredFlow
+  } else {
+    const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
+      const fallbackChecker = spaceCheckers[fallbackFlow]
+      if (!fallbackChecker) {
+        throw new Error('Fallback not found')
+      }
+      return fallbackChecker.check(element, dimensions)
+    })
+
+    return fallback ?? preferredFlow
+  }
+}
+
 export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }: PropsType) => {
-  const platform = useContext(PlatformContext)
+  const [container, setContainer] = useState<Element | null>(null)
+  const onRefSet = useCallback(
+    ref => {
+      setContainer(ref)
+    },
+    [setContainer]
+  )
+
+  const [dimensions, setDimensions] = useState<ViewportDimensionsType>({
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => window.removeEventListener('resize', handleResize)
+  })
 
   if (!text) {
     return children
   }
 
+  const fixedFlow = fixFlow(container, flow, dimensions)
+  const fixedMediumFlow = mediumViewportFlow ? fixFlow(container, mediumViewportFlow, dimensions) : fixedFlow
+  const fixedSmallFlow = smallViewportFlow ? fixFlow(container, smallViewportFlow, dimensions) : fixedMediumFlow
   return (
     <TooltipContainer
       text={text}
-      flow={flow}
-      mediumViewportFlow={mediumViewportFlow ?? flow}
-      smallViewportFlow={smallViewportFlow ?? mediumViewportFlow ?? flow}
-      supportsLogicalProperties={platform.supportsLogicalProperties}>
+      ref={onRefSet}
+      flow={fixedFlow}
+      mediumViewportFlow={fixedMediumFlow}
+      smallViewportFlow={fixedSmallFlow}>
       {children}
     </TooltipContainer>
   )
