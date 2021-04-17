@@ -65,7 +65,8 @@ const JpalTracking = (props: PropsType) => {
       const loadedSettings = await appSettings.loadSettings().catch()
       setSettingsLoaded(true)
       setSettings(loadedSettings)
-      setTimeout(() => setError(false), errorDisplayTime)
+      const timeout = setTimeout(() => setError(false), errorDisplayTime)
+      return () => clearTimeout(timeout)
     } catch (e) {
       setError(true)
     }

@@ -20,6 +20,7 @@ import { REDIRECT_ROUTE } from 'api-client'
 import AppStateListener from './AppStateListener'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
+import SnackbarContainer from '../../layout/containers/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
 
 NetInfo.configure({
@@ -81,6 +82,7 @@ const App = () => {
                   </NavigationContainer>
                 </IOSSafeAreaView>
                 {routeName && <PermissionSnackbarContainer routeName={routeName} />}
+                <SnackbarContainer />
               </>
             </SafeAreaProvider>
           </I18nProvider>
