@@ -28,18 +28,24 @@ const BoxShadow: StyledComponent<{||}, ThemeType, *> = styled.View`
 type PropsType = {|
   theme: ThemeType,
   query: string,
-  closeSearchBar: () => void,
+  closeSearchBar: (query: string) => void,
   onSearchChanged: (query: string) => void,
   t: TFunction
 |}
 
-const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: PropsType) => (
-  <BoxShadow theme={theme}>
-    <HorizontalLeft theme={theme}>
-      <HeaderBackButton onPress={closeSearchBar} labelVisible={false} />
-      <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
-    </HorizontalLeft>
-  </BoxShadow>
-)
+const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: PropsType) => {
+  const onClose = () => {
+    closeSearchBar(query)
+  }
+
+  return (
+    <BoxShadow theme={theme}>
+      <HorizontalLeft theme={theme}>
+        <HeaderBackButton onPress={onClose} labelVisible={false} />
+        <ThemedSearchBar theme={theme} onChangeText={onSearchChanged} value={query} autofocus t={t} />
+      </HorizontalLeft>
+    </BoxShadow>
+  )
+}
 
 export default SearchHeader
