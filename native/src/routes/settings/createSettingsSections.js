@@ -70,19 +70,6 @@ const createSettingsSections = ({
               }
             }
           ]),
-      ...(buildConfig().featureFlags.fixedCity
-        ? []
-        : [
-            {
-              title: t('proposeCitiesTitle'),
-              description: t('proposeCitiesDescription'),
-              hasSwitch: true,
-              getSettingValue: (settings: SettingsType) => settings.proposeNearbyCities,
-              onPress: () => {
-                setSetting(settings => ({ proposeNearbyCities: !settings.proposeNearbyCities }))
-              }
-            }
-          ]),
       {
         title: t('sentryTitle'),
         description: t('sentryDescription', { appName: buildConfig().appName }),

@@ -62,8 +62,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   deactivateProposeNearbyCities = async () => {
-    await new AppSettings().setSettings({ proposeNearbyCities: false })
-    this.updateSettingsAndPermissions()
+    // TODO Remove the whole snackbar container in IGAPP-593
   }
 
   deactivateAllowPushNotifications = async () => {
