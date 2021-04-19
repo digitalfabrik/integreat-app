@@ -87,9 +87,6 @@ export type SearchFinishedSignalType = {|
   url: string | null
 |}
 
-type LaunchSignalNameType = 'launch'
-export const LAUNCH_SIGNAL_NAME: LaunchSignalNameType = 'launch'
-
 type ResumeSignalNameType = 'resume'
 export const RESUME_SIGNAL_NAME: ResumeSignalNameType = 'resume'
 
@@ -97,7 +94,7 @@ type SuspendSignalNameType = 'suspend'
 export const SUSPEND_SIGNAL_NAME: SuspendSignalNameType = 'suspend'
 
 export type AppStateChangeSignalType = {|
-  name: LaunchSignalNameType | ResumeSignalNameType | SuspendSignalNameType
+  name: ResumeSignalNameType | SuspendSignalNameType
 |}
 
 type ShareSignalNameType = 'share'
