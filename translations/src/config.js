@@ -42,7 +42,8 @@ class Config {
     so: { rtl: false },
     hr: { rtl: false },
     es: { rtl: false },
-    sr: { rtl: false },
+    'sr-Latn': {  rtl: false },
+    'sr-Cyrl': {  rtl: false },
     ps: { rtl: true },
     kmr: { rtl: false },
     am: { rtl: false },
@@ -63,7 +64,8 @@ class Config {
     fa: ['pes'],
     'fa-AF': ['pes'],
     fa_pr: ['pes'],
-    'de-si': ['de']
+    'de-si': ['de'],
+    'sr': ['sr-Cyrl']
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this
