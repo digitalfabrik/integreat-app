@@ -134,7 +134,7 @@ export type SignalType = {|
   currentLanguage: string | null,
   appSettings: {|
     errorTracking: boolean | null,
-    allowPushNotifications: boolean | null,
+    allowPushNotifications: boolean | null
   |},
   timestamp: string
 |}
