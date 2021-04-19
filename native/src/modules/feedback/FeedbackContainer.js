@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react'
-import type { TFunction } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import withTheme from '../theme/hocs/withTheme'
 import Feedback, { type PropsType as FeedbackPropsType } from './Feedback'
 import type {
@@ -62,7 +62,6 @@ type StateType = {|
 |}
 
 export type PropsType = {|
-  t: TFunction,
   routeType: RouteType,
   feedbackOrigin: FeedbackOriginType,
   language: string,
@@ -82,6 +81,8 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
 
   getCityName = (): string => {
     const { cities, cityCode } = this.props
+    console.log(cityCode)
+    console.log(CityModel.findCityName(cities, cityCode))
     return CityModel.findCityName(cities, cityCode)
   }
 
@@ -146,11 +147,11 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
   }
 
   render() {
-    const { feedbackOrigin, t } = this.props
+    const { feedbackOrigin } = this.props
     const { comment, contactMail, sendingStatus } = this.state
 
     return (
-      <ThemedFeedbackModal
+      <ThemedTranslatedFeedback
         comment={comment}
         contactMail={contactMail}
         sendingStatus={sendingStatus}
@@ -158,10 +159,11 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
         onFeedbackContactMailChanged={this.onFeedbackContactMailChanged}
         feedbackOrigin={feedbackOrigin}
         onSubmit={this.handleSubmit}
-        t={t}
       />
     )
   }
 }
 
-const ThemedFeedbackModal = withTheme<FeedbackPropsType>(Feedback)
+const ThemedTranslatedFeedback = withTheme<$Diff<FeedbackPropsType, {| t: TFunction |}>>(
+  withTranslation<FeedbackPropsType>('feedback')(Feedback)
+)

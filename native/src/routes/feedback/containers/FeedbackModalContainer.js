@@ -3,7 +3,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { type Dispatch } from 'redux'
-import { withTranslation } from 'react-i18next'
 
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -14,9 +13,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import type { StateType } from '../../../modules/app/StateType'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import type { FeedbackOriginType } from '../../../modules/feedback/FeedbackContainer'
-import FeedbackContainer, {
-  type PropsType as FeedbackContainerPropsType
-} from '../../../modules/feedback/FeedbackContainer'
+import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
 
 type OwnPropsType = {|
   route: RoutePropType<FeedbackModalRouteType>,
@@ -64,13 +61,11 @@ const refresh = (refreshProps: OwnPropsType) => {
   navigateToFeedback(refreshProps.route.params)
 }
 
-const TranslatedFeedbackContainer = withTranslation<FeedbackContainerPropsType>('feedback')(FeedbackContainer)
-
 const FeedbackModalContainer = (props: InnerPropsType) => {
   const { routeType, language, cityCode, isPositiveFeedback } = props.route.params
   const feedbackOrigin = isPositiveFeedback ? 'positive' : 'negative'
   return (
-    <TranslatedFeedbackContainer
+    <FeedbackContainer
       routeType={routeType}
       feedbackOrigin={feedbackOrigin}
       language={language}
