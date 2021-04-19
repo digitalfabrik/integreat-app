@@ -81,8 +81,6 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
 
   getCityName = (): string => {
     const { cities, cityCode } = this.props
-    console.log(cityCode)
-    console.log(CityModel.findCityName(cities, cityCode))
     return CityModel.findCityName(cities, cityCode)
   }
 

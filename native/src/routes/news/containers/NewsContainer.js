@@ -3,7 +3,6 @@
 import type { NewsModelsType, StateType } from '../../../modules/app/StateType'
 import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
 import { connect } from 'react-redux'
-import { type TFunction, withTranslation } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import { CityModel } from 'api-client'
 import React, { useCallback } from 'react'
@@ -25,8 +24,7 @@ type NavigationPropsType = {|
 |}
 
 type OwnPropsType = {|
-  ...NavigationPropsType,
-  t: TFunction
+  ...NavigationPropsType
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
@@ -88,16 +86,15 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
+const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
   newLanguage: string
 ) => {
-  dispatch({ type: 'SWITCH_CONTENT_LANGUAGE', params: { newLanguage, city, t } })
+  dispatch({ type: 'SWITCH_CONTENT_LANGUAGE', params: { newLanguage, city } })
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
-    t,
     navigation,
     route: { key }
   } = ownProps
@@ -128,7 +125,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
     }
   }
 
@@ -291,8 +288,6 @@ const NewsContainer = (props: ContainerPropsType) => {
   }
 }
 
-export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(NewsContainer)
-  )
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(NewsContainer)
 )
