@@ -81,7 +81,7 @@ class CategoriesRouteConfig implements RouteConfig<CategoriesRouteParamsType, Re
   getFeedbackTargetInformation = ({ location, payloads }) => {
     const categories = payloads.categories.data
     const category = categories && categories.findCategoryByPath(location.pathname)
-    return category ? { path: category.path, title: category.title } : null
+    return category ? { path: category.path } : null
   }
 }
 

@@ -54,7 +54,7 @@ describe('I18nProvider', () => {
   })
 
   it('should use fallbacks for ui translations', async () => {
-    BrowserLanguageDetector.detect.mockReturnValue(['ckb'])
+    BrowserLanguageDetector.detect.mockReturnValue(['ku'])
     const store = prepareStore()
     act(() => {
       render(

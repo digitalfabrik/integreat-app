@@ -7451,11 +7451,6 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-focus-group@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/focus-group/-/focus-group-0.3.1.tgz#e0f32ed86b0dabdd6ffcebdf898ecb32e47fedce"
-  integrity sha1-4PMu2GsNq91v/OvfiY7LMuR/7c4=
-
 focus-trap-react@8.4.2:
   version "8.4.2"
   resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-8.4.2.tgz#5b313605e0789a7beee1467785e455dc63388a98"
@@ -12880,7 +12875,7 @@ prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -13138,15 +13133,6 @@ rc@^1.2.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
-
-react-aria-menubutton@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/react-aria-menubutton/-/react-aria-menubutton-7.0.1.tgz#698e78a56bee33035b7df89180060f4135ec021a"
-  integrity sha512-qhvTJEqnGGw8Seei+0kT6T1vX7maQ3tGRhUqpR9xJ2gJ/v6/YLcJRRvUL9qx/bpQO/7tCihJRgDvH0k+l5OChQ==
-  dependencies:
-    focus-group "^0.3.1"
-    prop-types "^15.6.0"
-    teeny-tap "^0.2.0"
 
 react-devtools-core@^4.6.0:
   version "4.10.1"
@@ -15562,11 +15548,6 @@ tar@^6.0.2:
     minizlib "^2.1.1"
     mkdirp "^1.0.3"
     yallist "^4.0.0"
-
-teeny-tap@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/teeny-tap/-/teeny-tap-0.2.0.tgz#167e645182d06ac222d62bb2ab67947a70a58a68"
-  integrity sha1-Fn5kUYLQasIi1iuyq2eUenClimg=
 
 temp-fs@^0.9.9:
   version "0.9.9"

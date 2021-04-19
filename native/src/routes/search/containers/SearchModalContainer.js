@@ -7,7 +7,7 @@ import type { StoreActionType } from '../../../modules/app/StoreActionType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import SearchModal, { type PropsType as SearchModalPropsType } from '../components/SearchModal'
 import { CategoriesMapModel, createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
-import { withTranslation, type TFunction } from 'react-i18next'
+import { type TFunction, withTranslation } from 'react-i18next'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
@@ -26,7 +26,7 @@ export type PropsType = {|
   categories: CategoriesMapModel | null,
   language: string,
   cityCode: ?string,
-  closeModal: () => void,
+  closeModal: (query: string) => void,
   sendFeedback: (comment: string, query: string) => Promise<void>
 |}
 
@@ -36,7 +36,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType) => {
     categories: state.cityContent?.searchRoute?.categoriesMap || null,
     language: state.contentLanguage,
     cityCode,
-    closeModal: () => {
+    closeModal: (query: string) => {
       ownProps.navigation.goBack()
     },
     sendFeedback: async (comment: string, query: string) => {
