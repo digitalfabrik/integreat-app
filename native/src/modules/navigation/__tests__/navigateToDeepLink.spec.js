@@ -16,6 +16,7 @@ import {
 import AppSettings from '../../settings/AppSettings'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
+import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 
 let navigateTo
 jest.mock('../createNavigate', () => {
@@ -24,6 +25,7 @@ jest.mock('../createNavigate', () => {
   return jest.fn(() => mockFunction)
 })
 jest.mock('../navigateToCategory')
+jest.mock('../../endpoint/sendTrackingSignal')
 
 describe('navigateToDeepLink', () => {
   const dispatch = jest.fn()
@@ -50,6 +52,7 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, { deepLink: url })
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to landing if no city is selected and intro slides already shown', async () => {
@@ -64,6 +67,7 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to landing if no city is selected and intro slides disabled', async () => {
@@ -77,6 +81,7 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to dashboard if there is a fixed city and intro slides already shown', async () => {
@@ -101,6 +106,7 @@ describe('navigateToDeepLink', () => {
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to dashboard if there is already a selected city', async () => {
@@ -125,6 +131,7 @@ describe('navigateToDeepLink', () => {
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -144,6 +151,7 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, { deepLink: url })
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to dashboard if intro slides already shown', async () => {
@@ -167,6 +175,7 @@ describe('navigateToDeepLink', () => {
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to dashboard and use current language if intro slides already shown', async () => {
@@ -191,6 +200,7 @@ describe('navigateToDeepLink', () => {
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should open selected city dashboard and navigate to route', async () => {
@@ -229,6 +239,7 @@ describe('navigateToDeepLink', () => {
         undefined,
         false
       )
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should navigate to fixed city if intro slides disabled', async () => {
@@ -252,6 +263,7 @@ describe('navigateToDeepLink', () => {
       })
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -271,6 +283,7 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, { deepLink: url })
       expect(createNavigate).not.toHaveBeenCalled()
       expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
@@ -307,6 +320,7 @@ describe('navigateToDeepLink', () => {
         undefined,
         false
       )
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should open dashboard and navigate to offers route if intro slides already shown', async () => {
@@ -342,6 +356,7 @@ describe('navigateToDeepLink', () => {
         undefined,
         false
       )
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should open selected city dashboard and navigate to route', async () => {
@@ -381,6 +396,7 @@ describe('navigateToDeepLink', () => {
         undefined,
         false
       )
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -406,6 +422,7 @@ describe('navigateToDeepLink', () => {
         undefined,
         false
       )
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
 
     it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
@@ -440,6 +457,7 @@ describe('navigateToDeepLink', () => {
         undefined,
         false
       )
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     })
   })
 })
