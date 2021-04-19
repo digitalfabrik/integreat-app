@@ -59,7 +59,7 @@ describe('NavigatorContainer', () => {
     const key = generateKey()
     const result = TestRenderer.create(
       <Provider store={store}>
-        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} languageCode='de' cityCode='augsburg' />
+        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
     const navigator = result.root.findByType(MockNavigator)
@@ -92,7 +92,7 @@ describe('NavigatorContainer', () => {
     const key = generateKey()
     const result = TestRenderer.create(
       <Provider store={store}>
-        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} languageCode='de' cityCode='augsburg' />
+        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
     const navigator = result.root.findByType(MockNavigator)
