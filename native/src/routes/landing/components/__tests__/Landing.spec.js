@@ -36,7 +36,7 @@ describe('Landing', () => {
   const navigateToDashboard = jest.fn()
   const language = 'de'
   const cities = new CityModelBuilder(6).build()
-  const augsburgCoordinates = { coords: { latitude: 48.369696, longitude: 10.892578 }}
+  const augsburgCoordinates = { coords: { latitude: 48.369696, longitude: 10.892578 } }
 
   it('should only show non-live cities', () => {
     mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
@@ -115,7 +115,9 @@ describe('Landing', () => {
 
     it('should determine location and show no nearby locations if there are none', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
-      Geolocation.getCurrentPosition.mockImplementationOnce(setPosition => setPosition({ coords: { longitude: 0, latitude: 0 } }))
+      Geolocation.getCurrentPosition.mockImplementationOnce(setPosition =>
+        setPosition({ coords: { longitude: 0, latitude: 0 } })
+      )
 
       const { queryByText, queryAllByText, getByText } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
