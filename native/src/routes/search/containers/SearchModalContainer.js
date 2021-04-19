@@ -30,7 +30,7 @@ export type InnerPropsType = {|
   categories: CategoriesMapModel | null,
   language: string,
   cityCode?: string,
-  closeModal: () => void,
+  closeModal: (query: string) => void,
   sendFeedback: (comment: string, query: string) => Promise<void>,
   cities: $ReadOnlyArray<CityModel>
 |}
@@ -57,7 +57,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       categories: state.cityContent?.searchRoute?.categoriesMap || null,
       language: state.contentLanguage,
       cityCode,
-      closeModal: () => {
+      closeModal: (query: string) => {
         ownProps.navigation.goBack()
       },
       sendFeedback: async (comment: string, query: string) => {
