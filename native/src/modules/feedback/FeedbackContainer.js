@@ -79,11 +79,6 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
     this.state = { comment: '', contactMail: '', sendingStatus: 'idle' }
   }
 
-  getCityName = (): string => {
-    const { cities, cityCode } = this.props
-    return CityModel.findCityName(cities, cityCode)
-  }
-
   getFeedbackType = (): FeedbackType => {
     const { routeType, path, alias } = this.props
 
@@ -109,7 +104,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
   getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
     const { path, alias, query, language, feedbackOrigin } = this.props
     const feedbackType = this.getFeedbackType()
-    const city = this.getCityName().toLocaleLowerCase(language)
+    const city = this.props.cityCode
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
 
     return {
