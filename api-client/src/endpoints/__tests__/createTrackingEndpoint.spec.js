@@ -94,7 +94,7 @@ describe('createTrackingEndpoint', () => {
             current_city: signal.currentCity,
             app_settings: {
               error_tracking: signal.appSettings.errorTracking,
-              allow_push_notifications: signal.appSettings.allowPushNotifications,
+              allow_push_notifications: signal.appSettings.allowPushNotifications
             }
           }
         })
