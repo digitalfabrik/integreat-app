@@ -7,11 +7,12 @@ import buildConfig from '../app/constants/buildConfig'
 import Url from 'url-parse'
 import type { Dispatch } from 'redux'
 import AppSettings from '../settings/AppSettings'
-import { DASHBOARD_ROUTE, INTRO_ROUTE, LANDING_ROUTE } from 'api-client'
+import { DASHBOARD_ROUTE, INTRO_ROUTE, LANDING_ROUTE, OPEN_DEEP_LINK_SIGNAL_NAME } from 'api-client'
 import navigateToCategory from './navigateToCategory'
 import { cityContentPath as createCityContentPath } from './url'
 import createNavigate from './createNavigate'
 import type { SettingsType } from '../settings/AppSettings'
+import sendTrackingSignal from '../endpoint/sendTrackingSignal'
 
 const navigateToDeepLink = async (
   dispatch: Dispatch<StoreActionType>,
@@ -23,6 +24,7 @@ const navigateToDeepLink = async (
   const settings: SettingsType = await appSettings.loadSettings()
   const { introShown, selectedCity } = settings
   const { introSlides, fixedCity } = buildConfig().featureFlags
+  sendTrackingSignal({ signal: { name: OPEN_DEEP_LINK_SIGNAL_NAME, url } })
 
   if (introSlides && !introShown) {
     // Show intro slides first and handle deep link later
