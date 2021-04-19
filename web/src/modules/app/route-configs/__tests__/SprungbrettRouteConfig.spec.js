@@ -99,8 +99,7 @@ describe('SprungbrettRouteConfig', () => {
     })
 
     expect(sprungbrettRouteConfig.getFeedbackTargetInformation({ payloads, location })).toEqual({
-      alias: 'sprungbrett',
-      title: 'Sprungbrett'
+      alias: 'sprungbrett'
     })
   })
 })
