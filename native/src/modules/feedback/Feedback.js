@@ -12,7 +12,6 @@ import type { FeedbackOriginType, SendingStatusType } from './FeedbackContainer'
 import type { StyledComponent } from 'styled-components'
 import buildConfig from '../app/constants/buildConfig'
 import HappyIcon from '../common/components/assets/smile-happy.svg'
-import SadIcon from '../common/components/assets/smile-sad.svg'
 
 const Input = styled(TextInput)`
   padding: 15px;
@@ -48,18 +47,8 @@ const Description = styled(ThemedText)`
   font-weight: bold;
 `
 
-const Heading = styled(ThemedText)`
-  font-size: 16px;
-  text-align: center;
-  padding: 10px 30px 30px;
-`
-
 const HappyIconContainer = styled.Image`
   margin: 100px auto 10px;
-`
-
-const SadIconContainer = styled.Image`
-  margin: 0px auto 10px;
 `
 
 export type PropsType = {|
@@ -100,12 +89,6 @@ const Feedback = (props: PropsType) => {
       return (
         <>
           {!isSearchFeedback && <Caption theme={theme} title={t('feedback')} />}
-          {feedbackOrigin === 'searchNothingFound' && (
-            <>
-              <SadIconContainer source={SadIcon} />
-              <Heading theme={theme}>{t('nothingFound')}</Heading>
-            </>
-          )}
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{title}</Description>
             {feedbackOrigin === 'positive' && <Text>({t('optionalInfo')})</Text>}

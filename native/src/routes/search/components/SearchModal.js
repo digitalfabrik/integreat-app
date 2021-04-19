@@ -7,7 +7,7 @@ import type { ListEntryType } from '../../../modules/categories/components/Categ
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import { type TFunction, withTranslation } from 'react-i18next'
+import { type TFunction } from 'react-i18next'
 
 import SearchHeader from './SearchHeader'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -16,8 +16,8 @@ import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import type { PropsType as FeedbackContainerPropsType } from '../../../modules/feedback/FeedbackContainer'
 import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
+import SadIcon from '../../../modules/common/components/assets/smile-sad.svg'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -26,6 +26,23 @@ const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   left: 0;
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
+`
+
+const ThemedText = styled.Text`
+  display: flex;
+  text-align: left;
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+`
+
+const Heading = styled(ThemedText)`
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 30px 30px;
+`
+
+const SadIconContainer = styled.Image`
+  margin: 0px auto 10px;
 `
 
 export type PropsType = {|
@@ -44,8 +61,6 @@ export type PropsType = {|
 type SearchStateType = {|
   query: string
 |}
-
-const TranslatedFeedbackContainer = withTranslation<FeedbackContainerPropsType>('feedback')(FeedbackContainer)
 
 class SearchModal extends React.Component<PropsType, SearchStateType> {
   state = { query: '' }
@@ -118,7 +133,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
   }
 
   renderContent = () => {
-    const { language, cityCode, theme, categories, navigateToLink } = this.props
+    const { language, cityCode, theme, categories, navigateToLink, t } = this.props
     const { query } = this.state
 
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -128,7 +143,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    const feedbackOrigin = filteredCategories.length !== 0 ? 'searchInformationNotFound' : 'searchNothingFound'
+    const feedbackOrigin = filteredCategories.length === 0 ? 'searchNothingFound' : 'searchInformationNotFound'
 
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
@@ -144,7 +159,13 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             language={language}
           />
         </View>
-        <TranslatedFeedbackContainer
+        {feedbackOrigin === 'searchNothingFound' && (
+          <>
+            <SadIconContainer source={SadIcon} />
+            <Heading theme={theme}>{t('feedback:nothingFound')}</Heading>
+          </>
+        )}
+        <FeedbackContainer
           routeType={SEARCH_ROUTE}
           feedbackOrigin={feedbackOrigin}
           language={language}

@@ -1237,10 +1237,13 @@
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
+      "informationNotFound": "Nicht das Richtige gefunden?",
       "wantedInformation": "Welche Informationen fehlen hier?",
       "feedbackSent": "Feedback abgeschickt",
       "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die {{appName}}-App zu verbessern. Wir würden uns über weiteres Feedback freuen.",
       "close": "Schließen",
+      "negativeRating": "Diese Seite ist nicht hilfreich",
+      "positiveRating": "Diese Seite ist hilfreich",
       "contactMailAddress": "E-Mail für Rückfragen",
       "optionalInfo": "optional"
     },

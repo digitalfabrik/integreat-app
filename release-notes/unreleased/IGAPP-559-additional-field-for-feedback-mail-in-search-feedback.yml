@@ -1,0 +1,7 @@
+issue_key: IGAPP-559
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: You now have the opportunity to add your mail adress when giving feedback.
+de: Du hast nun die Möglichkeit deine E-Mail Adresse beim Geben von Feedback zu hinterlassen.

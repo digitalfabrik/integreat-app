@@ -30,53 +30,52 @@ describe('Feedback', () => {
     }
   }
 
-  it('button should be disabled for negative Feedback and no input', async () => {
+  it('button should be disabled for negative feedback and no input', async () => {
     const { getByText } = render(<Feedback {...buildProps('negative', '')} />)
     expect(getByText('send')).toBeDisabled()
   })
 
-  it('button should be disabled for no search results Feedback and no input', async () => {
+  it('button should be disabled for no search results feedback and no input', async () => {
     const { getByText } = render(<Feedback {...buildProps('searchNothingFound', '')} />)
     expect(getByText('send')).toBeDisabled()
   })
 
-  it('button should be disabled for deficient search results Feedback and no input', async () => {
+  it('button should be disabled for deficient search results feedback and no input', async () => {
     const { getByText } = render(<Feedback {...buildProps('searchInformationNotFound', '')} />)
     expect(getByText('send')).toBeDisabled()
   })
 
-  it('button should be enabled for positive Feedback and no input', async () => {
+  it('button should be enabled for positive feedback and no input', async () => {
     const { getByText } = render(<Feedback {...buildProps('positive', '')} />)
     expect(getByText('send')).not.toBeDisabled()
   })
 
-  it('button should be enabled for negative Feedback and input', async () => {
+  it('button should be enabled for negative feedback and input', async () => {
     const { getByText } = render(<Feedback {...buildProps('negative', 'comment')} />)
     expect(getByText('send')).not.toBeDisabled()
   })
 
-  it('correct Text should be displayed for positive Feedback and input', async () => {
+  it('correct text should be displayed for positive feedback and input', async () => {
     const { getByText } = render(<Feedback {...buildProps('positive', 'comment')} />)
     expect(getByText('positiveComment')).toBeDefined()
   })
 
-  it('correct Text should be displayed for negative Feedback and input', async () => {
+  it('correct text should be displayed for negative feedback and input', async () => {
     const { getByText } = render(<Feedback {...buildProps('negative', 'comment')} />)
     expect(getByText('negativeComment')).toBeDefined()
   })
 
-  it('correct Text should be displayed for no search results Feedback and input', async () => {
+  it('correct text should be displayed for no search results feedback and input', async () => {
     const { getByText } = render(<Feedback {...buildProps('searchNothingFound', 'comment')} />)
     expect(getByText('wantedInformation')).toBeDefined()
-    expect(getByText('nothingFound')).toBeDefined()
   })
 
-  it('correct Text should be displayed for deficient search results Feedback and input', async () => {
+  it('correct text should be displayed for deficient search results feedback and input', async () => {
     const { getByText } = render(<Feedback {...buildProps('searchInformationNotFound', 'comment')} />)
     expect(getByText('wantedInformation')).toBeDefined()
   })
 
-  it('onSubmit should be called with query on button press for search Feedback', async () => {
+  it('onSubmit should be called with query on button press for search feedback', async () => {
     const { getByText } = render(<Feedback {...buildProps('searchNothingFound', 'My test comment')} />)
     const button = getByText('send')
     fireEvent.press(button)
