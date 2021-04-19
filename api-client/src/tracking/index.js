@@ -135,7 +135,6 @@ export type SignalType = {|
   appSettings: {|
     errorTracking: boolean | null,
     allowPushNotifications: boolean | null,
-    proposeNearbyCities: boolean | null
   |},
   timestamp: string
 |}
