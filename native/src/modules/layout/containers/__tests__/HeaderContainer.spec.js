@@ -4,8 +4,7 @@ import * as React from 'react'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import type { StateType } from '../../app/StateType'
-import Header from '../components/Header'
+import type { StateType } from '../../../app/StateType'
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -16,26 +15,25 @@ import {
   POIS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
+import HeaderContainer from '../HeaderContainer'
+import { render } from '@testing-library/react-native'
+import { Provider } from 'react-redux'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 
-jest.mock('../components/Header', () => {
+jest.mock('../../components/Header', () => {
   const Text = require('react-native').Text
-  return () => <Text>Header</Text>
+  // $FlowFixMe props are incompatible with text props, but this is just for testing purposes to assert on props
+  return (props: { ... }) => <Text {...props}>Header</Text>
 })
 
 describe('HeaderContainer', () => {
-  let TestRenderer, Provider
   let store, state
 
   beforeEach(() => {
-    jest.resetModules()
-    // Reimporting these modules fixes the following issue:
-    // Invalid hook call https://github.com/facebook/jest/issues/8987
-    TestRenderer = require('react-test-renderer')
-    Provider = require('react-redux').Provider
+    jest.clearAllMocks()
     state = prepareState()
     store = mockStore(state)
   })
@@ -117,27 +115,23 @@ describe('HeaderContainer', () => {
       cities: {
         status: 'ready',
         models: [city]
-      }
+      },
+      snackbar: []
     }
   }
 
-  const render = (props, customStore = store) => {
-    const HeaderContainer = require('../containers/HeaderContainer').default
-    return TestRenderer.create(
+  const assertProps = (props, expected, customStore = store) => {
+    const { getByText } = render(
       <Provider store={customStore}>
         {/* $FlowFixMe not all props passed */}
         <HeaderContainer {...props} />
       </Provider>
     )
-  }
-
-  const assertProps = (rendered, expected) => {
-    const header = rendered.root.findByType(Header)
+    const header = getByText('Header')
     expect(header.props).toEqual(expect.objectContaining(expected))
   }
 
   it('shareUrl should be set correctly for categories route', () => {
-    jest.doMock('../components/Header', () => Header)
     const ownProps = {
       scene: {
         route: {
@@ -145,13 +139,11 @@ describe('HeaderContainer', () => {
         }
       }
     }
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 
   it('shareUrl should be set correctly for events overview route', () => {
-    jest.doMock('../components/Header', () => Header)
     const ownProps = {
       scene: {
         route: {
@@ -160,13 +152,11 @@ describe('HeaderContainer', () => {
         }
       }
     }
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 
   it('shareUrl should be set correctly for specific event route', () => {
-    jest.doMock('../components/Header', () => Header)
     const ownProps = {
       scene: {
         route: {
@@ -175,14 +165,11 @@ describe('HeaderContainer', () => {
         }
       }
     }
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 
   it('shareUrl should be set correctly for local news route', () => {
-    jest.doMock('../components/Header', () => Header)
-
     const ownProps = {
       scene: {
         route: {
@@ -192,14 +179,11 @@ describe('HeaderContainer', () => {
       }
     }
 
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 
   it('shareUrl should be set correctly for local news details route', () => {
-    jest.doMock('../components/Header', () => Header)
-
     const ownProps = {
       scene: {
         route: {
@@ -213,15 +197,11 @@ describe('HeaderContainer', () => {
     // $FlowFixMe Everything correct here, nothing to see.
     state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
 
-    const result = render(ownProps, mockStore(state))
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
-
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl }, mockStore(state))
   })
 
   it('shareUrl should be set correctly for offers route', () => {
-    jest.doMock('../components/Header', () => Header)
-
     const ownProps = {
       scene: {
         route: {
@@ -230,14 +210,11 @@ describe('HeaderContainer', () => {
       }
     }
 
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 
   it('shareUrl should be set correctly for sprungbrett offer route', () => {
-    jest.doMock('../components/Header', () => Header)
-
     const ownProps = {
       scene: {
         route: {
@@ -246,14 +223,11 @@ describe('HeaderContainer', () => {
       }
     }
 
-    const result = render(ownProps)
     const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
-    assertProps(result, { shareUrl })
+    assertProps(ownProps, { shareUrl })
   })
 
   it('shareUrl should be set correctly for disclaimer route', () => {
-    jest.doMock('../components/Header', () => Header)
-
     const ownProps = {
       scene: {
         route: {
@@ -263,14 +237,11 @@ describe('HeaderContainer', () => {
       }
     }
 
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/nuernberg/ar/${DISCLAIMER_ROUTE}`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 
   it('shareUrl should be set correctly for pois overview route', () => {
-    jest.doMock('../components/Header', () => Header)
-
     const ownProps = {
       scene: {
         route: {
@@ -280,8 +251,7 @@ describe('HeaderContainer', () => {
       }
     }
 
-    const result = render(ownProps)
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
-    assertProps(result, { shareUrl: expectedShareUrl })
+    assertProps(ownProps, { shareUrl: expectedShareUrl })
   })
 })

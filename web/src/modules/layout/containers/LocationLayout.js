@@ -73,11 +73,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const { cities, offers, location, feedbackTargetInformation } = this.props
+    const { location, feedbackTargetInformation } = this.props
     return (
       <FeedbackModal
-        cities={cities}
-        offers={offers}
         feedbackRating={this.state.feedbackModalRating}
         closeFeedbackModal={this.closeFeedbackModal}
         location={location}

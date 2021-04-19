@@ -92,7 +92,8 @@ describe('CategoriesContainer', () => {
         searchRoute: null
       },
       contentLanguage: 'de',
-      cities: cities || { status: 'ready', models: [city] }
+      cities: cities || { status: 'ready', models: [city] },
+      snackbar: []
     }
   }
 

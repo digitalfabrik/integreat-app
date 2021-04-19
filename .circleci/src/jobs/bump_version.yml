@@ -14,13 +14,10 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
-      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> environment_variables
+      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
   - run:
       name: Calculate next version code
-      command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> environment_variables
-  - run:
-      name: Set environment varibales
-      command: cat environment_variables >> ${BASH_ENV}
+      command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> ${BASH_ENV}
   - unless:
       condition:
         equal: [ none, << parameters.delivery >>]
@@ -35,8 +32,5 @@ steps:
         - run:
             name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
             command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
-  - persist_to_workspace:
-      root: ./
-      paths:
-        - environment_variables
+  - persist_environment_variables
   - notify

@@ -2,9 +2,7 @@
 
 import * as React from 'react'
 import Snackbar from '../components/Snackbar'
-import type { ThemeType } from '../../theme/constants'
 import { type TFunction, withTranslation } from 'react-i18next'
-import withTheme from '../../theme/hocs/withTheme'
 import AppSettings from '../../settings/AppSettings'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import { checkLocationPermission, requestLocationPermission } from '../../app/LocationPermissionManager'
@@ -19,8 +17,7 @@ import { DASHBOARD_ROUTE, LANDING_ROUTE } from 'api-client/src/routes'
 
 type PropsType = {|
   routeName: string,
-  t: TFunction,
-  theme: ThemeType
+  t: TFunction
 |}
 
 type StateType = {|
@@ -109,7 +106,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   getSnackbar(): ?React$Element<*> {
-    const { t, theme } = this.props
+    const { t } = this.props
     const { showLocationSnackbar, showPushNotificationSnackbar } = this.state
     if (showLocationSnackbar) {
       return (
@@ -124,7 +121,6 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
             onPress: this.deactivateProposeNearbyCities
           }}
           message={t('locationPermissionMissing')}
-          theme={theme}
         />
       )
     } else if (showPushNotificationSnackbar) {
@@ -140,7 +136,6 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
             onPress: this.deactivateAllowPushNotifications
           }}
           message={t('pushNotificationPermissionMissing')}
-          theme={theme}
         />
       )
     }
@@ -152,6 +147,4 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 }
 
-export default withTranslation<$Diff<PropsType, {| theme: ThemeType |}>>('snackbar')(
-  withTheme<PropsType>(PermissionSnackbarContainer)
-)
+export default withTranslation<PropsType>('snackbar')(PermissionSnackbarContainer)
