@@ -1,4 +1,4 @@
-// flow-typed signature: 689311caccb0db4742bdff80086a5a09
+// flow-typed signature: 6228b002a30b24795c64a2df20dfbd79
 // flow-typed version: c6154227d1/redux-saga_v1.x.x/flow_>=v0.104.x
 
 declare module "redux-saga" {

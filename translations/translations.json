@@ -119,7 +119,7 @@
       },
       "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
     },
-    "ku": {
+    "kmr": {
       "pageTitles": {
         "search": "Lêgerîn",
         "events": "Rûdan",
@@ -209,7 +209,7 @@
       },
       "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
     },
-    "sr": {
+    "sr-Latn": {
       "pageTitles": {
         "search": "Pretraga",
         "events": "Manifestacije",
@@ -294,7 +294,7 @@
     "it": {
       "createPdf": "Crea PDF"
     },
-    "ku": {
+    "kmr": {
       "createPdf": "Pêkanîna PDF'ê"
     },
     "pl": {
@@ -312,7 +312,7 @@
     "so": {
       "createPdf": "Abuur PDF"
     },
-    "sr": {
+    "sr-Latn": {
       "createPdf": "Izradite PDF"
     },
     "ti": {
@@ -350,7 +350,7 @@
       "lastUpdate": "Última modificación:",
       "loading": "Cargando ..."
     },
-    "fa": {
+    "pes": {
       "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
       "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:"
@@ -372,7 +372,7 @@
       "lastUpdate": "Ultima modifica:",
       "loading": "Caricamento..."
     },
-    "ku": {
+    "kmr": {
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Guhertinên herî dawî:"
@@ -405,7 +405,7 @@
       "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Bedelkii ugu dambeeyay:"
     },
-    "sr": {
+    "sr-Latn": {
       "languageNotAvailable": "Tvoj jezik nažalost ovde nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnja promena:"
@@ -457,7 +457,7 @@
       "news": "Noticias",
       "newsAlternative": "Novedades"
     },
-    "fa": {
+    "pes": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
       "events": "رویدادها",
@@ -483,7 +483,7 @@
       "news": "Messaggi",
       "newsAlternative": "Novità"
     },
-    "ku": {
+    "kmr": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
       "events": "Rûdan",
@@ -525,7 +525,7 @@
       "news": "war",
       "newsAlternative": "war"
     },
-    "sr": {
+    "sr-Latn": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Manifestacije",
@@ -584,9 +584,7 @@
         "tunews": "Zu den tünews"
       },
       "pageTitle": "Fehler",
-      "generalError": "Ein Fehler ist aufgetreten",
-      "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "generalError": "Ein Fehler ist aufgetreten"
     },
     "ar": {
       "notFound": {
@@ -617,9 +615,7 @@
         "tunews": "إلى tünews"
       },
       "pageTitle": "خطأ",
-      "generalError": "حدث خطأ ما",
-      "languageSwitchFailedTitle": "للأسف، فشل في تغيير اللغة.",
-      "languageSwitchFailedMessage": "اللغة المُختارة غير متاحة دون الاتصال بالإنترنت. يلزم وجود اتصال نشط بالإنترنت."
+      "generalError": "حدث خطأ ما"
     },
     "en": {
       "notFound": {
@@ -650,9 +646,7 @@
         "tunews": "Go to tünews"
       },
       "pageTitle": "Error",
-      "generalError": "An error occurred",
-      "languageSwitchFailedTitle": "Unfortunately, changing the language failed.",
-      "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required."
+      "generalError": "An error occurred"
     },
     "es": {
       "notFound": {
@@ -683,11 +677,9 @@
         "tunews": "Ir a los tünews"
       },
       "pageTitle": "Error",
-      "generalError": "Se ha producido un error",
-      "languageSwitchFailedTitle": "No se ha podido cambiar el idioma.",
-      "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Se necesita una conexión a internet activada."
+      "generalError": "Se ha producido un error"
     },
-    "fa": {
+    "pes": {
       "notFound": {
         "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
         "city": "متاسفانه این شهر یافت نشد.",
@@ -711,9 +703,7 @@
         "offers": "به سوی خدمات"
       },
       "pageTitle": "خطا",
-      "generalError": "خطایی رخ داده است",
-      "languageSwitchFailedTitle": "متأسفانه تغییر زبان انجام نشد.",
-      "languageSwitchFailedMessage": "زبان انتخابی بصورت آفلاین در دسترس نیست. اتصال اینترنت فعال ضروری است."
+      "generalError": "خطایی رخ داده است"
     },
     "fr": {
       "notFound": {
@@ -744,9 +734,7 @@
         "tunews": "Accéder aux tünews"
       },
       "pageTitle": "Erreur",
-      "generalError": "Une erreur s'est produite",
-      "languageSwitchFailedTitle": "Malheureusement, le changement de langue a échoué.",
-      "languageSwitchFailedMessage": "La langue sélectionnée n'est pas disponible hors ligne. Une connexion Internet active est requise."
+      "generalError": "Une erreur s'est produite"
     },
     "hr": {
       "notFound": {
@@ -772,9 +760,7 @@
         "offers": "Na ponude"
       },
       "pageTitle": "Pogreške",
-      "generalError": "Došlo je do pogreške",
-      "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
-      "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
+      "generalError": "Došlo je do pogreške"
     },
     "it": {
       "notFound": {
@@ -805,11 +791,9 @@
         "tunews": "Vai su tünews"
       },
       "pageTitle": "Errore",
-      "generalError": "Si è verificato un errore",
-      "languageSwitchFailedTitle": "Purtroppo il cambio di lingua non è riuscito.",
-      "languageSwitchFailedMessage": "La lingua selezionata non è disponibile offline. È necessaria una connessione Internet attiva."
+      "generalError": "Si è verificato un errore"
     },
-    "ku": {
+    "kmr": {
       "notFound": {
         "language": "Mixabin zimanê te li vir li ber dest nîne.",
         "city": "Mixabin ev bajar nehat vedîtin.",
@@ -833,9 +817,7 @@
         "offers": "Ber bi xizmetan va"
       },
       "pageTitle": "Şaşitî (Eror)",
-      "generalError": "Şaşitiyek qewimiye",
-      "languageSwitchFailedTitle": "Mixabin guhertina Ziman pêk nehat.",
-      "languageSwitchFailedMessage": "Zimanê bijartî bi awayê ne-serxet (Offline) li ber dest nîne. Girêdana Înterneta çalak pêwîst e."
+      "generalError": "Şaşitiyek qewimiye"
     },
     "pl": {
       "notFound": {
@@ -866,9 +848,7 @@
         "tunews": "Do tünews"
       },
       "pageTitle": "Błąd",
-      "generalError": "Wystąpił błąd",
-      "languageSwitchFailedTitle": "Niestety zmiana języka się nie powiodła.",
-      "languageSwitchFailedMessage": "Wybrany język nie jest dostępny offline. Konieczne jest aktywne połączenie z Internetem."
+      "generalError": "Wystąpił błąd"
     },
     "ps": {
       "notFound": {
@@ -894,9 +874,7 @@
         "offers": "وړاندیزونو ته تلل"
       },
       "pageTitle": "اشتباه",
-      "generalError": "یوه اشتباه رامینځته شوه",
-      "languageSwitchFailedTitle": "له بده مرغه د ژبې انتخاب ناکام شو.",
-      "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی."
+      "generalError": "یوه اشتباه رامینځته شوه"
     },
     "ro": {
       "notFound": {
@@ -927,9 +905,7 @@
         "tunews": "Spre tünews"
       },
       "pageTitle": "Erori",
-      "generalError": "A apărut o eroare",
-      "languageSwitchFailedTitle": "Din păcate, schimbarea limbii a eșuat.",
-      "languageSwitchFailedMessage": "Limba selectată nu este disponibilă offline. Este necesară o conexiune activă la internet."
+      "generalError": "A apărut o eroare"
     },
     "ru": {
       "notFound": {
@@ -960,9 +936,7 @@
         "tunews": "К новостям tünews"
       },
       "pageTitle": "Ошибка",
-      "generalError": "Произошла ошибка",
-      "languageSwitchFailedTitle": "К сожалению, сменить язык не удалось.",
-      "languageSwitchFailedMessage": "Выбранный язык недоступен в автономном режиме. Необходимо подключение к Интернету."
+      "generalError": "Произошла ошибка"
     },
     "so": {
       "notFound": {
@@ -988,11 +962,9 @@
         "offers": "Ku saabsan dalabyada"
       },
       "pageTitle": "Qalad",
-      "generalError": "Khalad ayaa dhacay",
-      "languageSwitchFailedTitle": "Nasiib darro, bedelidda luqadda ayaa lagu guuldareystay.",
-      "languageSwitchFailedMessage": "Luqadda aad dooratay laguma heli karo ofleen(offline) ahaan. Xiriir internet oo shaqeeya ayaa loo baahan yahay."
+      "generalError": "Khalad ayaa dhacay"
     },
-    "sr": {
+    "sr-Latn": {
       "notFound": {
         "language": "Ovaj jezik nažalost ovde nije dostupan.",
         "city": "Ovaj grad nažalost nije pronađen.",
@@ -1016,9 +988,7 @@
         "offers": "Na ponude"
       },
       "pageTitle": "Greška",
-      "generalError": "Pojavila se greška",
-      "languageSwitchFailedTitle": "Promena jezika nažalost nije uspela.",
-      "languageSwitchFailedMessage": "Odabrani jezik nažalost nije dostupan oflajn. Potrebna je aktivna internetska veza."
+      "generalError": "Pojavila se greška"
     },
     "ti": {
       "notFound": {
@@ -1044,9 +1014,7 @@
         "offers": "ብዛዕባ እቶም ኣቕርቦታት"
       },
       "pageTitle": "ጌጋ",
-      "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
-      "languageSwitchFailedTitle": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እቲ ናይ ቋንቋ ለውጢ ኣይተዓወተን።",
-      "languageSwitchFailedMessage": "እቲ ዝተመርጸ ቋንቋ ካብ መስመር ኢንተርነት ወጻኢ የለን። ንጡፍ ናይ ኢንተርነት መስመር ኣድላዪ እዩ።"
+      "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ"
     },
     "tr": {
       "notFound": {
@@ -1077,9 +1045,7 @@
         "tunews": "tünews'a git"
       },
       "pageTitle": "Hata",
-      "generalError": "Bir hata oluştu",
-      "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
-      "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
+      "generalError": "Bir hata oluştu"
     },
     "zh-CN": {
       "notFound": {
@@ -1110,9 +1076,7 @@
         "tunews": "前往 tünews"
       },
       "pageTitle": "错误",
-      "generalError": "发生了错误",
-      "languageSwitchFailedTitle": "很抱歉，更改语言失败。",
-      "languageSwitchFailedMessage": "所选语言无法离线使用。需要有效的互联网连接。"
+      "generalError": "发生了错误"
     }
   },
   "events": {
@@ -1140,7 +1104,7 @@
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades."
     },
-    "fa": {
+    "pes": {
       "location": "محل",
       "date": "تاریخ",
       "events": "رویدادها",
@@ -1164,7 +1128,7 @@
       "events": "Eventi",
       "currentlyNoEvents": "Al momento non ci sono eventi."
     },
-    "ku": {
+    "kmr": {
       "location": "Mekan",
       "date": "Roj",
       "events": "Rûdan",
@@ -1200,7 +1164,7 @@
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan."
     },
-    "sr": {
+    "sr-Latn": {
       "location": "Lokacija",
       "date": "Datum",
       "events": "Manifestacije",
@@ -1340,7 +1304,7 @@
       "negativeRating": "Esta página no sirve de ayuda",
       "positiveRating": "Esta página sirve de ayuda"
     },
-    "fa": {
+    "pes": {
       "technicalTopics": "عملکردهای فنی",
       "contentOfCity": "محتوای {{city}}",
       "contentOfOffer": "خدمات ‎\"‎{{offer}}‎\"",
@@ -1450,7 +1414,7 @@
       "negativeRating": "Questa pagina non è utile",
       "positiveRating": "Questa pagina è utile"
     },
-    "ku": {
+    "kmr": {
       "technicalTopics": "Kirdeyên Teknîkî",
       "contentOfCity": "Naverok {{city}}",
       "contentOfOffer": "Xizmet \"{{offer}}\"",
@@ -1614,7 +1578,7 @@
       "negativeRating": "Boggan waxtar ma leh",
       "positiveRating": "Boggan waa mid waxtar badan"
     },
-    "sr": {
+    "sr-Latn": {
       "technicalTopics": "Tehničke funkcije",
       "contentOfCity": "Sadržaji u gradu {{city}}",
       "contentOfOffer": "Ponuda \"{{offer}}\"",
@@ -1838,7 +1802,7 @@
       "accept": "Aceptar",
       "privacyPolicy": "Declaración de privacidad"
     },
-    "fa": {
+    "pes": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
@@ -1950,7 +1914,7 @@
       "accept": "Accetta",
       "privacyPolicy": "Informativa sulla privacy"
     },
-    "ku": {
+    "kmr": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} rêbera te ya dîcîtal derbarê Almanyayê ye",
       "search": "Lêgerîn",
@@ -2118,7 +2082,7 @@
       "accept": "Aqbal",
       "privacyPolicy": "Ilaalinta xogta"
     },
-    "sr": {
+    "sr-Latn": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
       "search": "Pretraga",
@@ -2280,7 +2244,7 @@
       "timeout": "La localización falló",
       "refresh": "Actualizar lista de ubicaciones"
     },
-    "fa": {
+    "pes": {
       "searchCity": "جستجوی مکان",
       "nearbyPlaces": "مکان های نزدیک",
       "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
@@ -2323,7 +2287,7 @@
       "timeout": "Geolocalizzazione non riuscita",
       "refresh": "Aggiorna l’elenco dei luoghi"
     },
-    "ku": {
+    "kmr": {
       "searchCity": "Lêgerîna li Mekan",
       "nearbyPlaces": "Cihên nêzik",
       "noNearbyPlaces": "Tu cihek li vê nêzikatiyê nehat dîtin.",
@@ -2395,7 +2359,7 @@
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska goobaha"
     },
-    "sr": {
+    "sr-Latn": {
       "searchCity": "Tražite mesto",
       "nearbyPlaces": "Mesta u blizini",
       "noNearbyPlaces": "Nije pronađeno nijedno mesto u blizini.",
@@ -2525,7 +2489,7 @@
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
       "disclaimer": "Aviso legal"
     },
-    "fa": {
+    "pes": {
       "imprintAndContact": "اطلاعات ناشر و تماس",
       "privacy": "حفاظت از داده ها",
       "offers": "خدمات",
@@ -2604,7 +2568,7 @@
       "shareFailDefaultMessage": "Purtroppo la condivisione del contenuto non è riuscita.",
       "disclaimer": "Impressum"
     },
-    "ku": {
+    "kmr": {
       "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
       "privacy": "Parastina daneyan",
       "offers": "Xizmet",
@@ -2724,7 +2688,7 @@
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
       "disclaimer": "Qoraa"
     },
-    "sr": {
+    "sr-Latn": {
       "imprintAndContact": "Impresum i kontakt",
       "privacy": "Zaštita podataka",
       "offers": "Ponude",
@@ -2822,7 +2786,7 @@
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
       "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
     },
-    "fa": {
+    "pes": {
       "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
       "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
     },
@@ -2837,7 +2801,7 @@
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
     },
-    "ku": {
+    "kmr": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
       "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
     },
@@ -2861,7 +2825,7 @@
       "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada.",
       "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta."
     },
-    "sr": {
+    "sr-Latn": {
       "NSPhotoLibraryAddUsageDescription": "Za čuvanje slika {{appName}} treba pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Za pronalaženje mesta u blizini {{appName}} treba pristup lokaciji."
     },
@@ -2919,7 +2883,7 @@
       "currentlyNoNews": "En la actualidad no hay noticias",
       "currentlyNoNewsAlternative": "En la actualidad no hay novedades"
     },
-    "fa": {
+    "pes": {
       "news": "اخبار",
       "newsAlternative": "تازه‌ها",
       "localNews": "اخبار محلی",
@@ -2949,7 +2913,7 @@
       "currentlyNoNews": "Attualmente non ci sono notizie.",
       "currentlyNoNewsAlternative": "Attualmente non ci sono novità."
     },
-    "ku": {
+    "kmr": {
       "news": "Nûçe",
       "newsAlternative": "Nûçe",
       "localNews": "Nûçeyên herêmî",
@@ -3009,7 +2973,7 @@
       "currentlyNoNews": "Hada wax war ah ma jiraan.",
       "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan."
     },
-    "sr": {
+    "sr-Latn": {
       "news": "Vesti",
       "newsAlternative": "Novosti",
       "localNews": "Lokalne vesti",
@@ -3063,7 +3027,7 @@
     "es": {
       "offers": "Ofertas"
     },
-    "fa": {
+    "pes": {
       "offers": "خدمات"
     },
     "fr": {
@@ -3075,7 +3039,7 @@
     "it": {
       "offers": "Offerte"
     },
-    "ku": {
+    "kmr": {
       "offers": "Xizmet"
     },
     "pl": {
@@ -3093,7 +3057,7 @@
     "so": {
       "offers": "Heshiisyo"
     },
-    "sr": {
+    "sr-Latn": {
       "offers": "Ponude"
     },
     "ti": {
@@ -3119,7 +3083,7 @@
     "es": {
       "searchPlaceholder": "Búsqueda   "
     },
-    "fa": {
+    "pes": {
       "searchPlaceholder": "جستجو"
     },
     "fr": {
@@ -3128,7 +3092,7 @@
     "it": {
       "searchPlaceholder": "Ricerca"
     },
-    "ku": {
+    "kmr": {
       "searchPlaceholder": "Lêgerîn"
     },
     "pl": {
@@ -3146,7 +3110,7 @@
     "so": {
       "searchPlaceholder": "Raadin"
     },
-    "sr": {
+    "sr-Latn": {
       "searchPlaceholder": "Pretraga"
     },
     "ti": {
@@ -3214,7 +3178,7 @@
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta"
     },
-    "fa": {
+    "pes": {
       "sentryTitle": "پایداری اپلیکیشن",
       "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ {{appName}} را بهبود بخشید",
       "pushNewsTitle": "پیام های فوری",
@@ -3261,7 +3225,7 @@
       "version": "Versione: {{version}}",
       "openSourceLicenses": "Licenze open source"
     },
-    "ku": {
+    "kmr": {
       "sentryTitle": "Mayîndetiya App'ê",
       "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa '{{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
@@ -3333,7 +3297,7 @@
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan"
     },
-    "sr": {
+    "sr-Latn": {
       "sentryTitle": "Stabilnost aplikacije",
       "sentryDescription": "Automatskim slanjem izveštaja o padu sistema da se poboljša {{appName}",
       "pushNewsTitle": "Push notifikacije",
@@ -3419,7 +3383,7 @@
       "learnMore": "Más información",
       "dismiss": "Cerrar"
     },
-    "fa": {
+    "pes": {
       "grantPermission": "اجازه دادن",
       "deactivateFeature": "غیرفعال کردن ویژگی",
       "locationPermissionMissing": "دسترسی به موقعیت مکانی برای پرای ارائه پیشنهادات موجود در نزدیکی الزامی است",
@@ -3450,7 +3414,7 @@
       "learnMore": "Maggiori informazioni",
       "dismiss": "Chiudi"
     },
-    "ku": {
+    "kmr": {
       "grantPermission": "Rêdan",
       "deactivateFeature": "Neçalakkirina taybetmendiyê",
       "locationPermissionMissing": "Destûr hewce ye ji bo pêşniyarkirina mekanên nû",
@@ -3504,7 +3468,7 @@
       "learnMore": "Macluumaad dheeraad ah",
       "dismiss": "Gunaanad"
     },
-    "sr": {
+    "sr-Latn": {
       "grantPermission": "Dozvolite",
       "deactivateFeature": "Deaktivirajte značajke",
       "locationPermissionMissing": "Pristup lokaciji za predlaganje mesta u blizini",
@@ -3554,7 +3518,7 @@
     "es": {
       "noOffersAvailable": "No hay ofertas disponibles"
     },
-    "fa": {
+    "pes": {
       "noOffersAvailable": "هیچ خدماتی در دسترس نیست"
     },
     "fr": {
@@ -3566,7 +3530,7 @@
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"
     },
-    "ku": {
+    "kmr": {
       "noOffersAvailable": "Tu xizmetek li ber dest nîne"
     },
     "pl": {
@@ -3584,7 +3548,7 @@
     "so": {
       "noOffersAvailable": "Wax adeeg ah oo la heli karo ma jiraan"
     },
-    "sr": {
+    "sr-Latn": {
       "noOffersAvailable": "Nema dosutpnih ponuda"
     },
     "ti": {
@@ -3718,7 +3682,7 @@
         }
       }
     },
-    "fa": {
+    "pes": {
       "noOffersAvailable": "هیچ خدماتی در دسترس نیست.",
       "values": {
         "runningServices": {
@@ -3808,7 +3772,7 @@
         }
       }
     },
-    "ku": {
+    "kmr": {
       "noOffersAvailable": "Tu xizmetek li ber dest nîne.",
       "values": {
         "runningServices": {

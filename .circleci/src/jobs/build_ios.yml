@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 macos:
-  xcode: 11.7.0
+  xcode: 12.4.0
 resource_class: medium
 environment:
   FL_OUTPUT_DIR: output
@@ -43,4 +43,17 @@ steps:
       root: native/ios/output/gym
       paths:
         - << parameters.build_config_name >>.ipa
+  - unless:
+      condition:
+        or:
+          - equal: [ integreat-e2e, << parameters.build_config_name >>]
+          - equal: [ integreat-test-cms, << parameters.build_config_name >>]
+      steps:
+        - run:
+            name: Persist artifact url
+            command: echo "[<< parameters.build_config_name >>.ipa](https://$CIRCLE_BUILD_NUM-$GITHUB_REPO_ID-gh.circle-artifacts.com/0/native/ios/output/gym/integreat.ipa)" >> << parameters.build_config_name >>-ipa-url
+        - persist_to_workspace:
+            root: ./
+            paths:
+              - << parameters.build_config_name >>-ipa-url
   - notify

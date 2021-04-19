@@ -266,7 +266,14 @@ export type CityContentStateType = {|
 
 export const defaultCityContentState = null
 
+export type SnackbarType = {|
+  text: string
+|}
+
+export type SnackbarStateType = Array<SnackbarType>
+
 export type StateType = {|
+  +snackbar: SnackbarStateType,
   +darkMode: boolean,
   +resourceCacheUrl: string | null,
   +cityContent: CityContentStateType | null,
