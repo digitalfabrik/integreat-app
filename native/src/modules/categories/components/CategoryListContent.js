@@ -76,8 +76,8 @@ const CategoryListContent = ({
           alterNode={alterResources}
           renderersProps={{
             a: { onPress: onLinkPress },
-            ol: { enableExperimentalRtl: true, direction: 'rtl' },
-            ul: { enableExperimentalRtl: true, direction: 'rtl' }
+            ol: { enableExperimentalRtl: true },
+            ul: { enableExperimentalRtl: true }
           }}
           baseFontStyle={{
             fontSize: 14,
