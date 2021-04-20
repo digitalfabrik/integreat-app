@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import { useCallback, useContext } from 'react'
-import { useWindowDimensions, Text, View } from 'react-native'
-import Html, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
+import { useWindowDimensions } from 'react-native'
+import RenderHTML, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -11,6 +11,7 @@ import Moment from 'moment'
 import { config } from 'translations'
 import TimeStamp from '../../common/components/TimeStamp'
 import SpaceBetween from '../../common/components/SpaceBetween'
+import { contentAlignment } from '../../i18n/contentDirection'
 
 const HORIZONTAL_MARGIN = 8
 
@@ -31,19 +32,14 @@ type ContentPropsType = {|
   theme: ThemeType
 |}
 
-const textDistanceToBullet = 10
-const listIndent = 20
-const bulletSizeRelativeToFont = 2.8
-const bulletAlignmentRelativeToFont = 2
-
 const CategoryListContent = ({
-  content,
-  navigateToLink,
-  cacheDictionary,
-  language,
-  lastUpdate,
-  theme
-}: ContentPropsType) => {
+                               content,
+                               navigateToLink,
+                               cacheDictionary,
+                               language,
+                               lastUpdate,
+                               theme
+                             }: ContentPropsType) => {
   const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
   const onLinkPress = useCallback(
@@ -57,124 +53,45 @@ const CategoryListContent = ({
   const alterResources = useCallback(
     (node: HTMLNode) => {
       if (node.attribs) {
-        if (node.attribs.href) {
-          const newResource = cacheDictionary[decodeURI(node.attribs.href)]
-          if (newResource) {
-            node.attribs = {
-              ...(node.attribs || {}),
-              href: newResource
-            }
-            return node
+        const newHref = node.attribs.href ?? cacheDictionary[decodeURI(node.attribs.href)]
+        const newSrc = node.attribs.src ?? cacheDictionary[decodeURI(node.attribs.src)]
+        console.log('Before')
+        console.log(node)
+        if (newHref || newSrc) {
+          node.attribs = {
+            ...node.attribs,
+            ...newHref && { href: newHref },
+            ...newSrc && { src: newSrc },
           }
-        } else if (node.attribs.src) {
-          const newResource = cacheDictionary[decodeURI(node.attribs.src)]
-          if (newResource) {
-            node.attribs = {
-              ...(node.attribs || {}),
-              src: newResource
-            }
-            return node
-          }
+          console.log('After')
+          console.log(node)
+          return node
         }
       }
-    },
-    [cacheDictionary]
-  )
-
-  // TODO: remove with IGAPP-378
-  const renderUnorderedListPrefix = useCallback(
-    (htmlAttribs, children, convertedCSSStyles, passProps) => {
-      const { baseFontStyle } = passProps
-      const baseFontSize = baseFontStyle.fontSize
-      return (
-        <View
-          style={{
-            width: baseFontSize / bulletSizeRelativeToFont,
-            height: baseFontSize / bulletSizeRelativeToFont,
-            borderRadius: baseFontSize / bulletSizeRelativeToFont,
-            marginTop: baseFontSize / bulletAlignmentRelativeToFont,
-            marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
-            marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent,
-            backgroundColor: theme.colors.textColor
-          }}
-        />
-      )
-    },
-    [language, theme]
-  )
-
-  // TODO: remove with IGAPP-378
-  const renderOrderedListPrefix = useCallback(
-    (htmlAttribs, children, convertedCSSStyles, passProps) => {
-      const { baseFontSize, allowFontScaling, index } = passProps
-      return (
-        <Text
-          allowFontScaling={allowFontScaling}
-          style={{
-            fontSize: baseFontSize,
-            marginRight: config.hasRTLScript(language) ? listIndent : textDistanceToBullet,
-            marginLeft: config.hasRTLScript(language) ? textDistanceToBullet : listIndent
-          }}>
-          {index})
-        </Text>
-      )
-    },
-    [language]
-  )
-
-  // see https://github.com/archriss/react-native-render-html/issues/286
-  // TODO: remove with IGAPP-378
-  const renderLists = useCallback(
-    (htmlAttribs, children, convertedCSSStyles, passProps) => {
-      const { transientChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
-      children =
-        children &&
-        children.map((child, index) => {
-          const rawChild = transientChildren[index]
-          let prefix = false
-          if (rawChild && rawChild.tagName === 'li') {
-            if (rawChild.parentTag === 'ul') {
-              prefix = listsPrefixesRenderers.ul(htmlAttribs, children, convertedCSSStyles, { ...passProps })
-            } else if (rawChild.parentTag === 'ol') {
-              prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
-            }
-          }
-          return config.hasRTLScript(language) ? (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 1 }}>{child}</View>
-              {prefix}
-            </View>
-          ) : (
-            <View key={`list-${nodeIndex}-${index}-${key}`} style={{ flexDirection: 'row' }}>
-              {prefix}
-              <View style={{ flex: 1 }}>{child}</View>
-            </View>
-          )
-        })
-      return <View key={key}>{children}</View>
-    },
-    [language]
-  )
+    }, [cacheDictionary])
 
   return (
     <SpaceBetween>
       <Container>
-        <Html
+        <RenderHTML
           source={{ html: content }}
-          onLinkPress={onLinkPress}
           contentWidth={width}
           defaultTextProps={{ selectable: true, allowFontStyling: true }}
           alterNode={alterResources}
-          listsPrefixesRenderers={{ ul: renderUnorderedListPrefix, ol: renderOrderedListPrefix }}
-          renderers={{ ul: renderLists, ol: renderLists }}
+          renderersProps={{
+            a: { onPress: onLinkPress },
+            ol: { enableExperimentalRtl: true, direction: 'rtl' },
+            ul: { enableExperimentalRtl: true, direction: 'rtl' }
+          }}
           baseFontStyle={{
             fontSize: 14,
             fontFamily: theme.fonts.native.contentFontRegular,
             color: theme.colors.textColor
           }}
           tagsStyles={{
-            p: { textAlign: config.hasRTLScript(language) ? 'right' : 'left' },
-            img: { align: config.hasRTLScript(language) ? 'right' : 'left' }
+            ul: { direction: config.hasRTLScript(language) ? 'rtl' : 'ltr' },
+            ol: { direction: config.hasRTLScript(language) ? 'rtl' : 'ltr' },
+            p: { textAlign: contentAlignment(language) }
           }}
         />
         {lastUpdate && (
