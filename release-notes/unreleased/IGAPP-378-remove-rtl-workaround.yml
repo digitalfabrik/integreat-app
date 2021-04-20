@@ -1,0 +1,7 @@
+issue_key: IGAPP-378
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Second level content has now proper rtl/ltr support in lists.
+de: Inhalte auf zweitem Level unterstützen rtl/ltr nun nativ in Listen.

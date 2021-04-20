@@ -33,13 +33,13 @@ type ContentPropsType = {|
 |}
 
 const CategoryListContent = ({
-                               content,
-                               navigateToLink,
-                               cacheDictionary,
-                               language,
-                               lastUpdate,
-                               theme
-                             }: ContentPropsType) => {
+  content,
+  navigateToLink,
+  cacheDictionary,
+  language,
+  lastUpdate,
+  theme
+}: ContentPropsType) => {
   const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
   const onLinkPress = useCallback(
@@ -53,18 +53,20 @@ const CategoryListContent = ({
   const alterResources = useCallback(
     (node: HTMLNode) => {
       if (node.attribs) {
-        const newHref = node.attribs.href ?? cacheDictionary[decodeURI(node.attribs.href)]
-        const newSrc = node.attribs.src ?? cacheDictionary[decodeURI(node.attribs.src)]
+        const newHref = node.attribs.href ? { href: cacheDictionary[decodeURI(node.attribs.href)] } : {}
+        const newSrc = node.attribs.src ? { src: cacheDictionary[decodeURI(node.attribs.src)] } : {}
         if (newHref || newSrc) {
           node.attribs = {
             ...node.attribs,
-            ...newHref && { href: newHref },
-            ...newSrc && { src: newSrc },
+            ...newHref,
+            ...newSrc
           }
           return node
         }
       }
-    }, [cacheDictionary])
+    },
+    [cacheDictionary]
+  )
 
   return (
     <SpaceBetween>
