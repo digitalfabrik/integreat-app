@@ -55,16 +55,12 @@ const CategoryListContent = ({
       if (node.attribs) {
         const newHref = node.attribs.href ?? cacheDictionary[decodeURI(node.attribs.href)]
         const newSrc = node.attribs.src ?? cacheDictionary[decodeURI(node.attribs.src)]
-        console.log('Before')
-        console.log(node)
         if (newHref || newSrc) {
           node.attribs = {
             ...node.attribs,
             ...newHref && { href: newHref },
             ...newSrc && { src: newSrc },
           }
-          console.log('After')
-          console.log(node)
           return node
         }
       }
