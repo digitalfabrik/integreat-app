@@ -13,13 +13,15 @@ export const checkPushNotificationPermission = async (): RESULTS => {
   return status
 }
 
-export const requestPushNotificationPermission = async (): Promise<void> => {
+export const requestPushNotificationPermission = async (): Promise<boolean> => {
   if (!buildConfig().featureFlags.pushNotifications) {
     console.debug('Push notifications disabled, no permissions requested.')
-    return
+    return false
   }
   const authStatus = await messaging().requestPermission()
   console.debug('Authorization status:', authStatus)
+  // Firebase returns either 1 for granted or 0 for rejected permissions
+  return authStatus !== 0
 }
 
 const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
