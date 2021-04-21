@@ -1,16 +1,15 @@
 // @flow
 
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 import { type Dispatch } from 'redux'
-import { SectionList, StyleSheet, Switch, Text, View } from 'react-native'
-import { Badge, Icon } from 'react-native-elements'
+import { SectionList, StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
 import type { ThemeType } from 'build-configs/ThemeType'
 import type { TFunction } from 'react-i18next'
 import type { SettingsType } from '../../../modules/settings/AppSettings'
-import AppSettings, { defaultSettings } from '../../../modules/settings/AppSettings'
+import AppSettings from '../../../modules/settings/AppSettings'
 import createSettingsSections from '../createSettingsSections'
 import type { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
@@ -27,11 +26,6 @@ export type PropsType = {|
   route: RoutePropType<SettingsRouteType>,
   navigation: NavigationPropType<SettingsRouteType>,
   dispatch: Dispatch<StoreActionType>
-|}
-
-type StateType = {|
-  settings: SettingsType,
-  settingsLoaded: boolean
 |}
 
 type ItemType = {|
@@ -56,135 +50,97 @@ const SectionHeader = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-export default class Settings extends React.Component<PropsType, StateType> {
-  appSettings: AppSettings
-  unsubscribeNavigationListener: () => void
+const appSettings = new AppSettings()
 
-  constructor(props: PropsType) {
-    super(props)
+const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) => {
+  const [settings, setSettings] = useState<SettingsType | null>(null)
 
-    this.state = { settingsLoaded: false, settings: defaultSettings }
-    this.appSettings = new AppSettings()
+  useEffect(() => {
+    loadSettings()
+  }, [])
 
-    this.loadSettings()
-
-    this.unsubscribeNavigationListener = this.props.navigation.addListener('focus', () => {
-      this.loadSettings()
+  useEffect(() => {
+    // Reload settings if navigating back from another route
+    return navigation.addListener('focus', () => {
+      loadSettings()
     })
-  }
+  }, [navigation])
 
-  async loadSettings() {
+  const loadSettings = async () => {
     try {
-      const settings = await this.appSettings.loadSettings()
-
-      this.setState({ settingsLoaded: true, settings })
+      const settings = await appSettings.loadSettings()
+      setSettings(settings)
     } catch (e) {
       console.error('Failed to load settings.')
     }
   }
 
-  componentWillUnmount() {
-    this.unsubscribeNavigationListener()
-  }
-
-  setSetting = async (
+  const setSetting = async (
     changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
     changeAction?: (settings: SettingsType) => Promise<void>
   ) => {
-    this.setState(
-      state => {
-        const newSettings = changeSetting(state.settings)
-        return { settings: { ...state.settings, ...newSettings } }
-      },
-      async () => {
-        const newSettings = this.state.settings
-        try {
-          if (changeAction) {
-            await changeAction(newSettings)
-          }
-          await this.appSettings.setSettings(newSettings)
-        } catch (e) {
-          console.error(e)
-          console.error('Failed to persist settings.')
-        }
+    if (!settings) {
+      return
+    }
+    const oldSettings = settings
+    const newSettings = { ...oldSettings, ...changeSetting(settings) }
+    setSettings(newSettings)
+
+    try {
+      if (changeAction) {
+        await changeAction(newSettings)
       }
-    )
+      await appSettings.setSettings(newSettings)
+    } catch (e) {
+      console.error(e)
+      console.error('Failed to persist settings.')
+      setSettings(oldSettings)
+    }
   }
 
-  renderItem = ({ item }: { item: ItemType, ... }) => {
-    const { theme, t } = this.props
-    const { title, description, hasSwitch, hasBadge, onPress, getSettingValue, accessibilityRole } = item
-    const value = getSettingValue ? getSettingValue(this.state.settings) : false
+  const renderItem = ({ item }: { item: ItemType, ... }) => {
+    const { getSettingValue, ...otherProps } = item
+    const value = !!(settings && getSettingValue && getSettingValue(settings))
 
-    return (
-      <SettingItem
-        accessibilityRole={accessibilityRole}
-        title={title}
-        description={description}
-        onPress={onPress}
-        theme={theme}>
-        {hasSwitch && (
-          <Switch
-            thumbColor={theme.colors.themeColor}
-            trackColor={{ true: theme.colors.themeColor }}
-            value={value}
-            onValueChange={onPress}
-          />
-        )}
-        {hasBadge && (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Badge status={value ? 'success' : 'error'} />
-            <Text> {value ? t('enabled') : t('disabled')}</Text>
-            <Icon name='chevron-right' />
-          </View>
-        )}
-      </SettingItem>
-    )
+    return <SettingItem value={value} theme={theme} t={t} {...otherProps} />
   }
 
-  renderSectionHeader = ({ section: { title } }: { section: SectionType, ... }) => {
+  const renderSectionHeader = ({ section: { title } }: { section: SectionType, ... }) => {
     if (!title) {
       return null
     }
-    return (
-      <View>
-        <SectionHeader theme={this.props.theme}>{title}</SectionHeader>
-      </View>
-    )
+    return <SectionHeader theme={theme}>{title}</SectionHeader>
   }
 
-  keyExtractor = (item: ItemType, index: number): string => index.toString()
+  const keyExtractor = (item: ItemType, index: number): string => index.toString()
 
-  ThemedItemSeparator = () => <ItemSeparator theme={this.props.theme} />
+  const ThemedItemSeparator = () => <ItemSeparator theme={theme} />
 
-  render() {
-    const { t, languageCode, cityCode, navigation } = this.props
-    const { settings, settingsLoaded } = this.state
-
-    if (!settingsLoaded) {
-      return <LayoutContainer />
-    }
-
-    return (
-      <LayoutContainer>
-        <SectionList
-          keyExtractor={this.keyExtractor}
-          sections={createSettingsSections({
-            setSetting: this.setSetting,
-            t,
-            languageCode,
-            cityCode,
-            navigation,
-            settings
-          })}
-          extraData={settings}
-          renderItem={this.renderItem}
-          renderSectionHeader={this.renderSectionHeader}
-          ItemSeparatorComponent={this.ThemedItemSeparator}
-          SectionSeparatorComponent={this.ThemedItemSeparator}
-          stickySectionHeadersEnabled={false}
-        />
-      </LayoutContainer>
-    )
+  if (!settings) {
+    return <LayoutContainer />
   }
+
+  return (
+    <LayoutContainer>
+      <SectionList
+        keyExtractor={keyExtractor}
+        sections={createSettingsSections({
+          setSetting,
+          t,
+          languageCode,
+          cityCode,
+          navigation,
+          settings
+        })}
+        extraData={settings}
+        renderItem={renderItem}
+        renderSectionHeader={renderSectionHeader}
+        ItemSeparatorComponent={ThemedItemSeparator}
+        SectionSeparatorComponent={ThemedItemSeparator}
+        stickySectionHeadersEnabled={false}
+      />
+    </LayoutContainer>
+  )
 }
+
+export default Settings
