@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useCallback, useContext } from 'react'
 import { useWindowDimensions } from 'react-native'
-import RenderHTML, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
+import HTML, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -53,13 +53,13 @@ const CategoryListContent = ({
   const alterResources = useCallback(
     (node: HTMLNode) => {
       if (node.attribs) {
-        const newHref = node.attribs.href ? { href: cacheDictionary[decodeURI(node.attribs.href)] } : {}
-        const newSrc = node.attribs.src ? { src: cacheDictionary[decodeURI(node.attribs.src)] } : {}
+        const newHref = node.attribs.href && cacheDictionary[decodeURI(node.attribs.href)]
+        const newSrc = node.attribs.src && cacheDictionary[decodeURI(node.attribs.src)]
         if (newHref || newSrc) {
           node.attribs = {
             ...node.attribs,
-            ...newHref,
-            ...newSrc
+            ...(newHref && { href: newHref }),
+            ...(newSrc && { src: newSrc })
           }
           return node
         }
@@ -67,15 +67,14 @@ const CategoryListContent = ({
     },
     [cacheDictionary]
   )
-
   return (
     <SpaceBetween>
       <Container>
-        <RenderHTML
+        <HTML
           source={{ html: content }}
           contentWidth={width}
           defaultTextProps={{ selectable: true, allowFontStyling: true }}
-          alterNode={alterResources}
+          alterDOMElement={alterResources}
           renderersProps={{
             a: { onPress: onLinkPress },
             ol: { enableExperimentalRtl: true },
