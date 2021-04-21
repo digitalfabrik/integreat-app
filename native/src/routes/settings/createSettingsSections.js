@@ -64,7 +64,7 @@ const createSettingsSections = ({
                     if (newSettings.allowPushNotifications) {
                       const status = await NotificationsManager.requestPushNotificationPermission()
                       if (status) {
-                        await NotificationsManager.subscribeNews(cityCode, languageCode, buildConfig().featureFlags)
+                        await NotificationsManager.subscribeNews(cityCode, languageCode)
                       } else {
                         // If the user has rejected the permission once, it can only be changed in the system settings
                         openSettings()
@@ -72,7 +72,7 @@ const createSettingsSections = ({
                         throw new Error('No permission for Push Notifications')
                       }
                     } else {
-                      await NotificationsManager.unsubscribeNews(cityCode, languageCode, buildConfig().featureFlags)
+                      await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
                   }
                 )
