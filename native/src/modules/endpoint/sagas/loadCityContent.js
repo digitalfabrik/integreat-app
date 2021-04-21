@@ -35,7 +35,7 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
   if (settings.allowPushNotifications) {
     const status = yield call(NotificationsManager.requestPushNotificationPermission)
     if (status) {
-      yield call(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
+      yield call(NotificationsManager.subscribeNews, newCity, newLanguage)
     } else {
       // Disable the feature to prevent the user from being asked again and show the current status in the settings
       yield call(appSettings.setSettings, { allowPushNotifications: false })
