@@ -60,7 +60,11 @@ class Config {
     ka: {
       rtl: false,
       additionalFont: 'noto-sans-georgian'
-    }
+    },
+    prs: {
+      rtl: true,
+      additionalFont: 'lateef'
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
