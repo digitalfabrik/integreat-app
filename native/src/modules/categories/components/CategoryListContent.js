@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useCallback, useContext } from 'react'
 import { useWindowDimensions } from 'react-native'
-import HTML, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
+import Html, { GestureResponderEvent, type HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 import styled from 'styled-components/native'
 import type { ThemeType } from 'build-configs/ThemeType'
@@ -70,7 +70,7 @@ const CategoryListContent = ({
   return (
     <SpaceBetween>
       <Container>
-        <HTML
+        <Html
           source={{ html: content }}
           contentWidth={width}
           defaultTextProps={{ selectable: true, allowFontStyling: true }}
