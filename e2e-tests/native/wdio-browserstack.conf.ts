@@ -17,7 +17,7 @@ const browserstackCaps = (config: Capabilities): Capabilities => {
         'bstack:options': {
             buildName: `${prefix}: ${getGitBranch()}`,
             sessionName: `${config.browserName?.toLowerCase()}: ${getGitHeadReference()}`,
-            projectName: 'integreat-react-native-app',
+            projectName: 'integreat-app-native',
             local: true,
             debug: true,
             realMobile: isCi,
