@@ -80,11 +80,9 @@ def setupResourceValues(buildConfigName, resValue) {
     // Java properties use the same syntax as xcconfig files
     // https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html
     buildConfigProperties.each {
-        // Dashes in resource value names are not allowed
-        def escapedKey = it.key.replaceAll("-", "_")
         def escaped = it.value.replaceAll("%", "\\\\u0025")
         // Make build config values available as string resource, e.g. for use in AndroidManifest
-        resValue "string", escapedKey, "\"$escaped\""
+        resValue "string", it.key, "\"$escaped\""
     }
 }
 
