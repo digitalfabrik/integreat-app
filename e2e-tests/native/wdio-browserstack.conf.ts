@@ -69,6 +69,6 @@ export const config = {
     reporters: ['junit'],
 
     jasmineOpts: {
-        defaultTimeoutInterval: 20000
+        defaultTimeoutInterval: 200000
     },
 }

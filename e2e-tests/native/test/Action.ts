@@ -1,74 +1,77 @@
-type SwipeDirectionType = 'UP' | 'DOWN'
+export enum SwipeDirection {
+    Up,
+    Down
+}
 
-type SwipePoint = { x: number, y: number }
+type SwipePoint = { x: number; y: number }
 
-const swipeMove = (startPoint: SwipePoint, endPoint: SwipePoint): Array<{ action: string, options: any }> => {
+const swipeMove = (startPoint: SwipePoint, endPoint: SwipePoint): Array<{ action: string; options: unknown }> => {
     return [
         {
             action: 'press',
-            options: startPoint,
+            options: startPoint
         },
         {
             action: 'wait',
             options: {
-                ms: 200,
-            },
+                ms: 200
+            }
         },
         {
             action: 'moveTo',
-            options: endPoint,
+            options: endPoint
         },
         {
             action: 'release',
-            options: {},
+            options: {}
         }
     ]
 }
 
-export const swipe = async (direction: SwipeDirectionType, repeat: number = 1, amount: number = 80) => {
+export const swipe = async (direction: SwipeDirection, repeat = 1, amount = 80): Promise<void> => {
     const {width, height} = await driver.getWindowSize()
 
     // do a vertical swipe by percentage
-    const upperPercentage = 50 + amount / 2;
-    const lowerPercentage = 50 - amount / 2;
+    const upperPercentage = 50 + amount / 2
+    const lowerPercentage = 50 - amount / 2
 
     if (upperPercentage > height || lowerPercentage < 0) {
         throw new Error('Cannot press beyond the border of the screen.')
     }
 
-    const anchorPercentage = 50;
+    const anchorPercentage = 50
 
-    let startPoint: { x: number, y: number };
-    let endPoint: { x: number, y: number };
+    let startPoint: { x: number; y: number }
+    let endPoint: { x: number; y: number }
 
     switch (direction) {
-        case "UP":
+        case SwipeDirection.Up:
             startPoint = {
-                x: width * anchorPercentage / 100,
-                y: height * lowerPercentage / 100
+                x: (width * anchorPercentage) / 100,
+                y: (height * lowerPercentage) / 100
             }
             endPoint = {
-                x: width * anchorPercentage / 100,
-                y: height * upperPercentage,
+                x: (width * anchorPercentage) / 100,
+                y: (height * upperPercentage) / 100
             }
             break
-        case "DOWN":
+        case SwipeDirection.Down:
             startPoint = {
-                x: width * anchorPercentage / 100,
-                y: height * upperPercentage / 100
+                x: (width * anchorPercentage) / 100,
+                y: (height * upperPercentage) / 100
             }
             endPoint = {
-                x: width * anchorPercentage / 100,
-                y: height * lowerPercentage / 100,
+                x: (width * anchorPercentage) / 100,
+                y: (height * lowerPercentage) / 100
             }
     }
-    await driver.touchPerform([].concat(... new Array(repeat).fill(swipeMove(startPoint, endPoint))))
+    await driver.touchPerform([].concat(...new Array(repeat).fill(swipeMove(startPoint, endPoint))))
 }
 
-export const hideKeyboard = async () => {
+export const hideKeyboard = async (iosSendKeys='\n'): Promise<void> => {
     if (driver.isAndroid) {
         await driver.hideKeyboard()
     } else {
-        await driver.sendKeys(['\n'])
+        await driver.sendKeys([iosSendKeys])
     }
 }

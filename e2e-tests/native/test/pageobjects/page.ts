@@ -1,6 +1,6 @@
 
 export class Page {
-    private pageId: string = ''
+    readonly pageId
 
     constructor(pageId: string) {
         this.pageId = pageId

@@ -1,6 +1,6 @@
 import LandingPage from '../pageobjects/landing.page'
 import DashboardPage from '../pageobjects/dashboard.page'
-import {hideKeyboard, swipe} from "../Action";
+import {hideKeyboard, swipe, SwipeDirection} from "../Action";
 
 describe('navigate to dashboard', () => {
 
@@ -17,7 +17,7 @@ describe('navigate to dashboard', () => {
     await search.addValue(filter)
 
     await hideKeyboard()
-    await swipe('DOWN')
+    await swipe(SwipeDirection.Down)
 
     const filteredCity = await LandingPage.city('Testumgebung')
 
