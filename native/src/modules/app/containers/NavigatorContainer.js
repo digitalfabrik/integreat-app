@@ -7,9 +7,7 @@ import type { StoreActionType } from '../StoreActionType'
 
 type OwnPropsType = {|
   routeKey: ?string,
-  routeName: ?string,
-  cityCode: ?string,
-  languageCode: ?string
+  routeName: ?string
 |}
 
 type DispatchPropsType = {|
