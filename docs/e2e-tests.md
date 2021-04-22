@@ -68,4 +68,4 @@ For more complex queries you should add/use a custom [Selector]('../e2e/native/S
 ### Cannot hide Keyboard on iOS
 
 https://stackoverflow.com/a/54995267
->The Appium method hideKeyboard() is known to be unstable when used on iPhone devices, as listed in Appium’s currently known open issues. Using this method for an iOS device may cause the Appium script to hang. Appium identifies that the problem is because "There is no automation hook for hiding the keyboard. Rather than using this method just think about how a user would hide the keyboard in your app, and tell Appium to do that instead (swipe, tap on a certain coordinate, etc..
+>The Appium method hideKeyboard() is known to be unstable when used on iPhone devices, as listed in Appium’s currently known open issues. Using this method for an iOS device may cause the Appium script to hang. Appium identifies that the problem is because "There is no automation hook for hiding the keyboard. Rather than using this method just think about how a user would hide the keyboard in your app, and tell Appium to do that instead.
