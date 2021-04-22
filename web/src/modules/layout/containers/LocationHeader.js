@@ -16,7 +16,7 @@ import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsR
 import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
 import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
 import type { LocationState } from 'redux-first-router'
-import { CityModel, EventModel } from 'api-client'
+import { CityModel } from 'api-client'
 import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
 import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
@@ -35,7 +35,6 @@ const offersRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
 
 type PropsType = {|
   cityModel: CityModel,
-  events: ?Array<EventModel>,
   location: LocationState,
   viewportSmall: boolean,
   t: TFunction,
@@ -74,7 +73,7 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   getNavigationItems(): Array<React.Node> {
-    const { t, cityModel, location, events } = this.props
+    const { t, cityModel, location } = this.props
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
     const { city, language } = location.payload
@@ -123,7 +122,6 @@ export class LocationHeader extends React.Component<PropsType> {
           href={new EventsRouteConfig().getRoutePath({ city, language })}
           active={currentRoute === EVENTS_ROUTE}
           text={t('events')}
-          tooltip={events?.length === 0 ? t('noEvents') : ''}
           icon={eventsIcon}
         />
       )
