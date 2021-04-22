@@ -17,9 +17,7 @@ describe('Header', () => {
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
         onStickyTopChanged={onStickyTopChanged}
-        navigationItems={[
-          <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active tooltip='tooltip1' />
-        ]}
+        navigationItems={[<HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon.jpg' active />]}
         viewportSmall
       />
     )
@@ -33,9 +31,7 @@ describe('Header', () => {
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon' text='text' />]}
         onStickyTopChanged={onStickyTopChanged}
-        navigationItems={[
-          <HeaderNavigationItem key={0} href='/another_route' icon='icon.jpg' text='text1' active tooltip='tooltip1' />
-        ]}
+        navigationItems={[<HeaderNavigationItem key={0} href='/another_route' icon='icon.jpg' text='text1' active />]}
         viewportSmall={false}
       />
     )
@@ -50,9 +46,7 @@ describe('Header', () => {
         platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon.jpg' text='text' />]}
-        navigationItems={[
-          <HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon' active tooltip='tooltip1' />
-        ]}
+        navigationItems={[<HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon' active />]}
         viewportSmall={false}
         onStickyTopChanged={callback}
       />
