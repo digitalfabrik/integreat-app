@@ -4,7 +4,7 @@ import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import type Moment from 'moment'
 import AppSettings from '../../../modules/settings/AppSettings'
 import moment from 'moment'
@@ -21,7 +21,7 @@ type PropsType = {|
   theme: ThemeType
 |}
 
-const LocationImage: StyledComponent<{}, ThemeType, *> = styled.Image`
+const LocationImage: StyledComponent<{||}, ThemeType, *> = styled.Image`
   height: 70px;
   resize-mode: contain;
 `

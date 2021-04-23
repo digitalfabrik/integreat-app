@@ -29,6 +29,11 @@ const NearbyMessageContainer: StyledComponent<{||}, {||}, *> = styled.View`
   justify-content: space-between;
 `
 
+const RetryButtonContainer: StyledComponent<{||}, {||}, *> = styled.View`
+  flex-direction: column;
+  height: 46px;
+`
+
 const NearbyMessage: StyledComponent<{| theme: ThemeType |}, {||}, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
@@ -41,8 +46,7 @@ type PropsType = {|
   navigateToDashboard: (city: CityModel) => void,
   theme: ThemeType,
   location: LocationType,
-  proposeNearbyCities: boolean,
-  tryAgain: null | (() => void),
+  retryDetermineLocation: null | (() => Promise<void>),
   t: TFunction
 |}
 
@@ -92,12 +96,8 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations(): React.Node {
-    const { proposeNearbyCities, cities, location, t, theme, navigateToDashboard, filterText, tryAgain } = this.props
-    if (!proposeNearbyCities) {
-      return null
-    }
-
-    if (location.status === 'ready') {
+    const { cities, location, t, theme, navigateToDashboard, filterText, retryDetermineLocation } = this.props
+    if (location?.status === 'ready') {
       const nearbyCities = getNearbyPlaces(
         cities.filter(city => city.live),
         location.longitude,
@@ -134,17 +134,19 @@ class CitySelector extends React.PureComponent<PropsType> {
         <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
-            <NearbyMessage theme={theme}>{t(location.message)}</NearbyMessage>
-            {tryAgain && (
-              <Button
-                icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
-                title=''
-                type='clear'
-                onPress={tryAgain}
-                accessibilityLabel={t('refresh')}
-                accessibilityRole='button'
-              />
-            )}
+            <NearbyMessage theme={theme}>{location ? t(location.message) : ''}</NearbyMessage>
+            <RetryButtonContainer>
+              {retryDetermineLocation && (
+                <Button
+                  icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                  title=''
+                  type='clear'
+                  onPress={retryDetermineLocation}
+                  accessibilityLabel={t('refresh')}
+                  accessibilityRole='button'
+                />
+              )}
+            </RetryButtonContainer>
           </NearbyMessageContainer>
         </CityGroupContainer>
       )
