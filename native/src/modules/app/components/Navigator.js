@@ -99,6 +99,10 @@ const Navigator = (props: PropsType) => {
         errorTracking
       } = await appSettings.loadSettings()
 
+      if (errorTracking) {
+        initSentry()
+      }
+
       if (!storageVersion) {
         await appSettings.setVersion(ASYNC_STORAGE_VERSION)
       }
@@ -113,20 +117,11 @@ const Navigator = (props: PropsType) => {
 
       if (!buildConfig().featureFlags.introSlides && !introShown) {
         await appSettings.setIntroShown()
-        await appSettings.setSettings({
-          errorTracking: false,
-          allowPushNotifications: false,
-          proposeNearbyCities: false
-        })
       }
 
       if (buildConfig().featureFlags.introSlides && !introShown) {
         setInitialRoute({ name: INTRO_ROUTE })
       } else {
-        if (errorTracking) {
-          initSentry()
-        }
-
         const city = buildConfig().featureFlags.fixedCity || selectedCity
         if (city) {
           setInitialRoute({ name: DASHBOARD_ROUTE, cityCode: city, languageCode: contentLanguage })

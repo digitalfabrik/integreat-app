@@ -22,9 +22,9 @@ export const defaultSettings: SettingsType = {
   contentLanguage: null,
   selectedCity: null,
   introShown: null,
-  errorTracking: null,
-  allowPushNotifications: null,
-  proposeNearbyCities: null,
+  errorTracking: true,
+  allowPushNotifications: true,
+  proposeNearbyCities: true,
   apiUrlOverride: null,
   jpalTrackingEnabled: null,
   jpalTrackingCode: null
