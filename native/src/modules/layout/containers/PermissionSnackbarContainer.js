@@ -5,7 +5,6 @@ import Snackbar from '../components/Snackbar'
 import { type TFunction, withTranslation } from 'react-i18next'
 import AppSettings from '../../settings/AppSettings'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import { checkLocationPermission, requestLocationPermission } from '../../app/LocationPermissionManager'
 import SnackbarAnimator from '../components/SnackbarAnimator'
 import buildConfig from '../../app/constants/buildConfig'
 import {
@@ -46,14 +45,9 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
 
   updateSettingsAndPermissions = async () => {
     const settings = await new AppSettings().loadSettings()
-    const locationStatus = await checkLocationPermission()
     const pushNotificationStatus = await checkPushNotificationPermission()
 
-    const showLocationSnackbar =
-      settings &&
-      settings.proposeNearbyCities === true &&
-      [RESULTS.BLOCKED, RESULTS.DENIED].includes(locationStatus) &&
-      this.landingRoute()
+    const showLocationSnackbar = false // TODO Remove the whole snackbar container in IGAPP-593
 
     const showPushNotificationSnackbar =
       settings &&
@@ -88,7 +82,7 @@ class PermissionSnackbarContainer extends React.Component<PropsType, StateType> 
   }
 
   requestLocationPermissionOrSettings = async () => {
-    this.requestOrOpenSettings(checkLocationPermission, requestLocationPermission)
+    // TODO Remove the whole snackbar container in IGAPP-593
   }
 
   requestPushNotificationPermissionOrSettings = async () => {
