@@ -12,6 +12,7 @@ import openExternalUrl from '../../modules/common/openExternalUrl'
 import type { SettingsRouteType } from 'api-client'
 import { JPAL_TRACKING_ROUTE } from 'api-client'
 import type { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
+import { openSettings } from 'react-native-permissions'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
@@ -61,9 +62,17 @@ const createSettingsSections = ({
                       return
                     }
                     if (newSettings.allowPushNotifications) {
-                      await NotificationsManager.subscribeNews(cityCode, languageCode, buildConfig().featureFlags)
+                      const status = await NotificationsManager.requestPushNotificationPermission()
+                      if (status) {
+                        await NotificationsManager.subscribeNews(cityCode, languageCode)
+                      } else {
+                        // If the user has rejected the permission once, it can only be changed in the system settings
+                        openSettings()
+                        // Reset displayed setting in app
+                        throw new Error('No permission for Push Notifications')
+                      }
                     } else {
-                      await NotificationsManager.unsubscribeNews(cityCode, languageCode, buildConfig().featureFlags)
+                      await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
                   }
                 )
