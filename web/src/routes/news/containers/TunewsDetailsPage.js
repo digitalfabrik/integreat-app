@@ -6,7 +6,6 @@ import TunewsIcon from './../assets/TunewsActiveLogo.png'
 import { CityModel, NotFoundError, TunewsModel } from 'api-client'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
-import TunewsDetailsFooter from '../components/TunewsDetailsFooter'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
@@ -63,7 +62,6 @@ type PropsType = {|
 |}
 
 export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }: PropsType) => {
-  const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
   if (!currentCity || !currentCity.tunewsEnabled) {
     const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
@@ -73,7 +71,7 @@ export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }:
     return <FailureSwitcher error={error} />
   }
 
-  const { title, content, date, eNewsNo } = tunewsElement
+  const { title, content } = tunewsElement
   return (
     <StyledContainer>
       <StyledWrapper>
@@ -85,7 +83,6 @@ export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }:
         <Title>{title}</Title>
         <Content>{content}</Content>
       </StyledWrapper>
-      <TunewsDetailsFooter eNewsNo={eNewsNo} date={date} formatter={formatter} />
     </StyledContainer>
   )
 }
