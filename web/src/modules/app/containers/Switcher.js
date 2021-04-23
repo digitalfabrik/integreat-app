@@ -105,16 +105,7 @@ export class Switcher extends React.Component<PropsType> {
   }
 
   renderLayoutWithContent(): React.Node {
-    const {
-      location,
-      viewportSmall,
-      darkMode,
-      categoriesPayload,
-      citiesPayload,
-      toggleDarkMode,
-      eventsPayload,
-      offersPayload
-    } = this.props
+    const { location, viewportSmall, darkMode, categoriesPayload, citiesPayload, toggleDarkMode } = this.props
 
     const { language, city } = location.payload
 
@@ -160,8 +151,6 @@ export class Switcher extends React.Component<PropsType> {
           location={location}
           categories={categoriesPayload.data}
           cities={citiesPayload.data}
-          events={eventsPayload.data}
-          offers={offersPayload.data}
           darkMode={darkMode}
           viewportSmall={viewportSmall}
           toggleDarkMode={toggleDarkMode}
