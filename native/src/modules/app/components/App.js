@@ -15,7 +15,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
-import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'api-client'
 import AppStateListener from './AppStateListener'
 import { ThemeProvider } from 'styled-components'
@@ -77,7 +76,6 @@ const App = () => {
                     <NavigatorContainer routeKey={routeKey} routeName={routeName} />
                   </NavigationContainer>
                 </IOSSafeAreaView>
-                {routeName && <PermissionSnackbarContainer routeName={routeName} />}
                 <SnackbarContainer />
               </>
             </SafeAreaProvider>
