@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { type Dispatch } from 'redux'
 import { SectionList, StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
@@ -17,6 +17,7 @@ import type { NavigationPropType, RoutePropType } from '../../../modules/app/con
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import type { SettingsRouteType } from 'api-client/src/routes'
 import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import { useFocusEffect } from '@react-navigation/native'
 
 export type PropsType = {|
   theme: ThemeType,
@@ -55,25 +56,19 @@ const appSettings = new AppSettings()
 const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
 
-  useEffect(() => {
-    loadSettings()
-  }, [])
-
-  useEffect(() => {
+  useFocusEffect(() => {
     // Reload settings if navigating back from another route
-    return navigation.addListener('focus', () => {
-      loadSettings()
-    })
-  }, [navigation])
+    loadSettings()
+  })
 
-  const loadSettings = async () => {
+  const loadSettings = useCallback(async () => {
     try {
       const settings = await appSettings.loadSettings()
       setSettings(settings)
     } catch (e) {
       console.error('Failed to load settings.')
     }
-  }
+  }, [])
 
   const setSetting = async (
     changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
