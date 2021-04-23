@@ -10,7 +10,6 @@ import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import Html from 'react-native-render-html'
-import TuNewsFooter from './TuNewsFooter'
 import TimeStamp from '../../../modules/common/components/TimeStamp'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
@@ -112,9 +111,6 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
             </TimeStampContent>
           )}
         </Container>
-        {newsItem instanceof TunewsModel && (
-          <TuNewsFooter language={language} eNewsNo={newsItem.eNewsNo} date={newsItem.date} theme={theme} />
-        )}
       </ScrollView>
     </View>
   )
