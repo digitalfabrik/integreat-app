@@ -103,7 +103,9 @@ export default ({ children }: PropsType) => {
         <ReactHelmet>
           {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
           {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
-          {additionalFont === 'noto-sans-georgian' && <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />}
+          {additionalFont === 'noto-sans-georgian' && (
+            <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />
+          )}
           <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />
           <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
           <link href='/fonts/varela-round/varela-round.css' rel='stylesheet' />
