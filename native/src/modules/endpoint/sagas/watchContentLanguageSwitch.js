@@ -14,7 +14,6 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import AppSettings from '../../settings/AppSettings'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
-import buildConfig from '../../app/constants/buildConfig'
 import type { SettingsType } from '../../settings/AppSettings'
 import { fromError } from '../../error/ErrorCodes'
 
@@ -51,7 +50,7 @@ export function* switchContentLanguage(
 
     // Unsubscribe from prev. city notifications
     if (contentLanguage !== newLanguage && allowPushNotifications && contentLanguage && selectedCity) {
-      yield spawn(NotificationsManager.unsubscribeNews, selectedCity, contentLanguage, buildConfig().featureFlags)
+      yield spawn(NotificationsManager.unsubscribeNews, selectedCity, contentLanguage)
     }
 
     // Only set new language after fetch succeeded
