@@ -152,13 +152,16 @@ const TooltipContainer: StyledComponent<
   }
 `
 
-type PropsType = {|
+// We do not want exact types here as we forward props
+// eslint-disable-next-line flowtype/require-exact-type
+type PropsType = {
   children: React.Node,
   text: ?string,
   flow: FlowType,
   mediumViewportFlow?: FlowType,
-  smallViewportFlow?: FlowType
-|}
+  smallViewportFlow?: FlowType,
+  className?: string
+}
 
 // maximum widths and heights
 const HEIGHT = 50
@@ -218,7 +221,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
   }
 }
 
-export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }: PropsType) => {
+export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: PropsType) => {
   const [container, setContainer] = useState<Element | null>(null)
   const onRefSet = useCallback(
     ref => {
@@ -254,6 +257,7 @@ export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow }:
   const fixedSmallFlow = smallViewportFlow ? fixFlow(container, smallViewportFlow, dimensions) : fixedMediumFlow
   return (
     <TooltipContainer
+      {...props}
       text={text}
       ref={onRefSet}
       flow={fixedFlow}
