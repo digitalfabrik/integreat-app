@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native'
 
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
+jest.mock('../../initSentry')
 
 jest.mock('../../../../routes/intro/IntroContainer', () => {
   const Text = require('react-native').Text
@@ -101,8 +102,6 @@ const fetchCategory = jest.fn()
 const props = ({ routeKey, routeName }: {| routeKey?: string, routeName: string | null |}) => ({
   routeKey,
   routeName,
-  cityCode,
-  languageCode,
   fetchCategory,
   fetchCities
 })

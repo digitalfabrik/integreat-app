@@ -2,6 +2,7 @@
 
 import type {
   CategoriesRouteType,
+  ChangeLanguageModalRouteType,
   DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
@@ -20,11 +21,8 @@ import type {
 type OpenPageSignalNameType = 'open_page'
 export const OPEN_PAGE_SIGNAL_NAME: OpenPageSignalNameType = 'open_page'
 
-type ClosePageSignalNameType = 'close_page'
-export const CLOSE_PAGE_SIGNAL_NAME: ClosePageSignalNameType = 'close_page'
-
-export type PageSignalType = {|
-  name: OpenPageSignalNameType | ClosePageSignalNameType,
+export type OpenPageSignalType = {|
+  name: OpenPageSignalNameType,
   pageType:
     | DashboardRouteType
     | CategoriesRouteType
@@ -39,8 +37,16 @@ export type PageSignalType = {|
     | FeedbackModalRouteType
     | WohnenOfferRouteType
     | LandingRouteType
-    | JpalTrackingRouteType,
+    | JpalTrackingRouteType
+    | ChangeLanguageModalRouteType,
   url: string
+|}
+
+type ClosePageSignalNameType = 'close_page'
+export const CLOSE_PAGE_SIGNAL_NAME: ClosePageSignalNameType = 'close_page'
+
+export type ClosePageSignalType = {|
+  name: ClosePageSignalNameType
 |}
 
 type OpenDeepLinkSignalNameType = 'open_deep_link'
@@ -81,9 +87,6 @@ export type SearchFinishedSignalType = {|
   url: string | null
 |}
 
-type LaunchSignalNameType = 'launch'
-export const LAUNCH_SIGNAL_NAME: LaunchSignalNameType = 'launch'
-
 type ResumeSignalNameType = 'resume'
 export const RESUME_SIGNAL_NAME: ResumeSignalNameType = 'resume'
 
@@ -91,7 +94,7 @@ type SuspendSignalNameType = 'suspend'
 export const SUSPEND_SIGNAL_NAME: SuspendSignalNameType = 'suspend'
 
 export type AppStateChangeSignalType = {|
-  name: LaunchSignalNameType | ResumeSignalNameType | SuspendSignalNameType
+  name: ResumeSignalNameType | SuspendSignalNameType
 |}
 
 type ShareSignalNameType = 'share'
@@ -113,7 +116,8 @@ export type SendFeedbackSignalType = {|
 |}
 
 export type SpecificSignalType =
-  | PageSignalType
+  | OpenPageSignalType
+  | ClosePageSignalType
   | OpenDeepLinkSignalType
   | OpenLinkSignalType
   | SearchFinishedSignalType

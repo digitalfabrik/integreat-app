@@ -65,9 +65,7 @@ type PropsType = {|
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void,
   fetchCities: (forceRefresh: boolean) => void,
   routeKey: ?string,
-  routeName: ?string,
-  cityCode: ?string,
-  languageCode: ?string
+  routeName: ?string
 |}
 
 type InitialRouteType =
@@ -82,7 +80,7 @@ const Navigator = (props: PropsType) => {
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({ name: INTRO_ROUTE })
   const previousRouteKey = useRef(null)
 
-  const { fetchCities, fetchCategory, routeKey, routeName, cityCode, languageCode } = props
+  const { fetchCities, fetchCategory, routeKey, routeName } = props
 
   useEffect(() => {
     fetchCities(false)
@@ -101,6 +99,10 @@ const Navigator = (props: PropsType) => {
         errorTracking
       } = await appSettings.loadSettings()
 
+      if (errorTracking) {
+        initSentry()
+      }
+
       if (!storageVersion) {
         await appSettings.setVersion(ASYNC_STORAGE_VERSION)
       }
@@ -115,20 +117,11 @@ const Navigator = (props: PropsType) => {
 
       if (!buildConfig().featureFlags.introSlides && !introShown) {
         await appSettings.setIntroShown()
-        await appSettings.setSettings({
-          errorTracking: false,
-          allowPushNotifications: false,
-          proposeNearbyCities: false
-        })
       }
 
       if (buildConfig().featureFlags.introSlides && !introShown) {
         setInitialRoute({ name: INTRO_ROUTE })
       } else {
-        if (errorTracking) {
-          initSentry()
-        }
-
         const city = buildConfig().featureFlags.fixedCity || selectedCity
         if (city) {
           setInitialRoute({ name: DASHBOARD_ROUTE, cityCode: city, languageCode: contentLanguage })
@@ -155,21 +148,13 @@ const Navigator = (props: PropsType) => {
       fetchCategory(initialRoute.cityCode, initialRoute.languageCode, routeKey, false)
     }
     previousRouteKey.current = routeKey
-  }, [routeKey, cityCode, fetchCategory, initialRoute, languageCode, routeName])
+  }, [routeKey, fetchCategory, initialRoute, routeName])
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
   } else if (waitingForSettings) {
     return null
   }
-
-  const dashboardParams =
-    initialRoute.name === DASHBOARD_ROUTE
-      ? {
-          cityCode: initialRoute.cityCode,
-          languageCode: initialRoute.languageCode
-        }
-      : {}
 
   // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
   const transitionPreset = Platform.select({
@@ -182,12 +167,7 @@ const Navigator = (props: PropsType) => {
       <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} options={{ header: () => null }} />
       <Stack.Screen name={INTRO_ROUTE} component={IntroContainer} options={{ header: () => null }} initialParams={{}} />
       <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} options={{ header: () => null }} />
-      <Stack.Screen
-        name={DASHBOARD_ROUTE}
-        component={DashboardContainer}
-        options={{ header: defaultHeader }}
-        initialParams={dashboardParams}
-      />
+      <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{ header: defaultHeader }} />
       <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{ header: defaultHeader }} />
