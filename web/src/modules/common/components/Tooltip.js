@@ -9,31 +9,31 @@ import { useCallback, useEffect, useState } from 'react'
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
-const pseudosMixin = (flow: FlowType) => css`
+const pseudosMixin = (flow: FlowType, color: string) => css`
   /* CSS Triangle: https://css-tricks.com/snippets/css/css-triangle/ */
   ::before {
     ${flow === 'up' &&
     `
       bottom: 100%;
       border-bottom-width: 0;
-      border-top-color: #333;
+      border-top-color: ${color};
     `}
     ${flow === 'down' &&
     `
       top: 100%;
       border-top-width: 0;
-      border-bottom-color: #333;
+      border-bottom-color: ${color};
     `}
     ${flow === 'left' &&
     `
       border-right-width: 0;
-      border-left-color: #333;
+      border-left-color: ${color};
       left: -5px;
     `}
     ${flow === 'right' &&
     `
       border-left-width: 0;
-      border-right-color: #333;
+      border-right-color: ${color};
       right: -5px;
     `}
   }
@@ -118,8 +118,8 @@ const TooltipContainer: StyledComponent<
     /* visible design of the tooltip bubbles */
     padding: 10px 15px;
     border-radius: 3px;
-    background: #333;
-    color: #fff;
+    background: ${props => props.theme.colors.textSecondaryColor};
+    color: ${props => props.theme.colors.backgroundColor};
   }
 
   :hover::before,
@@ -129,15 +129,15 @@ const TooltipContainer: StyledComponent<
 
   /* over 1100px */
   @media ${dimensions.minMaxWidth} {
-    ${props => pseudosMixin(props.flow)}
+    ${props => pseudosMixin(props.flow, props.theme.colors.textSecondaryColor)}
   }
   /* below 750px */
   @media screen and ${dimensions.smallViewport} {
-    ${props => pseudosMixin(props.smallViewportFlow)}
+    ${props => pseudosMixin(props.smallViewportFlow, props.theme.colors.textSecondaryColor)}
   }
   /* inbetween */
   @media screen and ${dimensions.mediumViewport} {
-    ${props => pseudosMixin(props.mediumViewportFlow)}
+    ${props => pseudosMixin(props.mediumViewportFlow, props.theme.colors.textSecondaryColor)}
   }
 
   @keyframes tooltips {
