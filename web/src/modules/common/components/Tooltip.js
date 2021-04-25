@@ -109,7 +109,7 @@ const TooltipContainer: StyledComponent<
     /* Content props */
     text-align: center;
     min-width: 50px;
-    max-width: 200px;
+    max-width: 300px;
     max-height: 50px;
     white-space: nowrap;
     overflow: hidden;
