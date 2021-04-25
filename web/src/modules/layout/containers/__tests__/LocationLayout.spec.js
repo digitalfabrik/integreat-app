@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { render } from '@testing-library/react'
-import { CategoriesMapModel, CategoryModel, DateModel, EventModel, LocationModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel } from 'api-client'
 import { LocationLayout } from '../LocationLayout'
 import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
 import moment from 'moment'
@@ -11,7 +11,6 @@ import { ThemeProvider } from 'styled-components'
 import theme from '../../../theme/constants/theme'
 import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import OfferModelBuilder from 'api-client/src/testing/OffersModelBuilder'
 
 jest.mock('../../components/LocationFooter', () => {
   return () => <div>LocationFooter</div>
@@ -45,48 +44,14 @@ describe('LocationLayout', () => {
     })
   ])
 
-  const events = [
-    new EventModel({
-      path: '/augsburg/en/events/first_event',
-      title: 'first Event',
-      availableLanguages: new Map([
-        ['de', '/augsburg/de/events/erstes_event'],
-        ['ar', '/augsburg/ar/events/erstes_event']
-      ]),
-      date: new DateModel({
-        startDate: moment('2017-11-18T09:30:00.000Z'),
-        endDate: moment('2017-11-18T19:30:00.000Z'),
-        allDay: true
-      }),
-      location: new LocationModel({
-        name: 'name',
-        address: 'address',
-        town: 'town',
-        postcode: 'postcode',
-        latitude: null,
-        longitude: null,
-        state: 'state',
-        region: 'region',
-        country: 'country'
-      }),
-      excerpt: 'excerpt',
-      lastUpdate: moment('2016-01-07 10:36:24'),
-      content: 'content',
-      thumbnail: 'thumbnail',
-      featuredImage: null,
-      hash: '2fe6283485a93932'
-    })
-  ]
-
   const cities = new CityModelBuilder(1).build()
-  const offers = new OfferModelBuilder(2).build()
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: '/augsburg/en' }
   ]
 
-  const feedbackTargetInformation = { path: '/path/to/category', title: 'Category_Title' }
+  const feedbackTargetInformation = { path: '/path/to/category' }
 
   const MockNode = () => <div />
   const renderLocationLayout = (location, isLoading) => (
@@ -94,14 +59,12 @@ describe('LocationLayout', () => {
       location={createLocation({ ...location })}
       categories={categories}
       cities={cities}
-      events={events}
       languageChangePaths={languageChangePaths}
       feedbackTargetInformation={feedbackTargetInformation}
       viewportSmall
       toggleDarkMode={() => {}}
       darkMode
-      isLoading={isLoading}
-      offers={offers}>
+      isLoading={isLoading}>
       <MockNode />
     </LocationLayout>
   )

@@ -5,7 +5,6 @@ import styled, { type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
-import Tooltip from '../../common/components/Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
 const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -101,20 +100,17 @@ type PropsType = {|
   text: string,
   href: string,
   active: boolean,
-  tooltip?: string,
   icon: string
 |}
 
-const HeaderNavigationItem = ({ active, text, tooltip, href, icon }: PropsType) => (
+const HeaderNavigationItem = ({ active, text, href, icon }: PropsType) => (
   <Container>
-    <Tooltip text={tooltip} flow={'up'}>
-      <StyledLink to={href} $active={active}>
-        <Circle>
-          <img src={icon} alt='' />
-        </Circle>
-        {text}
-      </StyledLink>
-    </Tooltip>
+    <StyledLink to={href} $active={active}>
+      <Circle>
+        <img src={icon} alt='' />
+      </Circle>
+      {text}
+    </StyledLink>
   </Container>
 )
 

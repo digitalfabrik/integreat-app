@@ -10,7 +10,6 @@ import { OFFERS_ROUTE } from '../../../app/route-configs/OffersRouteConfig'
 import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
 import createLocation from '../../../../createLocation'
 import { LOCAL_NEWS_ROUTE } from '../../../app/route-configs/LocalNewsRouteConfig'
-import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
 import { LOCAL_NEWS_DETAILS_ROUTE } from '../../../app/route-configs/LocalNewsDetailsRouteConfig'
@@ -62,7 +61,6 @@ describe('LocationHeader', () => {
 
   const language = 'de'
   const city = 'augsburg'
-  const events = new EventModelBuilder('LocationHeader-events', 2, city, language).build()
   const location = route => createLocation({ type: route, payload: { city, language } })
   const onStickyTopChanged = (value: number) => {}
 
@@ -98,13 +96,13 @@ describe('LocationHeader', () => {
             location={location(CATEGORIES_ROUTE)}
             viewportSmall
             cityModel={cityModel(false, false, false, false, false)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, false, false, false, false, false)
     })
 
@@ -115,13 +113,13 @@ describe('LocationHeader', () => {
             location={location(CATEGORIES_ROUTE)}
             viewportSmall
             cityModel={cityModel(false, true, false, false, false)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, false, true, false, false)
     })
 
@@ -132,13 +130,13 @@ describe('LocationHeader', () => {
             location={location(CATEGORIES_ROUTE)}
             viewportSmall
             cityModel={cityModel(false, false, false, false, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, false, false, false, true)
     })
 
@@ -149,13 +147,13 @@ describe('LocationHeader', () => {
             location={location(CATEGORIES_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
           />
         </ThemeProvider>
       )
+      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, true, true, true, true)
     })
 
@@ -166,7 +164,6 @@ describe('LocationHeader', () => {
             location={location(CATEGORIES_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -187,7 +184,6 @@ describe('LocationHeader', () => {
             location={location(LOCAL_NEWS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -208,7 +204,6 @@ describe('LocationHeader', () => {
             location={location(LOCAL_NEWS_DETAILS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -228,7 +223,6 @@ describe('LocationHeader', () => {
             location={location(TUNEWS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -249,7 +243,6 @@ describe('LocationHeader', () => {
             location={location(TUNEWS_DETAILS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -270,7 +263,6 @@ describe('LocationHeader', () => {
             location={location(EVENTS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -291,7 +283,6 @@ describe('LocationHeader', () => {
             location={location(OFFERS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -312,7 +303,6 @@ describe('LocationHeader', () => {
             location={location(SPRUNGBRETT_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}
@@ -333,7 +323,6 @@ describe('LocationHeader', () => {
             location={location(POIS_ROUTE)}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
-            events={events}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
             t={t}

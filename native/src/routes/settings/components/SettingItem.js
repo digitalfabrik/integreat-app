@@ -1,24 +1,29 @@
 // @flow
 
 import * as React from 'react'
-import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../../modules/theme/constants'
+import type { ThemeType } from 'build-configs/ThemeType'
 import Touchable from '../../../modules/platform/components/Touchable'
 import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
+import { Badge, Icon } from 'react-native-elements'
+import { Switch, Text, View } from 'react-native'
+import type { TFunction } from 'react-i18next'
 
-type PropType = {
+type PropType = {|
   title: string,
   description: ?string,
   onPress: ?() => void,
-  children: ?React.Node,
   theme: ThemeType,
+  t: TFunction,
   bigTitle?: boolean,
-  accessibilityRole?: AccessibilityRole
-}
+  accessibilityRole?: AccessibilityRole,
+  hasSwitch?: boolean,
+  hasBadge?: boolean,
+  value: boolean
+|}
 
-const PadView: StyledComponent<{}, ThemeType, *> = styled.View`
+const PadView: StyledComponent<{||}, ThemeType, *> = styled.View`
   padding: 16px;
   flex-direction: row;
   align-items: center;
@@ -38,7 +43,7 @@ const ContentContainer = styled.View`
   align-items: flex-start;
 `
 
-const Title: StyledComponent<{ bigTitle: boolean }, ThemeType, *> = styled.Text`
+const Title: StyledComponent<{| bigTitle: boolean |}, ThemeType, *> = styled.Text`
   color: ${props => props.theme.colors.textColor};
   ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
 `
@@ -47,28 +52,43 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-export default class SettingItem extends React.Component<PropType> {
-  render() {
-    const { title, description, onPress, children, bigTitle, theme, accessibilityRole } = this.props
-
-    return (
-      <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
-        <PadView theme={theme}>
-          <ContentContainer>
+const SettingItem = (props: PropType) => {
+  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, theme, accessibilityRole, t } = props
+  return (
+    <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
+      <PadView theme={theme}>
+        <ContentContainer>
+          <View>
+            <Title theme={theme} bigTitle={bigTitle || false}>
+              {title}
+            </Title>
+          </View>
+          {description && (
             <View>
-              <Title theme={theme} bigTitle={bigTitle || false}>
-                {title}
-              </Title>
+              <Description theme={theme}>{description}</Description>
             </View>
-            {description && (
-              <View>
-                <Description theme={theme}>{description}</Description>
-              </View>
-            )}
-          </ContentContainer>
-          <RightContentContainer>{children}</RightContentContainer>
-        </PadView>
-      </Touchable>
-    )
-  }
+          )}
+        </ContentContainer>
+        <RightContentContainer>
+          {hasSwitch && (
+            <Switch
+              thumbColor={theme.colors.themeColor}
+              trackColor={{ true: theme.colors.themeColor }}
+              value={value}
+              onValueChange={onPress}
+            />
+          )}
+          {hasBadge && (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Badge status={value ? 'success' : 'error'} />
+              <Text> {value ? t('enabled') : t('disabled')}</Text>
+              <Icon name='chevron-right' />
+            </View>
+          )}
+        </RightContentContainer>
+      </PadView>
+    </Touchable>
+  )
 }
+
+export default SettingItem

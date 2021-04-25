@@ -47,9 +47,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
   return ({ refreshing }: {| refreshing: boolean |}) => (refreshing ? <Text>loading</Text> : null)
 })
 
-const cityCode = 'augsburg'
-const languageCode = 'de'
-const route = { key: 'route-id-0', params: { cityCode, languageCode }, name: DASHBOARD_ROUTE }
+const route = { key: 'route-id-0', params: undefined, name: DASHBOARD_ROUTE }
 
 describe('DashboardContainer', () => {
   const [city] = new CityModelBuilder(1).build()
@@ -94,7 +92,8 @@ describe('DashboardContainer', () => {
         searchRoute: null
       },
       contentLanguage: 'de',
-      cities: cities || { status: 'ready', models: [city] }
+      cities: cities || { status: 'ready', models: [city] },
+      snackbar: []
     }
   }
 
