@@ -92,7 +92,7 @@ class SprungbrettRouteConfig implements RouteConfig<SprungbrettRouteParamsType, 
     const offers = payloads.offers.data
     const offer = offers && offers.find(offer => offer.alias === SPRUNGBRETT_OFFER)
     if (offer) {
-      return { alias: SPRUNGBRETT_OFFER, title: offer.title }
+      return { alias: SPRUNGBRETT_OFFER }
     }
     return null
   }

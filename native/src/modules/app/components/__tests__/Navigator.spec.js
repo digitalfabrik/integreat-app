@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native'
 
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
+jest.mock('../../initSentry')
 
 jest.mock('../../../../routes/intro/IntroContainer', () => {
   const Text = require('react-native').Text
@@ -101,8 +102,6 @@ const fetchCategory = jest.fn()
 const props = ({ routeKey, routeName }: {| routeKey?: string, routeName: string | null |}) => ({
   routeKey,
   routeName,
-  cityCode,
-  languageCode,
   fetchCategory,
   fetchCities
 })
@@ -114,6 +113,7 @@ describe('Navigator', () => {
   })
 
   it('should fetch cities on mount', async () => {
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
@@ -169,6 +169,7 @@ describe('Navigator', () => {
   })
 
   it('should call fetch category if the dashboard route is the initial route', async () => {
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       const routeKey = generateKey()
