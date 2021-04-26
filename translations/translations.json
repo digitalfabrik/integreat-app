@@ -209,7 +209,7 @@
       },
       "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
     },
-    "sr": {
+    "sr-Latn": {
       "pageTitles": {
         "search": "Pretraga",
         "events": "Manifestacije",
@@ -312,7 +312,7 @@
     "so": {
       "createPdf": "Abuur PDF"
     },
-    "sr": {
+    "sr-Latn": {
       "createPdf": "Izradite PDF"
     },
     "ti": {
@@ -405,7 +405,7 @@
       "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Bedelkii ugu dambeeyay:"
     },
-    "sr": {
+    "sr-Latn": {
       "languageNotAvailable": "Tvoj jezik nažalost ovde nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnja promena:"
@@ -525,7 +525,7 @@
       "news": "war",
       "newsAlternative": "war"
     },
-    "sr": {
+    "sr-Latn": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Manifestacije",
@@ -964,7 +964,7 @@
       "pageTitle": "Qalad",
       "generalError": "Khalad ayaa dhacay"
     },
-    "sr": {
+    "sr-Latn": {
       "notFound": {
         "language": "Ovaj jezik nažalost ovde nije dostupan.",
         "city": "Ovaj grad nažalost nije pronađen.",
@@ -1164,7 +1164,7 @@
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan."
     },
-    "sr": {
+    "sr-Latn": {
       "location": "Lokacija",
       "date": "Datum",
       "events": "Manifestacije",
@@ -1578,7 +1578,7 @@
       "negativeRating": "Boggan waxtar ma leh",
       "positiveRating": "Boggan waa mid waxtar badan"
     },
-    "sr": {
+    "sr-Latn": {
       "technicalTopics": "Tehničke funkcije",
       "contentOfCity": "Sadržaji u gradu {{city}}",
       "contentOfOffer": "Ponuda \"{{offer}}\"",
@@ -2082,7 +2082,7 @@
       "accept": "Aqbal",
       "privacyPolicy": "Ilaalinta xogta"
     },
-    "sr": {
+    "sr-Latn": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
       "search": "Pretraga",
@@ -2359,7 +2359,7 @@
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska goobaha"
     },
-    "sr": {
+    "sr-Latn": {
       "searchCity": "Tražite mesto",
       "nearbyPlaces": "Mesta u blizini",
       "noNearbyPlaces": "Nije pronađeno nijedno mesto u blizini.",
@@ -2688,7 +2688,7 @@
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
       "disclaimer": "Qoraa"
     },
-    "sr": {
+    "sr-Latn": {
       "imprintAndContact": "Impresum i kontakt",
       "privacy": "Zaštita podataka",
       "offers": "Ponude",
@@ -2825,7 +2825,7 @@
       "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada.",
       "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta."
     },
-    "sr": {
+    "sr-Latn": {
       "NSPhotoLibraryAddUsageDescription": "Za čuvanje slika {{appName}} treba pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Za pronalaženje mesta u blizini {{appName}} treba pristup lokaciji."
     },
@@ -2973,7 +2973,7 @@
       "currentlyNoNews": "Hada wax war ah ma jiraan.",
       "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan."
     },
-    "sr": {
+    "sr-Latn": {
       "news": "Vesti",
       "newsAlternative": "Novosti",
       "localNews": "Lokalne vesti",
@@ -3057,7 +3057,7 @@
     "so": {
       "offers": "Heshiisyo"
     },
-    "sr": {
+    "sr-Latn": {
       "offers": "Ponude"
     },
     "ti": {
@@ -3110,7 +3110,7 @@
     "so": {
       "searchPlaceholder": "Raadin"
     },
-    "sr": {
+    "sr-Latn": {
       "searchPlaceholder": "Pretraga"
     },
     "ti": {
@@ -3297,7 +3297,7 @@
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan"
     },
-    "sr": {
+    "sr-Latn": {
       "sentryTitle": "Stabilnost aplikacije",
       "sentryDescription": "Automatskim slanjem izveštaja o padu sistema da se poboljša {{appName}",
       "pushNewsTitle": "Push notifikacije",
@@ -3468,7 +3468,7 @@
       "learnMore": "Macluumaad dheeraad ah",
       "dismiss": "Gunaanad"
     },
-    "sr": {
+    "sr-Latn": {
       "grantPermission": "Dozvolite",
       "deactivateFeature": "Deaktivirajte značajke",
       "locationPermissionMissing": "Pristup lokaciji za predlaganje mesta u blizini",
@@ -3548,7 +3548,7 @@
     "so": {
       "noOffersAvailable": "Wax adeeg ah oo la heli karo ma jiraan"
     },
-    "sr": {
+    "sr-Latn": {
       "noOffersAvailable": "Nema dosutpnih ponuda"
     },
     "ti": {

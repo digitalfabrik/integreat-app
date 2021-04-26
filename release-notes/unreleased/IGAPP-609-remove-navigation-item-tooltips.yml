@@ -1,0 +1,5 @@
+issue_key: IGAPP-609
+show_in_stores: false
+platforms:
+  - web
+en: Fixed a visual bug of the events navigation item if there are no events by removing the corresponding tooltip.
