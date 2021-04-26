@@ -8,7 +8,8 @@ const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quo
   const buildConfig = loadBuildConfig(buildConfigName, platform)
   const xcconfigOptions = flat(buildConfig, {
     delimiter: '_',
-    transformKey: key => decamelize(key).toUpperCase()
+    // Dashes are not supported in keys in xcconfigs and android resources
+    transformKey: key => decamelize(key).toUpperCase().replace('-', '_')
   })
   const assignOperator = `${spaces ? ' ' : ''}=${spaces ? ' ' : ''}`
   const quoteValue = value => {
