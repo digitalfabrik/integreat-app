@@ -41,7 +41,6 @@
     "api-client": "0.0.1",
     "build-configs": "0.0.1",
     "detect-browser": "^5.2.0",
-    "dompurify": "^2.2.7",
     "focus-trap-react": "8.4.2",
     "hashids": "^2.2.8",
     "history": "^4.9.0",
