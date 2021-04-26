@@ -29,8 +29,7 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
         current_city: signal.currentCity,
         app_settings: {
           error_tracking: signal.appSettings.errorTracking,
-          allow_push_notifications: signal.appSettings.allowPushNotifications,
-          propose_nearby_cities: signal.appSettings.proposeNearbyCities
+          allow_push_notifications: signal.appSettings.allowPushNotifications
         }
       }
     }

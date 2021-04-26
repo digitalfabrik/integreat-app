@@ -20,8 +20,7 @@ describe('createTrackingEndpoint', () => {
     systemLanguage: 'de',
     appSettings: {
       allowPushNotifications: true,
-      errorTracking: false,
-      proposeNearbyCities: false
+      errorTracking: false
     },
     timestamp: '2020-01-20T00:00:00.000Z'
   }
@@ -95,8 +94,7 @@ describe('createTrackingEndpoint', () => {
             current_city: signal.currentCity,
             app_settings: {
               error_tracking: signal.appSettings.errorTracking,
-              allow_push_notifications: signal.appSettings.allowPushNotifications,
-              propose_nearby_cities: signal.appSettings.proposeNearbyCities
+              allow_push_notifications: signal.appSettings.allowPushNotifications
             }
           }
         })
