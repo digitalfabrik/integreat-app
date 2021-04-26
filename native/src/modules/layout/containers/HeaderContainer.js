@@ -9,17 +9,11 @@ import withTheme from '../../theme/hocs/withTheme'
 import type { StateType } from '../../app/StateType'
 import { type Dispatch } from 'redux'
 import type { StoreActionType } from '../../app/StoreActionType'
-import {
-  CityModel,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
-  OFFERS_ROUTE,
-  DISCLAIMER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  NEWS_ROUTE
-} from 'api-client'
+import { CityModel, OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE, NEWS_ROUTE } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { urlFromRouteInformation } from '../../navigation/url'
 import type { NonNullableRouteInformationType } from 'api-client'
+import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 
 type OwnPropsType = {|
   ...StackHeaderProps,
@@ -82,16 +76,17 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   const goToLanguageChange = () => {
-    ownProps.navigation.navigate({
-      name: CHANGE_LANGUAGE_MODAL_ROUTE,
-      params: {
-        currentLanguage: route.language,
-        languages: languages.models,
+    if (typeof cityCode === 'string' && typeof languageCode === 'string') {
+      navigateToLanguageChange({
+        // $FlowFixMe Wrong navigation type
+        navigation: ownProps.navigation,
+        languageCode,
+        languages: Array.from(languages.models),
         cityCode,
         availableLanguages: Array.from(route.allAvailableLanguages.keys()),
         previousKey: routeKey
-      }
-    })
+      })
+    }
   }
 
   const peeking = isPeekingRoute(state, { routeCity: route.city })
