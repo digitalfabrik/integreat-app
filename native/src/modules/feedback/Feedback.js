@@ -66,31 +66,18 @@ export type PropsType = {|
 const Feedback = (props: PropsType) => {
   const renderBox = (): React.Node => {
     const { theme, t, feedbackOrigin, comment, contactMail, sendingStatus } = props
-    let title
-    let isSearchFeedback = false
-    switch (feedbackOrigin) {
-      case 'positive':
-        title = t('positiveComment')
-        break
-      case 'negative':
-        title = t('negativeComment')
-        break
-      case 'searchInformationNotFound':
-        title = t('wantedInformation')
-        isSearchFeedback = true
-        break
-      case 'searchNothingFound':
-        title = t('wantedInformation')
-        isSearchFeedback = true
-        break
-    }
+    const isSearchFeedback = feedbackOrigin === 'searchInformationNotFound' || feedbackOrigin === 'searchNothingFound'
 
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
           {!isSearchFeedback && <Caption theme={theme} title={t('feedback')} />}
           <DescriptionContainer theme={theme}>
-            <Description theme={theme}>{title}</Description>
+            <Description theme={theme}>
+              {feedbackOrigin === 'positive' && t('positiveComment')}
+              {feedbackOrigin === 'negative' && t('negativeComment')}
+              {isSearchFeedback && t('wantedInformation')}
+            </Description>
             {feedbackOrigin === 'positive' && <Text>({t('optionalInfo')})</Text>}
           </DescriptionContainer>
           <Input
