@@ -124,19 +124,20 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
 
   onFeedbackContactMailChanged = (contactMail: string) => this.setState({ contactMail })
 
-  handleSubmit = async () => {
+  handleSubmit = () => {
     const { comment, contactMail } = this.state
     const feedbackData = this.getFeedbackData(comment, contactMail)
     this.setState({ sendingStatus: 'sending' })
-    try {
+    const request = async () => {
       const apiUrl = await determineApiUrl()
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
       await feedbackEndpoint.request(feedbackData)
       this.setState({ sendingStatus: 'successful' })
-    } catch (e) {
-      console.error(e)
-      this.setState({ sendingStatus: 'failed' })
     }
+    request().catch(err => {
+      console.log(err)
+      this.setState({ sendingStatus: 'failed' })
+    })
   }
 
   render() {

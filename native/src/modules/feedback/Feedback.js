@@ -58,7 +58,7 @@ export type PropsType = {|
   onCommentChanged: (comment: string) => void,
   onFeedbackContactMailChanged: (contactMail: string) => void,
   feedbackOrigin: FeedbackOriginType,
-  onSubmit: () => Promise<void>,
+  onSubmit: () => void,
   theme: ThemeType,
   t: TFunction
 |}
