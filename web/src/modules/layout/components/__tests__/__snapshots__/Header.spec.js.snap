@@ -40,7 +40,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
           icon="icon.jpg"
           key="0"
           text="text1"
-          tooltip="tooltip1"
         />
       </Header__NavigationBar>
     </Header__Row>
@@ -87,7 +86,6 @@ exports[`Header should match snapshot with smallViewport 1`] = `
           icon="icon.jpg"
           key="0"
           text="text1"
-          tooltip="tooltip1"
         />
       </Header__NavigationBar>
     </Header__Row>
