@@ -15,7 +15,6 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
       selectedCity,
       contentLanguage,
       allowPushNotifications,
-      proposeNearbyCities,
       errorTracking,
       jpalTrackingCode
     } = settings
@@ -31,7 +30,6 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
         systemLanguage: '', // TODO IGAPP-566 Include system language
         appSettings: {
           allowPushNotifications,
-          proposeNearbyCities,
           errorTracking
         }
       })
