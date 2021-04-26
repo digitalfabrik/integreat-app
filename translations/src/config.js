@@ -7,6 +7,7 @@ type FontType = 'lateef'
   | 'raleway'
   | 'varelaRound'
   | 'noto-sans-sc' // https://www.google.com/get/noto/help/cjk/
+  | 'noto-sans-georgian'
 type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
 type SupportedLanguagesType = { [languageTag: string]: LanguageType }
 type FallbacksType = { [languageTag: string]: string[] }
@@ -55,7 +56,15 @@ class Config {
       additionalFont: 'noto-sans-sc'
     },
     mk: { rtl: false },
-    sq: { rtl: false }
+    sq: { rtl: false },
+    ka: {
+      rtl: false,
+      additionalFont: 'noto-sans-georgian'
+    },
+    prs: {
+      rtl: true,
+      additionalFont: 'lateef'
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
@@ -132,7 +141,7 @@ class Config {
   getFallbackLanguageTags (): string[] {
     return Object.keys(this.fallbacks)
   }
-  
+
   getFallbackTargetLanguageTags (): string[] {
     const languageTags = []
     const fallbacks: string[][] = values(this.fallbacks)

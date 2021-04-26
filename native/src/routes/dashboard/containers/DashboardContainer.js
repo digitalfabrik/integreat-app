@@ -186,7 +186,6 @@ const ThemedTranslatedDashboard = withTranslation<$Diff<DashboardPropsType, {| t
   withTheme<DashboardPropsType>(Dashboard)
 )
 
-// TODO Request push notification permissions
 const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, navigation, route, ...rest } = props
 
