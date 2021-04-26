@@ -25,7 +25,6 @@ const Container: StyledComponent<{| width: number |}, {||}, *> = styled.View`
   flex: 1;
   flex-direction: column;
   width: ${props => props.width}px;
-  height: 100%;
   justify-content: space-between;
 `
 

@@ -32,8 +32,8 @@ const SlideFooter = ({ onDone, theme, slideCount, goToSlide, currentSlide, t }: 
   return (
     <View>
       <ButtonContainer>
-        <SlideButton label={t('skip')} onPress={onDone} theme={theme} />
-        {!isLastSlide && <SlideButton label={t('next')} onPress={goToNextSlide} theme={theme} />}
+        {!isLastSlide && <SlideButton label={t('skip')} onPress={onDone} theme={theme} />}
+        <SlideButton label={t('next')} onPress={isLastSlide ? onDone : goToNextSlide} theme={theme} />
       </ButtonContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} />
     </View>

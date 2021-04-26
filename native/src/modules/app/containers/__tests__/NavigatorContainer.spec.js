@@ -22,10 +22,6 @@ jest.mock('../../../layout/containers/HeaderContainer', () => {
   const Text = require('react-native').Text
   return () => <Text>Header</Text>
 })
-jest.mock('../../../layout/containers/PermissionSnackbarContainer', () => {
-  const Text = require('react-native').Text
-  return () => <Text>PermissionSnackbarContainer</Text>
-})
 
 jest.mock('../../../push-notifications/PushNotificationsManager')
 jest.mock('../../../native-constants/NativeConstants')
