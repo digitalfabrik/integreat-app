@@ -8,8 +8,6 @@ import { CityModel, NotFoundError, TunewsModel } from 'api-client'
 import { connect } from 'react-redux'
 import type { StateType } from '../../../modules/app/StateType'
 import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
-import { useContext } from 'react'
-import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { TU_NEWS_TYPE } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
 import Page from '../../../modules/common/components/Page'
@@ -78,9 +76,7 @@ export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }:
         <Page
           title={title}
           content={content}
-          formatter={formatter}
           lastUpdateFormat={lastUpdateDateFormat}
-          lastUpdate={date}
           showLastUpdateText={false}
           onInternalLinkClick={push}
         />
