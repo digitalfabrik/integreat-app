@@ -38,7 +38,7 @@ yarn workspace e2e test:native
 Browserstack provides you with a large set of available operating systems, browser, and browser versions.
 To see and run the E2E tests on Browserstack you need a Browserstack account, with access to our organization.
 You will need to set `E2E_BROWSERSTACK_KEY` and `E2E_BROWSERSTACK_USER` as environment variables, which you can find when logging in to Browserstack and selecting either the Automate or AppAutomate tab.
-If you don't have this access you can still execute the tests locally with `yarn e2e:web` or `yarn e2e:native`.
+If you don't have this access you can still execute the tests locally with `yarn test:web` or `yarn test:native`.
 For the browserstack tests in web there are several configurations to run the tests in the specified browsers. Preferably you should run these from the commandline, e.g. `yarn wdio run web/browserstack/wdio-browserstack-safari.conf.ts` from the project root. There is also a configuration in the `package.json`, which runs all of the browserstack configurations sequentially.
 
 ## Writing Tests
