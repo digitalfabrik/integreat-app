@@ -19,7 +19,7 @@ import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import styled from 'styled-components/native'
 import type { StyledComponent } from 'styled-components'
 import { cityContentPath } from '../../../modules/navigation/url'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import type { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
 import {
   CATEGORIES_ROUTE,
   EVENTS_ROUTE,
