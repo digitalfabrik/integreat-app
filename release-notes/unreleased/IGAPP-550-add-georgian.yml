@@ -1,0 +1,7 @@
+issue_key: IGAPP-550
+show_in_stores: false
+platforms:
+  - web
+  - android
+  - ios
+en: Support added for georgian language and alphabet.

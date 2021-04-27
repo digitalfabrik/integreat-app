@@ -10,6 +10,7 @@ import FailureSwitcher from '../../../modules/common/components/FailureSwitcher'
 import { useContext } from 'react'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
+import { lastUpdateDateFormat } from '../../../modules/common/constants/news'
 
 type PropsType = {|
   localNewsElement: LocalNewsModel,
@@ -36,7 +37,7 @@ export const LocalNewsDetailsPage = ({ localNewsElement, language, city, cities,
       title={localNewsElement.title}
       content={linkedContent}
       formatter={formatter}
-      lastUpdateFormat={'LLL'}
+      lastUpdateFormat={lastUpdateDateFormat}
       lastUpdate={localNewsElement.timestamp}
       showLastUpdateText={false}
       onInternalLinkClick={push}
