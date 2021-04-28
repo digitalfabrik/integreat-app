@@ -8,6 +8,7 @@ import type { SettingsType } from '../../../modules/settings/AppSettings'
 import { openSettings } from 'react-native-permissions'
 
 jest.mock('../../../modules/native-constants/NativeConstants', () => ({ appVersion: '1.0.0' }))
+jest.mock('../../../modules/i18n/NativeLanguageDetector')
 
 let mockRequestPushNotificationPermission
 let mockSubscribeNews

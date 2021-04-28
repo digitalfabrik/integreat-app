@@ -6,6 +6,10 @@ import AppSettings from '../../settings/AppSettings'
 import buildConfig from '../../app/constants/buildConfig'
 import AsyncStorage from '@react-native-community/async-storage'
 
+jest.mock('../../i18n/components/I18nProvider', () => ({
+  i18n: { languages: ['kmr', 'de']}
+}))
+jest.mock('../../../modules/i18n/NativeLanguageDetector')
 let mockRequest
 jest.mock('api-client', () => {
   const mock = jest.fn()
@@ -46,7 +50,7 @@ describe('sendTrackingSignal', () => {
       offline: true,
       currentCity: 'muenchen',
       currentLanguage: 'ar',
-      systemLanguage: '', // TODO IGAPP-566 Include system language
+      systemLanguage: 'kmr',
       appSettings: {
         allowPushNotifications: true,
         errorTracking: false
