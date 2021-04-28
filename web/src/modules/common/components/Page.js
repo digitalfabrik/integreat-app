@@ -28,7 +28,7 @@ type PropsType = {|
   lastUpdate?: Moment,
   showLastUpdateText?: boolean,
   lastUpdateFormat?: string,
-  formatter?: DateFormatter,
+  formatter: DateFormatter,
   onInternalLinkClick: string => void,
   children?: React.Node
 |}
