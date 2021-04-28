@@ -12,7 +12,7 @@ import Endpoint from '../Endpoint'
 
 export const CATEGORIES_ENDPOINT_NAME = 'categories'
 
-type ParamsType = { city: string, language: string }
+type ParamsType = {| city: string, language: string |}
 
 export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
   new EndpointBuilder(CATEGORIES_ENDPOINT_NAME)
