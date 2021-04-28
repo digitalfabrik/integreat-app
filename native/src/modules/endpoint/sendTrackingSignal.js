@@ -27,17 +27,17 @@ export const sendCompleteSignal = async (signal: SignalType) => {
   }
 }
 
-const sendSpecificSignal = async ({ signal: specificSignal, offline = false }: {| signal: SpecificSignalType, offline?: boolean |}) => {
+const sendSpecificSignal = async ({
+  signal: specificSignal,
+  offline = false
+}: {|
+  signal: SpecificSignalType,
+  offline?: boolean
+|}) => {
   const appSettings = new AppSettings()
   try {
     const settings: SettingsType = await appSettings.loadSettings()
-    const {
-      selectedCity,
-      contentLanguage,
-      allowPushNotifications,
-      errorTracking,
-      jpalTrackingCode
-    } = settings
+    const { selectedCity, contentLanguage, allowPushNotifications, errorTracking, jpalTrackingCode } = settings
 
     const signal: SignalType = {
       ...specificSignal,
