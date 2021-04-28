@@ -5,10 +5,8 @@ import CategoriesMapModel from '../models/CategoriesMapModel'
 import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment-timezone'
 import type { JsonCategoryType } from '../types'
-import mapAvailableLanguages from '../mapAvailableLanguages'
-import normalizePath from '../normalizePath'
-import sanitizeHtml from 'sanitize-html-react'
 import Endpoint from '../Endpoint'
+import mapCategoryJson from '../mapping/mapCategoryJson'
 
 export const CATEGORIES_ENDPOINT_NAME = 'categories'
 
@@ -22,24 +20,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
     .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
       const basePath = `/${params.city}/${params.language}`
 
-      const categories = json.map(category => {
-        return new CategoryModel({
-          root: false,
-          path: normalizePath(category.path),
-          title: category.title,
-          content: sanitizeHtml(category.content, {
-            allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
-            allowedTags: false,
-            allowedAttributes: false
-          }),
-          thumbnail: category.thumbnail,
-          order: category.order,
-          availableLanguages: mapAvailableLanguages(category.available_languages),
-          parentPath: normalizePath(category.parent.path || basePath),
-          lastUpdate: moment.tz(category.modified_gmt, 'GMT'),
-          hash: category.hash
-        })
-      })
+      const categories = json.map(category => mapCategoryJson(category, basePath))
 
       categories.push(
         new CategoryModel({
