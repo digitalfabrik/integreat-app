@@ -27,6 +27,12 @@ describe('createCategoryContentEndpoint', () => {
     )
   })
 
+  it('should throw if using the endpoint for the root category', () => {
+    expect(() => endpoint.mapParamsToUrl({ ...params, cityContentPath: `/${params.city}/${params.language}` })).toThrow(
+      'This endpoint does not support the root category!'
+    )
+  })
+
   it('should map json to category', () => {
     const category = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()[1]
     // $FlowFixMe mapCategoryJson is a mock
