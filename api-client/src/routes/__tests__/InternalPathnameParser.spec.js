@@ -240,6 +240,7 @@ describe('InternalPathnameParser', () => {
       cityContentPath: pathname2
     })
   })
+
   describe('fixed city', () => {
     const fixedCity = 'aschaffenburg'
     it('should match dashboard route if pathname is emtpy', () => {
@@ -263,7 +264,7 @@ describe('InternalPathnameParser', () => {
     })
 
     it('should match dashboard route if pathname is landing with a language', () => {
-      const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar`, languageCode, fixedCity)
+      const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar/`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
         route: DASHBOARD_ROUTE,
         languageCode: 'ar',
@@ -273,7 +274,7 @@ describe('InternalPathnameParser', () => {
     })
 
     it('should match dashboard route if pathname the fixed city without a language', () => {
-      const parser = new InternalPathnameParser(`/${fixedCity}`, languageCode, fixedCity)
+      const parser = new InternalPathnameParser(`/${fixedCity}/`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
         route: DASHBOARD_ROUTE,
         languageCode,
@@ -305,7 +306,8 @@ describe('InternalPathnameParser', () => {
 
     it('should match single events route', () => {
       const pathname = `/${fixedCity}/${languageCode}/${EVENTS_ROUTE}/1234`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
+      const trailingPathname = `${pathname}/`
+      const parser = new InternalPathnameParser(trailingPathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
         route: EVENTS_ROUTE,
         languageCode,
@@ -458,7 +460,8 @@ describe('InternalPathnameParser', () => {
         cityContentPath: pathname1
       })
       const pathname2 = `/${fixedCity}/${languageCode}/some-category/2nd-level/3rd-level`
-      const parser2 = new InternalPathnameParser(pathname2, languageCode, fixedCity)
+      const trailingPathname2 = `${pathname2}/`
+      const parser2 = new InternalPathnameParser(trailingPathname2, languageCode, fixedCity)
       expect(parser2.route()).toEqual({
         route: CATEGORIES_ROUTE,
         languageCode,
