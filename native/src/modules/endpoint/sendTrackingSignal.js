@@ -5,6 +5,7 @@ import AppSettings from '../settings/AppSettings'
 import moment from 'moment'
 import type { SettingsType } from '../settings/AppSettings'
 import buildConfig from '../app/constants/buildConfig'
+import { i18n } from '../i18n/components/I18nProvider'
 
 const sendTrackingSignal = async ({ signal, offline = false }: {| signal: SpecificSignalType, offline?: boolean |}) => {
   try {
@@ -19,6 +20,8 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
       jpalTrackingCode
     } = settings
 
+    const systemLanguage = i18n?.languages[0] ?? 'unknown'
+
     if (buildConfig().featureFlags.jpalTracking && jpalTrackingEnabled && jpalTrackingCode) {
       await createTrackingEndpoint().request({
         ...signal,
@@ -27,7 +30,7 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
         timestamp: moment().toISOString(),
         currentCity: selectedCity,
         currentLanguage: contentLanguage,
-        systemLanguage: '', // TODO IGAPP-566 Include system language
+        systemLanguage,
         appSettings: {
           allowPushNotifications,
           errorTracking
