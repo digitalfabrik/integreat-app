@@ -13,7 +13,6 @@ type ParamsType = {| city: string, language: string, cityContentPath: string |}
 export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
   new EndpointBuilder(CATEGORY_CHILDREN_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      // This endpoint does not work for the root category
       (params: ParamsType): string =>
         `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/children?&url=${params.cityContentPath}`
     )
