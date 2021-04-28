@@ -18,9 +18,8 @@ export const sendCompleteSignal = async (signal: SignalType) => {
     }
   } catch (e) {
     if (fromError(e) === ErrorCodes.NetworkConnectionFailed) {
-      console.log('offline signal')
       // Offline usage, save signal to be sent later
-      appSettings.pushJpalSignal({ ...signal, offline: true })
+      await appSettings.pushJpalSignal({ ...signal, offline: true })
     } else {
       console.error(e)
       // TODO IGAPP-572 Send to sentry
