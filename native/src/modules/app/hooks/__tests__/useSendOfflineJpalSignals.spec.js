@@ -55,17 +55,13 @@ describe('useSendOfflineJpalSignals', () => {
 
     mockUseNetInfo.mockImplementation(() => ({ isInternetReachable: false }))
 
-    const { rerender } = render(
-      <MockComponent />
-    )
+    const { rerender } = render(<MockComponent />)
 
     expect(sendCompleteSignal).not.toHaveBeenCalled()
 
     mockUseNetInfo.mockImplementation(() => ({ isInternetReachable: true }))
 
-    rerender(
-      <MockComponent />
-    )
+    rerender(<MockComponent />)
 
     await waitFor(() => expect(sendCompleteSignal).toHaveBeenCalledTimes(2))
     expect(sendCompleteSignal).toHaveBeenCalledWith(signal1)
@@ -80,17 +76,13 @@ describe('useSendOfflineJpalSignals', () => {
 
     mockUseNetInfo.mockImplementation(() => ({ isInternetReachable: true }))
 
-    const { rerender } = render(
-      <MockComponent />
-    )
+    const { rerender } = render(<MockComponent />)
 
     expect(sendCompleteSignal).not.toHaveBeenCalled()
 
     mockUseNetInfo.mockImplementation(() => ({ isInternetReachable: true }))
 
-    rerender(
-      <MockComponent />
-    )
+    rerender(<MockComponent />)
 
     expect(sendCompleteSignal).not.toHaveBeenCalled()
   })
