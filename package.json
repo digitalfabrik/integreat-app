@@ -6,6 +6,7 @@
     "packages": [
       "native",
       "web",
+      "web-ts",
       "e2e-tests",
       "api-client",
       "translations",
@@ -14,6 +15,7 @@
     "nohoist": [
       "native/**",
       "web/**",
+      "web-ts/**",
       "api-client/**",
       "translations/**",
       "build-configs/**"
