@@ -11,7 +11,6 @@ export type SettingsType = {|
   introShown: boolean | null,
   errorTracking: boolean | null,
   allowPushNotifications: boolean | null,
-  proposeNearbyCities: boolean | null,
   apiUrlOverride: string | null,
   jpalTrackingEnabled: boolean | null,
   jpalTrackingCode: string | null
@@ -22,9 +21,8 @@ export const defaultSettings: SettingsType = {
   contentLanguage: null,
   selectedCity: null,
   introShown: null,
-  errorTracking: null,
-  allowPushNotifications: null,
-  proposeNearbyCities: null,
+  errorTracking: true,
+  allowPushNotifications: true,
   apiUrlOverride: null,
   jpalTrackingEnabled: null,
   jpalTrackingCode: null
