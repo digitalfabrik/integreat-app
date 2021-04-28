@@ -15,7 +15,7 @@ import type { LanguageResourceCacheStateType } from '../../../modules/app/StateT
 import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import { fromError } from '../../../modules/error/ErrorCodes'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import type { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'

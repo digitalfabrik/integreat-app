@@ -35,7 +35,8 @@ describe('SearchModal', () => {
     navigateToLink: dummy,
     t: t,
     theme: lightTheme,
-    sendFeedback: dummy
+    sendFeedback: dummy,
+    cities: []
   }
 
   it('should send tracking signal when closing search site', async () => {

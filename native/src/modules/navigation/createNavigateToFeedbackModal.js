@@ -1,6 +1,6 @@
 // @flow
 
-import type { FeedbackInformationType } from '../../routes/feedback/containers/FeedbackModalContainer'
+import type { FeedbackInformationType } from '../feedback/FeedbackContainer'
 import { FEEDBACK_MODAL_ROUTE } from 'api-client/src/routes'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import sendTrackingSignal from '../endpoint/sendTrackingSignal'
