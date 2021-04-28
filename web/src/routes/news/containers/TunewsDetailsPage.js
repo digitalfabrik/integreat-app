@@ -12,6 +12,8 @@ import { TU_NEWS_TYPE } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
 import Page from '../../../modules/common/components/Page'
 import { lastUpdateDateFormat } from '../../../modules/common/constants/news'
+import { useContext } from 'react'
+import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 
 const StyledContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
@@ -55,6 +57,7 @@ type PropsType = {|
 |}
 
 export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }: PropsType) => {
+  const formatter = useContext(DateFormatterContext)
   const currentCity: ?CityModel = cities && cities.find(cityElement => cityElement.code === city)
   if (!currentCity || !currentCity.tunewsEnabled) {
     const error = new NotFoundError({ type: 'category', id: id.toString(), city, language })
@@ -76,6 +79,7 @@ export const TunewsDetailsPage = ({ tunewsElement, language, id, city, cities }:
         <Page
           title={title}
           content={content}
+          formatter={formatter}
           lastUpdateFormat={lastUpdateDateFormat}
           showLastUpdateText={false}
           onInternalLinkClick={push}
