@@ -1,20 +1,20 @@
 import {Configuration, DefinePlugin, LoaderOptionsPlugin, optimize} from "webpack";
 import {join, resolve} from 'path'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
-import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
 import {readFileSync} from "fs";
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
-import CopyPlugin = require('copy-webpack-plugin')
-import AssetsPlugin = require('assets-webpack-plugin');
-import HtmlWebpackPlugin = require('html-webpack-plugin');
+import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
+import AssetsPlugin from 'assets-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-//
 // const loadBuildConfig = require('build-configs').default
 // const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 // const babelConfig = require('../babel.config.js')
 // const translations = require('translations')
 // const { WEB, ANDROID, IOS } = require('build-configs')
-
+// reset the tsconfig to the default configuration
+delete process.env.TS_NODE_PROJECT
 const currentYear = new Date().getFullYear()
 
 const SHORT_COMMIT_SHA_LENGTH = 8
@@ -32,7 +32,7 @@ const readVersionName = () => {
     return versionFile.versionName
 }
 
-const generateManifest = (content: unknown, buildConfigName: unknown) => {
+const generateManifest = (content: Buffer, buildConfigName: string) => {
     // const manifest = JSON.parse(content.toString())
 
     // const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
@@ -79,6 +79,8 @@ const createConfig = (
 
     // We have to override the env of the current process, such that babel-loader works with that.
     const NODE_ENV = devServer ? '"development"' : '"production"'
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     process.env.NODE_ENV = NODE_ENV
 
     // If version_name is not supplied read it from version file
@@ -240,7 +242,6 @@ const createConfig = (
                 {
                     test: /\.css$/,
                     include: /node_modules/,
-                    // @ts-ignore
                     loaders: [{loader: 'style-loader'}, {loader: 'css-loader'}]
                 },
                 {
