@@ -5,13 +5,34 @@ import AppSettings from '../settings/AppSettings'
 import moment from 'moment'
 import type { SettingsType } from '../settings/AppSettings'
 import buildConfig from '../app/constants/buildConfig'
+import ErrorCodes, { fromError } from '../error/ErrorCodes'
+import type { SignalType } from 'api-client'
 
-const sendTrackingSignal = async ({ signal, offline = false }: {| signal: SpecificSignalType, offline?: boolean |}) => {
+export const sendCompleteSignal = async (signal: SignalType) => {
+  const appSettings = new AppSettings()
   try {
-    const appSettings = new AppSettings()
+    const { jpalTrackingCode, jpalTrackingEnabled } = await appSettings.loadSettings()
+
+    if (buildConfig().featureFlags.jpalTracking && jpalTrackingEnabled && jpalTrackingCode) {
+      await createTrackingEndpoint().request(signal)
+    }
+  } catch (e) {
+    if (fromError(e) === ErrorCodes.NetworkConnectionFailed) {
+      console.log('offline signal')
+      // Offline usage, save signal to be sent later
+      appSettings.pushJpalSignal({ ...signal, offline: true })
+    } else {
+      console.error(e)
+      // TODO IGAPP-572 Send to sentry
+    }
+  }
+}
+
+const sendSpecificSignal = async ({ signal: specificSignal, offline = false }: {| signal: SpecificSignalType, offline?: boolean |}) => {
+  const appSettings = new AppSettings()
+  try {
     const settings: SettingsType = await appSettings.loadSettings()
     const {
-      jpalTrackingEnabled,
       selectedCity,
       contentLanguage,
       allowPushNotifications,
@@ -19,24 +40,24 @@ const sendTrackingSignal = async ({ signal, offline = false }: {| signal: Specif
       jpalTrackingCode
     } = settings
 
-    if (buildConfig().featureFlags.jpalTracking && jpalTrackingEnabled && jpalTrackingCode) {
-      await createTrackingEndpoint().request({
-        ...signal,
-        trackingCode: jpalTrackingCode,
-        offline,
-        timestamp: moment().toISOString(),
-        currentCity: selectedCity,
-        currentLanguage: contentLanguage,
-        systemLanguage: '', // TODO IGAPP-566 Include system language
-        appSettings: {
-          allowPushNotifications,
-          errorTracking
-        }
-      })
+    const signal: SignalType = {
+      ...specificSignal,
+      trackingCode: jpalTrackingCode,
+      offline,
+      timestamp: moment().toISOString(),
+      currentCity: selectedCity,
+      currentLanguage: contentLanguage,
+      systemLanguage: '', // TODO IGAPP-566 Include system language
+      appSettings: {
+        allowPushNotifications,
+        errorTracking
+      }
     }
+
+    await sendCompleteSignal(signal)
   } catch (e) {
     console.error(e)
   }
 }
 
-export default sendTrackingSignal
+export default sendSpecificSignal
