@@ -22,6 +22,7 @@ import { CityModel } from 'api-client'
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
+jest.mock('../../../../modules/i18n/NativeLanguageDetector')
 
 jest.mock('../../components/NewsList', () => {
   const Text = require('react-native').Text

@@ -23,6 +23,7 @@ const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 
+jest.mock('../../../../modules/i18n/NativeLanguageDetector')
 jest.mock('../../components/Header', () => {
   const Text = require('react-native').Text
   // $FlowFixMe props are incompatible with text props, but this is just for testing purposes to assert on props

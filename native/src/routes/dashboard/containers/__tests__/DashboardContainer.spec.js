@@ -27,6 +27,7 @@ const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 
+jest.mock('../../../../modules/i18n/NativeLanguageDetector')
 jest.mock('../../components/Dashboard', () => {
   const Text = require('react-native').Text
   return () => <Text>Dashboard</Text>
