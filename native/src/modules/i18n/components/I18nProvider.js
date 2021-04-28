@@ -16,6 +16,8 @@ import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 type PropsType = {| children: React.Node |}
 
+export let i18n
+
 export default ({ children }: PropsType) => {
   const [errorMessage, setErrorMessage] = useState<?string>(null)
   const [i18nextInstance, setI18nextInstance] = useState(null)
@@ -69,6 +71,7 @@ export default ({ children }: PropsType) => {
       })
 
       setI18nextInstance(i18nextInstance)
+      i18n = i18nextInstance
     }
 
     initI18Next().catch((e: Error) => {
