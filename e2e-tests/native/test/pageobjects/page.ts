@@ -6,8 +6,8 @@ export class Page {
         this.pageId = pageId
     }
 
-    public async exists(): Promise<boolean | void> {
+    public async exists(): Promise<boolean> {
         const page = await $(`~${this.pageId}`)
-        return await page.waitForExist()
+        return Boolean(await page.waitForExist())
     }
 }
