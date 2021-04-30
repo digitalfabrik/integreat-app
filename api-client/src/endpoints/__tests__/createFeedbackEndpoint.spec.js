@@ -1,7 +1,7 @@
 // @flow
 
 import createFeedbackEndponit, {
-  CONTENT_FEEDBACK_CATEGORY,
+  CONTENT_FEEDBACK_CATEGORY, PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '../createFeedbackEndpoint'
 
@@ -20,6 +20,20 @@ describe('feedback', () => {
         isPositiveRating: true
       })
     ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
+  })
+
+  it('should overwrite wrong feedback type for the root category', () => {
+    expect(
+      feedback.mapParamsToUrl({
+        city: 'augsburg',
+        language: 'de',
+        comment: null,
+        feedbackType: PAGE_FEEDBACK_TYPE,
+        feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
+        isPositiveRating: true,
+        permalink: `/augsburg/de`
+      })
+    ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories')
   })
 
   it('should map the params to the body', () => {
