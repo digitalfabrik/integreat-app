@@ -2,7 +2,6 @@
 
 import type { StackNavigationProp } from '@react-navigation/stack'
 import type { RouteProp } from '@react-navigation/native'
-import { LanguageModel } from 'api-client'
 import type {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
@@ -13,19 +12,20 @@ import type {
   FeedbackModalRouteType,
   ImageViewModalRouteType,
   IntroRouteType,
+  JpalTrackingRouteType,
   LandingRouteType,
   NewsRouteType,
   OffersRouteType,
   PdfViewModalRouteType,
   PoisRouteType,
+  RedirectRouteType,
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  WohnenOfferRouteType,
-  JpalTrackingRouteType,
-  RedirectRouteType
+  WohnenOfferRouteType
 } from 'api-client'
-import type { FeedbackInformationType } from '../../../routes/feedback/containers/FeedbackModalContainer'
+import { LanguageModel } from 'api-client'
+import type { FeedbackInformationType } from '../../feedback/FeedbackContainer'
 
 export type RoutesType =
   | RedirectRouteType
@@ -56,8 +56,8 @@ export type RoutesParamsType = {|
   redirect: {| url: string |},
   intro: {| deepLink?: string |},
   landing: void,
-  dashboard: CityContentParamsType,
-  categories: CityContentParamsType,
+  dashboard: void,
+  categories: void,
   pois: void,
   events: void,
   news: void,

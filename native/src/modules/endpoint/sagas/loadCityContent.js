@@ -24,19 +24,35 @@ import loadPois from './loadPois'
 import { CategoriesMapModel, EventModel } from 'api-client'
 
 /**
+ * Subscribes to the push notification topic of the new city and language
+ * @param newCity
+ * @param newLanguage
+ */
+function* subscribePushNotifications(newCity: string, newLanguage: string): Saga<void> {
+  const appSettings = new AppSettings()
+  const settings: SettingsType = yield call(appSettings.loadSettings)
+
+  if (settings.allowPushNotifications) {
+    const status = yield call(NotificationsManager.requestPushNotificationPermission)
+    if (status) {
+      yield call(NotificationsManager.subscribeNews, newCity, newLanguage)
+    } else {
+      // Disable the feature to prevent the user from being asked again
+      yield call(appSettings.setSettings, { allowPushNotifications: false })
+    }
+  }
+}
+
+/**
  * Persists the newCity as selected city and subscribes to the corresponding push notifications.
  * @param newCity
  * @param newLanguage
  */
 function* selectCity(newCity: string, newLanguage: string): Saga<void> {
   const appSettings = new AppSettings()
-  const settings: SettingsType = yield call(appSettings.loadSettings)
-
-  if (settings.allowPushNotifications) {
-    yield spawn(NotificationsManager.subscribeNews, newCity, newLanguage, buildConfig().featureFlags)
-  }
 
   yield call(appSettings.setSelectedCity, newCity)
+  yield spawn(subscribePushNotifications, newCity, newLanguage)
 }
 
 /**

@@ -9,11 +9,11 @@ const fonts: FontsType = {
     decorativeFontRegular: 'VarelaRound-Regular',
     contentFontRegular: 'OpenSans-Regular',
     contentFontBold: 'OpenSans-Bold',
-    webviewFont: 'OpenSans, Lateef, Noto Sans SC, sans-serif'
+    webviewFont: 'OpenSans, Lateef, Noto Sans SC, Noto Sans Georgian, sans-serif'
   },
   web: {
-    decorativeFont: 'Varela Round, Lateef, Noto Sans SC, sans-serif',
-    contentFont: 'Open Sans, Lateef, Noto Sans SC, sans-serif'
+    decorativeFont: 'Varela Round, Lateef, Noto Sans SC, Noto Sans Georgian, sans-serif',
+    contentFont: 'Open Sans, Lateef, Noto Sans SC, Noto Sans Georgian, sans-serif'
   },
   ...commonFonts
 }

@@ -20,7 +20,8 @@ describe('isPeekingRoute', () => {
           contentLanguage: 'en',
           cities: {
             status: 'loading'
-          }
+          },
+          snackbar: []
         },
         { routeCity: 'augsburg' }
       )
@@ -44,7 +45,8 @@ describe('isPeekingRoute', () => {
           contentLanguage: 'en',
           cities: {
             status: 'loading'
-          }
+          },
+          snackbar: []
         },
         { routeCity: 'nuernberg' }
       )
@@ -61,7 +63,8 @@ describe('isPeekingRoute', () => {
           contentLanguage: 'en',
           cities: {
             status: 'loading'
-          }
+          },
+          snackbar: []
         },
         { routeCity: 'augsburg' }
       )

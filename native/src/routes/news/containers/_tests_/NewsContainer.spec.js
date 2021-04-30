@@ -109,7 +109,8 @@ describe('NewsContainer', () => {
       cities: cities || {
         status: 'ready',
         models: [city]
-      }
+      },
+      snackbar: []
     }
   }
 

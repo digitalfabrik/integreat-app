@@ -48,8 +48,7 @@ describe('watchContentLanguageSwitch', () => {
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
           newLanguage,
-          city,
-          t: key => key
+          city
         }
       }
 
@@ -76,8 +75,7 @@ describe('watchContentLanguageSwitch', () => {
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
           newLanguage,
-          city,
-          t: key => key
+          city
         }
       }
 

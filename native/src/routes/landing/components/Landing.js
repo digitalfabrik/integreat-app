@@ -8,14 +8,12 @@ import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
-import type { ThemeType } from '../../../modules/theme/constants'
-import AppSettings from '../../../modules/settings/AppSettings'
+import type { ThemeType } from 'build-configs/ThemeType'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import { checkLocationPermission } from '../../../modules/app/LocationPermissionManager'
 import { RESULTS } from 'react-native-permissions'
-import testID from '../../../modules/e2e/testID'
 
-const Wrapper: StyledComponent<{}, ThemeType, *> = styled(View)`
+const Wrapper: StyledComponent<{||}, ThemeType, *> = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 20px;
   align-items: center;
@@ -41,9 +39,9 @@ export type LocationType =
       longitude: number,
       latitude: number
     |}
+  | null
 
 type StateType = {|
-  proposeNearbyCities: boolean | null,
   location: LocationType
 |}
 
@@ -51,43 +49,70 @@ class Landing extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props)
     this.state = {
-      proposeNearbyCities: null,
-      location: {
-        message: 'loading',
-        status: 'unavailable'
-      }
+      location: null
     }
   }
 
   componentDidMount() {
-    this.initializeProposeCities()
+    this.determineLocationIfGranted()
   }
 
-  initializeProposeCities = async () => {
-    const appSettings = new AppSettings()
-    const { proposeNearbyCities } = await appSettings.loadSettings()
-    this.setState({ proposeNearbyCities: proposeNearbyCities })
-    const permissionGranted = (await checkLocationPermission()) === RESULTS.GRANTED
+  determineLocationIfGranted = async () => {
+    const locationPermissionStatus = await checkLocationPermission()
 
-    if (!permissionGranted) {
+    if (locationPermissionStatus === RESULTS.GRANTED) {
       this.setState({
         location: {
-          message: 'noPermission',
+          message: 'loading',
           status: 'unavailable'
         }
       })
-    } else if (proposeNearbyCities) {
-      this.determineCurrentPosition()
+      this.determineLocation()
+    } else {
+      this.setState({
+        location: {
+          status: 'unavailable',
+          message: 'noPermission'
+        }
+      })
     }
   }
 
-  determineCurrentPosition = () => {
+  requestAndDetermineLocation = async () => {
     this.setState({
       location: {
         message: 'loading',
         status: 'unavailable'
       }
     })
+
+    const locationPermissionStatus = await checkLocationPermission()
+
+    if (locationPermissionStatus === RESULTS.BLOCKED) {
+      openSettings()
+      this.setState({
+        location: {
+          message: 'noPermission',
+          status: 'unavailable'
+        }
+      })
+    } else if (locationPermissionStatus === RESULTS.GRANTED) {
+      this.determineLocation()
+    } else {
+      if ((await requestLocationPermission()) === RESULTS.GRANTED) {
+        this.determineLocation()
+      } else {
+        this.setState({
+          location: {
+            message: 'noPermission',
+            status: 'unavailable'
+          }
+        })
+      }
+    }
+  }
+
+  determineLocation = () => {
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
         this.setState({
@@ -139,27 +164,22 @@ class Landing extends React.Component<PropsType, StateType> {
 
   render() {
     const { theme, cities, t, clearResourcesAndCache } = this.props
-    const { proposeNearbyCities, ...state } = this.state
-    const tryAgain = this.state.location.message === 'loading' ? null : this.determineCurrentPosition
+    const { location } = this.state
+    const retryDetermineLocation = location?.message === 'loading' ? null : this.requestAndDetermineLocation
 
-    if (proposeNearbyCities !== null) {
-      return (
-        <Wrapper theme={theme} {...testID('Landing-Page')}>
-          <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-          <FilterableCitySelector
-            theme={theme}
-            cities={cities}
-            t={t}
-            {...state}
-            proposeNearbyCities={proposeNearbyCities}
-            tryAgain={tryAgain}
-            navigateToDashboard={this.navigateToDashboard}
-          />
-        </Wrapper>
-      )
-    } else {
-      return null
-    }
+    return (
+      <Wrapper>
+        <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
+        <FilterableCitySelector
+          theme={theme}
+          cities={cities}
+          t={t}
+          location={location}
+          retryDetermineLocation={retryDetermineLocation}
+          navigateToDashboard={this.navigateToDashboard}
+        />
+      </Wrapper>
+    )
   }
 }
 

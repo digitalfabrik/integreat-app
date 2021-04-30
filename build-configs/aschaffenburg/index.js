@@ -21,7 +21,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'aschaffenburg.app',
   allowedHostNames: ['cms.integreat-app.de'],
-  internalLinksHijackPattern: 'https?:\\/\\/aschaffenburg\\.app(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
     newsStream: false,
