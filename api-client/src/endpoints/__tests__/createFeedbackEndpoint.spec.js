@@ -1,7 +1,8 @@
 // @flow
 
 import createFeedbackEndponit, {
-  CONTENT_FEEDBACK_CATEGORY, PAGE_FEEDBACK_TYPE,
+  CONTENT_FEEDBACK_CATEGORY,
+  PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '../createFeedbackEndpoint'
 
