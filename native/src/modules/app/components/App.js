@@ -15,12 +15,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from '../../static-server/containers/StaticServerProvider'
 import I18nProvider from '../../i18n/components/I18nProvider'
 import { NavigationContainer, type LinkingOptions } from '@react-navigation/native'
-import PermissionSnackbarContainer from '../../layout/containers/PermissionSnackbarContainer'
-import { REDIRECT_ROUTE } from 'api-client'
+import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'api-client'
 import AppStateListener from './AppStateListener'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
+import SnackbarContainer from '../../layout/containers/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
+import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
@@ -45,22 +46,22 @@ const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 const App = () => {
   const [routeName, setRouteName] = useState<?string>(null)
   const [routeKey, setRouteKey] = useState<?string>(null)
-  const [cityCode, setCityCode] = useState<?string>(null)
-  const [languageCode, setLanguageCode] = useState<?string>(null)
+  const [routeIndex, setRouteIndex] = useState<number>(0)
 
-  const onStateChange = useCallback(state => {
-    if (state) {
-      const route = state.routes[state.index]
-      setRouteName(route.name)
-      setRouteKey(route.key)
-      if (route.params?.cityCode) {
-        setCityCode(typeof route.params.cityCode === 'string' ? route.params.cityCode : null)
+  const onStateChange = useCallback(
+    state => {
+      if (state) {
+        if (state.index === routeIndex - 1) {
+          sendTrackingSignal({ signal: { name: CLOSE_PAGE_SIGNAL_NAME } })
+        }
+        const route = state.routes[state.index]
+        setRouteName(route.name)
+        setRouteKey(route.key)
+        setRouteIndex(state.index)
       }
-      if (route.params?.languageCode) {
-        setLanguageCode(typeof route.params.languageCode === 'string' ? route.params.languageCode : null)
-      }
-    }
-  }, [])
+    },
+    [routeIndex]
+  )
 
   return (
     <Provider store={store}>
@@ -72,15 +73,10 @@ const App = () => {
                 <StatusBarContainer />
                 <IOSSafeAreaView>
                   <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                    <NavigatorContainer
-                      routeKey={routeKey}
-                      routeName={routeName}
-                      languageCode={languageCode}
-                      cityCode={cityCode}
-                    />
+                    <NavigatorContainer routeKey={routeKey} routeName={routeName} />
                   </NavigationContainer>
                 </IOSSafeAreaView>
-                {routeName && <PermissionSnackbarContainer routeName={routeName} />}
+                <SnackbarContainer />
               </>
             </SafeAreaProvider>
           </I18nProvider>

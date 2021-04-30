@@ -15,7 +15,7 @@ import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import { fromError } from '../../../modules/error/ErrorCodes'
 import PoiListItem from './PoiListItem'
-import type { FeedbackInformationType } from '../../feedback/containers/FeedbackModalContainer'
+import type { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
 import { POIS_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 

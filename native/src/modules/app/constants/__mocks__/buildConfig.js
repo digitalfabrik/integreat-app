@@ -31,7 +31,7 @@ const buildConfig = jest.fn<[], CommonBuildConfigType>((): CommonBuildConfigType
     introSlides: true,
     jpalTracking: false,
     sentry: true,
-    developerFriendly: true,
+    developerFriendly: false,
     fixedCity: null
   },
   aboutUrls: {

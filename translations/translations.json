@@ -209,7 +209,7 @@
       },
       "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
     },
-    "sr": {
+    "sr-Latn": {
       "pageTitles": {
         "search": "Pretraga",
         "events": "Manifestacije",
@@ -312,7 +312,7 @@
     "so": {
       "createPdf": "Abuur PDF"
     },
-    "sr": {
+    "sr-Latn": {
       "createPdf": "Izradite PDF"
     },
     "ti": {
@@ -405,7 +405,7 @@
       "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Bedelkii ugu dambeeyay:"
     },
-    "sr": {
+    "sr-Latn": {
       "languageNotAvailable": "Tvoj jezik nažalost ovde nije dostupan.",
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnja promena:"
@@ -525,7 +525,7 @@
       "news": "war",
       "newsAlternative": "war"
     },
-    "sr": {
+    "sr-Latn": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Manifestacije",
@@ -584,9 +584,7 @@
         "tunews": "Zu den tünews"
       },
       "pageTitle": "Fehler",
-      "generalError": "Ein Fehler ist aufgetreten",
-      "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "generalError": "Ein Fehler ist aufgetreten"
     },
     "ar": {
       "notFound": {
@@ -617,9 +615,7 @@
         "tunews": "إلى tünews"
       },
       "pageTitle": "خطأ",
-      "generalError": "حدث خطأ ما",
-      "languageSwitchFailedTitle": "للأسف، فشل في تغيير اللغة.",
-      "languageSwitchFailedMessage": "اللغة المُختارة غير متاحة دون الاتصال بالإنترنت. يلزم وجود اتصال نشط بالإنترنت."
+      "generalError": "حدث خطأ ما"
     },
     "en": {
       "notFound": {
@@ -650,9 +646,7 @@
         "tunews": "Go to tünews"
       },
       "pageTitle": "Error",
-      "generalError": "An error occurred",
-      "languageSwitchFailedTitle": "Unfortunately, changing the language failed.",
-      "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required."
+      "generalError": "An error occurred"
     },
     "es": {
       "notFound": {
@@ -683,9 +677,7 @@
         "tunews": "Ir a los tünews"
       },
       "pageTitle": "Error",
-      "generalError": "Se ha producido un error",
-      "languageSwitchFailedTitle": "No se ha podido cambiar el idioma.",
-      "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Se necesita una conexión a internet activada."
+      "generalError": "Se ha producido un error"
     },
     "pes": {
       "notFound": {
@@ -711,9 +703,7 @@
         "offers": "به سوی خدمات"
       },
       "pageTitle": "خطا",
-      "generalError": "خطایی رخ داده است",
-      "languageSwitchFailedTitle": "متأسفانه تغییر زبان انجام نشد.",
-      "languageSwitchFailedMessage": "زبان انتخابی بصورت آفلاین در دسترس نیست. اتصال اینترنت فعال ضروری است."
+      "generalError": "خطایی رخ داده است"
     },
     "fr": {
       "notFound": {
@@ -744,9 +734,7 @@
         "tunews": "Accéder aux tünews"
       },
       "pageTitle": "Erreur",
-      "generalError": "Une erreur s'est produite",
-      "languageSwitchFailedTitle": "Malheureusement, le changement de langue a échoué.",
-      "languageSwitchFailedMessage": "La langue sélectionnée n'est pas disponible hors ligne. Une connexion Internet active est requise."
+      "generalError": "Une erreur s'est produite"
     },
     "hr": {
       "notFound": {
@@ -772,9 +760,7 @@
         "offers": "Na ponude"
       },
       "pageTitle": "Pogreške",
-      "generalError": "Došlo je do pogreške",
-      "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
-      "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
+      "generalError": "Došlo je do pogreške"
     },
     "it": {
       "notFound": {
@@ -805,9 +791,7 @@
         "tunews": "Vai su tünews"
       },
       "pageTitle": "Errore",
-      "generalError": "Si è verificato un errore",
-      "languageSwitchFailedTitle": "Purtroppo il cambio di lingua non è riuscito.",
-      "languageSwitchFailedMessage": "La lingua selezionata non è disponibile offline. È necessaria una connessione Internet attiva."
+      "generalError": "Si è verificato un errore"
     },
     "kmr": {
       "notFound": {
@@ -833,9 +817,7 @@
         "offers": "Ber bi xizmetan va"
       },
       "pageTitle": "Şaşitî (Eror)",
-      "generalError": "Şaşitiyek qewimiye",
-      "languageSwitchFailedTitle": "Mixabin guhertina Ziman pêk nehat.",
-      "languageSwitchFailedMessage": "Zimanê bijartî bi awayê ne-serxet (Offline) li ber dest nîne. Girêdana Înterneta çalak pêwîst e."
+      "generalError": "Şaşitiyek qewimiye"
     },
     "pl": {
       "notFound": {
@@ -866,9 +848,7 @@
         "tunews": "Do tünews"
       },
       "pageTitle": "Błąd",
-      "generalError": "Wystąpił błąd",
-      "languageSwitchFailedTitle": "Niestety zmiana języka się nie powiodła.",
-      "languageSwitchFailedMessage": "Wybrany język nie jest dostępny offline. Konieczne jest aktywne połączenie z Internetem."
+      "generalError": "Wystąpił błąd"
     },
     "ps": {
       "notFound": {
@@ -894,9 +874,7 @@
         "offers": "وړاندیزونو ته تلل"
       },
       "pageTitle": "اشتباه",
-      "generalError": "یوه اشتباه رامینځته شوه",
-      "languageSwitchFailedTitle": "له بده مرغه د ژبې انتخاب ناکام شو.",
-      "languageSwitchFailedMessage": "انتخاب شوې ژبه آفلاین موجوده نده. د انټرنیټ فعال پیوستون اړین دی."
+      "generalError": "یوه اشتباه رامینځته شوه"
     },
     "ro": {
       "notFound": {
@@ -927,9 +905,7 @@
         "tunews": "Spre tünews"
       },
       "pageTitle": "Erori",
-      "generalError": "A apărut o eroare",
-      "languageSwitchFailedTitle": "Din păcate, schimbarea limbii a eșuat.",
-      "languageSwitchFailedMessage": "Limba selectată nu este disponibilă offline. Este necesară o conexiune activă la internet."
+      "generalError": "A apărut o eroare"
     },
     "ru": {
       "notFound": {
@@ -960,9 +936,7 @@
         "tunews": "К новостям tünews"
       },
       "pageTitle": "Ошибка",
-      "generalError": "Произошла ошибка",
-      "languageSwitchFailedTitle": "К сожалению, сменить язык не удалось.",
-      "languageSwitchFailedMessage": "Выбранный язык недоступен в автономном режиме. Необходимо подключение к Интернету."
+      "generalError": "Произошла ошибка"
     },
     "so": {
       "notFound": {
@@ -988,11 +962,9 @@
         "offers": "Ku saabsan dalabyada"
       },
       "pageTitle": "Qalad",
-      "generalError": "Khalad ayaa dhacay",
-      "languageSwitchFailedTitle": "Nasiib darro, bedelidda luqadda ayaa lagu guuldareystay.",
-      "languageSwitchFailedMessage": "Luqadda aad dooratay laguma heli karo ofleen(offline) ahaan. Xiriir internet oo shaqeeya ayaa loo baahan yahay."
+      "generalError": "Khalad ayaa dhacay"
     },
-    "sr": {
+    "sr-Latn": {
       "notFound": {
         "language": "Ovaj jezik nažalost ovde nije dostupan.",
         "city": "Ovaj grad nažalost nije pronađen.",
@@ -1016,9 +988,7 @@
         "offers": "Na ponude"
       },
       "pageTitle": "Greška",
-      "generalError": "Pojavila se greška",
-      "languageSwitchFailedTitle": "Promena jezika nažalost nije uspela.",
-      "languageSwitchFailedMessage": "Odabrani jezik nažalost nije dostupan oflajn. Potrebna je aktivna internetska veza."
+      "generalError": "Pojavila se greška"
     },
     "ti": {
       "notFound": {
@@ -1044,9 +1014,7 @@
         "offers": "ብዛዕባ እቶም ኣቕርቦታት"
       },
       "pageTitle": "ጌጋ",
-      "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
-      "languageSwitchFailedTitle": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እቲ ናይ ቋንቋ ለውጢ ኣይተዓወተን።",
-      "languageSwitchFailedMessage": "እቲ ዝተመርጸ ቋንቋ ካብ መስመር ኢንተርነት ወጻኢ የለን። ንጡፍ ናይ ኢንተርነት መስመር ኣድላዪ እዩ።"
+      "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ"
     },
     "tr": {
       "notFound": {
@@ -1077,9 +1045,7 @@
         "tunews": "tünews'a git"
       },
       "pageTitle": "Hata",
-      "generalError": "Bir hata oluştu",
-      "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
-      "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
+      "generalError": "Bir hata oluştu"
     },
     "zh-CN": {
       "notFound": {
@@ -1110,9 +1076,7 @@
         "tunews": "前往 tünews"
       },
       "pageTitle": "错误",
-      "generalError": "发生了错误",
-      "languageSwitchFailedTitle": "很抱歉，更改语言失败。",
-      "languageSwitchFailedMessage": "所选语言无法离线使用。需要有效的互联网连接。"
+      "generalError": "发生了错误"
     }
   },
   "events": {
@@ -1200,7 +1164,7 @@
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan."
     },
-    "sr": {
+    "sr-Latn": {
       "location": "Lokacija",
       "date": "Datum",
       "events": "Manifestacije",
@@ -1227,25 +1191,16 @@
   },
   "feedback": {
     "de": {
-      "technicalTopics": "Technische Funktionen",
-      "contentOfCity": "Inhalte von {{city}}",
-      "contentOfOffer": "Angebot \"{{offer}}\"",
       "disclaimer": "Kontakt und Impressum",
-      "searchFor": "Suche nach",
-      "contentOfPoi": "Inhalt des Ortes \"{{poi}}\"",
-      "contentOfPage": "Inhalt der Seite \"{{page}}\"",
-      "contentOfEvent": "Inhalt der Veranstaltung \"{{event}}\"",
       "send": "Abschicken",
       "failedSendingFeedback": "Beim Senden des Feedbacks ist ein Fehler aufgetreten.",
       "feedback": "Feedback",
       "positiveComment": "Was war hilfreich?",
       "negativeComment": "Was können wir besser machen?",
-      "feedbackType": "Wofür ist das Feedback?",
       "isThisSiteUseful": "Ist diese Seite hilfreich?",
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
-      "yourFeedback": "Ihr Feedback...",
       "informationNotFound": "Nicht das Richtige gefunden?",
       "wantedInformation": "Welche Informationen fehlen hier?",
       "feedbackSent": "Feedback abgeschickt",
@@ -1257,25 +1212,16 @@
       "optionalInfo": "optional"
     },
     "ar": {
-      "technicalTopics": "وظائف تقنية",
-      "contentOfCity": "محتويات {{city}}",
-      "contentOfOffer": "عرض \"{{offer}}\"",
       "disclaimer": "جهة الاتصال وهيئة التحرير",
-      "searchFor": "البحث عن",
-      "contentOfPoi": "محتوى المكان \"{{poi}}\"",
-      "contentOfPage": "محتوى الصفحة \"{{page}}\"",
-      "contentOfEvent": "مضمون الفعالية \"{{event}}\"",
       "send": "إرسال",
       "failedSendingFeedback": "حدث خطأ ما عند إرسال الملاحظة.",
       "feedback": "ملاحظة",
       "positiveComment": "ماذا الذي كان مفيدًا؟",
       "negativeComment": "ما الذي يمكننا تحسينه؟",
-      "feedbackType": "ما نوع الملاحظة؟",
       "isThisSiteUseful": "هل هذه الصفحة مفيدة؟",
       "useful": "مفيدة",
       "notUseful": "غير مفيدة",
       "nothingFound": "للأسف تعذر العثور على نتائج مناسبة.",
-      "yourFeedback": "ملاحظاتك...",
       "informationNotFound": "لم يتم العثور على المعلومة المناسبة؟",
       "wantedInformation": "ما هي المعلومات المفقودة هنا؟",
       "feedbackSent": "تم إرسال الملاحظة",
@@ -1285,25 +1231,16 @@
       "positiveRating": "هذه الصفحة مفيدة"
     },
     "en": {
-      "technicalTopics": "Technical functions",
-      "contentOfCity": "Contents of {{city}}",
-      "contentOfOffer": "Offer \"{{offer}}\"",
       "disclaimer": "Contacts and imprint",
-      "searchFor": "Search for",
-      "contentOfPoi": "Content of the place \"{{poi}}\"",
-      "contentOfPage": "Content of the page \"{{page}}\"",
-      "contentOfEvent": "Content of the event \"{{event}}\"",
       "send": "Send",
       "failedSendingFeedback": "An error occurred while sending the feedback.",
       "feedback": "Feedback",
       "positiveComment": "What was helpful?",
       "negativeComment": "What can we improve?",
-      "feedbackType": "What is the feedback for?",
       "isThisSiteUseful": "Is this site useful?",
       "useful": "Useful",
       "notUseful": "Not useful",
       "nothingFound": "Sorry, we could not find any matching results.",
-      "yourFeedback": "Your feedback...",
       "informationNotFound": "Not found what you were looking for?",
       "wantedInformation": "What information is missing?",
       "feedbackSent": "Feedback sent",
@@ -1313,25 +1250,16 @@
       "positiveRating": "This site is useful"
     },
     "es": {
-      "technicalTopics": "Funciones técnicas",
-      "contentOfCity": "Contenidos de {{city}}",
-      "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Contacto y aviso legal",
-      "searchFor": "Buscar por",
-      "contentOfPoi": "Contenido del lugar \"{{poi}}\"",
-      "contentOfPage": "Contenido de la página \"{{page}}\"",
-      "contentOfEvent": "Contenido de la actividad \"{{event}}\"",
       "send": "Enviar",
       "failedSendingFeedback": "Se ha producido un error al enviar los comentarios.",
       "feedback": "Comentarios",
       "positiveComment": "¿Qué le ha sido de ayuda?",
       "negativeComment": "¿Qué podemos mejorar?",
-      "feedbackType": "¿Para qué son los comentarios?",
       "isThisSiteUseful": "¿Esta página sirve de ayuda?",
       "useful": "Sirve de ayuda",
       "notUseful": "No sirve de ayuda",
       "nothingFound": "No se ha encontrado ningún resultado.",
-      "yourFeedback": "Sus comentarios...",
       "informationNotFound": "¿No ha encontrado lo que buscaba?",
       "wantedInformation": "¿Qué información falta aquí?",
       "feedbackSent": "Comentarios enviados",
@@ -1341,24 +1269,16 @@
       "positiveRating": "Esta página sirve de ayuda"
     },
     "pes": {
-      "technicalTopics": "عملکردهای فنی",
-      "contentOfCity": "محتوای {{city}}",
-      "contentOfOffer": "خدمات ‎\"‎{{offer}}‎\"",
       "disclaimer": "اطلاعات ناشر و تماس",
-      "searchFor": "جستجو برای",
-      "contentOfPage": "محتوای صفحه‎\"‎{{page}}‎\"",
-      "contentOfEvent": "محتوای رویداد‎\"‎{{event}}‎\"",
       "send": "ارسال",
       "failedSendingFeedback": "هنگام ارسال بازخورد خطایی روی داد.",
       "feedback": "بازخورد",
       "positiveComment": "چه چیزی مفید بود؟",
       "negativeComment": "چه چیزی را می توانیم بهتر کنیم؟",
-      "feedbackType": "بازخورد در چه زمینه ای است؟",
       "isThisSiteUseful": "آیا این صفحه مفید است؟",
       "useful": "مفید",
       "notUseful": "غیر مفید",
       "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
-      "yourFeedback": "بازخورد شما...",
       "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
       "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
       "feedbackSent": "بازخورد ارسال شد",
@@ -1368,25 +1288,16 @@
       "positiveRating": "این صفحه مفید است"
     },
     "fr": {
-      "technicalTopics": "Fonctions techniques",
-      "contentOfCity": "Contenu de {{city}}",
-      "contentOfOffer": "Offre « {{offer}} »",
       "disclaimer": "Contact et mentions légales",
-      "searchFor": "Rechercher",
-      "contentOfPoi": "Contenu du lieu \"{{poi}}\"",
-      "contentOfPage": "Contenu de la page « {{page}} »",
-      "contentOfEvent": "Contenu de l'événement « {{event}} »",
       "send": "Envoyer",
       "failedSendingFeedback": "Une erreur s'est produite lors de l'envoi de l'avis.",
       "feedback": "Avis",
       "positiveComment": "Qu'est-ce qui a été utile ?",
       "negativeComment": "Que pouvons-nous améliorer ?",
-      "feedbackType": "À quoi sert de donner son avis ?",
       "isThisSiteUseful": "Est-ce que cette page est utile ?",
       "useful": "Utile",
       "notUseful": "Pas utile",
       "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
-      "yourFeedback": "Votre avis...",
       "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
       "wantedInformation": "Quelles sont les informations manquantes ici ?",
       "feedbackSent": "Avis envoyé",
@@ -1396,24 +1307,16 @@
       "positiveRating": "Cette page est utile"
     },
     "hr": {
-      "technicalTopics": "Tehničke funkcije",
-      "contentOfCity": "Sadržaj za {{city}}",
-      "contentOfOffer": "Ponuda \"{{offer}}\"",
       "disclaimer": "Kontakt i impresum",
-      "searchFor": "Pretraživanje",
-      "contentOfPage": "Sadržaj stranice \"{{page}}\"",
-      "contentOfEvent": "Sadržaj događanja \"{{event}}\"",
       "send": "Pošalji",
       "failedSendingFeedback": "Pri slanju feedbacka došlo je do pogreške.",
       "feedback": "Feedback",
       "positiveComment": "Što je bilo korisno?",
       "negativeComment": "Što možemo poboljšati?",
-      "feedbackType": "Na što se odnosi feedback?",
       "isThisSiteUseful": "Je li ova stranica korisna?",
       "useful": "Korisna je",
       "notUseful": "Nije korisna",
       "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati.",
-      "yourFeedback": "Vaš feedback...",
       "informationNotFound": "Niste pronašli pravu stvar?",
       "wantedInformation": "Koje informacije nedostaju?",
       "feedbackSent": "Feedback poslan",
@@ -1423,25 +1326,16 @@
       "positiveRating": "Ova stranica je korisna"
     },
     "it": {
-      "technicalTopics": "Funzionalità tecniche",
-      "contentOfCity": "Contenuti di {{city}}",
-      "contentOfOffer": "Offerta \"{{offer}}\"",
       "disclaimer": "Contatti e impressum",
-      "searchFor": "Ricerca per",
-      "contentOfPoi": "Contenuti del luogo \"{{poi}}\"",
-      "contentOfPage": "Contenuti della pagina \"{{page}}\"",
-      "contentOfEvent": "Contenuti dell’evento \"{{event}}\"",
       "send": "Invia",
       "failedSendingFeedback": "Si è verificato un errore nell’invio del feedback.",
       "feedback": "Feedback",
       "positiveComment": "Cosa è stato utile?",
       "negativeComment": "Cosa possiamo migliorare?",
-      "feedbackType": "A cosa serve il feedback?",
       "isThisSiteUseful": "Questa pagina è utile?",
       "useful": "Utile",
       "notUseful": "Non utile",
       "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
-      "yourFeedback": "Il tuo feedback...",
       "informationNotFound": "Non hai trovato quello che cercavi?",
       "wantedInformation": "Quali informazioni mancano qui?",
       "feedbackSent": "Feedback inviato",
@@ -1451,24 +1345,16 @@
       "positiveRating": "Questa pagina è utile"
     },
     "kmr": {
-      "technicalTopics": "Kirdeyên Teknîkî",
-      "contentOfCity": "Naverok {{city}}",
-      "contentOfOffer": "Xizmet \"{{offer}}\"",
       "disclaimer": "Lêzanînên Weşîner û Têkillî",
-      "searchFor": "Lêgerîn sa",
-      "contentOfPage": "Naveroka Rûpelê \"{{page}}\"",
-      "contentOfEvent": "Naveroka Rûdanê \"{{event}}\"",
       "send": "Şandin",
       "failedSendingFeedback": "Dema şandina fîdbekekê Şaşitiyek qewimî.",
       "feedback": "'Feedback' (Lêveger)",
       "positiveComment": "Çi tiştek sûdewer bû?",
       "negativeComment": "Em bi şe dikin çi tiştî baştir bikin?",
-      "feedbackType": "Lêveger anku 'Feedback' di çi warî da ye?",
       "isThisSiteUseful": "Gelo ev rûpel sûdmend e?",
       "useful": "Sûdewer",
       "notUseful": "Bêkêr (Ne-Sûdewer)",
       "nothingFound": "Mixabin tu encameka guncan peyde nebû.",
-      "yourFeedback": "'Feedback'a te...",
       "informationNotFound": "Gelo tiştê ku lê digeriyayî, nehat dîtin?",
       "wantedInformation": "Çi cûre zanyarî li vir tunene?",
       "feedbackSent": "'Feedback' hat şandin",
@@ -1478,25 +1364,16 @@
       "positiveRating": "Ev rûpel sûdmend e"
     },
     "pl": {
-      "technicalTopics": "Funkcje techniczne",
-      "contentOfCity": "Treści {{city}}",
-      "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Kontakt i nota prawna",
-      "searchFor": "Wyszukaj",
-      "contentOfPoi": "Treść lokalizacji \"{{poi}}\"",
-      "contentOfPage": "Treść strony \"{{page}}\"",
-      "contentOfEvent": "Treść wydarzenia \"{{event}}\"",
       "send": "Wyślij",
       "failedSendingFeedback": "Wystąpił błąd podczas wysyłania opinii.",
       "feedback": "Opinia",
       "positiveComment": "Co było pomocne?",
       "negativeComment": "Co możemy zrobić lepiej?",
-      "feedbackType": "Do czego służy opinia zwrotna?",
       "isThisSiteUseful": "Czy ta strona jest pomocna?",
       "useful": "Przydatne",
       "notUseful": "Nie przydatne",
       "nothingFound": "Niestety nie znaleziono odpowiednich wyników.",
-      "yourFeedback": "Twoja opinia...",
       "informationNotFound": "Nie znalazłeś właściwej rzeczy?",
       "wantedInformation": "Jakich informacji tutaj brakuje?",
       "feedbackSent": "Wysłano opinię",
@@ -1506,9 +1383,6 @@
       "positiveRating": "Ta strona jest pomocna"
     },
     "ps": {
-      "technicalTopics": "تخنیکي فعالیت",
-      "contentOfCity": "د {{city}} منځپانګه",
-      "contentOfOffer": "\"{{offer}}\" وړاندیز",
       "disclaimer": "د لټون",
       "contentOfPage": "د \"{{page}}\" پاڼې منځپانګه",
       "contentOfEvent": "د \"{{event}}\" غونډې منځپانګه",
@@ -1517,12 +1391,10 @@
       "feedback": "تبصره",
       "positiveComment": "څشی ګټور وو؟",
       "negativeComment": "مونږ څشی بهترولی شو؟",
-      "feedbackType": "تبصره د څه لپاره ده؟",
       "isThisSiteUseful": "آیا دا پاڼه ګټوره ده؟",
       "useful": "ګټوره ده",
       "notUseful": "ګټوره نده",
       "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې.",
-      "yourFeedback": "ستاسو تبصره...",
       "informationNotFound": "آیا صحیح پیدا نشو؟",
       "wantedInformation": "کوم معلومات پکې نشته؟",
       "feedbackSent": "تبصره ولېږل شوه",
@@ -1532,25 +1404,16 @@
       "positiveRating": "دا پاڼه ګټوره ده"
     },
     "ro": {
-      "technicalTopics": "Funcții tehnice",
-      "contentOfCity": "Conținuturi din {{city}}",
-      "contentOfOffer": "Oferta \"{{offer}}\"",
       "disclaimer": "Contact și caseta tehnică",
-      "searchFor": "Căutare pentru",
-      "contentOfPoi": "Conținutul locației \"{{poi}}\"",
-      "contentOfPage": "Conținutul paginii \"{{page}}\"",
-      "contentOfEvent": "Conținutul evenimentului \"{{event}}\"",
       "send": "Trimiteți",
       "failedSendingFeedback": "La expedierea feedback-ului a apărut o greșeală.",
       "feedback": "Feedback",
       "positiveComment": "Ce a fost util?",
       "negativeComment": "Ce putem îmbunătăți?",
-      "feedbackType": "Pentru ce este feedback-ul?",
       "isThisSiteUseful": "A fost utilă această pagină?",
       "useful": "utilă",
       "notUseful": "inutilă",
       "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
-      "yourFeedback": "Feedback-ul dvs....",
       "informationNotFound": "Nu ați găsit ce ați căutat?",
       "wantedInformation": "Ce informații lipsesc aici?",
       "feedbackSent": "Feedback expediat",
@@ -1560,25 +1423,16 @@
       "positiveRating": "Această pagină este utilă"
     },
     "ru": {
-      "technicalTopics": "Технические функции",
-      "contentOfCity": "Содержимое ресурса {{city}}",
-      "contentOfOffer": "Предложение \"{{offer}}\"",
       "disclaimer": "Контактная информация и выходные данные",
-      "searchFor": "Поиск по",
-      "contentOfPoi": "Содержимое местоположения \"{{poi}}\"",
-      "contentOfPage": "Содержимое страницы \"{{page}}\"",
-      "contentOfEvent": "Содержимое мероприятия \"{{event}}\"",
       "send": "Отправить",
       "failedSendingFeedback": "При отправке отзыва произошла ошибка.",
       "feedback": "Отзыв",
       "positiveComment": "Что вам помогло?",
       "negativeComment": "Что мы можем улучшить?",
-      "feedbackType": "Чего касается этот отзыв?",
       "isThisSiteUseful": "Содержит ли эта страница полезную информацию?",
       "useful": "Да",
       "notUseful": "Нет",
       "nothingFound": "К сожалению, подходящие результаты не найдены.",
-      "yourFeedback": "Ваш отзыв...",
       "informationNotFound": "Не нашли того, что искали?",
       "wantedInformation": "Какая информация здесь отсутствует?",
       "feedbackSent": "Отзыв отправлен",
@@ -1588,24 +1442,16 @@
       "positiveRating": "Эта страница содержит полезную информацию"
     },
     "so": {
-      "technicalTopics": "Hawlaha farsamada",
-      "contentOfCity": "Tusmada {{city}}",
-      "contentOfOffer": "Adeegga \"{{offer}}\"",
       "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
-      "searchFor": "Raadi",
-      "contentOfPage": "Nuxurka bogga \"{{page}}\"",
-      "contentOfEvent": "Nuxurka dhacdada \"{{event}}\"",
       "send": "Dir",
       "failedSendingFeedback": "Cillad ayaa ka jirtay soo diritaanka jawaab celinta.",
       "feedback": "Jawaab celin",
       "positiveComment": "Maxaa waxtar lahaa?",
       "negativeComment": "Maxaan si ka sii fiican u qaban karnaa?",
-      "feedbackType": "Waa maxay jawaab celinta ku aadan?",
       "isThisSiteUseful": "Boggan waxtar ma leeyahay?",
       "useful": "Waxtar leh",
       "notUseful": "Aan waxtar lahayn",
       "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin.",
-      "yourFeedback": "Jawaab-celintaada...",
       "informationNotFound": "Ma aanan helin midka saxda ah?",
       "wantedInformation": "Macluumaad noocee ah ayaa halkan ka maqan?",
       "feedbackSent": "Jawaab celinta waa la diray",
@@ -1614,25 +1460,17 @@
       "negativeRating": "Boggan waxtar ma leh",
       "positiveRating": "Boggan waa mid waxtar badan"
     },
-    "sr": {
-      "technicalTopics": "Tehničke funkcije",
-      "contentOfCity": "Sadržaji u gradu {{city}}",
-      "contentOfOffer": "Ponuda \"{{offer}}\"",
+    "sr-Latn": {
       "disclaimer": "Kontakt i impresum",
-      "searchFor": "Pretraga za",
-      "contentOfPage": "Sadržaj stranice \"{{page}}\"",
-      "contentOfEvent": "Sadržaj manifestacije \"{{event}}\"",
       "send": "Pošaljite",
       "failedSendingFeedback": "Prilikom slanja povratnih informacija pojavila se greška.",
       "feedback": "Povratne informacije",
       "positiveComment": "Da li vam je bilo od pomoći?",
       "negativeComment": "Šta možemo bolje da uradimo?",
-      "feedbackType": "Čemu služi povratna informacija?",
       "isThisSiteUseful": "Da li je ova stranica od pomoći?",
       "useful": "Od pomoći",
       "notUseful": "Nije od pomoći",
       "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati.",
-      "yourFeedback": "Vaše povratne informacije...",
       "informationNotFound": "Niste pronašli ono pravo?",
       "wantedInformation": "Koje informacije ovde nedostaju?",
       "feedbackSent": "Povratne informacije poslane",
@@ -1642,24 +1480,16 @@
       "positiveRating": "Ova stranica je od pomoći"
     },
     "ti": {
-      "technicalTopics": "ተክኒካዊ ተግባራት",
-      "contentOfCity": "ትሕዝቶታት ናይ {{city}}",
-      "contentOfOffer": "ኣቕርቦት “{{offer}}”",
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
-      "searchFor": "ነዚ ዝስዕብ ፈትሽ፡",
-      "contentOfPage": "ትሕዝቶ ናይቲ ገጽ “{{page}}”",
-      "contentOfEvent": "ትሕዝቶ ናይቲ ኣጋጣሚ “{{event}}”",
       "send": "ስደድ",
       "failedSendingFeedback": "መልሰ-ሓበሬታ ኣብ ምስዳድ ጌጋ ነይሩ።",
       "feedback": "መልሰ-ሓበሬታ",
       "positiveComment": "እንታይ ሓጋዚ ነይሩ፧",
       "negativeComment": "ብዝሓሸ ክንገብሮ ንኽእል እንታይ እዩ፧",
-      "feedbackType": "እቲ መልሰ-ሓበሬታ ንምንታይ እዩ፧",
       "isThisSiteUseful": "እዚ ገጽ’ዚ ሓግዚ ድዩ፧",
       "useful": "ሓጋዚ",
       "notUseful": "ሓጋዚ ኣይኮነን",
       "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
-      "yourFeedback": "መልሰ-ሓበሬታኻ...",
       "informationNotFound": "ነቲ ቅኑዕ ኣይረኸቦን፧",
       "wantedInformation": "እንታይ ሓበሬታ እዩ ኣብዚ ጎዲሉ ዘሎ፧",
       "feedbackSent": "መልሰ-ሓበሬታ ተሰዲዱ",
@@ -1669,25 +1499,16 @@
       "positiveRating": "እዚ ገጽ’ዚ ሓጋዚ እዩ"
     },
     "tr": {
-      "technicalTopics": "Teknik fonksiyonlar",
-      "contentOfCity": "{{city}} içerikleri",
-      "contentOfOffer": "Teklif \"{{offer}}\"",
       "disclaimer": "İletişim ve künye",
-      "searchFor": "Ara",
-      "contentOfPoi": "Yer \"{{poi}}\" içeriği",
-      "contentOfPage": "Sayfa \"{{page}}\" içeriği",
-      "contentOfEvent": "Etkinlik \"{{event}}\" içeriği",
       "send": "Gönder",
       "failedSendingFeedback": "Geri bildirim gönderilirken bir hata oluştu.",
       "feedback": "Geri bildirim",
       "positiveComment": "Hangisi yardımcı oldu?",
       "negativeComment": "Neleri daha iyi yapabiliriz?",
-      "feedbackType": "Geri bildirim ne için?",
       "isThisSiteUseful": "Bu sayfa yardımcı oldu mu?",
       "useful": "Yardımcı",
       "notUseful": "Yardımcı değil",
       "nothingFound": "Maalesef uygun sonuç bulunamadı.",
-      "yourFeedback": "Geri bildiriminiz...",
       "informationNotFound": "Doğru şeyi bulamadınız mı?",
       "wantedInformation": "Burada hangi bilgiler eksik?",
       "feedbackSent": "Geri bildirim gönderildi",
@@ -1697,25 +1518,16 @@
       "positiveRating": "Bu sayfa yardımcı oldu"
     },
     "zh-CN": {
-      "technicalTopics": "技术功能",
-      "contentOfCity": "{{city}}的内容",
-      "contentOfOffer": "提供项目\"{{offer}}\"",
       "disclaimer": "版本说明和联系方式",
-      "searchFor": "搜索",
-      "contentOfPoi": "\"{{poi}}\"地方的内容",
-      "contentOfPage": "\"{{page}}\"网页的内容",
-      "contentOfEvent": "\"{{event}}\"活动的内容",
       "send": "发送",
       "failedSendingFeedback": "发送反馈时出错。",
       "feedback": "反馈",
       "positiveComment": "这些信息对您有什么帮助？",
       "negativeComment": "我们还能在哪些方面做得更好？",
-      "feedbackType": "反馈的目的是什么？",
       "isThisSiteUseful": "这个网站对您有帮助吗？",
       "useful": "有帮助",
       "notUseful": "没有帮助",
       "nothingFound": "很抱歉，找不到匹配的结果。",
-      "yourFeedback": "您的反馈...",
       "informationNotFound": "找不到您要找的？",
       "wantedInformation": "这里缺少什么信息？",
       "feedbackSent": "反馈已发送",
@@ -2118,7 +1930,7 @@
       "accept": "Aqbal",
       "privacyPolicy": "Ilaalinta xogta"
     },
-    "sr": {
+    "sr-Latn": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
       "search": "Pretraga",
@@ -2395,7 +2207,7 @@
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
       "refresh": "Cusbooneysii liiska goobaha"
     },
-    "sr": {
+    "sr-Latn": {
       "searchCity": "Tražite mesto",
       "nearbyPlaces": "Mesta u blizini",
       "noNearbyPlaces": "Nije pronađeno nijedno mesto u blizini.",
@@ -2724,7 +2536,7 @@
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
       "disclaimer": "Qoraa"
     },
-    "sr": {
+    "sr-Latn": {
       "imprintAndContact": "Impresum i kontakt",
       "privacy": "Zaštita podataka",
       "offers": "Ponude",
@@ -2861,7 +2673,7 @@
       "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada.",
       "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta."
     },
-    "sr": {
+    "sr-Latn": {
       "NSPhotoLibraryAddUsageDescription": "Za čuvanje slika {{appName}} treba pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Za pronalaženje mesta u blizini {{appName}} treba pristup lokaciji."
     },
@@ -3009,7 +2821,7 @@
       "currentlyNoNews": "Hada wax war ah ma jiraan.",
       "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan."
     },
-    "sr": {
+    "sr-Latn": {
       "news": "Vesti",
       "newsAlternative": "Novosti",
       "localNews": "Lokalne vesti",
@@ -3093,7 +2905,7 @@
     "so": {
       "offers": "Heshiisyo"
     },
-    "sr": {
+    "sr-Latn": {
       "offers": "Ponude"
     },
     "ti": {
@@ -3146,7 +2958,7 @@
     "so": {
       "searchPlaceholder": "Raadin"
     },
-    "sr": {
+    "sr-Latn": {
       "searchPlaceholder": "Pretraga"
     },
     "ti": {
@@ -3333,7 +3145,7 @@
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan"
     },
-    "sr": {
+    "sr-Latn": {
       "sentryTitle": "Stabilnost aplikacije",
       "sentryDescription": "Automatskim slanjem izveštaja o padu sistema da se poboljša {{appName}",
       "pushNewsTitle": "Push notifikacije",
@@ -3504,7 +3316,7 @@
       "learnMore": "Macluumaad dheeraad ah",
       "dismiss": "Gunaanad"
     },
-    "sr": {
+    "sr-Latn": {
       "grantPermission": "Dozvolite",
       "deactivateFeature": "Deaktivirajte značajke",
       "locationPermissionMissing": "Pristup lokaciji za predlaganje mesta u blizini",
@@ -3584,7 +3396,7 @@
     "so": {
       "noOffersAvailable": "Wax adeeg ah oo la heli karo ma jiraan"
     },
-    "sr": {
+    "sr-Latn": {
       "noOffersAvailable": "Nema dosutpnih ponuda"
     },
     "ti": {

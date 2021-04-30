@@ -3,7 +3,7 @@
 import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import Events, { type PropsType as EventsPropsType } from '../components/Events'
-import { type TFunction, withTranslation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import type { Dispatch } from 'redux'
 import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
 import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
@@ -26,8 +26,7 @@ type NavigationPropsType = {|
 |}
 
 type OwnPropsType = {|
-  ...NavigationPropsType,
-  t: TFunction
+  ...NavigationPropsType
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
@@ -57,13 +56,13 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
   dispatch({ type: 'CLEAR_ROUTE', params: { key: routeKey } })
 }
 
-const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
+const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
   newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city, t }
+    params: { newLanguage, city }
   }
   dispatch(switchContentLanguage)
 }
@@ -72,7 +71,6 @@ const routeHasOldContent = (route: EventRouteStateType) => route.models && route
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
-    t,
     route: { key }
   } = ownProps
   if (!state.cityContent) {
@@ -98,7 +96,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
     }
   }
 
@@ -226,9 +224,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))
-)
+export default connect<PropsType, OwnPropsType, _, _, _, _>(
+  mapStateToProps,
+  mapDispatchToProps
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))

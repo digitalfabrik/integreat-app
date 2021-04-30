@@ -60,7 +60,7 @@
       },
       "metaDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese. Halkan waxaad ka heli doontaa macluumaadka deegaanka, taariikho iyo talobixinta hay'addaada. Had iyo jeer waa ay cusbooneysiisan tahay waxayna ku qoran tahay luqaddaada!"
     },
-    "sr": {
+    "sr-Latn": {
       "pageTitles": {
         "events": "Termini"
       },
@@ -110,7 +110,7 @@
     "so": {
       "events": "Dhacdooyin"
     },
-    "sr": {
+    "sr-Latn": {
       "events": "Termini"
     },
     "ti": {
@@ -201,7 +201,7 @@
         "events": "Aad qeybta dhacdooyinka"
       }
     },
-    "sr": {
+    "sr-Latn": {
       "notFound": {
         "event": "Ovaj termin nažalost nije pronađen."
       },
@@ -267,7 +267,7 @@
       "events": "Dhacdooyin",
       "currentlyNoEvents": "Waqti xaadirkan ma jiraan taariikho."
     },
-    "sr": {
+    "sr-Latn": {
       "events": "Termini",
       "currentlyNoEvents": "Trenutno nema termina."
     },
@@ -311,7 +311,7 @@
     "so": {
       "contentOfEvent": "Tusmooyinka dhacdada \"{{event}}\""
     },
-    "sr": {
+    "sr-Latn": {
       "contentOfEvent": "Sadržaj termina \"{{event}}\""
     },
     "ti": {
@@ -372,7 +372,7 @@
       "events": "Dhacdooyin",
       "eventsDescription": "Taariikhaha iyo dhacdooyinka hadda ah"
     },
-    "sr": {
+    "sr-Latn": {
       "appDescription": "{{appName}} je digilatni pomoćnik Malteških vitezova",
       "events": "Termini",
       "eventsDescription": "Aktuelni termini i manifestacije"
@@ -429,7 +429,7 @@
       "events": "Dhacdooyin",
       "noEvents": "Dhacdooyin majiraan"
     },
-    "sr": {
+    "sr-Latn": {
       "events": "Termini",
       "noEvents": "Nema termina"
     },

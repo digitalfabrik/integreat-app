@@ -9,9 +9,8 @@ import {
   PoiModel,
   TunewsModel
 } from 'api-client'
-import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType } from './StateType'
+import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
-import type { TFunction } from 'react-i18next'
 import type { ErrorCodeType } from '../error/ErrorCodes'
 import type { NewsType } from 'api-client/src/routes'
 
@@ -254,10 +253,8 @@ export type EventsActionType = FetchEventActionType | PushEventActionType | Fetc
 export type SwitchContentLanguageActionType = {|
   type: 'SWITCH_CONTENT_LANGUAGE',
   +params: {|
-    // TODO IGAPP-498 The alert should be replaced with a snackbar, hence the TFunction should also be removed.
     +newLanguage: string,
-    +city: string,
-    +t: TFunction
+    +city: string
   |}
 |}
 
@@ -341,7 +338,20 @@ export type SetResourceCacheUrlActionType = {|
   +params: {| +url: string |}
 |}
 
+// Enqueues a new snackbar
+export type EnqueueSnackbarActionType = {|
+  type: 'ENQUEUE_SNACKBAR',
+  +params: SnackbarType
+|}
+
+// Dequeue the first snackbar
+export type DequeueSnackbarActionType = {|
+  type: 'DEQUEUE_SNACKBAR'
+|}
+
 export type StoreActionType =
+  | EnqueueSnackbarActionType
+  | DequeueSnackbarActionType
   | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType

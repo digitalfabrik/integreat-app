@@ -9,10 +9,8 @@ import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayload
 import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { withTranslation } from 'react-i18next'
 import Categories, { type PropsType as CategoriesPropsType } from '../../../modules/categories/components/Categories'
 import React from 'react'
-import type { TFunction } from 'react-i18next'
 import ErrorCodes from '../../../modules/error/ErrorCodes'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
@@ -27,8 +25,7 @@ type NavigationPropsType = {|
 |}
 
 type OwnPropsType = {|
-  ...NavigationPropsType,
-  t: TFunction
+  ...NavigationPropsType
 |}
 
 type DispatchPropsType = {| dispatch: Dispatch<StoreActionType> |}
@@ -57,20 +54,19 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
   dispatch({ type: 'CLEAR_ROUTE', params: { key: routeKey } })
 }
 
-const createChangeUnavailableLanguage = (city: string, t: TFunction) => (
+const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
   newLanguage: string
 ) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
-    params: { newLanguage, city, t }
+    params: { newLanguage, city }
   }
   dispatch(switchContentLanguage)
 }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
-    t,
     route: { key }
   } = ownProps
   if (!state.cityContent) {
@@ -103,7 +99,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'languageNotAvailable',
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
-      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city, t)
+      changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
     }
   }
 
@@ -194,7 +190,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
   }
 
   render() {
-    const { dispatch, navigation, route, t, ...rest } = this.props
+    const { dispatch, navigation, route, ...rest } = this.props
 
     return (
       <ThemedCategories
@@ -209,14 +205,12 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
 
 const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
 
-export default withTranslation<OwnPropsType>('error')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(
-    mapStateToProps,
-    mapDispatchToProps
-  )(
-    withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(
-      refresh,
-      onRouteClose
-    )(CategoriesContainer)
-  )
+export default connect<PropsType, OwnPropsType, _, _, _, _>(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(
+    refresh,
+    onRouteClose
+  )(CategoriesContainer)
 )

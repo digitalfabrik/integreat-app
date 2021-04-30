@@ -1,21 +1,30 @@
 // @flow
 
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+
+import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
+import type { CategoriesRouteInformationType } from 'api-client'
+import { CategoriesMapModel, CategoryModel, CityModel, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
+
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
+import { type TFunction } from 'react-i18next'
+
 import SearchHeader from './SearchHeader'
-import { ActivityIndicator, ScrollView, View, KeyboardAvoidingView, Platform } from 'react-native'
+
 import type { ThemeType } from 'build-configs/ThemeType'
-import type { TFunction } from 'react-i18next'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
+
+import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
+import SadIcon from '../../../modules/common/components/assets/smile-sad.svg'
+import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
+import { urlFromRouteInformation } from '../../../modules/navigation/url'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   position: absolute;
@@ -26,23 +35,41 @@ const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
+const ThemedText = styled.Text`
+  display: flex;
+  text-align: left;
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+`
+
+const Heading = styled(ThemedText)`
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 30px 30px;
+`
+
+const SadIconContainer = styled.Image`
+  margin: 0px auto 10px;
+`
+
 export type PropsType = {|
   categories: CategoriesMapModel | null,
   navigateTo: RouteInformationType => void,
   theme: ThemeType,
   language: string,
   cityCode: string,
-  closeModal: () => void,
+  closeModal: (query: string) => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
   t: TFunction,
-  sendFeedback: (comment: string, query: string) => Promise<void>
+  sendFeedback: (comment: string, query: string) => Promise<void>,
+  cities: $ReadOnlyArray<CityModel>
 |}
 
-type StateType = {|
+type SearchStateType = {|
   query: string
 |}
 
-class SearchModal extends React.Component<PropsType, StateType> {
+class SearchModal extends React.Component<PropsType, SearchStateType> {
   state = { query: '' }
 
   findCategories(categories: CategoriesMapModel): Array<ListEntryType> {
@@ -99,6 +126,21 @@ class SearchModal extends React.Component<PropsType, StateType> {
 
   onItemPress = (category: { path: string, ... }) => {
     const { cityCode, language, navigateTo } = this.props
+    const { query } = this.state
+
+    const routeInformation: CategoriesRouteInformationType = {
+      route: CATEGORIES_ROUTE,
+      cityContentPath: category.path,
+      cityCode,
+      languageCode: language
+    }
+    sendTrackingSignal({
+      signal: {
+        name: SEARCH_FINISHED_SIGNAL_NAME,
+        query,
+        url: urlFromRouteInformation(routeInformation)
+      }
+    })
 
     navigateTo({
       route: CATEGORIES_ROUTE,
@@ -108,12 +150,18 @@ class SearchModal extends React.Component<PropsType, StateType> {
     })
   }
 
+  onClose = () => {
+    const { query } = this.state
+    sendTrackingSignal({ signal: { name: SEARCH_FINISHED_SIGNAL_NAME, query, url: null } })
+    this.props.closeModal(query)
+  }
+
   onSearchChanged = (query: string) => {
     this.setState({ query })
   }
 
   renderContent = () => {
-    const { language, theme, categories, t, sendFeedback, navigateToLink } = this.props
+    const { language, cityCode, theme, categories, navigateToLink, t } = this.props
     const { query } = this.state
 
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -123,6 +171,8 @@ class SearchModal extends React.Component<PropsType, StateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
+    const feedbackOrigin = filteredCategories.length === 0 ? 'searchNothingFound' : 'searchInformationNotFound'
+
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
@@ -137,26 +187,33 @@ class SearchModal extends React.Component<PropsType, StateType> {
             language={language}
           />
         </View>
-        <NothingFoundFeedbackBox
-          t={t}
+        {feedbackOrigin === 'searchNothingFound' && (
+          <>
+            <SadIconContainer source={SadIcon} />
+            <Heading theme={theme}>{t('feedback:nothingFound')}</Heading>
+          </>
+        )}
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          feedbackOrigin={feedbackOrigin}
+          language={language}
+          cityCode={cityCode}
+          cities={this.props.cities}
           query={query}
-          theme={theme}
-          resultsFound={filteredCategories.length !== 0}
-          sendFeedback={sendFeedback}
         />
       </ScrollView>
     )
   }
 
   render() {
-    const { theme, closeModal, t } = this.props
+    const { theme, t } = this.props
     const { query } = this.state
     return (
       <Wrapper theme={theme}>
         <SearchHeader
           theme={theme}
           query={query}
-          closeSearchBar={closeModal}
+          closeSearchBar={this.onClose}
           onSearchChanged={this.onSearchChanged}
           t={t}
         />

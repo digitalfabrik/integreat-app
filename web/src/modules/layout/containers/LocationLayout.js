@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
-import { CategoriesMapModel, CityModel, EventModel, OfferModel } from 'api-client'
+import { CategoriesMapModel, CityModel } from 'api-client'
 import type { LocationState } from 'redux-first-router'
 import FeedbackModal from '../../feedback/components/FeedbackModal'
 import LocationToolbar from '../components/LocationToolbar'
@@ -27,8 +27,6 @@ export type FeedbackRatingType = 'up' | 'down'
 type PropsType = {|
   cities: ?Array<CityModel>,
   categories: ?CategoriesMapModel,
-  events: ?Array<EventModel>,
-  offers: ?Array<OfferModel>,
   viewportSmall: boolean,
   children?: React.Node,
   location: LocationState,
@@ -118,7 +116,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render() {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, events, isLoading } = this.props
+    const { viewportSmall, children, location, darkMode, languageChangePaths, isLoading } = this.props
     const type = location.type
     const { city, language } = location.payload
 
@@ -136,7 +134,6 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
             cityModel={cityModel}
             languageChangePaths={languageChangePaths}
             location={location}
-            events={events}
             viewportSmall={viewportSmall}
             onStickyTopChanged={this.handleStickyTopChanged}
           />
