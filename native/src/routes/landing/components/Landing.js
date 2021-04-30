@@ -12,6 +12,7 @@ import type { ThemeType } from 'build-configs/ThemeType'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import { checkLocationPermission } from '../../../modules/app/LocationPermissionManager'
 import { RESULTS } from 'react-native-permissions'
+import testID from '../../../modules/e2e/testID'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -168,7 +169,7 @@ class Landing extends React.Component<PropsType, StateType> {
     const retryDetermineLocation = location?.message === 'loading' ? null : this.requestAndDetermineLocation
 
     return (
-      <Wrapper>
+      <Wrapper {...testID('Landing-Page')}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
         <FilterableCitySelector
           theme={theme}
