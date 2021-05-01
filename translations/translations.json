@@ -584,7 +584,8 @@
         "tunews": "Zu den tünews"
       },
       "pageTitle": "Fehler",
-      "generalError": "Ein Fehler ist aufgetreten"
+      "generalError": "Ein Fehler ist aufgetreten",
+      "notSupportedByDevice": "Diese Funktion wird auf diesem Gerät nicht unterstützt."
     },
     "ar": {
       "notFound": {
