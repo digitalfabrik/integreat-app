@@ -95,6 +95,15 @@ jest.mock('../../../layout/containers/TransparentHeaderContainer', () => {
   return () => <Text>TransparentHeader</Text>
 })
 
+let mockPushNotificationsSupported
+jest.mock('../../../push-notifications/PushNotificationsManager', () => {
+  const pushNotificationsSupported = jest.fn(() => true)
+  mockPushNotificationsSupported = pushNotificationsSupported
+  return {
+    pushNotificationsSupported
+  }
+})
+
 const cityCode = 'augsburg'
 const languageCode = 'de'
 const fetchCities = jest.fn()
@@ -197,6 +206,24 @@ describe('Navigator', () => {
         </NavigationContainer>
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
+    })
+  })
+
+  it('should set allowPushNotifications to false if not supported by device', async () => {
+    mockPushNotificationsSupported.mockImplementationOnce(() => false)
+    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
+    await act(async () => {
+      const appSettings = new AppSettings()
+      await appSettings.setContentLanguage(languageCode)
+      const { findByText } =render(
+        <NavigationContainer>
+          <Navigator {...props({ routeName: null })} />
+        </NavigationContainer>
+      )
+
+      await findByText('Intro')
+      const { allowPushNotifications } = await appSettings.loadSettings()
+      expect(allowPushNotifications).toBeFalse()
     })
   })
 })
