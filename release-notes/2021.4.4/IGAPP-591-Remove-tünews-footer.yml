@@ -1,0 +1,8 @@
+issue_key: IGAPP-591
+show_in_stores: false
+platforms:
+  - web
+  - android
+  - ios
+en: The footer for tünews has been removed, since this information is already part of the news content itself.
+de: Die Fußzeile der tünews wurde entfernt, da ihre Informationen bereits im Nachrichtentext enthalten sind.

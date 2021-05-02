@@ -1,0 +1,6 @@
+issue_key: IGAPP-588
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: The now unused setting proposeNearbyCities has been removed.

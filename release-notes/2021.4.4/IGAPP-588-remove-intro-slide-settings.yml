@@ -1,0 +1,6 @@
+issue_key: IGAPP-588
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: The intro slide settings were removed and location permission is only requested on click on retry button.

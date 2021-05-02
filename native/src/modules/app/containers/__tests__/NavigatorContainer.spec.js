@@ -22,10 +22,6 @@ jest.mock('../../../layout/containers/HeaderContainer', () => {
   const Text = require('react-native').Text
   return () => <Text>Header</Text>
 })
-jest.mock('../../../layout/containers/PermissionSnackbarContainer', () => {
-  const Text = require('react-native').Text
-  return () => <Text>PermissionSnackbarContainer</Text>
-})
 
 jest.mock('../../../push-notifications/PushNotificationsManager')
 jest.mock('../../../native-constants/NativeConstants')
@@ -59,7 +55,7 @@ describe('NavigatorContainer', () => {
     const key = generateKey()
     const result = TestRenderer.create(
       <Provider store={store}>
-        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} languageCode='de' cityCode='augsburg' />
+        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
     const navigator = result.root.findByType(MockNavigator)
@@ -92,7 +88,7 @@ describe('NavigatorContainer', () => {
     const key = generateKey()
     const result = TestRenderer.create(
       <Provider store={store}>
-        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} languageCode='de' cityCode='augsburg' />
+        <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
     const navigator = result.root.findByType(MockNavigator)

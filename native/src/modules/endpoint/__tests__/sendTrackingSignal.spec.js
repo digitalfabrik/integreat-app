@@ -35,8 +35,7 @@ describe('sendTrackingSignal', () => {
       selectedCity: 'muenchen',
       contentLanguage: 'ar',
       allowPushNotifications: true,
-      errorTracking: false,
-      proposeNearbyCities: false
+      errorTracking: false
     })
 
     await sendTrackingSignal({ signal, offline: true })
@@ -50,8 +49,7 @@ describe('sendTrackingSignal', () => {
       systemLanguage: '', // TODO IGAPP-566 Include system language
       appSettings: {
         allowPushNotifications: true,
-        errorTracking: false,
-        proposeNearbyCities: false
+        errorTracking: false
       },
       timestamp: '2020-01-20T00:00:00.000Z'
     })
@@ -68,8 +66,7 @@ describe('sendTrackingSignal', () => {
       selectedCity: 'muenchen',
       contentLanguage: 'ar',
       allowPushNotifications: true,
-      errorTracking: false,
-      proposeNearbyCities: false
+      errorTracking: false
     })
 
     await sendTrackingSignal({ signal, offline: true })
@@ -87,8 +84,7 @@ describe('sendTrackingSignal', () => {
       selectedCity: 'muenchen',
       contentLanguage: 'ar',
       allowPushNotifications: true,
-      errorTracking: false,
-      proposeNearbyCities: false
+      errorTracking: false
     })
 
     await sendTrackingSignal({ signal, offline: true })
@@ -106,8 +102,7 @@ describe('sendTrackingSignal', () => {
       selectedCity: 'muenchen',
       contentLanguage: 'ar',
       allowPushNotifications: true,
-      errorTracking: false,
-      proposeNearbyCities: false
+      errorTracking: false
     })
 
     await sendTrackingSignal({ signal, offline: true })
