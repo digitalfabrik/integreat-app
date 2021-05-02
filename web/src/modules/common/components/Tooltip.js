@@ -72,6 +72,10 @@ const pseudosMixin = (flow: FlowType, color: string) => css`
   }
 `
 
+// maximum widths and heights
+const MAX_HEIGHT = 50
+const MAX_WIDTH = 300
+
 const TooltipContainer: StyledComponent<
   {|
     text: string,
@@ -109,8 +113,8 @@ const TooltipContainer: StyledComponent<
     /* Content props */
     text-align: center;
     min-width: 50px;
-    max-width: 300px;
-    max-height: 50px;
+    max-width: ${MAX_WIDTH}px;
+    max-height: ${MAX_HEIGHT}px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -162,36 +166,47 @@ type PropsType = {
   ...
 }
 
-// maximum widths and heights
-const HEIGHT = 50
-const WIDTH = 200
-
 type ViewportDimensionsType = {|
   width: number,
   height: number
 |}
 
+const getCenterY = (rect: ClientRect) => rect.top + rect.height / 2
+const getCenterX = (rect: ClientRect) => rect.left + rect.width / 2
+
 const spaceCheckers: {
   [FlowType]: {|
     fallbacks: FlowType[],
-    check: (element: Element, dimensions: ViewportDimensionsType) => boolean
+    check: (element: ClientRect, dimensions: ViewportDimensionsType) => boolean
   |}
 } = {
   up: {
     fallbacks: ['down', 'left', 'right'],
-    check: (element: Element) => element.getBoundingClientRect().top - HEIGHT >= 0
+    check: (rect: ClientRect, { width }) =>
+      rect.top - MAX_HEIGHT >= 0 && // Check distance to viewport top
+      getCenterX(rect) - MAX_WIDTH / 2 >= 0 && // Check distance from center to viewport left
+      getCenterX(rect) / 2 + MAX_WIDTH / 2 <= width // Check distance from center to viewport right
   },
   down: {
     fallbacks: ['up', 'left', 'right'],
-    check: (element: Element, { height }) => element.getBoundingClientRect().bottom + HEIGHT <= height
+    check: (rect: ClientRect, { width, height }) =>
+      rect.bottom + MAX_HEIGHT <= height && // Check distance to viewport bottom
+      getCenterX(rect) - MAX_WIDTH / 2 >= 0 && // Check distance from center to viewport left
+      getCenterX(rect) + MAX_WIDTH / 2 <= width // Check distance from center to viewport right
   },
   left: {
     fallbacks: ['right', 'up', 'left'],
-    check: (element, _) => element.getBoundingClientRect().left - WIDTH >= 0
+    check: (rect: ClientRect, { height }) =>
+      rect.left - MAX_WIDTH >= 0 && // Check distance to viewport left
+      getCenterY(rect) - MAX_HEIGHT / 2 >= 0 && // Check distance from center to viewport top
+      getCenterY(rect) + MAX_HEIGHT / 2 <= height // Check distance from center to viewport bottom
   },
   right: {
     fallbacks: ['left', 'up', 'left'],
-    check: (element, { width }) => element.getBoundingClientRect().right + HEIGHT <= width
+    check: (rect: ClientRect, { width, height }) =>
+      rect.right + MAX_WIDTH <= width && // Check distance to viewport right
+      getCenterY(rect) - MAX_HEIGHT / 2 >= 0 && // Check distance from center to viewport top
+      getCenterY(rect) + MAX_HEIGHT / 2 <= height // Check distance from center to viewport bottom
   }
 }
 
@@ -205,7 +220,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
     throw new Error('Fallback not found')
   }
 
-  if (checker.check(element, dimensions)) {
+  if (checker.check(element.getBoundingClientRect(), dimensions)) {
     return preferredFlow
   } else {
     const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
@@ -213,7 +228,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
       if (!fallbackChecker) {
         throw new Error('Fallback not found')
       }
-      return fallbackChecker.check(element, dimensions)
+      return fallbackChecker.check(element.getBoundingClientRect(), dimensions)
     })
 
     return fallback ?? preferredFlow
