@@ -21,7 +21,7 @@ describe('fetchResourceCache', () => {
   const language = 'en'
 
   it('should fetch and create warning message', async () => {
-    const spy = jest.spyOn(console, 'warn')
+    const spy = jest.spyOn(console, 'log')
 
     const dataContainer = new DefaultDataContainer()
 

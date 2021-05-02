@@ -1,0 +1,5 @@
+issue_key: IGAPP-593
+show_in_stores: false
+platforms:
+  - ios
+en: Fix push notification permission handling by only asking if selecting a city or if enabling it in the settings.
