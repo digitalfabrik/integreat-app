@@ -152,15 +152,14 @@ const TooltipContainer: StyledComponent<
   }
 `
 
-// We do not want exact types here as we forward props
-// eslint-disable-next-line flowtype/require-exact-type
 type PropsType = {
   children: React.Node,
   text: ?string,
   flow: FlowType,
   mediumViewportFlow?: FlowType,
   smallViewportFlow?: FlowType,
-  className?: string
+  className?: string,
+  ...
 }
 
 // maximum widths and heights

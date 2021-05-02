@@ -9,7 +9,7 @@ import dimensions from '../../theme/constants/dimensions'
 import Tooltip from './Tooltip'
 import type { ThemeType } from 'build-configs/ThemeType'
 
-const Element: StyledComponent<{| selected: boolean, enabled: boolean |}, ThemeType, *> = styled.span`
+const Element: StyledComponent<{| $selected: boolean, $enabled: boolean |}, ThemeType, *> = styled.span`
   ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
@@ -30,18 +30,16 @@ const Element: StyledComponent<{| selected: boolean, enabled: boolean |}, ThemeT
     font-size: 1em;
     line-height: ${dimensions.headerHeightSmall}px;
   }
-  
-  ${props =>
-    props.enabled ? `color: ${props.theme.colors.textColor};` : `color: ${props.theme.colors.textDisabledColor};`}
+
+  ${props => `color: ${props.$enabled ? props.theme.colors.textColor : props.theme.colors.textDisabledColor};`}
 
   ${props =>
-    props.selected
+    props.$selected
       ? 'font-weight: 700;'
       : `:hover {
           font-weight: 700;
           border-radius: 0;
         }`}
-}
 `
 
 const BoldSpacer: StyledComponent<{||}, ThemeType, *> = styled.div`
@@ -93,15 +91,21 @@ const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabl
               as={Link}
               onClick={closeDropDown}
               to={item.href}
-              enabled={true}
-              selected={item.code === activeItemCode}>
+              $enabled={true}
+              $selected={item.code === activeItemCode}>
               <BoldSpacer>{item.name}</BoldSpacer>
               {item.name}
             </Element>
           )
         } else {
           return (
-            <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' enabled={false} selected={false}>
+            <Element
+              as={Tooltip}
+              key={item.code}
+              text={disabledItemTooltip}
+              flow='up'
+              $enabled={false}
+              $selected={false}>
               <BoldSpacer>{item.name}</BoldSpacer>
               {item.name}
             </Element>
