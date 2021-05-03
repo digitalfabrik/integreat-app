@@ -8,6 +8,7 @@ import CopyPlugin from 'copy-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
+// TODO IGAPP-607: Add information from other packages
 // const loadBuildConfig = require('build-configs').default
 // const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 // const babelConfig = require('../babel.config.js')
@@ -33,6 +34,7 @@ const readVersionName = () => {
 }
 
 const generateManifest = (content: Buffer, buildConfigName: string) => {
+    // TODO IGAPP-607: Generate Manifest dependand on buildConfig
     // const manifest = JSON.parse(content.toString())
 
     // const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
@@ -75,6 +77,7 @@ const createConfig = (
         throw new Error('Please specify a build config name')
     }
 
+    // TODO IGAPP-607: Load build config
     // const buildConfig = loadBuildConfig(buildConfigName, WEB)
 
     // We have to override the env of the current process, such that babel-loader works with that.
@@ -85,6 +88,7 @@ const createConfig = (
 
     // If version_name is not supplied read it from version file
     const versionName = passedVersionName || readVersionName()
+    // TODO IGAPP-607: Process commit sha
     // const shortCommitSha = passedCommitSha.substring(0, SHORT_COMMIT_SHA_LENGTH) || 'Commit SHA unknown'
     const shortCommitSha = 'Commit SHA unknown'
 
@@ -163,6 +167,7 @@ const createConfig = (
             }),
             new CleanWebpackPlugin(),
             new HtmlWebpackPlugin({
+                // TODO IGAPP-607: Pass build config to index.ejs and set title correctly
                 // title: buildConfig.appName,
                 title: 'App Name',
                 // Load a custom template (lodash by default)
@@ -221,6 +226,7 @@ const createConfig = (
                     use: 'ts-loader',
                     exclude: /node_modules/,
                 },
+                // TODO IGAPP-607: Think about what to do with *.js
                 // {
                 //   test: /\.jsx?$/,
                 //   // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
