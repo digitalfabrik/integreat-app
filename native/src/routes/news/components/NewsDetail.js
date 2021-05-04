@@ -57,7 +57,7 @@ type PropsType = {|
 const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
   const formatter = useContext(DateFormatterContext)
   const width = useWindowDimensions().width
-  const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message);
+  const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
 
   const onLinkPress = useCallback(
     (_, url: string) => {
