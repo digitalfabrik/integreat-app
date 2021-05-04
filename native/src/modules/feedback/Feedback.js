@@ -57,7 +57,7 @@ export type PropsType = {|
   sendingStatus: SendingStatusType,
   onCommentChanged: (comment: string) => void,
   onFeedbackContactMailChanged: (contactMail: string) => void,
-  isSearchFeedback?: boolean,
+  isSearchFeedback: boolean,
   isPositiveFeedback: boolean,
   onSubmit: () => void,
   theme: ThemeType,
