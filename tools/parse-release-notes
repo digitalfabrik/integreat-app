@@ -32,7 +32,7 @@ const formatNotes = ({ notes, language, production, platformName }) => {
   const formattedNotes = notes
     .map(note => {
       const localizedNote = note[language] || note[DEFAULT_LANGUAGE]
-      return production ? `* ${localizedNote}` : `* ${note.issue_key}: ${localizedNote}`
+      return production ? `* ${localizedNote}` : `* [ ${note.issue_key} ] ${localizedNote}`
     })
     .reduce((text, note) => {
       if (production && text.length + note.length > MAX_RELEASE_NOTES_LENGTH) {
