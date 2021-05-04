@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "esModuleInterop": true,
+    "noEmit": true
+  },
+  "files": [
+    "webpack.config.ts"
+  ]
+}
