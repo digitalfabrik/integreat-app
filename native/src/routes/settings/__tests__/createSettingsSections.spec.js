@@ -186,7 +186,6 @@ describe('createSettingsSections', () => {
       }
     })
 
-
     it('should show snackbar and throw error if play services are not available', async () => {
       mockBuildConfig(true)
       const sections = createSettings()
