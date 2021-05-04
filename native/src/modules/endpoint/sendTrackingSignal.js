@@ -3,12 +3,11 @@
 import { createTrackingEndpoint, type SpecificSignalType } from 'api-client'
 import AppSettings from '../settings/AppSettings'
 import moment from 'moment'
-import type { SettingsType } from '../settings/AppSettings'
 import buildConfig from '../app/constants/buildConfig'
 import ErrorCodes, { fromError } from '../error/ErrorCodes'
 import type { SignalType } from 'api-client'
 
-export const sendCompleteSignal = async (signal: SignalType) => {
+export const sendRequest = async (signal: SignalType) => {
   const appSettings = new AppSettings()
   try {
     const { jpalTrackingCode, jpalTrackingEnabled } = await appSettings.loadSettings()
@@ -27,7 +26,7 @@ export const sendCompleteSignal = async (signal: SignalType) => {
   }
 }
 
-const sendSpecificSignal = async ({
+const sendTrackingSignal = async ({
   signal: specificSignal,
   offline = false
 }: {|
@@ -36,7 +35,7 @@ const sendSpecificSignal = async ({
 |}) => {
   const appSettings = new AppSettings()
   try {
-    const settings: SettingsType = await appSettings.loadSettings()
+    const settings = await appSettings.loadSettings()
     const { selectedCity, contentLanguage, allowPushNotifications, errorTracking, jpalTrackingCode } = settings
 
     const signal: SignalType = {
@@ -53,10 +52,10 @@ const sendSpecificSignal = async ({
       }
     }
 
-    await sendCompleteSignal(signal)
+    await sendRequest(signal)
   } catch (e) {
     console.error(e)
   }
 }
 
-export default sendSpecificSignal
+export default sendTrackingSignal
