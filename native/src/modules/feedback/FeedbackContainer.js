@@ -17,6 +17,7 @@ import type {
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
+  CityModel,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
@@ -69,7 +70,8 @@ export type PropsType = {|
   cityCode: string,
   path?: string,
   alias?: string,
-  query?: string
+  query?: string,
+  cities: $ReadOnlyArray<CityModel>
 |}
 
 export default class FeedbackContainer extends React.Component<PropsType, StateType> {
