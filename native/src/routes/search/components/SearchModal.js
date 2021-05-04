@@ -16,7 +16,7 @@ import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import FeedbackContainer, { INFORMATION_NOT_FOUND, NOTHING_FOUND } from '../../../modules/feedback/FeedbackContainer'
+import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
 import SadIcon from '../../../modules/common/components/assets/smile-sad.svg'
 import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
 import { urlFromRouteInformation } from '../../../modules/navigation/url'
@@ -164,7 +164,6 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    const feedbackOrigin = filteredCategories.length === 0 ? NOTHING_FOUND : INFORMATION_NOT_FOUND
 
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
@@ -180,7 +179,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             language={language}
           />
         </View>
-        {feedbackOrigin === 'searchNothingFound' && (
+        {filteredCategories.length === 0 && (
           <>
             <SadIconContainer source={SadIcon} />
             <Heading theme={theme}>{t('feedback:nothingFound')}</Heading>
@@ -188,7 +187,8 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         )}
         <FeedbackContainer
           routeType={SEARCH_ROUTE}
-          feedbackOrigin={feedbackOrigin}
+          isSearchFeedback
+          isPositiveFeedback={false}
           language={language}
           cityCode={cityCode}
           query={query}
