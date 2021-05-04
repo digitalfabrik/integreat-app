@@ -1,16 +1,14 @@
 // @flow
 
-export type JsonPathType = {
-  id: number,
-  url: string,
-  path: string
-}
-
 export type JsonAvailableLanguagesType = {
-  [string]: JsonPathType
+  [string]: {|
+    id: number,
+    url: string,
+    path: string
+  |}
 }
 
-export type JsonLocationType = {
+export type JsonLocationType = {|
   id: ?number,
   name: ?string,
   address: ?string,
@@ -21,7 +19,7 @@ export type JsonLocationType = {
   country: string,
   latitude: ?string,
   longitude: ?string
-}
+|}
 
 type JsonFeaturedImageInstanceType = {|
   url: string,
@@ -38,7 +36,7 @@ type JsonFeaturedImageType = {|
   full: Array<JsonFeaturedImageInstanceType>
 |}
 
-type JsonEventInfoType = {
+type JsonEventInfoType = {|
   id: number,
   start_date: string,
   end_date: string,
@@ -47,9 +45,9 @@ type JsonEventInfoType = {
   end_time: string,
   recurrence_id: ?string,
   timezone: string
-}
+|}
 
-export type JsonCategoryType = {
+export type JsonCategoryType = {|
   id: number,
   url: string,
   path: string,
@@ -60,13 +58,17 @@ export type JsonCategoryType = {
   available_languages: JsonAvailableLanguagesType,
   thumbnail: string,
   hash: string,
-  parent: JsonPathType,
+  parent: {|
+    id: number,
+    url: string | null,
+    path: string | null
+  |},
   order: number
-}
+|}
 
 export type JsonDisclaimerType = JsonCategoryType
 
-export type JsonPoiType = {
+export type JsonPoiType = {|
   id: number,
   url: string,
   path: string,
@@ -78,9 +80,9 @@ export type JsonPoiType = {
   thumbnail: string,
   hash: string,
   location: JsonLocationType
-}
+|}
 
-export type JsonEventType = {
+export type JsonEventType = {|
   id: number,
   url: string,
   path: string,
@@ -94,44 +96,44 @@ export type JsonEventType = {
   event: JsonEventInfoType,
   location: JsonLocationType,
   featured_image: ?JsonFeaturedImageType
-}
+|}
 
-export type JsonTunewsType = {
+export type JsonTunewsType = {|
   id: number,
   title: string,
   tags: Array<string>,
   date: string,
   content: string,
   enewsno: string
-}
+|}
 
-export type JsonLocalNewsType = {
+export type JsonLocalNewsType = {|
   id: number,
   timestamp: string,
   title: string,
   message: string
-}
+|}
 
 export type JsonOfferPostType = {
   [key: string]: string
 }
 
-export type JsonOfferType = {
+export type JsonOfferType = {|
   alias: string,
   name: string,
   url: string,
   thumbnail: string,
   post: ?JsonOfferPostType
-}
+|}
 
-export type JsonSprungbrettJobType = {
+export type JsonSprungbrettJobType = {|
   title: string,
   zip: string,
   city: string,
   url: string,
   employment: string,
   apprenticeship: string
-}
+|}
 
 // Generated with: https://transform.now.sh/json-to-flow-types/
 type AccommodationType = {
@@ -175,11 +177,11 @@ export type OfferType = {
 
 export type LanguageDirectionType = 'ltr' | 'rtl'
 
-export type JsonLanguageType = { code: string, native_name: string, dir: LanguageDirectionType }
+export type JsonLanguageType = {| code: string, native_name: string, dir: LanguageDirectionType |}
 
-export type JsonTunewsLanguageType = { code: string, name: string }
+export type JsonTunewsLanguageType = {| code: string, name: string |}
 
-export type JsonCityType = {
+export type JsonCityType = {|
   name: string,
   path: string,
   live: boolean,
@@ -193,4 +195,4 @@ export type JsonCityType = {
   latitude: number | null,
   longitude: number | null,
   aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
-}
+|}
