@@ -41,9 +41,14 @@ export type ParamsType = {|
 export default (baseUrl: string): Endpoint<ParamsType, void> =>
   new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
-      return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/feedback${
-        params.feedbackType ? `/${params.feedbackType}` : ''
-      }`
+      const { permalink, city, language } = params
+      // Make sure we use the right feedback type for the root category
+      const feedbackType = permalink === `/${city}/${language}` ? CATEGORIES_FEEDBACK_TYPE : params.feedbackType
+      if (feedbackType !== params.feedbackType) {
+        console.warn('Wrong feedback type set! The feedback type for the root category must be `categories`.')
+      }
+
+      return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback${feedbackType ? `/${feedbackType}` : ''}`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const formData = new FormData()
