@@ -10,8 +10,8 @@ import FilterableCitySelector from '../components/FilterableCitySelector'
 import type { TFunction } from 'react-i18next'
 import type { ThemeType } from 'build-configs/ThemeType'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
-import { checkLocationPermission } from '../../../modules/app/LocationPermissionManager'
-import { RESULTS } from 'react-native-permissions'
+import { checkLocationPermission, requestLocationPermission } from '../../../modules/app/LocationPermissionManager'
+import { openSettings, RESULTS } from 'react-native-permissions'
 import testID from '../../../modules/e2e/testID'
 
 const Wrapper: StyledComponent<{||}, ThemeType, *> = styled(View)`
