@@ -1,0 +1,29 @@
+/* noto-sans-georgian-regular - georgian */
+@font-face {
+    font-family: 'Noto Sans Georgian';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./noto-sans-georgian-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('./noto-sans-georgian-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./noto-sans-georgian-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('./noto-sans-georgian-regular.woff') format('woff'), /* Modern Browsers */
+    /* TTF is not available for SC */
+    /* url('./noto-sans-georgian-regular.ttf') format('truetype'), */ /* Safari, Android, iOS */
+    url('./noto-sans-georgian-regular.svg#NotoSansGeorgian-Regular') format('svg'); /* Legacy iOS */
+}
+
+/* noto-sans-georgian-700 - georgian */
+@font-face {
+    font-family: 'Noto Sans Georgian';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./noto-sans-georgian-700.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('./noto-sans-georgian-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./noto-sans-georgian-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('./noto-sans-georgian-700.woff') format('woff'), /* Modern Browsers */
+    /* TTF is not available for SC */
+    /* url('./noto-sans-georgian-700.ttf') format('truetype'), */ /* Safari, Android, iOS */
+    url('./noto-sans-georgian-700.svg#NotoSansGeorgian-Bold') format('svg'); /* Legacy iOS */
+}
