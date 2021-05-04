@@ -26,9 +26,11 @@ import {
   PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
   SEARCH_FEEDBACK_TYPE,
-  SEARCH_ROUTE
+  SEARCH_ROUTE,
+  SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
 import determineApiUrl from '../endpoint/determineApiUrl'
+import sendTrackingSignal from '../endpoint/sendTrackingSignal'
 import { useTranslation } from 'react-i18next'
 import type { ThemeType } from 'build-configs/ThemeType'
 
@@ -121,6 +123,16 @@ const FeedbackContainer = (props: PropsType) => {
       await feedbackEndpoint.request(feedbackData)
       setSendingStatus('successful')
     }
+    sendTrackingSignal({
+      signal: {
+        name: SEND_FEEDBACK_SIGNAL_NAME,
+        feedback: {
+          positive: feedbackData.isPositiveRating,
+          numCharacters: comment.length,
+          contactMail: contactMail.length > 0
+        }
+      }
+    })
     request().catch(err => {
       console.log(err)
       setSendingStatus('failed')
