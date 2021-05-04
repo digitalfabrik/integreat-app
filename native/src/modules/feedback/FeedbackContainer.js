@@ -17,7 +17,6 @@ import type {
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
-  CityModel,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
@@ -30,9 +29,11 @@ import {
   PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
   SEARCH_FEEDBACK_TYPE,
-  SEARCH_ROUTE
+  SEARCH_ROUTE,
+  SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
 import determineApiUrl from '../endpoint/determineApiUrl'
+import sendTrackingSignal from '../endpoint/sendTrackingSignal'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 export type FeedbackOriginType = 'positive' | 'negative' | 'searchInformationNotFound' | 'searchNothingFound'
@@ -66,11 +67,9 @@ export type PropsType = {|
   feedbackOrigin: FeedbackOriginType,
   language: string,
   cityCode: string,
-  cities: $ReadOnlyArray<CityModel>,
   path?: string,
   alias?: string,
-  query?: string,
-  offers?: Array<OfferModel>
+  query?: string
 |}
 
 export default class FeedbackContainer extends React.Component<PropsType, StateType> {
@@ -134,6 +133,16 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
       await feedbackEndpoint.request(feedbackData)
       this.setState({ sendingStatus: 'successful' })
     }
+    sendTrackingSignal({
+      signal: {
+        name: SEND_FEEDBACK_SIGNAL_NAME,
+        feedback: {
+          positive: feedbackData.isPositiveRating,
+          numCharacters: comment.length ?? 0,
+          contactMail: contactMail.length > 0
+        }
+      }
+    })
     request().catch(err => {
       console.log(err)
       this.setState({ sendingStatus: 'failed' })
