@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   parser: 'babel-eslint',
   plugins: ['react', 'react-hooks', 'flowtype', 'jest'],
   extends: [
