@@ -1,0 +1,5 @@
+issue_key: IGAPP-621
+show_in_stores: false
+platforms:
+  - web
+en: Sending feedback on the dashboard of a city is now possible again.

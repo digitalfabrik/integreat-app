@@ -6,7 +6,7 @@ class FetchError extends Error {
   getMessage = (endpointName: string, innerError: Error): string =>
     `FetchError: Failed to load the request for the ${endpointName} endpoint. ${innerError.message}`
 
-  constructor(params: { endpointName: string, innerError: Error }) {
+  constructor(params: {| endpointName: string, innerError: Error |}) {
     super()
 
     if (Error.captureStackTrace) {
