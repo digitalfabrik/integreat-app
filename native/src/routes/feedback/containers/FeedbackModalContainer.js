@@ -1,9 +1,10 @@
 // @flow
 
-import React from 'react'
+import React, { useContext } from 'react'
 import type { FeedbackModalRouteType } from 'api-client'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
+import { ThemeContext } from 'styled-components'
 
 type PropsType = {|
   route: RoutePropType<FeedbackModalRouteType>,
@@ -12,6 +13,8 @@ type PropsType = {|
 
 const FeedbackModalContainer = (props: PropsType) => {
   const { routeType, language, cityCode, isPositiveFeedback } = props.route.params
+  const theme = useContext(ThemeContext)
+
   return (
     <FeedbackContainer
       routeType={routeType}
@@ -19,6 +22,7 @@ const FeedbackModalContainer = (props: PropsType) => {
       isSearchFeedback={false}
       language={language}
       cityCode={cityCode}
+      theme={theme}
     />
   )
 }

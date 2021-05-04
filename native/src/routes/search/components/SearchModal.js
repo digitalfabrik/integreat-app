@@ -192,6 +192,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
           language={language}
           cityCode={cityCode}
           query={query}
+          theme={theme}
         />
       </ScrollView>
     )
