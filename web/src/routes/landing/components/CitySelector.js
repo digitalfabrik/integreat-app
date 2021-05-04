@@ -52,8 +52,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   // Landkreis should come before Stadt
   sort(cities: Array<CityModel>): Array<CityModel> {
     return cities.sort(
-      (a, b) =>
-        a.sortingName.localeCompare(b.sortingName) || (a.prefix && b.prefix ? a.prefix.localeCompare(b.prefix) : 0)
+      (a, b) => a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
     )
   }
 
