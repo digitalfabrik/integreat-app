@@ -17,6 +17,7 @@ import {
 } from './'
 import type { LocalNewsType, TuNewsType } from './'
 import type { RouteInformationType } from './RouteInformationTypes'
+import normalizePath from '../normalizePath'
 
 const ENTITY_ID_INDEX = 3
 
@@ -28,7 +29,7 @@ class InternalPathnameParser {
   _fixedCity: string | null
 
   constructor(pathname: string, languageCode: string, fixedCity: string | null) {
-    this._pathname = pathname
+    this._pathname = normalizePath(pathname)
     this._fixedCity = fixedCity
     this._parts = this.pathnameParts(pathname)
     this._length = this._parts.length
