@@ -215,7 +215,7 @@ describe('Navigator', () => {
     await act(async () => {
       const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
-      const { findByText } =render(
+      const { findByText } = render(
         <NavigationContainer>
           <Navigator {...props({ routeName: null })} />
         </NavigationContainer>
