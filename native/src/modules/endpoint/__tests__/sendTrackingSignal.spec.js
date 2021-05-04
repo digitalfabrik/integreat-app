@@ -1,6 +1,6 @@
 // @flow
 
-import sendTrackingSignal, { sendCompleteSignal } from '../sendTrackingSignal'
+import sendTrackingSignal, { sendRequest } from '../sendTrackingSignal'
 import { DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import AppSettings from '../../settings/AppSettings'
 import buildConfig from '../../app/constants/buildConfig'
@@ -54,7 +54,7 @@ describe('sendTrackingSignal', () => {
         errorTracking: false
       })
 
-      await sendCompleteSignal(signal)
+      await sendRequest(signal)
       expect(mockRequest).toHaveBeenCalledTimes(1)
       expect(mockRequest).toHaveBeenCalledWith(signal)
     })
@@ -73,7 +73,7 @@ describe('sendTrackingSignal', () => {
         errorTracking: false
       })
 
-      await sendCompleteSignal(signal)
+      await sendRequest(signal)
       expect(mockRequest).not.toHaveBeenCalled()
     })
 
@@ -91,7 +91,7 @@ describe('sendTrackingSignal', () => {
         errorTracking: false
       })
 
-      await sendCompleteSignal(signal)
+      await sendRequest(signal)
       expect(mockRequest).not.toHaveBeenCalled()
     })
 
@@ -109,7 +109,7 @@ describe('sendTrackingSignal', () => {
         errorTracking: false
       })
 
-      await sendCompleteSignal(signal)
+      await sendRequest(signal)
       expect(mockRequest).not.toHaveBeenCalled()
     })
 
@@ -130,7 +130,7 @@ describe('sendTrackingSignal', () => {
       const error = new FetchError({ endpointName: 'endpoint', innerError: new Error('Internet kaputt') })
       mockRequest.mockRejectedValueOnce(error)
 
-      await sendCompleteSignal(signal)
+      await sendRequest(signal)
 
       const offlineSignals = await appSettings.clearJpalSignals()
       expect(offlineSignals).toEqual([{ ...signal, offline: true }])
