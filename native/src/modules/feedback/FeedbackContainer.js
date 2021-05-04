@@ -1,9 +1,7 @@
 // @flow
 
-import * as React from 'react'
-import { type TFunction, withTranslation } from 'react-i18next'
-import withTheme from '../theme/hocs/withTheme'
-import Feedback, { type PropsType as FeedbackPropsType } from './Feedback'
+import React, { useContext, useState } from 'react'
+import Feedback from './Feedback'
 import type {
   CategoriesRouteType,
   DisclaimerRouteType,
@@ -31,6 +29,8 @@ import {
   SEARCH_ROUTE
 } from 'api-client'
 import determineApiUrl from '../endpoint/determineApiUrl'
+import { ThemeContext } from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
@@ -51,12 +51,6 @@ export type FeedbackInformationType = {|
   alias?: string
 |}
 
-type StateType = {|
-  comment: string,
-  contactMail: string,
-  sendingStatus: SendingStatusType
-|}
-
 export type PropsType = {|
   routeType: RouteType,
   isSearchFeedback: boolean,
@@ -68,15 +62,16 @@ export type PropsType = {|
   query?: string
 |}
 
-export default class FeedbackContainer extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props)
-    this.state = { comment: '', contactMail: '', sendingStatus: 'idle' }
-  }
+const FeedbackContainer = (props: PropsType) => {
+  const [comment, setComment] = useState<string>('')
+  const [contactMail, setContactMail] = useState<string>('')
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const { path, alias, query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode } = props
 
-  getFeedbackType = (): FeedbackType => {
-    const { routeType, path, alias } = this.props
+  const theme = useContext(ThemeContext)
+  const { t } = useTranslation('search')
 
+  const getFeedbackType = (): FeedbackType => {
     switch (routeType) {
       case EVENTS_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
@@ -96,10 +91,8 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
     }
   }
 
-  getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
-    const { path, alias, query, language, isPositiveFeedback } = this.props
-    const feedbackType = this.getFeedbackType()
-    const city = this.props.cityCode
+  const getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
+    const feedbackType = getFeedbackType()
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
 
     return {
@@ -107,7 +100,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
       isPositiveRating: isPositiveFeedback,
       permalink: path,
-      city,
+      city: cityCode,
       language,
       comment: commentWithMail,
       alias,
@@ -115,45 +108,39 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
     }
   }
 
-  onFeedbackCommentChanged = (comment: string) => this.setState({ comment })
+  const onFeedbackCommentChanged = (comment: string) => setComment(comment)
 
-  onFeedbackContactMailChanged = (contactMail: string) => this.setState({ contactMail })
+  const onFeedbackContactMailChanged = (contactMail: string) => setContactMail(contactMail)
 
-  handleSubmit = () => {
-    const { comment, contactMail } = this.state
-    const feedbackData = this.getFeedbackData(comment, contactMail)
-    this.setState({ sendingStatus: 'sending' })
+  const handleSubmit = () => {
+    const feedbackData = getFeedbackData(comment, contactMail)
+    setSendingStatus('sending')
     const request = async () => {
       const apiUrl = await determineApiUrl()
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
       await feedbackEndpoint.request(feedbackData)
-      this.setState({ sendingStatus: 'successful' })
+      setSendingStatus('successful')
     }
     request().catch(err => {
       console.log(err)
-      this.setState({ sendingStatus: 'failed' })
+      setSendingStatus('failed')
     })
   }
 
-  render() {
-    const { isPositiveFeedback, isSearchFeedback } = this.props
-    const { comment, contactMail, sendingStatus } = this.state
-
-    return (
-      <ThemedTranslatedFeedback
-        comment={comment}
-        contactMail={contactMail}
-        sendingStatus={sendingStatus}
-        onCommentChanged={this.onFeedbackCommentChanged}
-        onFeedbackContactMailChanged={this.onFeedbackContactMailChanged}
-        isSearchFeedback={isSearchFeedback}
-        isPositiveFeedback={isPositiveFeedback}
-        onSubmit={this.handleSubmit}
-      />
-    )
-  }
+  return (
+    <Feedback
+      comment={comment}
+      contactMail={contactMail}
+      sendingStatus={sendingStatus}
+      onCommentChanged={onFeedbackCommentChanged}
+      onFeedbackContactMailChanged={onFeedbackContactMailChanged}
+      isSearchFeedback={isSearchFeedback}
+      isPositiveFeedback={isPositiveFeedback}
+      onSubmit={handleSubmit}
+      theme={theme}
+      t={t}
+    />
+  )
 }
 
-const ThemedTranslatedFeedback = withTheme<$Diff<FeedbackPropsType, {| t: TFunction |}>>(
-  withTranslation<FeedbackPropsType>('feedback')(Feedback)
-)
+export default FeedbackContainer
