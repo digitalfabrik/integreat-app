@@ -31,7 +31,8 @@ type CreateSettingsSectionsPropsType = {|
   languageCode: string,
   cityCode: ?string,
   navigation: NavigationPropType<SettingsRouteType>,
-  settings: SettingsType
+  settings: SettingsType,
+  showSnackbar: string => void
 |}
 
 const createSettingsSections = ({
@@ -40,7 +41,8 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
-  settings
+  settings,
+  showSnackbar
 }: CreateSettingsSectionsPropsType) => [
   {
     title: null,
@@ -61,6 +63,11 @@ const createSettingsSections = ({
                       // No city selected so nothing to do here
                       return
                     }
+                    if (!NotificationsManager.pushNotificationsSupported()) {
+                      showSnackbar('notSupportedByDevice')
+                      // Reset displayed setting in app
+                      throw new Error('Not supported by device')
+                    }
                     if (newSettings.allowPushNotifications) {
                       const status = await NotificationsManager.requestPushNotificationPermission()
                       if (status) {
@@ -72,6 +79,9 @@ const createSettingsSections = ({
                         throw new Error('No permission for Push Notifications')
                       }
                     } else {
+                      if (!NotificationsManager.pushNotificationsSupported()) {
+                        throw new Error('Not supported by device')
+                      }
                       await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
                   }
