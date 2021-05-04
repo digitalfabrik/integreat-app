@@ -1,0 +1,18 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+/* TEAM */
+
+    Software Developer: Maximilian Ammann
+
+    Software Developer: Steffen Kleinle
+
+    Software Developer: Stefanie Metzger
+
+    Software Developer: Sarah Sporck
+
+/* SITE */
+
+    Standards: JavaScript, HTML5, CSS3
+    Components: React, Redux, Material Design Lite (MDL), Typescript, Webpack, Node.js, React Static Boilerplate
+    Software: IntelliJ, VSCode

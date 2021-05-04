@@ -6,6 +6,7 @@ import moment from 'moment'
 import buildConfig from '../app/constants/buildConfig'
 import ErrorCodes, { fromError } from '../error/ErrorCodes'
 import type { SignalType } from 'api-client'
+import * as Sentry from '@sentry/react-native'
 
 export const sendRequest = async (signal: SignalType) => {
   const appSettings = new AppSettings()
@@ -21,7 +22,7 @@ export const sendRequest = async (signal: SignalType) => {
       await appSettings.pushJpalSignal({ ...signal, offline: true })
     } else {
       console.error(e)
-      // TODO IGAPP-572 Send to sentry
+      Sentry.captureException(e)
     }
   }
 }
