@@ -54,6 +54,7 @@ import {
 import type { RoutesParamsType } from '../constants/NavigationTypes'
 import RedirectContainer from '../containers/RedirectContainer'
 import JpalTracking from '../../../routes/jpal-tracking/JpalTracking'
+import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 
@@ -105,6 +106,10 @@ const Navigator = (props: PropsType) => {
 
       if (!storageVersion) {
         await appSettings.setVersion(ASYNC_STORAGE_VERSION)
+      }
+
+      if (!NotificationsManager.pushNotificationsSupported()) {
+        await appSettings.setSettings({ allowPushNotifications: false })
       }
 
       if (storageVersion !== ASYNC_STORAGE_VERSION) {
