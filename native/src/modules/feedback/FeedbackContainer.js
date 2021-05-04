@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Feedback from './Feedback'
 import type {
   CategoriesRouteType,
@@ -29,8 +29,8 @@ import {
   SEARCH_ROUTE
 } from 'api-client'
 import determineApiUrl from '../endpoint/determineApiUrl'
-import { ThemeContext } from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import type { ThemeType } from 'build-configs/ThemeType'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
@@ -59,17 +59,17 @@ export type PropsType = {|
   cityCode: string,
   path?: string,
   alias?: string,
-  query?: string
+  query?: string,
+  theme: ThemeType
 |}
 
 const FeedbackContainer = (props: PropsType) => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const { path, alias, query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode } = props
+  const { path, alias, query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, theme } = props
 
-  const theme = useContext(ThemeContext)
-  const { t } = useTranslation('search')
+  const { t } = useTranslation('feedback')
 
   const getFeedbackType = (): FeedbackType => {
     switch (routeType) {

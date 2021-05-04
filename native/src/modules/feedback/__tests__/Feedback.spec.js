@@ -4,7 +4,6 @@ import React from 'react'
 import Feedback from '../Feedback'
 import lightTheme from '../../theme/constants'
 import { fireEvent, render } from '@testing-library/react-native'
-import type { FeedbackOriginType } from '../FeedbackContainer'
 
 describe('Feedback', () => {
   beforeEach(() => {
@@ -16,10 +15,11 @@ describe('Feedback', () => {
   const onFeedbackContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
 
-  const buildProps = (feedbackOrigin: FeedbackOriginType, comment: string) => {
+  const buildProps = (isPositiveFeedback: boolean, isSearchFeedback: boolean, comment: string) => {
     return {
       comment,
-      feedbackOrigin,
+      isPositiveFeedback,
+      isSearchFeedback,
       contactMail: 'test@example.com',
       sendingStatus: 'idle',
       onCommentChanged,
@@ -31,52 +31,54 @@ describe('Feedback', () => {
   }
 
   it('button should be disabled for negative feedback and no input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('negative', '')} />)
+    const { getByText, queryByText, queryAllByText } = render(<Feedback {...buildProps(false, false, '')} />)
     expect(getByText('send')).toBeDisabled()
+    expect(getByText('negativeComment')).toBeTruthy()
+    expect(queryAllByText('(optionalInfo)')).toHaveLength(1)
+    expect(queryByText('positiveComment')).toBeFalsy()
+    expect(queryByText('wantedInformation')).toBeFalsy()
   })
 
-  it('button should be disabled for no search results feedback and no input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('searchNothingFound', '')} />)
+  it('button should be disabled for search feedback and no input', async () => {
+    const { getByText, queryByText, queryAllByText } = render(<Feedback {...buildProps(false, true, '')} />)
     expect(getByText('send')).toBeDisabled()
-  })
-
-  it('button should be disabled for deficient search results feedback and no input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('searchInformationNotFound', '')} />)
-    expect(getByText('send')).toBeDisabled()
+    expect(getByText('wantedInformation')).toBeTruthy()
+    expect(queryAllByText('(optionalInfo)')).toHaveLength(1)
+    expect(queryByText('positiveComment')).toBeFalsy()
+    expect(queryByText('negativeComment')).toBeFalsy()
   })
 
   it('button should be enabled for positive feedback and no input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('positive', '')} />)
+    const { getByText, queryByText, queryAllByText } = render(<Feedback {...buildProps(true, false, '')} />)
     expect(getByText('send')).not.toBeDisabled()
+    expect(getByText('positiveComment')).toBeTruthy()
+    expect(queryAllByText('(optionalInfo)')).toHaveLength(2)
+    expect(queryByText('negativeComment')).toBeFalsy()
+    expect(queryByText('wantedInformation')).toBeFalsy()
   })
 
   it('button should be enabled for negative feedback and input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('negative', 'comment')} />)
+    const { getByText } = render(<Feedback {...buildProps(false, false, 'comment')} />)
     expect(getByText('send')).not.toBeDisabled()
   })
 
   it('correct text should be displayed for positive feedback and input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('positive', 'comment')} />)
+    const { getByText } = render(<Feedback {...buildProps(true, false, 'comment')} />)
     expect(getByText('positiveComment')).toBeDefined()
   })
 
   it('correct text should be displayed for negative feedback and input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('negative', 'comment')} />)
+    const { getByText } = render(<Feedback {...buildProps(false, false, 'comment')} />)
     expect(getByText('negativeComment')).toBeDefined()
   })
 
-  it('correct text should be displayed for no search results feedback and input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('searchNothingFound', 'comment')} />)
-    expect(getByText('wantedInformation')).toBeDefined()
-  })
-
-  it('correct text should be displayed for deficient search results feedback and input', async () => {
-    const { getByText } = render(<Feedback {...buildProps('searchInformationNotFound', 'comment')} />)
+  it('correct text should be displayed for search feedback and input', async () => {
+    const { getByText } = render(<Feedback {...buildProps(false, true, 'comment')} />)
     expect(getByText('wantedInformation')).toBeDefined()
   })
 
   it('onSubmit should be called with query on button press for search feedback', async () => {
-    const { getByText } = render(<Feedback {...buildProps('searchNothingFound', 'My test comment')} />)
+    const { getByText } = render(<Feedback {...buildProps(false, true, 'My test comment')} />)
     const button = getByText('send')
     fireEvent.press(button)
     expect(onSubmit).toBeCalled()
@@ -84,7 +86,7 @@ describe('Feedback', () => {
 
   it('should call callback on comment changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
-      <Feedback {...buildProps('negative', 'my old comment')} />
+      <Feedback {...buildProps(false, false, 'my old comment')} />
     )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
@@ -97,7 +99,7 @@ describe('Feedback', () => {
   })
 
   it('should call callback on contact mail changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(<Feedback {...buildProps('negative', 'my comment')} />)
+    const { getByDisplayValue, queryByDisplayValue } = render(<Feedback {...buildProps(false, false, 'my comment')} />)
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
     expect(onFeedbackContactMailChanged).not.toHaveBeenCalled()
