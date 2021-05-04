@@ -138,7 +138,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
         name: SEND_FEEDBACK_SIGNAL_NAME,
         feedback: {
           positive: feedbackData.isPositiveRating,
-          numCharacters: comment.length ?? 0,
+          numCharacters: comment.length,
           contactMail: contactMail.length > 0
         }
       }
