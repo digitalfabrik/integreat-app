@@ -156,7 +156,7 @@ describe('sendTrackingSignal', () => {
       const error = new Error('Something bad happened and tracking does not work anymore!')
       mockRequest.mockRejectedValueOnce(error)
 
-      await sendCompleteSignal(signal)
+      await sendRequest(signal)
 
       const offlineSignals = await appSettings.clearJpalSignals()
       expect(offlineSignals).toEqual([])
