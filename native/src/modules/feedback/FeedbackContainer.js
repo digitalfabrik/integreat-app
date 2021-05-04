@@ -17,14 +17,12 @@ import type {
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
-  CityModel,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   OFFER_FEEDBACK_TYPE,
-  OfferModel,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
   PAGE_FEEDBACK_TYPE,
@@ -35,7 +33,14 @@ import {
 import determineApiUrl from '../endpoint/determineApiUrl'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
-export type FeedbackOriginType = 'positive' | 'negative' | 'searchInformationNotFound' | 'searchNothingFound'
+
+type NothingFoundType = 'searchNothingFound'
+export const NOTHING_FOUND: NothingFoundType = 'searchNothingFound'
+
+type InformationNotFoundType = 'searchInformationNotFound'
+export const INFORMATION_NOT_FOUND: InformationNotFoundType = 'searchInformationNotFound'
+
+export type FeedbackOriginType = 'positive' | 'negative' | NothingFoundType | InformationNotFoundType
 
 type RouteType =
   | CategoriesRouteType
@@ -51,8 +56,7 @@ export type FeedbackInformationType = {|
   language: string,
   cityCode: string,
   path?: string,
-  alias?: string,
-  offers?: Array<OfferModel>
+  alias?: string
 |}
 
 type StateType = {|
@@ -66,11 +70,9 @@ export type PropsType = {|
   feedbackOrigin: FeedbackOriginType,
   language: string,
   cityCode: string,
-  cities: $ReadOnlyArray<CityModel>,
   path?: string,
   alias?: string,
-  query?: string,
-  offers?: Array<OfferModel>
+  query?: string
 |}
 
 export default class FeedbackContainer extends React.Component<PropsType, StateType> {
