@@ -1,0 +1,6 @@
+issue_key: IGAPP-623
+show_in_stores: true
+platforms:
+  - android
+en: If push notifications are not supported on your device we now show a proper error message.
+de: Falls Push Nachrichten auf deinem Gerät nicht unterstützt werden, zeigen wir nun eine Fehlermeldung an.
