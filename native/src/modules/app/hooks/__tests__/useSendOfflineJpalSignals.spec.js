@@ -5,7 +5,7 @@ import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-cl
 import React from 'react'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 import { render, waitFor } from '@testing-library/react-native'
-import { sendCompleteSignal } from '../../../endpoint/sendTrackingSignal'
+import { sendRequest } from '../../../endpoint/sendTrackingSignal'
 
 let mockUseNetInfo
 jest.mock('@react-native-community/netinfo', () => {
@@ -57,15 +57,15 @@ describe('useSendOfflineJpalSignals', () => {
 
     const { rerender } = render(<MockComponent />)
 
-    expect(sendCompleteSignal).not.toHaveBeenCalled()
+    expect(sendRequest).not.toHaveBeenCalled()
 
     mockUseNetInfo.mockImplementation(() => ({ isInternetReachable: true }))
 
     rerender(<MockComponent />)
 
-    await waitFor(() => expect(sendCompleteSignal).toHaveBeenCalledTimes(2))
-    expect(sendCompleteSignal).toHaveBeenCalledWith(signal1)
-    expect(sendCompleteSignal).toHaveBeenCalledWith(signal2)
+    await waitFor(() => expect(sendRequest).toHaveBeenCalledTimes(2))
+    expect(sendRequest).toHaveBeenCalledWith(signal1)
+    expect(sendRequest).toHaveBeenCalledWith(signal2)
     expect(await appSettings.clearJpalSignals()).toEqual([])
   })
 
@@ -78,12 +78,12 @@ describe('useSendOfflineJpalSignals', () => {
 
     const { rerender } = render(<MockComponent />)
 
-    expect(sendCompleteSignal).not.toHaveBeenCalled()
+    expect(sendRequest).not.toHaveBeenCalled()
 
     mockUseNetInfo.mockImplementation(() => ({ isInternetReachable: true }))
 
     rerender(<MockComponent />)
 
-    expect(sendCompleteSignal).not.toHaveBeenCalled()
+    expect(sendRequest).not.toHaveBeenCalled()
   })
 })

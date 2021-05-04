@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { useNetInfo } from '@react-native-community/netinfo'
 import AppSettings from '../../settings/AppSettings'
-import { sendCompleteSignal } from '../../endpoint/sendTrackingSignal'
+import { sendRequest } from '../../endpoint/sendTrackingSignal'
 
 const appSettings = new AppSettings()
 
@@ -13,7 +13,7 @@ const useSendOfflineJpalSignals = () => {
 
   const sendOfflineSignals = async () => {
     const signals = await appSettings.clearJpalSignals()
-    await Promise.all(signals.map(signal => sendCompleteSignal(signal)))
+    await Promise.all(signals.map(signal => sendRequest(signal)))
   }
 
   if (previousIsInternetReachable.current !== isInternetReachable) {
