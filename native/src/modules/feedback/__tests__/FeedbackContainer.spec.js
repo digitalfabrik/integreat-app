@@ -31,7 +31,13 @@ describe('FeedbackContainer', () => {
 
   it('should send feedback request on submit', async () => {
     const { getByText, findByText } = render(
-      <FeedbackContainer routeType={CATEGORIES_ROUTE} feedbackOrigin={'positive'} language={language} cityCode={city} />
+      <FeedbackContainer
+        routeType={CATEGORIES_ROUTE}
+        feedbackOrigin={'positive'}
+        language={language}
+        cityCode={city}
+        cities={[]}
+      />
     )
 
     const button = getByText('send')
@@ -64,7 +70,13 @@ describe('FeedbackContainer', () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
-      <FeedbackContainer routeType={CATEGORIES_ROUTE} feedbackOrigin={'positive'} language={language} cityCode={city} />
+      <FeedbackContainer
+        routeType={CATEGORIES_ROUTE}
+        feedbackOrigin={'positive'}
+        language={language}
+        cityCode={city}
+        cities={[]}
+      />
     )
 
     const [commentField, emailField] = getAllByDisplayValue('')
