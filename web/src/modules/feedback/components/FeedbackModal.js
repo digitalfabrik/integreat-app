@@ -27,7 +27,7 @@ const ModalContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
+  z-index: 11;
   display: flex;
   align-items: center;
   justify-content: center;
