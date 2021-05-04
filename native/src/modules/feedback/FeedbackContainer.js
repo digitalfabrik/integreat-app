@@ -34,14 +34,6 @@ import determineApiUrl from '../endpoint/determineApiUrl'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
-type NothingFoundType = 'searchNothingFound'
-export const NOTHING_FOUND: NothingFoundType = 'searchNothingFound'
-
-type InformationNotFoundType = 'searchInformationNotFound'
-export const INFORMATION_NOT_FOUND: InformationNotFoundType = 'searchInformationNotFound'
-
-export type FeedbackOriginType = 'positive' | 'negative' | NothingFoundType | InformationNotFoundType
-
 type RouteType =
   | CategoriesRouteType
   | EventsRouteType
@@ -67,7 +59,8 @@ type StateType = {|
 
 export type PropsType = {|
   routeType: RouteType,
-  feedbackOrigin: FeedbackOriginType,
+  isSearchFeedback: boolean,
+  isPositiveFeedback: boolean,
   language: string,
   cityCode: string,
   path?: string,
@@ -104,7 +97,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
   }
 
   getFeedbackData = (comment: string, contactMail: string): FeedbackParamsType => {
-    const { path, alias, query, language, feedbackOrigin } = this.props
+    const { path, alias, query, language, isPositiveFeedback } = this.props
     const feedbackType = this.getFeedbackType()
     const city = this.props.cityCode
     const commentWithMail = `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`
@@ -112,7 +105,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
     return {
       feedbackType,
       feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
-      isPositiveRating: feedbackOrigin === 'positive',
+      isPositiveRating: isPositiveFeedback,
       permalink: path,
       city,
       language,
@@ -143,7 +136,7 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
   }
 
   render() {
-    const { feedbackOrigin } = this.props
+    const { isPositiveFeedback, isSearchFeedback } = this.props
     const { comment, contactMail, sendingStatus } = this.state
 
     return (
@@ -153,7 +146,8 @@ export default class FeedbackContainer extends React.Component<PropsType, StateT
         sendingStatus={sendingStatus}
         onCommentChanged={this.onFeedbackCommentChanged}
         onFeedbackContactMailChanged={this.onFeedbackContactMailChanged}
-        feedbackOrigin={feedbackOrigin}
+        isSearchFeedback={isSearchFeedback}
+        isPositiveFeedback={isPositiveFeedback}
         onSubmit={this.handleSubmit}
       />
     )
