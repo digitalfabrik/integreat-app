@@ -22,7 +22,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
   translationsOverride: malteOverrideTranslations,
-  internalLinksHijackPattern: 'https?:\\/\\/malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  internalLinksHijackPattern: 'https?:\\/\\/(cms\\.)?malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
     pois: false,
