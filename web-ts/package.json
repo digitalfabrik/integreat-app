@@ -42,7 +42,7 @@
     "focus-trap-react": "8.4.2",
     "hashids": "^2.2.8",
     "history": "^4.9.0",
-    "i18next": "^20.2.2",
+    "i18next": "19.9.2",
     "lodash": "^4.17.21",
     "moment": "2.29.1",
     "normalize-strings": "^1.1.1",

@@ -53,10 +53,11 @@ First level structure of the `src-Folder` is technical specific and includes rou
 Inside the `routes-Folder`, subfolders are domain specific and can have - if necessary - also technical separation.
 File naming should be PascalCase, inside routes-Folder file names should be prefixed by the route name.
 Router entry points should have `Page` as a suffix, services should have `Service` suffix.
+
 ```
 src
 └───routes
-│   └───SomeRoute 
+│   └───SomeRoute
 │       │   SomeRoutePage.tsx
 │       └───component
 │       │   │ SomeRouteItem.tsx
