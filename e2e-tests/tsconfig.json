@@ -19,5 +19,5 @@
       "@wdio/appium-service"
     ],
     "allowSyntheticDefaultImports": true
-  },
+  }
 }

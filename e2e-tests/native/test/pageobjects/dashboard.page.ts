@@ -1,10 +1,9 @@
-import {Page} from "./page";
+import { Page } from './page'
 
 class DashboardPage extends Page {
-
-    constructor() {
-        super('Dashboard-Page')
-    }
+  constructor() {
+    super('Dashboard-Page')
+  }
 }
 
 export default new DashboardPage()

@@ -1,13 +1,12 @@
-
 export class Page {
-    readonly pageId
+  readonly pageId
 
-    constructor(pageId: string) {
-        this.pageId = pageId
-    }
+  constructor(pageId: string) {
+    this.pageId = pageId
+  }
 
-    public async exists(): Promise<boolean> {
-        const page = await $(`~${this.pageId}`)
-        return Boolean(await page.waitForExist())
-    }
+  public async exists(): Promise<boolean> {
+    const page = await $(`~${this.pageId}`)
+    return Boolean(await page.waitForExist())
+  }
 }

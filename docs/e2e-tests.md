@@ -7,24 +7,31 @@ To run the E2e-tests take a look at the commands in the [package.json](../e2e-te
 
 ### Local
 
-To run the web E2E-tests you just have run 
+To run the web E2E-tests you just have run
+
 ```
 yarn workspace e2e test:web
-``` 
+```
+
 This will launch the webapp and an automated chrome session where you can follow the test execution. If your don't have chrome installed you can adjust the `browserName` (firefox, edge, safari) in the `wdio.conf.ts` in the E2E-test web subdirectory.
 
 For you first have to build and install the app with the E2E build configuration:
+
 ```
 yarn workspace e2e prepare:android
 ```
+
 Then start the packager:
+
 ```
 yarn workspace e2e prepare:start
-``` 
-It is recommended to start the app once manually to avoid timeouts during local testing. After you have the app installed and running you can execute the native E2E-test with 
+```
+
+It is recommended to start the app once manually to avoid timeouts during local testing. After you have the app installed and running you can execute the native E2E-test with
+
 ```
 yarn workspace e2e test:native
-``` 
+```
 
 ## WebdriverIO
 
@@ -57,7 +64,7 @@ The tests itself are then created in the test folder and have to end on `*.e2e.t
 #### Selectors
 
 Selectors are used to select an element in the app programmatically.
-However, during native development most of the common selectors are not available. 
+However, during native development most of the common selectors are not available.
 Therefore, you should use the accessibility identifier for this.
 Add the accessibility-id to a React component using `testID('Example-Component')`. You can query this component with `$('~Example-Component')` in your test.
 
@@ -68,4 +75,5 @@ For more complex queries you should add/use a custom [Selector]('../e2e/native/S
 ### Cannot hide Keyboard on iOS
 
 https://stackoverflow.com/a/54995267
->The Appium method hideKeyboard() is known to be unstable when used on iPhone devices, as listed in Appium’s currently known open issues. Using this method for an iOS device may cause the Appium script to hang. Appium identifies that the problem is because "There is no automation hook for hiding the keyboard. Rather than using this method just think about how a user would hide the keyboard in your app, and tell Appium to do that instead.
+
+> The Appium method hideKeyboard() is known to be unstable when used on iPhone devices, as listed in Appium’s currently known open issues. Using this method for an iOS device may cause the Appium script to hang. Appium identifies that the problem is because "There is no automation hook for hiding the keyboard. Rather than using this method just think about how a user would hide the keyboard in your app, and tell Appium to do that instead.

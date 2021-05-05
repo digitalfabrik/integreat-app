@@ -1,9 +1,8 @@
 import LandingPage from '../pageobjects/landing.page'
 import DashboardPage from '../pageobjects/dashboard.page'
-import {hideKeyboard, swipe, SwipeDirection} from "../Action";
+import { hideKeyboard, swipe, SwipeDirection } from '../Action'
 
 describe('navigate to dashboard', () => {
-
   it('filter and navigate to City', async () => {
     const filter = 'wirschaffendas'
 
