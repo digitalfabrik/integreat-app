@@ -59,7 +59,8 @@ export const config = Object.assign(defaultConfig, {
         driver: '3.141.59'
       },
       seleniumVersion: '3.141.59'
-    })],
+    })
+  ],
 
   services: [['browserstack', { browserstackLocal: true }]],
   host: 'hub.browserstack.com'

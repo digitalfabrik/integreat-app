@@ -3,7 +3,6 @@ build-configs/
 release-notes/
 tools/
 translations/
-e2e-tests/
 
 web/dist/
 web/www/
