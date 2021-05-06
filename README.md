@@ -70,5 +70,5 @@ or use the Windows Subsystem for Linux following the information [here](./docs/w
 
 ## Further Reading
 
-More information on both the webapp and the native app can be found in the [web documentation](web/docs) and the [app documentation](native/docs).
+More information on both the webapp and the native app can be found in the [web documentation](web/docs) and the [native documentation](native/docs).
 Documentation on [CI/CD](docs/cicd.md), [contributing](docs/contributing.md) and our [conventions](docs/conventions.md) can be found [here](docs).

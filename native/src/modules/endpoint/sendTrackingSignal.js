@@ -8,6 +8,12 @@ import ErrorCodes, { fromError } from '../error/ErrorCodes'
 import type { SignalType } from 'api-client'
 import * as Sentry from '@sentry/react-native'
 
+let systemLanguage
+
+export const setSystemLanguage = (language: string) => {
+  systemLanguage = language
+}
+
 export const sendRequest = async (signal: SignalType) => {
   const appSettings = new AppSettings()
   try {
@@ -46,7 +52,7 @@ const sendTrackingSignal = async ({
       timestamp: moment().toISOString(),
       currentCity: selectedCity,
       currentLanguage: contentLanguage,
-      systemLanguage: '', // TODO IGAPP-566 Include system language
+      systemLanguage: systemLanguage ?? 'unknown',
       appSettings: {
         allowPushNotifications,
         errorTracking
