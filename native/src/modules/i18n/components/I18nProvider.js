@@ -13,10 +13,9 @@ import type { SetContentLanguageActionType } from '../../app/StoreActionType'
 import NativeLanguageDetector from '../NativeLanguageDetector'
 import AppSettings from '../../settings/AppSettings'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { setSystemLanguage } from '../../endpoint/sendTrackingSignal'
 
 type PropsType = {| children: React.Node |}
-
-export let i18n
 
 export default ({ children }: PropsType) => {
   const [errorMessage, setErrorMessage] = useState<?string>(null)
@@ -69,9 +68,9 @@ export default ({ children }: PropsType) => {
       await setContentLanguage(matchedLanguage).catch(e => {
         console.error(e)
       })
+      setSystemLanguage(matchedLanguage)
 
       setI18nextInstance(i18nextInstance)
-      i18n = i18nextInstance
     }
 
     initI18Next().catch((e: Error) => {
