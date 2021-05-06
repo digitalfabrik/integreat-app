@@ -7,12 +7,15 @@ import buildConfig from '../../../../modules/app/constants/buildConfig'
 import React from 'react'
 import NewsDetail from '../NewsDetail'
 
+const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
+  <h1><a href="https://tunewsinternational.com/category/corona-deutsch/">Aktuelle Informationen zu Corona: Hier klicken</a></h1>\n</main>\n`
+
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
   date: moment('2020-01-20T00:00:00.000Z'),
   tags: [],
-  content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
+  content: testHTML,
   eNewsNo: 'tun0000009902'
 })
 
@@ -53,11 +56,27 @@ describe('NewsDetail', () => {
   })
 
   it('should correctly render a tu news item', () => {
-    const { getByText } = render(
+    const { getByText, queryByText } = render(
       <NewsDetail newsItem={tuNews} language={language} navigateToLink={navigateToLink} theme={theme} />
     )
 
+    expect(queryByText('<main>')).toBeFalsy()
     expect(getByText(tuNews.title)).toBeTruthy()
-    expect(getByText(tuNews.content)).toBeTruthy()
+    expect(getByText('ArbeitnehmerInnen in Quarantäne haben nicht zwangsläufig frei.')).toBeTruthy()
+    expect(getByText('Aktuelle Informationen zu Corona: Hier klicken')).toBeTruthy()
+  })
+
+  it('should correctly render a tu news item link', () => {
+    const { getByText, queryByText } = render(
+      <NewsDetail newsItem={tuNews} language={language} navigateToLink={navigateToLink} theme={theme} />
+    )
+
+    expect(queryByText('https://tunewsinternational.com/category/corona-deutsch/')).toBeFalsy()
+    fireEvent.press(getByText('Aktuelle Informationen zu Corona: Hier klicken'))
+    expect(navigateToLink).toHaveBeenCalledWith(
+      'https://tunewsinternational.com/category/corona-deutsch/',
+      language,
+      'https://tunewsinternational.com/category/corona-deutsch/'
+    )
   })
 })
