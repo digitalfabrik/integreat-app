@@ -27,7 +27,6 @@ jest.mock('../createNavigate', () => {
 })
 jest.mock('../navigateToCategory')
 jest.mock('../../endpoint/sendTrackingSignal')
-jest.mock('../../i18n/NativeLanguageDetector')
 
 describe('navigateToDeepLink', () => {
   const dispatch = jest.fn()

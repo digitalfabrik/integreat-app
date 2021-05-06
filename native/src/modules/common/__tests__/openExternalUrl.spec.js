@@ -14,7 +14,6 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: jest.fn(() => true)
 }))
 jest.mock('../../endpoint/sendTrackingSignal')
-jest.mock('../../i18n/NativeLanguageDetector')
 jest.mock('react-native', () => ({
   Linking: {
     canOpenURL: jest.fn(() => true),

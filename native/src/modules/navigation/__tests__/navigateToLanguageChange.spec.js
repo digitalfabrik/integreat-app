@@ -8,7 +8,6 @@ import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 jest.mock('../../endpoint/sendTrackingSignal')
-jest.mock('../../i18n/NativeLanguageDetector')
 
 describe('navigateToLanguageChange', () => {
   beforeEach(() => {

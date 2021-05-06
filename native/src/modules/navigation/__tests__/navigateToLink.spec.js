@@ -13,7 +13,6 @@ import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 import openExternalUrl from '../../common/openExternalUrl'
 
 jest.mock('../../endpoint/sendTrackingSignal')
-jest.mock('../../i18n/NativeLanguageDetector')
 jest.mock('../../common/openExternalUrl')
 
 describe('navigateToLink', () => {
