@@ -90,7 +90,12 @@ const Feedback = (props: PropsType) => {
             <Description theme={theme}>{t('contactMailAddress')}</Description>
             <Text>({t('optionalInfo')})</Text>
           </DescriptionContainer>
-          <MailInput theme={theme} onChangeText={props.onFeedbackContactMailChanged} value={contactMail} />
+          <MailInput
+            theme={theme}
+            keyboardType='email-address'
+            onChangeText={props.onFeedbackContactMailChanged}
+            value={contactMail}
+          />
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
           <Button
             icon={<Icon name='send' size={15} color='black' style='material' />}
@@ -118,7 +123,7 @@ const Feedback = (props: PropsType) => {
 
   const { theme } = props
   return (
-    <ScrollView keyboardShouldPersistTaps='handled'>
+    <ScrollView keyboardShouldPersistTaps='handled' style={{ backgroundColor: theme.colors.backgroundColor }}>
       <Wrapper theme={theme}>{renderBox()}</Wrapper>
     </ScrollView>
   )
