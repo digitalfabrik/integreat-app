@@ -10,6 +10,7 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
+import buildConfig from '../../app/constants/buildConfig'
 
 const mockRequest = jest.fn(() => Promise.resolve())
 jest.mock('react-i18next')
@@ -20,6 +21,9 @@ jest.mock('api-client', () => {
     createFeedbackEndpoint: (baseUrl: string) => ({ request: mockRequest })
   }
 })
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: text => text })
+}))
 
 describe('FeedbackContainer', () => {
   beforeEach(() => {
@@ -33,10 +37,11 @@ describe('FeedbackContainer', () => {
     const { getByText, findByText } = render(
       <FeedbackContainer
         routeType={CATEGORIES_ROUTE}
-        feedbackOrigin={'positive'}
+        isPositiveFeedback
+        isSearchFeedback={false}
         language={language}
         cityCode={city}
-        cities={[]}
+        theme={buildConfig().lightTheme}
       />
     )
 
@@ -72,10 +77,11 @@ describe('FeedbackContainer', () => {
     const { getByText, findByText, getAllByDisplayValue } = render(
       <FeedbackContainer
         routeType={CATEGORIES_ROUTE}
-        feedbackOrigin={'positive'}
+        isPositiveFeedback
+        isSearchFeedback={false}
         language={language}
         cityCode={city}
-        cities={[]}
+        theme={buildConfig().lightTheme}
       />
     )
 

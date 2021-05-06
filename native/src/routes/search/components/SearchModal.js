@@ -1,26 +1,21 @@
 // @flow
 
 import * as React from 'react'
-
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import type { CategoriesRouteInformationType } from 'api-client'
-import { CategoriesMapModel, CategoryModel, CityModel, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
-
+import { CategoriesMapModel, CategoryModel, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
 import type { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import CategoryList from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { type StyledComponent } from 'styled-components'
 import { type TFunction } from 'react-i18next'
-
 import SearchHeader from './SearchHeader'
-
 import type { ThemeType } from 'build-configs/ThemeType'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Parser } from 'htmlparser2'
 import dimensions from '../../../modules/theme/constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-
 import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
 import SadIcon from '../../../modules/common/components/assets/smile-sad.svg'
 import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
@@ -60,9 +55,7 @@ export type PropsType = {|
   cityCode: string,
   closeModal: (query: string) => void,
   navigateToLink: (url: string, language: string, shareUrl: string) => void,
-  t: TFunction,
-  sendFeedback: (comment: string, query: string) => Promise<void>,
-  cities: $ReadOnlyArray<CityModel>
+  t: TFunction
 |}
 
 type SearchStateType = {|
@@ -171,7 +164,6 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     }
 
     const filteredCategories = this.findCategories(categories)
-    const feedbackOrigin = filteredCategories.length === 0 ? 'searchNothingFound' : 'searchInformationNotFound'
 
     return (
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='always'>
@@ -187,7 +179,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             language={language}
           />
         </View>
-        {feedbackOrigin === 'searchNothingFound' && (
+        {filteredCategories.length === 0 && (
           <>
             <SadIconContainer source={SadIcon} />
             <Heading theme={theme}>{t('feedback:nothingFound')}</Heading>
@@ -195,11 +187,12 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         )}
         <FeedbackContainer
           routeType={SEARCH_ROUTE}
-          feedbackOrigin={feedbackOrigin}
+          isSearchFeedback
+          isPositiveFeedback={false}
           language={language}
           cityCode={cityCode}
-          cities={this.props.cities}
           query={query}
+          theme={theme}
         />
       </ScrollView>
     )
