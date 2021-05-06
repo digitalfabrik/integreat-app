@@ -11,18 +11,14 @@ type PropsType = {|
   navigation: NavigationPropType<FeedbackModalRouteType>
 |}
 
-const FeedbackModalContainer = (props: PropsType) => {
-  const { routeType, language, cityCode, isPositiveFeedback } = props.route.params
+const FeedbackModalContainer = ({ route }: PropsType) => {
   const theme = useContext(ThemeContext)
 
   return (
     <FeedbackContainer
-      routeType={routeType}
-      isPositiveFeedback={isPositiveFeedback}
       isSearchFeedback={false}
-      language={language}
-      cityCode={cityCode}
       theme={theme}
+      {...route.params}
     />
   )
 }
