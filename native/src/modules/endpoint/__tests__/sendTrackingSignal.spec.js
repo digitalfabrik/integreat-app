@@ -55,7 +55,7 @@ describe('sendTrackingSignal', () => {
         allowPushNotifications: true,
         errorTracking: false
       })
-    setSystemLanguage('kmr')
+      setSystemLanguage('kmr')
 
       await sendRequest(signal)
       expect(mockRequest).toHaveBeenCalledTimes(1)
