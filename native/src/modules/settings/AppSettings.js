@@ -3,6 +3,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { mapValues, toPairs } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
+import type { SignalType } from 'api-client'
 
 export type SettingsType = {|
   storageVersion: string | null,
@@ -13,7 +14,8 @@ export type SettingsType = {|
   allowPushNotifications: boolean | null,
   apiUrlOverride: string | null,
   jpalTrackingEnabled: boolean | null,
-  jpalTrackingCode: string | null
+  jpalTrackingCode: string | null,
+  jpalSignals: Array<SignalType>
 |}
 
 export const defaultSettings: SettingsType = {
@@ -25,7 +27,8 @@ export const defaultSettings: SettingsType = {
   allowPushNotifications: true,
   apiUrlOverride: null,
   jpalTrackingEnabled: null,
-  jpalTrackingCode: null
+  jpalTrackingCode: null,
+  jpalSignals: []
 }
 
 class AppSettings {
@@ -95,6 +98,18 @@ class AppSettings {
 
   clearJpalTrackingEnabled = async () => {
     await this.setSettings({ jpalTrackingEnabled: false })
+  }
+
+  pushJpalSignal = async (signal: SignalType) => {
+    const { jpalSignals } = await this.loadSettings()
+    jpalSignals.push(signal)
+    await this.setSettings({ jpalSignals })
+  }
+
+  clearJpalSignals = async (): Promise<Array<SignalType>> => {
+    const { jpalSignals } = await this.loadSettings()
+    await this.setSettings({ jpalSignals: [] })
+    return jpalSignals
   }
 
   loadSelectedCity = async (): Promise<?string> => {

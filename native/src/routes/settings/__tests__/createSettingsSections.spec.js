@@ -13,17 +13,21 @@ jest.mock('../../../modules/i18n/NativeLanguageDetector')
 let mockRequestPushNotificationPermission
 let mockSubscribeNews
 let mockUnsubscribeNews
+let mockPushNotificationsSupported
 jest.mock('../../../modules/push-notifications/PushNotificationsManager', () => {
   const requestPushNotificationPermission = jest.fn()
   const subscribeNews = jest.fn()
   const unsubscribeNews = jest.fn()
+  const pushNotificationsSupported = jest.fn(() => true)
   mockRequestPushNotificationPermission = requestPushNotificationPermission
   mockSubscribeNews = subscribeNews
   mockUnsubscribeNews = unsubscribeNews
+  mockPushNotificationsSupported = pushNotificationsSupported
   return {
     requestPushNotificationPermission,
     subscribeNews,
-    unsubscribeNews
+    unsubscribeNews,
+    pushNotificationsSupported
   }
 })
 
@@ -49,6 +53,7 @@ describe('createSettingsSections', () => {
   const languageCode = 'de'
   const cityCode = 'augsburg'
   const navigation = createNavigationScreenPropMock()
+  const showSnackbar = jest.fn()
 
   const createSettings = () =>
     createSettingsSections({
@@ -57,7 +62,8 @@ describe('createSettingsSections', () => {
       cityCode,
       navigation,
       setSetting,
-      settings: defaultSettings
+      settings: defaultSettings,
+      showSnackbar
     })[0].data
 
   const mockBuildConfig = (pushNotifications: boolean) => {
@@ -176,6 +182,36 @@ describe('createSettingsSections', () => {
         expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
         expect(openSettings).toHaveBeenCalledTimes(1)
 
+        expect(mockSubscribeNews).not.toHaveBeenCalled()
+        expect(mockUnsubscribeNews).not.toHaveBeenCalled()
+      }
+    })
+
+    it('should show snackbar and throw error if play services are not available', async () => {
+      mockBuildConfig(true)
+      const sections = createSettings()
+      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
+
+      // Initialize changeSetting and changeAction
+      pushNotificationSection?.onPress()
+
+      const newSettings = defaultSettings
+      newSettings.allowPushNotifications = true
+
+      if (!changeAction) {
+        expect(false).toBeTrue()
+      } else {
+        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
+        expect(mockSubscribeNews).not.toHaveBeenCalled()
+        mockPushNotificationsSupported.mockImplementationOnce(() => false)
+
+        await expect(changeAction(newSettings)).rejects.toThrowError()
+
+        expect(showSnackbar).toHaveBeenCalledTimes(1)
+        expect(showSnackbar).toHaveBeenCalledWith('notSupportedByDevice')
+
+        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
+        expect(openSettings).not.toHaveBeenCalled()
         expect(mockSubscribeNews).not.toHaveBeenCalled()
         expect(mockUnsubscribeNews).not.toHaveBeenCalled()
       }
