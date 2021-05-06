@@ -13,7 +13,6 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { CityModel } from 'api-client'
 
 jest.mock('react-i18next')
-jest.mock('../../../../modules/i18n/NativeLanguageDetector')
 jest.mock('../../../../modules/common/openExternalUrl')
 jest.mock('../../../../modules/endpoint/hooks/useLoadFromEndpoint', () => ({
   useLoadFromEndpoint: jest.fn()

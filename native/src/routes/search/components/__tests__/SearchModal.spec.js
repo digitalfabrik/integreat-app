@@ -13,7 +13,6 @@ import { urlFromRouteInformation } from '../../../../modules/navigation/url'
 // $FlowFixMe
 import { ThemeProvider } from 'styled-components/native'
 
-jest.mock('../../../../modules/i18n/NativeLanguageDetector')
 jest.mock('rn-fetch-blob')
 jest.mock('../../../../modules/endpoint/sendTrackingSignal')
 

@@ -26,7 +26,6 @@ import CategoriesContainer from '../CategoriesContainer'
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
-jest.mock('../../../../modules/i18n/NativeLanguageDetector')
 
 jest.mock('../../../../modules/categories/components/Categories', () => {
   const Text = require('react-native').Text
