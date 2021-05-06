@@ -180,6 +180,7 @@ describe('sendTrackingSignal', () => {
         allowPushNotifications: true,
         errorTracking: false
       })
+      setSystemLanguage('ar')
 
       await sendTrackingSignal({ signal: specificSignal, offline: true })
       expect(mockRequest).toHaveBeenCalledTimes(1)
@@ -189,7 +190,7 @@ describe('sendTrackingSignal', () => {
         offline: true,
         currentCity: 'muenchen',
         currentLanguage: 'ar',
-        systemLanguage: '', // TODO IGAPP-566 Include system language
+        systemLanguage: 'ar',
         appSettings: {
           allowPushNotifications: true,
           errorTracking: false
