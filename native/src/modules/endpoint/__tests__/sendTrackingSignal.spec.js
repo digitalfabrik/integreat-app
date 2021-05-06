@@ -1,15 +1,11 @@
 // @flow
 
-import sendTrackingSignal from '../sendTrackingSignal'
+import sendTrackingSignal, { setSystemLanguage } from '../sendTrackingSignal'
 import { DASHBOARD_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import AppSettings from '../../settings/AppSettings'
 import buildConfig from '../../app/constants/buildConfig'
 import AsyncStorage from '@react-native-community/async-storage'
 
-jest.mock('../../i18n/components/I18nProvider', () => ({
-  i18n: { languages: ['kmr', 'de']}
-}))
-jest.mock('../../../modules/i18n/NativeLanguageDetector')
 let mockRequest
 jest.mock('api-client', () => {
   const mock = jest.fn()
@@ -41,6 +37,7 @@ describe('sendTrackingSignal', () => {
       allowPushNotifications: true,
       errorTracking: false
     })
+    setSystemLanguage('kmr')
 
     await sendTrackingSignal({ signal, offline: true })
     expect(mockRequest).toHaveBeenCalledTimes(1)
