@@ -14,13 +14,7 @@ type PropsType = {|
 const FeedbackModalContainer = ({ route }: PropsType) => {
   const theme = useContext(ThemeContext)
 
-  return (
-    <FeedbackContainer
-      isSearchFeedback={false}
-      theme={theme}
-      {...route.params}
-    />
-  )
+  return <FeedbackContainer isSearchFeedback={false} theme={theme} {...route.params} />
 }
 
 export default FeedbackModalContainer
