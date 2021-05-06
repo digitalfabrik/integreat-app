@@ -69,17 +69,14 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
 
   const navigateToFeedback = useCallback(
     (isPositiveFeedback: boolean) => {
-      if (offers) {
-        createNavigateToFeedbackModal(navigation)({
-          routeType: OFFERS_ROUTE,
-          language: languageCode,
-          cityCode,
-          offers,
-          isPositiveFeedback
-        })
-      }
+      createNavigateToFeedbackModal(navigation)({
+        routeType: OFFERS_ROUTE,
+        language: languageCode,
+        cityCode,
+        isPositiveFeedback
+      })
     },
-    [offers, languageCode, cityCode, navigation]
+    [languageCode, cityCode, navigation]
   )
 
   const cityModel = cities && cities.find(city => city.code === cityCode)
