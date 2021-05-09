@@ -1,11 +1,9 @@
-// @flow
-
 import type { LanguageDirectionType } from '../types'
 
 class LanguageModel {
   _code: string
   _name: string
-  _direction: ?LanguageDirectionType
+  _direction: LanguageDirectionType | null | undefined
 
   constructor(code: string, name: string, direction?: LanguageDirectionType) {
     this._code = code
@@ -21,7 +19,7 @@ class LanguageModel {
     return this._name
   }
 
-  get direction(): ?LanguageDirectionType {
+  get direction(): LanguageDirectionType | null | undefined {
     return this._direction
   }
 }

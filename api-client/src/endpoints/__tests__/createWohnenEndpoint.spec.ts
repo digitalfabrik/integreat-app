@@ -1,11 +1,7 @@
-// @flow
-
 import createWohnenEndpoint from '../createWohnenEndpoint'
-
 describe('createWohnenEndpoint', () => {
   const baseUrl = 'https://wohnen-api-url.de'
   const wohnen = createWohnenEndpoint(baseUrl)
-
   const json = [
     {
       email: 'markl@integreat-app.de',
@@ -50,15 +46,18 @@ describe('createWohnenEndpoint', () => {
       createdDate: '2019-03-03T17:45:11.050Z'
     }
   ]
-
   const city = 'augsburg'
-
   it('should map router to url', () => {
-    expect(wohnen.mapParamsToUrl({ city })).toEqual('https://wohnen-api-url.de/augsburg/offer')
+    expect(
+      wohnen.mapParamsToUrl({
+        city
+      })
+    ).toEqual('https://wohnen-api-url.de/augsburg/offer')
   })
-
   it('should map fetched data to models', () => {
-    const wohnenModel = wohnen.mapResponse(json, { city })
+    const wohnenModel = wohnen.mapResponse(json, {
+      city
+    })
     expect(wohnenModel).toMatchSnapshot()
   })
 })

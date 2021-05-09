@@ -1,11 +1,7 @@
-// @flow
-
 import OfferModel from '../models/OfferModel'
 import EndpointBuilder from '../EndpointBuilder'
-
 import type { JsonOfferPostType, JsonOfferType } from '../types'
 import Endpoint from '../Endpoint'
-
 export const OFFERS_ENDPOINT_NAME = 'offers'
 
 const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {
@@ -14,8 +10,10 @@ const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {
   return map
 }
 
-type ParamsType = { city: string, language: string }
-
+type ParamsType = {
+  city: string
+  language: string
+}
 export default (baseUrl: string): Endpoint<ParamsType, Array<OfferModel>> =>
   new EndpointBuilder(OFFERS_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {

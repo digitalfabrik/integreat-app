@@ -1,5 +1,3 @@
-// @flow
-
 import type { JsonAvailableLanguagesType } from './types'
 import normalizePath from './normalizePath'
 

@@ -1,20 +1,18 @@
-// @flow
-
 /**
  * The payload gets stored in the redux store and holds the information about a fetch
  */
 class Payload<T> {
   _isFetching: boolean
-  _data: ?T
-  _error: ?Error
-  _requestUrl: ?string
+  _data: T | null | undefined
+  _error: Error | null | undefined
+  _requestUrl: string | null | undefined
   _fetchDate: number
 
   constructor(
     isFetching: boolean,
-    requestUrl: ?string = null,
-    data: ?T = null,
-    error: ?Error = null,
+    requestUrl: string | null | undefined = null,
+    data: T | null | undefined = null,
+    error: Error | null | undefined = null,
     fetchDate: number = Date.now()
   ) {
     this._isFetching = isFetching
@@ -36,15 +34,15 @@ class Payload<T> {
     return this._isFetching
   }
 
-  get data(): ?T {
+  get data(): T | null | undefined {
     return this._data
   }
 
-  get error(): ?Error {
+  get error(): Error | null | undefined {
     return this._error
   }
 
-  get requestUrl(): ?string {
+  get requestUrl(): string | null | undefined {
     return this._requestUrl
   }
 }

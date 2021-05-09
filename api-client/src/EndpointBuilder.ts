@@ -1,20 +1,18 @@
-// @flow
-
 import Endpoint from './Endpoint'
 import type { MapResponseType } from './MapResponseType'
 import type { MapParamsToUrlType } from './MapParamsToUrlType'
 import type { MapParamsToBodyType } from './MapParamsToBody'
-
 /**
  * Helper class to build a {@link Endpoint}
  */
+
 class EndpointBuilder<P, T> {
   name: string
-  paramsToBodyMapper: ?MapParamsToBodyType<P>
+  paramsToBodyMapper: MapParamsToBodyType<P> | null | undefined
   paramsToUrlMapper: MapParamsToUrlType<P>
   mapper: MapResponseType<P, T>
-  responseOverride: ?T
-  errorOverride: ?Error
+  responseOverride: T | null | undefined
+  errorOverride: Error | null | undefined
 
   /**
    * Creates a new endpoint builder
@@ -34,7 +32,7 @@ class EndpointBuilder<P, T> {
     return this
   }
 
-  withParamsToBodyMapper(paramsToBodyMapper: ?MapParamsToBodyType<P>): EndpointBuilder<P, T> {
+  withParamsToBodyMapper(paramsToBodyMapper: MapParamsToBodyType<P> | null | undefined): EndpointBuilder<P, T> {
     this.paramsToBodyMapper = paramsToBodyMapper
     return this
   }

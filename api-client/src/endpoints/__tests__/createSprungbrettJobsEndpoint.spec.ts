@@ -1,15 +1,14 @@
-// @flow
-
 import createSprungbrettJobsEndpoint from '../createSprungbrettJobsEndpoint'
 import SprungbrettJobModel from '../../models/SprungbrettJobModel'
-
 describe('sprungbrettJobs', () => {
   const baseUrl = 'https://sprungbrett-api-url.de'
   const sprungbrettJobs = createSprungbrettJobsEndpoint(baseUrl)
-
   const json = {
     total: '19',
-    pager: { current: 1, max: 1 },
+    pager: {
+      current: 1,
+      max: 1
+    },
     results: [
       {
         title: 'Praktikum im Bereich Pflege',
@@ -46,7 +45,6 @@ describe('sprungbrettJobs', () => {
       }
     ]
   }
-
   const sprungbrettJobModels = [
     new SprungbrettJobModel({
       id: 0,
@@ -73,11 +71,9 @@ describe('sprungbrettJobs', () => {
       isApprenticeship: false
     })
   ]
-
   it('should map router to url', () => {
     expect(sprungbrettJobs.mapParamsToUrl()).toEqual('https://sprungbrett-api-url.de')
   })
-
   it('should map fetched data to models', () => {
     const sprungbrettModel = sprungbrettJobs.mapResponse(json)
     expect(sprungbrettModel).toEqual(sprungbrettJobModels)

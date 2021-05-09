@@ -1,11 +1,8 @@
-// @flow
-
 import moment from 'moment-timezone'
 import createLocalNewsEndpoint from '../createLocalNewsEndpoint'
 import LocalNewsModel from '../../models/LocalNewsModel'
 import type { JsonLocalNewsType } from '../../types'
 import type Moment from 'moment'
-
 describe('localnews', () => {
   const baseUrl = 'https://cms.integreat-app.de'
   const localNews = createLocalNewsEndpoint(baseUrl)
@@ -34,20 +31,19 @@ describe('localnews', () => {
   const itemModel1 = createNewsItemModel(moment.tz('2020-03-20 17:50:00', 'GMT'))
   const itemModel2 = createNewsItemModel(moment.tz('2020-05-20 15:00:00', 'GMT'))
   const itemModel3 = createNewsItemModel(moment.tz('2019-07-20 00:00:00', 'GMT'))
-
-  const params = { city: 'testumgebung', language: 'en', count: 1 }
-
+  const params = {
+    city: 'testumgebung',
+    language: 'en',
+    count: 1
+  }
   it('should map params to url', () => {
     expect(localNews.mapParamsToUrl(params)).toEqual(
       `https://cms.integreat-app.de/${params.city}/${params.language}/wp-json/extensions/v3/fcm?channel=news`
     )
   })
-
   const json = [item1, item2, item3]
-
   it('should map fetched data to models', () => {
     const localNewsModels = localNews.mapResponse(json, params)
-
     const value = [itemModel1, itemModel2, itemModel3]
     expect(localNewsModels).toEqual(value)
   })

@@ -1,11 +1,8 @@
-// @flow
-
 import moment from 'moment-timezone'
 import createTunewsElementEndpoint from '../createTunewsElementEndpoint'
 import TunewsModel from '../../models/TunewsModel'
 import type { JsonTunewsType } from '../../types'
 import type Moment from 'moment'
-
 describe('tunews', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'
   const tunewsElement = createTunewsElementEndpoint(baseUrl)
@@ -34,19 +31,18 @@ describe('tunews', () => {
     })
 
   const itemModel1 = createNewsItemModel(1, moment.tz('2020-01-20 12:04:22+00:00', 'GMT'))
-
-  const params = { city: 'augsburg', language: 'de', id: 1 }
-
+  const params = {
+    city: 'augsburg',
+    language: 'de',
+    id: 1
+  }
   it('should map params to url', () => {
     expect(tunewsElement.mapParamsToUrl(params)).toEqual(`${baseUrl}/v1/news/${params.id}`)
   })
-
   it('should map fetched data to models', () => {
     const itemModel = tunewsElement.mapResponse(item1, params)
-
     expect(itemModel).toEqual(itemModel1)
   })
-
   it('should throw a not found error if the response is empty', () => {
     expect(() => tunewsElement.mapResponse([], params)).toThrowError('The tu-news 1 does not exist here.')
   })

@@ -1,8 +1,5 @@
-// @flow
-
 import CategoryModel from '../CategoryModel'
 import moment from 'moment'
-
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({
     root: true,
@@ -16,7 +13,6 @@ describe('CategoryModel', () => {
     lastUpdate: moment('2016-01-07 10:36:24'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
-
   const category = new CategoryModel({
     root: false,
     path: '/augsburg/en/welcome',
@@ -29,7 +25,6 @@ describe('CategoryModel', () => {
     lastUpdate: moment('2016-01-07 10:36:24'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
-
   it('should be conscious about being a root', () => {
     expect(category.isRoot()).toBe(false)
     expect(rootCategory.isRoot()).toBe(true)

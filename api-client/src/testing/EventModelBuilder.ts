@@ -1,5 +1,4 @@
-// @flow
-
+import { $ReadOnly } from 'utility-types'
 import moment from 'moment'
 import seedrandom from 'seedrandom'
 import md5 from 'js-md5'
@@ -7,17 +6,12 @@ import EventModel from '../models/EventModel'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import hashUrl from '../hashUrl'
-
-type PageResourceCacheEntryStateType = {|
-  +filePath: string,
-  +lastUpdate: moment,
-  +hash: string
-|}
-
-type PageResourceCacheStateType = $ReadOnly<{
-  [url: string]: PageResourceCacheEntryStateType
-}>
-
+type PageResourceCacheEntryStateType = {
+  readonly filePath: string
+  readonly lastUpdate: moment
+  readonly hash: string
+}
+type PageResourceCacheStateType = $ReadOnly<Record<string, PageResourceCacheEntryStateType>>
 const MAX_PREDICTABLE_VALUE = 6
 const LANGUAGES = ['de', 'en', 'ar']
 
@@ -42,7 +36,7 @@ class EventModelBuilder {
     return this.buildAll().map(all => all.event)
   }
 
-  buildResources(): { [path: string]: PageResourceCacheStateType } {
+  buildResources(): Record<string, PageResourceCacheStateType> {
     return this.buildAll().reduce((result, { path, resources }) => {
       result[path] = resources
       return result
@@ -65,68 +59,75 @@ class EventModelBuilder {
    *
    * @returns The events and the corresponding resource cache
    */
-  buildAll(): Array<{ path: string, event: EventModel, resources: { [path: string]: PageResourceCacheStateType } }> {
-    return Array.from({ length: this._eventCount }, (x, index) => {
-      const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
-      const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
-      const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
-      const lastUpdate = moment(
-        mockDate.subtract(this._predictableNumber(index), 'months').toISOString(),
-        moment.ISO_8601
-      )
-
-      const path = `/${this._city}/${this._language}/events/event${index}`
-      const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
-      const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
-      const thumbnail = `http://cms.integreat-app.de/thumbnails/event_${index}.png`
-
-      return {
-        path,
-        event: new EventModel({
+  buildAll(): Array<{
+    path: string
+    event: EventModel
+    resources: Record<string, PageResourceCacheStateType>
+  }> {
+    return Array.from(
+      {
+        length: this._eventCount
+      },
+      (x, index) => {
+        const mockDate = moment('2015-01-01T00:00:00.000Z', moment.ISO_8601)
+        const startDate = moment(mockDate.add(this._predictableNumber(index), 'years').toISOString(), moment.ISO_8601)
+        const endDate = moment(mockDate.add(this._predictableNumber(index), 'hours').toISOString(), moment.ISO_8601)
+        const lastUpdate = moment(
+          mockDate.subtract(this._predictableNumber(index), 'months').toISOString(),
+          moment.ISO_8601
+        )
+        const path = `/${this._city}/${this._language}/events/event${index}`
+        const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
+        const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
+        const thumbnail = `http://cms.integreat-app.de/thumbnails/event_${index}.png`
+        return {
           path,
-          title: 'first Event',
-          availableLanguages: new Map(
-            LANGUAGES.filter(language => language !== this._language).map(lng => [
-              lng,
-              `/${this._city}/${lng}/events/event${index}`
-            ])
-          ),
-          date: new DateModel({
-            startDate,
-            endDate,
-            allDay: false
-          }),
-          location: new LocationModel({
-            name: null,
-            address: 'address',
-            town: 'town',
-            state: null,
-            postcode: 'postcode',
-            region: null,
-            country: null,
-            latitude: null,
-            longitude: null
-          }),
-          excerpt: 'excerpt',
-          lastUpdate,
-          content: `<h1>This is a sample event</h1>
+          event: new EventModel({
+            path,
+            title: 'first Event',
+            availableLanguages: new Map(
+              LANGUAGES.filter(language => language !== this._language).map(lng => [
+                lng,
+                `/${this._city}/${lng}/events/event${index}`
+              ])
+            ),
+            date: new DateModel({
+              startDate,
+              endDate,
+              allDay: false
+            }),
+            location: new LocationModel({
+              name: null,
+              address: 'address',
+              town: 'town',
+              state: null,
+              postcode: 'postcode',
+              region: null,
+              country: null,
+              latitude: null,
+              longitude: null
+            }),
+            excerpt: 'excerpt',
+            lastUpdate,
+            content: `<h1>This is a sample event</h1>
                     <img src="${resourceUrl1}"/>
                     <p>This is a sample event</p>
                     <img src="${resourceUrl2}"/>`,
-          thumbnail,
-          featuredImage: null,
-          hash: md5
-            .create()
-            .update(Buffer.from([index]))
-            .hex()
-        }),
-        resources: {
-          [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),
-          [resourceUrl2]: this.createResource(resourceUrl2, index, lastUpdate),
-          [thumbnail]: this.createResource(thumbnail, index, lastUpdate)
+            thumbnail,
+            featuredImage: null,
+            hash: md5
+              .create()
+              .update(Buffer.from([index]))
+              .hex()
+          }),
+          resources: {
+            [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),
+            [resourceUrl2]: this.createResource(resourceUrl2, index, lastUpdate),
+            [thumbnail]: this.createResource(thumbnail, index, lastUpdate)
+          }
         }
       }
-    })
+    )
   }
 }
 

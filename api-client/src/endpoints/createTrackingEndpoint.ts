@@ -1,12 +1,8 @@
-// @flow
-
 import type { SignalType } from '../tracking'
 import ResponseError from '../errors/ResponseError'
 import FetchError from '../errors/FetchError'
-
 export const TRACKING_ENDPOINT_NAME = 'tracking'
 export const JPAL_TRACKING_ENDPOINT_URL = 'https://jpal.tuerantuer.org/'
-
 const JSON_HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json'
@@ -22,7 +18,8 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
         page_type: signal.pageType || undefined,
         url: signal.url || undefined,
         query: signal.query || undefined,
-        feedback: signal.feedback || undefined, // TODO IGAPP-564: Implement feedback signal
+        feedback: signal.feedback || undefined,
+        // TODO IGAPP-564: Implement feedback signal
         offline: signal.offline,
         system_language: signal.systemLanguage,
         current_language: signal.currentLanguage,
@@ -39,7 +36,10 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
       body: body,
       headers: JSON_HEADERS
     }).catch((e: Error) => {
-      throw new FetchError({ endpointName: TRACKING_ENDPOINT_NAME, innerError: e })
+      throw new FetchError({
+        endpointName: TRACKING_ENDPOINT_NAME,
+        innerError: e
+      })
     })
 
     if (!response.ok) {
@@ -56,7 +56,9 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
     }
   }
 
-  return { request }
+  return {
+    request
+  }
 }
 
 export default createTrackingEndpoint

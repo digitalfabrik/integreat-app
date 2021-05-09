@@ -1,15 +1,18 @@
-// @flow
-
 import { stringifyFormData } from '../stringifyFormData'
-
-export type RequestOptionsType = { method: 'GET', ... } | { method: 'POST', body: FormData | string, ... }
-
-type ResponseErrorParamsType = {|
-  endpointName: string,
-  response: Response,
-  url: string,
+export type RequestOptionsType =
+  | {
+      method: 'GET'
+    }
+  | {
+      method: 'POST'
+      body: FormData | string
+    }
+type ResponseErrorParamsType = {
+  endpointName: string
+  response: Response
+  url: string
   requestOptions: RequestOptionsType
-|}
+}
 
 class ResponseError extends Error {
   _endpointName: string
@@ -26,7 +29,6 @@ class ResponseError extends Error {
     }
 
     const { endpointName, response, url, requestOptions } = params
-
     this._message = this.createMessage(params)
     this._endpointName = endpointName
     this._response = response
@@ -36,6 +38,7 @@ class ResponseError extends Error {
 
   createMessage({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
     let stringifiedFormData = ''
+
     if (requestOptions.body && typeof requestOptions.body === 'string') {
       stringifiedFormData = ` and the body ${requestOptions.body}`
     } else if (requestOptions.body) {

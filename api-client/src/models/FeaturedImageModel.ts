@@ -1,27 +1,24 @@
-// @flow
-
 import { isEqual } from 'lodash'
-
-type FeaturedImageInstanceType = {|
-  url: string,
-  width: number,
+type FeaturedImageInstanceType = {
+  url: string
+  width: number
   height: number
-|}
+}
 
 class FeaturedImageModel {
-  _description: ?string
+  _description: string | null | undefined
   _thumbnail: FeaturedImageInstanceType
   _medium: FeaturedImageInstanceType
   _large: FeaturedImageInstanceType
   _full: FeaturedImageInstanceType
 
-  constructor(params: {|
-    description: ?string,
-    thumbnail: FeaturedImageInstanceType,
-    medium: FeaturedImageInstanceType,
-    large: FeaturedImageInstanceType,
+  constructor(params: {
+    description: string | null | undefined
+    thumbnail: FeaturedImageInstanceType
+    medium: FeaturedImageInstanceType
+    large: FeaturedImageInstanceType
     full: FeaturedImageInstanceType
-  |}) {
+  }) {
     this._description = params.description
     this._thumbnail = params.thumbnail
     this._medium = params.medium
@@ -29,7 +26,7 @@ class FeaturedImageModel {
     this._full = params.full
   }
 
-  get description(): ?string {
+  get description(): string | null | undefined {
     return this._description
   }
 
@@ -49,7 +46,7 @@ class FeaturedImageModel {
     return this._full
   }
 
-  isEqual(other: ?FeaturedImageModel): boolean {
+  isEqual(other: FeaturedImageModel | null | undefined): boolean {
     return (
       !!other &&
       this.description === other.description &&

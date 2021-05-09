@@ -1,14 +1,10 @@
-// @flow
-
 import createTrackingEndpoint, { JPAL_TRACKING_ENDPOINT_URL } from '../createTrackingEndpoint'
 import { OPEN_PAGE_SIGNAL_NAME } from '../../tracking'
 import { DASHBOARD_ROUTE } from '../../routes'
-
 describe('createTrackingEndpoint', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-
   const signal = {
     name: OPEN_PAGE_SIGNAL_NAME,
     pageType: DASHBOARD_ROUTE,
@@ -24,7 +20,6 @@ describe('createTrackingEndpoint', () => {
     },
     timestamp: '2020-01-20T00:00:00.000Z'
   }
-
   it('should throw fetch error if fetch fails', async () => {
     // $FlowFixMe fetch is a mock
     fetch.mockRejectOnce(() => Promise.reject(new Error('Das Internet ist kaputt!!!1!!!11elf!')))
@@ -37,7 +32,6 @@ describe('createTrackingEndpoint', () => {
         )
       )
   })
-
   it('should throw response error if response is not ok', async () => {
     // $FlowFixMe fetch is a mock
     fetch.mockResponseOnce('Invalid endpoint', {
@@ -52,7 +46,6 @@ describe('createTrackingEndpoint', () => {
         expect(e.message).toContain('ResponseError: Failed to POST the request for the tracking endpoint with the url')
       )
   })
-
   it('should call the endpoint correctly', async () => {
     await createTrackingEndpoint().request(signal)
     expect(fetch).toHaveBeenCalledWith(
@@ -66,14 +59,15 @@ describe('createTrackingEndpoint', () => {
       })
     )
   })
-
   it('should use passed endpoint url', async () => {
     await createTrackingEndpoint('https://example.com').request(signal)
     expect(fetch).toHaveBeenCalledWith('https://example.com', expect.any(Object))
   })
-
   it('should correctly map signal to body', async () => {
-    const remainingProps = { query: 'some query', feedback: {} }
+    const remainingProps = {
+      query: 'some query',
+      feedback: {}
+    }
     // $FlowFixMe Test all possible properties
     await createTrackingEndpoint().request({ ...signal, ...remainingProps })
     expect(fetch).toHaveBeenCalledWith(

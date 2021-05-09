@@ -1,7 +1,4 @@
-// @flow
-
 import OfferModel from '../models/OfferModel'
-
 const offers = [
   new OfferModel({
     alias: 'sprungbrett',
@@ -33,6 +30,7 @@ class OfferModelBuilder {
     if (this._offersCount > offers.length) {
       throw new Error(`Only ${offers.length} offers models can be created`)
     }
+
     this._offersCount = offersCount
   }
 

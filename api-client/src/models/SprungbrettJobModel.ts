@@ -1,5 +1,3 @@
-// @flow
-
 class SprungbrettModel {
   _id: number
   _title: string
@@ -9,11 +7,11 @@ class SprungbrettModel {
   _isApprenticeship: boolean
 
   constructor(params: {
-    id: number,
-    title: string,
-    location: string,
-    url: string,
-    isEmployment: boolean,
+    id: number
+    title: string
+    location: string
+    url: string
+    isEmployment: boolean
     isApprenticeship: boolean
   }) {
     this._id = params.id

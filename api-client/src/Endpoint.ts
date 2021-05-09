@@ -1,5 +1,4 @@
-// @flow
-
+import { $Shape } from 'utility-types'
 import Payload from './Payload'
 import MappingError from './errors/MappingError'
 import type { MapResponseType } from './MapResponseType'
@@ -9,25 +8,25 @@ import ResponseError from './errors/ResponseError'
 import FetchError from './errors/FetchError'
 import type { RequestOptionsType } from './errors/ResponseError'
 import NotFoundError from './errors/NotFoundError'
-
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
+
 class Endpoint<P, T> {
   _stateName: string
   mapParamsToUrl: MapParamsToUrlType<P>
-  mapParamsToBody: ?MapParamsToBodyType<P>
+  mapParamsToBody: MapParamsToBodyType<P> | null | undefined
   mapResponse: MapResponseType<P, T>
-  responseOverride: ?T
-  errorOverride: ?Error
+  responseOverride: T | null | undefined
+  errorOverride: Error | null | undefined
 
   constructor(
     name: string,
     mapParamsToUrl: MapParamsToUrlType<P>,
-    mapParamsToBody: ?MapParamsToBodyType<P>,
+    mapParamsToBody: MapParamsToBodyType<P> | null | undefined,
     mapResponse: MapResponseType<P, T>,
-    responseOverride: ?T,
-    errorOverride: ?Error
+    responseOverride: T | null | undefined,
+    errorOverride: Error | null | undefined
   ) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapParamsToBody = mapParamsToBody
@@ -43,7 +42,10 @@ class Endpoint<P, T> {
 
   async fetchOrThrow(url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
     return fetch(url, requestOptions).catch((e: Error) => {
-      throw new FetchError({ endpointName: this.stateName, innerError: e })
+      throw new FetchError({
+        endpointName: this.stateName,
+        innerError: e
+      })
     })
   }
 
@@ -53,6 +55,7 @@ class Endpoint<P, T> {
     }
 
     const url = overrideUrl || this.mapParamsToUrl(params)
+
     if (this.responseOverride) {
       return new Payload(false, url, this.responseOverride, null)
     }
@@ -62,11 +65,18 @@ class Endpoint<P, T> {
           method: 'POST',
           body: this.mapParamsToBody(params)
         }
-      : { method: 'GET' }
+      : {
+          method: 'GET'
+        }
     const response = await this.fetchOrThrow(url, requestOptions)
 
     if (!response.ok) {
-      throw new ResponseError({ endpointName: this.stateName, response, url, requestOptions })
+      throw new ResponseError({
+        endpointName: this.stateName,
+        response,
+        url,
+        requestOptions
+      })
     }
 
     try {

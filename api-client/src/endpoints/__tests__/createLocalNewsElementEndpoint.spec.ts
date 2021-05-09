@@ -1,11 +1,8 @@
-// @flow
-
 import moment from 'moment-timezone'
 import createLocalNewsElementEndpoint from '../createLocalNewsElementEndpoint'
 import LocalNewsModel from '../../models/LocalNewsModel'
 import type { JsonLocalNewsType } from '../../types'
 import type Moment from 'moment'
-
 describe('localnews', () => {
   const baseUrl = 'https://cms.integreat-app.de'
   const localNewsElement = createLocalNewsElementEndpoint(baseUrl)
@@ -30,25 +27,23 @@ describe('localnews', () => {
     })
 
   const itemValue = createNewsItemModel(moment.tz('2020-03-20 17:50:00', 'GMT'))
-
-  const params = { city: 'testumgebung', language: 'en', id: '1' }
-
+  const params = {
+    city: 'testumgebung',
+    language: 'en',
+    id: '1'
+  }
   it('should map params to url', () => {
     expect(localNewsElement.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
     )
   })
-
   it('should map fetched data to models', () => {
     const itemModel = localNewsElement.mapResponse([item], params)
-
     expect(itemModel).toEqual(itemValue)
   })
-
   it('should throw if response is empty', () => {
     expect(() => localNewsElement.mapResponse([], params)).toThrowError('The local 1 does not exist here.')
   })
-
   it('should throw a not found error if the response contains more than one item', () => {
     expect(() => localNewsElement.mapResponse([item, item], params)).toThrowError()
   })

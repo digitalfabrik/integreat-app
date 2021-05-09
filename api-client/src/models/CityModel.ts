@@ -1,5 +1,3 @@
-// @flow
-
 class CityModel {
   _name: string
   _code: string
@@ -10,26 +8,38 @@ class CityModel {
   _pushNotificationsEnabled: boolean
   _tunewsEnabled: boolean
   _sortingName: string
-  _prefix: ?string
+  _prefix: string | null | undefined
   _latitude: number | null
   _longitude: number | null
-  _aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
+  _aliases: Record<
+    string,
+    {
+      longitude: number
+      latitude: number
+    }
+  > | null
 
-  constructor(params: {|
-    name: string,
-    code: string,
-    live: boolean,
-    poisEnabled: boolean,
-    eventsEnabled: boolean,
-    offersEnabled: boolean,
-    pushNotificationsEnabled: boolean,
-    tunewsEnabled: boolean,
-    sortingName: string,
-    prefix: ?string,
-    latitude: number | null,
-    longitude: number | null,
-    aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null
-  |}) {
+  constructor(params: {
+    name: string
+    code: string
+    live: boolean
+    poisEnabled: boolean
+    eventsEnabled: boolean
+    offersEnabled: boolean
+    pushNotificationsEnabled: boolean
+    tunewsEnabled: boolean
+    sortingName: string
+    prefix: string | null | undefined
+    latitude: number | null
+    longitude: number | null
+    aliases: Record<
+      string,
+      {
+        longitude: number
+        latitude: number
+      }
+    > | null
+  }) {
     this._name = params.name
     this._code = params.code
     this._live = params.live
@@ -85,7 +95,7 @@ class CityModel {
     return this._sortingName.charAt(0)
   }
 
-  get prefix(): ?string {
+  get prefix(): string | null | undefined {
     return this._prefix
   }
 
@@ -97,11 +107,17 @@ class CityModel {
     return this._latitude
   }
 
-  get aliases(): { [alias: string]: {| longitude: number, latitude: number |} } | null {
+  get aliases(): Record<
+    string,
+    {
+      longitude: number
+      latitude: number
+    }
+  > | null {
     return this._aliases
   }
 
-  static findCityName(cities: $ReadOnlyArray<CityModel>, code: string): string {
+  static findCityName(cities: ReadonlyArray<CityModel>, code: string): string {
     const city = cities.find(city => city.code === code)
     return city ? city.name : code
   }

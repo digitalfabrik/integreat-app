@@ -1,5 +1,3 @@
-// @flow
-
 import type Moment from 'moment'
 
 class TunewsModel {
@@ -10,14 +8,14 @@ class TunewsModel {
   _content: string
   _eNewsNo: string
 
-  constructor(params: {|
-    id: number,
-    title: string,
-    date: Moment,
-    tags: Array<string>,
-    content: string,
+  constructor(params: {
+    id: number
+    title: string
+    date: Moment
+    tags: Array<string>
+    content: string
     eNewsNo: string
-  |}) {
+  }) {
     const { id, date, title, tags, content, eNewsNo } = params
     this._id = id
     this._title = title

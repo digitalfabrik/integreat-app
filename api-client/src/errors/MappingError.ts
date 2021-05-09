@@ -1,5 +1,3 @@
-// @flow
-
 class MappingError extends Error {
   getMessage = (endpointName: string, message: string): string =>
     `MappingError: Failed to map the json for the ${endpointName} endpoint. ${message}`

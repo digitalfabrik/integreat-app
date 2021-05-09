@@ -1,7 +1,4 @@
-// @flow
-
 import LanguageModel from '../models/LanguageModel'
-
 const languages = [
   new LanguageModel('en', 'English'),
   new LanguageModel('de', 'Deutsch'),
@@ -15,6 +12,7 @@ class LanguageModelBuilder {
     if (this._languagesCount > languages.length) {
       throw new Error(`Only ${languages.length} languages models can be created`)
     }
+
     this._languagesCount = languagesCount
   }
 

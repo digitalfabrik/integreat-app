@@ -1,7 +1,4 @@
-// @flow
-
 import LocationModel from '../LocationModel'
-
 describe('LocationModel', () => {
   describe('location', () => {
     it('should return null if town, address and name is null', () => {
@@ -17,7 +14,6 @@ describe('LocationModel', () => {
         }).location
       ).toBeNull()
     })
-
     it('should only return town (and postcode) if address is null', () => {
       expect(
         new LocationModel({
@@ -30,7 +26,6 @@ describe('LocationModel', () => {
           postcode: '86161'
         }).location
       ).toBe('86161 Augsburg')
-
       expect(
         new LocationModel({
           name: null,
@@ -43,7 +38,6 @@ describe('LocationModel', () => {
         }).location
       ).toBe('Augsburg')
     })
-
     it('should include the name if available', () => {
       const location = new LocationModel({
         name: 'Café Tür an Tür',
@@ -56,7 +50,6 @@ describe('LocationModel', () => {
       })
       expect(location.location).toEqual('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
     })
-
     it('should exclude the name if unavailable', () => {
       const location = new LocationModel({
         name: null,

@@ -1,5 +1,3 @@
-// @flow
-
 class ParamMissingError extends Error {
   getMessage = (endpointName: string, paramName: string): string =>
     `ParamMissingError: Failed to load the ${endpointName} endpoint because the ${paramName} is missing`
