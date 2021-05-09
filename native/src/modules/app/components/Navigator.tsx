@@ -13,7 +13,6 @@ import TransparentHeaderContainer from "../../layout/containers/TransparentHeade
 import SettingsHeaderContainer from "../../layout/containers/SettingsHeaderContainer";
 import HeaderContainer from "../../layout/containers/HeaderContainer";
 import OffersContainer from "../../../routes/offers/containers/OffersContainer";
-import WohnenOfferContainer from "../../../routes/wohnen/containers/WohnenOfferContainer";
 import SprungbrettOfferContainer from "../../../routes/sprungbrett/containers/SprungbrettOfferContainer";
 import ExternalOfferContainer from "../../../routes/external-offer/containers/ExternalOfferContainer";
 import PoisContainer from "../../../routes/pois/containers/PoisContainer";
@@ -28,7 +27,7 @@ import SettingsContainer from "../../../routes/settings/container/SettingsContai
 import DisclaimerContainer from "../../../routes/disclaimer/DisclaimerContainer";
 import CategoriesContainer from "../../../routes/categories/containers/CategoriesContainer";
 import type { DashboardRouteType, IntroRouteType, LandingRouteType } from "api-client/src/routes";
-import { CATEGORIES_ROUTE, CHANGE_LANGUAGE_MODAL_ROUTE, DASHBOARD_ROUTE, DISCLAIMER_ROUTE, EVENTS_ROUTE, EXTERNAL_OFFER_ROUTE, FEEDBACK_MODAL_ROUTE, IMAGE_VIEW_MODAL_ROUTE, INTRO_ROUTE, JPAL_TRACKING_ROUTE, LANDING_ROUTE, NEWS_ROUTE, OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE, POIS_ROUTE, REDIRECT_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from "api-client/src/routes";
+import { CATEGORIES_ROUTE, CHANGE_LANGUAGE_MODAL_ROUTE, DASHBOARD_ROUTE, DISCLAIMER_ROUTE, EVENTS_ROUTE, EXTERNAL_OFFER_ROUTE, FEEDBACK_MODAL_ROUTE, IMAGE_VIEW_MODAL_ROUTE, INTRO_ROUTE, JPAL_TRACKING_ROUTE, LANDING_ROUTE, NEWS_ROUTE, OFFERS_ROUTE, PDF_VIEW_MODAL_ROUTE, POIS_ROUTE, REDIRECT_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from "api-client/src/routes";
 import type { RoutesParamsType } from "../constants/NavigationTypes";
 import RedirectContainer from "../containers/RedirectContainer";
 import JpalTracking from "../../../routes/jpal-tracking/JpalTracking";
@@ -174,9 +173,6 @@ const Navigator = (props: PropsType) => {
       header: defaultHeader
     }} />
       <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} options={{
-      header: defaultHeader
-    }} />
-      <Stack.Screen name={WOHNEN_OFFER_ROUTE} component={WohnenOfferContainer} options={{
       header: defaultHeader
     }} />
       <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} options={{

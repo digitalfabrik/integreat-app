@@ -20,7 +20,6 @@ import type {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  WohnenOfferRouteType
 } from 'api-client'
 import { LanguageModel } from 'api-client'
 import type { FeedbackInformationType } from '../../feedback/FeedbackContainer'
@@ -38,7 +37,6 @@ export type RoutesType =
   | OffersRouteType
   | ExternalOfferRouteType
   | SprungbrettOfferRouteType
-  | WohnenOfferRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -75,13 +73,6 @@ export type RoutesParamsType = {
     postData: Map<string, string> | null | undefined
   }
   sprungbrett: CityContentParamsType
-  wohnen: {
-    offerHash: string | null | undefined
-    city: string
-    title: string
-    alias: string
-    postData: Map<string, string> | null | undefined
-  }
   settings: void
   search: void
   changeLanguage: {
