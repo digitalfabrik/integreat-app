@@ -110,7 +110,7 @@ const createConfig = (
     // Add new polyfills here instead of importing them in the JavaScript code.
     // This way it is ensured that polyfills are loaded before any other code which might require them.
     const polyfills = ['whatwg-fetch', 'url-polyfill']
-
+    
     const config: Configuration = {
         mode: devServer ? 'development' : 'production',
         resolve: {
@@ -139,6 +139,7 @@ const createConfig = (
             usedExports: true
         },
         devtool: 'source-map',
+        // @ts-ignore devServer is not available here
         devServer: {
             contentBase: distDirectory,
             compress: true,
