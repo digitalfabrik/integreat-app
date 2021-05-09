@@ -1,5 +1,10 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-  }
+    "types": [
+      "jest"
+    ],
+    "composite": true
+  },
+  "include": [ "translations.json" ]
 }

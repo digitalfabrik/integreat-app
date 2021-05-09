@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -12,5 +12,16 @@
     "strict": true,
     "target": "esnext"
   },
+  "references": [
+    {
+      "path": "../translations"
+    },
+    {
+      "path": "../build-configs"
+    },
+    {
+      "path": "../api-client"
+    }
+  ],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

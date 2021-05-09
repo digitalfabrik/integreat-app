@@ -18,10 +18,21 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react",
+    "jsx": "react"
   },
+  "references": [
+    {
+      "path": "../translations"
+    },
+    {
+      "path": "../build-configs"
+    },
+    {
+      "path": "../api-client"
+    }
+  ],
   "include": [
     "src",
     "tools"
-  ],
+  ]
 }
