@@ -20,11 +20,6 @@
     "@babel/runtime": "7.13.7"
   },
   "devDependencies": {
-    "@babel/core": "7.13.1",
-    "@babel/node": "7.13.0",
-    "@babel/preset-env": "7.13.5",
-    "@babel/preset-flow": "7.12.13",
-    "@babel/plugin-proposal-class-properties": "7.13.0",
     "commander": "^4.0.1",
     "csv": "^5.3.0",
     "csv-stringify": "^5.6.1",
