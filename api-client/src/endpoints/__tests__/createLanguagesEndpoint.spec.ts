@@ -31,8 +31,7 @@ describe('languages', () => {
   it('should throw if the city to map the url are missing', () => {
     expect(() =>
       languages.mapParamsToUrl({
-        city: undefined,
-        language: 'de'
+        city: undefined
       })
     ).toThrowErrorMatchingSnapshot()
   })
