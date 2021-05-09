@@ -4,6 +4,7 @@
     "types": [
       "jest"
     ],
+    "outDir": "dist",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
