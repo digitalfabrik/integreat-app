@@ -1,19 +1,17 @@
-// @flow
-
-import wd from 'wd'
-
+import wd from "wd";
 export default class LandingPage {
-  driver: wd.PromiseChainWebdriver
+  driver: wd.PromiseChainWebdriver;
 
   constructor(driver: wd.PromiseChainWebdriver) {
-    this.driver = driver
+    this.driver = driver;
   }
 
   ready(): Promise<void> {
-    return this.driver.waitForElementByAccessibilityId('Search-Input')
+    return this.driver.waitForElementByAccessibilityId('Search-Input');
   }
 
   getSearchInput(): Promise<wd.Element> {
-    return this.driver.elementByAccessibilityId('Search-Input')
+    return this.driver.elementByAccessibilityId('Search-Input');
   }
+
 }

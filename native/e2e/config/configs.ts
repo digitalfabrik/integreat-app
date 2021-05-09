@@ -1,5 +1,3 @@
-// @flow
-
 exports.local_android = {
   url: 'http://localhost:4723/wd/hub',
   prefix: 'IG LOCAL',
@@ -15,8 +13,7 @@ exports.local_android = {
     appActivity: 'com.integreat.MainActivity',
     deviceOrientation: 'portrait'
   }
-}
-
+};
 exports.local_ios = {
   url: 'http://localhost:4723/wd/hub',
   prefix: 'IG LOCAL',
@@ -30,8 +27,7 @@ exports.local_ios = {
     deviceOrientation: 'portrait',
     automationName: 'XCUITest'
   }
-}
-
+};
 exports.browserstack_dev_android = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG DEV',
@@ -47,8 +43,7 @@ exports.browserstack_dev_android = {
     app: process.env.E2E_BROWSERSTACK_APP,
     'browserstack.debug': true
   }
-}
-
+};
 exports.browserstack_dev_ios = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG DEV',
@@ -65,8 +60,7 @@ exports.browserstack_dev_ios = {
     'browserstack.debug': true,
     waitForQuiescence: 'true'
   }
-}
-
+};
 exports.browserstack_ci_android = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG CI',
@@ -82,8 +76,7 @@ exports.browserstack_ci_android = {
     app: process.env.E2E_BROWSERSTACK_APP,
     real_mobile: 'true'
   }
-}
-
+};
 exports.browserstack_ci_ios = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG CI',
@@ -100,4 +93,4 @@ exports.browserstack_ci_ios = {
     app: process.env.E2E_BROWSERSTACK_APP,
     waitForQuiescence: 'true'
   }
-}
+};
