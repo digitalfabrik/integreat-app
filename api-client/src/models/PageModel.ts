@@ -1,4 +1,4 @@
-import type Moment from 'moment'
+import { Moment } from 'moment'
 
 class PageModel {
   _path: string

@@ -1,4 +1,4 @@
-import type Moment from 'moment'
+import { Moment } from 'moment'
 import LocationModel from './LocationModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import PageModel from './PageModel'

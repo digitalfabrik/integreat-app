@@ -1,4 +1,4 @@
-import type Moment from 'moment'
+import { Moment } from 'moment'
 import PageModel from './PageModel'
 import { isEqual } from 'lodash'
 
