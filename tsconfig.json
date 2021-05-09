@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "build-configs": ["build-configs/hello.ts"],
+      "translations": ["translations/src/hello.ts"],
+      "api-client": ["api-client/src/hello.ts"],
+    }
+  },
+  "include": [
+    "web",
+    "native",
+    "api-client",
+    "translations",
+    "build-configs",
+  ]
+}
