@@ -1,6 +1,7 @@
 {
   "name": "native",
   "version": "0.0.1",
+  "main": "index.ts",
   "private": true,
   "scripts": {
     "start": "yarn start:integreat-test-cms",
