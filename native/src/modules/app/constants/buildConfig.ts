@@ -1,5 +1,3 @@
-// @flow
-
 import type { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import loadBuildConfig, { COMMON } from 'build-configs'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
@@ -18,23 +16,21 @@ import malteIntroOffersIcon from 'build-configs/malte/assets/intro-slides/Offers
 import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
 import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
-
 import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
-
-type AssetsType = {|
-  appIcon: number,
-  loadingImage: number,
-  locationMarker?: number,
-  intro?: {|
-    events: number,
-    language: number,
-    offers: number,
+type AssetsType = {
+  appIcon: number
+  loadingImage: number
+  locationMarker?: number
+  intro?: {
+    events: number
+    language: number
+    offers: number
     search: number
-  |}
-|}
-
+  }
+}
 export const buildConfigAssets = (): AssetsType => {
   const assetsName = buildConfig().assets
+
   if (assetsName === INTEGREAT_ASSETS) {
     return {
       appIcon: integreatAppIcon,
@@ -65,6 +61,7 @@ export const buildConfigAssets = (): AssetsType => {
       loadingImage: aschaffenburgLoadingImage
     }
   }
+
   throw new Error(`Unknown icon set ${assetsName}. Check your build config!`)
 }
 

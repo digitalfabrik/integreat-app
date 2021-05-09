@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { all, call, put, spawn } from 'redux-saga/effects'
 import type { DataContainer } from '../DataContainer'
@@ -34,11 +32,14 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
 
   if (settings.allowPushNotifications) {
     const status = yield call(NotificationsManager.requestPushNotificationPermission)
+
     if (status) {
       yield call(NotificationsManager.subscribeNews, newCity, newLanguage)
     } else {
       // Disable the feature to prevent the user from being asked again
-      yield call(appSettings.setSettings, { allowPushNotifications: false })
+      yield call(appSettings.setSettings, {
+        allowPushNotifications: false
+      })
     }
   }
 }
@@ -50,7 +51,6 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
  */
 function* selectCity(newCity: string, newLanguage: string): Saga<void> {
   const appSettings = new AppSettings()
-
   yield call(appSettings.setSelectedCity, newCity)
   yield spawn(subscribePushNotifications, newCity, newLanguage)
 }
@@ -72,15 +72,17 @@ function* refreshResources(
 ): Saga<void> {
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
-
   const input = categoriesMap
     .toArray()
     .concat(events)
-    .map(it => ({ path: it.path, thumbnail: it.thumbnail, content: it.content }))
+    .map(it => ({
+      path: it.path,
+      thumbnail: it.thumbnail,
+      content: it.content
+    }))
   const fetchMap = resourceURLFinder.buildFetchMap(input, (url, urlHash) =>
     buildResourceFilePath(url, newCity, urlHash)
   )
-
   resourceURLFinder.finalize()
   yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
 }
@@ -102,13 +104,13 @@ function* prepareLanguages(
   try {
     yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, newCity)
-
     const pushLanguages: PushLanguagesActionType = {
       type: 'PUSH_LANGUAGES',
-      params: { languages }
+      params: {
+        languages
+      }
     }
     yield put(pushLanguages)
-
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
     console.error(e)
@@ -123,7 +125,6 @@ function* prepareLanguages(
     return false
   }
 }
-
 /**
  *
  * @param dataContainer
@@ -133,6 +134,7 @@ function* prepareLanguages(
  * @returns Returns a saga which returns whether the newLanguage is available for newCity
  * @throws if the saga was unable to load necessary data
  */
+
 export default function* loadCityContent(
   dataContainer: DataContainer,
   newCity: string,
@@ -147,24 +149,25 @@ export default function* loadCityContent(
 
   const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
   console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
-
   const netInfo = yield call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
   console.debug('City content should be refreshed: ', shouldUpdate)
-
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and
   // resources at the same time. This kind of serves as a lock.
   yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
 
   try {
     const cities = yield call(loadCities, dataContainer, shouldUpdate) // Refresh for flags like eventsEnabled necessary
+
     const cityModel = cities.find(city => city.code === newCity)
+
     if (!cityModel) {
       throw new Error(`City '${newCity}' was not found.`)
     }
 
     if (criterion.shouldLoadLanguages()) {
       const languageAvailable = yield call(prepareLanguages, dataContainer, newCity, newLanguage, shouldUpdate)
+
       if (!languageAvailable) {
         return false
       }
@@ -196,6 +199,7 @@ export default function* loadCityContent(
     if (lastUpdate) {
       yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
     }
+
     throw e
   }
 }

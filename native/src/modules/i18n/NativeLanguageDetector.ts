@@ -1,7 +1,4 @@
-// @flow
-
 import { getLocales } from 'react-native-localize'
-
 export default {
   type: 'languageDetector',
   async: false,

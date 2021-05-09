@@ -1,25 +1,22 @@
-// @flow
-
+import { $Values } from 'utility-types'
 import { FetchError, MappingError, ResponseError, NotFoundError } from 'api-client'
-
-type ErrorCodesType = {|
-  PageNotFound: 'pageNotFound',
-  NetworkConnectionFailed: 'networkConnectionFailed',
-  NetworkRequestFailed: 'networkRequestFailed', // server's http-status was not 200
-  ResponseMappingFailed: 'responseMappingFailed',
+type ErrorCodesType = {
+  PageNotFound: 'pageNotFound'
+  NetworkConnectionFailed: 'networkConnectionFailed'
+  NetworkRequestFailed: 'networkRequestFailed'
+  // server's http-status was not 200
+  ResponseMappingFailed: 'responseMappingFailed'
   UnknownError: 'unknownError'
-|}
-
+}
 const ErrorCodes: ErrorCodesType = {
   PageNotFound: 'pageNotFound',
   NetworkConnectionFailed: 'networkConnectionFailed',
-  NetworkRequestFailed: 'networkRequestFailed', // server's http-status was not 200
+  NetworkRequestFailed: 'networkRequestFailed',
+  // server's http-status was not 200
   ResponseMappingFailed: 'responseMappingFailed',
   UnknownError: 'unknownError'
 }
-
 export type ErrorCodeType = $Values<ErrorCodesType>
-
 export const fromError = (error: Error): ErrorCodeType => {
   if (error instanceof ResponseError) {
     return ErrorCodes.NetworkRequestFailed
@@ -30,7 +27,7 @@ export const fromError = (error: Error): ErrorCodeType => {
   } else if (error instanceof NotFoundError) {
     return ErrorCodes.PageNotFound
   }
+
   return ErrorCodes.UnknownError
 }
-
 export default ErrorCodes

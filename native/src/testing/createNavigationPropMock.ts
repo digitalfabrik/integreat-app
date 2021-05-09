@@ -1,8 +1,6 @@
-// @flow
-
 import type { NavigationPropType, RoutesType } from '../modules/app/constants/NavigationTypes'
 
-const createNavigationMock = <T: RoutesType>(): NavigationPropType<T> => ({
+const createNavigationMock = <T extends RoutesType>(): NavigationPropType<T> => ({
   dispatch: jest.fn(),
   canGoBack: jest.fn(),
   goBack: jest.fn(),

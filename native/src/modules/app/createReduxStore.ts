@@ -1,8 +1,5 @@
-// @flow
-
 import type { Store } from 'redux'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
-
 import toggleDarkModeReducer from '../theme/reducers'
 import type { Saga } from 'redux-saga'
 import createSagaMiddleware from 'redux-saga'
@@ -43,7 +40,6 @@ function* rootSaga(dataContainer: DataContainer): Saga<void> {
 
 const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
-
   const initialState: StateType = {
     darkMode: false,
     cities: defaultCitiesState,
@@ -52,7 +48,6 @@ const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreA
     resourceCacheUrl: null,
     snackbar: []
   }
-
   const rootReducer = combineReducers({
     darkMode: toggleDarkModeReducer,
     cities: citiesReducer,
@@ -61,8 +56,8 @@ const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreA
     resourceCacheUrl: resourceCacheUrlReducer,
     snackbar: snackbarReducer
   })
-
   const middlewares = [sagaMiddleware]
+
   if (buildConfig().featureFlags.developerFriendly) {
     const flipperReduxMiddleware = createDebugger()
     middlewares.push(flipperReduxMiddleware)
@@ -71,7 +66,6 @@ const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreA
   const middleware = applyMiddleware(...middlewares)
   const enhancer = buildConfig().featureFlags.developerFriendly ? composeWithDevTools(middleware) : middleware
   const store = createStore(rootReducer, initialState, enhancer)
-
   sagaMiddleware.run(rootSaga, dataContainer)
   return store
 }

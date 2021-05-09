@@ -1,80 +1,74 @@
-// @flow
-
-import React from 'react'
-import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
-import styled from 'styled-components/native'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
-import Caption from '../../../modules/common/components/Caption'
-import type { ThemeType } from 'build-configs/ThemeType'
-import openExternalUrl from '../../../modules/common/openExternalUrl'
-
+import React from "react";
+import type { AccommodationType } from "api-client";
+import { WohnenOfferModel, WohnenFormData } from "api-client";
+import styled from "styled-components/native";
+import type { TFunction } from "react-i18next";
+import { withTranslation } from "react-i18next";
+import Caption from "../../../modules/common/components/Caption";
+import type { ThemeType } from "build-configs/ThemeType";
+import openExternalUrl from "../../../modules/common/openExternalUrl";
 export const formatPrice = (price: number): string => {
-  return price % 1 === 0 ? `${price}` : `${price.toFixed(2)}`
-}
+  return price % 1 === 0 ? `${price}` : `${price.toFixed(2)}`;
+};
 
-const formatMonthlyPrice = (price: number): string => (price === 0 ? 'Keine' : `${formatPrice(price)} € monatlich`)
+const formatMonthlyPrice = (price: number): string => price === 0 ? 'Keine' : `${formatPrice(price)} € monatlich`;
 
-type PropsType = {|
-  offer: WohnenOfferModel,
-  t: TFunction,
-  theme: ThemeType
-|}
-
+type PropsType = {
+  offer: WohnenOfferModel;
+  t: TFunction;
+  theme: ThemeType;
+};
 const Header = styled.Text`
   padding: 15px 5px 5px;
   font-weight: 700;
-`
+`;
 const MarginalizedView = styled.View`
   margin: 0 10px;
-`
-
+`;
 const RowTitle = styled.Text`
   flex: 1;
-`
-
+`;
 const RowValue = styled.Text`
   flex: 1;
-`
-
+`;
 const Row = styled.View`
   display: flex;
   margin: 10px 0;
-`
-
+`;
 const ListElement = styled.View`
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
   margin-bottom: 10px;
-`
+`;
 
 class OfferDetail extends React.PureComponent<PropsType> {
-  translate(type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {
-    return keys.map(key => this.props.t(`values.${type}.${key}`))
+  translate(type: "runningServices" | "additionalServices" | "rooms", keys: Array<string>): Array<string> {
+    return keys.map(key => this.props.t(`values.${type}.${key}`));
   }
 
   stringify(words: Array<string>): string {
-    return words.join(', ')
+    return words.join(', ');
   }
 
   openUrl = (url: string) => () => {
-    openExternalUrl(url)
-  }
+    openExternalUrl(url);
+  };
 
   render() {
-    const offer = this.props.offer
+    const offer = this.props.offer;
 
     if (offer.formData instanceof WohnenFormData) {
-      const accommodation: AccommodationType = offer.formData.accommodation
-      const costs = offer.formData.costs
-      const landlord = offer.formData.landlord
+      const accommodation: AccommodationType = offer.formData.accommodation;
+      const costs = offer.formData.costs;
+      const landlord = offer.formData.landlord;
 
-      const translateRunningServices = keys => this.stringify(this.translate('runningServices', keys))
-      const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys))
-      const translateRooms = keys => this.stringify(this.translate('rooms', keys))
+      const translateRunningServices = keys => this.stringify(this.translate('runningServices', keys));
 
-      return (
-        <>
+      const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys));
+
+      const translateRooms = keys => this.stringify(this.translate('rooms', keys));
+
+      return <>
           <Caption title={accommodation.title} theme={this.props.theme} />
 
           <MarginalizedView>
@@ -160,12 +154,12 @@ class OfferDetail extends React.PureComponent<PropsType> {
               <RowValue onPress={this.openUrl(`tel:${landlord.phone}`)}>{landlord.phone}</RowValue>
             </Row>
           </MarginalizedView>
-        </>
-      )
+        </>;
     } else {
-      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
+      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`);
     }
   }
+
 }
 
-export default withTranslation<PropsType>('wohnen')(OfferDetail)
+export default withTranslation<PropsType>('wohnen')(OfferDetail);

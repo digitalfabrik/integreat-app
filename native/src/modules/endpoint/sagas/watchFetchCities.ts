@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import type {
@@ -10,16 +8,15 @@ import type {
 import type { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
-
 export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
   try {
     const cities = yield call(loadCities, dataContainer, action.params.forceRefresh)
-
     const insert: PushCitiesActionType = {
       type: 'PUSH_CITIES',
-      params: { cities: cities }
+      params: {
+        cities: cities
+      }
     }
-
     yield put(insert)
   } catch (e) {
     console.error(e)
@@ -33,7 +30,6 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     yield put(failed)
   }
 }
-
 export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeLatest('FETCH_CITIES', fetchCities, dataContainer)
 }

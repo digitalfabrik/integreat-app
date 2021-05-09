@@ -1,14 +1,9 @@
-// @flow
-
 import moment from 'moment'
-
 const MAX_CONTENT_AGE = 24
-
-export type ContentLoadCriterionType = {|
-  +forceUpdate: boolean,
-  +shouldRefreshResources: boolean
-|}
-
+export type ContentLoadCriterionType = {
+  readonly forceUpdate: boolean
+  readonly shouldRefreshResources: boolean
+}
 export class ContentLoadCriterion {
   _forceUpdate: boolean
   _shouldRefreshResources: boolean
@@ -24,7 +19,7 @@ export class ContentLoadCriterion {
     return this._peeking
   }
 
-  shouldUpdate(lastUpdate: ?moment): boolean {
+  shouldUpdate(lastUpdate: moment | null | undefined): boolean {
     // If an update is forced or the last update was more than 24h ago it should update
     return this._forceUpdate || !lastUpdate || lastUpdate.isBefore(moment.utc().subtract(MAX_CONTENT_AGE, 'hours'))
   }

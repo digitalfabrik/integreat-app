@@ -1,37 +1,37 @@
-// @flow
-
 class DatabaseContext {
-  _cityCode: ?string
-  _languageCode: ?string
+  _cityCode: string | null | undefined
+  _languageCode: string | null | undefined
 
-  constructor(currentCity: ?string, currentLanguage: ?string) {
+  constructor(currentCity: string | null | undefined, currentLanguage: string | null | undefined) {
     this._cityCode = currentCity
     this._languageCode = currentLanguage
   }
 
-  get cityCode(): ?string {
+  get cityCode(): string | null | undefined {
     return this._cityCode
   }
 
-  get languageCode(): ?string {
+  get languageCode(): string | null | undefined {
     return this._languageCode
   }
 
-  sameCityAs(anotherContext: ?DatabaseContext): boolean {
+  sameCityAs(anotherContext: DatabaseContext | null | undefined): boolean {
     if (!anotherContext) {
       return false
     }
+
     return anotherContext.cityCode === this.cityCode
   }
 
-  sameLanguageAs(anotherContext: ?DatabaseContext): boolean {
+  sameLanguageAs(anotherContext: DatabaseContext | null | undefined): boolean {
     if (!anotherContext) {
       return false
     }
+
     return anotherContext.languageCode === this.languageCode
   }
 
-  equals(anotherContext: ?DatabaseContext): boolean {
+  equals(anotherContext: DatabaseContext | null | undefined): boolean {
     return this.sameCityAs(anotherContext) && this.sameLanguageAs(anotherContext)
   }
 }

@@ -1,7 +1,4 @@
-// @flow
-
 import { CityModel } from 'api-client'
-
 const NUMBER_OF_CLOSEST_CITIES = 3
 const MAXIMAL_DISTANCE = 90
 
@@ -23,15 +20,23 @@ const calculateDistance = (longitude0: number, latitude0: number, longitude1: nu
 const currentDistance = (cityModel: CityModel, longitude: number, latitude: number) => {
   const cityLongitude = cityModel.longitude
   const cityLatitude = cityModel.latitude
+
   if (cityLongitude === null || cityLatitude === null) {
     return Infinity
   }
+
   const longitude0 = degreesToRadians(longitude)
   const latitude0 = degreesToRadians(latitude)
-  type CoordinatesType = {| longitude: number, latitude: number |}
+  type CoordinatesType = {
+    longitude: number
+    latitude: number
+  }
   // $FlowFixMe https://github.com/facebook/flow/issues/2221
   const coordinates: Array<CoordinatesType> = Object.values(cityModel.aliases || {})
-  coordinates.push({ longitude: cityLongitude, latitude: cityLatitude })
+  coordinates.push({
+    longitude: cityLongitude,
+    latitude: cityLatitude
+  })
   const distances: Array<number> = coordinates.map((coords: CoordinatesType) => {
     const longitude1 = degreesToRadians(coords.longitude)
     const latitude1 = degreesToRadians(coords.latitude)

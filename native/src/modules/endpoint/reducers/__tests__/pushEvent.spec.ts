@@ -1,11 +1,9 @@
-// @flow
-
+import { $Shape } from 'utility-types'
 import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushEventActionType } from '../../../app/StoreActionType'
-
 describe('pushEvent', () => {
   const event1 = new EventModel({
     path: '/augsburg/de/events/ev1',
@@ -35,6 +33,7 @@ describe('pushEvent', () => {
     })
   })
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
+
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
@@ -80,7 +79,6 @@ describe('pushEvent', () => {
         value: {}
       }
     })
-
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
       params: {
@@ -94,7 +92,6 @@ describe('pushEvent', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -114,7 +111,6 @@ describe('pushEvent', () => {
       })
     )
   })
-
   it('should add specific event routeMapping', () => {
     const prevState = prepareState({
       resourceCache: {
@@ -123,7 +119,6 @@ describe('pushEvent', () => {
         value: {}
       }
     })
-
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
       params: {
@@ -137,7 +132,6 @@ describe('pushEvent', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -157,14 +151,14 @@ describe('pushEvent', () => {
       })
     )
   })
-
   it("should merge the resource cache if there's already one", () => {
     const prevState = prepareState({})
+
     if (prevState.resourceCache.status !== 'ready') {
       throw Error('Preparation failed')
     }
-    const prevResources = prevState.resourceCache.value
 
+    const prevResources = prevState.resourceCache.value
     const resourceCache = {
       '/testumgebung/de/events/ev2': {
         'another-url': {
@@ -174,7 +168,6 @@ describe('pushEvent', () => {
         }
       }
     }
-
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
       params: {
@@ -216,7 +209,6 @@ describe('pushEvent', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
         city: 'augsburg',

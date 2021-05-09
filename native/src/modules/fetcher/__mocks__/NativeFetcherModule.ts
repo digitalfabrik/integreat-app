@@ -1,5 +1,3 @@
-// @flow
-
 import type { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 import { NativeEventEmitter } from 'react-native'
 import { mapValues } from 'lodash/object'
@@ -18,7 +16,5 @@ const NativeFetcherModule = {
   removeListeners: jest.fn<[number], void>(),
   fetchAsync: jest.fn<[TargetFilePathsType], Promise<FetchResultType>>(mockFetchAsync)
 }
-
 export const NativeFetcherModuleEmitter = new NativeEventEmitter(NativeFetcherModule)
-
 export default NativeFetcherModule

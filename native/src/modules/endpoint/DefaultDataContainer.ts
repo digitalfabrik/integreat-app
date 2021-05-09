@@ -1,5 +1,4 @@
-// @flow
-
+import { $Keys } from 'utility-types'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 import DatabaseContext from './DatabaseContext'
 import type {
@@ -13,17 +12,15 @@ import type Moment from 'moment'
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'
-
 type CacheType = {
-  pois: Cache<Array<PoiModel>>,
-  cities: Cache<Array<CityModel>>,
-  events: Cache<Array<EventModel>>,
-  categories: Cache<CategoriesMapModel>,
-  languages: Cache<Array<LanguageModel>>,
-  resourceCache: Cache<CityResourceCacheStateType>,
+  pois: Cache<Array<PoiModel>>
+  cities: Cache<Array<CityModel>>
+  events: Cache<Array<EventModel>>
+  categories: Cache<CategoriesMapModel>
+  languages: Cache<Array<LanguageModel>>
+  resourceCache: Cache<CityResourceCacheStateType>
   lastUpdate: Cache<Moment | null>
 }
-
 type CacheKeyType = $Keys<CacheType>
 
 class DefaultDataContainer implements DataContainer {
@@ -32,7 +29,6 @@ class DefaultDataContainer implements DataContainer {
 
   constructor() {
     this._databaseConnector = new DatabaseConnector()
-
     this.caches = {
       pois: new Cache<Array<PoiModel>>(
         this._databaseConnector,
@@ -81,7 +77,6 @@ class DefaultDataContainer implements DataContainer {
   clearInMemoryCache = () => {
     Object.keys(this.caches).forEach(cache => this.caches[cache].evict())
   }
-
   clearOfflineCache = async () => {
     await this._databaseConnector.deleteAllFiles()
   }
@@ -94,30 +89,25 @@ class DefaultDataContainer implements DataContainer {
     const cache = this.caches.cities
     return cache.get(new DatabaseContext())
   }
-
   getCategoriesMap = (city: string, language: string): Promise<CategoriesMapModel> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<CategoriesMapModel> = this.caches.categories
     return cache.get(context)
   }
-
   getEvents = (city: string, language: string): Promise<Array<EventModel>> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
     return cache.get(context)
   }
-
   getPois = (city: string, language: string): Promise<Array<PoiModel>> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<PoiModel>> = this.caches.pois
     return cache.get(context)
   }
-
   getLanguages = (city: string): Promise<Array<LanguageModel>> => {
     const cache: Cache<Array<LanguageModel>> = this.caches.languages
     return cache.get(new DatabaseContext(city))
   }
-
   getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
     const context = new DatabaseContext(city, null)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
@@ -129,36 +119,30 @@ class DefaultDataContainer implements DataContainer {
 
     return resourceCache[language]
   }
-
   getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     return cache.get(context)
   }
-
   setCategoriesMap = async (city: string, language: string, categories: CategoriesMapModel) => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<CategoriesMapModel> = this.caches.categories
     await cache.cache(categories, context)
   }
-
   setPois = async (city: string, language: string, pois: Array<PoiModel>) => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<PoiModel>> = this.caches.pois
     await cache.cache(pois, context)
   }
-
   setCities = async (cities: Array<CityModel>) => {
     const cache = this.caches.cities
     await cache.cache(cities, new DatabaseContext())
   }
-
   setEvents = async (city: string, language: string, events: Array<EventModel>) => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
     await cache.cache(events, context)
   }
-
   setLanguages = async (city: string, languages: Array<LanguageModel>) => {
     const context = new DatabaseContext(city)
     const cache: Cache<Array<LanguageModel>> = this.caches.languages
@@ -168,19 +152,24 @@ class DefaultDataContainer implements DataContainer {
   getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): Array<string> {
     // $FlowFixMe https://github.com/facebook/flow/issues/2221
     const pageResourceCaches: Array<PageResourceCacheStateType> = Object.values(languageResourceCache)
-    return flatMap(pageResourceCaches, (file: PageResourceCacheStateType): Array<string> =>
-      map(file, ({ filePath }) => filePath)
+    return flatMap(
+      pageResourceCaches,
+      (file: PageResourceCacheStateType): Array<string> => map(file, ({ filePath }) => filePath)
     )
   }
 
   setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
     const context = new DatabaseContext(city, null)
-
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
 
     if (!previousResourceCache) {
-      await cache.cache({ [language]: resourceCache }, context)
+      await cache.cache(
+        {
+          [language]: resourceCache
+        },
+        context
+      )
       return
     }
 
@@ -191,6 +180,7 @@ class DefaultDataContainer implements DataContainer {
       const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
+
       if (!isEmpty(removedPaths)) {
         const collection: CityResourceCacheStateType = omitBy(
           previousResourceCache,
@@ -208,44 +198,36 @@ class DefaultDataContainer implements DataContainer {
 
     await cache.cache(newResourceCache, context)
   }
-
   setLastUpdate = async (city: string, language: string, lastUpdate: Moment | null) => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
   }
-
   poisAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('pois', context) || this._databaseConnector.isPoisPersisted(context)
   }
-
   citiesAvailable = async (): Promise<boolean> => {
     const context = new DatabaseContext()
     return this.isCached('cities', context) || this._databaseConnector.isCitiesPersisted()
   }
-
   categoriesAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('categories', context) || this._databaseConnector.isCategoriesPersisted(context)
   }
-
   languagesAvailable = async (city: string): Promise<boolean> => {
     const context = new DatabaseContext(city)
     return this.isCached('languages', context) || this._databaseConnector.isLanguagesPersisted(context)
   }
-
   eventsAvailable = async (city: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(city, language)
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
-
   cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
     return (
       this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) && this.languagesAvailable(city)
     )
   }
-
   storeLastUsage = async (city: string, peeking: boolean) => {
     await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)
   }

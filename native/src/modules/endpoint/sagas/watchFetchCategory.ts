@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type {
@@ -23,17 +21,20 @@ import type Moment from 'moment'
  * @returns true if the fetch corresponds to a peek
  */
 function* isPeeking(routeCity: string): Saga<boolean> {
-  return yield select(state => isPeekingRoute(state, { routeCity }))
+  return yield select(state =>
+    isPeekingRoute(state, {
+      routeCity
+    })
+  )
 }
 
 export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
   const { city, language, path, depth, key, criterion } = action.params
+
   try {
     const peeking = yield call(isPeeking, city)
-
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
-
     // Only get languages if we've loaded them, otherwise we're peeking
     const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
 
@@ -42,13 +43,21 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
         call(dataContainer.getCategoriesMap, city, language),
         call(dataContainer.getResourceCache, city, language)
       ])
-
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
-
       const refresh = loadCriterion.shouldUpdate(lastUpdate)
       const push: PushCategoryActionType = {
         type: 'PUSH_CATEGORY',
-        params: { categoriesMap, resourceCache, path, cityLanguages, depth, key, city, language, refresh }
+        params: {
+          categoriesMap,
+          resourceCache,
+          path,
+          cityLanguages,
+          depth,
+          key,
+          city,
+          language,
+          refresh
+        }
       }
       yield put(push)
     } else {
@@ -87,7 +96,6 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
     yield put(failed)
   }
 }
-
 export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }

@@ -1,5 +1,3 @@
-// @flow
-
 import type { StackNavigationProp } from '@react-navigation/stack'
 import type { RouteProp } from '@react-navigation/native'
 import type {
@@ -26,7 +24,6 @@ import type {
 } from 'api-client'
 import { LanguageModel } from 'api-client'
 import type { FeedbackInformationType } from '../../feedback/FeedbackContainer'
-
 export type RoutesType =
   | RedirectRouteType
   | JpalTrackingRouteType
@@ -48,38 +45,59 @@ export type RoutesType =
   | PdfViewModalRouteType
   | ImageViewModalRouteType
   | FeedbackModalRouteType
-
-type ShareUrlType = {| shareUrl: string |}
-type CityContentParamsType = {| cityCode: string, languageCode: string |}
-
-export type RoutesParamsType = {|
-  redirect: {| url: string |},
-  intro: {| deepLink?: string |},
-  landing: void,
-  dashboard: void,
-  categories: void,
-  pois: void,
-  events: void,
-  news: void,
-  disclaimer: CityContentParamsType,
-  offers: CityContentParamsType,
-  jpal: {| trackingCode: string | null |},
-  externalOffer: {| ...ShareUrlType, url: string, postData: ?Map<string, string> |},
-  sprungbrett: CityContentParamsType,
-  wohnen: {| offerHash: ?string, city: string, title: string, alias: string, postData: ?Map<string, string> |},
-  settings: void,
-  search: void,
-  changeLanguage: {|
-    currentLanguage: string,
-    previousKey: string,
-    cityCode: string,
-    languages: Array<LanguageModel>,
+type ShareUrlType = {
+  shareUrl: string
+}
+type CityContentParamsType = {
+  cityCode: string
+  languageCode: string
+}
+export type RoutesParamsType = {
+  redirect: {
+    url: string
+  }
+  intro: {
+    deepLink?: string
+  }
+  landing: void
+  dashboard: void
+  categories: void
+  pois: void
+  events: void
+  news: void
+  disclaimer: CityContentParamsType
+  offers: CityContentParamsType
+  jpal: {
+    trackingCode: string | null
+  }
+  externalOffer: ShareUrlType & {
+    url: string
+    postData: Map<string, string> | null | undefined
+  }
+  sprungbrett: CityContentParamsType
+  wohnen: {
+    offerHash: string | null | undefined
+    city: string
+    title: string
+    alias: string
+    postData: Map<string, string> | null | undefined
+  }
+  settings: void
+  search: void
+  changeLanguage: {
+    currentLanguage: string
+    previousKey: string
+    cityCode: string
+    languages: Array<LanguageModel>
     availableLanguages: Array<string>
-  |},
-  pdf: {| url: string, ...ShareUrlType |},
-  image: {| url: string, ...ShareUrlType |},
+  }
+  pdf: ShareUrlType & {
+    url: string
+  }
+  image: ShareUrlType & {
+    url: string
+  }
   feedback: FeedbackInformationType
-|}
-
-export type RoutePropType<T: RoutesType> = RouteProp<RoutesParamsType, T>
-export type NavigationPropType<T: RoutesType> = StackNavigationProp<RoutesParamsType, T>
+}
+export type RoutePropType<T extends RoutesType> = RouteProp<RoutesParamsType, T>
+export type NavigationPropType<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>

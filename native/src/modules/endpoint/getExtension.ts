@@ -1,11 +1,9 @@
-// @flow
-
 import { last } from 'lodash'
 import Url from 'url-parse'
-
 /**
  * @throws {Error} If urlString is invalid or it is not possible to get an extension from it
  */
+
 export default (urlString: string) => {
   const url = new Url(urlString)
 
@@ -14,7 +12,6 @@ export default (urlString: string) => {
   }
 
   const pathname = url.pathname
-
   const lastPath = last(pathname.split('/'))
 
   if (lastPath === undefined) {
@@ -22,8 +19,10 @@ export default (urlString: string) => {
   }
 
   const index = lastPath.lastIndexOf('.')
+
   if (index === -1) {
     return ''
   }
+
   return lastPath.substring(index + 1)
 }

@@ -1,5 +1,3 @@
-// @flow
-
 import type { CityContentStateType, PoiRouteStateType } from '../../app/StateType'
 import type { PushPoiActionType } from '../../app/StoreActionType'
 import { PoiModel, POIS_ROUTE } from 'api-client'
@@ -13,15 +11,26 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
 
   const getPoiRoute = (): PoiRouteStateType => {
     const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
+
     if (!path) {
-      return { routeType: POIS_ROUTE, status: 'ready', path: null, models: pois, allAvailableLanguages, language, city }
+      return {
+        routeType: POIS_ROUTE,
+        status: 'ready',
+        path: null,
+        models: pois,
+        allAvailableLanguages,
+        language,
+        city
+      }
     }
-    const poi: ?PoiModel = pois.find(poi => poi.path === path)
+
+    const poi: PoiModel | null | undefined = pois.find(poi => poi.path === path)
+
     if (!poi) {
       throw new Error(`Poi with path ${path} was not found in supplied models.`)
     }
-    allAvailableLanguages.set(language, path)
 
+    allAvailableLanguages.set(language, path)
     return {
       routeType: POIS_ROUTE,
       status: 'ready',
@@ -36,11 +45,14 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache =
     state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
-
   return {
     ...state,
     routeMapping: { ...state.routeMapping, [key]: getPoiRoute() },
-    resourceCache: { status: 'ready', progress: 1, value: newResourceCache }
+    resourceCache: {
+      status: 'ready',
+      progress: 1,
+      value: newResourceCache
+    }
   }
 }
 

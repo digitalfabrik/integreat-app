@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { PoiModel, createPOIsEndpoint } from 'api-client'
 import { call } from 'redux-saga/effects'
@@ -31,7 +29,6 @@ function* loadPois(
   }
 
   console.debug('Fetching pois')
-
   const apiUrl = yield call(determineApiUrl)
   const payload = yield call(() =>
     createPOIsEndpoint(apiUrl).request({
@@ -40,7 +37,6 @@ function* loadPois(
     })
   )
   const pois: Array<PoiModel> = payload.data
-
   yield call(dataContainer.setPois, city, language, pois)
   return pois
 }

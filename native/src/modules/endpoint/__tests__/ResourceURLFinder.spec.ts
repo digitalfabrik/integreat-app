@@ -1,7 +1,4 @@
-// @flow
-
 import ResourceURLFinder from '../ResourceURLFinder'
-
 describe('ResourceURLFinder', () => {
   it('should find urls ending on png,jpg,jpeg,pdf in src and href tags', () => {
     const finder = new ResourceURLFinder(['ex.am'])
@@ -23,7 +20,6 @@ describe('ResourceURLFinder', () => {
       <img src="invalid-url" alt="Näp!" />
     `)
     finder.finalize()
-
     expect(urls).toEqual(
       new Set([
         'https://ex.am/pl1.png',
@@ -37,7 +33,6 @@ describe('ResourceURLFinder', () => {
       ])
     )
   })
-
   it('should build a fetchMap including thumbnails if supplied', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
@@ -49,14 +44,16 @@ describe('ResourceURLFinder', () => {
                   <img src="https://ex.am/noextension" alt="Nöp!" />
                   <img src="invalid-url" alt="Näp!" />`
       },
-      { path: '/path2', thumbnail: '', content: '<img src="https://ex.am/pl2.png" alt="Crazy" />' }
+      {
+        path: '/path2',
+        thumbnail: '',
+        content: '<img src="https://ex.am/pl2.png" alt="Crazy" />'
+      }
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`)
     finder.finalize()
-
     expect(fetchMap).toMatchSnapshot()
   })
-
   it('should build a correct fetch map if two pages are using the same resource', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
@@ -74,7 +71,6 @@ describe('ResourceURLFinder', () => {
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`)
     finder.finalize()
-
     expect(fetchMap['/path1']).toEqual(fetchMap['/path2'])
     expect(fetchMap).toMatchSnapshot()
   })

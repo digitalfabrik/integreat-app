@@ -1,23 +1,21 @@
-// @flow
-
 export default class TileModel {
   _title: string
   _path: string
   _thumbnail: string | number
   _isExternalUrl: boolean
-  _postData: ?Map<string, string>
-  _onTilePress: ?() => void
-  _notifications: ?number
+  _postData: Map<string, string> | null | undefined
+  _onTilePress: (() => void) | null | undefined
+  _notifications: number | null | undefined
 
-  constructor(params: {|
-    title: string,
-    path: string,
-    thumbnail: string | number,
-    isExternalUrl: boolean,
-    postData?: ?Map<string, string>,
-    onTilePress?: () => void,
+  constructor(params: {
+    title: string
+    path: string
+    thumbnail: string | number
+    isExternalUrl: boolean
+    postData?: Map<string, string> | null | undefined
+    onTilePress?: () => void
     notifications?: number
-  |}) {
+  }) {
     this._title = params.title
     this._path = params.path
     this._thumbnail = params.thumbnail
@@ -43,15 +41,15 @@ export default class TileModel {
     return this._isExternalUrl
   }
 
-  get postData(): ?Map<string, string> {
+  get postData(): Map<string, string> | null | undefined {
     return this._postData
   }
 
-  get onTilePress(): ?() => void {
+  get onTilePress(): (() => void) | null | undefined {
     return this._onTilePress
   }
 
-  get notifications(): ?number {
+  get notifications(): number | null | undefined {
     return this._notifications
   }
 }

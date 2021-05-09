@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { CityModel } from 'api-client'
 import { call } from 'redux-saga/effects'

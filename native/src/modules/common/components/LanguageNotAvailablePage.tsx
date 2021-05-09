@@ -1,17 +1,16 @@
-// @flow
-
-import * as React from 'react'
-import styled from 'styled-components/native'
-import { type StyledComponent } from 'styled-components'
-import type { ThemeType } from '../../theme/constants'
-import { LanguageModel } from 'api-client'
-import Selector from './Selector'
-import SelectorItemModel from '../models/SelectorItemModel'
-import { Text } from 'react-native'
-import Caption from './Caption'
-import { type TFunction } from 'react-i18next'
-
-const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
+import * as React from "react";
+import styled from "styled-components/native";
+import type { StyledComponent } from "styled-components";
+import "styled-components";
+import type { ThemeType } from "../../theme/constants";
+import { LanguageModel } from "api-client";
+import Selector from "./Selector";
+import SelectorItemModel from "../models/SelectorItemModel";
+import { Text } from "react-native";
+import Caption from "./Caption";
+import type { TFunction } from "react-i18next";
+import "react-i18next";
+const Wrapper: StyledComponent<{}, ThemeType, any> = styled.View`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -19,43 +18,37 @@ const Wrapper: StyledComponent<{||}, ThemeType, *> = styled.View`
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
   align-items: center;
-`
-
-export type PropsType = {|
-  theme: ThemeType,
-  languages: Array<LanguageModel>,
-  changeLanguage: (newLanguage: string) => void,
-  t: TFunction
-|}
+`;
+export type PropsType = {
+  theme: ThemeType;
+  languages: Array<LanguageModel>;
+  changeLanguage: (newLanguage: string) => void;
+  t: TFunction;
+};
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel) => {
-    this.props.changeLanguage(model.code)
-  }
+    this.props.changeLanguage(model.code);
+  };
 
   render() {
-    const { t, languages, theme } = this.props
-    return (
-      <Wrapper theme={theme}>
+    const {
+      t,
+      languages,
+      theme
+    } = this.props;
+    return <Wrapper theme={theme}>
         <Caption title={t('languageNotAvailable')} theme={theme} />
         <Text>{t('chooseALanguage')}</Text>
-        <Selector
-          verticalLayout
-          items={languages.map(
-            languageModel =>
-              new SelectorItemModel({
-                code: languageModel.code,
-                name: languageModel.name,
-                enabled: true,
-                onPress: () => this.onPress(languageModel)
-              })
-          )}
-          selectedItemCode={null}
-          theme={theme}
-        />
-      </Wrapper>
-    )
+        <Selector verticalLayout items={languages.map(languageModel => new SelectorItemModel({
+        code: languageModel.code,
+        name: languageModel.name,
+        enabled: true,
+        onPress: () => this.onPress(languageModel)
+      }))} selectedItemCode={null} theme={theme} />
+      </Wrapper>;
   }
+
 }
 
-export default LanguageNotAvailablePage
+export default LanguageNotAvailablePage;

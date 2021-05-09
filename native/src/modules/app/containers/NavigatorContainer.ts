@@ -1,26 +1,21 @@
-// @flow
-
-import { type Dispatch } from 'redux'
+import type { Dispatch } from 'redux'
+import 'redux'
 import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
 import type { StoreActionType } from '../StoreActionType'
-
-type OwnPropsType = {|
-  routeKey: ?string,
-  routeName: ?string
-|}
-
-type DispatchPropsType = {|
-  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void,
+type OwnPropsType = {
+  routeKey: string | null | undefined
+  routeName: string | null | undefined
+}
+type DispatchPropsType = {
+  fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void
   fetchCities: (forceRefresh: boolean) => void
-|}
-
-type PropsType = {| ...OwnPropsType, ...DispatchPropsType |}
+}
+type PropsType = OwnPropsType & DispatchPropsType
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => {
     const path = `/${cityCode}/${language}`
-
     dispatch({
       type: 'FETCH_CATEGORY',
       params: {
@@ -28,13 +23,21 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
         language,
         path,
         depth: 2,
-        criterion: { forceUpdate, shouldRefreshResources: true },
+        criterion: {
+          forceUpdate,
+          shouldRefreshResources: true
+        },
         key
       }
     })
   },
   fetchCities: (forceRefresh: boolean) => {
-    dispatch({ type: 'FETCH_CITIES', params: { forceRefresh } })
+    dispatch({
+      type: 'FETCH_CITIES',
+      params: {
+        forceRefresh
+      }
+    })
   }
 })
 

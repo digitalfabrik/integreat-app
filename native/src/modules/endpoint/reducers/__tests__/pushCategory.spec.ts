@@ -1,10 +1,8 @@
-// @flow
-
+import { $Shape } from 'utility-types'
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
-
 describe('pushCategory', () => {
   const rootCategory = new CategoryModel({
     root: true,
@@ -62,10 +60,16 @@ describe('pushCategory', () => {
             '/augsburg/de/sub': subCategory,
             '/augsburg/de/sub/sub': subSubCategory
           },
-          children: { '/augsburg/de': ['/augsburg/de/sub'], '/augsburg/de/sub': ['/augsburg/de/sub/sub'] }
+          children: {
+            '/augsburg/de': ['/augsburg/de/sub'],
+            '/augsburg/de/sub': ['/augsburg/de/sub/sub']
+          }
         }
       },
-      languages: { status: 'ready', models: languageModels },
+      languages: {
+        status: 'ready',
+        models: languageModels
+      },
       resourceCache: {
         status: 'ready',
         progress: 1,
@@ -79,7 +83,9 @@ describe('pushCategory', () => {
           }
         }
       },
-      searchRoute: { categoriesMap },
+      searchRoute: {
+        categoriesMap
+      },
       switchingLanguage: false
     }
     return { ...defaultState, ...state }
@@ -88,9 +94,12 @@ describe('pushCategory', () => {
   it('should add rootCategory to categoriesRouteMapping with depth 1', () => {
     const prevState: CityContentStateType = prepareState({
       routeMapping: {},
-      resourceCache: { status: 'ready', progress: 0, value: {} }
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {}
+      }
     })
-
     const pushCategoryAction = {
       type: 'PUSH_CATEGORY',
       params: {
@@ -105,7 +114,6 @@ describe('pushCategory', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -117,22 +125,29 @@ describe('pushCategory', () => {
               ['en', '/augsburg/en'],
               ['de', '/augsburg/de']
             ]),
-            children: { '/augsburg/de': ['/augsburg/de/sub'] },
+            children: {
+              '/augsburg/de': ['/augsburg/de/sub']
+            },
             city: 'augsburg',
             depth: 1,
             language: 'de',
-            models: { '/augsburg/de': rootCategory, '/augsburg/de/sub': subCategory }
+            models: {
+              '/augsburg/de': rootCategory,
+              '/augsburg/de/sub': subCategory
+            }
           }
         }
       })
     )
   })
-
   it('should add subCategory to routeMapping with depth 1', () => {
     const prevState = prepareState({
-      resourceCache: { status: 'ready', progress: 0, value: {} }
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {}
+      }
     })
-
     const pushCategoryAction = {
       type: 'PUSH_CATEGORY',
       params: {
@@ -147,7 +162,6 @@ describe('pushCategory', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -159,24 +173,29 @@ describe('pushCategory', () => {
               ['en', '/augsburg/en/sub'],
               ['de', '/augsburg/de/sub']
             ]),
-            children: { '/augsburg/de/sub': ['/augsburg/de/sub/sub'] },
+            children: {
+              '/augsburg/de/sub': ['/augsburg/de/sub/sub']
+            },
             city: 'augsburg',
             depth: 1,
             language: 'de',
-            models: { '/augsburg/de/sub': subCategory, '/augsburg/de/sub/sub': subSubCategory }
+            models: {
+              '/augsburg/de/sub': subCategory,
+              '/augsburg/de/sub/sub': subSubCategory
+            }
           }
         }
       })
     )
   })
-
   it("should merge the resource cache if there's already one", () => {
     const prevState = prepareState({})
+
     if (prevState.resourceCache.status !== 'ready') {
       throw new Error('Preparation failed')
     }
-    const prevResources = prevState.resourceCache.value
 
+    const prevResources = prevState.resourceCache.value
     const testumgebungRootCategory = new CategoryModel({
       root: true,
       path: '/testumgebung/de',
@@ -199,7 +218,6 @@ describe('pushCategory', () => {
         }
       }
     }
-
     const pushCategoryAction = {
       type: 'PUSH_CATEGORY',
       params: {
@@ -214,21 +232,26 @@ describe('pushCategory', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         city: 'augsburg',
-        resourceCache: { status: 'ready', progress: 1, value: { ...prevResources, ...resourceCache } }
+        resourceCache: {
+          status: 'ready',
+          progress: 1,
+          value: { ...prevResources, ...resourceCache }
+        }
       })
     )
   })
-
   it('should add categoriesMap to the searchRoute', () => {
     const prevState: CityContentStateType = prepareState({
       searchRoute: null,
-      resourceCache: { status: 'ready', progress: 0, value: {} }
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {}
+      }
     })
-
     const pushCategoryAction = {
       type: 'PUSH_CATEGORY',
       params: {
@@ -243,10 +266,11 @@ describe('pushCategory', () => {
         refresh: false
       }
     }
-
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
-        searchRoute: { categoriesMap }
+        searchRoute: {
+          categoriesMap
+        }
       })
     )
   })
