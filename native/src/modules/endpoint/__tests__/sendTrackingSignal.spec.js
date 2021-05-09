@@ -1,6 +1,6 @@
 // @flow
 
-import sendTrackingSignal, { sendRequest } from '../sendTrackingSignal'
+import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
 import { DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import AppSettings from '../../settings/AppSettings'
 import buildConfig from '../../app/constants/buildConfig'
@@ -34,7 +34,7 @@ describe('sendTrackingSignal', () => {
       offline: false,
       currentCity: 'muenchen',
       currentLanguage: 'ar',
-      systemLanguage: '', // TODO IGAPP-566 Include system language
+      systemLanguage: 'kmr',
       appSettings: {
         allowPushNotifications: true,
         errorTracking: false
@@ -55,6 +55,7 @@ describe('sendTrackingSignal', () => {
         allowPushNotifications: true,
         errorTracking: false
       })
+      setSystemLanguage('kmr')
 
       await sendRequest(signal)
       expect(mockRequest).toHaveBeenCalledTimes(1)
@@ -179,6 +180,7 @@ describe('sendTrackingSignal', () => {
         allowPushNotifications: true,
         errorTracking: false
       })
+      setSystemLanguage('ar')
 
       await sendTrackingSignal({ signal: specificSignal, offline: true })
       expect(mockRequest).toHaveBeenCalledTimes(1)
@@ -188,7 +190,7 @@ describe('sendTrackingSignal', () => {
         offline: true,
         currentCity: 'muenchen',
         currentLanguage: 'ar',
-        systemLanguage: '', // TODO IGAPP-566 Include system language
+        systemLanguage: 'ar',
         appSettings: {
           allowPushNotifications: true,
           errorTracking: false
