@@ -1,8 +1,5 @@
-// @flow
-
 import transformTranslations from '../transformTranslations'
 import type { TransformedTranslationsType, TranslationsType } from '../types'
-
 export const testTranslations: TranslationsType = {
   app: {
     de: {
@@ -11,7 +8,8 @@ export const testTranslations: TranslationsType = {
         tunews: 'tünews',
         localNews: 'Lokale Nachrichten'
       },
-      metaDescription: 'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.'
+      metaDescription:
+        'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.'
     }
   },
   dashboard: {
@@ -30,8 +28,8 @@ export const testTranslations: TranslationsType = {
       offers: 'العروض',
       events: 'الفعاليات'
     },
-    "zh-CN": {
-      "localInformation": "本地信息",
+    'zh-CN': {
+      localInformation: '本地信息'
     }
   }
 }
