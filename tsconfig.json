@@ -6,7 +6,9 @@
       "build-configs": ["build-configs/hello.ts"],
       "translations": ["translations/src/hello.ts"],
       "api-client": ["api-client/src/hello.ts"]
-    }
+    },
+    "lib": []
   },
+  "exclude": [ "node_modules", "**/flow-typed/**/*" ],
   "include": ["web", "native", "api-client", "translations", "build-configs"]
 }
