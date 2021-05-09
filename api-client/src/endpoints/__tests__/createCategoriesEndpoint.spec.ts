@@ -4,6 +4,8 @@ import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
+import { JsonCategoryType } from '../../types'
+
 jest.mock('../../mapping/mapCategoryJson')
 describe('createCategoriesEndpoint', () => {
   beforeEach(() => {
@@ -35,9 +37,10 @@ describe('createCategoriesEndpoint', () => {
     )
   })
   it('should map json to category', () => {
-    const categories = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 3)
-    // $FlowFixMe mapCategoryJson is a mock
-    mapCategoryJson.mockImplementation((json: string) => {
+    const categories = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 3);
+
+    // @ts-ignore
+    (mapCategoryJson as unknown as jest.Mock<(json: JsonCategoryType, basePath: string) => CategoryModel>).mockImplementation((json: string) => {
       switch (json) {
         case 'myFirstCategory':
           return categories[0]

@@ -1,6 +1,9 @@
 import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
+import { JsonCategoryType } from '../../types'
+import CategoryModel from '../../models/CategoryModel'
+
 jest.mock('../../mapping/mapCategoryJson')
 describe('createCategoryChildrenEndpoint', () => {
   beforeEach(() => {
@@ -21,14 +24,15 @@ describe('createCategoryChildrenEndpoint', () => {
     )
   })
   it('should map params to url for root category', () => {
-    expect(endpoint.mapParamsToUrl({ ...params, cityContentPath: '/augsburg/fa', depth: 0 })).toEqual(
+    expect(endpoint.mapParamsToUrl({...params, cityContentPath: '/augsburg/fa', depth: 0})).toEqual(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/children?depth=0`
     )
   })
   it('should map json to category', () => {
-    const children = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()
-    // $FlowFixMe mapCategoryJson is a mock
-    mapCategoryJson.mockImplementation((json: string) => {
+    const children = new CategoriesMapModelBuilder(params.city, params.language).build().toArray();
+
+    // @ts-ignore
+    (mapCategoryJson as unknown as jest.Mock<(json: JsonCategoryType, basePath: string) => CategoryModel>).mockImplementation((json: string) => {
       if (json === 'myFirstCategory') {
         return children[0]
       }

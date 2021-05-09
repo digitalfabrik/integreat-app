@@ -1,6 +1,8 @@
 import createTrackingEndpoint, { JPAL_TRACKING_ENDPOINT_URL } from '../createTrackingEndpoint'
 import { OPEN_PAGE_SIGNAL_NAME } from '../../tracking'
 import { DASHBOARD_ROUTE } from '../../routes'
+import { FetchMock } from 'jest-fetch-mock'
+
 describe('createTrackingEndpoint', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -21,8 +23,7 @@ describe('createTrackingEndpoint', () => {
     timestamp: '2020-01-20T00:00:00.000Z'
   }
   it('should throw fetch error if fetch fails', async () => {
-    // $FlowFixMe fetch is a mock
-    fetch.mockRejectOnce(() => Promise.reject(new Error('Das Internet ist kaputt!!!1!!!11elf!')))
+    (fetch as unknown as FetchMock).mockRejectOnce(() => Promise.reject(new Error('Das Internet ist kaputt!!!1!!!11elf!')))
     expect.assertions(1)
     return createTrackingEndpoint()
       .request(signal)
@@ -34,8 +35,7 @@ describe('createTrackingEndpoint', () => {
   })
   it('should throw response error if response is not ok', async () => {
     // $FlowFixMe fetch is a mock
-    fetch.mockResponseOnce('Invalid endpoint', {
-      ok: false,
+    (fetch as unknown as FetchMock).mockResponseOnce('Invalid endpoint', {
       status: 500,
       statusText: ' not ok'
     })
