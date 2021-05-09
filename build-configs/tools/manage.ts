@@ -1,7 +1,11 @@
 const program = require('commander')
+
 const fs = require('fs')
+
 const flat = require('flat')
+
 const decamelize = require('decamelize')
+
 const loadBuildConfig = require('../index').default
 
 const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quotes = false) => {
@@ -12,10 +16,12 @@ const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quo
     transformKey: key => decamelize(key).toUpperCase().replace('-', '_')
   })
   const assignOperator = `${spaces ? ' ' : ''}=${spaces ? ' ' : ''}`
+
   const quoteValue = value => {
     if (quotes && value.includes('"')) {
-      throw Error('Values in build configs musn\'t contain double quotes!')
+      throw Error("Values in build configs musn't contain double quotes!")
     }
+
     return `${quotes ? '"' : ''}${value}${quotes ? '"' : ''}`
   }
 
@@ -41,7 +47,6 @@ program
       process.exit(1)
     }
   })
-
 program
   .command('to-properties <build_config_name> <platform>')
   .description('create and write a new properties file to the stdout')
@@ -54,7 +59,6 @@ program
       process.exit(1)
     }
   })
-
 program
   .command('to-bash <build_config_name> <platform>')
   .description('outputs the specified build config as key-value pairs which can be executed by bash')
@@ -62,7 +66,6 @@ program
     const buildConfig = loadBuildConfigAsKeyValue(buildConfigName, platform, false, true)
     console.log(buildConfig)
   })
-
 program
   .command('to-json <build_config_name> <platform>')
   .description('outputs the specified build config as JSON')
@@ -70,5 +73,4 @@ program
     const buildConfig = loadBuildConfig(buildConfigName, platform)
     console.log(JSON.stringify(buildConfig))
   })
-
 program.parse(process.argv)

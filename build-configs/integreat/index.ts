@@ -1,5 +1,3 @@
-// @flow
-
 import { lightTheme, darkTheme } from './theme'
 import type {
   AndroidBuildConfigType,
@@ -9,9 +7,7 @@ import type {
 } from '../BuildConfigType'
 import { INTEGREAT_ASSETS } from '../AssetsType'
 import mainImprint from './mainImprint'
-
 const APPLE_APP_ID = '1072353915'
-
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
@@ -22,7 +18,8 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   switchCmsUrl: 'https://cms-test.integreat-app.de',
   hostName: 'integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
-  internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  internalLinksHijackPattern:
+    'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
     newsStream: true,
@@ -42,7 +39,6 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     en: 'https://integreat-app.de/en/privacy/'
   }
 }
-
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
   splashScreen: true,
@@ -58,7 +54,6 @@ export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
     projectId: 'integreat-2020'
   }
 }
-
 export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   ...commonIntegreatBuildConfig,
   bundleIdentifier: 'de.integreat-app',
@@ -84,7 +79,6 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   },
   launchScreen: 'LaunchScreenIntegreat'
 }
-
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
   appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
@@ -108,12 +102,10 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
     endDate: '2021-03-15T00:00:00.000Z'
   }
 }
-
 const platformBuildConfigs = {
   common: commonIntegreatBuildConfig,
   web: webIntegreatBuildConfig,
   android: androidIntegreatBuildConfig,
   ios: iosIntegreatBuildConfig
 }
-
 export default platformBuildConfigs

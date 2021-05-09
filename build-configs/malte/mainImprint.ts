@@ -30,5 +30,4 @@ Wir betonen ausdrücklich, dass wir keinerlei Einfluss auf die Gestaltung und di
 <h2>Verbraucherstreitbeilegungsgesetz (VSBG)</h2>
 Wir weisen gemäß § 36 Abs. 1 Verbraucherstreitbeilegungsgesetz (VSBG) darauf hin, dass wir weder verpflichtet noch bereit sind, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
 `
-
 export default mainImprint

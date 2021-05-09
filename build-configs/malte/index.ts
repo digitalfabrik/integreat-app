@@ -1,5 +1,3 @@
-// @flow
-
 import { lightTheme, darkTheme } from './theme'
 import type {
   AndroidBuildConfigType,
@@ -10,9 +8,7 @@ import type {
 import { MALTE_ASSETS } from '../AssetsType'
 import malteOverrideTranslations from 'translations/override-translations/malte.json'
 import mainImprint from './mainImprint'
-
 const APPLE_APP_ID = '1535758339'
-
 const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
@@ -41,7 +37,6 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     default: 'https://www.malteser-werke.de/datenschutzerklaerung-malte.html'
   }
 }
-
 const androidMalteBuildConfig: AndroidBuildConfigType = {
   ...commonMalteBuildConfig,
   splashScreen: false,
@@ -95,12 +90,10 @@ const webMalteBuildConfig: WebBuildConfigType = {
     favicons: '/favicons/'
   }
 }
-
 const platformBuildConfigs = {
   common: commonMalteBuildConfig,
   web: webMalteBuildConfig,
   android: androidMalteBuildConfig,
   ios: iosMalteBuildConfig
 }
-
 export default platformBuildConfigs

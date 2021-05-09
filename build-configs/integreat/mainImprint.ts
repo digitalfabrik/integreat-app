@@ -68,5 +68,4 @@ const mainImprint = `
   entfernen.
 </p>
 `
-
 export default mainImprint

@@ -1,5 +1,3 @@
-// @flow
-
 import integreatPlatformBuildConfigs from '../integreat'
 import type {
   AndroidBuildConfigType,
@@ -7,7 +5,6 @@ import type {
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
-
 const integreatTestCms = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
@@ -23,17 +20,14 @@ const integreatTestCms = {
     fixedCity: null
   }
 }
-
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {
   ...integreatPlatformBuildConfigs.common,
   ...integreatTestCms
 }
-
 export const webIntegreatTestCmsBuildConfig: WebBuildConfigType = {
   ...integreatPlatformBuildConfigs.web,
   ...integreatTestCms
 }
-
 export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   ...integreatTestCms,
@@ -49,7 +43,6 @@ export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
     projectId: 'integreat-2020'
   }
 }
-
 export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
   ...integreatPlatformBuildConfigs.ios,
   ...integreatTestCms,
@@ -73,12 +66,10 @@ export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
     databaseUrl: 'https://integreat-2020.firebaseio.com'
   }
 }
-
 const platformBuildConfigs = {
   common: commonIntegreatTestCmsBuildConfig,
   web: webIntegreatTestCmsBuildConfig,
   android: androidIntegreatTestCmsBuildConfig,
   ios: iosIntegreatTestCmsBuildConfig
 }
-
 export default platformBuildConfigs
