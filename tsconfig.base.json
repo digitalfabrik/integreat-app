@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
     "baseUrl": ".",
     "lib": ["ES5", "ES6"],
     "target": "ES6",

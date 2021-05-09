@@ -4,6 +4,7 @@
     "types": [
       "jest"
     ],
+    "outDir": "dist",
     "lib": ["dom"],
     "composite": true
   }
