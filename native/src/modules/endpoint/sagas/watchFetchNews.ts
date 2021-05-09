@@ -7,7 +7,7 @@ import type {
   FetchMoreNewsActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
-import { ErrorCode }, { fromError } from '../../error/ErrorCodes'
+import { ErrorCode, fromError } from '../../error/ErrorCodes'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
