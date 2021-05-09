@@ -2,7 +2,6 @@
   "name": "api-client",
   "version": "0.0.1",
   "description": "Api client for the integreat cms",
-  "main": "src/index.js",
   "private": true,
   "scripts": {
     "test": "jest --config jest.config.js",
