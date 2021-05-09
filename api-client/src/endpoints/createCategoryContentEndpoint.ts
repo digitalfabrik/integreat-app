@@ -1,6 +1,6 @@
 import CategoryModel from '../models/CategoryModel'
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonCategoryType } from '../types'
+import { JsonCategoryType } from '../types'
 import Endpoint from '../Endpoint'
 import mapCategoryJson from '../mapping/mapCategoryJson'
 export const CATEGORY_CONTENT_ENDPOINT_NAME = 'categoryContent'

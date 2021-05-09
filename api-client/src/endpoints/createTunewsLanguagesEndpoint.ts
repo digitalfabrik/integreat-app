@@ -1,6 +1,6 @@
 import LanguageModel from '../models/LanguageModel'
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonTunewsLanguageType } from '../types'
+import { JsonTunewsLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 export const TUNEWS_LANGUAGES_ENDPOINT_NAME = 'tunewsLanguages'
 export default (baseUrl: string): Endpoint<any, Array<LanguageModel>> =>

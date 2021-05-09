@@ -1,12 +1,11 @@
-import { $Shape } from 'utility-types'
 import Payload from './Payload'
 import MappingError from './errors/MappingError'
-import type { MapResponseType } from './MapResponseType'
-import type { MapParamsToUrlType } from './MapParamsToUrlType'
-import type { MapParamsToBodyType } from './MapParamsToBody'
+import { MapResponseType } from './MapResponseType'
+import { MapParamsToUrlType } from './MapParamsToUrlType'
+import { MapParamsToBodyType } from './MapParamsToBody'
 import ResponseError from './errors/ResponseError'
 import FetchError from './errors/FetchError'
-import type { RequestOptionsType } from './errors/ResponseError'
+import { RequestOptionsType } from './errors/ResponseError'
 import NotFoundError from './errors/NotFoundError'
 /**
  * A Endpoint holds all the relevant information to fetch data from it
@@ -23,10 +22,10 @@ class Endpoint<P, T> {
   constructor(
     name: string,
     mapParamsToUrl: MapParamsToUrlType<P>,
-    mapParamsToBody: MapParamsToBodyType<P> | null | undefined,
+    mapParamsToBody?: MapParamsToBodyType<P> | null | undefined,
     mapResponse: MapResponseType<P, T>,
-    responseOverride: T | null | undefined,
-    errorOverride: Error | null | undefined
+    responseOverride?: T | null,
+    errorOverride?: Error | null
   ) {
     this.mapParamsToUrl = mapParamsToUrl
     this.mapParamsToBody = mapParamsToBody
@@ -40,7 +39,7 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async fetchOrThrow(url: string, requestOptions: $Shape<RequestOptions>): Promise<Response> {
+  async fetchOrThrow(url: string, requestOptions: Partial<RequestOptions>): Promise<Response> {
     return fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({
         endpointName: this.stateName,

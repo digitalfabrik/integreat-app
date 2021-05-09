@@ -1,4 +1,4 @@
-import type { JsonCategoryType } from '../types'
+import { JsonCategoryType } from '../types'
 import CategoryModel from '../models/CategoryModel'
 import moment from 'moment-timezone'
 import mapAvailableLanguages from '../mapAvailableLanguages'

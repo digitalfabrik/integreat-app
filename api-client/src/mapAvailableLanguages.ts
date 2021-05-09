@@ -1,4 +1,4 @@
-import type { JsonAvailableLanguagesType } from './types'
+import { JsonAvailableLanguagesType } from './types'
 import normalizePath from './normalizePath'
 
 const mapAvailableLanguages = (json: JsonAvailableLanguagesType): Map<string, string> =>

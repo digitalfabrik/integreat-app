@@ -1,7 +1,7 @@
 import LanguageModel from '../models/LanguageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
-import type { JsonLanguageType } from '../types'
+import { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 export const LANGUAGES_ENDPOINT_NAME = 'languages'
 type ParamsType = {

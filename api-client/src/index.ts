@@ -1,7 +1,7 @@
-import type { MapParamsToBodyType as ImportedMapParamsToBodyType } from './MapParamsToBody'
-import type { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToUrlType'
-import type { MapResponseType as ImportedMapResponseType } from './MapResponseType'
-import type {
+import { MapParamsToBodyType as ImportedMapParamsToBodyType } from './MapParamsToBody'
+import { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToUrlType'
+import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
+import {
   ParamsType as ImportedFeedbackParamsType,
   FeedbackType as ImportedFeedbackType,
   FeedbackCategoryType as ImportedFeedbackCategoryType

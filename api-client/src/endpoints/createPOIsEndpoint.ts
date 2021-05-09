@@ -1,5 +1,5 @@
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonPoiType } from '../types'
+import { JsonPoiType } from '../types'
 import PoiModel from '../models/PoiModel'
 import normalizePath from '../normalizePath'
 import mapAvailableLanguages from '../mapAvailableLanguages'

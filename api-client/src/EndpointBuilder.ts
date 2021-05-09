@@ -1,7 +1,7 @@
 import Endpoint from './Endpoint'
-import type { MapResponseType } from './MapResponseType'
-import type { MapParamsToUrlType } from './MapParamsToUrlType'
-import type { MapParamsToBodyType } from './MapParamsToBody'
+import { MapResponseType } from './MapResponseType'
+import { MapParamsToUrlType } from './MapParamsToUrlType'
+import { MapParamsToBodyType } from './MapParamsToBody'
 /**
  * Helper class to build a {@link Endpoint}
  */
