@@ -8,6 +8,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "exclude": [ "node_modules", "**/flow-typed/**/*" ],
-  "include": ["web-ts", "native", "api-client", "translations", "build-configs"]
+  "exclude": [ "node_modules", "**/flow-typed/**/*" ]
 }
