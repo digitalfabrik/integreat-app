@@ -4,6 +4,7 @@
     "types": [
       "jest"
     ],
+    "lib": ["dom"],
     "composite": true
   }
 }
