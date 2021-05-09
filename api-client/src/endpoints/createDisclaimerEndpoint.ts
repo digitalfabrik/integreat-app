@@ -12,7 +12,7 @@ type ParamsType = {
   language: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
-  new EndpointBuilder(DISCLAIMER_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
     )

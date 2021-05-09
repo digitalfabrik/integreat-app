@@ -15,7 +15,7 @@ type ParamsType = {
   language: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<OfferModel>> =>
-  new EndpointBuilder(OFFERS_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, Array<OfferModel>>(OFFERS_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
     })

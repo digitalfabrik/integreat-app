@@ -27,7 +27,7 @@ export type ParamsType = {
   query?: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, void> =>
-  new EndpointBuilder(FEEDBACK_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, void>(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       const { permalink, city, language } = params
       // Make sure we use the right feedback type for the root category

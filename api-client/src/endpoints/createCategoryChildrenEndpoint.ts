@@ -11,7 +11,7 @@ type ParamsType = {
   depth: number
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
-  new EndpointBuilder(CATEGORY_CHILDREN_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, Array<CategoryModel>>(CATEGORY_CHILDREN_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => {
       const { city, language, cityContentPath, depth } = params
       const basePath = `/${city}/${language}`

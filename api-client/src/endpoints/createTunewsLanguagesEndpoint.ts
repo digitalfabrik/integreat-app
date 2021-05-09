@@ -4,7 +4,7 @@ import { JsonTunewsLanguageType } from '../types'
 import Endpoint from '../Endpoint'
 export const TUNEWS_LANGUAGES_ENDPOINT_NAME = 'tunewsLanguages'
 export default (baseUrl: string): Endpoint<any, Array<LanguageModel>> =>
-  new EndpointBuilder(TUNEWS_LANGUAGES_ENDPOINT_NAME)
+  new EndpointBuilder<any, Array<LanguageModel>>(TUNEWS_LANGUAGES_ENDPOINT_NAME)
     .withParamsToUrlMapper(() => {
       return `${baseUrl}/v1/news/languages`
     })

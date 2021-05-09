@@ -12,7 +12,7 @@ type ParamsType = {
   language: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
-  new EndpointBuilder(POIS_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, Array<PoiModel>>(POIS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/locations`
     )
