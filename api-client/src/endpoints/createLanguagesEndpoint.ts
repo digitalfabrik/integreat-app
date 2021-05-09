@@ -8,7 +8,7 @@ type ParamsType = {
   city: string | null | undefined
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<LanguageModel>> =>
-  new EndpointBuilder(LANGUAGES_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, Array<LanguageModel>>(LANGUAGES_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       if (!params.city) {
         throw new ParamMissingError(LANGUAGES_ENDPOINT_NAME, 'city')

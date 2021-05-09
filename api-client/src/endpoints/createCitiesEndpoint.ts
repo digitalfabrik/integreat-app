@@ -17,7 +17,7 @@ const stripSlashes = (path: string): string => {
 
 export const CITIES_ENDPOINT_NAME = 'cities'
 export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
-  new EndpointBuilder(CITIES_ENDPOINT_NAME)
+  new EndpointBuilder<void, Array<CityModel>>(CITIES_ENDPOINT_NAME)
     .withParamsToUrlMapper(() => `${baseUrl}/wp-json/extensions/v3/sites`)
     .withMapper((json: Array<JsonCityType>) =>
       json

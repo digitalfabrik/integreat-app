@@ -12,7 +12,7 @@ type ParamsType = {
   id: number
 }
 export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
-  new EndpointBuilder(TUNEWS_ELEMENT_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, TunewsModel>(TUNEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => `${baseUrl}/v1/news/${params.id}`)
     .withMapper(
       (json: JsonTunewsType | Array<void>, params: ParamsType): TunewsModel => {

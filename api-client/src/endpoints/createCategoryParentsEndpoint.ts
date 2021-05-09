@@ -11,7 +11,7 @@ type ParamsType = {
   cityContentPath: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
-  new EndpointBuilder(CATEGORY_PARENTS_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, Array<CategoryModel>>(CATEGORY_PARENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => {
       const { city, language, cityContentPath } = params
       const basePath = `/${city}/${language}`
