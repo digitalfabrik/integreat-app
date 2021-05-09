@@ -98,7 +98,6 @@
     "@testing-library/react-native": "^7.1.0",
     "@types/hashids": "^1.0.32",
     "@types/lodash": "^4.14.168",
-    "@types/react": "16.9.56",
     "@types/react-native": "0.63.4",
     "@types/react-native-vector-icons": "^6.4.6",
     "@types/react-redux": "^7.1.16",
