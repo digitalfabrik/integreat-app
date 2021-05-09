@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { createEventsEndpoint, EventModel } from 'api-client'
 import { call } from 'redux-saga/effects'
@@ -31,7 +29,6 @@ function* loadEvents(
   }
 
   console.debug('Fetching events')
-
   const apiUrl = yield call(determineApiUrl)
   const payload = yield call(() =>
     createEventsEndpoint(apiUrl).request({
@@ -40,7 +37,6 @@ function* loadEvents(
     })
   )
   const events: Array<EventModel> = payload.data
-
   yield call(dataContainer.setEvents, city, language, events)
   return events
 }

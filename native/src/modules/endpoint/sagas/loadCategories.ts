@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { CategoriesMapModel, createCategoriesEndpoint } from 'api-client'
 import { call } from 'redux-saga/effects'
@@ -24,11 +22,14 @@ function* loadCategories(
   }
 
   console.debug('Fetching categories')
-
   const apiUrl = yield call(determineApiUrl)
-  const categoriesPayload = yield call(() => createCategoriesEndpoint(apiUrl).request({ city, language }))
+  const categoriesPayload = yield call(() =>
+    createCategoriesEndpoint(apiUrl).request({
+      city,
+      language
+    })
+  )
   const categoriesMap: CategoriesMapModel = categoriesPayload.data
-
   yield call(dataContainer.setCategoriesMap, city, language, categoriesMap)
   return categoriesMap
 }

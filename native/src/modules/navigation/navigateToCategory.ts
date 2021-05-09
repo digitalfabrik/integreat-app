@@ -1,12 +1,10 @@
-// @flow
-
 import type { Dispatch } from 'redux'
 import type { FetchCategoryActionType, StoreActionType } from '../app/StoreActionType'
 import { generateKey } from '../app/generateRouteKey'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import type { CategoriesRouteType, DashboardRouteType } from 'api-client/src/routes'
 
-const navigateToCategory = <T: RoutesType>({
+const navigateToCategory = <T extends RoutesType>({
   navigation,
   dispatch,
   routeName,
@@ -16,20 +14,23 @@ const navigateToCategory = <T: RoutesType>({
   key = generateKey(),
   forceRefresh = false,
   resetNavigation = false
-}: {|
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>,
-  routeName: CategoriesRouteType | DashboardRouteType,
-  cityCode: string,
-  languageCode: string,
-  cityContentPath: string,
-  key?: string,
-  forceRefresh?: boolean,
+}: {
+  dispatch: Dispatch<StoreActionType>
+  navigation: NavigationPropType<T>
+  routeName: CategoriesRouteType | DashboardRouteType
+  cityCode: string
+  languageCode: string
+  cityContentPath: string
+  key?: string
+  forceRefresh?: boolean
   resetNavigation?: boolean
-|}) => {
+}) => {
   const route = {
     name: routeName,
-    params: { cityCode, languageCode },
+    params: {
+      cityCode,
+      languageCode
+    },
     key
   }
 
@@ -50,10 +51,12 @@ const navigateToCategory = <T: RoutesType>({
       path: cityContentPath,
       depth: 2,
       key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      criterion: {
+        forceUpdate: forceRefresh,
+        shouldRefreshResources: forceRefresh
+      }
     }
   }
-
   dispatch(fetchCategory)
 }
 

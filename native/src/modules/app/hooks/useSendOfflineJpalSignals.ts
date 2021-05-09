@@ -1,10 +1,7 @@
-// @flow
-
 import { useRef } from 'react'
 import { useNetInfo } from '@react-native-community/netinfo'
 import AppSettings from '../../settings/AppSettings'
 import { sendRequest } from '../../endpoint/sendTrackingSignal'
-
 const appSettings = new AppSettings()
 
 const useSendOfflineJpalSignals = () => {
@@ -18,6 +15,7 @@ const useSendOfflineJpalSignals = () => {
 
   if (previousIsInternetReachable.current !== isInternetReachable) {
     previousIsInternetReachable.current = isInternetReachable
+
     if (isInternetReachable) {
       sendOfflineSignals().catch(e => console.error(e))
     }

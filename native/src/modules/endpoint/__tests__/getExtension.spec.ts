@@ -1,7 +1,4 @@
-// @flow
-
 import getExtension from '../getExtension'
-
 describe('getExtension', () => {
   it('should return the extension of a regular file-url', () => {
     expect(getExtension('https://ex.am/p.l/thumbnail.png')).toBe('png')

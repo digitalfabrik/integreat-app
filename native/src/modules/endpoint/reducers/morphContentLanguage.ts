@@ -1,5 +1,3 @@
-// @flow
-
 import type {
   CategoryRouteStateType,
   CityContentStateType,
@@ -19,8 +17,8 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     console.warn('Route was not ready when translating. Will not translate this route.')
     return route
   }
-  const { depth, allAvailableLanguages } = route
 
+  const { depth, allAvailableLanguages } = route
   const translatedPath = allAvailableLanguages.get(newLanguage)
 
   if (!translatedPath) {
@@ -36,6 +34,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
   }
 
   const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
+
   if (!rootModel) {
     console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
                       but is referenced as translation for ${newLanguage}.`)
@@ -44,19 +43,18 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
 
   const resultModels = {}
   const resultChildren = {}
-
   forEachTreeNode(
     rootModel,
     node => newCategoriesMap.getChildren(node),
     depth,
     (node, children) => {
       resultModels[node.path] = node
+
       if (children) {
         resultChildren[node.path] = children.map(child => child.path)
       }
     }
   )
-
   return {
     routeType: CATEGORIES_ROUTE,
     path: translatedPath,
@@ -70,13 +68,14 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
   }
 }
 
-const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage: string) => (
+const eventRouteTranslator = (newEvents: ReadonlyArray<EventModel>, newLanguage: string) => (
   route: EventRouteStateType
 ): EventRouteStateType => {
   if (route.status !== 'ready') {
     console.warn('Route was not ready when translating. Will not translate this route.')
     return route
   }
+
   const { allAvailableLanguages, city, path } = route
 
   if (!allAvailableLanguages.has(newLanguage)) {
@@ -91,6 +90,7 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
   }
 
   const translatedPath = allAvailableLanguages.get(newLanguage)
+
   if (!translatedPath) {
     // Route is a list of all events
     return {
@@ -123,13 +123,14 @@ const eventRouteTranslator = (newEvents: $ReadOnlyArray<EventModel>, newLanguage
   }
 }
 
-const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: string) => (
+const poiRouteTranslator = (newPois: ReadonlyArray<PoiModel>, newLanguage: string) => (
   route: PoiRouteStateType
 ): PoiRouteStateType => {
   if (route.status !== 'ready') {
     console.warn('Route was not ready when translating. Will not translate this route.')
     return route
   }
+
   const { allAvailableLanguages, city, path } = route
 
   if (!allAvailableLanguages.has(newLanguage)) {
@@ -144,6 +145,7 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
   }
 
   const translatedPath = allAvailableLanguages.get(newLanguage)
+
   if (!translatedPath) {
     // Route is a list of all pois
     return {
@@ -179,11 +181,9 @@ const poiRouteTranslator = (newPois: $ReadOnlyArray<PoiModel>, newLanguage: stri
 const translateRoutes = (state: CityContentStateType, action: MorphContentLanguageActionType): RouteMappingType => {
   const { routeMapping, city } = state
   const { newCategoriesMap, newEvents, newPois, newLanguage } = action.params
-
   const categoryTranslator = categoryRouteTranslator(newCategoriesMap, city, newLanguage)
   const eventTranslator = eventRouteTranslator(newEvents, newLanguage)
   const poiTranslator = poiRouteTranslator(newPois, newLanguage)
-
   return mapValues(routeMapping, route => {
     if (route.routeType === CATEGORIES_ROUTE) {
       return categoryTranslator(route)
@@ -203,13 +203,17 @@ const morphContentLanguage = (
   action: MorphContentLanguageActionType
 ): CityContentStateType => {
   const { newResourceCache, newCategoriesMap } = action.params
-
   const translatedRouteMapping = translateRoutes(state, action)
-
   return {
     ...state,
-    resourceCache: { status: 'ready', progress: 1, value: newResourceCache },
-    searchRoute: { categoriesMap: newCategoriesMap },
+    resourceCache: {
+      status: 'ready',
+      progress: 1,
+      value: newResourceCache
+    },
+    searchRoute: {
+      categoriesMap: newCategoriesMap
+    },
     routeMapping: translatedRouteMapping,
     switchingLanguage: false
   }

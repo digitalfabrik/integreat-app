@@ -1,9 +1,5 @@
-// @flow
-
-import { typeof I18nManager as I18nManagerType } from 'react-native'
-
+import { I18nManager as I18nManagerType } from 'react-native'
 const isRTL = false
-
 const I18nManager: I18nManagerType = {
   isRTL,
   doLeftAndRightSwapInRTL: true,
@@ -13,12 +9,17 @@ const I18nManager: I18nManagerType = {
   forceRTL: (forceRTL: boolean) => {
     I18nManager.isRTL = forceRTL
   },
-  getConstants: (): {| doLeftAndRightSwapInRTL: boolean, isRTL: boolean |} => {
-    return { doLeftAndRightSwapInRTL: true, isRTL }
+  getConstants: (): {
+    doLeftAndRightSwapInRTL: boolean
+    isRTL: boolean
+  } => {
+    return {
+      doLeftAndRightSwapInRTL: true,
+      isRTL
+    }
   },
   swapLeftAndRightInRTL: (flipStyles: boolean) => {
     throw Error('Not yet implemented.')
   }
 }
-
 module.exports = I18nManager

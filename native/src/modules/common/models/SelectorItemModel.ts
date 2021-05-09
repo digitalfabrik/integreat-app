@@ -1,12 +1,10 @@
-// @flow
-
 export default class SelectorItemModel {
   _code: string
   _name: string
   _enabled: boolean
   _onPress: () => void
 
-  constructor(params: { code: string, name: string, enabled: boolean, onPress: () => void }) {
+  constructor(params: { code: string; name: string; enabled: boolean; onPress: () => void }) {
     this._code = params.code
     this._name = params.name
     this._enabled = params.enabled

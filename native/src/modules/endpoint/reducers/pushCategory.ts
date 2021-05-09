@@ -1,5 +1,3 @@
-// @flow
-
 import type { CategoryRouteStateType, CityContentStateType, PathType, RouteStateType } from '../../app/StateType'
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
@@ -26,20 +24,20 @@ const extractResultModelsAndChildren = (
   root: CategoryModel,
   categoriesMap: CategoriesMapModel,
   depth: number
-): {|
-  resultModels: { [path: PathType]: CategoryModel },
-  resultChildren: { [path: PathType]: $ReadOnlyArray<PathType> }
-|} => {
+): {
+  resultModels: Record<PathType, CategoryModel>
+  resultChildren: Record<PathType, ReadonlyArray<PathType>>
+} => {
   // Extracts models and children from the (updated) categories map.
   const resultModels = {}
   const resultChildren = {}
-
   forEachTreeNode(
     root,
     (node: CategoryModel) => categoriesMap.getChildren(node),
     depth,
     (node, children) => {
       resultModels[node.path] = node
+
       if (children) {
         resultChildren[node.path] = children.map(child => child.path)
       }
@@ -53,12 +51,10 @@ const extractResultModelsAndChildren = (
 
 const pushCategory = (state: CityContentStateType, action: PushCategoryActionType): CityContentStateType => {
   const { categoriesMap, path, depth, key, language, city, resourceCache, cityLanguages, refresh } = action.params
-
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache =
     state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
-
-  const root: ?CategoryModel = categoriesMap.findCategoryByPath(path)
+  const root: CategoryModel | null | undefined = categoriesMap.findCategoryByPath(path)
 
   if (!root) {
     const route: CategoryRouteStateType = {
@@ -71,19 +67,17 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
       message: `Could not find a category with path '${path}'.`,
       code: ErrorCodes.PageNotFound
     }
-
     return {
       ...state,
-      routeMapping: {
-        ...state.routeMapping,
-        [key]: route
-      },
+      routeMapping: { ...state.routeMapping, [key]: route },
       resourceCache: {
         status: 'ready',
         progress: 1,
         value: newResourceCache
       },
-      searchRoute: { categoriesMap }
+      searchRoute: {
+        categoriesMap
+      }
     }
   }
 
@@ -98,7 +92,6 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         language === route.language
     )
     .some(route => route.status === 'loading')
-
   const newRouteMapping = { ...state.routeMapping }
 
   if (refresh) {
@@ -116,7 +109,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
           return
         }
 
-        const root: ?CategoryModel = categoriesMap.findCategoryByPath(route.path)
+        const root: CategoryModel | null | undefined = categoriesMap.findCategoryByPath(route.path)
 
         if (!root) {
           newRouteMapping[key] = {
@@ -131,12 +124,12 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
           }
         } else {
           const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
-
           const previousMapping = state.routeMapping[key]
 
           if (previousMapping.routeType !== CATEGORIES_ROUTE) {
             throw Error('Previous mapping was not a category')
           }
+
           if (!previousMapping.path) {
             throw Error('Path in previous mapping is null')
           }
@@ -157,7 +150,6 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   }
 
   const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
-
   const newRouteData = {
     routeType: CATEGORIES_ROUTE,
     path: root.path,
@@ -168,22 +160,27 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     language,
     city
   }
-
   const newRoute: CategoryRouteStateType =
-    otherPageLoading && !refresh ? { status: 'loading', ...newRouteData } : { status: 'ready', ...newRouteData }
-
+    otherPageLoading && !refresh
+      ? {
+          status: 'loading',
+          ...newRouteData
+        }
+      : {
+          status: 'ready',
+          ...newRouteData
+        }
   return {
     ...state,
-    routeMapping: {
-      ...newRouteMapping,
-      [key]: newRoute
-    },
+    routeMapping: { ...newRouteMapping, [key]: newRoute },
     resourceCache: {
       status: 'ready',
       progress: 1,
       value: newResourceCache
     },
-    searchRoute: { categoriesMap }
+    searchRoute: {
+      categoriesMap
+    }
   }
 }
 

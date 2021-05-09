@@ -1,5 +1,3 @@
-// @flow
-
 import buildConfig from '../../modules/app/constants/buildConfig'
 import openExternalUrl from '../../modules/common/openExternalUrl'
 

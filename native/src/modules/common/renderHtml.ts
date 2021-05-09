@@ -1,12 +1,10 @@
-// @flow
-
 import { getFontFaceSource } from '../platform/constants/webview'
 import type { ThemeType } from '../theme/constants'
 import type { ParsedCacheDictionaryType } from './components/Page'
 import { config } from 'translations'
 
 // language=JavaScript
-const renderJS = (cacheDictionary: { [remoteUrl: string]: string }) => `
+const renderJS = (cacheDictionary: Record<string, string>) => `
 // Catching occurring errors
 (function() {
   function reportError (message) {

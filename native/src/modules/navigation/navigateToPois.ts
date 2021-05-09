@@ -1,12 +1,10 @@
-// @flow
-
 import type { Dispatch } from 'redux'
 import type { FetchPoiActionType, StoreActionType } from '../app/StoreActionType'
 import { generateKey } from '../app/generateRouteKey'
 import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { POIS_ROUTE } from 'api-client/src/routes'
 
-const navigateToPois = <T: RoutesType>({
+const navigateToPois = <T extends RoutesType>({
   navigation,
   dispatch,
   cityCode,
@@ -14,17 +12,19 @@ const navigateToPois = <T: RoutesType>({
   cityContentPath,
   key = generateKey(),
   forceRefresh = false
-}: {|
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>,
-  cityCode: string,
-  languageCode: string,
-  cityContentPath: ?string,
-  key?: string,
+}: {
+  dispatch: Dispatch<StoreActionType>
+  navigation: NavigationPropType<T>
+  cityCode: string
+  languageCode: string
+  cityContentPath: string | null | undefined
+  key?: string
   forceRefresh?: boolean
-|}) => {
-  navigation.navigate({ name: POIS_ROUTE, key })
-
+}) => {
+  navigation.navigate({
+    name: POIS_ROUTE,
+    key
+  })
   const fetchPoi: FetchPoiActionType = {
     type: 'FETCH_POI',
     params: {
@@ -32,10 +32,12 @@ const navigateToPois = <T: RoutesType>({
       language: languageCode,
       path: cityContentPath,
       key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      criterion: {
+        forceUpdate: forceRefresh,
+        shouldRefreshResources: forceRefresh
+      }
     }
   }
-
   dispatch(fetchPoi)
 }
 

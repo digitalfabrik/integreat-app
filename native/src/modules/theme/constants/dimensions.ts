@@ -1,14 +1,11 @@
-// @flow
-
-export type DimensionsType = {|
-  headerHeight: number,
-  modalHeaderHeight: number,
-  categoryListItem: {|
-    iconSize: number,
+export type DimensionsType = {
+  headerHeight: number
+  modalHeaderHeight: number
+  categoryListItem: {
+    iconSize: number
     margin: number
-  |}
-|}
-
+  }
+}
 const dimensions: DimensionsType = {
   headerHeight: 60,
   modalHeaderHeight: 40,
@@ -17,5 +14,4 @@ const dimensions: DimensionsType = {
     margin: 10
   }
 }
-
 export default dimensions

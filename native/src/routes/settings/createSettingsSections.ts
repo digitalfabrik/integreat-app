@@ -1,6 +1,6 @@
-// @flow
-
-import { type TFunction } from 'react-i18next'
+import { $Shape } from 'utility-types'
+import type { TFunction } from 'react-i18next'
+import 'react-i18next'
 import NativeConstants from '../../modules/native-constants/NativeConstants'
 import type { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
@@ -13,27 +13,23 @@ import type { SettingsRouteType } from 'api-client'
 import { JPAL_TRACKING_ROUTE } from 'api-client'
 import type { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
 import { openSettings } from 'react-native-permissions'
-
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
   changeAction?: (newSettings: SettingsType) => Promise<void>
 ) => Promise<void>
-
 const volatileValues = {
   versionTaps: 0
 }
-
 const TRIGGER_VERSION_TAPS = 25
-
-type CreateSettingsSectionsPropsType = {|
-  setSetting: SetSettingFunctionType,
-  t: TFunction,
-  languageCode: string,
-  cityCode: ?string,
-  navigation: NavigationPropType<SettingsRouteType>,
-  settings: SettingsType,
-  showSnackbar: string => void
-|}
+type CreateSettingsSectionsPropsType = {
+  setSetting: SetSettingFunctionType
+  t: TFunction
+  languageCode: string
+  cityCode: string | null | undefined
+  navigation: NavigationPropType<SettingsRouteType>
+  settings: SettingsType
+  showSnackbar: (arg0: string) => void
+}
 
 const createSettingsSections = ({
   setSetting,
@@ -57,19 +53,24 @@ const createSettingsSections = ({
               getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
               onPress: () => {
                 setSetting(
-                  settings => ({ allowPushNotifications: !settings.allowPushNotifications }),
+                  settings => ({
+                    allowPushNotifications: !settings.allowPushNotifications
+                  }),
                   async newSettings => {
                     if (!cityCode) {
                       // No city selected so nothing to do here
                       return
                     }
+
                     if (!NotificationsManager.pushNotificationsSupported()) {
                       showSnackbar('notSupportedByDevice')
                       // Reset displayed setting in app
                       throw new Error('Not supported by device')
                     }
+
                     if (newSettings.allowPushNotifications) {
                       const status = await NotificationsManager.requestPushNotificationPermission()
+
                       if (status) {
                         await NotificationsManager.subscribeNews(cityCode, languageCode)
                       } else {
@@ -82,6 +83,7 @@ const createSettingsSections = ({
                       if (!NotificationsManager.pushNotificationsSupported()) {
                         throw new Error('Not supported by device')
                       }
+
                       await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
                   }
@@ -91,12 +93,16 @@ const createSettingsSections = ({
           ]),
       {
         title: t('sentryTitle'),
-        description: t('sentryDescription', { appName: buildConfig().appName }),
+        description: t('sentryDescription', {
+          appName: buildConfig().appName
+        }),
         hasSwitch: true,
         getSettingValue: (settings: SettingsType) => settings.errorTracking,
         onPress: () => {
           setSetting(
-            settings => ({ errorTracking: !settings.errorTracking }),
+            settings => ({
+              errorTracking: !settings.errorTracking
+            }),
             async newSettings => {
               if (newSettings.errorTracking && !Sentry.getCurrentHub().getClient()) {
                 initSentry()
@@ -109,7 +115,9 @@ const createSettingsSections = ({
       },
       {
         accessibilityRole: 'link',
-        title: t('about', { appName: buildConfig().appName }),
+        title: t('about', {
+          appName: buildConfig().appName
+        }),
         onPress: () => {
           const aboutUrls = buildConfig().aboutUrls
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
@@ -123,9 +131,12 @@ const createSettingsSections = ({
       },
       {
         accessibilityRole: 'none',
-        title: t('version', { version: NativeConstants.appVersion }),
+        title: t('version', {
+          version: NativeConstants.appVersion
+        }),
         onPress: () => {
           volatileValues.versionTaps++
+
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
             volatileValues.versionTaps = 0
             throw Error('This error was thrown for testing purposes. Please ignore this error.')
@@ -142,7 +153,9 @@ const createSettingsSections = ({
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {
-                navigation.navigate(JPAL_TRACKING_ROUTE, { trackingCode: settings.jpalTrackingCode })
+                navigation.navigate(JPAL_TRACKING_ROUTE, {
+                  trackingCode: settings.jpalTrackingCode
+                })
               }
             }
           ])

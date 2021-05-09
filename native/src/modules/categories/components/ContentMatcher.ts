@@ -1,5 +1,3 @@
-// @flow
-
 import normalizeSearchString from '../../common/normalizeSearchString'
 
 class ContentMatcher {
@@ -21,13 +19,18 @@ class ContentMatcher {
     return wordsAfterMatch.slice(0, numWords + 1).join(' ')
   }
 
-  getMatchedContent(query: ?string, content: ?string, numWordsSurrounding: number): ?string {
+  getMatchedContent(
+    query: string | null | undefined,
+    content: string | null | undefined,
+    numWordsSurrounding: number
+  ): string | null | undefined {
     if (!query || !query.length || !content) {
       return null
     }
-    const normalizedFilter = normalizeSearchString(query)
 
+    const normalizedFilter = normalizeSearchString(query)
     const matchIndex = normalizeSearchString(content).indexOf(normalizedFilter)
+
     if (matchIndex === -1) {
       return null
     }

@@ -1,7 +1,4 @@
-// @flow
-
 import DatabaseContext from '../DatabaseContext'
-
 describe('DatabaseContext', () => {
   describe('sameCityAs', () => {
     it('should return false if the cityCode is null', () => {

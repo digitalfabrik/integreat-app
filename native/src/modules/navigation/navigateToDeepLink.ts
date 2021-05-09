@@ -1,5 +1,3 @@
-// @flow
-
 import type { NavigationPropType } from '../app/constants/NavigationTypes'
 import type { StoreActionType } from '../app/StoreActionType'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
@@ -24,16 +22,22 @@ const navigateToDeepLink = async (
   const settings: SettingsType = await appSettings.loadSettings()
   const { introShown, selectedCity } = settings
   const { introSlides, fixedCity } = buildConfig().featureFlags
-  sendTrackingSignal({ signal: { name: OPEN_DEEP_LINK_SIGNAL_NAME, url } })
+  sendTrackingSignal({
+    signal: {
+      name: OPEN_DEEP_LINK_SIGNAL_NAME,
+      url
+    }
+  })
 
   if (introSlides && !introShown) {
     // Show intro slides first and handle deep link later
-    navigation.replace(INTRO_ROUTE, { deepLink: url })
+    navigation.replace(INTRO_ROUTE, {
+      deepLink: url
+    })
   } else {
     const pathname = new Url(url).pathname
     const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
     const routeInformation = routeParser.route()
-
     // Don't overwrite already selected city
     const selectedCityCode = fixedCity || selectedCity || routeInformation?.cityCode || null
     const languageCode = routeInformation?.languageCode || language
@@ -47,7 +51,10 @@ const navigateToDeepLink = async (
         cityCode: selectedCityCode,
         languageCode,
         routeName: DASHBOARD_ROUTE,
-        cityContentPath: createCityContentPath({ cityCode: selectedCityCode, languageCode }),
+        cityContentPath: createCityContentPath({
+          cityCode: selectedCityCode,
+          languageCode
+        }),
         forceRefresh: false,
         resetNavigation: true
       })
@@ -64,8 +71,7 @@ const navigateToDeepLink = async (
     }
 
     if (!routeInformation) {
-      console.warn('This is not a supported route. Skipping.')
-      // TODO IGAPP-521 show snackbar route not found
+      console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
     }
   }
 }

@@ -1,5 +1,3 @@
-// @flow
-
 import type { Dispatch } from 'redux'
 import type { FetchNewsActionType, StoreActionType } from '../app/StoreActionType'
 import { generateKey } from '../app/generateRouteKey'
@@ -7,7 +5,7 @@ import type { NavigationPropType, RoutesType } from '../app/constants/Navigation
 import { NEWS_ROUTE } from 'api-client/src/routes'
 import type { NewsType } from 'api-client/src/routes'
 
-const navigateToNews = <T: RoutesType>({
+const navigateToNews = <T extends RoutesType>({
   navigation,
   dispatch,
   cityCode,
@@ -16,17 +14,20 @@ const navigateToNews = <T: RoutesType>({
   newsId,
   key = generateKey(),
   forceRefresh = false
-}: {|
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>,
-  cityCode: string,
-  languageCode: string,
-  type: NewsType,
-  newsId: ?string,
-  key?: string,
+}: {
+  dispatch: Dispatch<StoreActionType>
+  navigation: NavigationPropType<T>
+  cityCode: string
+  languageCode: string
+  type: NewsType
+  newsId: string | null | undefined
+  key?: string
   forceRefresh?: boolean
-|}) => {
-  navigation.navigate({ name: NEWS_ROUTE, key })
+}) => {
+  navigation.navigate({
+    name: NEWS_ROUTE,
+    key
+  })
   const fetchNews: FetchNewsActionType = {
     type: 'FETCH_NEWS',
     params: {
@@ -35,10 +36,12 @@ const navigateToNews = <T: RoutesType>({
       newsId,
       type,
       key,
-      criterion: { forceUpdate: forceRefresh, shouldRefreshResources: forceRefresh }
+      criterion: {
+        forceUpdate: forceRefresh,
+        shouldRefreshResources: forceRefresh
+      }
     }
   }
-
   dispatch(fetchNews)
 }
 

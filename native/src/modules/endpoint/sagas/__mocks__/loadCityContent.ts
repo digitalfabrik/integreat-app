@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
 import type { DataContainer } from '../../DataContainer'

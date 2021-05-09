@@ -1,5 +1,3 @@
-// @flow
-
 export default {
   type: 'languageDetector',
   async: false,

@@ -1,5 +1,3 @@
-// @flow
-
 import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
@@ -22,7 +20,6 @@ import type {
 } from '../../../app/StoreActionType'
 import pushEvent from '../pushEvent'
 import createCityContent from '../createCityContent'
-
 describe('morphContentLanguage', () => {
   const createCategory = ({
     root,
@@ -30,13 +27,13 @@ describe('morphContentLanguage', () => {
     order,
     availableLanguages,
     parentPath
-  }: {|
-    root: boolean,
-    path: string,
-    order: number,
-    availableLanguages: Map<string, string>,
+  }: {
+    root: boolean
+    path: string
+    order: number
+    availableLanguages: Map<string, string>
     parentPath: string
-  |}) =>
+  }) =>
     new CategoryModel({
       root,
       path,
@@ -80,7 +77,15 @@ describe('morphContentLanguage', () => {
   })
   const enCategoriesMap = new CategoriesMapModel([rootEnCategory, sub1EnCategory, sub2EnCategory, sub2subEnCategory])
 
-  const createGermanCategoriesMap = ({ translatable }: { translatable: boolean } = { translatable: true }) => {
+  const createGermanCategoriesMap = (
+    {
+      translatable
+    }: {
+      translatable: boolean
+    } = {
+      translatable: true
+    }
+  ) => {
     const deCategories = [
       createCategory({
         root: true,
@@ -116,7 +121,7 @@ describe('morphContentLanguage', () => {
 
   const cityLanguages = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
-  const createEvent = ({ path, availableLanguages }: {| path: string, availableLanguages: Map<string, string> |}) =>
+  const createEvent = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
     new EventModel({
       path,
       title: 'title',
@@ -145,7 +150,7 @@ describe('morphContentLanguage', () => {
       hash: '12345'
     })
 
-  const createPoi = ({ path, availableLanguages }: {| path: string, availableLanguages: Map<string, string> |}) =>
+  const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
     new PoiModel({
       path: 'test',
       title: 'test',
@@ -180,10 +185,17 @@ describe('morphContentLanguage', () => {
     path: '/augsburg/en/events/third_event',
     availableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
   })
-
   const enEvents = [enFirstEvent, enSecondEvent, enThirdEvent]
 
-  const createGermanEvents = ({ translatable }: { translatable: boolean } = { translatable: true }) => [
+  const createGermanEvents = (
+    {
+      translatable
+    }: {
+      translatable: boolean
+    } = {
+      translatable: true
+    }
+  ) => [
     createEvent({
       path: '/augsburg/de/events/erstes_event',
       availableLanguages: new Map(translatable ? [['de', '/augsburg/en/events/first_event']] : [])
@@ -210,10 +222,17 @@ describe('morphContentLanguage', () => {
     path: '/augsburg/en/events/third_event',
     availableLanguages: new Map([['de', '/augsburg/de/events/drittes_event']])
   })
-
   const enPois = [enFirstPoi, enSecondPoi, enThirdPoi]
 
-  const createGermanPois = ({ translatable }: { translatable: boolean } = { translatable: true }) => [
+  const createGermanPois = (
+    {
+      translatable
+    }: {
+      translatable: boolean
+    } = {
+      translatable: true
+    }
+  ) => [
     createPoi({
       path: '/augsburg/de/poi/erstes_poi',
       availableLanguages: new Map(translatable ? [['de', '/augsburg/en/poi/first_poi']] : [])
@@ -235,9 +254,9 @@ describe('morphContentLanguage', () => {
       eventPath,
       events
     }: {
-      path: string,
-      categoriesMap: CategoriesMapModel,
-      eventPath: ?string,
+      path: string
+      categoriesMap: CategoriesMapModel
+      eventPath: string | null | undefined
       events: Array<EventModel>
     } = {
       path: '/augsburg/de',
@@ -260,7 +279,6 @@ describe('morphContentLanguage', () => {
         refresh: false
       }
     }
-
     const pushEventAction: PushEventActionType = {
       type: 'PUSH_EVENT',
       params: {
@@ -291,22 +309,17 @@ describe('morphContentLanguage', () => {
         newLanguage: 'de'
       }
     }
-
     const previous = prepareState({
       path: '/augsburg/de/willkommen',
       eventPath: null,
       events,
       categoriesMap
     })
-
     const newState = morphContentLanguage(previous, action)
-
     expect(newState).toEqual(previous)
   })
-
   it('should warn if category models are invalid', () => {
     const spy = jest.spyOn(console, 'warn')
-
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
@@ -317,10 +330,9 @@ describe('morphContentLanguage', () => {
         newLanguage: 'en'
       }
     }
-
     const previous = prepareState()
-
     const route = previous.routeMapping['route-0']
+
     if (route.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
@@ -329,7 +341,6 @@ describe('morphContentLanguage', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
-
   it('should translate route', () => {
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
@@ -341,16 +352,13 @@ describe('morphContentLanguage', () => {
         newLanguage: 'en'
       }
     }
-
     const previous = prepareState({
       path: '/augsburg/de',
       categoriesMap: createGermanCategoriesMap(),
       eventPath: '/augsburg/de/events/drittes_event',
       events: createGermanEvents()
     })
-
     const newState = morphContentLanguage(previous, action)
-
     expect(newState).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
@@ -400,10 +408,11 @@ describe('morphContentLanguage', () => {
         progress: 1,
         value: {}
       },
-      searchRoute: { categoriesMap: enCategoriesMap }
+      searchRoute: {
+        categoriesMap: enCategoriesMap
+      }
     })
   })
-
   it('should set languageNotAvailable for category', () => {
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
@@ -415,14 +424,14 @@ describe('morphContentLanguage', () => {
         newLanguage: 'en'
       }
     }
-
     const previous = prepareState({
       path: '/augsburg/de/anlaufstellen',
-      categoriesMap: createGermanCategoriesMap({ translatable: false }),
+      categoriesMap: createGermanCategoriesMap({
+        translatable: false
+      }),
       eventPath: null,
       events: createGermanEvents()
     })
-
     expect(morphContentLanguage(previous, action)).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
@@ -446,10 +455,11 @@ describe('morphContentLanguage', () => {
         progress: 1,
         value: {}
       },
-      searchRoute: { categoriesMap: enCategoriesMap }
+      searchRoute: {
+        categoriesMap: enCategoriesMap
+      }
     })
   })
-
   it('should set languageNotAvailable for event', () => {
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
@@ -461,14 +471,14 @@ describe('morphContentLanguage', () => {
         newLanguage: 'en'
       }
     }
-
     const previous = prepareState({
       path: '/augsburg/de',
       categoriesMap: createGermanCategoriesMap(),
       eventPath: '/augsburg/de/events/drittes_event',
-      events: createGermanEvents({ translatable: false })
+      events: createGermanEvents({
+        translatable: false
+      })
     })
-
     expect(morphContentLanguage(previous, action)).toEqual({
       city: 'augsburg',
       switchingLanguage: false,
@@ -492,7 +502,9 @@ describe('morphContentLanguage', () => {
         progress: 1,
         value: {}
       },
-      searchRoute: { categoriesMap: enCategoriesMap }
+      searchRoute: {
+        categoriesMap: enCategoriesMap
+      }
     })
   })
 })

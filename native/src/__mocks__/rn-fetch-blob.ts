@@ -1,11 +1,5 @@
-// @flow
-
 import path from 'path'
-
-type MockFilesType = {
-  [path: string]: string
-}
-
+type MockFilesType = Record<string, string>
 const mockFiles: MockFilesType = {}
 
 function deleteAllMockFiles() {
@@ -46,12 +40,12 @@ function unlink(file: string): Promise<void> {
   const filePath = path.normalize(file)
   Object.keys(mockFiles).forEach(path => {
     const slicedPath = path.slice(0, filePath.length)
+
     // Delete file if paths are matching or file is an ancestor directory
     if (filePath === path || (filePath === slicedPath && path[filePath.length] === '/')) {
       delete mockFiles[path]
     }
   })
-
   return Promise.resolve()
 }
 

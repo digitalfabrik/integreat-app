@@ -1,5 +1,3 @@
-// @flow
-
 import { connect } from 'react-redux'
 import type { Dispatch } from 'redux'
 import type { StateType } from '../../../modules/app/StateType'
@@ -10,31 +8,26 @@ import { LanguageModel, NEWS_ROUTE } from 'api-client'
 import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 import type { ThemeType } from 'build-configs/ThemeType'
-
-type OwnPropsType = {|
-  route: RoutePropType<ChangeLanguageModalRouteType>,
+type OwnPropsType = {
+  route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>
-|}
-
-type StatePropsType = {|
-  currentLanguage: string,
-  languages: Array<LanguageModel>,
-  availableLanguages: Array<string>,
-  newsType: ?NewsType
-|}
-
-type DispatchPropsType = {|
+}
+type StatePropsType = {
+  currentLanguage: string
+  languages: Array<LanguageModel>
+  availableLanguages: Array<string>
+  newsType: NewsType | null | undefined
+}
+type DispatchPropsType = {
   changeLanguage: (newLanguage: string) => void
-|}
-
-type PropsType = {| ...OwnPropsType, ...StatePropsType, ...DispatchPropsType |}
+}
+type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const currentLanguage: string = ownProps.route.params.currentLanguage
   const languages: Array<LanguageModel> = ownProps.route.params.languages
   const availableLanguages: Array<string> = ownProps.route.params.availableLanguages
   const previousKey = ownProps.route.params.previousKey
-
   const newsRouteMapping = state.cityContent?.routeMapping
   const newsType =
     (previousKey &&
@@ -43,7 +36,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       newsRouteMapping[previousKey].routeType === NEWS_ROUTE &&
       newsRouteMapping[previousKey].type) ||
     null
-
   return {
     currentLanguage,
     languages,
@@ -53,15 +45,18 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 }
 
 type DispatchType = Dispatch<StoreActionType>
+
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): DispatchPropsType => {
   const cityCode = ownProps.route.params.cityCode
   const previousKey = ownProps.route.params.previousKey
-
   return {
-    changeLanguage: (newLanguage: string, newsType: ?NewsType) => {
+    changeLanguage: (newLanguage: string, newsType: NewsType | null | undefined) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
-        params: { newLanguage, city: cityCode }
+        params: {
+          newLanguage,
+          city: cityCode
+        }
       })
 
       if (newsType) {
@@ -87,4 +82,10 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
 export default connect<PropsType, OwnPropsType, _, _, _, _>(
   mapStateToProps,
   mapDispatchToProps
-)(withTheme<{| ...PropsType, theme: ThemeType |}>(ChangeLanguageModal))
+)(
+  withTheme<
+    PropsType & {
+      theme: ThemeType
+    }
+  >(ChangeLanguageModal)
+)

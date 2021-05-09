@@ -1,5 +1,3 @@
-// @flow
-
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -24,143 +22,132 @@ import DatabaseContext from './DatabaseContext'
 import { map, mapValues } from 'lodash'
 import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from './persistentVersions'
 import deleteIfExists from './deleteIfExists'
-
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = RNFetchBlob.fs.dirs.DocumentDir
 export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
 export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
-
 const MAX_STORED_CITIES = 3
-
-type ContentCategoryJsonType = {|
-  root: boolean,
-  path: string,
-  title: string,
-  content: string,
-  last_update: string,
-  thumbnail: string,
-  available_languages: { [code: string]: string },
-  parent_path: string,
-  children: Array<string>,
-  order: number,
+type ContentCategoryJsonType = {
+  root: boolean
+  path: string
+  title: string
+  content: string
+  last_update: string
+  thumbnail: string
+  available_languages: Record<string, string>
+  parent_path: string
+  children: Array<string>
+  order: number
   hash: string
-|}
-
-type LocationJsonType = {|
-  address: ?string,
-  town: ?string,
-  postcode: ?string,
-  latitude: ?string,
-  longitude: ?string,
-  country: ?string,
-  region: ?string,
-  state: ?string,
-  name: ?string
-|}
-
-type FeaturedImageInstanceJsonType = {|
-  url: string,
-  width: number,
+}
+type LocationJsonType = {
+  address: string | null | undefined
+  town: string | null | undefined
+  postcode: string | null | undefined
+  latitude: string | null | undefined
+  longitude: string | null | undefined
+  country: string | null | undefined
+  region: string | null | undefined
+  state: string | null | undefined
+  name: string | null | undefined
+}
+type FeaturedImageInstanceJsonType = {
+  url: string
+  width: number
   height: number
-|}
-
-type FeaturedImageJsonType = {|
-  description: ?string,
-  thumbnail: FeaturedImageInstanceJsonType,
-  medium: FeaturedImageInstanceJsonType,
-  large: FeaturedImageInstanceJsonType,
+}
+type FeaturedImageJsonType = {
+  description: string | null | undefined
+  thumbnail: FeaturedImageInstanceJsonType
+  medium: FeaturedImageInstanceJsonType
+  large: FeaturedImageInstanceJsonType
   full: FeaturedImageInstanceJsonType
-|}
-
-type ContentEventJsonType = {|
-  path: string,
-  title: string,
-  content: string,
-  last_update: string,
-  thumbnail: string,
-  available_languages: { [code: string]: string },
-  hash: string,
-  excerpt: string,
-  date: {|
-    start_date: string,
-    end_date: string,
-    all_day: boolean
-  |},
-  location: LocationJsonType,
-  featured_image: ?FeaturedImageJsonType
-|}
-
-type ContentCityJsonType = {|
-  name: string,
-  live: boolean,
-  code: string,
-  prefix: ?string,
-  extras_enabled: boolean,
-  events_enabled: boolean,
-  pois_enabled: boolean,
-  sorting_name: string,
-  longitude: number | null,
-  latitude: number | null,
-  aliases: { [alias: string]: {| longitude: number, latitude: number |} } | null,
-  pushNotificationsEnabled: boolean,
-  tunewsEnabled: boolean
-|}
-
-type ContentPoiJsonType = {|
-  path: string,
-  title: string,
-  content: string,
-  thumbnail: string,
-  availableLanguages: { [code: string]: string },
-  excerpt: string,
-  location: LocationJsonType,
-  lastUpdate: string,
+}
+type ContentEventJsonType = {
+  path: string
+  title: string
+  content: string
+  last_update: string
+  thumbnail: string
+  available_languages: Record<string, string>
   hash: string
-|}
-
+  excerpt: string
+  date: {
+    start_date: string
+    end_date: string
+    all_day: boolean
+  }
+  location: LocationJsonType
+  featured_image: FeaturedImageJsonType | null | undefined
+}
+type ContentCityJsonType = {
+  name: string
+  live: boolean
+  code: string
+  prefix: string | null | undefined
+  extras_enabled: boolean
+  events_enabled: boolean
+  pois_enabled: boolean
+  sorting_name: string
+  longitude: number | null
+  latitude: number | null
+  aliases: Record<
+    string,
+    {
+      longitude: number
+      latitude: number
+    }
+  > | null
+  pushNotificationsEnabled: boolean
+  tunewsEnabled: boolean
+}
+type ContentPoiJsonType = {
+  path: string
+  title: string
+  content: string
+  thumbnail: string
+  availableLanguages: Record<string, string>
+  excerpt: string
+  location: LocationJsonType
+  lastUpdate: string
+  hash: string
+}
 type CityCodeType = string
 type LanguageCodeType = string
-
-type MetaCitiesEntryType = {|
-  languages: {
-    [LanguageCodeType]: {|
+type MetaCitiesEntryType = {
+  languages: Record<
+    LanguageCodeType,
+    {
       lastUpdate: Moment
-    |}
-  },
+    }
+  >
   lastUsage: Moment
-|}
-
-type MetaCitiesJsonType = {
-  [CityCodeType]: {|
-    languages: {
-      [LanguageCodeType]: {|
+}
+type MetaCitiesJsonType = Record<
+  CityCodeType,
+  {
+    languages: Record<
+      LanguageCodeType,
+      {
         last_update: string
-      |}
-    },
+      }
+    >
     last_usage: string
-  |}
+  }
+>
+type CityLastUsageType = {
+  city: CityCodeType
+  lastUsage: Moment
 }
-
-type CityLastUsageType = {| city: CityCodeType, lastUsage: Moment |}
-
-type MetaCitiesType = { [CityCodeType]: MetaCitiesEntryType }
-
-type PageResourceCacheEntryJsonType = {|
-  file_path: string,
-  last_update: string,
+type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
+type PageResourceCacheEntryJsonType = {
+  file_path: string
+  last_update: string
   hash: string
-|}
-
-type PageResourceCacheJsonType = {
-  [url: string]: PageResourceCacheEntryJsonType
 }
-
-type LanguageResourceCacheJsonType = {
-  [path: string]: PageResourceCacheJsonType
-}
-type CityResourceCacheJsonType = {
-  [language: LanguageCodeType]: LanguageResourceCacheJsonType
-}
+type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
+type LanguageResourceCacheJsonType = Record<string, PageResourceCacheJsonType>
+type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
 const mapToObject = (map: Map<string, string>) => {
   const output = {}
@@ -189,6 +176,7 @@ class DatabaseConnector {
     if (!context.cityCode) {
       throw Error("cityCode mustn't be empty")
     }
+
     return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
   }
 
@@ -211,6 +199,7 @@ class DatabaseConnector {
     if (lastUpdate === null) {
       throw Error('cannot set lastUsage to null')
     }
+
     const cityCode = context.cityCode
     const languageCode = context.languageCode
 
@@ -225,7 +214,10 @@ class DatabaseConnector {
     if (!metaData[cityCode]) {
       throw Error('cannot store last update for unused city')
     }
-    metaData[cityCode].languages[languageCode] = { lastUpdate }
+
+    metaData[cityCode].languages[languageCode] = {
+      lastUpdate
+    }
 
     this._storeMetaCities(metaData)
   }
@@ -253,11 +245,14 @@ class DatabaseConnector {
   async _loadMetaCities(): Promise<MetaCitiesType> {
     const path = this.getMetaCitiesPath()
     const fileExists: boolean = await RNFetchBlob.fs.exists(path)
+
     if (fileExists) {
       try {
         const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
         return mapValues(citiesMetaJson, cityMeta => ({
-          languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {| lastUpdate: Moment |} => ({
+          languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {
+            lastUpdate: Moment
+          } => ({
             lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
           })),
           lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
@@ -266,13 +261,16 @@ class DatabaseConnector {
         console.warn('An error occurred while loading cities from JSON', e)
       }
     }
+
     return {}
   }
 
   async _storeMetaCities(metaCities: MetaCitiesType) {
     const path = this.getMetaCitiesPath()
     const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
-      languages: mapValues(cityMeta.languages, ({ lastUpdate }): {| last_update: string |} => ({
+      languages: mapValues(cityMeta.languages, ({ lastUpdate }): {
+        last_update: string
+      } => ({
         last_update: lastUpdate.toISOString()
       })),
       last_usage: cityMeta.lastUsage.toISOString()
@@ -290,17 +288,16 @@ class DatabaseConnector {
 
   async storeLastUsage(context: DatabaseContext, peeking: boolean) {
     const city = context.cityCode
+
     if (!city) {
       throw Error("cityCode mustn't be null")
     }
 
     const metaData = await this._loadMetaCities()
-
     metaData[city] = {
       lastUsage: moment(),
       languages: metaData[city]?.languages || {}
     }
-
     await this._storeMetaCities(metaData)
 
     // Only delete files if not peeking, otherwise if you peek from one city to three different cities, the content of
@@ -312,21 +309,21 @@ class DatabaseConnector {
 
   async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext) {
     const categoryModels = categoriesMap.toArray()
-
-    const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
-      root: category.isRoot(),
-      path: category.path,
-      title: category.title,
-      content: category.content,
-      last_update: category.lastUpdate.toISOString(),
-      thumbnail: category.thumbnail,
-      available_languages: mapToObject(category.availableLanguages),
-      parent_path: category.parentPath,
-      children: categoriesMap.getChildren(category).map(category => category.path),
-      order: category.order,
-      hash: category.hash
-    }))
-
+    const jsonModels = categoryModels.map(
+      (category: CategoryModel): ContentCategoryJsonType => ({
+        root: category.isRoot(),
+        path: category.path,
+        title: category.title,
+        content: category.content,
+        last_update: category.lastUpdate.toISOString(),
+        thumbnail: category.thumbnail,
+        available_languages: mapToObject(category.availableLanguages),
+        parent_path: category.parentPath,
+        children: categoriesMap.getChildren(category).map(category => category.path),
+        order: category.order,
+        hash: category.hash
+      })
+    )
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
 
@@ -339,7 +336,6 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-
     return new CategoriesMapModel(
       json.map((jsonObject: ContentCategoryJsonType) => {
         // $FlowFixMe https://github.com/facebook/flow/issues/5838
@@ -378,27 +374,29 @@ class DatabaseConnector {
   }
 
   async storePois(pois: Array<PoiModel>, context: DatabaseContext) {
-    const jsonModels = pois.map((poi: PoiModel): ContentPoiJsonType => ({
-      path: poi.path,
-      title: poi.title,
-      content: poi.content,
-      thumbnail: poi.thumbnail,
-      availableLanguages: mapToObject(poi.availableLanguages),
-      excerpt: poi.excerpt,
-      location: {
-        address: poi.location.address,
-        town: poi.location.town,
-        postcode: poi.location.postcode,
-        latitude: poi.location.latitude,
-        longitude: poi.location.longitude,
-        country: poi.location.country,
-        region: poi.location.region,
-        state: poi.location.state,
-        name: poi.location.name
-      },
-      lastUpdate: poi.lastUpdate.toISOString(),
-      hash: poi.hash
-    }))
+    const jsonModels = pois.map(
+      (poi: PoiModel): ContentPoiJsonType => ({
+        path: poi.path,
+        title: poi.title,
+        content: poi.content,
+        thumbnail: poi.thumbnail,
+        availableLanguages: mapToObject(poi.availableLanguages),
+        excerpt: poi.excerpt,
+        location: {
+          address: poi.location.address,
+          town: poi.location.town,
+          postcode: poi.location.postcode,
+          latitude: poi.location.latitude,
+          longitude: poi.location.longitude,
+          country: poi.location.country,
+          region: poi.location.region,
+          state: poi.location.state,
+          name: poi.location.name
+        },
+        lastUpdate: poi.lastUpdate.toISOString(),
+        hash: poi.hash
+      })
+    )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
   }
 
@@ -411,7 +409,6 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-
     return json.map((jsonObject: ContentPoiJsonType) => {
       const jsonLocation = jsonObject.location
       // $FlowFixMe https://github.com/facebook/flow/issues/5838
@@ -441,22 +438,23 @@ class DatabaseConnector {
   }
 
   async storeCities(cities: Array<CityModel>) {
-    const jsonModels = cities.map((city: CityModel): ContentCityJsonType => ({
-      name: city.name,
-      live: city.live,
-      code: city.code,
-      prefix: city.prefix,
-      extras_enabled: city.offersEnabled,
-      events_enabled: city.eventsEnabled,
-      pois_enabled: city.poisEnabled,
-      pushNotificationsEnabled: city.pushNotificationsEnabled,
-      tunewsEnabled: city.tunewsEnabled,
-      sorting_name: city.sortingName,
-      longitude: city.longitude,
-      latitude: city.latitude,
-      aliases: city.aliases
-    }))
-
+    const jsonModels = cities.map(
+      (city: CityModel): ContentCityJsonType => ({
+        name: city.name,
+        live: city.live,
+        code: city.code,
+        prefix: city.prefix,
+        extras_enabled: city.offersEnabled,
+        events_enabled: city.eventsEnabled,
+        pois_enabled: city.poisEnabled,
+        pushNotificationsEnabled: city.pushNotificationsEnabled,
+        tunewsEnabled: city.tunewsEnabled,
+        sorting_name: city.sortingName,
+        longitude: city.longitude,
+        latitude: city.latitude,
+        aliases: city.aliases
+      })
+    )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
   }
 
@@ -469,7 +467,6 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-
     return json.map((jsonObject: ContentCityJsonType) => {
       return new CityModel({
         name: jsonObject.name,
@@ -490,42 +487,43 @@ class DatabaseConnector {
   }
 
   async storeEvents(events: Array<EventModel>, context: DatabaseContext) {
-    const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
-      path: event.path,
-      title: event.title,
-      content: event.content,
-      last_update: event.lastUpdate.toISOString(),
-      thumbnail: event.thumbnail,
-      available_languages: mapToObject(event.availableLanguages),
-      hash: event.hash,
-      excerpt: event.excerpt,
-      date: {
-        start_date: event.date.startDate.toISOString(),
-        end_date: event.date.endDate.toISOString(),
-        all_day: event.date.allDay
-      },
-      location: {
-        address: event.location.address,
-        town: event.location.town,
-        postcode: event.location.postcode,
-        latitude: event.location.latitude,
-        longitude: event.location.longitude,
-        country: event.location.country,
-        region: event.location.region,
-        state: event.location.state,
-        name: event.location.name
-      },
-      featured_image: event.featuredImage
-        ? {
-            description: event.featuredImage.description,
-            thumbnail: event.featuredImage.thumbnail,
-            medium: event.featuredImage.medium,
-            large: event.featuredImage.large,
-            full: event.featuredImage.full
-          }
-        : null
-    }))
-
+    const jsonModels = events.map(
+      (event: EventModel): ContentEventJsonType => ({
+        path: event.path,
+        title: event.title,
+        content: event.content,
+        last_update: event.lastUpdate.toISOString(),
+        thumbnail: event.thumbnail,
+        available_languages: mapToObject(event.availableLanguages),
+        hash: event.hash,
+        excerpt: event.excerpt,
+        date: {
+          start_date: event.date.startDate.toISOString(),
+          end_date: event.date.endDate.toISOString(),
+          all_day: event.date.allDay
+        },
+        location: {
+          address: event.location.address,
+          town: event.location.town,
+          postcode: event.location.postcode,
+          latitude: event.location.latitude,
+          longitude: event.location.longitude,
+          country: event.location.country,
+          region: event.location.region,
+          state: event.location.state,
+          name: event.location.name
+        },
+        featured_image: event.featuredImage
+          ? {
+              description: event.featuredImage.description,
+              thumbnail: event.featuredImage.thumbnail,
+              medium: event.featuredImage.medium,
+              large: event.featuredImage.large,
+              full: event.featuredImage.full
+            }
+          : null
+      })
+    )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
 
@@ -538,7 +536,6 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-
     return json.map((jsonObject: ContentEventJsonType) => {
       const jsonDate = jsonObject.date
       const jsonLocation = jsonObject.location
@@ -591,14 +588,16 @@ class DatabaseConnector {
     }
 
     const json: CityResourceCacheJsonType = JSON.parse(await this.readFile(path))
-
     return mapValues(json, (languageResourceCache: LanguageResourceCacheJsonType) =>
       mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
-        mapValues(fileResourceCache, (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
-          filePath: entry.file_path,
-          lastUpdate: moment(entry.last_update, moment.ISO_8601),
-          hash: entry.hash
-        }))
+        mapValues(
+          fileResourceCache,
+          (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
+            filePath: entry.file_path,
+            lastUpdate: moment(entry.last_update, moment.ISO_8601),
+            hash: entry.hash
+          })
+        )
       )
     )
   }
@@ -609,11 +608,14 @@ class DatabaseConnector {
       resourceCache,
       (languageResourceCache: LanguageResourceCacheStateType) =>
         mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
-          mapValues(fileResourceCache, (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
-            file_path: entry.filePath,
-            last_update: entry.lastUpdate.toISOString(),
-            hash: entry.hash
-          }))
+          mapValues(
+            fileResourceCache,
+            (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
+              file_path: entry.filePath,
+              last_update: entry.lastUpdate.toISOString(),
+              hash: entry.hash
+            })
+          )
         )
     )
     await this.writeFile(path, JSON.stringify(json))
@@ -625,27 +627,24 @@ class DatabaseConnector {
    */
   async deleteOldFiles(context: DatabaseContext) {
     const city = context.cityCode
+
     if (!city) {
       throw Error("cityCode mustn't be null")
     }
+
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages
-      .filter(it => it.city !== city)
-      // Sort last usages chronological, from oldest to newest
-      .sort((a, b) => (a.lastUsage.isBefore(b.lastUsage) ? -1 : a.lastUsage.isSame(b.lastUsage) ? 0 : 1))
-      // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
+      .filter(it => it.city !== city) // Sort last usages chronological, from oldest to newest
+      .sort((a, b) => (a.lastUsage.isBefore(b.lastUsage) ? -1 : a.lastUsage.isSame(b.lastUsage) ? 0 : 1)) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
-
     await Promise.all(
       cachesToDelete.map(cityLastUpdate => {
         const city = cityLastUpdate.city
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
-
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])
       })
     )
-
     await this._deleteMetaOfCities(cachesToDelete.map(it => it.city))
   }
 

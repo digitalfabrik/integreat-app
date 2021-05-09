@@ -1,5 +1,3 @@
-// @flow
-
 import type { Saga } from 'redux-saga'
 import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import type { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
@@ -9,15 +7,17 @@ import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import ErrorCodes, { fromError } from '../../error/ErrorCodes'
 import type Moment from 'moment'
-
 export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
-  try {
-    const peeking = yield select(state => isPeekingRoute(state, { routeCity: city }))
 
+  try {
+    const peeking = yield select(state =>
+      isPeekingRoute(state, {
+        routeCity: city
+      })
+    )
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
-
     // Only get languages if we've loaded them, otherwise we're peeking
     const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
 
@@ -26,13 +26,20 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
         call(dataContainer.getEvents, city, language),
         call(dataContainer.getResourceCache, city, language)
       ])
-
       const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
       const refresh = loadCriterion.shouldUpdate(lastUpdate)
-
       const insert: PushEventActionType = {
         type: 'PUSH_EVENT',
-        params: { events, resourceCache, path, cityLanguages, key, language, city, refresh }
+        params: {
+          events,
+          resourceCache,
+          path,
+          cityLanguages,
+          key,
+          language,
+          city,
+          refresh
+        }
       }
       yield put(insert)
     } else {
@@ -68,7 +75,6 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
     yield put(failed)
   }
 }
-
 export default function* (dataContainer: DataContainer): Saga<void> {
   yield takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
 }

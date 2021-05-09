@@ -1,5 +1,3 @@
-// @flow
-
 /**
  * Iterates through a tree until depth is reached. A depth of 0 means only the root is visited.
  * A depth of 1 means the root and the children of it are visited. Please note that for each children of the root
@@ -12,9 +10,9 @@
  */
 const forEachTreeNode = <T>(
   root: T,
-  resolveChildren: T => Array<T>,
+  resolveChildren: (arg0: T) => Array<T>,
   depth: number,
-  nodeAction: (T, ?Array<T>) => void
+  nodeAction: (arg0: T, arg1: Array<T> | null | undefined) => void
 ) => {
   if (depth === 0) {
     nodeAction(root, null)

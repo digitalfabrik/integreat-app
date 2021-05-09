@@ -1,5 +1,3 @@
-// @flow
-
 import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
 import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
@@ -18,14 +16,22 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
     previouslyFetchedNews,
     hasMoreNews
   } = action.params
+
   if (!key) {
     throw new Error('You need to specify a key!')
   }
+
   const getNewsRoute = (): NewsRouteStateType => {
     if (!newsId) {
       const allAvailableLanguages = new Map(availableLanguages.map(language => [language.code, null]))
-      const models = page && previouslyFetchedNews ? { models: [...previouslyFetchedNews, ...news] } : { models: news }
-
+      const models =
+        page && previouslyFetchedNews
+          ? {
+              models: [...previouslyFetchedNews, ...news]
+            }
+          : {
+              models: news
+            }
       return {
         routeType: NEWS_ROUTE,
         status: 'ready',
@@ -39,7 +45,10 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
         ...models
       }
     }
-    const newsItem: ?LocalNewsModel | TunewsModel = news.find(newsItem => newsItem.id.toString() === newsId)
+
+    const newsItem: (LocalNewsModel | null | undefined) | TunewsModel = news.find(
+      newsItem => newsItem.id.toString() === newsId
+    )
 
     if (!newsItem) {
       return {
@@ -55,7 +64,6 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
     }
 
     const allAvailableLanguages = availableLanguages.filter(languageModel => languageModel.code === language)
-
     return {
       routeType: NEWS_ROUTE,
       status: 'ready',
@@ -70,10 +78,7 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
     }
   }
 
-  return {
-    ...state,
-    routeMapping: { ...state.routeMapping, [key]: getNewsRoute() }
-  }
+  return { ...state, routeMapping: { ...state.routeMapping, [key]: getNewsRoute() } }
 }
 
 export default pushNews

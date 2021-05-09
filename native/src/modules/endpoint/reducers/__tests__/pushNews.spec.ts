@@ -1,12 +1,10 @@
-// @flow
-
+import { $Shape } from 'utility-types'
 import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
 import type { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 import type { PushNewsActionType } from '../../../app/StoreActionType'
 import moment from 'moment'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
-
 describe('pushNews', () => {
   const news1: LocalNewsModel = new LocalNewsModel({
     id: 12,
@@ -14,7 +12,6 @@ describe('pushNews', () => {
     timestamp: moment('2017-11-18T19:30:00.000Z'),
     message: 'message'
   })
-
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
@@ -37,8 +34,17 @@ describe('pushNews', () => {
           type: LOCAL_NEWS_TYPE
         }
       },
-      resourceCache: { status: 'ready', progress: 1, value: { files: {} } },
-      languages: { status: 'ready', models: languageModels },
+      resourceCache: {
+        status: 'ready',
+        progress: 1,
+        value: {
+          files: {}
+        }
+      },
+      languages: {
+        status: 'ready',
+        models: languageModels
+      },
       searchRoute: null,
       switchingLanguage: false
     }
@@ -47,7 +53,6 @@ describe('pushNews', () => {
 
   it('should add general news route to newsRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({})
-
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
@@ -62,7 +67,6 @@ describe('pushNews', () => {
         page: 1
       }
     }
-
     expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -85,10 +89,8 @@ describe('pushNews', () => {
       })
     )
   })
-
   it('should add specific news item to routeMapping', () => {
     const prevState = prepareState({})
-
     const pushNewsAction: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
@@ -103,7 +105,6 @@ describe('pushNews', () => {
         city: 'augsburg'
       }
     }
-
     expect(cityContentReducer(prevState, pushNewsAction)).toEqual(
       expect.objectContaining({
         routeMapping: {

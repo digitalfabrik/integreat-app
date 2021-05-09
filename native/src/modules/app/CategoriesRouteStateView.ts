@@ -1,17 +1,16 @@
-// @flow
-
+import { $ReadOnly } from 'utility-types'
 import { CategoryModel } from 'api-client'
 import { has } from 'lodash'
 
 class CategoriesRouteStateView {
-  +rawPath: string
-  +rawModels: $ReadOnly<{ [path: string]: CategoryModel }>
-  +rawChildren: $ReadOnly<{ [path: string]: $ReadOnlyArray<string> }>
+  readonly rawPath: string
+  readonly rawModels: $ReadOnly<Record<string, CategoryModel>>
+  readonly rawChildren: $ReadOnly<Record<string, ReadonlyArray<string>>>
 
   constructor(
     path: string,
-    models: $ReadOnly<{ [path: string]: CategoryModel }>,
-    children: $ReadOnly<{ [path: string]: $ReadOnlyArray<string> }>
+    models: $ReadOnly<Record<string, CategoryModel>>,
+    children: $ReadOnly<Record<string, ReadonlyArray<string>>>
   ) {
     this.rawModels = models
     this.rawChildren = children
@@ -22,6 +21,7 @@ class CategoriesRouteStateView {
     if (!has(this.rawModels, this.rawPath)) {
       throw new Error(`CategoriesRouteStateView doesn't have the root model for '${this.rawPath}'!`)
     }
+
     return this.rawModels[this.rawPath]
   }
 

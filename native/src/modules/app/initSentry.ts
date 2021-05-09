@@ -1,5 +1,3 @@
-// @flow
-
 import * as Sentry from '@sentry/react-native'
 import buildConfig from './constants/buildConfig'
 

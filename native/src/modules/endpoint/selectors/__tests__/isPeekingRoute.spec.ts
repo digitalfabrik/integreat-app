@@ -1,7 +1,4 @@
-// @flow
-
 import isPeekingRoute from '../isPeekingRoute'
-
 describe('isPeekingRoute', () => {
   it('should return false if new city is equal to city', () => {
     expect(
@@ -12,9 +9,16 @@ describe('isPeekingRoute', () => {
           cityContent: {
             city: 'augsburg',
             switchingLanguage: false,
-            languages: { status: 'ready', models: [] },
+            languages: {
+              status: 'ready',
+              models: []
+            },
             routeMapping: {},
-            resourceCache: { status: 'ready', progress: 1, value: {} },
+            resourceCache: {
+              status: 'ready',
+              progress: 1,
+              value: {}
+            },
             searchRoute: null
           },
           contentLanguage: 'en',
@@ -23,11 +27,12 @@ describe('isPeekingRoute', () => {
           },
           snackbar: []
         },
-        { routeCity: 'augsburg' }
+        {
+          routeCity: 'augsburg'
+        }
       )
     ).toBe(false)
   })
-
   it('should return true if new city is not equal to city', () => {
     expect(
       isPeekingRoute(
@@ -37,9 +42,16 @@ describe('isPeekingRoute', () => {
           cityContent: {
             city: 'augsburg',
             switchingLanguage: false,
-            languages: { status: 'ready', models: [] },
+            languages: {
+              status: 'ready',
+              models: []
+            },
             routeMapping: {},
-            resourceCache: { status: 'ready', progress: 1, value: {} },
+            resourceCache: {
+              status: 'ready',
+              progress: 1,
+              value: {}
+            },
             searchRoute: null
           },
           contentLanguage: 'en',
@@ -48,11 +60,12 @@ describe('isPeekingRoute', () => {
           },
           snackbar: []
         },
-        { routeCity: 'nuernberg' }
+        {
+          routeCity: 'nuernberg'
+        }
       )
     ).toBe(true)
   })
-
   it('should return false if there is no content', () => {
     expect(
       isPeekingRoute(
@@ -66,7 +79,9 @@ describe('isPeekingRoute', () => {
           },
           snackbar: []
         },
-        { routeCity: 'augsburg' }
+        {
+          routeCity: 'augsburg'
+        }
       )
     ).toBe(false)
   })

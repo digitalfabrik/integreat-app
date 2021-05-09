@@ -1,9 +1,9 @@
-// @flow
-
 import type { StateType } from '../../app/StateType'
-import { type InputSelector } from 'reselect'
-
-type SelectPropsType = { routeCity: string }
+import type { InputSelector } from 'reselect'
+import 'reselect'
+type SelectPropsType = {
+  routeCity: string
+}
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -24,10 +24,9 @@ const isPeekingRoute: InputSelector<StateType, SelectPropsType, boolean> = (
     return false
   }
 
-  return (
-    cityContent.city !== routeCity
-  ) /* If the route city differs from the selected city, we are peeking.
-                                           If we are in the same city, we are not peeking. */
+  return cityContent.city !== routeCity
+  /* If the route city differs from the selected city, we are peeking.
+                                         If we are in the same city, we are not peeking. */
 }
 
 export default isPeekingRoute

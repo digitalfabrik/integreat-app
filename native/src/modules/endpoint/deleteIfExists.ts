@@ -1,5 +1,3 @@
-// @flow
-
 import RNFetchBlob from 'rn-fetch-blob'
 
 // Android throws an error if attempting to delete non existing directories/files

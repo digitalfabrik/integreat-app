@@ -1,3 +1,2 @@
-console.log("Hello translations!")
-
-export default 42;
+console.log('Hello translations!')
+export default 42

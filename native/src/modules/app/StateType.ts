@@ -1,5 +1,4 @@
-// @flow
-
+import { $ReadOnly } from 'utility-types'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -21,262 +20,216 @@ import type {
   NewsType,
   PoisRouteType
 } from 'api-client/src/routes'
-
 export type PathType = string
-
-export type CategoryRouteConfigType = {|
-  +path: string,
-  +depth: number,
-  +language: string,
-  +city: string
-|}
-
+export type CategoryRouteConfigType = {
+  readonly path: string
+  readonly depth: number
+  readonly language: string
+  readonly city: string
+}
 export type CategoryRouteStateType =
-  | {|
-      +routeType: CategoriesRouteType,
-      +status: 'ready',
-      ...CategoryRouteConfigType,
-      +allAvailableLanguages: $ReadOnlyMap<string, string>, // including the current content language
-      +models: $ReadOnly<{
-        [path: PathType]: CategoryModel
-      }> /* Models could be stored outside of CategoryRouteStateType
-                                                              (e.g. CategoriesStateType) to save memory
-                                                              in the state. This would be an optimization! */,
-      +children: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
-    |}
-  | {|
-      +routeType: CategoriesRouteType,
-      +status: 'languageNotAvailable',
-      +depth: number,
-      +city: string,
-      +language: string,
-      +allAvailableLanguages: $ReadOnlyMap<string, string>
-    |}
-  | {|
-      +routeType: CategoriesRouteType,
-      +status: 'loading',
-      ...CategoryRouteConfigType,
-      +allAvailableLanguages?: $ReadOnlyMap<string, string>,
-      +models?: $ReadOnly<{ [path: PathType]: CategoryModel }>,
-      +children?: $ReadOnly<{ [path: PathType]: $ReadOnlyArray<PathType> }>
-    |}
-  | {|
-      +routeType: CategoriesRouteType,
-      +status: 'error',
-      ...CategoryRouteConfigType,
-      +message: string,
-      +code: ErrorCodeType
-    |}
+  | (CategoryRouteConfigType & {
+      readonly routeType: CategoriesRouteType
+      readonly status: 'ready'
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string>
+      // including the current content language
+      readonly models: $ReadOnly<Record<PathType, CategoryModel>>
 
-export type PoiRouteConfigType = {|
-  +path: ?string, // path is null for the poi-lists route
-  +language: string,
-  +city: string
-|}
-
+      /* Models could be stored outside of CategoryRouteStateType
+                                                       (e.g. CategoriesStateType) to save memory
+                                                       in the state. This would be an optimization! */
+      readonly children: $ReadOnly<Record<PathType, ReadonlyArray<PathType>>>
+    })
+  | {
+      readonly routeType: CategoriesRouteType
+      readonly status: 'languageNotAvailable'
+      readonly depth: number
+      readonly city: string
+      readonly language: string
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string>
+    }
+  | (CategoryRouteConfigType & {
+      readonly routeType: CategoriesRouteType
+      readonly status: 'loading'
+      readonly allAvailableLanguages?: $ReadOnlyMap<string, string>
+      readonly models?: $ReadOnly<Record<PathType, CategoryModel>>
+      readonly children?: $ReadOnly<Record<PathType, ReadonlyArray<PathType>>>
+    })
+  | (CategoryRouteConfigType & {
+      readonly routeType: CategoriesRouteType
+      readonly status: 'error'
+      readonly message: string
+      readonly code: ErrorCodeType
+    })
+export type PoiRouteConfigType = {
+  readonly path: string | null | undefined
+  // path is null for the poi-lists route
+  readonly language: string
+  readonly city: string
+}
 export type PoiRouteStateType =
-  | {|
-      +routeType: PoisRouteType,
-      +status: 'ready',
-      ...PoiRouteConfigType,
-      +models: $ReadOnlyArray<PoiModel>,
-      +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
-    |}
-  | {|
-      +routeType: PoisRouteType,
-      +status: 'languageNotAvailable',
-      ...PoiRouteConfigType,
-      +allAvailableLanguages: $ReadOnlyMap<string, ?string>
-    |}
-  | {|
-      +routeType: PoisRouteType,
-      +status: 'loading',
-      ...PoiRouteConfigType
-    |}
-  | {|
-      +routeType: PoisRouteType,
-      +status: 'error',
-      ...PoiRouteConfigType,
-      +code: ErrorCodeType,
-      +message: ?string
-    |}
-
-export type EventRouteConfigType = {|
-  +path: ?string, // path is null for the event-lists route
-  +language: string,
-  +city: string
-|}
-
+  | (PoiRouteConfigType & {
+      readonly routeType: PoisRouteType
+      readonly status: 'ready'
+      readonly models: ReadonlyArray<PoiModel>
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined> // including the current content language
+    })
+  | (PoiRouteConfigType & {
+      readonly routeType: PoisRouteType
+      readonly status: 'languageNotAvailable'
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined>
+    })
+  | (PoiRouteConfigType & {
+      readonly routeType: PoisRouteType
+      readonly status: 'loading'
+    })
+  | (PoiRouteConfigType & {
+      readonly routeType: PoisRouteType
+      readonly status: 'error'
+      readonly code: ErrorCodeType
+      readonly message: string | null | undefined
+    })
+export type EventRouteConfigType = {
+  readonly path: string | null | undefined
+  // path is null for the event-lists route
+  readonly language: string
+  readonly city: string
+}
 export type EventRouteStateType =
-  | {|
-      +routeType: EventsRouteType,
-      +status: 'ready',
-      ...EventRouteConfigType,
-      +models: $ReadOnlyArray<EventModel>,
-      +allAvailableLanguages: $ReadOnlyMap<string, ?string> // including the current content language
-    |}
-  | {|
-      +routeType: EventsRouteType,
-      +status: 'languageNotAvailable',
-      ...EventRouteConfigType,
-      +allAvailableLanguages: $ReadOnlyMap<string, ?string>
-    |}
-  | {|
-      +routeType: EventsRouteType,
-      +status: 'loading',
-      ...EventRouteConfigType,
-      +models?: $ReadOnlyArray<EventModel>,
-      +allAvailableLanguages?: $ReadOnlyMap<string, ?string>
-    |}
-  | {|
-      +routeType: EventsRouteType,
-      +status: 'error',
-      ...EventRouteConfigType,
-      +code: ErrorCodeType,
-      +message: ?string
-    |}
-
-export type NewsRouteConfigType = {|
-  +newsId: ?string, // Path is null for the news list
-  +language: string,
-  +city: string,
-  +type: NewsType
-|}
-
-export type NewsModelsType = $ReadOnlyArray<LocalNewsModel | TunewsModel>
+  | (EventRouteConfigType & {
+      readonly routeType: EventsRouteType
+      readonly status: 'ready'
+      readonly models: ReadonlyArray<EventModel>
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined> // including the current content language
+    })
+  | (EventRouteConfigType & {
+      readonly routeType: EventsRouteType
+      readonly status: 'languageNotAvailable'
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined>
+    })
+  | (EventRouteConfigType & {
+      readonly routeType: EventsRouteType
+      readonly status: 'loading'
+      readonly models?: ReadonlyArray<EventModel>
+      readonly allAvailableLanguages?: $ReadOnlyMap<string, string | null | undefined>
+    })
+  | (EventRouteConfigType & {
+      readonly routeType: EventsRouteType
+      readonly status: 'error'
+      readonly code: ErrorCodeType
+      readonly message: string | null | undefined
+    })
+export type NewsRouteConfigType = {
+  readonly newsId: string | null | undefined
+  // Path is null for the news list
+  readonly language: string
+  readonly city: string
+  readonly type: NewsType
+}
+export type NewsModelsType = ReadonlyArray<LocalNewsModel | TunewsModel>
 export type NewsRouteStateType =
-  | {|
-      +routeType: NewsRouteType,
-      +status: 'ready',
-      +models: NewsModelsType,
-      +hasMoreNews: boolean,
-      +page: number,
-      ...NewsRouteConfigType,
-      +allAvailableLanguages: $ReadOnlyMap<string, ?string>
-    |}
-  | {|
-      +routeType: NewsRouteType,
-      +status: 'languageNotAvailable',
-      ...NewsRouteConfigType,
-      +allAvailableLanguages: $ReadOnlyMap<string, ?string>
-    |}
-  | {|
-      +routeType: NewsRouteType,
-      +status: 'loading',
-      ...NewsRouteConfigType
-    |}
-  | {|
-      +routeType: NewsRouteType,
-      +status: 'loadingMore',
-      +models: NewsModelsType,
-      ...NewsRouteConfigType
-    |}
-  | {|
-      +routeType: NewsRouteType,
-      +status: 'error',
-      ...NewsRouteConfigType,
-      +code: ErrorCodeType,
-      +message: ?string
-    |}
-
-export type PageResourceCacheEntryStateType = {|
-  +filePath: string,
-  +lastUpdate: Moment,
-  +hash: string
-|}
-
-export type PageResourceCacheStateType = $ReadOnly<{
-  [url: string]: PageResourceCacheEntryStateType
-}>
-
-export type LanguageResourceCacheStateType = $ReadOnly<{
-  [path: string]: PageResourceCacheStateType
-}>
-
+  | (NewsRouteConfigType & {
+      readonly routeType: NewsRouteType
+      readonly status: 'ready'
+      readonly models: NewsModelsType
+      readonly hasMoreNews: boolean
+      readonly page: number
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined>
+    })
+  | (NewsRouteConfigType & {
+      readonly routeType: NewsRouteType
+      readonly status: 'languageNotAvailable'
+      readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined>
+    })
+  | (NewsRouteConfigType & {
+      readonly routeType: NewsRouteType
+      readonly status: 'loading'
+    })
+  | (NewsRouteConfigType & {
+      readonly routeType: NewsRouteType
+      readonly status: 'loadingMore'
+      readonly models: NewsModelsType
+    })
+  | (NewsRouteConfigType & {
+      readonly routeType: NewsRouteType
+      readonly status: 'error'
+      readonly code: ErrorCodeType
+      readonly message: string | null | undefined
+    })
+export type PageResourceCacheEntryStateType = {
+  readonly filePath: string
+  readonly lastUpdate: Moment
+  readonly hash: string
+}
+export type PageResourceCacheStateType = $ReadOnly<Record<string, PageResourceCacheEntryStateType>>
+export type LanguageResourceCacheStateType = $ReadOnly<Record<string, PageResourceCacheStateType>>
 export type ResourceCacheStateType =
-  | {|
-      +status: 'error',
-      +code: ErrorCodeType,
-      +message: ?string
-    |}
-  | {|
-      +status: 'ready',
-      +progress: number,
-      +value: LanguageResourceCacheStateType
-    |}
-
-export type CityResourceCacheStateType = $ReadOnly<{
-  [language: string]: LanguageResourceCacheStateType
-}>
-
+  | {
+      readonly status: 'error'
+      readonly code: ErrorCodeType
+      readonly message: string | null | undefined
+    }
+  | {
+      readonly status: 'ready'
+      readonly progress: number
+      readonly value: LanguageResourceCacheStateType
+    }
+export type CityResourceCacheStateType = $ReadOnly<Record<string, LanguageResourceCacheStateType>>
 export type CitiesStateType =
-  | {|
-      +status: 'ready',
-      +models: $ReadOnlyArray<CityModel>
-    |}
-  | {|
-      +status: 'loading'
-    |}
-  | {|
-      +status: 'error',
-      +code: ErrorCodeType,
-      +message: string
-    |}
-
+  | {
+      readonly status: 'ready'
+      readonly models: ReadonlyArray<CityModel>
+    }
+  | {
+      readonly status: 'loading'
+    }
+  | {
+      readonly status: 'error'
+      readonly code: ErrorCodeType
+      readonly message: string
+    }
 export const defaultCitiesState: CitiesStateType = {
   status: 'error',
   code: ErrorCodes.UnknownError,
   message: 'Cities not yet initialized'
 }
-
 export type LanguagesStateType =
-  | {|
-      +status: 'ready',
-      +models: $ReadOnlyArray<LanguageModel>
-    |}
-  | {|
-      +status: 'loading'
-    |}
-  | {|
-      +status: 'error',
-      +code: ErrorCodeType,
-      +message: string
-    |}
-
+  | {
+      readonly status: 'ready'
+      readonly models: ReadonlyArray<LanguageModel>
+    }
+  | {
+      readonly status: 'loading'
+    }
+  | {
+      readonly status: 'error'
+      readonly code: ErrorCodeType
+      readonly message: string
+    }
 export const defaultContentLanguageState = config.defaultFallback
-
-export type SearchRouteType = {|
-  +categoriesMap: CategoriesMapModel
-|}
-
+export type SearchRouteType = {
+  readonly categoriesMap: CategoriesMapModel
+}
 export type RouteStateType = CategoryRouteStateType | NewsRouteStateType | EventRouteStateType | PoiRouteStateType
-
-export type RouteMappingType = $ReadOnly<{
-  [key: string]: RouteStateType
-}>
-
-export type CityContentStateType = {|
-  +city: string,
-  +switchingLanguage: boolean,
-  +languages: LanguagesStateType,
-  +routeMapping: RouteMappingType,
-  +resourceCache: ResourceCacheStateType,
-  +searchRoute: SearchRouteType | null
-|}
-
+export type RouteMappingType = $ReadOnly<Record<string, RouteStateType>>
+export type CityContentStateType = {
+  readonly city: string
+  readonly switchingLanguage: boolean
+  readonly languages: LanguagesStateType
+  readonly routeMapping: RouteMappingType
+  readonly resourceCache: ResourceCacheStateType
+  readonly searchRoute: SearchRouteType | null
+}
 export const defaultCityContentState = null
-
-export type SnackbarType = {|
+export type SnackbarType = {
   text: string
-|}
-
+}
 export type SnackbarStateType = Array<SnackbarType>
-
-export type StateType = {|
-  +snackbar: SnackbarStateType,
-  +darkMode: boolean,
-  +resourceCacheUrl: string | null,
-  +cityContent: CityContentStateType | null,
-  +contentLanguage: string,
-  +cities: CitiesStateType
-|}
+export type StateType = {
+  readonly snackbar: SnackbarStateType
+  readonly darkMode: boolean
+  readonly resourceCacheUrl: string | null
+  readonly cityContent: CityContentStateType | null
+  readonly contentLanguage: string
+  readonly cities: CitiesStateType
+}
