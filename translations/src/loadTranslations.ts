@@ -1,5 +1,3 @@
-// @flow
-
 import { merge } from 'lodash'
 import defaultTranslations from '../translations.json'
 import transformTranslations from './transformTranslations'

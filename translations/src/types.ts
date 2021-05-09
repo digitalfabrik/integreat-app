@@ -1,11 +1,4 @@
-// @flow
-
-type KeyValueType = { [key: string]: string | KeyValueType }
-
-type NamespaceType = {
-  [language: string]: KeyValueType
-}
-
-export type TranslationsType = { [namespace: string]: NamespaceType }
-
-export type TransformedTranslationsType = { [language: string]: { [namespace: string]: { [key: string]: string } } }
+type KeyValueType = Record<string, string | KeyValueType>
+type NamespaceType = Record<string, KeyValueType>
+export type TranslationsType = Record<string, NamespaceType>
+export type TransformedTranslationsType = Record<string, Record<string, Record<string, string>>>

@@ -1,62 +1,104 @@
-// @flow
-
 import { values } from './utils/object'
-
-type FontType = 'lateef'
+type FontType =
+  | 'lateef'
   | 'openSans'
   | 'raleway'
   | 'varelaRound'
   | 'noto-sans-sc' // https://www.google.com/get/noto/help/cjk/
   | 'noto-sans-georgian'
-type LanguageType = {| rtl: boolean, additionalFont?: FontType |}
-type SupportedLanguagesType = { [languageTag: string]: LanguageType }
-type FallbacksType = { [languageTag: string]: string[] }
+type LanguageType = {
+  rtl: boolean
+  additionalFont?: FontType
+}
+type SupportedLanguagesType = Record<string, LanguageType>
+type FallbacksType = Record<string, string[]>
 
 class Config {
   // The language from which we translate
   sourceLanguage = 'de'
-
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
   // See https://wiki.tuerantuer.org/integreat-languages and https://iso639-3.sil.org/code_tables/639/data
   supportedLanguages: SupportedLanguagesType = {
-    de: { rtl: false },
+    de: {
+      rtl: false
+    },
     ar: {
       // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
       rtl: true,
       additionalFont: 'lateef'
     },
-    en: { rtl: false },
+    en: {
+      rtl: false
+    },
     pes: {
       rtl: true,
       additionalFont: 'lateef'
     },
-    fr: { rtl: false },
-    ro: { rtl: false },
-    tr: { rtl: false },
-    pl: { rtl: false },
-    ti: { rtl: false },
+    fr: {
+      rtl: false
+    },
+    ro: {
+      rtl: false
+    },
+    tr: {
+      rtl: false
+    },
+    pl: {
+      rtl: false
+    },
+    ti: {
+      rtl: false
+    },
     ckb: {
       rtl: true,
       additionalFont: 'lateef'
     },
-    ru: { rtl: false },
-    so: { rtl: false },
-    hr: { rtl: false },
-    es: { rtl: false },
-    'sr-Latn': {  rtl: false },
-    'sr-Cyrl': {  rtl: false },
-    ps: { rtl: true },
-    kmr: { rtl: false },
-    am: { rtl: false },
-    bg: { rtl: false },
-    el: { rtl: false },
-    it: { rtl: false },
+    ru: {
+      rtl: false
+    },
+    so: {
+      rtl: false
+    },
+    hr: {
+      rtl: false
+    },
+    es: {
+      rtl: false
+    },
+    'sr-Latn': {
+      rtl: false
+    },
+    'sr-Cyrl': {
+      rtl: false
+    },
+    ps: {
+      rtl: true
+    },
+    kmr: {
+      rtl: false
+    },
+    am: {
+      rtl: false
+    },
+    bg: {
+      rtl: false
+    },
+    el: {
+      rtl: false
+    },
+    it: {
+      rtl: false
+    },
     'zh-CN': {
       rtl: false,
       additionalFont: 'noto-sans-sc'
     },
-    mk: { rtl: false },
-    sq: { rtl: false },
+    mk: {
+      rtl: false
+    },
+    sq: {
+      rtl: false
+    },
     ka: {
       rtl: false,
       additionalFont: 'noto-sans-georgian'
@@ -64,9 +106,8 @@ class Config {
     prs: {
       rtl: true,
       additionalFont: 'lateef'
-    },
+    }
   }
-
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
     ku: ['kmr'],
@@ -74,20 +115,19 @@ class Config {
     'fa-AF': ['pes'],
     fa_pr: ['pes'],
     'de-si': ['de'],
-    'sr': ['sr-Cyrl']
+    sr: ['sr-Cyrl']
   }
-
   defaultFallback = 'de' // If the language code is not found in our translations then use this
 
-  constructor () {
+  constructor() {
     this.checkConsistency()
   }
 
-  getSupportedLanguageTags (): string[] {
+  getSupportedLanguageTags(): string[] {
     return Object.keys(this.supportedLanguages)
   }
 
-  getSupportedLanguage (languageTag: string): LanguageType | void {
+  getSupportedLanguage(languageTag: string): LanguageType | void {
     const fallbacks = this.fallbacks[languageTag]
 
     if (fallbacks) {
@@ -101,7 +141,7 @@ class Config {
     return this.supportedLanguages[languageTag]
   }
 
-  isSupportedLanguage (languageTag: string): boolean {
+  isSupportedLanguage(languageTag: string): boolean {
     return !!this.getSupportedLanguage(languageTag)
   }
 
@@ -123,7 +163,7 @@ class Config {
    * @param languageTag for the check
    * @returns {*} whether script is RTL
    */
-  hasRTLScript (languageTag: string): boolean {
+  hasRTLScript(languageTag: string): boolean {
     const language = this.getSupportedLanguage(languageTag)
 
     if (!language) {
@@ -134,30 +174,27 @@ class Config {
     return language.rtl
   }
 
-  getAdditionalFont (languageTag: string): ?FontType {
+  getAdditionalFont(languageTag: string): FontType | null | undefined {
     return this.getSupportedLanguage(languageTag)?.additionalFont
   }
 
-  getFallbackLanguageTags (): string[] {
+  getFallbackLanguageTags(): string[] {
     return Object.keys(this.fallbacks)
   }
 
-  getFallbackTargetLanguageTags (): string[] {
+  getFallbackTargetLanguageTags(): string[] {
     const languageTags = []
     const fallbacks: string[][] = values(this.fallbacks)
-
     fallbacks.forEach((languagesInFallbacks: string[]) => {
       languagesInFallbacks.forEach((languageTag: string) => {
         languageTags.push(languageTag)
       })
     })
-
     return languageTags
   }
 
-  checkConsistency () {
+  checkConsistency() {
     const supportedLanguageTags = this.getSupportedLanguageTags()
-
     this.getFallbackTargetLanguageTags().forEach((languageTag: string) => {
       if (!supportedLanguageTags.includes(languageTag)) {
         throw Error(`The code ${languageTag} was mentioned in the fallbacks but is not included in 'targetLanguage'`)

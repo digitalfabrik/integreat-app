@@ -1,7 +1,4 @@
-// @flow
-
 import config from '../config'
-
 describe('config', () => {
   it('should decide correctly whether a language is supported', () => {
     expect(config.isSupportedLanguage('en')).toBeTruthy()
@@ -11,7 +8,6 @@ describe('config', () => {
     expect(config.isSupportedLanguage('ckb')).toBeTruthy()
     expect(config.isSupportedLanguage('de-si')).toBeTruthy()
   })
-
   it('should decide correctly whether a language is RTL', () => {
     expect(config.hasRTLScript('en')).toBeFalsy()
     expect(config.hasRTLScript('de')).toBeFalsy()
@@ -20,11 +16,9 @@ describe('config', () => {
     expect(config.hasRTLScript('ckb')).toBeTruthy()
     expect(config.hasRTLScript('de-si')).toBeFalsy()
   })
-
   it('should throw when requesting an unknown language', () => {
     expect(() => config.hasRTLScript('yi')).toThrow()
   })
-
   it('should have additional font if needed', () => {
     expect(config.getAdditionalFont('de')).toBeFalsy()
     expect(config.getAdditionalFont('ar')).toBeTruthy()
