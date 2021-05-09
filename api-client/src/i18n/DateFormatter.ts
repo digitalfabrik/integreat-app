@@ -8,10 +8,10 @@ export type FormatFunctionType = (
 export const ISO8601_FORMAT = undefined
 
 class DateFormatter {
-  fallbackFormat: string | void
+  fallbackFormat: string
   defaultLocale: string
 
-  constructor(defaultLocale: string, fallbackFormat: string | void = ISO8601_FORMAT) {
+  constructor(defaultLocale: string, fallbackFormat: string = ISO8601_FORMAT) {
     this.fallbackFormat = fallbackFormat
     this.defaultLocale = defaultLocale
   }

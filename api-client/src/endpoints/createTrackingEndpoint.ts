@@ -1,4 +1,12 @@
-import { SignalType } from '../tracking'
+import {
+  CLOSE_PAGE_SIGNAL_NAME,
+  OPEN_PAGE_SIGNAL_NAME,
+  RESUME_SIGNAL_NAME,
+  SEARCH_FINISHED_SIGNAL_NAME,
+  SEND_FEEDBACK_SIGNAL_NAME,
+  SignalType,
+  SUSPEND_SIGNAL_NAME
+} from '../tracking'
 import ResponseError from '../errors/ResponseError'
 import FetchError from '../errors/FetchError'
 export const TRACKING_ENDPOINT_NAME = 'tracking'
@@ -10,16 +18,26 @@ const JSON_HEADERS = {
 
 const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
   const request = async (signal: SignalType) => {
+    const pageType = signal.name === OPEN_PAGE_SIGNAL_NAME ? signal.pageType : undefined
+    const signalUrl =
+      signal.name !== SEND_FEEDBACK_SIGNAL_NAME &&
+      signal.name !== RESUME_SIGNAL_NAME &&
+      signal.name !== SUSPEND_SIGNAL_NAME &&
+      signal.name !== CLOSE_PAGE_SIGNAL_NAME
+        ? signal.url
+        : undefined
+    const query = signal.name === SEARCH_FINISHED_SIGNAL_NAME ? signal.query : undefined
+    const feedback = signal.name === SEND_FEEDBACK_SIGNAL_NAME ? signal.feedback : undefined
+
     const mappedSignal = {
       name: signal.name,
       tracking_code: signal.trackingCode,
       timestamp: signal.timestamp,
       metadata: {
-        page_type: signal.pageType || undefined,
-        url: signal.url || undefined,
-        query: signal.query || undefined,
-        feedback: signal.feedback || undefined,
-        // TODO IGAPP-564: Implement feedback signal
+        page_type: pageType,
+        url: signalUrl,
+        query,
+        feedback,
         offline: signal.offline,
         system_language: signal.systemLanguage,
         current_language: signal.currentLanguage,
@@ -45,12 +63,11 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
     if (!response.ok) {
       throw new ResponseError({
         endpointName: TRACKING_ENDPOINT_NAME,
-        response,
+        response: response as Response,
         url,
         requestOptions: {
           method: 'POST',
-          body: body,
-          headers: JSON_HEADERS
+          body: body
         }
       })
     }

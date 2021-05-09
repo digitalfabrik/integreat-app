@@ -29,11 +29,7 @@ describe('languages', () => {
     )
   })
   it('should throw if the city to map the url are missing', () => {
-    expect(() =>
-      languages.mapParamsToUrl({
-        city: undefined
-      })
-    ).toThrowErrorMatchingSnapshot()
+    expect(() => languages.mapParamsToUrl({ city: undefined })).toThrowErrorMatchingSnapshot()
   })
   it('should map fetched data to models', () => {
     const languageModels = languages.mapResponse(languagesJson, params)
