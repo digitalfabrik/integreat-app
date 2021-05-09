@@ -3,6 +3,8 @@ import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
+import { JsonCategoryType } from '../../types'
+
 jest.mock('../../mapping/mapCategoryJson')
 describe('createCategoryParentsEndpoint', () => {
   beforeEach(() => {
@@ -35,20 +37,21 @@ describe('createCategoryParentsEndpoint', () => {
     )
   })
   it('should throw if using the endpoint for the root category', () => {
-    expect(() => endpoint.mapParamsToUrl({ ...params, cityContentPath: `/${params.city}/${params.language}` })).toThrow(
+    expect(() => endpoint.mapParamsToUrl({...params, cityContentPath: `/${params.city}/${params.language}`})).toThrow(
       'This endpoint does not support the root category!'
     )
   })
   it('should map json to category', () => {
-    const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
-    // $FlowFixMe mapCategoryJson is a mock
-    mapCategoryJson.mockImplementation((json: string) => {
-      if (json === 'myFirstCategory') {
-        return parents[0]
-      }
+    const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2);
+    
+      // @ts-ignore this mock in invalid
+    (mapCategoryJson as unknown as jest.Mock<(json: JsonCategoryType, basePath: string) => CategoryModel>).mockImplementation((json: string) => {
+        if (json === 'myFirstCategory') {
+          return parents[0]
+        }
 
-      return parents[1]
-    })
+        return parents[1]
+      })
     parents.push(rootCategory)
     expect(endpoint.mapResponse(json, params)).toEqual(parents)
     expect(mapCategoryJson).toHaveBeenCalledTimes(2)

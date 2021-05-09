@@ -72,10 +72,10 @@ describe('sprungbrettJobs', () => {
     })
   ]
   it('should map router to url', () => {
-    expect(sprungbrettJobs.mapParamsToUrl()).toEqual('https://sprungbrett-api-url.de')
+    expect(sprungbrettJobs.mapParamsToUrl(undefined)).toEqual('https://sprungbrett-api-url.de')
   })
   it('should map fetched data to models', () => {
-    const sprungbrettModel = sprungbrettJobs.mapResponse(json)
+    const sprungbrettModel = sprungbrettJobs.mapResponse(json, undefined)
     expect(sprungbrettModel).toEqual(sprungbrettJobModels)
   })
 })

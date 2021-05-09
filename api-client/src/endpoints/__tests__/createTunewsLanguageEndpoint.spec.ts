@@ -18,10 +18,10 @@ describe('tunews language', () => {
     }
   ]
   it('should map params to url', () => {
-    expect(tunewsElement.mapParamsToUrl()).toEqual(`${baseUrl}/v1/news/languages`)
+    expect(tunewsElement.mapParamsToUrl(undefined)).toEqual(`${baseUrl}/v1/news/languages`)
   })
   it('should map fetched data to models', () => {
-    const languageModels = tunewsElement.mapResponse(languagesJson)
+    const languageModels = tunewsElement.mapResponse(languagesJson, undefined)
     expect(languageModels).toEqual([
       new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629', undefined),
       new LanguageModel('de', 'Deutsch', undefined),
