@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "lib": ["ES5", "ES6"],
     "target": "ES6",
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true
-  },
-  "exclude": [ "node_modules", "**/flow-typed/**/*" ]
+  }
 }
