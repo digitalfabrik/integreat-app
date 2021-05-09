@@ -4,7 +4,7 @@ import createNavigationScreenPropMock from "../../../../testing/createNavigation
 import { OFFERS_ROUTE } from "api-client/src/routes";
 import OffersContainer from "../OffersContainer";
 import { render } from "@testing-library/react-native";
-import ErrorCodes from "../../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../../modules/error/ErrorCodes";
 import { useLoadFromEndpoint } from "../../../../modules/endpoint/hooks/useLoadFromEndpoint";
 import configureMockStore from "redux-mock-store";
 import CityModelBuilder from "api-client/src/testing/CityModelBuilder";
@@ -49,7 +49,7 @@ describe('OffersContainer', () => {
     },
     name: OFFERS_ROUTE
   };
-  const errorText = `Failure ${ErrorCodes.UnknownError}`;
+  const errorText = `Failure ${ErrorCode.UnknownError}`;
   const cities = new CityModelBuilder(1).build();
 
   const refresh = () => {};
@@ -174,6 +174,6 @@ describe('OffersContainer', () => {
     expect(queryByText('Offers')).toBeFalsy();
     expect(queryByText('loading')).toBeFalsy();
     expect(queryByText(errorText)).toBeFalsy();
-    expect(queryByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy();
+    expect(queryByText(`Failure ${ErrorCode.PageNotFound}`)).toBeTruthy();
   });
 });

@@ -10,7 +10,7 @@ import createNavigationScreenPropMock from "../../../../testing/createNavigation
 import { render } from "@testing-library/react-native";
 import moment from "moment";
 import { LOADING_TIMEOUT } from "../../../../modules/common/constants";
-import ErrorCodes from "../../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../../modules/error/ErrorCodes";
 import { CATEGORIES_ROUTE } from "api-client/src/routes";
 import CategoriesContainer from "../CategoriesContainer";
 const mockStore = configureMockStore();
@@ -164,29 +164,29 @@ describe('CategoriesContainer', () => {
       language: language.code,
       city: city.code,
       message: 'Something went wrong with the route',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     });
-    expectError(state, ErrorCodes.UnknownError);
+    expectError(state, ErrorCode.UnknownError);
   });
   it('should display error if cities could not be loaded', () => {
     const state: StateType = prepareState(successfulRouteState, {
       cities: {
         status: 'error',
         message: 'Something went wrong with the cities',
-        code: ErrorCodes.UnknownError
+        code: ErrorCode.UnknownError
       }
     });
-    expectError(state, ErrorCodes.UnknownError);
+    expectError(state, ErrorCode.UnknownError);
   });
   it('should display error if resourceCache could not be loaded', () => {
     const state: StateType = prepareState(successfulRouteState, {
       resourceCacheState: {
         status: 'error',
         message: 'Something went wrong with the resourceCache',
-        code: ErrorCodes.UnknownError
+        code: ErrorCode.UnknownError
       }
     });
-    expectError(state, ErrorCodes.UnknownError);
+    expectError(state, ErrorCode.UnknownError);
   });
 
   const expectLoadingIndicator = (state: StateType) => {

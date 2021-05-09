@@ -2,7 +2,7 @@ import type { CategoryRouteStateType, CityContentStateType, PathType, RouteState
 import type { PushCategoryActionType } from '../../app/StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import forEachTreeNode from '../../common/forEachTreeNode'
-import ErrorCodes from '../../error/ErrorCodes'
+import { ErrorCode } from '../../error/ErrorCodes'
 import { entries, values } from 'translations'
 
 const getAllAvailableLanguages = (
@@ -65,7 +65,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
       city,
       status: 'error',
       message: `Could not find a category with path '${path}'.`,
-      code: ErrorCodes.PageNotFound
+      code: ErrorCode.PageNotFound
     }
     return {
       ...state,
@@ -116,7 +116,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
             routeType: CATEGORIES_ROUTE,
             status: 'error',
             message: `Could not find a category with path '${path}'.`,
-            code: ErrorCodes.PageNotFound,
+            code: ErrorCode.PageNotFound,
             path: path,
             depth: depth,
             language,

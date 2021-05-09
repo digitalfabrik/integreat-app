@@ -5,7 +5,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
-import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import { ErrorCode }, { fromError } from '../../error/ErrorCodes'
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
 
@@ -44,7 +44,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
         type: 'FETCH_POI_FAILED',
         params: {
           message: 'Could not load poi.',
-          code: ErrorCodes.PageNotFound,
+          code: ErrorCode.PageNotFound,
           allAvailableLanguages,
           path: null,
           key,

@@ -9,7 +9,7 @@ import type { Dispatch } from "redux";
 import "redux";
 import FailureContainer from "../../error/containers/FailureContainer";
 import { LOADING_TIMEOUT } from "../../common/constants";
-import type { ErrorCodeType } from "../../error/ErrorCodes";
+import type { ErrorCode } from "../../error/ErrorCodes";
 import wrapDisplayName from "../../common/hocs/wrapDisplayName";
 import type { NavigationPropType, RoutePropType, RoutesType } from "../../app/constants/NavigationTypes";
 import type { TFunction } from "react-i18next";
@@ -29,7 +29,7 @@ export type LoadingType<S extends {}, R extends {}> = {
 export type ErrorType<R extends {}> = {
   status: "error";
   message: string | null | undefined;
-  code: ErrorCodeType;
+  code: ErrorCode;
   refreshProps: R | null;
 };
 export type LanguageNotAvailableType = {

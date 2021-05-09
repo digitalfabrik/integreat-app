@@ -1,7 +1,7 @@
 import type { CitiesStateType } from '../../../app/StateType'
 import citiesReducer from '../citiesReducer'
 import { CityModel } from 'api-client'
-import ErrorCodes from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../../error/ErrorCodes'
 describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {
     const prevState: CitiesStateType = {
@@ -61,13 +61,13 @@ describe('citiesReducer', () => {
         type: 'FETCH_CITIES_FAILED',
         params: {
           message: errorMessage,
-          code: ErrorCodes.UnknownError
+          code: ErrorCode.UnknownError
         }
       })
     ).toEqual({
       status: 'error',
       message: errorMessage,
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     })
   })
 })

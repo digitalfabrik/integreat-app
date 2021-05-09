@@ -5,7 +5,7 @@ import type { FetchCitiesActionType } from '../../../app/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import ErrorCodes from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../../error/ErrorCodes'
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCities')
 describe('watchFetchCities', () => {
@@ -56,7 +56,7 @@ describe('watchFetchCities', () => {
           type: 'FETCH_CITIES_FAILED',
           params: {
             message: 'Error in fetchCities: Jemand hat keine 4 Issues geschafft!',
-            code: ErrorCodes.UnknownError
+            code: ErrorCode.UnknownError
           }
         })
         .run()

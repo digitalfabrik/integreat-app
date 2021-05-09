@@ -6,7 +6,7 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import ErrorCodes from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../../error/ErrorCodes'
 import moment from 'moment'
 import mockDate from '../../../../testing/mockDate'
 jest.mock('rn-fetch-blob')
@@ -145,7 +145,7 @@ describe('watchFetchEvents', () => {
             city: 'augsburg',
             language: '??',
             message: 'Could not load event.',
-            code: ErrorCodes.PageNotFound,
+            code: ErrorCode.PageNotFound,
             path: null,
             allAvailableLanguages: new Map(languages.map(lng => [lng.code, null])),
             key: 'route-0'

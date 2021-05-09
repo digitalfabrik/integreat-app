@@ -6,7 +6,7 @@ import LocalNewsModelBuilder from "api-client/src/testing/NewsModelBuilder";
 import type { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from "../../../../modules/app/StateType";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react-native";
-import ErrorCodes from "../../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../../modules/error/ErrorCodes";
 import { LOADING_TIMEOUT } from "../../../../modules/common/constants";
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from "api-client/src/routes";
 import NewsContainer from "../NewsContainer";
@@ -164,19 +164,19 @@ describe('NewsContainer', () => {
       newsId: null,
       type: LOCAL_NEWS_TYPE,
       message: 'Something went wrong with the route',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     });
-    expectError(state, ErrorCodes.UnknownError);
+    expectError(state, ErrorCode.UnknownError);
   });
   it('should display error if cities could not be loaded', () => {
     const state: StateType = prepareState(successfulRouteState, {
       cities: {
         status: 'error',
         message: 'Something went wrong with the cities',
-        code: ErrorCodes.UnknownError
+        code: ErrorCode.UnknownError
       }
     });
-    expectError(state, ErrorCodes.UnknownError);
+    expectError(state, ErrorCode.UnknownError);
   });
 
   const expectLoadingSpinner = (state: StateType) => {

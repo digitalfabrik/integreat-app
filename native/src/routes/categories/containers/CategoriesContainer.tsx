@@ -11,7 +11,7 @@ import withTheme from "../../../modules/theme/hocs/withTheme";
 import type { PropsType as CategoriesPropsType } from "../../../modules/categories/components/Categories";
 import Categories from "../../../modules/categories/components/Categories";
 import React from "react";
-import ErrorCodes from "../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../modules/error/ErrorCodes";
 import type { NavigationPropType, RoutePropType } from "../../../modules/app/constants/NavigationTypes";
 import { CATEGORIES_ROUTE } from "api-client/src/routes";
 import navigateToLink from "../../../modules/navigation/navigateToLink";
@@ -101,7 +101,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCodes.UnknownError,
+        code: languages.code || ErrorCode.UnknownError,
         message: languages.message || 'languages not ready'
       };
     }
@@ -175,7 +175,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       status: 'error',
       refreshProps,
       message: 'Unknown city',
-      code: ErrorCodes.PageNotFound
+      code: ErrorCode.PageNotFound
     };
   }
 

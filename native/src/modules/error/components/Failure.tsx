@@ -7,7 +7,7 @@ import type { TFunction } from "react-i18next";
 import FailureIcon from "../assets/FailureIcon.svg";
 import type { ThemeType } from "../../theme/constants";
 import { Button } from "react-native-elements";
-import type { ErrorCodeType } from "../ErrorCodes";
+import type { ErrorCode } from "../ErrorCodes";
 const ViewContainer: StyledComponent<{}, ThemeType, any> = styled.View`
   flex: 1;
   align-items: center;
@@ -17,7 +17,7 @@ const IconContainer = styled.Image`
   margin-bottom: 10px;
 `;
 export type PropsType = {
-  code: ErrorCodeType;
+  code: ErrorCode;
   tryAgain?: () => void;
   t: TFunction;
   theme: ThemeType;

@@ -5,8 +5,8 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
-import ErrorCodes, { fromError } from '../../error/ErrorCodes'
-import type Moment from 'moment'
+import { ErrorCode, fromError } from '../../error/ErrorCodes'
+import moment from 'moment'
 export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): Saga<void> {
   const { city, language, path, key, criterion } = action.params
 
@@ -26,7 +26,7 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
         call(dataContainer.getEvents, city, language),
         call(dataContainer.getResourceCache, city, language)
       ])
-      const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, city, language)
+      const lastUpdate: moment.Moment | null = yield call(dataContainer.getLastUpdate, city, language)
       const refresh = loadCriterion.shouldUpdate(lastUpdate)
       const insert: PushEventActionType = {
         type: 'PUSH_EVENT',
@@ -48,7 +48,7 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
         type: 'FETCH_EVENT_FAILED',
         params: {
           message: 'Could not load event.',
-          code: ErrorCodes.PageNotFound,
+          code: ErrorCode.PageNotFound,
           allAvailableLanguages,
           path: null,
           key,

@@ -1,4 +1,4 @@
-const defaultConfig = require('./metro.config.js')
+import defaultConfig from './metro.config.ts'
 
 module.exports = {
   ...defaultConfig,

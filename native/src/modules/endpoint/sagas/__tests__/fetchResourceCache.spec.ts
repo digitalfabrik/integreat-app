@@ -2,7 +2,7 @@ import { expectSaga } from 'redux-saga-test-plan'
 import fetchResourceCache from '../fetchResourceCache'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import ErrorCodes from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../../error/ErrorCodes'
 import FetcherModule from '../../../fetcher/FetcherModule'
 import { createFetchMap } from '../../../../testing/builder/util'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
@@ -54,7 +54,7 @@ describe('fetchResourceCache', () => {
         type: 'FETCH_RESOURCES_FAILED',
         params: {
           message: 'Error in fetchResourceCache: Already fetching!',
-          code: ErrorCodes.UnknownError
+          code: ErrorCode.UnknownError
         }
       })
       .run()
