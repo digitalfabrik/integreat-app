@@ -1,26 +1,23 @@
-// @flow
-
-import * as React from 'react'
-import Headroom from '@integreat-app/react-sticky-headroom'
-import styled, { type StyledComponent } from 'styled-components'
-import withPlatform from '../../platform/hocs/withPlatform'
-import Platform from '../../platform/Platform'
-import type { ThemeType } from 'build-configs/ThemeType'
-import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
-import HeaderLogo from './HeaderLogo'
-import dimensions from '../../theme/constants/dimensions'
-
-type PropsType = {|
-  navigationItems: Array<React.Node>,
-  actionItems: Array<React.Node>,
-  logoHref: string,
-  viewportSmall: boolean,
-  cityName?: string,
-  onStickyTopChanged: number => void,
-  platform: Platform
-|}
-
-const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.header`
+import * as React from "react";
+import Headroom from "@integreat-app/react-sticky-headroom";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
+import withPlatform from "../../platform/hocs/withPlatform";
+import Platform from "../../platform/Platform";
+import type { ThemeType } from "build-configs/ThemeType";
+import HeaderTitle, { HEADER_TITLE_HEIGHT } from "./HeaderTitle";
+import HeaderLogo from "./HeaderLogo";
+import dimensions from "../../theme/constants/dimensions";
+type PropsType = {
+  navigationItems: Array<React.ReactNode>;
+  actionItems: Array<React.ReactNode>;
+  logoHref: string;
+  viewportSmall: boolean;
+  cityName?: string;
+  onStickyTopChanged: (arg0: number) => void;
+  platform: Platform;
+};
+const HeaderContainer: StyledComponent<{}, ThemeType, any> = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -34,9 +31,10 @@ const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.header`
     padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
     padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
-`
-
-const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
+`;
+const Row: StyledComponent<{
+  hasTitle?: boolean;
+}, ThemeType, any> = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -58,9 +56,8 @@ const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
       min-height: ${props => dimensions.headerHeightSmall + (props.hasTitle ? HEADER_TITLE_HEIGHT : 0)}px;
     }
   }
-`
-
-const HeaderSeparator: StyledComponent<{||}, ThemeType, *> = styled.div`
+`;
+const HeaderSeparator: StyledComponent<{}, ThemeType, any> = styled.div`
   align-self: center;
   height: ${dimensions.headerHeightLarge / 2}px;
   width: 2px;
@@ -71,9 +68,8 @@ const HeaderSeparator: StyledComponent<{||}, ThemeType, *> = styled.div`
   @media ${dimensions.smallViewport} {
     display: none;
   }
-`
-
-const ActionBar: StyledComponent<{||}, ThemeType, *> = styled.div`
+`;
+const ActionBar: StyledComponent<{}, ThemeType, any> = styled.div`
   order: 3;
   display: flex;
   align-items: center;
@@ -83,15 +79,14 @@ const ActionBar: StyledComponent<{||}, ThemeType, *> = styled.div`
     order: 2;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
   }
-`
-
-const NavigationBar: StyledComponent<{||}, ThemeType, *> = styled.div`
+`;
+const NavigationBar: StyledComponent<{}, ThemeType, any> = styled.div`
   display: flex;
   padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
   align-items: stretch;
   justify-content: center;
-`
+`;
 
 /**
  * The standard header which can supplied to a Layout. Displays a logo left, a HeaderMenuBar in the middle and a
@@ -108,19 +103,14 @@ export const Header = ({
   platform,
   cityName
 }: PropsType) => {
-  const { headerHeightSmall, headerHeightLarge } = dimensions
-  const hasNavigationBar = navigationItems.length > 0
-  const height = viewportSmall
-    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0)
-    : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
-  const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
-
-  return (
-    <Headroom
-      onStickyTopChanged={onStickyTopChanged}
-      scrollHeight={scrollHeight}
-      height={height}
-      positionStickyDisabled={platform.positionStickyDisabled}>
+  const {
+    headerHeightSmall,
+    headerHeightLarge
+  } = dimensions;
+  const hasNavigationBar = navigationItems.length > 0;
+  const height = viewportSmall ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge;
+  const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge;
+  return <Headroom onStickyTopChanged={onStickyTopChanged} scrollHeight={scrollHeight} height={height} positionStickyDisabled={platform.positionStickyDisabled}>
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
           <HeaderLogo link={logoHref} />
@@ -128,14 +118,10 @@ export const Header = ({
           {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
           <ActionBar>{actionItems}</ActionBar>
         </Row>
-        {hasNavigationBar && (
-          <Row>
+        {hasNavigationBar && <Row>
             <NavigationBar>{navigationItems}</NavigationBar>
-          </Row>
-        )}
+          </Row>}
       </HeaderContainer>
-    </Headroom>
-  )
-}
-
-export default withPlatform(Header)
+    </Headroom>;
+};
+export default withPlatform(Header);

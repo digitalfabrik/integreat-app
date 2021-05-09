@@ -1,22 +1,13 @@
-// @flow
+import { createAction } from "redux-actions";
+import { Payload } from "api-client";
+import type { PayloadDataType } from "../PayloadDataType";
+export type FinishFetchActionType<T extends PayloadDataType, P> = {
+  type: string;
+  payload: Payload<T>;
+  meta: P;
+};
+export const finishFetchActionName = (stateName: string): string => `FINISH_FETCH_${stateName.toUpperCase()}`;
 
-import { createAction } from 'redux-actions'
-import { Payload } from 'api-client'
-import type { PayloadDataType } from '../PayloadDataType'
+const finishFetchAction = <T extends PayloadDataType, P>(stateName: string, payload: Payload<T>, meta: P): FinishFetchActionType<T, P> => createAction(finishFetchActionName(stateName), () => payload, () => meta)();
 
-export type FinishFetchActionType<T: PayloadDataType, P> = { type: string, payload: Payload<T>, meta: P }
-
-export const finishFetchActionName = (stateName: string): string => `FINISH_FETCH_${stateName.toUpperCase()}`
-
-const finishFetchAction = <T: PayloadDataType, P>(
-  stateName: string,
-  payload: Payload<T>,
-  meta: P
-): FinishFetchActionType<T, P> =>
-  createAction(
-    finishFetchActionName(stateName),
-    () => payload,
-    () => meta
-  )()
-
-export default finishFetchAction
+export default finishFetchAction;
