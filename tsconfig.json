@@ -9,5 +9,5 @@
     "resolveJsonModule": true
   },
   "exclude": [ "node_modules", "**/flow-typed/**/*" ],
-  "include": ["native", "api-client", "translations", "build-configs"]
+  "include": ["web-ts", "native", "api-client", "translations", "build-configs"]
 }
