@@ -15,9 +15,11 @@ import AppSettings from '../../../settings/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
 import DateFormatterContext from '../../context/DateFormatterContext'
 import moment from 'moment'
+import { setSystemLanguage } from '../../../endpoint/sendTrackingSignal'
 
 jest.mock('../../NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
+jest.mock('../../../endpoint/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
 const city = cities[0]
@@ -83,6 +85,8 @@ describe('I18nProvider', () => {
 
     await waitFor(() => {})
     expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
+    expect(setSystemLanguage).toHaveBeenCalledTimes(1)
+    expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
 
   it('should show error if loading fails', async () => {

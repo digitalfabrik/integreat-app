@@ -96,7 +96,7 @@ class AppSettings {
     await this.setSettings({ jpalTrackingEnabled })
   }
 
-  clearJpalTrackingCode = async () => {
+  clearJpalTrackingEnabled = async () => {
     await this.setSettings({ jpalTrackingEnabled: false })
   }
 
