@@ -1,5 +1,5 @@
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonTunewsType } from '../types'
+import { JsonTunewsType } from '../types'
 import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'

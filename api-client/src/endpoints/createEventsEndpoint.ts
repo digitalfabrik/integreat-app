@@ -1,5 +1,5 @@
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonEventType } from '../types'
+import { JsonEventType } from '../types'
 import EventModel from '../models/EventModel'
 import normalizePath from '../normalizePath'
 import { decodeHTML } from 'entities'

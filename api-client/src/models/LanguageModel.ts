@@ -1,4 +1,4 @@
-import type { LanguageDirectionType } from '../types'
+import { LanguageDirectionType } from '../types'
 
 class LanguageModel {
   _code: string

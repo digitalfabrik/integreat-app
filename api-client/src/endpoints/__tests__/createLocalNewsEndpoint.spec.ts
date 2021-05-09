@@ -1,8 +1,8 @@
 import moment from 'moment-timezone'
 import createLocalNewsEndpoint from '../createLocalNewsEndpoint'
 import LocalNewsModel from '../../models/LocalNewsModel'
-import type { JsonLocalNewsType } from '../../types'
-import type Moment from 'moment'
+import { JsonLocalNewsType } from '../../types'
+import { Moment } from 'moment'
 describe('localnews', () => {
   const baseUrl = 'https://cms.integreat-app.de'
   const localNews = createLocalNewsEndpoint(baseUrl)

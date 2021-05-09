@@ -1,4 +1,4 @@
-import type { SignalType } from '../tracking'
+import { SignalType } from '../tracking'
 import ResponseError from '../errors/ResponseError'
 import FetchError from '../errors/FetchError'
 export const TRACKING_ENDPOINT_NAME = 'tracking'

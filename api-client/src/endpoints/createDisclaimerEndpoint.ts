@@ -1,7 +1,7 @@
 import PageModel from '../models/PageModel'
 import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment-timezone'
-import type { JsonDisclaimerType } from '../types'
+import { JsonDisclaimerType } from '../types'
 import Endpoint from '../Endpoint'
 import sanitizeHtml from 'sanitize-html-react'
 import normalizePath from '../normalizePath'

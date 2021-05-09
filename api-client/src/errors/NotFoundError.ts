@@ -1,4 +1,4 @@
-import type { LocalNewsType, TuNewsType } from '../routes'
+import { LocalNewsType, TuNewsType } from '../routes'
 type NotFoundType = 'category' | 'event' | 'poi' | 'offer' | 'disclaimer' | TuNewsType | LocalNewsType
 
 const getMessage = (type: NotFoundType, id: string): string => `The ${type} ${id} does not exist here.`

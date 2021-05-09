@@ -13,8 +13,8 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from './'
-import type { LocalNewsType, TuNewsType } from './'
-import type { RouteInformationType } from './RouteInformationTypes'
+import { LocalNewsType, TuNewsType } from './'
+import { RouteInformationType } from './RouteInformationTypes'
 import normalizePath from '../normalizePath'
 const ENTITY_ID_INDEX = 3
 

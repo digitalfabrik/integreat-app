@@ -1,5 +1,5 @@
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonLocalNewsType } from '../types'
+import { JsonLocalNewsType } from '../types'
 import LocalNewsModel from '../models/LocalNewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'

@@ -1,7 +1,7 @@
 import CityModel from '../models/CityModel'
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
-import type { JsonCityType } from '../types'
+import { JsonCityType } from '../types'
 
 const stripSlashes = (path: string): string => {
   if (path.startsWith('/')) {

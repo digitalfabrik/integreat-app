@@ -1,8 +1,8 @@
 import moment from 'moment-timezone'
 import createTunewsElementEndpoint from '../createTunewsElementEndpoint'
 import TunewsModel from '../../models/TunewsModel'
-import type { JsonTunewsType } from '../../types'
-import type Moment from 'moment'
+import { JsonTunewsType } from '../../types'
+import { Moment } from 'moment'
 describe('tunews', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'
   const tunewsElement = createTunewsElementEndpoint(baseUrl)

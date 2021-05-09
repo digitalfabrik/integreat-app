@@ -1,6 +1,6 @@
 import OfferModel from '../models/OfferModel'
 import EndpointBuilder from '../EndpointBuilder'
-import type { JsonOfferPostType, JsonOfferType } from '../types'
+import { JsonOfferPostType, JsonOfferType } from '../types'
 import Endpoint from '../Endpoint'
 export const OFFERS_ENDPOINT_NAME = 'offers'
 
