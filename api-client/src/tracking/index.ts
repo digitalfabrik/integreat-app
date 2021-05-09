@@ -12,7 +12,7 @@ import {
   PoisRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType,
+  SprungbrettOfferRouteType
 } from '../routes'
 type OpenPageSignalNameType = 'open_page'
 export const OPEN_PAGE_SIGNAL_NAME: OpenPageSignalNameType = 'open_page'
@@ -71,11 +71,15 @@ export type SearchFinishedSignalType = {
 }
 type ResumeSignalNameType = 'resume'
 export const RESUME_SIGNAL_NAME: ResumeSignalNameType = 'resume'
+export type ResumeSignalType = {
+  name: ResumeSignalNameType
+}
 type SuspendSignalNameType = 'suspend'
 export const SUSPEND_SIGNAL_NAME: SuspendSignalNameType = 'suspend'
-export type AppStateChangeSignalType = {
-  name: ResumeSignalNameType | SuspendSignalNameType
+export type SuspendSignalType = {
+  name: SuspendSignalNameType
 }
+export type AppStateChangeSignalType = ResumeSignalType | SuspendSignalType
 type ShareSignalNameType = 'share'
 export const SHARE_SIGNAL_NAME: ShareSignalNameType = 'share'
 export type ShareSignalType = {

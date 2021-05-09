@@ -39,9 +39,9 @@ class ResponseError extends Error {
   createMessage({ requestOptions, url, endpointName, response }: ResponseErrorParamsType): string {
     let stringifiedFormData = ''
 
-    if (requestOptions.body && typeof requestOptions.body === 'string') {
+    if (requestOptions.method === 'POST' && typeof requestOptions.body === 'string') {
       stringifiedFormData = ` and the body ${requestOptions.body}`
-    } else if (requestOptions.body) {
+    } else if (requestOptions.method === 'POST') {
       stringifiedFormData = ` and the formData ${stringifyFormData(requestOptions.body)}`
     }
 
