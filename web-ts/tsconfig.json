@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "types": [
+      "jest"
+    ],
     "target": "ES2020",
     "lib": [
       "dom",
