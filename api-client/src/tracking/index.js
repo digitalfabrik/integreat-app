@@ -111,7 +111,9 @@ export const SEND_FEEDBACK_SIGNAL_NAME: SendFeedbackSignalNameType = 'send_feedb
 export type SendFeedbackSignalType = {|
   name: SendFeedbackSignalNameType,
   feedback: {|
-    // TODO IGAPP-564: Implement feedback signal
+    positive: boolean,
+    numCharacters: number,
+    contactMail: boolean
   |}
 |}
 
