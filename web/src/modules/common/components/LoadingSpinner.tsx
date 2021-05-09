@@ -1,8 +1,7 @@
-// @flow
-
-import * as React from 'react'
-import styled, { keyframes, type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import * as React from "react";
+import type { StyledComponent } from "styled-components";
+import styled, { keyframes } from "styled-components";
+import type { ThemeType } from "build-configs/ThemeType";
 
 /** From https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css */
 const lineScaleParty = keyframes`
@@ -17,9 +16,8 @@ const lineScaleParty = keyframes`
   100% {
     transform: scale(1);
   }
-`
-
-const Spinner: StyledComponent<{||}, ThemeType, *> = styled.div`
+`;
+const Spinner: StyledComponent<{}, ThemeType, any> = styled.div`
   margin-top: 50px;
   text-align: center;
   animation-name: ${lineScaleParty};
@@ -55,15 +53,13 @@ const Spinner: StyledComponent<{||}, ThemeType, *> = styled.div`
     animation-name: ${lineScaleParty};
     animation-iteration-count: infinite;
   }
-`
+`;
 
-const LoadingSpinner = () => (
-  <Spinner>
+const LoadingSpinner = () => <Spinner>
     <div />
     <div />
     <div />
     <div />
-  </Spinner>
-)
+  </Spinner>;
 
-export default LoadingSpinner
+export default LoadingSpinner;

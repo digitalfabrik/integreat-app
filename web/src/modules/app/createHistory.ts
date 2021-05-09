@@ -1,7 +1,5 @@
-// @flow
-
-import type { BrowserHistory } from 'history'
-import { createBrowserHistory } from 'history'
+import type { BrowserHistory } from "history";
+import { createBrowserHistory } from "history";
 
 const createHistory = (history: BrowserHistory = createBrowserHistory()): BrowserHistory => {
   history.listen((location, action) => {
@@ -11,13 +9,13 @@ const createHistory = (history: BrowserHistory = createBrowserHistory()): Browse
     // - manually changed the URL in the address bar (here we might want
     // to scroll to top, but we can't differentiate it from the others)
     if (action === 'POP') {
-      return
+      return;
     }
+
     // In all other cases, scroll to top
-    window.scrollTo(0, 0)
-  })
+    window.scrollTo(0, 0);
+  });
+  return history;
+};
 
-  return history
-}
-
-export default createHistory
+export default createHistory;

@@ -1,3 +1,2 @@
 // flow
-
-export const lastUpdateDateFormat = 'LLL'
+export const lastUpdateDateFormat = 'LLL';

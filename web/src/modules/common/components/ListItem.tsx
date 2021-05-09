@@ -1,30 +1,25 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import CleanLink from './CleanLink'
-import CleanAnchor from './CleanAnchor'
-import type { ThemeType } from 'build-configs/ThemeType'
-
-const Link: StyledComponent<{||}, ThemeType, *> = styled(CleanLink)`
+import * as React from "react";
+import type { StyledComponent } from "styled-components";
+import styled from "styled-components";
+import CleanLink from "./CleanLink";
+import CleanAnchor from "./CleanAnchor";
+import type { ThemeType } from "build-configs/ThemeType";
+const Link: StyledComponent<{}, ThemeType, any> = styled(CleanLink)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
-`
-
-const Anchor: StyledComponent<{||}, ThemeType, *> = styled(CleanAnchor)`
+`;
+const Anchor: StyledComponent<{}, ThemeType, any> = styled(CleanAnchor)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
-`
-
-const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
+`;
+const Thumbnail: StyledComponent<{}, ThemeType, any> = styled.img`
   width: 100px;
   height: 100px;
   flex-shrink: 0;
   padding: 15px 5px;
   object-fit: contain;
-`
-
-export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
+`;
+export const Description: StyledComponent<{}, ThemeType, any> = styled.div`
   display: flex;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
@@ -36,47 +31,51 @@ export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
   > * {
     padding-bottom: 10px;
   }
-`
-
-const Title: StyledComponent<{||}, ThemeType, *> = styled.div`
+`;
+const Title: StyledComponent<{}, ThemeType, any> = styled.div`
   font-weight: 700;
-`
-
-type PropsType = {|
-  thumbnail?: string,
-  path: string,
-  title: string,
-  isExternalUrl: boolean,
-  children?: React.Node
-|}
+`;
+type PropsType = {
+  thumbnail?: string;
+  path: string;
+  title: string;
+  isExternalUrl: boolean;
+  children?: React.ReactNode;
+};
 
 class ListItem extends React.PureComponent<PropsType> {
   static defaultProps = {
     isExternalUrl: false
-  }
+  };
 
-  renderContent(): React.Node {
-    const { title, thumbnail, children } = this.props
-
-    return (
-      <>
+  renderContent(): React.ReactNode {
+    const {
+      title,
+      thumbnail,
+      children
+    } = this.props;
+    return <>
         {thumbnail && <Thumbnail alt='' src={thumbnail} />}
         <Description>
           <Title>{title}</Title>
           {children}
         </Description>
-      </>
-    )
+      </>;
   }
 
   render() {
-    const { path, isExternalUrl } = this.props
+    const {
+      path,
+      isExternalUrl
+    } = this.props;
 
     if (isExternalUrl) {
-      return <Anchor href={path}>{this.renderContent()}</Anchor>
+      return <Anchor href={path}>{this.renderContent()}</Anchor>;
     }
-    return <Link to={path}>{this.renderContent()}</Link>
+
+    return <Link to={path}>{this.renderContent()}</Link>;
   }
+
 }
 
-export default ListItem
+export default ListItem;

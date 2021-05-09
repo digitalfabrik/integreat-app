@@ -1,9 +1,7 @@
-// @flow
+import { FeaturedImageModel } from "api-client";
+const ten = 10;
 
-import { FeaturedImageModel } from 'api-client'
-
-const ten = 10
-const roundToOneDecimal = number => Math.round(number * ten) / ten
+const roundToOneDecimal = number => Math.round(number * ten) / ten;
 
 /**
  * This converts a FeaturedImageModel to a srcset.
@@ -13,9 +11,9 @@ const roundToOneDecimal = number => Math.round(number * ten) / ten
  * @param defaultWidth
  * @returns {string}
  */
-const featuredImageToSrcSet = (featuredImage: FeaturedImageModel, defaultWidth: number) =>
-  [featuredImage.thumbnail, featuredImage.medium, featuredImage.large, featuredImage.full]
-    .map(({ url, width }) => `${encodeURI(url)} ${roundToOneDecimal(width / defaultWidth)}x`)
-    .join(', ')
+const featuredImageToSrcSet = (featuredImage: FeaturedImageModel, defaultWidth: number) => [featuredImage.thumbnail, featuredImage.medium, featuredImage.large, featuredImage.full].map(({
+  url,
+  width
+}) => `${encodeURI(url)} ${roundToOneDecimal(width / defaultWidth)}x`).join(', ');
 
-export default featuredImageToSrcSet
+export default featuredImageToSrcSet;

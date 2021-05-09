@@ -1,23 +1,22 @@
-// @flow
+import LandingRouteConfig from "../LandingRouteConfig";
+import { Payload } from "api-client";
+import createLocation from "../../../../createLocation";
+import CityModelBuilder from "api-client/src/testing/CityModelBuilder";
+const cities = new CityModelBuilder(1).build();
+const citiesPayload = new Payload(false, 'https://random.api.json', cities, null);
+const payloads = {
+  cities: citiesPayload
+};
 
-import LandingRouteConfig from '../LandingRouteConfig'
-import { Payload } from 'api-client'
-import createLocation from '../../../../createLocation'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-
-const cities = new CityModelBuilder(1).build()
-const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
-const payloads = { cities: citiesPayload }
-
-const t = (key: ?string): string => key || ''
+const t = (key: string | null | undefined): string => key || '';
 
 describe('LandingRouteConfig', () => {
-  const landingRouteConfig = new LandingRouteConfig()
-
+  const landingRouteConfig = new LandingRouteConfig();
   it('should get the right path', () => {
-    expect(landingRouteConfig.getRoutePath({ language: 'de' })).toBe('/landing/de')
-  })
-
+    expect(landingRouteConfig.getRoutePath({
+      language: 'de'
+    })).toBe('/landing/de');
+  });
   it('should get the required payloads', () => {
     const allPayloads = {
       categoriesPayload: new Payload(false),
@@ -33,39 +32,52 @@ describe('LandingRouteConfig', () => {
       poisPayload: new Payload(true),
       wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
-    }
-
-    expect(landingRouteConfig.getRequiredPayloads(allPayloads)).toEqual(payloads)
-  })
-
+    };
+    expect(landingRouteConfig.getRequiredPayloads(allPayloads)).toEqual(payloads);
+  });
   it('should return the right page title', () => {
     const location = createLocation({
-      payload: { language: 'de' },
+      payload: {
+        language: 'de'
+      },
       pathname: '/landing/de',
       type: landingRouteConfig.name
-    })
-    expect(landingRouteConfig.getPageTitle({ t, payloads, location, cityName: null })).toBe('pageTitles.landing')
-  })
-
+    });
+    expect(landingRouteConfig.getPageTitle({
+      t,
+      payloads,
+      location,
+      cityName: null
+    })).toBe('pageTitles.landing');
+  });
   it('should return the right meta description', () => {
-    expect(landingRouteConfig.getMetaDescription(t)).toBe('metaDescription')
-  })
-
+    expect(landingRouteConfig.getMetaDescription(t)).toBe('metaDescription');
+  });
   it('should return the right language change path', () => {
     const location = createLocation({
-      payload: { language: 'de' },
+      payload: {
+        language: 'de'
+      },
       pathname: '/landing/de',
       type: landingRouteConfig.name
-    })
-    expect(landingRouteConfig.getLanguageChangePath({ payloads, location, language: 'de' })).toBeNull()
-  })
-
+    });
+    expect(landingRouteConfig.getLanguageChangePath({
+      payloads,
+      location,
+      language: 'de'
+    })).toBeNull();
+  });
   it('all functions should return the right feedback target information', () => {
     const location = createLocation({
-      payload: { language: 'de' },
+      payload: {
+        language: 'de'
+      },
       pathname: '/landing/de',
       type: landingRouteConfig.name
-    })
-    expect(landingRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
-  })
-})
+    });
+    expect(landingRouteConfig.getFeedbackTargetInformation({
+      payloads,
+      location
+    })).toBeNull();
+  });
+});
