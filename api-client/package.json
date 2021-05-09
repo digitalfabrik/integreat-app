@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Api client for the integreat cms",
   "private": true,
+  "main": "src/hello.ts",
   "scripts": {
     "test": "jest --config jest.config.js",
     "test:coverage": "yarn run test --coverage",
