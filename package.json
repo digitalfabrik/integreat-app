@@ -5,6 +5,7 @@
   "workspaces": {
     "packages": [
       "native",
+      "native-2",
       "web",
       "web-ts",
       "e2e-tests",
@@ -35,6 +36,8 @@
   "devDependencies": {
     "@types/eslint": "^7.2.10",
     "@types/prettier": "^2.2.3",
+    "@typescript-eslint/parser": "^4.22.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-standard": "^16.0.2",
