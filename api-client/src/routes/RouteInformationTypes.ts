@@ -11,8 +11,7 @@ import type {
   PoisRouteType,
   SearchRouteType,
   SprungbrettOfferRouteType,
-  TuNewsType,
-  WohnenOfferRouteType
+  TuNewsType
 } from './'
 type ParamsType = {
   cityCode: string
@@ -38,7 +37,7 @@ export type NewsRouteInformationType = ParamsType & {
 }
 export type SimpleCityContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
-  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | WohnenOfferRouteType | SearchRouteType
+  route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | SearchRouteType
 }
 export type EventsPoisRouteInformationType = ParamsType & {
   // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
