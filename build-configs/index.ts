@@ -1,5 +1,3 @@
-// @flow
-
 import type {
   CommonBuildConfigType,
   AndroidBuildConfigType,
@@ -11,22 +9,18 @@ import integreatTestCmsBuildConfig from './integreat-test-cms'
 import integreatE2eBuildConfig from './integreat-e2e'
 import malteBuildConfig from './malte'
 import aschaffenburgBuildConfig from './aschaffenburg'
-
 export const COMMON = 'common'
 export const ANDROID = 'android'
 export const IOS = 'ios'
 export const WEB = 'web'
-
 const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
-
-type BuildConfigPlatformType = {|
-  common: CommonBuildConfigType,
-  android: AndroidBuildConfigType,
-  ios: iOSBuildConfigType,
+type BuildConfigPlatformType = {
+  common: CommonBuildConfigType
+  android: AndroidBuildConfigType
+  ios: iOSBuildConfigType
   web: WebBuildConfigType
-|}
-
-export const buildConfigs: { [string]: BuildConfigPlatformType } = {
+}
+export const buildConfigs: Record<string, BuildConfigPlatformType> = {
   integreat: integreatBuildConfig,
   'integreat-test-cms': integreatTestCmsBuildConfig,
   'integreat-e2e': integreatE2eBuildConfig,
@@ -34,11 +28,13 @@ export const buildConfigs: { [string]: BuildConfigPlatformType } = {
   aschaffenburg: aschaffenburgBuildConfig
 }
 
-const loadBuildConfig = (buildConfigName: ?string, platform: ?string) => {
+const loadBuildConfig = (buildConfigName: string | null | undefined, platform: string | null | undefined) => {
   if (!buildConfigName) {
     throw Error('No BUILD_CONFIG_NAME supplied!')
   }
+
   const buildConfig = buildConfigs[buildConfigName]
+
   if (!buildConfig) {
     throw Error(`Invalid BUILD_CONFIG_NAME supplied: ${buildConfigName}`)
   }

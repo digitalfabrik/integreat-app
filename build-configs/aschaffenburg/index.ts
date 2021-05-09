@@ -1,5 +1,3 @@
-// @flow
-
 import { lightTheme, darkTheme } from './theme'
 import type {
   AndroidBuildConfigType,
@@ -9,9 +7,7 @@ import type {
 } from '../BuildConfigType'
 import { ASCHAFFENBURG_ASSETS } from '../AssetsType'
 import mainImprint from './mainImprint'
-
 const APPLE_APP_ID = '1551810291'
-
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App',
   appIcon: 'app_icon_aschaffenburg',
@@ -21,7 +17,8 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'aschaffenburg.app',
   allowedHostNames: ['cms.integreat-app.de'],
-  internalLinksHijackPattern: 'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  internalLinksHijackPattern:
+    'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
     pois: false,
     newsStream: false,
@@ -40,14 +37,12 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     en: 'https://integreat-app.de/en/privacy/'
   }
 }
-
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   splashScreen: false,
   applicationId: 'app.aschaffenburg',
   googleServices: null
 }
-
 export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   bundleIdentifier: 'app.aschaffenburg',
@@ -57,7 +52,6 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   googleServices: null,
   launchScreen: 'LaunchScreenDefault'
 }
-
 export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   appDescription: 'Ihr digitaler Begleiter für die Stadt Aschaffenburg',
@@ -70,12 +64,10 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
     favicons: '/favicons/'
   }
 }
-
 const platformBuildConfigs = {
   common: commonAschaffenburgBuildConfig,
   web: webAschaffenburgBuildConfig,
   android: androidAschaffenburgBuildConfig,
   ios: iosAschaffenburgBuildConfig
 }
-
 export default platformBuildConfigs
