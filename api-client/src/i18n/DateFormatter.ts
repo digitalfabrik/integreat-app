@@ -1,5 +1,4 @@
-import type Moment from 'moment'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 export type FormatFunctionType = (
   date: Moment,
   options: {

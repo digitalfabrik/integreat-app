@@ -2,12 +2,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "lib": ["ES5"],
+    "lib": ["ES5", "ES6"],
     "target": "ES6",
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
   "exclude": [ "node_modules", "**/flow-typed/**/*" ],
-  "include": ["web", "native", "api-client", "translations", "build-configs"]
+  "include": ["native", "api-client", "translations", "build-configs"]
 }

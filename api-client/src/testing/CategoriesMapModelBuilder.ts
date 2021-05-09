@@ -1,5 +1,4 @@
-import { $ReadOnly } from 'utility-types'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 import md5 from 'js-md5'
 import CategoryModel from '../models/CategoryModel'
@@ -7,10 +6,10 @@ import CategoriesMapModel from '../models/CategoriesMapModel'
 import hashUrl from '../hashUrl'
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
-  readonly lastUpdate: moment
+  readonly lastUpdate: Moment
   readonly hash: string
 }
-type PageResourceCacheStateType = $ReadOnly<Record<string, PageResourceCacheEntryStateType>>
+type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
 const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
 const MAX_PREDICTABLE_VALUE = 6
@@ -38,7 +37,7 @@ class CategoriesMapModelBuilder {
     return seedrandom(`${index}-seed`)() * max
   }
 
-  createResource(url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
+  createResource(url: string, index: number, lastUpdate: Moment): PageResourceCacheEntryStateType {
     const hash = hashUrl(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,

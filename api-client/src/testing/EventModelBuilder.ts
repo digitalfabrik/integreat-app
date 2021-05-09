@@ -1,5 +1,4 @@
-import { $ReadOnly } from 'utility-types'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
 import md5 from 'js-md5'
 import EventModel from '../models/EventModel'
@@ -8,10 +7,10 @@ import LocationModel from '../models/LocationModel'
 import hashUrl from '../hashUrl'
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
-  readonly lastUpdate: moment
+  readonly lastUpdate: Moment
   readonly hash: string
 }
-type PageResourceCacheStateType = $ReadOnly<Record<string, PageResourceCacheEntryStateType>>
+type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
 const MAX_PREDICTABLE_VALUE = 6
 const LANGUAGES = ['de', 'en', 'ar']
 
@@ -43,7 +42,7 @@ class EventModelBuilder {
     }, {})
   }
 
-  createResource(url: string, index: number, lastUpdate: moment): PageResourceCacheEntryStateType {
+  createResource(url: string, index: number, lastUpdate: Moment): PageResourceCacheEntryStateType {
     const hash = hashUrl(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
@@ -59,11 +58,11 @@ class EventModelBuilder {
    *
    * @returns The events and the corresponding resource cache
    */
-  buildAll(): Array<{
+  buildAll(): {
     path: string
     event: EventModel
-    resources: Record<string, PageResourceCacheStateType>
-  }> {
+    resources: PageResourceCacheStateType
+  }[] {
     return Array.from(
       {
         length: this._eventCount

@@ -1,4 +1,4 @@
-import type Moment from 'moment'
+import { Moment } from 'moment'
 
 class LocalNewsModel {
   _id: number
