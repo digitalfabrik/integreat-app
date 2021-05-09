@@ -1,9 +1,10 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  plugins: ['react', 'react-hooks', 'jest'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest'],
   extends: [
     'standard',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier'
