@@ -8,6 +8,7 @@
     "lint": "yarn eslint ./"
   },
   "devDependencies": {
+    "@types/eslint": "^7.2.10",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "@wdio/browserstack-service": "^7.0.5",
