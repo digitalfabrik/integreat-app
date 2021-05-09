@@ -1,4 +1,3 @@
-import { values } from './utils/object'
 type FontType =
   | 'lateef'
   | 'openSans'
@@ -127,7 +126,7 @@ class Config {
     return Object.keys(this.supportedLanguages)
   }
 
-  getSupportedLanguage(languageTag: string): LanguageType | void {
+  getSupportedLanguage(languageTag: string): LanguageType | undefined {
     const fallbacks = this.fallbacks[languageTag]
 
     if (fallbacks) {
@@ -184,7 +183,7 @@ class Config {
 
   getFallbackTargetLanguageTags(): string[] {
     const languageTags = []
-    const fallbacks: string[][] = values(this.fallbacks)
+    const fallbacks: string[][] = Object.values(this.fallbacks)
     fallbacks.forEach((languagesInFallbacks: string[]) => {
       languagesInFallbacks.forEach((languageTag: string) => {
         languageTags.push(languageTag)

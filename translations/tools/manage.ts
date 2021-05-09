@@ -1,10 +1,7 @@
-const program = require('commander')
-
-const fs = require('fs')
-
-const path = require('path')
-
-const flat = require('flat')
+import fs from "fs";
+import program from "commander";
+import path from "path";
+import flat from "flat";
 
 const { unflatten } = flat
 
@@ -195,7 +192,7 @@ program
   })
 
 const writePlistTranslations = (appName, { translationsFile, destination }) => {
-  const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translationsFile))
+  const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
   const languageCodes = Object.keys(nativeTranslations)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
   languageCodes.forEach(language => {
