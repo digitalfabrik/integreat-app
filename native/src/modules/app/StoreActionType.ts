@@ -9,7 +9,7 @@ import {
 } from 'api-client'
 import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
 import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
-import type { ErrorCodeType } from '../error/ErrorCodes'
+import type { ErrorCode } from '../error/ErrorCodes'
 import type { NewsType } from 'api-client/src/routes'
 // Starts fetching all available cities
 export type FetchCitiesActionType = {
@@ -30,7 +30,7 @@ export type FetchCitiesFailedActionType = {
   type: 'FETCH_CITIES_FAILED'
   readonly params: {
     readonly message: string
-    readonly code: ErrorCodeType
+    readonly code: ErrorCode
   }
 }
 export type CitiesActionType = PushCitiesActionType | FetchCitiesActionType | FetchCitiesFailedActionType
@@ -46,7 +46,7 @@ export type FetchLanguagesFailedActionType = {
   type: 'FETCH_LANGUAGES_FAILED'
   readonly params: {
     readonly message: string
-    readonly code: ErrorCodeType
+    readonly code: ErrorCode
   }
 }
 // Sets the currently used content language
@@ -70,8 +70,8 @@ export type FetchCategoryFailedActionType = {
   readonly params: CategoryRouteConfigType & {
     readonly key: string
     readonly message: string
-    readonly code: ErrorCodeType
-    readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined> | null
+    readonly code: ErrorCode
+    readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined> | null
   }
 }
 // Pushes fetched category to the corresponding route the state
@@ -136,9 +136,9 @@ export type FetchNewsFailedActionType = {
   type: 'FETCH_NEWS_FAILED'
   readonly params: {
     readonly message: string
-    readonly code: ErrorCodeType
+    readonly code: ErrorCode
     readonly key: string
-    readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined> | null | undefined
+    readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined> | null | undefined
     readonly language: string
     readonly newsId: string | null | undefined
     readonly type: NewsType
@@ -179,9 +179,9 @@ export type FetchPoiFailedActionType = {
   type: 'FETCH_POI_FAILED'
   readonly params: {
     readonly message: string
-    readonly code: ErrorCodeType
+    readonly code: ErrorCode
     readonly key: string
-    readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined> | null | undefined
+    readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined> | null | undefined
     readonly language: string
     readonly path: string | null | undefined
     readonly city: string
@@ -218,9 +218,9 @@ export type FetchEventFailedActionType = {
   type: 'FETCH_EVENT_FAILED'
   readonly params: {
     readonly message: string
-    readonly code: ErrorCodeType
+    readonly code: ErrorCode
     readonly key: string
-    readonly allAvailableLanguages: $ReadOnlyMap<string, string | null | undefined> | null | undefined
+    readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined> | null | undefined
     readonly language: string
     readonly path: string | null | undefined
     readonly city: string
@@ -277,7 +277,7 @@ export type ResourcesFetchFailedActionType = {
   type: 'FETCH_RESOURCES_FAILED'
   readonly params: {
     readonly message: string
-    readonly code: ErrorCodeType
+    readonly code: ErrorCode
   }
 }
 export type CityContentActionType =

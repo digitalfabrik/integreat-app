@@ -1,7 +1,7 @@
 import type { CityContentStateType, EventRouteStateType, RouteStateType } from '../../app/StateType'
 import type { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel, EVENTS_ROUTE } from 'api-client'
-import ErrorCodes from '../../error/ErrorCodes'
+import { ErrorCode } from '../../error/ErrorCodes'
 import { values, entries } from 'translations'
 
 const getEventRouteState = (
@@ -59,7 +59,7 @@ const getEventRouteState = (
       city,
       status: 'error',
       message: `Could not find an event with path '${currentPath}'.`,
-      code: ErrorCodes.PageNotFound
+      code: ErrorCode.PageNotFound
     }
   }
 

@@ -7,7 +7,7 @@ import type {
 import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
 import type { CityContentStateType } from '../../../app/StateType'
-import ErrorCodes from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../../error/ErrorCodes'
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {
     type: 'SWITCH_CONTENT_LANGUAGE',
@@ -70,7 +70,7 @@ describe('cityContentReducer', () => {
     params: {
       key: 'route-id-0',
       message: 'Some error',
-      code: ErrorCodes.UnknownError,
+      code: ErrorCode.UnknownError,
       path: '/augsburg/de',
       city: 'augsburg',
       language: 'de',
@@ -83,7 +83,7 @@ describe('cityContentReducer', () => {
     params: {
       key: 'route-id-0',
       message: 'Some error',
-      code: ErrorCodes.UnknownError,
+      code: ErrorCode.UnknownError,
       path: null,
       city: 'augsburg',
       language: 'de',
@@ -94,14 +94,14 @@ describe('cityContentReducer', () => {
     type: 'FETCH_RESOURCES_FAILED',
     params: {
       message: 'Some error',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     }
   }
   const fetchLanguagesFailed = {
     type: 'FETCH_LANGUAGES_FAILED',
     params: {
       message: 'Some error',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     }
   }
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
@@ -287,7 +287,7 @@ describe('cityContentReducer', () => {
         type: 'FETCH_EVENT_FAILED',
         params: {
           message: 'Invalid language...',
-          code: ErrorCodes.PageNotFound,
+          code: ErrorCode.PageNotFound,
           key: 'route-id-0',
           path: null,
           allAvailableLanguages: new Map([['en', null]]),
@@ -298,7 +298,7 @@ describe('cityContentReducer', () => {
     ).toEqual({
       routeType: EVENTS_ROUTE,
       status: 'languageNotAvailable',
-      code: ErrorCodes.PageNotFound,
+      code: ErrorCode.PageNotFound,
       language: 'de',
       city: 'augsburg',
       allAvailableLanguages: new Map([['en', null]])
@@ -334,7 +334,7 @@ describe('cityContentReducer', () => {
         params: {
           key: 'route-id-0',
           message: 'No idea why it fails :/',
-          code: ErrorCodes.UnknownError,
+          code: ErrorCode.UnknownError,
           path: null,
           city: 'augsburg',
           language: 'de',
@@ -348,7 +348,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       path: null,
       message: 'No idea why it fails :/',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     })
   })
   it('should initialize cityContentState on FETCH_CATEGORY with loading route', () => {
@@ -402,7 +402,7 @@ describe('cityContentReducer', () => {
           city: 'augsburg',
           path: '/augsburg/de',
           message: 'No idea why it fails :/',
-          code: ErrorCodes.UnknownError
+          code: ErrorCode.UnknownError
         }
       },
       languages: {
@@ -458,7 +458,7 @@ describe('cityContentReducer', () => {
           key: 'route-id-0',
           allAvailableLanguages: new Map([['en', '/augsburg/en']]),
           message: 'Language not available.',
-          code: ErrorCodes.PageNotFound,
+          code: ErrorCode.PageNotFound,
           city: 'augsburg',
           language: 'de',
           path: '/augsburg/de',
@@ -505,7 +505,7 @@ describe('cityContentReducer', () => {
         params: {
           key: 'route-id-0',
           message: 'No idea why it fails :/',
-          code: ErrorCodes.UnknownError,
+          code: ErrorCode.UnknownError,
           path: '/augsburg/de',
           city: 'augsburg',
           allAvailableLanguages: null,
@@ -521,7 +521,7 @@ describe('cityContentReducer', () => {
       city: 'augsburg',
       depth: 2,
       message: 'No idea why it fails :/',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     })
   })
   it('should clear the cityContentState on CLEAR_CITY', () => {
@@ -574,13 +574,13 @@ describe('cityContentReducer', () => {
         type: 'FETCH_RESOURCES_FAILED',
         params: {
           message: 'No idea why it fails :/',
-          code: ErrorCodes.UnknownError
+          code: ErrorCode.UnknownError
         }
       })?.resourceCache
     ).toEqual({
       status: 'error',
       message: 'No idea why it fails :/',
-      code: ErrorCodes.UnknownError
+      code: ErrorCode.UnknownError
     })
   })
 })

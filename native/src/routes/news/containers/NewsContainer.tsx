@@ -10,7 +10,7 @@ import withPayloadProvider from "../../../modules/endpoint/hocs/withPayloadProvi
 import NewsHeader from "../../../modules/common/components/NewsHeader";
 import { View } from "react-native";
 import LoadingSpinner from "../../../modules/common/components/LoadingSpinner";
-import ErrorCodes from "../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../modules/error/ErrorCodes";
 import type { NavigationPropType, RoutePropType } from "../../../modules/app/constants/NavigationTypes";
 import type { NewsRouteType, NewsType } from "api-client/src/routes";
 import { NEWS_ROUTE, TU_NEWS_TYPE } from "api-client/src/routes";
@@ -122,7 +122,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCodes.UnknownError,
+        code: languages.code || ErrorCode.UnknownError,
         message: languages.message || 'languages not ready'
       };
     }

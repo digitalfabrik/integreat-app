@@ -9,7 +9,7 @@ import type { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
-import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import { ErrorCode }, { fromError } from '../../error/ErrorCodes'
 import type Moment from 'moment'
 
 /**
@@ -67,7 +67,7 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
         type: 'FETCH_CATEGORY_FAILED',
         params: {
           message: 'Language not available.',
-          code: ErrorCodes.PageNotFound,
+          code: ErrorCode.PageNotFound,
           key,
           path,
           depth,

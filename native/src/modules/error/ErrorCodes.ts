@@ -1,33 +1,24 @@
-import { $Values } from 'utility-types'
 import { FetchError, MappingError, ResponseError, NotFoundError } from 'api-client'
-type ErrorCodesType = {
-  PageNotFound: 'pageNotFound'
-  NetworkConnectionFailed: 'networkConnectionFailed'
-  NetworkRequestFailed: 'networkRequestFailed'
+
+export enum ErrorCode {
+  PageNotFound = 'pageNotFound',
+  NetworkConnectionFailed = 'networkConnectionFailed',
+  NetworkRequestFailed = 'networkRequestFailed',
   // server's http-status was not 200
-  ResponseMappingFailed: 'responseMappingFailed'
-  UnknownError: 'unknownError'
+  ResponseMappingFailed = 'responseMappingFailed',
+  UnknownError = 'unknownError'
 }
-const ErrorCodes: ErrorCodesType = {
-  PageNotFound: 'pageNotFound',
-  NetworkConnectionFailed: 'networkConnectionFailed',
-  NetworkRequestFailed: 'networkRequestFailed',
-  // server's http-status was not 200
-  ResponseMappingFailed: 'responseMappingFailed',
-  UnknownError: 'unknownError'
-}
-export type ErrorCodeType = $Values<ErrorCodesType>
-export const fromError = (error: Error): ErrorCodeType => {
+
+export const fromError = (error: Error): ErrorCode => {
   if (error instanceof ResponseError) {
-    return ErrorCodes.NetworkRequestFailed
+    return ErrorCode.NetworkRequestFailed
   } else if (error instanceof MappingError) {
-    return ErrorCodes.ResponseMappingFailed
+    return ErrorCode.ResponseMappingFailed
   } else if (error instanceof FetchError) {
-    return ErrorCodes.NetworkConnectionFailed
+    return ErrorCode.NetworkConnectionFailed
   } else if (error instanceof NotFoundError) {
-    return ErrorCodes.PageNotFound
+    return ErrorCode.PageNotFound
   }
 
-  return ErrorCodes.UnknownError
+  return ErrorCode.UnknownError
 }
-export default ErrorCodes

@@ -2,7 +2,7 @@ import { fireEvent, render } from "@testing-library/react-native";
 import * as React from "react";
 import TestRenderer from "react-test-renderer";
 type FailureContainer = typeof import("../FailureContainer").default;
-import ErrorCodes from "../../ErrorCodes";
+import { ErrorCode } from "../../ErrorCodes";
 jest.mock('react-i18next');
 describe('FailureContainer', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('FailureContainer', () => {
 
     const FailureContainerMock: FailureContainer = require('../FailureContainer').default;
 
-    const rendered = TestRenderer.create(<FailureContainerMock code={ErrorCodes.UnknownError} />);
+    const rendered = TestRenderer.create(<FailureContainerMock code={ErrorCode.UnknownError} />);
     const instance = rendered.root.findByType(FailureMock);
     expect(instance.props).toEqual({
       code: 'unknownError',
@@ -31,7 +31,7 @@ describe('FailureContainer', () => {
     const tryAgain = jest.fn();
     const {
       getByTestId
-    } = render(<FailureContainer code={ErrorCodes.NetworkConnectionFailed} tryAgain={tryAgain} />);
+    } = render(<FailureContainer code={ErrorCode.NetworkConnectionFailed} tryAgain={tryAgain} />);
     fireEvent.press(getByTestId('button-tryAgain'));
     expect(tryAgain).toHaveBeenCalled();
   });

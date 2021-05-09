@@ -1,7 +1,7 @@
 import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
 import type { PushNewsActionType } from '../../app/StoreActionType'
 import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
-import ErrorCodes from '../../error/ErrorCodes'
+import { ErrorCode } from '../../error/ErrorCodes'
 
 const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
   const {
@@ -55,7 +55,7 @@ const pushNews = (state: CityContentStateType, action: PushNewsActionType): City
         routeType: NEWS_ROUTE,
         status: 'error',
         message: `News Item with newsId ${newsId} was not found in supplied models.`,
-        code: ErrorCodes.PageNotFound,
+        code: ErrorCode.PageNotFound,
         city,
         language,
         type,

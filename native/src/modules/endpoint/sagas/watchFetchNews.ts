@@ -7,7 +7,7 @@ import type {
   FetchMoreNewsActionType
 } from '../../app/StoreActionType'
 import type { DataContainer } from '../DataContainer'
-import ErrorCodes, { fromError } from '../../error/ErrorCodes'
+import { ErrorCode }, { fromError } from '../../error/ErrorCodes'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
@@ -54,7 +54,7 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
         type: 'FETCH_NEWS_FAILED',
         params: {
           message: 'Could not load news.',
-          code: ErrorCodes.PageNotFound,
+          code: ErrorCode.PageNotFound,
           allAvailableLanguages,
           newsId: null,
           key,

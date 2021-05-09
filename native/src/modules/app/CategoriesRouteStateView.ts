@@ -1,16 +1,16 @@
-import { $ReadOnly } from 'utility-types'
+import { Readonly } from 'utility-types'
 import { CategoryModel } from 'api-client'
 import { has } from 'lodash'
 
 class CategoriesRouteStateView {
   readonly rawPath: string
-  readonly rawModels: $ReadOnly<Record<string, CategoryModel>>
-  readonly rawChildren: $ReadOnly<Record<string, ReadonlyArray<string>>>
+  readonly rawModels: Readonly<Record<string, CategoryModel>>
+  readonly rawChildren: Readonly<Record<string, ReadonlyArray<string>>>
 
   constructor(
     path: string,
-    models: $ReadOnly<Record<string, CategoryModel>>,
-    children: $ReadOnly<Record<string, ReadonlyArray<string>>>
+    models: Readonly<Record<string, CategoryModel>>,
+    children: Readonly<Record<string, ReadonlyArray<string>>>
   ) {
     this.rawModels = models
     this.rawChildren = children

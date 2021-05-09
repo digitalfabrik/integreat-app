@@ -11,7 +11,7 @@ import withPayloadProvider from "../../../modules/endpoint/hocs/withPayloadProvi
 import withTheme from "../../../modules/theme/hocs/withTheme";
 import { CityModel, EventModel } from "api-client";
 import * as React from "react";
-import ErrorCodes from "../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../modules/error/ErrorCodes";
 import type { NavigationPropType, RoutePropType } from "../../../modules/app/constants/NavigationTypes";
 import navigateToLink from "../../../modules/navigation/navigateToLink";
 import createNavigateToFeedbackModal from "../../../modules/navigation/createNavigateToFeedbackModal";
@@ -98,7 +98,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCodes.UnknownError,
+        code: languages.code || ErrorCode.UnknownError,
         message: languages.message || 'languages not ready'
       };
     }

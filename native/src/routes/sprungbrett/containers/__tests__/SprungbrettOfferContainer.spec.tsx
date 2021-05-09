@@ -4,7 +4,7 @@ import createNavigationScreenPropMock from "../../../../testing/createNavigation
 import { SPRUNGBRETT_OFFER_ROUTE } from "api-client/src/routes";
 import SprungbrettOfferContainer from "../SprungbrettOfferContainer";
 import { render } from "@testing-library/react-native";
-import ErrorCodes from "../../../../modules/error/ErrorCodes";
+import { ErrorCode } from "../../../../modules/error/ErrorCodes";
 import { useLoadFromEndpoint } from "../../../../modules/endpoint/hooks/useLoadFromEndpoint";
 import configureMockStore from "redux-mock-store";
 import CityModelBuilder from "api-client/src/testing/CityModelBuilder";
@@ -49,7 +49,7 @@ describe('SprungbrettOfferContainer', () => {
     },
     name: SPRUNGBRETT_OFFER_ROUTE
   };
-  const errorText = `Failure ${ErrorCodes.UnknownError}`;
+  const errorText = `Failure ${ErrorCode.UnknownError}`;
 
   const refresh = () => {};
 
@@ -174,6 +174,6 @@ describe('SprungbrettOfferContainer', () => {
     expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers');
     expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading');
     expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`);
-    expect(getByText(`Failure ${ErrorCodes.PageNotFound}`)).toBeTruthy();
+    expect(getByText(`Failure ${ErrorCode.PageNotFound}`)).toBeTruthy();
   });
 });
