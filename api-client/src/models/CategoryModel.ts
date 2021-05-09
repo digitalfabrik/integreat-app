@@ -1,5 +1,3 @@
-// @flow
-
 import type Moment from 'moment'
 import ExtendedPageModel from './ExtendedPageModel'
 import PageModel from './PageModel'
@@ -9,18 +7,18 @@ class CategoryModel extends ExtendedPageModel {
   _parentPath: string
   _order: number
 
-  constructor(params: {|
-    root: boolean,
-    path: string,
-    title: string,
-    content: string,
-    thumbnail: string,
-    parentPath: string,
-    order: number,
-    availableLanguages: Map<string, string>,
-    lastUpdate: Moment,
+  constructor(params: {
+    root: boolean
+    path: string
+    title: string
+    content: string
+    thumbnail: string
+    parentPath: string
+    order: number
+    availableLanguages: Map<string, string>
+    lastUpdate: Moment
     hash: string
-  |}) {
+  }) {
     const { order, parentPath, root, ...other } = params
     super(other)
     this._root = root

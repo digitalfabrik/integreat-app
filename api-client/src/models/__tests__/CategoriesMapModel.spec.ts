@@ -1,9 +1,6 @@
-// @flow
-
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
 import moment from 'moment'
-
 describe('CategoriesMapModel', () => {
   const farsiCategory = new CategoryModel({
     root: false,
@@ -17,7 +14,6 @@ describe('CategoriesMapModel', () => {
     lastUpdate: moment('2016-01-07 10:36:24'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
-
   const categories = [
     new CategoryModel({
       root: true,
@@ -68,9 +64,7 @@ describe('CategoriesMapModel', () => {
       hash: '91d435afbc7aa83496137e81fd2832e3'
     })
   ]
-
   const categoriesMapModel = new CategoriesMapModel(categories)
-
   const category1 = categoriesMapModel.findCategoryByPath('/augsburg/de/')
   const category2 = categoriesMapModel.findCategoryByPath('/augsburg/de/willkommen')
   const category3 = categoriesMapModel.findCategoryByPath('/augsburg/de/erste-schritte///')
@@ -86,7 +80,6 @@ describe('CategoriesMapModel', () => {
     expect(category3).toEqual(categories[2])
     expect(category4).toEqual(categories[3])
   })
-
   it('should normalize url components correctly for special characters', () => {
     const map = new CategoriesMapModel([farsiCategory])
     const foundFarsiCategory = map.findCategoryByPath(
@@ -94,23 +87,19 @@ describe('CategoriesMapModel', () => {
     )
     expect(foundFarsiCategory).toEqual(farsiCategory)
   })
-
   it('should have the right parent attributes', () => {
     expect(category2.parentPath).toBe(category1.path)
     expect(category3.parentPath).toBe(category1.path)
     expect(category4.parentPath).toBe(category3.path)
   })
-
   it('should return all (mediate) parents in right order', () => {
     expect(categoriesMapModel.getAncestors(category4)[0]).toEqual(category1)
     expect(categoriesMapModel.getAncestors(category4)[1]).toEqual(category3)
   })
-
   it('should return all immediate children in the right order', () => {
     expect(categoriesMapModel.getChildren(category1)[0]).toEqual(category2)
     expect(categoriesMapModel.getChildren(category1)[1]).toEqual(category3)
   })
-
   it('should instruct CategoryModel to be leaf', () => {
     expect(categoriesMapModel.isLeaf(category4)).toBe(true)
     expect(categoriesMapModel.isLeaf(category3)).toBe(false)

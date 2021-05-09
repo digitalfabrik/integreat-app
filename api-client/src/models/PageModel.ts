@@ -1,5 +1,3 @@
-// @flow
-
 import type Moment from 'moment'
 
 class PageModel {
@@ -15,13 +13,13 @@ class PageModel {
     content,
     lastUpdate,
     hash
-  }: {|
-    path: string,
-    title: string,
-    content: string,
-    lastUpdate: Moment,
+  }: {
+    path: string
+    title: string
+    content: string
+    lastUpdate: Moment
     hash: string
-  |}) {
+  }) {
     this._path = path
     this._title = title
     this._content = content

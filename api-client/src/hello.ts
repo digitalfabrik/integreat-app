@@ -1,3 +1,3 @@
-console.log("Hello api-client!")
+console.log('Hello api-client!')
 
-export default 44;
+export default 44

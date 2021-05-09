@@ -1,34 +1,28 @@
-// @flow
-
 import type Moment from 'moment'
-
 export interface LandlordType {
-  +firstName: string;
-  +lastName: string;
-  +phone: string;
+  readonly firstName: string
+  readonly lastName: string
+  readonly phone: string
 }
-
 export interface AccommodationType {
-  +ofRooms: Array<string>;
-  +title: string;
-  +location: string;
-  +totalArea: number;
-  +totalRooms: number;
-  +moveInDate: Moment;
-  +ofRoomsDiff: Array<string>;
+  readonly ofRooms: Array<string>
+  readonly title: string
+  readonly location: string
+  readonly totalArea: number
+  readonly totalRooms: number
+  readonly moveInDate: Moment
+  readonly ofRoomsDiff: Array<string>
 }
-
 export interface CostsType {
-  +ofRunningServices: Array<string>;
-  +ofAdditionalServices: Array<string>;
-  +baseRent: number;
-  +runningCosts: number;
-  +hotWaterInHeatingCosts: boolean;
-  +additionalCosts: number;
-  +ofRunningServicesDiff: Array<string>;
-  +ofAdditionalServicesDiff: Array<string>;
+  readonly ofRunningServices: Array<string>
+  readonly ofAdditionalServices: Array<string>
+  readonly baseRent: number
+  readonly runningCosts: number
+  readonly hotWaterInHeatingCosts: boolean
+  readonly additionalCosts: number
+  readonly ofRunningServicesDiff: Array<string>
+  readonly ofAdditionalServicesDiff: Array<string>
 }
-
 export default class WohnenFormData {
   _landlord: LandlordType
   _accommodation: AccommodationType

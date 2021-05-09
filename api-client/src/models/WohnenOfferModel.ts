@@ -1,13 +1,11 @@
-// @flow
-
 import type Moment from 'moment'
 
 class WohnenOfferModel {
   _email: string
   _createdDate: Moment
-  _formData: *
+  _formData: any
 
-  constructor(params: { email: string, createdDate: Moment, formData: * }) {
+  constructor(params: { email: string; createdDate: Moment; formData: any }) {
     this._email = params.email
     this._createdDate = params.createdDate
     this._formData = params.formData
@@ -21,7 +19,7 @@ class WohnenOfferModel {
     return this._createdDate
   }
 
-  get formData(): * {
+  get formData(): any {
     return this._formData
   }
 }

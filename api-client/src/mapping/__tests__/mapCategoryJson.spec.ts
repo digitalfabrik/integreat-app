@@ -1,12 +1,8 @@
-// @flow
-
 import mapCategoryJson from '../mapCategoryJson'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
-
 describe('categories', () => {
   const basePath = '/augsburg/de'
-
   const categoryJson1 = {
     id: 3650,
     url: 'https://cms.integreat-app.de/augsburg/de/anlaufstellen',
@@ -14,7 +10,11 @@ describe('categories', () => {
     title: 'Anlaufstellen zu sonstigen Themen',
     content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
     excerpt: 'excerpt',
-    parent: { id: 0, path: null, url: null },
+    parent: {
+      id: 0,
+      path: null,
+      url: null
+    },
     order: 75,
     available_languages: {
       en: {
@@ -27,7 +27,6 @@ describe('categories', () => {
     modified_gmt: '2017-01-01 05:10:05',
     hash: '91d435afbc7aa83496137e81fd2832e3'
   }
-
   const categoryJson2 = {
     id: 404,
     url: 'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d9%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
@@ -57,7 +56,6 @@ describe('categories', () => {
     thumbnail: 'https://example.com/thumbnail',
     hash: '91d435afbc7aa83496137e81fd2832e3'
   }
-
   const categoryModel1 = new CategoryModel({
     root: false,
     path: '/augsburg/de/anlaufstellen',
@@ -70,7 +68,6 @@ describe('categories', () => {
     lastUpdate: moment.tz('2017-01-01 05:10:05', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
-
   const categoryModel2 = new CategoryModel({
     root: false,
     path: '/augsburg/fa/erste-schritte/نقشه-شهر',
@@ -83,17 +80,14 @@ describe('categories', () => {
     lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
-
   it('should map json correctly', () => {
     const category = mapCategoryJson(categoryJson1, basePath)
     expect(category).toEqual(categoryModel1)
   })
-
   it('should map farsi json correctly', () => {
     const category = mapCategoryJson(categoryJson2, basePath)
     expect(category).toEqual(categoryModel2)
   })
-
   it('should sanitize html', () => {
     // TODO IGAPP-564
   })

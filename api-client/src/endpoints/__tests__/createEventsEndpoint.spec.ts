@@ -1,5 +1,3 @@
-// @flow
-
 import type Moment from 'moment'
 import moment from 'moment-timezone'
 import EventModel from '../../models/EventModel'
@@ -8,7 +6,6 @@ import LocationModel from '../../models/LocationModel'
 import createEventsEndpoint from '../createEventsEndpoint'
 import type { JsonEventType } from '../../types'
 import FeaturedImageModel from '../../models/FeaturedImageModel'
-
 describe('events', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const events = createEventsEndpoint(baseUrl)
@@ -134,8 +131,8 @@ describe('events', () => {
   const event1 = createEvent(2730, false, '2016-01-31', '10:00:00', '2016-01-31', '13:00:00', 'Europe/Berlin')
   const event2 = createEvent(1889, false, '2015-11-29', '10:00:00', '2015-11-29', '13:00:00', 'Europe/Berlin')
   const event3 = createEvent(4768, true, '2017-09-29', '09:00:00', '2017-09-29', '15:00:00', 'Europe/Berlin') // we get these from cms
-  const event4 = createEvent(4826, true, '2018-03-01', '00:00:00', '2018-06-01', '23:59:59', 'America/New_York')
 
+  const event4 = createEvent(4826, true, '2018-03-01', '00:00:00', '2018-06-01', '23:59:59', 'America/New_York')
   const eventModel1 = createEventModel(
     2730,
     false,
@@ -160,20 +157,18 @@ describe('events', () => {
     moment.tz('2018-03-01 00:00:00', 'America/New_York'),
     moment.tz('2018-06-01 23:59:59', 'America/New_York')
   )
-
-  const params = { city: 'augsburg', language: 'de' }
-
+  const params = {
+    city: 'augsburg',
+    language: 'de'
+  }
   it('should map params to url', () => {
     expect(events.mapParamsToUrl(params)).toEqual(
       'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/events'
     )
   })
-
   const json = [event1, event2, event3, event4]
-
   it('should map fetched data to models', () => {
     const eventsModels = events.mapResponse(json, params)
-
     const value = [eventModel2, eventModel1, eventModel3, eventModel4]
     expect(eventsModels).toEqual(value)
   })

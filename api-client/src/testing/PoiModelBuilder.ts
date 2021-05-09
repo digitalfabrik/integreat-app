@@ -1,14 +1,10 @@
-// @flow
-
 import moment from 'moment'
 import PoiModel from '../models/PoiModel'
 import LocationModel from '../models/LocationModel'
-
 const availableLanguages = new Map([
   ['de', '/de/test'],
   ['en', '/en/test']
 ])
-
 const pois = [
   new PoiModel({
     path: 'test',
@@ -61,6 +57,7 @@ class PoiModelBuilder {
     if (this._poisCount > pois.length) {
       throw new Error(`Only ${pois.length} poi models can be created`)
     }
+
     this._poisCount = poisCount
   }
 

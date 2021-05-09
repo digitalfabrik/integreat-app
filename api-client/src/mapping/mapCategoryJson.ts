@@ -1,5 +1,3 @@
-// @flow
-
 import type { JsonCategoryType } from '../types'
 import CategoryModel from '../models/CategoryModel'
 import moment from 'moment-timezone'

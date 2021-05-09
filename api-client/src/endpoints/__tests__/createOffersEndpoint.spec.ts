@@ -1,12 +1,8 @@
-// @flow
-
 import createOffersEndpoint from '../createOffersEndpoint'
 import OfferModel from '../../models/OfferModel'
-
 describe('endpoint', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const offers = createOffersEndpoint(baseUrl)
-
   const pageJson = [
     {
       name: 'Serlo ABC',
@@ -27,15 +23,17 @@ describe('endpoint', () => {
       name: 'Lehrstellenradar',
       url: 'https://www.lehrstellen-radar.de/5100,0,lsrlist.html',
       thumbnail: 'some_other_thumbnail',
-      post: { partner: '0006', radius: '50', plz: '86150' }
+      post: {
+        partner: '0006',
+        radius: '50',
+        plz: '86150'
+      }
     }
   ]
-
   const lehrstellenRadarPostData = new Map()
   lehrstellenRadarPostData.set('partner', '0006')
   lehrstellenRadarPostData.set('radius', '50')
   lehrstellenRadarPostData.set('plz', '86150')
-
   const offerModels = [
     new OfferModel({
       alias: 'serlo-abc',
@@ -59,15 +57,15 @@ describe('endpoint', () => {
       postData: lehrstellenRadarPostData
     })
   ]
-
-  const params = { city: 'bad-toelz', language: 'en' }
-
+  const params = {
+    city: 'bad-toelz',
+    language: 'en'
+  }
   it('should map router to url', () => {
     expect(offers.mapParamsToUrl(params)).toEqual(
       'https://integreat-api-url.de/bad-toelz/en/wp-json/extensions/v3/extras'
     )
   })
-
   it('should map json to models', () => {
     const disclaimerModel = offers.mapResponse(pageJson, params)
     expect(disclaimerModel).toEqual(offerModels)

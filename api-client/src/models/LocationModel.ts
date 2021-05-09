@@ -1,15 +1,13 @@
-// @flow
-
 class LocationModel {
-  _name: ?string
-  _address: ?string
-  _town: ?string
-  _state: ?string
-  _postcode: ?string
-  _region: ?string
-  _country: ?string
-  _latitude: ?string
-  _longitude: ?string
+  _name: string | null | undefined
+  _address: string | null | undefined
+  _town: string | null | undefined
+  _state: string | null | undefined
+  _postcode: string | null | undefined
+  _region: string | null | undefined
+  _country: string | null | undefined
+  _latitude: string | null | undefined
+  _longitude: string | null | undefined
 
   constructor({
     name,
@@ -21,17 +19,17 @@ class LocationModel {
     country,
     latitude,
     longitude
-  }: {|
-    name: ?string,
-    address: ?string,
-    town: ?string,
-    state: ?string,
-    postcode: ?string,
-    region: ?string,
-    country: ?string,
-    latitude?: ?string,
-    longitude?: ?string
-  |}) {
+  }: {
+    name: string | null | undefined
+    address: string | null | undefined
+    town: string | null | undefined
+    state: string | null | undefined
+    postcode: string | null | undefined
+    region: string | null | undefined
+    country: string | null | undefined
+    latitude?: string | null | undefined
+    longitude?: string | null | undefined
+  }) {
     this._name = name
     this._address = address
     this._town = town
@@ -44,47 +42,49 @@ class LocationModel {
     this._name = name
   }
 
-  get name(): ?string {
+  get name(): string | null | undefined {
     return this._name
   }
 
-  get address(): ?string {
+  get address(): string | null | undefined {
     return this._address
   }
 
-  get town(): ?string {
+  get town(): string | null | undefined {
     return this._town
   }
 
-  get state(): ?string {
+  get state(): string | null | undefined {
     return this._state
   }
 
-  get postcode(): ?string {
+  get postcode(): string | null | undefined {
     return this._postcode
   }
 
-  get region(): ?string {
+  get region(): string | null | undefined {
     return this._region
   }
 
-  get country(): ?string {
+  get country(): string | null | undefined {
     return this._country
   }
 
-  get longitude(): ?string {
+  get longitude(): string | null | undefined {
     return this._longitude
   }
 
-  get latitude(): ?string {
+  get latitude(): string | null | undefined {
     return this._latitude
   }
 
-  get location(): ?string {
+  get location(): string | null | undefined {
     const town = this._postcode && this._town ? `${this._postcode} ${this._town}` : this._town
+
     if (!town && !this._address && !this._name) {
       return null
     }
+
     return [this._name, this._address, town].filter(value => !!value).join(', ')
   }
 

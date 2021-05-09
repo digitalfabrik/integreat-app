@@ -1,15 +1,11 @@
-// @flow
-
 import createFeedbackEndponit, {
   CONTENT_FEEDBACK_CATEGORY,
   PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '../createFeedbackEndpoint'
-
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const feedback = createFeedbackEndponit(baseUrl)
-
   it('should map params to url', () => {
     expect(
       feedback.mapParamsToUrl({
@@ -22,7 +18,6 @@ describe('feedback', () => {
       })
     ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
-
   it('should overwrite wrong feedback type for the root category', () => {
     expect(
       feedback.mapParamsToUrl({
@@ -36,7 +31,6 @@ describe('feedback', () => {
       })
     ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories')
   })
-
   it('should map the params to the body', () => {
     const formData = new FormData()
     formData.append('rating', 'up')
@@ -45,7 +39,6 @@ describe('feedback', () => {
     formData.append('query', 'query')
     formData.append('alias', 'alias')
     formData.append('category', 'Inhalte')
-
     expect(feedback.mapParamsToBody).not.toBeNull()
 
     // For flow inspection

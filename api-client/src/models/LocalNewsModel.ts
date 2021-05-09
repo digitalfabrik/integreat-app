@@ -1,5 +1,3 @@
-// @flow
-
 import type Moment from 'moment'
 
 class LocalNewsModel {
@@ -8,7 +6,7 @@ class LocalNewsModel {
   _title: string
   _message: string
 
-  constructor(params: {| id: number, timestamp: Moment, title: string, message: string |}) {
+  constructor(params: { id: number; timestamp: Moment; title: string; message: string }) {
     const { id, timestamp, title, message } = params
     this._id = id
     this._timestamp = timestamp

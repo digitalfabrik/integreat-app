@@ -1,5 +1,3 @@
-// @flow
-
 import type Moment from 'moment'
 import LocationModel from './LocationModel'
 import DateModel from './DateModel'
@@ -11,21 +9,21 @@ class EventModel extends ExtendedPageModel {
   _date: DateModel
   _location: LocationModel
   _excerpt: string
-  _featuredImage: ?FeaturedImageModel
+  _featuredImage: FeaturedImageModel | null | undefined
 
-  constructor(params: {|
-    path: string,
-    title: string,
-    content: string,
-    thumbnail: string,
-    date: DateModel,
-    location: LocationModel,
-    excerpt: string,
-    availableLanguages: Map<string, string>,
-    lastUpdate: Moment,
-    hash: string,
-    featuredImage: ?FeaturedImageModel
-  |}) {
+  constructor(params: {
+    path: string
+    title: string
+    content: string
+    thumbnail: string
+    date: DateModel
+    location: LocationModel
+    excerpt: string
+    availableLanguages: Map<string, string>
+    lastUpdate: Moment
+    hash: string
+    featuredImage: FeaturedImageModel | null | undefined
+  }) {
     const { date, location, excerpt, featuredImage, ...other } = params
     super(other)
     this._date = date
@@ -46,7 +44,7 @@ class EventModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  get featuredImage(): ?FeaturedImageModel {
+  get featuredImage(): FeaturedImageModel | null | undefined {
     return this._featuredImage
   }
 

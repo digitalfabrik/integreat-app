@@ -1,7 +1,4 @@
-// @flow
-
 import CityModel from '../models/CityModel'
-
 const cities = [
   new CityModel({
     name: 'Stadt Augsburg',
@@ -107,6 +104,7 @@ class CityModelBuilder {
     if (this._citiesCount > cities.length) {
       throw new Error(`Only ${cities.length} city models can be created`)
     }
+
     this._citiesCount = citiesCount
   }
 

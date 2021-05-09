@@ -1,11 +1,9 @@
-// @flow
-
 import normalizePath from 'normalize-path'
 import CategoryModel from './CategoryModel'
-
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
  */
+
 class CategoriesMapModel {
   _categories: Map<string, CategoryModel>
 
@@ -30,7 +28,7 @@ class CategoriesMapModel {
    * @param {String} path The path
    * @return {CategoryModel | undefined} The category
    */
-  findCategoryByPath(path: string): ?CategoryModel {
+  findCategoryByPath(path: string): CategoryModel | null | undefined {
     return this._categories.get(decodeURIComponent(normalizePath(path)))
   }
 
@@ -55,14 +53,17 @@ class CategoriesMapModel {
 
     while (!category.isRoot()) {
       const temp = this.findCategoryByPath(category.parentPath)
+
       if (!temp) {
         throw new Error(
           `The category ${category.parentPath} does not exist but should be the parent of ${category.path}`
         )
       }
+
       category = temp
       parents.unshift(category)
     }
+
     return parents
   }
 
@@ -75,6 +76,7 @@ class CategoriesMapModel {
       this._categories.size === other._categories.size &&
       Array.from(this._categories.entries()).every(([key, value]) => {
         const otherCategory = other._categories.get(key)
+
         return otherCategory && value.isEqual(otherCategory)
       })
     )

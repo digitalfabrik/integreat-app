@@ -1,10 +1,11 @@
-// @flow
-
 import type Moment from 'moment'
 import moment from 'moment'
-
-export type FormatFunctionType = (date: Moment, options: {| format?: string |}) => string
-
+export type FormatFunctionType = (
+  date: Moment,
+  options: {
+    format?: string
+  }
+) => string
 export const ISO8601_FORMAT = undefined
 
 class DateFormatter {
@@ -16,7 +17,12 @@ class DateFormatter {
     this.defaultLocale = defaultLocale
   }
 
-  format: FormatFunctionType = (date: Moment, options: {| format?: string |}) => {
+  format: FormatFunctionType = (
+    date: Moment,
+    options: {
+      format?: string
+    }
+  ) => {
     const format = options.format || this.fallbackFormat
     // TODO IGAPP-399: Uncomment again and use locale instead of hardcoded 'en'
     // const requestedLocale = defaultLocale

@@ -1,37 +1,30 @@
-// @flow
-
+import { $ReadOnly } from 'utility-types'
 import moment from 'moment'
 import seedrandom from 'seedrandom'
 import md5 from 'js-md5'
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import hashUrl from '../hashUrl'
-
-type PageResourceCacheEntryStateType = {|
-  +filePath: string,
-  +lastUpdate: moment,
-  +hash: string
-|}
-
-type PageResourceCacheStateType = $ReadOnly<{
-  [url: string]: PageResourceCacheEntryStateType
-}>
-
+type PageResourceCacheEntryStateType = {
+  readonly filePath: string
+  readonly lastUpdate: moment
+  readonly hash: string
+}
+type PageResourceCacheStateType = $ReadOnly<Record<string, PageResourceCacheEntryStateType>>
 const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
 const MAX_PREDICTABLE_VALUE = 6
-
 /**
  * This builder generates a perfect m-ary tree of categories with the specified depth.
  */
+
 class CategoriesMapModelBuilder {
   _depth: number
   _arity: number
   _city: string
   _language: string
-
   _categories: Array<CategoryModel>
-  _resourceCache: { [path: string]: PageResourceCacheStateType }
+  _resourceCache: Record<string, PageResourceCacheStateType>
   _id = 0
 
   constructor(city: string, language: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
@@ -68,13 +61,11 @@ class CategoriesMapModelBuilder {
     for (let i = 0; i < this._arity; i++) {
       const id = this._id
       this._id++
-
       const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
       const resourceUrl1 = `https://cms.integreat-app.de/title_${id}-300x300.png`
       const resourceUrl2 = `https://cms.integreat-app.de/category_${id}-300x300.png`
       const thumbnail = `http://cms.integreat-app.de/thumbnails/category_${id}.png`
-
       const newChild = new CategoryModel({
         root: false,
         path,
@@ -90,7 +81,6 @@ class CategoriesMapModelBuilder {
         lastUpdate,
         hash: md5.create().update(category.path).hex()
       })
-
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
         [resourceUrl2]: this.createResource(resourceUrl2, id, lastUpdate),
@@ -101,7 +91,7 @@ class CategoriesMapModelBuilder {
     }
   }
 
-  buildResources(): { [path: string]: PageResourceCacheStateType } {
+  buildResources(): Record<string, PageResourceCacheStateType> {
     return this.buildAll().resourceCache
   }
 
@@ -109,12 +99,15 @@ class CategoriesMapModelBuilder {
     return this.buildAll().categories
   }
 
-  buildAll(): { categories: CategoriesMapModel, resourceCache: { [path: string]: PageResourceCacheStateType } } {
+  buildAll(): {
+    categories: CategoriesMapModel
+    resourceCache: Record<string, PageResourceCacheStateType>
+  } {
     this._resourceCache = {}
     this._categories = []
     this._id = 0
-
     const path = `/${this._city}/${this._language}`
+
     this._addChildren(
       new CategoryModel({
         root: true,
