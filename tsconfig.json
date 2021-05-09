@@ -2,7 +2,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": ".",
-    "lib": [],
+    "lib": ["ES5"],
+    "target": "ES6",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
