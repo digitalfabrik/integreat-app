@@ -7,7 +7,7 @@ import { View } from "react-native";
 import type { ThemeType } from "build-configs/ThemeType";
 import SpaceBetween from "../../../modules/common/components/SpaceBetween";
 import SiteHelpfulBox from "../../../modules/common/components/SiteHelpfulBox";
-import { SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from "api-client/src/routes";
+import { SPRUNGBRETT_OFFER_ROUTE } from "api-client/src/routes";
 type PropsType = {
   offers: Array<OfferModel>;
   navigateToFeedback: (isPositiveFeedback: boolean) => void;
@@ -19,7 +19,7 @@ type PropsType = {
 
 const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
   return offer.map(offer => {
-    const isInternalExtra = [SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE].includes(offer.alias);
+    const isInternalExtra = [SPRUNGBRETT_OFFER_ROUTE].includes(offer.alias);
     const path = isInternalExtra ? offer.alias : offer.path;
     return new TileModel({
       title: offer.title,

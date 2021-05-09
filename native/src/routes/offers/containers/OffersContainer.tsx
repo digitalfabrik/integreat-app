@@ -10,7 +10,7 @@ import type { ThemeType } from "build-configs/ThemeType";
 import withTheme from "../../../modules/theme/hocs/withTheme";
 import FailureContainer from "../../../modules/error/containers/FailureContainer";
 import type { NavigationPropType, RoutePropType } from "../../../modules/app/constants/NavigationTypes";
-import { EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE, WOHNEN_OFFER_ROUTE } from "api-client/src/routes";
+import { EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from "api-client/src/routes";
 import LayoutedScrollView from "../../../modules/common/containers/LayoutedScrollView";
 import openExternalUrl from "../../../modules/common/openExternalUrl";
 import type { OffersRouteType } from "api-client/src/routes";
@@ -78,15 +78,6 @@ const OffersContainer = ({
           languageCode
         };
         navigation.push(SPRUNGBRETT_OFFER_ROUTE, params);
-      } else if (offer.alias === WOHNEN_OFFER_ROUTE) {
-        const params = {
-          city: cityCode,
-          title,
-          alias: offer.alias,
-          postData,
-          offerHash: null
-        };
-        navigation.push(WOHNEN_OFFER_ROUTE, params);
       }
     }
   }, [offers, cityCode, languageCode, navigation]);
