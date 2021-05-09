@@ -44,6 +44,3 @@ export type ImageViewModalRouteType = 'image'
 export const IMAGE_VIEW_MODAL_ROUTE: ImageViewModalRouteType = 'image'
 export type FeedbackModalRouteType = 'feedback'
 export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
-// Legacy
-export type WohnenOfferRouteType = 'wohnen'
-export const WOHNEN_OFFER_ROUTE: WohnenOfferRouteType = 'wohnen'
