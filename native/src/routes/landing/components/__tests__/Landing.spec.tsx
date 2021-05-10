@@ -6,8 +6,8 @@ import Landing from '../Landing'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import Geolocation from '@react-native-community/geolocation'
 import waitForExpect from 'wait-for-expect'
-// @ts-expect-error
 import { ThemeProvider } from 'styled-components/native'
+
 let mockCheckLocationPermission
 let mockRequestLocationPermission
 jest.mock('../../../../modules/app/LocationPermissionManager', () => {
@@ -80,6 +80,7 @@ describe('Landing', () => {
     })
     it('should determine location and show nearby locations on mount if permission already granted', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
+      // @ts-ignore
       Geolocation.getCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryByText, queryAllByText } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
@@ -102,6 +103,7 @@ describe('Landing', () => {
     })
     it('should determine location and show no nearby locations if there are none', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
+      // @ts-ignore
       Geolocation.getCurrentPosition.mockImplementationOnce(setPosition =>
         setPosition({
           coords: {
@@ -158,6 +160,7 @@ describe('Landing', () => {
     })
     it('should determine location if permission is granted on retry click', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
+      // @ts-ignore
       Geolocation.getCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryAllByText, getByText, getByA11yLabel } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
@@ -187,6 +190,7 @@ describe('Landing', () => {
     it('should request permission and determine location on retry if not granted yet', async () => {
       mockCheckLocationPermission.mockImplementation(() => RESULTS.DENIED)
       mockRequestLocationPermission.mockImplementation(() => RESULTS.GRANTED)
+      // @ts-ignore
       Geolocation.getCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryAllByText, getByText, getByA11yLabel } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>

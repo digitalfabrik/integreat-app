@@ -3,20 +3,20 @@ import { CityModel } from 'api-client'
 import { View } from 'react-native'
 import Heading from '../components/Heading'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import { checkLocationPermission, requestLocationPermission } from '../../../modules/app/LocationPermissionManager'
 import { openSettings, RESULTS } from 'react-native-permissions'
-const Wrapper: StyledComponent<{}, ThemeType, any> = styled(View)`
+
+const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 20px;
   align-items: center;
   flex-grow: 1;
 `
+
 export type PropsType = {
   cities: Array<CityModel>
   language: string
@@ -72,6 +72,7 @@ class Landing extends React.Component<PropsType, StateType> {
       })
     }
   }
+
   requestAndDetermineLocation = async () => {
     this.setState({
       location: {
@@ -104,6 +105,7 @@ class Landing extends React.Component<PropsType, StateType> {
       }
     }
   }
+
   determineLocation = () => {
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
@@ -123,6 +125,7 @@ class Landing extends React.Component<PropsType, StateType> {
       }
     )
   }
+
   setLocationErrorMessage = (error: GeolocationError) => {
     if (error.code === 1) {
       this.setState({
@@ -147,6 +150,7 @@ class Landing extends React.Component<PropsType, StateType> {
       })
     }
   }
+
   navigateToDashboard = (cityModel: CityModel) => {
     const { navigateToDashboard, language } = this.props
     navigateToDashboard(cityModel.code, language)
@@ -155,7 +159,7 @@ class Landing extends React.Component<PropsType, StateType> {
   render() {
     const { theme, cities, t, clearResourcesAndCache } = this.props
     const { location } = this.state
-    const retryDetermineLocation = location?.message === 'loading' ? null : this.requestAndDetermineLocation
+    const retryDetermineLocation = location?.status === 'unavailable' && location.message === 'loading' ? null : this.requestAndDetermineLocation
     return (
       <Wrapper>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />

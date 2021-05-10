@@ -5,8 +5,6 @@ import CityEntry from './CityEntry'
 import { View } from 'react-native'
 import { CityModel } from 'api-client'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
 import getNearbyPlaces from '../getNearbyPlaces'
@@ -16,30 +14,26 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import CityGroup from './CityGroup'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import buildConfig from '../../../modules/app/constants/buildConfig'
-const CityGroupContainer: StyledComponent<{}, {}, any> = styled.View`
+
+const CityGroupContainer = styled.View`
   flex: 0;
   flex-direction: column;
 `
-const NearbyMessageContainer: StyledComponent<{}, {}, any> = styled.View`
+const NearbyMessageContainer = styled.View`
   padding: 7px;
   flex-direction: row;
   justify-content: space-between;
 `
-const RetryButtonContainer: StyledComponent<{}, {}, any> = styled.View`
+const RetryButtonContainer = styled.View`
   flex-direction: column;
   height: 46px;
 `
-const NearbyMessage: StyledComponent<
-  {
-    theme: ThemeType
-  },
-  {},
-  any
-> = styled.Text`
+const NearbyMessage = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding-top: 15px;
 `
+
 type PropsType = {
   cities: Array<CityModel>
   filterText: string
@@ -140,7 +134,7 @@ class CitySelector extends React.PureComponent<PropsType> {
             <RetryButtonContainer>
               {retryDetermineLocation && (
                 <Button
-                  icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} style='material' />}
+                  icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                   title=''
                   type='clear'
                   onPress={retryDetermineLocation}

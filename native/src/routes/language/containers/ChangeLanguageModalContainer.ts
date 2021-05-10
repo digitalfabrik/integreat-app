@@ -8,6 +8,7 @@ import { LanguageModel, NEWS_ROUTE } from 'api-client'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 import { ThemeType } from 'build-configs/ThemeType'
+
 type OwnPropsType = {
   route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>
@@ -19,7 +20,7 @@ type StatePropsType = {
   newsType: NewsType | null | undefined
 }
 type DispatchPropsType = {
-  changeLanguage: (newLanguage: string) => void
+  changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => void
 }
 type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
@@ -34,6 +35,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       newsRouteMapping &&
       newsRouteMapping[previousKey] &&
       newsRouteMapping[previousKey].routeType === NEWS_ROUTE &&
+      // @ts-ignore we already check that we are in the news route
       newsRouteMapping[previousKey].type) ||
     null
   return {
@@ -50,7 +52,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
   const cityCode = ownProps.route.params.cityCode
   const previousKey = ownProps.route.params.previousKey
   return {
-    changeLanguage: (newLanguage: string, newsType: NewsType | null | undefined) => {
+    changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
@@ -79,7 +81,7 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
   }
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
