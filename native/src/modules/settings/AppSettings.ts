@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import AsyncStorage from '@react-native-community/async-storage'
 import { mapValues, toPairs } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
@@ -49,7 +48,7 @@ class AppSettings {
       return parsed
     })
   }
-  setSettings = async (settings: $Shape<SettingsType>) => {
+  setSettings = async (settings: Partial<SettingsType>) => {
     const settingsArray = toPairs(mapValues(settings, value => JSON.stringify(value)))
     await this.asyncStorage.multiSet(settingsArray)
   }

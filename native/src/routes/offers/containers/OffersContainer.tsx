@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
@@ -115,11 +114,4 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   )
 }
 
-export default withTranslation<
-  $Diff<
-    OffersPropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('offers')(withTheme<OffersPropsType>(OffersContainer))
+export default withTranslation('offers')(withTheme<OffersPropsType>(OffersContainer))

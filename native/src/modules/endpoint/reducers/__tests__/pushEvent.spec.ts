@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
 import { CityContentStateType } from '../../../app/StateType'
@@ -34,7 +33,7 @@ describe('pushEvent', () => {
   })
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
-  const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
+  const prepareState = (state: Partial<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
       routeMapping: {

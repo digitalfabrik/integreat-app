@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
 import { TFunction } from 'react-i18next'
@@ -123,12 +122,5 @@ const News = (props: PropsType) => {
   )
 }
 
-const TranslatedWithThemeNewsList = withTranslation<
-  $Diff<
-    PropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('news')(withTheme<PropsType>(News))
+const TranslatedWithThemeNewsList = withTranslation('news')(withTheme<PropsType>(News))
 export default TranslatedWithThemeNewsList

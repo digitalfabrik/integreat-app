@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import createSettingsSections from '../createSettingsSections'
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import { defaultSettings } from '../../../modules/settings/AppSettings'
@@ -32,7 +31,7 @@ jest.mock('react-native-permissions', () => require('react-native-permissions/mo
 jest.mock('@react-native-community/geolocation')
 jest.mock('../../../modules/app/initSentry')
 describe('createSettingsSections', () => {
-  let changeSetting: (settings: SettingsType) => $Shape<SettingsType>
+  let changeSetting: (settings: SettingsType) => Partial<SettingsType>
   let changeAction: void | ((newSettings: SettingsType) => Promise<void>)
   beforeEach(() => {
     jest.clearAllMocks()

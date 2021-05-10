@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
 import { CityContentStateType } from '../../../app/StateType'
@@ -43,7 +42,7 @@ describe('pushCategory', () => {
   const categoriesMap = new CategoriesMapModel([rootCategory, subCategory, subSubCategory])
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
-  const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
+  const prepareState = (state: Partial<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
       routeMapping: {

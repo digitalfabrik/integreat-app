@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import React from 'react'
 import { CityModel } from 'api-client'
 import { StyledComponent } from 'styled-components'
@@ -84,11 +83,4 @@ class NewsHeader extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation<
-  $Diff<
-    PropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('news')(withTheme<PropsType>(NewsHeader))
+export default withTranslation('news')(withTheme<PropsType>(NewsHeader))

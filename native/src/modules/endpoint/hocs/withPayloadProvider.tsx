@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { LanguageModel } from 'api-client'
@@ -17,6 +16,7 @@ import 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
 import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
 import ProgressContainer from '../../common/containers/ProgressContainer'
+
 export type RouteNotInitializedType = {
   status: 'routeNotInitialized'
 }
@@ -43,33 +43,22 @@ export type SuccessType<S extends {}, R extends {}> = {
   innerProps: S
   refreshProps: R
 }
+
+type DispatchType = {
+  dispatch: Dispatch<StoreActionType>
+}
+
 export type StatusPropsType<
   S extends {
-    dispatch: Dispatch<StoreActionType>
+    dispatch: DispatchType
   },
   R extends {}
 > =
   | RouteNotInitializedType
-  | LoadingType<
-      $Diff<
-        S,
-        {
-          dispatch: Dispatch<StoreActionType>
-        }
-      >,
-      R
-    >
+  | LoadingType<Omit<S, keyof DispatchType>, R>
   | ErrorType<R>
   | LanguageNotAvailableType
-  | SuccessType<
-      $Diff<
-        S,
-        {
-          dispatch: Dispatch<StoreActionType>
-        }
-      >,
-      R
-    >
+  | SuccessType<Omit<S, keyof DispatchType>, R>
 export type PropsType<
   S extends {
     dispatch: Dispatch<StoreActionType>

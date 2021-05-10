@@ -1,4 +1,3 @@
-import { Readonly } from 'utility-types'
 import { CategoryModel } from 'api-client'
 import { has } from 'lodash'
 

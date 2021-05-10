@@ -1,8 +1,6 @@
-import { $Diff } from 'utility-types'
 import { PropsType as SettingsPropsType } from '../components/Settings'
 import Settings from '../components/Settings'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { StateType } from '../../../modules/app/StateType'
@@ -33,11 +31,9 @@ const mapStateToProps = (state: StateType): StatePropsType => {
 
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
   withTheme<
-    $Diff<
+    Omit<
       SettingsPropsType,
-      {
-        t: TFunction
-      }
+        "t"
     >
-  >(withTranslation<SettingsPropsType>('settings')(Settings))
+  >(withTranslation('settings')(Settings))
 )

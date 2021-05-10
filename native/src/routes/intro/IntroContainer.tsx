@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import * as React from 'react'
@@ -227,12 +226,5 @@ type ConnectType = OwnPropsType & {
   dispatch: Dispatch<StoreActionType>
 }
 export default connect<ConnectType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withTranslation<
-    $Diff<
-      PropsType,
-      {
-        theme: ThemeType
-      }
-    >
-  >(['intro', 'settings'])(withTheme<PropsType>(Intro))
+  withTranslation(['intro', 'settings'])(withTheme<PropsType>(Intro))
 )
