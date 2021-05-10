@@ -66,7 +66,7 @@ describe('CategoriesContainer', () => {
   const resourceCacheUrl = 'http://localhost:8080'
 
   const prepareState = (
-    routeState: CategoryRouteStateType | null | undefined,
+    routeState?: CategoryRouteStateType,
     {
       switchingLanguage,
       cities,

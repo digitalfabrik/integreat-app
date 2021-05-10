@@ -1,22 +1,18 @@
 import { connect } from 'react-redux'
-import { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { Dispatch } from 'redux'
-import 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider, { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import { PropsType as CategoriesPropsType } from '../../../modules/categories/components/Categories'
-import Categories from '../../../modules/categories/components/Categories'
+import Categories, { PropsType as CategoriesPropsType } from '../../../modules/categories/components/Categories'
 import React from 'react'
 import { ErrorCode } from '../../../modules/error/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { CATEGORIES_ROUTE } from 'api-client/src/routes'
+import { CATEGORIES_ROUTE, CategoriesRouteType } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import { CategoriesRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 type NavigationPropsType = {
   route: RoutePropType<CategoriesRouteType>
@@ -88,7 +84,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (switchingLanguage) {
     return {
       status: 'loading',
-      progress: resourceCache.progress ? resourceCache.progress : 0
+      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0
     }
   }
 
@@ -98,8 +94,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCode.UnknownError,
-        message: languages.message || 'languages not ready'
+        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
+        message: languages.status === 'error' ? languages.message : 'languages not ready'
       }
     }
 
@@ -164,7 +160,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  // $FlowFixMe Flow does not get that models and children cannot be undefined as it is already checked above
+  // @ts-ignore ts does not get that models and children cannot be undefined as it is already checked above
   const stateView = new CategoriesRouteStateView(route.path, route.models, route.children)
   const cityModel = state.cities.models.find(city => city.code === route.city)
 
@@ -215,6 +211,8 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
+const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
+
 class CategoriesContainer extends React.Component<ContainerPropsType> {
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
@@ -235,8 +233,7 @@ class CategoriesContainer extends React.Component<ContainerPropsType> {
   }
 }
 
-const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
-export default connect<PropsType, OwnPropsType, _, _, _, _>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(

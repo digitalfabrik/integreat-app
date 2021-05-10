@@ -28,7 +28,7 @@ import {
   TU_NEWS_TYPE
 } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-const Spacing: StyledComponent<{}, ThemeType, any> = styled.View`
+const Spacing = styled.View`
   padding: 10px;
 `
 export type PropsType = {
