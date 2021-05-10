@@ -127,7 +127,7 @@ describe('NewsContainer', () => {
     allAvailableLanguages: new Map()
   }
   it('should display nothing if the route is not initialized', () => {
-    const state: StateType = prepareState()
+    const state: StateType = prepareState(null)
     const store = mockStore(state)
     const navigation = createNavigationScreenPropMock()
     const { getByText } = render(

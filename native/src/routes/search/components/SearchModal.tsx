@@ -86,7 +86,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
       .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
       .map(
         (category: CategoryModel): ListEntryType => {
-          const contentWithoutHtml = []
+          const contentWithoutHtml: string[] = []
           const parser = new Parser({
             ontext(data: string) {
               contentWithoutHtml.push(data)

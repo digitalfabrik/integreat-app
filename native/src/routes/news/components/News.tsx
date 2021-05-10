@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
-import { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { withTranslation, TFunction } from 'react-i18next'
 import { CityModel, LOCAL_NEWS_TYPE, LocalNewsModel, NotFoundError, TunewsModel } from 'api-client'
 import NewsList from './NewsList'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -10,13 +9,12 @@ import withTheme from '../../../modules/theme/hocs/withTheme'
 import { fromError } from '../../../modules/error/ErrorCodes'
 import NewsListItem from './NewsListItem'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
 import NewsDetail from './NewsDetail'
-import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import { NEWS_ROUTE, TU_NEWS_TYPE, NewsType } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import { NewsType } from 'api-client/src/routes'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
-const NoNews: StyledComponent<{}, ThemeType, any> = styled.Text`
+
+const NoNews = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
   align-self: center;
@@ -41,7 +39,7 @@ const News = (props: PropsType) => {
   const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t, routeKey } = props
   const { navigateTo, navigateToLink, cityModel } = props
 
-  const renderNoItemsComponent = () => {
+  const renderNoItemsComponent = (): React.ReactElement => {
     return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
   }
 

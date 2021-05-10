@@ -12,20 +12,20 @@ type PropsType = {
   theme: ThemeType
 }
 type StateType = {
-  error: Error | null | undefined
+  error: boolean
 }
 
 class PDFViewModal extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props)
     this.state = {
-      error: null
+      error: false
     }
   }
 
-  onError = (error: Error) =>
+  onError = () =>
     this.setState(() => ({
-      error
+      error: true
     }))
 
   render() {
