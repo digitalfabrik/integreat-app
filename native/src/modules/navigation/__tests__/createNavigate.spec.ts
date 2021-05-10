@@ -103,7 +103,7 @@ describe('createNavigate', () => {
     assertOnlyCalled([navigateToJpalTracking])
   })
   it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
-    // $FlowFixMe build config is a mock
+    // @ts-ignore build config is a mock
     buildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         jpalTracking: true
@@ -219,7 +219,7 @@ describe('createNavigate', () => {
     assertOnlyCalled([navigateToEvents], 2)
   })
   it('should call navigateToNews for news route', () => {
-    // $FlowFixMe build config is a mock
+    // @ts-ignore build config is a mock
     buildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         newsStream: true
@@ -247,7 +247,7 @@ describe('createNavigate', () => {
     })
   })
   it('should not call navigateToNews if it is not enabled in build config', () => {
-    // $FlowFixMe build config is a mock
+    // @ts-ignore build config is a mock
     buildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         newsStream: false
@@ -266,7 +266,7 @@ describe('createNavigate', () => {
     assertNotCalled(allMocks)
   })
   it('should call navigateToPois for pois route', () => {
-    // $FlowFixMe build config is a mock
+    // @ts-ignore build config is a mock
     buildConfig.mockImplementation(() => ({
       featureFlags: {
         pois: true
@@ -302,7 +302,7 @@ describe('createNavigate', () => {
     assertOnlyCalled([navigateToPois], 2)
   })
   it('should not call navigateToPois if it is not enabled in build config', () => {
-    // $FlowFixMe build config is a mock
+    // @ts-ignore build config is a mock
     buildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         pois: false

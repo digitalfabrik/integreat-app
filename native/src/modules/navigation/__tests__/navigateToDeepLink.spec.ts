@@ -36,7 +36,7 @@ describe('navigateToDeepLink', () => {
   describe('landing deep links', () => {
     const url = 'https://integreat.app'
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -59,7 +59,7 @@ describe('navigateToDeepLink', () => {
       })
     })
     it('should navigate to landing if no city is selected and intro slides already shown', async () => {
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -81,7 +81,7 @@ describe('navigateToDeepLink', () => {
       })
     })
     it('should navigate to landing if no city is selected and intro slides disabled', async () => {
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: false
@@ -103,7 +103,7 @@ describe('navigateToDeepLink', () => {
     })
     it('should navigate to dashboard if there is a fixed city and intro slides already shown', async () => {
       const fixedCity = 'aschaffenburg'
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true,
@@ -136,7 +136,7 @@ describe('navigateToDeepLink', () => {
     })
     it('should navigate to dashboard if there is already a selected city', async () => {
       const selectedCity = 'nuernberg'
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: false
@@ -172,7 +172,7 @@ describe('navigateToDeepLink', () => {
     const languageCode = `ar`
     const url = `https://integreat.app/${cityCode}/${languageCode}`
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -195,7 +195,7 @@ describe('navigateToDeepLink', () => {
       })
     })
     it('should navigate to dashboard if intro slides already shown', async () => {
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -227,7 +227,7 @@ describe('navigateToDeepLink', () => {
     })
     it('should navigate to dashboard and use current language if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}`
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -260,7 +260,7 @@ describe('navigateToDeepLink', () => {
     it('should open selected city dashboard and navigate to route', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/${cityCode}`
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -305,7 +305,7 @@ describe('navigateToDeepLink', () => {
     })
     it('should navigate to fixed city if intro slides disabled', async () => {
       const fixedCity = 'aschaffenburg'
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: false,
@@ -341,7 +341,7 @@ describe('navigateToDeepLink', () => {
     const languageCode = `ar`
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -365,7 +365,7 @@ describe('navigateToDeepLink', () => {
     })
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -409,7 +409,7 @@ describe('navigateToDeepLink', () => {
     })
     it('should open dashboard and navigate to offers route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/offers`
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true
@@ -453,7 +453,7 @@ describe('navigateToDeepLink', () => {
     it('should open selected city dashboard and navigate to route', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/${cityCode}/en/news`
-      // $FlowFixMe build config is a mock
+      // @ts-ignore build config is a mock
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           introSlides: true

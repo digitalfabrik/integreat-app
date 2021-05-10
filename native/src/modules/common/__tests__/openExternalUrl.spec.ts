@@ -46,7 +46,7 @@ describe('openExternalUrl', () => {
   })
   it('should open http urls with linking if inapp browser is not available', async () => {
     const url = 'https://som.niceli.nk/mor/etext'
-    // $FlowFixMe mockImplementation is not missing
+    // @ts-ignore mockImplementation is not missing
     InAppBrowser.isAvailable.mockImplementation(() => false)
     await openExternalUrl(url)
     expect(InAppBrowser.open).not.toHaveBeenCalled()

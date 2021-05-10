@@ -136,7 +136,6 @@ describe('Navigator', () => {
     jest.clearAllMocks()
   })
   it('should fetch cities on mount', async () => {
-    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
@@ -201,7 +200,6 @@ describe('Navigator', () => {
     await findByText('Intro')
   })
   it('should call fetch category if the dashboard route is the initial route', async () => {
-    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       const routeKey = generateKey()
@@ -234,7 +232,6 @@ describe('Navigator', () => {
   })
   it('should set allowPushNotifications to false if not supported by device', async () => {
     mockPushNotificationsSupported.mockImplementationOnce(() => false)
-    // $FlowFixMe wrong flow definition `Promise` [1] is incompatible with undefined
     await act(async () => {
       const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
