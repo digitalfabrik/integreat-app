@@ -10,6 +10,7 @@ jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
 require('react-native-gesture-handler/jestSetup')
 
 jest.mock('react-native-reanimated', () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const Reanimated = require('react-native-reanimated/mock')
 
   Reanimated.default.call = () => {}
@@ -19,10 +20,10 @@ jest.mock('react-native-reanimated', () => {
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
 
 // window isn't defined as of react-native 0.45+ it seems
-if (typeof window !== 'object') {
-  global.window = global
-  global.window.navigator = {}
-}
+// if (typeof window !== 'object') {
+//   global.window = global
+//   global.window.navigator = {}
+// }
 
 // Setup fetch mock
 global.fetch = require('jest-fetch-mock')
@@ -31,8 +32,8 @@ jest.mock('rn-fetch-blob')
 // https://jestjs.io/docs/en/configuration#testenvironment-string
 // Importing it from jsdom allows us to import stuff selectively
 const jsdom = new JSDOM()
-const { FormData } = jsdom.window
-global.FormData = FormData
+// const { FormData } = jsdom.window
+// global.FormData = FormData
 
 function walkDir(dir, callback) {
   fs.readdirSync(dir).forEach(f => {
@@ -55,7 +56,8 @@ walkDir(mocksPath, name => {
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => require('testing/I18nManagerMock.js'))
 jest.doMock('modules/app/constants/buildConfig')
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
-jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
+jest.mock('react-native/Libraries/Components/Switch/Switch', async () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const mockComponent = require('react-native/jest/mockComponent')
 
   return mockComponent('react-native/Libraries/Components/Switch/Switch')

@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["jest"],
+    "types": ["jest", "node", "react-native"],
     "outDir": "dist",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -26,5 +26,8 @@
       "path": "../api-client"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*",
+    "jest.setup.ts"
+  ]
 }

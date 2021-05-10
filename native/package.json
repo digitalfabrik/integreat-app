@@ -23,12 +23,12 @@
     "android:reverse": "adb reverse tcp:8081 tcp:8081",
     "android:reinit": "adb shell pm clear com.integreat && adb shell am start com.integreat/com.integreat.MainActivity",
     "android:start-avd": "bash -c '$ANDROID_HOME/emulator/emulator -avd $($ANDROID_HOME/emulator/emulator -list-avds | head -n 1)'",
-    "test": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.js",
+    "test": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.ts",
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
     "test:update": "yarn run test -u",
-    "test:e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' jest --config jest.e2e.config.js --maxWorkers=4",
+    "test:e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' jest --config jest.e2e.config.ts --maxWorkers=4",
     "lint": "yarn run eslint",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
@@ -132,6 +132,7 @@
     "redux-flipper": "^1.4.2",
     "redux-mock-store": "^1.5.4",
     "redux-saga-test-plan": "^4.0.0-rc.1",
+    "ts-jest": "^26.5.6",
     "wait-for-expect": "^3.0.2",
     "wd": "^1.12.1"
   }
