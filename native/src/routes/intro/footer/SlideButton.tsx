@@ -12,7 +12,6 @@ const SlideButton = ({ label, onPress, theme, highlighted }: PropsType) => (
   <Button
     type={highlighted ? 'solid' : 'clear'}
     title={label}
-    borderless
     onPress={onPress}
     titleStyle={{
       color: theme.colors.textColor

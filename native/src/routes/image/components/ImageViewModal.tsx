@@ -12,10 +12,6 @@ type PropsType = {
 }
 
 class ImageViewModal extends React.Component<PropsType> {
-  renderNothing(): React.ReactNode {
-    return null
-  }
-
   render() {
     return (
       <View
@@ -26,7 +22,7 @@ class ImageViewModal extends React.Component<PropsType> {
           style={{
             flex: 1
           }}
-          renderIndicator={this.renderNothing}
+          renderIndicator={() => (<></>)}
           backgroundColor={this.props.theme.colors.backgroundAccentColor}
           saveToLocalByLongPress={false}
           imageUrls={[
