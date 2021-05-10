@@ -12,7 +12,7 @@ const transformNodeModules = [
   'hashids',
   'build-configs'
 ]
-module.exports = {
+export default {
   rootDir: 'src',
   preset: 'react-native',
   verbose: true,
@@ -24,7 +24,7 @@ module.exports = {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '\\.(css|less)$': 'identity-obj-proxy'
   },
-  setupFiles: ['<rootDir>/../jest.setup.js'],
+  setupFiles: ['<rootDir>/../jest.setup.ts'],
   setupFilesAfterEnv: ['jest-extended', '@testing-library/jest-native/extend-expect'],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
