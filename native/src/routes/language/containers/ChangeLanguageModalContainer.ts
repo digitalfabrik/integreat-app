@@ -17,7 +17,7 @@ type StatePropsType = {
   currentLanguage: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
-  newsType: NewsType | null | undefined
+  newsType: NewsType | undefined
 }
 type DispatchPropsType = {
   changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => void

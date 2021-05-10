@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { JpalTrackingRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
 import AppSettings from '../../../modules/settings/AppSettings'
+
 jest.mock('@react-native-community/async-storage')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -17,7 +18,7 @@ describe('JpalTracking', () => {
     AsyncStorage.clear()
     jest.clearAllMocks()
   })
-  const navigation = createNavigationMock()
+  const navigation = createNavigationMock<JpalTrackingRouteType>()
   const route: RoutePropType<JpalTrackingRouteType> = {
     key: 'route-id-0',
     params: {

@@ -27,10 +27,6 @@ const navigateToCategory = <T extends RoutesType>({
 }) => {
   const route = {
     name: routeName,
-    params: {
-      cityCode,
-      languageCode
-    },
     key
   }
 

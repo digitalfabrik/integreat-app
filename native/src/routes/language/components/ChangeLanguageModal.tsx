@@ -16,10 +16,10 @@ type PropsType = {
   currentLanguage: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
-  changeLanguage: (newLanguage: string, newsType: NewsType | null | undefined) => void
+  changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => void
   route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>
-  newsType: NewsType | null | undefined
+  newsType: NewsType | undefined
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {

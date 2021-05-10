@@ -15,7 +15,7 @@ const navigateToSearch = <T extends RoutesType>({
   languageCode: string
 }) => {
   navigation.navigate({
-    name: SEARCH_ROUTE
+    name: SEARCH_ROUTE, params: undefined
   })
 }
 
