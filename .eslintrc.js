@@ -25,11 +25,10 @@ module.exports = {
     '**/lib-dist/'
   ],
   rules: {
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
     'no-loop-func': 'error',
+    'no-use-before-define': 'off',
     'prefer-const': 'error',
     'prefer-object-spread': 'error',
     'prefer-template': 'error',
@@ -45,6 +44,10 @@ module.exports = {
 
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+
+    '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-empty-function': 'warn',
 
     'jest/consistent-test-it': 'error',
     'jest/no-disabled-tests': 'error',
