@@ -14,13 +14,13 @@ type PropsType = {
 const ThumbnailContainer = styled(Image)`
   height: 150px;
 `
-const TileTitle: StyledComponent<{}, ThemeType, any> = styled.Text`
+const TileTitle = styled.Text`
   margin: 5px;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
-const TileContainer: StyledComponent<{}, {}, any> = styled.View`
+const TileContainer = styled.View`
   margin-bottom: 20px;
   width: 50%;
 `

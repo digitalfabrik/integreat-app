@@ -59,16 +59,16 @@ describe('DefaultDataContainer', () => {
     })
     it('should return false if CacheType pois is not stored', () => {
       const defaultDataContainer = new DefaultDataContainer()
-      expect(defaultDataContainer.isCached('pois', new DatabaseContext())).toBe(false)
+      expect(defaultDataContainer.isCached('pois', new DatabaseContext(null, null))).toBe(false)
     })
     it('should return true if CacheType is stored', async () => {
       const defaultDataContainer = new DefaultDataContainer()
       await defaultDataContainer.setCities(testCities)
-      expect(defaultDataContainer.isCached('cities', new DatabaseContext())).toBe(true)
+      expect(defaultDataContainer.isCached('cities', new DatabaseContext(null, null))).toBe(true)
     })
     it('should return false if CacheType is not stored', () => {
       const defaultDataContainer = new DefaultDataContainer()
-      expect(defaultDataContainer.isCached('cities', new DatabaseContext())).toBe(false)
+      expect(defaultDataContainer.isCached('cities', new DatabaseContext(null, null))).toBe(false)
     })
   })
   it('should return persisted pois data if not cached', async () => {
@@ -141,8 +141,8 @@ describe('DefaultDataContainer', () => {
   it('should return the lastUpdateMoment associated with the context', async () => {
     const defaultDataContainer = new DefaultDataContainer()
     const databaseConnector = new DatabaseConnector()
-    await databaseConnector.storeLastUsage(new DatabaseContext('testCity'), false)
-    await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity'), false)
+    await databaseConnector.storeLastUsage(new DatabaseContext('testCity', null), false)
+    await databaseConnector.storeLastUsage(new DatabaseContext('anotherTestCity', null), false)
     const lastUpdate = moment('2011-02-04T00:00:00.000Z')
     const anotherLastUpdate = moment('2012-02-04T00:00:00.000Z')
     await defaultDataContainer.setLastUpdate('testCity', 'de', lastUpdate)

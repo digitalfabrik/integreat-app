@@ -4,12 +4,12 @@ import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
 
 import { ThemeType } from '../../theme/constants'
-const StyledView: StyledComponent<{}, ThemeType, any> = styled.View`
+const StyledView = styled.View`
   margin: 0 10px 0;
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.themeColor};
 `
-const NoItemsMessage: StyledComponent<{}, ThemeType, any> = styled.Text`
+const NoItemsMessage = styled.Text`
   padding-top: 25px;
   text-align: center;
 `

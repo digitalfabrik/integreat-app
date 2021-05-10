@@ -4,7 +4,7 @@ import { StyledComponent } from 'styled-components'
 
 import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
-const Identifier: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Identifier = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontBold};
   color: ${props => props.theme.colors.textColor};
 `
@@ -13,7 +13,7 @@ type DetailContainerPropsType = {
   children: React.ReactNode
   theme: ThemeType
 }
-const DetailContainer: StyledComponent<DetailContainerPropsType, ThemeType, any> = styled.Text`
+const DetailContainer = styled.Text<DetailContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};

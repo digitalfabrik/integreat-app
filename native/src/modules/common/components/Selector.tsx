@@ -1,11 +1,11 @@
 import * as React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import { css } from 'styled-components'
+import { StyledComponent, css } from 'styled-components'
 import { TouchableHighlight } from 'react-native'
 import { ThemeType } from '../../theme/constants'
 import dimensions from '../../theme/constants/dimensions'
+
 const ItemWrapper = styled.View`
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@ const Element = styled.Text`
   ${props => (props.enabled ? 'font-weight: 700' : '')};
   color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)}};
 `
-export const TouchTarget: StyledComponent<{}, {}, any> = styled(TouchableHighlight)`
+export const TouchTarget = styled(TouchableHighlight)`
   width: 100%;
 `
 type WrapperPropsType = {
@@ -26,7 +26,7 @@ type WrapperPropsType = {
   children: React.ReactNode
   theme: ThemeType
 }
-export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, any> = styled.View`
+export const Wrapper = styled.View<WrapperPropsType>`
   display: flex;
   width: 100%;
   flex-flow: row wrap;

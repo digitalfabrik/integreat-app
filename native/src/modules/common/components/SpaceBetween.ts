@@ -1,7 +1,6 @@
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
 
-const SpaceBetween: StyledComponent<{}, {}, any> = styled.View`
+const SpaceBetween = styled.View`
   justify-content: space-between;
   flex: 1;
 `

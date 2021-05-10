@@ -1,15 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import { ThemeType } from '../../theme/constants'
-const H1: StyledComponent<
-  {
-    withThumbnail: boolean
-  },
-  ThemeType,
-  any
-> = styled.Text`
+
+const H1 = styled.Text<{
+  withThumbnail: boolean
+}>`
   padding: ${props => (props.withThumbnail ? '0 0' : '20px 0')};
   font-size: 20px;
   text-align: center;

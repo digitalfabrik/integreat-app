@@ -2,13 +2,15 @@ import { CitiesStateType } from '../../../app/StateType'
 import citiesReducer from '../citiesReducer'
 import { CityModel } from 'api-client'
 import { ErrorCode } from '../../../error/ErrorCodes'
+import { StoreActionType } from '../../../app/StoreActionType'
+
 describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {
     const prevState: CitiesStateType = {
       status: 'ready',
       models: []
     }
-    const action = {
+    const action: StoreActionType = {
       type: 'FETCH_CITIES',
       params: {
         forceRefresh: false

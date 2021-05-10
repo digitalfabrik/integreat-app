@@ -1,14 +1,12 @@
 import * as React from 'react'
 import { TFunction } from 'react-i18next'
-import 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, Image } from 'react-native-svg'
-import { StyledComponent } from 'styled-components'
-
 import styled from 'styled-components/native'
 import { buildConfigAssets } from '../../app/constants/buildConfig'
 import { ThemeType } from '../../theme/constants'
-const Container: StyledComponent<{}, {}, any> = styled.View`
+
+const Container = styled.View`
   width: 100%;
   height: 100%;
   display: flex;

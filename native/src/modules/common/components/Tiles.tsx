@@ -2,8 +2,6 @@ import * as React from 'react'
 import Caption from '../../../modules/common/components/Caption'
 import Tile from './Tile'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import TileModel from '../models/TileModel'
 import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
@@ -19,7 +17,7 @@ type TilesRowPropsType = {
   children: React.ReactNode
   theme: ThemeType
 }
-const TilesRow: StyledComponent<TilesRowPropsType, ThemeType, any> = styled.View`
+const TilesRow = styled.View<TilesRowPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   flex-wrap: wrap;

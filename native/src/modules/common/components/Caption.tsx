@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import { ThemeType } from '../../theme/constants'
-const H1: StyledComponent<{}, ThemeType, any> = styled.Text`
+
+const H1 = styled.Text`
   padding: 20px 0;
   font-size: 20px;
   text-align: center;

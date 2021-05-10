@@ -2,6 +2,7 @@ import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } fr
 import moment from 'moment'
 import { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
+import { PushCategoryActionType } from '../../../app/StoreActionType'
 describe('pushCategory', () => {
   const rootCategory = new CategoryModel({
     root: true,
@@ -99,7 +100,7 @@ describe('pushCategory', () => {
         value: {}
       }
     })
-    const pushCategoryAction = {
+    const pushCategoryAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap,
@@ -147,7 +148,7 @@ describe('pushCategory', () => {
         value: {}
       }
     })
-    const pushCategoryAction = {
+    const pushCategoryAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap,
@@ -217,7 +218,7 @@ describe('pushCategory', () => {
         }
       }
     }
-    const pushCategoryAction = {
+    const pushCategoryAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap: testumgebungCategoriesMap,
@@ -251,7 +252,7 @@ describe('pushCategory', () => {
         value: {}
       }
     })
-    const pushCategoryAction = {
+    const pushCategoryAction: PushCategoryActionType = {
       type: 'PUSH_CATEGORY',
       params: {
         categoriesMap,
