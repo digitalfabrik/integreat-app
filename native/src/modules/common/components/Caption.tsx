@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 const H1: StyledComponent<{}, ThemeType, any> = styled.Text`
   padding: 20px 0;

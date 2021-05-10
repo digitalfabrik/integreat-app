@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { useCallback, useContext } from 'react'
-import { useWindowDimensions, Text, View } from 'react-native'
-import { HTMLNode } from 'react-native-render-html'
-import Html, { GestureResponderEvent } from 'react-native-render-html'
+import { useWindowDimensions, Text, View, GestureResponderEvent } from 'react-native'
+import Html, { HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../../i18n/context/DateFormatterContext'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs/ThemeType'
-import Moment from 'moment'
+import { Moment } from 'moment'
 import { config } from 'translations'
 import TimeStamp from '../../common/components/TimeStamp'
 import SpaceBetween from '../../common/components/SpaceBetween'
+
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`
   margin: 0 ${HORIZONTAL_MARGIN}px 0px;
@@ -50,14 +50,14 @@ const CategoryListContent = ({
   const alterResources = useCallback(
     (node: HTMLNode) => {
       if (node.attribs) {
-        if (node.attribs.href) {
+        if (typeof node.attribs.href === 'string') {
           const newResource = cacheDictionary[decodeURI(node.attribs.href)]
 
           if (newResource) {
             node.attribs = { ...(node.attribs || {}), href: newResource }
             return node
           }
-        } else if (node.attribs.src) {
+        } else if (typeof node.attribs.src === 'string') {
           const newResource = cacheDictionary[decodeURI(node.attribs.src)]
 
           if (newResource) {
@@ -172,7 +172,6 @@ const CategoryListContent = ({
           contentWidth={width}
           defaultTextProps={{
             selectable: true,
-            allowFontStyling: true
           }}
           alterNode={alterResources}
           listsPrefixesRenderers={{

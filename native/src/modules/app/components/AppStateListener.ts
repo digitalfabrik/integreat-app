@@ -4,12 +4,6 @@ import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 import { RESUME_SIGNAL_NAME, SUSPEND_SIGNAL_NAME } from 'api-client'
 
 const AppStateListener = () => {
-  useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange)
-    return () => {
-      AppState.removeEventListener('change', handleAppStateChange)
-    }
-  }, [])
 
   const handleAppStateChange = (nextAppState: string) => {
     if (nextAppState === 'active') {
@@ -26,6 +20,13 @@ const AppStateListener = () => {
       })
     }
   }
+
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange)
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange)
+    }
+  }, [])
 
   return null
 }

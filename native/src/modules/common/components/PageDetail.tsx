@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 const Identifier: StyledComponent<{}, ThemeType, any> = styled.Text`

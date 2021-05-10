@@ -1,8 +1,6 @@
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
-import { ThemeType } from '../../theme/constants'
-const StyledLink: StyledComponent<{}, ThemeType, any> = styled.TouchableHighlight`
+
+const StyledLink = styled.TouchableHighlight`
   display: flex;
   flex-direction: row;
   justify-content: center;

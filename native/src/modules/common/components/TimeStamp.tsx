@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next'
 import { Moment } from 'moment'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'

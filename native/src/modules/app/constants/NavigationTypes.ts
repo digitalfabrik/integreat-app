@@ -19,9 +19,9 @@ import {
   RedirectRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType
+  SprungbrettOfferRouteType,
+  LanguageModel
 } from 'api-client'
-import { LanguageModel } from 'api-client'
 import { FeedbackInformationType } from '../../feedback/FeedbackContainer'
 export type RoutesType =
   | RedirectRouteType
@@ -57,12 +57,12 @@ export type RoutesParamsType = {
   intro: {
     deepLink?: string
   }
-  landing: void
-  dashboard: void
-  categories: void
-  pois: void
-  events: void
-  news: void
+  landing: undefined
+  dashboard: undefined
+  categories: undefined
+  pois: undefined
+  events: undefined
+  news: undefined
   disclaimer: CityContentParamsType
   offers: CityContentParamsType
   jpal: {
@@ -73,8 +73,8 @@ export type RoutesParamsType = {
     postData: Map<string, string> | null | undefined
   }
   sprungbrett: CityContentParamsType
-  settings: void
-  search: void
+  settings: undefined
+  search: undefined
   changeLanguage: {
     currentLanguage: string
     previousKey: string

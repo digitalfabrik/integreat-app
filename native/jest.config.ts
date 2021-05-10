@@ -27,7 +27,7 @@ export default {
     '\\.(css|less)$': 'identity-obj-proxy'
   },
   setupFiles: ['<rootDir>/../jest.setup.ts'],
-  setupFilesAfterEnv: ['jest-extended', '@testing-library/jest-native/extend-expect'],
+  setupFilesAfterEnv: ['jest-extended'],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],

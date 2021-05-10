@@ -1,4 +1,3 @@
-/* eslint-disable flowtype/no-weak-types */
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import ProgressSpinner from '../ProgressSpinner'

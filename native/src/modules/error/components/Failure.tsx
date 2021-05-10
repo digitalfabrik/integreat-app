@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { Text } from 'react-native'
 import { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'

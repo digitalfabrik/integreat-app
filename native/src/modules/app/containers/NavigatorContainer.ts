@@ -1,17 +1,12 @@
 import { Dispatch } from 'redux'
-import 'redux'
 import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
 import { StoreActionType } from '../StoreActionType'
-type OwnPropsType = {
-  routeKey: string | null | undefined
-  routeName: string | null | undefined
-}
+
 type DispatchPropsType = {
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void
   fetchCities: (forceRefresh: boolean) => void
 }
-type PropsType = OwnPropsType & DispatchPropsType
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => {

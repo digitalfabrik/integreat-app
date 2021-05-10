@@ -2,7 +2,7 @@ import React from 'react'
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 const Container: StyledComponent<
   {

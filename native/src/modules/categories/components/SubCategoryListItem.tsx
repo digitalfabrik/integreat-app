@@ -2,10 +2,10 @@ import * as React from 'react'
 import { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { contentDirection } from '../../i18n/contentDirection'
 import { CategoryListModelType } from './CategoryList'
-const SubCategoryTitleContainer = styled.View`
+
+const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
   align-self: center;
   padding: 8px 0;
@@ -20,12 +20,12 @@ type FlexStyledLinkPropsType = {
   onPress: () => void
   underlayColor: string
 }
-const FlexStyledLink: StyledComponent<FlexStyledLinkPropsType, ThemeType, any> = styled.TouchableHighlight`
+const FlexStyledLink = styled.TouchableHighlight<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   margin: 0 20px 0 95px;
 `
-const SubCategoryTitle: StyledComponent<{}, ThemeType, any> = styled.Text`
+const SubCategoryTitle = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `

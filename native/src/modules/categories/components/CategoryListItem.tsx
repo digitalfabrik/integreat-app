@@ -2,7 +2,6 @@ import * as React from 'react'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from '../../theme/constants'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
@@ -13,8 +12,9 @@ import normalizeSearchString from '../../common/normalizeSearchString'
 import { CategoryListModelType } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
 import dimensions from '../../theme/constants/dimensions'
+
 const NUM_WORDS_SURROUNDING_MATCH = 10
-const FlexStyledLink: StyledComponent<{}, ThemeType, any> = styled(StyledLink)`
+const FlexStyledLink = styled(StyledLink)`
   display: flex;
   flex-direction: column;
 `
@@ -23,11 +23,11 @@ type DirectionContainerPropsType = {
   children: React.ReactNode
   theme: ThemeType
 }
-const DirectionContainer: StyledComponent<DirectionContainerPropsType, ThemeType, any> = styled.View`
+const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-const CategoryEntryContainer: StyledComponent<DirectionContainerPropsType, ThemeType, any> = styled.View`
+const CategoryEntryContainer = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
@@ -35,13 +35,8 @@ const CategoryEntryContainer: StyledComponent<DirectionContainerPropsType, Theme
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
-const CategoryTitle: StyledComponent<
-  {
-    language: string
-  },
-  ThemeType,
-  any
-> = styled(Highlighter)`
+
+const CategoryTitle = styled<DirectionContainerPropsType>(Highlighter)`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
@@ -69,7 +64,7 @@ type PropsType = {
 
 class CategoryListItem extends React.Component<PropsType> {
   contentMatcher = new ContentMatcher()
-  onCategoryPress = () => {
+  onCategoryPress = (): void => {
     this.props.onItemPress(this.props.category)
   }
 
@@ -133,7 +128,7 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
-  render() {
+  render(): JSX.Element {
     const { language, category, theme } = this.props
     return (
       <>

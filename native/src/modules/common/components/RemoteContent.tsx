@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 import { createHtmlSource } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'

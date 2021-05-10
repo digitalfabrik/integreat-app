@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { StackHeaderProps } from '@react-navigation/stack'
 import { HeaderBackButton } from '@react-navigation/stack'
 import { ThemeType } from '../../theme/constants'
