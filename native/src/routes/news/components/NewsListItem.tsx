@@ -3,16 +3,14 @@ import { useContext } from 'react'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
-import 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { contentDirection, contentAlignment } from '../../../modules/i18n/contentDirection'
 import { config } from 'translations'
 import { Parser } from 'htmlparser2'
 import TimeStamp from '../../../modules/common/components/TimeStamp'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+
 type PropsType = {
   newsItem: LocalNewsModel | TunewsModel
   language: string
@@ -21,34 +19,17 @@ type PropsType = {
   t: TFunction
   isTunews: boolean
 }
-type ListItemViewPropsType = {
-  language: string
-  children: React.ReactNode
-  theme: ThemeType
-}
-const ListItemView: StyledComponent<ListItemViewPropsType, ThemeType, any> = styled.View`
+
+const ListItemView = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
-const ReadMoreWrapper: StyledComponent<
-  {
-    language: string
-    children: React.ReactNode
-  },
-  {},
-  any
-> = styled.View`
+const ReadMoreWrapper = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: flex-end;
   width: 100%;
   align-self: center;
 `
-const Icon: StyledComponent<
-  {
-    isTunews: boolean | null | undefined
-  },
-  ThemeType,
-  any
-> = styled(MaterialIcon)`
+const Icon = styled(MaterialIcon)<{ isTunews: boolean }>`
   font-size: 20px;
   top: 4px;
   right: 5px;
@@ -58,10 +39,10 @@ const Icon: StyledComponent<
 const ListItemWrapper = styled.View`
   padding-horizontal: 5%;
 `
-const StyledTouchableOpacity: StyledComponent<{}, ThemeType, any> = styled.TouchableOpacity`
+const StyledTouchableOpacity = styled.TouchableOpacity`
   flex-direction: column;
 `
-const Divider: StyledComponent<{}, ThemeType, any> = styled.View`
+const Divider = styled.View`
   border-top-width: 0.5px;
   border-top-color: rgba(168, 168, 168, 0.7);
   width: 80%;
@@ -69,11 +50,11 @@ const Divider: StyledComponent<{}, ThemeType, any> = styled.View`
   margin-bottom: 12px;
   align-self: center;
 `
-export const Description: StyledComponent<{}, ThemeType, any> = styled.View`
+export const Description = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
-export const Title: StyledComponent<{}, ThemeType, any> = styled.Text`
+export const Title = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -81,39 +62,21 @@ export const Title: StyledComponent<{}, ThemeType, any> = styled.Text`
   margin-bottom: 8px;
   margin-top: 8px;
 `
-export const Content: StyledComponent<
-  {
-    language: string
-  },
-  ThemeType,
-  any
-> = styled.Text`
+export const Content = styled.Text<{ language: string }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-const TimeStampContent: StyledComponent<
-  {
-    language: string
-  },
-  ThemeType,
-  any
-> = styled.Text`
+const TimeStampContent = styled.Text<{ language: string }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0px
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
-export const ReadMore: StyledComponent<
-  {
-    isTunews: boolean | null | undefined
-  },
-  ThemeType,
-  any
-> = styled.Text`
+export const ReadMore = styled.Text<{ isTunews: boolean }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;

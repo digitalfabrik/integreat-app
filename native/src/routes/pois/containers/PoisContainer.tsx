@@ -3,20 +3,17 @@ import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 import { Dispatch } from 'redux'
 import { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider, { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { PoiModel } from 'api-client'
 import * as React from 'react'
-import { PropsType as PoisPropsType } from '../components/Pois'
-import Pois from '../components/Pois'
+import Pois, { PropsType as PoisPropsType } from '../components/Pois'
 import { ErrorCode } from '../../../modules/error/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import { PoisRouteType } from 'api-client/src/routes'
+import { POIS_ROUTE, PoisRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
-import { POIS_ROUTE } from 'api-client/src/routes'
 
 type NavigationPropsType = {
   route: RoutePropType<PoisRouteType>
@@ -41,7 +38,6 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {
   dispatch: Dispatch<StoreActionType>
 }
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -93,8 +89,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCode.UnknownError,
-        message: languages.message || 'languages not ready'
+        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
+        message: languages.status === 'error' ? languages.message : 'languages not ready'
       }
     }
 
@@ -208,7 +204,8 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
+// @ts-ignore
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(PoisContainer))

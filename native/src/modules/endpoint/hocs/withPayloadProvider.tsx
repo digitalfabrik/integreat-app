@@ -5,14 +5,11 @@ import { RefreshControl } from 'react-native'
 import LanguageNotAvailableContainer from '../../common/containers/LanguageNotAvailableContainer'
 import { StoreActionType } from '../../app/StoreActionType'
 import { Dispatch } from 'redux'
-import 'redux'
 import FailureContainer from '../../error/containers/FailureContainer'
 import { LOADING_TIMEOUT } from '../../common/constants'
 import { ErrorCode } from '../../error/ErrorCodes'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 import { NavigationPropType, RoutePropType, RoutesType } from '../../app/constants/NavigationTypes'
-import { TFunction } from 'react-i18next'
-import 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'
 import LayoutedScrollView from '../../common/containers/LayoutedScrollView'
 import ProgressContainer from '../../common/containers/ProgressContainer'
@@ -20,13 +17,13 @@ import ProgressContainer from '../../common/containers/ProgressContainer'
 export type RouteNotInitializedType = {
   status: 'routeNotInitialized'
 }
-export type LoadingType<S extends {}, R extends {}> = {
+export type LoadingType<S extends Record<string, unknown>, R extends Record<string, unknown>> = {
   status: 'loading'
   progress: number
   innerProps?: S
   refreshProps?: R
 }
-export type ErrorType<R extends {}> = {
+export type ErrorType<R extends Record<string, unknown>> = {
   status: 'error'
   message: string | null | undefined
   code: ErrorCode
@@ -38,41 +35,31 @@ export type LanguageNotAvailableType = {
   cityCode: string
   changeUnavailableLanguage: (dispatch: Dispatch<StoreActionType>, newLanguage: string) => void
 }
-export type SuccessType<S extends {}, R extends {}> = {
+export type SuccessType<S extends Record<string, unknown>, R extends Record<string, unknown>> = {
   status: 'success'
   innerProps: S
   refreshProps: R
 }
 
-type DispatchType = {
-  dispatch: Dispatch<StoreActionType>
-}
-
 export type StatusPropsType<
   S extends {
-    dispatch: DispatchType
+    dispatch: Dispatch<StoreActionType>
   },
-  R extends {}
+  R extends Record<string, unknown>
 > =
   | RouteNotInitializedType
-  | LoadingType<Omit<S, keyof DispatchType>, R>
+  | LoadingType<Omit<S, keyof { dispatch: Dispatch<StoreActionType> }>, R>
   | ErrorType<R>
   | LanguageNotAvailableType
-  | SuccessType<Omit<S, keyof DispatchType>, R>
+  | SuccessType<Omit<S, keyof { dispatch: Dispatch<StoreActionType> }>, R>
+
 export type PropsType<
   S extends {
     dispatch: Dispatch<StoreActionType>
   },
-  R extends {},
+  R extends Record<string, unknown>,
   T extends RoutesType
-> =
-  | (StatusPropsType<S, R> & {
-      dispatch: Dispatch<StoreActionType>
-      navigation: NavigationPropType<T>
-      route: RoutePropType<T>
-      t: TFunction
-    })
-  | (StatusPropsType<S, R> & {
+> = (StatusPropsType<S, R> & {
       dispatch: Dispatch<StoreActionType>
       navigation: NavigationPropType<T>
       route: RoutePropType<T>
@@ -82,7 +69,7 @@ const withPayloadProvider = <
   S extends {
     dispatch: Dispatch<StoreActionType>
   },
-  R extends {},
+  R extends Record<string, unknown>,
   T extends RoutesType
 >(
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
@@ -148,10 +135,11 @@ const withPayloadProvider = <
           // Prevent jumpy behaviour by showing nothing until the timeout finishes
           return <LayoutContainer />
         } else if (!!innerProps && !!dispatch) {
+          const componentProps = { ...innerProps, dispatch } as S
           // Display previous content if available
           return (
             <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
-              <Component {...innerProps} dispatch={dispatch} />
+              <Component {...componentProps} />
             </LayoutedScrollView>
           )
         } else {
@@ -163,18 +151,19 @@ const withPayloadProvider = <
           )
         }
       } else {
+        const componentProps = { ...props.innerProps, dispatch: props.dispatch } as S
         // props.status === 'success'
         if (noScrollView) {
           return (
             <LayoutContainer>
-              <Component {...props.innerProps} dispatch={props.dispatch} />
+              <Component {...componentProps} />
             </LayoutContainer>
           )
         }
 
         return (
           <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-            <Component {...props.innerProps} dispatch={props.dispatch} />
+            <Component {...componentProps} />
           </LayoutedScrollView>
         )
       }

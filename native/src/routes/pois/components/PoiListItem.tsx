@@ -2,15 +2,15 @@ import * as React from 'react'
 import { PoiModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
-import { ThemeType } from '../../../modules/theme/constants'
-import { StyledComponent } from 'styled-components'
+import { ThemeType } from 'build-configs/ThemeType'
+
 type PropsType = {
   poi: PoiModel
   language: string
   navigateToPois: () => void
   theme: ThemeType
 }
-const Description: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Description = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `

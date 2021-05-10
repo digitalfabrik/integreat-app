@@ -5,15 +5,13 @@ import { Dispatch } from 'redux'
 import { CityModel } from 'api-client'
 import React, { useCallback } from 'react'
 import News from '../components/News'
-import { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider, { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import NewsHeader from '../../../modules/common/components/NewsHeader'
 import { View } from 'react-native'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import { ErrorCode } from '../../../modules/error/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { NewsRouteType, NewsType } from 'api-client/src/routes'
-import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import { NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE  } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 type NavigationPropsType = {
@@ -33,7 +31,10 @@ type ContainerPropsType =
         cityModel: CityModel
         selectedNewsType: NewsType
         page: null
-      })
+        news: null
+        hasMoreNews: null
+        isFetchingMore: null
+})
   | (NavigationPropsType &
       DispatchPropsType & {
         status: 'ready'
@@ -53,7 +54,6 @@ type RefreshPropsType = NavigationPropsType & {
   selectedNewsType: NewsType
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -120,8 +120,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCode.UnknownError,
-        message: languages.message || 'languages not ready'
+        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
+        message: languages.status === 'error' ? languages.message : 'languages not ready'
       }
     }
 
@@ -194,7 +194,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         cityModel,
         navigation,
         route: ownProps.route,
-        page: null
+        page: null,
+        news: null,
+        hasMoreNews: null,
+        isFetchingMore: null
       }
     }
   }
@@ -211,8 +214,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityModel,
       navigation,
       route: ownProps.route,
-      hasMoreNews: route.hasMoreNews || null,
-      page: route.page !== undefined ? route.page : null,
+      hasMoreNews: route.status !== 'loadingMore' ? route.hasMoreNews : null,
+      page: route.status !== 'loadingMore' ? route.page : null,
       isFetchingMore: route.status === 'loadingMore'
     }
   }
@@ -326,6 +329,7 @@ const NewsContainer = (props: ContainerPropsType) => {
   }
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+export default connect(mapStateToProps)(
+  // @ts-ignore
   withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(NewsContainer)
 )

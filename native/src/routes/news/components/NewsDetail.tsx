@@ -6,26 +6,20 @@ import { ThemeType } from 'build-configs/ThemeType'
 import { contentAlignment } from '../../../modules/i18n/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
 import Html from 'react-native-render-html'
 import TimeStamp from '../../../modules/common/components/TimeStamp'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
-const Container: StyledComponent<{}, {}, any> = styled.View`
+
+const Container = styled.View`
   align-items: center;
   margin-horizontal: 3%;
   flex: 1;
 `
-const TimeStampContent: StyledComponent<
-  {
-    language: string
-  },
-  ThemeType,
-  any
-> = styled.Text`
+const TimeStampContent = styled.Text<{ language: string }>`
   padding: 17px 0px
   text-align: ${props => contentAlignment(props.language)};
 `
-const HeaderImageWrapper: StyledComponent<{}, ThemeType, any> = styled.View`
+const HeaderImageWrapper = styled.View`
   width: 95%;
   align-self: center;
   align-items: flex-start;
@@ -33,11 +27,11 @@ const HeaderImageWrapper: StyledComponent<{}, ThemeType, any> = styled.View`
   border-radius: 5px;
   background-color: rgba(2, 121, 166, 0.4);
 `
-const HeaderImage: StyledComponent<{}, ThemeType, any> = styled.Image`
+const HeaderImage = styled.Image`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `
-const NewsHeadLine: StyledComponent<{}, ThemeType, any> = styled.Text`
+const NewsHeadLine = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};
@@ -97,7 +91,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) =>
             }}
             defaultTextProps={{
               selectable: true,
-              allowFontStyling: true
+              allowFontScaling: true
             }}
           />
           {newsItem instanceof LocalNewsModel && (
