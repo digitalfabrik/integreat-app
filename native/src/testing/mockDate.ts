@@ -1,7 +1,7 @@
-import { Moment } from 'moment'
 import moment from 'moment'
+
 export default (
-  mockDate: Moment
+  mockDate: number
 ): {
   restoreDate: () => void
 } => {

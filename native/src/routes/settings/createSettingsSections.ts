@@ -1,5 +1,5 @@
+import { SectionListData } from 'react-native'
 import { TFunction } from 'react-i18next'
-import 'react-i18next'
 import NativeConstants from '../../modules/native-constants/NativeConstants'
 import { SettingsType } from '../../modules/settings/AppSettings'
 import openPrivacyPolicy from './openPrivacyPolicy'
@@ -8,14 +8,27 @@ import * as Sentry from '@sentry/react-native'
 import * as NotificationsManager from '../../modules/push-notifications/PushNotificationsManager'
 import initSentry from '../../modules/app/initSentry'
 import openExternalUrl from '../../modules/common/openExternalUrl'
-import { SettingsRouteType } from 'api-client'
-import { JPAL_TRACKING_ROUTE } from 'api-client'
+import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
 import { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
 import { openSettings } from 'react-native-permissions'
+import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
+
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
   changeAction?: (newSettings: SettingsType) => Promise<void>
 ) => Promise<void>
+
+export type SettingsSectionType = {
+  title: string
+  description?: string
+  onPress?: () => void
+  bigTitle?: boolean
+  accessibilityRole?: AccessibilityRole
+  hasSwitch?: boolean
+  hasBadge?: boolean
+  getSettingValue?: (settings: SettingsType) => boolean | null
+}
+
 const volatileValues = {
   versionTaps: 0
 }
@@ -38,7 +51,7 @@ const createSettingsSections = ({
   navigation,
   settings,
   showSnackbar
-}: CreateSettingsSectionsPropsType) => [
+}: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
     data: [
@@ -103,10 +116,13 @@ const createSettingsSections = ({
               errorTracking: !settings.errorTracking
             }),
             async newSettings => {
-              if (newSettings.errorTracking && !Sentry.getCurrentHub().getClient()) {
+              const client = Sentry.getCurrentHub().getClient()
+              if (newSettings.errorTracking && !client) {
                 initSentry()
               } else {
-                Sentry.getCurrentHub().getClient().getOptions().enabled = newSettings.errorTracking
+                if (client) {
+                  client.getOptions().enabled = !!newSettings.errorTracking
+                }
               }
             }
           )

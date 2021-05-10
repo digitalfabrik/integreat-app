@@ -1,18 +1,14 @@
 import React, { useCallback, useState } from 'react'
 import { Dispatch } from 'redux'
-import 'redux'
 import { SectionList, StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import SettingItem from './SettingItem'
 import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
-import { SettingsType } from '../../../modules/settings/AppSettings'
-import AppSettings from '../../../modules/settings/AppSettings'
-import createSettingsSections from '../createSettingsSections'
+import AppSettings, { SettingsType } from '../../../modules/settings/AppSettings'
+import createSettingsSections, { SettingsSectionType } from '../createSettingsSections'
 import { SectionBase } from 'react-native/Libraries/Lists/SectionList'
-import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import LayoutContainer from '../../../modules/layout/containers/LayoutContainer'
 import { SettingsRouteType } from 'api-client/src/routes'
@@ -28,19 +24,11 @@ export type PropsType = {
   navigation: NavigationPropType<SettingsRouteType>
   dispatch: Dispatch<StoreActionType>
 }
-type ItemType = {
-  title: string
-  description?: string
-  hasSwitch?: true
-  hasBadge?: true
-  getSettingValue?: (settings: SettingsType) => boolean | null
-  onPress?: () => void
-  accessibilityRole?: AccessibilityRole
-}
-type SectionType = SectionBase<ItemType> & {
+
+type SectionType = SectionBase<SettingsSectionType> & {
   title: string | null | undefined
 }
-const ItemSeparator: StyledComponent<{}, ThemeType, any> = styled.View`
+const ItemSeparator = styled.View`
   background-color: ${props => props.theme.colors.textDecorationColor};
   height: ${StyleSheet.hairlineWidth}px;
 `
@@ -53,10 +41,7 @@ const appSettings = new AppSettings()
 const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
   const dispatch = useDispatch()
-  useFocusEffect(() => {
-    // Reload settings if navigating back from another route
-    loadSettings()
-  })
+
   const loadSettings = useCallback(async () => {
     try {
       const settings = await appSettings.loadSettings()
@@ -65,6 +50,11 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) =
       console.error('Failed to load settings.')
     }
   }, [])
+
+  useFocusEffect(() => {
+    // Reload settings if navigating back from another route
+    loadSettings()
+  })
 
   const setSetting = async (
     changeSetting: (settings: SettingsType) => Partial<SettingsType>,
@@ -91,7 +81,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) =
     }
   }
 
-  const renderItem = ({ item }: { item: ItemType }) => {
+  const renderItem = ({ item }: { item: SettingsSectionType }) => {
     const { getSettingValue, ...otherProps } = item
     const value = !!(settings && getSettingValue && getSettingValue(settings))
     return <SettingItem value={value} theme={theme} t={t} {...otherProps} />
@@ -105,7 +95,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) =
     return <SectionHeader theme={theme}>{title}</SectionHeader>
   }
 
-  const keyExtractor = (item: ItemType, index: number): string => index.toString()
+  const keyExtractor = (item: SettingsSectionType, index: number): string => index.toString()
 
   const ThemedItemSeparator = () => <ItemSeparator theme={theme} />
 
