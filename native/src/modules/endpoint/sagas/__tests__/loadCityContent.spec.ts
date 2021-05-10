@@ -364,6 +364,6 @@ describe('loadCityContent', () => {
       )
     ).run()
     const date = await dataContainer.getLastUpdate(city, language)
-    expect(date && date.isSame(mockedDate)).toBeTrue()
+    expect(date && date.isSame(mockedDate)).toBeTruthy()
   })
 })

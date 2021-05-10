@@ -49,8 +49,8 @@ describe('watchClearResourcesAndCache', () => {
     const languageModels = new LanguageModelBuilder(3).build()
     await dataContainer.setLanguages('augsburg', languageModels)
     await expectSaga(clearResourcesAndCache, dataContainer, action).run()
-    expect(await dataContainer.languagesAvailable('augsburg')).toBeFalse()
-    expect(await dataContainer.citiesAvailable()).toBeFalse()
+    expect(await dataContainer.languagesAvailable('augsburg')).toBeFalsy()
+    expect(await dataContainer.citiesAvailable()).toBeFalsy()
   })
   it('should trigger a reload of the cities', () => {
     const dataContainer = new DefaultDataContainer()
