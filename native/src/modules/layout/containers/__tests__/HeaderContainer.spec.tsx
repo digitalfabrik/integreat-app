@@ -1,31 +1,40 @@
-import * as React from "react";
-import configureMockStore from "redux-mock-store";
-import CityModelBuilder from "api-client/src/testing/CityModelBuilder";
-import LanguageModelBuilder from "api-client/src/testing/LanguageModelBuilder";
-import type { StateType } from "../../../app/StateType";
-import { CATEGORIES_ROUTE, DISCLAIMER_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE, OFFERS_ROUTE, POIS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from "api-client";
-import HeaderContainer from "../HeaderContainer";
-import { render } from "@testing-library/react-native";
-import { Provider } from "react-redux";
-const mockStore = configureMockStore();
-jest.mock('react-i18next');
-jest.useFakeTimers();
+import * as React from 'react'
+import configureMockStore from 'redux-mock-store'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import type { StateType } from '../../../app/StateType'
+import {
+  CATEGORIES_ROUTE,
+  DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
+} from 'api-client'
+import HeaderContainer from '../HeaderContainer'
+import { render } from '@testing-library/react-native'
+import { Provider } from 'react-redux'
+const mockStore = configureMockStore()
+jest.mock('react-i18next')
+jest.useFakeTimers()
 jest.mock('../../components/Header', () => {
-  const Text = require('react-native').Text;
+  const Text = require('react-native').Text
 
   // $FlowFixMe props are incompatible with text props, but this is just for testing purposes to assert on props
-  return (props: {}) => <Text {...props}>Header</Text>;
-});
+  return (props: {}) => <Text {...props}>Header</Text>
+})
 describe('HeaderContainer', () => {
-  let store, state;
+  let store, state
   beforeEach(() => {
-    jest.clearAllMocks();
-    state = prepareState();
-    store = mockStore(state);
-  });
-  const [city] = new CityModelBuilder(1).build();
-  const languages = new LanguageModelBuilder(1).build();
-  const language = languages[0];
+    jest.clearAllMocks()
+    state = prepareState()
+    store = mockStore(state)
+  })
+  const [city] = new CityModelBuilder(1).build()
+  const languages = new LanguageModelBuilder(1).build()
+  const language = languages[0]
 
   const prepareState = (): StateType => {
     return {
@@ -105,21 +114,19 @@ describe('HeaderContainer', () => {
         models: [city]
       },
       snackbar: []
-    };
-  };
+    }
+  }
 
   const assertProps = (props, expected, customStore = store) => {
-    const {
-      getByText
-    } = render(<Provider store={customStore}>
-        {
-        /* $FlowFixMe not all props passed */
-      }
+    const { getByText } = render(
+      <Provider store={customStore}>
+        {/* $FlowFixMe not all props passed */}
         <HeaderContainer {...props} />
-      </Provider>);
-    const header = getByText('Header');
-    expect(header.props).toEqual(expect.objectContaining(expected));
-  };
+      </Provider>
+    )
+    const header = getByText('Header')
+    expect(header.props).toEqual(expect.objectContaining(expected))
+  }
 
   it('shareUrl should be set correctly for categories route', () => {
     const ownProps = {
@@ -128,12 +135,12 @@ describe('HeaderContainer', () => {
           key: 'routeKey1'
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`;
+    }
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for events overview route', () => {
     const ownProps = {
       scene: {
@@ -142,12 +149,12 @@ describe('HeaderContainer', () => {
           key: 'routeKeyEvent1'
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`;
+    }
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for specific event route', () => {
     const ownProps = {
       scene: {
@@ -156,12 +163,12 @@ describe('HeaderContainer', () => {
           key: 'routeKeyEvent2'
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`;
+    }
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for local news route', () => {
     const ownProps = {
       scene: {
@@ -170,12 +177,12 @@ describe('HeaderContainer', () => {
           key: 'routeKeyNews1'
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`;
+    }
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for local news details route', () => {
     const ownProps = {
       scene: {
@@ -184,15 +191,19 @@ describe('HeaderContainer', () => {
           key: 'routeKeyNews1'
         }
       }
-    };
-    const state = prepareState();
+    }
+    const state = prepareState()
     // $FlowFixMe Everything correct here, nothing to see.
-    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345';
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`;
-    assertProps(ownProps, {
-      shareUrl: expectedShareUrl
-    }, mockStore(state));
-  });
+    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
+    assertProps(
+      ownProps,
+      {
+        shareUrl: expectedShareUrl
+      },
+      mockStore(state)
+    )
+  })
   it('shareUrl should be set correctly for offers route', () => {
     const ownProps = {
       scene: {
@@ -200,12 +211,12 @@ describe('HeaderContainer', () => {
           name: OFFERS_ROUTE
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`;
+    }
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for sprungbrett offer route', () => {
     const ownProps = {
       scene: {
@@ -213,12 +224,12 @@ describe('HeaderContainer', () => {
           name: SPRUNGBRETT_OFFER_ROUTE
         }
       }
-    };
-    const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`;
+    }
+    const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
     assertProps(ownProps, {
       shareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for disclaimer route', () => {
     const ownProps = {
       scene: {
@@ -230,12 +241,12 @@ describe('HeaderContainer', () => {
           }
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/nuernberg/ar/${DISCLAIMER_ROUTE}`;
+    }
+    const expectedShareUrl = `https://integreat.app/nuernberg/ar/${DISCLAIMER_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
+    })
+  })
   it('shareUrl should be set correctly for pois overview route', () => {
     const ownProps = {
       scene: {
@@ -244,10 +255,10 @@ describe('HeaderContainer', () => {
           key: 'routeKeyPois1'
         }
       }
-    };
-    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`;
+    }
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
-    });
-  });
-});
+    })
+  })
+})

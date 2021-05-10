@@ -1,31 +1,31 @@
-import * as React from "react";
-import SelectorItemModel from "../models/SelectorItemModel";
-import styled from "styled-components/native";
-import type { StyledComponent } from "styled-components";
-import { css } from "styled-components";
-import { TouchableHighlight } from "react-native";
-import type { ThemeType } from "../../theme/constants";
-import dimensions from "../../theme/constants/dimensions";
+import * as React from 'react'
+import SelectorItemModel from '../models/SelectorItemModel'
+import styled from 'styled-components/native'
+import type { StyledComponent } from 'styled-components'
+import { css } from 'styled-components'
+import { TouchableHighlight } from 'react-native'
+import type { ThemeType } from '../../theme/constants'
+import dimensions from '../../theme/constants/dimensions'
 const ItemWrapper = styled.View`
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
-  ${props => props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : ''};
+  ${props => (props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : '')};
   height: ${dimensions.headerHeight}px;
-`;
+`
 const Element = styled.Text`
   font-size: 20px;
-  ${props => props.enabled ? 'font-weight: 700' : ''};
-  color: ${props => props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor}};
-`;
+  ${props => (props.enabled ? 'font-weight: 700' : '')};
+  color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)}};
+`
 export const TouchTarget: StyledComponent<{}, {}, any> = styled(TouchableHighlight)`
   width: 100%;
-`;
+`
 type WrapperPropsType = {
-  vertical: boolean;
-  children: React.ReactNode;
-  theme: ThemeType;
-};
+  vertical: boolean
+  children: React.ReactNode
+  theme: ThemeType
+}
 export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, any> = styled.View`
   display: flex;
   width: 100%;
@@ -34,56 +34,60 @@ export const Wrapper: StyledComponent<WrapperPropsType, ThemeType, any> = styled
   color: ${props => props.theme.colors.textColor};
   text-align: center;
 
-  ${props => props.vertical ? css`
+  ${props =>
+    props.vertical
+      ? css`
           flex-flow: column;
           align-items: center;
-        ` : ''}
-`;
+        `
+      : ''}
+`
 type PropsType = {
-  verticalLayout: boolean;
-  closeDropDownCallback?: () => void;
-  items: Array<SelectorItemModel>;
-  selectedItemCode: string | null;
-  theme: ThemeType;
-};
+  verticalLayout: boolean
+  closeDropDownCallback?: () => void
+  items: Array<SelectorItemModel>
+  selectedItemCode: string | null
+  theme: ThemeType
+}
 /**
  * Displays a Selector showing different items
  */
 
 class Selector extends React.Component<PropsType> {
   getItems(): React.ReactNode {
-    const {
-      items,
-      selectedItemCode,
-      theme
-    } = this.props;
+    const { items, selectedItemCode, theme } = this.props
     return items.map(item => {
-      const isSelected = item.code === selectedItemCode;
+      const isSelected = item.code === selectedItemCode
 
       if (item.enabled || isSelected) {
-        return <TouchTarget key={item.code} onPress={item.onPress}>
+        return (
+          <TouchTarget key={item.code} onPress={item.onPress}>
             <ItemWrapper selected={isSelected} theme={theme}>
               <Element theme={theme} enabled>
                 {item.name}
               </Element>
             </ItemWrapper>
-          </TouchTarget>;
+          </TouchTarget>
+        )
       }
 
-      return <ItemWrapper key={item.code} selected={isSelected} theme={theme}>
+      return (
+        <ItemWrapper key={item.code} selected={isSelected} theme={theme}>
           <Element theme={theme} enabled={false}>
             {item.name}
           </Element>
-        </ItemWrapper>;
-    });
+        </ItemWrapper>
+      )
+    })
   }
 
   render() {
-    return <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
+    return (
+      <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
         {this.getItems()}
-      </Wrapper>;
+      </Wrapper>
+    )
   }
-
 }
 
-export default Selector;
+export default Selector

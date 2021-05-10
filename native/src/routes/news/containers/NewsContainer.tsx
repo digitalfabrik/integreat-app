@@ -1,55 +1,59 @@
-import type { NewsModelsType, StateType } from "../../../modules/app/StateType";
-import type { FetchMoreNewsActionType, StoreActionType } from "../../../modules/app/StoreActionType";
-import { connect } from "react-redux";
-import type { Dispatch } from "redux";
-import { CityModel } from "api-client";
-import React, { useCallback } from "react";
-import News from "../components/News";
-import type { StatusPropsType } from "../../../modules/endpoint/hocs/withPayloadProvider";
-import withPayloadProvider from "../../../modules/endpoint/hocs/withPayloadProvider";
-import NewsHeader from "../../../modules/common/components/NewsHeader";
-import { View } from "react-native";
-import LoadingSpinner from "../../../modules/common/components/LoadingSpinner";
-import { ErrorCode } from "../../../modules/error/ErrorCodes";
-import type { NavigationPropType, RoutePropType } from "../../../modules/app/constants/NavigationTypes";
-import type { NewsRouteType, NewsType } from "api-client/src/routes";
-import { NEWS_ROUTE, TU_NEWS_TYPE } from "api-client/src/routes";
-import createNavigate from "../../../modules/navigation/createNavigate";
-import navigateToLink from "../../../modules/navigation/navigateToLink";
+import type { NewsModelsType, StateType } from '../../../modules/app/StateType'
+import type { FetchMoreNewsActionType, StoreActionType } from '../../../modules/app/StoreActionType'
+import { connect } from 'react-redux'
+import type { Dispatch } from 'redux'
+import { CityModel } from 'api-client'
+import React, { useCallback } from 'react'
+import News from '../components/News'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import NewsHeader from '../../../modules/common/components/NewsHeader'
+import { View } from 'react-native'
+import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
+import { ErrorCode } from '../../../modules/error/ErrorCodes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import type { NewsRouteType, NewsType } from 'api-client/src/routes'
+import { NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
 type NavigationPropsType = {
-  route: RoutePropType<NewsRouteType>;
-  navigation: NavigationPropType<NewsRouteType>;
-};
-type OwnPropsType = NavigationPropsType;
+  route: RoutePropType<NewsRouteType>
+  navigation: NavigationPropType<NewsRouteType>
+}
+type OwnPropsType = NavigationPropsType
 type DispatchPropsType = {
-  dispatch: Dispatch<StoreActionType>;
-};
-type ContainerPropsType = (NavigationPropsType & DispatchPropsType & {
-  status: "fetching";
-  newsId: string | null | undefined;
-  language: string;
-  cityModel: CityModel;
-  selectedNewsType: NewsType;
-  page: null;
-}) | (NavigationPropsType & DispatchPropsType & {
-  status: "ready";
-  news: NewsModelsType;
-  hasMoreNews: boolean | null | undefined;
-  page: number | null;
-  isFetchingMore: boolean;
-  newsId: string | null | undefined;
-  language: string;
-  cityModel: CityModel;
-  selectedNewsType: NewsType;
-});
+  dispatch: Dispatch<StoreActionType>
+}
+type ContainerPropsType =
+  | (NavigationPropsType &
+      DispatchPropsType & {
+        status: 'fetching'
+        newsId: string | null | undefined
+        language: string
+        cityModel: CityModel
+        selectedNewsType: NewsType
+        page: null
+      })
+  | (NavigationPropsType &
+      DispatchPropsType & {
+        status: 'ready'
+        news: NewsModelsType
+        hasMoreNews: boolean | null | undefined
+        page: number | null
+        isFetchingMore: boolean
+        newsId: string | null | undefined
+        language: string
+        cityModel: CityModel
+        selectedNewsType: NewsType
+      })
 type RefreshPropsType = NavigationPropsType & {
-  cityCode: string;
-  language: string;
-  newsId: string | null | undefined;
-  selectedNewsType: NewsType;
-};
-type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>;
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType;
+  cityCode: string
+  language: string
+  newsId: string | null | undefined
+  selectedNewsType: NewsType
+}
+type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -57,74 +61,68 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
     params: {
       key: routeKey
     }
-  });
-};
+  })
+}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const {
-    route,
-    navigation,
-    cityCode,
-    language,
-    newsId,
-    selectedNewsType
-  } = refreshProps;
-  const navigateTo = createNavigate(dispatch, navigation);
-  navigateTo({
-    route: NEWS_ROUTE,
-    cityCode,
-    newsType: selectedNewsType,
-    languageCode: language,
-    newsId: newsId || undefined
-  }, route.key, true);
-};
+  const { route, navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo(
+    {
+      route: NEWS_ROUTE,
+      cityCode,
+      newsType: selectedNewsType,
+      languageCode: language,
+      newsId: newsId || undefined
+    },
+    route.key,
+    true
+  )
+}
 
-const createChangeUnavailableLanguage = (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+const createChangeUnavailableLanguage = (city: string) => (
+  dispatch: Dispatch<StoreActionType>,
+  newLanguage: string
+) => {
   dispatch({
     type: 'SWITCH_CONTENT_LANGUAGE',
     params: {
       newLanguage,
       city
     }
-  });
-};
+  })
+}
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
     navigation,
-    route: {
-      key
-    }
-  } = ownProps;
+    route: { key }
+  } = ownProps
 
   if (!state.cityContent) {
     return {
       status: 'routeNotInitialized'
-    };
+    }
   }
 
-  const {
-    routeMapping,
-    switchingLanguage,
-    languages
-  } = state.cityContent;
-  const route = routeMapping[key];
+  const { routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
 
   if (!route || route.routeType !== NEWS_ROUTE) {
     return {
       status: 'routeNotInitialized'
-    };
+    }
   }
 
   if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
-      console.error('languageNotAvailable status impossible if languages not ready');
+      console.error('languageNotAvailable status impossible if languages not ready')
       return {
         status: 'error',
         refreshProps: null,
         code: languages.code || ErrorCode.UnknownError,
         message: languages.message || 'languages not ready'
-      };
+      }
     }
 
     return {
@@ -132,7 +130,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
       changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
-    };
+    }
   }
 
   const refreshProps = {
@@ -142,7 +140,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     navigation: ownProps.navigation,
     route: ownProps.route,
     selectedNewsType: route.type
-  };
+  }
 
   if (state.cities.status === 'error') {
     return {
@@ -150,38 +148,38 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       message: state.cities.message,
       code: state.cities.code,
       refreshProps
-    };
+    }
   } else if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
-    };
+    }
   } else if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
       code: languages.code,
       refreshProps
-    };
+    }
   }
 
   if (state.cities.status === 'loading' || switchingLanguage || languages.status === 'loading') {
     return {
       status: 'loading',
       progress: 0
-    };
+    }
   }
 
-  const cities = state.cities.models;
-  const cityModel = cities.find(city => city.code === route.city);
+  const cities = state.cities.models
+  const cityModel = cities.find(city => city.code === route.city)
 
   if (!cityModel) {
-    throw new Error('cityModel is undefined!');
+    throw new Error('cityModel is undefined!')
   } else if (route.status === 'languageNotAvailable') {
     // Necessary for flow type checking, already handled above
-    throw new Error('language not available route status not handled!');
+    throw new Error('language not available route status not handled!')
   }
 
   if (route.status === 'loading') {
@@ -198,7 +196,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         route: ownProps.route,
         page: null
       }
-    };
+    }
   }
 
   return {
@@ -217,102 +215,117 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       page: route.page !== undefined ? route.page : null,
       isFetchingMore: route.status === 'loadingMore'
     }
-  };
-};
+  }
+}
 
 const NewsContainer = (props: ContainerPropsType) => {
-  const {
-    cityModel,
-    dispatch,
-    selectedNewsType,
-    route,
-    language,
-    newsId,
-    navigation
-  } = props;
-  const navigateToLinkProp = useCallback((url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation);
-    navigateToLink(url, navigation, language, navigateTo, shareUrl);
-  }, [dispatch, navigation]);
-  const fetchNews = useCallback((newsType: NewsType) => {
-    dispatch({
-      type: 'FETCH_NEWS',
-      params: {
-        city: cityModel.code,
-        language,
-        newsId: null,
-        type: newsType,
-        key: route.key,
-        criterion: {
-          forceUpdate: false,
-          shouldRefreshResources: false
-        }
-      }
-    });
-  }, [cityModel, language, route, dispatch]);
-  const fetchMoreNews = useCallback(({
-    hasMoreNews,
-    news,
-    page
-  }: {
-    hasMoreNews: boolean | null | undefined;
-    news: NewsModelsType;
-    page: number | null;
-  }) => () => {
-    if (!hasMoreNews || page === null) {
-      // Already fetching more
-      return;
-    }
-
-    const isTunews = selectedNewsType === TU_NEWS_TYPE;
-
-    if (hasMoreNews && isTunews) {
-      const fetchNews: FetchMoreNewsActionType = {
-        type: 'FETCH_MORE_NEWS',
+  const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
+  const navigateToLinkProp = useCallback(
+    (url: string, language: string, shareUrl: string) => {
+      const navigateTo = createNavigate(dispatch, navigation)
+      navigateToLink(url, navigation, language, navigateTo, shareUrl)
+    },
+    [dispatch, navigation]
+  )
+  const fetchNews = useCallback(
+    (newsType: NewsType) => {
+      dispatch({
+        type: 'FETCH_NEWS',
         params: {
           city: cityModel.code,
           language,
-          newsId,
-          type: TU_NEWS_TYPE,
+          newsId: null,
+          type: newsType,
           key: route.key,
-          page: page + 1,
-          previouslyFetchedNews: news,
-          hasMoreNews,
           criterion: {
             forceUpdate: false,
             shouldRefreshResources: false
           }
         }
-      };
-      dispatch(fetchNews);
-    }
-  }, [selectedNewsType, language, cityModel, newsId, dispatch, route]);
+      })
+    },
+    [cityModel, language, route, dispatch]
+  )
+  const fetchMoreNews = useCallback(
+    ({
+      hasMoreNews,
+      news,
+      page
+    }: {
+      hasMoreNews: boolean | null | undefined
+      news: NewsModelsType
+      page: number | null
+    }) => () => {
+      if (!hasMoreNews || page === null) {
+        // Already fetching more
+        return
+      }
+
+      const isTunews = selectedNewsType === TU_NEWS_TYPE
+
+      if (hasMoreNews && isTunews) {
+        const fetchNews: FetchMoreNewsActionType = {
+          type: 'FETCH_MORE_NEWS',
+          params: {
+            city: cityModel.code,
+            language,
+            newsId,
+            type: TU_NEWS_TYPE,
+            key: route.key,
+            page: page + 1,
+            previouslyFetchedNews: news,
+            hasMoreNews,
+            criterion: {
+              forceUpdate: false,
+              shouldRefreshResources: false
+            }
+          }
+        }
+        dispatch(fetchNews)
+      }
+    },
+    [selectedNewsType, language, cityModel, newsId, dispatch, route]
+  )
 
   if (props.status === 'ready') {
-    const {
-      news,
-      page,
-      hasMoreNews,
-      isFetchingMore
-    } = props;
-    return <View style={{
-      flex: 1
-    }}>
+    const { news, page, hasMoreNews, isFetchingMore } = props
+    return (
+      <View
+        style={{
+          flex: 1
+        }}>
         <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
-        <News newsId={newsId} news={news} routeKey={route.key} selectedNewsType={selectedNewsType} isFetchingMore={isFetchingMore} fetchMoreNews={fetchMoreNews({
-        news,
-        hasMoreNews,
-        page
-      })} cityModel={cityModel} language={language} navigateTo={createNavigate(dispatch, navigation)} navigateToLink={navigateToLinkProp} />
-      </View>;
+        <News
+          newsId={newsId}
+          news={news}
+          routeKey={route.key}
+          selectedNewsType={selectedNewsType}
+          isFetchingMore={isFetchingMore}
+          fetchMoreNews={fetchMoreNews({
+            news,
+            hasMoreNews,
+            page
+          })}
+          cityModel={cityModel}
+          language={language}
+          navigateTo={createNavigate(dispatch, navigation)}
+          navigateToLink={navigateToLinkProp}
+        />
+      </View>
+    )
   } else {
-    return <View style={{
-      flex: 1
-    }}>
+    return (
+      <View
+        style={{
+          flex: 1
+        }}>
         <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
         <LoadingSpinner />
-      </View>;
+      </View>
+    )
   }
-};
+}
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(NewsContainer));
+export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(NewsContainer)
+)
