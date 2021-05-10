@@ -9,6 +9,7 @@ import styled from 'styled-components/native'
 import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
 import withTheme from '../../modules/theme/hocs/withTheme'
 import Caption from '../../modules/common/components/Caption'
+
 const ThemedText = styled.Text`
   display: flex;
   text-align: left;
@@ -111,9 +112,10 @@ const JpalTracking = (props: PropsType) => {
           <Switch
             thumbColor={props.theme.colors.themeColor}
             trackColor={{
-              true: props.theme.colors.themeColor
+              true: props.theme.colors.themeColor,
+              false: props.theme.colors.backgroundAccentColor
             }}
-            value={settings.jpalTrackingEnabled}
+            value={!!settings.jpalTrackingEnabled}
             onValueChange={toggleTrackingEnabled}
             testID='switch'
           />

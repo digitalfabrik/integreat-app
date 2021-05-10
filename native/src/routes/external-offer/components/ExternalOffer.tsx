@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import { WebViewNavigation } from 'react-native-webview'
-import { WebView } from 'react-native-webview'
+import { WebView, WebViewNavigation } from 'react-native-webview'
 import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
 import { createGetSource, createPostSource } from '../../../modules/platform/constants/webview'
@@ -13,10 +12,10 @@ export type PropsType = {
 
 const ExternalOffer = (props: PropsType) => {
   const [canGoBack, setCanGoBack] = useState(false)
-  const webviewRef = useRef(null)
+  const webviewRef = useRef<WebView>(null)
   useEffect(() => {
     const handleBackButton = (): boolean => {
-      if (webviewRef.current && canGoBack) {
+      if (webviewRef?.current && canGoBack) {
         webviewRef.current.goBack()
         return true
       }

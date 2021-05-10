@@ -1,5 +1,4 @@
-import { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { TFunction, withTranslation } from 'react-i18next'
 import * as React from 'react'
 import { Dispatch } from 'redux'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -7,27 +6,19 @@ import withTheme from '../../modules/theme/hocs/withTheme'
 import { FlatList, Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import AppSettings from '../../modules/settings/AppSettings'
-import { SlideContentType } from './SlideContent'
-import SlideContent from './SlideContent'
+import SlideContent, { SlideContentType } from './SlideContent'
 import SlideFooter from './footer/SlideFooter'
 import { ViewToken } from 'react-native/Libraries/Lists/ViewabilityHelper'
 import { StateType as ReduxStateType } from '../../modules/app/StateType'
 import { connect } from 'react-redux'
 import buildConfig, { buildConfigAssets } from '../../modules/app/constants/buildConfig'
 import { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
-import { LANDING_ROUTE } from 'api-client/src/routes'
-import { IntroRouteType } from 'api-client/src/routes'
+import { IntroRouteType, LANDING_ROUTE } from 'api-client/src/routes'
 import navigateToDeepLink from '../../modules/navigation/navigateToDeepLink'
 import { StoreActionType } from '../../modules/app/StoreActionType'
-const Container: StyledComponent<
-  {
-    width: number
-  },
-  {},
-  any
-> = styled.View`
+
+const Container = styled.View<{ width: number }>`
   flex: 1;
   flex-direction: column;
   width: ${props => props.width}px;
@@ -67,9 +58,8 @@ type StateType = {
 
 class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
-  _flatList: {
-    current: null | React$ElementRef<typeof FlatList>
-  }
+  _flatList: React.RefObject<FlatList>
+
 
   constructor(props: PropsType) {
     super(props)
@@ -145,6 +135,7 @@ class Intro extends React.Component<PropsType, StateType> {
       }
     ]
   }
+
   onDone = async () => {
     try {
       const { dispatch, route, navigation, language } = this.props
@@ -159,6 +150,7 @@ class Intro extends React.Component<PropsType, StateType> {
       console.warn(e)
     }
   }
+
   goToSlide = (index: number) => {
     if (!this._flatList.current) {
       throw Error('ref not correctly set')
@@ -168,9 +160,11 @@ class Intro extends React.Component<PropsType, StateType> {
       index
     })
   }
+
   renderSlide = ({ item }: { item: SlideContentType }) => {
     return <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
   }
+
   onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     if (viewableItems.length === 1) {
       if (viewableItems[0].index !== null) {
@@ -221,10 +215,6 @@ const mapStateToProps = (
   language: state.contentLanguage
 })
 
-type ConnectType = OwnPropsType & {
-  language: string
-  dispatch: Dispatch<StoreActionType>
-}
-export default connect<ConnectType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+export default connect(mapStateToProps)(
   withTranslation(['intro', 'settings'])(withTheme<PropsType>(Intro))
 )

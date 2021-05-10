@@ -1,16 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from '../../modules/theme/constants'
 import { ScrollView } from 'react-native'
-const Container: StyledComponent<
-  {
-    width: number
-  },
-  ThemeType,
-  any
-> = styled.View`
+
+const Container = styled.View<{ width: number }>`
   display: flex;
   justify-content: space-around;
   padding: 32px 16px;
@@ -22,21 +16,15 @@ const TextContainer = styled.View`
   flex: 1;
   justify-content: center;
 `
-const Heading: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Heading = styled.Text`
   font-size: 35px;
   text-align: center;
   color: ${props => props.theme.colors.textColor};
 `
-const ContentContainer: StyledComponent<
-  {
-    description: boolean
-  },
-  ThemeType,
-  any
-> = styled.View`
+const ContentContainer = styled.View<{ description: boolean }>`
   flex: ${props => (props.description ? 2 : 2 + 1)};
 `
-const Description: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Description = styled.Text`
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
   padding: 0 24px;
@@ -55,7 +43,7 @@ type PropsType = {
 }
 
 class SlideContent extends React.Component<PropsType> {
-  render() {
+  render(): JSX.Element {
     const { width, theme, item } = this.props
     return (
       <ScrollView

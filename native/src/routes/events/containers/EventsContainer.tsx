@@ -91,8 +91,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCode.UnknownError,
-        message: languages.message || 'languages not ready'
+        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
+        message: languages.status === 'error' ? languages.message : 'languages not ready'
       }
     }
 
@@ -233,7 +233,7 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))

@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from 'build-configs/ThemeType'
 import { range } from 'lodash'
-const DotsContainer: StyledComponent<{}, ThemeType, any> = styled.View`
+
+const DotsContainer= styled.View`
   flex: 1;
   height: 10px;
   padding: 10px 10px 20px;
@@ -13,13 +13,7 @@ const DotsContainer: StyledComponent<{}, ThemeType, any> = styled.View`
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-const Dot: StyledComponent<
-  {
-    isActive: boolean
-  },
-  ThemeType,
-  any
-> = styled.TouchableOpacity`
+const Dot = styled.TouchableOpacity<{ isActive: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 5px;

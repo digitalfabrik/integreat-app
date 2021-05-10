@@ -2,12 +2,11 @@ import * as React from 'react'
 import SlideButton from './SlideButton'
 import Pagination from './Pagination'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
-export const ButtonContainer: StyledComponent<{}, ThemeType, any> = styled.View`
+export const ButtonContainer = styled.View`
   flex-grow: 1;
   flex-direction: row;
   padding: 5px;
