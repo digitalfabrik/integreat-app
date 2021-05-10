@@ -39,9 +39,9 @@ describe('createCategoriesEndpoint', () => {
   it('should map json to category', () => {
     const categories = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 3)
 
-    // @ts-ignore
     ;((mapCategoryJson as unknown) as jest.Mock<
       (json: JsonCategoryType, basePath: string) => CategoryModel
+      // @ts-ignore
     >).mockImplementation((json: string) => {
       switch (json) {
         case 'myFirstCategory':
