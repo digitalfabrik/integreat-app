@@ -1,8 +1,6 @@
-import { eventChannel } from 'redux-saga'
-import { EventChannel } from 'redux-saga'
+import { EventChannel, eventChannel } from 'redux-saga'
 import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
 import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
-import moment from 'moment'
 
 class FetcherModule {
   static currentlyFetching = false
@@ -12,6 +10,7 @@ class FetcherModule {
       return () => {}
     })
   }
+
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
     if (FetcherModule.currentlyFetching) {
       throw new Error('Already fetching!')
@@ -22,9 +21,9 @@ class FetcherModule {
     }
 
     const fetchResult = mapValues(targetFilePaths, value => ({
-      lastUpdate: moment('2016-02-01T10:35:20Z', moment.ISO_8601),
+      lastUpdate: '2016-02-01T10:35:20Z',
       url: value,
-      errorMessage: null
+      errorMessage: null as string | null
     }))
     const fetchResultPairs = toPairs(fetchResult)
     const sortedPaths = sortBy(fetchResultPairs, ([, result]) => result.url).map(([path]) => path)

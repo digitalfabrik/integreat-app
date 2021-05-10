@@ -10,7 +10,7 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
   }
 
   const getPoiRoute = (): PoiRouteStateType => {
-    const allAvailableLanguages = new Map(cityLanguages.map(lng => [lng.code, null]))
+    const allAvailableLanguages = new Map<string, string | null>(cityLanguages.map(lng => [lng.code, null]))
 
     if (!path) {
       return {

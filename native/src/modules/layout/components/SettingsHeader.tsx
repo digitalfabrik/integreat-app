@@ -1,12 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
-import { StackHeaderProps } from '@react-navigation/stack'
-import { HeaderBackButton } from '@react-navigation/stack'
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { ThemeType } from '../../theme/constants'
 import { TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
+
 const Horizontal = styled.View`
   flex: 1;
   flex-direction: row;
@@ -18,7 +16,7 @@ const HorizontalLeft = styled.View`
   flex-direction: row;
   align-items: center;
 `
-const BoxShadow: StyledComponent<{}, ThemeType, any> = styled.View`
+const BoxShadow = styled.View`
   elevation: 1;
   shadow-color: #000;
   shadow-offset: 0px 1px;
@@ -27,7 +25,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, any> = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
-const HeaderText: StyledComponent<{}, ThemeType, any> = styled.Text`
+const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
   text-align-vertical: center;

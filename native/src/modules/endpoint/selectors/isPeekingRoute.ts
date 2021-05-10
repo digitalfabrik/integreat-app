@@ -1,6 +1,5 @@
 import { StateType } from '../../app/StateType'
-import { InputSelector } from 'reselect'
-import 'reselect'
+
 type SelectPropsType = {
   routeCity: string
 }
@@ -13,7 +12,7 @@ type SelectPropsType = {
  * @param params The params which contain the routeCity
  * @returns true if the fetch corresponds to a peek
  */
-const isPeekingRoute: InputSelector<StateType, SelectPropsType, boolean> = (
+const isPeekingRoute = (
   state: StateType,
   { routeCity }: SelectPropsType
 ): boolean => {

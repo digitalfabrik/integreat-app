@@ -1,7 +1,7 @@
 import { CityContentStateType } from '../../app/StateType'
 import { LanguageModel } from 'api-client'
 
-const createCityContent = (city: string, languages: Array<LanguageModel> | null | undefined): CityContentStateType => {
+const createCityContent = (city: string, languages?: Array<LanguageModel>): CityContentStateType => {
   return {
     city,
     languages: !languages

@@ -12,12 +12,14 @@ import NativeLanguageDetector from '../NativeLanguageDetector'
 import AppSettings from '../../settings/AppSettings'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import { setSystemLanguage } from '../../endpoint/sendTrackingSignal'
+
 type PropsType = {
   children: React.ReactNode
 }
+
 export default ({ children }: PropsType) => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
-  const [i18nextInstance, setI18nextInstance] = useState(null)
+  const [i18nextInstance, setI18nextInstance] = useState<typeof i18next | null>(null)
   const dispatch = useDispatch()
   const setContentLanguage = useCallback(
     async (uiLanguage: string) => {

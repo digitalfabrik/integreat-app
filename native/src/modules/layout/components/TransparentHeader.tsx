@@ -1,15 +1,14 @@
 import * as React from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import { ThemeType } from '../../theme/constants'
-import { StackHeaderProps } from '@react-navigation/stack'
-import { HeaderBackButton } from '@react-navigation/stack'
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { Item } from 'react-navigation-header-buttons'
 import { TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
+import { EXTERNAL_OFFER_ROUTE } from 'api-client/dist/src'
+
 const Horizontal = styled.View`
   flex: 1;
   flex-direction: row;
@@ -21,23 +20,26 @@ const HorizontalLeft = styled.View`
   flex-direction: row;
   align-items: center;
 `
-const BoxShadow: StyledComponent<{}, ThemeType, any> = styled.View`
+const BoxShadow = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.modalHeaderHeight}px;
 }
 `
+
 export type PropsType = StackHeaderProps & {
   theme: ThemeType
-  t: TFunction
+  t: TFunction<'layout'>
 }
 
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBackInStack = () => {
     this.props.navigation.goBack()
   }
+
   onShare = async () => {
     const { scene, t } = this.props
-    const shareUrl = scene.route.params?.shareUrl
+    // @ts-ignore
+    const shareUrl = scene.route.params?.shareUrl || null
 
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -53,17 +55,18 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
     try {
       await Share.share({
-        message,
-        failOnCancel: false
+        message
       })
     } catch (e) {
       const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
-      alert(errorMessage)
+      // TODO Show snackbar
+      console.error(errorMessage)
     }
   }
 
   render() {
     const { theme, scene, t } = this.props
+    // @ts-ignore
     const shareUrl = scene.route.params?.shareUrl || null
     return (
       <BoxShadow theme={theme}>

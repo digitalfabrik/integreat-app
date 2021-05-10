@@ -1,20 +1,14 @@
 import { connect } from 'react-redux'
 import { StackHeaderProps } from '@react-navigation/stack'
-import '@react-navigation/stack'
-import { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
-import { PropsType as HeaderPropsType } from '../components/Header'
-import Header from '../components/Header'
+import { TFunction, withTranslation } from 'react-i18next'
+import Header, { PropsType as HeaderPropsType } from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import { StateType } from '../../app/StateType'
-import { Dispatch } from 'redux'
-import 'redux'
-import { StoreActionType } from '../../app/StoreActionType'
-import { CityModel, OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE, NEWS_ROUTE } from 'api-client'
+import { CityModel, OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { urlFromRouteInformation } from '../../navigation/url'
-import { NonNullableRouteInformationType } from 'api-client'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
+
 type OwnPropsType = StackHeaderProps & {
   t: TFunction
 }
@@ -26,29 +20,27 @@ type StatePropsType = {
   routeCityModel?: CityModel
   shareUrl: string | null | undefined
 }
-type DispatchPropsType = {
-  dispatch: Dispatch<StoreActionType>
-}
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const routeKey = ownProps.scene.route.key
+  // @ts-ignore
   const cityCode = ownProps.scene.route.params?.cityCode || state.cityContent?.city
+  // @ts-ignore
   const languageCode = ownProps.scene.route.params?.languageCode || state.contentLanguage
   const route = state.cityContent?.routeMapping[routeKey]
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
   const routeName = ownProps.scene.route.name
   const simpleRouteShareUrl =
-    typeof cityCode === 'string' && typeof languageCode === 'string' && simpleRoutes.includes(routeName)
+    typeof cityCode === 'string' && typeof languageCode === 'string' && (simpleRoutes as string[]).includes(routeName)
       ? urlFromRouteInformation({
           cityCode,
           languageCode,
-          route: routeName as $Values<typeof simpleRoutes>
+          route: routeName as typeof simpleRoutes extends (infer U)[] ? U : never
         })
       : null
   const languages = state.cityContent?.languages
   // prevent re-rendering when city is there.
-  const cities = state.cities.models || []
+  const cities = state.cities.status === 'ready' ? state.cities.models : []
   const categoriesAvailable = state.cityContent?.searchRoute !== null
   const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
 
@@ -75,7 +67,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   const goToLanguageChange = () => {
     if (typeof cityCode === 'string' && typeof languageCode === 'string') {
       navigateToLanguageChange({
-        // $FlowFixMe Wrong navigation type
+        // @ts-ignore Wrong navigation type
         navigation: ownProps.navigation,
         languageCode,
         languages: Array.from(languages.models),
@@ -90,7 +82,9 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     routeCity: route.city
   })
   const { language, city } = route
+  // @ts-ignore route.newsId is checked for
   const newsId = route.newsId || undefined
+  // @ts-ignore route.path is always defined if relevant
   const routeInformation: NonNullableRouteInformationType =
     route.routeType === NEWS_ROUTE
       ? {
@@ -99,7 +93,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
           cityCode: city,
           newsType: route.type,
           newsId
-        } // $FlowFixMe route.path is always defined if relevant
+        }
       : {
           route: route.routeType,
           languageCode: language,
@@ -117,6 +111,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-export default withTranslation<OwnPropsType>('layout')(
-  connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(withTheme<HeaderPropsType>(Header))
+export default withTranslation('layout')(
+  connect(mapStateToProps)(withTheme<HeaderPropsType>(Header))
 )

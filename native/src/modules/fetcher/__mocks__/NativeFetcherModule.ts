@@ -12,9 +12,13 @@ function mockFetchAsync(targetFilePaths: TargetFilePathsType): Promise<FetchResu
 }
 
 const NativeFetcherModule = {
-  addListener: jest.fn<[string], void>(),
-  removeListeners: jest.fn<[number], void>(),
-  fetchAsync: jest.fn<[TargetFilePathsType], Promise<FetchResultType>>(mockFetchAsync)
+  addListener: jest.fn<void, [string]>(),
+  removeListeners: jest.fn<void, [number]>(),
+  fetchAsync: jest.fn<Promise<FetchResultType>, [TargetFilePathsType]>(mockFetchAsync),
+  addSubscription: jest.fn(),
+  removeSubscription: jest.fn(),
+  removeAllSubscriptions: jest.fn(),
+  getSubscriptionsForType: jest.fn()
 }
 export const NativeFetcherModuleEmitter = new NativeEventEmitter(NativeFetcherModule)
 export default NativeFetcherModule

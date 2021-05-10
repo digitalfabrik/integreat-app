@@ -7,9 +7,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
 import Caption from '../common/components/Caption'
 import { SendingStatusType } from './FeedbackContainer'
-import { StyledComponent } from 'styled-components'
 import buildConfig from '../app/constants/buildConfig'
 import HappyIcon from '../common/components/assets/smile-happy.svg'
+
 const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
@@ -23,7 +23,7 @@ const Wrapper = styled.View`
   padding: 40px;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-const DescriptionContainer: StyledComponent<{}, ThemeType, any> = styled.View`
+const DescriptionContainer = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -41,6 +41,7 @@ const Description = styled(ThemedText)`
 const HappyIconContainer = styled.Image`
   margin: 100px auto 10px;
 `
+
 export type PropsType = {
   comment: string
   contactMail: string
@@ -51,7 +52,7 @@ export type PropsType = {
   isPositiveFeedback: boolean
   onSubmit: () => void
   theme: ThemeType
-  t: TFunction
+  t: TFunction<'feedback'>
 }
 
 const Feedback = (props: PropsType) => {
@@ -88,7 +89,7 @@ const Feedback = (props: PropsType) => {
           />
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
           <Button
-            icon={<Icon name='send' size={15} color='black' style='material' />}
+            icon={<Icon name='send' size={15} color='black' />}
             titleStyle={{
               color: theme.colors.textColor
             }}

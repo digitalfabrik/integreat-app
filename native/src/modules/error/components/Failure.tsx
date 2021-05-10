@@ -1,14 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import { Text } from 'react-native'
 import { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
 import { ThemeType } from '../../theme/constants'
 import { Button } from 'react-native-elements'
 import { ErrorCode } from '../ErrorCodes'
-const ViewContainer: StyledComponent<{}, ThemeType, any> = styled.View`
+
+const ViewContainer = styled.View`
   flex: 1;
   align-items: center;
   margin-top: 15%;
@@ -16,6 +15,7 @@ const ViewContainer: StyledComponent<{}, ThemeType, any> = styled.View`
 const IconContainer = styled.Image`
   margin-bottom: 10px;
 `
+
 export type PropsType = {
   code: ErrorCode
   tryAgain?: () => void

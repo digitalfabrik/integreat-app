@@ -1,40 +1,26 @@
 import React from 'react'
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
 
-import { ThemeType } from '../../theme/constants'
-const Container: StyledComponent<
-  {
-    row: boolean
-  },
-  ThemeType,
-  any
-> = styled(Animated.View)`
+const Container = styled(Animated.View)<{ row: boolean }>`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   flex-direction: ${props => (props.row ? 'row' : 'column')};
   align-items: center;
   padding: 10px;
   min-height: 70px;
 `
-const Message: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Message = styled.Text`
   padding: 0 10px;
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 18px;
   text-align: center;
 `
-const ActionContainer: StyledComponent<
-  {
-    row: boolean
-  },
-  ThemeType,
-  any
-> = styled.View`
+const ActionContainer = styled.View<{ row: boolean }>`
   flex-direction: ${props => (props.row ? 'row' : 'column')};
   justify-content: space-around;
   align-items: center;
 `
-const Action: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Action = styled.Text`
   flex: 1;
   color: ${props => props.theme.colors.themeColor};
   font-size: 18px;
@@ -43,6 +29,7 @@ const Action: StyledComponent<{}, ThemeType, any> = styled.Text`
   padding: 10px;
   font-weight: bold;
 `
+
 export type SnackbarActionType = {
   label: string
   onPress: () => void | Promise<void>
