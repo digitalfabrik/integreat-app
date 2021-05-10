@@ -10,7 +10,7 @@ import { ThemeType } from 'build-configs/ThemeType'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import { StyledComponent } from 'styled-components'
+
 type PropsType = {
   cityCode: string
   event: EventModel
@@ -18,7 +18,7 @@ type PropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   theme: ThemeType
 }
-const Description: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Description = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
@@ -27,7 +27,7 @@ const Description: StyledComponent<{}, ThemeType, any> = styled.Text`
  * We have three placeholder thumbnails to display when cities don't provide a thumbnail
  * @returns {*} The Placeholder Thumbnail
  */
-const getEventPlaceholder = (id: number): number => {
+const getEventPlaceholder = (id: number): string => {
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
   return placeholders[id % placeholders.length]
 }

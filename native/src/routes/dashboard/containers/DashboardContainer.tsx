@@ -1,21 +1,18 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { PropsType as DashboardPropsType } from '../components/Dashboard'
-import Dashboard from '../components/Dashboard'
+import Dashboard, { PropsType as DashboardPropsType } from '../components/Dashboard'
 import { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import { StoreActionType } from '../../../modules/app/StoreActionType'
 import { withTranslation } from 'react-i18next'
-import { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider, { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CATEGORIES_ROUTE, CityModel } from 'api-client'
 import React, { useCallback } from 'react'
 import { ErrorCode } from '../../../modules/error/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import { DASHBOARD_ROUTE, DashboardRouteType } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
-import { DashboardRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 
@@ -227,7 +224,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
   )
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(DashboardContainer))

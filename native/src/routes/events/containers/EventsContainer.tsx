@@ -1,12 +1,10 @@
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
-import { PropsType as EventsPropsType } from '../components/Events'
-import Events from '../components/Events'
+import Events, { PropsType as EventsPropsType } from '../components/Events'
 import { withTranslation } from 'react-i18next'
 import { Dispatch } from 'redux'
 import { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
-import { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider, { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { CityModel, EventModel } from 'api-client'
 import * as React from 'react'
@@ -14,9 +12,8 @@ import { ErrorCode } from '../../../modules/error/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import { EventsRouteType } from 'api-client/src/routes'
+import { EVENTS_ROUTE, EventsRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
-import { EVENTS_ROUTE } from 'api-client/src/routes'
 
 type NavigationPropsType = {
   route: RoutePropType<EventsRouteType>
@@ -66,7 +63,7 @@ const createChangeUnavailableLanguage = (city: string) => (
   dispatch(switchContentLanguage)
 }
 
-const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages
+const routeHasOldContent = (route: EventRouteStateType) => 'models' in route && route.allAvailableLanguages
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
