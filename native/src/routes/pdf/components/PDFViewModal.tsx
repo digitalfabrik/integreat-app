@@ -6,6 +6,8 @@ import { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { PdfViewModalRouteType } from 'api-client/src/routes'
+import { ErrorCode } from '../../../modules/error/ErrorCodes'
+
 type PropsType = {
   route: RoutePropType<PdfViewModalRouteType>
   navigation: NavigationPropType<PdfViewModalRouteType>
@@ -34,7 +36,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
     const { error } = this.state
 
     if (error) {
-      return <FailureContainer code='unknownError' />
+      return <FailureContainer code={ErrorCode.UnknownError} />
     }
 
     return (

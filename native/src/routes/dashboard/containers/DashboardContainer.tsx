@@ -38,7 +38,6 @@ type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {
   dispatch: Dispatch<StoreActionType>
 }
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, navigation, route, path } = refreshProps
@@ -91,7 +90,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   if (switchingLanguage) {
     return {
       status: 'loading',
-      progress: resourceCache.progress ? resourceCache.progress : 0
+      progress: resourceCache.status === 'ready' ? resourceCache.progress : 0
     }
   }
 
@@ -101,8 +100,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       return {
         status: 'error',
         refreshProps: null,
-        code: languages.code || ErrorCode.UnknownError,
-        message: languages.message || 'languages not ready'
+        code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
+        message: languages.status === 'error' ? languages.message :'languages not ready'
       }
     }
 
@@ -167,7 +166,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  // $FlowFixMe Flow does not get that models and children cannot be undefined as it is already checked above
+  // @ts-ignore ts does not get that models and children cannot be undefined as it is already checked above
   const stateView = new CategoriesRouteStateView(route.path, models, children)
   const cityModel = state.cities.models.find(city => city.code === route.city)
 
@@ -227,4 +226,5 @@ const DashboardContainer = (props: ContainerPropsType) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
+  // @ts-ignore
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(DashboardContainer))

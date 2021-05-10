@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { CategoryRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { Dispatch } from 'redux'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
 import { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
@@ -14,6 +14,7 @@ import { CATEGORIES_ROUTE, CategoriesRouteType } from 'api-client/src/routes'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import createNavigate from '../../../modules/navigation/createNavigate'
+
 type NavigationPropsType = {
   route: RoutePropType<CategoriesRouteType>
   navigation: NavigationPropType<CategoriesRouteType>
@@ -36,7 +37,6 @@ type RefreshPropsType = NavigationPropsType & {
   path: string
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -237,6 +237,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
+  // @ts-ignore
   withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(
     refresh,
     onRouteClose

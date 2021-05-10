@@ -64,7 +64,6 @@ const createNavigate = <T extends RoutesType>(
     }
 
     const { route, cityCode, languageCode } = routeInformation
-    const cityContentPath = routeInformation.cityContentPath || null
     const params = {
       dispatch,
       navigation,
@@ -72,17 +71,13 @@ const createNavigate = <T extends RoutesType>(
       languageCode
     }
 
-    switch (route) {
+    switch (routeInformation.route) {
       case CATEGORIES_ROUTE:
       case DASHBOARD_ROUTE:
-        if (!cityContentPath) {
-          break
-        }
-
         navigateToCategory({
           ...params,
           routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
-          cityContentPath,
+          cityContentPath: routeInformation.cityContentPath,
           key,
           forceRefresh
         })
@@ -93,7 +88,7 @@ const createNavigate = <T extends RoutesType>(
         return
 
       case EVENTS_ROUTE:
-        navigateToEvents({ ...params, cityContentPath, key, forceRefresh })
+        navigateToEvents({ ...params, cityContentPath: routeInformation.cityContentPath, key, forceRefresh })
         return
 
       case NEWS_ROUTE:
@@ -103,8 +98,8 @@ const createNavigate = <T extends RoutesType>(
 
         navigateToNews({
           ...params,
-          type: routeInformation.newsType || LOCAL_NEWS_TYPE,
-          newsId: routeInformation.newsId || null,
+          type: routeInformation.newsType,
+          newsId: routeInformation.newsId,
           key,
           forceRefresh
         })
@@ -123,7 +118,7 @@ const createNavigate = <T extends RoutesType>(
           break
         }
 
-        navigateToPois({ ...params, cityContentPath, key, forceRefresh })
+        navigateToPois({ ...params, cityContentPath: routeInformation.cityContentPath, key, forceRefresh })
         return
 
       case SEARCH_ROUTE:

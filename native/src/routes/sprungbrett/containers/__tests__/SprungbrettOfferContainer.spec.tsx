@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
-import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
+import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client/src/routes'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import { ErrorCode } from '../../../../modules/error/ErrorCodes'
@@ -30,7 +30,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
 describe('SprungbrettOfferContainer', () => {
-  const navigation = createNavigationScreenPropMock()
+  const navigation = createNavigationScreenPropMock<SprungbrettOfferRouteType>()
   const cityCode = 'augsburg'
   const languageCode = 'de'
   const route = {

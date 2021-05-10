@@ -1,6 +1,7 @@
 import { Platform } from 'react-native'
-import { WebViewSource } from 'react-native-webview'
+import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
+
 export const URL_PREFIX = 'file://'
 export const getResourceCacheFilesDirPath = (city: string) => `${RESOURCE_CACHE_DIR_PATH}/${city}/files`
 export const getFontFaceSource = (fontName: string) =>
@@ -11,7 +12,7 @@ export const getFontFaceSource = (fontName: string) =>
 export const createPostSource = (
   uri: string,
   body: string,
-  contentType: string = 'application/x-www-form-urlencoded'
+  contentType = 'application/x-www-form-urlencoded'
 ): WebViewSource => ({
   uri: uri,
   method: 'POST',

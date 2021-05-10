@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Dispatch } from 'redux'
-import 'redux'
 import { SetResourceCacheUrlActionType, StoreActionType } from '../../app/StoreActionType'
 import { connect } from 'react-redux'
 import StaticServer from 'react-native-static-server'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { Text } from 'react-native'
+
 type OwnPropsType = {
   children: React.ReactNode
 }
@@ -38,6 +38,7 @@ class StaticServerProvider extends React.Component<
   staticServer = new StaticServer(SERVER_PORT, SERVER_PATH, {
     localOnly: true
   })
+
   state = {
     errorMessage: null
   }
@@ -66,4 +67,4 @@ class StaticServerProvider extends React.Component<
   }
 }
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(undefined, mapDispatchToProps)(StaticServerProvider)
+export default connect(undefined, mapDispatchToProps)(StaticServerProvider)
