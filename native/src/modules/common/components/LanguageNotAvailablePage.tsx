@@ -9,8 +9,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import { Text } from 'react-native'
 import Caption from './Caption'
 import { TFunction } from 'react-i18next'
-import 'react-i18next'
-const Wrapper: StyledComponent<{}, ThemeType, any> = styled.View`
+const Wrapper = styled.View`
   position: absolute;
   top: 0;
   bottom: 0;

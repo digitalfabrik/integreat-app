@@ -20,7 +20,7 @@ type PropsType = {
   isScrollable: boolean
   language: string
 }
-const TilesRow: StyledComponent<{}, ThemeType, any> = styled.View`
+const TilesRow = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   display: flex;
   flex-direction: row;
@@ -39,7 +39,7 @@ const TilesRow: StyledComponent<{}, ThemeType, any> = styled.View`
 type StateType = {
   xPosition: number
   contentSizeDiff: number
-  _scrollView: React$ElementRef<typeof ScrollView> | null | undefined
+  _scrollView: React.ElementRef<typeof ScrollView> | null | undefined
 }
 
 class NavigationTiles extends React.PureComponent<PropsType, StateType> {
@@ -48,11 +48,13 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
     contentSizeDiff: 0,
     _scrollView: null
   }
-  setScrollViewRef = (ref: React$ElementRef<typeof ScrollView> | null | undefined) => {
+
+  setScrollViewRef = (ref: React.ElementRef<typeof ScrollView> | null | undefined) => {
     this.setState({
       _scrollView: ref
     })
   }
+
   onMomentumScrollEnd = (event: ScrollEvent) => {
     const { nativeEvent } = event
     const contentSizeDiff = nativeEvent.contentSize.width - nativeEvent.layoutMeasurement.width

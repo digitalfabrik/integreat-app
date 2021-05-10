@@ -1,11 +1,11 @@
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 
 export default (
-  mockDate: number
+  mockDate: Moment
 ): {
   restoreDate: () => void
 } => {
-  const spy = jest.spyOn(moment, 'now').mockReturnValue(mockDate)
+  const spy = jest.spyOn(moment, 'now').mockReturnValue(mockDate.valueOf())
   return {
     restoreDate: () => {
       spy.mockRestore()

@@ -6,6 +6,7 @@ import { StyledComponent } from 'styled-components'
 import TileModel from '../models/TileModel'
 import { ThemeType } from '../../theme/constants'
 import Image from './Image'
+
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
 type PropsType = {
@@ -38,13 +39,7 @@ const TileTitle = styled.Text`
   font-size: 11px;
   margin-bottom: 5px;
 `
-const TileTouchable: StyledComponent<
-  {
-    width: number
-  },
-  {},
-  any
-> = styled.TouchableOpacity`
+const TileTouchable = styled.TouchableOpacity<{ width: number }>`
   padding: 10px 3px;
   width: ${props => props.width}px;
   align-items: center;
@@ -66,6 +61,7 @@ const NewsDot = styled.Text`
   shadow-opacity: 0.25;
   shadow-radius: 3.84px;
 `
+
 /**
  * Displays a single NavigationTile
  */

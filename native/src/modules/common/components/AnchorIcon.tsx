@@ -1,25 +1,19 @@
 import React from 'react'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { StyledComponent } from 'styled-components'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 import { isRTL } from '../../i18n/contentDirection'
+
 const anchorWidth = 30
 const widthThreshold = 10
-const Icon: StyledComponent<
-  {
-    width: number
-  },
-  {},
-  any
-> = styled(MaterialIcon)`
+const Icon = styled<{width: number}>(MaterialIcon)`
   font-size: 30px;
   width: ${props => props.width}px;
 `
 type PropsType = {
   navigationItemWidth: number
   name: string
-  _scrollView: React$ElementRef<typeof ScrollView> | null | undefined
+  _scrollView: React.ElementRef<typeof ScrollView> | null | undefined
   language: string
   xPosition: number
   contentSizeDiff: number

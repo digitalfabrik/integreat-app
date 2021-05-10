@@ -3,20 +3,19 @@ import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
 
 import { ThemeType } from '../../theme/constants'
-import Image from './Image'
-import { ImageSourceType } from './Image'
+import Image, { ImageSourceType } from './Image'
 import { contentDirection } from '../../i18n/contentDirection'
 type ListItemViewPropsType = {
   language: string
   children: React.ReactNode
   theme: ThemeType
 }
-const ListItemView: StyledComponent<ListItemViewPropsType, ThemeType, any> = styled.View`
+const ListItemView = styled.View<ListItemViewPropsType>`
   flex: 1;
   flex-direction: ${props => contentDirection(props.language)};
   padding: 15px 5px 0;
 `
-const StyledTouchableOpacity: StyledComponent<{}, ThemeType, any> = styled.TouchableOpacity`
+const StyledTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   flex-direction: column;
   padding-bottom: 10px;
@@ -28,7 +27,7 @@ const Thumbnail = styled(Image)`
   height: 75px;
   flex-shrink: 0;
 `
-const Description: StyledComponent<{}, ThemeType, any> = styled.View`
+const Description = styled.View`
   flex: 1;
   height: 100%;
   flex-direction: column;
@@ -36,7 +35,7 @@ const Description: StyledComponent<{}, ThemeType, any> = styled.View`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 10px;
 `
-const Title: StyledComponent<{}, ThemeType, any> = styled.Text`
+const Title = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   color: ${props => props.theme.colors.textColor};

@@ -57,12 +57,12 @@ export default {
     }
   },
   fs: {
-    ls: jest.fn<[string], Promise<Array<string>>>(lsMock),
-    exists: jest.fn<[string], Promise<boolean>>(existsMock),
-    writeFile: jest.fn<[string, string, string], Promise<void>>(writeMockFile),
-    readFile: jest.fn<[string, string], Promise<string>>(readMockFile),
-    unlink: jest.fn<[string], Promise<void>>(unlink),
-    _reset: jest.fn<[], void>(deleteAllMockFiles),
+    ls: jest.fn<Promise<Array<string>>, [string]>(lsMock),
+    exists: jest.fn<Promise<boolean>, [string]>(existsMock),
+    writeFile: jest.fn<Promise<void>, [string, string, string]>(writeMockFile),
+    readFile: jest.fn<Promise<string>, [string, string]>(readMockFile),
+    unlink: jest.fn<Promise<void>, [string]>(unlink),
+    _reset: jest.fn<void, []>(deleteAllMockFiles),
     dirs: {
       MainBundleDir: 'path/to/mainBundleDir',
       CacheDir: 'path/to/cacheDir',

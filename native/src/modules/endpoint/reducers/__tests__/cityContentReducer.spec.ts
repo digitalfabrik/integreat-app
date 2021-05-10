@@ -1,28 +1,38 @@
 import {
   CityContentActionType,
   FetchCategoryActionType,
+  FetchCategoryFailedActionType,
   FetchEventActionType,
-  PushCategoryActionType
+  FetchEventFailedActionType,
+  FetchLanguagesFailedActionType,
+  MorphContentLanguageActionType,
+  PushCategoryActionType,
+  PushEventActionType,
+  PushLanguagesActionType,
+  ResourcesFetchFailedActionType,
+  SwitchContentLanguageActionType,
+  SwitchContentLanguageFailedActionType
 } from '../../../app/StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
-import { CityContentStateType } from '../../../app/StateType'
+import { CityContentStateType, StateType } from '../../../app/StateType'
 import { ErrorCode } from '../../../error/ErrorCodes'
+
 describe('cityContentReducer', () => {
-  const switchContentLanguageAction = {
+  const switchContentLanguageAction: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
     params: {
       newLanguage: 'de',
       city: 'augsburg'
     }
   }
-  const switchContentLanguageFailedAction = {
+  const switchContentLanguageFailedAction: SwitchContentLanguageFailedActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
     params: {
       message: 'Some error'
     }
   }
-  const pushLanguagesAction = {
+  const pushLanguagesAction: PushLanguagesActionType = {
     type: 'PUSH_LANGUAGES',
     params: {
       languages: [new LanguageModel('de', 'Deutsch')]
@@ -42,7 +52,7 @@ describe('cityContentReducer', () => {
       refresh: false
     }
   }
-  const pushEventAction = {
+  const pushEventAction: PushEventActionType = {
     type: 'PUSH_EVENT',
     params: {
       events: [],
@@ -55,7 +65,7 @@ describe('cityContentReducer', () => {
       refresh: false
     }
   }
-  const morphContentLanguageAction = {
+  const morphContentLanguageAction: MorphContentLanguageActionType = {
     type: 'MORPH_CONTENT_LANGUAGE',
     params: {
       newCategoriesMap: new CategoriesMapModel([]),
@@ -65,7 +75,7 @@ describe('cityContentReducer', () => {
       newLanguage: 'de'
     }
   }
-  const fetchCategoryFailedAction = {
+  const fetchCategoryFailedAction: FetchCategoryFailedActionType = {
     type: 'FETCH_CATEGORY_FAILED',
     params: {
       key: 'route-id-0',
@@ -78,7 +88,7 @@ describe('cityContentReducer', () => {
       allAvailableLanguages: null
     }
   }
-  const fetchEventFailedAction = {
+  const fetchEventFailedAction: FetchEventFailedActionType = {
     type: 'FETCH_EVENT_FAILED',
     params: {
       key: 'route-id-0',
@@ -90,14 +100,14 @@ describe('cityContentReducer', () => {
       allAvailableLanguages: null
     }
   }
-  const fetchResourcesFailedAction = {
+  const fetchResourcesFailedAction: ResourcesFetchFailedActionType = {
     type: 'FETCH_RESOURCES_FAILED',
     params: {
       message: 'Some error',
       code: ErrorCode.UnknownError
     }
   }
-  const fetchLanguagesFailed = {
+  const fetchLanguagesFailed: FetchLanguagesFailedActionType = {
     type: 'FETCH_LANGUAGES_FAILED',
     params: {
       message: 'Some error',
@@ -525,7 +535,7 @@ describe('cityContentReducer', () => {
     })
   })
   it('should clear the cityContentState on CLEAR_CITY', () => {
-    const prevState = {
+    const prevState: CityContentStateType = {
       city: 'augsburg',
       routeMapping: {},
       languages: {
