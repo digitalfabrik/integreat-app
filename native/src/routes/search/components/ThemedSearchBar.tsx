@@ -7,7 +7,7 @@ type PropsType = {
   onChangeText: (text: string) => void
   value: string
   autofocus: boolean
-  t: TFunction
+  t: TFunction<'search'>
 }
 
 class ThemedSearchBar extends React.Component<PropsType> {
