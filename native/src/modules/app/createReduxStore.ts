@@ -1,12 +1,9 @@
-import { Store } from 'redux'
-import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
 import toggleDarkModeReducer from '../theme/reducers'
-import { Saga } from 'redux-saga'
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware, { Saga } from 'redux-saga'
 import createDebugger from 'redux-flipper'
 import { all, call } from 'redux-saga/effects'
-import { StateType } from './StateType'
-import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
+import { StateType, defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
 import { StoreActionType } from './StoreActionType'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { DataContainer } from '../endpoint/DataContainer'
@@ -25,7 +22,7 @@ import buildConfig from './constants/buildConfig'
 import resourceCacheUrlReducer from '../static-server/reducers/resourceCacheUrlReducer'
 import snackbarReducer from './snackbarReducer'
 
-function* rootSaga(dataContainer: DataContainer): Saga<void> {
+function* rootSaga(dataContainer: DataContainer) {
   yield all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
