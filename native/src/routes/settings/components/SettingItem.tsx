@@ -1,7 +1,5 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from 'build-configs/ThemeType'
 import Touchable from '../../../modules/platform/components/Touchable'
 import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
@@ -10,8 +8,8 @@ import { Switch, Text, View } from 'react-native'
 import { TFunction } from 'react-i18next'
 type PropType = {
   title: string
-  description: string | null | undefined
-  onPress: (() => void) | null | undefined
+  description?: string
+  onPress?: () => void
   theme: ThemeType
   t: TFunction
   bigTitle?: boolean
@@ -20,7 +18,7 @@ type PropType = {
   hasBadge?: boolean
   value: boolean
 }
-const PadView: StyledComponent<{}, ThemeType, any> = styled.View`
+const PadView = styled.View`
   padding: 16px;
   flex-direction: row;
   align-items: center;
@@ -37,13 +35,7 @@ const ContentContainer = styled.View`
   justify-content: center;
   align-items: flex-start;
 `
-const Title: StyledComponent<
-  {
-    bigTitle: boolean
-  },
-  ThemeType,
-  any
-> = styled.Text`
+const Title = styled.Text<{ bigTitle: boolean }>`
   color: ${props => props.theme.colors.textColor};
   ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
 `
@@ -73,7 +65,9 @@ const SettingItem = (props: PropType) => {
             <Switch
               thumbColor={theme.colors.themeColor}
               trackColor={{
-                true: theme.colors.themeColor
+                true: theme.colors.themeColor,
+                // TODO check color
+                false: theme.colors.backgroundAccentColor
               }}
               value={value}
               onValueChange={onPress}

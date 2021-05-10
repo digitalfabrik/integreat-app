@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
-import { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { TFunction, withTranslation } from 'react-i18next'
 import SprungbrettOffer from '../components/SprungbrettOffer'
 import {
   createOffersEndpoint,
@@ -33,7 +32,7 @@ type SprungbrettPropsType = OwnPropsType & {
 }
 
 const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettPropsType) => {
-  const cities = useSelector((state: StateType) => state.cities.models || null)
+  const cities = useSelector((state: StateType) => state.cities.status === 'ready' ? state.cities.models : null)
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE
@@ -62,7 +61,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
     }
 
     setTitle(sprungbrettOffer.title)
-    return createSprungbrettJobsEndpoint(sprungbrettOffer.path).request()
+    return createSprungbrettJobsEndpoint(sprungbrettOffer.path).request(undefined)
   }, [cityCode, languageCode, alias, setTitle])
   const { data: jobs, error: jobsError, loading, refresh } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(
     requestJobs
