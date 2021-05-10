@@ -1,6 +1,12 @@
 import * as React from 'react'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
-import { CategoriesRouteInformationType, CategoriesMapModel, CategoryModel, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
+import {
+  CategoriesRouteInformationType,
+  CategoriesMapModel,
+  CategoryModel,
+  SEARCH_FINISHED_SIGNAL_NAME,
+  SEARCH_ROUTE
+} from 'api-client'
 import CategoryList, { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'

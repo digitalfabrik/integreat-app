@@ -2,17 +2,15 @@ import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
-import { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
-import { createOffersEndpoint, NotFoundError, OfferModel, OFFERS_ROUTE } from 'api-client'
+import { TFunction, withTranslation } from 'react-i18next'
+import { CityModel, createOffersEndpoint, NotFoundError, OfferModel, OFFERS_ROUTE } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
+import { OffersRouteType, EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import openExternalUrl from '../../../modules/common/openExternalUrl'
-import { OffersRouteType } from 'api-client/src/routes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import { fromError } from '../../../modules/error/ErrorCodes'
 import { useLoadFromEndpoint } from '../../../modules/endpoint/hooks/useLoadFromEndpoint'
@@ -29,7 +27,9 @@ type OffersPropsType = OwnPropsType & {
 
 const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const { cityCode, languageCode } = route.params
-  const cities = useSelector<StateType>((state: StateType) => state.cities.models || null)
+  const cities = useSelector<StateType, Readonly<Array<CityModel>> | null>((state: StateType) =>
+    state.cities.status === 'ready' ? state.cities.models : null
+  )
   const request = useCallback(
     async (apiUrl: string) =>
       await createOffersEndpoint(apiUrl).request({

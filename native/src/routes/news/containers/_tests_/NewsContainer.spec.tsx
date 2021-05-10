@@ -3,12 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import {
-  NewsRouteStateType,
-  StateType,
-  LanguagesStateType,
-  CitiesStateType
-} from '../../../../modules/app/StateType'
+import { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from '../../../../modules/app/StateType'
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
 import { ErrorCode } from '../../../../modules/error/ErrorCodes'

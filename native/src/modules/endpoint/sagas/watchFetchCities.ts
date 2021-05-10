@@ -1,10 +1,6 @@
 import { Saga } from 'redux-saga'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import {
-  FetchCitiesActionType,
-  FetchCitiesFailedActionType,
-  PushCitiesActionType
-} from '../../app/StoreActionType'
+import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../../app/StoreActionType'
 import { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
