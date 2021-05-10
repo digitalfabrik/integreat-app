@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import * as React from 'react'
 import { ThemeType } from '../constants'
 import { lightTheme } from '../constants'
@@ -11,19 +10,14 @@ function withTheme<
 >(
   Component: React.AbstractComponent<Props>
 ): React.AbstractComponent<
-  $Diff<
-    Props,
-    {
-      theme: ThemeType
-    }
+  Omit<
+    Props, "theme"
   >
 > {
   return class extends React.Component<
-    $Diff<
+    Omit<
       Props,
-      {
-        theme: ThemeType
-      }
+      "theme"
     >
   > {
     static displayName = wrapDisplayName(Component, 'withTheme')

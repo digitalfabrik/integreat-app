@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
 import { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
@@ -14,7 +13,7 @@ describe('pushNews', () => {
   })
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
-  const prepareState = (state: $Shape<CityContentStateType>): CityContentStateType => {
+  const prepareState = (state: Partial<CityContentStateType>): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
       routeMapping: {

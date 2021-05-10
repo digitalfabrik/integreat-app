@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import React, { useCallback, useState } from 'react'
 import { Dispatch } from 'redux'
 import 'redux'
@@ -68,7 +67,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) =
   }, [])
 
   const setSetting = async (
-    changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
+    changeSetting: (settings: SettingsType) => Partial<SettingsType>,
     changeAction?: (settings: SettingsType) => Promise<void>
   ) => {
     if (!settings) {

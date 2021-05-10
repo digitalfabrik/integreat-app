@@ -1,4 +1,3 @@
-import { $Shape, $Diff } from 'utility-types'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { withTranslation } from 'react-i18next'
 import { StateType } from '../../../modules/app/StateType'
@@ -14,7 +13,7 @@ import { connect } from 'react-redux'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import { LandingRouteType } from 'api-client/src/routes'
-import { ThemeType } from 'build-configs/ThemeType'
+
 import navigateToCategory from '../../../modules/navigation/navigateToCategory'
 import { cityContentPath } from '../../../modules/navigation/url'
 type OwnPropsType = {
@@ -29,9 +28,9 @@ type ContainerPropsType = OwnPropsType &
     language: string
     cities: Array<CityModel>
   }
-type StatePropsType = StatusPropsType<ContainerPropsType, $Shape<{}>>
+type StatePropsType = StatusPropsType<ContainerPropsType, Record<string, never>>
 
-const refresh = (refreshProps: $Shape<{}>, dispatch: Dispatch<StoreActionType>) => {
+const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
     type: 'FETCH_CITIES',
     params: {
@@ -71,14 +70,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const ThemedTranslatedLanding = withTranslation<
-  $Diff<
-    LandingPropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('landing')(withTheme<LandingPropsType>(Landing))
+const ThemedTranslatedLanding = withTranslation('landing')(withTheme<LandingPropsType>(Landing))
 
 const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerPropsType) => {
   const navigateToDashboard = (cityCode: string, languageCode: string) => {
@@ -115,5 +107,5 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
 
 type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
-  withPayloadProvider<ContainerPropsType, $Shape<{}>, LandingRouteType>(refresh)(LandingContainer)
+  withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh)(LandingContainer)
 )

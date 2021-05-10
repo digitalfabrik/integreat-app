@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { PropsType as DashboardPropsType } from '../components/Dashboard'
@@ -19,7 +18,7 @@ import navigateToLink from '../../../modules/navigation/navigateToLink'
 import { DashboardRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import { ThemeType } from 'build-configs/ThemeType'
+
 type NavigationPropsType = {
   route: RoutePropType<DashboardRouteType>
   navigation: NavigationPropType<DashboardRouteType>
@@ -207,14 +206,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedDashboard = withTranslation<
-  $Diff<
-    DashboardPropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('dashboard')(withTheme<DashboardPropsType>(Dashboard))
+const ThemedTranslatedDashboard = withTranslation('dashboard')(withTheme<DashboardPropsType>(Dashboard))
 
 const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, navigation, route, ...rest } = props

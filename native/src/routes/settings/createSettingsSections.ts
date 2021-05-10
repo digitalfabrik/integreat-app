@@ -1,4 +1,3 @@
-import { $Shape } from 'utility-types'
 import { TFunction } from 'react-i18next'
 import 'react-i18next'
 import NativeConstants from '../../modules/native-constants/NativeConstants'
@@ -14,7 +13,7 @@ import { JPAL_TRACKING_ROUTE } from 'api-client'
 import { NavigationPropType } from '../../modules/app/constants/NavigationTypes'
 import { openSettings } from 'react-native-permissions'
 export type SetSettingFunctionType = (
-  changeSetting: (settings: SettingsType) => $Shape<SettingsType>,
+  changeSetting: (settings: SettingsType) => Partial<SettingsType>,
   changeAction?: (newSettings: SettingsType) => Promise<void>
 ) => Promise<void>
 const volatileValues = {

@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import { LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
@@ -18,7 +17,7 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import { PoisRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { POIS_ROUTE } from 'api-client/src/routes'
-import { ThemeType } from 'build-configs/ThemeType'
+
 type NavigationPropsType = {
   route: RoutePropType<PoisRouteType>
   navigation: NavigationPropType<PoisRouteType>
@@ -172,14 +171,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedPois = withTranslation<
-  $Diff<
-    PoisPropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('pois')(withTheme<PoisPropsType>(Pois))
+const ThemedTranslatedPois = withTranslation('pois')(withTheme<PoisPropsType>(Pois))
 
 class PoisContainer extends React.Component<ContainerPropsType> {
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {

@@ -1,4 +1,3 @@
-import { $Diff } from 'utility-types'
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
 import { connect } from 'react-redux'
 import { PropsType as EventsPropsType } from '../components/Events'
@@ -18,7 +17,7 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import { EventsRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
-import { ThemeType } from 'build-configs/ThemeType'
+
 type NavigationPropsType = {
   route: RoutePropType<EventsRouteType>
   navigation: NavigationPropType<EventsRouteType>
@@ -204,14 +203,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedEvents = withTranslation<
-  $Diff<
-    EventsPropsType,
-    {
-      theme: ThemeType
-    }
-  >
->('events')(withTheme<EventsPropsType>(Events))
+const ThemedTranslatedEvents = withTranslation('events')(withTheme<EventsPropsType>(Events))
 
 const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
