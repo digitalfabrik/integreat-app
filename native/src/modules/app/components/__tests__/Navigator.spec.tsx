@@ -246,7 +246,7 @@ describe('Navigator', () => {
       )
       await findByText('Intro')
       const { allowPushNotifications } = await appSettings.loadSettings()
-      expect(allowPushNotifications).toBeFalse()
+      expect(allowPushNotifications).toBeFalsy()
     })
   })
 })

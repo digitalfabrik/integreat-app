@@ -1,9 +1,10 @@
 import createSettingsSections from '../createSettingsSections'
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
-import { defaultSettings } from '../../../modules/settings/AppSettings'
+import { defaultSettings, SettingsType } from '../../../modules/settings/AppSettings'
 import buildConfig from '../../../modules/app/constants/buildConfig'
-import { SettingsType } from '../../../modules/settings/AppSettings'
 import { openSettings } from 'react-native-permissions'
+import { SettingsRouteType } from 'api-client/dist/src'
+
 jest.mock('../../../modules/native-constants/NativeConstants', () => ({
   appVersion: '1.0.0'
 }))
@@ -30,6 +31,7 @@ jest.mock('../../../modules/push-notifications/PushNotificationsManager', () => 
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 jest.mock('../../../modules/app/initSentry')
+
 describe('createSettingsSections', () => {
   let changeSetting: (settings: SettingsType) => Partial<SettingsType>
   let changeAction: void | ((newSettings: SettingsType) => Promise<void>)
@@ -66,7 +68,7 @@ describe('createSettingsSections', () => {
 
   const mockBuildConfig = (pushNotifications: boolean) => {
     const previous = buildConfig()
-    // @ts-ignore flow is not aware that buildConfig is a mock funciton
+    // @ts-ignore flow is not aware that buildConfig is a mock function
     buildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pushNotifications }
@@ -90,13 +92,13 @@ describe('createSettingsSections', () => {
       settings.allowPushNotifications = false
       const changedSettings = changeSetting(settings)
       // @ts-ignore
-      expect(pushNotificationSection.getSettingValue(settings)).toBeFalse()
-      expect(changedSettings.allowPushNotifications).toBeTrue()
+      expect(pushNotificationSection.getSettingValue(settings)).toBeFalsy()
+      expect(changedSettings.allowPushNotifications).toBeTruthy()
       settings.allowPushNotifications = true
       const changedSettings2 = changeSetting(settings)
       // @ts-ignore
-      expect(pushNotificationSection.getSettingValue(settings)).toBeTrue()
-      expect(changedSettings2.allowPushNotifications).toBeFalse()
+      expect(pushNotificationSection.getSettingValue(settings)).toBeTruthy()
+      expect(changedSettings2.allowPushNotifications).toBeFalsy()
     })
     it('should unsubscribe from push notification topic', async () => {
       mockBuildConfig(true)
@@ -108,7 +110,7 @@ describe('createSettingsSections', () => {
       newSettings.allowPushNotifications = false
 
       if (!changeAction) {
-        expect(false).toBeTrue()
+        expect(false).toBeTruthy()
       } else {
         expect(mockUnsubscribeNews).not.toHaveBeenCalled()
         await changeAction(newSettings)
@@ -128,7 +130,7 @@ describe('createSettingsSections', () => {
       newSettings.allowPushNotifications = true
 
       if (!changeAction) {
-        expect(false).toBeTrue()
+        expect(false).toBeTruthy()
       } else {
         expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
         expect(mockSubscribeNews).not.toHaveBeenCalled()
@@ -150,7 +152,7 @@ describe('createSettingsSections', () => {
       newSettings.allowPushNotifications = true
 
       if (!changeAction) {
-        expect(false).toBeTrue()
+        expect(false).toBeTruthy()
       } else {
         expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
         expect(mockSubscribeNews).not.toHaveBeenCalled()
@@ -172,7 +174,7 @@ describe('createSettingsSections', () => {
       newSettings.allowPushNotifications = true
 
       if (!changeAction) {
-        expect(false).toBeTrue()
+        expect(false).toBeTruthy()
       } else {
         expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
         expect(mockSubscribeNews).not.toHaveBeenCalled()
