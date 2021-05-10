@@ -18,7 +18,9 @@ export type PropsType = {
 const SearchModalContainer = ({ navigation }: PropsType) => {
   const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
   const language = useSelector<StateType, string>(state => state.contentLanguage)
-  const categories = useSelector<StateType, CategoriesMapModel | null>(state => state?.cityContent?.searchRoute?.categoriesMap ?? null)
+  const categories = useSelector<StateType, CategoriesMapModel | null>(
+    state => state?.cityContent?.searchRoute?.categoriesMap ?? null
+  )
   const dispatch = useDispatch()
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')

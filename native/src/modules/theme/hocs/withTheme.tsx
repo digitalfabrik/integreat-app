@@ -7,19 +7,8 @@ function withTheme<
   Props extends {
     theme: ThemeType
   }
->(
-  Component: React.AbstractComponent<Props>
-): React.AbstractComponent<
-  Omit<
-    Props, "theme"
-  >
-> {
-  return class extends React.Component<
-    Omit<
-      Props,
-      "theme"
-    >
-  > {
+>(Component: React.AbstractComponent<Props>): React.AbstractComponent<Omit<Props, 'theme'>> {
+  return class extends React.Component<Omit<Props, 'theme'>> {
     static displayName = wrapDisplayName(Component, 'withTheme')
 
     render() {
