@@ -2,7 +2,7 @@
 describe('contentDirection', () => {
   describe('isContentDirectionReversalRequired', () => {
     it('should return true if supplied language has reverse direction of system language', () => {
-      // $FlowFixMe jest.isolateModules() undefined
+      // @ts-ignore jest.isolateModules() undefined
       jest.isolateModules(() => {
         jest.doMock('react-native', () => {
           return {
@@ -18,7 +18,7 @@ describe('contentDirection', () => {
       })
     })
     it('should return false if supplied language has same direction as system language', () => {
-      // $FlowFixMe jest.isolateModules() undefined
+      // @ts-ignore jest.isolateModules() undefined
       jest.isolateModules(() => {
         jest.doMock('react-native', () => {
           return {
@@ -36,7 +36,7 @@ describe('contentDirection', () => {
   })
   describe('contentDirection', () => {
     it('should return row-reverse if supplied language has reverse direction of system language', () => {
-      // $FlowFixMe jest.isolateModules() undefined
+      // @ts-ignore jest.isolateModules() undefined
       jest.isolateModules(() => {
         jest.doMock('react-native', () => {
           return {
@@ -52,7 +52,7 @@ describe('contentDirection', () => {
       })
     })
     it('should return row if supplied language has same direction as system language', () => {
-      // $FlowFixMe jest.isolateModules() undefined
+      // @ts-ignore jest.isolateModules() undefined
       jest.isolateModules(() => {
         jest.doMock('react-native', () => {
           return {

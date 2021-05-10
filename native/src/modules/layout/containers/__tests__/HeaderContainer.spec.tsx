@@ -22,7 +22,7 @@ jest.useFakeTimers()
 jest.mock('../../components/Header', () => {
   const Text = require('react-native').Text
 
-  // $FlowFixMe props are incompatible with text props, but this is just for testing purposes to assert on props
+  // @ts-ignore props are incompatible with text props, but this is just for testing purposes to assert on props
   return (props: {}) => <Text {...props}>Header</Text>
 })
 describe('HeaderContainer', () => {
@@ -120,7 +120,7 @@ describe('HeaderContainer', () => {
   const assertProps = (props, expected, customStore = store) => {
     const { getByText } = render(
       <Provider store={customStore}>
-        {/* $FlowFixMe not all props passed */}
+        {/* @ts-ignore not all props passed */}
         <HeaderContainer {...props} />
       </Provider>
     )
@@ -193,7 +193,7 @@ describe('HeaderContainer', () => {
       }
     }
     const state = prepareState()
-    // $FlowFixMe Everything correct here, nothing to see.
+    // @ts-ignore Everything correct here, nothing to see.
     state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
     assertProps(

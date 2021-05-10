@@ -68,7 +68,7 @@ describe('I18nProvider', () => {
     await AsyncStorage.clear()
   })
   it('should set content language if not yet set', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['kmr'])
     const store = mockStore(prepareState())
     render(
@@ -84,7 +84,7 @@ describe('I18nProvider', () => {
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
   it('should show error if loading fails', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
@@ -98,11 +98,11 @@ describe('I18nProvider', () => {
     )
     await waitFor(() => getByText('An Error occurred while getting settings!'))
     expect(getByText('An Error occurred while getting settings!')).toBeTruthy()
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockRestore()
   })
   it('should use fallbacks for ui translations', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['ku'])
     const store = mockStore(prepareState())
     const { getByText } = render(
@@ -116,7 +116,7 @@ describe('I18nProvider', () => {
     expect(getByText('Zanyariyên xwecihî')).toBeTruthy()
   })
   it('should choose the default fallback for ui translations', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['en'])
     const store = mockStore(prepareState())
     const { getByText } = render(
@@ -198,7 +198,7 @@ describe('I18nProvider', () => {
     await waitFor(() => getByText('Hello'))
   })
   it('should use zh-CN if any chinese variant is chosen', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['zh-CN'])
     const store = mockStore(prepareState())
     const { getByText } = render(
@@ -212,7 +212,7 @@ describe('I18nProvider', () => {
     expect(getByText('本地信息')).toBeTruthy()
   })
   it('should support language tags with dashes', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['zh-hans'])
     const store = mockStore(prepareState())
     const { getByText } = render(
@@ -226,7 +226,7 @@ describe('I18nProvider', () => {
     expect(getByText('本地信息')).toBeTruthy()
   })
   it('should support de-DE and select de', async () => {
-    // $FlowFixMe
+    // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['de-DE'])
     const store = mockStore(prepareState())
     const { getByText, queryByText } = render(

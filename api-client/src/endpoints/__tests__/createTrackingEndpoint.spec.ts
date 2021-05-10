@@ -36,7 +36,7 @@ describe('createTrackingEndpoint', () => {
       )
   })
   it('should throw response error if response is not ok', async () => {
-    // $FlowFixMe fetch is a mock
+    // @ts-ignore fetch is a mock
     ;((fetch as unknown) as FetchMock).mockResponseOnce('Invalid endpoint', {
       status: 500,
       statusText: ' not ok'
@@ -70,7 +70,7 @@ describe('createTrackingEndpoint', () => {
       query: 'some query',
       feedback: {}
     }
-    // $FlowFixMe Test all possible properties
+    // @ts-ignore Test all possible properties
     await createTrackingEndpoint().request({ ...signal, ...remainingProps })
     expect(fetch).toHaveBeenCalledWith(
       JPAL_TRACKING_ENDPOINT_URL,

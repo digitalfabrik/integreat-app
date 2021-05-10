@@ -67,7 +67,7 @@ describe('createSettingsSections', () => {
 
   const mockBuildConfig = (pushNotifications: boolean) => {
     const previous = buildConfig()
-    // $FlowFixMe flow is not aware that buildConfig is a mock funciton
+    // @ts-ignore flow is not aware that buildConfig is a mock funciton
     buildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pushNotifications }
@@ -90,12 +90,12 @@ describe('createSettingsSections', () => {
       const settings = defaultSettings
       settings.allowPushNotifications = false
       const changedSettings = changeSetting(settings)
-      // $FlowFixMe
+      // @ts-ignore
       expect(pushNotificationSection.getSettingValue(settings)).toBeFalse()
       expect(changedSettings.allowPushNotifications).toBeTrue()
       settings.allowPushNotifications = true
       const changedSettings2 = changeSetting(settings)
-      // $FlowFixMe
+      // @ts-ignore
       expect(pushNotificationSection.getSettingValue(settings)).toBeTrue()
       expect(changedSettings2.allowPushNotifications).toBeFalse()
     })

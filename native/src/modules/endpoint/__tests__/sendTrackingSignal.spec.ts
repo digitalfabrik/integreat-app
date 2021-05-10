@@ -44,7 +44,7 @@ describe('sendTrackingSignal', () => {
       timestamp: '2020-01-20T00:00:00.000Z'
     }
     it('should request the tracking endpoint if tracking enabled and tracking code set', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: true
@@ -65,7 +65,7 @@ describe('sendTrackingSignal', () => {
       expect(mockRequest).toHaveBeenCalledWith(signal)
     })
     it('should not send a signal if disabled in build config', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: false
@@ -84,7 +84,7 @@ describe('sendTrackingSignal', () => {
       expect(mockRequest).not.toHaveBeenCalled()
     })
     it('should not send a signal if disabled in app settings', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: true
@@ -103,7 +103,7 @@ describe('sendTrackingSignal', () => {
       expect(mockRequest).not.toHaveBeenCalled()
     })
     it('should not send a signal if no tracking code set', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: true
@@ -122,7 +122,7 @@ describe('sendTrackingSignal', () => {
       expect(mockRequest).not.toHaveBeenCalled()
     })
     it('should push signal to app settings if user is offline', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: true
@@ -147,7 +147,7 @@ describe('sendTrackingSignal', () => {
       expect(offlineSignals).toEqual([{ ...signal, offline: true }])
     })
     it('should report error to sentry if an error occurs', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: true
@@ -174,7 +174,7 @@ describe('sendTrackingSignal', () => {
   })
   describe('sendSpecificSignal', () => {
     it('should send correct signal', async () => {
-      // $FlowFixMe flow is not aware that buildConfig is a mock function
+      // @ts-ignore flow is not aware that buildConfig is a mock function
       buildConfig.mockImplementationOnce(() => ({
         featureFlags: {
           jpalTracking: true

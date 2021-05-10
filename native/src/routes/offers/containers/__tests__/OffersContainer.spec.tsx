@@ -55,7 +55,7 @@ describe('OffersContainer', () => {
   const store = mockStore(state)
 
   const mockUseLoadFromEndpointOnce = mock => {
-    // $FlowFixMe mockImplementationOnce is defined
+    // @ts-ignore mockImplementationOnce is defined
     useLoadFromEndpoint.mockImplementationOnce(mock)
   }
 
