@@ -1,6 +1,6 @@
 import { lightColors, darkColors } from './colors'
 import malteFonts from './fonts'
-import type { ThemeType } from '../../ThemeType'
+import { ThemeType } from '../../ThemeType'
 export const lightTheme: ThemeType = {
   colors: lightColors,
   fonts: malteFonts

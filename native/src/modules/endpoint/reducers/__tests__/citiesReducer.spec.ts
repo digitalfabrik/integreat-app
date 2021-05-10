@@ -1,4 +1,4 @@
-import type { CitiesStateType } from '../../../app/StateType'
+import { CitiesStateType } from '../../../app/StateType'
 import citiesReducer from '../citiesReducer'
 import { CityModel } from 'api-client'
 import { ErrorCode } from '../../../error/ErrorCodes'

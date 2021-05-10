@@ -1,5 +1,5 @@
-import type { StateType } from '../../app/StateType'
-import type { InputSelector } from 'reselect'
+import { StateType } from '../../app/StateType'
+import { InputSelector } from 'reselect'
 import 'reselect'
 type SelectPropsType = {
   routeCity: string

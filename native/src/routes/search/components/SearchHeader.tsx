@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import { HeaderBackButton } from '@react-navigation/stack'
 import ThemedSearchBar from './ThemedSearchBar'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import dimensions from '../../../modules/theme/constants/dimensions'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 const HorizontalLeft: StyledComponent<{}, ThemeType, any> = styled.View`
   flex: 1;
   flex-direction: row;

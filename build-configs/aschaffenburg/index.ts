@@ -1,5 +1,5 @@
 import { lightTheme, darkTheme } from './theme'
-import type {
+import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,

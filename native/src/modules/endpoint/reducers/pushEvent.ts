@@ -1,5 +1,5 @@
-import type { CityContentStateType, EventRouteStateType, RouteStateType } from '../../app/StateType'
-import type { PushEventActionType } from '../../app/StoreActionType'
+import { CityContentStateType, EventRouteStateType, RouteStateType } from '../../app/StateType'
+import { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel, EVENTS_ROUTE } from 'api-client'
 import { ErrorCode } from '../../error/ErrorCodes'
 import { values, entries } from 'translations'

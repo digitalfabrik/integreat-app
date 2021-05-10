@@ -1,5 +1,5 @@
 import { NativeEventEmitter, NativeModules } from 'react-native'
-import type { FetchResultType } from './FetcherModule'
+import { FetchResultType } from './FetcherModule'
 export type NativeFetcherModuleType = {
   readonly addListener: (eventType: string) => void
   readonly removeListeners: (count: number) => void

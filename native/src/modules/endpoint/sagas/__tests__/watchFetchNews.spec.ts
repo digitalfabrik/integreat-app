@@ -1,6 +1,6 @@
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
-import type { FetchNewsActionType } from '../../../app/StoreActionType'
+import { FetchNewsActionType } from '../../../app/StoreActionType'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchNews, { fetchNews } from '../watchFetchNews'

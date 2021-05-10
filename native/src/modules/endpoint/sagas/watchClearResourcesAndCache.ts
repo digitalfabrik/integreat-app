@@ -1,7 +1,7 @@
-import type { DataContainer } from '../DataContainer'
-import type { Saga } from 'redux-saga'
+import { DataContainer } from '../DataContainer'
+import { Saga } from 'redux-saga'
 import { takeLatest, call, put } from 'redux-saga/effects'
-import type { ClearResourcesAndCacheActionType } from '../../app/StoreActionType'
+import { ClearResourcesAndCacheActionType } from '../../app/StoreActionType'
 export function* clearResourcesAndCache(
   dataContainer: DataContainer,
   action: ClearResourcesAndCacheActionType

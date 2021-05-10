@@ -2,7 +2,7 @@ import { $Diff } from 'utility-types'
 import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
 import SprungbrettOffer from '../components/SprungbrettOffer'
 import {
@@ -14,15 +14,15 @@ import {
   SprungbrettJobModel
 } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
 import { fromError } from '../../../modules/error/ErrorCodes'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
-import type { SprungbrettOfferRouteType } from 'api-client/src/routes'
+import { SprungbrettOfferRouteType } from 'api-client/src/routes'
 import { useLoadFromEndpoint } from '../../../modules/endpoint/hooks/useLoadFromEndpoint'
-import type { StateType } from '../../../modules/app/StateType'
+import { StateType } from '../../../modules/app/StateType'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 type OwnPropsType = {
   route: RoutePropType<SprungbrettOfferRouteType>

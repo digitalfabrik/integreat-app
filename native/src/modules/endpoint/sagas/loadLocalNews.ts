@@ -1,4 +1,4 @@
-import type { Saga } from 'redux-saga'
+import { Saga } from 'redux-saga'
 import { createLocalNewsEndpoint, LocalNewsModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 import determineApiUrl from '../determineApiUrl'

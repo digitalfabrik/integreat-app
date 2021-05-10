@@ -1,9 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import type { ThemeType } from '../../../modules/theme/constants'
+import { ThemeType } from '../../../modules/theme/constants'
 import testID from '../../../modules/e2e/testID'
 export const Input: StyledComponent<{}, ThemeType, any> = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,

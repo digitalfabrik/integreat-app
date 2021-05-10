@@ -1,6 +1,6 @@
-import type { Saga } from 'redux-saga'
+import { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
-import type { DataContainer } from '../../DataContainer'
+import { DataContainer } from '../../DataContainer'
 import { ContentLoadCriterion } from '../../ContentLoadCriterion'
 
 const loadCityContent = function* loadCityContent(

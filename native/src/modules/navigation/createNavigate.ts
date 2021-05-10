@@ -1,5 +1,5 @@
-import type { StoreActionType } from '../app/StoreActionType'
-import type { Dispatch } from 'redux'
+import { StoreActionType } from '../app/StoreActionType'
+import { Dispatch } from 'redux'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -22,9 +22,9 @@ import navigateToPois from './navigateToPois'
 import navigateToSearch from './navigateToSearch'
 import navigateToNews from './navigateToNews'
 import navigateToCategory from './navigateToCategory'
-import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import buildConfig from '../app/constants/buildConfig'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import navigateToJpalTracking from './navigateToJpalTracking'
 import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'

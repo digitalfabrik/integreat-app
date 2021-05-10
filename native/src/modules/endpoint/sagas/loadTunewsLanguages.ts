@@ -1,4 +1,4 @@
-import type { Saga } from 'redux-saga'
+import { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
 import { LanguageModel, createTunewsLanguagesEndpoint } from 'api-client'
 import { tunewsApiUrl } from '../constants'

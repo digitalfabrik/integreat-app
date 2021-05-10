@@ -1,6 +1,6 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
-import type { LanguageResourceCacheStateType } from '../app/StateType'
-import type Moment from 'moment'
+import { LanguageResourceCacheStateType } from '../app/StateType'
+import { Moment } from 'moment'
 export interface DataContainer {
   /**
    * Returns an Array of PoiModels.

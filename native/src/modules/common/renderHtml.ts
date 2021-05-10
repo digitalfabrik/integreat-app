@@ -1,6 +1,6 @@
 import { getFontFaceSource } from '../platform/constants/webview'
-import type { ThemeType } from '../theme/constants'
-import type { ParsedCacheDictionaryType } from './components/Page'
+import { ThemeType } from '../theme/constants'
+import { ParsedCacheDictionaryType } from './components/Page'
 import { config } from 'translations'
 
 // language=JavaScript

@@ -1,5 +1,5 @@
-import type { DataContainer } from '../../DataContainer'
-import type { Saga } from 'redux-saga'
+import { DataContainer } from '../../DataContainer'
+import { Saga } from 'redux-saga'
 import { CategoriesMapModel } from 'api-client'
 import { call } from 'redux-saga/effects'
 export default function* loadCategories(

@@ -2,10 +2,10 @@ import * as React from 'react'
 import Caption from '../../../modules/common/components/Caption'
 import Tile from './Tile'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
 import TileModel from '../models/TileModel'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 type PropsType = {
   title?: string

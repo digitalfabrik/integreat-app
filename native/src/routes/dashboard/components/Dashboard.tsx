@@ -1,9 +1,9 @@
 import * as React from 'react'
 import Categories from '../../../modules/categories/components/Categories'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import { CityModel } from 'api-client'
 import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import type { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
+import { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
 import NavigationTiles from '../../../modules/common/components/NavigationTiles'
 import TileModel from '../../../modules/common/models/TileModel'
 import eventsIcon from '../assets/events.svg'
@@ -11,13 +11,13 @@ import offersIcon from '../assets/offers.svg'
 import poisIcon from '../assets/pois.svg'
 import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import SpaceBetween from '../../../modules/common/components/SpaceBetween'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import { cityContentPath } from '../../../modules/navigation/url'
-import type { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
+import { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
 import {
   CATEGORIES_ROUTE,
   EVENTS_ROUTE,
@@ -27,7 +27,7 @@ import {
   POIS_ROUTE,
   TU_NEWS_TYPE
 } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 const Spacing: StyledComponent<{}, ThemeType, any> = styled.View`
   padding: 10px;
 `

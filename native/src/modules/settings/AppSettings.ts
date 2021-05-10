@@ -2,7 +2,7 @@ import { $Shape } from 'utility-types'
 import AsyncStorage from '@react-native-community/async-storage'
 import { mapValues, toPairs } from 'lodash/object'
 import { fromPairs } from 'lodash/array'
-import type { SignalType } from 'api-client'
+import { SignalType } from 'api-client'
 export type SettingsType = {
   storageVersion: string | null
   contentLanguage: string | null

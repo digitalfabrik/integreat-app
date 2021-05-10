@@ -2,8 +2,8 @@ import * as React from 'react'
 import { PoiModel } from 'api-client'
 import ListItem from '../../../modules/common/components/ListItem'
 import styled from 'styled-components/native'
-import type { ThemeType } from '../../../modules/theme/constants'
-import type { StyledComponent } from 'styled-components'
+import { ThemeType } from '../../../modules/theme/constants'
+import { StyledComponent } from 'styled-components'
 type PropsType = {
   poi: PoiModel
   language: string

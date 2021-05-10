@@ -1,5 +1,5 @@
-import type { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
-import type { PushNewsActionType } from '../../app/StoreActionType'
+import { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
+import { PushNewsActionType } from '../../app/StoreActionType'
 import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
 import { ErrorCode } from '../../error/ErrorCodes'
 

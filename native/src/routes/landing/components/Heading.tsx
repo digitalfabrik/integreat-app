@@ -1,9 +1,9 @@
 import * as React from 'react'
 import EastereggImage from './EastereggImage'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 type PropsType = {
   clearResourcesAndCache: () => void
   theme: ThemeType

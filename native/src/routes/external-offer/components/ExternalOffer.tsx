@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import type { WebViewNavigation } from 'react-native-webview'
+import { WebViewNavigation } from 'react-native-webview'
 import { WebView } from 'react-native-webview'
 import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'

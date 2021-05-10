@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-native-elements'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 type PropsType = {
   label: string
   onPress: () => void | Promise<void>

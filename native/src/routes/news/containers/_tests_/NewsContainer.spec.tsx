@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import type {
+import {
   NewsRouteStateType,
   StateType,
   LanguagesStateType,

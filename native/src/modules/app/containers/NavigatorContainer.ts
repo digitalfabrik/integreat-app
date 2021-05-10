@@ -1,8 +1,8 @@
-import type { Dispatch } from 'redux'
+import { Dispatch } from 'redux'
 import 'redux'
 import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
-import type { StoreActionType } from '../StoreActionType'
+import { StoreActionType } from '../StoreActionType'
 type OwnPropsType = {
   routeKey: string | null | undefined
   routeName: string | null | undefined

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { defaultOnOverflowMenuPress, HeaderButton, HeaderButtons } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 
 const MaterialHeaderButton = (props: {
   title: string

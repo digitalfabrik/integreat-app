@@ -11,7 +11,7 @@ import {
 import moment from 'moment'
 import { ErrorCode } from '../error/ErrorCodes'
 import { config } from 'translations'
-import type {
+import {
   CategoriesRouteType,
   EventsRouteType,
   NewsRouteType,

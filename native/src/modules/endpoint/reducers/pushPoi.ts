@@ -1,5 +1,5 @@
-import type { CityContentStateType, PoiRouteStateType } from '../../app/StateType'
-import type { PushPoiActionType } from '../../app/StoreActionType'
+import { CityContentStateType, PoiRouteStateType } from '../../app/StateType'
+import { PushPoiActionType } from '../../app/StoreActionType'
 import { PoiModel, POIS_ROUTE } from 'api-client'
 
 const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityContentStateType => {

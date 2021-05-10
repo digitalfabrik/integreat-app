@@ -1,6 +1,6 @@
 import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 import { isEmpty } from 'lodash'
-import type { EventChannel } from 'redux-saga'
+import { EventChannel } from 'redux-saga'
 import { eventChannel } from 'redux-saga'
 export type TargetFilePathsType = Record<string, string>
 export type FetchResultType = Record<

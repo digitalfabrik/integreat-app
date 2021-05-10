@@ -12,8 +12,8 @@ import {
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
-import type { CityContentStateType } from '../../../app/StateType'
-import type {
+import { CityContentStateType } from '../../../app/StateType'
+import {
   MorphContentLanguageActionType,
   PushCategoryActionType,
   PushEventActionType

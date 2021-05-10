@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
 import { Text } from 'react-native'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import { Button } from 'react-native-elements'
-import type { ErrorCode } from '../ErrorCodes'
+import { ErrorCode } from '../ErrorCodes'
 const ViewContainer: StyledComponent<{}, ThemeType, any> = styled.View`
   flex: 1;
   align-items: center;

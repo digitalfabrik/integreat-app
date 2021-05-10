@@ -2,12 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Animated } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
-import type { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
-import type { SnackbarType, StateType } from '../../app/StateType'
+import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
+import { SnackbarType, StateType } from '../../app/StateType'
 import Snackbar from '../components/Snackbar'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 const Container: StyledComponent<{}, ThemeType, any> = styled(Animated.View)`
   position: absolute;
   bottom: 0;

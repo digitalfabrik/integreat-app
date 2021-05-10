@@ -1,14 +1,14 @@
 import { $Keys } from 'utility-types'
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 import DatabaseContext from './DatabaseContext'
-import type {
+import {
   CityResourceCacheStateType,
   PageResourceCacheStateType,
   LanguageResourceCacheStateType
 } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
-import type { DataContainer } from './DataContainer'
-import type Moment from 'moment'
+import { DataContainer } from './DataContainer'
+import { Moment } from 'moment'
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import RNFetchBlob from 'rn-fetch-blob'
 import Cache from './Cache'

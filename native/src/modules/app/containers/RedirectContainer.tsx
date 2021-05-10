@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import type { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import type { RedirectRouteType } from 'api-client'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { RedirectRouteType } from 'api-client'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import LayoutContainer from '../../layout/containers/LayoutContainer'

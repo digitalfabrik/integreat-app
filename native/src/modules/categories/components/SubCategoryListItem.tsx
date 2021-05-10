@@ -1,10 +1,10 @@
 import * as React from 'react'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
 import { contentDirection } from '../../i18n/contentDirection'
-import type { CategoryListModelType } from './CategoryList'
+import { CategoryListModelType } from './CategoryList'
 const SubCategoryTitleContainer = styled.View`
   flex: 1;
   align-self: center;

@@ -1,4 +1,4 @@
-import type {
+import {
   CityContentActionType,
   FetchCategoryActionType,
   FetchEventActionType,
@@ -6,7 +6,7 @@ import type {
 } from '../../../app/StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
-import type { CityContentStateType } from '../../../app/StateType'
+import { CityContentStateType } from '../../../app/StateType'
 import { ErrorCode } from '../../../error/ErrorCodes'
 describe('cityContentReducer', () => {
   const switchContentLanguageAction = {

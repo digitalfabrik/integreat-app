@@ -1,6 +1,6 @@
-import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../app/StoreActionType'
-import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import { Dispatch } from 'redux'
+import { StoreActionType } from '../app/StoreActionType'
+import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { LANDING_ROUTE } from 'api-client/src/routes'
 
 const navigateToLanding = <T extends RoutesType>({

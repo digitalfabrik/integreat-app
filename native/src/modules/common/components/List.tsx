@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 const StyledView: StyledComponent<{}, ThemeType, any> = styled.View`
   margin: 0 10px 0;
   border-top-width: 2px;

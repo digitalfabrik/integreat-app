@@ -1,4 +1,4 @@
-import type { PropsType as SettingsHeaderPropsType } from '../components/SettingsHeader'
+import { PropsType as SettingsHeaderPropsType } from '../components/SettingsHeader'
 import SettingsHeader from '../components/SettingsHeader'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'

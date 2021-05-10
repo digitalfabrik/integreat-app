@@ -1,4 +1,4 @@
-import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { CHANGE_LANGUAGE_MODAL_ROUTE } from 'api-client/src/routes'
 import { LanguageModel, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import sendTrackingSignal from '../endpoint/sendTrackingSignal'

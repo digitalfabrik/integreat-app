@@ -1,10 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import Image from './Image'
 type PropsType = {
   tile: TileModel

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Feedback from './Feedback'
-import type {
+import {
   CategoriesRouteType,
   DisclaimerRouteType,
   EventsRouteType,
@@ -30,7 +30,7 @@ import {
 import determineApiUrl from '../endpoint/determineApiUrl'
 import sendTrackingSignal from '../endpoint/sendTrackingSignal'
 import { useTranslation } from 'react-i18next'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 type RouteType =
   | CategoriesRouteType

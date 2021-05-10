@@ -1,15 +1,15 @@
 import { $Diff } from 'utility-types'
 import React from 'react'
 import { CityModel } from 'api-client'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
 import withTheme from '../../theme/hocs/withTheme'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import activeInternational from '../../../routes/news/assets/tu-news-active.svg'
 import inactiveInternational from '../../../routes/news/assets/tu-news-inactive.svg'
 import { TFunction } from 'i18next'
-import type { NewsType } from 'api-client/src/routes'
+import { NewsType } from 'api-client/src/routes'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 const NewsTypeIcon = styled.Image`
   align-self: center;

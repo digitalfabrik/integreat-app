@@ -1,6 +1,6 @@
 import React from 'react'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
 import { isRTL } from '../../i18n/contentDirection'

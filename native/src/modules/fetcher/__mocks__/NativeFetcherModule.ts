@@ -1,4 +1,4 @@
-import type { FetchResultType, TargetFilePathsType } from '../FetcherModule'
+import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 import { NativeEventEmitter } from 'react-native'
 import { mapValues } from 'lodash/object'
 

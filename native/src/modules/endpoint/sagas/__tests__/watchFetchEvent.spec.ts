@@ -1,6 +1,6 @@
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
-import type { FetchEventActionType } from '../../../app/StoreActionType'
+import { FetchEventActionType } from '../../../app/StoreActionType'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'

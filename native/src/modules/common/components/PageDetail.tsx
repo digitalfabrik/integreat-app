@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 const Identifier: StyledComponent<{}, ThemeType, any> = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontBold};

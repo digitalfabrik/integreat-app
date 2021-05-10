@@ -1,5 +1,5 @@
 import integreatTestCmsPlatformBuildConfigs from '../integreat-test-cms'
-import type {
+import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,

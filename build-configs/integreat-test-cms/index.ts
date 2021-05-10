@@ -1,5 +1,5 @@
 import integreatPlatformBuildConfigs from '../integreat'
-import type {
+import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,

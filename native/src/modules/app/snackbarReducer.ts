@@ -1,5 +1,5 @@
-import type { SnackbarStateType } from './StateType'
-import type { StoreActionType } from './StoreActionType'
+import { SnackbarStateType } from './StateType'
+import { StoreActionType } from './StoreActionType'
 export default (state: SnackbarStateType = [], action: StoreActionType): SnackbarStateType => {
   switch (action.type) {
     case 'ENQUEUE_SNACKBAR':

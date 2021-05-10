@@ -1,7 +1,7 @@
 import { eventChannel } from 'redux-saga'
-import type { EventChannel } from 'redux-saga'
+import { EventChannel } from 'redux-saga'
 import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
-import type { FetchResultType, TargetFilePathsType } from '../FetcherModule'
+import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 import moment from 'moment'
 
 class FetcherModule {

@@ -1,6 +1,6 @@
-import type { Dispatch } from 'redux'
-import type { FetchEventActionType, StoreActionType } from '../app/StoreActionType'
-import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import { Dispatch } from 'redux'
+import { FetchEventActionType, StoreActionType } from '../app/StoreActionType'
+import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { generateKey } from '../app/generateRouteKey'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
 
