@@ -52,7 +52,7 @@ describe('createSettingsSections', () => {
 
   const languageCode = 'de'
   const cityCode = 'augsburg'
-  const navigation = createNavigationScreenPropMock()
+  const navigation = createNavigationScreenPropMock<SettingsRouteType>()
   const showSnackbar = jest.fn()
 
   const createSettings = () =>
@@ -87,7 +87,9 @@ describe('createSettingsSections', () => {
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
       // Initialize changeSetting and changeAction
-      pushNotificationSection?.onPress()
+      if (pushNotificationSection) {
+        pushNotificationSection.onPress()
+      }
       const settings = defaultSettings
       settings.allowPushNotifications = false
       const changedSettings = changeSetting(settings)

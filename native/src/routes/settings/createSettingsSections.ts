@@ -21,7 +21,7 @@ export type SetSettingFunctionType = (
 export type SettingsSectionType = {
   title: string
   description?: string
-  onPress?: () => void
+  onPress: () => void
   bigTitle?: boolean
   accessibilityRole?: AccessibilityRole
   hasSwitch?: boolean
