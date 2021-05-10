@@ -2,8 +2,7 @@ import * as React from 'react'
 import { View } from 'react-native'
 import Page from '../../common/components/Page'
 import Tiles from '../../common/components/Tiles'
-import { CategoryListModelType, ListContentModelType } from './CategoryList'
-import CategoryList from './CategoryList'
+import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
 import TileModel from '../../common/models/TileModel'
 import { CategoryModel, CityModel } from 'api-client'
 import { ThemeType } from '../../theme/constants'
@@ -40,6 +39,7 @@ class Categories extends React.Component<PropsType> {
       cityContentPath: tile.path
     })
   }
+
   onItemPress = (category: CategoryListModelType) => {
     const { cityModel, language, navigateTo } = this.props
     navigateTo({
@@ -49,6 +49,7 @@ class Categories extends React.Component<PropsType> {
       cityContentPath: category.path
     })
   }
+
   navigateToFeedback = (isPositiveFeedback: boolean) => {
     const { navigateToFeedback, stateView, cityModel, language } = this.props
     const category = stateView.root()

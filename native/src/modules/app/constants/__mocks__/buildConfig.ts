@@ -7,10 +7,11 @@ export const buildConfigIconSet = (): {
 } => {
   throw new Error('Mock not yet implemented!')
 }
-export const buildConfigAssets = () => {
+export const buildConfigAssets = (): Record<string, never> => {
   return {}
 }
-const buildConfig = jest.fn<[], CommonBuildConfigType>(
+
+const buildConfig = jest.fn<CommonBuildConfigType, []>(
   (): CommonBuildConfigType => ({
     appName: 'Integreat',
     appIcon: 'app_icon_integreat',

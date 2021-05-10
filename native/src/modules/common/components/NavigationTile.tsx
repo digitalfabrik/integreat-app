@@ -2,7 +2,7 @@ import * as React from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import TileModel from '../models/TileModel'
 import { ThemeType } from '../../theme/constants'
 import Image from './Image'

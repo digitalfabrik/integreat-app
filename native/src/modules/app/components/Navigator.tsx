@@ -4,8 +4,7 @@ import { Platform, Text } from 'react-native'
 import initSentry from '../initSentry'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
 import buildConfig from '../constants/buildConfig'
-import { StackHeaderProps } from '@react-navigation/stack'
-import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
+import { StackHeaderProps, createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import IntroContainer from '../../../routes/intro/IntroContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
 import DashboardContainer from '../../../routes/dashboard/containers/DashboardContainer'
@@ -26,8 +25,8 @@ import FeedbackModalContainer from '../../../routes/feedback/containers/Feedback
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import DisclaimerContainer from '../../../routes/disclaimer/DisclaimerContainer'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
-import { DashboardRouteType, IntroRouteType, LandingRouteType } from 'api-client/src/routes'
 import {
+  DashboardRouteType, IntroRouteType, LandingRouteType,
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   DASHBOARD_ROUTE,
@@ -74,7 +73,7 @@ type InitialRouteType =
       cityCode: string
       languageCode: string
     }
-const Stack = createStackNavigator<RoutesParamsType, _, _>()
+const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (props: PropsType) => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
@@ -82,13 +81,15 @@ const Navigator = (props: PropsType) => {
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({
     name: INTRO_ROUTE
   })
-  const previousRouteKey = useRef(null)
+  const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
   useEffect(() => {
     fetchCities(false)
 
     const initialize = async () => {
-      if (global.HermesInternal) {
+      const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
+
+      if (usingHermes) {
         console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 

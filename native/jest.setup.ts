@@ -2,6 +2,7 @@ import { JSDOM } from 'jsdom' // jsdom is included in jest and therefore shouldn
 import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock'
 import path from 'path'
 import fs from 'fs'
+import '@testing-library/jest-native/extend-expect'
 
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
 

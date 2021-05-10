@@ -28,6 +28,9 @@ type AssetsType = {
     search: number
   }
 }
+
+const buildConfig = (): CommonBuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME, COMMON)
+
 export const buildConfigAssets = (): AssetsType => {
   const assetsName = buildConfig().assets
 
@@ -64,7 +67,5 @@ export const buildConfigAssets = (): AssetsType => {
 
   throw new Error(`Unknown icon set ${assetsName}. Check your build config!`)
 }
-
-const buildConfig = (): CommonBuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME, COMMON)
 
 export default buildConfig

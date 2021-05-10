@@ -2,8 +2,8 @@ import React from 'react'
 import CategoryListContent from '../CategoryListContent'
 import { lightTheme } from 'build-configs/integreat/theme'
 import { render, fireEvent } from '@testing-library/react-native'
-import moment from 'moment'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
+
 jest.mock('../../../common/components/TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
   const Text = require('react-native').Text
 

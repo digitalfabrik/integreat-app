@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 import { StackHeaderProps } from '@react-navigation/stack'
 import { HeaderBackButton } from '@react-navigation/stack'

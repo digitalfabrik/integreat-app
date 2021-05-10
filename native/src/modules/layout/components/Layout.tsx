@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { StyledComponent } from 'styled-components'
-import 'styled-components'
+
 import { ThemeType } from '../../theme/constants'
 type WrapperPropsType = {
   theme: ThemeType

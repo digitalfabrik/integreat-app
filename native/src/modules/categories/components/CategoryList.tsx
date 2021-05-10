@@ -8,7 +8,7 @@ import CategoryListContent from './CategoryListContent'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
 import { mapValues } from 'lodash'
-import Moment from 'moment'
+import { Moment } from 'moment'
 export type CategoryListModelType = {
   title: string
   thumbnail: string
