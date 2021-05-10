@@ -1,3 +1,5 @@
+import { defaults as tsjPreset } from 'ts-jest/presets'
+
 const transformNodeModules = [
   'react-native',
   '@react-native-firebase/messaging',
@@ -31,6 +33,10 @@ export default {
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   coverageDirectory: '<rootDir>/../reports/coverage',
+  transform: {
+    ...tsjPreset.transform,
+    '\\.js$' : '<rootDir>/../node_modules/react-native/jest/preprocessor.js'
+  },
   reporters: [
     'default',
     [
