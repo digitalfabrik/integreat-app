@@ -19,7 +19,7 @@ describe('Feedback', () => {
       isPositiveFeedback,
       isSearchFeedback,
       contactMail: 'test@example.com',
-      sendingStatus: 'idle',
+      sendingStatus: 'idle' as const,
       onCommentChanged,
       onFeedbackContactMailChanged,
       onSubmit,

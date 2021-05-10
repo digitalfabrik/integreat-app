@@ -1,8 +1,7 @@
-import { CityContentStateType, EventRouteStateType, RouteStateType } from '../../app/StateType'
+import { CityContentStateType, EventRouteStateType } from '../../app/StateType'
 import { PushEventActionType } from '../../app/StoreActionType'
 import { EventModel, EVENTS_ROUTE } from 'api-client'
 import { ErrorCode } from '../../error/ErrorCodes'
-import { values, entries } from 'translations'
 
 const getEventRouteState = (
   currentPath: string | null | undefined,
@@ -12,7 +11,7 @@ const getEventRouteState = (
   const { events, language, cityLanguages, city, refresh } = action.params
   // Check whether another page in the same city is loading, e.g. because it is being refreshed.
   // This is important for displaying the loading spinner.
-  const otherEventPageLoading = values<RouteStateType>(state.routeMapping)
+  const otherEventPageLoading = Object.values(state.routeMapping)
     .filter(
       route =>
         route.routeType === EVENTS_ROUTE &&
@@ -36,13 +35,11 @@ const getEventRouteState = (
 
     if (status === 'loading') {
       return {
-        routeType: EVENTS_ROUTE,
         status: 'loading',
         ...eventRouteState
       }
     } else {
       return {
-        routeType: EVENTS_ROUTE,
         status: 'ready',
         ...eventRouteState
       }
@@ -96,15 +93,17 @@ const pushEvent = (state: CityContentStateType, action: PushEventActionType): Ci
   const newRouteMapping = { ...state.routeMapping }
 
   if (refresh) {
-    entries<RouteStateType>(state.routeMapping)
+    Object.entries(state.routeMapping)
       .filter(
         ([_, route]) =>
           route.routeType === EVENTS_ROUTE && city === route.city && path !== route.path && language === route.language
       )
       .forEach(([key, route]) => {
-        newRouteMapping[key] = route.path
-          ? getEventRouteState(route.path, state, action)
-          : getEventRouteState(null, state, action)
+        if (route.routeType === EVENTS_ROUTE) {
+          newRouteMapping[key] = route.path
+            ? getEventRouteState(route.path, state, action)
+            : getEventRouteState(null, state, action)
+        }
       })
   }
 

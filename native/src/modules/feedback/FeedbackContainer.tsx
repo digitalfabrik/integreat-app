@@ -8,9 +8,7 @@ import {
   FeedbackType,
   OffersRouteType,
   PoisRouteType,
-  SearchRouteType
-} from 'api-client'
-import {
+  SearchRouteType,
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
   CONTENT_FEEDBACK_CATEGORY,

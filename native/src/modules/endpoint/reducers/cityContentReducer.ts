@@ -1,5 +1,4 @@
-import { CityContentStateType } from '../../app/StateType'
-import { defaultCityContentState } from '../../app/StateType'
+import { CityContentStateType, defaultCityContentState } from '../../app/StateType'
 import morphContentLanguage from './morphContentLanguage'
 import pushEvent from './pushEvent'
 import pushNews from './pushNews'
@@ -9,6 +8,7 @@ import { omit } from 'lodash'
 import pushPoi from './pushPoi'
 import pushCategory from './pushCategory'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
+
 export default (
   state: CityContentStateType | null = defaultCityContentState,
   action: StoreActionType
@@ -68,8 +68,7 @@ export default (
           language,
           city,
           newsId,
-          type,
-          page
+          type
         }
       }
     }
@@ -157,6 +156,7 @@ export default (
                   routeType: NEWS_ROUTE,
                   status: 'languageNotAvailable',
                   type,
+                  newsId,
                   allAvailableLanguages,
                   ...rest
                 }
@@ -191,6 +191,7 @@ export default (
                   routeType: EVENTS_ROUTE,
                   status: 'languageNotAvailable',
                   allAvailableLanguages,
+                  path,
                   ...rest
                 }
               : {

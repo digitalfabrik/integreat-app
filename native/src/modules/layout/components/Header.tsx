@@ -1,12 +1,8 @@
-import { Node } from 'react'
 import React from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import { Item } from 'react-navigation-header-buttons'
-import { StackHeaderProps } from '@react-navigation/stack'
-import { HeaderBackButton } from '@react-navigation/stack'
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { ThemeType } from '../../theme/constants'
 import { TFunction } from 'react-i18next'
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
@@ -18,6 +14,7 @@ import { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../../navigation/navigateToLanding'
 import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
+
 const Horizontal = styled.View`
   flex: 1;
   flex-direction: row;
@@ -34,14 +31,14 @@ const Icon = styled.Image`
   height: 50px;
   resize-mode: contain;
 `
-const HeaderText: StyledComponent<{}, ThemeType, any> = styled.Text`
+const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
-const BoxShadow: StyledComponent<{}, ThemeType, any> = styled.View`
+const BoxShadow = styled.View`
   elevation: 1;
   shadow-color: #000;
   shadow-offset: 0px 1px;
@@ -50,6 +47,7 @@ const BoxShadow: StyledComponent<{}, ThemeType, any> = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   height: ${dimensions.headerHeight}px;
 `
+
 export type PropsType = StackHeaderProps & {
   t: TFunction
   theme: ThemeType
@@ -85,9 +83,9 @@ const Header = (props: PropsType) => {
   }
 
   const goToLanding = () => {
-    // $FlowFixMe Navigation type of the header does not match that of screens.
     navigateToLanding({
       dispatch,
+      // @ts-ignore Navigation type of the header does not match that of screens.
       navigation
     })
   }
@@ -121,7 +119,7 @@ const Header = (props: PropsType) => {
         title: buildConfig().appName
       })
     } catch (e) {
-      alert(e.message)
+      console.error(e.message)
     }
   }
 
@@ -152,16 +150,11 @@ const Header = (props: PropsType) => {
 
   const renderItem = (
     title: string,
-    iconName?: string,
     show: 'never' | 'always',
-    onPress: (() => void | Promise<void>) | null | undefined,
-    accessibilityLabel: string
-  ): Node => {
-    const buttonStyle = onPress
-      ? {}
-      : {
-          color: theme.colors.textSecondaryColor
-        }
+    onPress: () => void,
+    accessibilityLabel: string,
+    iconName?: string
+  ): React.ReactElement => {
     return (
       <Item
         title={title}
@@ -169,7 +162,6 @@ const Header = (props: PropsType) => {
         iconName={iconName}
         show={show}
         onPress={onPress}
-        buttonStyle={buttonStyle}
       />
     )
   }
@@ -192,14 +184,14 @@ const Header = (props: PropsType) => {
           )}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-          {!peeking && categoriesAvailable && renderItem(t('search'), 'search', 'always', goToSearch, t('search'))}
+          {!peeking && categoriesAvailable && renderItem(t('search'), 'always', goToSearch, t('search'), 'search')}
           {!peeking &&
             goToLanguageChange &&
-            renderItem(t('changeLanguage'), 'language', 'always', goToLanguageChange, t('changeLanguage'))}
-          {showShare && renderItem(t('share'), undefined, 'never', onShare, t('share'))}
-          {showChangeLocation && renderItem(t('changeLocation'), undefined, 'never', goToLanding, t('changeLocation'))}
-          {renderItem(t('settings'), undefined, 'never', goToSettings, t('settings'))}
-          {routeCityModel && renderItem(t('disclaimer'), undefined, 'never', goToDisclaimer, t('disclaimer'))}
+            renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
+          {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
+          {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
+          {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}
+          {routeCityModel && renderItem(t('disclaimer'), 'never', goToDisclaimer, t('disclaimer'), undefined)}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
