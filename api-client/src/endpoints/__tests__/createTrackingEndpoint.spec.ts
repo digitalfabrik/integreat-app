@@ -36,7 +36,6 @@ describe('createTrackingEndpoint', () => {
       )
   })
   it('should throw response error if response is not ok', async () => {
-    // @ts-ignore fetch is a mock
     ;((fetch as unknown) as FetchMock).mockResponseOnce('Invalid endpoint', {
       status: 500,
       statusText: ' not ok'
@@ -70,8 +69,8 @@ describe('createTrackingEndpoint', () => {
       query: 'some query',
       feedback: {}
     }
-    // @ts-ignore Test all possible properties
-    await createTrackingEndpoint().request({ ...signal, ...remainingProps })
+  const send = { ...signal, ...remainingProps }
+    await createTrackingEndpoint().request(send)
     expect(fetch).toHaveBeenCalledWith(
       JPAL_TRACKING_ENDPOINT_URL,
       expect.objectContaining({
@@ -82,8 +81,8 @@ describe('createTrackingEndpoint', () => {
           metadata: {
             page_type: signal.pageType,
             url: signal.url,
-            query: 'some query',
-            feedback: {},
+            query: undefined,
+            feedback: undefined,
             offline: signal.offline,
             system_language: signal.systemLanguage,
             current_language: signal.currentLanguage,

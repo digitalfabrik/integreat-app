@@ -27,11 +27,4 @@ const mapStateToProps = (state: StateType): StatePropsType => {
   }
 }
 
-export default connect(mapStateToProps)(
-  withTheme<
-    Omit<
-      SettingsPropsType,
-        "t"
-    >
-  >(withTranslation('settings')(Settings))
-)
+export default connect(mapStateToProps)(withTheme<Omit<SettingsPropsType, 't'>>(withTranslation('settings')(Settings)))

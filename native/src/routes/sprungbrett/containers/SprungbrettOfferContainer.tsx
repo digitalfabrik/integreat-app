@@ -4,6 +4,7 @@ import { RefreshControl } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
 import SprungbrettOffer from '../components/SprungbrettOffer'
 import {
+  CityModel,
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
   NotFoundError,
@@ -32,7 +33,9 @@ type SprungbrettPropsType = OwnPropsType & {
 }
 
 const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettPropsType) => {
-  const cities = useSelector((state: StateType) => state.cities.status === 'ready' ? state.cities.models : null)
+  const cities = useSelector<StateType, Readonly<Array<CityModel>> | null>((state: StateType) =>
+    state.cities.status === 'ready' ? state.cities.models : null
+  )
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE
