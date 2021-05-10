@@ -2,13 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Animated } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { StyledComponent } from 'styled-components'
 import styled from 'styled-components/native'
 import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import { SnackbarType, StateType } from '../../app/StateType'
 import Snackbar from '../components/Snackbar'
-import { ThemeType } from 'build-configs/ThemeType'
-const Container: StyledComponent<{}, ThemeType, any> = styled(Animated.View)`
+
+const Container = styled(Animated.View)`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -22,7 +21,7 @@ const translate = new Animated.Value(1)
 const SnackbarContainer = () => {
   const [height, setHeight] = useState<number | null>(null)
   const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
-  const snackbarState: Array<SnackbarType> = useSelector((state: StateType) => state.snackbar)
+  const snackbarState = useSelector<StateType, Array<SnackbarType>>((state: StateType) => state.snackbar)
   const dispatch = useDispatch()
   const { t } = useTranslation('error')
   const show = useCallback(() => {

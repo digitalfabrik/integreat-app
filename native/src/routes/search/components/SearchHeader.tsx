@@ -5,13 +5,13 @@ import { HeaderBackButton } from '@react-navigation/stack'
 import ThemedSearchBar from './ThemedSearchBar'
 import { TFunction } from 'react-i18next'
 import dimensions from '../../../modules/theme/constants/dimensions'
-import { StyledComponent } from 'styled-components'
-const HorizontalLeft: StyledComponent<{}, ThemeType, any> = styled.View`
+
+const HorizontalLeft = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
 `
-const BoxShadow: StyledComponent<{}, ThemeType, any> = styled.View`
+const BoxShadow = styled.View`
   elevation: 1;
   shadow-color: #000;
   shadow-offset: 0px 1px;
@@ -25,7 +25,7 @@ type PropsType = {
   query: string
   closeSearchBar: (query: string) => void
   onSearchChanged: (query: string) => void
-  t: TFunction
+  t: TFunction<'search'>
 }
 
 const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: PropsType) => {

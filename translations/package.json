@@ -12,7 +12,7 @@
     "import:ods:translations": "./tools/ods-to-csv translations-ods translations-csv && yarn manage convert translations-csv translations.json json && rm -rf translations-csv",
     "import:ods:override-malte": "./tools/ods-to-csv malte-ods malte-csv && yarn manage convert malte-csv override-translations/malte.json json&& rm -rf malte-csv ",
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
-    "test": "jest --config jest.config.js",
+    "test": "jest --config jest.config.ts",
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci"
   },
@@ -29,7 +29,8 @@
     "flat": "^5.0.0",
     "jest": "^26.6.3",
     "jest-junit": "^12.0.0",
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.19",
+    "ts-jest": "^26.5.6"
   },
   "engines": {
     "node": ">=v10.16",
