@@ -29,9 +29,9 @@ describe('createCategoryContentEndpoint', () => {
   })
   it('should map json to category', () => {
     const category = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()[1]
-    // @ts-ignore this mock is actuall invalid in TS
     ;((mapCategoryJson as unknown) as jest.Mock<
       (json: JsonCategoryType, basePath: string) => CategoryModel
+      // @ts-ignore this mock is actuall invalid in TS
     >).mockImplementationOnce(() => category)
     expect(endpoint.mapResponse(json, params)).toEqual(category)
     expect(mapCategoryJson).toHaveBeenCalledTimes(1)

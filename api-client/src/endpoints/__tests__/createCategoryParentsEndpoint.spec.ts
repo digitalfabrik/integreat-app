@@ -3,7 +3,7 @@ import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
-import mockCategoriesJson from '../../testing/mockCategoriesJson'
+import { JsonCategoryType } from '../../types'
 
 jest.mock('../../mapping/mapCategoryJson')
 describe('createCategoryParentsEndpoint', () => {
@@ -44,9 +44,9 @@ describe('createCategoryParentsEndpoint', () => {
   it('should map json to category', () => {
     const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
 
-    // @ts-ignore this mock in invalid
     ;((mapCategoryJson as unknown) as jest.Mock<
       (json: JsonCategoryType, basePath: string) => CategoryModel
+      // @ts-ignore this mock in invalid
     >).mockImplementation((json: string) => {
       if (json === 'myFirstCategory') {
         return parents[0]
