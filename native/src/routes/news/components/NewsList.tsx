@@ -1,8 +1,8 @@
 import React from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
-import type { NewsType, RouteInformationType } from 'api-client'
-import type { NewsModelsType } from '../../../modules/app/StateType'
+import { NewsType, RouteInformationType } from 'api-client'
+import { NewsModelsType } from '../../../modules/app/StateType'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 
 const keyExtractor = (item, index) => `${index}`

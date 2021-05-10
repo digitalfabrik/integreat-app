@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
-import type { Dispatch } from 'redux'
-import type { StateType } from '../../../modules/app/StateType'
-import type { StoreActionType } from '../../../modules/app/StoreActionType'
+import { Dispatch } from 'redux'
+import { StateType } from '../../../modules/app/StateType'
+import { StoreActionType } from '../../../modules/app/StoreActionType'
 import ChangeLanguageModal from '../components/ChangeLanguageModal'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { LanguageModel, NEWS_ROUTE } from 'api-client'
-import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import type { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
+import { ThemeType } from 'build-configs/ThemeType'
 type OwnPropsType = {
   route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>

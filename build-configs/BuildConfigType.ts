@@ -1,4 +1,4 @@
-import type { ThemeType } from './ThemeType'
+import { ThemeType } from './ThemeType'
 import { TranslationsType } from 'translations'
 // Build Configs
 // These are the flow types of our build configs and therefore define the structure and available options.

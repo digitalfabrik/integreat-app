@@ -1,7 +1,7 @@
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
-import type { FetchCitiesActionType } from '../../../app/StoreActionType'
+import { FetchCitiesActionType } from '../../../app/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'

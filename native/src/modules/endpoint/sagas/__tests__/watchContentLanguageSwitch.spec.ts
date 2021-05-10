@@ -1,6 +1,6 @@
 import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
 import DefaultDataContainer from '../../DefaultDataContainer'
-import type { SwitchContentLanguageActionType } from '../../../app/StoreActionType'
+import { SwitchContentLanguageActionType } from '../../../app/StoreActionType'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'

@@ -35,7 +35,8 @@
     "flow:check-now": "flow check",
     "flow:install-types": "flow-typed install --ignoreDeps dev",
     "flow:install-types:all": "flow-typed install",
-    "postinstall": "jetifier"
+    "postinstall": "jetifier",
+    "tsc-test": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {
     "@react-native-community/art": "^1.1.2",

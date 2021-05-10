@@ -1,6 +1,6 @@
 import { $Diff } from 'utility-types'
 import * as React from 'react'
-import type { ThemeType } from '../constants'
+import { ThemeType } from '../constants'
 import { lightTheme } from '../constants'
 import wrapDisplayName from '../../common/hocs/wrapDisplayName'
 

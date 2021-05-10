@@ -1,7 +1,7 @@
 import { merge } from 'lodash'
 import defaultTranslations from '../translations.json'
 import transformTranslations from './transformTranslations'
-import type { TranslationsType, TransformedTranslationsType } from './types'
+import { TranslationsType, TransformedTranslationsType } from './types'
 
 const loadTranslations = (translationsOverride?: TranslationsType): TransformedTranslationsType => {
   // // If keys are missing in 'defaultTranslations', merge does not include those

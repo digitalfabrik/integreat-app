@@ -1,7 +1,7 @@
 import { $Shape } from 'utility-types'
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
-import type { CityContentStateType } from '../../../app/StateType'
+import { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
 describe('pushCategory', () => {
   const rootCategory = new CategoryModel({

@@ -1,6 +1,6 @@
-import type { StackNavigationProp } from '@react-navigation/stack'
-import type { RouteProp } from '@react-navigation/native'
-import type {
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RouteProp } from '@react-navigation/native'
+import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
   DashboardRouteType,
@@ -22,7 +22,7 @@ import type {
   SprungbrettOfferRouteType
 } from 'api-client'
 import { LanguageModel } from 'api-client'
-import type { FeedbackInformationType } from '../../feedback/FeedbackContainer'
+import { FeedbackInformationType } from '../../feedback/FeedbackContainer'
 export type RoutesType =
   | RedirectRouteType
   | JpalTrackingRouteType

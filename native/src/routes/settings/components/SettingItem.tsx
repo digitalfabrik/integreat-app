@@ -1,13 +1,13 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import Touchable from '../../../modules/platform/components/Touchable'
-import type { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
+import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 import { Badge, Icon } from 'react-native-elements'
 import { Switch, Text, View } from 'react-native'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 type PropType = {
   title: string
   description: string | null | undefined

@@ -1,6 +1,6 @@
-import type { Dispatch } from 'redux'
-import type { StoreActionType } from '../app/StoreActionType'
-import type { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import { Dispatch } from 'redux'
+import { StoreActionType } from '../app/StoreActionType'
+import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
 import { DISCLAIMER_ROUTE } from 'api-client/src/routes'
 
 const navigateToDisclaimer = <T extends RoutesType>({

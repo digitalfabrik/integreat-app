@@ -1,4 +1,4 @@
-import type {
+import {
   TransformedTranslationsType as ImportedTransformedTranslationsType,
   TranslationsType as ImportedTranslationsType
 } from './types'

@@ -7,10 +7,10 @@ import {
   PoiModel,
   TunewsModel
 } from 'api-client'
-import type { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
-import type { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
-import type { ErrorCode } from '../error/ErrorCodes'
-import type { NewsType } from 'api-client/src/routes'
+import { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
+import { ContentLoadCriterionType } from '../endpoint/ContentLoadCriterion'
+import { ErrorCode } from '../error/ErrorCodes'
+import { NewsType } from 'api-client/src/routes'
 // Starts fetching all available cities
 export type FetchCitiesActionType = {
   type: 'FETCH_CITIES'

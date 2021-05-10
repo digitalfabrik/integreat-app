@@ -2,7 +2,7 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import ProgressSpinner from '../ProgressSpinner'
-import type { ThemeType } from './../../../../../../build-configs/ThemeType'
+import { ThemeType } from './../../../../../../build-configs/ThemeType'
 describe('ProgressSpinner', () => {
   let theme: any
 

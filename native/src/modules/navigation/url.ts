@@ -1,6 +1,6 @@
 import buildConfig from '../app/constants/buildConfig'
 import Url from 'url-parse'
-import type { NonNullableRouteInformationType } from 'api-client'
+import { NonNullableRouteInformationType } from 'api-client'
 import { JPAL_TRACKING_ROUTE, OFFERS_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 type CityContentRouteUrlType = {
   cityCode: string

@@ -1,7 +1,7 @@
 import * as React from 'react'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import { SearchBar } from 'react-native-elements'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 type PropsType = {
   theme: ThemeType
   onChangeText: (text: string) => void

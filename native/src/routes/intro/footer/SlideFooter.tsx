@@ -2,10 +2,10 @@ import * as React from 'react'
 import SlideButton from './SlideButton'
 import Pagination from './Pagination'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
-import type { TFunction } from 'react-i18next'
+import { ThemeType } from 'build-configs/ThemeType'
+import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 export const ButtonContainer: StyledComponent<{}, ThemeType, any> = styled.View`
   flex-grow: 1;

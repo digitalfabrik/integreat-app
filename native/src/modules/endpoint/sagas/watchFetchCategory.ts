@@ -1,16 +1,16 @@
-import type { Saga } from 'redux-saga'
+import { Saga } from 'redux-saga'
 import { all, call, put, select, takeEvery } from 'redux-saga/effects'
-import type {
+import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
   PushCategoryActionType
 } from '../../app/StoreActionType'
-import type { DataContainer } from '../DataContainer'
+import { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../../error/ErrorCodes'
-import type Moment from 'moment'
+import { Moment } from 'moment'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.

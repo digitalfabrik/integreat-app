@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import { StatusBar as ReactNativeStatusBar } from 'react-native'
 type PropsType = {
   theme: ThemeType

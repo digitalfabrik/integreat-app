@@ -1,4 +1,4 @@
-import type { TargetFilePathsType } from '../FetcherModule'
+import { TargetFilePathsType } from '../FetcherModule'
 import FetcherModule from '../FetcherModule'
 import NativeFetcherModule from '../NativeFetcherModule'
 jest.mock('../NativeFetcherModule')

@@ -1,4 +1,4 @@
-import type { CommonBuildConfigType } from 'build-configs/BuildConfigType'
+import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import loadBuildConfig, { COMMON } from 'build-configs'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'

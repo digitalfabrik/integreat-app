@@ -6,11 +6,11 @@ import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
-import type { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import type { StyledComponent } from 'styled-components'
+import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+import { StyledComponent } from 'styled-components'
 type PropsType = {
   cityCode: string
   event: EventModel

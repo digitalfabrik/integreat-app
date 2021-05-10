@@ -4,7 +4,7 @@ import { Platform, Text } from 'react-native'
 import initSentry from '../initSentry'
 import { ASYNC_STORAGE_VERSION } from '../../settings/constants'
 import buildConfig from '../constants/buildConfig'
-import type { StackHeaderProps } from '@react-navigation/stack'
+import { StackHeaderProps } from '@react-navigation/stack'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import IntroContainer from '../../../routes/intro/IntroContainer'
 import LandingContainer from '../../../routes/landing/containers/LandingContainer'
@@ -26,7 +26,7 @@ import FeedbackModalContainer from '../../../routes/feedback/containers/Feedback
 import SettingsContainer from '../../../routes/settings/container/SettingsContainer'
 import DisclaimerContainer from '../../../routes/disclaimer/DisclaimerContainer'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
-import type { DashboardRouteType, IntroRouteType, LandingRouteType } from 'api-client/src/routes'
+import { DashboardRouteType, IntroRouteType, LandingRouteType } from 'api-client/src/routes'
 import {
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -48,7 +48,7 @@ import {
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client/src/routes'
-import type { RoutesParamsType } from '../constants/NavigationTypes'
+import { RoutesParamsType } from '../constants/NavigationTypes'
 import RedirectContainer from '../containers/RedirectContainer'
 import JpalTracking from '../../../routes/jpal-tracking/JpalTracking'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'

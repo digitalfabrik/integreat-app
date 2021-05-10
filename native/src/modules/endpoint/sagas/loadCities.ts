@@ -1,7 +1,7 @@
-import type { Saga } from 'redux-saga'
+import { Saga } from 'redux-saga'
 import { CityModel, createCitiesEndpoint } from 'api-client'
 import { call } from 'redux-saga/effects'
-import type { DataContainer } from '../DataContainer'
+import { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 
 function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): Saga<Array<CityModel>> {

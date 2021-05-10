@@ -10,9 +10,9 @@ import {
   PoiModel
 } from 'api-client'
 import RNFetchBlob from 'rn-fetch-blob'
-import type Moment from 'moment'
+import { Moment } from 'moment'
 import moment from 'moment'
-import type {
+import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,

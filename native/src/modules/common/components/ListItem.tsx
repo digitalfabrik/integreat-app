@@ -1,10 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import Image from './Image'
-import type { ImageSourceType } from './Image'
+import { ImageSourceType } from './Image'
 import { contentDirection } from '../../i18n/contentDirection'
 type ListItemViewPropsType = {
   language: string

@@ -1,4 +1,4 @@
-import type { SpecificSignalType, SignalType } from 'api-client'
+import { SpecificSignalType, SignalType } from 'api-client'
 import { createTrackingEndpoint } from 'api-client'
 import AppSettings from '../settings/AppSettings'
 import moment from 'moment'

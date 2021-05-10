@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from '../../modules/theme/constants'
+import { ThemeType } from '../../modules/theme/constants'
 import { ScrollView } from 'react-native'
 const Container: StyledComponent<
   {

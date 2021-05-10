@@ -1,8 +1,8 @@
 import { $Shape } from 'utility-types'
 import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
-import type { CityContentStateType } from '../../../app/StateType'
+import { CityContentStateType } from '../../../app/StateType'
 import cityContentReducer from '../cityContentReducer'
-import type { PushNewsActionType } from '../../../app/StoreActionType'
+import { PushNewsActionType } from '../../../app/StoreActionType'
 import moment from 'moment'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 describe('pushNews', () => {

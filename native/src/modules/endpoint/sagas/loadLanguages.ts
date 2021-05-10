@@ -1,7 +1,7 @@
-import type { Saga } from 'redux-saga'
+import { Saga } from 'redux-saga'
 import { call } from 'redux-saga/effects'
 import { createLanguagesEndpoint, LanguageModel } from 'api-client'
-import type { DataContainer } from '../DataContainer'
+import { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
 export default function* loadLanguages(
   city: string,

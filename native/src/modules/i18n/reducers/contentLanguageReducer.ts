@@ -1,4 +1,4 @@
-import type { StoreActionType } from '../../app/StoreActionType'
+import { StoreActionType } from '../../app/StoreActionType'
 import { config } from 'translations'
 
 const contentLanguageReducer = (state: string = config.defaultFallback, action: StoreActionType): string => {

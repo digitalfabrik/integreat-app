@@ -1,14 +1,14 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { ThemeType } from '../../theme/constants'
+import { ThemeType } from '../../theme/constants'
 import { LanguageModel } from 'api-client'
 import Selector from './Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
 import { Text } from 'react-native'
 import Caption from './Caption'
-import type { TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import 'react-i18next'
 const Wrapper: StyledComponent<{}, ThemeType, any> = styled.View`
   position: absolute;

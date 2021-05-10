@@ -3,7 +3,7 @@ import createSettingsSections from '../createSettingsSections'
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
 import { defaultSettings } from '../../../modules/settings/AppSettings'
 import buildConfig from '../../../modules/app/constants/buildConfig'
-import type { SettingsType } from '../../../modules/settings/AppSettings'
+import { SettingsType } from '../../../modules/settings/AppSettings'
 import { openSettings } from 'react-native-permissions'
 jest.mock('../../../modules/native-constants/NativeConstants', () => ({
   appVersion: '1.0.0'

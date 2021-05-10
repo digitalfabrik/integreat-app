@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import type { StyledComponent } from 'styled-components'
+import { StyledComponent } from 'styled-components'
 import 'styled-components'
-import type { StackHeaderProps } from '@react-navigation/stack'
+import { StackHeaderProps } from '@react-navigation/stack'
 import { HeaderBackButton } from '@react-navigation/stack'
-import type { ThemeType } from '../../theme/constants'
-import type { TFunction } from 'react-i18next'
+import { ThemeType } from '../../theme/constants'
+import { TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
 const Horizontal = styled.View`
   flex: 1;
