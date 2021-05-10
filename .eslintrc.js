@@ -25,6 +25,8 @@ module.exports = {
     '**/lib-dist/'
   ],
   rules: {
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
     'no-loop-func': 'error',
