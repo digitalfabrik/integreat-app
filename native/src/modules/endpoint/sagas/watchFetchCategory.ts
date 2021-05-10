@@ -1,4 +1,3 @@
-import { Saga } from 'redux-saga'
 import { all, call, put, select, takeEvery } from 'redux-saga/effects'
 import {
   FetchCategoryActionType,
@@ -20,15 +19,15 @@ import { Moment } from 'moment'
  * @param routeCity The key of the current route
  * @returns true if the fetch corresponds to a peek
  */
-function* isPeeking(routeCity: string): Saga<boolean> {
-  return yield select(state =>
+function* isPeeking(routeCity: string): Generator<any, any> {
+  yield select(state =>
     isPeekingRoute(state, {
       routeCity
     })
   )
 }
 
-export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): Saga<void> {
+export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): Generator<any, void> {
   const { city, language, path, depth, key, criterion } = action.params
 
   try {
@@ -96,6 +95,7 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
     yield put(failed)
   }
 }
-export default function* (dataContainer: DataContainer): Saga<void> {
+
+export default function* (dataContainer: DataContainer) {
   yield takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }

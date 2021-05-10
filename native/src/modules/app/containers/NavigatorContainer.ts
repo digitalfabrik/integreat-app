@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   }
 })
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(undefined, mapDispatchToProps)(Navigator)
+export default connect(undefined, mapDispatchToProps)(Navigator)

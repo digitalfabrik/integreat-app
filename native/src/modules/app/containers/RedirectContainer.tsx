@@ -9,7 +9,7 @@ const TIMEOUT = 10
 const INTERVAL_TIMEOUT = 500
 type PropsType = {
   route: RoutePropType<RedirectRouteType>
-  navigation: NavigationPropType<RedirectRouteType>
+  navigation: NavigationPropType<any>
 }
 
 const RedirectContainer = ({ route, navigation }: PropsType) => {
