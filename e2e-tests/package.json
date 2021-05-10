@@ -24,5 +24,11 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5",
     "webdriverio": "^7.0.9"
+  },
+  "workspaces": {
+    "nohoist": [
+      "@wdio/**",
+      "**/@wdio/**"
+    ]
   }
 }
