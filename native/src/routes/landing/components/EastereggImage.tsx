@@ -1,16 +1,15 @@
 import * as React from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from 'build-configs/ThemeType'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 import AppSettings from '../../../modules/settings/AppSettings'
-import moment from 'moment'
 import { Button } from 'react-native-elements'
 import buildConfig, { buildConfigAssets } from '../../../modules/app/constants/buildConfig'
+
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
+
 type StateType = {
   clickCount: number
   clickStart: Moment | null | undefined
@@ -20,7 +19,7 @@ type PropsType = {
   clearResourcesAndCache: () => void
   theme: ThemeType
 }
-const LocationImage: StyledComponent<{}, ThemeType, any> = styled.Image`
+const LocationImage = styled.Image`
   height: 70px;
   resize-mode: contain;
 `
@@ -43,12 +42,14 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     const appSettings = new AppSettings()
     appSettings
       .loadApiUrlOverride()
-      .catch(() => {})
       .then(apiUrlOverride =>
         this.setState({
           apiUrlOverride
         })
       )
+      .catch(e => {
+        console.error(e)
+      })
   }
 
   onImagePress = async () => {
@@ -82,6 +83,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
       })
     }
   }
+
   resetApiUrl = async () => {
     const appSettings = new AppSettings()
     await appSettings.setApiUrlOverride(buildConfig().cmsUrl)
@@ -90,6 +92,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     })
     this.props.clearResourcesAndCache()
   }
+
   renderApiUrlText = () => {
     const theme = this.props.theme
     const apiUrlOverride = this.state.apiUrlOverride

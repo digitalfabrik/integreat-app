@@ -1,20 +1,13 @@
 import * as React from 'react'
 import EastereggImage from './EastereggImage'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { ThemeType } from 'build-configs/ThemeType'
+
 type PropsType = {
   clearResourcesAndCache: () => void
   theme: ThemeType
 }
-const Wrapper: StyledComponent<
-  {
-    children: React.ReactNode
-  },
-  {},
-  any
-> = styled.View`
+const Wrapper = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;

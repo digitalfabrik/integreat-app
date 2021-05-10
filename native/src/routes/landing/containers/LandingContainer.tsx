@@ -3,19 +3,16 @@ import { withTranslation } from 'react-i18next'
 import { StateType } from '../../../modules/app/StateType'
 import { Dispatch } from 'redux'
 import { StoreActionType } from '../../../modules/app/StoreActionType'
-import { PropsType as LandingPropsType } from '../components/Landing'
-import Landing from '../components/Landing'
-import { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
-import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import Landing, { PropsType as LandingPropsType } from '../components/Landing'
+import withPayloadProvider, { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
 import { CityModel } from 'api-client'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
-import { LandingRouteType } from 'api-client/src/routes'
-
+import { DASHBOARD_ROUTE, LandingRouteType } from 'api-client/src/routes'
 import navigateToCategory from '../../../modules/navigation/navigateToCategory'
 import { cityContentPath } from '../../../modules/navigation/url'
+
 type OwnPropsType = {
   route: RoutePropType<LandingRouteType>
   navigation: NavigationPropType<LandingRouteType>
@@ -105,7 +102,7 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
   )
 }
 
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps)(
+export default connect(mapStateToProps)(
+  // @ts-ignore
   withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh)(LandingContainer)
 )
