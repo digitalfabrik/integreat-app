@@ -1,47 +1,48 @@
-import { $Diff } from "utility-types";
-import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from "../../../modules/app/StateType";
-import { connect } from "react-redux";
-import type { PropsType as EventsPropsType } from "../components/Events";
-import Events from "../components/Events";
-import { withTranslation } from "react-i18next";
-import type { Dispatch } from "redux";
-import type { StoreActionType, SwitchContentLanguageActionType } from "../../../modules/app/StoreActionType";
-import type { StatusPropsType } from "../../../modules/endpoint/hocs/withPayloadProvider";
-import withPayloadProvider from "../../../modules/endpoint/hocs/withPayloadProvider";
-import withTheme from "../../../modules/theme/hocs/withTheme";
-import { CityModel, EventModel } from "api-client";
-import * as React from "react";
-import { ErrorCode } from "../../../modules/error/ErrorCodes";
-import type { NavigationPropType, RoutePropType } from "../../../modules/app/constants/NavigationTypes";
-import navigateToLink from "../../../modules/navigation/navigateToLink";
-import createNavigateToFeedbackModal from "../../../modules/navigation/createNavigateToFeedbackModal";
-import type { EventsRouteType } from "api-client/src/routes";
-import createNavigate from "../../../modules/navigation/createNavigate";
-import { EVENTS_ROUTE } from "api-client/src/routes";
-import type { ThemeType } from "build-configs/ThemeType";
+import { $Diff } from 'utility-types'
+import type { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../../../modules/app/StateType'
+import { connect } from 'react-redux'
+import type { PropsType as EventsPropsType } from '../components/Events'
+import Events from '../components/Events'
+import { withTranslation } from 'react-i18next'
+import type { Dispatch } from 'redux'
+import type { StoreActionType, SwitchContentLanguageActionType } from '../../../modules/app/StoreActionType'
+import type { StatusPropsType } from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withPayloadProvider from '../../../modules/endpoint/hocs/withPayloadProvider'
+import withTheme from '../../../modules/theme/hocs/withTheme'
+import { CityModel, EventModel } from 'api-client'
+import * as React from 'react'
+import { ErrorCode } from '../../../modules/error/ErrorCodes'
+import type { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import navigateToLink from '../../../modules/navigation/navigateToLink'
+import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
+import type { EventsRouteType } from 'api-client/src/routes'
+import createNavigate from '../../../modules/navigation/createNavigate'
+import { EVENTS_ROUTE } from 'api-client/src/routes'
+import type { ThemeType } from 'build-configs/ThemeType'
 type NavigationPropsType = {
-  route: RoutePropType<EventsRouteType>;
-  navigation: NavigationPropType<EventsRouteType>;
-};
-type OwnPropsType = NavigationPropsType;
+  route: RoutePropType<EventsRouteType>
+  navigation: NavigationPropType<EventsRouteType>
+}
+type OwnPropsType = NavigationPropsType
 type DispatchPropsType = {
-  dispatch: Dispatch<StoreActionType>;
-};
-type ContainerPropsType = NavigationPropsType & DispatchPropsType & {
-  path: string | null | undefined;
-  events: Array<EventModel>;
-  cityModel: CityModel;
-  language: string;
-  resourceCache: LanguageResourceCacheStateType;
-  resourceCacheUrl: string;
-};
+  dispatch: Dispatch<StoreActionType>
+}
+type ContainerPropsType = NavigationPropsType &
+  DispatchPropsType & {
+    path: string | null | undefined
+    events: Array<EventModel>
+    cityModel: CityModel
+    language: string
+    resourceCache: LanguageResourceCacheStateType
+    resourceCacheUrl: string
+  }
 type RefreshPropsType = NavigationPropsType & {
-  cityCode: string;
-  language: string;
-  path: string | null | undefined;
-};
-type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>;
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType;
+  cityCode: string
+  language: string
+  path: string | null | undefined
+}
+type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
+type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
@@ -49,58 +50,54 @@ const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => 
     params: {
       key: routeKey
     }
-  });
-};
+  })
+}
 
-const createChangeUnavailableLanguage = (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+const createChangeUnavailableLanguage = (city: string) => (
+  dispatch: Dispatch<StoreActionType>,
+  newLanguage: string
+) => {
   const switchContentLanguage: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',
     params: {
       newLanguage,
       city
     }
-  };
-  dispatch(switchContentLanguage);
-};
+  }
+  dispatch(switchContentLanguage)
+}
 
-const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages;
+const routeHasOldContent = (route: EventRouteStateType) => route.models && route.allAvailableLanguages
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
-    route: {
-      key
-    }
-  } = ownProps;
+    route: { key }
+  } = ownProps
 
   if (!state.cityContent) {
     return {
       status: 'routeNotInitialized'
-    };
+    }
   }
 
-  const {
-    resourceCache,
-    routeMapping,
-    switchingLanguage,
-    languages
-  } = state.cityContent;
-  const route = routeMapping[key];
+  const { resourceCache, routeMapping, switchingLanguage, languages } = state.cityContent
+  const route = routeMapping[key]
 
   if (!route || route.routeType !== EVENTS_ROUTE) {
     return {
       status: 'routeNotInitialized'
-    };
+    }
   }
 
   if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
-      console.error('languageNotAvailable status impossible if languages not ready');
+      console.error('languageNotAvailable status impossible if languages not ready')
       return {
         status: 'error',
         refreshProps: null,
         code: languages.code || ErrorCode.UnknownError,
         message: languages.message || 'languages not ready'
-      };
+      }
     }
 
     return {
@@ -108,7 +105,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       availableLanguages: languages.models.filter(lng => route.allAvailableLanguages.has(lng.code)),
       cityCode: route.city,
       changeUnavailableLanguage: createChangeUnavailableLanguage(route.city)
-    };
+    }
   }
 
   const refreshProps = {
@@ -117,7 +114,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     language: route.language,
     navigation: ownProps.navigation,
     route: ownProps.route
-  };
+  }
 
   if (state.cities.status === 'error') {
     return {
@@ -125,49 +122,55 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       message: state.cities.message,
       code: state.cities.code,
       refreshProps
-    };
+    }
   } else if (resourceCache.status === 'error') {
     return {
       status: 'error',
       message: resourceCache.message,
       code: resourceCache.code,
       refreshProps
-    };
+    }
   } else if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
-    };
+    }
   } else if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
       code: languages.code,
       refreshProps
-    };
+    }
   }
 
-  const resourceCacheUrl = state.resourceCacheUrl;
+  const resourceCacheUrl = state.resourceCacheUrl
 
-  if (resourceCacheUrl === null || state.cities.status === 'loading' || switchingLanguage || route.status === 'loading' && !routeHasOldContent(route) || languages.status === 'loading') {
+  if (
+    resourceCacheUrl === null ||
+    state.cities.status === 'loading' ||
+    switchingLanguage ||
+    (route.status === 'loading' && !routeHasOldContent(route)) ||
+    languages.status === 'loading'
+  ) {
     return {
       status: 'loading',
       progress: 0
-    };
+    }
   }
 
-  const cities = state.cities.models;
-  const cityModel = cities.find(city => city.code === route.city);
+  const cities = state.cities.models
+  const cityModel = cities.find(city => city.code === route.city)
 
   if (!cityModel) {
-    throw new Error('cityModel is undefined!');
+    throw new Error('cityModel is undefined!')
   }
 
   if (route.status === 'languageNotAvailable') {
     // Necessary for flow type checking, already handled above
-    throw new Error('language not available route status not handled!');
+    throw new Error('language not available route status not handled!')
   }
 
   const innerProps = {
@@ -179,7 +182,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     resourceCacheUrl,
     navigation: ownProps.navigation,
     route: ownProps.route
-  };
+  }
 
   if (route.status === 'loading') {
     return {
@@ -187,53 +190,61 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       refreshProps,
       innerProps,
       progress: 0
-    };
+    }
   }
 
   return {
     status: 'success',
     refreshProps,
     innerProps
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsType => ({
   dispatch
-});
+})
 
-const ThemedTranslatedEvents = withTranslation<$Diff<EventsPropsType, {
-  theme: ThemeType;
-}>>('events')(withTheme<EventsPropsType>(Events));
+const ThemedTranslatedEvents = withTranslation<
+  $Diff<
+    EventsPropsType,
+    {
+      theme: ThemeType
+    }
+  >
+>('events')(withTheme<EventsPropsType>(Events))
 
-const EventsContainer = ({
-  dispatch,
-  navigation,
-  route,
-  ...rest
-}: ContainerPropsType) => {
+const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation);
-    navigateToLink(url, navigation, language, navigateTo, shareUrl);
-  };
+    const navigateTo = createNavigate(dispatch, navigation)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl)
+  }
 
-  return <ThemedTranslatedEvents {...rest} navigateTo={createNavigate(dispatch, navigation)} navigateToFeedback={createNavigateToFeedbackModal(navigation)} navigateToLink={navigateToLinkProp} />;
-};
+  return (
+    <ThemedTranslatedEvents
+      {...rest}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateToLink={navigateToLinkProp}
+    />
+  )
+}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
-  const {
-    route,
-    navigation,
-    cityCode,
-    language,
-    path
-  } = refreshProps;
-  const navigateTo = createNavigate(dispatch, navigation);
-  navigateTo({
-    route: EVENTS_ROUTE,
-    cityCode,
-    languageCode: language,
-    cityContentPath: path || undefined
-  }, route.key, true);
-};
+  const { route, navigation, cityCode, language, path } = refreshProps
+  const navigateTo = createNavigate(dispatch, navigation)
+  navigateTo(
+    {
+      route: EVENTS_ROUTE,
+      cityCode,
+      languageCode: language,
+      cityContentPath: path || undefined
+    },
+    route.key,
+    true
+  )
+}
 
-export default connect<PropsType, OwnPropsType, _, _, _, _>(mapStateToProps, mapDispatchToProps)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer));
+export default connect<PropsType, OwnPropsType, _, _, _, _>(
+  mapStateToProps,
+  mapDispatchToProps
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))

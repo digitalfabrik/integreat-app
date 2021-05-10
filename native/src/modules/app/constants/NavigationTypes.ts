@@ -19,7 +19,7 @@ import type {
   RedirectRouteType,
   SearchRouteType,
   SettingsRouteType,
-  SprungbrettOfferRouteType,
+  SprungbrettOfferRouteType
 } from 'api-client'
 import { LanguageModel } from 'api-client'
 import type { FeedbackInformationType } from '../../feedback/FeedbackContainer'
