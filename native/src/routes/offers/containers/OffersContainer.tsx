@@ -29,7 +29,7 @@ type OffersPropsType = OwnPropsType & {
 
 const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const { cityCode, languageCode } = route.params
-  const cities = useSelector((state: StateType) => state.cities.models || null)
+  const cities = useSelector<StateType>((state: StateType) => state.cities.models || null)
   const request = useCallback(
     async (apiUrl: string) =>
       await createOffersEndpoint(apiUrl).request({

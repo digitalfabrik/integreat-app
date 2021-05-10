@@ -7,15 +7,18 @@ import { SearchRouteType } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import { ThemeContext } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
+import { StateType } from '../../../modules/app/StateType'
+import { CategoriesMapModel } from 'api-client/dist/src'
+
 export type PropsType = {
   route: RoutePropType<SearchRouteType>
   navigation: NavigationPropType<SearchRouteType>
 }
 
 const SearchModalContainer = ({ navigation }: PropsType) => {
-  const cityCode = useSelector(state => state.cityContent?.city)
-  const language = useSelector(state => state.contentLanguage)
-  const categories = useSelector(state => state.cityContent?.searchRoute?.categoriesMap)
+  const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
+  const language = useSelector<StateType, string>(state => state.contentLanguage)
+  const categories = useSelector<StateType, CategoriesMapModel | null>(state => state?.cityContent?.searchRoute?.categoriesMap ?? null)
   const dispatch = useDispatch()
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')

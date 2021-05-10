@@ -32,7 +32,7 @@ type SprungbrettPropsType = OwnPropsType & {
 }
 
 const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettPropsType) => {
-  const cities = useSelector((state: StateType) => state.cities.status === 'ready' ? state.cities.models : null)
+  const cities = useSelector<StateType>((state: StateType) => state.cities.status === 'ready' ? state.cities.models : null)
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE

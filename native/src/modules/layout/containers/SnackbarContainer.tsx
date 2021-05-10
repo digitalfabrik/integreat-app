@@ -22,7 +22,7 @@ const translate = new Animated.Value(1)
 const SnackbarContainer = () => {
   const [height, setHeight] = useState<number | null>(null)
   const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
-  const snackbarState: Array<SnackbarType> = useSelector((state: StateType) => state.snackbar)
+  const snackbarState: Array<SnackbarType> = useSelector<StateType>((state: StateType) => state.snackbar)
   const dispatch = useDispatch()
   const { t } = useTranslation('error')
   const show = useCallback(() => {

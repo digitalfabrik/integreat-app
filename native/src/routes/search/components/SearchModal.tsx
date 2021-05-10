@@ -1,14 +1,9 @@
 import * as React from 'react'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
-import { CategoriesRouteInformationType } from 'api-client'
-import { CategoriesMapModel, CategoryModel, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
-import { ListEntryType } from '../../../modules/categories/components/CategoryList'
-import CategoryList from '../../../modules/categories/components/CategoryList'
+import { CategoriesRouteInformationType, CategoriesMapModel, CategoryModel, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE } from 'api-client'
+import CategoryList, { ListEntryType } from '../../../modules/categories/components/CategoryList'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import 'styled-components'
 import { TFunction } from 'react-i18next'
-import 'react-i18next'
 import SearchHeader from './SearchHeader'
 import { ThemeType } from 'build-configs/ThemeType'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
@@ -20,7 +15,8 @@ import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
 import SadIcon from '../../../modules/common/components/assets/smile-sad.svg'
 import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
 import { urlFromRouteInformation } from '../../../modules/navigation/url'
-const Wrapper: StyledComponent<{}, ThemeType, any> = styled.View`
+
+const Wrapper = styled.View`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -50,7 +46,7 @@ export type PropsType = {
   cityCode: string
   closeModal: (query: string) => void
   navigateToLink: (url: string, language: string, shareUrl: string) => void
-  t: TFunction
+  t: TFunction<'search'>
 }
 type SearchStateType = {
   query: string
@@ -137,6 +133,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
       cityContentPath: category.path
     })
   }
+
   onClose = () => {
     const { query } = this.state
     sendTrackingSignal({
@@ -148,11 +145,13 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     })
     this.props.closeModal(query)
   }
+
   onSearchChanged = (query: string) => {
     this.setState({
       query
     })
   }
+
   renderContent = () => {
     const { language, cityCode, theme, categories, navigateToLink, t } = this.props
     const { query } = this.state
@@ -216,7 +215,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
           t={t}
         />
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={{
             flex: 1
           }}>
