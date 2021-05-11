@@ -83,7 +83,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
+  if (route.status === 'languageNotAvailable') {
+    if (switchingLanguage) {
+      throw new Error('language not available route status not handled!')
+    }
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
@@ -202,5 +205,5 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-// @ts-ignore
+  // @ts-ignore
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(PoisContainer))
