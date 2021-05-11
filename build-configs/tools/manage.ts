@@ -1,12 +1,8 @@
-const program = require('commander')
-
-const fs = require('fs')
-
-const flat = require('flat')
-
-const decamelize = require('decamelize')
-
-const loadBuildConfig = require('../index').default
+import program from 'commander'
+import fs from 'fs'
+import flat from 'flat'
+import decamelize from 'decamelize'
+import loadBuildConfig from '../index'
 
 const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quotes = false) => {
   const buildConfig = loadBuildConfig(buildConfigName, platform)
