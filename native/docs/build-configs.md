@@ -51,10 +51,10 @@ whereas for XCode xcschemes are used as we don't have a bash command to build an
 
 ### Javascript
 
-To make the selected build config available in the javascript code, the [prepare script](../tools/prepare.ts)
-reads the environment variable and saves it to a json file in the [src](../src) folder.
-This file is afterwards read and used to get the right build config by our build config utilities
-If the build config name is not set or not a valid name, an error is thrown.
+To make the selected build config available in the javascript code, we map the non-existing module `build-config-name`
+to the right name constant in the corresponding build config directory in the [build-configs workspace](../build-configs),
+e.g. [this file](../build-configs/integreat/build-config-name/index.ts) for Integreat.
+This is done with a proxy in the [metro config](../metro.config.js) in the `extraNodeModules` prop.
 
 To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
 
