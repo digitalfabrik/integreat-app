@@ -22,7 +22,7 @@ class ImageViewModal extends React.Component<PropsType> {
           style={{
             flex: 1
           }}
-          renderIndicator={() => (<></>)}
+          renderIndicator={() => <></>}
           backgroundColor={this.props.theme.colors.backgroundAccentColor}
           saveToLocalByLongPress={false}
           imageUrls={[

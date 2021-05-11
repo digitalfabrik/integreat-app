@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import { ThemeType } from 'build-configs/ThemeType'
 import { range } from 'lodash'
 
-const DotsContainer= styled.View`
+const DotsContainer = styled.View`
   flex: 1;
   height: 10px;
   padding: 10px 10px 20px;

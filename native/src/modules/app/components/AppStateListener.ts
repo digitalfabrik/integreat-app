@@ -4,7 +4,6 @@ import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 import { RESUME_SIGNAL_NAME, SUSPEND_SIGNAL_NAME } from 'api-client'
 
 const AppStateListener = () => {
-
   const handleAppStateChange = (nextAppState: string) => {
     if (nextAppState === 'active') {
       sendTrackingSignal({

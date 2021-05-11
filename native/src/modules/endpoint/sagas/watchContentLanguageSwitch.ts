@@ -42,7 +42,9 @@ export function* switchContentLanguage(
       call(dataContainer.getPois, city, newLanguage)
     ])) as Array<any>
     const appSettings = new AppSettings()
-    const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = (yield call(appSettings.loadSettings)) as SettingsType
+    const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = (yield call(
+      appSettings.loadSettings
+    )) as SettingsType
 
     // Unsubscribe from prev. city notifications
     if (contentLanguage !== newLanguage && allowPushNotifications && contentLanguage && selectedCity) {

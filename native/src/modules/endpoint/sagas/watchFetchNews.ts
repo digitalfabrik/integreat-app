@@ -13,7 +13,7 @@ import loadTunewsLanguages from './loadTunewsLanguages'
 import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 import loadLanguages from './loadLanguages'
-import { LanguageModel } from 'api-client/dist/src'
+import { LanguageModel } from 'api-client'
 import { NewsModelsType } from '../../app/StateType'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
@@ -102,7 +102,13 @@ export function* fetchMoreNews(
 
   try {
     const availableLanguages: LanguageModel[] = (yield call(loadTunewsLanguages, city)) as LanguageModel[]
-    const news: NewsModelsType = (yield call(loadTunews, city, language, page, TUNEWS_FETCH_COUNT_LIMIT)) as NewsModelsType
+    const news: NewsModelsType = (yield call(
+      loadTunews,
+      city,
+      language,
+      page,
+      TUNEWS_FETCH_COUNT_LIMIT
+    )) as NewsModelsType
     const insert: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {

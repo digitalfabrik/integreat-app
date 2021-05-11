@@ -26,7 +26,11 @@ export default {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '\\.(css|less)$': 'identity-obj-proxy'
   },
-  setupFilesAfterEnv: ['<rootDir>/../jest.setup.ts', 'jest-extended', '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'],
+  setupFilesAfterEnv: [
+    '<rootDir>/../jest.setup.ts',
+    'jest-extended',
+    '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'
+  ],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
@@ -34,7 +38,7 @@ export default {
   coverageDirectory: '<rootDir>/../reports/coverage',
   transform: {
     ...tsjPreset.transform,
-    '\\.js$' : '<rootDir>/../node_modules/react-native/jest/preprocessor.js'
+    '\\.js$': '<rootDir>/../node_modules/react-native/jest/preprocessor.js'
   },
   reporters: [
     'default',

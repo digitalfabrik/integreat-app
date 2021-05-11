@@ -26,7 +26,9 @@ import SettingsContainer from '../../../routes/settings/container/SettingsContai
 import DisclaimerContainer from '../../../routes/disclaimer/DisclaimerContainer'
 import CategoriesContainer from '../../../routes/categories/containers/CategoriesContainer'
 import {
-  DashboardRouteType, IntroRouteType, LandingRouteType,
+  DashboardRouteType,
+  IntroRouteType,
+  LandingRouteType,
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   DASHBOARD_ROUTE,

@@ -6,7 +6,7 @@ import { ThemeType } from '../../theme/constants'
 import { contentDirection } from '../../i18n/contentDirection'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
-const TimeStampText= styled.Text`
+const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `

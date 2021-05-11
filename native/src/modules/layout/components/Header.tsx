@@ -156,13 +156,7 @@ const Header = (props: PropsType) => {
     iconName?: string
   ): React.ReactElement => {
     return (
-      <Item
-        title={title}
-        accessibilityLabel={accessibilityLabel}
-        iconName={iconName}
-        show={show}
-        onPress={onPress}
-      />
+      <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show} onPress={onPress} />
     )
   }
 

@@ -12,7 +12,11 @@ import { LanguageResourceCacheStateType } from '../../app/StateType'
 export function* fetchEvent(
   dataContainer: DataContainer,
   action: FetchEventActionType
-): Generator<Effect, void, boolean | Moment | null | LanguageModel | Array<EventModel> | LanguageResourceCacheStateType | Array<LanguageModel>> {
+): Generator<
+  Effect,
+  void,
+  boolean | Moment | null | LanguageModel | Array<EventModel> | LanguageResourceCacheStateType | Array<LanguageModel>
+> {
   const { city, language, path, key, criterion } = action.params
 
   try {
@@ -24,11 +28,17 @@ export function* fetchEvent(
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
     // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages() ? (yield call(dataContainer.getLanguages, city)) as Array<LanguageModel> : []
+    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages()
+      ? ((yield call(dataContainer.getLanguages, city)) as Array<LanguageModel>)
+      : []
 
     if (languageValid) {
       const events = (yield call(dataContainer.getEvents, city, language)) as Array<EventModel>
-      const resourceCache = (yield call(dataContainer.getResourceCache, city, language)) as LanguageResourceCacheStateType
+      const resourceCache = (yield call(
+        dataContainer.getResourceCache,
+        city,
+        language
+      )) as LanguageResourceCacheStateType
 
       const lastUpdate: moment.Moment | null = (yield call(
         dataContainer.getLastUpdate,

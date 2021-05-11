@@ -5,7 +5,10 @@ import determineApiUrl from '../determineApiUrl'
 
 type GeneratorReturnType = Payload<Array<CityModel>> | Array<CityModel> | boolean | string
 
-function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): Generator<StrictEffect, Array<CityModel>, GeneratorReturnType> {
+function* loadCities(
+  dataContainer: DataContainer,
+  forceRefresh: boolean
+): Generator<StrictEffect, Array<CityModel>, GeneratorReturnType> {
   const citiesAvailable = yield call(() => dataContainer.citiesAvailable())
 
   if (citiesAvailable && !forceRefresh) {
@@ -22,7 +25,7 @@ function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): Gener
   const payload = (yield call(() => createCitiesEndpoint(apiUrl).request())) as Payload<Array<CityModel>>
   const cities = payload.data
   if (!cities) {
-    throw new Error("Cities are not available")
+    throw new Error('Cities are not available')
   }
   yield call(dataContainer.setCities, cities)
   return cities
