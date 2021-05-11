@@ -5,27 +5,36 @@ import {
   WebBuildConfigType
 } from './BuildConfigType'
 import integreatBuildConfig from './integreat'
+import integreatBuildConfigName from './integreat/build-config-name'
 import integreatTestCmsBuildConfig from './integreat-test-cms'
+import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name'
 import integreatE2eBuildConfig from './integreat-e2e'
+import integreatE2eBuildConfigName from './integreat-e2e/build-config-name'
 import malteBuildConfig from './malte'
+import malteBuildConfigName from './malte/build-config-name'
 import aschaffenburgBuildConfig from './aschaffenburg'
+import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name'
+
 export const COMMON = 'common'
 export const ANDROID = 'android'
 export const IOS = 'ios'
 export const WEB = 'web'
+
 const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
+
 type BuildConfigPlatformType = {
   common: CommonBuildConfigType
   android: AndroidBuildConfigType
   ios: iOSBuildConfigType
   web: WebBuildConfigType
 }
+
 export const buildConfigs: Record<string, BuildConfigPlatformType> = {
-  integreat: integreatBuildConfig,
-  'integreat-test-cms': integreatTestCmsBuildConfig,
-  'integreat-e2e': integreatE2eBuildConfig,
-  malte: malteBuildConfig,
-  aschaffenburg: aschaffenburgBuildConfig
+  [integreatBuildConfigName]: integreatBuildConfig,
+  [integreatTestCmsBuildConfigName]: integreatTestCmsBuildConfig,
+  [integreatE2eBuildConfigName]: integreatE2eBuildConfig,
+  [malteBuildConfigName]: malteBuildConfig,
+  [aschaffenburgBuildConfigName]: aschaffenburgBuildConfig
 }
 
 const loadBuildConfig = (buildConfigName: string | null | undefined, platform: string | null | undefined) => {
