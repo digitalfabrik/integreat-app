@@ -114,7 +114,10 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  if (route.status === 'languageNotAvailable' && !switchingLanguage) {
+  if (route.status === 'languageNotAvailable') {
+    if (switchingLanguage) {
+      throw new Error('language not available route status not handled!')
+    }
     if (languages.status === 'error' || languages.status === 'loading') {
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
