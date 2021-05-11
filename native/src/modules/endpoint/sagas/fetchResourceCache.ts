@@ -1,13 +1,17 @@
-import { Saga } from 'redux-saga'
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, put, fork, take, cancel } from 'redux-saga/effects'
+import { call, put, fork, take, cancel, StrictEffect, Effect } from 'redux-saga/effects'
+import { Task } from 'redux-saga'
 import { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../../app/StoreActionType'
-import { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
-import FetcherModule from '../../fetcher/FetcherModule'
+import FetcherModule, { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
 import { DataContainer } from '../DataContainer'
 import moment from 'moment'
-import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../../app/StateType'
-import { fromError, ErrorCode } from '../../error/ErrorCodes'
+import {
+  LanguageResourceCacheStateType,
+  PageResourceCacheEntryStateType,
+  PageResourceCacheStateType
+} from '../../app/StateType'
+import { fromError } from '../../error/ErrorCodes'
+
 export type FetchMapTargetType = {
   url: string
   filePath: string
@@ -23,7 +27,7 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
   )
 }
 
-function* watchOnProgress(): Saga<void> {
+function* watchOnProgress(): Generator<StrictEffect, void, number> {
   const channel = new FetcherModule().createProgressChannel()
 
   try {
@@ -49,9 +53,9 @@ export default function* fetchResourceCache(
   language: string,
   fetchMap: FetchMapType,
   dataContainer: DataContainer
-): Saga<void> {
+): Generator<StrictEffect, void, Task | FetchResultType> {
   try {
-    const fetchMapTargets = flatten<FetchMapTargetType, FetchMapTargetType>(values(fetchMap))
+    const fetchMapTargets = flatten<FetchMapTargetType>(values(fetchMap))
     const targetFilePaths = reduce<FetchMapTargetType, TargetFilePathsType>(
       fetchMapTargets,
       (acc, value) => {
@@ -65,8 +69,8 @@ export default function* fetchResourceCache(
       throw new Error('Already fetching!')
     }
 
-    const progressTask = yield fork(watchOnProgress)
-    const results = yield call(new FetcherModule().fetchAsync, targetFilePaths)
+    const progressTask = (yield fork(watchOnProgress)) as Task
+    const results = (yield call(new FetcherModule().fetchAsync, targetFilePaths)) as FetchResultType
     yield cancel(progressTask)
     const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
     const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
@@ -81,7 +85,7 @@ export default function* fetchResourceCache(
     const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
       reduce<FetchMapTargetType, PageResourceCacheStateType>(
         fetchMapEntry,
-        (acc: {}, fetchMapTarget: FetchMapTargetType) => {
+        (acc: Record<string, PageResourceCacheEntryStateType>, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
           const downloadResult = successResults[filePath]
 
@@ -95,7 +99,7 @@ export default function* fetchResourceCache(
 
           return acc
         },
-        {}
+        {} as PageResourceCacheStateType
       )
     )
     yield call(dataContainer.setResourceCache, city, language, resourceCache)
