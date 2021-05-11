@@ -26,8 +26,7 @@ export default {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '\\.(css|less)$': 'identity-obj-proxy'
   },
-  setupFiles: ['<rootDir>/../jest.setup.ts'],
-  setupFilesAfterEnv: ['jest-extended', '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'],
+  setupFilesAfterEnv: ['<rootDir>/../jest.setup.ts', 'jest-extended', '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
