@@ -1,10 +1,9 @@
-import { Saga } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from 'redux-saga/effects'
 import {
+  FetchMoreNewsActionType,
   FetchNewsActionType,
-  PushNewsActionType,
   FetchNewsFailedActionType,
-  FetchMoreNewsActionType
+  PushNewsActionType
 } from '../../app/StoreActionType'
 import { DataContainer } from '../DataContainer'
 import { ErrorCode, fromError } from '../../error/ErrorCodes'
@@ -14,15 +13,22 @@ import loadTunewsLanguages from './loadTunewsLanguages'
 import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 import loadLanguages from './loadLanguages'
+import { LanguageModel } from 'api-client/dist/src'
+import { NewsModelsType } from '../../app/StateType'
+
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
-export function* fetchNews(dataContainer: DataContainer, action: FetchNewsActionType): Saga<void> {
+
+export function* fetchNews(
+  dataContainer: DataContainer,
+  action: FetchNewsActionType
+): Generator<CallEffect | PutEffect, void, any> {
   const { city, language, newsId, key, type, criterion } = action.params
 
   try {
     const isLocalNews = type === LOCAL_NEWS_TYPE
     const languages = yield call(loadLanguages, city, dataContainer, criterion.forceUpdate)
-    const availableNewsLanguages = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
+    const availableNewsLanguages: Array<LanguageModel> = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
     const validLanguage = availableNewsLanguages.find(languageModel => languageModel.code === language)
 
     if (validLanguage) {
@@ -83,7 +89,11 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
     yield put(failed)
   }
 }
-export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNewsActionType): Saga<void> {
+
+export function* fetchMoreNews(
+  dataContainer: DataContainer,
+  action: FetchMoreNewsActionType
+): Generator<CallEffect | PutEffect, void, NewsModelsType | LanguageModel[]> {
   const { city, language, newsId, key, type, page, previouslyFetchedNews } = action.params
 
   if (type === LOCAL_NEWS_TYPE) {
@@ -91,8 +101,8 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
   }
 
   try {
-    const availableLanguages = yield call(loadTunewsLanguages, city)
-    const news = yield call(loadTunews, city, language, page, TUNEWS_FETCH_COUNT_LIMIT)
+    const availableLanguages: LanguageModel[] = (yield call(loadTunewsLanguages, city)) as LanguageModel[]
+    const news: NewsModelsType = (yield call(loadTunews, city, language, page, TUNEWS_FETCH_COUNT_LIMIT)) as NewsModelsType
     const insert: PushNewsActionType = {
       type: 'PUSH_NEWS',
       params: {
@@ -127,7 +137,8 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
     yield put(failed)
   }
 }
-export default function* (dataContainer: DataContainer): Saga<void> {
+
+export default function* (dataContainer: DataContainer): Generator<ForkEffect, any> {
   yield takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
 }

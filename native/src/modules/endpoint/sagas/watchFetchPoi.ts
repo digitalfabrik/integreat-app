@@ -1,12 +1,13 @@
-import { Saga } from 'redux-saga'
-import { all, call, put, select, takeLatest } from 'redux-saga/effects'
+import { all, call, Effect, ForkEffect, put, select, takeLatest } from 'redux-saga/effects'
 import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../../app/StoreActionType'
 import { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../../error/ErrorCodes'
-export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Saga<void> {
+import { LanguageModel } from 'api-client/dist/src'
+
+export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Generator<Effect, void, any> {
   const { city, language, path, key, criterion } = action.params
 
   try {
@@ -18,7 +19,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
     // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
+    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
 
     if (languageValid) {
       const [pois, resourceCache] = yield all([
@@ -71,6 +72,6 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     yield put(failed)
   }
 }
-export default function* (dataContainer: DataContainer): Saga<void> {
+export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
   yield takeLatest('FETCH_POI', fetchPoi, dataContainer)
 }
