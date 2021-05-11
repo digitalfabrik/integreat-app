@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "manage": "babel-node tools/manage.js",
     "export:ods:translations": "yarn manage convert translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
     "export:ods:override-malte": "yarn manage convert override-translations/malte.json malte-csv csv && ./tools/csv-to-ods malte-csv malte-ods && rm -rf malte-csv",
     "export:ods:override-aschaffenburg": "yarn manage convert override-translations/aschaffenburg.json aschaffenburg-csv csv && ./tools/csv-to-ods aschaffenburg-csv aschaffenburg-ods && rm -rf aschaffenburg-csv",

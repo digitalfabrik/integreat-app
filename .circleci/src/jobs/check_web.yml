@@ -14,9 +14,6 @@ steps:
       directory: web
   - lint:
       directory: api-client
-  - run:
-      name: Check flow
-      command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
   - unit_test:
       directory: web
   - unit_test:

@@ -204,7 +204,6 @@ const createConfig = (
                 filename: 'assets.json',
                 prettyPrint: true
             }),
-            // $FlowFixMe Unable to find "LoaderOptionsPlugin" in "webpack"
             new LoaderOptionsPlugin({
                 debug: devServer,
                 minimize: !devServer

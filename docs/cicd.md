@@ -44,7 +44,6 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 
 - Linting
 - Prettier formatting
-- Flow type checking
 - Unit testing with jest
 - Building the app
 

@@ -68,7 +68,7 @@ describe('createSettingsSections', () => {
 
   const mockBuildConfig = (pushNotifications: boolean) => {
     const previous = buildConfig()
-    // @ts-ignore flow is not aware that buildConfig is a mock function
+    // @ts-ignore ts is not aware that buildConfig is a mock function
     buildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pushNotifications }

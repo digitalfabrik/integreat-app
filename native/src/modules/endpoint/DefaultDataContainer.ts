@@ -150,7 +150,6 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): Array<string> {
-    // $FlowFixMe https://github.com/facebook/flow/issues/2221
     const pageResourceCaches: Array<PageResourceCacheStateType> = Object.values(languageResourceCache)
     return flatMap(
       pageResourceCaches,

@@ -41,11 +41,6 @@ describe('feedback', () => {
     formData.append('category', 'Inhalte')
     expect(feedback.mapParamsToBody).not.toBeNull()
 
-    // For flow inspection
-    if (!feedback.mapParamsToBody) {
-      throw new Error('Should not happen because the previous assertion')
-    }
-
     expect(
       feedback.mapParamsToBody({
         city: 'augsburg',
