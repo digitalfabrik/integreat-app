@@ -44,6 +44,7 @@ class ProgressSpinner extends React.Component<PropsType> {
           <Image
             width={logoSize}
             height={logoSize}
+            // @ts-ignore TODO this prop is not allowed on image, check how to fix this by moving to another component?
             transform={`translate(${logoXY}, ${logoXY})`}
             xlinkHref={buildConfigAssets().loadingImage}
           />

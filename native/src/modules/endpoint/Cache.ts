@@ -1,13 +1,15 @@
 import DatabaseConnector from './DatabaseConnector'
 import DatabaseContext from './DatabaseContext'
+
 type LoadFunctionType<T> = (databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<T>
 type StoreFunctionType<T> = (value: T, databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<void>
+
 export default class Cache<T> {
   databaseConnector: DatabaseConnector
-  value: T | null
+  value: T | null = null
   load: LoadFunctionType<T>
   store: StoreFunctionType<T>
-  context: DatabaseContext | null
+  context: DatabaseContext | null = null
 
   constructor(databaseConnector: DatabaseConnector, load: LoadFunctionType<T>, store: StoreFunctionType<T>) {
     this.databaseConnector = databaseConnector
