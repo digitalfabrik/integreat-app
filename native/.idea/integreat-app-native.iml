@@ -14,6 +14,10 @@
       <excludeFolder url="file://$MODULE_DIR$/../translations/reports" />
       <excludeFolder url="file://$MODULE_DIR$/../dist" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../web-ts" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../api-client/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../translations/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
