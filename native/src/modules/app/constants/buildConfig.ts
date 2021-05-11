@@ -17,6 +17,10 @@ import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
 import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
 import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
+// @ts-ignore This module does not really exist but is instead proxied by the metro.config.js
+// to the directory in the corresponding build config to allow passing the selected build config to the runtime code.
+// TODO Add read more section in the documentation
+import name from 'build-config-name'
 
 type AssetsType = {
   appIcon: number
@@ -30,7 +34,7 @@ type AssetsType = {
   }
 }
 
-const buildConfig = (): CommonBuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME, COMMON)
+const buildConfig = (): CommonBuildConfigType => loadBuildConfig(name, COMMON)
 
 export const buildConfigAssets = (): AssetsType => {
   const assetsName = buildConfig().assets
