@@ -6,6 +6,7 @@ import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAc
 import { Badge, Icon } from 'react-native-elements'
 import { Switch, Text, View } from 'react-native'
 import { TFunction } from 'react-i18next'
+
 type PropType = {
   title: string
   description?: string

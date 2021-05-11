@@ -22,6 +22,7 @@ import loadCities from '../loadCities'
 import loadCategories from '../loadCategories'
 import loadEvents from '../loadEvents'
 import loadPois from '../loadPois'
+
 jest.mock('@react-native-community/netinfo')
 jest.mock('rn-fetch-blob')
 jest.mock('../fetchResourceCache')
@@ -312,8 +313,8 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
   it('should not fetch resources if connection type is cellular', async () => {
-    const previous = NetInfo.fetch.getMockImplementation()
-    NetInfo.fetch.mockImplementation(() => {
+    const previous = ((NetInfo.fetch as unknown) as jest.Mock).getMockImplementation()
+    ;((NetInfo.fetch as unknown) as jest.Mock).mockImplementation(() => {
       return {
         type: 'cellular',
         isConnected: true,
@@ -343,7 +344,7 @@ describe('loadCityContent', () => {
       .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
-    NetInfo.fetch.mockImplementation(previous)
+    ;((NetInfo.fetch as unknown) as jest.Mock).mockImplementation(previous)
   })
   it('should update if last update was a long time ago', async () => {
     const dataContainer = new DefaultDataContainer()

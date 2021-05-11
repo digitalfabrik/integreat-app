@@ -2,8 +2,8 @@ import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } fr
 import DatabaseContext from './DatabaseContext'
 import {
   CityResourceCacheStateType,
-  PageResourceCacheStateType,
-  LanguageResourceCacheStateType
+  LanguageResourceCacheStateType,
+  PageResourceCacheStateType
 } from '../app/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import { DataContainer } from './DataContainer'
@@ -115,7 +115,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getResourceCache = async (city: string, language: string): Promise<LanguageResourceCacheStateType> => {
-    const context = new DatabaseContext(city, null)
+    const context = new DatabaseContext(city)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
@@ -170,7 +170,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
-    const context = new DatabaseContext(city, null)
+    const context = new DatabaseContext(city)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
 

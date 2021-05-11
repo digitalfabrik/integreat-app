@@ -1,8 +1,9 @@
-import { takeLatest, call, spawn, ForkEffect, Effect } from 'redux-saga/effects'
+import { call, spawn, takeLatest } from 'redux-saga/effects'
 import AppSettings, { SettingsType } from '../settings/AppSettings'
 import * as NotificationsManager from '../push-notifications/PushNotificationsManager'
+import { SagaIterator } from 'redux-saga'
 
-export function* clearCity(): Generator<Effect, void, SettingsType> {
+export function* clearCity(): SagaIterator<void> {
   const appSettings = new AppSettings()
   const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = yield call(appSettings.loadSettings)
 
@@ -12,6 +13,7 @@ export function* clearCity(): Generator<Effect, void, SettingsType> {
 
   yield call(appSettings.clearSelectedCity)
 }
-export default function* (): Generator<ForkEffect, void> {
+
+export default function* (): SagaIterator<void> {
   yield takeLatest('CLEAR_CITY', clearCity)
 }

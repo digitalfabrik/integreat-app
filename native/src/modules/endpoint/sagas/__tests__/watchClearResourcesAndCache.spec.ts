@@ -6,6 +6,8 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import watchClearResourcesAndCache, { clearResourcesAndCache } from '../watchClearResourcesAndCache'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import { ClearResourcesAndCacheActionType } from '../../../app/StoreActionType'
+
 jest.mock('rn-fetch-blob')
 describe('watchClearResourcesAndCache', () => {
   beforeEach(() => {
@@ -31,7 +33,7 @@ describe('watchClearResourcesAndCache', () => {
       }),
       'utf-8'
     )
-    const action = {
+    const action: ClearResourcesAndCacheActionType = {
       type: 'CLEAR_RESOURCES_AND_CACHE'
     }
     const dataContainer = new DefaultDataContainer()
@@ -40,7 +42,7 @@ describe('watchClearResourcesAndCache', () => {
   })
   it('should delete all data in in-memory caches', async () => {
     const dataContainer = new DefaultDataContainer()
-    const action = {
+    const action: ClearResourcesAndCacheActionType = {
       type: 'CLEAR_RESOURCES_AND_CACHE'
     }
     // populate some caches

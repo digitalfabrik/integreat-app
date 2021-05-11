@@ -84,11 +84,11 @@ describe('DatabaseConnector', () => {
       expect(moment).toBeNull()
     })
     it('should throw error if currentCity in context is null', async () => {
-      const context = new DatabaseContext(null, 'de')
+      const context = new DatabaseContext(undefined, 'de')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
     })
     it('should throw error if currentLanguage is null', async () => {
-      const context = new DatabaseContext('tcc', null)
+      const context = new DatabaseContext('tcc')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
     })
     it('should return a moment that matches the one that was stored', async () => {
@@ -101,17 +101,17 @@ describe('DatabaseConnector', () => {
   })
   describe('storeLastUpdate', () => {
     it('should throw error if currentCity in context is null', async () => {
-      const context = new DatabaseContext(null, 'de')
+      const context = new DatabaseContext(undefined, 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should throw error if currentLanguage in context is null', async () => {
-      const context = new DatabaseContext('tcc', null)
+      const context = new DatabaseContext('tcc')
       const date = moment('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
     it('should throw error if meta of city is null', async () => {
-      const context = new DatabaseContext('tcc', null)
+      const context = new DatabaseContext('tcc')
       const date = moment('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
     })
@@ -275,7 +275,7 @@ describe('DatabaseConnector', () => {
   }
 
   const expectCityFilesExist = async (city: string, exists = true) => {
-    const context = new DatabaseContext(city, null)
+    const context = new DatabaseContext(city)
     const resourcePath = databaseConnector.getResourceCachePath(context)
     await expectExists(resourcePath, exists)
     const contentPath = databaseConnector.getContentPath('categories', context)
@@ -283,7 +283,7 @@ describe('DatabaseConnector', () => {
   }
 
   const populateCityContent = async (city: string) => {
-    const context = new DatabaseContext(city, null)
+    const context = new DatabaseContext(city)
     await databaseConnector.storeResourceCache(testResources, context)
     await databaseConnector.storeCategories(testCategoriesMap, context)
   }
@@ -292,7 +292,7 @@ describe('DatabaseConnector', () => {
     it('should store the usage of the passed city', async () => {
       const date = moment('2014-05-04T00:00:00.000Z')
       const { restoreDate } = mockDate(date)
-      const context = new DatabaseContext('augsburg', null)
+      const context = new DatabaseContext('augsburg')
       await databaseConnector.storeLastUsage(context, false)
       expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
@@ -327,7 +327,7 @@ describe('DatabaseConnector', () => {
         ''
       )
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg', null), true)
+      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'), true)
       await expectCityFilesExist('muenchen')
       await expectCityFilesExist('dortmund')
       await expectCityFilesExist('ansbach')
@@ -377,7 +377,7 @@ describe('DatabaseConnector', () => {
         ''
       )
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
-      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg', null), false)
+      await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'), false)
       await expectCityFilesExist('muenchen', false)
       await expectCityFilesExist('dortmund')
       await expectCityFilesExist('ansbach')
@@ -505,7 +505,7 @@ describe('DatabaseConnector', () => {
         }),
         ''
       )
-      await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg', null))
+      await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
       await expectCityFilesExist('muenchen', false)
       await expectCityFilesExist('dortmund', false)
       await expectCityFilesExist('ansbach')
@@ -554,7 +554,7 @@ describe('DatabaseConnector', () => {
         }),
         ''
       )
-      await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg', null))
+      await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
       await expectCityFilesExist('dortmund', false)
       await expectCityFilesExist('ansbach')
       await expectCityFilesExist('regensburg')

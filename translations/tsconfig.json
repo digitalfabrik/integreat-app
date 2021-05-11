@@ -2,7 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "lib": [
-      "es2017"
+      "es6"
     ],
     "types": [
       "jest",
@@ -16,7 +16,7 @@
     "translations.json",
     "override-translations/aschaffenburg.json",
     "override-translations/malte.json",
-    "src",
-    "tools"
+    "src/**/*",
+    "tools/**/*"
   ]
 }

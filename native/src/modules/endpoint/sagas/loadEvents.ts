@@ -1,10 +1,8 @@
-import { Saga } from 'redux-saga'
-import { CityModel, createEventsEndpoint, EventModel, Payload } from 'api-client'
-import { call, StrictEffect } from 'redux-saga/effects'
+import { createEventsEndpoint, EventModel, Payload } from 'api-client'
+import { SagaIterator } from 'redux-saga'
+import { call } from 'redux-saga/effects'
 import { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
-
-type GeneratorReturnType = Payload<Array<EventModel>> | Array<EventModel> | boolean | string
 
 function* loadEvents(
   city: string,
@@ -12,13 +10,13 @@ function* loadEvents(
   eventsEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): Generator<StrictEffect, Array<EventModel>, GeneratorReturnType> {
-  const eventsAvailable = (yield call(() => dataContainer.eventsAvailable(city, language))) as boolean
+): SagaIterator<Array<EventModel>> {
+  const eventsAvailable: boolean = yield call(() => dataContainer.eventsAvailable(city, language))
 
   if (eventsAvailable && !forceRefresh) {
     try {
       console.debug('Using cached events')
-      return (yield call(dataContainer.getEvents, city, language)) as Array<EventModel>
+      return yield call(dataContainer.getEvents, city, language)
     } catch (e) {
       console.warn('An error occurred while loading events from JSON', e)
     }
@@ -31,13 +29,13 @@ function* loadEvents(
   }
 
   console.debug('Fetching events')
-  const apiUrl = (yield call(determineApiUrl)) as string
-  const payload = (yield call(() =>
+  const apiUrl: string = yield call(determineApiUrl)
+  const payload: Payload<Array<EventModel>> = yield call(() =>
     createEventsEndpoint(apiUrl).request({
       city,
       language
     })
-  )) as Payload<Array<EventModel>>
+  )
   const events = payload.data
   if (!events) {
     throw new Error('Events are not available')

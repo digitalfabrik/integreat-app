@@ -71,7 +71,7 @@ export type FetchCategoryFailedActionType = {
     readonly key: string
     readonly message: string
     readonly code: ErrorCode
-    readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined> | null
+    readonly allAvailableLanguages: ReadonlyMap<string, string> | null
   }
 }
 // Pushes fetched category to the corresponding route the state

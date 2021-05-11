@@ -1,9 +1,10 @@
 import DatabaseContext from '../DatabaseContext'
+
 describe('DatabaseContext', () => {
   describe('sameCityAs', () => {
     it('should return false if the cityCode is null', () => {
       const databaseContext = new DatabaseContext('testCity', 'de')
-      expect(databaseContext.sameCityAs(new DatabaseContext(null, 'en'))).toBe(false)
+      expect(databaseContext.sameCityAs(new DatabaseContext(undefined, 'en'))).toBe(false)
     })
     it('should return true if the cities are equal', () => {
       const databaseContext = new DatabaseContext('testCity', 'de')
@@ -21,7 +22,7 @@ describe('DatabaseContext', () => {
   describe('sameLanguageAs', () => {
     it('should return false if the languageCode is null', () => {
       const databaseContext = new DatabaseContext('testCity', 'de')
-      expect(databaseContext.sameLanguageAs(new DatabaseContext('testCity', null))).toBe(false)
+      expect(databaseContext.sameLanguageAs(new DatabaseContext('testCity'))).toBe(false)
     })
     it('should return true if the languages are equal', () => {
       const databaseContext = new DatabaseContext('testCity', 'de')
