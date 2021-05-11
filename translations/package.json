@@ -2,7 +2,7 @@
   "name": "translations",
   "version": "0.0.1",
   "description": "Translations for the integreat frontend projects",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "private": true,
   "scripts": {
     "export:ods:translations": "yarn manage convert translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
