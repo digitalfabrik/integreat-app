@@ -1,16 +1,18 @@
-import { Saga } from 'redux-saga'
 import { CityModel } from 'api-client'
-import { call } from 'redux-saga/effects'
+import { call, StrictEffect } from 'redux-saga/effects'
 import { DataContainer } from '../../DataContainer'
 
-function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): Saga<Array<CityModel>> {
-  const citiesAvailable = yield call(() => dataContainer.citiesAvailable())
+function* loadCities(
+  dataContainer: DataContainer,
+  forceRefresh: boolean
+): Generator<StrictEffect, Array<CityModel>, boolean | Array<CityModel>> {
+  const citiesAvailable = (yield call(() => dataContainer.citiesAvailable())) as boolean
 
   if (!citiesAvailable) {
     throw new Error('When using this mock you should prepare the DataContainer!')
   }
 
-  return yield call(dataContainer.getCities)
+  return (yield call(dataContainer.getCities)) as Array<CityModel>
 }
 
 export default loadCities
