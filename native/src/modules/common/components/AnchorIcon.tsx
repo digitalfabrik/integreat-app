@@ -6,7 +6,7 @@ import { isRTL } from '../../i18n/contentDirection'
 
 const anchorWidth = 30
 const widthThreshold = 10
-const Icon = styled<{width: number}>(MaterialIcon)`
+const Icon = styled<{ width: number }>(MaterialIcon)`
   font-size: 30px;
   width: ${props => props.width}px;
 `

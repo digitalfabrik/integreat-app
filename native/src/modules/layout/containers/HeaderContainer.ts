@@ -4,7 +4,14 @@ import { TFunction, withTranslation } from 'react-i18next'
 import Header, { PropsType as HeaderPropsType } from '../components/Header'
 import withTheme from '../../theme/hocs/withTheme'
 import { StateType } from '../../app/StateType'
-import { CityModel, OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE, NEWS_ROUTE, NonNullableRouteInformationType } from 'api-client'
+import {
+  CityModel,
+  OFFERS_ROUTE,
+  DISCLAIMER_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  NEWS_ROUTE,
+  NonNullableRouteInformationType
+} from 'api-client'
 import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
 import { urlFromRouteInformation } from '../../navigation/url'
 import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
@@ -111,6 +118,4 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-export default withTranslation('layout')(
-  connect(mapStateToProps)(withTheme<HeaderPropsType>(Header))
-)
+export default withTranslation('layout')(connect(mapStateToProps)(withTheme<HeaderPropsType>(Header)))

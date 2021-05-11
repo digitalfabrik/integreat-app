@@ -45,8 +45,14 @@ const navigateToDeepLink = async (
     const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
     const routeInformation = routeParser.route()
 
-    const routeInformationCityCode = routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE ? routeInformation.cityCode : null
-    const routeInformationLanguageCode = routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE ? routeInformation.languageCode : null
+    const routeInformationCityCode =
+      routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+        ? routeInformation.cityCode
+        : null
+    const routeInformationLanguageCode =
+      routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+        ? routeInformation.languageCode
+        : null
     // Don't overwrite already selected city
     const selectedCityCode = fixedCity || selectedCity || routeInformationCityCode || null
     const languageCode = routeInformationLanguageCode || language
@@ -75,7 +81,10 @@ const navigateToDeepLink = async (
 
     // Only navigate again if either the city of the deep link differs from the currently selected city or
     // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-    if (routeInformation && ((routeInformation.route !== LANDING_ROUTE && routeInformation.route !== DASHBOARD_ROUTE) || isPeekingCity)) {
+    if (
+      routeInformation &&
+      ((routeInformation.route !== LANDING_ROUTE && routeInformation.route !== DASHBOARD_ROUTE) || isPeekingCity)
+    ) {
       createNavigate(dispatch, navigation)(routeInformation, undefined, false)
     }
 

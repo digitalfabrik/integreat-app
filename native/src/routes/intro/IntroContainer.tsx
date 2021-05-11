@@ -60,7 +60,6 @@ class Intro extends React.Component<PropsType, StateType> {
   _appSettings: AppSettings
   _flatList: React.RefObject<FlatList>
 
-
   constructor(props: PropsType) {
     super(props)
     this.state = {
@@ -215,6 +214,4 @@ const mapStateToProps = (
   language: state.contentLanguage
 })
 
-export default connect(mapStateToProps)(
-  withTranslation(['intro', 'settings'])(withTheme<PropsType>(Intro))
-)
+export default connect(mapStateToProps)(withTranslation(['intro', 'settings'])(withTheme<PropsType>(Intro)))

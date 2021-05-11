@@ -39,7 +39,7 @@ function* loadPois(
     })
   )) as Payload<PoiModel[]>
   const pois = payload.data
-  if(pois) {
+  if (pois) {
     yield call(dataContainer.setPois, city, language, pois)
   }
   return pois

@@ -171,7 +171,7 @@ const CategoryListContent = ({
           onLinkPress={onLinkPress}
           contentWidth={width}
           defaultTextProps={{
-            selectable: true,
+            selectable: true
           }}
           alterNode={alterResources}
           listsPrefixesRenderers={{

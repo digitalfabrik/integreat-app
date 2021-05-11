@@ -59,11 +59,11 @@ export type PropsType<
   },
   R extends Record<string, unknown>,
   T extends RoutesType
-> = (StatusPropsType<S, R> & {
-      dispatch: Dispatch<StoreActionType>
-      navigation: NavigationPropType<T>
-      route: RoutePropType<T>
-    })
+> = StatusPropsType<S, R> & {
+  dispatch: Dispatch<StoreActionType>
+  navigation: NavigationPropType<T>
+  route: RoutePropType<T>
+}
 
 const withPayloadProvider = <
   S extends {

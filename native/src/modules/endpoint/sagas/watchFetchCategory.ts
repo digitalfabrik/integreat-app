@@ -10,7 +10,7 @@ import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../../error/ErrorCodes'
 import { Moment } from 'moment'
-import { CategoriesMapModel, LanguageModel } from 'api-client/dist/src'
+import { CategoriesMapModel, LanguageModel } from 'api-client'
 import { LanguageResourceCacheStateType } from '../../app/StateType'
 
 /**
@@ -32,7 +32,11 @@ function* isPeeking(routeCity: string): Generator<SelectEffect, void> {
 export function* fetchCategory(
   dataContainer: DataContainer,
   action: FetchCategoryActionType
-): Generator<CallEffect | PutEffect, void, CategoriesMapModel | LanguageResourceCacheStateType | Moment | null | Array<LanguageModel> | boolean > {
+): Generator<
+  CallEffect | PutEffect,
+  void,
+  CategoriesMapModel | LanguageResourceCacheStateType | Moment | null | Array<LanguageModel> | boolean
+> {
   const { city, language, path, depth, key, criterion } = action.params
 
   try {

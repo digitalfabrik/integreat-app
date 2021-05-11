@@ -1,5 +1,5 @@
 import { takeLatest, call, spawn, ForkEffect, Effect } from 'redux-saga/effects'
-import AppSettings, {SettingsType} from '../settings/AppSettings'
+import AppSettings, { SettingsType } from '../settings/AppSettings'
 import * as NotificationsManager from '../push-notifications/PushNotificationsManager'
 
 export function* clearCity(): Generator<Effect, void, SettingsType> {

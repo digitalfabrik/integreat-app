@@ -12,10 +12,7 @@ type SelectPropsType = {
  * @param params The params which contain the routeCity
  * @returns true if the fetch corresponds to a peek
  */
-const isPeekingRoute = (
-  state: StateType,
-  { routeCity }: SelectPropsType
-): boolean => {
+const isPeekingRoute = (state: StateType, { routeCity }: SelectPropsType): boolean => {
   const cityContent = state.cityContent
 
   if (!cityContent) {

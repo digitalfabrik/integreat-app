@@ -27,7 +27,7 @@ const HelpfulText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   align-self: center;
 `
-const FeedbackTouchableOpacity= styled(TouchableOpacity)`
+const FeedbackTouchableOpacity = styled(TouchableOpacity)`
   align-items: center;
 `
 const FeedbackText = styled(Text)`

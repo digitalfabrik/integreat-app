@@ -43,10 +43,20 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
     const { cityCode, languageCode, route } = routeInformation
     // https://integreat.app/augsburg/de/offers/sprungbrett
     return constructUrl([cityCode, languageCode, OFFERS_ROUTE, route])
-  } else if (routeInformation.route === DASHBOARD_ROUTE || routeInformation.route === CATEGORIES_ROUTE || routeInformation.route === EVENTS_ROUTE || routeInformation.route === POIS_ROUTE) {
+  } else if (
+    routeInformation.route === DASHBOARD_ROUTE ||
+    routeInformation.route === CATEGORIES_ROUTE ||
+    routeInformation.route === EVENTS_ROUTE ||
+    routeInformation.route === POIS_ROUTE
+  ) {
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
     return constructUrl([routeInformation.cityContentPath])
-  } else if (routeInformation.route === DISCLAIMER_ROUTE || routeInformation.route === OFFERS_ROUTE || routeInformation.route === SEARCH_ROUTE || routeInformation.route === NEWS_ROUTE) {
+  } else if (
+    routeInformation.route === DISCLAIMER_ROUTE ||
+    routeInformation.route === OFFERS_ROUTE ||
+    routeInformation.route === SEARCH_ROUTE ||
+    routeInformation.route === NEWS_ROUTE
+  ) {
     // https://integreat.app/augsburg/de/offers, https://integreat.app/augsburg/de/search, ...
     const { cityCode, languageCode } = routeInformation
     const newsType = routeInformation.route === NEWS_ROUTE ? routeInformation.newsType : null

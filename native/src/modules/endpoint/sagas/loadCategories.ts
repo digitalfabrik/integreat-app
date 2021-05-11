@@ -32,7 +32,7 @@ function* loadCategories(
   )) as Payload<CategoriesMapModel>
   const categoriesMap = categoriesPayload.data
   if (!categoriesMap) {
-    throw new Error("Categories Map not available")
+    throw new Error('Categories Map not available')
   }
   yield call(dataContainer.setCategoriesMap, city, language, categoriesMap)
   return categoriesMap

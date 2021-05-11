@@ -5,7 +5,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
 import isPeekingRoute from '../selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../../error/ErrorCodes'
-import { LanguageModel } from 'api-client/dist/src'
+import { LanguageModel } from 'api-client'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Generator<Effect, void, any> {
   const { city, language, path, key, criterion } = action.params
@@ -19,7 +19,9 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
     const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
     // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages() ? yield call(dataContainer.getLanguages, city) : []
+    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages()
+      ? yield call(dataContainer.getLanguages, city)
+      : []
 
     if (languageValid) {
       const [pois, resourceCache] = yield all([

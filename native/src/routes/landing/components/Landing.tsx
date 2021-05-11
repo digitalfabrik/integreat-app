@@ -159,7 +159,8 @@ class Landing extends React.Component<PropsType, StateType> {
   render() {
     const { theme, cities, t, clearResourcesAndCache } = this.props
     const { location } = this.state
-    const retryDetermineLocation = location?.status === 'unavailable' && location.message === 'loading' ? null : this.requestAndDetermineLocation
+    const retryDetermineLocation =
+      location?.status === 'unavailable' && location.message === 'loading' ? null : this.requestAndDetermineLocation
     return (
       <Wrapper>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />

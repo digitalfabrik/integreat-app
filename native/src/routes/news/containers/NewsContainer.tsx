@@ -11,7 +11,7 @@ import { View } from 'react-native'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
 import { ErrorCode } from '../../../modules/error/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import { NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE  } from 'api-client/src/routes'
+import { NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import createNavigate from '../../../modules/navigation/createNavigate'
 import navigateToLink from '../../../modules/navigation/navigateToLink'
 type NavigationPropsType = {
@@ -34,7 +34,7 @@ type ContainerPropsType =
         news: null
         hasMoreNews: null
         isFetchingMore: null
-})
+      })
   | (NavigationPropsType &
       DispatchPropsType & {
         status: 'ready'

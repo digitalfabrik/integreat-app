@@ -93,6 +93,4 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
   )
 }
 
-export default connect(mapStateToProps)(
-  withTheme<DisclaimerPropsType>(DisclaimerContainer)
-)
+export default connect(mapStateToProps)(withTheme<DisclaimerPropsType>(DisclaimerContainer))

@@ -101,7 +101,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         status: 'error',
         refreshProps: null,
         code: languages.status === 'error' ? languages.code : ErrorCode.UnknownError,
-        message: languages.status === 'error' ? languages.message :'languages not ready'
+        message: languages.status === 'error' ? languages.message : 'languages not ready'
       }
     }
 

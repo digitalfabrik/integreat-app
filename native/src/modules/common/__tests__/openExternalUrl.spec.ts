@@ -46,7 +46,7 @@ describe('openExternalUrl', () => {
   })
   it('should open http urls with linking if inapp browser is not available', async () => {
     const url = 'https://som.niceli.nk/mor/etext'
-    ;(InAppBrowser.isAvailable as unknown as jest.Mock).mockImplementation(() => false)
+    ;((InAppBrowser.isAvailable as unknown) as jest.Mock).mockImplementation(() => false)
     await openExternalUrl(url)
     expect(InAppBrowser.open).not.toHaveBeenCalled()
     expect(Linking.openURL).toHaveBeenLastCalledWith(url)
@@ -65,7 +65,7 @@ describe('openExternalUrl', () => {
   })
   it('should show snackbar if opening url is not supported', async () => {
     const url = 'mor:erando.mstu.ff'
-    ;(Linking.canOpenURL as unknown as jest.Mock).mockImplementation(() => false)
+    ;((Linking.canOpenURL as unknown) as jest.Mock).mockImplementation(() => false)
     await openExternalUrl(url)
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(InAppBrowser.open).not.toHaveBeenCalled() // TODO IGAPP-521 assert snackbar is shown

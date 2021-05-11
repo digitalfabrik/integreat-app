@@ -6,8 +6,11 @@ import determineApiUrl from '../determineApiUrl'
 
 type GeneratorReturnType = Payload<Array<LanguageModel>> | Array<LanguageModel> | boolean | string
 
-export default function* loadLanguages(city: string, dataContainer: DataContainer, forceRefresh: boolean):
-  Generator<StrictEffect, Array<LanguageModel>, GeneratorReturnType> {
+export default function* loadLanguages(
+  city: string,
+  dataContainer: DataContainer,
+  forceRefresh: boolean
+): Generator<StrictEffect, Array<LanguageModel>, GeneratorReturnType> {
   const languagesAvailable = (yield call(() => dataContainer.languagesAvailable(city))) as boolean
 
   if (languagesAvailable && !forceRefresh) {
@@ -28,7 +31,7 @@ export default function* loadLanguages(city: string, dataContainer: DataContaine
   )) as Payload<Array<LanguageModel>>
   const languages = payload.data
   if (!languages) {
-     throw new Error("Languages are not available.")
+    throw new Error('Languages are not available.')
   }
   yield call(dataContainer.setLanguages, city, languages)
   return languages
