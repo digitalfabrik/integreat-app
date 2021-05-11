@@ -1,5 +1,5 @@
 import { Saga } from 'redux-saga'
-import { all, call, put, takeLatest, spawn } from 'redux-saga/effects'
+import { all, call, Effect, ForkEffect, put, spawn, takeLatest } from 'redux-saga/effects'
 import {
   EnqueueSnackbarActionType,
   MorphContentLanguageActionType,
@@ -10,14 +10,14 @@ import {
 import { DataContainer } from '../DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import AppSettings from '../../settings/AppSettings'
+import AppSettings, { SettingsType } from '../../settings/AppSettings'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
-import { SettingsType } from '../../settings/AppSettings'
 import { fromError } from '../../error/ErrorCodes'
+
 export function* switchContentLanguage(
   dataContainer: DataContainer,
   action: SwitchContentLanguageActionType
-): Saga<void> {
+): Generator<Effect, void, any[] | SettingsType> {
   const { newLanguage, city } = action.params
 
   try {
@@ -35,14 +35,14 @@ export function* switchContentLanguage(
         false
       )
     )
-    const [categories, resourceCache, events, pois] = yield all([
+    const [categories, resourceCache, events, pois] = (yield all([
       call(dataContainer.getCategoriesMap, city, newLanguage),
       call(dataContainer.getResourceCache, city, newLanguage),
       call(dataContainer.getEvents, city, newLanguage),
       call(dataContainer.getPois, city, newLanguage)
-    ])
+    ])) as Array<any>
     const appSettings = new AppSettings()
-    const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = yield call(appSettings.loadSettings)
+    const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = (yield call(appSettings.loadSettings)) as SettingsType
 
     // Unsubscribe from prev. city notifications
     if (contentLanguage !== newLanguage && allowPushNotifications && contentLanguage && selectedCity) {
@@ -87,6 +87,7 @@ export function* switchContentLanguage(
     yield put(failed)
   }
 }
-export default function* (dataContainer: DataContainer): Saga<void> {
+
+export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
   yield takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
 }

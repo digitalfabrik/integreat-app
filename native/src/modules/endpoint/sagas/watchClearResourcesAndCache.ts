@@ -1,11 +1,11 @@
 import { DataContainer } from '../DataContainer'
-import { Saga } from 'redux-saga'
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from 'redux-saga/effects'
 import { ClearResourcesAndCacheActionType } from '../../app/StoreActionType'
+
 export function* clearResourcesAndCache(
   dataContainer: DataContainer,
   action: ClearResourcesAndCacheActionType
-): Saga<void> {
+): Generator<CallEffect | PutEffect, void> {
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
   yield call(dataContainer.clearOfflineCache)
@@ -16,6 +16,7 @@ export function* clearResourcesAndCache(
     }
   })
 }
-export default function* (dataContainer: DataContainer): Saga<void> {
+
+export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
   yield takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
 }

@@ -1,10 +1,14 @@
-import { Saga } from 'redux-saga'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from 'redux-saga/effects'
 import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../../app/StoreActionType'
 import { DataContainer } from '../DataContainer'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
-export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): Saga<void> {
+import { CityModel } from 'api-client'
+
+export function* fetchCities(
+  dataContainer: DataContainer,
+  action: FetchCitiesActionType
+): Generator<CallEffect | PutEffect, void, CityModel[]> {
   try {
     const cities = yield call(loadCities, dataContainer, action.params.forceRefresh)
     const insert: PushCitiesActionType = {
@@ -26,6 +30,7 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     yield put(failed)
   }
 }
-export default function* (dataContainer: DataContainer): Saga<void> {
+
+export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
   yield takeLatest('FETCH_CITIES', fetchCities, dataContainer)
 }
