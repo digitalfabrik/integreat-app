@@ -1,34 +1,35 @@
 import { Saga } from 'redux-saga'
-import { all, call, put, spawn } from 'redux-saga/effects'
+import { all, call, put, spawn, StrictEffect } from 'redux-saga/effects'
 import { DataContainer } from '../DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import { Moment } from 'moment'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../../app/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../ResourceURLFinder'
 import buildResourceFilePath from '../buildResourceFilePath'
 import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import { SettingsType } from '../../settings/AppSettings'
-import AppSettings from '../../settings/AppSettings'
-import NetInfo from '@react-native-community/netinfo'
+import AppSettings, { SettingsType } from '../../settings/AppSettings'
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { fromError } from '../../error/ErrorCodes'
 import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
 import buildConfig from '../../app/constants/buildConfig'
 import loadPois from './loadPois'
-import { CategoriesMapModel, EventModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 
 /**
  * Subscribes to the push notification topic of the new city and language
  * @param newCity
  * @param newLanguage
  */
-function* subscribePushNotifications(newCity: string, newLanguage: string): Saga<void> {
+function* subscribePushNotifications(
+  newCity: string,
+  newLanguage: string
+): Generator<StrictEffect, void, SettingsType | boolean> {
   const appSettings = new AppSettings()
-  const settings: SettingsType = yield call(appSettings.loadSettings)
+  const settings = (yield call(appSettings.loadSettings)) as SettingsType
 
   if (settings.allowPushNotifications) {
     const status = yield call(NotificationsManager.requestPushNotificationPermission)
@@ -49,7 +50,7 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
  * @param newCity
  * @param newLanguage
  */
-function* selectCity(newCity: string, newLanguage: string): Saga<void> {
+function* selectCity(newCity: string, newLanguage: string): Generator<StrictEffect, void> {
   const appSettings = new AppSettings()
   yield call(appSettings.setSelectedCity, newCity)
   yield spawn(subscribePushNotifications, newCity, newLanguage)
@@ -69,17 +70,14 @@ function* refreshResources(
   events: Array<EventModel>,
   newCity: string,
   newLanguage: string
-): Saga<void> {
+): Generator<StrictEffect, void, void> {
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
-  const input = categoriesMap
-    .toArray()
-    .concat(events)
-    .map(it => ({
-      path: it.path,
-      thumbnail: it.thumbnail,
-      content: it.content
-    }))
+  const input = (categoriesMap.toArray() as Array<CategoryModel | EventModel>).concat(events).map(it => ({
+    path: it.path,
+    thumbnail: it.thumbnail,
+    content: it.content
+  }))
   const fetchMap = resourceURLFinder.buildFetchMap(input, (url, urlHash) =>
     buildResourceFilePath(url, newCity, urlHash)
   )
@@ -100,7 +98,7 @@ function* prepareLanguages(
   newCity: string,
   newLanguage: string,
   shouldUpdate: boolean
-): Saga<boolean> {
+): Generator<StrictEffect, boolean, Array<LanguageModel>> {
   try {
     yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
     const languages = yield call(dataContainer.getLanguages, newCity)
@@ -125,6 +123,12 @@ function* prepareLanguages(
     return false
   }
 }
+
+type LoadCityContentGeneratorReturnType =
+  | Moment
+  | null
+  | Array<CityModel>
+  | [CategoriesMapModel, Array<EventModel>, Array<PoiModel>]
 /**
  *
  * @param dataContainer
@@ -134,22 +138,21 @@ function* prepareLanguages(
  * @returns Returns a saga which returns whether the newLanguage is available for newCity
  * @throws if the saga was unable to load necessary data
  */
-
 export default function* loadCityContent(
   dataContainer: DataContainer,
   newCity: string,
   newLanguage: string,
   criterion: ContentLoadCriterion
-): Saga<boolean> {
+): Generator<StrictEffect, boolean, LoadCityContentGeneratorReturnType | NetInfoState> {
   yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
 
   if (!criterion.peeking()) {
     yield call(selectCity, newCity, newLanguage)
   }
 
-  const lastUpdate: Moment | null = yield call(dataContainer.getLastUpdate, newCity, newLanguage)
+  const lastUpdate = (yield call(dataContainer.getLastUpdate, newCity, newLanguage)) as Moment | null
   console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
-  const netInfo = yield call(NetInfo.fetch)
+  const netInfo = (yield call(NetInfo.fetch)) as NetInfoState
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
   console.debug('City content should be refreshed: ', shouldUpdate)
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and
@@ -157,7 +160,8 @@ export default function* loadCityContent(
   yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
 
   try {
-    const cities = yield call(loadCities, dataContainer, shouldUpdate) // Refresh for flags like eventsEnabled necessary
+    // Refresh for flags like eventsEnabled necessary
+    const cities = (yield call(loadCities, dataContainer, shouldUpdate)) as Array<CityModel>
 
     const cityModel = cities.find(city => city.code === newCity)
 
@@ -174,11 +178,11 @@ export default function* loadCityContent(
     }
 
     const { featureFlags } = buildConfig()
-    const [categoriesMap, events] = yield all([
+    const [categoriesMap, events, pois] = (yield all([
       call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
       call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
       call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
-    ])
+    ])) as [CategoriesMapModel, Array<EventModel>, Array<PoiModel>]
 
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
     // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
