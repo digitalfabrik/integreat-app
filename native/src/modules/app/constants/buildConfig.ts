@@ -17,6 +17,7 @@ import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
 import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
 import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
+import BUILD_CONFIG_NAME from '../../../buildConfigName.json'
 
 type AssetsType = {
   appIcon: number
@@ -30,7 +31,7 @@ type AssetsType = {
   }
 }
 
-const buildConfig = (): CommonBuildConfigType => loadBuildConfig(process.env.BUILD_CONFIG_NAME, COMMON)
+const buildConfig = (): CommonBuildConfigType => loadBuildConfig(BUILD_CONFIG_NAME, COMMON)
 
 export const buildConfigAssets = (): AssetsType => {
   const assetsName = buildConfig().assets
