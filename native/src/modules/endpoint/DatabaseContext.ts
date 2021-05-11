@@ -1,8 +1,8 @@
 class DatabaseContext {
-  _cityCode: string | null | undefined
+  _cityCode: string | undefined
   _languageCode: string | null | undefined
 
-  constructor(currentCity: string | null | undefined, currentLanguage: string | null | undefined) {
+  constructor(currentCity?: string, currentLanguage?: string | null) {
     this._cityCode = currentCity
     this._languageCode = currentLanguage
   }
