@@ -19,7 +19,7 @@ import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-ic
 import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-configs/AssetsType'
 // @ts-ignore This module does not really exist but is instead proxied by the metro.config.js
 // to the directory in the corresponding build config to allow passing the selected build config to the runtime code.
-// TODO Add read more section in the documentation
+// More information can be found in native/docs/build-configs.md#technical-information
 import name from 'build-config-name'
 
 type AssetsType = {

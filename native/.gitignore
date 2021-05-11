@@ -36,7 +36,6 @@ yarn-error.log*
 /ios/Pods/
 
 # Temp buildConfig files
-src/buildConfigName.json
 /ios/buildConfig.tmp.xcconfig
 /android/buildConfig.tmp.xcconfig
 
