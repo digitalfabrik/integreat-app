@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
 import { ThemeType } from '../../theme/constants'
 import { createHtmlSource } from '../../platform/constants/webview'
 import renderHtml from '../renderHtml'
@@ -10,7 +8,8 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import { ParsedCacheDictionaryType } from './Page'
-const StyledView: StyledComponent<{}, {}, any> = styled.View`
+
+const StyledView = styled.View`
   overflow: hidden;
   flex: 1;
 `
@@ -18,7 +17,7 @@ export const renderWebviewError = (
   errorDomain: string | null | undefined,
   errorCode: number,
   errorDesc: string
-): Element<any> => {
+): React.ReactElement => {
   return (
     <Text>
       ${errorDomain} ${errorCode} ${errorDesc}

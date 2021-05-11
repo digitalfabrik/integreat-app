@@ -27,7 +27,7 @@ const Description = styled.Text`
  * We have three placeholder thumbnails to display when cities don't provide a thumbnail
  * @returns {*} The Placeholder Thumbnail
  */
-const getEventPlaceholder = (id: number): string => {
+const getEventPlaceholder = (id: number): number => {
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
   return placeholders[id % placeholders.length]
 }

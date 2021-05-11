@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -10,8 +11,7 @@ import {
   PoiModel
 } from 'api-client'
 import RNFetchBlob from 'rn-fetch-blob'
-import { Moment } from 'moment'
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
@@ -22,11 +22,13 @@ import DatabaseContext from './DatabaseContext'
 import { map, mapValues } from 'lodash'
 import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from './persistentVersions'
 import deleteIfExists from './deleteIfExists'
+
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = RNFetchBlob.fs.dirs.DocumentDir
 export const CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content/${CONTENT_VERSION}`
 export const RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-cache/${RESOURCE_CACHE_VERSION}`
 const MAX_STORED_CITIES = 3
+
 type ContentCategoryJsonType = {
   root: boolean
   path: string
@@ -280,7 +282,7 @@ class DatabaseConnector {
 
   async loadLastUsages(): Promise<Array<CityLastUsageType>> {
     const metaData = await this._loadMetaCities()
-    return map<MetaCitiesEntryType, MetaCitiesJsonType, CityLastUsageType>(metaData, (value, key) => ({
+    return map<MetaCitiesType, CityLastUsageType>(metaData, (value, key) => ({
       city: key,
       lastUsage: value.lastUsage
     }))
@@ -682,7 +684,7 @@ class DatabaseConnector {
     return jsonString
   }
 
-  async writeFile(path: string, data: string): Promise<number> {
+  async writeFile(path: string, data: string): Promise<void> {
     return RNFetchBlob.fs.writeFile(path, data, 'utf8')
   }
 }

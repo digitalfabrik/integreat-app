@@ -18,7 +18,7 @@ interface InputEntryType {
  */
 
 export default class ResourceURLFinder {
-  _parser: Parser
+  _parser: Parser | null = null
   _foundUrls: Set<string> = new Set<string>()
   _allowedHostNames: Array<string>
 
@@ -52,10 +52,16 @@ export default class ResourceURLFinder {
   }
 
   finalize() {
+    if (this._parser === null) {
+      throw new Error('Did you forget to call the init method?')
+    }
     this._parser.end()
   }
 
   findResourceUrls = (html: string): Set<string> => {
+    if (this._parser === null) {
+      throw new Error('Did you forget to call the init method?')
+    }
     this._foundUrls.clear()
 
     this._parser.write(html)
