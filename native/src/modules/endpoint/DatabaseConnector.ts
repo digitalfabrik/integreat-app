@@ -338,7 +338,6 @@ class DatabaseConnector {
     const json = JSON.parse(await this.readFile(path))
     return new CategoriesMapModel(
       json.map((jsonObject: ContentCategoryJsonType) => {
-        // $FlowFixMe https://github.com/facebook/flow/issues/5838
         const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
         return new CategoryModel({
           root: jsonObject.root,
@@ -411,7 +410,6 @@ class DatabaseConnector {
     const json = JSON.parse(await this.readFile(path))
     return json.map((jsonObject: ContentPoiJsonType) => {
       const jsonLocation = jsonObject.location
-      // $FlowFixMe https://github.com/facebook/flow/issues/5838
       const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
       return new PoiModel({
         path: jsonObject.path,
@@ -539,7 +537,6 @@ class DatabaseConnector {
     return json.map((jsonObject: ContentEventJsonType) => {
       const jsonDate = jsonObject.date
       const jsonLocation = jsonObject.location
-      // $FlowFixMe https://github.com/facebook/flow/issues/5838
       const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
       return new EventModel({
         path: jsonObject.path,

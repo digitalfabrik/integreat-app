@@ -528,9 +528,6 @@ jobs:
                 directory: native
             - lint:
                 directory: api-client
-            - run:
-                command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Flow-type check
             - unit_test:
                 directory: native
             - unit_test:
@@ -555,9 +552,6 @@ jobs:
                 directory: web
             - lint:
                 directory: api-client
-            - run:
-                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Check flow
             - unit_test:
                 directory: web
             - unit_test:

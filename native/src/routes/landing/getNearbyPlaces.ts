@@ -31,7 +31,6 @@ const currentDistance = (cityModel: CityModel, longitude: number, latitude: numb
     longitude: number
     latitude: number
   }
-  // $FlowFixMe https://github.com/facebook/flow/issues/2221
   const coordinates: Array<CoordinatesType> = Object.values(cityModel.aliases || {})
   coordinates.push({
     longitude: cityLongitude,

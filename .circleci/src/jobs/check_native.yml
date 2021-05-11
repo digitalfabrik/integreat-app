@@ -14,9 +14,6 @@ steps:
       directory: native
   - lint:
       directory: api-client
-  - run:
-      name: Flow-type check
-      command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
   - unit_test:
       directory: native
   - unit_test:

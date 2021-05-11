@@ -1,7 +1,7 @@
 import { ThemeType } from './ThemeType'
 import { TranslationsType } from 'translations'
 // Build Configs
-// These are the flow types of our build configs and therefore define the structure and available options.
+// These are the types of our build configs and therefore define the structure and available options.
 // Each build config (e.g. integreat, malte) is available per platform (android, ios, web) with some shared options.
 // Feature flags are boolean build config options defining whether a specified feature is enabled.
 // Prevent enabled intro slide in combination with a fixed city.

@@ -165,7 +165,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 
   if (route.status === 'languageNotAvailable') {
-    // Necessary for flow type checking, already handled above
     throw new Error('language not available route status not handled!')
   }
 

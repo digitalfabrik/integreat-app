@@ -32,9 +32,6 @@
     "lint": "yarn run eslint",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
-    "flow:check-now": "flow check",
-    "flow:install-types": "flow-typed install --ignoreDeps dev",
-    "flow:install-types:all": "flow-typed install",
     "postinstall": "jetifier",
     "tsc-test": "yarn tsc --project tsconfig.json"
   },
@@ -113,8 +110,6 @@
     "@types/url-parse": "^1.4.3",
     "commander": "^7.1.0",
     "cross-env": "^7.0.2",
-    "flow-bin": "^0.122.0",
-    "flow-typed": "^3.2.1",
     "generator-rn-toolbox": "^3.14.0",
     "get-dev-paths": "^0.1.1",
     "http-proxy": "^1.18.1",

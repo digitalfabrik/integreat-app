@@ -26,7 +26,6 @@ class DateFormatter {
     // TODO IGAPP-399: Uncomment again and use locale instead of hardcoded 'en'
     // const requestedLocale = defaultLocale
     const requestedLocale = 'en'
-    // $FlowFixMe locales is not included in the flow types
     const allLocales = moment.locales()
     const locale = allLocales.includes(requestedLocale) ? requestedLocale : this.defaultLocale
     return date.locale(locale).format(format)

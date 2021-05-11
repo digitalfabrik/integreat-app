@@ -26,7 +26,6 @@ NetInfo.configure({
 })
 const linking: LinkingOptions = {
   prefixes: ['https://', 'integreat://'],
-  // $FlowFixMe redirect is part of available routes
   config: {
     screens: {
       [REDIRECT_ROUTE]: '*'

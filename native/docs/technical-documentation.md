@@ -23,11 +23,6 @@
 
 [React](https://facebook.github.io/react/) is used as frontend framework.
 
-### JavaScript compiler
-
-[Babel](https://babeljs.io/) is used to make the app available to a broader audience while
-allowing the developers to use many new language features. We use flow for type safety.
-
 ### Application state
 
 [Redux](http://redux.js.org/) is used for the global application state.

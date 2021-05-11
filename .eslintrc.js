@@ -16,7 +16,6 @@ module.exports = {
     'jest/globals': true
   },
   ignorePatterns: [
-    '**/flow-typed/',
     '**/reports/',
     '**/node_modules/',
     '**/ios/main.jsbundle',

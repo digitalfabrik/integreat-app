@@ -63,7 +63,7 @@ describe('Dashboard', () => {
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
     const previous = buildConfig()
-    // @ts-ignore flow is not aware that buildConfig is a mock funciton
+    // @ts-ignore ts is not aware that buildConfig is a mock funciton
     buildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pois, newsStream }
