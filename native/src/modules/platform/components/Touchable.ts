@@ -1,6 +1,8 @@
-import { TouchableNativeFeedback, TouchableHighlight, Platform } from 'react-native'
-export default Platform.select({
-  // @ts-ignore
+import { Platform, TouchableHighlight, TouchableNativeFeedback, TouchableWithoutFeedbackProps } from 'react-native'
+import React from 'react'
+
+export default Platform.select<React.ComponentType<TouchableWithoutFeedbackProps>>({
   android: TouchableNativeFeedback,
-  ios: TouchableHighlight
+  ios: TouchableHighlight,
+  default: TouchableHighlight
 })

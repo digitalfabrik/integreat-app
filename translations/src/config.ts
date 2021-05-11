@@ -107,6 +107,7 @@ class Config {
       additionalFont: 'lateef'
     }
   }
+
   // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
     ku: ['kmr'],
@@ -116,6 +117,7 @@ class Config {
     'de-si': ['de'],
     sr: ['sr-Cyrl']
   }
+
   defaultFallback = 'de' // If the language code is not found in our translations then use this
 
   constructor() {

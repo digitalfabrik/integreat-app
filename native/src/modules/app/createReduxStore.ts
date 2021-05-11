@@ -1,9 +1,9 @@
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
+import { applyMiddleware, combineReducers, createStore, Middleware, Store } from 'redux'
 import toggleDarkModeReducer from '../theme/reducers'
-import createSagaMiddleware, { Saga } from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 import createDebugger from 'redux-flipper'
 import { all, call } from 'redux-saga/effects'
-import { StateType, defaultCitiesState, defaultCityContentState, defaultContentLanguageState } from './StateType'
+import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState, StateType } from './StateType'
 import { StoreActionType } from './StoreActionType'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { DataContainer } from '../endpoint/DataContainer'
@@ -53,7 +53,7 @@ const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreA
     resourceCacheUrl: resourceCacheUrlReducer,
     snackbar: snackbarReducer
   })
-  const middlewares = [sagaMiddleware]
+  const middlewares: Middleware[] = [sagaMiddleware]
 
   if (buildConfig().featureFlags.developerFriendly) {
     const flipperReduxMiddleware = createDebugger()

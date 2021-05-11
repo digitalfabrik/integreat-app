@@ -1,17 +1,14 @@
-import fs from "fs";
-import program from "commander";
-import path from "path";
-import flat from "flat";
+import fs from 'fs'
+import program from 'commander'
+import path from 'path'
+import flat from 'flat'
+import stringify from 'csv-stringify'
+import parse from 'csv-parse/lib/sync'
+import config from '../src/config.js'
+
+import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
 
 const { unflatten } = flat
-
-const stringify = require('csv-stringify')
-
-const parse = require('csv-parse/lib/sync')
-
-const config = require('../src/config.js').default
-
-const { isEmpty, without, isString, merge, fromPairs, toPairs, zip, sortBy, mapValues, isEqual } = require('lodash')
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
