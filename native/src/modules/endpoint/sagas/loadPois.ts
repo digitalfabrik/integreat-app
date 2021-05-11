@@ -1,8 +1,10 @@
 import { Saga } from 'redux-saga'
-import { PoiModel, createPOIsEndpoint } from 'api-client'
+import { PoiModel, createPOIsEndpoint, Payload } from 'api-client'
 import { call } from 'redux-saga/effects'
 import { DataContainer } from '../DataContainer'
 import determineApiUrl from '../determineApiUrl'
+
+class CallEffect {}
 
 function* loadPois(
   city: string,
@@ -10,13 +12,13 @@ function* loadPois(
   poisEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): Saga<Array<PoiModel>> {
-  const poisAvailable = yield call(() => dataContainer.poisAvailable(city, language))
+): Generator<CallEffect, Array<PoiModel> | null | undefined, boolean | PoiModel[] | string | Payload<Array<PoiModel>>> {
+  const poisAvailable = (yield call(() => dataContainer.poisAvailable(city, language))) as boolean
 
   if (poisAvailable && !forceRefresh) {
     try {
       console.debug('Using cached pois')
-      return yield call(dataContainer.getPois, city, language)
+      return (yield call(dataContainer.getPois, city, language)) as PoiModel[]
     } catch (e) {
       console.warn('An error occurred while loading pois from JSON', e)
     }
@@ -29,15 +31,17 @@ function* loadPois(
   }
 
   console.debug('Fetching pois')
-  const apiUrl = yield call(determineApiUrl)
-  const payload = yield call(() =>
+  const apiUrl = (yield call(determineApiUrl)) as string
+  const payload: Payload<Array<PoiModel>> = (yield call(() =>
     createPOIsEndpoint(apiUrl).request({
       city,
       language
     })
-  )
-  const pois: Array<PoiModel> = payload.data
-  yield call(dataContainer.setPois, city, language, pois)
+  )) as Payload<PoiModel[]>
+  const pois = payload.data
+  if(pois) {
+    yield call(dataContainer.setPois, city, language, pois)
+  }
   return pois
 }
 
