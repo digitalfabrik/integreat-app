@@ -48,15 +48,9 @@ Run `yarn workspace <workspace> prettier --check .` to show formatting problems 
 ### Linting
 
 Linting is responsible to embrace best practice coding style.
-We use [eslint](http://eslint.org/) for JavaScript.
+We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript.
 
 You can run the linter by calling `yarn lint`.
-
-### Type Checking
-
-We use [Flow](https://flow.org/) for static type checking.
-
-You can run flow using `yarn flow`.
 
 ## Backend
 
