@@ -15,6 +15,9 @@
     "test": "jest --config jest.config.ts",
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
+    "lint": "yarn run eslint",
+    "lint:fix": "yarn run eslint --fix",
+    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "ts:check": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {},
