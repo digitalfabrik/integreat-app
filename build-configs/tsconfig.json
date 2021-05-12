@@ -10,7 +10,7 @@
   },
   "references": [
     {
-      "path": "../translations",
+      "path": "../translations"
     }
   ]
 }

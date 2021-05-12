@@ -43,7 +43,7 @@ describe('feedback', () => {
     expect(feedback.mapParamsToBody).not.toBeNull()
     expect(feedback.mapParamsToBody).not.toBeUndefined()
 
-    if(!feedback.mapParamsToBody) {
+    if (!feedback.mapParamsToBody) {
       throw new Error('Feedback Check for Typescript failed - Check your test')
     }
 
