@@ -1,6 +1,7 @@
 import moment from 'moment'
 import DateModel from '../DateModel'
 import DateFormatter from '../../i18n/DateFormatter'
+
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
   // TODO IGAPP-399: Reactivate test
@@ -26,9 +27,7 @@ describe('DateModel', () => {
         endDate,
         allDay
       })
-      expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
-      ).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
     it('should return only start date + time if start and end are the same', () => {
       const startDate = moment('2017-11-27 19:30:00')
@@ -39,9 +38,7 @@ describe('DateModel', () => {
         endDate,
         allDay
       })
-      expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
-      ).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
     it('should return only start date + end date if allDay is true', () => {
       const startDate = moment('2017-11-27 19:30:00')
@@ -52,9 +49,7 @@ describe('DateModel', () => {
         endDate,
         allDay
       })
-      expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
-      ).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
     it('should return only start date if allDay is true and the dates are the same', () => {
       const startDate = moment('2017-11-27 19:30:00')
@@ -65,9 +60,7 @@ describe('DateModel', () => {
         endDate,
         allDay
       })
-      expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
-      ).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
     it('should only return start date (+ time) if endDate is not valid', () => {
       const startDate = moment('2017-11-27 19:30:00')
@@ -78,9 +71,7 @@ describe('DateModel', () => {
         endDate,
         allDay
       })
-      expect(
-        locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale, undefined))}`)
-      ).toMatchSnapshot()
+      expect(locales.map(locale => `${locale}: ${date.toFormattedString(new DateFormatter(locale))}`)).toMatchSnapshot()
     })
   })
 })

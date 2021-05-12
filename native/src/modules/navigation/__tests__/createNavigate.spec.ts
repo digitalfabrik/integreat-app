@@ -25,6 +25,7 @@ import buildConfig from '../../app/constants/buildConfig'
 import navigateToJpalTracking from '../navigateToJpalTracking'
 import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())
 jest.mock('../navigateToOffers', () => jest.fn())
@@ -45,7 +46,9 @@ const cityCode = 'ansbach'
 const languageCode = 'ro'
 const params = {
   cityCode,
-  languageCode
+  languageCode,
+  forceRefresh: undefined,
+  key: undefined
 }
 const cityContentPath = `/${cityCode}/${languageCode}`
 const key = 'some-route-1234'
@@ -214,7 +217,7 @@ describe('createNavigate', () => {
       ...params,
       key,
       forceRefresh,
-      cityContentPath: null
+      cityContentPath: undefined
     })
     assertOnlyCalled([navigateToEvents], 2)
   })
@@ -293,11 +296,11 @@ describe('createNavigate', () => {
       route: POIS_ROUTE,
       ...params
     })
-    expect(navigateToPois).toHaveBeenCalledWith({
+    expect(navigateToPois).toHaveBeenLastCalledWith({
       dispatch,
       navigation,
       ...params,
-      cityContentPath: null
+      cityContentPath: undefined
     })
     assertOnlyCalled([navigateToPois], 2)
   })

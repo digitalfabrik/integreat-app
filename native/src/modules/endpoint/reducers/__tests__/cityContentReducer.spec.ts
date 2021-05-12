@@ -15,7 +15,7 @@ import {
 } from '../../../app/StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
-import { CityContentStateType, StateType } from '../../../app/StateType'
+import { CityContentStateType } from '../../../app/StateType'
 import { ErrorCode } from '../../../error/ErrorCodes'
 
 describe('cityContentReducer', () => {
@@ -309,6 +309,7 @@ describe('cityContentReducer', () => {
       routeType: EVENTS_ROUTE,
       status: 'languageNotAvailable',
       code: ErrorCode.PageNotFound,
+      path: null,
       language: 'de',
       city: 'augsburg',
       allAvailableLanguages: new Map([['en', null]])
