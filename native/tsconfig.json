@@ -1,19 +1,16 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["jest", "node", "react-native"],
-    "outDir": "dist",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["es6"],
+    "outDir": "dist",
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "target": "esnext",
-    "typeRoots": ["./src/@types", "./node_modules/@types"]
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "types": ["jest", "node", "react-native"]
   },
+  "include": ["src/**/*", "./jest.setup.ts"],
   "references": [
     {
       "path": "../translations"
@@ -25,5 +22,4 @@
       "path": "../api-client"
     }
   ],
-  "include": ["src/**/*", "./jest.setup.ts"]
 }

@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["jest", "node"],
-    "outDir": "dist",
+    "composite": true,
     "lib": ["ES5", "ES6", "dom"],
-    "composite": true
+    "outDir": "dist",
+    "types": ["jest", "node"]
   }
 }
