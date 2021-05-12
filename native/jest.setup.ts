@@ -58,7 +58,7 @@ walkDir(mocksPath, name => {
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock('modules/app/constants/buildConfig')
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
-jest.mock('react-native/Libraries/Components/Switch/Switch', async () => {
+jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const mockComponent = require('react-native/jest/mockComponent')
 
