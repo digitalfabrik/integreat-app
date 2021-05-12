@@ -1,8 +1,7 @@
-import { Saga } from 'redux-saga'
 import { call, StrictEffect } from 'redux-saga/effects'
 import { DataContainer } from '../../DataContainer'
 import { ContentLoadCriterion } from '../../ContentLoadCriterion'
-import { LanguageModel } from 'api-client/dist/src'
+import { LanguageModel } from 'api-client'
 
 const loadCityContent = function* loadCityContent(
   dataContainer: DataContainer,

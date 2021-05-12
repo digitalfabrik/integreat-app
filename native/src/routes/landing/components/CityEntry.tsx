@@ -1,7 +1,7 @@
 import React from 'react'
 import { CityModel } from 'api-client'
 import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs/dist/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
