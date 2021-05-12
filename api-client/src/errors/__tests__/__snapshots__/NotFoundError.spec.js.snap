@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`NotFoundError should have correct message 1`] = `"The category /augsburg/de/test does not exist here."`;

@@ -13,8 +13,7 @@
     "lint": "yarn run eslint",
     "lint:fix": "yarn run eslint --fix",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
-    "eslint": "eslint .",
-    "ts:check": ""
+    "ts:check": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {
     "js-md5": "^0.7.3",
