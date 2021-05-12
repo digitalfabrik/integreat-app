@@ -1,5 +1,3 @@
-export const animateScroll: {
-  scrollTo: () => void;
-} = {
-  scrollTo: jest.fn()
-};
+// @flow
+
+export const animateScroll: { scrollTo: () => void } = { scrollTo: jest.fn() }

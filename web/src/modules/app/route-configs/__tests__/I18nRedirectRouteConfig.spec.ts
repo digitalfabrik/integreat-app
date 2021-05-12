@@ -1,23 +1,24 @@
-import I18nRedirectRouteConfig from "../I18nRedirectRouteConfig";
-import { Payload } from "api-client";
-import createLocation from "../../../../createLocation";
-import CityModelBuilder from "api-client/src/testing/CityModelBuilder";
-const cities = new CityModelBuilder(1).build();
-const citiesPayload = new Payload(false, 'https://random.api.json', cities, null);
-const payloads = {
-  cities: citiesPayload
-};
+// @flow
 
-const t = (key: string | null | undefined): string => key || '';
+import I18nRedirectRouteConfig from '../I18nRedirectRouteConfig'
+import { Payload } from 'api-client'
+import createLocation from '../../../../createLocation'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+
+const cities = new CityModelBuilder(1).build()
+const citiesPayload = new Payload(false, 'https://random.api.json', cities, null)
+const payloads = { cities: citiesPayload }
+
+const t = (key: ?string): string => key || ''
 
 describe('I18nRedirectRouteConfig', () => {
-  const i18nRedirectRouteConfig = new I18nRedirectRouteConfig();
+  const i18nRedirectRouteConfig = new I18nRedirectRouteConfig()
+
   it('should get the right path', () => {
-    expect(i18nRedirectRouteConfig.getRoutePath({
-      param: 'param'
-    })).toBe('/param');
-    expect(i18nRedirectRouteConfig.getRoutePath({})).toBe('/');
-  });
+    expect(i18nRedirectRouteConfig.getRoutePath({ param: 'param' })).toBe('/param')
+    expect(i18nRedirectRouteConfig.getRoutePath({})).toBe('/')
+  })
+
   it('should get the required payloads', () => {
     const allPayloads = {
       categoriesPayload: new Payload(false),
@@ -33,32 +34,20 @@ describe('I18nRedirectRouteConfig', () => {
       poisPayload: new Payload(true),
       wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
-    };
-    expect(i18nRedirectRouteConfig.getRequiredPayloads(allPayloads)).toEqual(payloads);
-  });
+    }
+
+    expect(i18nRedirectRouteConfig.getRequiredPayloads(allPayloads)).toEqual(payloads)
+  })
+
   it('all functions should return null', () => {
     const location = createLocation({
-      payload: {
-        param: 'param'
-      },
+      payload: { param: 'param' },
       pathname: '/param',
       type: i18nRedirectRouteConfig.name
-    });
-    expect(i18nRedirectRouteConfig.getPageTitle({
-      t,
-      payloads,
-      location,
-      cityName: null
-    })).toBeNull();
-    expect(i18nRedirectRouteConfig.getLanguageChangePath({
-      payloads,
-      location,
-      language: 'de'
-    })).toBeNull();
-    expect(i18nRedirectRouteConfig.getMetaDescription(t)).toBeNull();
-    expect(i18nRedirectRouteConfig.getFeedbackTargetInformation({
-      payloads,
-      location
-    })).toBeNull();
-  });
-});
+    })
+    expect(i18nRedirectRouteConfig.getPageTitle({ t, payloads, location, cityName: null })).toBeNull()
+    expect(i18nRedirectRouteConfig.getLanguageChangePath({ payloads, location, language: 'de' })).toBeNull()
+    expect(i18nRedirectRouteConfig.getMetaDescription(t)).toBeNull()
+    expect(i18nRedirectRouteConfig.getFeedbackTargetInformation({ payloads, location })).toBeNull()
+  })
+})

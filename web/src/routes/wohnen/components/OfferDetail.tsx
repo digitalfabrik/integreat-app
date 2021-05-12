@@ -1,67 +1,71 @@
-import React from "react";
-import type { AccommodationType } from "api-client";
-import { WohnenOfferModel, WohnenFormData } from "api-client";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
-import type { TFunction } from "react-i18next";
-import { withTranslation } from "react-i18next";
-import Caption from "../../../modules/common/components/Caption";
-import type { ThemeType } from "build-configs/ThemeType";
-type PropsType = {
-  offer: WohnenOfferModel;
-  t: TFunction;
-};
-const Header: StyledComponent<{}, ThemeType, any> = styled.div`
+// @flow
+
+import React from 'react'
+import { WohnenOfferModel, WohnenFormData, type AccommodationType } from 'api-client'
+import styled, { type StyledComponent } from 'styled-components'
+import { withTranslation, type TFunction } from 'react-i18next'
+import Caption from '../../../modules/common/components/Caption'
+import type { ThemeType } from 'build-configs/ThemeType'
+
+type PropsType = {|
+  offer: WohnenOfferModel,
+  t: TFunction
+|}
+
+const Header: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding: 15px 5px 5px;
   font-weight: 700;
-`;
-const RowTitle: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const RowTitle: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex: 50%;
-`;
-const RowValue: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const RowValue: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex: 50%;
-`;
-const Row: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const Row: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   margin: 10px 0;
-`;
-const ListElement: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const ListElement: StyledComponent<{||}, ThemeType, *> = styled.div`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   margin-bottom: 10px;
-`;
+`
 
 class OfferDetail extends React.PureComponent<PropsType> {
-  translate(type: "runningServices" | "additionalServices" | "rooms", keys: Array<string>): Array<string> {
-    return keys.map(key => this.props.t(`values.${type}.${key}`));
+  translate(type: 'runningServices' | 'additionalServices' | 'rooms', keys: Array<string>): Array<string> {
+    return keys.map(key => this.props.t(`values.${type}.${key}`))
   }
 
   stringify(words: Array<string>): string {
-    return words.join(', ');
+    return words.join(', ')
   }
 
   formatMonthlyPrice(price: number): string {
     if (price === 0) {
-      return 'Keine';
+      return 'Keine'
     }
 
-    return `${price} € monatlich`;
+    return `${price} € monatlich`
   }
 
   render() {
-    const offer = this.props.offer;
+    const offer = this.props.offer
 
     if (offer.formData instanceof WohnenFormData) {
-      const accommodation: AccommodationType = offer.formData.accommodation;
-      const costs = offer.formData.costs;
-      const landlord = offer.formData.landlord;
+      const accommodation: AccommodationType = offer.formData.accommodation
+      const costs = offer.formData.costs
+      const landlord = offer.formData.landlord
 
-      const translateRunningServices = keys => this.stringify(this.translate('runningServices', keys));
+      const translateRunningServices = keys => this.stringify(this.translate('runningServices', keys))
+      const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys))
+      const translateRooms = keys => this.stringify(this.translate('rooms', keys))
 
-      const translateAdditionalServices = keys => this.stringify(this.translate('additionalServices', keys));
-
-      const translateRooms = keys => this.stringify(this.translate('rooms', keys));
-
-      return <>
+      return (
+        <>
           <Caption title={accommodation.title} />
 
           <div>
@@ -151,12 +155,12 @@ class OfferDetail extends React.PureComponent<PropsType> {
               </RowValue>
             </Row>
           </div>
-        </>;
+        </>
+      )
     } else {
-      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`);
+      throw new Error(`Failed to render form ${JSON.stringify(offer.formData)} because it is not supported!`)
     }
   }
-
 }
 
-export default withTranslation<PropsType>('wohnen')(OfferDetail);
+export default withTranslation<PropsType>('wohnen')(OfferDetail)

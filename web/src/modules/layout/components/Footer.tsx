@@ -1,14 +1,17 @@
-import type { Node } from "react";
-import * as React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
-import buildConfig from "../../app/constants/buildConfig";
-import type { ThemeType } from "build-configs/ThemeType";
-type PropsType = {
-  children: Array<React.ReactNode>;
-  onClick?: () => void;
-};
-const FooterContainer: StyledComponent<{}, ThemeType, any> = styled.footer`
+// @flow
+
+import type { Node } from 'react'
+import * as React from 'react'
+import styled, { type StyledComponent } from 'styled-components'
+import buildConfig from '../../app/constants/buildConfig'
+import type { ThemeType } from 'build-configs/ThemeType'
+
+type PropsType = {|
+  children: Array<React.Node>,
+  onClick?: () => void
+|}
+
+const FooterContainer: StyledComponent<{||}, ThemeType, *> = styled.footer`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -28,34 +31,33 @@ const FooterContainer: StyledComponent<{}, ThemeType, any> = styled.footer`
   & > *:last-child::after {
     content: '';
   }
-`;
+`
+
 /**
  * The standard footer which can supplied to a Layout. Displays a list of links from the props and adds the version
  * number if it's a dev build.
  */
-
 class Footer extends React.PureComponent<PropsType> {
   static getVersion(): Node {
     if (buildConfig().featureFlags.developerFriendly) {
-      return <span>
+      return (
+        <span>
           {__VERSION_NAME__}+{__COMMIT_SHA__}
-        </span>;
+        </span>
+      )
     }
-
-    return null;
+    return null
   }
 
   render() {
-    const {
-      children,
-      onClick
-    } = this.props;
-    return <FooterContainer onClick={onClick}>
+    const { children, onClick } = this.props
+    return (
+      <FooterContainer onClick={onClick}>
         {children}
         {Footer.getVersion()}
-      </FooterContainer>;
+      </FooterContainer>
+    )
   }
-
 }
 
-export default Footer;
+export default Footer

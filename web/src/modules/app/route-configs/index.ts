@@ -1,22 +1,25 @@
-import type { Route } from "redux-first-router";
-import { RouteConfig } from "./RouteConfig";
-import CategoriesRouteConfig, { CATEGORIES_ROUTE } from "./CategoriesRouteConfig";
-import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from "./I18nRedirectRouteConfig";
-import LandingRouteConfig, { LANDING_ROUTE } from "./LandingRouteConfig";
-import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from "./MainDisclaimerRouteConfig";
-import EventsRouteConfig, { EVENTS_ROUTE } from "./EventsRouteConfig";
-import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from "./LocalNewsRouteConfig";
-import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from "./LocalNewsDetailsRouteConfig";
-import TunewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from "./TunewsDetailsRouteConfig";
-import TunewsRouteConfig, { TUNEWS_ROUTE } from "./TunewsRouteConfig";
-import WohnenRouteConfig, { WOHNEN_ROUTE } from "./WohnenRouteConfig";
-import OffersRouteConfig, { OFFERS_ROUTE } from "./OffersRouteConfig";
-import SearchRouteConfig, { SEARCH_ROUTE } from "./SearchRouteConfig";
-import PoisRouteConfig, { POIS_ROUTE } from "./PoisRouteConfig";
-import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from "./DisclaimerRouteConfig";
-import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from "./SprungbrettRouteConfig";
-import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from "./NotFoundRouteConfig";
-const routeConfigs: Record<string, RouteConfig<any, any>> = {
+// @flow
+
+import type { Route } from 'redux-first-router'
+import { RouteConfig } from './RouteConfig'
+import CategoriesRouteConfig, { CATEGORIES_ROUTE } from './CategoriesRouteConfig'
+import I18nRedirectRouteConfig, { I18N_REDIRECT_ROUTE } from './I18nRedirectRouteConfig'
+import LandingRouteConfig, { LANDING_ROUTE } from './LandingRouteConfig'
+import MainDisclaimerRouteConfig, { MAIN_DISCLAIMER_ROUTE } from './MainDisclaimerRouteConfig'
+import EventsRouteConfig, { EVENTS_ROUTE } from './EventsRouteConfig'
+import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from './LocalNewsRouteConfig'
+import LocalNewsDetailsRouteConfig, { LOCAL_NEWS_DETAILS_ROUTE } from './LocalNewsDetailsRouteConfig'
+import TunewsDetailsRouteConfig, { TUNEWS_DETAILS_ROUTE } from './TunewsDetailsRouteConfig'
+import TunewsRouteConfig, { TUNEWS_ROUTE } from './TunewsRouteConfig'
+import WohnenRouteConfig, { WOHNEN_ROUTE } from './WohnenRouteConfig'
+import OffersRouteConfig, { OFFERS_ROUTE } from './OffersRouteConfig'
+import SearchRouteConfig, { SEARCH_ROUTE } from './SearchRouteConfig'
+import PoisRouteConfig, { POIS_ROUTE } from './PoisRouteConfig'
+import DisclaimerRouteConfig, { DISCLAIMER_ROUTE } from './DisclaimerRouteConfig'
+import SprungbrettRouteConfig, { SPRUNGBRETT_ROUTE } from './SprungbrettRouteConfig'
+import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from './NotFoundRouteConfig'
+
+const routeConfigs: { [string]: RouteConfig<any, any> } = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig(),
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig(),
   [LANDING_ROUTE]: new LandingRouteConfig(),
@@ -33,17 +36,19 @@ const routeConfigs: Record<string, RouteConfig<any, any>> = {
   [POIS_ROUTE]: new PoisRouteConfig(),
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig(),
   [NOT_FOUND_ROUTE]: new NotFoundRouteConfig()
-};
-export const getRouteConfig = (routeName: string): RouteConfig<any, any> => {
-  const routeConfig = routeConfigs[routeName];
+}
 
+export const getRouteConfig = (routeName: string): RouteConfig<*, *> => {
+  const routeConfig = routeConfigs[routeName]
   if (!routeConfig) {
-    throw new Error(`There is no route config with the name ${routeName}. Did you forget to add it in the routes index?`);
+    throw new Error(
+      `There is no route config with the name ${routeName}. Did you forget to add it in the routes index?`
+    )
   }
+  return routeConfig
+}
 
-  return routeConfig;
-};
-export const routesMap: Record<string, Route> = {
+export const routesMap: { [string]: Route } = {
   [MAIN_DISCLAIMER_ROUTE]: new MainDisclaimerRouteConfig().route,
   [I18N_REDIRECT_ROUTE]: new I18nRedirectRouteConfig().route,
   [LANDING_ROUTE]: new LandingRouteConfig().route,
@@ -60,4 +65,4 @@ export const routesMap: Record<string, Route> = {
   [POIS_ROUTE]: new PoisRouteConfig().route,
   [CATEGORIES_ROUTE]: new CategoriesRouteConfig().route,
   [NOT_FOUND_ROUTE]: new NotFoundRouteConfig().route
-};
+}

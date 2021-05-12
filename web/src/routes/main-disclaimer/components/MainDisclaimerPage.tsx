@@ -1,18 +1,20 @@
-import React from "react";
-import Caption from "../../../modules/common/components/Caption";
-import buildConfig from "../../../modules/app/constants/buildConfig";
-type PropsType = {};
+// @flow
+
+import React from 'react'
+import Caption from '../../../modules/common/components/Caption'
+import buildConfig from '../../../modules/app/constants/buildConfig'
+
+type PropsType = {||}
 
 class MainDisclaimerPage extends React.Component<PropsType> {
   render() {
-    return <div>
+    return (
+      <div>
         <Caption title='Impressum und Datenschutz' />
-        <div dangerouslySetInnerHTML={{
-        __html: buildConfig().mainImprint
-      }} />
-      </div>;
+        <div dangerouslySetInnerHTML={{ __html: buildConfig().mainImprint }} />
+      </div>
+    )
   }
-
 }
 
-export default MainDisclaimerPage;
+export default MainDisclaimerPage

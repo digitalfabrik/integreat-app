@@ -1,26 +1,35 @@
-import React from "react";
-import landingIcon from "../assets/location-icon.svg";
-import Header from "./Header";
-import HeaderActionItemLink from "./HeaderActionItemLink";
-import I18nRedirectRouteConfig from "../../app/route-configs/I18nRedirectRouteConfig";
-import type { TFunction } from "react-i18next";
-import { withTranslation } from "react-i18next";
-import buildConfig from "../../app/constants/buildConfig";
-type PropsType = {
-  viewportSmall: boolean;
-  t: TFunction;
-};
+// @flow
 
-const GeneralHeader = ({
-  viewportSmall,
-  t
-}: PropsType) => {
-  const getPath = new I18nRedirectRouteConfig().getRoutePath;
-  const actionItems = !buildConfig().featureFlags.fixedCity ? [<HeaderActionItemLink key='landing' href={getPath({})} iconSrc={landingIcon} text={t('changeLocation')} />] : [];
+import React from 'react'
+import landingIcon from '../assets/location-icon.svg'
+import Header from './Header'
+import HeaderActionItemLink from './HeaderActionItemLink'
+import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
+import { withTranslation, type TFunction } from 'react-i18next'
+import buildConfig from '../../app/constants/buildConfig'
 
-  const onStickyTopChanged = () => {};
+type PropsType = {|
+  viewportSmall: boolean,
+  t: TFunction
+|}
 
-  return <Header viewportSmall={viewportSmall} onStickyTopChanged={onStickyTopChanged} logoHref={getPath({})} actionItems={actionItems} />;
-};
+const GeneralHeader = ({ viewportSmall, t }: PropsType) => {
+  const getPath = new I18nRedirectRouteConfig().getRoutePath
 
-export default withTranslation<PropsType>('layout')(GeneralHeader);
+  const actionItems = !buildConfig().featureFlags.fixedCity
+    ? [<HeaderActionItemLink key='landing' href={getPath({})} iconSrc={landingIcon} text={t('changeLocation')} />]
+    : []
+
+  const onStickyTopChanged = () => {}
+
+  return (
+    <Header
+      viewportSmall={viewportSmall}
+      onStickyTopChanged={onStickyTopChanged}
+      logoHref={getPath({})}
+      actionItems={actionItems}
+    />
+  )
+}
+
+export default withTranslation<PropsType>('layout')(GeneralHeader)

@@ -1,6 +1,8 @@
-import * as React from "react";
+// @flow
 
-const Link = (props: any) => <div {...props}>NoLinkHere...</div>;
+import * as React from 'react'
 
-Link.displayName = 'Connect(Link)';
-export default Link;
+const Link = (props: any) => <div {...props}>NoLinkHere...</div>
+Link.displayName = 'Connect(Link)'
+
+export default Link

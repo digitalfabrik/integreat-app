@@ -1,16 +1,19 @@
-import type { Node } from "react";
-import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
-import withPlatform from "../../platform/hocs/withPlatform";
-import dimensions from "../../theme/constants/dimensions";
-import type { ThemeType } from "build-configs/ThemeType";
+// @flow
+
+import type { Node } from 'react'
+import React from 'react'
+import styled, { type StyledComponent } from 'styled-components'
+import withPlatform from '../../platform/hocs/withPlatform'
+import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
+
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
-const FlexWrapper: StyledComponent<{}, ThemeType, any> = styled.div`
+const FlexWrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const RichLayout: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   display: flex;
   min-height: 100vh;
@@ -27,8 +30,9 @@ const RichLayout: StyledComponent<{}, ThemeType, any> = styled.div`
     outline: none;
     cursor: pointer;
   }
-`;
-const Body: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const Body: StyledComponent<{||}, ThemeType, *> = styled.div`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -46,8 +50,9 @@ const Body: StyledComponent<{}, ThemeType, any> = styled.div`
     display: flex;
     flex-direction: column-reverse;
   }
-`;
-const Main: StyledComponent<{}, ThemeType, any> = styled.main`
+`
+
+const Main: StyledComponent<{||}, ThemeType, *> = styled.main`
   display: inline-block;
   width: ${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px;
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
@@ -67,9 +72,10 @@ const Main: StyledComponent<{}, ThemeType, any> = styled.main`
     max-width: initial;
     margin-top: 0;
   }
-`;
+`
+
 const Aside = withPlatform(styled.aside`
-  position: ${props => props.platform.positionStickyDisabled ? 'static' : 'sticky'};
+  position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
   display: inline-block;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
@@ -92,55 +98,48 @@ const Aside = withPlatform(styled.aside`
     max-width: initial;
     margin-top: 0;
   }
-`);
-type PropsType = {
-  asideStickyTop: number;
-  footer?: Node;
-  header?: Node;
-  toolbar?: Node;
-  modal?: Node;
-  children?: Node;
-  darkMode?: boolean;
-};
+`)
+
+type PropsType = {|
+  asideStickyTop: number,
+  footer?: Node,
+  header?: Node,
+  toolbar?: Node,
+  modal?: Node,
+  children?: Node,
+  darkMode?: boolean
+|}
+
 /**
  * The standard Layout, used for any view in this app as a container.
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-
 class Layout extends React.PureComponent<PropsType> {
   static defaultProps = {
     asideStickyTop: 0,
     darkMode: false
-  };
+  }
 
   render() {
-    const {
-      asideStickyTop,
-      footer,
-      header,
-      toolbar,
-      modal,
-      children
-    } = this.props;
-    const modalVisible = !!modal;
-    return <FlexWrapper>
+    const { asideStickyTop, footer, header, toolbar, modal, children } = this.props
+    const modalVisible = !!modal
+    return (
+      <FlexWrapper>
         <RichLayout>
           <div aria-hidden={modalVisible}>
             {header}
             <Body>
-              <Aside style={{
-              top: `${asideStickyTop}px`
-            }}>{toolbar}</Aside>
+              <Aside style={{ top: `${asideStickyTop}px` }}>{toolbar}</Aside>
               <Main>{children}</Main>
             </Body>
           </div>
           {modal}
           <div aria-hidden={modalVisible}>{footer}</div>
         </RichLayout>
-      </FlexWrapper>;
+      </FlexWrapper>
+    )
   }
-
 }
 
-export default Layout;
+export default Layout

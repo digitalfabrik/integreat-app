@@ -1,9 +1,11 @@
-import * as React from "react";
+// @flow
 
-const getDisplayName = Component => Component.displayName || Component.name || typeof Component;
+import * as React from 'react'
 
-const wrapDisplayName = (Component: React.AbstractComponent<any, any>, hocName: string) => {
-  return `${hocName}(${getDisplayName(Component)})`;
-};
+const getDisplayName = Component => Component.displayName || Component.name || typeof Component
 
-export default wrapDisplayName;
+const wrapDisplayName = (Component: React.AbstractComponent<*, *>, hocName: string) => {
+  return `${hocName}(${getDisplayName(Component)})`
+}
+
+export default wrapDisplayName
