@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CategoriesPage(props: void) {
+const CategoriesPage = (props: void) => {
   return <div>CategoriesPage</div>
 }
 
