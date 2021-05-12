@@ -49,7 +49,7 @@ class CategoriesMapModel {
    * @return {CategoryModel[]} The parents, with the immediate parent last
    */
   getAncestors(category: CategoryModel): Array<CategoryModel> {
-    const parents = []
+    const parents: CategoryModel[] = []
 
     while (!category.isRoot()) {
       const temp = this.findCategoryByPath(category.parentPath)

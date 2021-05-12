@@ -9,8 +9,8 @@ import { MapParamsToBodyType } from './MapParamsToBody'
 class EndpointBuilder<P, T> {
   name: string
   paramsToBodyMapper: MapParamsToBodyType<P> | null | undefined
-  paramsToUrlMapper: MapParamsToUrlType<P>
-  mapper: MapResponseType<P, T>
+  paramsToUrlMapper: MapParamsToUrlType<P> | null | undefined
+  mapper: MapResponseType<P, T> | null | undefined
   responseOverride: T | null | undefined
   errorOverride: Error | null | undefined
 

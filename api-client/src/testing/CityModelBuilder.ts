@@ -101,11 +101,10 @@ class CityModelBuilder {
   _citiesCount: number
 
   constructor(citiesCount: number) {
+    this._citiesCount = citiesCount
     if (this._citiesCount > cities.length) {
       throw new Error(`Only ${cities.length} city models can be created`)
     }
-
-    this._citiesCount = citiesCount
   }
 
   build(): Array<CityModel> {

@@ -27,11 +27,11 @@ class OfferModelBuilder {
   _offersCount: number
 
   constructor(offersCount: number) {
+    this._offersCount = offersCount
+
     if (this._offersCount > offers.length) {
       throw new Error(`Only ${offers.length} offers models can be created`)
     }
-
-    this._offersCount = offersCount
   }
 
   build(): Array<OfferModel> {

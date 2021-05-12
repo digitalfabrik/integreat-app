@@ -31,6 +31,8 @@ class CategoriesMapModelBuilder {
     this._depth = depth
     this._city = city
     this._language = language
+    this._categories = []
+    this._resourceCache = {}
   }
 
   _predictableNumber(index: number, max: number = MAX_PREDICTABLE_VALUE): number {
