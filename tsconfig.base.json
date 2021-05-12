@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["ES5", "ES6"],
-    "target": "ES6",
-    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "lib": ["ES5", "ES6"],
+    "moduleResolution": "Node",
     "noImplicitAny": false,
-    "strict": true
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext"
   }
 }

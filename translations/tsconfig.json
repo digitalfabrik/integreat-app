@@ -1,14 +1,12 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["es6"],
+    "composite": true,
+    "outDir": "dist",
     "types": [
       "jest",
-      "node"
-      // for require() in src/__tests__/loadTranslations.spec.ts
+      "node" // for require() in src/__tests__/loadTranslations.spec.ts
     ],
-    "outDir": "dist",
-    "composite": true
   },
   "include": [
     "translations.json",
