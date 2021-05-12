@@ -2,7 +2,7 @@ import { I18nManager as I18nManagerType } from 'react-native'
 
 const isRTL = false
 const doLeftAndRightSwapInRTL = false
-export const I18nManager: I18nManagerType = {
+export const I18nManager = {
   isRTL,
   allowRTL: (allowRTL: boolean) => {
     throw Error('Not yet implemented.')
@@ -19,4 +19,4 @@ export const I18nManager: I18nManagerType = {
     throw Error('Not yet implemented.')
   },
   doLeftAndRightSwapInRTL: doLeftAndRightSwapInRTL
-}
+} as I18nManagerType
