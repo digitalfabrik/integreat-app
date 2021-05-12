@@ -69,7 +69,7 @@ describe('createTrackingEndpoint', () => {
       query: 'some query',
       feedback: {}
     }
-  const send = { ...signal, ...remainingProps }
+    const send = { ...signal, ...remainingProps }
     await createTrackingEndpoint().request(send)
     expect(fetch).toHaveBeenCalledWith(
       JPAL_TRACKING_ENDPOINT_URL,
