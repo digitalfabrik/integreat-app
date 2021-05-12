@@ -10,6 +10,14 @@ import { ThemeProvider } from 'styled-components/native'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../../../../modules/endpoint/sendTrackingSignal')
+jest.mock('../../../../modules/common/components/TimeStamp')
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: text => text
+  }),
+  withTranslation: () => () => null
+}))
+
 describe('SearchModal', () => {
   beforeEach(() => {
     jest.clearAllMocks()

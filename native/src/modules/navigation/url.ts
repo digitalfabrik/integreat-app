@@ -49,8 +49,13 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
     routeInformation.route === EVENTS_ROUTE ||
     routeInformation.route === POIS_ROUTE
   ) {
-    // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
-    return constructUrl([routeInformation.cityContentPath])
+    if (routeInformation.cityContentPath) {
+      // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
+      return constructUrl([routeInformation.cityContentPath])
+    } else {
+      // https://integreat.app/augsburg/de/events, https://integreat.app/augsburg/de/pois
+      return constructUrl([routeInformation.cityCode, routeInformation.languageCode, routeInformation.route])
+    }
   } else if (
     routeInformation.route === DISCLAIMER_ROUTE ||
     routeInformation.route === OFFERS_ROUTE ||

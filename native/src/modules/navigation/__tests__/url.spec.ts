@@ -15,9 +15,11 @@ import {
   TU_NEWS_TYPE
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
+
 describe('url', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
+
   describe('cityContentPath', () => {
     it('should return correct pathname for city content routes with path', () => {
       const pathname = cityContentPath({
