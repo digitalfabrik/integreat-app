@@ -57,7 +57,7 @@ describe('watchClearResourcesAndCache', () => {
   it('should trigger a reload of the cities', () => {
     const dataContainer = new DefaultDataContainer()
     expectSaga(watchClearResourcesAndCache, dataContainer)
-      .take('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
+      .take('CLEAR_RESOURCES_AND_CACHE')
       .put({
         type: 'FETCH_CITIES',
         params: {

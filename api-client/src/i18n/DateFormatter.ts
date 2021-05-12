@@ -6,13 +6,13 @@ export type FormatFunctionType = (
     format?: string
   }
 ) => string
-export const ISO8601_FORMAT = 'ISO8601_FORMAT'
+export const ISO8601_FORMAT = undefined
 
 class DateFormatter {
-  fallbackFormat?: string
+  fallbackFormat?: string = ISO8601_FORMAT
   defaultLocale: string
 
-  constructor(defaultLocale: string, fallbackFormat: string | undefined = ISO8601_FORMAT) {
+  constructor(defaultLocale: string, fallbackFormat?: string) {
     this.fallbackFormat = fallbackFormat
     this.defaultLocale = defaultLocale
   }

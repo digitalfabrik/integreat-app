@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import DateFormatterContext from '../../context/DateFormatterContext'
 import moment from 'moment'
 import { setSystemLanguage } from '../../../endpoint/sendTrackingSignal'
+
 jest.mock('../../NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 jest.mock('../../../endpoint/sendTrackingSignal')
@@ -101,6 +102,7 @@ describe('I18nProvider', () => {
     // @ts-ignore
     NativeLanguageDetector.detect.mockRestore()
   })
+
   it('should use fallbacks for ui translations', async () => {
     // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['ku'])
@@ -112,9 +114,9 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    await waitFor(() => getByText('Zanyariyên xwecihî'))
     expect(getByText('Zanyariyên xwecihî')).toBeTruthy()
   })
+
   it('should choose the default fallback for ui translations', async () => {
     // @ts-ignore
     NativeLanguageDetector.detect.mockReturnValue(['en'])
@@ -155,7 +157,8 @@ describe('I18nProvider', () => {
 
     const ReceivingComponent = () => {
       const formatter = useContext(DateFormatterContext)
-      return <Text>{formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})}</Text>
+      const formated = formatter.format(moment.utc('2020-12-21T14:58:57+01:00'), {})
+      return <Text>{formated}</Text>
     }
 
     const { getByText } = render(

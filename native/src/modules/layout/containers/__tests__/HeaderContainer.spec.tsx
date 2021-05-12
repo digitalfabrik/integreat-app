@@ -23,7 +23,6 @@ jest.useFakeTimers()
 jest.mock('../../components/Header', () => {
   const Text = require('react-native').Text
 
-  // @ts-ignore props are incompatible with text props, but this is just for testing purposes to assert on props
   return (props: Record<string, unknown>) => <Text {...props}>Header</Text>
 })
 
@@ -123,7 +122,6 @@ describe('HeaderContainer', () => {
   const assertProps = (props, expected, customStore = store) => {
     const { getByText } = render(
       <Provider store={customStore}>
-        {/* @ts-ignore not all props passed */}
         <HeaderContainer {...props} />
       </Provider>
     )
