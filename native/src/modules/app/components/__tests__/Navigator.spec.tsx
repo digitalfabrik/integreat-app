@@ -7,6 +7,8 @@ import { generateKey } from '../../generateRouteKey'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
+import { pushNotificationsSupported } from '../../../push-notifications/PushNotificationsManager'
+
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
 jest.mock('../../initSentry')
@@ -70,11 +72,6 @@ jest.mock('../../../../routes/sprungbrett/containers/SprungbrettOfferContainer',
 
   return () => <Text>SprungbrettOffer</Text>
 })
-jest.mock('../../../../routes/wohnen/containers/WohnenOfferContainer', () => {
-  const Text = require('react-native').Text
-
-  return () => <Text>WohnenOffer</Text>
-})
 jest.mock('../../../../routes/external-offer/containers/ExternalOfferContainer', () => {
   const Text = require('react-native').Text
 
@@ -110,18 +107,15 @@ jest.mock('../../../layout/containers/TransparentHeaderContainer', () => {
 
   return () => <Text>TransparentHeader</Text>
 })
-let mockPushNotificationsSupported
-jest.mock('../../../push-notifications/PushNotificationsManager', () => {
-  const pushNotificationsSupported = jest.fn(() => true)
-  mockPushNotificationsSupported = pushNotificationsSupported
-  return {
-    pushNotificationsSupported
-  }
-})
+jest.mock('../../../push-notifications/PushNotificationsManager', () => ({
+  pushNotificationsSupported: jest.fn(() => true)
+}))
+
 const cityCode = 'augsburg'
 const languageCode = 'de'
 const fetchCities = jest.fn()
 const fetchCategory = jest.fn()
+const mockPushNotificationsSupported = pushNotificationsSupported as unknown as jest.Mock
 
 const props = ({ routeKey, routeName }: { routeKey?: string; routeName: string | null }) => ({
   routeKey,
@@ -135,6 +129,7 @@ describe('Navigator', () => {
     AsyncStorage.clear()
     jest.clearAllMocks()
   })
+
   it('should fetch cities on mount', async () => {
     await act(async () => {
       const appSettings = new AppSettings()
@@ -153,6 +148,7 @@ describe('Navigator', () => {
       })
     })
   })
+
   it('should display dashboard if a city is selected and the intro was shown', async () => {
     const appSettings = new AppSettings()
     await appSettings.setSelectedCity(cityCode)
@@ -169,6 +165,7 @@ describe('Navigator', () => {
     )
     await findByText('Dashboard')
   })
+
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
     const appSettings = new AppSettings()
     await appSettings.clearSelectedCity()
@@ -185,6 +182,7 @@ describe('Navigator', () => {
     )
     await findByText('Landing')
   })
+
   it('should display Intro if intro was not shown yet', async () => {
     const appSettings = new AppSettings()
     await appSettings.setContentLanguage(languageCode)
@@ -199,6 +197,7 @@ describe('Navigator', () => {
     )
     await findByText('Intro')
   })
+
   it('should call fetch category if the dashboard route is the initial route', async () => {
     await act(async () => {
       const appSettings = new AppSettings()
@@ -230,6 +229,7 @@ describe('Navigator', () => {
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
     })
   })
+
   it('should set allowPushNotifications to false if not supported by device', async () => {
     mockPushNotificationsSupported.mockImplementationOnce(() => false)
     await act(async () => {
