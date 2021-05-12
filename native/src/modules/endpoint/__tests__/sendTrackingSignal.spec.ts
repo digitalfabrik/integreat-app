@@ -18,8 +18,8 @@ jest.mock('@sentry/react-native')
 
 describe('sendTrackingSignal', () => {
   const mockRequest = jest.fn()
-  const mockCreateTrackingEndpoint = createTrackingEndpoint as unknown as jest.Mock
-  const mockBuildConfig = buildConfig as unknown as jest.Mock
+  const mockCreateTrackingEndpoint = (createTrackingEndpoint as unknown) as jest.Mock
+  const mockBuildConfig = (buildConfig as unknown) as jest.Mock
 
   beforeEach(() => {
     AsyncStorage.clear()

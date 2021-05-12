@@ -36,8 +36,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 The app supports opening deep links in the app. To test deep links manually, you can:
 
 - Click on the link you want to test in any other app of your choice
-- Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios), e.g. `npx uri-scheme open https://integreat.app/testumgebung/de/events --android
-  `
+- Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios), e.g. `npx uri-scheme open https://integreat.app/testumgebung/de/events --android `
 
 ## Code Quality
 

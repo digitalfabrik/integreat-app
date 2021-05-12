@@ -65,7 +65,7 @@ const prepareState = ({
 }
 
 const mockStore = configureMockStore()
-const mockDetect = NativeLanguageDetector.detect as unknown as jest.Mock
+const mockDetect = (NativeLanguageDetector.detect as unknown) as jest.Mock
 
 describe('I18nProvider', () => {
   beforeEach(async () => {

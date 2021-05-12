@@ -21,8 +21,8 @@ jest.mock('react-redux', () => ({
 
 describe('SnackbarContainer', () => {
   const mockDispatch = jest.fn()
-  const mockUseSelector = useSelector as unknown as jest.Mock
-  const mockUseDispatch = useDispatch as unknown as jest.Mock
+  const mockUseSelector = (useSelector as unknown) as jest.Mock
+  const mockUseDispatch = (useDispatch as unknown) as jest.Mock
 
   beforeEach(() => {
     jest.clearAllMocks()

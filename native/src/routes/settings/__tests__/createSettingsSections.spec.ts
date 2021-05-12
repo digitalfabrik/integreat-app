@@ -6,7 +6,9 @@ import { openSettings } from 'react-native-permissions'
 import { SettingsRouteType } from 'api-client'
 import {
   pushNotificationsSupported,
-  requestPushNotificationPermission, subscribeNews, unsubscribeNews
+  requestPushNotificationPermission,
+  subscribeNews,
+  unsubscribeNews
 } from '../../../modules/push-notifications/PushNotificationsManager'
 
 jest.mock('../../../modules/native-constants/NativeConstants', () => ({
@@ -23,11 +25,11 @@ jest.mock('react-native-permissions', () => require('react-native-permissions/mo
 jest.mock('@react-native-community/geolocation')
 jest.mock('../../../modules/app/initSentry')
 
-const mockPushNotificationsSupported = pushNotificationsSupported as unknown as jest.Mock
-const mockRequestPushNotificationPermission = requestPushNotificationPermission as unknown as jest.Mock
-const mockUnsubscribeNews = unsubscribeNews as unknown as jest.Mock
-const mockSubscribeNews = subscribeNews as unknown as jest.Mock
-const mockedBuildConfig = buildConfig as unknown as jest.Mock
+const mockPushNotificationsSupported = (pushNotificationsSupported as unknown) as jest.Mock
+const mockRequestPushNotificationPermission = (requestPushNotificationPermission as unknown) as jest.Mock
+const mockUnsubscribeNews = (unsubscribeNews as unknown) as jest.Mock
+const mockSubscribeNews = (subscribeNews as unknown) as jest.Mock
+const mockedBuildConfig = (buildConfig as unknown) as jest.Mock
 
 describe('createSettingsSections', () => {
   let changeSetting: (settings: SettingsType) => Partial<SettingsType>

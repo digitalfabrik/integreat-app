@@ -39,7 +39,7 @@ describe('useSendOfflineJpalSignals', () => {
   }
   const signal2 = { ...signal1, pageType: CATEGORIES_ROUTE }
 
-  const mockUseNetInfo = useNetInfo as unknown as jest.Mock
+  const mockUseNetInfo = (useNetInfo as unknown) as jest.Mock
 
   it('should resend signals if internet is reachable again', async () => {
     const appSettings = new AppSettings()

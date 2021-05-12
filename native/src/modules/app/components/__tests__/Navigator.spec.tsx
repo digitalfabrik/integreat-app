@@ -115,7 +115,7 @@ const cityCode = 'augsburg'
 const languageCode = 'de'
 const fetchCities = jest.fn()
 const fetchCategory = jest.fn()
-const mockPushNotificationsSupported = pushNotificationsSupported as unknown as jest.Mock
+const mockPushNotificationsSupported = (pushNotificationsSupported as unknown) as jest.Mock
 
 const props = ({ routeKey, routeName }: { routeKey?: string; routeName: string | null }) => ({
   routeKey,

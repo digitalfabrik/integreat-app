@@ -88,9 +88,7 @@ export default ({ children }: PropsType) => {
 
   return (
     <I18nextProvider i18n={i18nextInstance}>
-      <DateFormatterContext.Provider value={dateFormatter}>
-        {children}
-      </DateFormatterContext.Provider>
+      <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
     </I18nextProvider>
   )
 }
