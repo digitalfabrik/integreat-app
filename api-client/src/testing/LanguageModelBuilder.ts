@@ -1,4 +1,5 @@
 import LanguageModel from '../models/LanguageModel'
+
 const languages = [
   new LanguageModel('en', 'English'),
   new LanguageModel('de', 'Deutsch'),

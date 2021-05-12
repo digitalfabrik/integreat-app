@@ -2,6 +2,7 @@ import Endpoint from './Endpoint'
 import { MapResponseType } from './MapResponseType'
 import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapParamsToBodyType } from './MapParamsToBody'
+
 /**
  * Helper class to build a {@link Endpoint}
  */

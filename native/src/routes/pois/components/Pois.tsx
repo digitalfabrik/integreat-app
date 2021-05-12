@@ -16,6 +16,7 @@ import PoiListItem from './PoiListItem'
 import { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
 import { POIS_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+
 export type PropsType = {
   path: string | null | undefined
   pois: Array<PoiModel>
@@ -43,6 +44,7 @@ class Pois extends React.Component<PropsType> {
       cityContentPath: path
     })
   }
+
   renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
     const { theme } = this.props
     return (
@@ -55,6 +57,7 @@ class Pois extends React.Component<PropsType> {
       />
     )
   }
+
   createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
     const { navigateToFeedback, cityCode, language } = this.props
     navigateToFeedback({
@@ -65,6 +68,7 @@ class Pois extends React.Component<PropsType> {
       isPositiveFeedback
     })
   }
+
   navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
     const { navigateToFeedback, cityCode, language } = this.props
     navigateToFeedback({

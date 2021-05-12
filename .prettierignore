@@ -5,11 +5,12 @@ tools/
 translations/
 e2e-tests/
 
-web/dist/
 web/www/
 
 native/android/**/*
 native/ios/**/*
+
+**/dist/**
 
 # Ignore node_modules
 **/node_modules/**
