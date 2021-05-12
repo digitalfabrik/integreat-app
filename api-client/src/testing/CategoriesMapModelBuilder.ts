@@ -4,6 +4,7 @@ import md5 from 'js-md5'
 import CategoryModel from '../models/CategoryModel'
 import CategoriesMapModel from '../models/CategoriesMapModel'
 import hashUrl from '../hashUrl'
+
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
   readonly lastUpdate: Moment
@@ -13,6 +14,7 @@ type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType
 const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
 const MAX_PREDICTABLE_VALUE = 6
+
 /**
  * This builder generates a perfect m-ary tree of categories with the specified depth.
  */
@@ -22,8 +24,8 @@ class CategoriesMapModelBuilder {
   _arity: number
   _city: string
   _language: string
-  _categories: Array<CategoryModel>
-  _resourceCache: Record<string, PageResourceCacheStateType>
+  _categories: Array<CategoryModel> = []
+  _resourceCache: Record<string, PageResourceCacheStateType> = {}
   _id = 0
 
   constructor(city: string, language: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {

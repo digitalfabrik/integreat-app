@@ -184,7 +184,7 @@ class Config {
   }
 
   getFallbackTargetLanguageTags(): string[] {
-    const languageTags = []
+    const languageTags: string[] = []
     const fallbacks: string[][] = Object.values(this.fallbacks)
     fallbacks.forEach((languagesInFallbacks: string[]) => {
       languagesInFallbacks.forEach((languageTag: string) => {

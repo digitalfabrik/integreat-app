@@ -1,4 +1,5 @@
 import CityModel from '../models/CityModel'
+
 const cities = [
   new CityModel({
     name: 'Stadt Augsburg',
@@ -101,7 +102,7 @@ class CityModelBuilder {
   _citiesCount: number
 
   constructor(citiesCount: number) {
-    if (this._citiesCount > cities.length) {
+    if (citiesCount > cities.length) {
       throw new Error(`Only ${cities.length} city models can be created`)
     }
 

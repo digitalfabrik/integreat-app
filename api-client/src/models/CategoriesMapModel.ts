@@ -1,5 +1,6 @@
 import normalizePath from 'normalize-path'
 import CategoryModel from './CategoryModel'
+
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions
  */
@@ -49,7 +50,7 @@ class CategoriesMapModel {
    * @return {CategoryModel[]} The parents, with the immediate parent last
    */
   getAncestors(category: CategoryModel): Array<CategoryModel> {
-    const parents = []
+    const parents: Array<CategoryModel> = []
 
     while (!category.isRoot()) {
       const temp = this.findCategoryByPath(category.parentPath)

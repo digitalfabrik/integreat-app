@@ -2,6 +2,7 @@ import Endpoint from './Endpoint'
 import { MapResponseType } from './MapResponseType'
 import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapParamsToBodyType } from './MapParamsToBody'
+
 /**
  * Helper class to build a {@link Endpoint}
  */
@@ -9,8 +10,8 @@ import { MapParamsToBodyType } from './MapParamsToBody'
 class EndpointBuilder<P, T> {
   name: string
   paramsToBodyMapper: MapParamsToBodyType<P> | null | undefined
-  paramsToUrlMapper: MapParamsToUrlType<P>
-  mapper: MapResponseType<P, T>
+  paramsToUrlMapper?: MapParamsToUrlType<P>
+  mapper?: MapResponseType<P, T>
   responseOverride: T | null | undefined
   errorOverride: Error | null | undefined
 
