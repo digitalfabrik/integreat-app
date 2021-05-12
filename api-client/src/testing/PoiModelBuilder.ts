@@ -54,11 +54,11 @@ class PoiModelBuilder {
   _poisCount: number
 
   constructor(poisCount: number) {
+    this._poisCount = poisCount
+
     if (this._poisCount > pois.length) {
       throw new Error(`Only ${pois.length} poi models can be created`)
     }
-
-    this._poisCount = poisCount
   }
 
   build(): Array<PoiModel> {

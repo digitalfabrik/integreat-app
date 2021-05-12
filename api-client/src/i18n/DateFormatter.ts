@@ -5,7 +5,7 @@ export type FormatFunctionType = (
     format?: string
   }
 ) => string
-export const ISO8601_FORMAT = undefined
+export const ISO8601_FORMAT = 'ISO8601_FORMAT'
 
 class DateFormatter {
   fallbackFormat: string

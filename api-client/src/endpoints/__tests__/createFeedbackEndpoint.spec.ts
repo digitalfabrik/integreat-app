@@ -40,6 +40,11 @@ describe('feedback', () => {
     formData.append('alias', 'alias')
     formData.append('category', 'Inhalte')
     expect(feedback.mapParamsToBody).not.toBeNull()
+    expect(feedback.mapParamsToBody).not.toBeUndefined()
+
+    if(!feedback.mapParamsToBody) {
+      throw new Error('Feedback Check for Typescript failed - Check your test')
+    }
 
     expect(
       feedback.mapParamsToBody({
