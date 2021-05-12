@@ -60,7 +60,6 @@ File > Preferences > Settings (Ctrl+,)
 
 The following extensions (or any alternatives) should be installed.
 
-
 ### Eslint Code Formatter
 
 ```
