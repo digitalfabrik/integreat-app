@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from '@testing-library/react-native'
 import SnackbarContainer from '../SnackbarContainer'
-let mockDispatch
-let mockUseSelector
+import { useSelector, useDispatch } from 'react-redux'
+
 jest.useFakeTimers()
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -14,22 +14,22 @@ jest.mock('../../components/Snackbar', () => {
 
   return ({ message }: { message: string }) => <Text>{message}</Text>
 })
-jest.mock('react-redux', () => {
-  const dispatch = jest.fn()
-  mockDispatch = dispatch
-  const useDispatch = jest.fn(() => dispatch)
-  const useSelector = jest.fn()
-  mockUseSelector = useSelector
-  return {
-    useSelector,
-    useDispatch
-  }
-})
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: jest.fn()
+}))
+
 describe('SnackbarContainer', () => {
+  const mockDispatch = jest.fn()
+  const mockUseSelector = useSelector as unknown as jest.Mock
+  const mockUseDispatch = useDispatch as unknown as jest.Mock
+
   beforeEach(() => {
     jest.clearAllMocks()
     jest.clearAllTimers()
+    mockUseDispatch.mockImplementation(() => mockDispatch)
   })
+
   it('should show a snackbar if included in the state', async () => {
     mockUseSelector.mockImplementation(() => [])
     const snackbarText1 = 'snackbarText1'

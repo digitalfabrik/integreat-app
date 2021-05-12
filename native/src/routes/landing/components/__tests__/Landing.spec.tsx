@@ -7,25 +7,23 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import Geolocation from '@react-native-community/geolocation'
 import waitForExpect from 'wait-for-expect'
 import { ThemeProvider } from 'styled-components/native'
+import { checkLocationPermission, requestLocationPermission } from '../../../../modules/app/LocationPermissionManager'
 
-let mockCheckLocationPermission
-let mockRequestLocationPermission
-jest.mock('../../../../modules/app/LocationPermissionManager', () => {
-  const checkLocationPermission = jest.fn()
-  const requestLocationPermission = jest.fn()
-  mockCheckLocationPermission = checkLocationPermission
-  mockRequestLocationPermission = requestLocationPermission
-  return {
-    checkLocationPermission,
-    requestLocationPermission
-  }
-})
+jest.mock('../../../../modules/app/LocationPermissionManager', () => ({
+  checkLocationPermission: jest.fn(),
+  requestLocationPermission: jest.fn()
+}))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
+
+const mockCheckLocationPermission = checkLocationPermission as unknown as jest.Mock
+const mockRequestLocationPermission = requestLocationPermission as unknown as jest.Mock
+
 describe('Landing', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   const clearResourcesAndCache = jest.fn()
   const navigateToDashboard = jest.fn()
   const language = 'de'
@@ -36,6 +34,7 @@ describe('Landing', () => {
       longitude: 10.892578
     }
   }
+
   it('should only show non-live cities', () => {
     mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
     const { getByText, queryByText } = render(
@@ -57,6 +56,7 @@ describe('Landing', () => {
     expect(queryByText('Notlive')).toBeFalsy()
     expect(queryByText('Oldtown')).toBeFalsy()
   })
+
   describe('nearby locations', () => {
     it('should not request location permission on mount', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
@@ -78,6 +78,7 @@ describe('Landing', () => {
       expect(openSettings).not.toHaveBeenCalled()
       expect(Geolocation.getCurrentPosition).not.toHaveBeenCalled()
     })
+
     it('should determine location and show nearby locations on mount if permission already granted', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
       // @ts-ignore
@@ -101,6 +102,7 @@ describe('Landing', () => {
       expect(openSettings).not.toHaveBeenCalled()
       expect(Geolocation.getCurrentPosition).toHaveBeenCalledTimes(1)
     })
+
     it('should determine location and show no nearby locations if there are none', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
       // @ts-ignore
@@ -132,6 +134,7 @@ describe('Landing', () => {
       expect(openSettings).not.toHaveBeenCalled()
       expect(Geolocation.getCurrentPosition).toHaveBeenCalledTimes(1)
     })
+
     it('should open settings if permission is blocked on retry clicked', async () => {
       mockCheckLocationPermission.mockImplementation(() => RESULTS.BLOCKED)
       const { getByText, getByA11yLabel } = render(
@@ -158,6 +161,7 @@ describe('Landing', () => {
       expect(mockRequestLocationPermission).not.toHaveBeenCalled()
       expect(Geolocation.getCurrentPosition).not.toHaveBeenCalled()
     })
+
     it('should determine location if permission is granted on retry click', async () => {
       mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
       // @ts-ignore
@@ -187,6 +191,7 @@ describe('Landing', () => {
       expect(Geolocation.getCurrentPosition).toHaveBeenCalledTimes(1)
       expect(openSettings).not.toHaveBeenCalled()
     })
+
     it('should request permission and determine location on retry if not granted yet', async () => {
       mockCheckLocationPermission.mockImplementation(() => RESULTS.DENIED)
       mockRequestLocationPermission.mockImplementation(() => RESULTS.GRANTED)

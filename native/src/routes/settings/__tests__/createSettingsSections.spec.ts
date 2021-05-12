@@ -4,42 +4,38 @@ import { defaultSettings, SettingsType } from '../../../modules/settings/AppSett
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import { openSettings } from 'react-native-permissions'
 import { SettingsRouteType } from 'api-client/dist/src'
+import {
+  pushNotificationsSupported,
+  requestPushNotificationPermission, subscribeNews, unsubscribeNews
+} from '../../../modules/push-notifications/PushNotificationsManager'
 
 jest.mock('../../../modules/native-constants/NativeConstants', () => ({
   appVersion: '1.0.0'
 }))
-let mockRequestPushNotificationPermission
-let mockSubscribeNews
-let mockUnsubscribeNews
-let mockPushNotificationsSupported
-jest.mock('../../../modules/push-notifications/PushNotificationsManager', () => {
-  const requestPushNotificationPermission = jest.fn()
-  const subscribeNews = jest.fn()
-  const unsubscribeNews = jest.fn()
-  const pushNotificationsSupported = jest.fn(() => true)
-  mockRequestPushNotificationPermission = requestPushNotificationPermission
-  mockSubscribeNews = subscribeNews
-  mockUnsubscribeNews = unsubscribeNews
-  mockPushNotificationsSupported = pushNotificationsSupported
-  return {
-    requestPushNotificationPermission,
-    subscribeNews,
-    unsubscribeNews,
-    pushNotificationsSupported
-  }
-})
+
+jest.mock('../../../modules/push-notifications/PushNotificationsManager', () => ({
+  requestPushNotificationPermission: jest.fn(),
+  subscribeNews: jest.fn(),
+  unsubscribeNews: jest.fn(),
+  pushNotificationsSupported: jest.fn(() => true)
+}))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 jest.mock('../../../modules/app/initSentry')
 
+const mockPushNotificationsSupported = pushNotificationsSupported as unknown as jest.Mock
+const mockRequestPushNotificationPermission = requestPushNotificationPermission as unknown as jest.Mock
+const mockUnsubscribeNews = unsubscribeNews as unknown as jest.Mock
+const mockSubscribeNews = subscribeNews as unknown as jest.Mock
+const mockedBuildConfig = buildConfig as unknown as jest.Mock
+
 describe('createSettingsSections', () => {
   let changeSetting: (settings: SettingsType) => Partial<SettingsType>
   let changeAction: void | ((newSettings: SettingsType) => Promise<void>)
+
   beforeEach(() => {
     jest.clearAllMocks()
-
     changeSetting = settings => settings
-
     changeAction = async () => {}
   })
 
@@ -68,8 +64,7 @@ describe('createSettingsSections', () => {
 
   const mockBuildConfig = (pushNotifications: boolean) => {
     const previous = buildConfig()
-    // @ts-ignore ts is not aware that buildConfig is a mock function
-    buildConfig.mockImplementation(() => ({
+    mockedBuildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pushNotifications }
     }))
