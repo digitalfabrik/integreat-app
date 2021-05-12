@@ -67,8 +67,7 @@ const SettingItem = (props: PropType) => {
               thumbColor={theme.colors.themeColor}
               trackColor={{
                 true: theme.colors.themeColor,
-                // TODO check color
-                false: theme.colors.backgroundAccentColor
+                false: theme.colors.textSecondaryColor
               }}
               value={value}
               onValueChange={onPress}
