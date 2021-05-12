@@ -1,14 +1,17 @@
-import React from "react";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
-import Link from "redux-first-router-link";
-import helpers from "../../theme/constants/helpers";
-import dimensions from "../../theme/constants/dimensions";
-import type { ThemeType } from "build-configs/ThemeType";
-const Container: StyledComponent<{}, ThemeType, any> = styled.div`
+// @flow
+
+import React from 'react'
+import styled, { type StyledComponent } from 'styled-components'
+import Link from 'redux-first-router-link'
+import helpers from '../../theme/constants/helpers'
+import dimensions from '../../theme/constants/dimensions'
+import type { ThemeType } from 'build-configs/ThemeType'
+
+const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
   flex: 1 1 135px;
-`;
-const StyledLink: StyledComponent<{}, ThemeType, any> = styled(Link)`
+`
+
+const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   ${helpers.removeLinkHighlighting};
   color: ${props => props.theme.colors.textSecondaryColor};
   font-size: 0.9em;
@@ -40,7 +43,9 @@ const StyledLink: StyledComponent<{}, ThemeType, any> = styled(Link)`
     opacity: 1;
   }
 
-  ${props => props.$active ? `
+  ${props =>
+    props.$active
+      ? `
       color: ${props.theme.colors.textColor};
 
       & > div > img {
@@ -51,11 +56,14 @@ const StyledLink: StyledComponent<{}, ThemeType, any> = styled(Link)`
         box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3);
         border-color: ${props.theme.colors.themeColor};
       }
-   ` : ''}
-`;
-const ICON_SIZE_LARGE = 50;
-const ICON_SIZE_SMALL = 35;
-const PADDING_CIRCLE = 8;
+   `
+      : ''}
+`
+
+const ICON_SIZE_LARGE = 50
+const ICON_SIZE_SMALL = 35
+const PADDING_CIRCLE = 8
+
 const Circle = styled.div`
   background-color: white;
   box-sizing: border-box;
@@ -86,26 +94,24 @@ const Circle = styled.div`
       width: ${ICON_SIZE_SMALL / Math.sqrt(2) - PADDING_CIRCLE / 2}px;
     }
   }
-`;
-type PropsType = {
-  text: string;
-  href: string;
-  active: boolean;
-  icon: string;
-};
+`
 
-const HeaderNavigationItem = ({
-  active,
-  text,
-  href,
-  icon
-}: PropsType) => <Container>
+type PropsType = {|
+  text: string,
+  href: string,
+  active: boolean,
+  icon: string
+|}
+
+const HeaderNavigationItem = ({ active, text, href, icon }: PropsType) => (
+  <Container>
     <StyledLink to={href} $active={active}>
       <Circle>
         <img src={icon} alt='' />
       </Circle>
       {text}
     </StyledLink>
-  </Container>;
+  </Container>
+)
 
-export default HeaderNavigationItem;
+export default HeaderNavigationItem

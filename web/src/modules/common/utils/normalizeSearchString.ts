@@ -1,5 +1,7 @@
-import normalizeStrings from "normalize-strings";
+// @flow
 
-const normalizeSearchString = (str: string) => normalizeStrings(str).toLowerCase();
+import normalizeStrings from 'normalize-strings'
 
-export default normalizeSearchString;
+const normalizeSearchString = (str: string) => normalizeStrings(str).toLowerCase()
+
+export default normalizeSearchString

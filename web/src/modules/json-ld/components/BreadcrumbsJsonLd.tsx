@@ -1,6 +1,8 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import BreadcrumbModel from "../../common/BreadcrumbModel";
+// @flow
+
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import BreadcrumbModel from '../../common/BreadcrumbModel'
 
 const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>) => {
   // https://developers.google.com/search/docs/data-types/breadcrumb
@@ -13,20 +15,21 @@ const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>) => {
       name: breadcrumb.title,
       item: breadcrumb.link
     }))
-  };
-};
+  }
+}
 
-type PropsType = {
-  breadcrumbs: Array<BreadcrumbModel>;
-};
+type PropsType = {|
+  breadcrumbs: Array<BreadcrumbModel>
+|}
 
 class BreadcrumbsJsonLd extends React.Component<PropsType> {
   render() {
-    return <Helmet>
+    return (
+      <Helmet>
         <script type='application/ld+json'>{JSON.stringify(createJsonLd(this.props.breadcrumbs))}</script>
-      </Helmet>;
+      </Helmet>
+    )
   }
-
 }
 
-export default BreadcrumbsJsonLd;
+export default BreadcrumbsJsonLd

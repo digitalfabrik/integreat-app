@@ -1,1 +1,3 @@
-export default 'test-file-stub';
+// @flow
+
+export default 'test-file-stub'

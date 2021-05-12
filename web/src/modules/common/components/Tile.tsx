@@ -1,15 +1,18 @@
-import * as React from "react";
-import { Col } from "react-styled-flexboxgrid";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
-import TileModel from "../models/TileModel";
-import CleanLink from "./CleanLink";
-import CleanAnchor from "./CleanAnchor";
-import type { ThemeType } from "build-configs/ThemeType";
-type PropsType = {
-  tile: TileModel;
-};
-const Thumbnail: StyledComponent<{}, ThemeType, any> = styled.div`
+// @flow
+
+import * as React from 'react'
+import { Col } from 'react-styled-flexboxgrid'
+import styled, { type StyledComponent } from 'styled-components'
+import TileModel from '../models/TileModel'
+import CleanLink from './CleanLink'
+import CleanAnchor from './CleanAnchor'
+import type { ThemeType } from 'build-configs/ThemeType'
+
+type PropsType = {|
+  tile: TileModel
+|}
+
+const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.div`
   position: relative;
   display: block;
   width: 100%;
@@ -26,18 +29,21 @@ const Thumbnail: StyledComponent<{}, ThemeType, any> = styled.div`
     transition: transform 0.2s;
     object-fit: contain;
   }
-`;
-const ThumbnailSizer: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const ThumbnailSizer: StyledComponent<{||}, ThemeType, *> = styled.div`
   width: 150px;
   max-width: 33.3vw;
   margin: 0 auto;
-`;
-const TileTitle: StyledComponent<{}, ThemeType, any> = styled.div`
+`
+
+const TileTitle: StyledComponent<{||}, ThemeType, *> = styled.div`
   margin: 5px 0;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
-`;
-const TileContainer: StyledComponent<{}, ThemeType, any> = styled(Col)`
+`
+
+const TileContainer: StyledComponent<{||}, ThemeType, *> = styled(Col)`
   margin-bottom: 20px;
 
   & > a,
@@ -56,48 +62,52 @@ const TileContainer: StyledComponent<{}, ThemeType, any> = styled(Col)`
   & button:hover img {
     transform: scale(1.01);
   }
-`;
+`
+
 /**
  * Displays a single Tile
  */
-
 class Tile extends React.PureComponent<PropsType> {
-  getTileContent(): React.ReactNode {
-    return <>
+  getTileContent(): React.Node {
+    return (
+      <>
         <ThumbnailSizer>
           <Thumbnail>
             <img alt='' src={this.props.tile.thumbnail} />
           </Thumbnail>
         </ThumbnailSizer>
         <TileTitle>{this.props.tile.title}</TileTitle>
-      </>;
+      </>
+    )
   }
 
-  getTile(): React.ReactNode {
-    const tile = this.props.tile;
-
+  getTile(): React.Node {
+    const tile = this.props.tile
     if (!tile.isExternalUrl) {
-      return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>;
+      return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
     } else if (!tile.postData) {
-      return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>;
+      return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>
     } else {
-      const inputs = [];
-      tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />));
-      return <form method='POST' action={tile.path}>
+      const inputs = []
+      tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
+      return (
+        <form method='POST' action={tile.path}>
           {inputs}
           <button type='submit' role='link'>
             {this.getTileContent()}
           </button>
-        </form>;
+        </form>
+      )
     }
   }
 
   render() {
-    return <TileContainer xs={6} sm={4} md={3}>
+    return (
+      <TileContainer xs={6} sm={4} md={3}>
         {this.getTile()}
-      </TileContainer>;
+      </TileContainer>
+    )
   }
-
 }
 
-export default Tile;
+export default Tile

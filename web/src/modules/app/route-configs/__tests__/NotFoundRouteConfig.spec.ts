@@ -1,14 +1,18 @@
-import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from "../NotFoundRouteConfig";
-import { Payload } from "api-client";
-import createLocation from "../../../../createLocation";
+// @flow
 
-const t = (key: string | null | undefined): string => key || '';
+import NotFoundRouteConfig, { NOT_FOUND_ROUTE } from '../NotFoundRouteConfig'
+import { Payload } from 'api-client'
+import createLocation from '../../../../createLocation'
+
+const t = (key: ?string): string => key || ''
 
 describe('NotFoundRouteConfig', () => {
-  const notFoundRouteConfig = new NotFoundRouteConfig();
+  const notFoundRouteConfig = new NotFoundRouteConfig()
+
   it('should get the right path', () => {
-    expect(notFoundRouteConfig.getRoutePath()).toBe(NOT_FOUND_ROUTE);
-  });
+    expect(notFoundRouteConfig.getRoutePath()).toBe(NOT_FOUND_ROUTE)
+  })
+
   it('should get the required payloads', () => {
     const allPayloads = {
       categoriesPayload: new Payload(false),
@@ -24,50 +28,39 @@ describe('NotFoundRouteConfig', () => {
       poisPayload: new Payload(true),
       wohnenOffersPayload: new Payload(true),
       sprungbrettJobsPayload: new Payload(true)
-    };
-    expect(notFoundRouteConfig.getRequiredPayloads(allPayloads)).toEqual({});
-  });
+    }
+
+    expect(notFoundRouteConfig.getRequiredPayloads(allPayloads)).toEqual({})
+  })
+
   it('should return the right page title', () => {
     const location = createLocation({
       payload: {},
       pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
-    });
-    expect(notFoundRouteConfig.getPageTitle({
-      t,
-      payloads: {},
-      location,
-      cityName: null
-    })).toBe('pageTitles.notFound');
-  });
+    })
+    expect(notFoundRouteConfig.getPageTitle({ t, payloads: {}, location, cityName: null })).toBe('pageTitles.notFound')
+  })
+
   it('should return the right meta description', () => {
-    expect(notFoundRouteConfig.getMetaDescription(t)).toBeNull();
-  });
+    expect(notFoundRouteConfig.getMetaDescription(t)).toBeNull()
+  })
+
   it('should return the right language change path', () => {
     const location = createLocation({
-      payload: {
-        language: 'de'
-      },
+      payload: { language: 'de' },
       pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
-    });
-    expect(notFoundRouteConfig.getLanguageChangePath({
-      payloads: {},
-      location,
-      language: 'de'
-    })).toBeNull();
-  });
+    })
+    expect(notFoundRouteConfig.getLanguageChangePath({ payloads: {}, location, language: 'de' })).toBeNull()
+  })
+
   it('all functions should return the right feedback target information', () => {
     const location = createLocation({
-      payload: {
-        language: 'de'
-      },
+      payload: { language: 'de' },
       pathname: NOT_FOUND_ROUTE,
       type: notFoundRouteConfig.name
-    });
-    expect(notFoundRouteConfig.getFeedbackTargetInformation({
-      payloads: {},
-      location
-    })).toBeNull();
-  });
-});
+    })
+    expect(notFoundRouteConfig.getFeedbackTargetInformation({ payloads: {}, location })).toBeNull()
+  })
+})

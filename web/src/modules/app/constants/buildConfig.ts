@@ -1,6 +1,8 @@
-import type { WebBuildConfigType } from "build-configs/BuildConfigType";
-export { ThemeType } from "build-configs/ThemeType";
+// @flow
 
-const buildConfig = (): WebBuildConfigType => __BUILD_CONFIG__;
+import type { WebBuildConfigType } from 'build-configs/BuildConfigType'
+export { ThemeType } from 'build-configs/ThemeType'
 
-export default buildConfig;
+const buildConfig = (): WebBuildConfigType => __BUILD_CONFIG__
+
+export default buildConfig

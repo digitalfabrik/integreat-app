@@ -1,1 +1,3 @@
-export type UiDirectionType = "ltr" | "rtl";
+// @flow
+
+export type UiDirectionType = 'ltr' | 'rtl'
