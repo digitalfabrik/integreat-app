@@ -26,10 +26,7 @@ const writePairs = (toPath, sourceLanguagePairs, pairs, name) => {
   output.on('error', e => {
     console.log(`Failed to write ${name}.csv ${e}`)
   })
-  const withSourceLanguagePairs = zip(
-    sourceLanguagePairs,
-    pairs
-  )
+  const withSourceLanguagePairs = zip(sourceLanguagePairs, pairs)
     // @ts-ignore
     .map(([[sourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation])
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)

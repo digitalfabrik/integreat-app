@@ -1,6 +1,6 @@
 export default {
   rootDir: 'src/',
-  preset: "ts-jest",
+  preset: 'ts-jest',
   verbose: true,
   automock: false,
   setupFiles: ['<rootDir>/../jest.setup.ts'],
