@@ -16,8 +16,8 @@ jest.mock('../../../../modules/app/LocationPermissionManager', () => ({
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 
-const mockCheckLocationPermission = checkLocationPermission as unknown as jest.Mock
-const mockRequestLocationPermission = requestLocationPermission as unknown as jest.Mock
+const mockCheckLocationPermission = (checkLocationPermission as unknown) as jest.Mock
+const mockRequestLocationPermission = (requestLocationPermission as unknown) as jest.Mock
 
 describe('Landing', () => {
   beforeEach(() => {
