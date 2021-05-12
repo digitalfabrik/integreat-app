@@ -525,9 +525,25 @@ jobs:
             - check_config
             - restore_yarn_cache
             - lint:
+                directory: api-client
+            - lint:
+                directory: build-configs
+            - lint:
                 directory: native
             - lint:
-                directory: api-client
+                directory: translations
+            - run:
+                command: yarn workspace api-client ts:check
+                name: TS check
+            - run:
+                command: yarn workspace build-configs ts:check
+                name: TS check
+            - run:
+                command: yarn workspace native ts:check
+                name: TS check
+            - run:
+                command: yarn workspace translations ts:check
+                name: TS check
             - unit_test:
                 directory: native
             - unit_test:
@@ -552,6 +568,9 @@ jobs:
                 directory: web
             - lint:
                 directory: api-client
+            - run:
+                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
+                name: Check flow
             - unit_test:
                 directory: web
             - unit_test:
