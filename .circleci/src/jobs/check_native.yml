@@ -11,9 +11,25 @@ steps:
   - check_config
   - restore_yarn_cache
   - lint:
+      directory: api-client
+  - lint:
+      directory: build-configs
+  - lint:
       directory: native
   - lint:
-      directory: api-client
+      directory: translations
+  - run:
+      name: TS check
+      command: yarn workspace api-client ts:check
+  - run:
+      name: TS check
+      command: yarn workspace build-configs ts:check
+  - run:
+      name: TS check
+      command: yarn workspace native ts:check
+  - run:
+      name: TS check
+      command: yarn workspace translations ts:check
   - unit_test:
       directory: native
   - unit_test:
