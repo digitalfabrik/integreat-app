@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SearchPage(props: void) {
+const SearchPage = (props: void) => {
   return <div>SearchPage</div>
 }
 

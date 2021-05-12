@@ -1,6 +1,6 @@
 import React from 'react'
 
-function OffersPage(props: void) {
+const OffersPage = (props: void) => {
   return <div>OffersPage</div>
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function NewsPage(props: void) {
+const NewsPage = (props: void) => {
   return <div>NewsPage</div>
 }
 

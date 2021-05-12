@@ -10,7 +10,7 @@ import SearchPage from './search/SearchPage'
 import DisclaimerPage from './disclaimer/DisclaimerPage'
 import ErrorPage from './errors/ErrorPage'
 
-const RouteNames = {
+export const Routes = {
   LANDING_ROUTE: 'landing',
   CATEGORIES_ROUTE: '',
   EVENTS_ROUTE: 'events',
@@ -20,22 +20,22 @@ const RouteNames = {
   TUNEWS_ROUTE: 'news/tu-news',
   SEARCH_ROUTE: 'search',
   DISCLAIMER_ROUTE: 'disclaimer',
-  NOT_FOUND_ROUTE: 'not-fount'
+  NOT_FOUND_ROUTE: 'not-found'
 } as const
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path={`/:language/${RouteNames.LANDING_ROUTE}`} exact component={LandingPage} />
-        <Route path={`/:city/:language/${RouteNames.CATEGORIES_ROUTE}`} exact component={CategoriesPage} />
-        <Route path={`/:city/:language/${RouteNames.EVENTS_ROUTE}`} exact component={EventsPage} />
-        <Route path={`/:city/:language/${RouteNames.OFFERS_ROUTE}`} exact component={OffersPage} />
-        <Route path={`/:city/:language/${RouteNames.POIS_ROUTE}`} exact component={PoisPage} />
-        <Route path={`/:city/:language/${RouteNames.LOCAL_NEWS_ROUTE}`} exact component={NewsPage} />
-        <Route path={`/:city/:language/${RouteNames.TUNEWS_ROUTE}`} exact component={NewsPage} />
-        <Route path={`/:city/:language/${RouteNames.SEARCH_ROUTE}`} exact component={SearchPage} />
-        <Route path={`/:city/:language/${RouteNames.DISCLAIMER_ROUTE}`} component={DisclaimerPage} />
+        <Route path={`/:language/${Routes.LANDING_ROUTE}`} exact component={LandingPage} />
+        <Route path={`/:city/:language/${Routes.EVENTS_ROUTE}/:eventId?`} exact component={EventsPage} />
+        <Route path={`/:city/:language/${Routes.OFFERS_ROUTE}/:offerId?`} exact component={OffersPage} />
+        <Route path={`/:city/:language/${Routes.POIS_ROUTE}/:locationId?`} exact component={PoisPage} />
+        <Route path={`/:city/:language/${Routes.LOCAL_NEWS_ROUTE}/:newsId?`} exact component={NewsPage} />
+        <Route path={`/:city/:language/${Routes.TUNEWS_ROUTE}/:newsId?`} exact component={NewsPage} />
+        <Route path={`/:city/:language/${Routes.SEARCH_ROUTE}`} exact component={SearchPage} />
+        <Route path={`/:city/:language/${Routes.DISCLAIMER_ROUTE}`} component={DisclaimerPage} />
+        <Route path={`/:city/:language/${Routes.CATEGORIES_ROUTE}:categoriesId?`} exact component={CategoriesPage} />
         <Route path={`/`} component={ErrorPage} />
       </Switch>
     </Router>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function DisclaimerPage(props: void) {
+const DisclaimerPage = (props: void) => {
   return <div>DisclaimerPage</div>
 }
 

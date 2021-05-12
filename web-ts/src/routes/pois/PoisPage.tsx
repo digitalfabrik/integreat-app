@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PoisPage(props: void) {
+const PoisPage = (props: void) => {
   return <div>PoisPage</div>
 }
 
