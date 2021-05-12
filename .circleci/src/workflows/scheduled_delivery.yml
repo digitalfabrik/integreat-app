@@ -13,47 +13,47 @@ jobs:
         - jira
       delivery: production
 
-  - check_web:
-      context:
-        - mattermost
-  - build_web:
-      name: build_integreat_web
-      build_config_name: integreat
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_malte_web
-      build_config_name: malte
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - deliver_web:
-      context:
-        - mattermost
-        - sentry
-      production_delivery: true
-      requires:
-        - check_web
-        - build_integreat_web
-        - build_malte_web
-        - build_aschaffenburg_web
-  - notify_web:
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - bump_version
-        - deliver_web
+#  - check_web:
+#      context:
+#        - mattermost
+#  - build_web:
+#      name: build_integreat_web
+#      build_config_name: integreat
+#      context:
+#        - mattermost
+#      requires:
+#        - bump_version
+#  - build_web:
+#      name: build_malte_web
+#      build_config_name: malte
+#      context:
+#        - mattermost
+#      requires:
+#        - bump_version
+#  - build_web:
+#      name: build_aschaffenburg_web
+#      build_config_name: aschaffenburg
+#      context:
+#        - mattermost
+#      requires:
+#        - bump_version
+#  - deliver_web:
+#      context:
+#        - mattermost
+#        - sentry
+#      production_delivery: true
+#      requires:
+#        - check_web
+#        - build_integreat_web
+#        - build_malte_web
+#        - build_aschaffenburg_web
+#  - notify_web:
+#      context:
+#        - mattermost
+#        - deliverino
+#      requires:
+#        - bump_version
+#        - deliver_web
 
   - check_native:
       context:
@@ -260,6 +260,6 @@ jobs:
         - mattermost
         - deliverino
       requires:
-        - notify_web
+#        - notify_web
         - notify_android
         - notify_ios

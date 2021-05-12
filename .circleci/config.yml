@@ -926,44 +926,6 @@ workflows:
                 context:
                     - mattermost
                 delivery: none
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
-                requires:
-                    - check_web
-                    - build_ig_test_cms_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
             - check_native:
                 context:
                     - mattermost
@@ -1006,47 +968,6 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                production_delivery: true
-                requires:
-                    - check_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-            - notify_web:
-                context:
-                    - mattermost
-                    - deliverino
-                requires:
-                    - bump_version
-                    - deliver_web
             - check_native:
                 context:
                     - mattermost
@@ -1241,7 +1162,6 @@ workflows:
                     - mattermost
                     - deliverino
                 requires:
-                    - notify_web
                     - notify_android
                     - notify_ios
         triggers:
@@ -1493,47 +1413,6 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                production_delivery: true
-                requires:
-                    - check_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-            - notify_web:
-                context:
-                    - mattermost
-                    - deliverino
-                requires:
-                    - bump_version
-                    - deliver_web
             - check_native:
                 context:
                     - mattermost
@@ -1728,7 +1607,6 @@ workflows:
                     - mattermost
                     - deliverino
                 requires:
-                    - notify_web
                     - notify_android
                     - notify_ios
         when:
