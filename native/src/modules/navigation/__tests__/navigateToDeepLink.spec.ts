@@ -16,11 +16,11 @@ import AppSettings from '../../settings/AppSettings'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
 import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
-let navigateTo
+
+const navigateTo = jest.fn()
+
 jest.mock('../createNavigate', () => {
-  const mockFunction = jest.fn()
-  navigateTo = mockFunction
-  return jest.fn(() => mockFunction)
+  return jest.fn(() => navigateTo)
 })
 jest.mock('../navigateToCategory')
 jest.mock('../../endpoint/sendTrackingSignal')

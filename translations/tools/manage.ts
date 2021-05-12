@@ -5,7 +5,6 @@ import flat from 'flat'
 import stringify from 'csv-stringify'
 import parse from 'csv-parse/lib/sync'
 import config from '../src/config.js'
-
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
 
 const { unflatten } = flat
@@ -30,11 +29,17 @@ const writePairs = (toPath, sourceLanguagePairs, pairs, name) => {
   const withSourceLanguagePairs = zip(
     sourceLanguagePairs,
     pairs
-  ).map(([[sourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation])
+  )
+    // @ts-ignore
+    .map(([[sourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation])
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
 
 const EMPTY_MODULE = {}
+
+const getModulesByLanguage = (keyModuleArray, language) => {
+  return keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
+}
 
 /**
  * Create a a translation skeleton which has all keys set to an empty string
@@ -53,11 +58,8 @@ const createSkeleton = (language, moduleArray) => {
   })
 }
 
-const getModulesByLanguage = (keyModuleArray, language) => {
-  return keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
-}
-
 const mergeByLanguageModule = (byLanguageModule, skeleton, sourceLanguage) => {
+  // @ts-ignore
   return zip(skeleton, byLanguageModule).map(([[skModuleKey, skModule], [moduleKey, module]]) => {
     const diff = without(Object.keys(flat(module)), ...Object.keys(flat(skModule)))
 
@@ -85,8 +87,10 @@ const writeCsvFromJson = (json, toPath, sourceLanguage, supportedLanguages) => {
   const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
   const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
   Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>
+    // @ts-ignore
     writePairs(toPath, toPairs(flattenSourceLanguage), toPairs(modules), languageKey)
   )
+  // @ts-ignore
   console.log(`Keys in source language ${sourceLanguage}: ${Object.keys(flattenSourceLanguage).length}`)
 }
 
@@ -143,6 +147,7 @@ const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
     // Sort by language key, but sourceLanguage should be first
     const languageKeys = [sourceLanguage, ...Object.keys(byLanguageModules).sort()]
     // Sort by module key
+    // @ts-ignore
     const moduleKeys = Object.keys(sourceModules).sort()
     const json = fromPairs(
       moduleKeys.map(moduleKey => [

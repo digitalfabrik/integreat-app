@@ -1,4 +1,5 @@
 import OfferModel from '../models/OfferModel'
+
 const offers = [
   new OfferModel({
     alias: 'sprungbrett',

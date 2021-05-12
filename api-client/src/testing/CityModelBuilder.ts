@@ -1,4 +1,5 @@
 import CityModel from '../models/CityModel'
+
 const cities = [
   new CityModel({
     name: 'Stadt Augsburg',

@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store'
 import * as React from 'react'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import { generateKey } from '../../generateRouteKey'
+
 jest.mock('../../../../routes/landing/containers/LandingContainer', () => {
   const Text = require('react-native').Text
 
@@ -28,7 +29,7 @@ jest.mock('react-native-share')
 jest.mock('rn-fetch-blob')
 const mockStore = configureMockStore()
 
-class MockNavigator extends React.Component<{}> {
+class MockNavigator extends React.Component<void> {
   render() {
     return null
   }

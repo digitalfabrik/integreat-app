@@ -1,10 +1,11 @@
-import { TargetFilePathsType } from '../FetcherModule'
-import FetcherModule from '../FetcherModule'
+import FetcherModule, { TargetFilePathsType } from '../FetcherModule'
 import NativeFetcherModule from '../NativeFetcherModule'
+
 jest.mock('../NativeFetcherModule')
 beforeEach(() => {
   jest.clearAllMocks()
 })
+
 describe('FetcherModule', () => {
   let fetcherModule: FetcherModule
   beforeEach(() => {

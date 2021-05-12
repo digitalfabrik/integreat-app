@@ -33,7 +33,7 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
     "postinstall": "jetifier",
-    "tsc-test": "yarn tsc --project tsconfig.json"
+    "ts:check": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {
     "@react-native-community/art": "^1.1.2",

@@ -1,6 +1,7 @@
 import moment from 'moment'
 import PoiModel from '../models/PoiModel'
 import LocationModel from '../models/LocationModel'
+
 const availableLanguages = new Map([
   ['de', '/de/test'],
   ['en', '/en/test']

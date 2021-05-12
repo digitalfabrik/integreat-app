@@ -1,4 +1,5 @@
-exports.local_android = {
+/* eslint-disable camelcase */
+export const local_android = {
   url: 'http://localhost:4723/wd/hub',
   prefix: 'IG LOCAL',
   platform: 'android',
@@ -14,7 +15,7 @@ exports.local_android = {
     deviceOrientation: 'portrait'
   }
 }
-exports.local_ios = {
+export const local_ios = {
   url: 'http://localhost:4723/wd/hub',
   prefix: 'IG LOCAL',
   platform: 'ios',
@@ -28,7 +29,7 @@ exports.local_ios = {
     automationName: 'XCUITest'
   }
 }
-exports.browserstack_dev_android = {
+export const browserstack_dev_android = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG DEV',
   platform: 'android',
@@ -44,7 +45,7 @@ exports.browserstack_dev_android = {
     'browserstack.debug': true
   }
 }
-exports.browserstack_dev_ios = {
+export const browserstack_dev_ios = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG DEV',
   platform: 'ios',
@@ -61,7 +62,7 @@ exports.browserstack_dev_ios = {
     waitForQuiescence: 'true'
   }
 }
-exports.browserstack_ci_android = {
+export const browserstack_ci_android = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG CI',
   platform: 'android',
@@ -77,7 +78,7 @@ exports.browserstack_ci_android = {
     real_mobile: 'true'
   }
 }
-exports.browserstack_ci_ios = {
+export const browserstack_ci_ios = {
   url: 'http://hub-cloud.browserstack.com/wd/hub',
   prefix: 'IG CI',
   platform: 'ios',

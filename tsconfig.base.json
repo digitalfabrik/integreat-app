@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ES5",
-      "ES6"
-    ],
+    "lib": ["ES5", "ES6"],
     "target": "ES6",
     "moduleResolution": "Node",
     "esModuleInterop": true,
