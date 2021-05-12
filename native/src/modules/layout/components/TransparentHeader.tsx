@@ -7,7 +7,6 @@ import { Item } from 'react-navigation-header-buttons'
 import { TFunction } from 'react-i18next'
 import dimensions from '../../theme/constants/dimensions'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
-import { EXTERNAL_OFFER_ROUTE } from 'api-client/dist/src'
 
 const Horizontal = styled.View`
   flex: 1;

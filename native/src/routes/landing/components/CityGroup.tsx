@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs/dist/ThemeType'
+import { ThemeType } from 'build-configs/ThemeType'
 
 const GroupText = styled.Text`
   margin-top: 5px;

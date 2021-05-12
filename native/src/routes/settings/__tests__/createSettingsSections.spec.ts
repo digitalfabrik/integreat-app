@@ -3,7 +3,7 @@ import createNavigationScreenPropMock from '../../../testing/createNavigationPro
 import { defaultSettings, SettingsType } from '../../../modules/settings/AppSettings'
 import buildConfig from '../../../modules/app/constants/buildConfig'
 import { openSettings } from 'react-native-permissions'
-import { SettingsRouteType } from 'api-client/dist/src'
+import { SettingsRouteType } from 'api-client'
 import {
   pushNotificationsSupported,
   requestPushNotificationPermission, subscribeNews, unsubscribeNews

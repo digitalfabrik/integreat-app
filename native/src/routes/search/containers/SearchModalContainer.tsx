@@ -8,7 +8,7 @@ import createNavigate from '../../../modules/navigation/createNavigate'
 import { ThemeContext } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { StateType } from '../../../modules/app/StateType'
-import { CategoriesMapModel } from 'api-client/dist/src'
+import { CategoriesMapModel } from 'api-client'
 
 export type PropsType = {
   route: RoutePropType<SearchRouteType>
