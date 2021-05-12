@@ -21,6 +21,7 @@ export default ({ children }: PropsType) => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<typeof i18next | null>(null)
   const dispatch = useDispatch()
+
   const setContentLanguage = useCallback(
     async (uiLanguage: string) => {
       const appSettings = new AppSettings()
@@ -40,6 +41,7 @@ export default ({ children }: PropsType) => {
     },
     [dispatch]
   )
+
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
@@ -73,6 +75,7 @@ export default ({ children }: PropsType) => {
       console.error(e)
     })
   }, [setContentLanguage])
+
   const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
 
   if (errorMessage) {
@@ -85,7 +88,9 @@ export default ({ children }: PropsType) => {
 
   return (
     <I18nextProvider i18n={i18nextInstance}>
-      <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
+      <DateFormatterContext.Provider value={dateFormatter}>
+        {children}
+      </DateFormatterContext.Provider>
     </I18nextProvider>
   )
 }

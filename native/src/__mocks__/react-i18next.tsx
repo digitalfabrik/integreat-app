@@ -11,6 +11,7 @@ const withTranslation = (namespace: string) => (Component: React.ComponentType<a
 }
 
 module.exports = {
+  ...realModule,
   withTranslation,
   I18nextProvider: (props: { i18n: I18nType; children: React.ReactNode }) => <>{props.children}</>,
   reactI18nextModule: realModule.reactI18nextModule

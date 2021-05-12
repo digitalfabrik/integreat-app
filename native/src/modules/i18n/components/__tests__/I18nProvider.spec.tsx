@@ -18,6 +18,7 @@ import { setSystemLanguage } from '../../../endpoint/sendTrackingSignal'
 jest.mock('../../NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 jest.mock('../../../endpoint/sendTrackingSignal')
+
 const cities = new CityModelBuilder(1).build()
 const city = cities[0]
 const languages = new LanguageModelBuilder(1).build()
@@ -64,13 +65,16 @@ const prepareState = ({
 }
 
 const mockStore = configureMockStore()
+const mockDetect = NativeLanguageDetector.detect as unknown as jest.Mock
+
 describe('I18nProvider', () => {
   beforeEach(async () => {
     await AsyncStorage.clear()
+    jest.clearAllMocks()
   })
+
   it('should set content language if not yet set', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockReturnValue(['kmr'])
+    mockDetect.mockReturnValue(['kmr'])
     const store = mockStore(prepareState())
     render(
       <Provider store={store}>
@@ -84,9 +88,9 @@ describe('I18nProvider', () => {
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
+
   it('should show error if loading fails', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockImplementation(() => {
+    mockDetect.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
     const store = mockStore(prepareState())
@@ -99,13 +103,11 @@ describe('I18nProvider', () => {
     )
     await waitFor(() => getByText('An Error occurred while getting settings!'))
     expect(getByText('An Error occurred while getting settings!')).toBeTruthy()
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockRestore()
+    mockDetect.mockRestore()
   })
 
   it('should use fallbacks for ui translations', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockReturnValue(['ku'])
+    mockDetect.mockReturnValue(['ku'])
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -114,12 +116,11 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    expect(getByText('Zanyariyên xwecihî')).toBeTruthy()
+    await waitFor(() => expect(getByText('Zanyariyên xwecihî')).toBeTruthy())
   })
 
   it('should choose the default fallback for ui translations', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockReturnValue(['en'])
+    mockDetect.mockReturnValue(['en'])
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -131,6 +132,7 @@ describe('I18nProvider', () => {
     await waitFor(() => getByText('Lokale Informationen'))
     expect(getByText('Lokale Informationen')).toBeTruthy()
   })
+
   it('should dispatch content language', async () => {
     await new AppSettings().setContentLanguage('ar')
     const store = mockStore(prepareState())
@@ -152,6 +154,7 @@ describe('I18nProvider', () => {
       ])
     )
   })
+
   it('should have formatter with german fallback format', async () => {
     const store = mockStore(prepareState())
 
@@ -171,6 +174,7 @@ describe('I18nProvider', () => {
     await waitFor(() => getByText('2020-12-21T13:58:57Z'))
     expect(getByText('2020-12-21T13:58:57Z')).toBeTruthy()
   })
+
   it('should have content language set when rendering children', async () => {
     await new AppSettings().setContentLanguage('kmr')
     const store = mockStore(
@@ -200,9 +204,9 @@ describe('I18nProvider', () => {
     )
     await waitFor(() => getByText('Hello'))
   })
+
   it('should use zh-CN if any chinese variant is chosen', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockReturnValue(['zh-CN'])
+    mockDetect.mockReturnValue(['zh-CN'])
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -214,9 +218,9 @@ describe('I18nProvider', () => {
     await waitFor(() => getByText('本地信息'))
     expect(getByText('本地信息')).toBeTruthy()
   })
+
   it('should support language tags with dashes', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockReturnValue(['zh-hans'])
+    mockDetect.mockReturnValue(['zh-hans'])
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -228,9 +232,9 @@ describe('I18nProvider', () => {
     await waitFor(() => getByText('本地信息'))
     expect(getByText('本地信息')).toBeTruthy()
   })
+
   it('should support de-DE and select de', async () => {
-    // @ts-ignore
-    NativeLanguageDetector.detect.mockReturnValue(['de-DE'])
+    mockDetect.mockReturnValue(['de-DE'])
     const store = mockStore(prepareState())
     const { getByText, queryByText } = render(
       <Provider store={store}>
