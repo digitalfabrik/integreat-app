@@ -4,7 +4,7 @@ import path from 'path'
 import flat from 'flat'
 import stringify from 'csv-stringify'
 import parse from 'csv-parse/lib/sync'
-import config from '../src/config.js'
+import config from '../src/config'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
 
 const { unflatten } = flat

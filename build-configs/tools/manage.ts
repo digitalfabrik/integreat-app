@@ -6,7 +6,7 @@ import loadBuildConfig from '../index'
 
 const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quotes = false) => {
   const buildConfig = loadBuildConfig(buildConfigName, platform)
-  const xcconfigOptions = flat(buildConfig, {
+  const xcconfigOptions = flat<Record<string, unknown>, Record<string, string | number | boolean>>(buildConfig, {
     delimiter: '_',
     // Dashes are not supported in keys in xcconfigs and android resources
     transformKey: key => decamelize(key).toUpperCase().replace('-', '_')
@@ -46,7 +46,7 @@ program
 program
   .command('to-properties <build_config_name> <platform>')
   .description('create and write a new properties file to the stdout')
-  .action((buildConfigName, platform, cmdObj) => {
+  .action((buildConfigName, platform) => {
     try {
       const properties = loadBuildConfigAsKeyValue(buildConfigName, platform)
       console.log(properties)

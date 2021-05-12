@@ -14,6 +14,7 @@
     "flat": "^5.0.0"
   },
   "scripts": {
-    "manage": "ts-node tools/manage.ts"
+    "manage": "ts-node tools/manage.ts",
+    "ts:check": "yarn tsc --project tsconfig.json"
   }
 }

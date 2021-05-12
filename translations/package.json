@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "private": true,
   "scripts": {
+    "manage": "ts-node tools/manage.ts",
     "export:ods:translations": "yarn manage convert translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
     "export:ods:override-malte": "yarn manage convert override-translations/malte.json malte-csv csv && ./tools/csv-to-ods malte-csv malte-ods && rm -rf malte-csv",
     "export:ods:override-aschaffenburg": "yarn manage convert override-translations/aschaffenburg.json aschaffenburg-csv csv && ./tools/csv-to-ods aschaffenburg-csv aschaffenburg-ods && rm -rf aschaffenburg-csv",
@@ -13,7 +14,8 @@
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
     "test": "jest --config jest.config.ts",
     "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test:coverage --ci"
+    "test:ci": "yarn run test:coverage --ci",
+    "ts:check": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {},
   "devDependencies": {
