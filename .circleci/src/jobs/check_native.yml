@@ -23,13 +23,13 @@ steps:
       command: yarn workspace api-client ts:check
   - run:
       name: TS check
+      command: yarn workspace translations ts:check
+  - run:
+      name: TS check
       command: yarn workspace build-configs ts:check
   - run:
       name: TS check
       command: yarn workspace native ts:check
-  - run:
-      name: TS check
-      command: yarn workspace translations ts:check
   - unit_test:
       directory: native
   - unit_test:

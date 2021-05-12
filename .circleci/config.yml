@@ -536,13 +536,13 @@ jobs:
                 command: yarn workspace api-client ts:check
                 name: TS check
             - run:
+                command: yarn workspace translations ts:check
+                name: TS check
+            - run:
                 command: yarn workspace build-configs ts:check
                 name: TS check
             - run:
                 command: yarn workspace native ts:check
-                name: TS check
-            - run:
-                command: yarn workspace translations ts:check
                 name: TS check
             - unit_test:
                 directory: native
