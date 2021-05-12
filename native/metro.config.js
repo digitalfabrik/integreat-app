@@ -4,7 +4,8 @@
  *
  * @format
  */
-import path from 'path'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path')
 
 module.exports = {
   // https://github.com/facebook/react-native/issues/21310#issuecomment-544071895
@@ -15,7 +16,7 @@ module.exports = {
     extraNodeModules: new Proxy(
       {},
       {
-        get: (target, name: string) => path.resolve(__dirname, `node_modules/${name}`)
+        get: (target, name) => path.resolve(__dirname, `node_modules/${name}`)
       }
     )
   },
