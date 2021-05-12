@@ -9,6 +9,7 @@ describe('FailureContainer', () => {
   beforeEach(() => {
     jest.resetModules()
   })
+
   it('should pass props to inner component', () => {
     const FailureMock = () => null
 
@@ -24,6 +25,7 @@ describe('FailureContainer', () => {
       theme: expect.anything()
     })
   })
+
   it('should render inner component correctly without passing props explicitly', () => {
     jest.dontMock('../../components/Failure')
 
