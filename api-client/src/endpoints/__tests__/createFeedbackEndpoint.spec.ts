@@ -3,6 +3,7 @@ import createFeedbackEndponit, {
   PAGE_FEEDBACK_TYPE,
   TECHNICAL_FEEDBACK_CATEGORY
 } from '../createFeedbackEndpoint'
+
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const feedback = createFeedbackEndponit(baseUrl)
@@ -42,7 +43,7 @@ describe('feedback', () => {
     expect(feedback.mapParamsToBody).not.toBeNull()
 
     expect(
-      feedback.mapParamsToBody({
+      feedback.mapParamsToBody?.({
         city: 'augsburg',
         language: 'de',
         permalink: '/augsburg/de/familie',

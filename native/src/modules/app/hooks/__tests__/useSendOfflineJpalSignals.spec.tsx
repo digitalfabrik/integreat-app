@@ -4,6 +4,7 @@ import React from 'react'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 import { render, waitFor } from '@testing-library/react-native'
 import { sendRequest } from '../../../endpoint/sendTrackingSignal'
+
 let mockUseNetInfo
 jest.mock('@react-native-community/netinfo', () => {
   const mock = jest.fn()

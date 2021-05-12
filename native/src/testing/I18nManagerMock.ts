@@ -1,6 +1,7 @@
 import { I18nManager as I18nManagerType } from 'react-native'
+
 const isRTL = false
-const I18nManager: I18nManagerType = {
+export const I18nManager: I18nManagerType = {
   isRTL,
   allowRTL: (allowRTL: boolean) => {
     throw Error('Not yet implemented.')
@@ -10,4 +11,3 @@ const I18nManager: I18nManagerType = {
     return I18nManager
   }
 }
-module.exports = I18nManager

@@ -1,4 +1,5 @@
 import OfferModel from '../models/OfferModel'
+
 const offers = [
   new OfferModel({
     alias: 'sprungbrett',
@@ -27,7 +28,7 @@ class OfferModelBuilder {
   _offersCount: number
 
   constructor(offersCount: number) {
-    if (this._offersCount > offers.length) {
+    if (offersCount > offers.length) {
       throw new Error(`Only ${offers.length} offers models can be created`)
     }
 
