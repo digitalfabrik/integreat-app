@@ -9,14 +9,15 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import { ErrorCode } from '../../../error/ErrorCodes'
 import moment from 'moment'
 import mockDate from '../../../../testing/mockDate'
+
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 
+const languages = new LanguageModelBuilder(2).build()
 const createDataContainer = async (city: string, language: string) => {
   const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
   const categories = categoriesBuilder.build()
   const resources = categoriesBuilder.buildResources()
-  const languages = new LanguageModelBuilder(2).build()
   const dataContainer = new DefaultDataContainer()
   await dataContainer.setCategoriesMap(city, language, categories)
   await dataContainer.setLanguages(city, languages)
@@ -35,17 +36,21 @@ const createDataContainer = async (city: string, language: string) => {
 describe('watchFetchCategories', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate
+
   beforeEach(() => {
     RNFetchBlob.fs._reset()
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate
   })
+
   afterEach(async () => {
     restoreMockedDate()
   })
+
   const city = 'augsburg'
   const language = 'en'
+
   describe('fetchCategory', () => {
     it('should put an action which refreshes the categories if the content should be refreshed', async () => {
       const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
@@ -85,6 +90,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should put an action which pushes the categories if content should not be refreshed', async () => {
       const { categories, resources, languages, dataContainer, initialPath } = await createDataContainer(city, language)
       const action: FetchCategoryActionType = {
@@ -123,6 +129,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should put an action which pushes the categories when peeking', async () => {
       const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
       const anotherCity = 'anotherCity'
@@ -152,7 +159,7 @@ describe('watchFetchCategories', () => {
             categoriesMap: categories,
             resourceCache: resources,
             path: initialPath,
-            cityLanguages: [],
+            cityLanguages: languages,
             depth: 2,
             key: 'categories-key',
             language,
@@ -162,6 +169,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should put an action which refreshes the categories when peeking if the content should be refreshed', async () => {
       const { categories, resources, dataContainer, initialPath } = await createDataContainer(city, language)
       const anotherCity = 'anotherCity'
@@ -191,7 +199,7 @@ describe('watchFetchCategories', () => {
             categoriesMap: categories,
             resourceCache: resources,
             path: initialPath,
-            cityLanguages: [],
+            cityLanguages: languages,
             depth: 2,
             key: 'categories-key',
             language,
@@ -201,6 +209,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should put error action if language is not available for root model', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
       const invalidLanguage = '??'
@@ -239,6 +248,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should put failed action if language is not available and not peeking', async () => {
       const { dataContainer, initialPath } = await createDataContainer(city, language)
       const invalidLanguage = '??'
@@ -269,6 +279,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should try to loadCityContent with an invalid language when peeking', async () => {
       const { dataContainer, initialPath } = await createDataContainer(city, language)
       const anotherCity = 'anotherCity'
@@ -321,6 +332,7 @@ describe('watchFetchCategories', () => {
         })
         .run()
     })
+
     it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchCategoryActionType = {
@@ -368,6 +380,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
   })
+
   it('should correctly call fetchCategory when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     return testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)

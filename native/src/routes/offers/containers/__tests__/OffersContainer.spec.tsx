@@ -9,6 +9,7 @@ import { useLoadFromEndpoint } from '../../../../modules/endpoint/hooks/useLoadF
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { CityModel } from 'api-client'
+
 jest.mock('react-i18next')
 jest.mock('../../../../modules/common/openExternalUrl')
 jest.mock('../../../../modules/endpoint/hooks/useLoadFromEndpoint', () => ({
@@ -29,6 +30,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
+
 describe('OffersContainer', () => {
   const navigation = createNavigationScreenPropMock<OffersRouteType>()
   const cityCode = 'augsburg'
@@ -62,6 +64,7 @@ describe('OffersContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   it('should display offers without a Loading spinner', () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: [],
@@ -78,6 +81,7 @@ describe('OffersContainer', () => {
     expect(queryByText('loading')).toBeFalsy()
     expect(queryByText(errorText)).toBeFalsy()
   })
+
   it('should display offers with a Loading spinner', () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: [],
@@ -94,6 +98,7 @@ describe('OffersContainer', () => {
     expect(queryByText('loading')).toBeTruthy()
     expect(queryByText(errorText)).toBeFalsy()
   })
+
   it('should display error without a loading spinner', () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: [],
@@ -110,6 +115,7 @@ describe('OffersContainer', () => {
     expect(queryByText('Offers')).toBeFalsy()
     expect(queryByText('loading')).toBeFalsy()
   })
+
   it('should display error with spinner', () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: [],
@@ -126,6 +132,7 @@ describe('OffersContainer', () => {
     expect(queryByText('loading')).toBeTruthy()
     expect(queryByText('Offers')).toBeFalsy()
   })
+
   it('should display a page not found error if offers disabled for city', () => {
     const disabledOffersCity = new CityModel({
       name: 'Stadt Augsburg',
@@ -149,6 +156,7 @@ describe('OffersContainer', () => {
     })
     const store = mockStore({
       cities: {
+        status: 'ready',
         models: [disabledOffersCity]
       }
     })
