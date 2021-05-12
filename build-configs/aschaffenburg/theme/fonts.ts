@@ -1,5 +1,5 @@
-import { FontsType } from '../../common/theme/fonts'
-import { commonFonts } from '../../common/theme/fonts'
+import { FontsType, commonFonts } from '../../common/theme/fonts'
+
 const fonts: FontsType = {
   native: {
     decorativeFontBold: 'VarelaRound-Regular',
@@ -14,4 +14,5 @@ const fonts: FontsType = {
   },
   ...commonFonts
 }
+
 export default fonts

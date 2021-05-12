@@ -1,8 +1,9 @@
 import wd from 'wd'
 import fetch from 'node-fetch'
 import childProcess from 'child_process'
-import serverConfigs from '../config/configs'
+import * as serverConfigs from '../config/configs'
 import { clone } from 'lodash'
+
 const BROWSERSTACK_EXHAUSTED_MESSAGE =
   'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
@@ -10,12 +11,13 @@ const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 3000
 const ADDITIONAL_ENV_VARIABLES = ['CIRCLE_BUILD_URL', 'CIRCLE_BUILD_NUM']
-export const timer = (ms: number) => new Promise<{}>(resolve => setTimeout(resolve, ms))
+export const timer = (ms: number) => new Promise<number>(resolve => setTimeout(resolve, ms))
+
 type ConfigType = {
   url: string
   platform: string
   prefix: string
-  caps: {}
+  caps: Record<string, unknown>
 }
 
 const getConfig = (): ConfigType | null => {

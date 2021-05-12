@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export type JsonAvailableLanguagesType = Record<
   string,
   {

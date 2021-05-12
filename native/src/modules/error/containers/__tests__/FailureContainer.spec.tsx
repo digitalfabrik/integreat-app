@@ -1,9 +1,10 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-type FailureContainer = typeof import('../FailureContainer').default
 import { ErrorCode } from '../../ErrorCodes'
+
 jest.mock('react-i18next')
+
 describe('FailureContainer', () => {
   beforeEach(() => {
     jest.resetModules()
@@ -13,7 +14,7 @@ describe('FailureContainer', () => {
 
     jest.doMock('../../components/Failure', () => FailureMock)
 
-    const FailureContainerMock: FailureContainer = require('../FailureContainer').default
+    const FailureContainerMock = require('../FailureContainer').default
 
     const rendered = TestRenderer.create(<FailureContainerMock code={ErrorCode.UnknownError} />)
     const instance = rendered.root.findByType(FailureMock)

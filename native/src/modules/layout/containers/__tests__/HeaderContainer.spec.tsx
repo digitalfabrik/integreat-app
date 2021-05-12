@@ -16,6 +16,7 @@ import {
 import HeaderContainer from '../HeaderContainer'
 import { render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
+
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
@@ -23,15 +24,11 @@ jest.mock('../../components/Header', () => {
   const Text = require('react-native').Text
 
   // @ts-ignore props are incompatible with text props, but this is just for testing purposes to assert on props
-  return (props: {}) => <Text {...props}>Header</Text>
+  return (props: Record<string, unknown>) => <Text {...props}>Header</Text>
 })
+
 describe('HeaderContainer', () => {
   let store, state
-  beforeEach(() => {
-    jest.clearAllMocks()
-    state = prepareState()
-    store = mockStore(state)
-  })
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
@@ -116,6 +113,12 @@ describe('HeaderContainer', () => {
       snackbar: []
     }
   }
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+    state = prepareState()
+    store = mockStore(state)
+  })
 
   const assertProps = (props, expected, customStore = store) => {
     const { getByText } = render(

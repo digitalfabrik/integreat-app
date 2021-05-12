@@ -11,9 +11,10 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE
+  TU_NEWS_TYPE,
+  LocalNewsType,
+  TuNewsType
 } from './'
-import { LocalNewsType, TuNewsType } from './'
 import { RouteInformationType } from './RouteInformationTypes'
 import normalizePath from '../normalizePath'
 const ENTITY_ID_INDEX = 3
@@ -36,15 +37,19 @@ class InternalPathnameParser {
   pathnameParts = (pathname: string) => {
     return pathname.split('/').filter(Boolean)
   }
+
   isFixedCity = () => {
     return this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
   }
+
   isCityContentFeatureRoute = (feature: string) => {
     return this._length > 2 && this._parts[2] === feature
   }
+
   languageCode = (): string => {
     return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
   }
+
   jpalTracking = (): RouteInformationType => {
     if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
       const trackingCode = this._length === 2 ? this._parts[1] : null
@@ -56,6 +61,7 @@ class InternalPathnameParser {
 
     return null
   }
+
   landing = (): RouteInformationType => {
     // There is no landing route if there is a fixed city
     if (this._fixedCity) {
@@ -72,6 +78,7 @@ class InternalPathnameParser {
 
     return null
   }
+
   dashboard = (): RouteInformationType => {
     const fixedCity = this._fixedCity
 
@@ -99,6 +106,7 @@ class InternalPathnameParser {
 
     return null
   }
+
   cityContentParams = (
     feature: string
   ): {
@@ -115,6 +123,7 @@ class InternalPathnameParser {
       languageCode: this._parts[1]
     }
   }
+
   events = (): RouteInformationType => {
     const params = this.cityContentParams(EVENTS_ROUTE)
 
@@ -126,6 +135,7 @@ class InternalPathnameParser {
     const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
     return { ...params, route: EVENTS_ROUTE, cityContentPath }
   }
+
   pois = (): RouteInformationType => {
     const params = this.cityContentParams(POIS_ROUTE)
 
@@ -137,6 +147,7 @@ class InternalPathnameParser {
     const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
     return { ...params, route: POIS_ROUTE, cityContentPath }
   }
+
   news = (): RouteInformationType => {
     const params = this.cityContentParams(NEWS_ROUTE)
 
@@ -161,6 +172,7 @@ class InternalPathnameParser {
       newsId
     }
   }
+
   offers = (): RouteInformationType => {
     const params = this.cityContentParams(OFFERS_ROUTE)
     const route = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : OFFERS_ROUTE
@@ -181,6 +193,7 @@ class InternalPathnameParser {
 
     return null
   }
+
   disclaimer = (): RouteInformationType => {
     const params = this.cityContentParams(DISCLAIMER_ROUTE)
 
@@ -193,6 +206,7 @@ class InternalPathnameParser {
       ...params
     }
   }
+
   search = (): RouteInformationType => {
     const params = this.cityContentParams(SEARCH_ROUTE)
 
@@ -205,6 +219,7 @@ class InternalPathnameParser {
       ...params
     }
   }
+
   categories = (): RouteInformationType => {
     if (this._fixedCity && !this.isFixedCity()) {
       return null
@@ -226,6 +241,7 @@ class InternalPathnameParser {
 
     return null
   }
+
   route = (): RouteInformationType => {
     return (
       this.landing() ||
