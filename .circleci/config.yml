@@ -432,7 +432,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         environment:
             TOTAL_CPUS: 1
         parameters:
@@ -471,7 +471,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         parameters:
             delivery:
                 default: none
@@ -514,7 +514,7 @@ jobs:
             - notify
     check_native:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         environment:
             TOTAL_CPUS: 1
         resource_class: small
@@ -525,12 +525,25 @@ jobs:
             - check_config
             - restore_yarn_cache
             - lint:
+                directory: api-client
+            - lint:
+                directory: build-configs
+            - lint:
                 directory: native
             - lint:
-                directory: api-client
+                directory: translations
             - run:
-                command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Flow-type check
+                command: yarn workspace api-client ts:check
+                name: TS check
+            - run:
+                command: yarn workspace translations ts:check
+                name: TS check
+            - run:
+                command: yarn workspace build-configs ts:check
+                name: TS check
+            - run:
+                command: yarn workspace native ts:check
+                name: TS check
             - unit_test:
                 directory: native
             - unit_test:
@@ -540,7 +553,7 @@ jobs:
             - notify
     check_web:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -672,7 +685,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         parameters:
             production_delivery:
                 description: Whether to deliver to production or to webnext.
@@ -770,7 +783,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         resource_class: small
         steps:
             - skip_job
@@ -784,7 +797,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -811,7 +824,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -838,7 +851,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: circleci/node:12.16.3
+            - image: circleci/node:14.9.0
         resource_class: small
         steps:
             - skip_job
@@ -932,44 +945,6 @@ workflows:
                 context:
                     - mattermost
                 delivery: none
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
-                requires:
-                    - check_web
-                    - build_ig_test_cms_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
             - check_native:
                 context:
                     - mattermost
@@ -1012,47 +987,6 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                production_delivery: true
-                requires:
-                    - check_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-            - notify_web:
-                context:
-                    - mattermost
-                    - deliverino
-                requires:
-                    - bump_version
-                    - deliver_web
             - check_native:
                 context:
                     - mattermost
@@ -1247,7 +1181,6 @@ workflows:
                     - mattermost
                     - deliverino
                 requires:
-                    - notify_web
                     - notify_android
                     - notify_ios
         triggers:
@@ -1499,47 +1432,6 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - check_web:
-                context:
-                    - mattermost
-            - build_web:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                production_delivery: true
-                requires:
-                    - check_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-            - notify_web:
-                context:
-                    - mattermost
-                    - deliverino
-                requires:
-                    - bump_version
-                    - deliver_web
             - check_native:
                 context:
                     - mattermost
@@ -1734,7 +1626,6 @@ workflows:
                     - mattermost
                     - deliverino
                 requires:
-                    - notify_web
                     - notify_android
                     - notify_ios
         when:

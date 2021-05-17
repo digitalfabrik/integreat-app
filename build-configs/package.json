@@ -1,24 +1,23 @@
 {
   "name": "build-configs",
   "version": "0.0.1",
+  "main": "index.ts",
   "description": "Build configs for the integreat project",
-  "main": "index.js",
   "private": true,
   "dependencies": {
-    "translations": "0.0.1",
-    "@babel/runtime": "7.13.7"
+    "translations": "0.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/node": "7.12.10",
-    "@babel/preset-env": "7.12.10",
-    "@babel/preset-flow": "7.12.1",
-    "@babel/plugin-proposal-class-properties": "7.12.1",
+    "@types/flat": "^5.0.0",
     "commander": "^4.0.1",
     "decamelize": "^4.0.0",
     "flat": "^5.0.0"
   },
   "scripts": {
-    "manage": "babel-node tools/manage.js"
+    "manage": "ts-node tools/manage.ts",
+    "ts:check": "yarn tsc --project tsconfig.json",
+    "lint": "yarn run eslint",
+    "lint:fix": "yarn run eslint --fix",
+    "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml"
   }
 }

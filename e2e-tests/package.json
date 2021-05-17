@@ -8,6 +8,7 @@
     "lint": "yarn eslint ./"
   },
   "devDependencies": {
+    "@types/eslint": "^7.2.10",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "@wdio/browserstack-service": "^7.0.5",
@@ -23,5 +24,11 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5",
     "webdriverio": "^7.0.9"
+  },
+  "workspaces": {
+    "nohoist": [
+      "@wdio/**",
+      "**/@wdio/**"
+    ]
   }
 }

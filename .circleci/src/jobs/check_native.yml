@@ -1,6 +1,6 @@
 # Run checks and tests for native.
 docker:
-  - image: circleci/node:12.16.3
+  - image: circleci/node:14.9.0
 resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small
@@ -11,12 +11,25 @@ steps:
   - check_config
   - restore_yarn_cache
   - lint:
+      directory: api-client
+  - lint:
+      directory: build-configs
+  - lint:
       directory: native
   - lint:
-      directory: api-client
+      directory: translations
   - run:
-      name: Flow-type check
-      command: yarn workspace native flow:check-now --max-workers ${TOTAL_CPUS}
+      name: TS check
+      command: yarn workspace api-client ts:check
+  - run:
+      name: TS check
+      command: yarn workspace translations ts:check
+  - run:
+      name: TS check
+      command: yarn workspace build-configs ts:check
+  - run:
+      name: TS check
+      command: yarn workspace native ts:check
   - unit_test:
       directory: native
   - unit_test:
