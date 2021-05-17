@@ -185,7 +185,7 @@ const spaceCheckers: {
     check: (rect: ClientRect, { width }) =>
       rect.top - MAX_HEIGHT >= 0 && // Check distance to viewport top
       getCenterX(rect) - MAX_WIDTH / 2 >= 0 && // Check distance from center to viewport left
-      getCenterX(rect) / 2 + MAX_WIDTH / 2 <= width // Check distance from center to viewport right
+      getCenterX(rect) + MAX_WIDTH / 2 <= width // Check distance from center to viewport right
   },
   down: {
     fallbacks: ['up', 'left', 'right'],
