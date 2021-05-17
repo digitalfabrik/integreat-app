@@ -60,8 +60,8 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.js'],
-      excludedFiles: ['*.spec.js', '**/__mocks__/*.js'],
+      files: ['*.ts', '*.tsx'],
+      excludedFiles: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
         'no-magic-numbers': [
           'error',
