@@ -22,6 +22,7 @@ import buildConfig from '../constants/buildConfig'
 import SnackbarContainer from '../../layout/containers/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
 import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
+import useSendOfflineJpalSignals from '../hooks/useSendOfflineJpalSignals'
 
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
@@ -47,6 +48,8 @@ const App = () => {
   const [routeName, setRouteName] = useState<?string>(null)
   const [routeKey, setRouteKey] = useState<?string>(null)
   const [routeIndex, setRouteIndex] = useState<number>(0)
+
+  useSendOfflineJpalSignals()
 
   const onStateChange = useCallback(
     state => {

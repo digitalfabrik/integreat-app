@@ -1,0 +1,5 @@
+issue_key: IGAPP-620
+show_in_stores: false
+platforms:
+  - web
+en: Fixed a visual bug of the toolbar poking through the grey feedback overlay.
