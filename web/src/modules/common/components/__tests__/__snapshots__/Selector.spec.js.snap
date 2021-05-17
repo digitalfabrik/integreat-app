@@ -4,31 +4,61 @@ exports[`Selector should be vertical and match snapshot 1`] = `
 <Selector__Wrapper
   vertical={true}
 >
-  <Selector__ActiveElement
+  <Selector__Element
+    $enabled={true}
+    $selected={false}
+    as={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(Link)",
+        "type": [Function],
+      }
+    }
     key="en"
     onClick={[Function]}
-    selected={false}
     to="/augsburg/en/"
   >
+    <Selector__BoldSpacer>
+      English
+    </Selector__BoldSpacer>
     English
-  </Selector__ActiveElement>
-  <Selector__ActiveElement
+  </Selector__Element>
+  <Selector__Element
+    $enabled={true}
+    $selected={true}
+    as={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(Link)",
+        "type": [Function],
+      }
+    }
     key="de"
     onClick={[Function]}
-    selected={true}
     to="/augsburg/de/"
   >
+    <Selector__BoldSpacer>
+      Deutsch
+    </Selector__BoldSpacer>
     Deutsch
-  </Selector__ActiveElement>
-  <_default
+  </Selector__Element>
+  <Selector__Element
+    $enabled={false}
+    $selected={false}
+    as={[Function]}
     flow="up"
     key="fr"
     text="random tooltip"
   >
-    <Selector__DisabledElement>
+    <Selector__BoldSpacer>
       Französisch
-    </Selector__DisabledElement>
-  </_default>
+    </Selector__BoldSpacer>
+    Französisch
+  </Selector__Element>
 </Selector__Wrapper>
 `;
 
@@ -36,30 +66,60 @@ exports[`Selector should match snapshot 1`] = `
 <Selector__Wrapper
   vertical={false}
 >
-  <Selector__ActiveElement
+  <Selector__Element
+    $enabled={true}
+    $selected={false}
+    as={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(Link)",
+        "type": [Function],
+      }
+    }
     key="en"
     onClick={[Function]}
-    selected={false}
     to="/augsburg/en/"
   >
+    <Selector__BoldSpacer>
+      English
+    </Selector__BoldSpacer>
     English
-  </Selector__ActiveElement>
-  <Selector__ActiveElement
+  </Selector__Element>
+  <Selector__Element
+    $enabled={true}
+    $selected={true}
+    as={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "displayName": "Connect(Link)",
+        "type": [Function],
+      }
+    }
     key="de"
     onClick={[Function]}
-    selected={true}
     to="/augsburg/de/"
   >
+    <Selector__BoldSpacer>
+      Deutsch
+    </Selector__BoldSpacer>
     Deutsch
-  </Selector__ActiveElement>
-  <_default
+  </Selector__Element>
+  <Selector__Element
+    $enabled={false}
+    $selected={false}
+    as={[Function]}
     flow="up"
     key="fr"
     text="random tooltip"
   >
-    <Selector__DisabledElement>
+    <Selector__BoldSpacer>
       Französisch
-    </Selector__DisabledElement>
-  </_default>
+    </Selector__BoldSpacer>
+    Französisch
+  </Selector__Element>
 </Selector__Wrapper>
 `;
