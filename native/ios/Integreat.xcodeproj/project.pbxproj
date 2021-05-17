@@ -329,7 +329,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh index.ts\n";
 		};
 		31AF7631F7FB8B3BE99E14B2 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
