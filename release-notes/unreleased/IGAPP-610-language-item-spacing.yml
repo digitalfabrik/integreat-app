@@ -1,0 +1,6 @@
+issue_key: IGAPP-610
+show_in_stores: true
+platforms: 
+  - web
+en: Make sure that languages in the dropdown are spaced evenly.
+de: Elemente in der Sprachauswahl sind jetzt gleichmäßig verteilt.
