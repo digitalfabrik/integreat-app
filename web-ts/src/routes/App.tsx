@@ -34,7 +34,7 @@ function App() {
         <Route path={`/:city/:language/${Routes.LOCAL_NEWS_ROUTE}/:newsId?`} exact component={NewsPage} />
         <Route path={`/:city/:language/${Routes.TUNEWS_ROUTE}/:newsId?`} exact component={NewsPage} />
         <Route path={`/:city/:language/${Routes.SEARCH_ROUTE}`} exact component={SearchPage} />
-        <Route path={`/:city/:language/${Routes.DISCLAIMER_ROUTE}`} component={DisclaimerPage} />
+        <Route path={`/:city/:language/${Routes.DISCLAIMER_ROUTE}`} exact component={DisclaimerPage} />
         <Route path={`/:city/:language/${Routes.CATEGORIES_ROUTE}:categoriesId?`} exact component={CategoriesPage} />
         <Route path={`/`} component={ErrorPage} />
       </Switch>

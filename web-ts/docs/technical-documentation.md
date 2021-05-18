@@ -50,7 +50,7 @@ You can run the linter by calling `yarn lint`.
 ### Folder Structure
 
 First level structure of the `src-Folder` is technical specific and includes routes, reusable components, hooks, contexts and services.
-The [routes-Folder](../src/routes) contains route specific sub folders which can be separated into hooks, components, ... as well.
+The [routes folder](../src/routes) contains route specific sub folders which can be separated into hooks, components, ... as well.
 File naming should be PascalCase, inside the [routes folder](../src/routes) file names should be prefixed by the route name.
 Router entry points should have `Page` as a suffix, services should have `Service` suffix.
 
