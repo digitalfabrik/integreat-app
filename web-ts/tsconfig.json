@@ -14,7 +14,7 @@
     "noEmit": false,
     "outDir": "dist",
     "skipLibCheck": true,
-    "target": "ES2020",
+    "target": "ES2019",
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
