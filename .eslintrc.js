@@ -1,12 +1,12 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
-  plugins: ['react', 'react-hooks', 'flowtype', 'jest'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest'],
   extends: [
     'standard',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:flowtype/recommended',
     'prettier'
   ],
   env: {
@@ -15,13 +15,7 @@ module.exports = {
     browser: true,
     'jest/globals': true
   },
-  settings: {
-    flowtype: {
-      onlyFilesWithFlowAnnotation: true
-    }
-  },
   ignorePatterns: [
-    '**/flow-typed/',
     '**/reports/',
     '**/node_modules/',
     '**/ios/main.jsbundle',
@@ -33,6 +27,7 @@ module.exports = {
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
     'no-loop-func': 'error',
+    'no-use-before-define': 'off',
     'prefer-const': 'error',
     'prefer-object-spread': 'error',
     'prefer-template': 'error',
@@ -49,22 +44,9 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
 
-    'flowtype/newline-after-flow-annotation': ['error', 'always'],
-    'flowtype/no-primitive-constructor-types': 'error',
-    'flowtype/no-weak-types': 'warn',
-    'flowtype/require-exact-type': ['warn', 'always'],
-    'flowtype/require-parameter-type': ['error', { excludeArrowFunctions: true }],
-    'flowtype/require-return-type': [
-      'error',
-      'always',
-      {
-        excludeArrowFunctions: true,
-        annotateUndefined: 'never',
-        excludeMatching: ['^render$']
-      }
-    ],
-    'flowtype/type-id-match': ['error', '^(iOS)?([A-Z][a-z0-9]+)+Type$'],
-    'flowtype/valid-syntax': 'warn',
+    '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-empty-function': 'warn',
 
     'jest/consistent-test-it': 'error',
     'jest/no-disabled-tests': 'error',
@@ -78,14 +60,8 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/src/**/*.js'],
-      rules: {
-        'flowtype/require-valid-file-annotation': ['error', 'always', { annotationStyle: 'line' }]
-      }
-    },
-    {
-      files: ['*.js'],
-      excludedFiles: ['*.spec.js', '**/__mocks__/*.js'],
+      files: ['*.ts', '*.tsx'],
+      excludedFiles: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
         'no-magic-numbers': [
           'error',
@@ -94,6 +70,12 @@ module.exports = {
             ignoreArrayIndexes: true
           }
         ]
+      }
+    },
+    {
+      files: ['*.spec.{ts,tsx}'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off'
       }
     }
   ]

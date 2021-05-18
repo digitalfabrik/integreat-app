@@ -51,8 +51,7 @@ to make these changes available in both projects.
 
 - Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
   and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
-- Install [nodejs](https://nodejs.org/). At least v10 is required, but we recommend the v12 LTS.
-  Using the latest version (v13) may lead to errors.
+- Install [nodejs](https://nodejs.org/). At least v14 is required.
 - Install [yarn](https://yarnpkg.com/).
 
 ### Project setup
@@ -70,5 +69,5 @@ or use the Windows Subsystem for Linux following the information [here](./docs/w
 
 ## Further Reading
 
-More information on both the webapp and the native app can be found in the [web documentation](web/docs) and the [app documentation](native/docs).
+More information on both the webapp and the native app can be found in the [web documentation](web/docs) and the [native documentation](native/docs).
 Documentation on [CI/CD](docs/cicd.md), [contributing](docs/contributing.md) and our [conventions](docs/conventions.md) can be found [here](docs).

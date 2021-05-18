@@ -6,7 +6,7 @@ parameters:
     enum: [none, development, production]
     default: none
 docker:
-  - image: circleci/node:12.16.3
+  - image: circleci/node:14.9.0
 resource_class: small
 steps:
   - skip_job
