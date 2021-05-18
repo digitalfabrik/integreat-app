@@ -1,8 +1,7 @@
-import determineApiUrl from '../determineApiUrl'
 import { Payload } from 'api-client'
 import { useCallback, useEffect, useState } from 'react'
 
-type RequestType<T> = (apiUrl: string) => Promise<Payload<T>>
+type RequestType<T> = () => Promise<Payload<T>>
 
 export const loadFromEndpoint = async <T>(
   request: RequestType<T>,
@@ -13,8 +12,7 @@ export const loadFromEndpoint = async <T>(
   setLoading(true)
 
   try {
-    const apiUrl = await determineApiUrl()
-    const payload: Payload<T> = await request(apiUrl)
+    const payload: Payload<T> = await request()
 
     if (payload.error) {
       setError(payload.error)

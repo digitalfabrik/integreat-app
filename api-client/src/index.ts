@@ -80,6 +80,8 @@ export {
   SPRUNGBRETT_JOBS_ENDPOINT_NAME
 } from './endpoints/createSprungbrettJobsEndpoint'
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
+export { default as useLoadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
+
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
 export { default as CityModel } from './models/CityModel'

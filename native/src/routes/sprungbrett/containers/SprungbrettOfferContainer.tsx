@@ -10,7 +10,8 @@ import {
   NotFoundError,
   OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettJobModel
+  SprungbrettJobModel,
+  useLoadFromEndpoint
 } from 'api-client'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -20,7 +21,6 @@ import createNavigateToFeedbackModal from '../../../modules/navigation/createNav
 import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
 import { SprungbrettOfferRouteType } from 'api-client/src/routes'
-import { useLoadFromEndpoint } from '../../../modules/endpoint/hooks/useLoadFromEndpoint'
 import { StateType } from '../../../modules/app/StateType'
 import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
 type OwnPropsType = {
