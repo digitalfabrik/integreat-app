@@ -5,14 +5,14 @@ import { OFFERS_ROUTE, OffersRouteType } from 'api-client/src/routes'
 import OffersContainer from '../OffersContainer'
 import { render } from '@testing-library/react-native'
 import { ErrorCode } from '../../../../modules/error/ErrorCodes'
-import { useLoadFromEndpoint } from '../../../../modules/endpoint/hooks/useLoadFromEndpoint'
+import { useLoadFromEndpoint, CityModel } from 'api-client'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import { CityModel } from 'api-client'
 
 jest.mock('react-i18next')
 jest.mock('../../../../modules/common/openExternalUrl')
-jest.mock('../../../../modules/endpoint/hooks/useLoadFromEndpoint', () => ({
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()
 }))
 jest.mock('../../components/Offers', () => {

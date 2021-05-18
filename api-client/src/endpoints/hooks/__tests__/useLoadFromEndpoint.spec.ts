@@ -1,6 +1,6 @@
 import { Payload } from 'api-client'
 import { loadFromEndpoint } from '../useLoadFromEndpoint'
-jest.mock('../../determineApiUrl', () => () => 'https://my-cust.om/api-url')
+
 describe('loadFromEndpoint', () => {
   const apiUrl = 'https://my-cust.om/api-url'
   const setData = jest.fn()
@@ -13,6 +13,7 @@ describe('loadFromEndpoint', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   it('should set everything correctly if loading from endpoint succeeds', async () => {
     const request = jest.fn(() =>
       Promise.resolve(
@@ -30,6 +31,7 @@ describe('loadFromEndpoint', () => {
     expect(setData).toHaveBeenCalledTimes(1)
     expect(setData).toHaveBeenCalledWith('myData')
   })
+
   it('should set everything correctly if loading from endpoint fails', async () => {
     const error = new Error('myError')
     const request = jest.fn(() =>
@@ -48,6 +50,7 @@ describe('loadFromEndpoint', () => {
     expect(setData).toHaveBeenCalledTimes(1)
     expect(setData).toHaveBeenCalledWith(null)
   })
+
   it('should set everything correctly if loading from endpoint throws an error', async () => {
     const error = new Error('myError')
     const request = jest.fn(() => Promise.reject(error))
