@@ -20,7 +20,7 @@ For the browserstack tests in web there are several configurations to run the te
 
 ## Writing Tests
 
-The E2E-tests project does not use flow, but implements everything using [TypeScript](https://www.typescriptlang.org/).
+The E2E-tests project implements everything using [TypeScript](https://www.typescriptlang.org/).
 The [E2E test folder](../e2e-tests/web/test) contains two important subdirectories:
 
 - [PageObjects](../e2e-tests/web/test/pageobjects

@@ -4,7 +4,6 @@
 - [Settings](#settings)
   - [Optional settings](#optional-settings)
 - [Required Extensions](#required-extensions)
-  - [Flow Type Checker](#flow-type-checker)
   - [Eslint Code Formatter](#eslint-code-formatter)
 - [Recommended Extensions](#recommended-extensions)
   - [Git History](#git-history)
@@ -60,22 +59,6 @@ File > Preferences > Settings (Ctrl+,)
 ## Required Extensions
 
 The following extensions (or any alternatives) should be installed.
-
-### Flow Type Checker
-
-(Alternative: Flow Language Support)
-
-Hint: Use "yarn flow check" instead of "yarn flow" in the console, currently there is a [Bug](https://github.com/facebook/flow/issues/6592) on Windows
-
-```
-code --install-extension gcazaciuc.vscode-flow-ide
-```
-
-**Important:** Deactivate internal standard javascript validator in settings:
-
-```
-"javascript.validate.enable": false,
-```
 
 ### Eslint Code Formatter
 

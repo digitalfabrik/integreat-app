@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["ES5", "ES6"],
+    "moduleResolution": "Node",
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext"
+  }
+}

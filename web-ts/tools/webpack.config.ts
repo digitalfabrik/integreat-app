@@ -1,8 +1,8 @@
-import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize } from 'webpack'
-import { join, resolve } from 'path'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import { readFileSync } from 'fs'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import {Configuration, DefinePlugin, LoaderOptionsPlugin, optimize} from "webpack";
+import {join, resolve} from 'path'
+import {CleanWebpackPlugin} from 'clean-webpack-plugin'
+import {readFileSync} from "fs";
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
@@ -64,7 +64,7 @@ const generateManifest = (content: Buffer, buildConfigName: string) => {
 
 const createConfig = (
   // eslint-disable-next-line camelcase
-  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {}
+  env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}
 ) => {
   const {
     config_name: buildConfigName,
@@ -139,6 +139,7 @@ const createConfig = (
       usedExports: true
     },
     devtool: 'source-map',
+    // @ts-ignore devServer is not available here
     devServer: {
       contentBase: distDirectory,
       compress: true,
@@ -171,15 +172,15 @@ const createConfig = (
         // title: buildConfig.appName,
         title: 'App Name',
         // Load a custom template (lodash by default)
-        template: 'index.ejs'
+        template: 'index.ejs',
         // templateParameters: {
         //   config: buildConfig
         // }
       }),
       new CopyPlugin({
         patterns: [
-          { from: wwwDirectory, to: distDirectory },
-          { from: configAssets, to: distDirectory },
+          {from: wwwDirectory, to: distDirectory},
+          {from: configAssets, to: distDirectory},
           {
             from: manifestPreset,
             to: distDirectory,
@@ -193,7 +194,7 @@ const createConfig = (
         'process.env.NODE_ENV': NODE_ENV,
         __VERSION_NAME__: JSON.stringify(versionName),
         __COMMIT_SHA__: JSON.stringify(shortCommitSha),
-        __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName)
+        __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
         // __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
@@ -203,7 +204,6 @@ const createConfig = (
         filename: 'assets.json',
         prettyPrint: true
       }),
-      // $FlowFixMe Unable to find "LoaderOptionsPlugin" in "webpack"
       new LoaderOptionsPlugin({
         debug: devServer,
         minimize: !devServer
@@ -212,7 +212,7 @@ const createConfig = (
       new MomentTimezoneDataPlugin({
         startYear: currentYear,
         endYear: currentYear + 2
-      })
+      }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       // new MomentLocalesPlugin({
       //   localesToKeep: translations.config.getSupportedLanguageTags(),
@@ -224,7 +224,7 @@ const createConfig = (
         {
           test: /\.tsx?$/,
           use: 'ts-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
         },
         // TODO IGAPP-607: Think about what to do with *.js
         // {
@@ -241,14 +241,14 @@ const createConfig = (
           use: [
             {
               loader: 'html-loader',
-              options: { minimize: true }
+              options: {minimize: true}
             }
           ]
         },
         {
           test: /\.css$/,
           include: /node_modules/,
-          loaders: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+          loaders: [{loader: 'style-loader'}, {loader: 'css-loader'}]
         },
         {
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -276,7 +276,7 @@ const createConfig = (
                   speed: 2
                 },
                 svgo: {
-                  plugins: [{ removeTitle: true }, { convertPathData: false }]
+                  plugins: [{removeTitle: true}, {convertPathData: false}]
                 }
               }
             }
@@ -292,7 +292,7 @@ const createConfig = (
 
   // Optimize the bundle in production mode
   if (!devServer && optimize) {
-    // config.plugins?.push(new optimize.AggressiveMergingPlugin())
+    config.plugins?.push(new optimize.AggressiveMergingPlugin())
   }
 
   return config

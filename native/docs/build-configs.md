@@ -45,14 +45,16 @@ Not doing this will lead to [this error](troubleshooting.md#no-build_config_name
 
 The concept and technical implementation of build configs is inspired by the library [react-native-config](https://github.com/luggit/react-native-config).
 
-The javascript and gradle build config utilities are reading the environment variable `BUILD_CONFIG_NAME` to select the right build config,
+The [prepare script](../tools/prepare.ts) and [gradle build config script](../android/app/buildConfigs.gradle)
+are reading the environment variable `BUILD_CONFIG_NAME` to select the right build config,
 whereas for XCode xcschemes are used as we don't have a bash command to build and install the app there.
 
 ### Javascript
 
-To make the selected build config available in the javascript code, the [buildConfig module](../build-configs/index.js)
-reads the environment variable and returns the corresponding javascript object.
-If the env is not set or not a valid name, an error is thrown.
+To make the selected build config available in the javascript code, we map the non-existing module `build-config-name`
+to the right name constant in the corresponding build config directory in the [build-configs workspace](../build-configs),
+e.g. [this file](../build-configs/integreat/build-config-name/index.ts) for Integreat.
+This is done with a proxy in the [metro config](../metro.config.js) in the `extraNodeModules` prop.
 
 To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
 
