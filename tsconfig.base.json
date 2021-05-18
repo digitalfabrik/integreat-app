@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "lib": ["ES5", "ES6"],
     "moduleResolution": "Node",
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "strict": true,

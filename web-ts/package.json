@@ -27,7 +27,8 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml && yarn run stylelint",
     "eslint:fix": "eslint . --fix",
     "eslint": "eslint .",
-    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\""
+    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
+    "ts:check": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
