@@ -27,7 +27,12 @@ export class LanguageFailure extends React.PureComponent<PropsType> {
       <>
         {title && <Caption title={title} />}
         <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-        <LanguageSelector isHeaderActionItem={false} pathname={pathname} languageCode={languageCode} languageChangePaths={languageChangePaths} />
+        <LanguageSelector
+          isHeaderActionItem={false}
+          pathname={pathname}
+          languageCode={languageCode}
+          languageChangePaths={languageChangePaths}
+        />
       </>
     )
   }
