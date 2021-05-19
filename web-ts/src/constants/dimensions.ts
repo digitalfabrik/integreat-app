@@ -1,10 +1,10 @@
 export type DimensionsType = {
-  smallViewport: string,
-  mediumViewport: string,
-  minMaxWidth: string,
-  maxWidth: number,
-  toolbarWidth: number,
-  headerHeightLarge: number,
+  smallViewport: string
+  mediumViewport: string
+  minMaxWidth: string
+  maxWidth: number
+  toolbarWidth: number
+  headerHeightLarge: number
   headerHeightSmall: number
 }
 
