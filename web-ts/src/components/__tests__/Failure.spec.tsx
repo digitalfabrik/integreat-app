@@ -1,26 +1,18 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-
+import { render } from '@testing-library/react'
 import { Failure } from '../Failure'
-import Link from '../../../../__mocks__/redux-first-router-link'
-
-jest.mock('redux-first-router-link')
 
 describe('Failure', () => {
   const mockTranslate = key => key
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
-    const component = shallow(<Failure errorMessage={errorMessage} t={mockTranslate} />)
+    const { getByText } = render(<Failure errorMessage={errorMessage} t={mockTranslate} />)
 
-    expect(component.instance().props).toEqual({
-      errorMessage: errorMessage,
-      t: mockTranslate,
-      ...Failure.defaultProps
-    })
-    expect(component.childAt(0).text()).toEqual(errorMessage)
-    expect(component.find(Link).prop('to')).toEqual(Failure.defaultProps.goToPath)
-    expect(component.find(Link).childAt(0).text()).toEqual(Failure.defaultProps.goToMessage)
+    const link = getByText(Failure.defaultProps.goToMessage)
+    // @ts-ignore TODO IGAPP-658
+    expect(link.closest('a')).toHaveAttribute('href', Failure.defaultProps.goToPath)
+    expect(getByText(errorMessage)).toBeTruthy()
   })
 
   it('should render a failure with goToPath and goToMessage and match snapshot', () => {
@@ -29,11 +21,11 @@ describe('Failure', () => {
       goToPath: 'goTo.offers',
       goToMessage: 'goTo.offers'
     }
-    const component = shallow(<Failure {...error} t={mockTranslate} />)
+    const { getByText } = render(<Failure {...error} t={mockTranslate} />)
 
-    expect(component.instance().props).toEqual({ ...error, t: mockTranslate })
-    expect(component.childAt(0).text()).toEqual(error.errorMessage)
-    expect(component.find(Link).prop('to')).toEqual(error.goToPath)
-    expect(component.find(Link).childAt(0).text()).toEqual(error.goToMessage)
+    const link = getByText(error.goToMessage)
+    // @ts-ignore TODO IGAPP-658
+    expect(link.closest('a')).toHaveAttribute('href', error.goToPath)
+    expect(getByText(error.errorMessage)).toBeTruthy()
   })
 })

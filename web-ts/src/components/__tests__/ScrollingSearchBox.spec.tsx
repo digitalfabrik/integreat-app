@@ -3,12 +3,13 @@ import { mount, shallow } from 'enzyme'
 import ScrollingSearchBox from '../ScrollingSearchBox'
 import SearchInput from '../SearchInput'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../theme/constants/theme'
 import Headroom from '@integreat-app/react-sticky-headroom'
+import buildConfig from '../../constants/buildConfig'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
   const onStickyTopChanged = () => {}
+  const theme = buildConfig().lightTheme
 
   it('should render', () => {
     const component = (
@@ -54,6 +55,7 @@ describe('ScrollingSearchBox', () => {
     ).find(ScrollingSearchBox)
 
     component.find(SearchInput).prop('onFilterTextChange')('test')
+    // @ts-ignore
     component.find(Headroom).prop('onStickyTopChanged')(5)
 
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
@@ -72,6 +74,7 @@ describe('ScrollingSearchBox', () => {
         </ScrollingSearchBox>
       </ThemeProvider>
     ).find(ScrollingSearchBox)
+    // @ts-ignore
     const node = component.instance()._node
     expect(node).toMatchSnapshot()
   })

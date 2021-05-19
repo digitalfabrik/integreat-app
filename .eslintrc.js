@@ -69,7 +69,8 @@ module.exports = {
             ignore: [-1, 0, 1, 2],
             ignoreArrayIndexes: true
           }
-        ]
+        ],
+        '@typescript-eslint/no-empty-function': 'warn'
       }
     },
     {
