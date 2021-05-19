@@ -1,8 +1,8 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import ConnectedSearchInput, { SearchInput } from '../SearchInput'
-import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import buildConfig from '../../constants/buildConfig'
 
 describe('SearchInput', () => {
   it('should render', () => {
@@ -29,7 +29,7 @@ describe('SearchInput', () => {
     const outerFilterTextChange = jest.fn()
     const onClickInput = jest.fn()
     const component = mount(
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <ConnectedSearchInput
           filterText='Test'
           placeholderText='Placeholder'

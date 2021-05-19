@@ -1,8 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-
 import Breadcrumbs from '../Breadcrumbs'
-import BreadcrumbModel from '../../BreadcrumbModel'
+import BreadcrumbModel from '../../models/BreadcrumbModel'
 
 describe('Breadcrumbs', () => {
   it('should render and match snapshot', () => {
