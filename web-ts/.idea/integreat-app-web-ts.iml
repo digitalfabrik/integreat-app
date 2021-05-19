@@ -14,10 +14,16 @@
       <excludeFolder url="file://$MODULE_DIR$/../translations/reports" />
       <excludeFolder url="file://$MODULE_DIR$/../dist" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/../web-ts" />
+      <excludeFolder url="file://$MODULE_DIR$/../native" />
       <excludeFolder url="file://$MODULE_DIR$/../build-configs/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../api-client/dist" />
       <excludeFolder url="file://$MODULE_DIR$/../translations/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../.idea/shelf" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/aschaffenburg/assets/.png-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/integreat/assets/intro-slides/.png-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/integreat/assets/.png-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/malte/assets/intro-slides/.png-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/malte/assets/.png-cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
