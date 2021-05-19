@@ -5,12 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "ES5",
-      "ES6"
-    ],
+    "lib": ["dom", "dom.iterable", "ES5", "ES6"],
     "noEmit": false,
     "outDir": "dist",
     "skipLibCheck": true,
@@ -18,10 +13,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
-  "include": [
-    "src/**/*",
-    "tools/*"
-  ],
+  "include": ["src/**/*", "tools/*"],
   "references": [
     {
       "path": "../translations"
