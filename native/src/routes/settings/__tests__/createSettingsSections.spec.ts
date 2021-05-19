@@ -5,7 +5,6 @@ import buildConfig from '../../../modules/app/constants/buildConfig'
 import { openSettings } from 'react-native-permissions'
 import { SettingsRouteType } from 'api-client'
 import {
-  pushNotificationsSupported,
   requestPushNotificationPermission,
   subscribeNews,
   unsubscribeNews
@@ -18,14 +17,12 @@ jest.mock('../../../modules/native-constants/NativeConstants', () => ({
 jest.mock('../../../modules/push-notifications/PushNotificationsManager', () => ({
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
-  unsubscribeNews: jest.fn(),
-  pushNotificationsSupported: jest.fn(() => true)
+  unsubscribeNews: jest.fn()
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 jest.mock('../../../modules/app/initSentry')
 
-const mockPushNotificationsSupported = (pushNotificationsSupported as unknown) as jest.Mock
 const mockRequestPushNotificationPermission = (requestPushNotificationPermission as unknown) as jest.Mock
 const mockUnsubscribeNews = (unsubscribeNews as unknown) as jest.Mock
 const mockSubscribeNews = (subscribeNews as unknown) as jest.Mock
@@ -79,6 +76,7 @@ describe('createSettingsSections', () => {
       expect(sections.find(it => it.title === 'privacyPolicy')).toBeTruthy()
       expect(sections.find(it => it.title === 'pushNewsTitle')).toBeFalsy()
     })
+
     it('should set correct setting on press', () => {
       mockBuildConfig(true)
       const sections = createSettings()
@@ -99,6 +97,7 @@ describe('createSettingsSections', () => {
       expect(pushNotificationSection.getSettingValue(settings)).toBeTruthy()
       expect(changedSettings2.allowPushNotifications).toBeFalsy()
     })
+
     it('should unsubscribe from push notification topic', async () => {
       mockBuildConfig(true)
       const sections = createSettings()
@@ -119,6 +118,7 @@ describe('createSettingsSections', () => {
         expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       }
     })
+
     it('should subscribe to push notification topic if permission is granted', async () => {
       mockBuildConfig(true)
       const sections = createSettings()
@@ -141,6 +141,7 @@ describe('createSettingsSections', () => {
         expect(mockUnsubscribeNews).not.toHaveBeenCalled()
       }
     })
+
     it('should open settings and throw if permissions not granted', async () => {
       mockBuildConfig(true)
       const sections = createSettings()
@@ -159,30 +160,6 @@ describe('createSettingsSections', () => {
         await expect(changeAction(newSettings)).rejects.toThrowError()
         expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
         expect(openSettings).toHaveBeenCalledTimes(1)
-        expect(mockSubscribeNews).not.toHaveBeenCalled()
-        expect(mockUnsubscribeNews).not.toHaveBeenCalled()
-      }
-    })
-    it('should show snackbar and throw error if play services are not available', async () => {
-      mockBuildConfig(true)
-      const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
-      // Initialize changeSetting and changeAction
-      pushNotificationSection?.onPress()
-      const newSettings = defaultSettings
-      newSettings.allowPushNotifications = true
-
-      if (!changeAction) {
-        expect(false).toBeTruthy()
-      } else {
-        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
-        expect(mockSubscribeNews).not.toHaveBeenCalled()
-        mockPushNotificationsSupported.mockImplementationOnce(() => false)
-        await expect(changeAction(newSettings)).rejects.toThrowError()
-        expect(showSnackbar).toHaveBeenCalledTimes(1)
-        expect(showSnackbar).toHaveBeenCalledWith('notSupportedByDevice')
-        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
-        expect(openSettings).not.toHaveBeenCalled()
         expect(mockSubscribeNews).not.toHaveBeenCalled()
         expect(mockUnsubscribeNews).not.toHaveBeenCalled()
       }

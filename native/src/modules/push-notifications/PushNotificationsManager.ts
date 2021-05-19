@@ -1,27 +1,26 @@
 import messaging from '@react-native-firebase/messaging'
-import { utils } from '@react-native-firebase/app'
 import buildConfig from '../app/constants/buildConfig'
 
-export const pushNotificationsSupported = (): boolean => {
-  return buildConfig().featureFlags.pushNotifications && utils().playServicesAvailability.isAvailable
+const pushNotificationsDisabled = (): boolean => {
+  return !buildConfig().featureFlags.pushNotifications
 }
 
 export const requestPushNotificationPermission = async (): Promise<boolean> => {
-  if (!pushNotificationsSupported()) {
+  if (pushNotificationsDisabled()) {
     console.debug('Push notifications disabled, no permissions requested.')
     return false
   }
 
   const authStatus = await messaging().requestPermission()
   console.debug('Authorization status:', authStatus)
-  // Firebase returns either 1 for granted or 0 for rejected permissions
+  // Firebase returns either 1 or 2 for granted or 0 for rejected permissions
   return authStatus !== 0
 }
 
 const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
 
 export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
-  if (!pushNotificationsSupported()) {
+  if (pushNotificationsDisabled()) {
     console.debug('Push notifications disabled, unsubscription skipped.')
     return
   }
@@ -37,7 +36,7 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   console.debug(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
-  if (!pushNotificationsSupported()) {
+  if (pushNotificationsDisabled()) {
     console.debug('Push notifications disabled, subscription skipped.')
     return
   }
