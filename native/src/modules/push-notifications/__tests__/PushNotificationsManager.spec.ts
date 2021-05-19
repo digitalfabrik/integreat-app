@@ -4,10 +4,6 @@ import messaging from '@react-native-firebase/messaging'
 
 jest.mock('@react-native-firebase/messaging', () => jest.fn())
 
-jest.mock('@react-native-firebase/app', () => ({
-  utils: jest.fn()
-}))
-
 describe('PushNotificationsManager', () => {
   const mockBuildConfig = (buildConfig as unknown) as jest.Mock
   const mockFirebaseMessaging = (messaging as unknown) as jest.Mock
