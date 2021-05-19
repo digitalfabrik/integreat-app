@@ -1,22 +1,19 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
+import React, { ReactNode } from 'react'
+import styled from 'styled-components'
 import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
-import type { ThemeType } from 'build-configs/ThemeType'
 
-const Link: StyledComponent<{||}, ThemeType, *> = styled(CleanLink)`
+const Link = styled(CleanLink)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const Anchor: StyledComponent<{||}, ThemeType, *> = styled(CleanAnchor)`
+const Anchor = styled(CleanAnchor)`
   display: flex;
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
+const Thumbnail = styled.img`
   width: 100px;
   height: 100px;
   flex-shrink: 0;
@@ -24,7 +21,7 @@ const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
   object-fit: contain;
 `
 
-export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
+export const Description = styled.div`
   display: flex;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
@@ -38,24 +35,24 @@ export const Description: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-const Title: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Title = styled.div`
   font-weight: 700;
 `
 
-type PropsType = {|
-  thumbnail?: string,
-  path: string,
-  title: string,
-  isExternalUrl: boolean,
-  children?: React.Node
-|}
+type PropsType = {
+  thumbnail?: string
+  path: string
+  title: string
+  isExternalUrl: boolean
+  children?: ReactNode
+}
 
 class ListItem extends React.PureComponent<PropsType> {
   static defaultProps = {
     isExternalUrl: false
   }
 
-  renderContent(): React.Node {
+  renderContent(): ReactNode {
     const { title, thumbnail, children } = this.props
 
     return (
@@ -75,7 +72,7 @@ class ListItem extends React.PureComponent<PropsType> {
     if (isExternalUrl) {
       return <Anchor href={path}>{this.renderContent()}</Anchor>
     }
-    return <Link to={path}>{this.renderContent()}</Link>
+    return <Link href={path}>{this.renderContent()}</Link>
   }
 }
 

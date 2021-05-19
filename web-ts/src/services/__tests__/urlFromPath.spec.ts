@@ -1,5 +1,3 @@
-// @flow
-
 import urlFromPath from '../urlFromPath'
 
 describe('urlFromPath', () => {

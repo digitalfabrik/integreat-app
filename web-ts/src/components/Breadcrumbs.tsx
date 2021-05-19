@@ -1,16 +1,13 @@
-// @flow
-
 import * as React from 'react'
 import type { UiDirectionType } from '../../i18n/types/UiDirectionType'
-import styled, { type StyledComponent } from 'styled-components'
+import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../BreadcrumbModel'
 import BreadcrumbsJsonLd from '../../json-ld/components/BreadcrumbsJsonLd'
-import type { ThemeType } from 'build-configs/ThemeType'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
-const Wrapper: StyledComponent<{| direction: UiDirectionType |}, ThemeType, *> = styled.div`
+const Wrapper = styled.div<{ direction: UiDirectionType }>`
   margin: 10px 0;
   text-align: end;
   white-space: nowrap;
@@ -18,7 +15,7 @@ const Wrapper: StyledComponent<{| direction: UiDirectionType |}, ThemeType, *> =
   direction: ${props => opposite(props.direction)};
 `
 
-const OrderedList: StyledComponent<{| direction: UiDirectionType |}, ThemeType, *> = styled.ol`
+const OrderedList = styled.ol<{ direction: UiDirectionType }>`
   direction: ${props => props.direction};
   display: inline-block;
   list-style: none;
@@ -32,11 +29,11 @@ const OrderedList: StyledComponent<{| direction: UiDirectionType |}, ThemeType, 
   }
 `
 
-type PropsType = {|
-  ancestorBreadcrumbs: Array<BreadcrumbModel>,
-  currentBreadcrumb: BreadcrumbModel,
+type PropsType = {
+  ancestorBreadcrumbs: Array<BreadcrumbModel>
+  currentBreadcrumb: BreadcrumbModel
   direction: UiDirectionType
-|}
+}
 
 /**
  * Displays breadcrumbs (Links) for lower category levels and outputs a corresponding JSON-LD for rich search experience

@@ -1,15 +1,10 @@
-// @flow
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { withTranslation, type TFunction } from 'react-i18next'
-import Link from 'redux-first-router-link'
-import styled, { type StyledComponent } from 'styled-components'
-import { faFrown } from '../../../modules/app/constants/icons'
-import I18nRedirectRouteConfig from '../../app/route-configs/I18nRedirectRouteConfig'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { withTranslation, TFunction } from 'react-i18next'
+import styled from 'styled-components'
+import { faFrown } from '../constants/icons'
 
-const Centered: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Centered = styled.div`
   & > * {
     display: block;
     margin-top: 50px;
@@ -17,12 +12,12 @@ const Centered: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-type PropsType = {|
-  errorMessage: string,
-  goToPath?: string,
-  goToMessage?: string,
+type PropsType = {
+  errorMessage: string
+  goToPath?: string
+  goToMessage?: string
   t: TFunction
-|}
+}
 
 /**
  * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
@@ -30,7 +25,9 @@ type PropsType = {|
 export class Failure extends React.PureComponent<PropsType> {
   static defaultProps = {
     goToMessage: 'goTo.start',
-    goToPath: new I18nRedirectRouteConfig().getRoutePath({})
+    // goToPath: new I18nRedirectRouteConfig().getRoutePath({})
+    // TODO use right default redirect path
+    goToPath: '/'
   }
 
   render() {
@@ -42,10 +39,12 @@ export class Failure extends React.PureComponent<PropsType> {
         <div>
           <FontAwesomeIcon icon={faFrown} size='5x' />
         </div>
-        {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
+        {/* TODO Use right react-navigation link */}
+        {/* {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>} */}
+        {goToPath && <a href={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</a>}
       </Centered>
     )
   }
 }
 
-export default withTranslation<PropsType>('error')(Failure)
+export default withTranslation('error')(Failure)

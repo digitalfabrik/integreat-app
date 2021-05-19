@@ -1,10 +1,7 @@
-// @flow
-
 import React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
 
-export const StyledButton: StyledComponent<{| disabled: boolean |}, ThemeType, *> = styled.button`
+export const StyledButton = styled.button<{ disabled: boolean }>`
   margin: 15px 0;
   padding: 5px;
   background-color: ${props => props.theme.colors.themeColor};
@@ -14,11 +11,11 @@ export const StyledButton: StyledComponent<{| disabled: boolean |}, ThemeType, *
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
 `
 
-type ButtonPropsType = {|
-  onClick: () => void,
-  text: string,
+type ButtonPropsType = {
+  onClick: () => void
+  text: string
   disabled?: boolean
-|}
+}
 
 class TextButton extends React.PureComponent<ButtonPropsType> {
   render() {

@@ -1,15 +1,11 @@
-// @flow
-
 import * as React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
-import styled, { css, type StyledComponent } from 'styled-components'
-import Link from 'redux-first-router-link'
+import styled, { css } from 'styled-components'
 import helpers from '../../theme/constants/helpers'
 import dimensions from '../../theme/constants/dimensions'
 import Tooltip from './Tooltip'
-import type { ThemeType } from 'build-configs/ThemeType'
 
-const Element: StyledComponent<{| $selected: boolean, $enabled: boolean |}, ThemeType, *> = styled.span`
+const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
@@ -42,14 +38,14 @@ const Element: StyledComponent<{| $selected: boolean, $enabled: boolean |}, Them
         }`}
 `
 
-const BoldSpacer: StyledComponent<{||}, ThemeType, *> = styled.div`
+const BoldSpacer = styled.div`
   font-weight: 700;
   height: 0;
   overflow: hidden;
   visibility: hidden;
 `
 
-const Wrapper: StyledComponent<{| vertical: boolean |}, ThemeType, *> = styled.div`
+const Wrapper = styled.div<{ vertical: boolean }>`
   display: flex;
   width: 100%;
   flex-flow: row wrap;
@@ -69,13 +65,13 @@ const Wrapper: StyledComponent<{| vertical: boolean |}, ThemeType, *> = styled.d
     `}
 `
 
-type PropsType = {|
-  verticalLayout: boolean,
-  closeDropDown?: () => void,
-  items: Array<SelectorItemModel>,
-  activeItemCode?: string,
+type PropsType = {
+  verticalLayout: boolean
+  closeDropDown?: () => void
+  items: Array<SelectorItemModel>
+  activeItemCode?: string
   disabledItemTooltip: string
-|}
+}
 
 /**
  * Displays a Selector showing different items
@@ -88,9 +84,10 @@ const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabl
           return (
             <Element
               key={item.code}
-              as={Link}
+              // TODO As link
+              // as={Link}
+              // to={item.href}
               onClick={closeDropDown}
-              to={item.href}
               $enabled={true}
               $selected={item.code === activeItemCode}>
               <BoldSpacer>{item.name}</BoldSpacer>

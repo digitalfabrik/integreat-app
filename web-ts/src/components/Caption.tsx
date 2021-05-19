@@ -1,11 +1,8 @@
-// @flow
-
 import React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
+import styled from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
-import type { ThemeType } from 'build-configs/ThemeType'
 
-const H1: StyledComponent<{||}, ThemeType, *> = styled.h1`
+const H1 = styled.h1`
   margin: 25px 0;
   font-size: 2rem;
   text-align: center;
@@ -15,10 +12,10 @@ const H1: StyledComponent<{||}, ThemeType, *> = styled.h1`
   }
 `
 
-type PropsType = {|
-  title: string,
+type PropsType = {
+  title: string
   className?: string
-|}
+}
 
 class Caption extends React.PureComponent<PropsType> {
   render() {
