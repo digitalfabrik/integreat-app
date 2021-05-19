@@ -1,11 +1,9 @@
-// @flow
-
-export type HelpersType = {|
+export type HelpersType = {
   removeLinkHighlighting: string
-|}
+}
 
-const helpers: HelpersType = {
+const themeHelpers: HelpersType = {
   removeLinkHighlighting: 'color: inherit; text-decoration: none;'
 }
 
-export default helpers
+export default themeHelpers

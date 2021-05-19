@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import helpers from '../../theme/constants/helpers'
+import themeHelpers from '../constants/themeHelpers'
 
 const ListItem = styled.li`
   display: inline;
 
   & * {
-    ${helpers.removeLinkHighlighting}
+    ${themeHelpers.removeLinkHighlighting}
     color: ${props => props.theme.colors.textSecondaryColor};
     font-size: 15px;
   }

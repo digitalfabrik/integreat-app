@@ -13,19 +13,21 @@ const ChooseLanguage = styled.p`
 type PropsType = {
   cities: Array<CityModel>
   cityCode: string
+  pathname: string
+  languageCode: string
   languageChangePaths: Array<{ code: string; path: string | null; name: string }>
   t: TFunction
 }
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render() {
-    const { t, cities, languageChangePaths, cityCode } = this.props
+    const { t, cities, languageChangePaths, cityCode, pathname, languageCode } = this.props
     const title = cities && CityModel.findCityName(cities, cityCode)
     return (
       <>
         {title && <Caption title={title} />}
         <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-        <LanguageSelector isHeaderActionItem={false} location={location} languageChangePaths={languageChangePaths} />
+        <LanguageSelector isHeaderActionItem={false} pathname={pathname} languageCode={languageCode} languageChangePaths={languageChangePaths} />
       </>
     )
   }
