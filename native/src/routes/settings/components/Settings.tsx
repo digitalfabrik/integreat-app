@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react'
 import { Dispatch } from 'redux'
 import { SectionList, StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
 import SettingItem from './SettingItem'
 import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
@@ -15,6 +14,7 @@ import { SettingsRouteType } from 'api-client/src/routes'
 import { StoreActionType } from '../../../modules/app/StoreActionType'
 import { useFocusEffect } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
+
 export type PropsType = {
   theme: ThemeType
   languageCode: string
@@ -28,6 +28,7 @@ export type PropsType = {
 type SectionType = SectionBase<SettingsSectionType> & {
   title: string | null | undefined
 }
+
 const ItemSeparator = styled.View`
   background-color: ${props => props.theme.colors.textDecorationColor};
   height: ${StyleSheet.hairlineWidth}px;
@@ -36,25 +37,21 @@ const SectionHeader = styled.Text`
   padding: 20px;
   color: ${props => props.theme.colors.textColor};
 `
+
 const appSettings = new AppSettings()
 
 const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
   const dispatch = useDispatch()
 
-  const loadSettings = useCallback(async () => {
-    try {
-      const settings = await appSettings.loadSettings()
-      setSettings(settings)
-    } catch (e) {
-      console.error('Failed to load settings.')
-    }
-  }, [])
-
-  useFocusEffect(() => {
-    // Reload settings if navigating back from another route
-    loadSettings()
-  })
+  useFocusEffect(
+    useCallback(() => {
+      appSettings
+        .loadSettings()
+        .then(settings => setSettings(settings))
+        .catch(e => console.error('Failed to load settings.', e))
+    }, [])
+  )
 
   const setSetting = async (
     changeSetting: (settings: SettingsType) => Partial<SettingsType>,
