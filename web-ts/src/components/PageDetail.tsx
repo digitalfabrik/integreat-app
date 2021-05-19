@@ -1,17 +1,14 @@
-// @flow
-
 import React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
 
-const Identifier: StyledComponent<{||}, ThemeType, *> = styled.span`
+const Identifier = styled.span`
   font-weight: 700;
 `
 
-type PropsType = {|
-  identifier: string,
+type PropsType = {
+  identifier: string
   information: string
-|}
+}
 
 class PageDetail extends React.PureComponent<PropsType> {
   render() {

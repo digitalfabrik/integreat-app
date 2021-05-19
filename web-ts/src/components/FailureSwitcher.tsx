@@ -1,19 +1,11 @@
-// @flow
-
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import { NotFoundError } from 'api-client'
 import Failure from './Failure'
-import CategoriesRouteConfig from '../../app/route-configs/CategoriesRouteConfig'
-import EventsRouteConfig from '../../app/route-configs/EventsRouteConfig'
-import OffersRouteConfig from '../../app/route-configs/OffersRouteConfig'
-import PoisRouteConfig from '../../app/route-configs/PoisRouteConfig'
-import LocalNewsRouteConfig from '../../app/route-configs/LocalNewsRouteConfig'
-import TunewsRouteConfig from '../../app/route-configs/TunewsRouteConfig'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
-type PropsType = {|
+type PropsType = {
   error: Error
-|}
+}
 
 export class FailureSwitcher extends React.Component<PropsType> {
   /**
@@ -21,13 +13,14 @@ export class FailureSwitcher extends React.Component<PropsType> {
    * @param error
    * @return {*}
    */
-  static renderContentNotFoundComponent(error: NotFoundError): React.Node {
+  static renderContentNotFoundComponent(error: NotFoundError): ReactNode {
     const { city, language } = error
     switch (error.type) {
       case 'category':
         return (
           <Failure
-            goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
+            // TODO use right redirect path
+            // goToPath={new CategoriesRouteConfig().getRoutePath({ city, language })}
             goToMessage='goTo.categories'
             errorMessage='notFound.category'
           />
@@ -35,7 +28,8 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case 'event':
         return (
           <Failure
-            goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
+            // TODO use right redirect path
+            // goToPath={new EventsRouteConfig().getRoutePath({ city, language })}
             goToMessage='goTo.events'
             errorMessage='notFound.event'
           />
@@ -43,7 +37,8 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case LOCAL_NEWS_TYPE:
         return (
           <Failure
-            goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
+            // TODO use right redirect path
+            // goToPath={new LocalNewsRouteConfig().getRoutePath({ city, language })}
             goToMessage='goTo.localNews'
             errorMessage='notFound.localNews'
           />
@@ -51,7 +46,8 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case TU_NEWS_TYPE:
         return (
           <Failure
-            goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
+            // TODO use right redirect path
+            // goToPath={new TunewsRouteConfig().getRoutePath({ city, language })}
             goToMessage='goTo.tunews'
             errorMessage='notFound.tunews'
           />
@@ -59,7 +55,8 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case 'offer':
         return (
           <Failure
-            goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
+            // TODO use right redirect path
+            // goToPath={new OffersRouteConfig().getRoutePath({ city, language })}
             goToMessage='goTo.offers'
             errorMessage='notFound.offer'
           />
@@ -67,7 +64,8 @@ export class FailureSwitcher extends React.Component<PropsType> {
       case 'poi':
         return (
           <Failure
-            goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
+            // TODO use right redirect path
+            // goToPath={new PoisRouteConfig().getRoutePath({ city, language })}
             goToMessage='goTo.pois'
             errorMessage='notFound.poi'
           />

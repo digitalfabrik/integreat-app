@@ -1,24 +1,21 @@
-// @flow
-
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import { isEmpty } from 'lodash'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
 
-const StyledList: StyledComponent<{||}, ThemeType, *> = styled.div`
+const StyledList = styled.div`
   border-top: 2px solid ${props => props.theme.colors.themeColor};
 `
 
-const NoItemsMessage: StyledComponent<{||}, ThemeType, *> = styled.div`
+const NoItemsMessage = styled.div`
   padding-top: 25px;
   text-align: center;
 `
 
-type PropsType<T> = {|
-  items: Array<T>,
-  noItemsMessage: string,
-  renderItem: T => React.Node
-|}
+type PropsType<T> = {
+  items: Array<T>
+  noItemsMessage: string
+  renderItem: (item: T) => ReactNode
+}
 
 class List<T> extends React.PureComponent<PropsType<T>> {
   render() {

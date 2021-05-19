@@ -1,11 +1,6 @@
-// @flow
-
-import * as React from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import dimensions from '../../theme/constants/dimensions'
-import type { StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
-import { useCallback, useEffect, useState } from 'react'
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
@@ -76,16 +71,12 @@ const pseudosMixin = (flow: FlowType, color: string) => css`
 const MAX_HEIGHT = 50
 const MAX_WIDTH = 300
 
-const TooltipContainer: StyledComponent<
-  {|
-    text: string,
-    flow: FlowType,
-    smallViewportFlow: FlowType,
-    mediumViewportFlow: FlowType
-  |},
-  ThemeType,
-  *
-> = styled.div`
+const TooltipContainer = styled.div<{
+  text: string
+  flow: FlowType
+  smallViewportFlow: FlowType
+  mediumViewportFlow: FlowType
+}>`
   position: relative;
 
   ::before,
@@ -157,29 +148,29 @@ const TooltipContainer: StyledComponent<
 `
 
 type PropsType = {
-  children: React.Node,
-  text: ?string,
-  flow: FlowType,
-  mediumViewportFlow?: FlowType,
-  smallViewportFlow?: FlowType,
-  className?: string,
-  ...
+  children: ReactNode
+  text: string | null
+  flow: FlowType
+  mediumViewportFlow?: FlowType
+  smallViewportFlow?: FlowType
+  className?: string
 }
 
-type ViewportDimensionsType = {|
-  width: number,
+type ViewportDimensionsType = {
+  width: number
   height: number
-|}
+}
 
 const getCenterY = (rect: ClientRect) => rect.top + rect.height / 2
 const getCenterX = (rect: ClientRect) => rect.left + rect.width / 2
 
-const spaceCheckers: {
-  [FlowType]: {|
-    fallbacks: FlowType[],
+const spaceCheckers: Record<
+  FlowType,
+  {
+    fallbacks: FlowType[]
     check: (element: ClientRect, dimensions: ViewportDimensionsType) => boolean
-  |}
-} = {
+  }
+> = {
   up: {
     fallbacks: ['down', 'left', 'right'],
     check: (rect: ClientRect, { width }) =>

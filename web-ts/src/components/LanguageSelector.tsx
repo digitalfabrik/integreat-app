@@ -1,27 +1,24 @@
-// @flow
-
 import React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
 import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
-import type { LocationState } from 'redux-first-router'
-import { withTranslation, type TFunction } from 'react-i18next'
-import type { LanguageChangePathsType } from '../../app/containers/Switcher'
+import { withTranslation, TFunction } from 'react-i18next'
 
-type PropsType = {|
-  location: LocationState,
-  isHeaderActionItem: boolean,
-  languageChangePaths: ?LanguageChangePathsType,
+type PropsType = {
+  pathname: string
+  languageCode: string
+  isHeaderActionItem: boolean
+  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   t: TFunction
-|}
+}
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
 export class LanguageSelector extends React.PureComponent<PropsType> {
   getSelectorItemModels(): Array<SelectorItemModel> {
-    const { languageChangePaths, location } = this.props
-    const activeItemCode = location.payload.language
+    const { languageChangePaths, languageCode, pathname } = this.props
+    const activeItemCode = languageCode
 
     if (!languageChangePaths) {
       return []
@@ -32,15 +29,15 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
       return new SelectorItemModel({
         code,
         name,
-        href: code !== activeItemCode ? path : location.pathname
+        href: code !== activeItemCode ? path : pathname
       })
     })
   }
 
   render() {
-    const { location, isHeaderActionItem, t } = this.props
+    const { isHeaderActionItem, languageCode, t } = this.props
     const selectorItems = this.getSelectorItemModels()
-    const activeItemCode = location.payload.language
+    const activeItemCode = languageCode
 
     if (isHeaderActionItem) {
       return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
@@ -59,4 +56,4 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation<PropsType>('layout')(LanguageSelector)
+export default withTranslation('layout')(LanguageSelector)

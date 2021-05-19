@@ -1,5 +1,3 @@
-// @flow
-
 import { FeaturedImageModel } from 'api-client'
 
 const ten = 10

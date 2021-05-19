@@ -1,5 +1,3 @@
-// @flow
-
 const textTruncator = (text: string, numOfWordsAllowed: number): string => {
   const ellipsis = '...'
   const words = text.replace('\n', '').split(' ')

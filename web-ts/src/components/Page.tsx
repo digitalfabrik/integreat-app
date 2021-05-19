@@ -1,17 +1,14 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
+import React, { ReactNode } from 'react'
+import styled from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
-import type Moment from 'moment'
+import { Moment } from 'moment'
 import LastUpdateInfo from './LastUpdateInfo'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import type { ThemeType } from 'build-configs/ThemeType'
 
 export const THUMBNAIL_WIDTH = 300
 
-const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
+const Thumbnail = styled.img`
   display: flex;
   width: ${THUMBNAIL_WIDTH}px;
   height: ${THUMBNAIL_WIDTH}px;
@@ -20,18 +17,18 @@ const Thumbnail: StyledComponent<{||}, ThemeType, *> = styled.img`
   object-fit: contain;
 `
 
-type PropsType = {|
-  title: string,
-  defaultThumbnailSrc?: string, // necessary for IE11 support
-  thumbnailSrcSet?: ?string,
-  content: string,
-  lastUpdate?: Moment,
-  showLastUpdateText?: boolean,
-  lastUpdateFormat?: string,
-  formatter: DateFormatter,
-  onInternalLinkClick: string => void,
-  children?: React.Node
-|}
+type PropsType = {
+  title: string
+  defaultThumbnailSrc?: string // necessary for IE11 support
+  thumbnailSrcSet?: string
+  content: string
+  lastUpdate?: Moment
+  showLastUpdateText?: boolean
+  lastUpdateFormat?: string
+  formatter: DateFormatter
+  onInternalLinkClick: (url: string) => void
+  children?: ReactNode
+}
 
 /**
  * Display a single page with all necessary information

@@ -1,36 +1,32 @@
-// @flow
-
-import type { Element } from 'react'
-import React from 'react'
-
+import React, { ReactNode } from 'react'
 import SearchInput from './SearchInput'
 import Headroom from '@integreat-app/react-sticky-headroom'
 
 const SEARCH_BAR_HEIGHT = 45
 
-type PropsType = {|
-  filterText: string,
-  onFilterTextChange: string => void,
-  spaceSearch: boolean,
-  children: Element<*>,
-  placeholderText: string,
-  onStickyTopChanged: number => void
-|}
+type PropsType = {
+  filterText: string
+  onFilterTextChange: (filterText: string) => void
+  spaceSearch: boolean
+  children: ReactNode
+  placeholderText: string
+  onStickyTopChanged: (stickyTop: number) => void
+}
 
-type StateType = {|
+type StateType = {
   initialized: boolean
-|}
+}
 
 export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
   static defaultProps = { spaceSearch: false }
-  _node: HTMLElement
+  _node: HTMLElement | null = null
 
-  constructor() {
-    super()
+  constructor(props: PropsType) {
+    super(props)
     this.state = { initialized: false }
   }
 
-  setReference = (node: ?HTMLElement) => {
+  setReference = (node: HTMLElement | null) => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {

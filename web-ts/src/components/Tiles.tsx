@@ -1,19 +1,16 @@
-// @flow
-
 import React from 'react'
-import Caption from '../../../modules/common/components/Caption'
+import Caption from './Caption'
 import Tile from './Tile'
 import { Row } from 'react-styled-flexboxgrid'
-import styled, { type StyledComponent } from 'styled-components'
+import styled from 'styled-components'
 import TileModel from '../models/TileModel'
-import type { ThemeType } from 'build-configs/ThemeType'
 
-type PropsType = {|
-  title: ?string,
+type PropsType = {
+  title: string | null
   tiles: Array<TileModel>
-|}
+}
 
-const TilesRow: StyledComponent<{||}, ThemeType, *> = styled(Row)`
+const TilesRow = styled(Row)`
   padding: 10px 0;
 `
 

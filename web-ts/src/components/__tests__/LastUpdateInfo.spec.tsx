@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { LastUpdateInfo } from '../LastUpdateInfo'
 import { shallow } from 'enzyme'

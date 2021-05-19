@@ -1,10 +1,8 @@
-// @flow
+import styled from 'styled-components'
 
-import styled, { type StyledComponent } from 'styled-components'
-import Link from 'redux-first-router-link'
-import type { ThemeType } from 'build-configs/ThemeType'
-
-const CleanLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
+// const CleanLink = styled(Link)`
+// TODO Use right react-navigation link
+const CleanLink = styled.a`
   color: inherit;
   text-decoration: none;
 `

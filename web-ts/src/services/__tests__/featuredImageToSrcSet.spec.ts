@@ -1,5 +1,3 @@
-// @flow
-
 import featuredImageToSrcSet from '../featuredImageToSrcSet'
 import { FeaturedImageModel } from 'api-client'
 

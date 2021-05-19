@@ -1,11 +1,8 @@
-// @flow
+import React, { RefObject } from 'react'
+import styled, { css } from 'styled-components'
+import buildConfig from '../constants/buildConfig'
 
-import React from 'react'
-import styled, { css, type StyledComponent } from 'styled-components'
-import buildConfig from '../../app/constants/buildConfig'
-import type { ThemeType } from 'build-configs/ThemeType'
-
-const SandBox: StyledComponent<{| centered: boolean |}, ThemeType, *> = styled.div`
+const SandBox = styled.div<{ centered: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
@@ -61,13 +58,13 @@ const SandBox: StyledComponent<{| centered: boolean |}, ThemeType, *> = styled.d
   }
 `
 
-type PropsType = {|
+type PropsType = {
   dangerouslySetInnerHTML: {
     __html: string
-  },
-  onInternalLinkClick: string => void,
+  }
+  onInternalLinkClick: (url: string) => void
   centered: boolean
-|}
+}
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
@@ -76,7 +73,7 @@ class RemoteContent extends React.Component<PropsType> {
     centered: false
   }
 
-  sandBoxRef: { current: null | React$ElementRef<*> }
+  sandBoxRef: RefObject<HTMLDivElement>
 
   handleClick = (event: MouseEvent) => {
     // https://stackoverflow.com/a/1000606
@@ -90,16 +87,16 @@ class RemoteContent extends React.Component<PropsType> {
     }
   }
 
-  constructor() {
-    super()
-    this.sandBoxRef = React.createRef<*>()
+  constructor(props: PropsType) {
+    super(props)
+    this.sandBoxRef = React.createRef<HTMLDivElement>()
   }
 
   hijackATags() {
     if (!this.sandBoxRef.current) {
       return
     }
-    const collection: HTMLCollection<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
+    const collection: HTMLCollectionOf<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
       if (HIJACK.test(node.href)) {
         node.addEventListener('click', this.handleClick)

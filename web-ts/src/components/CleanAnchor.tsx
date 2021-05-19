@@ -1,20 +1,17 @@
-// @flow
+import React, { ReactNode } from 'react'
+import styled from 'styled-components'
 
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
-
-const StyledAnchor: StyledComponent<{||}, ThemeType, *> = styled.a`
+const StyledAnchor = styled.a`
   color: inherit;
   text-decoration: none;
 `
 
-type PropsType = {|
-  href: string,
-  children: React.Node,
-  ariaLabel?: string,
+type PropsType = {
+  href: string
+  children: ReactNode
+  ariaLabel?: string
   className?: string
-|}
+}
 
 class CleanAnchor extends React.PureComponent<PropsType> {
   render() {

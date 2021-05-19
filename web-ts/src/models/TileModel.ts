@@ -1,19 +1,17 @@
-// @flow
-
 export default class TileModel {
   _title: string
   _path: string
   _thumbnail: string
   _isExternalUrl: boolean
-  _postData: ?Map<string, string>
+  _postData: Map<string, string> | null
 
-  constructor(params: {|
-    title: string,
-    path: string,
-    thumbnail: string,
-    isExternalUrl: boolean,
-    postData: ?Map<string, string>
-  |}) {
+  constructor(params: {
+    title: string
+    path: string
+    thumbnail: string
+    isExternalUrl: boolean
+    postData: Map<string, string> | null
+  }) {
     this._title = params.title
     this._path = params.path
     this._thumbnail = params.thumbnail
@@ -37,7 +35,7 @@ export default class TileModel {
     return this._isExternalUrl
   }
 
-  get postData(): ?Map<string, string> {
+  get postData(): Map<string, string> | null {
     return this._postData
   }
 }

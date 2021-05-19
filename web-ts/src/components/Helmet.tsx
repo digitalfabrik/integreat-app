@@ -1,20 +1,17 @@
-// @flow
-
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import { CityModel } from 'api-client'
 import { Helmet as ReactHelmet } from 'react-helmet'
-import type { LanguageChangePathsType } from '../../app/containers/Switcher'
-import buildConfig from '../../app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 
-type PropsType = {|
-  pageTitle: ?string,
-  metaDescription: ?string,
-  languageChangePaths: ?LanguageChangePathsType,
-  cityModel: ?CityModel
-|}
+type PropsType = {
+  pageTitle: string | null
+  metaDescription: string | null
+  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  cityModel: CityModel | null
+}
 
 class Helmet extends React.PureComponent<PropsType> {
-  getLanguageLinks(): React.Node {
+  getLanguageLinks(): ReactNode {
     const { languageChangePaths } = this.props
     if (!languageChangePaths) {
       return null
