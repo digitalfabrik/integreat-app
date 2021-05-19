@@ -1,7 +1,6 @@
 import React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Selector from '../components/Selector'
-import HeaderLanguageSelectorItem from '../../layout/components/HeaderLanguageSelectorItem'
 import { withTranslation, TFunction } from 'react-i18next'
 
 type PropsType = {
@@ -39,9 +38,10 @@ export class LanguageSelector extends React.PureComponent<PropsType> {
     const selectorItems = this.getSelectorItemModels()
     const activeItemCode = languageCode
 
-    if (isHeaderActionItem) {
-      return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
-    }
+    // TODO IGAPP-645: Uncomment
+    // if (isHeaderActionItem) {
+    //   return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
+    // }
 
     return (
       selectorItems && (

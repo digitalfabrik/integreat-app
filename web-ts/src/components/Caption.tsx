@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import dimensions from '../../theme/constants/dimensions'
+import dimensions from '../constants/dimensions'
 
 const H1 = styled.h1`
   margin: 25px 0;

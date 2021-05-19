@@ -1,6 +1,6 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactNode, ReactElement, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
-import dimensions from '../../theme/constants/dimensions'
+import dimensions from '../constants/dimensions'
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
@@ -226,7 +226,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
   }
 }
 
-export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: PropsType) => {
+export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: PropsType): ReactElement => {
   const [container, setContainer] = useState<Element | null>(null)
   const onRefSet = useCallback(
     ref => {
@@ -254,7 +254,7 @@ export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, .
   })
 
   if (!text) {
-    return children
+    return <>{children}</>
   }
 
   const fixedFlow = fixFlow(container, flow, dimensions)

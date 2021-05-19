@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Col } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
 import TileModel from '../models/TileModel'
@@ -65,7 +65,7 @@ const TileContainer = styled(Col)`
  * Displays a single Tile
  */
 class Tile extends React.PureComponent<PropsType> {
-  getTileContent(): React.Node {
+  getTileContent(): ReactNode {
     return (
       <>
         <ThumbnailSizer>
@@ -78,14 +78,14 @@ class Tile extends React.PureComponent<PropsType> {
     )
   }
 
-  getTile(): React.Node {
+  getTile(): ReactNode {
     const tile = this.props.tile
     if (!tile.isExternalUrl) {
-      return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
+      return <CleanLink href={tile.path}>{this.getTileContent()}</CleanLink>
     } else if (!tile.postData) {
       return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>
     } else {
-      const inputs = []
+      const inputs: ReactNode[] = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
       return (
         <form method='POST' action={tile.path}>
