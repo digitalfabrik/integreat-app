@@ -70,7 +70,7 @@ module.exports = {
             ignoreArrayIndexes: true
           }
         ],
-        '@typescript-eslint/no-empty-function': 'warn'
+        '@typescript-eslint/no-empty-function': 'off'
       }
     },
     {
