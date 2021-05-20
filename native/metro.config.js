@@ -7,7 +7,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const Resolver = require("metro-resolver")
+const Resolver = require('metro-resolver')
 
 module.exports = {
   // https://github.com/facebook/react-native/issues/21310#issuecomment-544071895
@@ -34,9 +34,10 @@ module.exports = {
     // https://github.com/facebook/react/issues/13991#issuecomment-830308729
     resolveRequest: (context, realModuleName, platform, moduleName) => {
       const clearContext = { ...context, resolveRequest: undefined }
-      const module = moduleName === "react" || moduleName === "react-native"
-        ? path.join(__dirname, "node_modules", realModuleName)
-        : realModuleName
+      const module =
+        moduleName === 'react' || moduleName === 'react-native'
+          ? path.join(__dirname, 'node_modules', realModuleName)
+          : realModuleName
       return Resolver.resolve(clearContext, module, platform)
     }
   },
