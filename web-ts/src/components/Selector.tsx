@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import themeHelpers from '../constants/themeHelpers'
 import dimensions from '../constants/dimensions'
 import Tooltip from './Tooltip'
+import { Link } from 'react-router-dom'
 
 const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
   ${themeHelpers.removeLinkHighlighting};
@@ -84,9 +85,8 @@ const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabl
           return (
             <Element
               key={item.code}
-              // TODO As link
-              // as={Link}
-              // to={item.href}
+              as={Link}
+              to={item.href}
               onClick={closeDropDown}
               $enabled={true}
               $selected={item.code === activeItemCode}>
