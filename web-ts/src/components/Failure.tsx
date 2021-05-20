@@ -3,6 +3,7 @@ import React from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
 import styled from 'styled-components'
 import { faFrown } from '../constants/icons'
+import { Link } from 'react-router-dom'
 
 const Centered = styled.div`
   & > * {
@@ -39,8 +40,7 @@ export class Failure extends React.PureComponent<PropsType> {
         <div>
           <FontAwesomeIcon icon={faFrown} size='5x' />
         </div>
-        {/* TODO Use right react-navigation link */}
-        {/* {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>} */}
+        {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
         {goToPath && <a href={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</a>}
       </Centered>
     )

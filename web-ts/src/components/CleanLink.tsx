@@ -1,8 +1,7 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-// const CleanLink = styled(Link)`
-// TODO Use right react-navigation link
-const CleanLink = styled.a`
+const CleanLink = styled(Link)`
   color: inherit;
   text-decoration: none;
 `

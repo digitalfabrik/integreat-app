@@ -81,7 +81,7 @@ class Tile extends React.PureComponent<PropsType> {
   getTile(): ReactNode {
     const tile = this.props.tile
     if (!tile.isExternalUrl) {
-      return <CleanLink href={tile.path}>{this.getTileContent()}</CleanLink>
+      return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
     } else if (!tile.postData) {
       return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>
     } else {

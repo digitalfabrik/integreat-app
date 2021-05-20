@@ -72,7 +72,7 @@ class ListItem extends React.PureComponent<PropsType> {
     if (isExternalUrl) {
       return <Anchor href={path}>{this.renderContent()}</Anchor>
     }
-    return <Link href={path}>{this.renderContent()}</Link>
+    return <Link to={path}>{this.renderContent()}</Link>
   }
 }
 
