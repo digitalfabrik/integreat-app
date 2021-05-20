@@ -1,6 +1,12 @@
 import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
-import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, PageModel } from 'api-client'
+import {
+  createDisclaimerEndpoint,
+  DISCLAIMER_ROUTE,
+  PageModel,
+  DisclaimerRouteType,
+  useLoadFromEndpoint
+} from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 import { StateType } from '../../modules/app/StateType'
 import withTheme from '../../modules/theme/hocs/withTheme'
@@ -14,10 +20,10 @@ import createNavigateToFeedbackModal from '../../modules/navigation/createNaviga
 import { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
 import LayoutedScrollView from '../../modules/common/containers/LayoutedScrollView'
 import navigateToLink from '../../modules/navigation/navigateToLink'
-import { DisclaimerRouteType } from 'api-client/src/routes'
 import createNavigate from '../../modules/navigation/createNavigate'
 import { fromError } from '../../modules/error/ErrorCodes'
-import { useLoadFromEndpoint } from '../../modules/endpoint/hooks/useLoadFromEndpoint'
+import determineApiUrl from '../../modules/endpoint/determineApiUrl'
+
 type OwnPropsType = {
   route: RoutePropType<DisclaimerRouteType>
   navigation: NavigationPropType<DisclaimerRouteType>
@@ -25,10 +31,6 @@ type OwnPropsType = {
 type StatePropsType = {
   resourceCacheUrl: string | null | undefined
 }
-type PropsType = OwnPropsType &
-  StatePropsType & {
-    dispatch: Dispatch<StoreActionType>
-  }
 
 const mapStateToProps = (state: StateType): StatePropsType => {
   return {
@@ -44,14 +46,13 @@ type DisclaimerPropsType = OwnPropsType & {
 
 const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispatch }: DisclaimerPropsType) => {
   const { cityCode, languageCode } = route.params
-  const request = useCallback(
-    async (apiUrl: string) =>
-      await createDisclaimerEndpoint(apiUrl).request({
-        city: cityCode,
-        language: languageCode
-      }),
-    [cityCode, languageCode]
-  )
+  const request = useCallback(async () => {
+    const apiUrl = await determineApiUrl()
+    return await createDisclaimerEndpoint(apiUrl).request({
+      city: cityCode,
+      language: languageCode
+    })
+  }, [cityCode, languageCode])
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
 
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
