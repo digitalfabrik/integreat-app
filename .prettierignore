@@ -7,6 +7,9 @@ e2e-tests/
 
 web/www/
 
+web-ts/dist/
+web-ts/www/
+
 native/android/**/*
 native/ios/**/*
 
