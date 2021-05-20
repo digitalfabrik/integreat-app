@@ -1,4 +1,3 @@
-import { stringifyFormData } from '../stringifyFormData'
 export type RequestOptionsType =
   | {
       method: 'GET'
@@ -42,7 +41,7 @@ class ResponseError extends Error {
     if (requestOptions.method === 'POST' && typeof requestOptions.body === 'string') {
       stringifiedFormData = ` and the body ${requestOptions.body}`
     } else if (requestOptions.method === 'POST') {
-      stringifiedFormData = ` and the formData ${stringifyFormData(requestOptions.body)}`
+      stringifiedFormData = ` and the formData ${JSON.stringify(requestOptions.body)}`
     }
 
     return `ResponseError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
