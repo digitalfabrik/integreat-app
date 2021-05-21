@@ -2,21 +2,22 @@ const settings: {
   language?: string;
 } = {
   language: undefined
-};
+}
 export default {
   type: 'languageDetector',
   async: false,
-  init: () => {},
-  detect: jest.fn<[], string[]>(() => {
-    const found: string[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  init: (): void => {},
+  detect: jest.fn<string[], []>(() => {
+    const found: string[] = []
 
     if (settings.language) {
-      found.push(settings.language);
+      found.push(settings.language)
     }
 
-    return [...found, 'en'];
+    return [...found, 'en']
   }),
-  cacheUserLanguage: (language: string) => {
-    settings.language = language;
+  cacheUserLanguage: (language: string): void => {
+    settings.language = language
   }
-};
+}
