@@ -1,5 +1,5 @@
 export const animateScroll: {
-  scrollTo: () => void;
+  scrollTo: () => void
 } = {
   scrollTo: jest.fn()
-};
+}
