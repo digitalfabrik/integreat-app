@@ -12,7 +12,7 @@ configure({
 global.fetch = require('jest-fetch-mock')
 // Setup config mock
 
-function walkDir(dir, callback) {
+function walkDir(dir: string, callback: (dir: string) => void) {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
     const isDirectory = fs.statSync(filePath).isDirectory()
