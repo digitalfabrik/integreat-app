@@ -1,6 +1,6 @@
 import wd from 'wd'
 import fetch from 'node-fetch'
-import childProcess from 'child_process'
+import * as childProcess from 'child_process'
 import * as serverConfigs from '../config/configs'
 import { clone } from 'lodash'
 

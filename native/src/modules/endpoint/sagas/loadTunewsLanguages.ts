@@ -1,16 +1,18 @@
-import { call, CallEffect } from 'redux-saga/effects'
+import { call } from 'redux-saga/effects'
 import { createTunewsLanguagesEndpoint, LanguageModel, Payload } from 'api-client'
 import { tunewsApiUrl } from '../constants'
+import { SagaIterator } from 'redux-saga'
 
-export default function* loadTunewsLanguages(
-  city: string
-): Generator<CallEffect, Array<LanguageModel> | null | undefined, Payload<LanguageModel[]>> {
+export default function* loadTunewsLanguages(city: string): SagaIterator<LanguageModel[]> {
   console.debug('Fetching tunews languages')
-  const payload = (yield call(() =>
+  const payload: Payload<LanguageModel[]> = yield call(() =>
     createTunewsLanguagesEndpoint(tunewsApiUrl).request({
       city
     })
-  )) as Payload<LanguageModel[]>
-  const languages: Array<LanguageModel> | null | undefined = payload.data
-  return languages
+  )
+
+  if (!payload.data) {
+    throw new Error('Tunews languages are not available.')
+  }
+  return payload.data
 }

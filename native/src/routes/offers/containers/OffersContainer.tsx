@@ -3,7 +3,14 @@ import { useSelector } from 'react-redux'
 import { RefreshControl } from 'react-native'
 import Offers from '../components/Offers'
 import { TFunction, withTranslation } from 'react-i18next'
-import { CityModel, createOffersEndpoint, NotFoundError, OfferModel, OFFERS_ROUTE } from 'api-client'
+import {
+  CityModel,
+  createOffersEndpoint,
+  NotFoundError,
+  OfferModel,
+  OFFERS_ROUTE,
+  useLoadFromEndpoint
+} from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 import withTheme from '../../../modules/theme/hocs/withTheme'
 import FailureContainer from '../../../modules/error/containers/FailureContainer'
@@ -13,9 +20,10 @@ import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrol
 import openExternalUrl from '../../../modules/common/openExternalUrl'
 import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
 import { fromError } from '../../../modules/error/ErrorCodes'
-import { useLoadFromEndpoint } from '../../../modules/endpoint/hooks/useLoadFromEndpoint'
 import TileModel from '../../../modules/common/models/TileModel'
 import { StateType } from '../../../modules/app/StateType'
+import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+
 type OwnPropsType = {
   route: RoutePropType<OffersRouteType>
   navigation: NavigationPropType<OffersRouteType>
@@ -30,14 +38,13 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const cities = useSelector<StateType, Readonly<Array<CityModel>> | null>((state: StateType) =>
     state.cities.status === 'ready' ? state.cities.models : null
   )
-  const request = useCallback(
-    async (apiUrl: string) =>
-      await createOffersEndpoint(apiUrl).request({
-        city: cityCode,
-        language: languageCode
-      }),
-    [cityCode, languageCode]
-  )
+  const request = useCallback(async () => {
+    const apiUrl = await determineApiUrl()
+    return await createOffersEndpoint(apiUrl).request({
+      city: cityCode,
+      language: languageCode
+    })
+  }, [cityCode, languageCode])
   const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
   const navigateToOffer = useCallback(
     (tile: TileModel) => {

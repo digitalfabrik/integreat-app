@@ -117,3 +117,6 @@ dist
 
 # png caches
 **/.png-cache
+
+# IntelliJ
+**/workspace.xml
