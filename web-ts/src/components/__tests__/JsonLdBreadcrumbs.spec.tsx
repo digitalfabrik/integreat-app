@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import JsonLdBreadcrumbs from '../BreadcrumbsJsonLd'
+import JsonLdBreadcrumbs from '../JsonLdBreadcrumbs'
 import BreadcrumbModel from 'web/src/modules/common/BreadcrumbModel'
 import { Helmet } from 'react-helmet'
 describe('BreadcrumbsJsonLd', () => {

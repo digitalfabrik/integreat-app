@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Helmet } from 'react-helmet'
-import JsonLdEvent from '../EventJsonLd'
+import JsonLdEvent from '../JsonLdEvent'
 import moment from 'moment'
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
