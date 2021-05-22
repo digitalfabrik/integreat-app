@@ -1,5 +1,5 @@
-import buildConfig from '../../app/constants/buildConfig'
-import type { ThemeType } from '../../app/constants/buildConfig'
+import buildConfig from './buildConfig'
+import type { ThemeType } from 'build-configs'
 
 export type HelpersType = {
   removeLinkHighlighting: string
@@ -30,6 +30,7 @@ export const dimensions: DimensionsType = {
 }
 
 export type { ThemeType }
+
 export const lightTheme: ThemeType = buildConfig().lightTheme
 export const darkTheme: ThemeType = buildConfig().darkTheme
 

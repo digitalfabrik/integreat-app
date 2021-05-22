@@ -1,23 +1,14 @@
-import * as React from "react";
-import { connect } from "react-redux";
-import { ThemeProvider } from "styled-components";
-import buildConfig from "../../app/constants/buildConfig";
+import * as React from 'react'
+import { ThemeProvider } from 'styled-components'
+import buildConfig from '../constants/buildConfig'
+import { ReactNode } from 'react'
+
 type PropsType = {
-  children: React.ReactNode;
-  darkMode: boolean;
-};
-
-class CustomThemeProvider extends React.Component<PropsType> {
-  render() {
-    return <ThemeProvider theme={this.props.darkMode ? buildConfig().darkTheme : buildConfig().lightTheme}>
-        {this.props.children}
-      </ThemeProvider>;
-  }
-
+  children: ReactNode
 }
 
-const mapStateToProps = state => ({
-  darkMode: state.darkMode
-});
+const CustomThemeProvider = ({ children }: PropsType) => (
+  <ThemeProvider theme={buildConfig().lightTheme}>{children}</ThemeProvider>
+)
 
-export default connect<any, any, any, any, any, any>(mapStateToProps)(CustomThemeProvider);
+export default CustomThemeProvider
