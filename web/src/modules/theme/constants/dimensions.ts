@@ -1,15 +1,12 @@
-// @flow
-
-export type DimensionsType = {|
-  smallViewport: string,
-  mediumViewport: string,
-  minMaxWidth: string,
-  maxWidth: number,
-  toolbarWidth: number,
-  headerHeightLarge: number,
-  headerHeightSmall: number
-|}
-
+export type DimensionsType = {
+  smallViewport: string;
+  mediumViewport: string;
+  minMaxWidth: string;
+  maxWidth: number;
+  toolbarWidth: number;
+  headerHeightLarge: number;
+  headerHeightSmall: number;
+};
 const dimensions: DimensionsType = {
   smallViewport: '(max-width: 750px)',
   mediumViewport: '(min-width: 750px) and (max-width: 1100px)',
@@ -18,6 +15,5 @@ const dimensions: DimensionsType = {
   toolbarWidth: 125,
   headerHeightLarge: 90,
   headerHeightSmall: 70
-}
-
-export default dimensions
+};
+export default dimensions;
