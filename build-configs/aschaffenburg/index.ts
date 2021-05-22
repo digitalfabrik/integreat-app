@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from './theme'
+import { lightTheme } from './theme'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -12,7 +12,6 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'Aschaffenburg App',
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
-  darkTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'aschaffenburg.app',

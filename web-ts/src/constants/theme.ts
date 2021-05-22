@@ -32,6 +32,5 @@ export const dimensions: DimensionsType = {
 export type { ThemeType }
 
 export const lightTheme: ThemeType = buildConfig().lightTheme
-export const darkTheme: ThemeType = buildConfig().darkTheme
 
 export default lightTheme
