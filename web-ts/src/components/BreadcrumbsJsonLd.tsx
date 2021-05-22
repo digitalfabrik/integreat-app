@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import BreadcrumbModel from '../../common/BreadcrumbModel'
+import BreadcrumbModel from 'web/src/modules/common/BreadcrumbModel'
 
 const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>) => {
   // https://developers.google.com/search/docs/data-types/breadcrumb
