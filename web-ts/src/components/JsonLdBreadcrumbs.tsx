@@ -20,7 +20,7 @@ type PropsType = {
   breadcrumbs: Array<BreadcrumbModel>
 }
 
-class BreadcrumbsJsonLd extends React.Component<PropsType> {
+class JsonLdBreadcrumbs extends React.Component<PropsType> {
   render() {
     return (
       <Helmet>
@@ -30,4 +30,4 @@ class BreadcrumbsJsonLd extends React.Component<PropsType> {
   }
 }
 
-export default BreadcrumbsJsonLd
+export default JsonLdBreadcrumbs
