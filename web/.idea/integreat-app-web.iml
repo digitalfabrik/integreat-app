@@ -12,6 +12,10 @@
       <excludeFolder url="file://$MODULE_DIR$/reports" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/../translations/reports" />
+      <excludeFolder url="file://$MODULE_DIR$/../dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../api-client/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../build-configs/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../translations/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

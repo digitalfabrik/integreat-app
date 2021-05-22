@@ -1,0 +1,6 @@
+issue_key: IGAPP-639
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Fixed some issues with enabling and disabling the push notifications.

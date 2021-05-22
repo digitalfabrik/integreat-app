@@ -55,6 +55,7 @@
     "htmlparser2": "^6.0.0",
     "i18next": "19.9.1",
     "lodash": "^4.17.19",
+    "metro-resolver": "^0.66.0",
     "moment": "2.29.1",
     "normalize-strings": "^1.1.0",
     "query-string": "^6.11.0",

@@ -23,8 +23,4 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jest-DefinitelyTyped" level="application" />
   </component>
-  <component name="RModuleSettingsStorage">
-    <LOAD_PATH number="0" />
-    <I18N_FOLDERS number="1" string0="$MODULE_DIR$/../locales" />
-  </component>
 </module>
