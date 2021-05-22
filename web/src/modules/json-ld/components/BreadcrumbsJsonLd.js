@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import BreadcrumbModel from '../../common/BreadcrumbModel'
@@ -18,9 +16,9 @@ const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>) => {
   }
 }
 
-type PropsType = {|
+type PropsType = {
   breadcrumbs: Array<BreadcrumbModel>
-|}
+}
 
 class BreadcrumbsJsonLd extends React.Component<PropsType> {
   render() {
