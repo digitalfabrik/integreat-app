@@ -58,7 +58,7 @@ type PropsType = {
   formatter: DateFormatter
 }
 
-const EventJsonLd = ({ event, formatter }: PropsType) => {
+const JsonLdEvent = ({ event, formatter }: PropsType) => {
   return (
     <Helmet>
       <script type='application/ld+json'>{JSON.stringify(createJsonLd(event, formatter))}</script>
@@ -66,4 +66,4 @@ const EventJsonLd = ({ event, formatter }: PropsType) => {
   )
 }
 
-export default EventJsonLd
+export default JsonLdEvent

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Helmet } from 'react-helmet'
-import EventJsonLd from '../EventJsonLd'
+import JsonLdEvent from '../EventJsonLd'
 import moment from 'moment'
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
@@ -56,7 +56,7 @@ describe('EventJsonLd', () => {
         }
       })
     })
-    const wrapper = shallow(<EventJsonLd event={eventModel} formatter={new DateFormatter('en')} />)
+    const wrapper = shallow(<JsonLdEvent event={eventModel} formatter={new DateFormatter('en')} />)
     const helmet = wrapper.find(Helmet)
     expect(
       helmet.children().matchesElement(
