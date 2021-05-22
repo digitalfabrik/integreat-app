@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 import BreadcrumbModel from 'web/src/modules/common/BreadcrumbModel'
+import { BreadcrumbList, WithContext } from 'schema-dts'
 
-const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>) => {
+const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<BreadcrumbList> => {
   // https://developers.google.com/search/docs/data-types/breadcrumb
   return {
     '@context': 'https://schema.org',
@@ -20,14 +21,10 @@ type PropsType = {
   breadcrumbs: Array<BreadcrumbModel>
 }
 
-class JsonLdBreadcrumbs extends React.Component<PropsType> {
-  render() {
-    return (
-      <Helmet>
-        <script type='application/ld+json'>{JSON.stringify(createJsonLd(this.props.breadcrumbs))}</script>
-      </Helmet>
-    )
-  }
-}
+const JsonLdBreadcrumbs = ({ breadcrumbs }: PropsType) => (
+  <Helmet>
+    <script type='application/ld+json'>{JSON.stringify(createJsonLd(breadcrumbs))}</script>
+  </Helmet>
+)
 
 export default JsonLdBreadcrumbs

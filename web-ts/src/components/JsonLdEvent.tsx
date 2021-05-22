@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 import { EventModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { Event, WithContext } from 'schema-dts'
 
-const createJsonLd = (event: EventModel, formatter: DateFormatter) => {
+const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> => {
   const date = event.date
   // https://developers.google.com/search/docs/data-types/event
-  const jsonLd: {
-    endDate?: string,
-    image?: string[]
-  } = {
+  const jsonLd: WithContext<Event> = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: event.title,
@@ -25,14 +23,14 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter) => {
     description: event.excerpt,
     location: {
       '@type': 'Place',
-      name: event.location.name,
+      name: event.location.name ?? 'Unknown Event',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: event.location.address,
-        addressLocality: event.location.town,
-        postalCode: event.location.postcode,
-        addressRegion: event.location.region,
-        addressCountry: event.location.country
+        streetAddress: event.location.address ?? 'Unknown',
+        addressLocality: event.location.town ?? 'Unknown',
+        postalCode: event.location.postcode ?? 'Unknow',
+        addressRegion: event.location.region ?? 'Unknown',
+        addressCountry: event.location.country ?? 'Unknown'
       }
     }
   }
@@ -54,16 +52,14 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter) => {
 }
 
 type PropsType = {
-  event: EventModel,
+  event: EventModel
   formatter: DateFormatter
 }
 
-const JsonLdEvent = ({ event, formatter }: PropsType) => {
-  return (
-    <Helmet>
-      <script type='application/ld+json'>{JSON.stringify(createJsonLd(event, formatter))}</script>
-    </Helmet>
-  )
-}
+const JsonLdEvent = ({ event, formatter }: PropsType) => (
+  <Helmet>
+    <script type='application/ld+json'>{JSON.stringify(createJsonLd(event, formatter))}</script>
+  </Helmet>
+)
 
 export default JsonLdEvent
