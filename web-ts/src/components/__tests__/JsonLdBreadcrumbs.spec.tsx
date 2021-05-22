@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import JsonLdBreadcrumbs from '../JsonLdBreadcrumbs'
-import BreadcrumbModel from 'web/src/modules/common/BreadcrumbModel'
+import JsonLdBreadcrumbs, { BreadcrumbModel } from '../JsonLdBreadcrumbs'
 import { Helmet } from 'react-helmet'
+
 describe('BreadcrumbsJsonLd', () => {
   it('should output valid json-ld', () => {
     const wrapper = shallow(

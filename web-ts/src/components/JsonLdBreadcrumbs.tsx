@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
-import BreadcrumbModel from 'web/src/modules/common/BreadcrumbModel'
 import { BreadcrumbList, WithContext } from 'schema-dts'
 
 const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<BreadcrumbList> => {
@@ -14,6 +13,35 @@ const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<Breadcru
       name: breadcrumb.title,
       item: breadcrumb.link
     }))
+  }
+}
+
+export class BreadcrumbModel {
+  _title: string
+  _node: ReactNode
+  _link: string
+
+  /**
+   * @param title: the title of the breadcrumb
+   * @param link: the URL linking to the item.
+   * @param node: the displayed node of the breadcrumb
+   */
+  constructor({ title, link, node }: { title: string; link: string; node: React.ReactNode }) {
+    this._title = title
+    this._link = link
+    this._node = node
+  }
+
+  get title(): string {
+    return this._title
+  }
+
+  get link(): string {
+    return this._link
+  }
+
+  get node(): React.ReactNode {
+    return this._node
   }
 }
 

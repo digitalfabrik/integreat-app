@@ -5,6 +5,7 @@ import JsonLdEvent from '../JsonLdEvent'
 import moment from 'moment'
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
 describe('EventJsonLd', () => {
   it('should output valid json-ld', () => {
     const dateModel = new DateModel({
