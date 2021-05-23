@@ -7,5 +7,3 @@ lib-dist/
 
 # Ignore node_modules
 **/node_modules/**
-# Ignore all reports of code quality tools
-**/reports/**

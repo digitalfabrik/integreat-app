@@ -7,7 +7,6 @@ import { generateKey } from '../../generateRouteKey'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
-import { pushNotificationsSupported } from '../../../push-notifications/PushNotificationsManager'
 
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
@@ -115,7 +114,6 @@ const cityCode = 'augsburg'
 const languageCode = 'de'
 const fetchCities = jest.fn()
 const fetchCategory = jest.fn()
-const mockPushNotificationsSupported = (pushNotificationsSupported as unknown) as jest.Mock
 
 const props = ({ routeKey, routeName }: { routeKey?: string; routeName: string | null }) => ({
   routeKey,
@@ -227,26 +225,6 @@ describe('Navigator', () => {
         </NavigationContainer>
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
-    })
-  })
-
-  it('should set allowPushNotifications to false if not supported by device', async () => {
-    mockPushNotificationsSupported.mockImplementationOnce(() => false)
-    await act(async () => {
-      const appSettings = new AppSettings()
-      await appSettings.setContentLanguage(languageCode)
-      const { findByText } = render(
-        <NavigationContainer>
-          <Navigator
-            {...props({
-              routeName: null
-            })}
-          />
-        </NavigationContainer>
-      )
-      await findByText('Intro')
-      const { allowPushNotifications } = await appSettings.loadSettings()
-      expect(allowPushNotifications).toBeFalsy()
     })
   })
 })
