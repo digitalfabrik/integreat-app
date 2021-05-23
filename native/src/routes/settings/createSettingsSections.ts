@@ -32,7 +32,9 @@ export type SettingsSectionType = {
 const volatileValues = {
   versionTaps: 0
 }
+
 const TRIGGER_VERSION_TAPS = 25
+
 type CreateSettingsSectionsPropsType = {
   setSetting: SetSettingFunctionType
   t: TFunction
@@ -49,8 +51,7 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
-  settings,
-  showSnackbar
+  settings
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
@@ -74,12 +75,6 @@ const createSettingsSections = ({
                       return
                     }
 
-                    if (!NotificationsManager.pushNotificationsSupported()) {
-                      showSnackbar('notSupportedByDevice')
-                      // Reset displayed setting in app
-                      throw new Error('Not supported by device')
-                    }
-
                     if (newSettings.allowPushNotifications) {
                       const status = await NotificationsManager.requestPushNotificationPermission()
 
@@ -92,10 +87,6 @@ const createSettingsSections = ({
                         throw new Error('No permission for Push Notifications')
                       }
                     } else {
-                      if (!NotificationsManager.pushNotificationsSupported()) {
-                        throw new Error('Not supported by device')
-                      }
-
                       await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
                   }
