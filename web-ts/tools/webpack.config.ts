@@ -1,19 +1,16 @@
-import {Configuration, DefinePlugin, LoaderOptionsPlugin, optimize} from "webpack";
-import {join, resolve} from 'path'
-import {CleanWebpackPlugin} from 'clean-webpack-plugin'
-import {readFileSync} from "fs";
-import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize } from 'webpack'
+import { join, resolve } from 'path'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import { readFileSync } from 'fs'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
+import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
+// import { config as translationsConfig } from 'translations'
 
-// TODO IGAPP-607: Add information from other packages
-// const loadBuildConfig = require('build-configs').default
-// const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-// const babelConfig = require('../babel.config.js')
-// const translations = require('translations')
-// const { WEB, ANDROID, IOS } = require('build-configs')
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
 const currentYear = new Date().getFullYear()
@@ -34,37 +31,35 @@ const readVersionName = () => {
 }
 
 const generateManifest = (content: Buffer, buildConfigName: string) => {
-  // TODO IGAPP-607: Generate Manifest dependand on buildConfig
-  // const manifest = JSON.parse(content.toString())
+  const manifest = JSON.parse(content.toString())
 
-  // const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
-  // const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
-  // const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
+  const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
+  const iOSBuildConfig = loadBuildConfig(buildConfigName, IOS)
+  const webBuildConfig = loadBuildConfig(buildConfigName, WEB)
 
-  // manifest.version = readVersionName()
-  // manifest.homepage_url = webBuildConfig.aboutUrls.default
-  // manifest.theme_color = webBuildConfig.lightTheme.colors.themeColor
-  // manifest.name = webBuildConfig.appName
-  // manifest.description = webBuildConfig.appDescription
-  // manifest.related_applications = [
-  //   {
-  //     platform: 'play',
-  //     id: androidBuildConfig.applicationId,
-  //     url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
-  //   },
-  //   {
-  //     platform: 'itunes',
-  //     url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
-  //   }
-  // ]
-  // manifest.short_name = manifest.name
-  // return JSON.stringify(manifest, null, 2)
-  return '{}'
+  manifest.version = readVersionName()
+  manifest.homepage_url = webBuildConfig.aboutUrls.default
+  manifest.theme_color = webBuildConfig.lightTheme.colors.themeColor
+  manifest.name = webBuildConfig.appName
+  manifest.description = webBuildConfig.appDescription
+  manifest.related_applications = [
+    {
+      platform: 'play',
+      id: androidBuildConfig.applicationId,
+      url: `https://play.google.com/store/apps/details?id=${androidBuildConfig.applicationId}`
+    },
+    {
+      platform: 'itunes',
+      url: `https://apps.apple.com/de/app/${iOSBuildConfig.itunesAppName}/id${iOSBuildConfig.appleId}`
+    }
+  ]
+  manifest.short_name = manifest.name
+  return JSON.stringify(manifest, null, 2)
 }
 
 const createConfig = (
   // eslint-disable-next-line camelcase
-  env: { config_name?: string, dev_server?: boolean, version_name?: string, commit_sha?: string } = {}
+  env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {}
 ) => {
   const {
     config_name: buildConfigName,
@@ -77,8 +72,7 @@ const createConfig = (
     throw new Error('Please specify a build config name')
   }
 
-  // TODO IGAPP-607: Load build config
-  // const buildConfig = loadBuildConfig(buildConfigName, WEB)
+  const buildConfig = loadBuildConfig(buildConfigName, WEB)
 
   // We have to override the env of the current process, such that babel-loader works with that.
   const NODE_ENV = devServer ? '"development"' : '"production"'
@@ -88,9 +82,7 @@ const createConfig = (
 
   // If version_name is not supplied read it from version file
   const versionName = passedVersionName || readVersionName()
-  // TODO IGAPP-607: Process commit sha
-  // const shortCommitSha = passedCommitSha.substring(0, SHORT_COMMIT_SHA_LENGTH) || 'Commit SHA unknown'
-  const shortCommitSha = 'Commit SHA unknown'
+  const shortCommitSha = passedCommitSha?.substring(0, SHORT_COMMIT_SHA_LENGTH) || 'Commit SHA unknown'
 
   console.log('Used config: ', buildConfigName)
   console.log('Configured as running in dev server: ', !devServer)
@@ -110,6 +102,7 @@ const createConfig = (
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
   const polyfills = ['whatwg-fetch', 'url-polyfill']
+  console.log(JSON.stringify(buildConfig))
 
   const config: Configuration = {
     mode: devServer ? 'development' : 'production',
@@ -168,19 +161,17 @@ const createConfig = (
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        // TODO IGAPP-607: Pass build config to index.ejs and set title correctly
-        // title: buildConfig.appName,
-        title: 'App Name',
+        title: buildConfig.appName,
         // Load a custom template (lodash by default)
         template: 'index.ejs',
-        // templateParameters: {
-        //   config: buildConfig
-        // }
+        templateParameters: {
+          config: buildConfig
+        }
       }),
       new CopyPlugin({
         patterns: [
-          {from: wwwDirectory, to: distDirectory},
-          {from: configAssets, to: distDirectory},
+          { from: wwwDirectory, to: distDirectory },
+          { from: configAssets, to: distDirectory },
           {
             from: manifestPreset,
             to: distDirectory,
@@ -195,7 +186,7 @@ const createConfig = (
         __VERSION_NAME__: JSON.stringify(versionName),
         __COMMIT_SHA__: JSON.stringify(shortCommitSha),
         __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
-        // __BUILD_CONFIG__: JSON.stringify(buildConfig)
+        __BUILD_CONFIG__: JSON.stringify(buildConfig)
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
@@ -214,17 +205,17 @@ const createConfig = (
         endYear: currentYear + 2
       }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
-      // new MomentLocalesPlugin({
-      //   localesToKeep: translations.config.getSupportedLanguageTags(),
-      //   ignoreInvalidLocales: true
-      // })
+      new MomentLocalesPlugin({
+        // localesToKeep: translationsConfig.getSupportedLanguageTags(),
+        ignoreInvalidLocales: true
+      })
     ],
     module: {
       rules: [
         {
           test: /\.tsx?$/,
           use: 'ts-loader',
-          exclude: /node_modules/,
+          exclude: /node_modules/
         },
         // TODO IGAPP-607: Think about what to do with *.js
         // {
@@ -241,14 +232,14 @@ const createConfig = (
           use: [
             {
               loader: 'html-loader',
-              options: {minimize: true}
+              options: { minimize: true }
             }
           ]
         },
         {
           test: /\.css$/,
           include: /node_modules/,
-          loaders: [{loader: 'style-loader'}, {loader: 'css-loader'}]
+          loaders: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
         },
         {
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
@@ -276,7 +267,7 @@ const createConfig = (
                   speed: 2
                 },
                 svgo: {
-                  plugins: [{removeTitle: true}, {convertPathData: false}]
+                  plugins: [{ removeTitle: true }, { convertPathData: false }]
                 }
               }
             }
@@ -298,4 +289,4 @@ const createConfig = (
   return config
 }
 
-module.exports = createConfig
+export default createConfig
