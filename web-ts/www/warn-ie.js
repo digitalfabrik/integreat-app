@@ -1,13 +1,6 @@
 /* eslint-disable no-magic-numbers */
 
 (function () {
-  // Get IE browser version
-  var version = detectIE()
-
-  if (version !== false && version < 11) {
-    alert('You are using a deprecated browser, that we don\'t support. Please upgrade your browser to view this site.')
-  }
-
   /**
    * detect IE
    * returns version of IE or false, if browser is not Internet Explorer
@@ -28,5 +21,12 @@
     }
     // other browser
     return false
+  }
+
+  // Get IE browser version
+  var version = detectIE()
+
+  if (version !== false && version < 11) {
+    alert('You are using a deprecated browser, that we don\'t support. Please upgrade your browser to view this site.')
   }
 })()
