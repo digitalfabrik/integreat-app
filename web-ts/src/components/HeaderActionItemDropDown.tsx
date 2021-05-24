@@ -1,14 +1,10 @@
-// @flow
-
-import * as React from 'react'
-import { useRef, useState } from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
+import React, { ReactNode, useRef, useState } from 'react'
+import styled from 'styled-components'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import dimensions from '../../theme/constants/dimensions'
-import Tooltip from '../../common/components/Tooltip'
+import dimensions from '..//constants/dimensions'
+import Tooltip from './Tooltip'
 
-export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
+export const Container = styled.div`
   width: calc(0.8 * ${dimensions.headerHeightLarge}px);
   height: calc(0.8 * ${dimensions.headerHeightLarge}px);
   box-sizing: border-box;
@@ -37,7 +33,7 @@ export const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-export const DropDownContainer: StyledComponent<{| active: boolean |}, ThemeType, *> = styled.div`
+export const DropDownContainer = styled.div<{ active: boolean }>`
   position: absolute;
   top: ${dimensions.headerHeightLarge}px;
   right: 0;
@@ -64,11 +60,11 @@ export const DropDownContainer: StyledComponent<{| active: boolean |}, ThemeType
   }
 `
 
-type PropsType = {|
-  children: (closeDropDown: () => void) => React.Element<*>,
+type PropsType = {
+  children: (closeDropDown: () => void) => ReactNode,
   iconSrc: string,
   text: string
-|}
+}
 
 /**
  * Designed to work as an item of a HeaderActionBar. Once clicked, the child node becomes visible right underneath the
@@ -98,10 +94,9 @@ const HeaderActionItemDropDown = (props: PropsType) => {
         </button>
       </Tooltip>
       <DropDownContainer
-        aria-label={dropDownActive}
         active={dropDownActive}
-        // We need to have th visibility here, else the jest-dom testing library can not assert on it
-        style={{ visibility: `${dropDownActive ? 'visible' : 'hidden'}` }}>
+        // We need to have the visibility here, else the jest-dom testing library can not assert on it
+        style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(closeDropDown)}
       </DropDownContainer>
     </Container>

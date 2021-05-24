@@ -1,9 +1,6 @@
-// @flow
+import styled from 'styled-components'
 
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
-
-const StyledSmallViewTip: StyledComponent<{||}, ThemeType, *> = styled.p`
+const StyledSmallViewTip = styled.p`
   display: block;
   font-size: 12px;
   font-weight: 700;

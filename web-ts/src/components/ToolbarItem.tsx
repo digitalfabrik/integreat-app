@@ -1,17 +1,16 @@
-// @flow
-
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 import StyledToolbarItem from './StyledToolbarItem'
 import StyledSmallViewTip from './StyledSmallViewTip'
-import Tooltip from '../../common/components/Tooltip'
+import Tooltip from './Tooltip'
 
-type PropsType = {|
+type PropsType = {
   href: string,
-  icon: {},
+  icon: IconDefinition,
   text: string,
   viewportSmall: boolean
-|}
+}
 
 const ToolbarItem = ({ href, text, icon, viewportSmall }: PropsType) => {
   return (

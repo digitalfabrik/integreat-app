@@ -1,47 +1,31 @@
-// @flow
-
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import Layout from '../components/Layout'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
-import CategoriesToolbar from '../../../routes/categories/containers/CategoriesToolbar'
 import { CategoriesMapModel, CityModel } from 'api-client'
-import type { LocationState } from 'redux-first-router'
-import FeedbackModal from '../../feedback/components/FeedbackModal'
-import LocationToolbar from '../components/LocationToolbar'
-import { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
-import { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
-import { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
-import { TUNEWS_ROUTE } from '../../app/route-configs/TunewsRouteConfig'
-import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
-import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
-import { DISCLAIMER_ROUTE } from '../../app/route-configs/DisclaimerRouteConfig'
-import { SEARCH_ROUTE } from '../../app/route-configs/SearchRouteConfig'
-import { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
-import { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
-import type { FeedbackTargetInformationType } from '../../app/route-configs/RouteConfig'
-import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 
 export type FeedbackRatingType = 'up' | 'down'
 
-type PropsType = {|
-  cities: ?Array<CityModel>,
-  categories: ?CategoriesMapModel,
+type PropsType = {
+  cities: Array<CityModel> | null,
+  categories: CategoriesMapModel | null,
   viewportSmall: boolean,
-  children?: React.Node,
-  location: LocationState,
+  children?: ReactNode,
   toggleDarkMode: () => void,
   darkMode: boolean,
-  feedbackTargetInformation: FeedbackTargetInformationType,
-  languageChangePaths: ?LanguageChangePathsType,
-  isLoading: boolean
-|}
+  feedbackTargetInformation: { path?: string, alias?: string } | null,
+  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  isLoading: boolean,
+  cityCode: string,
+  languageCode: string,
+  pathname: string
+}
 
-type LocalStateType = {|
+type LocalStateType = {
   asideStickyTop: number,
-  feedbackModalRating: ?FeedbackRatingType,
+  feedbackModalRating: FeedbackRatingType | null,
   footerClicked: number
-|}
+}
 
 const DARK_THEME_CLICK_COUNT = 5
 
@@ -59,66 +43,66 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     })
   }
 
-  getCurrentCity(): ?CityModel {
-    const { location, cities } = this.props
-    const city = location.payload.city
-
-    return cities && cities.find(_city => _city.code === city)
+  getCurrentCity(): CityModel | null {
+    const { cityCode, cities } = this.props
+    return cities?.find(_city => _city.code === cityCode) ?? null
   }
 
-  renderFeedbackModal = (): React.Node => {
-    if (!this.state.feedbackModalRating) {
-      return null
-    }
-
-    const { location, feedbackTargetInformation } = this.props
-    return (
-      <FeedbackModal
-        feedbackRating={this.state.feedbackModalRating}
-        closeFeedbackModal={this.closeFeedbackModal}
-        location={location}
-        {...feedbackTargetInformation}
-      />
-    )
-  }
+  // TODO IGAPP-642
+  // renderFeedbackModal = (): React.Node => {
+  //   if (!this.state.feedbackModalRating) {
+  //     return null
+  //   }
+  //
+  //   const { location, feedbackTargetInformation } = this.props
+  //   return (
+  //     <FeedbackModal
+  //       feedbackRating={this.state.feedbackModalRating}
+  //       closeFeedbackModal={this.closeFeedbackModal}
+  //       location={location}
+  //       {...feedbackTargetInformation}
+  //     />
+  //   )
+  // }
 
   openFeedbackModal = (rating: FeedbackRatingType) => this.setState({ feedbackModalRating: rating })
 
   closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
-  renderToolbar = (): React.Node => {
-    const { viewportSmall, location, categories } = this.props
-    const type = location.type
-    const feedbackRoutes = [
-      OFFERS_ROUTE,
-      EVENTS_ROUTE,
-      LOCAL_NEWS_ROUTE,
-      TUNEWS_ROUTE,
-      DISCLAIMER_ROUTE,
-      WOHNEN_ROUTE,
-      SPRUNGBRETT_ROUTE,
-      POIS_ROUTE
-    ]
-    if (type === CATEGORIES_ROUTE) {
-      return (
-        <CategoriesToolbar
-          categories={categories}
-          location={location}
-          openFeedbackModal={this.openFeedbackModal}
-          viewportSmall={viewportSmall}
-        />
-      )
-    } else if (feedbackRoutes.includes(type)) {
-      return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
-    } else {
-      return null
-    }
+  renderToolbar = (): ReactNode => {
+    // TODO Check right routes
+    // const { viewportSmall, categories } = this.props
+    // const type = location.type
+    // const feedbackRoutes = [
+    //   OFFERS_ROUTE,
+    //   EVENTS_ROUTE,
+    //   LOCAL_NEWS_ROUTE,
+    //   TUNEWS_ROUTE,
+    //   DISCLAIMER_ROUTE,
+    //   WOHNEN_ROUTE,
+    //   SPRUNGBRETT_ROUTE,
+    //   POIS_ROUTE
+    // ]
+    // if (type === CATEGORIES_ROUTE) {
+    //   return (
+    //     <CategoriesToolbar
+    //       categories={categories}
+    //       location={location}
+    //       openFeedbackModal={this.openFeedbackModal}
+    //       viewportSmall={viewportSmall}
+    //     />
+    //   )
+    // } else if (feedbackRoutes.includes(type)) {
+    //   return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
+    // } else {
+    //   return null
+    // }
+    return null
   }
 
   render() {
-    const { viewportSmall, children, location, darkMode, languageChangePaths, isLoading } = this.props
-    const type = location.type
-    const { city, language } = location.payload
+    const { viewportSmall, children, cityCode, languageCode, darkMode, languageChangePaths, isLoading } = this.props
+    const { pathname } = this.props
 
     const cityModel = this.getCurrentCity()
 
@@ -133,16 +117,17 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
           <LocationHeader
             cityModel={cityModel}
             languageChangePaths={languageChangePaths}
-            location={location}
             viewportSmall={viewportSmall}
             onStickyTopChanged={this.handleStickyTopChanged}
+            languageCode={languageCode}
+            pathname={pathname}
           />
         }
         footer={
-          !isLoading ? <LocationFooter onClick={this.handleFooterClicked} city={city} language={language} /> : null
+          !isLoading ? <LocationFooter onClick={this.handleFooterClicked} city={cityCode} language={languageCode} /> : null
         }
         toolbar={this.renderToolbar()}
-        modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
+        // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
         darkMode={darkMode}>
         {children}
       </Layout>

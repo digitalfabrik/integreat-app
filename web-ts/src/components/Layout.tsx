@@ -1,19 +1,14 @@
-// @flow
-
-import type { Node } from 'react'
-import React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import withPlatform from '../../platform/hocs/withPlatform'
-import dimensions from '../../theme/constants/dimensions'
-import type { ThemeType } from 'build-configs/ThemeType'
+import React, { ReactNode } from 'react'
+import styled from 'styled-components'
+import dimensions from '../constants/dimensions'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
-const FlexWrapper: StyledComponent<{||}, ThemeType, *> = styled.div`
+const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
+const RichLayout = styled.div`
   position: relative;
   display: flex;
   min-height: 100vh;
@@ -32,7 +27,7 @@ const RichLayout: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-const Body: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Body = styled.div`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -52,7 +47,7 @@ const Body: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-const Main: StyledComponent<{||}, ThemeType, *> = styled.main`
+const Main = styled.main`
   display: inline-block;
   width: ${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px;
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
@@ -74,8 +69,10 @@ const Main: StyledComponent<{||}, ThemeType, *> = styled.main`
   }
 `
 
-const Aside = withPlatform(styled.aside`
-  position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
+// TODO IGAPP-646
+// const Aside = withPlatform(styled.aside<{ platform: Platform }>`
+//   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
+const Aside = styled.aside`
   display: inline-block;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
@@ -98,17 +95,17 @@ const Aside = withPlatform(styled.aside`
     max-width: initial;
     margin-top: 0;
   }
-`)
+`
 
-type PropsType = {|
+type PropsType = {
   asideStickyTop: number,
-  footer?: Node,
-  header?: Node,
-  toolbar?: Node,
-  modal?: Node,
-  children?: Node,
+  footer?: ReactNode,
+  header?: ReactNode,
+  toolbar?: ReactNode,
+  modal?: ReactNode,
+  children?: ReactNode,
   darkMode?: boolean
-|}
+}
 
 /**
  * The standard Layout, used for any view in this app as a container.

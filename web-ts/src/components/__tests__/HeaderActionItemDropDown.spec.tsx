@@ -1,18 +1,17 @@
-// @flow
-
 import React from 'react'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 import { fireEvent, render, cleanup } from '@testing-library/react'
-import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
+import buildConfig from '../../constants/buildConfig'
 
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent
   let inner
   let outside
+  const theme = buildConfig().lightTheme
 
   beforeEach(() => {
-    const InnerComponent = (props: {| closeDropDown: () => void |}) => {
+    const InnerComponent = (props: { closeDropDown: () => void }) => {
       return <span onClick={props.closeDropDown}>Do you see me?</span>
     }
 

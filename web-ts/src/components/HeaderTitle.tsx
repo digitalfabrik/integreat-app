@@ -1,18 +1,15 @@
-// @flow
-
 import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
-import dimensions from '../../theme/constants/dimensions'
+import styled from 'styled-components'
+import dimensions from '../constants/dimensions'
 
-type PropsType = {|
-  children: ?string
-|}
+type PropsType = {
+  children: string | undefined
+}
 
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleDiv: StyledComponent<{| long: boolean |}, ThemeType, *> = styled.div`
+const HeaderTitleDiv = styled.div<{ long: boolean }>`
   display: flex;
   align-items: center;
   font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};

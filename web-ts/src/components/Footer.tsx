@@ -1,17 +1,13 @@
-// @flow
+import React, { ReactNode } from 'react'
+import styled from 'styled-components'
+import buildConfig from '../constants/buildConfig'
 
-import type { Node } from 'react'
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import buildConfig from '../../app/constants/buildConfig'
-import type { ThemeType } from 'build-configs/ThemeType'
-
-type PropsType = {|
-  children: Array<React.Node>,
+type PropsType = {
+  children: Array<ReactNode>,
   onClick?: () => void
-|}
+}
 
-const FooterContainer: StyledComponent<{||}, ThemeType, *> = styled.footer`
+const FooterContainer = styled.footer`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -38,7 +34,7 @@ const FooterContainer: StyledComponent<{||}, ThemeType, *> = styled.footer`
  * number if it's a dev build.
  */
 class Footer extends React.PureComponent<PropsType> {
-  static getVersion(): Node {
+  static getVersion(): ReactNode {
     if (buildConfig().featureFlags.developerFriendly) {
       return (
         <span>
