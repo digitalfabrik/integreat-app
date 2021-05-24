@@ -6,9 +6,9 @@ import StyledSmallViewTip from './StyledSmallViewTip'
 import Tooltip from './Tooltip'
 
 type PropsType = {
-  href: string,
-  icon: IconDefinition,
-  text: string,
+  href: string
+  icon: IconDefinition
+  text: string
   viewportSmall: boolean
 }
 

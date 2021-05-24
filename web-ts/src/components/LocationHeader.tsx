@@ -15,12 +15,12 @@ import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
-  cityModel: CityModel,
-  pathname: string,
-  languageCode: string,
-  viewportSmall: boolean,
-  t: TFunction,
-  onStickyTopChanged: (stickyTop: number) => void,
+  cityModel: CityModel
+  pathname: string
+  languageCode: string
+  viewportSmall: boolean
+  t: TFunction
+  onStickyTopChanged: (stickyTop: number) => void
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 

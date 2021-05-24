@@ -98,12 +98,12 @@ const Aside = styled.aside`
 `
 
 type PropsType = {
-  asideStickyTop: number,
-  footer?: ReactNode,
-  header?: ReactNode,
-  toolbar?: ReactNode,
-  modal?: ReactNode,
-  children?: ReactNode,
+  asideStickyTop: number
+  footer?: ReactNode
+  header?: ReactNode
+  toolbar?: ReactNode
+  modal?: ReactNode
+  children?: ReactNode
   darkMode?: boolean
 }
 

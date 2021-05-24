@@ -6,12 +6,12 @@ import HeaderLogo from './HeaderLogo'
 import dimensions from '../constants/dimensions'
 
 type PropsType = {
-  navigationItems: Array<ReactNode>,
-  actionItems: Array<ReactNode>,
-  logoHref: string,
-  viewportSmall: boolean,
-  cityName?: string,
-  onStickyTopChanged: (stickyTop: number) => void,
+  navigationItems: Array<ReactNode>
+  actionItems: Array<ReactNode>
+  logoHref: string
+  viewportSmall: boolean
+  cityName?: string
+  onStickyTopChanged: (stickyTop: number) => void
   // TODO IGAPP-646
   // platform: Platform
 }
@@ -118,7 +118,8 @@ export const Header = ({
       scrollHeight={scrollHeight}
       height={height}
       // TODO IGAPP-646
-      /* positionStickyDisabled={platform.positionStickyDisabled} */>
+      /* positionStickyDisabled={platform.positionStickyDisabled} */
+    >
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
           <HeaderLogo link={logoHref} />

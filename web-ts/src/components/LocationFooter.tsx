@@ -6,9 +6,9 @@ import CleanAnchor from './CleanAnchor'
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
-  city: string,
-  language: string,
-  onClick: () => void,
+  city: string
+  language: string
+  onClick: () => void
   t: TFunction
 }
 
@@ -24,9 +24,7 @@ export class LocationFooter extends React.PureComponent<PropsType> {
       <Footer onClick={onClick}>
         {/* TODO Use right path */}
         {/* <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}> */}
-        <CleanLink to='/'>
-          {t('imprintAndContact')}
-        </CleanLink>
+        <CleanLink to='/'>{t('imprintAndContact')}</CleanLink>
         <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
         <CleanAnchor href={privacyUrl}>{t('privacy')}</CleanAnchor>
       </Footer>

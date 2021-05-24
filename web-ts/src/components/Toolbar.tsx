@@ -36,9 +36,9 @@ const Headline = styled.h5`
 `
 
 type PropsType = {
-  className?: string,
-  children?: ReactNode,
-  viewportSmall: boolean,
+  className?: string
+  children?: ReactNode
+  viewportSmall: boolean
   t: TFunction
 }
 

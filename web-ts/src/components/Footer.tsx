@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
-  children: Array<ReactNode>,
+  children: Array<ReactNode>
   onClick?: () => void
 }
 

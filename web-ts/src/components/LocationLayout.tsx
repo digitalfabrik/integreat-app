@@ -7,23 +7,23 @@ import { CategoriesMapModel, CityModel } from 'api-client'
 export type FeedbackRatingType = 'up' | 'down'
 
 type PropsType = {
-  cities: Array<CityModel> | null,
-  categories: CategoriesMapModel | null,
-  viewportSmall: boolean,
-  children?: ReactNode,
-  toggleDarkMode: () => void,
-  darkMode: boolean,
-  feedbackTargetInformation: { path?: string, alias?: string } | null,
+  cities: Array<CityModel> | null
+  categories: CategoriesMapModel | null
+  viewportSmall: boolean
+  children?: ReactNode
+  toggleDarkMode: () => void
+  darkMode: boolean
+  feedbackTargetInformation: { path?: string; alias?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
-  isLoading: boolean,
-  cityCode: string,
-  languageCode: string,
+  isLoading: boolean
+  cityCode: string
+  languageCode: string
   pathname: string
 }
 
 type LocalStateType = {
-  asideStickyTop: number,
-  feedbackModalRating: FeedbackRatingType | null,
+  asideStickyTop: number
+  feedbackModalRating: FeedbackRatingType | null
   footerClicked: number
 }
 
@@ -124,7 +124,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
           />
         }
         footer={
-          !isLoading ? <LocationFooter onClick={this.handleFooterClicked} city={cityCode} language={languageCode} /> : null
+          !isLoading ? (
+            <LocationFooter onClick={this.handleFooterClicked} city={cityCode} language={languageCode} />
+          ) : null
         }
         toolbar={this.renderToolbar()}
         // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}

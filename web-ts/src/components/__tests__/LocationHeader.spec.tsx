@@ -7,7 +7,7 @@ import buildConfig from '../../constants/buildConfig'
 
 jest.mock('react-i18next')
 jest.mock('redux-first-router-link')
-jest.mock('../../components/HeaderNavigationItem', () => ({ text, active }: { text: string, active: boolean }) => (
+jest.mock('../../components/HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
 
