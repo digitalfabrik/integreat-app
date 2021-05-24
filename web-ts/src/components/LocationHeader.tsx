@@ -1,55 +1,38 @@
-// @flow
-
-import * as React from 'react'
-import { withTranslation, type TFunction } from 'react-i18next'
-import LanguageSelector from '../../common/containers/LanguageSelector'
+import React, { ReactNode } from 'react'
+import { withTranslation, TFunction } from 'react-i18next'
+import LanguageSelector from './LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
-import Header from '../../../modules/layout/components/Header'
+import Header from './Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
-import OffersRouteConfig, { OFFERS_ROUTE } from '../../app/route-configs/OffersRouteConfig'
-import CategoriesRouteConfig, { CATEGORIES_ROUTE } from '../../app/route-configs/CategoriesRouteConfig'
-import EventsRouteConfig, { EVENTS_ROUTE } from '../../app/route-configs/EventsRouteConfig'
-import LocalNewsRouteConfig, { LOCAL_NEWS_ROUTE } from '../../app/route-configs/LocalNewsRouteConfig'
-import { LOCAL_NEWS_DETAILS_ROUTE } from '../../app/route-configs/LocalNewsDetailsRouteConfig'
-import TunewsRouteConfig, { TUNEWS_ROUTE } from '../../app/route-configs/TunewsRouteConfig'
-import { TUNEWS_DETAILS_ROUTE } from '../../app/route-configs/TunewsDetailsRouteConfig'
-import SearchRouteConfig from '../../app/route-configs/SearchRouteConfig'
-import type { LocationState } from 'redux-first-router'
 import { CityModel } from 'api-client'
-import { WOHNEN_ROUTE } from '../../app/route-configs/WohnenRouteConfig'
-import { SPRUNGBRETT_ROUTE } from '../../app/route-configs/SprungbrettRouteConfig'
-import LandingRouteConfig from '../../app/route-configs/LandingRouteConfig'
-import type { LanguageChangePathsType } from '../../app/containers/Switcher'
 import offersIcon from '../assets/offers.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import eventsIcon from '../assets/events.svg'
 import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
-import PoisRouteConfig, { POIS_ROUTE } from '../../app/route-configs/PoisRouteConfig'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
-import buildConfig from '../../../modules/app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 
-const newsRoutes = [LOCAL_NEWS_ROUTE, TUNEWS_ROUTE, TUNEWS_DETAILS_ROUTE, LOCAL_NEWS_DETAILS_ROUTE]
-const offersRoutes = [OFFERS_ROUTE, WOHNEN_ROUTE, SPRUNGBRETT_ROUTE]
-
-type PropsType = {|
+type PropsType = {
   cityModel: CityModel,
-  location: LocationState,
+  pathname: string,
+  languageCode: string,
   viewportSmall: boolean,
   t: TFunction,
-  onStickyTopChanged: number => void,
-  languageChangePaths: ?LanguageChangePathsType
-|}
+  onStickyTopChanged: (stickyTop: number) => void,
+  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+}
 
 export class LocationHeader extends React.Component<PropsType> {
-  getActionItems(): Array<React.Node> {
-    const { location, languageChangePaths, t } = this.props
-    const { city, language } = location.payload
+  getActionItems(): Array<ReactNode> {
+    const { languageCode, pathname, languageChangePaths, t } = this.props
+
     return [
       <HeaderActionBarItemLink
         key='search'
-        href={new SearchRouteConfig().getRoutePath({ city, language })}
+        // TODO Use right path
+        // href={new SearchRouteConfig().getRoutePath({ city, language })}
         text={t('search')}
         iconSrc={searchIcon}
       />,
@@ -57,7 +40,8 @@ export class LocationHeader extends React.Component<PropsType> {
         ? [
             <HeaderActionBarItemLink
               key='location'
-              href={new LandingRouteConfig().getRoutePath({ language })}
+              // TODO Use right path
+              // href={new LandingRouteConfig().getRoutePath({ language })}
               text={t('changeLocation')}
               iconSrc={landingIcon}
             />
@@ -67,17 +51,15 @@ export class LocationHeader extends React.Component<PropsType> {
         key='language'
         languageChangePaths={languageChangePaths}
         isHeaderActionItem
-        location={location}
+        pathname={pathname}
+        languageCode={languageCode}
       />
     ]
   }
 
-  getNavigationItems(): Array<React.Node> {
-    const { t, cityModel, location } = this.props
+  getNavigationItems(): Array<ReactNode> {
+    const { t, cityModel } = this.props
     const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
-
-    const { city, language } = location.payload
-    const currentRoute = location.type
 
     const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
@@ -89,26 +71,33 @@ export class LocationHeader extends React.Component<PropsType> {
       return []
     }
 
-    const items: Array<React$Node> = [
+    const items: Array<ReactNode> = [
       <HeaderNavigationItem
         key='categories'
-        href={new CategoriesRouteConfig().getRoutePath({ city, language })}
-        active={currentRoute === CATEGORIES_ROUTE}
+        // TODO Use right path and check
+        // href={new CategoriesRouteConfig().getRoutePath({ city, language })}
+        // active={currentRoute === CATEGORIES_ROUTE}
+        href='/'
+        active={false}
         text={t('localInformation')}
         icon={localInformationIcon}
       />
     ]
 
     if (isNewsVisible) {
-      const newsUrl = pushNotificationsEnabled
-        ? new LocalNewsRouteConfig().getRoutePath({ city, language })
-        : new TunewsRouteConfig().getRoutePath({ city, language })
+      // TODO Use right path
+      // const newsUrl = pushNotificationsEnabled
+      //   ? new LocalNewsRouteConfig().getRoutePath({ city, language })
+      //   : new TunewsRouteConfig().getRoutePath({ city, language })
+      const newsUrl = '/'
 
       items.push(
         <HeaderNavigationItem
           key='news'
+          // TODO Use right path and check
+          active={false}
+          // active={newsRoutes.includes(currentRoute)}
           href={newsUrl}
-          active={newsRoutes.includes(currentRoute)}
           text={t('news')}
           icon={newsIcon}
         />
@@ -119,8 +108,11 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='events'
-          href={new EventsRouteConfig().getRoutePath({ city, language })}
-          active={currentRoute === EVENTS_ROUTE}
+          // TODO Use right path and check
+          href='/'
+          active={false}
+          // href={new EventsRouteConfig().getRoutePath({ city, language })}
+          // active={currentRoute === EVENTS_ROUTE}
           text={t('events')}
           icon={eventsIcon}
         />
@@ -131,8 +123,11 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='pois'
-          href={new PoisRouteConfig().getRoutePath({ city, language })}
-          active={currentRoute === POIS_ROUTE}
+          // TODO Use right path and check
+          href='/'
+          active={false}
+          // href={new PoisRouteConfig().getRoutePath({ city, language })}
+          // active={currentRoute === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
         />
@@ -143,8 +138,11 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='offers'
-          href={new OffersRouteConfig().getRoutePath({ city, language })}
-          active={offersRoutes.includes(currentRoute)}
+          // TODO Use right path and check
+          href='/'
+          active={false}
+          // href={new OffersRouteConfig().getRoutePath({ city, language })}
+          // active={offersRoutes.includes(currentRoute)}
           text={t('offers')}
           icon={offersIcon}
         />
@@ -155,13 +153,14 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 
   render() {
-    const { cityModel, location } = this.props
-    const { city, language } = location.payload
+    const { cityModel } = this.props
 
     return (
       <Header
         viewportSmall={this.props.viewportSmall}
-        logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
+        // TODO Use right path
+        // logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
+        logoHref='/'
         actionItems={this.getActionItems()}
         cityName={cityModel.name}
         navigationItems={this.getNavigationItems()}
@@ -171,4 +170,4 @@ export class LocationHeader extends React.Component<PropsType> {
   }
 }
 
-export default withTranslation<PropsType>('layout')(LocationHeader)
+export default withTranslation('layout')(LocationHeader)

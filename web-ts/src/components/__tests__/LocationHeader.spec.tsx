@@ -1,30 +1,19 @@
-// @flow
-
-import { render } from '@testing-library/react'
+import { render, Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
 import { CityModel } from 'api-client'
 import { LocationHeader } from '../LocationHeader'
-import { CATEGORIES_ROUTE } from '../../../app/route-configs/CategoriesRouteConfig'
-import { EVENTS_ROUTE } from '../../../app/route-configs/EventsRouteConfig'
-import { OFFERS_ROUTE } from '../../../app/route-configs/OffersRouteConfig'
-import { SPRUNGBRETT_ROUTE } from '../../../app/route-configs/SprungbrettRouteConfig'
-import createLocation from '../../../../createLocation'
-import { LOCAL_NEWS_ROUTE } from '../../../app/route-configs/LocalNewsRouteConfig'
-import theme from '../../../theme/constants/theme'
 import { ThemeProvider } from 'styled-components'
-import { LOCAL_NEWS_DETAILS_ROUTE } from '../../../app/route-configs/LocalNewsDetailsRouteConfig'
-import { TUNEWS_ROUTE } from '../../../app/route-configs/TunewsRouteConfig'
-import { TUNEWS_DETAILS_ROUTE } from '../../../app/route-configs/TunewsDetailsRouteConfig'
-import { POIS_ROUTE } from '../../../app/route-configs/PoisRouteConfig'
+import buildConfig from '../../constants/buildConfig'
 
 jest.mock('react-i18next')
 jest.mock('redux-first-router-link')
-jest.mock('../../components/HeaderNavigationItem', () => ({ text, active }: {| text: string, active: boolean |}) => (
+jest.mock('../../components/HeaderNavigationItem', () => ({ text, active }: { text: string, active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
 
 describe('LocationHeader', () => {
-  const t = (key: ?string): string => key || ''
+  const t = key => key
+  const theme = buildConfig().lightTheme
 
   const cityModel = (
     offersEnabled: boolean,
@@ -59,12 +48,12 @@ describe('LocationHeader', () => {
     { code: 'en', name: 'English', path: '/augsburg/en' }
   ]
 
-  const language = 'de'
-  const city = 'augsburg'
-  const location = route => createLocation({ type: route, payload: { city, language } })
+  const languageCode = 'de'
+  const cityCode = 'augsburg'
+  const pathname = '/augsburg/de/willkommen'
   const onStickyTopChanged = (value: number) => {}
 
-  type GetByTextType = (text: string, options?: {| exact: boolean |}) => boolean
+  type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
     if (shouldExist) {
       expect(getByText(text, { exact: false })).toBeTruthy()
@@ -93,7 +82,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(CATEGORIES_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(false, false, false, false, false)}
             languageChangePaths={languageChangePaths}
@@ -102,7 +92,6 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, false, false, false, false, false)
     })
 
@@ -110,7 +99,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(CATEGORIES_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(false, true, false, false, false)}
             languageChangePaths={languageChangePaths}
@@ -119,7 +109,6 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, false, true, false, false)
     })
 
@@ -127,7 +116,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(CATEGORIES_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(false, false, false, false, true)}
             languageChangePaths={languageChangePaths}
@@ -136,7 +126,6 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, false, false, false, true)
     })
 
@@ -144,7 +133,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(CATEGORIES_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -153,7 +143,6 @@ describe('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      // $FlowFixMe GetByTextType differs from flow type
       expectNavigationItems(getByText, true, true, true, true, true)
     })
 
@@ -161,7 +150,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(CATEGORIES_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -181,7 +171,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(LOCAL_NEWS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -201,7 +192,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(LOCAL_NEWS_DETAILS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -220,7 +212,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(TUNEWS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -240,7 +233,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(TUNEWS_DETAILS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -260,7 +254,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(EVENTS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -280,7 +275,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(OFFERS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -300,7 +296,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(SPRUNGBRETT_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -320,7 +317,8 @@ describe('LocationHeader', () => {
       const { getByText } = render(
         <ThemeProvider theme={theme}>
           <LocationHeader
-            location={location(POIS_ROUTE)}
+            languageCode={languageCode}
+            pathname={pathname}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}

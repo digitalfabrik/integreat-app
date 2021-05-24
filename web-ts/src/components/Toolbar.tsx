@@ -1,10 +1,7 @@
-// @flow
-
-import type { Node } from 'react'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { withTranslation, type TFunction } from 'react-i18next'
-import dimensions from '../../theme/constants/dimensions'
+import { withTranslation, TFunction } from 'react-i18next'
+import dimensions from '../constants/dimensions'
 
 const ToolbarContainer = styled.div`
   display: flex;
@@ -38,18 +35,18 @@ const Headline = styled.h5`
   font-size: 90%;
 `
 
-type PropsType = {|
+type PropsType = {
   className?: string,
-  children?: Node,
+  children?: ReactNode,
   viewportSmall: boolean,
   t: TFunction
-|}
+}
 
 class Toolbar extends React.PureComponent<PropsType> {
   render() {
     const { viewportSmall, t } = this.props
     return (
-      <ToolbarContainer className={this.props.className} viewportSmall={viewportSmall}>
+      <ToolbarContainer className={this.props.className}>
         {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
         {this.props.children}
       </ToolbarContainer>
@@ -57,4 +54,4 @@ class Toolbar extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation<PropsType>('feedback')(Toolbar)
+export default withTranslation('feedback')(Toolbar)

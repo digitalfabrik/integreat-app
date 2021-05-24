@@ -1,13 +1,10 @@
-// @flow
-
 import React from 'react'
-import Link from 'redux-first-router-link'
-import styled, { type StyledComponent } from 'styled-components'
-import dimensions from '../../theme/constants/dimensions'
-import type { ThemeType } from 'build-configs/ThemeType'
-import Tooltip from '../../common/components/Tooltip'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import dimensions from '../constants/dimensions'
+import Tooltip from './Tooltip'
 
-const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
+const StyledLink = styled(Link)`
   display: block;
 
   width: calc(0.8 * ${dimensions.headerHeightLarge}px);
@@ -27,14 +24,13 @@ const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   }
 `
 
-// $FlowFixMe withComponent exists
-const StyledSpan: StyledComponent<{||}, ThemeType, *> = StyledLink.withComponent('span')
+const StyledSpan = StyledLink.withComponent('span')
 
-type PropsType = {|
+type PropsType = {
   href?: string,
   text: string,
   iconSrc: string
-|}
+}
 
 /**
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like

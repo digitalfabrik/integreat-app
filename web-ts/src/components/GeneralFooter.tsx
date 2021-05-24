@@ -1,18 +1,14 @@
-// @flow
-
 import React from 'react'
-import { withTranslation, type TFunction } from 'react-i18next'
-
+import { withTranslation, TFunction } from 'react-i18next'
 import Footer from './Footer'
-import MainDisclaimerRouteConfig from '../../app/route-configs/MainDisclaimerRouteConfig'
-import CleanAnchor from '../../common/components/CleanAnchor'
-import CleanLink from '../../common/components/CleanLink'
-import buildConfig from '../../app/constants/buildConfig'
+import CleanAnchor from './CleanAnchor'
+import CleanLink from './CleanLink'
+import buildConfig from '../constants/buildConfig'
 
-type PropsType = {|
+type PropsType = {
   language: string,
   t: TFunction
-|}
+}
 
 class GeneralFooter extends React.PureComponent<PropsType> {
   render() {
@@ -24,7 +20,7 @@ class GeneralFooter extends React.PureComponent<PropsType> {
 
     return (
       <Footer>
-        <CleanLink to={new MainDisclaimerRouteConfig().getRoutePath()}>{t('imprintAndContact')}</CleanLink>
+        <CleanLink to='/disclaimer'>{t('imprintAndContact')}</CleanLink>
         <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
         <CleanAnchor href={privacyUrl}>{t('privacy')}</CleanAnchor>
       </Footer>
@@ -32,4 +28,4 @@ class GeneralFooter extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation<PropsType>(['layout', 'settings'])(GeneralFooter)
+export default withTranslation(['layout', 'settings'])(GeneralFooter)

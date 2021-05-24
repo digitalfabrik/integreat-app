@@ -1,11 +1,8 @@
-// @flow
-
 import React from 'react'
 import { shallow } from 'enzyme'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { Header } from '../Header'
 import Headroom from '@integreat-app/react-sticky-headroom'
-import Platform from '../../../platform/Platform'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 
 describe('Header', () => {
@@ -13,7 +10,7 @@ describe('Header', () => {
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
-        platform={new Platform()}
+        // platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' text='random route' iconSrc='/icon.jpg' />]}
         onStickyTopChanged={onStickyTopChanged}
@@ -27,7 +24,7 @@ describe('Header', () => {
   it('should match snapshot with largeViewport', () => {
     const component = shallow(
       <Header
-        platform={new Platform()}
+        // platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon' text='text' />]}
         onStickyTopChanged={onStickyTopChanged}
@@ -43,7 +40,7 @@ describe('Header', () => {
 
     const component = shallow(
       <Header
-        platform={new Platform()}
+        // platform={new Platform()}
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} href='/random_route' iconSrc='icon.jpg' text='text' />]}
         navigationItems={[<HeaderNavigationItem key={0} href='/another_route' text='text1' icon='icon' active />]}
@@ -52,7 +49,8 @@ describe('Header', () => {
       />
     )
 
-    component.find(Headroom).prop('onStickyTopChanged')(42)
+    const prop: (stickyTop: number) => void = component.find(Headroom).prop('onStickyTopChanged')
+    prop(42)
     expect(callback).toHaveBeenCalledWith(42)
   })
 })

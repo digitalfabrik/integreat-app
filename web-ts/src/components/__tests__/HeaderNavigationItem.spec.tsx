@@ -1,13 +1,10 @@
-// @flow
-
-import React from 'react'
+import React, { ReactNode } from 'react'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import { render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../theme/constants/theme'
-import type { Node } from 'react'
+import buildConfig from '../../constants/buildConfig'
 
-jest.mock('redux-first-router-link', () => ({ children, to }: { to: string, children: Array<Node>, ... }) => (
+jest.mock('redux-first-router-link', () => ({ children, to }: { to: string, children: Array<ReactNode> }) => (
   <a href={to}>{children}</a>
 ))
 
@@ -18,7 +15,7 @@ describe('HeaderNavigationItem', () => {
 
   it('should render an ActiveNavigationItem', () => {
     const { getByText } = render(
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <HeaderNavigationItem text={text} active href={href} icon='icon' />
       </ThemeProvider>
     )

@@ -1,20 +1,16 @@
-// @flow
-
 import React from 'react'
-import { withTranslation, type TFunction } from 'react-i18next'
-
+import { withTranslation, TFunction } from 'react-i18next'
 import Footer from './Footer'
-import DisclaimerRouteConfig from '../../app/route-configs/DisclaimerRouteConfig'
-import CleanLink from '../../common/components/CleanLink'
-import CleanAnchor from '../../common/components/CleanAnchor'
-import buildConfig from '../../app/constants/buildConfig'
+import CleanLink from './CleanLink'
+import CleanAnchor from './CleanAnchor'
+import buildConfig from '../constants/buildConfig'
 
-type PropsType = {|
+type PropsType = {
   city: string,
   language: string,
   onClick: () => void,
   t: TFunction
-|}
+}
 
 export class LocationFooter extends React.PureComponent<PropsType> {
   render() {
@@ -26,7 +22,9 @@ export class LocationFooter extends React.PureComponent<PropsType> {
 
     return (
       <Footer onClick={onClick}>
-        <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}>
+        {/* TODO Use right path */}
+        {/* <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}> */}
+        <CleanLink to='/'>
           {t('imprintAndContact')}
         </CleanLink>
         <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
@@ -36,4 +34,4 @@ export class LocationFooter extends React.PureComponent<PropsType> {
   }
 }
 
-export default withTranslation<PropsType>(['layout', 'settings'])(LocationFooter)
+export default withTranslation(['layout', 'settings'])(LocationFooter)

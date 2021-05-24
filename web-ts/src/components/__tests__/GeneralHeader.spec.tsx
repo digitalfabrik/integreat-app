@@ -1,5 +1,3 @@
-// @flow
-
 import { shallow } from 'enzyme'
 import React from 'react'
 import GeneralHeader from '../GeneralHeader'

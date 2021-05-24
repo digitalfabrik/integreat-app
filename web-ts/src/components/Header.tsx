@@ -1,26 +1,22 @@
-// @flow
-
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import Headroom from '@integreat-app/react-sticky-headroom'
-import styled, { type StyledComponent } from 'styled-components'
-import withPlatform from '../../platform/hocs/withPlatform'
-import Platform from '../../platform/Platform'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 import HeaderLogo from './HeaderLogo'
-import dimensions from '../../theme/constants/dimensions'
+import dimensions from '../constants/dimensions'
 
-type PropsType = {|
-  navigationItems: Array<React.Node>,
-  actionItems: Array<React.Node>,
+type PropsType = {
+  navigationItems: Array<ReactNode>,
+  actionItems: Array<ReactNode>,
   logoHref: string,
   viewportSmall: boolean,
   cityName?: string,
-  onStickyTopChanged: number => void,
-  platform: Platform
-|}
+  onStickyTopChanged: (stickyTop: number) => void,
+  // TODO IGAPP-646
+  // platform: Platform
+}
 
-const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -36,8 +32,8 @@ const HeaderContainer: StyledComponent<{||}, ThemeType, *> = styled.header`
   }
 `
 
-const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
-  display: flex;
+const Row = styled.div<{ hasTitle?: boolean }>`
+  display: flex
   flex: 1;
   max-width: 100%;
   align-items: stretch;
@@ -60,7 +56,7 @@ const Row: StyledComponent<{| hasTitle?: boolean |}, ThemeType, *> = styled.div`
   }
 `
 
-const HeaderSeparator: StyledComponent<{||}, ThemeType, *> = styled.div`
+const HeaderSeparator = styled.div`
   align-self: center;
   height: ${dimensions.headerHeightLarge / 2}px;
   width: 2px;
@@ -73,7 +69,7 @@ const HeaderSeparator: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-const ActionBar: StyledComponent<{||}, ThemeType, *> = styled.div`
+const ActionBar = styled.div`
   order: 3;
   display: flex;
   align-items: center;
@@ -85,7 +81,7 @@ const ActionBar: StyledComponent<{||}, ThemeType, *> = styled.div`
   }
 `
 
-const NavigationBar: StyledComponent<{||}, ThemeType, *> = styled.div`
+const NavigationBar = styled.div`
   display: flex;
   padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */
@@ -105,7 +101,8 @@ export const Header = ({
   actionItems = [],
   logoHref,
   navigationItems = [],
-  platform,
+  // TODO IGAPP-646
+  // platform,
   cityName
 }: PropsType) => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
@@ -120,7 +117,8 @@ export const Header = ({
       onStickyTopChanged={onStickyTopChanged}
       scrollHeight={scrollHeight}
       height={height}
-      positionStickyDisabled={platform.positionStickyDisabled}>
+      // TODO IGAPP-646
+      /* positionStickyDisabled={platform.positionStickyDisabled} */>
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
           <HeaderLogo link={logoHref} />
@@ -138,4 +136,6 @@ export const Header = ({
   )
 }
 
-export default withPlatform(Header)
+// TODO IGAPP-646
+// export default withPlatform(Header)
+export default Header

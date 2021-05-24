@@ -1,8 +1,5 @@
-// @flow
-
 import React from 'react'
 import { shallow } from 'enzyme'
-
 import LocationToolbar from '../LocationToolbar'
 
 jest.mock('react-i18next')

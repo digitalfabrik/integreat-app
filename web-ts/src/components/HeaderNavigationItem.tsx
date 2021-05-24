@@ -1,17 +1,14 @@
-// @flow
-
 import React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import Link from 'redux-first-router-link'
-import helpers from '../../theme/constants/helpers'
-import dimensions from '../../theme/constants/dimensions'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
+import helpers from '../constants/themeHelpers'
+import dimensions from '../constants/dimensions'
+import { Link } from 'react-router-dom'
 
-const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Container = styled.div`
   flex: 1 1 135px;
 `
 
-const StyledLink: StyledComponent<{||}, ThemeType, *> = styled(Link)`
+const StyledLink = styled(Link)<{ $active: boolean }>`
   ${helpers.removeLinkHighlighting};
   color: ${props => props.theme.colors.textSecondaryColor};
   font-size: 0.9em;
@@ -96,12 +93,12 @@ const Circle = styled.div`
   }
 `
 
-type PropsType = {|
+type PropsType = {
   text: string,
   href: string,
   active: boolean,
   icon: string
-|}
+}
 
 const HeaderNavigationItem = ({ active, text, href, icon }: PropsType) => (
   <Container>

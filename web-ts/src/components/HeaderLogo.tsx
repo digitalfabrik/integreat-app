@@ -1,18 +1,15 @@
-// @flow
-
-import * as React from 'react'
-import Link from 'redux-first-router-link'
-import styled, { type StyledComponent } from 'styled-components'
-import type { ThemeType } from 'build-configs/ThemeType'
-import dimensions from '../../theme/constants/dimensions'
+import React from 'react'
+import styled from 'styled-components'
+import dimensions from '../constants/dimensions'
 import moment from 'moment'
-import buildConfig from '../../app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
+import { Link } from 'react-router-dom'
 
-type PropsType = {|
+type PropsType = {
   link: string
-|}
+}
 
-const LogoContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
+const LogoContainer = styled.div`
   box-sizing: border-box;
   height: ${dimensions.headerHeightLarge}px;
   padding: 0 10px;

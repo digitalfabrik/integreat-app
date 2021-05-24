@@ -1,10 +1,8 @@
-// @flow
-
 import { useEffect } from 'react'
 
-const useOnClickOutside = (ref: {| current: ?HTMLElement |}, callback: () => void) => {
+const useOnClickOutside = (ref: { current: HTMLElement | null }, callback: () => void) => {
   useEffect(() => {
-    const isOutside = (target: EventTarget) => {
+    const isOutside = (target: EventTarget | null) => {
       return target instanceof Node && ref.current && !ref.current.contains(target)
     }
 

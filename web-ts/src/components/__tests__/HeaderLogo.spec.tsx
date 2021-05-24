@@ -1,12 +1,10 @@
-// @flow
-
-import React, { type Node } from 'react'
+import React, { ReactNode } from 'react'
 import { render } from '@testing-library/react'
 import HeaderLogo from '../HeaderLogo'
 import lolex from 'lolex'
-import buildConfig from '../../../app/constants/buildConfig'
+import buildConfig from '../../constants/buildConfig'
 
-jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
+jest.mock('redux-first-router-link', () => ({ children }: { children: Array<ReactNode> }) => <div>{children}</div>)
 
 describe('HeaderLogo', () => {
   const womensDayCampaign = {
@@ -29,8 +27,7 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    // eslint-disable-next-line flowtype/no-weak-types
-    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(config.icons.appLogo)
+    expect((getByAltText('IntegreatTestCms') as HTMLMediaElement).src).toContain(config.icons.appLogo)
   })
 
   it('should show the campaign logo if the current date is between start and end date', () => {
@@ -39,8 +36,7 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    // eslint-disable-next-line flowtype/no-weak-types
-    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(womensDayCampaign.campaignAppLogo)
+    expect((getByAltText('IntegreatTestCms') as HTMLMediaElement).src).toEqual(womensDayCampaign.campaignAppLogo)
   })
 
   it('should show the regular logo if the current date is before the start date', () => {
@@ -49,8 +45,7 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    // eslint-disable-next-line flowtype/no-weak-types
-    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(config.icons.appLogo)
+    expect((getByAltText('IntegreatTestCms') as HTMLMediaElement).src).toContain(config.icons.appLogo)
   })
 
   it('should show the regular logo if the current date is after the end date', () => {
@@ -59,6 +54,6 @@ describe('HeaderLogo', () => {
     config.icons.appLogo = '/my-regular-logo'
     const { getByAltText } = render(<HeaderLogo link='https://example.com' />)
 
-    expect(((getByAltText('IntegreatTestCms'): any): HTMLMediaElement).src).toContain(config.icons.appLogo)
+    expect((getByAltText('IntegreatTestCms') as HTMLMediaElement).src).toContain(config.icons.appLogo)
   })
 })
