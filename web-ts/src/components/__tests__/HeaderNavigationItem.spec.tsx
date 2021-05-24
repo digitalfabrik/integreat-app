@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 
-jest.mock('redux-first-router-link', () => ({ children, to }: { to: string, children: Array<ReactNode> }) => (
+jest.mock('redux-first-router-link', () => ({ children, to }: { to: string; children: Array<ReactNode> }) => (
   <a href={to}>{children}</a>
 ))
 

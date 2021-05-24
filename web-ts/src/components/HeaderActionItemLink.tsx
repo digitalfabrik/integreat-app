@@ -27,8 +27,8 @@ const StyledLink = styled(Link)`
 const StyledSpan = StyledLink.withComponent('span')
 
 type PropsType = {
-  href?: string,
-  text: string,
+  href?: string
+  text: string
   iconSrc: string
 }
 

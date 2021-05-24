@@ -61,8 +61,8 @@ export const DropDownContainer = styled.div<{ active: boolean }>`
 `
 
 type PropsType = {
-  children: (closeDropDown: () => void) => ReactNode,
-  iconSrc: string,
+  children: (closeDropDown: () => void) => ReactNode
+  iconSrc: string
   text: string
 }
 

@@ -6,7 +6,7 @@ import { withTranslation, TFunction } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
-  viewportSmall: boolean,
+  viewportSmall: boolean
   t: TFunction
 }
 

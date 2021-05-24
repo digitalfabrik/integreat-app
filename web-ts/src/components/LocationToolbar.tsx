@@ -3,8 +3,8 @@ import Toolbar from './Toolbar'
 import type { FeedbackRatingType } from './LocationLayout'
 
 type PropsType = {
-  openFeedbackModal: (rating: FeedbackRatingType) => void,
-  children?: ReactNode,
+  openFeedbackModal: (rating: FeedbackRatingType) => void
+  children?: ReactNode
   viewportSmall: boolean
 }
 

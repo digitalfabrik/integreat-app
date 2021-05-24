@@ -6,7 +6,7 @@ import CleanLink from './CleanLink'
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
-  language: string,
+  language: string
   t: TFunction
 }
 

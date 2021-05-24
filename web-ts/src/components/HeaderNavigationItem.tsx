@@ -94,9 +94,9 @@ const Circle = styled.div`
 `
 
 type PropsType = {
-  text: string,
-  href: string,
-  active: boolean,
+  text: string
+  href: string
+  active: boolean
   icon: string
 }
 

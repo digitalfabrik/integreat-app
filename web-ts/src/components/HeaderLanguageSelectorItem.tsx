@@ -7,8 +7,8 @@ import languageIcon from '../assets/language-icon.svg'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
 
 type PropsType = {
-  selectorItems: Array<SelectorItemModel>,
-  activeItemCode: string,
+  selectorItems: Array<SelectorItemModel>
+  activeItemCode: string
   t: TFunction
 }
 
