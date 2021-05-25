@@ -41,7 +41,6 @@ export class Failure extends React.PureComponent<PropsType> {
           <FontAwesomeIcon icon={faFrown} size='5x' />
         </div>
         {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
-        {goToPath && <a href={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</a>}
       </Centered>
     )
   }
