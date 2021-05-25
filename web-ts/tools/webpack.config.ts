@@ -9,7 +9,7 @@ import AssetsPlugin from 'assets-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
-// import { config as translationsConfig } from 'translations'
+import translationsConfig from 'translations/src/config'
 
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
@@ -102,7 +102,6 @@ const createConfig = (
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
   const polyfills = ['whatwg-fetch', 'url-polyfill']
-  console.log(JSON.stringify(buildConfig))
 
   const config: Configuration = {
     mode: devServer ? 'development' : 'production',
@@ -206,7 +205,7 @@ const createConfig = (
       }),
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({
-        // localesToKeep: translationsConfig.getSupportedLanguageTags(),
+        localesToKeep: translationsConfig.getSupportedLanguageTags(),
         ignoreInvalidLocales: true
       })
     ],

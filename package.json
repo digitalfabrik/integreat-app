@@ -5,7 +5,6 @@
   "workspaces": {
     "packages": [
       "native",
-      "native-2",
       "web",
       "web-ts",
       "e2e-tests",
