@@ -8,7 +8,7 @@ describe('Failure', () => {
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
-    const { getByText } = render(<Failure errorMessage={errorMessage} t={mockTranslate} />, { wrapper: MemoryRouter})
+    const { getByText } = render(<Failure errorMessage={errorMessage} t={mockTranslate} />, { wrapper: MemoryRouter })
 
     const link = getByText(Failure.defaultProps.goToMessage)
     // @ts-ignore TODO IGAPP-658
@@ -22,7 +22,7 @@ describe('Failure', () => {
       goToPath: '/goTo.offers',
       goToMessage: 'goTo.offers'
     }
-    const { getByText } = render(<Failure {...error} t={mockTranslate} />, { wrapper: MemoryRouter})
+    const { getByText } = render(<Failure {...error} t={mockTranslate} />, { wrapper: MemoryRouter })
 
     const link = getByText(error.goToMessage)
     // @ts-ignore TODO IGAPP-658
