@@ -29,12 +29,9 @@ describe('FailureSwitcher', () => {
 
     it('should call render content not found component and create a Failure component', () => {
       const error = new NotFoundError({ type, id, language, city })
-      const spy = jest.spyOn(FailureSwitcher, 'renderContentNotFoundComponent')
       const { findByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
-      expect(spy).toHaveBeenCalledWith(error)
-      expect(findByText(`notFound.${type}`)).toBeTruthy()
 
-      spy.mockRestore()
+      expect(findByText(`notFound.${type}`)).toBeTruthy()
     })
   })
 
