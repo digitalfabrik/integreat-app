@@ -2,7 +2,6 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { FailureSwitcher } from '../FailureSwitcher'
 import { NotFoundError } from 'api-client'
-import { Failure } from '../Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import { MemoryRouter } from 'react-router-dom'
 
@@ -42,7 +41,7 @@ describe('FailureSwitcher', () => {
   it('should render a failure as default', () => {
     const errorMessage = 'error message'
     const error = new Error(errorMessage)
-    const {findByText} = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter})
+    const { findByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
 
     expect(findByText(errorMessage)).toBeTruthy()
   })
