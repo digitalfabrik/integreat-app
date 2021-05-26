@@ -556,7 +556,6 @@ jobs:
             - image: circleci/node:14.9.0
         environment:
             TOTAL_CPUS: 1
-            TZ: Europe/Berlin
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -565,12 +564,25 @@ jobs:
             - check_config
             - restore_yarn_cache
             - lint:
+                directory: api-client
+            - lint:
+                directory: build-configs
+            - lint:
                 directory: web
             - lint:
-                directory: api-client
+                directory: translations
             - run:
-                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Check flow
+                command: yarn workspace api-client ts:check
+                name: TS check
+            - run:
+                command: yarn workspace translations ts:check
+                name: TS check
+            - run:
+                command: yarn workspace build-configs ts:check
+                name: TS check
+            - run:
+                command: yarn workspace web ts:check
+                name: TS check
             - unit_test:
                 directory: web
             - unit_test:
