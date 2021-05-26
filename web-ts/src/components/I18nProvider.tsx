@@ -9,16 +9,14 @@ import buildConfig from '../constants/buildConfig'
 import BrowserLanguageDetectorService from '../services/BrowserLanguageDetector'
 
 type PropsType = {
+  contentLanguage: string | undefined
   children: ReactNode
 }
 
-const I18nProvider = ({ children }: PropsType) => {
+const I18nProvider = ({ children, contentLanguage }: PropsType) => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
-  // TODO Use right content language
-  // const contentLanguage: string | null | undefined = useSelector((state: StateType) => state.location.payload.language)
-  const contentLanguage: string | null | undefined = 'de'
 
   useEffect(() => {
     const initI18Next = async () => {
