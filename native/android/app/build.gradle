@@ -80,6 +80,7 @@ import com.android.build.OutputFile
 project.ext.react = [
         extraPackagerArgs: (System.getenv('EXTRA_PACKAGER_ARGS') ?: "").split("\\s+"),
         enableHermes: true,  // clean and rebuild if changing
+        entryFile: "index.ts",
 ]
 
 project.ext.vectoricons = [

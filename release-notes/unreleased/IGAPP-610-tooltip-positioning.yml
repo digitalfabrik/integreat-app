@@ -1,0 +1,6 @@
+issue_key: IGAPP-610
+show_in_stores: true
+platforms: 
+  - web
+en: Improved the positioning of tooltips.
+de: Tooltips werden nun besser plaziert.

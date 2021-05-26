@@ -7,7 +7,7 @@ We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/re
 ## Code style
 
 We use [prettier](https://prettier.io) to format code. Run `yarn workspace <workspace> prettier --check .` to show formatting problems or `yarn workspace <workspace> prettier --write .` to fix them.
-We use [eslint](http://eslint.org/) for JavaScript linting. Run `yarn lint` to show linting problems.
+We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript linting. Run `yarn lint` to show linting problems.
 
 ## Git commit messages and Pull request names
 

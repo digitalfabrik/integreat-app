@@ -38,9 +38,6 @@ _Note: In order to work with the project in XCode, always open `ios/Integreat.xc
 
 - Run > Edit Configurations > Defaults > Jest:
   - Set _Configuration file_ to _jest.config.json_
-- Settings > Languages & Frameworks > JavaScript:
-  - Choose _Flow_ as Language version
-  - Set _Flow package or executable_ to _<project_dir>/node_modules/flow-bin_
 - [optional] Associate the _\*.snap_ files with the file type _JavaScript_
 - [optional] Install the following plugins:
   - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)

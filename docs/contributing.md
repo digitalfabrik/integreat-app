@@ -21,7 +21,7 @@ Pull requests should always belong to an [issue in our issue tracker](#bug-repor
 
 To merge a pull request, it has to match our Definition of Done. It includes among others:
 
-- All checks (linting, flow, unit and e2e tests, ...) have to pass.
+- All checks (linting, unit and e2e tests, ...) have to pass.
 - No changes are requested.
 - Two approvals are needed.
 - New and changed functionality should be tested sufficiently, both manual and by writing unit tests.

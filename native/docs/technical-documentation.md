@@ -23,11 +23,6 @@
 
 [React](https://facebook.github.io/react/) is used as frontend framework.
 
-### JavaScript compiler
-
-[Babel](https://babeljs.io/) is used to make the app available to a broader audience while
-allowing the developers to use many new language features. We use flow for type safety.
-
 ### Application state
 
 [Redux](http://redux.js.org/) is used for the global application state.
@@ -41,7 +36,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 The app supports opening deep links in the app. To test deep links manually, you can:
 
 - Click on the link you want to test in any other app of your choice
-- Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios).
+- Use [url-scheme](https://www.npmjs.com/package/uri-scheme) as mentioned [here](https://reactnavigation.org/docs/deep-linking/#test-deep-linking-on-ios), e.g. `npx uri-scheme open https://integreat.app/testumgebung/de/events --android `
 
 ## Code Quality
 
@@ -53,15 +48,9 @@ Run `yarn workspace <workspace> prettier --check .` to show formatting problems 
 ### Linting
 
 Linting is responsible to embrace best practice coding style.
-We use [eslint](http://eslint.org/) for JavaScript.
+We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript.
 
 You can run the linter by calling `yarn lint`.
-
-### Type Checking
-
-We use [Flow](https://flow.org/) for static type checking.
-
-You can run flow using `yarn flow`.
 
 ## Backend
 

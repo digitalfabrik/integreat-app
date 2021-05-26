@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-test-cms, aschaffenburg]
     default: integreat
 docker:
-  - image: circleci/node:12.16.3
+  - image: circleci/node:14.9.0
 resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small

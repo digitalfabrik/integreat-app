@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="All api-client unit tests" type="JavaScriptTestRunnerJest">
-    <config-file value="$PROJECT_DIR$/../api-client/jest.config.js" />
+    <config-file value="$PROJECT_DIR$/../api-client/jest.config.ts" />
     <node-interpreter value="project" />
     <node-options value="" />
     <jest-package value="$PROJECT_DIR$/node_modules/jest" />
