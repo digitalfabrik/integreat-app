@@ -1,12 +1,11 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render } from '@testing-library/react'
 import { FailureSwitcher } from '../FailureSwitcher'
 import { NotFoundError } from 'api-client'
-import { Failure } from '../Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import { MemoryRouter } from 'react-router-dom'
 
 jest.mock('react-i18next')
-jest.mock('redux-first-router-link')
 
 describe('FailureSwitcher', () => {
   const city = 'augsburg'
@@ -30,20 +29,17 @@ describe('FailureSwitcher', () => {
 
     it('should call render content not found component and create a Failure component', () => {
       const error = new NotFoundError({ type, id, language, city })
-      const spy = jest.spyOn(FailureSwitcher, 'renderContentNotFoundComponent')
-      const component = mount(<FailureSwitcher error={error} />)
-      expect(spy).toHaveBeenCalledWith(error)
-      expect(component.find(Failure)).toHaveLength(1)
+      const { findByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
 
-      spy.mockRestore()
+      expect(findByText(`notFound.${type}`)).toBeTruthy()
     })
   })
 
   it('should render a failure as default', () => {
-    const error = new Error('error message')
-    const component = mount(<FailureSwitcher error={new Error('error message')} />)
+    const errorMessage = 'error message'
+    const error = new Error(errorMessage)
+    const { findByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
 
-    expect(component.find(Failure)).toHaveLength(1)
-    expect(component.find(Failure).at(0).props().errorMessage).toEqual(error.message)
+    expect(findByText(errorMessage)).toBeTruthy()
   })
 })
