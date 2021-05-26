@@ -3,12 +3,10 @@ import React, { ReactNode, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import { loadTranslations, config } from 'translations'
-import { useDispatch } from 'react-redux'
 import { DateFormatter } from 'api-client'
-import setUIDirection from '../redux/actions/setUIDirection'
 import DateFormatterContext from '../context/DateFormatterContext'
 import buildConfig from '../constants/buildConfig'
-import BrowserLanguageDetectorService from '../service/BrowserLanguageDetectorService'
+import BrowserLanguageDetectorService from '../services/BrowserLanguageDetector'
 
 type PropsType = {
   children: ReactNode
@@ -18,7 +16,6 @@ const I18nProvider = ({ children }: PropsType) => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
-  const dispatch = useDispatch()
   // TODO Use right content language
   // const contentLanguage: string | null | undefined = useSelector((state: StateType) => state.location.payload.language)
   const contentLanguage: string | null | undefined = 'de'
@@ -74,11 +71,12 @@ const I18nProvider = ({ children }: PropsType) => {
       document.documentElement.lang = language
     }
 
-    // Only change ui direction from default ('ltr') if the language is supported
-    if (config.isSupportedLanguage(language)) {
-      dispatch(setUIDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
-    }
-  }, [dispatch, language])
+    // TODO Remove uiDirection from redux state
+    // // Only change ui direction from default ('ltr') if the language is supported
+    // if (config.isSupportedLanguage(language)) {
+    //   dispatch(setUIDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
+    // }
+  }, [language])
 
   const additionalFont = config.getAdditionalFont(language)
   const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
