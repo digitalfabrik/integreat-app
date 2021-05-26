@@ -2,11 +2,11 @@
 
 exports[`GeneralFooter should match snapshot 1`] = `
 <Footer>
-  <CleanLink
+  <Styled(Link)
     to="/disclaimer"
   >
     layout,settings:imprintAndContact
-  </CleanLink>
+  </Styled(Link)>
   <CleanAnchor
     href="https://integreat-app.de/about/"
   >

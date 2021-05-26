@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout should render all components 1`] = `
-<Layout__FlexWrapper>
-  <Layout__RichLayout>
+<styled.div>
+  <styled.div>
     <div
       aria-hidden={false}
     >
       <header />
-      <Layout__Body>
-        <withPlatform(Layout__Aside)
+      <styled.div>
+        <styled.aside
           style={
             Object {
               "top": "40px",
@@ -18,19 +18,19 @@ exports[`Layout should render all components 1`] = `
           <div>
             toolybar
           </div>
-        </withPlatform(Layout__Aside)>
-        <Layout__Main>
+        </styled.aside>
+        <styled.main>
           <p>
             content right here
           </p>
-        </Layout__Main>
-      </Layout__Body>
+        </styled.main>
+      </styled.div>
     </div>
     <div
       aria-hidden={false}
     >
       <footer />
     </div>
-  </Layout__RichLayout>
-</Layout__FlexWrapper>
+  </styled.div>
+</styled.div>
 `;

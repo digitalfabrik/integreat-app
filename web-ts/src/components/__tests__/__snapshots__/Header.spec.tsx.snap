@@ -11,29 +11,28 @@ exports[`Header should match snapshot with largeViewport 1`] = `
     </html>
   }
   pinStart={0}
-  positionStickyDisabled={false}
   scrollHeight={90}
   zIndex={1}
 >
-  <Header__HeaderContainer>
-    <Header__Row
+  <styled.header>
+    <styled.div
       hasTitle={false}
     >
       <HeaderLogo
         link="/random_route"
       />
       <HeaderTitle />
-      <Header__ActionBar>
+      <styled.div>
         <HeaderActionItemLink
           href="/random_route"
           iconSrc="icon"
           key="0"
           text="text"
         />
-      </Header__ActionBar>
-    </Header__Row>
-    <Header__Row>
-      <Header__NavigationBar>
+      </styled.div>
+    </styled.div>
+    <styled.div>
+      <styled.div>
         <HeaderNavigationItem
           active={true}
           href="/another_route"
@@ -41,9 +40,9 @@ exports[`Header should match snapshot with largeViewport 1`] = `
           key="0"
           text="text1"
         />
-      </Header__NavigationBar>
-    </Header__Row>
-  </Header__HeaderContainer>
+      </styled.div>
+    </styled.div>
+  </styled.header>
 </Headroom>
 `;
 
@@ -58,28 +57,27 @@ exports[`Header should match snapshot with smallViewport 1`] = `
     </html>
   }
   pinStart={0}
-  positionStickyDisabled={false}
   scrollHeight={70}
   zIndex={1}
 >
-  <Header__HeaderContainer>
-    <Header__Row
+  <styled.header>
+    <styled.div
       hasTitle={false}
     >
       <HeaderLogo
         link="/random_route"
       />
-      <Header__ActionBar>
+      <styled.div>
         <HeaderActionItemLink
           href="/random_route"
           iconSrc="/icon.jpg"
           key="0"
           text="random route"
         />
-      </Header__ActionBar>
-    </Header__Row>
-    <Header__Row>
-      <Header__NavigationBar>
+      </styled.div>
+    </styled.div>
+    <styled.div>
+      <styled.div>
         <HeaderNavigationItem
           active={true}
           href="/another_route"
@@ -87,8 +85,8 @@ exports[`Header should match snapshot with smallViewport 1`] = `
           key="0"
           text="text1"
         />
-      </Header__NavigationBar>
-    </Header__Row>
-  </Header__HeaderContainer>
+      </styled.div>
+    </styled.div>
+  </styled.header>
 </Headroom>
 `;
