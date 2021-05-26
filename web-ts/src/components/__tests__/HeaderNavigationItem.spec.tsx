@@ -1,12 +1,8 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import { render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
-
-jest.mock('redux-first-router-link', () => ({ children, to }: { to: string; children: Array<ReactNode> }) => (
-  <a href={to}>{children}</a>
-))
+import { renderWithRouter } from '../../testing/render'
 
 describe('HeaderNavigationItem', () => {
   const tooltip = 'random tooltip'
@@ -14,7 +10,7 @@ describe('HeaderNavigationItem', () => {
   const text = 'Kategorien'
 
   it('should render an ActiveNavigationItem', () => {
-    const { getByText } = render(
+    const { getByText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <HeaderNavigationItem text={text} active href={href} icon='icon' />
       </ThemeProvider>
