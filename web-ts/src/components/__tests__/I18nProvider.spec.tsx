@@ -15,7 +15,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['ar'])
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage={undefined}>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
         </I18nProvider>
       )
@@ -28,7 +28,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['ku'])
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage={undefined}>
           <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
@@ -42,7 +42,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['en'])
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage={undefined}>
           <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
@@ -54,7 +54,7 @@ describe('I18nProvider', () => {
   it('should set ui language to content language', async () => {
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage='ar'>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
         </I18nProvider>
       )
@@ -65,7 +65,7 @@ describe('I18nProvider', () => {
 
   it('should choose rtl with ar as language', async () => {
     act(() => {
-      render(<I18nProvider>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage={'ar'}>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
@@ -73,7 +73,7 @@ describe('I18nProvider', () => {
 
   it('should choose ltr with en as language', async () => {
     act(() => {
-      render(<I18nProvider>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage={undefined}>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'ltr')
@@ -81,7 +81,7 @@ describe('I18nProvider', () => {
 
   it('should set document language', async () => {
     act(() => {
-      render(<I18nProvider>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     expect(document.documentElement?.lang).toBe('ar')
@@ -89,7 +89,7 @@ describe('I18nProvider', () => {
 
   it('should use additional font for arabic', async () => {
     act(() => {
-      render(<I18nProvider>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     // Checking for side-effect
@@ -99,7 +99,7 @@ describe('I18nProvider', () => {
 
   it('should use no additional font for english', async () => {
     act(() => {
-      render(<I18nProvider>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage={undefined}>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     // Checking for side-effect
@@ -111,7 +111,7 @@ describe('I18nProvider', () => {
     // TODO Remove uiDirection from redux state
     // act(() => {
     //   render(
-    //     <I18nProvider>Hello</I18nProvider>
+    //     <I18nProvider contentLanguage={undefined}>Hello</I18nProvider>
     //   )
     // })
     // expect(store.getActions()).toEqual([
@@ -126,7 +126,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['zh-CN'])
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage={undefined}>
           <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
@@ -139,7 +139,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['zh-hans'])
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage={undefined}>
           <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
@@ -152,7 +152,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['de-DE'])
     act(() => {
       render(
-        <I18nProvider>
+        <I18nProvider contentLanguage={undefined}>
           <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
         </I18nProvider>
