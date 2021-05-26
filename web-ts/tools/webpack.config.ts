@@ -9,7 +9,7 @@ import AssetsPlugin from 'assets-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
-import translationsConfig from 'translations/src/config'
+import { config as translationsConfig } from 'translations'
 
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
