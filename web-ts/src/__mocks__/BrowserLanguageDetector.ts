@@ -1,5 +1,5 @@
 const settings: {
-  language?: string;
+  language?: string
 } = {
   language: undefined
 }
