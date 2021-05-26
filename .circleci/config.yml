@@ -569,7 +569,7 @@ jobs:
             - lint:
                 directory: build-configs
             - lint:
-                directory: web
+                directory: web-ts
             - lint:
                 directory: translations
             - run:
@@ -582,10 +582,10 @@ jobs:
                 command: yarn workspace build-configs ts:check
                 name: TS check
             - run:
-                command: yarn workspace web ts:check
+                command: yarn workspace web-ts ts:check
                 name: TS check
             - unit_test:
-                directory: web
+                directory: web-ts
             - unit_test:
                 directory: api-client
             - unit_test:
