@@ -5,7 +5,7 @@ import { Translation } from 'react-i18next'
 import Helmet from 'react-helmet'
 import BrowserLanguageDetector from '../../services/BrowserLanguageDetector'
 
-jest.mock('../../BrowserLanguageDetector')
+jest.mock('../../services/BrowserLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 
 describe('I18nProvider', () => {
