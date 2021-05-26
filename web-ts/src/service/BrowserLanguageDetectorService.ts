@@ -1,4 +1,4 @@
-import {LanguageDetectorModule } from 'i18next'
+import { LanguageDetectorModule } from 'i18next'
 
 let hasLocalStorageSupport: boolean | null = null
 
@@ -11,7 +11,7 @@ const localStorageAvailable = () => {
 
   try {
     const localStorage = window.localStorage
-    hasLocalStorageSupport = window !== 'undefined' && localStorage !== null
+    hasLocalStorageSupport = localStorage !== null
     const testKey = 'i18next.translate.boo'
     localStorage.setItem(testKey, 'foo')
     localStorage.removeItem(testKey)
@@ -22,16 +22,12 @@ const localStorageAvailable = () => {
   return hasLocalStorageSupport
 }
 
-interface NavigatorLanguage {
-  userLanguage?: string
-}
-
 const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
 const languageDetector: LanguageDetectorModule = {
   type: 'languageDetector',
   init: (services, detectorOptions, i18nextOptions) => {},
   // Returns array of ISO-639-2 or ISO-639-3 language codes
-  detect: (): string | undefined => {
+  detect: () => {
     const bcp47Tags: string[] = []
 
     if (localStorageAvailable()) {
