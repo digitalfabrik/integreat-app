@@ -2,7 +2,7 @@ import { ComponentType } from 'react'
 
 const getDisplayName = Component => Component.displayName || Component.name || typeof Component
 
-const wrapDisplayName = (Component: ComponentType, hocName: string) => {
+const wrapDisplayName = <Props>(Component: ComponentType<Props>, hocName: string) => {
   return `${hocName}(${getDisplayName(Component)})`
 }
 

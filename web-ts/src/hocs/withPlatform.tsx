@@ -1,26 +1,26 @@
-import { $Diff } from "utility-types";
-import * as React from "react";
-import PlatformContext from "../PlatformContext";
-import Platform from "../Platform";
-import wrapDisplayName from "../../common/utils/wrapDisplayName";
+import * as React from 'react'
+import Platform from '../contexts/Platform'
+import PlatformContext from '../contexts/PlatformContext'
+import wrapDisplayName from '../services/wrapDisplayName'
 
-const withPlatform = <Props extends {
-  platform: Platform;
-}>(WrappedComponent: React.AbstractComponent<Props>): React.AbstractComponent<$Diff<Props, {
-  platform: Platform;
-}>> => {
-  return class extends React.Component<$Diff<Props, {
-    platform: Platform;
-  }>> {
-    static displayName = wrapDisplayName(WrappedComponent, 'withPlatform');
+type PropsType = {
+  platform: Platform
+}
+
+const withPlatform = <P extends PropsType>(
+  WrappedComponent: React.ComponentType<P>
+): React.ComponentType<Omit<P, keyof PropsType>> => {
+  return class extends React.Component<Omit<P, keyof PropsType>> {
+    static displayName = wrapDisplayName(WrappedComponent, 'withPlatform')
 
     render() {
-      return <PlatformContext.Consumer>
-          {platform => <WrappedComponent {...this.props} platform={platform} />}
-        </PlatformContext.Consumer>;
+      return (
+        <PlatformContext.Consumer>
+          {platform => <WrappedComponent {...(this.props as P)} platform={platform} />}
+        </PlatformContext.Consumer>
+      )
     }
+  }
+}
 
-  };
-};
-
-export default withPlatform;
+export default withPlatform
