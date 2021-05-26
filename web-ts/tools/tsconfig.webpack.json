@@ -5,7 +5,5 @@
     "esModuleInterop": true,
     "noEmit": true
   },
-  "files": [
-    "webpack.config.ts"
-  ]
+  "files": ["webpack.config.ts"]
 }

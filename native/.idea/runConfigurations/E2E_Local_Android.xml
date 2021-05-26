@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="E2E Local Android" type="JavaScriptTestRunnerJest">
-    <config-file value="$PROJECT_DIR$/jest.e2e.config.js" />
+    <config-file value="$PROJECT_DIR$/jest.e2e.config.ts" />
     <node-interpreter value="project" />
     <node-options value="" />
     <jest-package value="$PROJECT_DIR$/node_modules/jest" />

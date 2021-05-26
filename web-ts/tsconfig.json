@@ -1,27 +1,28 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "ES2020"
-    ],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "ES2020",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
     "jsx": "react",
+    "lib": ["dom", "dom.iterable", "ES5", "ES6"],
+    "noEmit": false,
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "target": "ES2019",
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "types": ["jest", "node", "react"]
   },
-  "include": [
-    "src",
-    "tools"
-  ],
+  "include": ["src/**/*", "tools/*"],
+  "references": [
+    {
+      "path": "../translations"
+    },
+    {
+      "path": "../build-configs"
+    },
+    {
+      "path": "../api-client"
+    }
+  ]
 }

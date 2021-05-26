@@ -1,6 +1,6 @@
 # Last step of a production delivery. Move all unreleased release notes to a new directory.
 docker:
-  - image: circleci/node:12.16.3
+  - image: circleci/node:14.9.0
 resource_class: small
 steps:
   - skip_job
