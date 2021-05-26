@@ -556,6 +556,7 @@ jobs:
             - image: circleci/node:14.9.0
         environment:
             TOTAL_CPUS: 1
+            TZ: Europe/Berlin
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
@@ -957,6 +958,16 @@ workflows:
                 context:
                     - mattermost
                 delivery: none
+            - check_web:
+                context:
+                    - mattermost
+            - build_web:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                name: build_ig_test_cms_web
+                requires:
+                    - bump_version
             - check_native:
                 context:
                     - mattermost
