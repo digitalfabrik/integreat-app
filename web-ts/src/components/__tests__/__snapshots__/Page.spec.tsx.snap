@@ -2,7 +2,7 @@
 
 exports[`Page should render 1`] = `
 <Fragment>
-  <Page__Thumbnail
+  <styled.img
     alt=""
     src="thumbnail"
   />

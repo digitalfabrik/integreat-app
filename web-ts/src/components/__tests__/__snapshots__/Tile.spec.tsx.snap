@@ -1,31 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tile should render a Link if path is not an external url 1`] = `
-<Tile__TileContainer
+<Styled(Col)
   md={3}
   sm={4}
   xs={6}
 >
-  <CleanLink
+  <Styled(Link)
     to="/augsburg/de/willkommen"
   >
-    <Tile__ThumbnailSizer>
-      <Tile__Thumbnail>
+    <styled.div>
+      <styled.div>
         <img
           alt=""
           src="https://cms.integreat-ap…03/Beratung-150x150.png"
         />
-      </Tile__Thumbnail>
-    </Tile__ThumbnailSizer>
-    <Tile__TileTitle>
+      </styled.div>
+    </styled.div>
+    <styled.div>
       Willkommen
-    </Tile__TileTitle>
-  </CleanLink>
-</Tile__TileContainer>
+    </styled.div>
+  </Styled(Link)>
+</Styled(Col)>
 `;
 
 exports[`Tile should render a a-Tag if path is not an external url 1`] = `
-<Tile__TileContainer
+<Styled(Col)
   md={3}
   sm={4}
   xs={6}
@@ -33,23 +33,23 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
   <CleanAnchor
     href="https://example.com"
   >
-    <Tile__ThumbnailSizer>
-      <Tile__Thumbnail>
+    <styled.div>
+      <styled.div>
         <img
           alt=""
           src="https://cms.integreat-ap…03/Beratung-150x150.png"
         />
-      </Tile__Thumbnail>
-    </Tile__ThumbnailSizer>
-    <Tile__TileTitle>
+      </styled.div>
+    </styled.div>
+    <styled.div>
       Example
-    </Tile__TileTitle>
+    </styled.div>
   </CleanAnchor>
-</Tile__TileContainer>
+</Styled(Col)>
 `;
 
 exports[`Tile should render a form-Tag if path is not an external url and has postData 1`] = `
-<Tile__TileContainer
+<Styled(Col)
   md={3}
   sm={4}
   xs={6}
@@ -80,18 +80,18 @@ exports[`Tile should render a form-Tag if path is not an external url and has po
       role="link"
       type="submit"
     >
-      <Tile__ThumbnailSizer>
-        <Tile__Thumbnail>
+      <styled.div>
+        <styled.div>
           <img
             alt=""
             src="https://cms.integreat-ap…03/Beratung-150x150.png"
           />
-        </Tile__Thumbnail>
-      </Tile__ThumbnailSizer>
-      <Tile__TileTitle>
+        </styled.div>
+      </styled.div>
+      <styled.div>
         Example
-      </Tile__TileTitle>
+      </styled.div>
     </button>
   </form>
-</Tile__TileContainer>
+</Styled(Col)>
 `;
