@@ -1,41 +1,14 @@
-import React, { useCallback } from 'react'
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
-import LandingPage from './landing/LandingPage'
-import ErrorPage from './errors/ErrorPage'
-import { useLoadFromEndpoint, LANDING_ROUTE, CityModel, createCitiesEndpoint } from 'api-client'
-import CityContentSwitcher from './CityContentSwitcher'
-import { cmsApiBaseUrl } from '../constants/urls'
+import React, { ReactElement } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
+import RootSwitcher from './RootSwitcher'
 
-const App = () => {
-  const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(undefined), [])
-  const { data: cities, loading, error } = useLoadFromEndpoint<CityModel[]>(requestCities)
-  // TODO IGAPP-643
-  const detectedLanguage = 'de'
-
-  if (loading) {
-    return <>App loading!</>
-  }
-
-  if (error || !cities) {
-    return <>{error?.message ?? 'error'}</>
-  }
-
+const App = (): ReactElement => {
   return (
     <ThemeProvider theme={buildConfig().lightTheme}>
       <Router>
-        <Switch>
-          <Redirect exact from='/' to={`/${LANDING_ROUTE}/${detectedLanguage}`} />
-          <Redirect exact from={`/${LANDING_ROUTE}?`} to={`/${LANDING_ROUTE}/${detectedLanguage}`} />
-          <Redirect exact from={`/:cityCode`} to={`/:cityCode/${detectedLanguage}`} />
-          <Route path={`/${LANDING_ROUTE}/:languageCode`} exact component={LandingPage} />
-          <Route
-            path={`/:cityCode/:languageCode`}
-            render={props => <CityContentSwitcher cities={cities} {...props} />}
-          />
-          <Route path={`/`} component={ErrorPage} />
-        </Switch>
+        <RootSwitcher />
       </Router>
     </ThemeProvider>
   )
