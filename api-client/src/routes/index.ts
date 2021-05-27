@@ -69,3 +69,6 @@ export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
 // Web routes
 export type MainDisclaimerRouteType = 'disclaimer'
 export const MAIN_DISCLAIMER_ROUTE: MainDisclaimerRouteType = 'disclaimer'
+
+export type NotFoundRouteType = 'not-found'
+export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
