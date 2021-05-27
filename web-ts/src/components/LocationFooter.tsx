@@ -8,20 +8,19 @@ import buildConfig from '../constants/buildConfig'
 type PropsType = {
   city: string
   language: string
-  onClick: () => void
   t: TFunction
 }
 
 export class LocationFooter extends React.PureComponent<PropsType> {
   render() {
-    const { t, city, language, onClick } = this.props
+    const { t, city, language } = this.props
     const { aboutUrls, privacyUrls } = buildConfig()
 
     const aboutUrl = aboutUrls[language] || aboutUrls.default
     const privacyUrl = privacyUrls[language] || privacyUrls.default
 
     return (
-      <Footer onClick={onClick}>
+      <Footer>
         {/* TODO Use right path */}
         {/* <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}> */}
         <CleanLink to='/'>{t('imprintAndContact')}</CleanLink>

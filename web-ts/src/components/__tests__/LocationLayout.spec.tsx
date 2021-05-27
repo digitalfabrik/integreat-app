@@ -57,8 +57,6 @@ describe('LocationLayout', () => {
       languageChangePaths={languageChangePaths}
       feedbackTargetInformation={feedbackTargetInformation}
       viewportSmall
-      toggleDarkMode={() => {}}
-      darkMode
       isLoading={isLoading}>
       <MockNode />
     </LocationLayout>
