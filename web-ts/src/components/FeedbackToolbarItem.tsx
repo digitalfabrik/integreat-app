@@ -6,6 +6,7 @@ import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 import Tooltip from './Tooltip'
 import { faFrown, faSmile } from '../constants/icons'
 import { FeedbackRatingType } from '../@types/FeedbackRatingType'
+import StyledSmallViewTip from './StyledSmallViewTip'
 
 type PropsType = {
   isPositiveRatingLink: boolean
