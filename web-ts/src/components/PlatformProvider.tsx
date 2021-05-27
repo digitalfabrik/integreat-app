@@ -1,6 +1,6 @@
 import * as React from 'react'
-import Platform from '../contexts/Platform'
-import PlatformContext from '../contexts/PlatformContext'
+import Platform from '../context/Platform'
+import PlatformContext from '../context/PlatformContext'
 
 type PropsType = {
   children: React.ReactNode
