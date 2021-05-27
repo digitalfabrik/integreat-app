@@ -2,7 +2,9 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { FeedbackBox } from "../FeedbackBox";
 import { ThemeProvider } from "styled-components";
-import lightTheme from "../../../theme/constants/theme";
+import {lightTheme} from "build-configs/integreat/theme";
+import {SendingStatusType} from "../FeedbackModal";
+
 describe('FeedbackBox', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -20,7 +22,7 @@ describe('FeedbackBox', () => {
       comment,
       isPositiveRatingSelected,
       contactMail: 'test@example.com',
-      sendingStatus: 'IDLE',
+      sendingStatus: 'IDLE' as SendingStatusType,
       onCommentChanged,
       onContactMailChanged,
       onSubmit,

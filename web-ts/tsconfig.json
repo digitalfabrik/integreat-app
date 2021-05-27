@@ -13,7 +13,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*"],
+  "include": ["src/**/*", "tools/*", "jest.setup.ts"],
   "references": [
     {
       "path": "../translations"
