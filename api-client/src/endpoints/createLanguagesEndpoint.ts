@@ -3,10 +3,13 @@ import EndpointBuilder from '../EndpointBuilder'
 import ParamMissingError from '../errors/ParamMissingError'
 import { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
+
 export const LANGUAGES_ENDPOINT_NAME = 'languages'
+
 type ParamsType = {
-  city: string | null | undefined
+  city: string
 }
+
 export default (baseUrl: string): Endpoint<ParamsType, Array<LanguageModel>> =>
   new EndpointBuilder<ParamsType, Array<LanguageModel>>(LANGUAGES_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
