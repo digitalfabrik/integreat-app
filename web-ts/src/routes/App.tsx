@@ -26,9 +26,10 @@ const App = () => {
     <ThemeProvider theme={buildConfig().lightTheme}>
       <Router>
         <Switch>
+          <Redirect exact from='/' to={`/${LANDING_ROUTE}/${detectedLanguage}`} />
           <Redirect exact from={`/${LANDING_ROUTE}?`} to={`/${LANDING_ROUTE}/${detectedLanguage}`} />
-          <Route path={`/${LANDING_ROUTE}/:languageCode?`} exact component={LandingPage} />
           <Redirect exact from={`/:cityCode`} to={`/:cityCode/${detectedLanguage}`} />
+          <Route path={`/${LANDING_ROUTE}/:languageCode`} exact component={LandingPage} />
           <Route
             path={`/:cityCode/:languageCode`}
             render={props => <CityContentSwitcher cities={cities} {...props} />}
