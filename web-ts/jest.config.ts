@@ -7,7 +7,10 @@ const config: Config.InitialOptions = {
   preset: 'ts-jest',
   verbose: true,
   automock: false,
-  setupFilesAfterEnv: ['<rootDir>/../jest.setup.ts'],
+  setupFilesAfterEnv: [
+    '<rootDir>/../jest.setup.ts',
+    '<rootDir>/../node_modules/@testing-library/jest-dom/extend-expect'
+  ],
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':

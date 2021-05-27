@@ -45,8 +45,8 @@ type PropsType = {
   alias?: string
   feedbackRating: FeedbackRatingType
   closeFeedbackModal: () => void
-  location: LocationState
 }
+
 export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
 type StateType = {
   sendingStatus: SendingStatusType
