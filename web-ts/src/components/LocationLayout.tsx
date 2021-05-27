@@ -11,8 +11,6 @@ type PropsType = {
   categories: CategoriesMapModel | null
   viewportSmall: boolean
   children?: ReactNode
-  toggleDarkMode: () => void
-  darkMode: boolean
   feedbackTargetInformation: { path?: string; alias?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
@@ -24,24 +22,12 @@ type PropsType = {
 type LocalStateType = {
   asideStickyTop: number
   feedbackModalRating: FeedbackRatingType | null
-  footerClicked: number
 }
 
-const DARK_THEME_CLICK_COUNT = 5
-
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
-  state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
+  state = { asideStickyTop: 0, feedbackModalRating: null }
 
   handleStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
-
-  handleFooterClicked = () => {
-    if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
-      this.props.toggleDarkMode()
-    }
-    this.setState(prevState => {
-      return { ...prevState, footerClicked: prevState.footerClicked + 1 }
-    })
-  }
 
   getCurrentCity(): CityModel | null {
     const { cityCode, cities } = this.props
@@ -101,7 +87,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render() {
-    const { viewportSmall, children, cityCode, languageCode, darkMode, languageChangePaths, isLoading } = this.props
+    const { viewportSmall, children, cityCode, languageCode, languageChangePaths, isLoading } = this.props
     const { pathname } = this.props
 
     const cityModel = this.getCurrentCity()
@@ -125,12 +111,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
         }
         footer={
           !isLoading ? (
-            <LocationFooter onClick={this.handleFooterClicked} city={cityCode} language={languageCode} />
+            <LocationFooter city={cityCode} language={languageCode} />
           ) : null
         }
-        toolbar={this.renderToolbar()}
         // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
-        darkMode={darkMode}>
+        toolbar={this.renderToolbar()}>
         {children}
       </Layout>
     )
