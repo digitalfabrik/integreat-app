@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { faTimes } from '../constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { TFunction } from 'react-i18next'
-import 'react-i18next'
 
 const Header = styled.div`
   display: flex;
