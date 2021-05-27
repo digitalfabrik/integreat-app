@@ -43,7 +43,7 @@ export const FeedbackBoxContainer = ({
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const { city, language } = useParams<RouteParamsType>()
-  const location = useLocation<{ routeType: string }>()
+  const location = useLocation()
 
   const getFeedbackType = (location: Location, path: string | undefined, alias: string | undefined): FeedbackType => {
     const routeType = location.state
