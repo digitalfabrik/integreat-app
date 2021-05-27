@@ -3,6 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { FeedbackModal } from '../FeedbackModal'
 import { ThemeProvider } from 'styled-components'
 import { lightTheme } from 'build-configs/integreat/theme'
+import { MemoryRouter } from 'react-router-dom'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {
@@ -22,7 +23,8 @@ describe('FeedbackModal', () => {
     const { getByRole, getByText } = render(
       <ThemeProvider theme={lightTheme}>
         <FeedbackModal path='augsburg/de' closeFeedbackModal={closeFeedbackModal} feedbackRating='up' />
-      </ThemeProvider>
+      </ThemeProvider>,
+      { wrapper: MemoryRouter }
     )
     const button = getByRole('button', {
       name: 'feedback:send'
