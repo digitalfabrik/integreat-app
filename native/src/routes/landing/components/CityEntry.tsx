@@ -5,6 +5,7 @@ import { ThemeType } from 'build-configs/ThemeType'
 import normalizeSearchString from '../../../modules/common/normalizeSearchString'
 import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
+import testID from '../../../modules/e2e/testID'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
@@ -64,7 +65,10 @@ class CityEntry extends React.PureComponent<PropType> {
     const aliases = this.getMatchingAliases(city, normalizedFilter).slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
     const sliceNeeded = aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN
     return (
-      <CityListItem onPress={this.navigateToDashboard} underlayColor={theme.colors.backgroundAccentColor}>
+      <CityListItem
+        {...testID('City-Entry')}
+        onPress={this.navigateToDashboard}
+        underlayColor={theme.colors.backgroundAccentColor}>
         <>
           <Label
             theme={theme}
