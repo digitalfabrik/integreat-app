@@ -3,6 +3,7 @@ import type { UiDirectionType } from '../@types/UiDirectionType'
 import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../models/BreadcrumbModel'
+import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
@@ -51,8 +52,7 @@ class Breadcrumbs extends React.PureComponent<PropsType> {
     // has the opposite direction of the wrapper.
     return (
       <Wrapper direction={direction}>
-        {/* TODO IGAPP-644: Uncomment  */}
-        {/* <BreadcrumbsJsonLd breadcrumbs={jsonLdBreadcrumbs} /> */}
+        <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
         <OrderedList direction={direction}>
           {ancestorBreadcrumbs.map((breadcrumb, key) => (
             <Breadcrumb key={key}>{breadcrumb.node}</Breadcrumb>
