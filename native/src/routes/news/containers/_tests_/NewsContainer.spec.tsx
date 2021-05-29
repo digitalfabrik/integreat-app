@@ -82,7 +82,6 @@ describe('NewsContainer', () => {
     } = {}
   ): StateType => {
     return {
-      darkMode: false,
       resourceCacheUrl: 'http://localhost:8080',
       cityContent: {
         city: city.code,

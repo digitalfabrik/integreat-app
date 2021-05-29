@@ -219,7 +219,6 @@ export type SnackbarType = {
 export type SnackbarStateType = Array<SnackbarType>
 export type StateType = {
   readonly snackbar: SnackbarStateType
-  readonly darkMode: boolean
   readonly resourceCacheUrl: string | null
   readonly cityContent: CityContentStateType | null
   readonly contentLanguage: string
