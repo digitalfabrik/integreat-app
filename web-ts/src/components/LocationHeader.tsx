@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import { generatePath } from 'react-router-dom'
-import { withTranslation, TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import LanguageSelector from './LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
@@ -29,13 +29,12 @@ type PropsType = {
   pathname: string
   languageCode: string
   viewportSmall: boolean
-  t: TFunction
   onStickyTopChanged: (stickyTop: number) => void
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 
-const LocationHeader = (props: PropsType) => {
-  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths, t } = props
+const LocationHeader = (props: PropsType): ReactElement => {
+  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled, code: cityCode } = cityModel
 
   const params = { cityCode, languageCode }
@@ -46,6 +45,8 @@ const LocationHeader = (props: PropsType) => {
   const newsPath = generatePath(RoutePatterns[pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE], params)
   const searchPath = generatePath(RoutePatterns[SEARCH_ROUTE], params)
   const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode })
+
+  const { t } = useTranslation('layout')
 
   const getActionItems = (): Array<ReactNode> => {
     return [
@@ -169,4 +170,4 @@ const LocationHeader = (props: PropsType) => {
   )
 }
 
-export default withTranslation('layout')(LocationHeader)
+export default LocationHeader
