@@ -15,6 +15,8 @@ import malteBuildConfigName from './malte/build-config-name'
 import aschaffenburgBuildConfig from './aschaffenburg'
 import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name'
 
+export { ThemeType } from './ThemeType'
+
 export const COMMON = 'common'
 export const ANDROID = 'android'
 export const IOS = 'ios'

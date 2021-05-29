@@ -1,12 +1,12 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import themeHelpers from '../constants/themeHelpers'
+import { helpers } from '../constants/theme'
 
 const ListItem = styled.li`
   display: inline;
 
   & * {
-    ${themeHelpers.removeLinkHighlighting}
+    ${helpers.removeLinkHighlighting}
     color: ${props => props.theme.colors.textSecondaryColor};
     font-size: 15px;
   }
@@ -27,15 +27,11 @@ type PropsType = {
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-class Breadcrumb extends React.PureComponent<PropsType> {
-  render() {
-    return (
-      <ListItem>
-        <Separator aria-hidden />
-        {this.props.children}
-      </ListItem>
-    )
-  }
-}
+const Breadcrumb = ({ children }: PropsType) => (
+  <ListItem>
+    <Separator aria-hidden />
+    {children}
+  </ListItem>
+)
 
 export default Breadcrumb
