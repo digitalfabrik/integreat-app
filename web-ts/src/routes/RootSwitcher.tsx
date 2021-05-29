@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback } from 'react'
-import { Redirect, Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom'
+import { Redirect, Route, Switch, useRouteMatch, generatePath } from 'react-router-dom'
 import LandingPage from './landing/LandingPage'
 import NotFoundPage from './not-found/NotFoundPage'
 import {
@@ -8,7 +8,15 @@ import {
   CityModel,
   createCitiesEndpoint,
   NOT_FOUND_ROUTE,
-  MAIN_DISCLAIMER_ROUTE
+  MAIN_DISCLAIMER_ROUTE,
+  EVENTS_ROUTE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  NEWS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  TU_NEWS_TYPE,
+  SEARCH_ROUTE,
+  DISCLAIMER_ROUTE, CATEGORIES_ROUTE
 } from 'api-client'
 import CityContentSwitcher from './CityContentSwitcher'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -19,6 +27,23 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import MainDisclaimerPage from './main-disclaimer/MainDisclaimerPage'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { useTranslation } from 'react-i18next'
+
+export const cityContentPattern = `/:cityCode/:languageCode`
+
+export const RoutePatterns = {
+  [LANDING_ROUTE]: `/${LANDING_ROUTE}/:languageCode`,
+  [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}`,
+  [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
+
+  [EVENTS_ROUTE]: `${cityContentPattern}/${EVENTS_ROUTE}/:eventId?`,
+  [OFFERS_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}/:offerId?`,
+  [POIS_ROUTE]: `${cityContentPattern}/${POIS_ROUTE}/:locationId?`,
+  [LOCAL_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/:newsId?`,
+  [TU_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?`,
+  [SEARCH_ROUTE]: `${cityContentPattern}/${SEARCH_ROUTE}`,
+  [DISCLAIMER_ROUTE]: `${cityContentPattern}/${DISCLAIMER_ROUTE}`,
+  [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoriesId*`,
+}
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
@@ -38,13 +63,16 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     setContentLanguage(language)
   }
 
+  const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode: language })
+  const cityContentPath = generatePath(cityContentPattern, { cityCode: ':cityCode', languageCode: language })
+
   if (loading) {
     return <Layout><LoadingSpinner /></Layout>
   }
 
   if (!cities || error) {
     return (
-      <Layout header={<GeneralHeader viewportSmall={false} />} footer={<GeneralFooter language={language} />}>
+      <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={language} />}>
         <FailureSwitcher error={error ?? new Error('Cities not available')} />
       </Layout>
     )
@@ -52,14 +80,14 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
 
   return (
     <Switch>
-      <Route exact path={`/${LANDING_ROUTE}/:languageCode`} component={LandingPage} />
-      <Route exact path={`/${MAIN_DISCLAIMER_ROUTE}`} component={MainDisclaimerPage} />
-      <Route exact path={`/${NOT_FOUND_ROUTE}`} component={NotFoundPage} />
-      <Route path={`/:cityCode/:languageCode`} render={props => <CityContentSwitcher cities={cities} {...props} />} />
+      <Route exact path={RoutePatterns[LANDING_ROUTE]} component={LandingPage} />
+      <Route exact path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} component={MainDisclaimerPage} />
+      <Route exact path={RoutePatterns[NOT_FOUND_ROUTE]} component={NotFoundPage} />
+      <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={cities} {...props} />} />
 
-      <Redirect exact from='/' to={`/${LANDING_ROUTE}/${language}`} />
-      <Redirect exact from={`/${LANDING_ROUTE}?`} to={`/${LANDING_ROUTE}/${language}`} />
-      <Redirect exact from={`/:cityCode`} to={`/:cityCode/${language}`} />
+      <Redirect exact from='/' to={landingPath} />
+      <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
+      <Redirect exact from={`/:cityCode`} to={cityContentPath} />
       {/* TODO redirects for aschaffenburg */}
     </Switch>
   )
