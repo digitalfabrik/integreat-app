@@ -293,10 +293,7 @@ export type CityContentActionType =
   | ResourcesFetchProgressActionType
   | ResourcesFetchFailedActionType
   | NewsActionType
-// Toggles the dark mode flag in the state
-export type ToggleDarkModeActionType = {
-  type: 'TOGGLE_DARK_MODE'
-}
+
 // Removes all downloaded resources and files
 export type ClearResourcesAndCacheActionType = {
   type: 'CLEAR_RESOURCES_AND_CACHE'
@@ -320,7 +317,6 @@ export type DequeueSnackbarActionType = {
 export type StoreActionType =
   | EnqueueSnackbarActionType
   | DequeueSnackbarActionType
-  | ToggleDarkModeActionType
   | CitiesActionType
   | CityContentActionType
   | SetContentLanguageActionType

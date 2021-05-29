@@ -80,7 +80,6 @@ describe('CategoriesContainer', () => {
     } = {}
   ): StateType => {
     return {
-      darkMode: false,
       resourceCacheUrl,
       cityContent: {
         city: city.code,
