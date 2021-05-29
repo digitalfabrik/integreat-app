@@ -6,7 +6,7 @@ import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
 import buildConfig from '../constants/buildConfig'
 import { RoutePatterns } from '../routes/RootSwitcher'
-import { DISCLAIMER_ROUTE } from 'api-client/dist/src'
+import { DISCLAIMER_ROUTE } from 'api-client'
 
 type PropsType = {
   city: string
