@@ -1,13 +1,13 @@
 import * as React from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import styled, { css } from 'styled-components'
-import themeHelpers from '../constants/themeHelpers'
+import { helpers } from '../constants/theme'
 import dimensions from '../constants/dimensions'
 import Tooltip from './Tooltip'
 import { Link } from 'react-router-dom'
 
 const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
-  ${themeHelpers.removeLinkHighlighting};
+  ${helpers.removeLinkHighlighting};
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
   flex: 1 1 auto;

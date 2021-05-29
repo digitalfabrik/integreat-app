@@ -1,4 +1,3 @@
-import buildConfig from './buildConfig'
 import type { ThemeType } from 'build-configs'
 
 export type HelpersType = {
@@ -30,7 +29,3 @@ export const dimensions: DimensionsType = {
 }
 
 export type { ThemeType }
-
-export const lightTheme: ThemeType = buildConfig().lightTheme
-
-export default lightTheme
