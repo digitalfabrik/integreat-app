@@ -37,8 +37,7 @@ type PropsType = {
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
 // TODO pass right props instead of constants
-const CityContentSwitcher = (props: PropsType): ReactElement => {
-  const { cities, match, location } = props
+const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params
   const cityModel = cities.find(it => it.code === cityCode)
 
@@ -85,8 +84,6 @@ const CityContentSwitcher = (props: PropsType): ReactElement => {
     )
   }
 
-  const stripCityContentPattern = (pattern: string) => pattern.replace(cityContentPattern, '')
-
   return (
     <LocationLayout
       cities={cities}
@@ -99,14 +96,14 @@ const CityContentSwitcher = (props: PropsType): ReactElement => {
       languageCode={languageCode}
       pathname={location.pathname}>
       <Switch>
-        <Route exact path={stripCityContentPattern(RoutePatterns[EVENTS_ROUTE])} component={EventsPage} />
-        <Route exact path={stripCityContentPattern(RoutePatterns[OFFERS_ROUTE])} component={OffersPage} />
-        <Route exact path={stripCityContentPattern(RoutePatterns[POIS_ROUTE])} component={PoisPage} />
-        <Route exact path={stripCityContentPattern(RoutePatterns[LOCAL_NEWS_TYPE])} component={NewsPage} />
-        <Route exact path={stripCityContentPattern(RoutePatterns[TU_NEWS_TYPE])} component={NewsPage} />
-        <Route exact path={stripCityContentPattern(RoutePatterns[SEARCH_ROUTE])} component={SearchPage} />
-        <Route exact path={stripCityContentPattern(RoutePatterns[DISCLAIMER_ROUTE])} component={DisclaimerPage} />
-        <Route path={stripCityContentPattern(RoutePatterns[CATEGORIES_ROUTE])} component={CategoriesPage} />
+        <Route exact path={RoutePatterns[EVENTS_ROUTE]} component={EventsPage} />
+        <Route exact path={RoutePatterns[OFFERS_ROUTE]} component={OffersPage} />
+        <Route exact path={RoutePatterns[POIS_ROUTE]} component={PoisPage} />
+        <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} component={NewsPage} />
+        <Route exact path={RoutePatterns[TU_NEWS_TYPE]} component={NewsPage} />
+        <Route exact path={RoutePatterns[SEARCH_ROUTE]} component={SearchPage} />
+        <Route exact path={RoutePatterns[DISCLAIMER_ROUTE]} component={DisclaimerPage} />
+        <Route path={RoutePatterns[CATEGORIES_ROUTE]} component={CategoriesPage} />
       </Switch>
     </LocationLayout>
   )
