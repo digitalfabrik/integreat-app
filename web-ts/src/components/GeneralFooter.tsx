@@ -5,7 +5,7 @@ import CleanAnchor from './CleanAnchor'
 import CleanLink from './CleanLink'
 import buildConfig from '../constants/buildConfig'
 import { RoutePatterns } from '../routes/RootSwitcher'
-import { MAIN_DISCLAIMER_ROUTE } from 'api-client/dist/src'
+import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
 
 type PropsType = {
   language: string
