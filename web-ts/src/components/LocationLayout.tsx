@@ -109,11 +109,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
             pathname={pathname}
           />
         }
-        footer={
-          !isLoading ? (
-            <LocationFooter city={cityCode} language={languageCode} />
-          ) : null
-        }
+        footer={!isLoading ? <LocationFooter city={cityCode} language={languageCode} /> : null}
         // TODO right check
         // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
         toolbar={this.renderToolbar()}>

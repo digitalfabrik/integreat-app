@@ -16,7 +16,8 @@ import {
   LOCAL_NEWS_TYPE,
   TU_NEWS_TYPE,
   SEARCH_ROUTE,
-  DISCLAIMER_ROUTE, CATEGORIES_ROUTE
+  DISCLAIMER_ROUTE,
+  CATEGORIES_ROUTE
 } from 'api-client'
 import CityContentSwitcher from './CityContentSwitcher'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -42,7 +43,7 @@ export const RoutePatterns = {
   [TU_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?`,
   [SEARCH_ROUTE]: `${cityContentPattern}/${SEARCH_ROUTE}`,
   [DISCLAIMER_ROUTE]: `${cityContentPattern}/${DISCLAIMER_ROUTE}`,
-  [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoriesId*`,
+  [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoriesId*`
 }
 
 type PropsType = {
@@ -67,12 +68,18 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const cityContentPath = generatePath(cityContentPattern, { cityCode: ':cityCode', languageCode: language })
 
   if (loading) {
-    return <Layout><LoadingSpinner /></Layout>
+    return (
+      <Layout>
+        <LoadingSpinner />
+      </Layout>
+    )
   }
 
   if (!cities || error) {
     return (
-      <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={language} />}>
+      <Layout
+        header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+        footer={<GeneralFooter language={language} />}>
         <FailureSwitcher error={error ?? new Error('Cities not available')} />
       </Layout>
     )
