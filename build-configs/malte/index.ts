@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from './theme'
+import { lightTheme } from './theme'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -13,7 +13,6 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,
-  darkTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],

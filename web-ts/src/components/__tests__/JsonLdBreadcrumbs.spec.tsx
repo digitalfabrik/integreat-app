@@ -1,16 +1,12 @@
-// @flow
-
 import React from 'react'
 import { shallow } from 'enzyme'
-
-import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd'
-import BreadcrumbModel from '../../../common/BreadcrumbModel'
+import JsonLdBreadcrumbs, { BreadcrumbModel } from '../JsonLdBreadcrumbs'
 import { Helmet } from 'react-helmet'
 
 describe('BreadcrumbsJsonLd', () => {
   it('should output valid json-ld', () => {
     const wrapper = shallow(
-      <BreadcrumbsJsonLd
+      <JsonLdBreadcrumbs
         breadcrumbs={[
           new BreadcrumbModel({
             title: 'Home',
@@ -30,7 +26,6 @@ describe('BreadcrumbsJsonLd', () => {
         ]}
       />
     )
-
     const helmet = wrapper.find(Helmet)
     expect(
       helmet.children().matchesElement(

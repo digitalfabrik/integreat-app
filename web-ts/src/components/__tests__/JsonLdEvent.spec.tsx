@@ -1,9 +1,7 @@
-// @flow
-
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Helmet } from 'react-helmet'
-import EventJsonLd from '../EventJsonLd'
+import JsonLdEvent from '../JsonLdEvent'
 import moment from 'moment'
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
@@ -24,7 +22,6 @@ describe('EventJsonLd', () => {
       region: 'Schwaben',
       country: 'DE'
     })
-
     const eventModel = new EventModel({
       path: '/events/event0',
       title: 'Sample Event',
@@ -38,14 +35,29 @@ describe('EventJsonLd', () => {
       hash: 'hash123',
       featuredImage: new FeaturedImageModel({
         description: 'whoohoo',
-        thumbnail: { url: '/thumbnail.jpg', width: 10, height: 10 },
-        medium: { url: '/medium.jpg', width: 20, height: 20 },
-        large: { url: '/medium.jpg', width: 30, height: 30 },
-        full: { url: '/full.jpg', width: 40, height: 40 }
+        thumbnail: {
+          url: '/thumbnail.jpg',
+          width: 10,
+          height: 10
+        },
+        medium: {
+          url: '/medium.jpg',
+          width: 20,
+          height: 20
+        },
+        large: {
+          url: '/medium.jpg',
+          width: 30,
+          height: 30
+        },
+        full: {
+          url: '/full.jpg',
+          width: 40,
+          height: 40
+        }
       })
     })
-
-    const wrapper = shallow(<EventJsonLd event={eventModel} formatter={new DateFormatter('en')} />)
+    const wrapper = shallow(<JsonLdEvent event={eventModel} formatter={new DateFormatter('en')} />)
     const helmet = wrapper.find(Helmet)
     expect(
       helmet.children().matchesElement(
