@@ -1,3 +1,10 @@
 {
-  "extends": "../tsconfig.json"
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "target": "es2020"
+  },
+  "files": ["webpack.config.ts"]
 }
