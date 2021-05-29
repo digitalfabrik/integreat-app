@@ -25,18 +25,18 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import Layout from '../components/Layout'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { LanguageFailure } from '../components/LanguageFailure'
+import LanguageFailure from '../components/LanguageFailure'
 import GeneralHeader from '../components/GeneralHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationLayout from '../components/LocationLayout'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { cityContentPattern, RoutePatterns } from './RootSwitcher'
+import { RoutePatterns } from './RootSwitcher'
 
 type PropsType = {
   cities: CityModel[]
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-// TODO pass right props instead of constants
+// TODO pass right props instead of constants: viewportSmall, languageChangePaths, isLoading, feedbackTargetInformation
 const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params
   const cityModel = cities.find(it => it.code === cityCode)
@@ -84,7 +84,6 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
             { code: 'de', name: 'Deutsch', path: '/' },
             { code: 'fr', name: 'French', path: '/' }
           ]}
-          t={key => key}
         />
       </Layout>
     )
