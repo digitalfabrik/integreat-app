@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback } from 'react'
-import { Route, RouteComponentProps, Switch } from 'react-router-dom'
+import { Route, RouteComponentProps, Switch, generatePath } from 'react-router-dom'
 import OffersPage from './offers/OffersPage'
 import EventsPage from './events/EventsPage'
 import CategoriesPage from './categories/CategoriesPage'
@@ -9,7 +9,6 @@ import SearchPage from './search/SearchPage'
 import DisclaimerPage from './disclaimer/DisclaimerPage'
 import {
   EVENTS_ROUTE,
-  NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -19,7 +18,9 @@ import {
   CityModel,
   useLoadFromEndpoint,
   createLanguagesEndpoint,
-  LanguageModel
+  LanguageModel,
+  CATEGORIES_ROUTE,
+  LANDING_ROUTE
 } from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import Layout from '../components/Layout'
@@ -29,6 +30,7 @@ import GeneralHeader from '../components/GeneralHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import LocationLayout from '../components/LocationLayout'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { cityContentPattern, RoutePatterns } from './RootSwitcher'
 
 type PropsType = {
   cities: CityModel[]
@@ -46,10 +48,12 @@ const CityContentSwitcher = (props: PropsType): ReactElement => {
   const { data: languages, loading, error: languagesError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
   const languageModel = languages?.find(it => it.code === languageCode)
 
+  const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode })
+
   if (!cityModel || !languageModel) {
     if (loading) {
       return (
-        <Layout header={<GeneralHeader viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
+        <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
           <LoadingSpinner />
         </Layout>
       )
@@ -58,14 +62,14 @@ const CityContentSwitcher = (props: PropsType): ReactElement => {
     const error = !cityModel ? new Error('notFound.category') : languagesError
     if (error) {
       return (
-        <Layout header={<GeneralHeader viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
+        <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
           <FailureSwitcher error={error} />
         </Layout>
       )
     }
 
     return (
-      <Layout header={<GeneralHeader viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
+      <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
           cities={cities}
           cityCode={cityCode}
@@ -81,6 +85,8 @@ const CityContentSwitcher = (props: PropsType): ReactElement => {
     )
   }
 
+  const stripCityContentPattern = (pattern: string) => pattern.replace(cityContentPattern, '')
+
   return (
     <LocationLayout
       cities={cities}
@@ -93,14 +99,14 @@ const CityContentSwitcher = (props: PropsType): ReactElement => {
       languageCode={languageCode}
       pathname={location.pathname}>
       <Switch>
-        <Route exact path={`/${EVENTS_ROUTE}/:eventId?`} component={EventsPage} />
-        <Route exact path={`/${OFFERS_ROUTE}/:offerId?`} component={OffersPage} />
-        <Route exact path={`/${POIS_ROUTE}/:locationId?`} component={PoisPage} />
-        <Route exact path={`/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/:newsId?`} component={NewsPage} />
-        <Route exact path={`/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?`} component={NewsPage} />
-        <Route exact path={`/${SEARCH_ROUTE}`} component={SearchPage} />
-        <Route exact path={`/${DISCLAIMER_ROUTE}`} component={DisclaimerPage} />
-        <Route path={`/:categoriesId*`} component={CategoriesPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[EVENTS_ROUTE])} component={EventsPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[OFFERS_ROUTE])} component={OffersPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[POIS_ROUTE])} component={PoisPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[LOCAL_NEWS_TYPE])} component={NewsPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[TU_NEWS_TYPE])} component={NewsPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[SEARCH_ROUTE])} component={SearchPage} />
+        <Route exact path={stripCityContentPattern(RoutePatterns[DISCLAIMER_ROUTE])} component={DisclaimerPage} />
+        <Route path={stripCityContentPattern(RoutePatterns[CATEGORIES_ROUTE])} component={CategoriesPage} />
       </Switch>
     </LocationLayout>
   )
