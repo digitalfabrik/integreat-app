@@ -4,7 +4,6 @@ exports[`FailureSwitcher render category component not found failure should rend
 <Translate(Failure)
   errorMessage="notFound.category"
   goToMessage="goTo.categories"
-  goToPath="/augsburg/de"
 />
 `;
 
@@ -12,7 +11,6 @@ exports[`FailureSwitcher render event component not found failure should render 
 <Translate(Failure)
   errorMessage="notFound.event"
   goToMessage="goTo.events"
-  goToPath="/augsburg/de/events"
 />
 `;
 
@@ -20,7 +18,6 @@ exports[`FailureSwitcher render local component not found failure should render 
 <Translate(Failure)
   errorMessage="notFound.localNews"
   goToMessage="goTo.localNews"
-  goToPath="/augsburg/de/news/local"
 />
 `;
 
@@ -28,7 +25,6 @@ exports[`FailureSwitcher render offer component not found failure should render 
 <Translate(Failure)
   errorMessage="notFound.offer"
   goToMessage="goTo.offers"
-  goToPath="/augsburg/de/offers"
 />
 `;
 
@@ -36,7 +32,6 @@ exports[`FailureSwitcher render poi component not found failure should render a 
 <Translate(Failure)
   errorMessage="notFound.poi"
   goToMessage="goTo.pois"
-  goToPath="/augsburg/de/locations"
 />
 `;
 
@@ -44,6 +39,5 @@ exports[`FailureSwitcher render tu-news component not found failure should rende
 <Translate(Failure)
   errorMessage="notFound.tunews"
   goToMessage="goTo.tunews"
-  goToPath="/augsburg/de/news/tu-news"
 />
 `;

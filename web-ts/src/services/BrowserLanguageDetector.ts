@@ -1,4 +1,6 @@
-let hasLocalStorageSupport = null
+import { LanguageDetectorModule } from 'i18next'
+
+let hasLocalStorageSupport: boolean | null = null
 
 // Adapted from:
 // https://github.com/i18next/i18next-browser-languageDetector/blob/90284ca924353de0e6991bc51a0453f90fac3a04/src/browserLookups/localStorage.js
@@ -9,32 +11,33 @@ const localStorageAvailable = () => {
 
   try {
     const localStorage = window.localStorage
-    hasLocalStorageSupport = window !== 'undefined' && localStorage !== null
+    hasLocalStorageSupport = localStorage !== null
     const testKey = 'i18next.translate.boo'
     localStorage.setItem(testKey, 'foo')
     localStorage.removeItem(testKey)
   } catch (e) {
     hasLocalStorageSupport = false
   }
+
   return hasLocalStorageSupport
 }
 
 const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
-
-export default {
+const languageDetector: LanguageDetectorModule = {
   type: 'languageDetector',
-  async: false,
   init: (services, detectorOptions, i18nextOptions) => {},
   // Returns array of ISO-639-2 or ISO-639-3 language codes
   detect: () => {
-    const bcp47Tags = []
+    const bcp47Tags: string[] = []
 
     if (localStorageAvailable()) {
       const localStorageLanguage = window.localStorage.getItem(LANGUAGE_LOCAL_STORAGE)
+
       if (localStorageLanguage) {
         bcp47Tags.push(localStorageLanguage)
       }
     }
+
     // Adapted from:
     // https://github.com/i18next/i18next-browser-languageDetector/blob/a84df47faf3603ece04bc224e8e0f6f0ca1df923/src/browserLookups/navigator.js
     if (typeof navigator !== 'undefined') {
@@ -44,9 +47,13 @@ export default {
           bcp47Tags.push(navigator.languages[i])
         }
       }
-      if (navigator.userLanguage) {
-        bcp47Tags.push(navigator.userLanguage)
+
+      // IE only
+      const userLanguage = (navigator as { userLanguage?: string }).userLanguage
+      if (userLanguage) {
+        bcp47Tags.push(userLanguage)
       }
+
       if (navigator.language) {
         bcp47Tags.push(navigator.language)
       }
@@ -54,9 +61,11 @@ export default {
 
     return bcp47Tags.length > 0 ? bcp47Tags : undefined
   },
-  cacheUserLanguage: language => {
+  cacheUserLanguage: (language: string) => {
     if (localStorageAvailable()) {
       window.localStorage.setItem(LANGUAGE_LOCAL_STORAGE, language)
     }
   }
 }
+
+export default languageDetector
