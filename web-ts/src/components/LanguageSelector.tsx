@@ -19,14 +19,15 @@ const LanguageSelector = (props: PropsType): ReactElement => {
   const activeItemCode = languageCode
   const { t } = useTranslation('layout')
 
-  const selectorItems = languageChangePaths?.map(languageChangePath => {
-    const { code, name, path } = languageChangePath
-    return new SelectorItemModel({
-      code,
-      name,
-      href: code !== activeItemCode ? path : pathname
-    })
-  }) ?? []
+  const selectorItems =
+    languageChangePaths?.map(languageChangePath => {
+      const { code, name, path } = languageChangePath
+      return new SelectorItemModel({
+        code,
+        name,
+        href: code !== activeItemCode ? path : pathname
+      })
+    }) ?? []
 
   if (isHeaderActionItem) {
     return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} t={t} />
