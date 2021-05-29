@@ -9,10 +9,12 @@ import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import {
   CATEGORIES_ROUTE,
   CityModel,
-  EVENTS_ROUTE, LANDING_ROUTE,
+  EVENTS_ROUTE,
+  LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   OFFERS_ROUTE,
-  POIS_ROUTE, SEARCH_ROUTE,
+  POIS_ROUTE,
+  SEARCH_ROUTE,
   TU_NEWS_TYPE
 } from 'api-client'
 import offersIcon from '../assets/offers.svg'
@@ -35,9 +37,9 @@ type PropsType = {
 
 const LocationHeader = (props: PropsType): ReactElement => {
   const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths } = props
-  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled, code: cityCode } = cityModel
+  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
-  const params = { cityCode, languageCode }
+  const params = { cityCode: cityModel.code, languageCode }
   const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
   const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
   const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)
@@ -50,21 +52,16 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const getActionItems = (): Array<ReactNode> => {
     return [
-      <HeaderActionBarItemLink
-        key='search'
-        href={searchPath}
-        text={t('search')}
-        iconSrc={searchIcon}
-      />,
+      <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
       ...(!buildConfig().featureFlags.fixedCity
         ? [
-          <HeaderActionBarItemLink
-            key='location'
-            href={landingPath}
-            text={t('changeLocation')}
-            iconSrc={landingIcon}
-          />
-        ]
+            <HeaderActionBarItemLink
+              key='location'
+              href={landingPath}
+              text={t('changeLocation')}
+              iconSrc={landingIcon}
+            />
+          ]
         : []),
       <LanguageSelector
         key='language'

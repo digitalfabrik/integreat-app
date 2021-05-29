@@ -52,7 +52,9 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   if (!cityModel || !languageModel) {
     if (loading) {
       return (
-        <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
+        <Layout
+          header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+          footer={<GeneralFooter language={languageCode} />}>
           <LoadingSpinner />
         </Layout>
       )
@@ -61,14 +63,18 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     const error = !cityModel ? new Error('notFound.category') : languagesError
     if (error) {
       return (
-        <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
+        <Layout
+          header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+          footer={<GeneralFooter language={languageCode} />}>
           <FailureSwitcher error={error} />
         </Layout>
       )
     }
 
     return (
-      <Layout header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />} footer={<GeneralFooter language={languageCode} />}>
+      <Layout
+        header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+        footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
           cities={cities}
           cityCode={cityCode}
