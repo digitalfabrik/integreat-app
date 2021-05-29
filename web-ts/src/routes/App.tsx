@@ -23,7 +23,7 @@ export const Routes = {
   NOT_FOUND_ROUTE: 'not-found'
 } as const
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Switch>
