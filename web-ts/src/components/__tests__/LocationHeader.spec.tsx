@@ -7,7 +7,10 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 
 jest.mock('react-i18next', () => ({
-  useTranslation: key => key
+  useTranslation: () => ({
+    t: text => text
+  }),
+  withTranslation: () => () => null
 }))
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
