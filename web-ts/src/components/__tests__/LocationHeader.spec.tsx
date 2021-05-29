@@ -1,12 +1,14 @@
 import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
 import { CityModel } from 'api-client'
-import { LocationHeader } from '../LocationHeader'
+import LocationHeader from '../LocationHeader'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  useTranslation: key => key
+}))
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
@@ -14,7 +16,6 @@ jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; ac
 // TODO enable tests again
 // eslint-disable-next-line jest/no-disabled-tests
 describe.skip('LocationHeader', () => {
-  const t = key => key
   const theme = buildConfig().lightTheme
 
   const cityModel = (
@@ -90,7 +91,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(false, false, false, false, false)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -107,7 +107,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(false, true, false, false, false)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -124,7 +123,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(false, false, false, false, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -141,7 +139,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -158,7 +155,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -179,7 +175,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -200,7 +195,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -220,7 +214,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -241,7 +234,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -262,7 +254,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -283,7 +274,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -304,7 +294,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
@@ -325,7 +314,6 @@ describe.skip('LocationHeader', () => {
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
             onStickyTopChanged={onStickyTopChanged}
-            t={t}
           />
         </ThemeProvider>
       )
