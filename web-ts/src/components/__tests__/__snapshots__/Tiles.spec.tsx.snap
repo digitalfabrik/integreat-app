@@ -5,7 +5,7 @@ exports[`Tiles should match snapshot 1`] = `
   <Caption
     title="Augsburg"
   />
-  <Tiles__TilesRow>
+  <Styled(Row)>
     <Tile
       key="/augsburg/de/willkommen/willkommen-in-augsburg"
       tile={
@@ -30,6 +30,6 @@ exports[`Tiles should match snapshot 1`] = `
         }
       }
     />
-  </Tiles__TilesRow>
+  </Styled(Row)>
 </div>
 `;

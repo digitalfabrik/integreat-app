@@ -1,52 +1,46 @@
-// @flow
-
-import i18next from 'i18next'
-import * as React from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import i18next, { i18n } from 'i18next'
+import React, { ReactNode, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
-import setUiDirection from '../actions/setUIDirection'
 import { loadTranslations, config } from 'translations'
-import buildConfig from '../../app/constants/buildConfig'
-import { useDispatch, useSelector } from 'react-redux'
-import type { StateType } from '../../app/StateType'
-import BrowserLanguageDetector from '../BrowserLanguageDetector'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { DateFormatter } from 'api-client'
 import DateFormatterContext from '../context/DateFormatterContext'
+import buildConfig from '../constants/buildConfig'
+import BrowserLanguageDetectorService from '../services/BrowserLanguageDetector'
 
-type PropsType = {| children: React.Node |}
+type PropsType = {
+  contentLanguage: string | undefined
+  children: ReactNode
+}
 
-export default ({ children }: PropsType) => {
+const I18nProvider = ({ children, contentLanguage }: PropsType) => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
-  const [errorMessage, setErrorMessage] = useState<?string>(null)
-  const [i18nextInstance, setI18nextInstance] = useState(null)
-
-  const dispatch = useDispatch()
-  const contentLanguage: ?string = useSelector((state: StateType) => state.location.payload.language)
+  const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
+  const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
 
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
-      const i18nextInstance = await i18next.createInstance().use(BrowserLanguageDetector)
-
+      const i18nextInstance = i18next.createInstance().use(BrowserLanguageDetectorService)
       await i18nextInstance.init({
         resources,
         fallbackLng: {
           ...config.fallbacks,
           default: [config.defaultFallback]
         },
+
         /* Only allow supported languages (languages which can appear  in content of cms */
         supportedLngs: [...config.getSupportedLanguageTags(), ...config.getFallbackLanguageTags()],
-        load: 'currentOnly', // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
+        load: 'currentOnly',
+        // If this is set to 'all' then i18next will try to load zh which is not in supportedLngs
         interpolation: {
-          escapeValue: false /* Escaping is not needed for react apps:
-                                  https://github.com/i18next/react-i18next/issues/277 */
+          escapeValue: false
+          /* Escaping is not needed for react apps:
+               https://github.com/i18next/react-i18next/issues/277 */
         },
         debug: buildConfig().featureFlags.developerFriendly
       })
-
       setI18nextInstance(i18nextInstance)
-
       // Apply ui language as language
       i18nextInstance.on('languageChanged', () => {
         console.log(i18nextInstance.languages)
@@ -61,7 +55,6 @@ export default ({ children }: PropsType) => {
       console.error(e)
     })
   }, [])
-
   // Apply contentLanguage as language
   useEffect(() => {
     if (i18nextInstance && contentLanguage) {
@@ -70,29 +63,28 @@ export default ({ children }: PropsType) => {
       })
     }
   }, [i18nextInstance, contentLanguage])
-
   // Apply side effects
   useEffect(() => {
     if (document.documentElement) {
       document.documentElement.lang = language
     }
 
-    // Only change ui direction from default ('ltr') if the language is supported
-    if (config.isSupportedLanguage(language)) {
-      dispatch(setUiDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
-    }
-  }, [dispatch, language])
+    // TODO Remove uiDirection from redux state
+    // // Only change ui direction from default ('ltr') if the language is supported
+    // if (config.isSupportedLanguage(language)) {
+    //   dispatch(setUIDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
+    // }
+  }, [language])
 
   const additionalFont = config.getAdditionalFont(language)
-
   const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
 
   if (errorMessage) {
-    return errorMessage
+    return <>{errorMessage}</>
   }
 
   if (!i18nextInstance) {
-    return null
+    return <></>
   }
 
   return (
@@ -115,3 +107,5 @@ export default ({ children }: PropsType) => {
     </I18nextProvider>
   )
 }
+
+export default I18nProvider
