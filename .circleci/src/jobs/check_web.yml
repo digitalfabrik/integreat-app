@@ -28,9 +28,6 @@ steps:
   - run:
       name: TS check
       command: yarn workspace build-configs ts:check
-  - run:
-      name: TS check
-      command: yarn workspace web-ts ts:check
   - unit_test:
       directory: web-ts
   - unit_test:
