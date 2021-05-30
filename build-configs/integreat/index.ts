@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from './theme'
+import { lightTheme } from './theme'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -12,7 +12,6 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
   lightTheme,
-  darkTheme,
   assets: INTEGREAT_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
