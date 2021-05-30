@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
-import Svg, { Circle, Image } from 'react-native-svg'
+import Svg, { Circle, Image, G } from 'react-native-svg'
 import styled from 'styled-components/native'
 import { buildConfigAssets } from '../../app/constants/buildConfig'
 import { ThemeType } from '../../theme/constants'
@@ -41,14 +41,9 @@ class ProgressSpinner extends React.Component<PropsType> {
     return (
       <Container>
         <Svg width={svgSize} height={svgSize} testID='loading-image'>
-          <Image
-            width={logoSize}
-            height={logoSize}
-            // @ts-ignore
-            // TODO IGAPP-634: This prop is not allowed on image, check how to fix this by moving to another component?
-            transform={`translate(${logoXY}, ${logoXY})`}
-            xlinkHref={buildConfigAssets().loadingImage}
-          />
+          <G transform={`translate(${logoXY}, ${logoXY})`}>
+            <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
+          </G>
           <Circle
             stroke={theme.colors.themeColor}
             strokeDasharray={circumference}
