@@ -541,9 +541,6 @@ jobs:
             - run:
                 command: yarn workspace build-configs ts:check
                 name: TS check
-            - run:
-                command: yarn workspace native ts:check
-                name: TS check
             - unit_test:
                 directory: native
             - unit_test:
@@ -580,9 +577,6 @@ jobs:
                 name: TS check
             - run:
                 command: yarn workspace build-configs ts:check
-                name: TS check
-            - run:
-                command: yarn workspace web-ts ts:check
                 name: TS check
             - unit_test:
                 directory: web-ts
