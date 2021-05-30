@@ -44,7 +44,6 @@ export type CommonBuildConfigType = {
   // Regex defining which urls to intercept as they are internal ones.
   featureFlags: FeatureFlagsType
   lightTheme: ThemeType
-  darkTheme: ThemeType
   translationsOverride?: TranslationsType
   // Translations deviating from the standard integreat translations.
   assets: string
