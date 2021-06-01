@@ -1,11 +1,5 @@
 import React, { ReactNode } from 'react'
-import {
-  CATEGORIES_ROUTE,
-  EVENTS_ROUTE,
-  NotFoundError,
-  OFFERS_ROUTE,
-  POIS_ROUTE
-} from 'api-client'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NotFoundError, OFFERS_ROUTE, POIS_ROUTE } from 'api-client'
 import Failure from './Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import { RoutePatterns } from '../routes/RootSwitcher'
@@ -34,53 +28,17 @@ export class FailureSwitcher extends React.Component<PropsType> {
 
     switch (error.type) {
       case 'category':
-        return (
-          <Failure
-            goToPath={categoriesPath}
-            goToMessage='goTo.categories'
-            errorMessage='notFound.category'
-          />
-        )
+        return <Failure goToPath={categoriesPath} goToMessage='goTo.categories' errorMessage='notFound.category' />
       case 'event':
-        return (
-          <Failure
-            goToPath={eventsPath}
-            goToMessage='goTo.events'
-            errorMessage='notFound.event'
-          />
-        )
+        return <Failure goToPath={eventsPath} goToMessage='goTo.events' errorMessage='notFound.event' />
       case LOCAL_NEWS_TYPE:
-        return (
-          <Failure
-            goToPath={localNewsPath}
-            goToMessage='goTo.localNews'
-            errorMessage='notFound.localNews'
-          />
-        )
+        return <Failure goToPath={localNewsPath} goToMessage='goTo.localNews' errorMessage='notFound.localNews' />
       case TU_NEWS_TYPE:
-        return (
-          <Failure
-            goToPath={tunewsPath}
-            goToMessage='goTo.tunews'
-            errorMessage='notFound.tunews'
-          />
-        )
+        return <Failure goToPath={tunewsPath} goToMessage='goTo.tunews' errorMessage='notFound.tunews' />
       case 'offer':
-        return (
-          <Failure
-            goToPath={offersPath}
-            goToMessage='goTo.offers'
-            errorMessage='notFound.offer'
-          />
-        )
+        return <Failure goToPath={offersPath} goToMessage='goTo.offers' errorMessage='notFound.offer' />
       case 'poi':
-        return (
-          <Failure
-            goToPath={poisPath}
-            goToMessage='goTo.pois'
-            errorMessage='notFound.poi'
-          />
-        )
+        return <Failure goToPath={poisPath} goToMessage='goTo.pois' errorMessage='notFound.poi' />
     }
 
     throw new Error('Failed to find component to render a content error')

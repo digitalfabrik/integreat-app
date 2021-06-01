@@ -9,7 +9,8 @@ import {
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
-  PAGE_FEEDBACK_TYPE, POIS_ROUTE,
+  PAGE_FEEDBACK_TYPE,
+  POIS_ROUTE,
   SPRUNGBRETT_OFFER
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
@@ -74,7 +75,7 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it.each`
-    routeType                  | inputProps                             | feedbackType
+    routeType           | inputProps                             | feedbackType
     ${CATEGORIES_ROUTE} | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
     ${CATEGORIES_ROUTE} | ${{ path: 'augsburg/de' }}             | ${PAGE_FEEDBACK_TYPE}
     ${EVENTS_ROUTE}     | ${{}}                                  | ${EVENTS_FEEDBACK_TYPE}

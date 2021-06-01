@@ -36,16 +36,16 @@ type PropsType = {
  * Renders a FeedbackBox with all possible feedback options the User can select
  */
 export const FeedbackBoxContainer = ({
-                                       alias,
-                                       path,
-                                       cityCode,
-                                       language,
-                                       routeType,
-                                       isPositiveRatingSelected,
-                                       closeFeedbackModal,
-                                       sendingStatus,
-                                       onSubmit
-                                     }: PropsType) => {
+  alias,
+  path,
+  cityCode,
+  language,
+  routeType,
+  isPositiveRatingSelected,
+  closeFeedbackModal,
+  sendingStatus,
+  onSubmit
+}: PropsType) => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
 
