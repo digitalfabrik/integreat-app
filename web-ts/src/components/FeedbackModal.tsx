@@ -43,7 +43,7 @@ const FeedbackContainer = styled.div`
 type PropsType = {
   path?: string
   alias?: string
-  city: string
+  cityCode: string
   language: string
   routeType: RouteType
   feedbackRating: FeedbackRatingType

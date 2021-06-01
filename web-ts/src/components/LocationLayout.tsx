@@ -3,6 +3,8 @@ import Layout from '../components/Layout'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import { CategoriesMapModel, CityModel } from 'api-client'
+import FeedbackModal from './FeedbackModal'
+import { RouteType } from '../routes/App'
 
 export type FeedbackRatingType = 'up' | 'down'
 
@@ -13,6 +15,7 @@ type PropsType = {
   children?: ReactNode
   toggleDarkMode: () => void
   darkMode: boolean
+  routeType: RouteType
   feedbackTargetInformation: { path?: string; alias?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
@@ -30,7 +33,10 @@ type LocalStateType = {
 const DARK_THEME_CLICK_COUNT = 5
 
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
-  state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
+  constructor(props: PropsType) {
+    super(props)
+    this.state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
+  }
 
   handleStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
 
@@ -48,22 +54,23 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     return cities?.find(_city => _city.code === cityCode) ?? null
   }
 
-  // TODO IGAPP-642
-  // renderFeedbackModal = (): React.Node => {
-  //   if (!this.state.feedbackModalRating) {
-  //     return null
-  //   }
-  //
-  //   const { location, feedbackTargetInformation } = this.props
-  //   return (
-  //     <FeedbackModal
-  //       feedbackRating={this.state.feedbackModalRating}
-  //       closeFeedbackModal={this.closeFeedbackModal}
-  //       location={location}
-  //       {...feedbackTargetInformation}
-  //     />
-  //   )
-  // }
+  renderFeedbackModal = (): React.ReactNode => {
+    if (!this.state.feedbackModalRating) {
+      return null
+    }
+
+    const { cityCode, languageCode, routeType, feedbackTargetInformation } = this.props
+    return (
+      <FeedbackModal
+        cityCode={cityCode}
+        language={languageCode}
+        routeType={routeType}
+        feedbackRating={this.state.feedbackModalRating}
+        closeFeedbackModal={this.closeFeedbackModal}
+        {...feedbackTargetInformation}
+      />
+    )
+  }
 
   openFeedbackModal = (rating: FeedbackRatingType) => this.setState({ feedbackModalRating: rating })
 

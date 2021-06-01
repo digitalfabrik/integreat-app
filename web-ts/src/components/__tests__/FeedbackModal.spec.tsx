@@ -21,7 +21,7 @@ jest.mock('../FeedbackThanksMessage', () => {
 })
 
 describe('FeedbackModal', () => {
-  const city = 'augsburg'
+  const cityCode = 'augsburg'
   const language = 'de'
 
   const closeFeedbackModal = jest.fn()
@@ -30,7 +30,7 @@ describe('FeedbackModal', () => {
     const { getByRole, getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackModal
-          city={city}
+          cityCode={cityCode}
           language={language}
           routeType={Routes.CATEGORIES_ROUTE}
           path='augsburg/de'

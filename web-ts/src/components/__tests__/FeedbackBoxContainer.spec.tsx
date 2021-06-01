@@ -26,7 +26,7 @@ jest.mock('api-client', () => {
 })
 
 describe('FeedbackBoxContainer', () => {
-  const city = 'augsburg'
+  const cityCode = 'augsburg'
   const language = 'de'
 
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe('FeedbackBoxContainer', () => {
   ): ComponentProps<typeof FeedbackBoxContainer> => {
     return {
       routeType,
-      city,
+      cityCode,
       language,
       closeFeedbackModal,
       isPositiveRatingSelected,

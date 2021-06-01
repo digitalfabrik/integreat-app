@@ -18,7 +18,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 type PropsType = {
   alias?: string
   path?: string
-  city: string
+  cityCode: string
   language: string
   routeType: RouteType
   isPositiveRatingSelected: boolean
@@ -33,7 +33,7 @@ type PropsType = {
 export const FeedbackBoxContainer = ({
   alias,
   path,
-  city,
+  cityCode,
   language,
   routeType,
   isPositiveRatingSelected,
@@ -73,7 +73,7 @@ export const FeedbackBoxContainer = ({
       isPositiveRating: isPositiveRatingSelected,
       comment: `${comment}    Kontaktadresse: ${contactMail || 'Keine Angabe'}`,
       permalink: path,
-      city: city || INTEGREAT_INSTANCE,
+      city: cityCode || INTEGREAT_INSTANCE,
       language: language || DEFAULT_FEEDBACK_LANGUAGE,
       alias
     }
@@ -85,7 +85,7 @@ export const FeedbackBoxContainer = ({
       console.error(e)
       onSubmit('ERROR')
     }
-  }, [routeType, path, alias, isPositiveRatingSelected, comment, contactMail, city, language, onSubmit])
+  }, [routeType, path, alias, isPositiveRatingSelected, comment, contactMail, cityCode, language, onSubmit])
 
   return (
     <FeedbackBox
