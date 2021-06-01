@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from './theme'
+import { lightTheme } from './theme'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -8,12 +8,13 @@ import {
 import { MALTE_ASSETS } from '../AssetsType'
 import malteOverrideTranslations from 'translations/override-translations/malte.json'
 import mainImprint from './mainImprint'
+
 const APPLE_APP_ID = '1535758339'
+
 const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   lightTheme,
-  darkTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   allowedHostNames: ['cms.malteapp.de'],
@@ -37,6 +38,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     default: 'https://www.malteser-werke.de/datenschutzerklaerung-malte.html'
   }
 }
+
 const androidMalteBuildConfig: AndroidBuildConfigType = {
   ...commonMalteBuildConfig,
   splashScreen: false,
@@ -52,6 +54,7 @@ const androidMalteBuildConfig: AndroidBuildConfigType = {
     projectId: 'malte-2020'
   }
 }
+
 const iosMalteBuildConfig: iOSBuildConfigType = {
   ...commonMalteBuildConfig,
   bundleIdentifier: 'de.malteapp',
@@ -77,6 +80,7 @@ const iosMalteBuildConfig: iOSBuildConfigType = {
   },
   launchScreen: 'LaunchScreenDefault'
 }
+
 const webMalteBuildConfig: WebBuildConfigType = {
   ...commonMalteBuildConfig,
   appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
@@ -90,10 +94,12 @@ const webMalteBuildConfig: WebBuildConfigType = {
     favicons: '/favicons/'
   }
 }
+
 const platformBuildConfigs = {
   common: commonMalteBuildConfig,
   web: webMalteBuildConfig,
   android: androidMalteBuildConfig,
   ios: iosMalteBuildConfig
 }
+
 export default platformBuildConfigs

@@ -2,8 +2,6 @@ export type HelpersType = {
   removeLinkHighlighting: string
 }
 
-const themeHelpers: HelpersType = {
+export const helpers: HelpersType = {
   removeLinkHighlighting: 'color: inherit; text-decoration: none;'
 }
-
-export default themeHelpers
