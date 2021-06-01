@@ -10,6 +10,7 @@ describe('FeedbackToolbarItem', () => {
     const component = shallow(<FeedbackToolbarItem openFeedbackModal={() => {}} isPositiveRatingLink viewportSmall />)
     expect(component.find(faSmile)).not.toBeNull()
   })
+
   it('should render a negative FeedbackToolbarItem', () => {
     const component = shallow(
       <FeedbackToolbarItem openFeedbackModal={() => {}} isPositiveRatingLink={false} viewportSmall />

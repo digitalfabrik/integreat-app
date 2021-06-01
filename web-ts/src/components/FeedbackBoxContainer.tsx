@@ -18,9 +18,9 @@ import { cmsApiBaseUrl } from '../constants/urls'
 type PropsType = {
   alias?: string
   path?: string
-  city: string,
-  language: string,
-  routeType: RouteType,
+  city: string
+  language: string
+  routeType: RouteType
   isPositiveRatingSelected: boolean
   closeFeedbackModal: () => void
   sendingStatus: SendingStatusType
@@ -44,8 +44,7 @@ export const FeedbackBoxContainer = ({
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
 
-  const getFeedbackType = (routeType: RouteType, path: string | undefined, alias: string | undefined): FeedbackType => {
-
+  const getFeedbackType = (routeType: RouteType, path?: string, alias?: string): FeedbackType => {
     switch (routeType) {
       case Routes.EVENTS_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE

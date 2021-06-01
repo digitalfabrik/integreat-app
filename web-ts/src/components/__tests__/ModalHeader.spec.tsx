@@ -2,13 +2,13 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { ModalHeader } from '../ModalHeader'
 import { ThemeProvider } from 'styled-components'
-import { lightTheme } from 'build-configs/integreat/theme'
+import buildConfig from '../../constants/buildConfig'
 
 describe('ModalHeader', () => {
   it('should call close function when clicking on close', () => {
     const onCloseFeedbackModal = jest.fn()
     const { getByRole } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <ModalHeader t={key => key} closeFeedbackModal={onCloseFeedbackModal} title='title' />
       </ThemeProvider>
     )
