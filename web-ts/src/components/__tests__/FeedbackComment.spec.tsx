@@ -1,8 +1,5 @@
-// @flow
-
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-
 import FeedbackComment from '../FeedbackComment'
 
 describe('FeedbackComment', () => {
@@ -15,9 +12,11 @@ describe('FeedbackComment', () => {
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
     expect(onCommentChanged).not.toHaveBeenCalled()
-
-    fireEvent.change(getByDisplayValue('my old comment'), { target: { value: 'my new comment' } })
-
+    fireEvent.change(getByDisplayValue('my old comment'), {
+      target: {
+        value: 'my new comment'
+      }
+    })
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
     expect(onCommentChanged).toBeCalledWith('my new comment')
   })

@@ -1,17 +1,17 @@
-// @flow
-
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { FeedbackBox } from '../FeedbackBox'
 import { ThemeProvider } from 'styled-components'
-import lightTheme from '../../../theme/constants/theme'
+import { SendingStatusType } from '../FeedbackModal'
+import buildConfig from '../../constants/buildConfig'
 
 describe('FeedbackBox', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  const t = (key: ?string): string => key || ''
+  const t = (key: string): string => key
+
   const onCommentChanged = jest.fn()
   const onContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
@@ -22,7 +22,7 @@ describe('FeedbackBox', () => {
       comment,
       isPositiveRatingSelected,
       contactMail: 'test@example.com',
-      sendingStatus: 'IDLE',
+      sendingStatus: 'IDLE' as SendingStatusType,
       onCommentChanged,
       onContactMailChanged,
       onSubmit,
@@ -33,7 +33,7 @@ describe('FeedbackBox', () => {
 
   it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, '')} />
       </ThemeProvider>
     )
@@ -42,7 +42,7 @@ describe('FeedbackBox', () => {
 
   it('button should be enabled for positive Feedback and no input', () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(true, '')} />
       </ThemeProvider>
     )
@@ -51,7 +51,7 @@ describe('FeedbackBox', () => {
 
   it('button should be enabled for negative Feedback and input', () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
@@ -60,28 +60,29 @@ describe('FeedbackBox', () => {
 
   it('onSubmit should be called on button press', async () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
     const button = getByText('send')
     fireEvent.click(button)
-
     expect(onSubmit).toBeCalled()
   })
 
   it('should call callback on contact mail changed', () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, 'my comment')} />
       </ThemeProvider>
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
     expect(onContactMailChanged).not.toHaveBeenCalled()
-
-    fireEvent.change(getByDisplayValue('test@example.com'), { target: { value: 'new@example.com' } })
-
+    fireEvent.change(getByDisplayValue('test@example.com'), {
+      target: {
+        value: 'new@example.com'
+      }
+    })
     expect(onContactMailChanged).toHaveBeenCalledTimes(1)
     expect(onContactMailChanged).toBeCalledWith('new@example.com')
   })
