@@ -9,9 +9,10 @@ exports[`Layout should render all components 1`] = `
       <header />
       <styled.div>
         <styled.aside
-          style={
-            Object {
-              "top": "40px",
+          asideStickyTop={40}
+          platform={
+            Platform {
+              "_browser": null,
             }
           }
         >

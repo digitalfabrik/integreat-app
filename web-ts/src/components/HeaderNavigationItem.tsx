@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import helpers from '../constants/themeHelpers'
+import { helpers } from '../constants/theme'
 import dimensions from '../constants/dimensions'
 import { Link } from 'react-router-dom'
 

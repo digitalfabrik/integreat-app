@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 import HeaderLogo from './HeaderLogo'
 import dimensions from '../constants/dimensions'
+import { Platform } from '../contexts/PlatformContext'
+import withPlatform from '../hocs/withPlatform'
 
 type PropsType = {
   navigationItems: Array<ReactNode>
@@ -12,8 +14,7 @@ type PropsType = {
   viewportSmall: boolean
   cityName?: string
   onStickyTopChanged: (stickyTop: number) => void
-  // TODO IGAPP-646
-  // platform: Platform
+  platform: Platform
 }
 
 const HeaderContainer = styled.header`
@@ -101,8 +102,7 @@ export const Header = ({
   actionItems = [],
   logoHref,
   navigationItems = [],
-  // TODO IGAPP-646
-  // platform,
+  platform,
   cityName
 }: PropsType) => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
@@ -117,8 +117,7 @@ export const Header = ({
       onStickyTopChanged={onStickyTopChanged}
       scrollHeight={scrollHeight}
       height={height}
-      // TODO IGAPP-646
-      /* positionStickyDisabled={platform.positionStickyDisabled} */
+      positionStickyDisabled={platform.positionStickyDisabled}
     >
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
@@ -137,6 +136,4 @@ export const Header = ({
   )
 }
 
-// TODO IGAPP-646
-// export default withPlatform(Header)
-export default Header
+export default withPlatform(Header)
