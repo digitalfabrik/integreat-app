@@ -5,8 +5,7 @@ import FeedbackThanksMessage from './FeedbackThanksMessage'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
 import FocusTrap from 'focus-trap-react'
 import dimensions from '../constants/dimensions'
-import { LocationState } from 'history'
-import { FeedbackRatingType } from '../@types/FeedbackRatingType'
+import { FeedbackRatingType } from './FeedbackToolbarItem'
 
 const Overlay = styled.div`
   position: absolute;
