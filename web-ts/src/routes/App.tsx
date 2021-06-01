@@ -10,7 +10,6 @@ import SearchPage from './search/SearchPage'
 import DisclaimerPage from './disclaimer/DisclaimerPage'
 import ErrorPage from './errors/ErrorPage'
 
-
 export const Routes = {
   LANDING_ROUTE: 'landing',
   CATEGORIES_ROUTE: '',

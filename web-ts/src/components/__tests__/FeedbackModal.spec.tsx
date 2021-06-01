@@ -2,30 +2,33 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { FeedbackModal } from '../FeedbackModal'
 import { ThemeProvider } from 'styled-components'
-import { lightTheme } from 'build-configs/integreat/theme'
 import { MemoryRouter } from 'react-router-dom'
 import { Routes } from '../../routes/App'
+import buildConfig from '../../constants/buildConfig'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {
   return {
     ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: (baseUrl: string) => ({
+    createFeedbackEndpoint: () => ({
       request: () => {}
     })
   }
 })
+
 jest.mock('../FeedbackThanksMessage', () => {
   return () => <div>Thanks</div>
 })
+
 describe('FeedbackModal', () => {
   const city = 'augsburg'
   const language = 'de'
 
   const closeFeedbackModal = jest.fn()
+
   it('should display thanks message after successfully submitting feedback', async () => {
     const { getByRole, getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackModal
           city={city}
           language={language}

@@ -2,15 +2,15 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { FeedbackBox } from '../FeedbackBox'
 import { ThemeProvider } from 'styled-components'
-import { lightTheme } from 'build-configs/integreat/theme'
 import { SendingStatusType } from '../FeedbackModal'
+import buildConfig from '../../constants/buildConfig'
 
 describe('FeedbackBox', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  const t = (key: string | null | undefined): string => key || ''
+  const t = (key: string): string => key
 
   const onCommentChanged = jest.fn()
   const onContactMailChanged = jest.fn()
@@ -33,31 +33,34 @@ describe('FeedbackBox', () => {
 
   it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, '')} />
       </ThemeProvider>
     )
     expect(getByText('send')).toBeDisabled()
   })
+
   it('button should be enabled for positive Feedback and no input', () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(true, '')} />
       </ThemeProvider>
     )
     expect(getByText('send')).not.toBeDisabled()
   })
+
   it('button should be enabled for negative Feedback and input', () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
     expect(getByText('send')).not.toBeDisabled()
   })
+
   it('onSubmit should be called on button press', async () => {
     const { getByText } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
@@ -65,9 +68,10 @@ describe('FeedbackBox', () => {
     fireEvent.click(button)
     expect(onSubmit).toBeCalled()
   })
+
   it('should call callback on contact mail changed', () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBox {...buildProps(false, 'my comment')} />
       </ThemeProvider>
     )

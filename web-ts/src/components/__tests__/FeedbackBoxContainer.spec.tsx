@@ -10,7 +10,7 @@ import {
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
 import { Routes, RouteType } from '../../routes/App'
-import { lightTheme } from 'build-configs/integreat/theme'
+import buildConfig from '../../constants/buildConfig'
 import FeedbackBoxContainer from '../FeedbackBoxContainer'
 import { SendingStatusType } from '../FeedbackModal'
 
@@ -19,7 +19,7 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => {
   return {
     ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: (baseUrl: string) => ({
+    createFeedbackEndpoint: () => ({
       request: mockRequest
     })
   }
@@ -56,7 +56,7 @@ describe('FeedbackBoxContainer', () => {
       throw new Error()
     })
     const { getByRole } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBoxContainer {...buildDefaultProps(Routes.CATEGORIES_ROUTE, true)} />
       </ThemeProvider>
     )
@@ -68,6 +68,7 @@ describe('FeedbackBoxContainer', () => {
     await waitFor(() => expect(button).not.toBeDisabled())
     expect(onSubmit).toBeCalledWith('ERROR')
   })
+
   it.each`
     routeType                  | inputProps                             | feedbackType
     ${Routes.CATEGORIES_ROUTE} | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
@@ -81,7 +82,7 @@ describe('FeedbackBoxContainer', () => {
     ${Routes.POIS_ROUTE}       | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
   `('should successfully request feedback for $feedbackType', async ({ routeType, inputProps, feedbackType }) => {
     const { getByRole } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackBoxContainer {...buildDefaultProps(routeType, true)} {...inputProps} />
       </ThemeProvider>
     )

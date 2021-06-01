@@ -4,6 +4,7 @@ import FeedbackComment from '../FeedbackComment'
 
 describe('FeedbackComment', () => {
   const onCommentChanged = jest.fn()
+
   it('should call callback on comment changed', () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
       <FeedbackComment comment='my old comment' commentMessage='message' onCommentChanged={onCommentChanged} />
