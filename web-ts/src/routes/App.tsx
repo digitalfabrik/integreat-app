@@ -26,7 +26,7 @@ export const Routes = {
 
 export type RouteType = typeof Routes[keyof typeof Routes]
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Switch>
