@@ -46,6 +46,8 @@ export const RoutePatterns = {
   [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoriesId*`
 }
 
+export type RouteType = typeof RoutePatterns[keyof typeof RoutePatterns]
+
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
 }

@@ -2,14 +2,18 @@ import React, { ComponentProps } from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import {
   CATEGORIES_FEEDBACK_TYPE,
+  CATEGORIES_ROUTE,
+  DISCLAIMER_ROUTE,
   EVENTS_FEEDBACK_TYPE,
+  EVENTS_ROUTE,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
-  PAGE_FEEDBACK_TYPE,
+  OFFERS_ROUTE,
+  PAGE_FEEDBACK_TYPE, POIS_ROUTE,
   SPRUNGBRETT_OFFER
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
-import { Routes, RouteType } from '../../routes/App'
+import { RouteType } from '../../routes/RootSwitcher'
 import buildConfig from '../../constants/buildConfig'
 import FeedbackBoxContainer from '../FeedbackBoxContainer'
 import { SendingStatusType } from '../FeedbackModal'
@@ -57,7 +61,7 @@ describe('FeedbackBoxContainer', () => {
     })
     const { getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackBoxContainer {...buildDefaultProps(Routes.CATEGORIES_ROUTE, true)} />
+        <FeedbackBoxContainer {...buildDefaultProps(CATEGORIES_ROUTE, true)} />
       </ThemeProvider>
     )
     const button = getByRole('button', {
@@ -71,15 +75,15 @@ describe('FeedbackBoxContainer', () => {
 
   it.each`
     routeType                  | inputProps                             | feedbackType
-    ${Routes.CATEGORIES_ROUTE} | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
-    ${Routes.CATEGORIES_ROUTE} | ${{ path: 'augsburg/de' }}             | ${PAGE_FEEDBACK_TYPE}
-    ${Routes.EVENTS_ROUTE}     | ${{}}                                  | ${EVENTS_FEEDBACK_TYPE}
-    ${Routes.EVENTS_ROUTE}     | ${{ path: 'augsburg/de/events/1234' }} | ${PAGE_FEEDBACK_TYPE}
-    ${Routes.OFFERS_ROUTE}     | ${{ alias: SPRUNGBRETT_OFFER }}        | ${OFFER_FEEDBACK_TYPE}
-    ${Routes.OFFERS_ROUTE}     | ${{}}                                  | ${OFFERS_FEEDBACK_TYPE}
-    ${Routes.DISCLAIMER_ROUTE} | ${{ path: 'augsburg/de/disclaimer' }}  | ${PAGE_FEEDBACK_TYPE}
-    ${Routes.POIS_ROUTE}       | ${{ path: 'augsburg/de/pois/1234' }}   | ${PAGE_FEEDBACK_TYPE}
-    ${Routes.POIS_ROUTE}       | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
+    ${CATEGORIES_ROUTE} | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
+    ${CATEGORIES_ROUTE} | ${{ path: 'augsburg/de' }}             | ${PAGE_FEEDBACK_TYPE}
+    ${EVENTS_ROUTE}     | ${{}}                                  | ${EVENTS_FEEDBACK_TYPE}
+    ${EVENTS_ROUTE}     | ${{ path: 'augsburg/de/events/1234' }} | ${PAGE_FEEDBACK_TYPE}
+    ${OFFERS_ROUTE}     | ${{ alias: SPRUNGBRETT_OFFER }}        | ${OFFER_FEEDBACK_TYPE}
+    ${OFFERS_ROUTE}     | ${{}}                                  | ${OFFERS_FEEDBACK_TYPE}
+    ${DISCLAIMER_ROUTE} | ${{ path: 'augsburg/de/disclaimer' }}  | ${PAGE_FEEDBACK_TYPE}
+    ${POIS_ROUTE}       | ${{ path: 'augsburg/de/pois/1234' }}   | ${PAGE_FEEDBACK_TYPE}
+    ${POIS_ROUTE}       | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
   `('should successfully request feedback for $feedbackType', async ({ routeType, inputProps, feedbackType }) => {
     const { getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
