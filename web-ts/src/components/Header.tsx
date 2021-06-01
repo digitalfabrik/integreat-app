@@ -117,8 +117,7 @@ export const Header = ({
       onStickyTopChanged={onStickyTopChanged}
       scrollHeight={scrollHeight}
       height={height}
-      positionStickyDisabled={platform.positionStickyDisabled}
-    >
+      positionStickyDisabled={platform.positionStickyDisabled}>
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
           <HeaderLogo link={logoHref} />
