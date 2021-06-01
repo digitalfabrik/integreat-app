@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 import Tooltip from './Tooltip'
 import { faFrown, faSmile } from '../constants/icons'
-import { FeedbackRatingType } from '../@types/FeedbackRatingType'
 import StyledSmallViewTip from './StyledSmallViewTip'
+
+export type FeedbackRatingType = 'up' | 'down'
 
 type PropsType = {
   isPositiveRatingLink: boolean
@@ -15,7 +16,7 @@ type PropsType = {
   className?: string
   viewportSmall: boolean
 }
-// @ts-expect-error withComponent exists
+
 const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
 
 const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, className, viewportSmall }: PropsType) => {
