@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 
 type PropsType = {
-  children: string | undefined
+  children?: string
 }
 
 const LONG_TITLE_LENGTH = 25
