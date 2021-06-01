@@ -4,6 +4,7 @@ import { FeedbackModal } from '../FeedbackModal'
 import { ThemeProvider } from 'styled-components'
 import { lightTheme } from 'build-configs/integreat/theme'
 import { MemoryRouter } from 'react-router-dom'
+import { Routes } from '../../routes/App'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {
@@ -18,11 +19,21 @@ jest.mock('../FeedbackThanksMessage', () => {
   return () => <div>Thanks</div>
 })
 describe('FeedbackModal', () => {
+  const city = 'augsburg'
+  const language = 'de'
+
   const closeFeedbackModal = jest.fn()
   it('should display thanks message after successfully submitting feedback', async () => {
     const { getByRole, getByText } = render(
       <ThemeProvider theme={lightTheme}>
-        <FeedbackModal path='augsburg/de' closeFeedbackModal={closeFeedbackModal} feedbackRating='up' />
+        <FeedbackModal
+          city={city}
+          language={language}
+          routeType={Routes.CATEGORIES_ROUTE}
+          path='augsburg/de'
+          closeFeedbackModal={closeFeedbackModal}
+          feedbackRating='up'
+        />
       </ThemeProvider>,
       { wrapper: MemoryRouter }
     )

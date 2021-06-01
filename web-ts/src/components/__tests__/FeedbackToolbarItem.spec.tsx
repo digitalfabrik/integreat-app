@@ -3,6 +3,8 @@ import { shallow } from 'enzyme'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
 import { faFrown, faSmile } from '../../constants/icons'
 
+jest.mock('react-i18next')
+
 describe('FeedbackToolbarItem', () => {
   it('should render a positive FeedbackToolbarItem', () => {
     const component = shallow(<FeedbackToolbarItem openFeedbackModal={() => {}} isPositiveRatingLink viewportSmall />)
