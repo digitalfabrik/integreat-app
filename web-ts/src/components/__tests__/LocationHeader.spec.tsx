@@ -59,7 +59,7 @@ describe.skip('LocationHeader', () => {
   const pathname = '/augsburg/de/willkommen'
   const onStickyTopChanged = (value: number) => {}
 
-  type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions | undefined) => HTMLElement
+  type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
     if (shouldExist) {
       expect(getByText(text, { exact: false })).toBeTruthy()
