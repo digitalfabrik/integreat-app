@@ -63,7 +63,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): ReactNode => {
-    // TODO Check right routes
+    // TODO IGAPP-668: Check right routes
     // const { viewportSmall, categories } = this.props
     // const type = location.type
     // const feedbackRoutes = [
@@ -117,7 +117,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
           />
         }
         footer={!isLoading ? <LocationFooter city={cityCode} language={languageCode} /> : null}
-        // TODO right check
+        // TODO IGAPP-668: right check
         // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
         toolbar={this.renderToolbar()}>
         {children}

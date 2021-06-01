@@ -88,7 +88,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       <HeaderNavigationItem
         key='categories'
         href={categoriesPath}
-        // TODO Use right check
+        // TODO IGAPP-668: Use right check
         // active={currentRoute === CATEGORIES_ROUTE}
         active={false}
         text={t('localInformation')}
@@ -101,7 +101,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         <HeaderNavigationItem
           key='news'
           active={false}
-          // TODO Use right check
+          // TODO IGAPP-668: Use right check
           // active={newsRoutes.includes(currentRoute)}
           href={newsPath}
           text={t('news')}
@@ -116,7 +116,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           key='events'
           active={false}
           href={eventsPath}
-          // TODO Use right check
+          // TODO IGAPP-668: Use right check
           // active={currentRoute === EVENTS_ROUTE}
           text={t('events')}
           icon={eventsIcon}
@@ -130,7 +130,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           key='pois'
           active={false}
           href={poisPath}
-          // TODO Use right check
+          // TODO IGAPP-668: Use right check
           // active={currentRoute === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
@@ -144,7 +144,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           key='offers'
           active={false}
           href={offersPath}
-          // TODO Use right check
+          // TODO IGAPP-668: Use right check
           // active={offersRoutes.includes(currentRoute)}
           text={t('offers')}
           icon={offersIcon}
