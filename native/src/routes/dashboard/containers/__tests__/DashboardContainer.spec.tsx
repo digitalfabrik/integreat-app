@@ -80,7 +80,6 @@ describe('DashboardContainer', () => {
     } = {}
   ): StateType => {
     return {
-      darkMode: false,
       resourceCacheUrl,
       cityContent: {
         city: city.code,
