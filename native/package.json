@@ -11,13 +11,13 @@
     "start:aschaffenburg": "cross-env BUILD_CONFIG_NAME='aschaffenburg' react-native start --reset-cache",
     "start:integreat-e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' react-native start --reset-cache",
     "android": "yarn android:integreat-test-cms",
-    "android:integreat-test-cms": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' react-native run-android --no-packager",
-    "android:malte": "cross-env BUILD_CONFIG_NAME='malte' react-native run-android --no-packager",
-    "android:aschaffenburg": "cross-env BUILD_CONFIG_NAME='aschaffenburg' react-native run-android --no-packager",
+    "android:integreat-test-cms": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' react-native run-android --no-packager --appId app.integreat.test",
+    "android:malte": "cross-env BUILD_CONFIG_NAME='malte' react-native run-android --no-packager --appId de.malteapp",
+    "android:aschaffenburg": "cross-env BUILD_CONFIG_NAME='aschaffenburg' react-native run-android --no-packager --appId app.aschaffenburg",
     "android:integreat-e2e": "cross-env BUILD_CONFIG_NAME='integreat-e2e' react-native run-android --no-packager",
     "android:integreat:production": "cross-env BUILD_CONFIG_NAME='integreat' react-native run-android --no-packager --variant=release",
-    "android:malte:production": "cross-env BUILD_CONFIG_NAME='malte' react-native run-android --no-packager --variant=release",
-    "android:aschaffenburg:production": "cross-env BUILD_CONFIG_NAME='aschaffenburg' react-native run-android --no-packager --variant=release",
+    "android:malte:production": "cross-env BUILD_CONFIG_NAME='malte' react-native run-android --no-packager --variant=release --appId de.malteapp",
+    "android:aschaffenburg:production": "cross-env BUILD_CONFIG_NAME='aschaffenburg' react-native run-android --no-packager --variant=release --appId app.aschaffenburg",
     "android:reload": "adb shell input text RR",
     "android:menu": "adb shell input keyevent 82",
     "android:reverse": "adb reverse tcp:8081 tcp:8081",
@@ -33,7 +33,7 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
     "postinstall": "jetifier",
-    "ts:check": "yarn tsc --project tsconfig.json"
+    "ts:check": "tsc --build"
   },
   "dependencies": {
     "@react-native-community/art": "^1.1.2",

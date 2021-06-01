@@ -11,7 +11,6 @@ Refer to the documentation in [StateType](../src/modules/app/StateType.js).
 
 ### General State
 
-- `darkMode`: Flag whether the dark mode is enabled. Not used anywhere.
 - `resourceCacheUrl`: Url (localhost) from which resources of the cache are served.
 - [cityContent](#city-content-state)
 - `contentLanguage`: The currently selected content language (independent of the selected city).
