@@ -11,6 +11,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
     </html>
   }
   pinStart={0}
+  positionStickyDisabled={false}
   scrollHeight={90}
   zIndex={1}
 >
@@ -57,6 +58,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
     </html>
   }
   pinStart={0}
+  positionStickyDisabled={false}
   scrollHeight={70}
   zIndex={1}
 >

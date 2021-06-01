@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
+import PlatformContext, { Platform } from '../contexts/PlatformContext'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper = styled.div`
@@ -69,10 +70,9 @@ const Main = styled.main`
   }
 `
 
-// TODO IGAPP-646
-// const Aside = withPlatform(styled.aside<{ platform: Platform }>`
-//   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
-const Aside = styled.aside`
+const Aside = styled.aside<{ platform: Platform; asideStickyTop: number }>`
+  top: ${props => props.asideStickyTop}px;
+  position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
   display: inline-block;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
@@ -112,31 +112,31 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-class Layout extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    asideStickyTop: 0,
-    darkMode: false
-  }
+const Layout = ({ asideStickyTop, footer, header, toolbar, modal, children }: PropsType) => {
+  const platform = useContext(PlatformContext)
+  const modalVisible = !!modal
+  return (
+    <FlexWrapper>
+      <RichLayout>
+        <div aria-hidden={modalVisible}>
+          {header}
+          <Body>
+            <Aside asideStickyTop={asideStickyTop} platform={platform}>
+              {toolbar}
+            </Aside>
+            <Main>{children}</Main>
+          </Body>
+        </div>
+        {modal}
+        <div aria-hidden={modalVisible}>{footer}</div>
+      </RichLayout>
+    </FlexWrapper>
+  )
+}
 
-  render() {
-    const { asideStickyTop, footer, header, toolbar, modal, children } = this.props
-    const modalVisible = !!modal
-    return (
-      <FlexWrapper>
-        <RichLayout>
-          <div aria-hidden={modalVisible}>
-            {header}
-            <Body>
-              <Aside style={{ top: `${asideStickyTop}px` }}>{toolbar}</Aside>
-              <Main>{children}</Main>
-            </Body>
-          </div>
-          {modal}
-          <div aria-hidden={modalVisible}>{footer}</div>
-        </RichLayout>
-      </FlexWrapper>
-    )
-  }
+Layout.defaultProps = {
+  asideStickyTop: 0,
+  darkMode: false
 }
 
 export default Layout
