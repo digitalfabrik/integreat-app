@@ -78,7 +78,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   if (!cities || error) {
     return (
       <Layout
-        header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+        header={<GeneralHeader languageCode={language} viewportSmall={false} />}
         footer={<GeneralFooter language={language} />}>
         <FailureSwitcher error={error ?? new Error('Cities not available')} />
       </Layout>

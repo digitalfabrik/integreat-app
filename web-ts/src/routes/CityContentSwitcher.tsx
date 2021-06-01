@@ -47,13 +47,11 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   const { data: languages, loading, error: languagesError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
   const languageModel = languages?.find(it => it.code === languageCode)
 
-  const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode })
-
   if (!cityModel || !languageModel) {
     if (loading) {
       return (
         <Layout
-          header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+          header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
           footer={<GeneralFooter language={languageCode} />}>
           <LoadingSpinner />
         </Layout>
@@ -64,7 +62,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     if (error) {
       return (
         <Layout
-          header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+          header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
           footer={<GeneralFooter language={languageCode} />}>
           <FailureSwitcher error={error} />
         </Layout>
@@ -73,7 +71,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
 
     return (
       <Layout
-        header={<GeneralHeader landingPath={landingPath} viewportSmall={false} />}
+        header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
         footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
           cities={cities}
