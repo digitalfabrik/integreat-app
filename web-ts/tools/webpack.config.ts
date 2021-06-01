@@ -202,7 +202,7 @@ const createConfig = (
       new MomentTimezoneDataPlugin({
         startYear: currentYear,
         endYear: currentYear + 2
-      }),
+      })
       // moment has no support for 'ti' (Tigrinya) and 'so' (Somali), hence we have to use the ignoreInvalidLocales flag
       new MomentLocalesPlugin({
         localesToKeep: translationsConfig.getSupportedLanguageTags(),
