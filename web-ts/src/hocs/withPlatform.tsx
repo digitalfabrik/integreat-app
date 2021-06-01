@@ -1,6 +1,5 @@
 import * as React from 'react'
-import Platform from '../contexts/Platform'
-import PlatformContext from '../contexts/PlatformContext'
+import PlatformContext, { Platform } from '../contexts/PlatformContext'
 import wrapDisplayName from '../services/wrapDisplayName'
 
 type PropsType = {
