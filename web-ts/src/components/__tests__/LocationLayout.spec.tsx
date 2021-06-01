@@ -64,7 +64,7 @@ describe('LocationLayout', () => {
     </LocationLayout>
   )
 
-  // TODO Enable tests
+  // TODO IGAPP-668: Enable tests
   // eslint-disable-next-line jest/no-disabled-tests
   describe.skip('renderToolbar', () => {
     it('should render a CategoriesToolbar if current route is categories', () => {

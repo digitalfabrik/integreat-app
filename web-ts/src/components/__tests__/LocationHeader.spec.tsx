@@ -16,7 +16,7 @@ jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; ac
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
 
-// TODO enable tests again
+// TODO IGAPP-668: enable tests again
 // eslint-disable-next-line jest/no-disabled-tests
 describe.skip('LocationHeader', () => {
   const theme = buildConfig().lightTheme
