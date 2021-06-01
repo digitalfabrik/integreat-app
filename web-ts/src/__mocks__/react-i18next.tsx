@@ -12,10 +12,12 @@ const withTranslation = (namespace: string) => (Component: ComponentType): Compo
   return Translated
 }
 
-const useTranslation = (namespace: string): {
+const useTranslation = (
+  namespace: string
+): {
   t: TFunction
-  i18n: i18n;
-  ready: boolean;
+  i18n: i18n
+  ready: boolean
 } => {
   const i18n = i18next.createInstance()
 
