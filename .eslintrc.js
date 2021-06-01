@@ -76,6 +76,7 @@ module.exports = {
     {
       files: ['*.spec.{ts,tsx}'],
       rules: {
+        '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 'off'
       }
     }
