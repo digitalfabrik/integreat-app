@@ -55,7 +55,6 @@ describe.skip('LocationHeader', () => {
   ]
 
   const languageCode = 'de'
-  const cityCode = 'augsburg'
   const pathname = '/augsburg/de/willkommen'
   const onStickyTopChanged = (value: number) => {}
 
