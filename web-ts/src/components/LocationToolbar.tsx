@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import Toolbar from './Toolbar'
 import type { FeedbackRatingType } from './LocationLayout'
+import FeedbackToolbarItem from './FeedbackToolbarItem'
 
 type PropsType = {
   openFeedbackModal: (rating: FeedbackRatingType) => void
@@ -15,13 +16,12 @@ class LocationToolbar extends React.PureComponent<PropsType> {
     return (
       <Toolbar viewportSmall={viewportSmall}>
         {children}
-        {/* TODO IGAPP-642 */}
-        {/* <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} /> */}
-        {/* <FeedbackToolbarItem */}
-        {/*  isPositiveRatingLink={false} */}
-        {/*  openFeedbackModal={openFeedbackModal} */}
-        {/*  viewportSmall={viewportSmall} */}
-        {/* /> */}
+        <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
+        <FeedbackToolbarItem
+          isPositiveRatingLink={false}
+          openFeedbackModal={openFeedbackModal}
+          viewportSmall={viewportSmall}
+        />
       </Toolbar>
     )
   }
