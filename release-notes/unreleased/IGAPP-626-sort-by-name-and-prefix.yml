@@ -1,0 +1,7 @@
+issue_key: IGAPP-626
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: The city list is now sorted correctly ("Landkreis" always appears above "Stadt").
+de: Die Ortsauswahl wird jetzt richtig sortiert ("Landkreis" kommt immer vor "Stadt").
