@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import {
   CATEGORIES_FEEDBACK_TYPE,
@@ -9,7 +9,7 @@ import {
   SPRUNGBRETT_OFFER
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
-import { Routes } from '../../routes/App'
+import { Routes, RouteType } from '../../routes/App'
 import { lightTheme } from 'build-configs/integreat/theme'
 import FeedbackBoxContainer from '../FeedbackBoxContainer'
 import { SendingStatusType } from '../FeedbackModal'
@@ -25,24 +25,29 @@ jest.mock('api-client', () => {
   }
 })
 
-// TODO reenable after route setup is finished
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('FeedbackBoxContainer', () => {
+describe('FeedbackBoxContainer', () => {
+  const city = 'augsburg'
+  const language = 'de'
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
   const closeFeedbackModal = jest.fn()
   const onSubmit = jest.fn()
 
-  const t = (key: string | null | undefined): string => key || ''
-
-  const buildDefaultProps = (locationType, isPositiveRatingSelected, sendingStatus: SendingStatusType = 'IDLE') => {
+  const buildDefaultProps = (
+    routeType: RouteType,
+    isPositiveRatingSelected: boolean,
+    sendingStatus: SendingStatusType = 'IDLE'
+  ): ComponentProps<typeof FeedbackBoxContainer> => {
     return {
+      routeType,
+      city,
+      language,
       closeFeedbackModal,
       isPositiveRatingSelected,
       sendingStatus,
-      onSubmit,
-      t
+      onSubmit
     }
   }
 

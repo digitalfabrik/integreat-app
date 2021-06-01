@@ -10,10 +10,6 @@ import SearchPage from './search/SearchPage'
 import DisclaimerPage from './disclaimer/DisclaimerPage'
 import ErrorPage from './errors/ErrorPage'
 
-export type RouteParamsType = {
-  language: string
-  city: string
-}
 
 export const Routes = {
   LANDING_ROUTE: 'landing',
@@ -27,6 +23,8 @@ export const Routes = {
   DISCLAIMER_ROUTE: 'disclaimer',
   NOT_FOUND_ROUTE: 'not-found'
 } as const
+
+export type RouteType = typeof Routes[keyof typeof Routes]
 
 function App() {
   return (

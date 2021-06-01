@@ -11,15 +11,16 @@ import {
   PAGE_FEEDBACK_TYPE
 } from 'api-client'
 import FeedbackBox from './FeedbackBox'
-import { Routes, RouteParamsType } from '../routes/App'
+import { Routes, RouteType } from '../routes/App'
 import type { SendingStatusType } from './FeedbackModal'
-import { Location } from 'history'
-import { useLocation, useParams } from 'react-router-dom'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 type PropsType = {
   alias?: string
   path?: string
+  city: string,
+  language: string,
+  routeType: RouteType,
   isPositiveRatingSelected: boolean
   closeFeedbackModal: () => void
   sendingStatus: SendingStatusType
@@ -32,6 +33,9 @@ type PropsType = {
 export const FeedbackBoxContainer = ({
   alias,
   path,
+  city,
+  language,
+  routeType,
   isPositiveRatingSelected,
   closeFeedbackModal,
   sendingStatus,
@@ -39,11 +43,8 @@ export const FeedbackBoxContainer = ({
 }: PropsType) => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
-  const { city, language } = useParams<RouteParamsType>()
-  const location = useLocation()
 
-  const getFeedbackType = (location: Location, path: string | undefined, alias: string | undefined): FeedbackType => {
-    const routeType = location.state
+  const getFeedbackType = (routeType: RouteType, path: string | undefined, alias: string | undefined): FeedbackType => {
 
     switch (routeType) {
       case Routes.EVENTS_ROUTE:
@@ -67,7 +68,7 @@ export const FeedbackBoxContainer = ({
   }
 
   const submitFeedback = useCallback(async () => {
-    const feedbackType = getFeedbackType(location, path, alias)
+    const feedbackType = getFeedbackType(routeType, path, alias)
     const feedbackData = {
       feedbackType,
       isPositiveRating: isPositiveRatingSelected,
@@ -85,7 +86,7 @@ export const FeedbackBoxContainer = ({
       console.error(e)
       onSubmit('ERROR')
     }
-  }, [location, path, alias, isPositiveRatingSelected, comment, contactMail, city, language, onSubmit])
+  }, [routeType, path, alias, isPositiveRatingSelected, comment, contactMail, city, language, onSubmit])
 
   return (
     <FeedbackBox

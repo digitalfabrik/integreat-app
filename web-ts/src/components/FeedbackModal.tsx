@@ -6,6 +6,7 @@ import FeedbackBoxContainer from './FeedbackBoxContainer'
 import FocusTrap from 'focus-trap-react'
 import dimensions from '../constants/dimensions'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
+import { RouteType } from '../routes/App'
 
 const Overlay = styled.div`
   position: absolute;
@@ -42,6 +43,9 @@ const FeedbackContainer = styled.div`
 type PropsType = {
   path?: string
   alias?: string
+  city: string
+  language: string
+  routeType: RouteType
   feedbackRating: FeedbackRatingType
   closeFeedbackModal: () => void
 }
