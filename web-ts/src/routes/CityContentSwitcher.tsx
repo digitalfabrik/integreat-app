@@ -19,7 +19,7 @@ import {
   useLoadFromEndpoint,
   createLanguagesEndpoint,
   LanguageModel,
-  CATEGORIES_ROUTE,
+  CATEGORIES_ROUTE
 } from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import Layout from '../components/Layout'
