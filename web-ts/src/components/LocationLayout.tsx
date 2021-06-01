@@ -4,7 +4,7 @@ import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import { CategoriesMapModel, CityModel } from 'api-client'
 import FeedbackModal from './FeedbackModal'
-import { RouteType } from '../routes/App'
+import { RouteType } from '../routes/RootSwitcher'
 
 export type FeedbackRatingType = 'up' | 'down'
 

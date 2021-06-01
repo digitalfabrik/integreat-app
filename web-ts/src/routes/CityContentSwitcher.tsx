@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback } from 'react'
-import { Route, RouteComponentProps, Switch, generatePath } from 'react-router-dom'
+import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import OffersPage from './offers/OffersPage'
 import EventsPage from './events/EventsPage'
 import CategoriesPage from './categories/CategoriesPage'
@@ -20,7 +20,6 @@ import {
   createLanguagesEndpoint,
   LanguageModel,
   CATEGORIES_ROUTE,
-  LANDING_ROUTE
 } from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import Layout from '../components/Layout'
@@ -95,6 +94,8 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
+      // TODO IGAPP-668: Pass right route type
+      routeType={CATEGORIES_ROUTE}
       cityCode={cityCode}
       languageCode={languageCode}
       pathname={location.pathname}>
