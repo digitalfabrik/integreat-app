@@ -1,11 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, EVENTS_ROUTE } from 'api-client'
 import { LocationLayout } from '../LocationLayout'
 import moment from 'moment'
 import { ThemeProvider } from 'styled-components'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import buildConfig from '../../constants/buildConfig'
+import { Routes } from '../../routes/App'
 
 jest.mock('../LocationFooter', () => {
   return () => <div>LocationFooter</div>
@@ -47,13 +48,14 @@ describe('LocationLayout', () => {
   const theme = buildConfig().lightTheme
 
   const MockNode = () => <div />
-  const renderLocationLayout = (pathname, isLoading) => (
+  const renderLocationLayout = (pathname, routeType, isLoading) => (
     <LocationLayout
       cityCode={city}
       languageCode={language}
       pathname={pathname}
       categories={categories}
       cities={cities}
+      routeType={routeType}
       languageChangePaths={languageChangePaths}
       feedbackTargetInformation={feedbackTargetInformation}
       viewportSmall
@@ -67,14 +69,18 @@ describe('LocationLayout', () => {
   describe.skip('renderToolbar', () => {
     it('should render a CategoriesToolbar if current route is categories', () => {
       const pathname = '/augsburg/de/willkommen'
-      const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(pathname, false)}</ThemeProvider>)
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>{renderLocationLayout(pathname, Routes[CATEGORIES_ROUTE], false)}</ThemeProvider>
+      )
       expect(getByText('CategoriesToolbar')).toBeTruthy()
     })
 
     it('should render a LocationToolbar if current route is not categories', () => {
       const pathname = '/augsburg/de/events'
 
-      const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(pathname, false)}</ThemeProvider>)
+      const { getByText } = render(
+        <ThemeProvider theme={theme}>{renderLocationLayout(pathname, Routes[EVENTS_ROUTE], false)}</ThemeProvider>
+      )
       expect(getByText('LocationToolbar')).toBeTruthy()
     })
   })
@@ -82,7 +88,9 @@ describe('LocationLayout', () => {
   it('should show LocationHeader and LocationFooter if not loading', () => {
     const pathname = '/augsburg/de/willkommen'
 
-    const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(pathname, false)}</ThemeProvider>)
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>{renderLocationLayout(pathname, Routes[CATEGORIES_ROUTE], false)}</ThemeProvider>
+    )
     expect(getByText('LocationHeader')).toBeTruthy()
     expect(getByText('LocationFooter')).toBeTruthy()
   })
@@ -90,7 +98,9 @@ describe('LocationLayout', () => {
   it('should not render LocationFooter if loading', () => {
     const pathname = '/augsburg/de/willkommen'
 
-    const { getByText } = render(<ThemeProvider theme={theme}>{renderLocationLayout(pathname, true)}</ThemeProvider>)
+    const { getByText } = render(
+      <ThemeProvider theme={theme}>{renderLocationLayout(pathname, Routes[CATEGORIES_ROUTE], true)}</ThemeProvider>
+    )
     expect(getByText('LocationHeader')).toBeTruthy()
     expect(() => getByText('LocationFooter')).toThrow()
   })

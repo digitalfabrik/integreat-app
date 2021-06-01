@@ -1,13 +1,10 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import { faTimes } from '../../app/constants/icons'
+import React from 'react'
+import styled from 'styled-components'
+import { faTimes } from '../constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { type TFunction } from 'react-i18next'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { TFunction } from 'react-i18next'
 
-const Header: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Header = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -15,8 +12,7 @@ const Header: StyledComponent<{||}, ThemeType, *> = styled.div`
   margin-bottom: 10px;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
-
-const CloseButton: StyledComponent<{||}, ThemeType, *> = styled.button`
+const CloseButton = styled.button`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
 
@@ -25,17 +21,15 @@ const CloseButton: StyledComponent<{||}, ThemeType, *> = styled.button`
     vertical-align: baseline;
   }
 `
-
-type PropsType = {|
-  closeFeedbackModal: () => void,
-  title: string,
+type PropsType = {
+  closeFeedbackModal: () => void
+  title: string
   t: TFunction
-|}
+}
 
 export class ModalHeader extends React.PureComponent<PropsType> {
   render() {
     const { title, closeFeedbackModal, t } = this.props
-
     return (
       <Header>
         <div>{title}</div>
