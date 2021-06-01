@@ -57,13 +57,13 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
     this.state = { sendingStatus: 'IDLE' }
   }
 
-  handleSubmit = (sendingStatus: SendingStatusType) => {
+  handleSubmit = (sendingStatus: SendingStatusType): void => {
     this.setState({
       sendingStatus: sendingStatus
     })
   }
 
-  handleOverlayClick = () => {
+  handleOverlayClick = (): void => {
     this.setState({
       sendingStatus: 'IDLE'
     })

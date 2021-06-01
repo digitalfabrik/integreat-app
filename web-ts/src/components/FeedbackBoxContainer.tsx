@@ -10,7 +10,6 @@ import {
   OFFERS_FEEDBACK_TYPE,
   PAGE_FEEDBACK_TYPE
 } from 'api-client'
-import { TFunction, withTranslation } from 'react-i18next'
 import FeedbackBox from './FeedbackBox'
 import { Routes, RouteParamsType } from '../routes/App'
 import type { SendingStatusType } from './FeedbackModal'
@@ -25,7 +24,6 @@ type PropsType = {
   closeFeedbackModal: () => void
   sendingStatus: SendingStatusType
   onSubmit: (sendingStatus: SendingStatusType) => void
-  t: TFunction
 }
 
 /**
@@ -37,8 +35,7 @@ export const FeedbackBoxContainer = ({
   isPositiveRatingSelected,
   closeFeedbackModal,
   sendingStatus,
-  onSubmit,
-  t
+  onSubmit
 }: PropsType) => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
@@ -104,4 +101,4 @@ export const FeedbackBoxContainer = ({
   )
 }
 
-export default withTranslation('feedback')(FeedbackBoxContainer)
+export default FeedbackBoxContainer
