@@ -6,12 +6,7 @@ import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: text => text
-  }),
-  withTranslation: () => () => null
-}))
+jest.mock('react-i18next')
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
