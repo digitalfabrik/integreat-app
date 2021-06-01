@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run on Android (malte)" type="js.build_tools.npm">
+  <configuration default="false" name="Run on Android (malte)" type="js.build_tools.npm" folderName="Malte">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
