@@ -1,17 +1,14 @@
-// @flow
-
 import * as React from 'react'
 import { POSITIVE_RATING } from 'api-client'
-import styled, { type StyledComponent } from 'styled-components'
-import type { LocationState } from 'redux-first-router'
+import styled from 'styled-components'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
 import FeedbackBoxContainer from './FeedbackBoxContainer'
-import type { FeedbackRatingType } from '../../layout/containers/LocationLayout'
 import FocusTrap from 'focus-trap-react'
-import type { ThemeType } from 'build-configs/ThemeType'
-import dimensions from '../../theme/constants/dimensions'
+import dimensions from '../constants/dimensions'
+import { FeedbackRatingType } from './FeedbackToolbarItem'
+import { RouteType } from '../routes/App'
 
-const Overlay: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Overlay = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -20,8 +17,7 @@ const Overlay: StyledComponent<{||}, ThemeType, *> = styled.div`
   background-color: ${props => props.theme.colors.textSecondaryColor};
   opacity: 0.9;
 `
-
-const ModalContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   top: 0;
   right: 0;
@@ -32,8 +28,7 @@ const ModalContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   align-items: center;
   justify-content: center;
 `
-
-const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
+const FeedbackContainer = styled.div`
   position: relative;
   display: flex;
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -45,33 +40,41 @@ const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
     justify-content: center;
   }
 `
-type PropsType = {|
-  path?: string,
-  alias?: string,
-  feedbackRating: FeedbackRatingType,
-  closeFeedbackModal: () => void,
-  location: LocationState
-|}
+type PropsType = {
+  path?: string
+  alias?: string
+  cityCode: string
+  language: string
+  routeType: RouteType
+  feedbackRating: FeedbackRatingType
+  closeFeedbackModal: () => void
+}
 
 export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
-
-type StateType = {|
+type StateType = {
   sendingStatus: SendingStatusType
-|}
+}
 
 export class FeedbackModal extends React.Component<PropsType, StateType> {
-  state = { sendingStatus: 'IDLE' }
-
-  handleSubmit = (sendingStatus: SendingStatusType) => {
-    this.setState({ sendingStatus: sendingStatus })
+  constructor(props: PropsType) {
+    super(props)
+    this.state = { sendingStatus: 'IDLE' }
   }
 
-  handleOverlayClick = () => {
-    this.setState({ sendingStatus: 'IDLE' })
+  handleSubmit = (sendingStatus: SendingStatusType): void => {
+    this.setState({
+      sendingStatus: sendingStatus
+    })
+  }
+
+  handleOverlayClick = (): void => {
+    this.setState({
+      sendingStatus: 'IDLE'
+    })
     this.props.closeFeedbackModal()
   }
 
-  renderContent(): React.Node {
+  renderContent(): React.ReactNode {
     const { feedbackRating, ...otherProps } = this.props
     const { sendingStatus } = this.state
 
