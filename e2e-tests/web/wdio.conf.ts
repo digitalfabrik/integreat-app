@@ -1,15 +1,15 @@
 export const config = {
   runner: 'local',
-  specs: [
-    './web/test/specs/**/*.ts'
-  ],
+  specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
   maxInstances: 10,
 
-  capabilities: [{
-    maxInstances: 5,
-    browserName: 'chrome'
-  }],
+  capabilities: [
+    {
+      maxInstances: 5,
+      browserName: 'chrome'
+    }
+  ],
   logLevel: 'info',
   coloredLogs: true,
   bail: 0,
