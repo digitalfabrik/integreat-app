@@ -33,7 +33,7 @@ const HeaderContainer = styled.header`
 `
 
 const Row = styled.div<{ hasTitle?: boolean }>`
-  display: flex
+  display: flex;
   flex: 1;
   max-width: 100%;
   align-items: stretch;
