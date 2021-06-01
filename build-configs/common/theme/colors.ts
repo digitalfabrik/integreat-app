@@ -19,13 +19,3 @@ export const commonLightColors = {
   tunewsThemeColor: '#007aa8',
   tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
 }
-export const commonDarkColors = {
-  backgroundAccentColor: '#111111',
-  textColor: '#BBBBBB',
-  textSecondaryColor: '#888888',
-  textDecorationColor: '#555555',
-  textDisabledColor: '#444444',
-  backgroundColor: '#222222',
-  tunewsThemeColor: '#007aa8',
-  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
-}

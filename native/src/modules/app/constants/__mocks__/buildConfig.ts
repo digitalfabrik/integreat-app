@@ -1,4 +1,4 @@
-import { darkTheme, lightTheme } from 'build-configs/integreat/theme'
+import { lightTheme } from 'build-configs/integreat/theme'
 import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
 export const buildConfigIconSet = (): {
@@ -16,7 +16,6 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
     appName: 'Integreat',
     appIcon: 'app_icon_integreat',
     lightTheme,
-    darkTheme,
     assets: INTEGREAT_ASSETS,
     cmsUrl: 'https://cms.integreat-app.de',
     switchCmsUrl: 'https://cms-test.integreat-app.de',

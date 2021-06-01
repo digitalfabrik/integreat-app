@@ -1,5 +1,4 @@
 import { applyMiddleware, combineReducers, createStore, Middleware, Store } from 'redux'
-import toggleDarkModeReducer from '../theme/reducers'
 import createSagaMiddleware from 'redux-saga'
 import createDebugger from 'redux-flipper'
 import { all, call } from 'redux-saga/effects'
@@ -38,7 +37,6 @@ function* rootSaga(dataContainer: DataContainer) {
 const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreActionType> => {
   const sagaMiddleware = createSagaMiddleware()
   const initialState: StateType = {
-    darkMode: false,
     cities: defaultCitiesState,
     contentLanguage: defaultContentLanguageState,
     cityContent: defaultCityContentState,
@@ -46,7 +44,6 @@ const createReduxStore = (dataContainer: DataContainer): Store<StateType, StoreA
     snackbar: []
   }
   const rootReducer = combineReducers({
-    darkMode: toggleDarkModeReducer,
     cities: citiesReducer,
     contentLanguage: contentLanguageReducer,
     cityContent: cityContentReducer,
