@@ -97,7 +97,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
       <Redirect exact from='/' to={landingPath} />
       <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
       <Redirect exact from={`/:cityCode`} to={cityContentPath} />
-      {/* TODO redirects for aschaffenburg */}
+      {/* TODO IGAPP-672: Add redirects for aschaffenburg */}
     </Switch>
   )
 }
