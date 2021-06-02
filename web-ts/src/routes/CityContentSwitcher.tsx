@@ -48,9 +48,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   if (!cityModel || !languageModel || !languages) {
     if (loading) {
       return (
-        <Layout
-          header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
-          footer={<GeneralFooter language={languageCode} />}>
+        <Layout>
           <LoadingSpinner />
         </Layout>
       )
