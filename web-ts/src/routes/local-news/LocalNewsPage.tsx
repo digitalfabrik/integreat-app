@@ -11,7 +11,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
 
-const NewsPage = ({ match, cityModel, location }: PropsType) => {
+const LocalNewsPage = ({ match, cityModel, location }: PropsType) => {
   const { languageCode } = match.params
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
@@ -28,9 +28,9 @@ const NewsPage = ({ match, cityModel, location }: PropsType) => {
       routeType={LOCAL_NEWS_TYPE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>NewsPage</div>
+      <div>LocalNewsPage</div>
     </LocationLayout>
   )
 }
 
-export default NewsPage
+export default LocalNewsPage
