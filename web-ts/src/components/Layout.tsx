@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
-import PlatformContext, { Platform } from '../contexts/PlatformContext'
+import PlatformContext  from '../contexts/PlatformContext'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper = styled.div`
@@ -70,9 +70,9 @@ const Main = styled.main`
   }
 `
 
-const Aside = styled.aside<{ platform: Platform; asideStickyTop: number }>`
+const Aside = styled.aside<{ positionStickyDisabled: boolean; asideStickyTop: number }>`
   top: ${props => props.asideStickyTop}px;
-  position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
+  position: ${props => (props.positionStickyDisabled ? 'static' : 'sticky')};
   display: inline-block;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
@@ -112,7 +112,7 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const Layout = ({ asideStickyTop, footer, header, toolbar, modal, children }: PropsType) => {
+const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }: PropsType): JSX.Element => {
   const platform = useContext(PlatformContext)
   const modalVisible = !!modal
   return (
@@ -121,7 +121,7 @@ const Layout = ({ asideStickyTop, footer, header, toolbar, modal, children }: Pr
         <div aria-hidden={modalVisible}>
           {header}
           <Body>
-            <Aside asideStickyTop={asideStickyTop} platform={platform}>
+            <Aside asideStickyTop={asideStickyTop} positionStickyDisabled={platform.positionStickyDisabled}>
               {toolbar}
             </Aside>
             <Main>{children}</Main>
@@ -132,11 +132,6 @@ const Layout = ({ asideStickyTop, footer, header, toolbar, modal, children }: Pr
       </RichLayout>
     </FlexWrapper>
   )
-}
-
-Layout.defaultProps = {
-  asideStickyTop: 0,
-  darkMode: false
 }
 
 export default Layout
