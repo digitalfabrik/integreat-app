@@ -1,13 +1,13 @@
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
 import Dashboard from '../Dashboard'
-import lightTheme from '../../../../modules/theme/constants'
-import CategoriesRouteStateView from '../../../../modules/app/CategoriesRouteStateView'
+import CategoriesRouteStateView from '../../../../models/CategoriesRouteStateView'
 import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import NavigationTiles from '../../../../modules/common/components/NavigationTiles'
-import buildConfig from '../../../../modules/app/constants/buildConfig'
-jest.mock('../../../../modules/common/components/NavigationTiles', () => {
+import NavigationTiles from '../../../../components/NavigationTiles'
+import buildConfig from '../../../../constants/buildConfig'
+
+jest.mock('../../../../components/NavigationTiles', () => {
   const Text = require('react-native').Text
 
   return () => <Text>NavigationTiles</Text>
@@ -20,7 +20,7 @@ describe('Dashboard', () => {
   const navigateTo = jest.fn()
   const navigateToLink = jest.fn()
   const navigateToFeedback = jest.fn()
-  const theme = lightTheme
+  const theme = buildConfig().lightTheme
 
   if (!categoryLeaf) {
     throw Error('There should be a leaf!')

@@ -3,10 +3,11 @@ import { SprungbrettJobModel } from 'api-client'
 import SprungbrettListItem from './SprungbrettListItem'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
-import List from '../../../modules/common/components/List'
-import Caption from '../../../modules/common/components/Caption'
-import openExternalUrl from '../../../modules/common/openExternalUrl'
-import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import List from '../../../components/List'
+import Caption from '../../../components/Caption'
+import openExternalUrl from '../../../services/openExternalUrl'
+import SiteHelpfulBox from '../../../components/SiteHelpfulBox'
+
 type PropsType = {
   jobs: Array<SprungbrettJobModel>
   t: TFunction

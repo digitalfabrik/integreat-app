@@ -1,6 +1,7 @@
-import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToJpalTracking from '../navigateToJpalTracking'
 import { JPAL_TRACKING_ROUTE } from 'api-client/src/routes'
+
 describe('navigateToJpalTracking', () => {
   it('should navigate to the jpal tracking route with correct parameters', () => {
     const dispatch = jest.fn()

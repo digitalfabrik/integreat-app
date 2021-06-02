@@ -1,3 +1,4 @@
 import StatusBar from '../components/StatusBar'
-import withTheme from '../../theme/hocs/withTheme'
+import withTheme from '../hocs/withTheme'
+
 export default withTheme(StatusBar)

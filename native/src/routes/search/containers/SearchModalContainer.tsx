@@ -1,13 +1,13 @@
 import SearchModal from '../components/SearchModal'
 import { useTranslation } from 'react-i18next'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import navigateToLink from '../../../modules/navigation/navigateToLink'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
+import navigateToLink from '../../../navigation/navigateToLink'
 import React, { useCallback, useContext } from 'react'
 import { SearchRouteType } from 'api-client/src/routes'
-import createNavigate from '../../../modules/navigation/createNavigate'
+import createNavigate from '../../../navigation/createNavigate'
 import { ThemeContext } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { StateType } from '../../../modules/app/StateType'
+import { StateType } from '../../../redux/StateType'
 import { CategoriesMapModel } from 'api-client'
 
 export type PropsType = {

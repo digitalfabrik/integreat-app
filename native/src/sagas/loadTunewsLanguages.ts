@@ -1,6 +1,6 @@
 import { call } from 'redux-saga/effects'
 import { createTunewsLanguagesEndpoint, LanguageModel, Payload } from 'api-client'
-import { tunewsApiUrl } from '../constants'
+import { tunewsApiUrl } from '../constants/endpoint'
 import { SagaIterator } from 'redux-saga'
 
 export default function* loadTunewsLanguages(city: string): SagaIterator<LanguageModel[]> {

@@ -2,10 +2,10 @@ import * as React from 'react'
 import SlideButton from './SlideButton'
 import Pagination from './Pagination'
 import styled from 'styled-components/native'
-
 import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
+
 export const ButtonContainer = styled.View`
   flex-grow: 1;
   flex-direction: row;

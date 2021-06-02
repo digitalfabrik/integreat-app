@@ -1,6 +1,7 @@
-import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToOffers from '../navigateToOffers'
 import { OFFERS_ROUTE } from 'api-client/src/routes'
+
 const cityCode = 'augsburg'
 const languageCode = 'de'
 describe('navigateToOffers', () => {

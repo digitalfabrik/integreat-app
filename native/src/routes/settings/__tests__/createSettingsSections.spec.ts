@@ -1,27 +1,27 @@
 import createSettingsSections from '../createSettingsSections'
 import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
-import { defaultSettings, SettingsType } from '../../../modules/settings/AppSettings'
-import buildConfig from '../../../modules/app/constants/buildConfig'
+import { defaultSettings, SettingsType } from '../../../services/AppSettings'
+import buildConfig from '../../../constants/buildConfig'
 import { openSettings } from 'react-native-permissions'
 import { SettingsRouteType } from 'api-client'
 import {
   requestPushNotificationPermission,
   subscribeNews,
   unsubscribeNews
-} from '../../../modules/push-notifications/PushNotificationsManager'
+} from '../../../services/PushNotificationsManager'
 
-jest.mock('../../../modules/native-constants/NativeConstants', () => ({
+jest.mock('../../../constants/NativeConstants', () => ({
   appVersion: '1.0.0'
 }))
 
-jest.mock('../../../modules/push-notifications/PushNotificationsManager', () => ({
+jest.mock('../../../services/PushNotificationsManager', () => ({
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn()
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
-jest.mock('../../../modules/app/initSentry')
+jest.mock('../../../services/initSentry')
 
 const mockRequestPushNotificationPermission = (requestPushNotificationPermission as unknown) as jest.Mock
 const mockUnsubscribeNews = (unsubscribeNews as unknown) as jest.Mock

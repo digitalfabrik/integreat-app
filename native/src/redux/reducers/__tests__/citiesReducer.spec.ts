@@ -1,8 +1,8 @@
-import { CitiesStateType } from '../../../app/StateType'
+import { CitiesStateType } from '../../StateType'
 import citiesReducer from '../citiesReducer'
 import { CityModel } from 'api-client'
-import { ErrorCode } from '../../../error/ErrorCodes'
-import { StoreActionType } from '../../../app/StoreActionType'
+import { ErrorCode } from '../../../constants/ErrorCodes'
+import { StoreActionType } from '../../StoreActionType'
 
 describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {

@@ -25,11 +25,12 @@ import {
   SEARCH_ROUTE,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
-import determineApiUrl from '../endpoint/determineApiUrl'
-import sendTrackingSignal from '../endpoint/sendTrackingSignal'
+import determineApiUrl from '../services/determineApiUrl'
+import sendTrackingSignal from '../services/sendTrackingSignal'
 import { useTranslation } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
+
 type RouteType =
   | CategoriesRouteType
   | EventsRouteType

@@ -2,17 +2,18 @@ import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import Page from '../../../common/components/Page'
+import Page from '../Page'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import Categories from '../Categories'
-import lightTheme from '../../../theme/constants'
-import CategoriesRouteStateView from '../../../app/CategoriesRouteStateView'
-jest.mock('../../../../modules/common/components/Page', () => {
+import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
+import buildConfig from '../../constants/buildConfig'
+
+jest.mock('../Page', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Page</Text>
 })
-jest.mock('../../../../modules/common/components/PageDetail', () => {
+jest.mock('../PageDetail', () => {
   const Text = require('react-native').Text
 
   return () => <Text>PageDetail</Text>
@@ -50,7 +51,7 @@ describe('Categories', () => {
         resourceCache={{
           notAvailable: {}
         }}
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
       />
     )
     const pageInstance = result.root.findByType(Page)

@@ -4,9 +4,9 @@ import {
   FetchNewsActionType,
   FetchNewsFailedActionType,
   PushNewsActionType
-} from '../../app/StoreActionType'
-import { DataContainer } from '../DataContainer'
-import { ErrorCode, fromError } from '../../error/ErrorCodes'
+} from '../redux/StoreActionType'
+import { DataContainer } from '../services/DataContainer'
+import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
@@ -14,7 +14,7 @@ import loadTunewsElement from './loadTunewsElement'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 import loadLanguages from './loadLanguages'
 import { LanguageModel } from 'api-client'
-import { NewsModelsType } from '../../app/StateType'
+import { NewsModelsType } from '../redux/StateType'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1

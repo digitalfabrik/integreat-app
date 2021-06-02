@@ -1,12 +1,12 @@
 import DatabaseConnector from '../DatabaseConnector'
-import DatabaseContext from '../DatabaseContext'
+import DatabaseContext from '../../models/DatabaseContext'
 import moment from 'moment'
-import RNFetchBlob from '../../../__mocks__/rn-fetch-blob'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
-import mockDate from '../../../testing/mockDate'
+import mockDate from '../../testing/mockDate'
 
 jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()

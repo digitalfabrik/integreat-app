@@ -1,4 +1,4 @@
-import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToEvents from '../navigateToEvents'
 
 const url = path => `some.base.url/${path}`

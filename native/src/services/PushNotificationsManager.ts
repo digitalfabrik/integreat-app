@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
-import buildConfig from '../app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 
 const pushNotificationsDisabled = (): boolean => {
   return !buildConfig().featureFlags.pushNotifications

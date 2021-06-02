@@ -1,17 +1,18 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
-import { ThemeType } from '../../theme/constants'
 import NavigationTile from './NavigationTile'
-import { StyledComponent } from 'styled-components'
 import { ScrollView, Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AnchorIcon from './AnchorIcon'
 import { ScrollEvent } from 'react-native/Libraries/Types/CoreEventTypes'
+import { ThemeType } from 'build-configs'
+
 const widthBreakPoint = 400
 const anchorWidth = 30
 const wideScreenItemsCount = 4
 const smallScreenItemsCount = 3
+
 type PropsType = {
   tiles: Array<TileModel>
   theme: ThemeType

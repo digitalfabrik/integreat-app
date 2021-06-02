@@ -1,15 +1,16 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
 import PageDetail from '../PageDetail'
-import lightTheme from '../../../theme/constants'
 import { I18nManager } from 'react-native'
+import buildConfig from '../../constants/buildConfig'
+
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {
     const { queryAllByText, queryByText } = render(
       <PageDetail
         identifier='Test Identifier'
         information='Some important information'
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
         language='de'
       />
     )
@@ -23,7 +24,7 @@ describe('PageDetail', () => {
         <PageDetail
           identifier='Test Identifier'
           information='Some important information'
-          theme={lightTheme}
+          theme={buildConfig().lightTheme}
           language='de'
         />
       )
@@ -36,7 +37,7 @@ describe('PageDetail', () => {
         <PageDetail
           identifier='Test Identifier'
           information='Some important information'
-          theme={lightTheme}
+          theme={buildConfig().lightTheme}
           language='ar'
         />
       )
@@ -52,7 +53,7 @@ describe('PageDetail', () => {
         <PageDetail
           identifier='Test Identifier'
           information='Some important information'
-          theme={lightTheme}
+          theme={buildConfig().lightTheme}
           language='de'
         />
       )
@@ -65,7 +66,7 @@ describe('PageDetail', () => {
         <PageDetail
           identifier='Test Identifier'
           information='Some important information'
-          theme={lightTheme}
+          theme={buildConfig().lightTheme}
           language='ar'
         />
       )

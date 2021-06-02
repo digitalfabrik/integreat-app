@@ -1,17 +1,16 @@
 import * as React from 'react'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import { ThemeType } from '../../theme/constants'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
-import Image from '../../common/components/Image'
-import { contentDirection } from '../../i18n/contentDirection'
+import Image from './Image'
+import { contentDirection } from '../constants/contentDirection'
 import Highlighter from 'react-native-highlight-words'
-import normalizeSearchString from '../../common/normalizeSearchString'
+import normalizeSearchString from '../services/normalizeSearchString'
 import { CategoryListModelType } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
-import dimensions from '../../theme/constants/dimensions'
+import dimensions from '../constants/dimensions'
+import { ThemeType } from 'build-configs'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10
 const FlexStyledLink = styled(StyledLink)`

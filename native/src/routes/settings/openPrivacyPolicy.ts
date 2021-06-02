@@ -1,5 +1,5 @@
-import buildConfig from '../../modules/app/constants/buildConfig'
-import openExternalUrl from '../../modules/common/openExternalUrl'
+import buildConfig from '../../constants/buildConfig'
+import openExternalUrl from '../../services/openExternalUrl'
 
 const openPrivacyPolicy = (language: string) => {
   const privacyUrl = buildConfig().privacyUrls[language] || buildConfig().privacyUrls.default

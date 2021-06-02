@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Dispatch } from 'redux'
-import { SetResourceCacheUrlActionType, StoreActionType } from '../../app/StoreActionType'
+import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
 import { connect } from 'react-redux'
 import StaticServer from 'react-native-static-server'
-import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
+import { RESOURCE_CACHE_DIR_PATH } from '../services/DatabaseConnector'
 import { Text } from 'react-native'
 
 type OwnPropsType = {

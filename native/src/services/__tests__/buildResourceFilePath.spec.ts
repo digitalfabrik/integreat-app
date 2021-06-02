@@ -1,5 +1,6 @@
 import buildResourceFilePath from '../buildResourceFilePath'
 import { hashUrl } from 'api-client'
+
 jest.mock('rn-fetch-blob')
 describe('buildResourceFilePath', () => {
   it('should return the resource file path', () => {

@@ -3,10 +3,12 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { RedirectRouteType } from 'api-client'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import LayoutContainer from '../../layout/containers/LayoutContainer'
-import navigateToDeepLink from '../../navigation/navigateToDeepLink'
+import LayoutContainer from './LayoutContainer'
+import navigateToDeepLink from '../navigation/navigateToDeepLink'
+
 const TIMEOUT = 10
 const INTERVAL_TIMEOUT = 500
+
 type PropsType = {
   route: RoutePropType<RedirectRouteType>
   navigation: NavigationPropType<any>

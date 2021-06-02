@@ -3,12 +3,12 @@ import { useCallback, useContext } from 'react'
 import { ScrollView, useWindowDimensions, View } from 'react-native'
 import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
-import { contentAlignment } from '../../../modules/i18n/contentDirection'
+import { contentAlignment } from '../../../constants/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
 import Html from 'react-native-render-html'
-import TimeStamp from '../../../modules/common/components/TimeStamp'
-import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+import TimeStamp from '../../../components/TimeStamp'
+import DateFormatterContext from '../../../contexts/DateFormatterContext'
 
 const Container = styled.View`
   align-items: center;

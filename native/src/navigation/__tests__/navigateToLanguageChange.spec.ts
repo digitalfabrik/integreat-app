@@ -1,10 +1,12 @@
-import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToLanguageChange from '../navigateToLanguageChange'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import { generateKey } from '../../app/generateRouteKey'
-import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
+import { generateKey } from '../../services/generateRouteKey'
+import sendTrackingSignal from '../../services/sendTrackingSignal'
 import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-jest.mock('../../endpoint/sendTrackingSignal')
+
+jest.mock('../../services/sendTrackingSignal')
+
 describe('navigateToLanguageChange', () => {
   beforeEach(() => {
     jest.clearAllMocks()

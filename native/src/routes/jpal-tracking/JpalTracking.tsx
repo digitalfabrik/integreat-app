@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ThemeType } from 'build-configs/ThemeType'
 import { Switch, Text, TextInput, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import AppSettings, { defaultSettings } from '../../modules/settings/AppSettings'
-import { NavigationPropType, RoutePropType } from '../../modules/app/constants/NavigationTypes'
+import AppSettings, { defaultSettings } from '../../services/AppSettings'
+import { NavigationPropType, RoutePropType } from '../../constants/NavigationTypes'
 import { JpalTrackingRouteType } from 'api-client'
 import styled from 'styled-components/native'
-import LayoutContainer from '../../modules/layout/containers/LayoutContainer'
-import withTheme from '../../modules/theme/hocs/withTheme'
-import Caption from '../../modules/common/components/Caption'
+import LayoutContainer from '../../components/LayoutContainer'
+import withTheme from '../../hocs/withTheme'
+import Caption from '../../components/Caption'
 
 const ThemedText = styled.Text`
   display: flex;

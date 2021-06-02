@@ -1,12 +1,13 @@
 import { expectSaga } from 'redux-saga-test-plan'
 import fetchResourceCache from '../fetchResourceCache'
-import DefaultDataContainer from '../../DefaultDataContainer'
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import { ErrorCode } from '../../../error/ErrorCodes'
-import FetcherModule from '../../../fetcher/FetcherModule'
-import { createFetchMap } from '../../../../testing/builder/util'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import { ErrorCode } from '../../constants/ErrorCodes'
+import FetcherModule from '../../services/FetcherModule'
+import { createFetchMap } from '../../testing/builder/util'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-jest.mock('../../../fetcher/FetcherModule')
+
+jest.mock('../../services/FetcherModule')
 jest.mock('rn-fetch-blob')
 describe('fetchResourceCache', () => {
   beforeEach(() => {

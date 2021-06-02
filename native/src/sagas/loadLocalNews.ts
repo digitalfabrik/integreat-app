@@ -1,6 +1,6 @@
 import { createLocalNewsEndpoint, LocalNewsModel, Payload } from 'api-client'
 import { call } from 'redux-saga/effects'
-import determineApiUrl from '../determineApiUrl'
+import determineApiUrl from '../services/determineApiUrl'
 import { SagaIterator } from 'redux-saga'
 
 function* loadLocalNews(city: string, language: string): SagaIterator<LocalNewsModel[]> {

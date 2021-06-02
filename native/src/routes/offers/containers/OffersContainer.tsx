@@ -12,17 +12,17 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
-import withTheme from '../../../modules/theme/hocs/withTheme'
-import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import withTheme from '../../../hocs/withTheme'
+import FailureContainer from '../../../components/FailureContainer'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
 import { OffersRouteType, EXTERNAL_OFFER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
-import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
-import openExternalUrl from '../../../modules/common/openExternalUrl'
-import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import { fromError } from '../../../modules/error/ErrorCodes'
-import TileModel from '../../../modules/common/models/TileModel'
-import { StateType } from '../../../modules/app/StateType'
-import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+import LayoutedScrollView from '../../../components/LayoutedScrollView'
+import openExternalUrl from '../../../services/openExternalUrl'
+import createNavigateToFeedbackModal from '../../../navigation/createNavigateToFeedbackModal'
+import { fromError } from '../../../constants/ErrorCodes'
+import TileModel from '../../../models/TileModel'
+import { StateType } from '../../../redux/StateType'
+import determineApiUrl from '../../../services/determineApiUrl'
 
 type OwnPropsType = {
   route: RoutePropType<OffersRouteType>

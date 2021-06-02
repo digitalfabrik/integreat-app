@@ -1,7 +1,8 @@
 import React from 'react'
 import Feedback from '../Feedback'
-import lightTheme from '../../theme/constants'
 import { fireEvent, render } from '@testing-library/react-native'
+import buildConfig from '../../constants/buildConfig'
+
 describe('Feedback', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -23,7 +24,7 @@ describe('Feedback', () => {
       onCommentChanged,
       onFeedbackContactMailChanged,
       onSubmit,
-      theme: lightTheme,
+      theme: buildConfig().lightTheme,
       t
     }
   }

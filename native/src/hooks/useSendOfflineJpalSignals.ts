@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useNetInfo } from '@react-native-community/netinfo'
-import AppSettings from '../../settings/AppSettings'
-import { sendRequest } from '../../endpoint/sendTrackingSignal'
+import AppSettings from '../services/AppSettings'
+import { sendRequest } from '../services/sendTrackingSignal'
 const appSettings = new AppSettings()
 
 const useSendOfflineJpalSignals = () => {

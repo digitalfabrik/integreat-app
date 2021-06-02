@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import { contentDirection } from '../../i18n/contentDirection'
+import { contentDirection } from '../constants/contentDirection'
 import { CategoryListModelType } from './CategoryList'
+import { ThemeType } from 'build-configs'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
@@ -13,13 +12,7 @@ const SubCategoryTitleContainer = styled.View<{ language: string }>`
   border-bottom-color: ${props => props.theme.colors.themeColor};
   flex-direction: ${props => contentDirection(props.language)};
 `
-type FlexStyledLinkPropsType = {
-  language: string
-  children: React.ReactNode
-  theme: ThemeType
-  onPress: () => void
-  underlayColor: string
-}
+
 const FlexStyledLink = styled.TouchableHighlight<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};

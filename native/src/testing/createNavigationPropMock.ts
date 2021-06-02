@@ -1,4 +1,4 @@
-import { NavigationPropType, RoutesType } from '../modules/app/constants/NavigationTypes'
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 
 const createNavigationMock = <T extends RoutesType>(): NavigationPropType<T> => ({
   dispatch: jest.fn(),

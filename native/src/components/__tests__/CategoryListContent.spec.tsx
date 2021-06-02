@@ -1,10 +1,10 @@
 import React from 'react'
 import CategoryListContent from '../CategoryListContent'
-import { lightTheme } from 'build-configs/integreat/theme'
 import { render, fireEvent } from '@testing-library/react-native'
 import moment, { Moment } from 'moment'
+import buildConfig from '../../constants/buildConfig'
 
-jest.mock('../../../common/components/TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
+jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
   const Text = require('react-native').Text
 
   return <Text>lastUpdate {lastUpdate.toISOString()}</Text>
@@ -31,7 +31,7 @@ describe('CategoryListContent', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='de'
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(content1)).toBeTruthy()
@@ -50,7 +50,7 @@ describe('CategoryListContent', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='ar'
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(content1)).toBeTruthy()
@@ -68,7 +68,7 @@ describe('CategoryListContent', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='de'
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
       />
     )
     fireEvent.press(getByText(text1))
@@ -89,7 +89,7 @@ describe('CategoryListContent', () => {
         cacheDictionary={cacheDictionary}
         language='de'
         lastUpdate={lastUpdate}
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(`lastUpdate ${iso}`)).toBeTruthy()

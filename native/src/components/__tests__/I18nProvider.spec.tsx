@@ -1,23 +1,23 @@
 import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
-import NativeLanguageDetector from '../../NativeLanguageDetector'
+import NativeLanguageDetector from '../../services/NativeLanguageDetector'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { render, waitFor } from '@testing-library/react-native'
 import I18nProvider from '../I18nProvider'
-import { CitiesStateType, LanguagesStateType, StateType } from '../../../app/StateType'
+import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/StateType'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import AppSettings from '../../../settings/AppSettings'
+import AppSettings from '../../services/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
-import DateFormatterContext from '../../context/DateFormatterContext'
+import DateFormatterContext from '../../contexts/DateFormatterContext'
 import moment from 'moment'
-import { setSystemLanguage } from '../../../endpoint/sendTrackingSignal'
+import { setSystemLanguage } from '../../services/sendTrackingSignal'
 
-jest.mock('../../NativeLanguageDetector')
+jest.mock('../../services/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
-jest.mock('../../../endpoint/sendTrackingSignal')
+jest.mock('../../services/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
 const city = cities[0]

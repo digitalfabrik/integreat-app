@@ -1,10 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
-import { ThemeType } from '../../theme/constants'
 import Image, { ImageSourceType } from './Image'
-import { contentDirection } from '../../i18n/contentDirection'
+import { contentDirection } from '../constants/contentDirection'
+import { ThemeType } from 'build-configs'
+
 type ListItemViewPropsType = {
   language: string
   children: React.ReactNode

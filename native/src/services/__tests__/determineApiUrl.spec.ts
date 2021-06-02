@@ -1,6 +1,7 @@
 import determineApiUrl from '../determineApiUrl'
-import AppSettings from '../../settings/AppSettings'
-import buildConfig from '../../app/constants/buildConfig'
+import AppSettings from '../AppSettings'
+import buildConfig from '../../constants/buildConfig'
+
 describe('determineApiUrl', () => {
   it('should return the default baseURL if no overrideApiUrl is set', async () => {
     const apiUrl = await determineApiUrl()

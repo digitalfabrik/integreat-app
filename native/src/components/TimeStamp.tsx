@@ -2,9 +2,9 @@ import * as React from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import { Moment } from 'moment'
 import styled from 'styled-components/native'
-import { ThemeType } from '../../theme/constants'
-import { contentDirection } from '../../i18n/contentDirection'
+import { contentDirection } from '../constants/contentDirection'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { ThemeType } from 'build-configs'
 
 const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};

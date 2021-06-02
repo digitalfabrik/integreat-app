@@ -1,4 +1,5 @@
 import isPeekingRoute from '../isPeekingRoute'
+
 describe('isPeekingRoute', () => {
   it('should return false if new city is equal to city', () => {
     expect(

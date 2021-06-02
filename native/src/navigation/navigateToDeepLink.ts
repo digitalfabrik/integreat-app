@@ -1,10 +1,10 @@
-import { NavigationPropType } from '../app/constants/NavigationTypes'
-import { StoreActionType } from '../app/StoreActionType'
+import { NavigationPropType } from '../constants/NavigationTypes'
+import { StoreActionType } from '../redux/StoreActionType'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
-import buildConfig from '../app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 import Url from 'url-parse'
 import { Dispatch } from 'redux'
-import AppSettings, { SettingsType } from '../settings/AppSettings'
+import AppSettings, { SettingsType } from '../services/AppSettings'
 import {
   DASHBOARD_ROUTE,
   INTRO_ROUTE,
@@ -15,7 +15,7 @@ import {
 import navigateToCategory from './navigateToCategory'
 import { cityContentPath as createCityContentPath } from './url'
 import createNavigate from './createNavigate'
-import sendTrackingSignal from '../endpoint/sendTrackingSignal'
+import sendTrackingSignal from '../services/sendTrackingSignal'
 
 const navigateToDeepLink = async (
   dispatch: Dispatch<StoreActionType>,

@@ -1,10 +1,10 @@
 import { all, call, Effect, ForkEffect, put, select, takeLatest } from 'redux-saga/effects'
-import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../../app/StoreActionType'
-import { DataContainer } from '../DataContainer'
+import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
+import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import isPeekingRoute from '../selectors/isPeekingRoute'
-import { ErrorCode, fromError } from '../../error/ErrorCodes'
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
+import isPeekingRoute from '../redux/selectors/isPeekingRoute'
+import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import { LanguageModel } from 'api-client'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Generator<Effect, void, any> {

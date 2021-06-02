@@ -1,4 +1,4 @@
-import { DataContainer } from '../../DataContainer'
+import { DataContainer } from '../../services/DataContainer'
 import { CategoriesMapModel } from 'api-client'
 import { call, StrictEffect } from 'redux-saga/effects'
 

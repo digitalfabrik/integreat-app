@@ -5,7 +5,7 @@ import {
   LanguagesStateType,
   ResourceCacheStateType,
   StateType
-} from '../../../../modules/app/StateType'
+} from '../../../../redux/StateType'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
@@ -16,24 +16,25 @@ import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import { render } from '@testing-library/react-native'
 import moment from 'moment'
-import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
-import { ErrorCode } from '../../../../modules/error/ErrorCodes'
+import { ErrorCode } from '../../../../constants/ErrorCodes'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import CategoriesContainer from '../CategoriesContainer'
+import { LOADING_TIMEOUT } from '../../../../hocs/withPayloadProvider'
+
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
-jest.mock('../../../../modules/categories/components/Categories', () => {
+jest.mock('../../../../components/Categories', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Categories</Text>
 })
-jest.mock('../../../../modules/error/containers/FailureContainer', () => {
+jest.mock('../../../../components/FailureContainer', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
-jest.mock('../../../../modules/common/containers/LanguageNotAvailableContainer', () => {
+jest.mock('../../../../components/LanguageNotAvailableContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>LanguageNotAvailable</Text>

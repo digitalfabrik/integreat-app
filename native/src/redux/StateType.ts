@@ -6,12 +6,17 @@ import {
   LanguageModel,
   LocalNewsModel,
   PoiModel,
-  TunewsModel
+  TunewsModel,
+  CategoriesRouteType,
+  EventsRouteType,
+  NewsRouteType,
+  NewsType,
+  PoisRouteType
 } from 'api-client'
 import moment from 'moment'
-import { ErrorCode } from '../error/ErrorCodes'
+import { ErrorCode } from '../constants/ErrorCodes'
 import { config } from 'translations'
-import { CategoriesRouteType, EventsRouteType, NewsRouteType, NewsType, PoisRouteType } from 'api-client/src/routes'
+
 export type PathType = string
 export type CategoryRouteConfigType = {
   readonly path: string

@@ -1,4 +1,5 @@
 import contentLanguageReducer from '../contentLanguageReducer'
+
 describe('contentLanguageReducer', () => {
   it('should return the content language', () => {
     expect(

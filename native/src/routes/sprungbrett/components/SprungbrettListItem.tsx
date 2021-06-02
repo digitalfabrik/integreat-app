@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Text } from 'react-native'
 import { SprungbrettJobModel } from 'api-client'
-import ListItem from '../../../modules/common/components/ListItem'
-import { ThemeType } from '../../../modules/theme/constants'
+import ListItem from '../../../components/ListItem'
+import { ThemeType } from 'build-configs'
+
 type PropsType = {
   job: SprungbrettJobModel
   openJobInBrowser: () => void

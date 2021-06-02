@@ -1,4 +1,4 @@
-import { getResourceCacheFilesDirPath } from '../platform/constants/webview'
+import { getResourceCacheFilesDirPath } from '../constants/webview'
 import getExtension from './getExtension'
 
 const getExtensionWithDot = (urlString: string) => {

@@ -1,17 +1,18 @@
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../DefaultDataContainer'
-import { SwitchContentLanguageActionType } from '../../../app/StoreActionType'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
+import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
 import AsyncStorage from '@react-native-community/async-storage'
-import AppSettings from '../../../settings/AppSettings'
+import AppSettings from '../../services/AppSettings'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
+
 jest.mock('rn-fetch-blob')
-jest.mock('../../../push-notifications/PushNotificationsManager')
+jest.mock('../../services/PushNotificationsManager')
 jest.mock('../loadCityContent')
 describe('watchContentLanguageSwitch', () => {
   beforeEach(async () => {

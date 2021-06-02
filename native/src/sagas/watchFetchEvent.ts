@@ -1,13 +1,13 @@
 import { call, Effect, ForkEffect, put, select, takeEvery } from 'redux-saga/effects'
-import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../../app/StoreActionType'
-import { DataContainer } from '../DataContainer'
+import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
+import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import isPeekingRoute from '../selectors/isPeekingRoute'
-import { ErrorCode, fromError } from '../../error/ErrorCodes'
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
+import isPeekingRoute from '../redux/selectors/isPeekingRoute'
+import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import moment, { Moment } from 'moment'
 import { EventModel, LanguageModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../../app/StateType'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export function* fetchEvent(
   dataContainer: DataContainer,

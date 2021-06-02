@@ -1,6 +1,6 @@
 import { CityModel } from 'api-client'
 import { call, StrictEffect } from 'redux-saga/effects'
-import { DataContainer } from '../../DataContainer'
+import { DataContainer } from '../../services/DataContainer'
 
 function* loadCities(
   dataContainer: DataContainer,

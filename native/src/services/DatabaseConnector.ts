@@ -17,11 +17,13 @@ import {
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
-} from '../app/StateType'
-import DatabaseContext from './DatabaseContext'
+} from '../redux/StateType'
+import DatabaseContext from '../models/DatabaseContext'
 import { map, mapValues } from 'lodash'
-import { CONTENT_VERSION, RESOURCE_CACHE_VERSION } from './persistentVersions'
 import deleteIfExists from './deleteIfExists'
+
+export const CONTENT_VERSION = 'v1'
+export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = RNFetchBlob.fs.dirs.DocumentDir

@@ -1,8 +1,9 @@
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
 import moment from 'moment'
-import { CityContentStateType } from '../../../app/StateType'
+import { CityContentStateType } from '../../StateType'
 import cityContentReducer from '../cityContentReducer'
-import { PushCategoryActionType } from '../../../app/StoreActionType'
+import { PushCategoryActionType } from '../../StoreActionType'
+
 describe('pushCategory', () => {
   const rootCategory = new CategoryModel({
     root: true,

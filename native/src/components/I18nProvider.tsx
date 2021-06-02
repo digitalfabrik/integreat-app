@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import { Text } from 'react-native'
-import buildConfig from '../../app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 import { config, loadTranslations } from 'translations'
 import i18next from 'i18next'
 import { useDispatch } from 'react-redux'
-import { SetContentLanguageActionType } from '../../app/StoreActionType'
-import NativeLanguageDetector from '../NativeLanguageDetector'
-import AppSettings from '../../settings/AppSettings'
+import { SetContentLanguageActionType } from '../redux/StoreActionType'
+import NativeLanguageDetector from '../services/NativeLanguageDetector'
+import AppSettings from '../services/AppSettings'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import { setSystemLanguage } from '../../endpoint/sendTrackingSignal'
+import { setSystemLanguage } from '../services/sendTrackingSignal'
 
 type PropsType = {
   children: React.ReactNode

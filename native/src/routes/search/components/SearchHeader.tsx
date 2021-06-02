@@ -4,7 +4,7 @@ import { ThemeType } from 'build-configs/ThemeType'
 import { HeaderBackButton } from '@react-navigation/stack'
 import ThemedSearchBar from './ThemedSearchBar'
 import { TFunction } from 'react-i18next'
-import dimensions from '../../../modules/theme/constants/dimensions'
+import dimensions from '../../../constants/dimensions'
 
 const HorizontalLeft = styled.View`
   flex: 1;

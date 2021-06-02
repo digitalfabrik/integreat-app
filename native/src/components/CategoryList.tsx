@@ -1,14 +1,15 @@
 import * as React from 'react'
 import CategoryListItem from './CategoryListItem'
-import { ThemeType } from '../../theme/constants'
 import styled from 'styled-components/native'
-import Image from '../../common/components/Image'
-import CategoryListCaption from '../../../modules/common/components/CategoryListCaption'
+import Image from './Image'
+import CategoryListCaption from './CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
-import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
-import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
+import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../services/DatabaseConnector'
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
+import { ThemeType } from 'build-configs'
+
 export type CategoryListModelType = {
   title: string
   thumbnail: string

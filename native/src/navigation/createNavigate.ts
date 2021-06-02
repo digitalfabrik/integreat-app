@@ -1,4 +1,4 @@
-import { StoreActionType } from '../app/StoreActionType'
+import { StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
 import {
   CATEGORIES_ROUTE,
@@ -22,13 +22,13 @@ import navigateToPois from './navigateToPois'
 import navigateToSearch from './navigateToSearch'
 import navigateToNews from './navigateToNews'
 import navigateToCategory from './navigateToCategory'
-import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
-import buildConfig from '../app/constants/buildConfig'
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import navigateToJpalTracking from './navigateToJpalTracking'
 import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import sendTrackingSignal from '../endpoint/sendTrackingSignal'
+import sendTrackingSignal from '../services/sendTrackingSignal'
 import { urlFromRouteInformation } from './url'
 
 const createNavigate = <T extends RoutesType>(

@@ -5,11 +5,11 @@ import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { contentDirection, contentAlignment } from '../../../modules/i18n/contentDirection'
+import { contentDirection, contentAlignment } from '../../../constants/contentDirection'
 import { config } from 'translations'
 import { Parser } from 'htmlparser2'
-import TimeStamp from '../../../modules/common/components/TimeStamp'
-import DateFormatterContext from '../../../modules/i18n/context/DateFormatterContext'
+import TimeStamp from '../../../components/TimeStamp'
+import DateFormatterContext from '../../../contexts/DateFormatterContext'
 
 type PropsType = {
   newsItem: LocalNewsModel | TunewsModel

@@ -1,5 +1,5 @@
-import AppSettings from '../settings/AppSettings'
-import buildConfig from '../app/constants/buildConfig'
+import AppSettings from './AppSettings'
+import buildConfig from '../constants/buildConfig'
 
 export default async (): Promise<string> => {
   const appSettings = new AppSettings()

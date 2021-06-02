@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Image as RNImage, View } from 'react-native'
 import styled from 'styled-components/native'
 import { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet'
+
 export type ImageSourceType = string | number | null
 type PropsType = {
   source: ImageSourceType

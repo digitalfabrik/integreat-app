@@ -12,14 +12,11 @@ import {
 import moment from 'moment'
 import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
-import { CityContentStateType } from '../../../app/StateType'
-import {
-  MorphContentLanguageActionType,
-  PushCategoryActionType,
-  PushEventActionType
-} from '../../../app/StoreActionType'
+import { CityContentStateType } from '../../StateType'
+import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
 import pushEvent from '../pushEvent'
 import createCityContent from '../createCityContent'
+
 describe('morphContentLanguage', () => {
   const createCategory = ({
     root,

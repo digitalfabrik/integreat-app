@@ -7,20 +7,20 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE
 } from 'api-client'
-import CategoryList, { ListEntryType } from '../../../modules/categories/components/CategoryList'
+import CategoryList, { ListEntryType } from '../../../components/CategoryList'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import SearchHeader from './SearchHeader'
 import { ThemeType } from 'build-configs/ThemeType'
-import normalizeSearchString from '../../../modules/common/normalizeSearchString'
+import normalizeSearchString from '../../../services/normalizeSearchString'
 import { Parser } from 'htmlparser2'
-import dimensions from '../../../modules/theme/constants/dimensions'
+import dimensions from '../../../constants/dimensions'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
-import SadIcon from '../../../modules/common/components/assets/smile-sad.svg'
-import sendTrackingSignal from '../../../modules/endpoint/sendTrackingSignal'
-import { urlFromRouteInformation } from '../../../modules/navigation/url'
+import FeedbackContainer from '../../../components/FeedbackContainer'
+import SadIcon from '../../../assets/smile-sad.svg'
+import sendTrackingSignal from '../../../services/sendTrackingSignal'
+import { urlFromRouteInformation } from '../../../navigation/url'
 
 const Wrapper = styled.View`
   position: absolute;

@@ -1,8 +1,9 @@
 import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
-import { CityContentStateType } from '../../../app/StateType'
+import { CityContentStateType } from '../../StateType'
 import cityContentReducer from '../cityContentReducer'
-import { PushEventActionType } from '../../../app/StoreActionType'
+import { PushEventActionType } from '../../StoreActionType'
+
 describe('pushEvent', () => {
   const event1 = new EventModel({
     path: '/augsburg/de/events/ev1',

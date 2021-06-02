@@ -1,7 +1,7 @@
-import { CityContentStateType, NewsRouteStateType } from '../../app/StateType'
-import { PushNewsActionType } from '../../app/StoreActionType'
+import { CityContentStateType, NewsRouteStateType } from '../StateType'
+import { PushNewsActionType } from '../StoreActionType'
 import { LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
-import { ErrorCode } from '../../error/ErrorCodes'
+import { ErrorCode } from '../../constants/ErrorCodes'
 
 const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
   const {

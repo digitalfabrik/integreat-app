@@ -6,7 +6,7 @@ import {
   onOverflowMenuPressParams
 } from 'react-navigation-header-buttons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { ThemeType } from '../../theme/constants'
+import { ThemeType } from 'build-configs'
 
 const MaterialHeaderButton = (props: {
   title: string

@@ -13,16 +13,17 @@ import {
   SprungbrettJobModel,
   useLoadFromEndpoint
 } from 'api-client'
-import withTheme from '../../../modules/theme/hocs/withTheme'
+import withTheme from '../../../hocs/withTheme'
 import { ThemeType } from 'build-configs/ThemeType'
-import FailureContainer from '../../../modules/error/containers/FailureContainer'
-import { fromError } from '../../../modules/error/ErrorCodes'
-import createNavigateToFeedbackModal from '../../../modules/navigation/createNavigateToFeedbackModal'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import LayoutedScrollView from '../../../modules/common/containers/LayoutedScrollView'
+import FailureContainer from '../../../components/FailureContainer'
+import { fromError } from '../../../constants/ErrorCodes'
+import createNavigateToFeedbackModal from '../../../navigation/createNavigateToFeedbackModal'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
+import LayoutedScrollView from '../../../components/LayoutedScrollView'
 import { SprungbrettOfferRouteType } from 'api-client/src/routes'
-import { StateType } from '../../../modules/app/StateType'
-import determineApiUrl from '../../../modules/endpoint/determineApiUrl'
+import { StateType } from '../../../redux/StateType'
+import determineApiUrl from '../../../services/determineApiUrl'
+
 type OwnPropsType = {
   route: RoutePropType<SprungbrettOfferRouteType>
   navigation: NavigationPropType<SprungbrettOfferRouteType>

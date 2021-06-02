@@ -1,12 +1,13 @@
 import Settings, { PropsType as SettingsPropsType } from '../components/Settings'
-import withTheme from '../../../modules/theme/hocs/withTheme'
+import withTheme from '../../../hocs/withTheme'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { StateType } from '../../../modules/app/StateType'
+import { StateType } from '../../../redux/StateType'
 import { Dispatch } from 'redux'
-import { StoreActionType } from '../../../modules/app/StoreActionType'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import { StoreActionType } from '../../../redux/StoreActionType'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
 import { SettingsRouteType } from 'api-client/src/routes'
+
 type OwnPropsType = {
   route: RoutePropType<SettingsRouteType>
   navigation: NavigationPropType<SettingsRouteType>

@@ -1,5 +1,5 @@
 import * as PushNotificationsManager from '../PushNotificationsManager'
-import buildConfig from '../../app/constants/buildConfig'
+import buildConfig from '../../constants/buildConfig'
 import messaging from '@react-native-firebase/messaging'
 
 jest.mock('@react-native-firebase/messaging', () => jest.fn())

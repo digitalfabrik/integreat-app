@@ -1,14 +1,15 @@
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../DefaultDataContainer'
-import { FetchEventActionType } from '../../../app/StoreActionType'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
+import { FetchEventActionType } from '../../redux/StoreActionType'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { ErrorCode } from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../constants/ErrorCodes'
 import moment from 'moment'
-import mockDate from '../../../../testing/mockDate'
+import mockDate from '../../testing/mockDate'
+
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 describe('watchFetchEvents', () => {

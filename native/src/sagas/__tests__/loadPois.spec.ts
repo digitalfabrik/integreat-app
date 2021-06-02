@@ -1,10 +1,11 @@
 import { runSaga } from 'redux-saga'
-import DefaultDataContainer from '../../DefaultDataContainer'
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import DatabaseConnector from '../../DatabaseConnector'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DatabaseConnector from '../../services/DatabaseConnector'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import loadPois from '../loadPois'
-import DatabaseContext from '../../DatabaseContext'
+import DatabaseContext from '../../models/DatabaseContext'
+
 let mockPois
 jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {

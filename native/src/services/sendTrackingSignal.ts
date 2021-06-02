@@ -1,8 +1,8 @@
 import { createTrackingEndpoint, SpecificSignalType, SignalType } from 'api-client'
-import AppSettings from '../settings/AppSettings'
+import AppSettings from './AppSettings'
 import moment from 'moment'
-import buildConfig from '../app/constants/buildConfig'
-import { ErrorCode, fromError } from '../error/ErrorCodes'
+import buildConfig from '../constants/buildConfig'
+import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import * as Sentry from '@sentry/react-native'
 
 let systemLanguage: string
