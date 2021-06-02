@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { FeedbackModalRouteType } from 'api-client'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import FeedbackContainer from '../../../modules/feedback/FeedbackContainer'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
+import FeedbackContainer from '../../../components/FeedbackContainer'
 import { ThemeContext } from 'styled-components'
 type PropsType = {
   route: RoutePropType<FeedbackModalRouteType>

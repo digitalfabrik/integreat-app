@@ -1,8 +1,8 @@
 import { SagaIterator } from 'redux-saga'
 import { createPOIsEndpoint, Payload, PoiModel } from 'api-client'
 import { call } from 'redux-saga/effects'
-import { DataContainer } from '../DataContainer'
-import determineApiUrl from '../determineApiUrl'
+import { DataContainer } from '../services/DataContainer'
+import determineApiUrl from '../services/determineApiUrl'
 
 function* loadPois(
   city: string,

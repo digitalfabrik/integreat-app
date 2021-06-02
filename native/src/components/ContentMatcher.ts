@@ -1,4 +1,4 @@
-import normalizeSearchString from '../../common/normalizeSearchString'
+import normalizeSearchString from '../services/normalizeSearchString'
 
 class ContentMatcher {
   getWords(content: string): Array<string> {

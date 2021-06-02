@@ -3,15 +3,15 @@ import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
   PushCategoryActionType
-} from '../../app/StoreActionType'
-import { DataContainer } from '../DataContainer'
+} from '../redux/StoreActionType'
+import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import isPeekingRoute from '../selectors/isPeekingRoute'
-import { ErrorCode, fromError } from '../../error/ErrorCodes'
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
+import isPeekingRoute from '../redux/selectors/isPeekingRoute'
+import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import { Moment } from 'moment'
 import { CategoriesMapModel, LanguageModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../../app/StateType'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.

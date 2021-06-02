@@ -2,13 +2,13 @@ import * as React from 'react'
 import { useCallback, useContext } from 'react'
 import { useWindowDimensions, Text, View, GestureResponderEvent } from 'react-native'
 import Html, { HTMLNode } from 'react-native-render-html'
-import DateFormatterContext from '../../i18n/context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs/ThemeType'
 import { Moment } from 'moment'
 import { config } from 'translations'
-import TimeStamp from '../../common/components/TimeStamp'
-import SpaceBetween from '../../common/components/SpaceBetween'
+import TimeStamp from './TimeStamp'
+import SpaceBetween from './SpaceBetween'
 
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs/ThemeType'
-import Touchable from '../../../modules/platform/components/Touchable'
+import Touchable from '../../../components/Touchable'
 import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 import { Badge, Icon } from 'react-native-elements'
 import { Switch, Text, View } from 'react-native'

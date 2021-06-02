@@ -3,8 +3,8 @@ import { TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, Image, G } from 'react-native-svg'
 import styled from 'styled-components/native'
-import { buildConfigAssets } from '../../app/constants/buildConfig'
-import { ThemeType } from '../../theme/constants'
+import { buildConfigAssets } from '../constants/buildConfig'
+import { ThemeType } from 'build-configs'
 
 const Container = styled.View`
   width: 100%;
@@ -29,6 +29,7 @@ const DIAMETER_FRACTION = 1.2
 const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
 const radius = (svgSize - strokeWidth * DIAMETER_FRACTION) / 2
 const circumference = radius * 2 * Math.PI
+
 export type PropsType = {
   progress: number
   theme: ThemeType

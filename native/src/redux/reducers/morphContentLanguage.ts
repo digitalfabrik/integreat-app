@@ -4,11 +4,11 @@ import {
   EventRouteStateType,
   PoiRouteStateType,
   RouteMappingType
-} from '../../app/StateType'
+} from '../StateType'
 import { mapValues } from 'lodash/object'
 import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiModel, POIS_ROUTE } from 'api-client'
-import { MorphContentLanguageActionType } from '../../app/StoreActionType'
-import forEachTreeNode from '../../common/forEachTreeNode'
+import { MorphContentLanguageActionType } from '../StoreActionType'
+import forEachTreeNode from '../../services/forEachTreeNode'
 
 const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: string, newLanguage: string) => (
   route: CategoryRouteStateType

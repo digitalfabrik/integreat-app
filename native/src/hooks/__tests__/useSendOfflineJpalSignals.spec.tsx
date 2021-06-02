@@ -1,16 +1,16 @@
-import AppSettings from '../../../settings/AppSettings'
+import AppSettings from '../../services/AppSettings'
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import React from 'react'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 import { render, waitFor } from '@testing-library/react-native'
-import { sendRequest } from '../../../endpoint/sendTrackingSignal'
+import { sendRequest } from '../../services/sendTrackingSignal'
 import { useNetInfo } from '@react-native-community/netinfo'
 
 jest.mock('@react-native-community/netinfo', () => ({
   useNetInfo: jest.fn()
 }))
 
-jest.mock('../../../endpoint/sendTrackingSignal')
+jest.mock('../../services/sendTrackingSignal')
 
 describe('useSendOfflineJpalSignals', () => {
   beforeEach(() => {

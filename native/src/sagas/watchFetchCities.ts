@@ -1,8 +1,8 @@
 import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from 'redux-saga/effects'
-import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../../app/StoreActionType'
-import { DataContainer } from '../DataContainer'
+import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../redux/StoreActionType'
+import { DataContainer } from '../services/DataContainer'
 import loadCities from './loadCities'
-import { fromError } from '../../error/ErrorCodes'
+import { fromError } from '../constants/ErrorCodes'
 import { CityModel } from 'api-client'
 
 export function* fetchCities(

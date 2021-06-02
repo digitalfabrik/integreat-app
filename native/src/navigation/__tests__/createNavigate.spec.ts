@@ -1,5 +1,5 @@
 import createNavigate from '../createNavigate'
-import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToDisclaimer from '../navigateToDisclaimer'
 import navigateToLanding from '../navigateToLanding'
 import navigateToOffers from '../navigateToOffers'
@@ -21,9 +21,9 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE
 } from 'api-client/src/routes'
-import buildConfig from '../../app/constants/buildConfig'
+import buildConfig from '../../constants/buildConfig'
 import navigateToJpalTracking from '../navigateToJpalTracking'
-import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
+import sendTrackingSignal from '../../services/sendTrackingSignal'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
@@ -35,7 +35,7 @@ jest.mock('../navigateToSearch', () => jest.fn())
 jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
 jest.mock('../navigateToJpalTracking', () => jest.fn())
-jest.mock('../../endpoint/sendTrackingSignal', () => jest.fn())
+jest.mock('../../services/sendTrackingSignal', () => jest.fn())
 jest.mock('../url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com')
 }))

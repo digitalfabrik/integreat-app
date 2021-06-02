@@ -1,16 +1,16 @@
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, put, fork, take, cancel, StrictEffect, Effect } from 'redux-saga/effects'
+import { call, put, fork, take, cancel, StrictEffect } from 'redux-saga/effects'
 import { Task } from 'redux-saga'
-import { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../../app/StoreActionType'
-import FetcherModule, { FetchResultType, TargetFilePathsType } from '../../fetcher/FetcherModule'
-import { DataContainer } from '../DataContainer'
+import { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../redux/StoreActionType'
+import FetcherModule, { FetchResultType, TargetFilePathsType } from '../services/FetcherModule'
+import { DataContainer } from '../services/DataContainer'
 import moment from 'moment'
 import {
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
-} from '../../app/StateType'
-import { fromError } from '../../error/ErrorCodes'
+} from '../redux/StateType'
+import { fromError } from '../constants/ErrorCodes'
 
 export type FetchMapTargetType = {
   url: string

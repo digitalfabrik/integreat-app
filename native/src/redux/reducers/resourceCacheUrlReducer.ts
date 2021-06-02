@@ -1,4 +1,5 @@
-import { StoreActionType } from '../../app/StoreActionType'
+import { StoreActionType } from '../StoreActionType'
+
 export default (state: string | null = null, action: StoreActionType): string | null => {
   switch (action.type) {
     case 'SET_RESOURCE_CACHE_URL':

@@ -1,12 +1,12 @@
 import Pdf from 'react-native-pdf'
 import * as React from 'react'
 import { View } from 'react-native'
-import FailureContainer from '../../../modules/error/containers/FailureContainer'
+import FailureContainer from '../../../components/FailureContainer'
 import { ThemeType } from 'build-configs/ThemeType'
-import withTheme from '../../../modules/theme/hocs/withTheme'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import withTheme from '../../../hocs/withTheme'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
 import { PdfViewModalRouteType } from 'api-client/src/routes'
-import { ErrorCode } from '../../../modules/error/ErrorCodes'
+import { ErrorCode } from '../../../constants/ErrorCodes'
 
 type PropsType = {
   route: RoutePropType<PdfViewModalRouteType>

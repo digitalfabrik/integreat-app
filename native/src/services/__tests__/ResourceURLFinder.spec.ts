@@ -1,4 +1,5 @@
 import ResourceURLFinder from '../ResourceURLFinder'
+
 describe('ResourceURLFinder', () => {
   it('should find urls ending on png,jpg,jpeg,pdf in src and href tags', () => {
     const finder = new ResourceURLFinder(['ex.am'])

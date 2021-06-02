@@ -3,7 +3,8 @@ import React from 'react'
 import { render } from '@testing-library/react-native'
 import { TimeStamp } from '../TimeStamp'
 import { DateFormatter } from 'api-client'
-import { lightTheme } from '../../../theme/constants'
+import buildConfig from '../../constants/buildConfig'
+
 describe('TimeStamp', () => {
   const t = input => input
 
@@ -12,7 +13,13 @@ describe('TimeStamp', () => {
     const language = 'en'
     const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
     const { getByText } = render(
-      <TimeStamp formatter={dateFormatter} language={language} theme={lightTheme} lastUpdate={lastUpdate} t={t} />
+      <TimeStamp
+        formatter={dateFormatter}
+        language={language}
+        theme={buildConfig().lightTheme}
+        lastUpdate={lastUpdate}
+        t={t}
+      />
     )
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
@@ -28,7 +35,7 @@ describe('TimeStamp', () => {
       <TimeStamp
         formatter={dateFormatter}
         language={language}
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
         lastUpdate={lastUpdate}
         t={t}
         showText={true}
@@ -48,7 +55,7 @@ describe('TimeStamp', () => {
       <TimeStamp
         formatter={dateFormatter}
         language={language}
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
         lastUpdate={lastUpdate}
         t={t}
         showText={false}
@@ -69,7 +76,7 @@ describe('TimeStamp', () => {
       <TimeStamp
         formatter={dateFormatter}
         language={language}
-        theme={lightTheme}
+        theme={buildConfig().lightTheme}
         lastUpdate={lastUpdate}
         t={t}
         format={format}

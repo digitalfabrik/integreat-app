@@ -1,16 +1,16 @@
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
-import DatabaseContext from './DatabaseContext'
+import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheStateType
-} from '../app/StateType'
+} from '../redux/StateType'
 import DatabaseConnector from './DatabaseConnector'
 import { DataContainer } from './DataContainer'
 import { Moment } from 'moment'
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import RNFetchBlob from 'rn-fetch-blob'
-import Cache from './Cache'
+import Cache from '../models/Cache'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>

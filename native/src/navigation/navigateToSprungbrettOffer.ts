@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
-import { StoreActionType } from '../app/StoreActionType'
-import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import { StoreActionType } from '../redux/StoreActionType'
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 
 const navigateToSprungbrettOffer = <T extends RoutesType>({

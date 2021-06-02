@@ -1,6 +1,6 @@
 import { call, spawn, takeLatest } from 'redux-saga/effects'
-import AppSettings, { SettingsType } from '../settings/AppSettings'
-import * as NotificationsManager from '../push-notifications/PushNotificationsManager'
+import AppSettings, { SettingsType } from '../services/AppSettings'
+import * as NotificationsManager from '../services/PushNotificationsManager'
 import { SagaIterator } from 'redux-saga'
 
 export function* clearCity(): SagaIterator<void> {

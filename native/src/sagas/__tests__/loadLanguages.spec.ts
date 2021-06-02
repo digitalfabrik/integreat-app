@@ -1,10 +1,11 @@
 import { runSaga } from 'redux-saga'
-import DefaultDataContainer from '../../DefaultDataContainer'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
 import loadLanguages from '../loadLanguages'
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import DatabaseContext from '../../DatabaseContext'
-import DatabaseConnector from '../../DatabaseConnector'
+import DatabaseContext from '../../models/DatabaseContext'
+import DatabaseConnector from '../../services/DatabaseConnector'
+
 let mockLanguages
 jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {

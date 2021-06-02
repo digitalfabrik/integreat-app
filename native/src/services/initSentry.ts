@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react-native'
-import buildConfig from './constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 
 const initSentry = (): void => {
   if (!buildConfig().featureFlags.sentry) {

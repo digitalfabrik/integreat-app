@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { View } from 'react-native'
 import { ImageViewer } from 'react-native-image-zoom-viewer'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
-import withTheme from '../../../modules/theme/hocs/withTheme'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
+import withTheme from '../../../hocs/withTheme'
 import { ThemeType } from 'build-configs/ThemeType'
 import { ImageViewModalRouteType } from 'api-client/src/routes'
 type PropsType = {

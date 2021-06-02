@@ -3,9 +3,9 @@ import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
-import { ThemeType } from '../../theme/constants'
 import { Button } from 'react-native-elements'
-import { ErrorCode } from '../ErrorCodes'
+import { ErrorCode } from '../constants/ErrorCodes'
+import { ThemeType } from 'build-configs'
 
 const ViewContainer = styled.View`
   flex: 1;

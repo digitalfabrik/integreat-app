@@ -1,4 +1,3 @@
-import { Saga } from 'redux-saga'
 import { all, call, Effect, ForkEffect, put, spawn, takeLatest } from 'redux-saga/effects'
 import {
   EnqueueSnackbarActionType,
@@ -6,13 +5,13 @@ import {
   SetContentLanguageActionType,
   SwitchContentLanguageActionType,
   SwitchContentLanguageFailedActionType
-} from '../../app/StoreActionType'
-import { DataContainer } from '../DataContainer'
+} from '../redux/StoreActionType'
+import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../ContentLoadCriterion'
-import AppSettings, { SettingsType } from '../../settings/AppSettings'
-import * as NotificationsManager from '../../push-notifications/PushNotificationsManager'
-import { fromError } from '../../error/ErrorCodes'
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
+import AppSettings, { SettingsType } from '../services/AppSettings'
+import * as NotificationsManager from '../services/PushNotificationsManager'
+import { fromError } from '../constants/ErrorCodes'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,

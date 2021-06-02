@@ -2,10 +2,10 @@ import * as React from 'react'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs/ThemeType'
 import { LanguageModel } from 'api-client'
-import Selector from '../../../modules/common/components/Selector'
-import SelectorItemModel from '../../../modules/common/models/SelectorItemModel'
+import Selector from '../../../components/Selector'
+import SelectorItemModel from '../../../models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
-import { NavigationPropType, RoutePropType } from '../../../modules/app/constants/NavigationTypes'
+import { NavigationPropType, RoutePropType } from '../../../constants/NavigationTypes'
 import { ChangeLanguageModalRouteType, NewsType } from 'api-client/src/routes'
 
 const Wrapper = styled.ScrollView`

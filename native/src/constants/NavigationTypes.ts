@@ -22,7 +22,8 @@ import {
   SprungbrettOfferRouteType,
   LanguageModel
 } from 'api-client'
-import { FeedbackInformationType } from '../../feedback/FeedbackContainer'
+import { FeedbackInformationType } from '../components/FeedbackContainer'
+
 export type RoutesType =
   | RedirectRouteType
   | JpalTrackingRouteType

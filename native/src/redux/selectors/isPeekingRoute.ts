@@ -1,4 +1,4 @@
-import { StateType } from '../../app/StateType'
+import { StateType } from '../StateType'
 
 type SelectPropsType = {
   routeCity: string

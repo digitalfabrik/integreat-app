@@ -2,8 +2,9 @@ import { render, fireEvent } from '@testing-library/react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
 import NewsListItem from '../NewsListItem'
-import buildConfig from '../../../../modules/app/constants/buildConfig'
+import buildConfig from '../../../../constants/buildConfig'
 import React from 'react'
+
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',

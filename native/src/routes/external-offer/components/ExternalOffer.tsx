@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { WebView, WebViewNavigation } from 'react-native-webview'
 import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
-import { createGetSource, createPostSource } from '../../../modules/platform/constants/webview'
-import { renderWebviewError } from '../../../modules/common/components/RemoteContent'
+import { createGetSource, createPostSource } from '../../../constants/webview'
+import { renderWebviewError } from '../../../components/RemoteContent'
 import { BackHandler } from 'react-native'
+
 export type PropsType = {
   url: string
   postData: Map<string, string> | null | undefined

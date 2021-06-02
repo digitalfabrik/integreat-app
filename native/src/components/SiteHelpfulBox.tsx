@@ -1,13 +1,12 @@
 import * as React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-
-import { ThemeType } from '../../theme/constants'
 import { TFunction, withTranslation } from 'react-i18next'
-import happyIcon from './assets/smile-happy.svg'
-import sadIcon from './assets/smile-sad.svg'
+import happyIcon from '../assets/smile-happy.svg'
+import sadIcon from '../assets/smile-sad.svg'
 import Image from './Image'
+import { ThemeType } from 'build-configs'
+
 const FeedbackBoxContainer = styled.View`
   margin-top: auto;
 `

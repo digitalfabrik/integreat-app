@@ -1,4 +1,4 @@
-import { CityContentStateType } from '../../app/StateType'
+import { CityContentStateType } from '../StateType'
 import { LanguageModel } from 'api-client'
 
 const createCityContent = (city: string, languages?: Array<LanguageModel>): CityContentStateType => {

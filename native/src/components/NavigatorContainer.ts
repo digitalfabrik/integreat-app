@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import Navigator from '../components/Navigator'
-import { StoreActionType } from '../StoreActionType'
+import { StoreActionType } from '../redux/StoreActionType'
 
 type DispatchPropsType = {
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void

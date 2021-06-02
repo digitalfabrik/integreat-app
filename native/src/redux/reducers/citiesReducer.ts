@@ -1,5 +1,5 @@
-import { StoreActionType } from '../../app/StoreActionType'
-import { CitiesStateType, defaultCitiesState } from '../../app/StateType'
+import { StoreActionType } from '../StoreActionType'
+import { CitiesStateType, defaultCitiesState } from '../StateType'
 
 export default (state: CitiesStateType = defaultCitiesState, action: StoreActionType): CitiesStateType => {
   switch (action.type) {

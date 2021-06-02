@@ -1,23 +1,22 @@
 import * as React from 'react'
-import Categories from '../../../modules/categories/components/Categories'
+import Categories from '../../../components/Categories'
 import { ThemeType } from 'build-configs/ThemeType'
 import { CityModel } from 'api-client'
-import CategoriesRouteStateView from '../../../modules/app/CategoriesRouteStateView'
-import { LanguageResourceCacheStateType } from '../../../modules/app/StateType'
-import NavigationTiles from '../../../modules/common/components/NavigationTiles'
-import TileModel from '../../../modules/common/models/TileModel'
+import CategoriesRouteStateView from '../../../models/CategoriesRouteStateView'
+import { LanguageResourceCacheStateType } from '../../../redux/StateType'
+import NavigationTiles from '../../../components/NavigationTiles'
+import TileModel from '../../../models/TileModel'
 import eventsIcon from '../assets/events.svg'
 import offersIcon from '../assets/offers.svg'
 import poisIcon from '../assets/pois.svg'
 import newsIcon from '../assets/news.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import { TFunction } from 'react-i18next'
-import buildConfig from '../../../modules/app/constants/buildConfig'
-import SpaceBetween from '../../../modules/common/components/SpaceBetween'
+import buildConfig from '../../../constants/buildConfig'
+import SpaceBetween from '../../../components/SpaceBetween'
 import styled from 'styled-components/native'
-import { StyledComponent } from 'styled-components'
-import { cityContentPath } from '../../../modules/navigation/url'
-import { FeedbackInformationType } from '../../../modules/feedback/FeedbackContainer'
+import { cityContentPath } from '../../../navigation/url'
+import { FeedbackInformationType } from '../../../components/FeedbackContainer'
 import {
   CATEGORIES_ROUTE,
   EVENTS_ROUTE,
@@ -28,7 +27,7 @@ import {
   TU_NEWS_TYPE
 } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import testID from '../../../modules/e2e/testID'
+import testID from '../../../testing/testID'
 
 const Spacing = styled.View`
   padding: 10px;

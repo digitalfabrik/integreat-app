@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import { StackHeaderProps } from '@react-navigation/stack'
 import { TFunction, withTranslation } from 'react-i18next'
 import Header, { PropsType as HeaderPropsType } from '../components/Header'
-import withTheme from '../../theme/hocs/withTheme'
-import { StateType } from '../../app/StateType'
+import withTheme from '../hocs/withTheme'
+import { StateType } from '../redux/StateType'
 import {
   CityModel,
   OFFERS_ROUTE,
@@ -12,9 +12,9 @@ import {
   NEWS_ROUTE,
   NonNullableRouteInformationType
 } from 'api-client'
-import isPeekingRoute from '../../endpoint/selectors/isPeekingRoute'
-import { urlFromRouteInformation } from '../../navigation/url'
-import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
+import isPeekingRoute from '../redux/selectors/isPeekingRoute'
+import { urlFromRouteInformation } from '../navigation/url'
+import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 
 type OwnPropsType = StackHeaderProps & {
   t: TFunction

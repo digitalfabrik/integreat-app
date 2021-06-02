@@ -1,10 +1,10 @@
-import DefaultDataContainer from '../../DefaultDataContainer'
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { expectSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import AppSettings from '../../../settings/AppSettings'
-import { ContentLoadCriterion } from '../../ContentLoadCriterion'
-import { DataContainer } from '../../DataContainer'
+import AppSettings from '../../services/AppSettings'
+import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
+import { DataContainer } from '../../services/DataContainer'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
@@ -14,9 +14,9 @@ import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import NetInfo from '@react-native-community/netinfo'
-import DatabaseConnector from '../../DatabaseConnector'
-import mockDate from '../../../../testing/mockDate'
-import { createFetchMap } from '../../../../testing/builder/util'
+import DatabaseConnector from '../../services/DatabaseConnector'
+import mockDate from '../../testing/mockDate'
+import { createFetchMap } from '../../testing/builder/util'
 import loadLanguages from '../loadLanguages'
 import loadCities from '../loadCities'
 import loadCategories from '../loadCategories'
@@ -31,7 +31,7 @@ jest.mock('../loadEvents')
 jest.mock('../loadCities')
 jest.mock('../loadLanguages')
 jest.mock('../loadPois')
-jest.mock('../../../push-notifications/PushNotificationsManager')
+jest.mock('../../services/PushNotificationsManager')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
   const categoriesBuilder = new CategoriesMapModelBuilder(city, language, 2, 2)

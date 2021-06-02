@@ -1,4 +1,4 @@
-import createNavigationScreenPropMock from '../../../testing/createNavigationPropMock'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToLink from '../navigateToLink'
 import {
   IMAGE_VIEW_MODAL_ROUTE,
@@ -7,10 +7,11 @@ import {
   OPEN_MEDIA_SIGNAL_NAME,
   PDF_VIEW_MODAL_ROUTE
 } from 'api-client'
-import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
-import openExternalUrl from '../../common/openExternalUrl'
-jest.mock('../../endpoint/sendTrackingSignal')
-jest.mock('../../common/openExternalUrl')
+import sendTrackingSignal from '../../services/sendTrackingSignal'
+import openExternalUrl from '../../services/openExternalUrl'
+
+jest.mock('../../services/sendTrackingSignal')
+jest.mock('../../services/openExternalUrl')
 describe('navigateToLink', () => {
   beforeEach(() => {
     jest.clearAllMocks()

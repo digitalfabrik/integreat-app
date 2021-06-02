@@ -1,8 +1,8 @@
 import { createEventsEndpoint, EventModel, Payload } from 'api-client'
 import { SagaIterator } from 'redux-saga'
 import { call } from 'redux-saga/effects'
-import { DataContainer } from '../DataContainer'
-import determineApiUrl from '../determineApiUrl'
+import { DataContainer } from '../services/DataContainer'
+import determineApiUrl from '../services/determineApiUrl'
 
 function* loadEvents(
   city: string,

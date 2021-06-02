@@ -1,16 +1,16 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import SearchModal from '../SearchModal'
-import lightTheme from '../../../../modules/theme/constants'
 import { CategoriesRouteInformationType, CATEGORIES_ROUTE, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import sendTrackingSignal from '../../../../modules/endpoint/sendTrackingSignal'
-import { urlFromRouteInformation } from '../../../../modules/navigation/url'
+import sendTrackingSignal from '../../../../services/sendTrackingSignal'
+import { urlFromRouteInformation } from '../../../../navigation/url'
 import { ThemeProvider } from 'styled-components/native'
+import buildConfig from '../../../../constants/buildConfig'
 
 jest.mock('rn-fetch-blob')
-jest.mock('../../../../modules/endpoint/sendTrackingSignal')
-jest.mock('../../../../modules/common/components/TimeStamp')
+jest.mock('../../../../services/sendTrackingSignal')
+jest.mock('../../../../components/TimeStamp')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: text => text
@@ -37,11 +37,11 @@ describe('SearchModal', () => {
     closeModal: dummy,
     navigateToLink: dummy,
     t: t,
-    theme: lightTheme
+    theme: buildConfig().lightTheme
   }
   it('should send tracking signal when closing search site', async () => {
     const { getByPlaceholderText, getAllByRole } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <SearchModal {...props} />
       </ThemeProvider>
     )
@@ -49,7 +49,6 @@ describe('SearchModal', () => {
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
     await fireEvent.press(button)
-    // @ts-ignore ts does not recognize the matcher
     await waitFor(() => expect(button).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -62,7 +61,7 @@ describe('SearchModal', () => {
   })
   it('should send tracking signal when opening a search result', async () => {
     const { getByText, getByPlaceholderText, getAllByRole } = render(
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={buildConfig().lightTheme}>
         <SearchModal {...props} />
       </ThemeProvider>
     )
@@ -71,7 +70,6 @@ describe('SearchModal', () => {
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
     await fireEvent.press(categoryListItem)
-    // @ts-ignore ts does not recognize the matcher
     await waitFor(() => expect(button).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     const routeInformation: CategoriesRouteInformationType = {

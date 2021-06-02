@@ -7,9 +7,9 @@ import FilterableCitySelector from '../components/FilterableCitySelector'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
-import { checkLocationPermission, requestLocationPermission } from '../../../modules/app/LocationPermissionManager'
+import { checkLocationPermission, requestLocationPermission } from '../../../services/LocationPermissionManager'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import testID from '../../../modules/e2e/testID'
+import testID from '../../../testing/testID'
 
 const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};

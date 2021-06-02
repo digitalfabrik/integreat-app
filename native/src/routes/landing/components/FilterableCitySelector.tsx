@@ -7,6 +7,7 @@ import { ThemeType } from 'build-configs/ThemeType'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 import { LocationType } from './Landing'
+
 const SearchBar = styled.View`
   flex-direction: row;
   align-items: center;

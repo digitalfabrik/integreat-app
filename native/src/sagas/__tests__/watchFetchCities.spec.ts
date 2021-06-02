@@ -1,11 +1,12 @@
-import RNFetchBlob from '../../../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../DefaultDataContainer'
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DefaultDataContainer from '../../services/DefaultDataContainer'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
-import { FetchCitiesActionType } from '../../../app/StoreActionType'
+import { FetchCitiesActionType } from '../../redux/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import { ErrorCode } from '../../../error/ErrorCodes'
+import { ErrorCode } from '../../constants/ErrorCodes'
+
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCities')
 describe('watchFetchCities', () => {

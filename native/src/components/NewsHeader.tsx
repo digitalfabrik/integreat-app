@@ -2,12 +2,12 @@ import React from 'react'
 import { CityModel } from 'api-client'
 import styled from 'styled-components/native'
 import { withTranslation } from 'react-i18next'
-import withTheme from '../../theme/hocs/withTheme'
-import { ThemeType } from '../../theme/constants'
-import activeInternational from '../../../routes/news/assets/tu-news-active.svg'
-import inactiveInternational from '../../../routes/news/assets/tu-news-inactive.svg'
+import withTheme from '../hocs/withTheme'
+import activeInternational from '../routes/news/assets/tu-news-active.svg'
+import inactiveInternational from '../routes/news/assets/tu-news-inactive.svg'
 import { TFunction } from 'i18next'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE, NewsType } from 'api-client/src/routes'
+import { ThemeType } from 'build-configs'
 
 const NewsTypeIcon = styled.Image`
   align-self: center;

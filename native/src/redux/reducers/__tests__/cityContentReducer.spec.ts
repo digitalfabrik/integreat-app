@@ -12,11 +12,11 @@ import {
   ResourcesFetchFailedActionType,
   SwitchContentLanguageActionType,
   SwitchContentLanguageFailedActionType
-} from '../../../app/StoreActionType'
+} from '../../StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
-import { CityContentStateType } from '../../../app/StateType'
-import { ErrorCode } from '../../../error/ErrorCodes'
+import { CityContentStateType } from '../../StateType'
+import { ErrorCode } from '../../../constants/ErrorCodes'
 
 describe('cityContentReducer', () => {
   const switchContentLanguageAction: SwitchContentLanguageActionType = {

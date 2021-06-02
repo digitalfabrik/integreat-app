@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { ThemeType, lightTheme } from '../constants'
-import wrapDisplayName from '../../common/hocs/wrapDisplayName'
+import wrapDisplayName from './wrapDisplayName'
+import { ThemeType } from 'build-configs'
+import buildConfig from '../constants/buildConfig'
 
 function withTheme<Props extends { theme: ThemeType }>(
   Component: React.ComponentType<Props>
@@ -10,7 +11,7 @@ function withTheme<Props extends { theme: ThemeType }>(
 
     render() {
       // @ts-ignore
-      return <Component {...this.props} theme={lightTheme} />
+      return <Component {...this.props} theme={buildConfig().lightTheme} />
     }
   }
 }

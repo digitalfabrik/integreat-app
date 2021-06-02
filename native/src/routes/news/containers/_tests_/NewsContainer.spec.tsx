@@ -3,14 +3,15 @@ import configureMockStore from 'redux-mock-store'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import createNavigationScreenPropMock from '../../../../testing/createNavigationPropMock'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from '../../../../modules/app/StateType'
+import { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from '../../../../redux/StateType'
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
-import { ErrorCode } from '../../../../modules/error/ErrorCodes'
-import { LOADING_TIMEOUT } from '../../../../modules/common/constants'
+import { ErrorCode } from '../../../../constants/ErrorCodes'
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client/src/routes'
 import NewsContainer from '../NewsContainer'
 import { CityModel } from 'api-client'
+import { LOADING_TIMEOUT } from '../../../../hocs/withPayloadProvider'
+
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
@@ -19,12 +20,12 @@ jest.mock('../../components/NewsList', () => {
 
   return () => <Text>NewsList</Text>
 })
-jest.mock('../../../../modules/error/containers/FailureContainer', () => {
+jest.mock('../../../../components/FailureContainer', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
-jest.mock('../../../../modules/common/containers/LanguageNotAvailableContainer', () => {
+jest.mock('../../../../components/LanguageNotAvailableContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>LanguageNotAvailable</Text>
@@ -34,7 +35,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
-jest.mock('../../../../modules/common/components/LoadingSpinner', () => {
+jest.mock('../../../../components/LoadingSpinner', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Loading</Text>

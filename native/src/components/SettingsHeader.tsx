@@ -1,9 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
-import { ThemeType } from '../../theme/constants'
 import { TFunction } from 'react-i18next'
-import dimensions from '../../theme/constants/dimensions'
+import dimensions from '../constants/dimensions'
+import { ThemeType } from 'build-configs'
 
 const Horizontal = styled.View`
   flex: 1;

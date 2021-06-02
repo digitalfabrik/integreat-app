@@ -1,8 +1,8 @@
 import { SagaIterator } from 'redux-saga'
 import { call } from 'redux-saga/effects'
 import { createLanguagesEndpoint, LanguageModel, Payload } from 'api-client'
-import { DataContainer } from '../DataContainer'
-import determineApiUrl from '../determineApiUrl'
+import { DataContainer } from '../services/DataContainer'
+import determineApiUrl from '../services/determineApiUrl'
 
 export default function* loadLanguages(
   city: string,

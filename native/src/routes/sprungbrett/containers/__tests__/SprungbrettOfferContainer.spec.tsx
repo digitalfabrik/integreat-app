@@ -4,13 +4,13 @@ import createNavigationScreenPropMock from '../../../../testing/createNavigation
 import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client/src/routes'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
-import { ErrorCode } from '../../../../modules/error/ErrorCodes'
+import { ErrorCode } from '../../../../constants/ErrorCodes'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { CityModel, useLoadFromEndpoint } from 'api-client'
 
 jest.mock('react-i18next')
-jest.mock('../../../../modules/common/openExternalUrl')
+jest.mock('../../../../services/openExternalUrl')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()
@@ -20,7 +20,7 @@ jest.mock('../../components/SprungbrettOffer', () => {
 
   return () => <Text>SprungbrettOffer</Text>
 })
-jest.mock('../../../../modules/error/containers/FailureContainer', () => {
+jest.mock('../../../../components/FailureContainer', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>

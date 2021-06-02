@@ -1,4 +1,4 @@
-import DatabaseContext from '../DatabaseContext'
+import DatabaseContext from '../../models/DatabaseContext'
 
 describe('DatabaseContext', () => {
   describe('sameCityAs', () => {

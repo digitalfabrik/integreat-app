@@ -1,8 +1,9 @@
 import openExternalUrl from '../openExternalUrl'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import { Linking } from 'react-native'
-import sendTrackingSignal from '../../endpoint/sendTrackingSignal'
+import sendTrackingSignal from '../sendTrackingSignal'
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+
 jest.mock('@sentry/react-native', () => ({
   captureException: () => {}
 }))
@@ -10,7 +11,7 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   open: jest.fn(),
   isAvailable: jest.fn(() => true)
 }))
-jest.mock('../../endpoint/sendTrackingSignal')
+jest.mock('../../services/sendTrackingSignal')
 jest.mock('react-native', () => ({
   Linking: {
     canOpenURL: jest.fn(() => true),

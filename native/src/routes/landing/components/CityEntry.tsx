@@ -2,10 +2,10 @@ import React from 'react'
 import { CityModel } from 'api-client'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs/ThemeType'
-import normalizeSearchString from '../../../modules/common/normalizeSearchString'
+import normalizeSearchString from '../../../services/normalizeSearchString'
 import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
-import testID from '../../../modules/e2e/testID'
+import testID from '../../../testing/testID'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 

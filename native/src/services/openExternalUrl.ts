@@ -1,8 +1,8 @@
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
-import buildConfig from '../app/constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 import URL from 'url-parse'
-import sendTrackingSignal from '../endpoint/sendTrackingSignal'
+import sendTrackingSignal from './sendTrackingSignal'
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 const openExternalUrl = async (url: string) => {

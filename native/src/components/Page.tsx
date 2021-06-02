@@ -1,17 +1,18 @@
 import * as React from 'react'
 import { useState, useContext, useCallback } from 'react'
 import styled from 'styled-components/native'
-import { ThemeType } from '../../theme/constants'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
 import { Moment } from 'moment'
-import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../../app/StateType'
+import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import { RESOURCE_CACHE_DIR_PATH } from '../../endpoint/DatabaseConnector'
+import { RESOURCE_CACHE_DIR_PATH } from '../services/DatabaseConnector'
 import { mapValues } from 'lodash'
-import DateFormatterContext from '../../i18n/context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import { ThemeType } from 'build-configs'
+
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`
   margin: 0 ${HORIZONTAL_MARGIN}px 8px;

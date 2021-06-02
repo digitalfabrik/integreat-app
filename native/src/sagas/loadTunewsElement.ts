@@ -1,6 +1,6 @@
 import { createTunewsElementEndpoint, Payload, TunewsModel } from 'api-client'
 import { call } from 'redux-saga/effects'
-import { tunewsApiUrl } from '../constants'
+import { tunewsApiUrl } from '../constants/endpoint'
 import { SagaIterator } from 'redux-saga'
 
 function* loadTunewsElement(city: string, language: string, id: number): SagaIterator<TunewsModel[]> {

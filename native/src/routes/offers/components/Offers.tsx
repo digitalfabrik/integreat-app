@@ -1,13 +1,14 @@
 import React from 'react'
-import TileModel from '../../../modules/common/models/TileModel'
+import TileModel from '../../../models/TileModel'
 import { OfferModel } from 'api-client'
-import Tiles from '../../../modules/common/components/Tiles'
+import Tiles from '../../../components/Tiles'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 import { ThemeType } from 'build-configs/ThemeType'
-import SpaceBetween from '../../../modules/common/components/SpaceBetween'
-import SiteHelpfulBox from '../../../modules/common/components/SiteHelpfulBox'
+import SpaceBetween from '../../../components/SpaceBetween'
+import SiteHelpfulBox from '../../../components/SiteHelpfulBox'
 import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
+
 type PropsType = {
   offers: Array<OfferModel>
   navigateToFeedback: (isPositiveFeedback: boolean) => void

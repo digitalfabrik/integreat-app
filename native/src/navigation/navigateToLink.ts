@@ -1,11 +1,11 @@
-import buildConfig from '../app/constants/buildConfig'
-import { NavigationPropType, RoutesType } from '../app/constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
-import openExternalUrl from '../common/openExternalUrl'
+import openExternalUrl from '../services/openExternalUrl'
 import Url from 'url-parse'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
-import sendTrackingSignal from '../endpoint/sendTrackingSignal'
+import sendTrackingSignal from '../services/sendTrackingSignal'
 import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 

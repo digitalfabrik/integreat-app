@@ -12,8 +12,8 @@ import { LocationType } from './Landing'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import CityGroup from './CityGroup'
-import normalizeSearchString from '../../../modules/common/normalizeSearchString'
-import buildConfig from '../../../modules/app/constants/buildConfig'
+import normalizeSearchString from '../../../services/normalizeSearchString'
+import buildConfig from '../../../constants/buildConfig'
 
 const CityGroupContainer = styled.View`
   flex: 0;

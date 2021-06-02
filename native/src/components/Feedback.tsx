@@ -5,10 +5,10 @@ import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Button } from 'react-native-elements'
-import Caption from '../common/components/Caption'
+import Caption from './Caption'
 import { SendingStatusType } from './FeedbackContainer'
-import buildConfig from '../app/constants/buildConfig'
-import HappyIcon from '../common/components/assets/smile-happy.svg'
+import buildConfig from '../constants/buildConfig'
+import HappyIcon from '../assets/smile-happy.svg'
 
 const Input = styled(TextInput)`
   padding: 15px;

@@ -1,10 +1,11 @@
 import * as React from 'react'
-import Caption from '../../../modules/common/components/Caption'
+import Caption from './Caption'
 import Tile from './Tile'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
-import { ThemeType } from '../../theme/constants'
-import { contentDirection } from '../../i18n/contentDirection'
+import { contentDirection } from '../constants/contentDirection'
+import { ThemeType } from 'build-configs'
+
 type PropsType = {
   title?: string
   tiles: Array<TileModel>

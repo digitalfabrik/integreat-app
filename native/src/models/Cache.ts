@@ -1,5 +1,5 @@
-import DatabaseConnector from './DatabaseConnector'
-import DatabaseContext from './DatabaseContext'
+import DatabaseConnector from '../services/DatabaseConnector'
+import DatabaseContext from '../models/DatabaseContext'
 
 type LoadFunctionType<T> = (databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<T>
 type StoreFunctionType<T> = (value: T, databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<void>

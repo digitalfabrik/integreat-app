@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
-import { SnackbarType, StateType } from '../../app/StateType'
+import { SnackbarType, StateType } from '../redux/StateType'
 import Snackbar from '../components/Snackbar'
 
 const Container = styled(Animated.View)`
