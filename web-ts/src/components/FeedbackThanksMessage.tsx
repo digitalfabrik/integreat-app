@@ -1,15 +1,14 @@
-// @flow
-
 import React from 'react'
 import { Description, StyledFeedbackBox } from './FeedbackBox'
 import ModalHeader from './ModalHeader'
-import { withTranslation, type TFunction } from 'react-i18next'
-import buildConfig from '../../app/constants/buildConfig'
+import type { TFunction } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
+import buildConfig from '../constants/buildConfig'
 
-type PropsType = {|
-  closeFeedbackModal: () => void,
+type PropsType = {
+  closeFeedbackModal: () => void
   t: TFunction
-|}
+}
 
 export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
   render() {
@@ -17,10 +16,14 @@ export class FeedbackThanksMessage extends React.PureComponent<PropsType> {
     return (
       <StyledFeedbackBox>
         <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedbackSent')} />
-        <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
+        <Description>
+          {t('thanksMessage', {
+            appName: buildConfig().appName
+          })}
+        </Description>
       </StyledFeedbackBox>
     )
   }
 }
 
-export default withTranslation<PropsType>('feedback')(FeedbackThanksMessage)
+export default withTranslation('feedback')(FeedbackThanksMessage)

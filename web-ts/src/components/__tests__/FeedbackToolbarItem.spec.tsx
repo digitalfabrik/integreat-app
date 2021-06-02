@@ -1,9 +1,9 @@
-// @flow
-
 import React from 'react'
 import { shallow } from 'enzyme'
-import { faFrown, faSmile } from '../../../../modules/app/constants/icons'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
+import { faFrown, faSmile } from '../../constants/icons'
+
+jest.mock('react-i18next')
 
 describe('FeedbackToolbarItem', () => {
   it('should render a positive FeedbackToolbarItem', () => {
