@@ -27,7 +27,7 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml && yarn run stylelint",
     "eslint:fix": "eslint . --fix",
     "eslint": "eslint .",
-    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{js,css}\"",
+    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
     "ts:check": "yarn tsc --project tsconfig.json"
   },
   "dependencies": {
