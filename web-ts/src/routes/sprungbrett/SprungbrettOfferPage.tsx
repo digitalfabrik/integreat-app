@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import { CityModel, LanguageModel, OFFERS_ROUTE } from 'api-client'
+import { CityModel, LanguageModel, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 import LocationToolbar from '../../components/LocationToolbar'
 
 type PropsType = {
@@ -11,7 +11,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const OffersPage = ({ cityModel, match, location }: PropsType): ReactElement => {
+const SprungbrettOfferPage = ({ cityModel, match, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
@@ -26,12 +26,12 @@ const OffersPage = ({ cityModel, match, location }: PropsType): ReactElement => 
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={OFFERS_ROUTE}
+      routeType={SPRUNGBRETT_OFFER_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>OffersPage</div>
+      <div>SprungbrettOfferPage</div>
     </LocationLayout>
   )
 }
 
-export default OffersPage
+export default SprungbrettOfferPage

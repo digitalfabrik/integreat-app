@@ -25,7 +25,7 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
-  SearchRouteType,
+  SearchRouteType, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType,
   TU_NEWS_TYPE,
   TuNewsType,
   useLoadFromEndpoint
@@ -49,7 +49,8 @@ export const RoutePatterns = {
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}` as `/${NotFoundRouteType}`,
 
   [EVENTS_ROUTE]: `${cityContentPattern}/${EVENTS_ROUTE}/:eventId?` as `${cityContentPatternType}/${EventsRouteType}:eventId?`,
-  [OFFERS_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}/:offerId?` as `${cityContentPatternType}/${OffersRouteType}:offerId?`,
+  [SPRUNGBRETT_OFFER_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}` as `${cityContentPatternType}/${OffersRouteType}/${SprungbrettOfferRouteType}`,
+  [OFFERS_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}` as `${cityContentPatternType}/${OffersRouteType}`,
   [POIS_ROUTE]: `${cityContentPattern}/${POIS_ROUTE}/:poiId?` as `${cityContentPatternType}/${PoisRouteType}:poiId?`,
   [LOCAL_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/:newsId?` as `${cityContentPatternType}/${NewsRouteType}/${LocalNewsType}/:newsId?`,
   [TU_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?` as `${cityContentPatternType}/${NewsRouteType}/${TuNewsType}/:newsId?`,
