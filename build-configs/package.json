@@ -15,7 +15,7 @@
   },
   "scripts": {
     "manage": "ts-node tools/manage.ts",
-    "ts:check": "yarn tsc --project tsconfig.json",
+    "ts:check": "tsc --build",
     "lint": "yarn run eslint",
     "lint:fix": "yarn run eslint --fix",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml"

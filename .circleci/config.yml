@@ -974,6 +974,7 @@ workflows:
                 name: build_e2e_android
                 requires:
                     - bump_version
+                    - check_native
             - e2e_android:
                 context:
                     - mattermost
@@ -989,6 +990,7 @@ workflows:
                 name: build_e2e_ios
                 requires:
                     - bump_version
+                    - check_native
             - e2e_ios:
                 context:
                     - mattermost
