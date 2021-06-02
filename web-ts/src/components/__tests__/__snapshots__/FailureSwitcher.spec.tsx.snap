@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FailureSwitcher render category component not found failure should render a category not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.category"
+  goToMessage="goTo.categories"
+/>
+`;
+
+exports[`FailureSwitcher render event component not found failure should render a event not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.event"
+  goToMessage="goTo.events"
+/>
+`;
+
+exports[`FailureSwitcher render local component not found failure should render a local not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.localNews"
+  goToMessage="goTo.localNews"
+/>
+`;
+
+exports[`FailureSwitcher render offer component not found failure should render a offer not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.offer"
+  goToMessage="goTo.offers"
+/>
+`;
+
+exports[`FailureSwitcher render poi component not found failure should render a poi not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.poi"
+  goToMessage="goTo.pois"
+/>
+`;
+
+exports[`FailureSwitcher render tu-news component not found failure should render a tu-news not found failure and match snapshot 1`] = `
+<Translate(Failure)
+  errorMessage="notFound.tunews"
+  goToMessage="goTo.tunews"
+/>
+`;

@@ -4,7 +4,6 @@ describe('isPeekingRoute', () => {
     expect(
       isPeekingRoute(
         {
-          darkMode: false,
           resourceCacheUrl: 'http://localhost:8080',
           cityContent: {
             city: 'augsburg',
@@ -37,7 +36,6 @@ describe('isPeekingRoute', () => {
     expect(
       isPeekingRoute(
         {
-          darkMode: false,
           resourceCacheUrl: 'http://localhost:8080',
           cityContent: {
             city: 'augsburg',
@@ -70,7 +68,6 @@ describe('isPeekingRoute', () => {
     expect(
       isPeekingRoute(
         {
-          darkMode: false,
           resourceCacheUrl: 'http://localhost:8080',
           cityContent: null,
           contentLanguage: 'en',
