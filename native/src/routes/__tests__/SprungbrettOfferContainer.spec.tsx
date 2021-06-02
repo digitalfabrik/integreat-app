@@ -14,12 +14,12 @@ jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()
 }))
-jest.mock('../../components/SprungbrettOffer', () => {
+jest.mock('../SprungbrettOffer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>SprungbrettOffer</Text>
 })
-jest.mock('../../../../components/FailureContainer', () => {
+jest.mock('../../components/FailureContainer', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
