@@ -2,111 +2,111 @@ import * as React from 'react'
 import { render, act } from '@testing-library/react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import Navigator from '../Navigator'
-import AppSettings from '../../services/AppSettings'
-import { generateKey } from '../../services/generateRouteKey'
+import AppSettings from '../services/AppSettings'
+import { generateKey } from '../services/generateRouteKey'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
 
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
-jest.mock('../../services/initSentry')
-jest.mock('../../routes/intro/IntroContainer', () => {
+jest.mock('../services/initSentry')
+jest.mock('../routes/intro/IntroContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Intro</Text>
 })
-jest.mock('../../routes/landing/containers/LandingContainer', () => {
+jest.mock('../routes/landing/containers/LandingContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Landing</Text>
 })
-jest.mock('../../routes/dashboard/containers/DashboardContainer', () => {
+jest.mock('../routes/dashboard/containers/DashboardContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../../routes/settings/container/SettingsContainer', () => {
+jest.mock('../routes/settings/container/SettingsContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Settings</Text>
 })
-jest.mock('../../routes/categories/containers/CategoriesContainer', () => {
+jest.mock('../routes/categories/containers/CategoriesContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Categories</Text>
 })
-jest.mock('../../routes/events/containers/EventsContainer', () => {
+jest.mock('../routes/events/containers/EventsContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Events</Text>
 })
-jest.mock('../../routes/pois/containers/PoisContainer', () => {
+jest.mock('../routes/pois/containers/PoisContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Pois</Text>
 })
-jest.mock('../../routes/news/containers/NewsContainer', () => {
+jest.mock('../routes/news/containers/NewsContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>News</Text>
 })
-jest.mock('../../routes/language/containers/ChangeLanguageModalContainer', () => {
+jest.mock('../routes/language/containers/ChangeLanguageModalContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>ChangeLanguage</Text>
 })
-jest.mock('../../routes/feedback/containers/FeedbackModalContainer', () => {
+jest.mock('../routes/feedback/containers/FeedbackModalContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Feedback</Text>
 })
-jest.mock('../../routes/offers/containers/OffersContainer', () => {
+jest.mock('../routes/offers/containers/OffersContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Offers</Text>
 })
-jest.mock('../../routes/sprungbrett/containers/SprungbrettOfferContainer', () => {
+jest.mock('../routes/sprungbrett/containers/SprungbrettOfferContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>SprungbrettOffer</Text>
 })
-jest.mock('../../routes/external-offer/containers/ExternalOfferContainer', () => {
+jest.mock('../routes/external-offer/containers/ExternalOfferContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>ExternalOffer</Text>
 })
-jest.mock('../../routes/search/containers/SearchModalContainer', () => {
+jest.mock('../routes/search/containers/SearchModalContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Search</Text>
 })
-jest.mock('../../routes/pdf/components/PDFViewModal', () => {
+jest.mock('../routes/pdf/components/PDFViewModal', () => {
   const Text = require('react-native').Text
 
   return () => <Text>PdfView</Text>
 })
-jest.mock('../../routes/image/components/ImageViewModal', () => {
+jest.mock('../routes/image/components/ImageViewModal', () => {
   const Text = require('react-native').Text
 
   return () => <Text>ImageView</Text>
 })
-jest.mock('../SettingsHeaderContainer', () => {
+jest.mock('../components/SettingsHeaderContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>SettingsHeader</Text>
 })
-jest.mock('../HeaderContainer', () => {
+jest.mock('../components/HeaderContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Header</Text>
 })
-jest.mock('../TransparentHeaderContainer', () => {
+jest.mock('../components/TransparentHeaderContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>TransparentHeader</Text>
 })
-jest.mock('../../services/PushNotificationsManager', () => ({
+jest.mock('../services/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true)
 }))
 
