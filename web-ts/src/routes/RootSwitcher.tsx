@@ -1,23 +1,34 @@
 import React, { ReactElement, useCallback } from 'react'
-import { Redirect, Route, Switch, useRouteMatch, generatePath } from 'react-router-dom'
+import { generatePath, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 import LandingPage from './landing/LandingPage'
 import NotFoundPage from './not-found/NotFoundPage'
 import {
-  useLoadFromEndpoint,
-  LANDING_ROUTE,
+  CATEGORIES_ROUTE,
   CityModel,
   createCitiesEndpoint,
-  NOT_FOUND_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
-  OFFERS_ROUTE,
-  POIS_ROUTE,
-  NEWS_ROUTE,
-  LOCAL_NEWS_TYPE,
-  TU_NEWS_TYPE,
-  SEARCH_ROUTE,
   DISCLAIMER_ROUTE,
-  CATEGORIES_ROUTE
+  DisclaimerRouteType,
+  EVENTS_ROUTE,
+  EventsRouteType,
+  LANDING_ROUTE,
+  LandingRouteType,
+  LOCAL_NEWS_TYPE,
+  LocalNewsType,
+  MAIN_DISCLAIMER_ROUTE,
+  MainDisclaimerRouteType,
+  NEWS_ROUTE,
+  NewsRouteType,
+  NOT_FOUND_ROUTE,
+  NotFoundRouteType,
+  OFFERS_ROUTE,
+  OffersRouteType,
+  POIS_ROUTE,
+  PoisRouteType,
+  SEARCH_ROUTE,
+  SearchRouteType,
+  TU_NEWS_TYPE,
+  TuNewsType,
+  useLoadFromEndpoint
 } from 'api-client'
 import CityContentSwitcher from './CityContentSwitcher'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -30,23 +41,25 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import { useTranslation } from 'react-i18next'
 
 export const cityContentPattern = `/:cityCode/:languageCode`
+type cityContentPatternType = typeof cityContentPattern
 
 export const RoutePatterns = {
-  [LANDING_ROUTE]: `/${LANDING_ROUTE}/:languageCode`,
-  [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}`,
-  [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
+  [LANDING_ROUTE]: `/${LANDING_ROUTE}/:languageCode` as `/${LandingRouteType}/:languageCode`,
+  [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}` as `/${MainDisclaimerRouteType}`,
+  [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}` as `/${NotFoundRouteType}`,
 
-  [EVENTS_ROUTE]: `${cityContentPattern}/${EVENTS_ROUTE}/:eventId?`,
-  [OFFERS_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}/:offerId?`,
-  [POIS_ROUTE]: `${cityContentPattern}/${POIS_ROUTE}/:locationId?`,
-  [LOCAL_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/:newsId?`,
-  [TU_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?`,
-  [SEARCH_ROUTE]: `${cityContentPattern}/${SEARCH_ROUTE}`,
-  [DISCLAIMER_ROUTE]: `${cityContentPattern}/${DISCLAIMER_ROUTE}`,
-  [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoriesId*`
+  [EVENTS_ROUTE]: `${cityContentPattern}/${EVENTS_ROUTE}/:eventId?` as `${cityContentPatternType}/${EventsRouteType}:eventId?`,
+  [OFFERS_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}/:offerId?` as `${cityContentPatternType}/${OffersRouteType}:offerId?`,
+  [POIS_ROUTE]: `${cityContentPattern}/${POIS_ROUTE}/:poiId?` as `${cityContentPatternType}/${PoisRouteType}:poiId?`,
+  [LOCAL_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/:newsId?` as `${cityContentPatternType}/${NewsRouteType}/${LocalNewsType}/:newsId?`,
+  [TU_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?` as `${cityContentPatternType}/${NewsRouteType}/${TuNewsType}/:newsId?`,
+  [SEARCH_ROUTE]: `${cityContentPattern}/${SEARCH_ROUTE}` as `${cityContentPatternType}/${SearchRouteType}`,
+  [DISCLAIMER_ROUTE]: `${cityContentPattern}/${DISCLAIMER_ROUTE}` as `${cityContentPatternType}/${DisclaimerRouteType}`,
+  [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoryId*` as `${cityContentPatternType}/:categoryId*`
 }
 
-export type RouteType = typeof RoutePatterns[keyof typeof RoutePatterns]
+export type RouteType = keyof typeof RoutePatterns
+export type RoutePatternType = typeof RoutePatterns[keyof typeof RoutePatterns]
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
