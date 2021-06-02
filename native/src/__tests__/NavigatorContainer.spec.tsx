@@ -1,30 +1,30 @@
 import configureMockStore from 'redux-mock-store'
 import * as React from 'react'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
-import { generateKey } from '../../services/generateRouteKey'
+import { generateKey } from '../services/generateRouteKey'
 
-jest.mock('../../routes/landing/containers/LandingContainer', () => {
+jest.mock('../routes/landing/containers/LandingContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Landing</Text>
 })
-jest.mock('../../routes/dashboard/containers/DashboardContainer', () => {
+jest.mock('../routes/dashboard/containers/DashboardContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../../routes/intro/IntroContainer', () => {
+jest.mock('../routes/intro/IntroContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Intro</Text>
 })
-jest.mock('../HeaderContainer', () => {
+jest.mock('../components/HeaderContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Header</Text>
 })
-jest.mock('../../services/PushNotificationsManager')
-jest.mock('../../constants/NativeConstants')
+jest.mock('../services/PushNotificationsManager')
+jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
 jest.mock('rn-fetch-blob')
 const mockStore = configureMockStore()
@@ -46,7 +46,7 @@ describe('NavigatorContainer', () => {
     Provider = require('react-redux').Provider
   })
   it('should pass fetchCategory to Navigator', () => {
-    jest.doMock('../../components/Navigator', () => MockNavigator)
+    jest.doMock('../Navigator', () => MockNavigator)
 
     const NavigatorContainer = require('../NavigatorContainer').default
 
@@ -76,10 +76,10 @@ describe('NavigatorContainer', () => {
         }
       }
     ])
-    jest.dontMock('../../components/Navigator')
+    jest.dontMock('../Navigator')
   })
   it('should pass fetchCities to Navigator', () => {
-    jest.doMock('../../components/Navigator', () => MockNavigator)
+    jest.doMock('../Navigator', () => MockNavigator)
 
     const NavigatorContainer = require('../NavigatorContainer').default
 
@@ -101,6 +101,6 @@ describe('NavigatorContainer', () => {
         }
       }
     ])
-    jest.dontMock('../../components/Navigator')
+    jest.dontMock('../Navigator')
   })
 })
