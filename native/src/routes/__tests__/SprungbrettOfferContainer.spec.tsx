@@ -9,7 +9,7 @@ import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 jest.mock('react-i18next')
-jest.mock('../../../../services/openExternalUrl')
+jest.mock('../../services/openExternalUrl')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()

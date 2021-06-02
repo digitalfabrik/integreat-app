@@ -9,17 +9,17 @@ import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 jest.mock('react-i18next')
-jest.mock('../../../../services/openExternalUrl')
+jest.mock('../../services/openExternalUrl')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()
 }))
-jest.mock('../../components/Offers', () => {
+jest.mock('../Offers', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Offers</Text>
 })
-jest.mock('../../../../components/FailureContainer', () => {
+jest.mock('../../components/FailureContainer', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>

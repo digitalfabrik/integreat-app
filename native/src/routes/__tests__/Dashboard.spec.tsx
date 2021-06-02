@@ -7,7 +7,7 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import NavigationTiles from '../../components/NavigationTiles'
 import buildConfig from '../../constants/buildConfig'
 
-jest.mock('../../../../components/NavigationTiles', () => {
+jest.mock('../../components/NavigationTiles', () => {
   const Text = require('react-native').Text
 
   return () => <Text>NavigationTiles</Text>

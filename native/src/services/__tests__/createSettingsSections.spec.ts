@@ -6,18 +6,18 @@ import { openSettings } from 'react-native-permissions'
 import { SettingsRouteType } from 'api-client'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
 
-jest.mock('../../../constants/NativeConstants', () => ({
+jest.mock('../../constants/NativeConstants', () => ({
   appVersion: '1.0.0'
 }))
 
-jest.mock('../../../services/PushNotificationsManager', () => ({
+jest.mock('../../services/PushNotificationsManager', () => ({
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn()
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
-jest.mock('../../../services/initSentry')
+jest.mock('../../services/initSentry')
 
 const mockRequestPushNotificationPermission = (requestPushNotificationPermission as unknown) as jest.Mock
 const mockUnsubscribeNews = (unsubscribeNews as unknown) as jest.Mock
