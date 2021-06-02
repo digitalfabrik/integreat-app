@@ -7,7 +7,7 @@ describe('localnews', () => {
   const baseUrl = 'https://cms.integreat-app.de'
   const localNews = createLocalNewsEndpoint(baseUrl)
 
-  const createNewsItem = (date): JsonLocalNewsType => ({
+  const createNewsItem = (date: string): JsonLocalNewsType => ({
     id: 217,
     title: 'Tick bite - What to do?',
     timestamp: date,
