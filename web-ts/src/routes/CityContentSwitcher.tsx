@@ -18,7 +18,8 @@ import {
   useLoadFromEndpoint,
   createLanguagesEndpoint,
   LanguageModel,
-  CATEGORIES_ROUTE, SPRUNGBRETT_OFFER_ROUTE
+  CATEGORIES_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import Layout from '../components/Layout'
@@ -90,7 +91,11 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   return (
     <Switch>
       <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />
-      <Route exact path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]} render={props => <SprungbrettOfferPage {...params} {...props} />} />
+      <Route
+        exact
+        path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
+        render={props => <SprungbrettOfferPage {...params} {...props} />}
+      />
       <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />
       <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
       <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} render={props => <LocalNewsPage {...params} {...props} />} />
