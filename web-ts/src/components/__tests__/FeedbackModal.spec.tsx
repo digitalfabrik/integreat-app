@@ -3,8 +3,8 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { FeedbackModal } from '../FeedbackModal'
 import { ThemeProvider } from 'styled-components'
 import { MemoryRouter } from 'react-router-dom'
-import { Routes } from '../../routes/App'
 import buildConfig from '../../constants/buildConfig'
+import { CATEGORIES_ROUTE } from 'api-client'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {
@@ -32,7 +32,7 @@ describe('FeedbackModal', () => {
         <FeedbackModal
           cityCode={cityCode}
           language={language}
-          routeType={Routes.CATEGORIES_ROUTE}
+          routeType={CATEGORIES_ROUTE}
           path='augsburg/de'
           closeFeedbackModal={closeFeedbackModal}
           feedbackRating='up'

@@ -3,7 +3,7 @@
 exports[`GeneralFooter should match snapshot 1`] = `
 <Footer>
   <Styled(Link)
-    to="/disclaimer"
+    to="/main-disclaimer"
   >
     layout,settings:imprintAndContact
   </Styled(Link)>

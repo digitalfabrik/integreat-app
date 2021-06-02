@@ -4,7 +4,7 @@ import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import { CategoriesMapModel, CityModel } from 'api-client'
 import FeedbackModal from './FeedbackModal'
-import { RouteType } from '../routes/App'
+import { RouteType } from '../routes/RootSwitcher'
 
 export type FeedbackRatingType = 'up' | 'down'
 
@@ -13,8 +13,6 @@ type PropsType = {
   categories: CategoriesMapModel | null
   viewportSmall: boolean
   children?: ReactNode
-  toggleDarkMode: () => void
-  darkMode: boolean
   routeType: RouteType
   feedbackTargetInformation: { path?: string; alias?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
@@ -27,27 +25,15 @@ type PropsType = {
 type LocalStateType = {
   asideStickyTop: number
   feedbackModalRating: FeedbackRatingType | null
-  footerClicked: number
 }
-
-const DARK_THEME_CLICK_COUNT = 5
 
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   constructor(props: PropsType) {
     super(props)
-    this.state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
+    this.state = { asideStickyTop: 0, feedbackModalRating: null }
   }
 
   handleStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
-
-  handleFooterClicked = () => {
-    if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
-      this.props.toggleDarkMode()
-    }
-    this.setState(prevState => {
-      return { ...prevState, footerClicked: prevState.footerClicked + 1 }
-    })
-  }
 
   getCurrentCity(): CityModel | null {
     const { cityCode, cities } = this.props
@@ -77,7 +63,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): ReactNode => {
-    // TODO Check right routes
+    // TODO IGAPP-668: Check right routes
     // const { viewportSmall, categories } = this.props
     // const type = location.type
     // const feedbackRoutes = [
@@ -108,7 +94,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render() {
-    const { viewportSmall, children, cityCode, languageCode, darkMode, languageChangePaths, isLoading } = this.props
+    const { viewportSmall, children, cityCode, languageCode, languageChangePaths, isLoading } = this.props
     const { pathname } = this.props
 
     const cityModel = this.getCurrentCity()
@@ -130,14 +116,10 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
             pathname={pathname}
           />
         }
-        footer={
-          !isLoading ? (
-            <LocationFooter onClick={this.handleFooterClicked} city={cityCode} language={languageCode} />
-          ) : null
-        }
-        toolbar={this.renderToolbar()}
+        footer={!isLoading ? <LocationFooter city={cityCode} language={languageCode} /> : null}
+        // TODO IGAPP-668: right check
         // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
-        darkMode={darkMode}>
+        toolbar={this.renderToolbar()}>
         {children}
       </Layout>
     )
