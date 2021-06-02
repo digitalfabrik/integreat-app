@@ -25,7 +25,9 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
-  SearchRouteType, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType,
+  SearchRouteType,
+  SPRUNGBRETT_OFFER_ROUTE,
+  SprungbrettOfferRouteType,
   TU_NEWS_TYPE,
   TuNewsType,
   useLoadFromEndpoint
