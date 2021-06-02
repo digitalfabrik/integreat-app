@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run on Android (aschaffenburg)" type="js.build_tools.npm">
+  <configuration default="false" name="Run on Android (aschaffenburg)" type="js.build_tools.npm" folderName="Aschaffenburg">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
