@@ -23,7 +23,9 @@ export const Routes = {
   NOT_FOUND_ROUTE: 'not-found'
 } as const
 
-function App() {
+export type RouteType = typeof Routes[keyof typeof Routes]
+
+const App = () => {
   return (
     <Router>
       <Switch>

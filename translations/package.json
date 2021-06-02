@@ -18,7 +18,7 @@
     "lint": "yarn run eslint",
     "lint:fix": "yarn run eslint --fix",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
-    "ts:check": "yarn tsc --project tsconfig.json"
+    "ts:check": "tsc --build"
   },
   "dependencies": {},
   "devDependencies": {

@@ -10,7 +10,7 @@
     "prepare:android:native": "yarn workspace native android:integreat-e2e",
     "prepare:start:native": "yarn workspace native start:integreat-e2e",
     "lint": "yarn eslint ./",
-    "ts:check": "yarn tsc --project tsconfig.json"
+    "ts:check": "tsc --build"
   },
   "devDependencies": {
     "@wdio/appium-service": "^7.4.2",
