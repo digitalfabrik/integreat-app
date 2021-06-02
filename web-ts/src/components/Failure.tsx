@@ -26,8 +26,6 @@ type PropsType = {
 export class Failure extends React.PureComponent<PropsType> {
   static defaultProps = {
     goToMessage: 'goTo.start',
-    // goToPath: new I18nRedirectRouteConfig().getRoutePath({})
-    // TODO use right default redirect path
     goToPath: '/'
   }
 

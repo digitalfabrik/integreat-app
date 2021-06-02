@@ -1,11 +1,22 @@
-import React, { ReactNode } from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import React, { ReactNode, ReactElement } from 'react'
+import { generatePath } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import LanguageSelector from './LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
 import landingIcon from '../assets/location-icon.svg'
 import Header from './Header'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
-import { CityModel } from 'api-client'
+import {
+  CATEGORIES_ROUTE,
+  CityModel,
+  EVENTS_ROUTE,
+  LANDING_ROUTE,
+  LOCAL_NEWS_TYPE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  SEARCH_ROUTE,
+  TU_NEWS_TYPE
+} from 'api-client'
 import offersIcon from '../assets/offers.svg'
 import localInformationIcon from '../assets/local_information.svg'
 import eventsIcon from '../assets/events.svg'
@@ -13,35 +24,40 @@ import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
+import { RoutePatterns } from '../routes/RootSwitcher'
 
 type PropsType = {
   cityModel: CityModel
   pathname: string
   languageCode: string
   viewportSmall: boolean
-  t: TFunction
   onStickyTopChanged: (stickyTop: number) => void
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 
-export class LocationHeader extends React.Component<PropsType> {
-  getActionItems(): Array<ReactNode> {
-    const { languageCode, pathname, languageChangePaths, t } = this.props
+const LocationHeader = (props: PropsType): ReactElement => {
+  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths } = props
+  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
+  const params = { cityCode: cityModel.code, languageCode }
+  const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
+  const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
+  const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)
+  const poisPath = generatePath(RoutePatterns[POIS_ROUTE], params)
+  const newsPath = generatePath(RoutePatterns[pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE], params)
+  const searchPath = generatePath(RoutePatterns[SEARCH_ROUTE], params)
+  const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode })
+
+  const { t } = useTranslation('layout')
+
+  const getActionItems = (): Array<ReactNode> => {
     return [
-      <HeaderActionBarItemLink
-        key='search'
-        // TODO Use right path
-        // href={new SearchRouteConfig().getRoutePath({ city, language })}
-        text={t('search')}
-        iconSrc={searchIcon}
-      />,
+      <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
       ...(!buildConfig().featureFlags.fixedCity
         ? [
             <HeaderActionBarItemLink
               key='location'
-              // TODO Use right path
-              // href={new LandingRouteConfig().getRoutePath({ language })}
+              href={landingPath}
               text={t('changeLocation')}
               iconSrc={landingIcon}
             />
@@ -57,10 +73,7 @@ export class LocationHeader extends React.Component<PropsType> {
     ]
   }
 
-  getNavigationItems(): Array<ReactNode> {
-    const { t, cityModel } = this.props
-    const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
-
+  const getNavigationItems = (): Array<ReactNode> => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
@@ -74,10 +87,9 @@ export class LocationHeader extends React.Component<PropsType> {
     const items: Array<ReactNode> = [
       <HeaderNavigationItem
         key='categories'
-        // TODO Use right path and check
-        // href={new CategoriesRouteConfig().getRoutePath({ city, language })}
+        href={categoriesPath}
+        // TODO IGAPP-668: Use right check
         // active={currentRoute === CATEGORIES_ROUTE}
-        href='/'
         active={false}
         text={t('localInformation')}
         icon={localInformationIcon}
@@ -85,19 +97,13 @@ export class LocationHeader extends React.Component<PropsType> {
     ]
 
     if (isNewsVisible) {
-      // TODO Use right path
-      // const newsUrl = pushNotificationsEnabled
-      //   ? new LocalNewsRouteConfig().getRoutePath({ city, language })
-      //   : new TunewsRouteConfig().getRoutePath({ city, language })
-      const newsUrl = '/'
-
       items.push(
         <HeaderNavigationItem
           key='news'
-          // TODO Use right path and check
           active={false}
+          // TODO IGAPP-668: Use right check
           // active={newsRoutes.includes(currentRoute)}
-          href={newsUrl}
+          href={newsPath}
           text={t('news')}
           icon={newsIcon}
         />
@@ -108,10 +114,9 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='events'
-          // TODO Use right path and check
-          href='/'
           active={false}
-          // href={new EventsRouteConfig().getRoutePath({ city, language })}
+          href={eventsPath}
+          // TODO IGAPP-668: Use right check
           // active={currentRoute === EVENTS_ROUTE}
           text={t('events')}
           icon={eventsIcon}
@@ -123,10 +128,9 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='pois'
-          // TODO Use right path and check
-          href='/'
           active={false}
-          // href={new PoisRouteConfig().getRoutePath({ city, language })}
+          href={poisPath}
+          // TODO IGAPP-668: Use right check
           // active={currentRoute === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
@@ -138,10 +142,9 @@ export class LocationHeader extends React.Component<PropsType> {
       items.push(
         <HeaderNavigationItem
           key='offers'
-          // TODO Use right path and check
-          href='/'
           active={false}
-          // href={new OffersRouteConfig().getRoutePath({ city, language })}
+          href={offersPath}
+          // TODO IGAPP-668: Use right check
           // active={offersRoutes.includes(currentRoute)}
           text={t('offers')}
           icon={offersIcon}
@@ -152,22 +155,16 @@ export class LocationHeader extends React.Component<PropsType> {
     return items
   }
 
-  render() {
-    const { cityModel } = this.props
-
-    return (
-      <Header
-        viewportSmall={this.props.viewportSmall}
-        // TODO Use right path
-        // logoHref={new CategoriesRouteConfig().getRoutePath({ city, language })}
-        logoHref='/'
-        actionItems={this.getActionItems()}
-        cityName={cityModel.name}
-        navigationItems={this.getNavigationItems()}
-        onStickyTopChanged={this.props.onStickyTopChanged}
-      />
-    )
-  }
+  return (
+    <Header
+      viewportSmall={viewportSmall}
+      logoHref={categoriesPath}
+      actionItems={getActionItems()}
+      cityName={cityModel.name}
+      navigationItems={getNavigationItems()}
+      onStickyTopChanged={onStickyTopChanged}
+    />
+  )
 }
 
-export default withTranslation('layout')(LocationHeader)
+export default LocationHeader
