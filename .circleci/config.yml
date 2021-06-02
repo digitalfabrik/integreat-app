@@ -213,19 +213,19 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web-ts/package.json" }}
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
                 name: Yarn
             - save_cache:
-                key: 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web-ts/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
                     - node_modules
                     - native/node_modules
-                    - web/node_modules
+                    - web-ts/node_modules
     restore_yarn_tools_cache:
         description: Restores and saves the node_modules directories of the tools package.
         steps:
@@ -454,20 +454,20 @@ jobs:
             - prepare_workspace
             - restore_environment_variables
             - run:
-                command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
+                command: yarn workspace web-ts build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
                 name: << parameters.build_config_name >> build
             - store_artifacts:
                 name: Store output of bundle analyzer
-                path: web/reports/bundle
+                path: web-ts/reports/bundle
             - run:
-                command: yarn workspace web check:build
+                command: yarn workspace web-ts check:build
                 name: Check build
             - store_artifacts:
-                path: web/dist
+                path: web-ts/dist
             - persist_to_workspace:
                 paths:
                     - dist
-                root: web
+                root: web-ts
             - notify
     bump_version:
         docker:
@@ -541,9 +541,6 @@ jobs:
             - run:
                 command: yarn workspace build-configs ts:check
                 name: TS check
-            - run:
-                command: yarn workspace native ts:check
-                name: TS check
             - unit_test:
                 directory: native
             - unit_test:
@@ -565,14 +562,24 @@ jobs:
             - check_config
             - restore_yarn_cache
             - lint:
-                directory: web
-            - lint:
                 directory: api-client
+            - lint:
+                directory: build-configs
+            - lint:
+                directory: web-ts
+            - lint:
+                directory: translations
             - run:
-                command: yarn workspace web flow:check-now --max-workers ${TOTAL_CPUS}
-                name: Check flow
+                command: yarn workspace api-client ts:check
+                name: TS check
+            - run:
+                command: yarn workspace translations ts:check
+                name: TS check
+            - run:
+                command: yarn workspace build-configs ts:check
+                name: TS check
             - unit_test:
-                directory: web
+                directory: web-ts
             - unit_test:
                 directory: api-client
             - unit_test:
@@ -945,6 +952,17 @@ workflows:
                 context:
                     - mattermost
                 delivery: none
+            - check_web:
+                context:
+                    - mattermost
+            - build_web:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                name: build_ig_test_cms_web
+                requires:
+                    - bump_version
+                    - check_web
             - check_native:
                 context:
                     - mattermost
@@ -957,6 +975,7 @@ workflows:
                 name: build_e2e_android
                 requires:
                     - bump_version
+                    - check_native
             - e2e_android:
                 context:
                     - mattermost
@@ -972,6 +991,7 @@ workflows:
                 name: build_e2e_ios
                 requires:
                     - bump_version
+                    - check_native
             - e2e_ios:
                 context:
                     - mattermost
