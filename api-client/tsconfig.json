@@ -4,6 +4,8 @@
     "composite": true,
     "lib": ["ES5", "ES6", "dom"],
     "outDir": "dist",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "typeRoots": ["src/@types", "node_modules/@types"],
+    "noImplicitAny": true
   }
 }
