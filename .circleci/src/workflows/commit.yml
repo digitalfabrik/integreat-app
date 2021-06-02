@@ -15,6 +15,7 @@ jobs:
 #        - mattermost
 #      requires:
 #        - bump_version
+#        - check_web
 #  - build_web:
 #      name: build_malte_web
 #      build_config_name: malte
@@ -22,6 +23,7 @@ jobs:
 #        - mattermost
 #      requires:
 #        - bump_version
+#        - check_web
 #  - build_web:
 #      name: build_aschaffenburg_web
 #      build_config_name: aschaffenburg
@@ -29,6 +31,7 @@ jobs:
 #        - mattermost
 #      requires:
 #        - bump_version
+#        - check_web
 #  - deliver_web:
 #      filters:
 #        branches:
@@ -57,6 +60,7 @@ jobs:
         - tuerantuer-android
       requires:
         - bump_version
+        - check_native
   - e2e_android:
       context:
         - mattermost
@@ -73,6 +77,7 @@ jobs:
         - tuerantuer-ios
       requires:
         - bump_version
+        - check_native
   - e2e_ios:
       context:
         - mattermost
