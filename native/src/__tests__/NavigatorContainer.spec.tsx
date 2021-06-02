@@ -3,17 +3,17 @@ import * as React from 'react'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import { generateKey } from '../services/generateRouteKey'
 
-jest.mock('../routes/landing/containers/LandingContainer', () => {
+jest.mock('../routes/LandingContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Landing</Text>
 })
-jest.mock('../routes/dashboard/containers/DashboardContainer', () => {
+jest.mock('../routes/DashboardContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../routes/intro/IntroContainer', () => {
+jest.mock('../routes/IntroContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Intro</Text>

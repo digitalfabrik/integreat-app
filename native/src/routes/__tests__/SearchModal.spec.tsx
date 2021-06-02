@@ -9,8 +9,8 @@ import { ThemeProvider } from 'styled-components/native'
 import buildConfig from '../../constants/buildConfig'
 
 jest.mock('rn-fetch-blob')
-jest.mock('../../../../services/sendTrackingSignal')
-jest.mock('../../../../components/TimeStamp')
+jest.mock('../../services/sendTrackingSignal')
+jest.mock('../../components/TimeStamp')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: text => text

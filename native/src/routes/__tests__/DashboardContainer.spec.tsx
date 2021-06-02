@@ -24,17 +24,17 @@ import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
-jest.mock('../../components/Dashboard', () => {
+jest.mock('../Dashboard', () => {
   const Text = require('react-native').Text
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../../../../components/FailureContainer', () => {
+jest.mock('../../components/FailureContainer', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
-jest.mock('../../../../components/LanguageNotAvailableContainer', () => {
+jest.mock('../../components/LanguageNotAvailableContainer', () => {
   const Text = require('react-native').Text
 
   return () => <Text>LanguageNotAvailable</Text>

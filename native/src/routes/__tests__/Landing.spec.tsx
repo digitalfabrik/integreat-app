@@ -9,7 +9,7 @@ import waitForExpect from 'wait-for-expect'
 import { ThemeProvider } from 'styled-components/native'
 import { checkLocationPermission, requestLocationPermission } from '../../services/LocationPermissionManager'
 
-jest.mock('../../../../services/LocationPermissionManager', () => ({
+jest.mock('../../services/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
   requestLocationPermission: jest.fn()
 }))
