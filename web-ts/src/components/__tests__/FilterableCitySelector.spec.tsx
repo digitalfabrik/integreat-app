@@ -1,96 +1,40 @@
-// @flow
-
 import React from 'react'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { renderWithRouter } from '../../testing/render'
+import buildConfig from '../../constants/buildConfig'
+import FilterableCitySelector from '../FilterableCitySelector'
+import { ThemeProvider } from 'styled-components'
+import { fireEvent } from '@testing-library/react'
 
-import { FilterableCitySelector } from '../FilterableCitySelector'
-import { shallow } from 'enzyme'
-import { CityModel } from 'api-client'
+describe('FilterableFilterableCitySelector', () => {
+  const cities = new CityModelBuilder(5).build()
 
-describe('FilterableCitySelector', () => {
-  const t = (key: ?string): string => key || ''
+  it('should show only live cities', () => {
+    const { queryByLabelText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <FilterableCitySelector language='de' cities={cities} />
+      </ThemeProvider>
+    )
 
-  const cities = [
-    new CityModel({
-      aliases: {
-        Allmendingen: {
-          longitude: 9.72429,
-          latitude: 48.330714
-        },
-        Altheim: {
-          longitude: 9.770679,
-          latitude: 48.327677
-        }
-      },
-      name: 'City',
-      code: 'city',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      poisEnabled: true,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'City',
-      prefix: null,
-      longitude: null,
-      latitude: null
-    }),
-    new CityModel({
-      name: 'Other city',
-      code: 'otherCity',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      poisEnabled: true,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Other City',
-      latitude: null,
-      longitude: null,
-      prefix: null,
-      aliases: null
-    }),
-    new CityModel({
-      name: 'Not-live',
-      code: 'nonlive',
-      live: false,
-      eventsEnabled: false,
-      offersEnabled: false,
-      poisEnabled: true,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      sortingName: 'Not-live',
-      aliases: null,
-      prefix: null,
-      longitude: null,
-      latitude: null
-    }),
-    new CityModel({
-      name: 'Yet another city',
-      code: 'yetanothercity',
-      live: true,
-      eventsEnabled: false,
-      offersEnabled: false,
-      pushNotificationsEnabled: false,
-      tunewsEnabled: false,
-      poisEnabled: true,
-      sortingName: 'Yet another city',
-      latitude: null,
-      longitude: null,
-      prefix: null,
-      aliases: null
-    })
-  ]
-
-  it('should render', () => {
-    const component = shallow(<FilterableCitySelector language='de' cities={cities} t={t} />)
-
-    expect(component).toMatchSnapshot()
+    cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
+    cities.filter(city => city.live).forEach(city => expect(queryByLabelText(city.name)).toBeTruthy())
   })
 
-  it('should update filter text', () => {
-    const wrapper = shallow(<FilterableCitySelector t={t} language='de' cities={cities} />)
+  it('should filter cities on new text entered', () => {
+    const { queryByLabelText, getByText, getByPlaceholderText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <FilterableCitySelector language='de' cities={cities} />
+      </ThemeProvider>
+    )
 
-    wrapper.instance().handleFilterTextChanged('City')
-    expect(wrapper).toMatchSnapshot()
+    fireEvent.change(getByPlaceholderText('searchCity'), {
+      target: {
+        value: cities[0].name.slice(2, 5)
+      }
+    })
+
+    expect(getByText(cities[0].name.slice(2, 5))).toBeTruthy()
+    expect(queryByLabelText(cities[0].name)).toBeTruthy()
+    cities.slice(1).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
   })
 })

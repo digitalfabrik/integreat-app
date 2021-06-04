@@ -1,41 +1,63 @@
-// @flow
-
 import React from 'react'
-import { shallow } from 'enzyme'
 import CitySelector from '../CitySelector'
-import CityModelBuilder from '../api-client/src/testing/CityModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import buildConfig from '../../constants/buildConfig'
+import { ThemeProvider } from 'styled-components'
+import { renderWithRouter } from '../../testing/render'
 
 describe('CitySelector', () => {
   const cities = new CityModelBuilder(5).build()
 
-  it('should filter for existing and live cities', () => {
-    const wrapper = shallow(<CitySelector filterText='' language='de' cities={cities} />)
+  it('should show only live cities', () => {
+    const { queryByLabelText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <CitySelector filterText='' language='de' cities={cities} />
+      </ThemeProvider>
+    )
 
-    const component = wrapper.instance()
-    const filteredCities = component.filter()
-
-    expect(filteredCities).toHaveLength(3)
-    expect(filteredCities.find(city => !city.live)).toBeUndefined()
+    cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
+    cities.filter(city => city.live).forEach(city => expect(queryByLabelText(city.name)).toBeTruthy())
   })
 
-  it('should exclude location if location does not exist', () => {
-    const wrapper = shallow(<CitySelector filterText='Does not exist' language='de' cities={cities} />)
+  it('should show live cities matching filter text', () => {
+    const { queryByLabelText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <CitySelector filterText={cities[0].name.slice(5, 9)} language='de' cities={cities} />
+      </ThemeProvider>
+    )
 
-    const component = wrapper.instance()
-    expect(component.filter()).toHaveLength(0)
+    expect(queryByLabelText(cities[0].name)).toBeTruthy()
+    cities.slice(1).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
   })
 
-  it('should exclude location if location is not live', () => {
-    const wrapper = shallow(<CitySelector filterText='oldtown' language='de' cities={cities} />)
+  it('should not show any city if filter text does not match', () => {
+    const { queryByLabelText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <CitySelector filterText='Does not exist' language='de' cities={cities} />
+      </ThemeProvider>
+    )
 
-    const component = wrapper.instance()
-    expect(component.filter()).toHaveLength(0)
+    cities.forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
   })
 
-  it('should filter for all non-live cities if filterText is "wirschaffendas"', () => {
-    const wrapper = shallow(<CitySelector filterText='wirschaffendas' language='de' cities={cities} />)
+  it('should not show any city if filter text does not match a live city', () => {
+    const { queryByLabelText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <CitySelector filterText='oldtown' language='de' cities={cities} />
+      </ThemeProvider>
+    )
 
-    const component = wrapper.instance()
-    expect(component.filter()).toHaveLength(2)
+    cities.forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
+  })
+
+  it('should show all non-live cities if filter text is "wirschaffendas"', () => {
+    const { queryByLabelText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <CitySelector filterText='wirschaffendas' language='de' cities={cities} />
+      </ThemeProvider>
+    )
+
+    cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeTruthy())
+    cities.filter(city => city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
   })
 })

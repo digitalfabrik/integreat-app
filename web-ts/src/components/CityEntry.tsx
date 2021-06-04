@@ -1,17 +1,15 @@
-// @flow
-
 import React from 'react'
 import Highlighter from 'react-highlight-words'
-import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
-import { CityModel } from 'api-client'
-import styled, { withTheme, type StyledComponent } from 'styled-components'
-import Link from 'redux-first-router-link'
-import CategoriesRouteConfig from '../../../web/src/modules/app/route-configs/CategoriesRouteConfig'
-import type { ThemeType } from '../build-configs/ThemeType'
+import normalizeSearchString from '../services/normalizeSearchString'
+import { CATEGORIES_ROUTE, CityModel } from 'api-client'
+import styled, { withTheme } from 'styled-components'
+import type { ThemeType } from 'build-configs'
+import { Link } from 'react-router-dom'
+import { createPath } from '../routes'
 
 const MAX_NUMBER_OF_ALIASES = 3
 
-const CityListItem: StyledComponent<{||}, ThemeType, *> = styled(Link)`
+const CityListItem = styled(Link)`
   display: flex;
   flex-direction: column;
   padding: 7px;
@@ -26,16 +24,16 @@ const CityListItem: StyledComponent<{||}, ThemeType, *> = styled(Link)`
   }
 `
 
-const AliasItem: StyledComponent<{||}, ThemeType, *> = styled(Highlighter)`
+const AliasItem = styled(Highlighter)`
   display: inline-block;
 `
 
-type PropsType = {|
-  language: string,
-  city: CityModel,
-  filterText: string,
+type PropsType = {
+  language: string
+  city: CityModel
+  filterText: string
   theme: ThemeType
-|}
+}
 
 class CityEntry extends React.PureComponent<PropsType> {
   getMatchedAliases = (city: CityModel, normalizedFilter: string): Array<string> => {
@@ -50,7 +48,7 @@ class CityEntry extends React.PureComponent<PropsType> {
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
     return (
-      <CityListItem to={new CategoriesRouteConfig().getRoutePath({ city: city.code, language })}>
+      <CityListItem to={createPath(CATEGORIES_ROUTE, { cityCode: city.code, languageCode: language })}>
         <Highlighter
           searchWords={[filterText]}
           sanitize={normalizeSearchString}
