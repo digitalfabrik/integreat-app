@@ -1,5 +1,4 @@
 import React, { ReactNode, ReactElement } from 'react'
-import { generatePath } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector from './LanguageSelector'
 import searchIcon from '../assets/magnifier.svg'
@@ -24,7 +23,7 @@ import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes'
+import { createPath, RoutePatterns } from '../routes'
 
 type PropsType = {
   cityModel: CityModel
@@ -40,14 +39,13 @@ const LocationHeader = (props: PropsType): ReactElement => {
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
-  // @ts-ignore TODO IGAPP-668 Wrong type for * parameters
-  const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
-  const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
-  const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)
-  const poisPath = generatePath(RoutePatterns[POIS_ROUTE], params)
-  const newsPath = generatePath(RoutePatterns[pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE], params)
-  const searchPath = generatePath(RoutePatterns[SEARCH_ROUTE], params)
-  const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode })
+  const categoriesPath = createPath(CATEGORIES_ROUTE, params)
+  const eventsPath = createPath(EVENTS_ROUTE, params)
+  const offersPath = createPath(OFFERS_ROUTE, params)
+  const poisPath = createPath(POIS_ROUTE, params)
+  const newsPath = createPath(pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE, params)
+  const searchPath = createPath(SEARCH_ROUTE, params)
+  const landingPath = createPath(LANDING_ROUTE, { languageCode })
 
   const { t } = useTranslation('layout')
 

@@ -25,6 +25,8 @@ import {
   TU_NEWS_TYPE,
   TuNewsType
 } from 'api-client'
+import { ExtractRouteParams } from 'react-router'
+import { generatePath } from 'react-router-dom'
 
 export const cityContentPattern = `/:cityCode/:languageCode`
 type cityContentPatternType = typeof cityContentPattern
@@ -45,3 +47,8 @@ export const RoutePatterns = {
 }
 export type RouteType = keyof typeof RoutePatterns
 export type RoutePatternType = typeof RoutePatterns[keyof typeof RoutePatterns]
+
+export const createPath = <S extends RouteType>(route: S, params?: ExtractRouteParams<typeof RoutePatterns[S]>): string => {
+  return generatePath(RoutePatterns[route], params)
+}
+

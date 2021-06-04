@@ -1,8 +1,9 @@
 import React, { ReactElement, useCallback } from 'react'
-import { generatePath, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 import LandingPage from './routes/LandingPage'
 import NotFoundPage from './routes/NotFoundPage'
 import {
+  CATEGORIES_ROUTE,
   CityModel,
   createCitiesEndpoint,
   LANDING_ROUTE,
@@ -19,7 +20,7 @@ import FailureSwitcher from './components/FailureSwitcher'
 import MainDisclaimerPage from './routes/MainDisclaimerPage'
 import LoadingSpinner from './components/LoadingSpinner'
 import { useTranslation } from 'react-i18next'
-import { cityContentPattern, RoutePatterns } from './routes'
+import { cityContentPattern, createPath, RoutePatterns } from './routes'
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
@@ -39,8 +40,8 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     setContentLanguage(language)
   }
 
-  const landingPath = generatePath(RoutePatterns[LANDING_ROUTE], { languageCode: language })
-  const cityContentPath = generatePath(cityContentPattern, { cityCode: ':cityCode', languageCode: language })
+  const landingPath = createPath(LANDING_ROUTE, { languageCode: language })
+  const cityContentPath = createPath(CATEGORIES_ROUTE, { cityCode: ':cityCode', languageCode: language })
 
   if (loading) {
     return (
