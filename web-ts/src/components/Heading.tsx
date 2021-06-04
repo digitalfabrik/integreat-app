@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import styled, { type StyledComponent } from 'styled-components'
 import buildConfig from '../../../modules/app/constants/buildConfig'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const Logo: StyledComponent<{||}, ThemeType, *> = styled.img`
   display: block;

@@ -7,7 +7,7 @@ import CitySelector from './CitySelector'
 import { CityModel } from 'api-client'
 import styled, { type StyledComponent } from 'styled-components'
 import { withTranslation, type TFunction } from 'react-i18next'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding-top: 22px;
