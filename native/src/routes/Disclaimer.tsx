@@ -1,6 +1,6 @@
 import Page from '../components/Page'
-import { PageModel } from 'api-client/dist/src'
-import { ThemeType } from 'build-configs/dist/ThemeType'
+import { PageModel } from 'api-client'
+import { ThemeType } from 'build-configs'
 import React from 'react'
 
 type PropsType = {

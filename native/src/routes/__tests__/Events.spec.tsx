@@ -1,9 +1,9 @@
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
 import Events from '../Events'
-import EventModelBuilder from 'api-client/dist/src/testing/EventModelBuilder'
-import CityModelBuilder from 'api-client/dist/src/testing/CityModelBuilder'
-import LanguageModelBuilder from 'api-client/dist/src/testing/LanguageModelBuilder'
+import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../components/Page'
 import buildConfig from '../../constants/buildConfig'
 
