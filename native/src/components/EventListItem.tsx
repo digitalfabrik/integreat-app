@@ -1,15 +1,13 @@
 import * as React from 'react'
 import { useCallback, useContext } from 'react'
-import { EventModel } from 'api-client/dist/src'
 import ListItem from './ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs/dist/ThemeType'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { EVENTS_ROUTE } from 'api-client/dist/src/routes'
-import { RouteInformationType } from 'api-client/dist/src/routes/RouteInformationTypes'
+import { EVENTS_ROUTE, EventModel, RouteInformationType } from 'api-client'
+import { ThemeType } from 'build-configs'
 
 type PropsType = {
   cityCode: string

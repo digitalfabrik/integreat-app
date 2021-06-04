@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { ScrollView } from 'react-native'
-import { ThemeType } from 'build-configs/dist/index'
+import { ThemeType } from 'build-configs'
 
 const Container = styled.View<{ width: number }>`
   display: flex;

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Text } from 'react-native'
 import { SprungbrettJobModel } from 'api-client'
 import ListItem from './ListItem'
-import { ThemeType } from 'build-configs/dist/index'
+import { ThemeType } from 'build-configs'
 
 type PropsType = {
   job: SprungbrettJobModel

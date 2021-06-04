@@ -6,8 +6,8 @@ import {
   PageModel,
   DisclaimerRouteType,
   useLoadFromEndpoint
-} from 'api-client/dist/src'
-import { ThemeType } from 'build-configs/dist/ThemeType'
+} from 'api-client'
+import { ThemeType } from 'build-configs'
 import { StateType } from '../redux/StateType'
 import withTheme from '../hocs/withTheme'
 import Disclaimer from './Disclaimer'
