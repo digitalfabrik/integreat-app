@@ -24,7 +24,7 @@ import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../RootSwitcher'
+import { RoutePatterns } from '../routes'
 
 type PropsType = {
   cityModel: CityModel
