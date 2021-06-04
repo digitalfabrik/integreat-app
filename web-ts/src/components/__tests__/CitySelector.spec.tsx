@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import CitySelector from '../CitySelector'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import CityModelBuilder from '../api-client/src/testing/CityModelBuilder'
 
 describe('CitySelector', () => {
   const cities = new CityModelBuilder(5).build()

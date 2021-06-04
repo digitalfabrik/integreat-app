@@ -6,8 +6,8 @@ import normalizeSearchString from '../../../modules/common/utils/normalizeSearch
 import { CityModel } from 'api-client'
 import styled, { withTheme, type StyledComponent } from 'styled-components'
 import Link from 'redux-first-router-link'
-import CategoriesRouteConfig from '../../../modules/app/route-configs/CategoriesRouteConfig'
-import type { ThemeType } from 'build-configs/ThemeType'
+import CategoriesRouteConfig from '../../../web/src/modules/app/route-configs/CategoriesRouteConfig'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const MAX_NUMBER_OF_ALIASES = 3
 
