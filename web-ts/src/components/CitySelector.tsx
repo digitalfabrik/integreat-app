@@ -50,7 +50,9 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
     cities.sort((a, b) => a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || ''))
 
   const renderList = (cities: Array<CityModel>): ReactNode => {
-    const sorted = sort(cities)
+    // TODO Remove filter once django has replaced wordpress and there is no city with empty path anymore
+    const safeCities = cities.filter(city => city.code !== '')
+    const sorted = sort(safeCities)
     const groups = groupBy(sorted, city => city.sortCategory)
     return transform(
       groups,
