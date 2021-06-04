@@ -14,7 +14,7 @@ import {
   SPRUNGBRETT_OFFER
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
-import { RouteType } from '../../routes/RootSwitcher'
+import { RouteType } from '../../RootSwitcher'
 import buildConfig from '../../constants/buildConfig'
 import FeedbackBoxContainer from '../FeedbackBoxContainer'
 import { SendingStatusType } from '../FeedbackModal'

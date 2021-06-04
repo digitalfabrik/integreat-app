@@ -1,11 +1,11 @@
 import React, { ReactElement, useCallback } from 'react'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
-import OffersPage from './offers/OffersPage'
-import EventsPage from './events/EventsPage'
-import CategoriesPage from './categories/CategoriesPage'
-import PoisPage from './pois/PoisPage'
-import SearchPage from './search/SearchPage'
-import DisclaimerPage from './disclaimer/DisclaimerPage'
+import OffersPage from './routes/OffersPage'
+import EventsPage from './routes/EventsPage'
+import CategoriesPage from './routes/CategoriesPage'
+import PoisPage from './routes/PoisPage'
+import SearchPage from './routes/SearchPage'
+import DisclaimerPage from './routes/DisclaimerPage'
 import {
   EVENTS_ROUTE,
   OFFERS_ROUTE,
@@ -21,17 +21,17 @@ import {
   CATEGORIES_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
-import { cmsApiBaseUrl } from '../constants/urls'
-import Layout from '../components/Layout'
-import FailureSwitcher from '../components/FailureSwitcher'
-import LanguageFailure from '../components/LanguageFailure'
-import GeneralHeader from '../components/GeneralHeader'
-import GeneralFooter from '../components/GeneralFooter'
-import LoadingSpinner from '../components/LoadingSpinner'
+import { cmsApiBaseUrl } from './constants/urls'
+import Layout from './components/Layout'
+import FailureSwitcher from './components/FailureSwitcher'
+import LanguageFailure from './components/LanguageFailure'
+import GeneralHeader from './components/GeneralHeader'
+import GeneralFooter from './components/GeneralFooter'
+import LoadingSpinner from './components/LoadingSpinner'
 import { RoutePatterns } from './RootSwitcher'
-import LocalNewsPage from './local-news/LocalNewsPage'
-import TuNewsPage from './tu-news/TuNewsPage'
-import SprungbrettOfferPage from './sprungbrett/SprungbrettOfferPage'
+import LocalNewsPage from './routes/LocalNewsPage'
+import TuNewsPage from './routes/TuNewsPage'
+import SprungbrettOfferPage from './routes/SprungbrettOfferPage'
 
 type PropsType = {
   cities: CityModel[]
