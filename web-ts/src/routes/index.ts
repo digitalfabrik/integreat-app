@@ -36,7 +36,13 @@ export const RoutePatterns = {
 export type RouteType = keyof typeof RoutePatterns
 export type RoutePatternType = typeof RoutePatterns[keyof typeof RoutePatterns]
 
-export const createPath = <S extends RouteType>(route: S, params?: ExtractRouteParams<typeof RoutePatterns[S]>): string => {
+export const createPath = <S extends RouteType>(
+  route: S,
+  params?: ExtractRouteParams<typeof RoutePatterns[S]>
+): string => {
   return generatePath(RoutePatterns[route], params)
 }
 
+export const routeFromPattern = (pattern: string): RouteType | undefined => {
+  return (Object.keys(RoutePatterns) as Array<RouteType>).find(route => RoutePatterns[route] === pattern)
+}

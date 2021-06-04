@@ -26,7 +26,7 @@ const SprungbrettOfferPage = ({ cityModel, match, location }: PropsType): ReactE
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={SPRUNGBRETT_OFFER_ROUTE}
+      route={SPRUNGBRETT_OFFER_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>SprungbrettOfferPage</div>
