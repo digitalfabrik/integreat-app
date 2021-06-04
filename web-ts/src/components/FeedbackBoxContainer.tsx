@@ -25,7 +25,7 @@ type PropsType = {
   path?: string
   cityCode: string
   language: string
-  routeType: RouteType
+  route: RouteType
   isPositiveRatingSelected: boolean
   closeFeedbackModal: () => void
   sendingStatus: SendingStatusType
@@ -40,7 +40,7 @@ export const FeedbackBoxContainer = ({
   path,
   cityCode,
   language,
-  routeType,
+  route,
   isPositiveRatingSelected,
   closeFeedbackModal,
   sendingStatus,
@@ -49,8 +49,8 @@ export const FeedbackBoxContainer = ({
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
 
-  const getFeedbackType = (routeType: RouteType, path?: string, alias?: string): FeedbackType => {
-    switch (routeType) {
+  const getFeedbackType = (route: RouteType, path?: string, alias?: string): FeedbackType => {
+    switch (route) {
       case EVENTS_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
 
@@ -71,7 +71,7 @@ export const FeedbackBoxContainer = ({
   }
 
   const submitFeedback = useCallback(async () => {
-    const feedbackType = getFeedbackType(routeType, path, alias)
+    const feedbackType = getFeedbackType(route, path, alias)
     const feedbackData = {
       feedbackType,
       isPositiveRating: isPositiveRatingSelected,
@@ -89,7 +89,7 @@ export const FeedbackBoxContainer = ({
       console.error(e)
       onSubmit('ERROR')
     }
-  }, [routeType, path, alias, isPositiveRatingSelected, comment, contactMail, cityCode, language, onSubmit])
+  }, [route, path, alias, isPositiveRatingSelected, comment, contactMail, cityCode, language, onSubmit])
 
   return (
     <FeedbackBox

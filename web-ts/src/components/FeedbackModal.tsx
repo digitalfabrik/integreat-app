@@ -45,7 +45,7 @@ type PropsType = {
   alias?: string
   cityCode: string
   language: string
-  routeType: RouteType
+  route: RouteType
   feedbackRating: FeedbackRatingType
   closeFeedbackModal: () => void
 }

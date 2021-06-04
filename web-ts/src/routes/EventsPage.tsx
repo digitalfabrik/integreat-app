@@ -26,7 +26,7 @@ const EventsPage = ({ cityModel, match }: PropsType): ReactElement => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={EVENTS_ROUTE}
+      route={EVENTS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>EventsPage</div>

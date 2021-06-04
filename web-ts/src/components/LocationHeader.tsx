@@ -14,6 +14,7 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from 'api-client'
 import offersIcon from '../assets/offers.svg'
@@ -23,11 +24,12 @@ import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
-import { createPath, RoutePatterns } from '../routes'
+import { createPath, RouteType } from '../routes'
 
 type PropsType = {
   cityModel: CityModel
   pathname: string
+  route: RouteType
   languageCode: string
   viewportSmall: boolean
   onStickyTopChanged: (stickyTop: number) => void
@@ -35,7 +37,7 @@ type PropsType = {
 }
 
 const LocationHeader = (props: PropsType): ReactElement => {
-  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths } = props
+  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths, route } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
@@ -87,9 +89,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       <HeaderNavigationItem
         key='categories'
         href={categoriesPath}
-        // TODO IGAPP-668: Use right check
-        // active={currentRoute === CATEGORIES_ROUTE}
-        active={false}
+        active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
         icon={localInformationIcon}
       />
@@ -99,9 +99,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       items.push(
         <HeaderNavigationItem
           key='news'
-          active={false}
-          // TODO IGAPP-668: Use right check
-          // active={newsRoutes.includes(currentRoute)}
+          active={route === LOCAL_NEWS_TYPE || route === TU_NEWS_TYPE}
           href={newsPath}
           text={t('news')}
           icon={newsIcon}
@@ -113,10 +111,8 @@ const LocationHeader = (props: PropsType): ReactElement => {
       items.push(
         <HeaderNavigationItem
           key='events'
-          active={false}
           href={eventsPath}
-          // TODO IGAPP-668: Use right check
-          // active={currentRoute === EVENTS_ROUTE}
+          active={route === EVENTS_ROUTE}
           text={t('events')}
           icon={eventsIcon}
         />
@@ -127,10 +123,8 @@ const LocationHeader = (props: PropsType): ReactElement => {
       items.push(
         <HeaderNavigationItem
           key='pois'
-          active={false}
           href={poisPath}
-          // TODO IGAPP-668: Use right check
-          // active={currentRoute === POIS_ROUTE}
+          active={route === POIS_ROUTE}
           text={t('pois')}
           icon={poisIcon}
         />
@@ -141,10 +135,8 @@ const LocationHeader = (props: PropsType): ReactElement => {
       items.push(
         <HeaderNavigationItem
           key='offers'
-          active={false}
           href={offersPath}
-          // TODO IGAPP-668: Use right check
-          // active={offersRoutes.includes(currentRoute)}
+          active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE}
           text={t('offers')}
           icon={offersIcon}
         />
