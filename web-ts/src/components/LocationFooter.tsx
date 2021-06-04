@@ -5,8 +5,8 @@ import Footer from './Footer'
 import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../RootSwitcher'
 import { DISCLAIMER_ROUTE } from 'api-client'
+import { RoutePatterns } from '../routes'
 
 type PropsType = {
   city: string
