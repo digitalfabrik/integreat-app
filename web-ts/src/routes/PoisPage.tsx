@@ -1,19 +1,18 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import { CityModel, LanguageModel, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
-import LocationToolbar from '../../components/LocationToolbar'
+import { CityModel, LanguageModel, POIS_ROUTE } from 'api-client'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string; poiId?: string }>
 
-const SprungbrettOfferPage = ({ cityModel, match, location }: PropsType): ReactElement => {
+const PoisPage = ({ match, cityModel, location }: PropsType) => {
   const { languageCode } = match.params
-
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
   )
@@ -26,12 +25,12 @@ const SprungbrettOfferPage = ({ cityModel, match, location }: PropsType): ReactE
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={SPRUNGBRETT_OFFER_ROUTE}
+      routeType={POIS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>SprungbrettOfferPage</div>
+      <div>PoisPage</div>
     </LocationLayout>
   )
 }
 
-export default SprungbrettOfferPage
+export default PoisPage

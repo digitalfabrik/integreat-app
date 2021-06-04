@@ -4,7 +4,7 @@ import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import { withTranslation, TFunction } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes/RootSwitcher'
+import { RoutePatterns } from '../RootSwitcher'
 import { LANDING_ROUTE } from 'api-client'
 import { generatePath } from 'react-router-dom'
 

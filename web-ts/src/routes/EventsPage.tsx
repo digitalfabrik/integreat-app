@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, TU_NEWS_TYPE } from 'api-client'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import LocationToolbar from '../../components/LocationToolbar'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import { EVENTS_ROUTE, CityModel, LanguageModel } from 'api-client'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string; eventId?: string }>
 
-const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
+const EventsPage = ({ cityModel, match }: PropsType): ReactElement => {
   const { languageCode } = match.params
+
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
   )
@@ -25,12 +26,12 @@ const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={TU_NEWS_TYPE}
+      routeType={EVENTS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>TuNewsPage</div>
+      <div>EventsPage</div>
     </LocationLayout>
   )
 }
 
-export default TuNewsPage
+export default EventsPage
