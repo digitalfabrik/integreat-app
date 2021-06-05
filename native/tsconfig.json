@@ -3,9 +3,15 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
     "outDir": "dist",
+    "paths": {
+      "api-client": ["../api-client"],
+      "build-configs": ["../build-configs"],
+      "translations": ["../translations"]
+    },
     "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "types": ["jest", "node", "react-native"]
