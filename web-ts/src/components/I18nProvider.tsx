@@ -55,6 +55,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType) => {
       console.error(e)
     })
   }, [])
+
   // Apply contentLanguage as language
   useEffect(() => {
     if (i18nextInstance && contentLanguage) {
@@ -63,17 +64,12 @@ const I18nProvider = ({ children, contentLanguage }: PropsType) => {
       })
     }
   }, [i18nextInstance, contentLanguage])
+
   // Apply side effects
   useEffect(() => {
     if (document.documentElement) {
       document.documentElement.lang = language
     }
-
-    // TODO Remove uiDirection from redux state
-    // // Only change ui direction from default ('ltr') if the language is supported
-    // if (config.isSupportedLanguage(language)) {
-    //   dispatch(setUIDirection(config.hasRTLScript(language) ? 'rtl' : 'ltr'))
-    // }
   }, [language])
 
   const additionalFont = config.getAdditionalFont(language)

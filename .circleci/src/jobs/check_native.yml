@@ -27,9 +27,6 @@ steps:
   - run:
       name: TS check
       command: yarn workspace build-configs ts:check
-  - run:
-      name: TS check
-      command: yarn workspace native ts:check
   - unit_test:
       directory: native
   - unit_test:

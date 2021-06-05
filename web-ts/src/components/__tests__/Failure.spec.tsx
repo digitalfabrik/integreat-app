@@ -11,7 +11,6 @@ describe('Failure', () => {
     const { getByText } = render(<Failure errorMessage={errorMessage} t={mockTranslate} />, { wrapper: MemoryRouter })
 
     const link = getByText(Failure.defaultProps.goToMessage)
-    // @ts-ignore TODO IGAPP-658
     expect(link.closest('a')).toHaveAttribute('href', Failure.defaultProps.goToPath)
     expect(getByText(errorMessage)).toBeTruthy()
   })
@@ -25,7 +24,6 @@ describe('Failure', () => {
     const { getByText } = render(<Failure {...error} t={mockTranslate} />, { wrapper: MemoryRouter })
 
     const link = getByText(error.goToMessage)
-    // @ts-ignore TODO IGAPP-658
     expect(link.closest('a')).toHaveAttribute('href', error.goToPath)
     expect(getByText(error.errorMessage)).toBeTruthy()
   })

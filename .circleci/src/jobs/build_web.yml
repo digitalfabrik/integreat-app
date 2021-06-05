@@ -18,17 +18,17 @@ steps:
   - restore_environment_variables
   - run:
       name: << parameters.build_config_name >> build
-      command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
+      command: yarn workspace web-ts build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
   - store_artifacts:
       name: Store output of bundle analyzer
-      path: web/reports/bundle
+      path: web-ts/reports/bundle
   - run:
       name: Check build
-      command: yarn workspace web check:build
+      command: yarn workspace web-ts check:build
   - store_artifacts:
-      path: web/dist
+      path: web-ts/dist
   - persist_to_workspace:
-      root: web
+      root: web-ts
       paths:
         - dist
   - notify

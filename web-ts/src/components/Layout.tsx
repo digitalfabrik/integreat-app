@@ -104,7 +104,6 @@ type PropsType = {
   toolbar?: ReactNode
   modal?: ReactNode
   children?: ReactNode
-  darkMode?: boolean
 }
 
 /**
@@ -114,8 +113,7 @@ type PropsType = {
  */
 class Layout extends React.PureComponent<PropsType> {
   static defaultProps = {
-    asideStickyTop: 0,
-    darkMode: false
+    asideStickyTop: 0
   }
 
   render() {
