@@ -2,16 +2,21 @@ import React, { useCallback, useState } from 'react'
 import type { FeedbackType } from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
+  CATEGORIES_ROUTE,
   createFeedbackEndpoint,
   DEFAULT_FEEDBACK_LANGUAGE,
+  DISCLAIMER_ROUTE,
   EVENTS_FEEDBACK_TYPE,
+  EVENTS_ROUTE,
   INTEGREAT_INSTANCE,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
-  PAGE_FEEDBACK_TYPE
+  OFFERS_ROUTE,
+  PAGE_FEEDBACK_TYPE,
+  POIS_ROUTE
 } from 'api-client'
 import FeedbackBox from './FeedbackBox'
-import { Routes, RouteType } from '../routes/App'
+import { RouteType } from '../routes/RootSwitcher'
 import type { SendingStatusType } from './FeedbackModal'
 import { cmsApiBaseUrl } from '../constants/urls'
 
@@ -46,21 +51,20 @@ export const FeedbackBoxContainer = ({
 
   const getFeedbackType = (routeType: RouteType, path?: string, alias?: string): FeedbackType => {
     switch (routeType) {
-      case Routes.EVENTS_ROUTE:
+      case EVENTS_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : EVENTS_FEEDBACK_TYPE
 
-      case Routes.OFFERS_ROUTE:
+      case OFFERS_ROUTE:
         return alias ? OFFER_FEEDBACK_TYPE : OFFERS_FEEDBACK_TYPE
 
-      case Routes.DISCLAIMER_ROUTE:
+      case DISCLAIMER_ROUTE:
         return PAGE_FEEDBACK_TYPE
 
-      case Routes.POIS_ROUTE:
+      case POIS_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
 
-      case Routes.CATEGORIES_ROUTE:
+      case CATEGORIES_ROUTE:
         return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
-
       default:
         return CATEGORIES_FEEDBACK_TYPE
     }
