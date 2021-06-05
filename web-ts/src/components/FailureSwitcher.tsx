@@ -19,6 +19,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
     const { city, language } = error
 
     const params = { cityCode: city, languageCode: language }
+    // @ts-ignore TODO IGAPP-668 Wrong type for * parameters
     const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
     const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
     const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)

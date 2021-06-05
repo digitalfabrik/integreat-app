@@ -1,28 +1,22 @@
 import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import { CATEGORIES_ROUTE, CityModel, LanguageModel } from '../../../../api-client'
+import { CityModel, LanguageModel, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
+import LocationToolbar from '../../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement => {
+const SprungbrettOfferPage = ({ cityModel, match, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => {
-    // TODO IGAPP-640:
-    // <CategoriesToolbar
-    //   categories={categories}
-    //   location={location}
-    //   openFeedbackModal={this.openFeedbackModal}
-    //   viewportSmall={viewportSmall}
-    //   />
-    return null
-  }
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
+  )
 
   return (
     <LocationLayout
@@ -32,12 +26,12 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={CATEGORIES_ROUTE}
+      routeType={SPRUNGBRETT_OFFER_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>CategoriesPage</div>
+      <div>SprungbrettOfferPage</div>
     </LocationLayout>
   )
 }
 
-export default CategoriesPage
+export default SprungbrettOfferPage

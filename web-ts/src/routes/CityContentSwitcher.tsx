@@ -4,7 +4,6 @@ import OffersPage from './offers/OffersPage'
 import EventsPage from './events/EventsPage'
 import CategoriesPage from './categories/CategoriesPage'
 import PoisPage from './pois/PoisPage'
-import NewsPage from './news/NewsPage'
 import SearchPage from './search/SearchPage'
 import DisclaimerPage from './disclaimer/DisclaimerPage'
 import {
@@ -19,7 +18,8 @@ import {
   useLoadFromEndpoint,
   createLanguagesEndpoint,
   LanguageModel,
-  CATEGORIES_ROUTE
+  CATEGORIES_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 import { cmsApiBaseUrl } from '../constants/urls'
 import Layout from '../components/Layout'
@@ -27,9 +27,11 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import LanguageFailure from '../components/LanguageFailure'
 import GeneralHeader from '../components/GeneralHeader'
 import GeneralFooter from '../components/GeneralFooter'
-import LocationLayout from '../components/LocationLayout'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { RoutePatterns } from './RootSwitcher'
+import LocalNewsPage from './local-news/LocalNewsPage'
+import TuNewsPage from './tu-news/TuNewsPage'
+import SprungbrettOfferPage from './sprungbrett/SprungbrettOfferPage'
 
 type PropsType = {
   cities: CityModel[]
@@ -46,12 +48,10 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   const { data: languages, loading, error: languagesError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
   const languageModel = languages?.find(it => it.code === languageCode)
 
-  if (!cityModel || !languageModel) {
+  if (!cityModel || !languageModel || !languages) {
     if (loading) {
       return (
-        <Layout
-          header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
-          footer={<GeneralFooter language={languageCode} />}>
+        <Layout>
           <LoadingSpinner />
         </Layout>
       )
@@ -86,30 +86,24 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     )
   }
 
+  const params = { cities, languages, cityModel, languageModel }
+
   return (
-    <LocationLayout
-      cities={cities}
-      categories={null}
-      viewportSmall={false}
-      feedbackTargetInformation={null}
-      languageChangePaths={null}
-      isLoading={false}
-      // TODO IGAPP-668: Pass right route type
-      routeType={CATEGORIES_ROUTE}
-      cityCode={cityCode}
-      languageCode={languageCode}
-      pathname={location.pathname}>
-      <Switch>
-        <Route exact path={RoutePatterns[EVENTS_ROUTE]} component={EventsPage} />
-        <Route exact path={RoutePatterns[OFFERS_ROUTE]} component={OffersPage} />
-        <Route exact path={RoutePatterns[POIS_ROUTE]} component={PoisPage} />
-        <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} component={NewsPage} />
-        <Route exact path={RoutePatterns[TU_NEWS_TYPE]} component={NewsPage} />
-        <Route exact path={RoutePatterns[SEARCH_ROUTE]} component={SearchPage} />
-        <Route exact path={RoutePatterns[DISCLAIMER_ROUTE]} component={DisclaimerPage} />
-        <Route path={RoutePatterns[CATEGORIES_ROUTE]} component={CategoriesPage} />
-      </Switch>
-    </LocationLayout>
+    <Switch>
+      <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />
+      <Route
+        exact
+        path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
+        render={props => <SprungbrettOfferPage {...params} {...props} />}
+      />
+      <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />
+      <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
+      <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} render={props => <LocalNewsPage {...params} {...props} />} />
+      <Route exact path={RoutePatterns[TU_NEWS_TYPE]} render={props => <TuNewsPage {...params} {...props} />} />
+      <Route exact path={RoutePatterns[SEARCH_ROUTE]} render={props => <SearchPage {...params} {...props} />} />
+      <Route exact path={RoutePatterns[DISCLAIMER_ROUTE]} render={props => <DisclaimerPage {...params} {...props} />} />
+      <Route path={RoutePatterns[CATEGORIES_ROUTE]} render={props => <CategoriesPage {...params} {...props} />} />
+    </Switch>
   )
 }
 
