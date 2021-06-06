@@ -81,17 +81,19 @@ describe('createSettingsSections', () => {
       if (pushNotificationSection) {
         pushNotificationSection.onPress()
       }
-      const settings = defaultSettings
-      settings.allowPushNotifications = false
-      const changedSettings = changeSetting(settings)
-      // @ts-ignore
-      expect(pushNotificationSection.getSettingValue(settings)).toBeFalsy()
-      expect(changedSettings.allowPushNotifications).toBeTruthy()
-      settings.allowPushNotifications = true
-      const changedSettings2 = changeSetting(settings)
-      // @ts-ignore
-      expect(pushNotificationSection.getSettingValue(settings)).toBeTruthy()
-      expect(changedSettings2.allowPushNotifications).toBeFalsy()
+      if (!pushNotificationSection?.getSettingValue) {
+        expect(true).toBeFalsy()
+      } else {
+        const settings = defaultSettings
+        settings.allowPushNotifications = false
+        const changedSettings = changeSetting(settings)
+        expect(pushNotificationSection.getSettingValue(settings)).toBeFalsy()
+        expect(changedSettings.allowPushNotifications).toBeTruthy()
+        settings.allowPushNotifications = true
+        const changedSettings2 = changeSetting(settings)
+        expect(pushNotificationSection.getSettingValue(settings)).toBeTruthy()
+        expect(changedSettings2.allowPushNotifications).toBeFalsy()
+      }
     })
 
     it('should unsubscribe from push notification topic', async () => {

@@ -48,7 +48,7 @@ describe('Dashboard', () => {
       offersEnabled: offers,
       pushNotificationsEnabled: local,
       tunewsEnabled: tunews,
-      poisEnabled: true,
+      poisEnabled: pois,
       sortingName: 'Augsburg',
       prefix: 'Stadt',
       latitude: 48.369696,
@@ -62,11 +62,9 @@ describe('Dashboard', () => {
     })
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
-    const previous = buildConfig()
-    // @ts-ignore ts is not aware that buildConfig is a mock funciton
-    buildConfig.mockImplementation(() => ({
-      ...previous,
-      featureFlags: { ...previous.featureFlags, pois, newsStream }
+    ((buildConfig as unknown) as jest.Mock).mockImplementation(() => ({
+      ...buildConfig(),
+      featureFlags: { ...buildConfig().featureFlags, pois, newsStream }
     }))
   }
 
