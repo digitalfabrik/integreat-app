@@ -39,6 +39,7 @@ jest.mock('../../services/sendTrackingSignal', () => jest.fn())
 jest.mock('../url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com')
 }))
+
 const dispatch = jest.fn()
 const navigation = createNavigationScreenPropMock()
 const navigateTo = createNavigate(dispatch, navigation)
@@ -53,6 +54,9 @@ const params = {
 const cityContentPath = `/${cityCode}/${languageCode}`
 const key = 'some-route-1234'
 const forceRefresh = false
+
+const mockBuildConfig = (buildConfig as unknown) as jest.Mock
+
 describe('createNavigate', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -84,6 +88,7 @@ describe('createNavigate', () => {
     navigateTo(null)
     assertNotCalled(allMocks)
   })
+
   it('should call navigateToLanding', () => {
     navigateTo({
       route: LANDING_ROUTE,
@@ -98,6 +103,7 @@ describe('createNavigate', () => {
       }
     })
   })
+
   it('should call navigateToJpalTracking', () => {
     navigateTo({
       route: JPAL_TRACKING_ROUTE,
@@ -105,9 +111,9 @@ describe('createNavigate', () => {
     })
     assertOnlyCalled([navigateToJpalTracking])
   })
+
   it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
-    // @ts-ignore build config is a mock
-    buildConfig.mockImplementationOnce(() => ({
+    mockBuildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         jpalTracking: true
       }
@@ -118,6 +124,7 @@ describe('createNavigate', () => {
     })
     assertNotCalled(allMocks)
   })
+
   it('should call navigateToCategory for dashboard route', () => {
     navigateTo(
       {
@@ -146,6 +153,7 @@ describe('createNavigate', () => {
       }
     })
   })
+
   it('should call navigateToCategory for categories route', () => {
     navigateTo(
       {
@@ -167,6 +175,7 @@ describe('createNavigate', () => {
       forceRefresh
     })
   })
+
   it('should call navigateToDisclaimer for disclaimer route', () => {
     navigateTo({
       route: DISCLAIMER_ROUTE,
@@ -179,6 +188,7 @@ describe('createNavigate', () => {
       ...params
     })
   })
+
   it('should call navigateToOffers for offer route', () => {
     navigateTo({
       route: OFFERS_ROUTE,
@@ -191,6 +201,7 @@ describe('createNavigate', () => {
       ...params
     })
   })
+
   it('should call navigateToEvents for events route', () => {
     navigateTo({
       route: EVENTS_ROUTE,
@@ -221,9 +232,9 @@ describe('createNavigate', () => {
     })
     assertOnlyCalled([navigateToEvents], 2)
   })
+
   it('should call navigateToNews for news route', () => {
-    // @ts-ignore build config is a mock
-    buildConfig.mockImplementationOnce(() => ({
+    mockBuildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         newsStream: true
       }
@@ -249,9 +260,9 @@ describe('createNavigate', () => {
       forceRefresh
     })
   })
+
   it('should not call navigateToNews if it is not enabled in build config', () => {
-    // @ts-ignore build config is a mock
-    buildConfig.mockImplementationOnce(() => ({
+    mockBuildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         newsStream: false
       }
@@ -268,9 +279,9 @@ describe('createNavigate', () => {
     )
     assertNotCalled(allMocks)
   })
+
   it('should call navigateToPois for pois route', () => {
-    // @ts-ignore build config is a mock
-    buildConfig.mockImplementation(() => ({
+    mockBuildConfig.mockImplementation(() => ({
       featureFlags: {
         pois: true
       }
@@ -304,9 +315,9 @@ describe('createNavigate', () => {
     })
     assertOnlyCalled([navigateToPois], 2)
   })
+
   it('should not call navigateToPois if it is not enabled in build config', () => {
-    // @ts-ignore build config is a mock
-    buildConfig.mockImplementationOnce(() => ({
+    mockBuildConfig.mockImplementationOnce(() => ({
       featureFlags: {
         pois: false
       }
@@ -322,6 +333,7 @@ describe('createNavigate', () => {
     )
     assertNotCalled(allMocks)
   })
+
   it('should call navigateToSearch for search route', () => {
     navigateTo({
       route: SEARCH_ROUTE,

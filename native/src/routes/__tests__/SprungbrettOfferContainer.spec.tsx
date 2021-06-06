@@ -56,8 +56,7 @@ describe('SprungbrettOfferContainer', () => {
   const store = mockStore(state)
 
   const mockUseLoadFromEndpointOnce = mock => {
-    // @ts-ignore mockImplementationOnce is defined
-    useLoadFromEndpoint.mockImplementationOnce(mock)
+    ((useLoadFromEndpoint as unknown) as jest.Mock).mockImplementationOnce(mock)
   }
 
   beforeEach(() => {
