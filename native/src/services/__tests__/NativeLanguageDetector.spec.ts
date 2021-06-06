@@ -10,12 +10,12 @@ describe('NativeLanguageDetector', () => {
   }
 
   it('should detect current language code', () => {
-    ((getLocales as unknown) as jest.Mock).mockImplementation(() => [enLocale])
+    ;((getLocales as unknown) as jest.Mock).mockImplementation(() => [enLocale])
     expect(NativeLanguageDetector.detect()).toStrictEqual(['en-US'])
   })
 
   it('should not respond to language changes', () => {
-    ((getLocales as unknown) as jest.Mock).mockImplementation(() => [enLocale])
+    ;((getLocales as unknown) as jest.Mock).mockImplementation(() => [enLocale])
     expect(NativeLanguageDetector.detect()).toStrictEqual(['en-US'])
     NativeLanguageDetector.cacheUserLanguage('de')
     expect(NativeLanguageDetector.detect()).toStrictEqual(['en-US'])

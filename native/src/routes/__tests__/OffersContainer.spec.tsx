@@ -56,7 +56,7 @@ describe('OffersContainer', () => {
   const store = mockStore(state)
 
   const mockUseLoadFromEndpointOnce = mock => {
-    ((useLoadFromEndpoint as unknown) as jest.Mock).mockImplementationOnce(mock)
+    ;((useLoadFromEndpoint as unknown) as jest.Mock).mockImplementationOnce(mock)
   }
 
   beforeEach(() => {
