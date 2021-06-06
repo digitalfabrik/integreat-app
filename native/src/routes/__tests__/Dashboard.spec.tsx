@@ -62,7 +62,7 @@ describe('Dashboard', () => {
     })
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
-    ((buildConfig as unknown) as jest.Mock).mockImplementation(() => ({
+    ;((buildConfig as unknown) as jest.Mock).mockImplementation(() => ({
       ...buildConfig(),
       featureFlags: { ...buildConfig().featureFlags, pois, newsStream }
     }))
