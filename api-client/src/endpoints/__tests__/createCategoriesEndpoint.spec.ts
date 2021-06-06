@@ -4,13 +4,14 @@ import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
 import CategoriesMapModel from '../../models/CategoriesMapModel'
-import { JsonCategoryType } from '../../types'
 
 jest.mock('../../mapping/mapCategoryJson')
+
 describe('createCategoriesEndpoint', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory', 'myThirdCategory']
   const params = {
@@ -31,29 +32,21 @@ describe('createCategoriesEndpoint', () => {
     hash: ''
   })
   const endpoint = createCategoriesEndpoint(baseUrl)
+
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
     )
   })
+
   it('should map json to category', () => {
     const categories = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 3)
 
-    ;((mapCategoryJson as unknown) as jest.Mock<
-      (json: JsonCategoryType, basePath: string) => CategoryModel
-      // @ts-ignore
-    >).mockImplementation((json: string) => {
-      switch (json) {
-        case 'myFirstCategory':
-          return categories[0]
+    ;((mapCategoryJson as unknown) as jest.Mock)
+      .mockImplementationOnce(() => categories[0])
+      .mockImplementationOnce(() => categories[1])
+      .mockImplementationOnce(() => categories[2])
 
-        case 'mySecondCategory':
-          return categories[1]
-
-        case 'myThirdCategory':
-          return categories[2]
-      }
-    })
     categories.push(rootCategory)
     const mapModel = new CategoriesMapModel(categories)
     expect(endpoint.mapResponse(json, params)).toEqual(mapModel)
