@@ -20,9 +20,9 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
 }
 
 type PropsType = {
-  categories: CategoriesMapModel,
-  categoryModel: CategoryModel,
-  t: TFunction,
+  categories: CategoriesMapModel
+  categoryModel: CategoryModel
+  t: TFunction
   formatter: DateFormatter
 }
 

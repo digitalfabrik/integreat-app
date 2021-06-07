@@ -19,18 +19,13 @@ const CategoriesToolbar = (props: PropsType): ReactElement => {
   const { category, openFeedbackModal, viewportSmall, cityCode, languageCode } = props
   const { t } = useTranslation('categories')
 
-  const pdfUrl = category.isRoot() ?
-    `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
+  const pdfUrl = category.isRoot()
+    ? `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
     : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
   return (
     <LocationToolbar openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall}>
-      <ToolbarItem
-        icon={faFilePdf}
-        text={t('createPdf')}
-        href={pdfUrl}
-        viewportSmall={viewportSmall}
-      />
+      <ToolbarItem icon={faFilePdf} text={t('createPdf')} href={pdfUrl} viewportSmall={viewportSmall} />
     </LocationToolbar>
   )
 }

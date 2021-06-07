@@ -4,7 +4,6 @@ import CategoriesToolbar from '../CategoriesToolbar'
 import CategoriesMapModelBuilder from '../../../../api-client/src/testing/CategoriesMapModelBuilder'
 
 describe('CategoriesToolbar', () => {
-
   const t = key => key
   const city = 'augsburg'
   const language = 'de'

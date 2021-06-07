@@ -95,8 +95,8 @@ describe('CategoryEntry', () => {
       const selectedSection = 'this is a test content which is longer than usual'
       const highlightStyle = {
         _values: {
-          "background-color": "rgb(255, 255, 255)",
-            "font-weight": "bold"
+          'background-color': 'rgb(255, 255, 255)',
+          'font-weight': 'bold'
         }
       }
 
@@ -107,14 +107,18 @@ describe('CategoryEntry', () => {
             category={category}
             subCategories={[]}
             query={query}
-            contentWithoutHtml={category.content} />
+            contentWithoutHtml={category.content}
+          />
         </ThemeProvider>
       )
 
       expect(getByLabelText(selectedSection)).toBeTruthy()
       expect(getByText('this is a')).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
       expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
-      expect(getByText('content which is longer than usual')).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText('content which is longer than usual')).not.toHaveProperty(
+        'style',
+        expect.objectContaining(highlightStyle)
+      )
     })
 
     it('should highlight nothing and show no content if there is no match', () => {
@@ -127,7 +131,8 @@ describe('CategoryEntry', () => {
             category={category}
             subCategories={[]}
             query={query}
-            contentWithoutHtml={category.content} />
+            contentWithoutHtml={category.content}
+          />
         </ThemeProvider>
       )
 
