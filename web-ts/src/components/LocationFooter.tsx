@@ -1,30 +1,31 @@
 import React from 'react'
+import { generatePath } from 'react-router-dom'
 import { withTranslation, TFunction } from 'react-i18next'
 import Footer from './Footer'
 import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
 import buildConfig from '../constants/buildConfig'
+import { RoutePatterns } from '../RootSwitcher'
+import { DISCLAIMER_ROUTE } from 'api-client'
 
 type PropsType = {
   city: string
   language: string
-  onClick: () => void
   t: TFunction
 }
 
 export class LocationFooter extends React.PureComponent<PropsType> {
   render() {
-    const { t, city, language, onClick } = this.props
+    const { t, city, language } = this.props
     const { aboutUrls, privacyUrls } = buildConfig()
 
     const aboutUrl = aboutUrls[language] || aboutUrls.default
     const privacyUrl = privacyUrls[language] || privacyUrls.default
+    const disclaimerPath = generatePath(RoutePatterns[DISCLAIMER_ROUTE], { cityCode: city, languageCode: language })
 
     return (
-      <Footer onClick={onClick}>
-        {/* TODO Use right path */}
-        {/* <CleanLink to={new DisclaimerRouteConfig().getRoutePath({ city, language })}> */}
-        <CleanLink to='/'>{t('imprintAndContact')}</CleanLink>
+      <Footer>
+        <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
         <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
         <CleanAnchor href={privacyUrl}>{t('privacy')}</CleanAnchor>
       </Footer>
