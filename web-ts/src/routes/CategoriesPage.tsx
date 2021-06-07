@@ -9,7 +9,8 @@ import {
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
   LanguageModel,
-  NotFoundError, Payload,
+  NotFoundError,
+  Payload,
   useLoadFromEndpoint
 } from 'api-client'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -24,6 +25,8 @@ import CategoriesToolbar from '../components/CategoriesToolbar'
 import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import moment from 'moment'
+import { config } from 'translations'
+import { createPath } from './index'
 
 const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   const title = category.isRoot() ? cityName : category.title
@@ -45,13 +48,13 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
 
-const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement => {
+const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const previousPathname = useRef<string | null | undefined>(null)
   const { cityCode, languageCode, categoryId } = match.params
   const { pathname } = location
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)
-  const uiDirection = 'ltr'
+  const uiDirection = config.getScriptDirection(languageCode)
   const viewportSmall = false
 
   useEffect(() => {
@@ -116,11 +119,20 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
     )
   }
 
+  const languageChangePaths = languages.map(({ code, name }) => {
+    const rootPath = createPath(CATEGORIES_ROUTE, { cityCode, languageCode })
+    return {
+      path: category && !category.isRoot() ? category.availableLanguages.get(code) || null : rootPath,
+      name,
+      code
+    }
+  })
+
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: null,
-    languageChangePaths: null,
+    feedbackTargetInformation: category && !category.isRoot() ? { path: category.path } : null,
+    languageChangePaths,
     route: CATEGORIES_ROUTE,
     languageCode,
     pathname,
@@ -136,12 +148,15 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
   }
 
   if (!category || !parents || !categories) {
-    const error = categoriesError || parentsError || new NotFoundError({
-      type: 'category',
-      id: pathname,
-      city: cityCode,
-      language: languageCode
-    })
+    const error =
+      categoriesError ||
+      parentsError ||
+      new NotFoundError({
+        type: 'category',
+        id: pathname,
+        city: cityCode,
+        language: languageCode
+      })
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
@@ -159,7 +174,12 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
         currentBreadcrumb={getBreadcrumb(category, cityModel.name)}
         direction={uiDirection}
       />
-      <CategoriesContent categories={new CategoriesMapModel(categories)} categoryModel={category} formatter={formatter} t={t} />
+      <CategoriesContent
+        categories={new CategoriesMapModel(categories)}
+        categoryModel={category}
+        formatter={formatter}
+        t={t}
+      />
     </LocationLayout>
   )
 }
