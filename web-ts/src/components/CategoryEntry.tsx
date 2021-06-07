@@ -72,11 +72,11 @@ const StyledLink = styled(Link)`
 `
 
 type PropsType = {
-  category: CategoryModel,
-  contentWithoutHtml?: string,
-  subCategories: Array<CategoryModel>,
+  category: CategoryModel
+  contentWithoutHtml?: string
+  subCategories: Array<CategoryModel>
   /** A search query to highlight in the category title */
-  query?: string,
+  query?: string
   theme: ThemeType
 }
 

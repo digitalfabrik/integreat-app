@@ -26,11 +26,11 @@ const CategoryIcon = styled.img`
 `
 
 type PropsType = {
-  categories: Array<{ model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> }>,
+  categories: Array<{ model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }>
   /** A search query to highlight in the categories titles */
-  query?: string,
-  formatter?: DateFormatter,
-  category?: CategoryModel,
+  query?: string
+  formatter?: DateFormatter
+  category?: CategoryModel
   onInternalLinkClick: (link: string) => void
 }
 
