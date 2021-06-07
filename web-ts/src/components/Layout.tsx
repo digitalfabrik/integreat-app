@@ -98,7 +98,7 @@ const Aside = styled.aside<{ positionStickyDisabled: boolean; asideStickyTop: nu
 `
 
 type PropsType = {
-  asideStickyTop: number
+  asideStickyTop?: number
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
