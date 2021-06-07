@@ -13,7 +13,7 @@ type PropsType = {
 const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => {
+  const toolbar = (_: (rating: FeedbackRatingType) => void) => {
     // TODO IGAPP-640:
     // <CategoriesToolbar
     //   categories={categories}
