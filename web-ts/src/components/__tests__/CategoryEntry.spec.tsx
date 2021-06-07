@@ -1,13 +1,11 @@
-// @flow
-
 import React from 'react'
-import { shallow, type ShallowWrapper } from 'enzyme'
+import { renderWithRouter } from '../../testing/render'
 import moment from 'moment'
 import { CategoryEntry } from '../CategoryEntry'
 import { CategoryModel } from 'api-client'
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
-import { lightTheme } from '../../../../web/src/modules/theme/constants/theme'
-import normalizeSearchString from '../../../../modules/common/utils/normalizeSearchString'
+import buildConfig from '../../constants/buildConfig'
+import { ThemeProvider } from 'styled-components'
 
 const category = new CategoryModel({
   root: false,
@@ -58,92 +56,86 @@ const noThumbCategory = new CategoryModel({
   hash: 'a36a58'
 })
 
-// helper to find StyledComponents without importing them
-function findComponent(wrapper: ShallowWrapper<*>, name: string): ShallowWrapper<*> {
-  return wrapper.findWhere(n => n.name()?.endsWith(name))
-}
-
 describe('CategoryEntry', () => {
-  it('should render and match snapshot', () => {
-    const wrapper = shallow(
-      <CategoryEntry theme={lightTheme} contentWithoutHtml={null} category={category} subCategories={[childCategory]} />
-    ).dive()
+  const lightTheme = buildConfig().lightTheme
 
-    expect(findComponent(wrapper, 'StyledLink').at(0).prop('to')).toEqual(category.path)
-    expect(findComponent(wrapper, 'CategoryThumbnail').prop('src')).toEqual(category.thumbnail)
-    expect(findComponent(wrapper, 'Highlighter').props()).toEqual(
-      expect.objectContaining({
-        'aria-label': category.title,
-        searchWords: [],
-        sanitize: normalizeSearchString,
-        textToHighlight: category.title
-      })
+  it('should render correctly', () => {
+    const { getByText, getByRole, getByLabelText, queryAllByText } = renderWithRouter(
+      <ThemeProvider theme={lightTheme}>
+        <CategoryEntry theme={lightTheme} category={category} subCategories={[childCategory]} />
+      </ThemeProvider>
     )
 
-    expect(wrapper.exists('div')).toBe(true)
-    expect(findComponent(wrapper, 'SubCategory').key()).toEqual(childCategory.hash)
-    expect(findComponent(wrapper, 'StyledLink').at(1).prop('to')).toEqual(childCategory.path)
-    expect(findComponent(wrapper, 'SubCategoryCaption').props()).toEqual({
-      'aria-label': childCategory.title,
-      children: childCategory.title
-    })
+    expect(getByLabelText(category.title)).toBeTruthy()
+    expect(getByText(category.title).closest('a')).toHaveProperty('href', `http://localhost${category.path}`)
+    expect(getByRole('img')).toHaveProperty('src', category.thumbnail)
+
+    expect(getByLabelText(childCategory.title)).toBeTruthy()
+    expect(getByText(childCategory.title).closest('a')).toHaveProperty('href', `http://localhost${childCategory.path}`)
+
+    const regex = /.+/
+    const texts = queryAllByText(regex)
+    // Only category.title and childCategory.title, nothing split up because of highlighting
+    expect(texts).toHaveLength(2)
   })
 
   it('should replace empty thumbnail', () => {
-    const wrapper = shallow(
-      <CategoryEntry
-        theme={lightTheme}
-        contentWithoutHtml={null}
-        category={noThumbCategory}
-        subCategories={[childCategory]}
-      />
-    ).dive()
+    const { getByRole } = renderWithRouter(
+      <ThemeProvider theme={lightTheme}>
+        <CategoryEntry theme={lightTheme} category={noThumbCategory} subCategories={[childCategory]} />
+      </ThemeProvider>
+    )
 
-    expect(findComponent(wrapper, 'CategoryThumbnail').prop('src')).toEqual(iconPlaceholder)
+    expect(getByRole('img')).toHaveProperty('src', `http://localhost/${iconPlaceholder}`)
   })
 
-  describe('getMatchedContent', () => {
+  describe('highlighted content', () => {
     it('should return the highlighted match item', () => {
       const query = 'test'
-      const selectedSection = 'this is a test content which is'
-      const numWords = 3
-      const wrapper = shallow(
-        <CategoryEntry
-          category={category}
-          theme={lightTheme}
-          contentWithoutHtml={category.content}
-          query={query}
-          subCategories={[]}
-        />
+      const selectedSection = 'this is a test content which is longer than usual'
+      const highlightStyle = {
+        _values: {
+          "background-color": "rgb(255, 255, 255)",
+            "font-weight": "bold"
+        }
+      }
+
+      const { getByText, getByLabelText } = renderWithRouter(
+        <ThemeProvider theme={lightTheme}>
+          <CategoryEntry
+            theme={lightTheme}
+            category={category}
+            subCategories={[]}
+            query={query}
+            contentWithoutHtml={category.content} />
+        </ThemeProvider>
       )
-      const categoryEntry = wrapper.instance()
-      // $FlowFixMe React.Portal is incompatible
-      const contentMatchItem = shallow(categoryEntry.getMatchedContent(numWords))
-      const contentMatchProps = contentMatchItem.props()
-      expect(contentMatchProps['aria-label']).toEqual(selectedSection)
-      expect(contentMatchProps.sanitize).toEqual(normalizeSearchString)
-      expect(contentMatchProps.searchWords).toHaveLength(1)
-      expect(contentMatchProps.searchWords).toContain(query)
-      expect(contentMatchProps.textToHighlight).toEqual(selectedSection)
+
+      expect(getByLabelText(selectedSection)).toBeTruthy()
+      expect(getByText('this is a')).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
+      expect(getByText('content which is longer than usual')).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
     })
 
-    it('should not return a match item', () => {
-      const query = 'test'
-      const numWords = 3
-      const wrapper = shallow(
-        <CategoryEntry
-          category={category}
-          theme={lightTheme}
-          contentWithoutHtml={category.content}
-          query={query}
-          subCategories={[]}
-        />
+    it('should highlight nothing and show no content if there is no match', () => {
+      const query = 'no match'
+
+      const { queryAllByText, getByText } = renderWithRouter(
+        <ThemeProvider theme={lightTheme}>
+          <CategoryEntry
+            theme={lightTheme}
+            category={category}
+            subCategories={[]}
+            query={query}
+            contentWithoutHtml={category.content} />
+        </ThemeProvider>
       )
-      const categoryEntry = wrapper.instance()
-      // $FlowFixMe getMatchedContent is not writable
-      categoryEntry.contentMatcher.getMatchedContent = jest.fn()
-      categoryEntry.contentMatcher.getMatchedContent.mockReturnValue(null)
-      expect(categoryEntry.getMatchedContent(numWords)).toBeNull()
+
+      expect(getByText(category.title)).toBeTruthy()
+      const regex = /.+/
+      const texts = queryAllByText(regex)
+      // Only category.title, nothing split up because of highlighting
+      expect(texts).toHaveLength(1)
     })
   })
 })

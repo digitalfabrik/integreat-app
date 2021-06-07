@@ -1,14 +1,10 @@
-// @flow
-
 import * as React from 'react'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
-import DateFormatter from '../api-client/src/i18n/DateFormatter'
-import Page from '../../../modules/common/components/Page'
-import Tiles from '../../../modules/common/components/Tiles'
+import { CategoriesMapModel, CategoryModel, DateFormatter } from 'api-client'
+import Page from './Page'
+import Tiles from './Tiles'
 import CategoryList from './CategoryList'
-import TileModel from '../../../modules/common/models/TileModel'
-import { type TFunction } from 'react-i18next'
-import { push } from 'redux-first-router'
+import TileModel from '../models/TileModel'
+import { TFunction } from 'i18next'
 
 const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
   return categories.map(
@@ -23,12 +19,12 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
   )
 }
 
-type PropsType = {|
+type PropsType = {
   categories: CategoriesMapModel,
   categoryModel: CategoryModel,
   t: TFunction,
   formatter: DateFormatter
-|}
+}
 
 /**
  * Returns the content to be displayed, based on the current category, which is
@@ -46,7 +42,8 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
         formatter={formatter}
-        onInternalLinkClick={push}
+        // TODO
+        onInternalLinkClick={() => {}}
       />
     )
   } else if (categoryModel.isRoot()) {
@@ -61,7 +58,8 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         subCategories: categories.getChildren(model)
       }))}
       category={categoryModel}
-      onInternalLinkClick={push}
+      // TODO
+      onInternalLinkClick={() => {}}
       formatter={formatter}
     />
   )

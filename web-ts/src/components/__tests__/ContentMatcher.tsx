@@ -1,5 +1,3 @@
-// @flow
-
 import ContentMatcher from '../ContentMatcher'
 
 describe('ContentMatcher', () => {
