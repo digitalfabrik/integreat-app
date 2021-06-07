@@ -1,8 +1,9 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { CityModel, LanguageModel, TU_NEWS_TYPE } from 'api-client'
-import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 
 type PropsType = {
   cities: Array<CityModel>
