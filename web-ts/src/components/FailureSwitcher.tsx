@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NotFoundError, OFFERS_ROUTE, POIS_ROUTE } from 'api-client'
 import Failure from './Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import { RoutePatterns } from '../routes/RootSwitcher'
+import { RoutePatterns } from '../RootSwitcher'
 import { generatePath } from 'react-router-dom'
 
 type PropsType = {
@@ -19,6 +19,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
     const { city, language } = error
 
     const params = { cityCode: city, languageCode: language }
+    // @ts-ignore TODO IGAPP-668 Wrong type for * parameters
     const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
     const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
     const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)

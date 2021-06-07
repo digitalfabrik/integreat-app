@@ -1,6 +1,7 @@
-import { PageResourceCacheStateType } from '../../modules/app/StateType'
-import { FetchMapTargetType, FetchMapType } from '../../modules/endpoint/sagas/fetchResourceCache'
+import { PageResourceCacheStateType } from '../../redux/StateType'
+import { FetchMapTargetType, FetchMapType } from '../../sagas/fetchResourceCache'
 import { mapValues, reduce } from 'lodash'
+
 export const createFetchMap = (resources: Record<string, PageResourceCacheStateType>): FetchMapType =>
   mapValues(resources, (files: PageResourceCacheStateType) =>
     reduce<PageResourceCacheStateType, Array<FetchMapTargetType>>(

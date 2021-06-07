@@ -18,25 +18,8 @@ jest.mock('../LocationToolbar', () => {
 })
 
 describe('LocationLayout', () => {
-  const city = 'augsburg'
   const language = 'de'
-
-  const categories = new CategoriesMapModel([
-    new CategoryModel({
-      root: true,
-      hash: '2fe6283485a93932',
-      path: 'path01',
-      title: 'Title10',
-      content: 'contnentl',
-      thumbnail: 'thumb/nail',
-      parentPath: 'parent/url',
-      order: 4,
-      availableLanguages: new Map(),
-      lastUpdate: moment('2017-11-18T09:30:00.000Z')
-    })
-  ])
-
-  const cities = new CityModelBuilder(1).build()
+  const cityModel = new CityModelBuilder(1).build()[0]
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -49,11 +32,9 @@ describe('LocationLayout', () => {
   const MockNode = () => <div />
   const renderLocationLayout = (pathname, routeType, isLoading) => (
     <LocationLayout
-      cityCode={city}
+      cityModel={cityModel}
       languageCode={language}
       pathname={pathname}
-      categories={categories}
-      cities={cities}
       routeType={routeType}
       languageChangePaths={languageChangePaths}
       feedbackTargetInformation={feedbackTargetInformation}
