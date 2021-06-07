@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import Selector from './Selector'
-import { withTranslation, TFunction } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 import languageIcon from '../assets/language-icon.svg'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
 
 type PropsType = {
   selectorItems: Array<SelectorItemModel>
   activeItemCode: string
-  t: TFunction
+  t: TFunction<'layout'>
 }
 
-const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType) => {
+const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
   return selectorItems && selectorItems.length > 0 ? (
@@ -32,4 +32,4 @@ const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsT
   )
 }
 
-export default withTranslation('layout')(HeaderLanguageSelectorItem)
+export default HeaderLanguageSelectorItem

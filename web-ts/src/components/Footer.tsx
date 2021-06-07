@@ -4,7 +4,6 @@ import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
   children: Array<ReactNode>
-  onClick?: () => void
 }
 
 const FooterContainer = styled.footer`
@@ -46,9 +45,9 @@ class Footer extends React.PureComponent<PropsType> {
   }
 
   render() {
-    const { children, onClick } = this.props
+    const { children } = this.props
     return (
-      <FooterContainer onClick={onClick}>
+      <FooterContainer>
         {children}
         {Footer.getVersion()}
       </FooterContainer>

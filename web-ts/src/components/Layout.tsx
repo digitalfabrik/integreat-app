@@ -104,7 +104,6 @@ type PropsType = {
   toolbar?: ReactNode
   modal?: ReactNode
   children?: ReactNode
-  darkMode?: boolean
 }
 
 /**

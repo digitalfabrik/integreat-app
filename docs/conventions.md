@@ -38,34 +38,30 @@ An additional consecutive version code is used for unique identification in the 
 The version code is incremented for every build uploaded to the stores.
 The first version code was `100000`.
 
-## Folder structure
+### Folder Structure
+
+The `src` folders are structured according to its technical character, for example into assets, hooks, components and routes.
+File naming should be PascalCase, inside the routes folder file names should be prefixed by the route name.
+Router entry points should have `Page` as a suffix.
 
 ```
-├── __mocks__
-├── modules
-│   └── app
-│       ├── constants
-│       ├── assets
-│       ├── components
-│       ├── containers
-│       ├── actions
-│       ├── hocs
-│       └── reducers
-└── routes
-    └── <route-name>
-│       ├── assets
-│       ├── components
-│       ├── containers
-│       │   └── RouteNamePage.js
-│       ├── actions
-│       ├── hocs
-│       └── reducers
+src
+└───routes
+│   └───someRoute
+│       │   SomeRoutePage.tsx
+│       └───component
+│       │   │ SomeRouteItem.tsx
+│       │   │ SomeRouteList.tsx
+│       └───service
+│           │ SomeRouteSpecificService.ts
+└───components
+│   │   Button.tsx
+│   │   Icon.tsx
+└───hooks
+└───context
+└───utils
+    │   DatabaseConnector.ts
+    │   LanguageDetector.ts
+    |   indext.ts
 ```
 
-Tests should always be positioned in a `__tests__` directory on the same level as the file which is tested.
-
-```
-├── __tests__
-│   └── Caption.spec.js
-└── Caption.js
-```
