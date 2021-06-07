@@ -5,9 +5,9 @@ import { shallow } from 'enzyme'
 
 import { CategoriesToolbar } from '../CategoriesToolbar'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
-import { CATEGORIES_ROUTE } from '../../../../modules/app/route-configs/CategoriesRouteConfig'
+import { CATEGORIES_ROUTE } from '../../../../web/src/modules/app/route-configs/CategoriesRouteConfig'
 import moment from 'moment'
-import createLocation from '../../../../createLocation'
+import createLocation from '../../../../web/src/createLocation'
 
 describe('CategoriesToolbar', () => {
   const categoryModels = [
