@@ -1502,10 +1502,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@integreat-app/react-sticky-headroom@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.1.0.tgz#805ba623022b011c788def42409f01ec24a59dde"
-  integrity sha512-PvQBFB6jcVJVB7BcehlO9Ci5KGMntinu7TKM7RY1yENWb1B+SxxuMLQrts2LPkMR74ETV8FRMXVIZnWl5x7eiA==
+"@integreat-app/react-sticky-headroom@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-1.2.0.tgz#d873156ab7f7641e05a29772a3b1a6233b2441a8"
+  integrity sha512-w+V52gwegJZ5MT1pPjDKXZsiQ8IQrMVI78hPUFSY/tem/hnLlTXQ2GwsOdv8NFuF8EKidlPOq1t7shCgBB0XTA==
 
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
