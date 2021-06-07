@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, LOCAL_NEWS_TYPE } from 'api-client'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import LocationToolbar from '../../components/LocationToolbar'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import { CityModel, LanguageModel, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const LocalNewsPage = ({ match, cityModel, location }: PropsType) => {
+const SprungbrettOfferPage = ({ cityModel, match, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
+
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
   )
@@ -25,12 +26,12 @@ const LocalNewsPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={LOCAL_NEWS_TYPE}
+      routeType={SPRUNGBRETT_OFFER_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>LocalNewsPage</div>
+      <div>SprungbrettOfferPage</div>
     </LocationLayout>
   )
 }
 
-export default LocalNewsPage
+export default SprungbrettOfferPage

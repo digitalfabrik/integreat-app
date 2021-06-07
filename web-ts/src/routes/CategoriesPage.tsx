@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import { CATEGORIES_ROUTE, CityModel, LanguageModel } from '../../../../api-client'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import { CATEGORIES_ROUTE, CityModel, LanguageModel } from 'api-client'
 
 type PropsType = {
   cities: Array<CityModel>

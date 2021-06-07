@@ -1,7 +1,7 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { CityModel, LanguageModel, DISCLAIMER_ROUTE } from 'api-client'
-import LocationLayout from '../../components/LocationLayout'
+import LocationLayout from '../components/LocationLayout'
 
 type PropsType = {
   cities: Array<CityModel>

@@ -1,17 +1,17 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, POIS_ROUTE } from 'api-client'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import LocationToolbar from '../../components/LocationToolbar'
+import { CityModel, LanguageModel, TU_NEWS_TYPE } from 'api-client'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; poiId?: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
 
-const PoisPage = ({ match, cityModel, location }: PropsType) => {
+const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
   const { languageCode } = match.params
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
@@ -25,12 +25,12 @@ const PoisPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={POIS_ROUTE}
+      routeType={TU_NEWS_TYPE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>PoisPage</div>
+      <div>TuNewsPage</div>
     </LocationLayout>
   )
 }
 
-export default PoisPage
+export default TuNewsPage
