@@ -6,7 +6,7 @@ import FilterableCitySelector from '../FilterableCitySelector'
 import { ThemeProvider } from 'styled-components'
 import { fireEvent } from '@testing-library/react'
 
-describe('FilterableFilterableCitySelector', () => {
+describe('FilterableCitySelector', () => {
   const cities = new CityModelBuilder(5).build()
 
   it('should show only live cities', () => {
