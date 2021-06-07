@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './routes/App'
+import App from './App'
 import { hot } from 'react-hot-loader'
 import buildConfig from './constants/buildConfig'
 

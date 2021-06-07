@@ -5,7 +5,7 @@ import Footer from './Footer'
 import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes/RootSwitcher'
+import { RoutePatterns } from '../RootSwitcher'
 import { DISCLAIMER_ROUTE } from 'api-client'
 
 type PropsType = {

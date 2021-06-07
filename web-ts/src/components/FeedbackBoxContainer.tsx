@@ -16,7 +16,7 @@ import {
   POIS_ROUTE
 } from 'api-client'
 import FeedbackBox from './FeedbackBox'
-import { RouteType } from '../routes/RootSwitcher'
+import { RouteType } from '../RootSwitcher'
 import type { SendingStatusType } from './FeedbackModal'
 import { cmsApiBaseUrl } from '../constants/urls'
 
