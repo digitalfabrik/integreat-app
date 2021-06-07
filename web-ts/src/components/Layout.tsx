@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
-import PlatformContext  from '../contexts/PlatformContext'
+import PlatformContext from '../contexts/PlatformContext'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper = styled.div`
