@@ -7,7 +7,7 @@ import styled, { withTheme, type StyledComponent } from 'styled-components'
 import Highlighter from 'react-highlight-words'
 import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
 import Link from 'redux-first-router-link'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { ThemeType } from '../build-configs/ThemeType'
 import ContentMatcher from './ContentMatcher'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10

@@ -6,7 +6,7 @@ import moment from 'moment'
 import { CategoryEntry } from '../CategoryEntry'
 import { CategoryModel } from 'api-client'
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
-import { lightTheme } from '../../../../modules/theme/constants/theme'
+import { lightTheme } from '../../../../web/src/modules/theme/constants/theme'
 import normalizeSearchString from '../../../../modules/common/utils/normalizeSearchString'
 
 const category = new CategoryModel({

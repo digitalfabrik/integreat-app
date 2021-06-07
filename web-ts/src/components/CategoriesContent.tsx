@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { CategoriesMapModel, CategoryModel } from 'api-client'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
 import Page from '../../../modules/common/components/Page'
 import Tiles from '../../../modules/common/components/Tiles'
 import CategoryList from './CategoryList'

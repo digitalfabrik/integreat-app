@@ -6,10 +6,10 @@ import Caption from '../../../modules/common/components/Caption'
 import CategoryEntry from './CategoryEntry'
 import { CategoryModel } from 'api-client'
 import styled, { type StyledComponent } from 'styled-components'
-import helpers from '../../../modules/theme/constants/helpers'
+import helpers from '../../../web/src/modules/theme/constants/helpers'
 import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import type { ThemeType } from 'build-configs/ThemeType'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const List: StyledComponent<{||}, ThemeType, *> = styled.div`
   & a {
