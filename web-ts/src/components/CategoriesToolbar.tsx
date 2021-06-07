@@ -8,7 +8,7 @@ import { FeedbackRatingType } from './FeedbackToolbarItem'
 import { useTranslation } from 'react-i18next'
 
 type PropsType = {
-  category: CategoryModel
+  category?: CategoryModel
   cityCode: string
   languageCode: string
   openFeedbackModal: (rating: FeedbackRatingType) => void
@@ -19,7 +19,7 @@ const CategoriesToolbar = (props: PropsType): ReactElement => {
   const { category, openFeedbackModal, viewportSmall, cityCode, languageCode } = props
   const { t } = useTranslation('categories')
 
-  const pdfUrl = category.isRoot()
+  const pdfUrl = !category || category.isRoot()
     ? `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
     : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
