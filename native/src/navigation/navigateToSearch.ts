@@ -4,10 +4,7 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { SEARCH_ROUTE } from 'api-client/src/routes'
 
 const navigateToSearch = <T extends RoutesType>({
-  dispatch,
-  navigation,
-  cityCode,
-  languageCode
+  navigation
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
