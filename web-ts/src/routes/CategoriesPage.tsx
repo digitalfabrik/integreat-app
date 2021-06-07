@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
@@ -9,7 +9,7 @@ import {
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
   LanguageModel,
-  NotFoundError,
+  NotFoundError, Payload,
   useLoadFromEndpoint
 } from 'api-client'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -22,10 +22,7 @@ import CategoriesContent from '../components/CategoriesContent'
 import DateFormatterContext from '../context/DateFormatterContext'
 import CategoriesToolbar from '../components/CategoriesToolbar'
 import { cmsApiBaseUrl } from '../constants/urls'
-import Layout from '../components/Layout'
 import LoadingSpinner from '../components/LoadingSpinner'
-import GeneralHeader from '../components/GeneralHeader'
-import GeneralFooter from '../components/GeneralFooter'
 import moment from 'moment'
 
 const getBreadcrumb = (category: CategoryModel, cityName: string) => {
@@ -49,6 +46,7 @@ type PropsType = {
 } & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
 
 const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement => {
+  const previousPathname = useRef<string | null | undefined>(null)
   const { cityCode, languageCode, categoryId } = match.params
   const { pathname } = location
   const { t } = useTranslation('layout')
@@ -56,29 +54,38 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
   const uiDirection = 'ltr'
   const viewportSmall = false
 
-  const requestCategories = useCallback(async () => {
+  useEffect(() => {
+    // Hooks are only run after render, therefore if the user navigates, the old data is still valid for a moment.
+    // To prevent flickering, render a loading spinner if the pathname has changed since the last render.
+    previousPathname.current = pathname
+  }, [pathname])
+
+  const requestChildren = useCallback(async () => {
     return createCategoryChildrenEndpoint(cmsApiBaseUrl).request({
       city: cityCode,
       language: languageCode,
-      depth: 2,
+      // We show tiles for the root category so only first level children are needed
+      depth: categoryId ? 2 : 1,
       cityContentPath: pathname
     })
-  }, [cityCode, languageCode, pathname])
-  const { data: categories, loading: categoriesLoading, error: categoriesError } = useLoadFromEndpoint<CategoryModel[]>(
-    requestCategories
-  )
+  }, [cityCode, languageCode, pathname, categoryId])
+  const { data: categories, loading: categoriesLoading, error: categoriesError } = useLoadFromEndpoint(requestChildren)
 
   const requestParents = useCallback(async () => {
+    if (!categoryId) {
+      // The endpoint does not work for the root category, just return an empty array
+      return new Payload(false, null, [])
+    }
     return createCategoryParentsEndpoint(cmsApiBaseUrl).request({
       city: cityCode,
       language: languageCode,
       cityContentPath: pathname
     })
-  }, [cityCode, languageCode, pathname])
-  const { data, loading: parentsLoading, error: parentsError } = useLoadFromEndpoint<CategoryModel[]>(requestParents)
-  const parents = categoryId ? data : []
+  }, [cityCode, languageCode, pathname, categoryId])
+  const { data: parents, loading: parentsLoading, error: parentsError } = useLoadFromEndpoint(requestParents)
 
   if (!categoryId && categories) {
+    // The root category is not delivered via our endpoints
     categories.push(
       new CategoryModel({
         root: true,
@@ -97,31 +104,6 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
 
   const category = categories?.find(it => it.path === pathname)
 
-  if (categoriesLoading || parentsLoading) {
-    return (
-      <Layout>
-        <LoadingSpinner />
-      </Layout>
-    )
-  }
-
-  if (!category || !parents || !categories) {
-    const error = categoriesError || parentsError || new NotFoundError({
-      type: 'category',
-      id: pathname,
-      city: cityCode,
-      language: languageCode
-    })
-
-    return (
-      <Layout
-        header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
-        footer={<GeneralFooter language={languageCode} />}>
-        <FailureSwitcher error={error} />
-      </Layout>
-    )
-  }
-
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => {
     return (
       <CategoriesToolbar
@@ -134,19 +116,44 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
     )
   }
 
-  const ancestorBreadcrumbs = parents.map(categoryModel => getBreadcrumb(categoryModel, cityModel.name))
+  const locationLayoutParams = {
+    cityModel,
+    viewportSmall,
+    feedbackTargetInformation: null,
+    languageChangePaths: null,
+    route: CATEGORIES_ROUTE,
+    languageCode,
+    pathname,
+    toolbar
+  }
+
+  if (categoriesLoading || parentsLoading || pathname !== previousPathname.current) {
+    return (
+      <LocationLayout isLoading {...locationLayoutParams}>
+        <LoadingSpinner />
+      </LocationLayout>
+    )
+  }
+
+  if (!category || !parents || !categories) {
+    const error = categoriesError || parentsError || new NotFoundError({
+      type: 'category',
+      id: pathname,
+      city: cityCode,
+      language: languageCode
+    })
+
+    return (
+      <LocationLayout isLoading={false} {...locationLayoutParams}>
+        <FailureSwitcher error={error} />
+      </LocationLayout>
+    )
+  }
+
+  const ancestorBreadcrumbs = parents.reverse().map(categoryModel => getBreadcrumb(categoryModel, cityModel.name))
 
   return (
-    <LocationLayout
-      cityModel={cityModel}
-      toolbar={toolbar}
-      viewportSmall={false}
-      feedbackTargetInformation={null}
-      languageChangePaths={null}
-      isLoading={false}
-      route={CATEGORIES_ROUTE}
-      languageCode={languageCode}
-      pathname={pathname}>
+    <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Breadcrumbs
         ancestorBreadcrumbs={ancestorBreadcrumbs}
         currentBreadcrumb={getBreadcrumb(category, cityModel.name)}
