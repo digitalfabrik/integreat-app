@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import { EVENTS_ROUTE, CityModel, LanguageModel } from 'api-client'
-import LocationToolbar from '../../components/LocationToolbar'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import { CityModel, LanguageModel, OFFERS_ROUTE } from 'api-client'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; eventId?: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const EventsPage = ({ cityModel, match }: PropsType): ReactElement => {
+const OffersPage = ({ cityModel, match, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
@@ -26,12 +26,12 @@ const EventsPage = ({ cityModel, match }: PropsType): ReactElement => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={EVENTS_ROUTE}
+      routeType={OFFERS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>EventsPage</div>
+      <div>OffersPage</div>
     </LocationLayout>
   )
 }
 
-export default EventsPage
+export default OffersPage

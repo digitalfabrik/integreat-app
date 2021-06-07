@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NotFoundError, OFFERS_ROUTE, POIS_ROUTE } from 'api-client'
 import Failure from './Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import { RoutePatterns } from '../routes/RootSwitcher'
+import { RoutePatterns } from '../RootSwitcher'
 import { generatePath } from 'react-router-dom'
 
 type PropsType = {
