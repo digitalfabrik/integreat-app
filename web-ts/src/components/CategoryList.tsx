@@ -1,27 +1,23 @@
-// @flow
-
 import React from 'react'
-import RemoteContent from '../../../modules/common/components/RemoteContent'
-import Caption from '../../../modules/common/components/Caption'
+import RemoteContent from './RemoteContent'
+import Caption from './Caption'
 import CategoryEntry from './CategoryEntry'
-import { CategoryModel } from 'api-client'
-import styled, { type StyledComponent } from 'styled-components'
-import helpers from '../../../web/src/modules/theme/constants/helpers'
-import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
-import DateFormatter from '../api-client/src/i18n/DateFormatter'
-import type { ThemeType } from '../build-configs/ThemeType'
+import { CategoryModel, DateFormatter } from 'api-client'
+import styled from 'styled-components'
+import { helpers } from '../constants/theme'
+import LastUpdateInfo from './LastUpdateInfo'
 
-const List: StyledComponent<{||}, ThemeType, *> = styled.div`
+const List = styled.div`
   & a {
     ${helpers.removeLinkHighlighting}
   }
 `
 
-const Centering: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Centering = styled.div`
   text-align: center;
 `
 
-const CategoryIcon: StyledComponent<{||}, ThemeType, *> = styled.img`
+const CategoryIcon = styled.img`
   width: 150px;
   height: 150px;
   flex-shrink: 0;
@@ -29,14 +25,14 @@ const CategoryIcon: StyledComponent<{||}, ThemeType, *> = styled.img`
   object-fit: contain;
 `
 
-type PropsType = {|
-  categories: Array<{| model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> |}>,
+type PropsType = {
+  categories: Array<{ model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> }>,
   /** A search query to highlight in the categories titles */
   query?: string,
   formatter?: DateFormatter,
   category?: CategoryModel,
-  onInternalLinkClick: string => void
-|}
+  onInternalLinkClick: (link: string) => void
+}
 
 /**
  * Displays a ContentList which is a list of categories, a caption and a thumbnail

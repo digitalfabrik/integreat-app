@@ -1,6 +1,4 @@
-// @flow
-
-import normalizeSearchString from '../../../modules/common/utils/normalizeSearchString'
+import normalizeSearchString from '../services/normalizeSearchString'
 
 class ContentMatcher {
   getWords(content: string): Array<string> {
@@ -21,7 +19,7 @@ class ContentMatcher {
     return wordsAfterMatch.slice(0, numWords + 1).join(' ')
   }
 
-  getMatchedContent(query: ?string, content: ?string, numWordsSurrounding: number): ?string {
+  getMatchedContent(query: string | undefined, content: string, numWordsSurrounding: number): string | null {
     if (!query || !query.length || !content) {
       return null
     }
