@@ -6,7 +6,7 @@ describe('pois', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const pois = createPOIsEndpoint(baseUrl)
 
-  const createPoi = id => ({
+  const createPoi = (id: number) => ({
     id,
     path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
     title: 'Asylploitischer Frühschoppen',
