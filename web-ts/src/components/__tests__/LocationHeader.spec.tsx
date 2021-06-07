@@ -51,7 +51,7 @@ describe.skip('LocationHeader', () => {
 
   const languageCode = 'de'
   const pathname = '/augsburg/de/willkommen'
-  const onStickyTopChanged = (value: number) => {}
+  const onStickyTopChanged = () => {}
 
   type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {

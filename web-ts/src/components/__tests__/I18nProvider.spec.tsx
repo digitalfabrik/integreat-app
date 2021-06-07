@@ -29,7 +29,7 @@ describe('I18nProvider', () => {
     act(() => {
       render(
         <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
     })
@@ -43,7 +43,7 @@ describe('I18nProvider', () => {
     act(() => {
       render(
         <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
     })
@@ -112,7 +112,7 @@ describe('I18nProvider', () => {
     act(() => {
       render(
         <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
     })
@@ -125,7 +125,7 @@ describe('I18nProvider', () => {
     act(() => {
       render(
         <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
         </I18nProvider>
       )
     })
@@ -138,7 +138,7 @@ describe('I18nProvider', () => {
     act(() => {
       render(
         <I18nProvider contentLanguage={undefined}>
-          <Translation>{(t, { i18n }) => <p>{t('dashboard:localInformation')}</p>}</Translation>
+          <Translation>{t => <p>{t('dashboard:localInformation')}</p>}</Translation>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
         </I18nProvider>
       )

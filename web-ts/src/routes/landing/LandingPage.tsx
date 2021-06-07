@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LandingPage = (props: void) => {
+const LandingPage = () => {
   return <div>LandingPage</div>
 }
 
