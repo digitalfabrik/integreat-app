@@ -27,4 +27,4 @@ Refer to the documentation in [StateType](../src/modules/app/StateType.js).
 
 ## Actions
 
-Refer to the documentation in [StoreActionType](../src/modules/app/StoreActionType.js).
+Refer to the documentation in [StoreActionType](../src/modules/redux/StoreActionType.js).

@@ -24,7 +24,7 @@ import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes/RootSwitcher'
+import { RoutePatterns } from '../RootSwitcher'
 
 type PropsType = {
   cityModel: CityModel
@@ -40,6 +40,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
+  // @ts-ignore TODO IGAPP-668 Wrong type for * parameters
   const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
   const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
   const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)
