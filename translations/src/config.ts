@@ -5,6 +5,7 @@ type FontType =
   | 'varelaRound'
   | 'noto-sans-sc' // https://www.google.com/get/noto/help/cjk/
   | 'noto-sans-georgian'
+export type UiDirectionType = 'rtl' | 'ltr'
 type LanguageType = {
   rtl: boolean
   additionalFont?: FontType
@@ -176,6 +177,17 @@ class Config {
     }
 
     return language.rtl
+  }
+
+  getScriptDirection(languageTag: string): UiDirectionType {
+    const language = this.getSupportedLanguage(languageTag)
+
+    if (!language) {
+      throw new Error(`Unable to determine whether ${languageTag} uses a RTL or LTR script. 
+                        Only supported languages have a defined direction.`)
+    }
+
+    return language.rtl ? 'rtl' : 'ltr'
   }
 
   getAdditionalFont(languageTag: string): FontType | null | undefined {
