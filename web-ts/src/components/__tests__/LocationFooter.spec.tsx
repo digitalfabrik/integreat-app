@@ -6,7 +6,6 @@ describe('LocationFooter', () => {
   const t = key => key
 
   it('should match snapshot', () => {
-    const onClick = () => {}
-    expect(shallow(<LocationFooter city='augsburg' language='de' onClick={onClick} t={t} />)).toMatchSnapshot()
+    expect(shallow(<LocationFooter city='augsburg' language='de' t={t} />)).toMatchSnapshot()
   })
 })
