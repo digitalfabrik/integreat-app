@@ -20,7 +20,7 @@ const SearchPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={SEARCH_ROUTE}
+      route={SEARCH_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>SearchPage</div>
