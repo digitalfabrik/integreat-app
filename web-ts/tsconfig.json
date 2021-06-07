@@ -3,11 +3,17 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["dom", "dom.iterable", "ES5", "ES6"],
     "noEmit": false,
     "outDir": "dist",
+    "paths": {
+      "api-client": ["../api-client"],
+      "build-configs": ["../build-configs"],
+      "translations": ["../translations"]
+    },
     "skipLibCheck": true,
     "target": "ES2019",
     "typeRoots": ["./src/@types", "./node_modules/@types"],

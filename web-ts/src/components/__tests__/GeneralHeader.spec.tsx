@@ -6,7 +6,7 @@ jest.mock('react-i18next')
 
 describe('GeneralHeader', () => {
   it('should match snapshot', () => {
-    const component = shallow(<GeneralHeader viewportSmall />).dive()
+    const component = shallow(<GeneralHeader languageCode='de' viewportSmall />).dive()
     expect(component).toMatchSnapshot()
   })
 })

@@ -2,24 +2,21 @@ import React, { ReactNode } from 'react'
 import Layout from '../components/Layout'
 import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
-import { CategoriesMapModel, CityModel } from 'api-client'
+import { CityModel, SEARCH_ROUTE } from 'api-client'
 import FeedbackModal from './FeedbackModal'
-import { RouteType } from '../routes/App'
+import { RouteType } from '../RootSwitcher'
 
 export type FeedbackRatingType = 'up' | 'down'
 
 type PropsType = {
-  cities: Array<CityModel> | null
-  categories: CategoriesMapModel | null
+  toolbar?: (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
   viewportSmall: boolean
   children?: ReactNode
-  toggleDarkMode: () => void
-  darkMode: boolean
   routeType: RouteType
   feedbackTargetInformation: { path?: string; alias?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
-  cityCode: string
+  cityModel: CityModel
   languageCode: string
   pathname: string
 }
@@ -27,42 +24,25 @@ type PropsType = {
 type LocalStateType = {
   asideStickyTop: number
   feedbackModalRating: FeedbackRatingType | null
-  footerClicked: number
 }
-
-const DARK_THEME_CLICK_COUNT = 5
 
 export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   constructor(props: PropsType) {
     super(props)
-    this.state = { asideStickyTop: 0, feedbackModalRating: null, footerClicked: 0 }
+    this.state = { asideStickyTop: 0, feedbackModalRating: null }
   }
 
   handleStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
-
-  handleFooterClicked = () => {
-    if (this.state.footerClicked >= DARK_THEME_CLICK_COUNT - 1) {
-      this.props.toggleDarkMode()
-    }
-    this.setState(prevState => {
-      return { ...prevState, footerClicked: prevState.footerClicked + 1 }
-    })
-  }
-
-  getCurrentCity(): CityModel | null {
-    const { cityCode, cities } = this.props
-    return cities?.find(_city => _city.code === cityCode) ?? null
-  }
 
   renderFeedbackModal = (): React.ReactNode => {
     if (!this.state.feedbackModalRating) {
       return null
     }
 
-    const { cityCode, languageCode, routeType, feedbackTargetInformation } = this.props
+    const { cityModel, languageCode, routeType, feedbackTargetInformation } = this.props
     return (
       <FeedbackModal
-        cityCode={cityCode}
+        cityCode={cityModel.code}
         language={languageCode}
         routeType={routeType}
         feedbackRating={this.state.feedbackModalRating}
@@ -77,45 +57,16 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): ReactNode => {
-    // TODO Check right routes
-    // const { viewportSmall, categories } = this.props
-    // const type = location.type
-    // const feedbackRoutes = [
-    //   OFFERS_ROUTE,
-    //   EVENTS_ROUTE,
-    //   LOCAL_NEWS_ROUTE,
-    //   TUNEWS_ROUTE,
-    //   DISCLAIMER_ROUTE,
-    //   WOHNEN_ROUTE,
-    //   SPRUNGBRETT_ROUTE,
-    //   POIS_ROUTE
-    // ]
-    // if (type === CATEGORIES_ROUTE) {
-    //   return (
-    //     <CategoriesToolbar
-    //       categories={categories}
-    //       location={location}
-    //       openFeedbackModal={this.openFeedbackModal}
-    //       viewportSmall={viewportSmall}
-    //     />
-    //   )
-    // } else if (feedbackRoutes.includes(type)) {
-    //   return <LocationToolbar openFeedbackModal={this.openFeedbackModal} viewportSmall={viewportSmall} />
-    // } else {
-    //   return null
-    // }
+    const { toolbar } = this.props
+    if (toolbar) {
+      return toolbar(this.openFeedbackModal)
+    }
     return null
   }
 
   render() {
-    const { viewportSmall, children, cityCode, languageCode, darkMode, languageChangePaths, isLoading } = this.props
-    const { pathname } = this.props
-
-    const cityModel = this.getCurrentCity()
-
-    if (!cityModel) {
-      return null
-    }
+    const { viewportSmall, children, languageCode, languageChangePaths, isLoading } = this.props
+    const { pathname, routeType, cityModel } = this.props
 
     return (
       <Layout
@@ -130,14 +81,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
             pathname={pathname}
           />
         }
-        footer={
-          !isLoading ? (
-            <LocationFooter onClick={this.handleFooterClicked} city={cityCode} language={languageCode} />
-          ) : null
-        }
-        toolbar={this.renderToolbar()}
-        // modal={type !== SEARCH_ROUTE && this.renderFeedbackModal()}
-        darkMode={darkMode}>
+        footer={!isLoading ? <LocationFooter city={cityModel.code} language={languageCode} /> : null}
+        modal={routeType !== SEARCH_ROUTE && this.renderFeedbackModal()}
+        toolbar={this.renderToolbar()}>
         {children}
       </Layout>
     )

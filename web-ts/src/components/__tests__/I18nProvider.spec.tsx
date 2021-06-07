@@ -107,21 +107,6 @@ describe('I18nProvider', () => {
     expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/lateef/lateef.css')
   })
 
-  it('should dispatch action for setting ui direction', async () => {
-    // TODO Remove uiDirection from redux state
-    // act(() => {
-    //   render(
-    //     <I18nProvider contentLanguage={undefined}>Hello</I18nProvider>
-    //   )
-    // })
-    // expect(store.getActions()).toEqual([
-    //   {
-    //     payload: 'ltr',
-    //     type: 'SET_UI_DIRECTION'
-    //   }
-    // ])
-  })
-
   it('should use zh-CN if any chinese variant is chosen', async () => {
     mockDetect.mockReturnValue(['zh-CN'])
     act(() => {
