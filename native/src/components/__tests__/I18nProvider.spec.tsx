@@ -111,7 +111,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+          <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
         </I18nProvider>
       </Provider>
     )
@@ -124,7 +124,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+          <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
         </I18nProvider>
       </Provider>
     )
@@ -210,7 +210,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+          <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
         </I18nProvider>
       </Provider>
     )
@@ -224,7 +224,7 @@ describe('I18nProvider', () => {
     const { getByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+          <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
         </I18nProvider>
       </Provider>
     )
@@ -238,7 +238,7 @@ describe('I18nProvider', () => {
     const { getByText, queryByText } = render(
       <Provider store={store}>
         <I18nProvider>
-          <Translation>{(t, { i18n }) => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
+          <Translation>{t => <Text>{t('dashboard:localInformation')}</Text>}</Translation>
           <Translation>{(t, { i18n }) => <Text>{i18n.languages[0]}</Text>}</Translation>
         </I18nProvider>
       </Provider>

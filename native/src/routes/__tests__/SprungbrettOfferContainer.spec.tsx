@@ -166,7 +166,7 @@ describe('SprungbrettOfferContainer', () => {
       refresh
     }))
 
-    const { queryAllByText, getByText } = render(
+    const { getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>

@@ -48,7 +48,7 @@ describe('Dashboard', () => {
       offersEnabled: offers,
       pushNotificationsEnabled: local,
       tunewsEnabled: tunews,
-      poisEnabled: true,
+      poisEnabled: pois,
       sortingName: 'Augsburg',
       prefix: 'Stadt',
       latitude: 48.369696,
