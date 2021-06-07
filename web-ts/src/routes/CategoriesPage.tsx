@@ -120,7 +120,7 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
   }
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(CATEGORIES_ROUTE, { cityCode, languageCode })
+    const rootPath = createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code })
     return {
       path: category && !category.isRoot() ? category.availableLanguages.get(code) || null : rootPath,
       name,
