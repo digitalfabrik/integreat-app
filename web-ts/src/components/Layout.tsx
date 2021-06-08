@@ -70,6 +70,7 @@ const Main = styled.main`
 `
 
 const Aside = styled.aside<{ asideStickyTop: number }>`
+  position: sticky;
   top: ${props => props.asideStickyTop}px;
   display: inline-block;
   width: ${dimensions.toolbarWidth}px;
