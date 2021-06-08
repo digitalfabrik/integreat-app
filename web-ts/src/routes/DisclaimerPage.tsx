@@ -1,31 +1,21 @@
-import React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, DISCLAIMER_ROUTE } from 'api-client'
-import LocationLayout from '../components/LocationLayout'
-
+import * as React from "react";
+import { useContext } from "react";
+import { PageModel } from "api-client";
+import Page from "../../../modules/common/components/Page";
+import { push } from "redux-first-router";
+import DateFormatterContext from "../../../modules/i18n/context/DateFormatterContext";
 type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+  disclaimer: PageModel;
+};
 
-const DisclaimerPage = ({ match, cityModel, location }: PropsType) => {
-  const { languageCode } = match.params
+/**
+ * Displays the locations disclaimer matching the route /<location>/<language>/disclaimer
+ */
+const DisclaimerPage = ({
+  disclaimer
+}: PropsType) => {
+  const formatter = useContext(DateFormatterContext);
+  return <Page lastUpdate={disclaimer.lastUpdate} title={disclaimer.title} content={disclaimer.content} formatter={formatter} onInternalLinkClick={push} />;
+};
 
-  return (
-    <LocationLayout
-      cityModel={cityModel}
-      viewportSmall={false}
-      feedbackTargetInformation={null}
-      languageChangePaths={null}
-      isLoading={false}
-      route={DISCLAIMER_ROUTE}
-      languageCode={languageCode}
-      pathname={location.pathname}>
-      <div>DisclaimerPage</div>
-    </LocationLayout>
-  )
-}
-
-export default DisclaimerPage
+export default DisclaimerPage;
