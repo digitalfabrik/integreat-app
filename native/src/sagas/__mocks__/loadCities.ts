@@ -3,7 +3,8 @@ import { call, StrictEffect } from 'redux-saga/effects'
 import { DataContainer } from '../../services/DataContainer'
 
 function* loadCities(
-  dataContainer: DataContainer
+  dataContainer: DataContainer,
+  _unusedForceRefresh: string
 ): Generator<StrictEffect, Array<CityModel>, boolean | Array<CityModel>> {
   const citiesAvailable = (yield call(() => dataContainer.citiesAvailable())) as boolean
 
