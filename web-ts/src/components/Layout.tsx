@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 
