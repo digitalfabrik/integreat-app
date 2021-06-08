@@ -2,6 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "noImplicitAny": true,
     "outDir": "dist",
     "types": [
       "jest",

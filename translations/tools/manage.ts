@@ -6,19 +6,29 @@ import stringify from 'csv-stringify'
 import parse from 'csv-parse/lib/sync'
 import config from '../src/config'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
+import { KeyValueType } from '../src/types'
+import { TranslationsType } from '../src'
 
 const { unflatten } = flat
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
-const mapStringValuesDeep = (obj, fn) =>
+type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj?: KeyValueType) => string
+const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
   mapValues(obj, (val, key) => (!isString(val) ? mapStringValuesDeep(val, fn) : fn(val, key, obj)))
 
-const flattenModules = modules => {
+const flattenModules = (modules: KeyValueType): Record<string, string> => {
   return flat(modules)
 }
 
-const writePairs = (toPath, sourceLanguagePairs, pairs, name) => {
+type LanguagePair = [string, string]
+
+const writePairs = (
+  toPath: string,
+  sourceLanguagePairs: LanguagePair[],
+  pairs: LanguagePair[],
+  name: string
+): void => {
   const output = fs.createWriteStream(`${toPath}/${name}.csv`)
   output.on('close', () => {
     console.log(`Successfully written ${name}.csv.`)
@@ -26,15 +36,21 @@ const writePairs = (toPath, sourceLanguagePairs, pairs, name) => {
   output.on('error', e => {
     console.log(`Failed to write ${name}.csv ${e}`)
   })
-  const withSourceLanguagePairs = zip(sourceLanguagePairs, pairs)
-    // @ts-ignore
-    .map(([[sourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation])
+  const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
+  const withSourceLanguagePairs = zippedLanguagePairs.map(([[sourceKey, sourceTranslation], [key, translation]]) => [
+    key,
+    sourceTranslation,
+    translation
+  ])
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
 
 const EMPTY_MODULE = {}
 
-const getModulesByLanguage = (keyModuleArray, language) => {
+type KeyModuleType = [string, Record<string, KeyValueType>]
+type ModuleType = [string, KeyValueType]
+
+const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] => {
   return keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
 }
 
@@ -45,7 +61,7 @@ const getModulesByLanguage = (keyModuleArray, language) => {
  * @param moduleArray The array of modules (containing all languages) with its keys
  * @returns {*}
  */
-const createSkeleton = (language, moduleArray) => {
+const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] => {
   return getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
     if (module === EMPTY_MODULE) {
       throw new Error(`Module ${moduleKey} is missing in source language!`)
@@ -55,9 +71,13 @@ const createSkeleton = (language, moduleArray) => {
   })
 }
 
-const mergeByLanguageModule = (byLanguageModule, skeleton, sourceLanguage) => {
-  // @ts-ignore
-  return zip(skeleton, byLanguageModule).map(([[skModuleKey, skModule], [moduleKey, module]]) => {
+const mergeByLanguageModule = (
+  byLanguageModule: ModuleType[],
+  skeleton: ModuleType[],
+  sourceLanguage: string
+): ModuleType[] => {
+  const zippedModuleArray = zip(skeleton, byLanguageModule) as [ModuleType, ModuleType][]
+  return zippedModuleArray.map(([[skModuleKey, skModule], [moduleKey, module]]) => {
     const diff = without(Object.keys(flat(module)), ...Object.keys(flat(skModule)))
 
     if (!isEmpty(diff)) {
@@ -69,10 +89,15 @@ const mergeByLanguageModule = (byLanguageModule, skeleton, sourceLanguage) => {
   })
 }
 
-const writeCsvFromJson = (json, toPath, sourceLanguage, supportedLanguages) => {
+const writeCsvFromJson = (
+  json: TranslationsType,
+  toPath: string,
+  sourceLanguage: string,
+  supportedLanguages: string[]
+) => {
   const moduleArray = sortBy(toPairs(json), ([moduleKey, module]) => moduleKey) // Sort by module key
 
-  const byLanguageModuleArray = fromPairs(
+  const byLanguageModuleArray = fromPairs<ModuleType[]>(
     supportedLanguages
       .filter(language => language !== sourceLanguage) // source language is not a target language
       .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
@@ -84,21 +109,19 @@ const writeCsvFromJson = (json, toPath, sourceLanguage, supportedLanguages) => {
   const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
   const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
   Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>
-    // @ts-ignore
     writePairs(toPath, toPairs(flattenSourceLanguage), toPairs(modules), languageKey)
   )
-  // @ts-ignore
   console.log(`Keys in source language ${sourceLanguage}: ${Object.keys(flattenSourceLanguage).length}`)
 }
 
-const loadModules = (csvFile, csvColumn) => {
+const loadModules = (csvFile: string, csvColumn: string): Record<string, KeyValueType> => {
   // .trim() is needed to strip the BOM
   const inputString = fs
     .readFileSync(csvFile, {
       encoding: 'utf8'
     })
     .trim()
-  const records = parse(inputString, {
+  const records: Record<string, string>[] = parse(inputString, {
     columns: true,
     skip_empty_lines: true
   })
@@ -108,7 +131,7 @@ const loadModules = (csvFile, csvColumn) => {
   return unflatten(flattened)
 }
 
-const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
+const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: string) => {
   fs.readdir(translations, (err, files) => {
     if (err) {
       throw err
@@ -144,7 +167,6 @@ const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
     // Sort by language key, but sourceLanguage should be first
     const languageKeys = [sourceLanguage, ...Object.keys(byLanguageModules).sort()]
     // Sort by module key
-    // @ts-ignore
     const moduleKeys = Object.keys(sourceModules).sort()
     const json = fromPairs(
       moduleKeys.map(moduleKey => [
@@ -164,10 +186,10 @@ const writeJsonFromCsv = (translations, toPath, sourceLanguage) => {
 
 program
   .command('convert <translations_file> <toPath> <format>')
-  .action(function (fromPath, toPath, targetFormat, options) {
+  .action(function (fromPath: string, toPath: string, targetFormat: string) {
     const { supportedLanguages, sourceLanguage } = config
     const sourceFormat = path.extname(fromPath).replace('.', '') || 'csv'
-    const converter = {
+    const converter: Record<string, () => void> = {
       'json-csv': () => {
         if (!fs.existsSync(toPath)) {
           fs.mkdirSync(toPath)
@@ -190,8 +212,13 @@ program
     }
   })
 
-const writePlistTranslations = (appName, { translationsFile, destination }) => {
-  const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translationsFile, 'utf-8'))
+type ProcessTranslationsType = {
+  translations: string
+  destination: string
+}
+
+const writePlistTranslations = (appName: string, { translations, destination }: ProcessTranslationsType) => {
+  const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translations, 'utf-8'))
   const languageCodes = Object.keys(nativeTranslations)
   console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
   languageCodes.forEach(language => {
@@ -218,12 +245,9 @@ program
   .requiredOption('--translations <translations>', 'the path to the translations.json file')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .description('setup native translations for ios')
-  .action((appName, program) => {
+  .action((appName: string, program: ProcessTranslationsType) => {
     try {
-      writePlistTranslations(appName, {
-        translationsFile: program.translations,
-        destination: program.destination
-      })
+      writePlistTranslations(appName, program)
     } catch (e) {
       console.error(e)
       process.exit(1)
