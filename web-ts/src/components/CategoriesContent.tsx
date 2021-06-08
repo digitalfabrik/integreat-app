@@ -5,6 +5,7 @@ import Tiles from './Tiles'
 import CategoryList from './CategoryList'
 import TileModel from '../models/TileModel'
 import { TFunction } from 'i18next'
+import { useHistory } from 'react-router-dom'
 
 const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
   return categories.map(
@@ -34,6 +35,8 @@ type PropsType = {
  */
 const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsType) => {
   const children = categories.getChildren(categoryModel)
+  const history = useHistory()
+
   if (categories.isLeaf(categoryModel)) {
     // last level, our category is a simple page
     return (
@@ -42,8 +45,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
         formatter={formatter}
-        // TODO
-        onInternalLinkClick={() => {}}
+        onInternalLinkClick={history.push}
       />
     )
   } else if (categoryModel.isRoot()) {
@@ -58,8 +60,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         subCategories: categories.getChildren(model)
       }))}
       category={categoryModel}
-      // TODO
-      onInternalLinkClick={() => {}}
+      onInternalLinkClick={history.push}
       formatter={formatter}
     />
   )
