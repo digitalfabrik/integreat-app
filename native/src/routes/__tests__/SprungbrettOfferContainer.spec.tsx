@@ -7,6 +7,7 @@ import { render } from '@testing-library/react-native'
 import { ErrorCode } from '../../constants/ErrorCodes'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('react-i18next')
 jest.mock('../../services/openExternalUrl')
@@ -56,7 +57,7 @@ describe('SprungbrettOfferContainer', () => {
   const store = mockStore(state)
 
   const mockUseLoadFromEndpointOnce = mock => {
-    ;((useLoadFromEndpoint as unknown) as jest.Mock).mockImplementationOnce(mock)
+    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
   beforeEach(() => {

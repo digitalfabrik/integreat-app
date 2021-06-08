@@ -6,6 +6,7 @@ import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import NavigationTiles from '../../components/NavigationTiles'
 import buildConfig from '../../constants/buildConfig'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../components/NavigationTiles', () => {
   const Text = require('react-native').Text
@@ -64,7 +65,7 @@ describe('Dashboard', () => {
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
     const previous = buildConfig()
-    ;((buildConfig as unknown) as jest.Mock).mockImplementation(() => ({
+    mocked(buildConfig).mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pois, newsStream }
     }))

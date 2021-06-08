@@ -25,6 +25,7 @@ import buildConfig from '../../constants/buildConfig'
 import navigateToJpalTracking from '../navigateToJpalTracking'
 import sendTrackingSignal from '../../services/sendTrackingSignal'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())
@@ -55,7 +56,15 @@ const cityContentPath = `/${cityCode}/${languageCode}`
 const key = 'some-route-1234'
 const forceRefresh = false
 
-const mockBuildConfig = (buildConfig as unknown) as jest.Mock
+const mockedBuildConfig = mocked(buildConfig)
+
+const mockBuildConfig = (featureFlags: { jpalTracking?: boolean; newsStream?: boolean; pois?: boolean }) => {
+  const previous = buildConfig()
+  mockedBuildConfig.mockImplementation(() => ({
+    ...previous,
+    featureFlags: { ...previous.featureFlags, ...featureFlags }
+  }))
+}
 
 describe('createNavigate', () => {
   beforeEach(() => {
@@ -113,11 +122,9 @@ describe('createNavigate', () => {
   })
 
   it('should not call navigateToJpalTracking if it is disabled in the build config', () => {
-    mockBuildConfig.mockImplementationOnce(() => ({
-      featureFlags: {
-        jpalTracking: true
-      }
-    }))
+    mockBuildConfig({
+      jpalTracking: true
+    })
     navigateTo({
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456'
@@ -234,11 +241,9 @@ describe('createNavigate', () => {
   })
 
   it('should call navigateToNews for news route', () => {
-    mockBuildConfig.mockImplementationOnce(() => ({
-      featureFlags: {
-        newsStream: true
-      }
-    }))
+    mockBuildConfig({
+      newsStream: true
+    })
     navigateTo(
       {
         route: NEWS_ROUTE,
@@ -262,11 +267,9 @@ describe('createNavigate', () => {
   })
 
   it('should not call navigateToNews if it is not enabled in build config', () => {
-    mockBuildConfig.mockImplementationOnce(() => ({
-      featureFlags: {
-        newsStream: false
-      }
-    }))
+    mockBuildConfig({
+      newsStream: false
+    })
     navigateTo(
       {
         route: NEWS_ROUTE,
@@ -281,11 +284,9 @@ describe('createNavigate', () => {
   })
 
   it('should call navigateToPois for pois route', () => {
-    mockBuildConfig.mockImplementation(() => ({
-      featureFlags: {
-        pois: true
-      }
-    }))
+    mockBuildConfig({
+      pois: true
+    })
     navigateTo(
       {
         route: POIS_ROUTE,
@@ -317,11 +318,9 @@ describe('createNavigate', () => {
   })
 
   it('should not call navigateToPois if it is not enabled in build config', () => {
-    mockBuildConfig.mockImplementationOnce(() => ({
-      featureFlags: {
-        pois: false
-      }
-    }))
+    mockBuildConfig({
+      pois: false
+    })
     navigateTo(
       {
         route: POIS_ROUTE,
