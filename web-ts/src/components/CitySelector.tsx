@@ -56,9 +56,7 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
       (result: Array<ReactNode>, cities, key) => {
         result.push(
           <div key={key}>
-            <CityListParent stickyTop={stickyTop}>
-              {key}
-            </CityListParent>
+            <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
             {cities.map(city => (
               <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
             ))}
