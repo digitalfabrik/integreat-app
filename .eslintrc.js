@@ -46,7 +46,11 @@ module.exports = {
 
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/no-empty-function': 'warn',
-    '@typescript-eslint/no-unused-vars': ["error", { "argsIgnorePattern": "_", "ignoreRestSiblings": true }],
+    '@typescript-eslint/no-unused-vars': ['error', {
+      'argsIgnorePattern': '_(unused)?',
+      'varsIgnorePattern': '_(unused)?',
+      'ignoreRestSiblings': true
+    }],
     '@typescript-eslint/no-use-before-define': ['error'],
 
     'jest/consistent-test-it': 'error',
