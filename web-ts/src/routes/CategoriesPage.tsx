@@ -9,6 +9,7 @@ import {
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
   LanguageModel,
+  normalizePath,
   NotFoundError,
   Payload,
   useLoadFromEndpoint
@@ -51,7 +52,7 @@ type PropsType = {
 const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const previousPathname = useRef<string | null | undefined>(null)
   const { cityCode, languageCode, categoryId } = match.params
-  const { pathname } = location
+  const pathname = normalizePath(location.pathname)
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)
   const uiDirection = config.getScriptDirection(languageCode)
