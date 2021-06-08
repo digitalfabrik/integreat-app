@@ -1,7 +1,18 @@
-import React from 'react'
+import React from "react";
+import Caption from "../../../modules/common/components/Caption";
+import buildConfig from "../../../modules/app/constants/buildConfig";
+type PropsType = {};
 
-const MainDisclaimerPage = (props: void) => {
-  return <div>MainDisclaimerPage</div>
+class MainDisclaimerPage extends React.Component<PropsType> {
+  render() {
+    return <div>
+        <Caption title='Impressum und Datenschutz' />
+        <div dangerouslySetInnerHTML={{
+        __html: buildConfig().mainImprint
+      }} />
+      </div>;
+  }
+
 }
 
-export default MainDisclaimerPage
+export default MainDisclaimerPage;
