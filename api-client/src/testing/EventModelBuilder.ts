@@ -36,7 +36,7 @@ class EventModelBuilder {
   }
 
   buildResources(): Record<string, PageResourceCacheStateType> {
-    return this.buildAll().reduce((result, { path, resources }) => {
+    return this.buildAll().reduce<Record<string, PageResourceCacheStateType>>((result, { path, resources }) => {
       result[path] = resources
       return result
     }, {})
@@ -109,9 +109,9 @@ class EventModelBuilder {
             excerpt: 'excerpt',
             lastUpdate,
             content: `<h1>This is a sample event</h1>
-                    <img src="${resourceUrl1}"/>
+                    <img src='${resourceUrl1}'/>
                     <p>This is a sample event</p>
-                    <img src="${resourceUrl2}"/>`,
+                    <img src='${resourceUrl2}'/>`,
             thumbnail,
             featuredImage: null,
             hash: md5

@@ -1,8 +1,8 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, LOCAL_NEWS_TYPE } from 'api-client'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import LocationToolbar from '../../components/LocationToolbar'
+import { CityModel, LanguageModel, TU_NEWS_TYPE } from 'api-client'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -11,7 +11,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
 
-const LocalNewsPage = ({ match, cityModel, location }: PropsType) => {
+const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
   const { languageCode } = match.params
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
@@ -25,12 +25,12 @@ const LocalNewsPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={LOCAL_NEWS_TYPE}
+      route={TU_NEWS_TYPE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>LocalNewsPage</div>
+      <div>TuNewsPage</div>
     </LocationLayout>
   )
 }
 
-export default LocalNewsPage
+export default TuNewsPage

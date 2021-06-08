@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import { CATEGORIES_ROUTE, CityModel, LanguageModel } from '../../../../api-client'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import { CATEGORIES_ROUTE, CityModel, LanguageModel } from 'api-client'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -32,7 +32,7 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={CATEGORIES_ROUTE}
+      route={CATEGORIES_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>CategoriesPage</div>

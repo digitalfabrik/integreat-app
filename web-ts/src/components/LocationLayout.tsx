@@ -4,15 +4,16 @@ import LocationHeader from './LocationHeader'
 import LocationFooter from '../components/LocationFooter'
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 import FeedbackModal from './FeedbackModal'
-import { RouteType } from '../routes/RootSwitcher'
+import { RouteType } from '../routes'
 
 export type FeedbackRatingType = 'up' | 'down'
+export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
 type PropsType = {
-  toolbar?: (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
+  toolbar?: ToolbarPropType
   viewportSmall: boolean
   children?: ReactNode
-  routeType: RouteType
+  route: RouteType
   feedbackTargetInformation: { path?: string; alias?: string } | null
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
   isLoading: boolean
@@ -39,12 +40,12 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       return null
     }
 
-    const { cityModel, languageCode, routeType, feedbackTargetInformation } = this.props
+    const { cityModel, languageCode, route, feedbackTargetInformation } = this.props
     return (
       <FeedbackModal
         cityCode={cityModel.code}
         language={languageCode}
-        routeType={routeType}
+        route={route}
         feedbackRating={this.state.feedbackModalRating}
         closeFeedbackModal={this.closeFeedbackModal}
         {...feedbackTargetInformation}
@@ -65,8 +66,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   }
 
   render() {
-    const { viewportSmall, children, languageCode, languageChangePaths, isLoading } = this.props
-    const { pathname, routeType, cityModel } = this.props
+    const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route } = this.props
+    const { pathname, cityModel } = this.props
 
     return (
       <Layout
@@ -79,10 +80,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
             onStickyTopChanged={this.handleStickyTopChanged}
             languageCode={languageCode}
             pathname={pathname}
+            route={route}
           />
         }
         footer={!isLoading ? <LocationFooter city={cityModel.code} language={languageCode} /> : null}
-        modal={routeType !== SEARCH_ROUTE && this.renderFeedbackModal()}
+        modal={route !== SEARCH_ROUTE && this.renderFeedbackModal()}
         toolbar={this.renderToolbar()}>
         {children}
       </Layout>

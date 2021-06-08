@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, TU_NEWS_TYPE } from 'api-client'
-import LocationLayout, { FeedbackRatingType } from '../../components/LocationLayout'
-import LocationToolbar from '../../components/LocationToolbar'
+import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import { CityModel, LanguageModel, OFFERS_ROUTE } from 'api-client'
+import LocationToolbar from '../components/LocationToolbar'
 
 type PropsType = {
   cities: Array<CityModel>
   cityModel: CityModel
   languages: Array<LanguageModel>
   languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
+} & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
+const OffersPage = ({ cityModel, match, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
+
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
   )
@@ -25,12 +26,12 @@ const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={TU_NEWS_TYPE}
+      route={OFFERS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>TuNewsPage</div>
+      <div>OffersPage</div>
     </LocationLayout>
   )
 }
 
-export default TuNewsPage
+export default OffersPage
