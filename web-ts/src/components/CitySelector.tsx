@@ -1,13 +1,12 @@
-import React, { useContext, ReactNode, ReactElement } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import { transform, groupBy } from 'lodash'
 import { CityModel } from 'api-client'
 import CityEntry from './CityEntry'
 import styled from 'styled-components'
 import normalizeSearchString from '../services/normalizeSearchString'
-import PlatformContext from '../contexts/PlatformContext'
 
-const CityListParent = styled.div<{ positionStickyDisabled: boolean; stickyTop }>`
-  position: ${props => (props.positionStickyDisabled ? 'static' : 'sticky')};
+const CityListParent = styled.div<{ stickyTop: number }>`
+  position: sticky;
   top: ${props => props.stickyTop}px;
   height: 30px;
   margin-top: 10px;
@@ -25,8 +24,6 @@ type PropsType = {
 }
 
 const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType): ReactElement => {
-  const platform = useContext(PlatformContext)
-
   const filter = (): Array<CityModel> => {
     const normalizedFilter = normalizeSearchString(filterText)
 
@@ -59,7 +56,7 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
       (result: Array<ReactNode>, cities, key) => {
         result.push(
           <div key={key}>
-            <CityListParent positionStickyDisabled={platform.positionStickyDisabled} stickyTop={stickyTop}>
+            <CityListParent stickyTop={stickyTop}>
               {key}
             </CityListParent>
             {cities.map(city => (
