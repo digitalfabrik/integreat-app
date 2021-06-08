@@ -53,7 +53,7 @@ const Main = styled.main`
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 10px 30px;
   text-align: start;
   word-wrap: break-word;
 
