@@ -13,7 +13,7 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
-import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
+import NetInfo from '@react-native-community/netinfo'
 import DatabaseConnector from '../../services/DatabaseConnector'
 import mockDate from '../../testing/mockDate'
 import { createFetchMap } from '../../testing/builder/util'
@@ -315,14 +315,18 @@ describe('loadCityContent', () => {
   })
   it('should not fetch resources if connection type is cellular', async () => {
     const previous = mocked(NetInfo.fetch).getMockImplementation()
+    // @ts-ignore cannot import enum because it is mocked
     mocked(NetInfo.fetch).mockImplementation(async () => {
       return {
-        type: NetInfoStateType.other,
+        type: 'cellular',
         isConnected: true,
         isInternetReachable: true,
         details: {
-          isConnectionExpensive: false
-        }
+          isConnectionExpensive: false,
+          cellularGeneration: null,
+          carrier: null
+        },
+        isWifiEnabled: false
       }
     })
     const dataContainer = new DefaultDataContainer()
