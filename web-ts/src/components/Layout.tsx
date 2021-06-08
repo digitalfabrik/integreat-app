@@ -117,9 +117,7 @@ const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }
         <div aria-hidden={modalVisible}>
           {header}
           <Body>
-            <Aside asideStickyTop={asideStickyTop} >
-              {toolbar}
-            </Aside>
+            <Aside asideStickyTop={asideStickyTop}>{toolbar}</Aside>
             <Main>{children}</Main>
           </Body>
         </div>
