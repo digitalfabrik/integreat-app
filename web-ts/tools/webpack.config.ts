@@ -76,8 +76,6 @@ const createConfig = (
 
   // We have to override the env of the current process, such that babel-loader works with that.
   const NODE_ENV = devServer ? '"development"' : '"production"'
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   process.env.NODE_ENV = NODE_ENV
 
   // If version_name is not supplied read it from version file

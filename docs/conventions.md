@@ -64,4 +64,3 @@ src
     │   LanguageDetector.ts
     |   indext.ts
 ```
-
