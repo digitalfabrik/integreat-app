@@ -25,7 +25,7 @@ const LocalNewsPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={LOCAL_NEWS_TYPE}
+      route={LOCAL_NEWS_TYPE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>LocalNewsPage</div>

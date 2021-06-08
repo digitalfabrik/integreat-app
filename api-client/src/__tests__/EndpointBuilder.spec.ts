@@ -4,7 +4,7 @@ describe('EndpointBuilder', () => {
     const url = 'https://someurl'
     const name = 'endpoint'
 
-    const mapper = json => json
+    const mapper = (json: string) => json
 
     const responseOverride = {
       test: 'random'

@@ -25,7 +25,7 @@ const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={TU_NEWS_TYPE}
+      route={TU_NEWS_TYPE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>TuNewsPage</div>
