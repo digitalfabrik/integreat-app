@@ -79,22 +79,17 @@ describe('createSettingsSections', () => {
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
       // Initialize changeSetting and changeAction
-      if (pushNotificationSection) {
-        pushNotificationSection.onPress()
-      }
-      if (!pushNotificationSection?.getSettingValue) {
-        expect(true).toBeFalsy()
-      } else {
-        const settings = defaultSettings
-        settings.allowPushNotifications = false
-        const changedSettings = changeSetting(settings)
-        expect(pushNotificationSection.getSettingValue(settings)).toBeFalsy()
-        expect(changedSettings.allowPushNotifications).toBeTruthy()
-        settings.allowPushNotifications = true
-        const changedSettings2 = changeSetting(settings)
-        expect(pushNotificationSection.getSettingValue(settings)).toBeTruthy()
-        expect(changedSettings2.allowPushNotifications).toBeFalsy()
-      }
+      pushNotificationSection!.onPress()
+
+      const settings = defaultSettings
+      settings.allowPushNotifications = false
+      const changedSettings = changeSetting(settings)
+      expect(pushNotificationSection!.getSettingValue!(settings)).toBeFalsy()
+      expect(changedSettings.allowPushNotifications).toBeTruthy()
+      settings.allowPushNotifications = true
+      const changedSettings2 = changeSetting(settings)
+      expect(pushNotificationSection!.getSettingValue!(settings)).toBeTruthy()
+      expect(changedSettings2.allowPushNotifications).toBeFalsy()
     })
 
     it('should unsubscribe from push notification topic', async () => {
@@ -106,16 +101,14 @@ describe('createSettingsSections', () => {
       const newSettings = defaultSettings
       newSettings.allowPushNotifications = false
 
-      if (!changeAction) {
-        expect(false).toBeTruthy()
-      } else {
-        expect(mockUnsubscribeNews).not.toHaveBeenCalled()
-        await changeAction(newSettings)
-        expect(mockUnsubscribeNews).toHaveBeenCalledTimes(1)
-        expect(mockUnsubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
-        expect(mockSubscribeNews).not.toHaveBeenCalled()
-        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
-      }
+      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<void>
+
+      expect(mockUnsubscribeNews).not.toHaveBeenCalled()
+      await assertedChangeAction(newSettings)
+      expect(mockUnsubscribeNews).toHaveBeenCalledTimes(1)
+      expect(mockUnsubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
+      expect(mockSubscribeNews).not.toHaveBeenCalled()
+      expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
     })
 
     it('should subscribe to push notification topic if permission is granted', async () => {
@@ -127,18 +120,16 @@ describe('createSettingsSections', () => {
       const newSettings = defaultSettings
       newSettings.allowPushNotifications = true
 
-      if (!changeAction) {
-        expect(false).toBeTruthy()
-      } else {
-        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
-        expect(mockSubscribeNews).not.toHaveBeenCalled()
-        mockRequestPushNotificationPermission.mockImplementationOnce(async () => true)
-        await changeAction(newSettings)
-        expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
-        expect(mockSubscribeNews).toHaveBeenCalledTimes(1)
-        expect(mockSubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
-        expect(mockUnsubscribeNews).not.toHaveBeenCalled()
-      }
+      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<void>
+
+      expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
+      expect(mockSubscribeNews).not.toHaveBeenCalled()
+      mockRequestPushNotificationPermission.mockImplementationOnce(async () => true)
+      await assertedChangeAction(newSettings)
+      expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
+      expect(mockSubscribeNews).toHaveBeenCalledTimes(1)
+      expect(mockSubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
+      expect(mockUnsubscribeNews).not.toHaveBeenCalled()
     })
 
     it('should open settings and throw if permissions not granted', async () => {
@@ -150,18 +141,16 @@ describe('createSettingsSections', () => {
       const newSettings = defaultSettings
       newSettings.allowPushNotifications = true
 
-      if (!changeAction) {
-        expect(false).toBeTruthy()
-      } else {
-        expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
-        expect(mockSubscribeNews).not.toHaveBeenCalled()
-        mockRequestPushNotificationPermission.mockImplementationOnce(async () => false)
-        await expect(changeAction(newSettings)).rejects.toThrowError()
-        expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
-        expect(openSettings).toHaveBeenCalledTimes(1)
-        expect(mockSubscribeNews).not.toHaveBeenCalled()
-        expect(mockUnsubscribeNews).not.toHaveBeenCalled()
-      }
+      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<void>
+
+      expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
+      expect(mockSubscribeNews).not.toHaveBeenCalled()
+      mockRequestPushNotificationPermission.mockImplementationOnce(async () => false)
+      await expect(assertedChangeAction(newSettings)).rejects.toThrowError()
+      expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
+      expect(openSettings).toHaveBeenCalledTimes(1)
+      expect(mockSubscribeNews).not.toHaveBeenCalled()
+      expect(mockUnsubscribeNews).not.toHaveBeenCalled()
     })
   })
 })
