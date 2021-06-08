@@ -1,7 +1,6 @@
 import React, { ReactNode, useContext } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
-import PlatformContext from '../contexts/PlatformContext'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper = styled.div`
@@ -70,9 +69,8 @@ const Main = styled.main`
   }
 `
 
-const Aside = styled.aside<{ positionStickyDisabled: boolean; asideStickyTop: number }>`
+const Aside = styled.aside<{ asideStickyTop: number }>`
   top: ${props => props.asideStickyTop}px;
-  position: ${props => (props.positionStickyDisabled ? 'static' : 'sticky')};
   display: inline-block;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
@@ -112,7 +110,6 @@ type PropsType = {
  * always stick to the bottom of the viewbox.
  */
 const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }: PropsType): JSX.Element => {
-  const platform = useContext(PlatformContext)
   const modalVisible = !!modal
   return (
     <FlexWrapper>
@@ -120,7 +117,7 @@ const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }
         <div aria-hidden={modalVisible}>
           {header}
           <Body>
-            <Aside asideStickyTop={asideStickyTop} positionStickyDisabled={platform.positionStickyDisabled}>
+            <Aside asideStickyTop={asideStickyTop} >
               {toolbar}
             </Aside>
             <Main>{children}</Main>
