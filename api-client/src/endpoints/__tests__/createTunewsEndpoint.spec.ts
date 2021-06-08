@@ -7,7 +7,7 @@ describe('tunews', () => {
   const baseUrl = 'https://tunews.integreat-app.de'
   const tunews = createTunewsEndpoint(baseUrl)
 
-  const createNewsItem = (id, date): JsonTunewsType => ({
+  const createNewsItem = (id: number, date: string): JsonTunewsType => ({
     id,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
@@ -21,7 +21,7 @@ describe('tunews', () => {
   const item2 = createNewsItem(2, '2020-01-24 10:05:22+00:00')
   const item3 = createNewsItem(3, '2020-01-22 11:06:22+00:00')
 
-  const createNewsItemModel = (id, date: Moment): TunewsModel =>
+  const createNewsItemModel = (id: number, date: Moment): TunewsModel =>
     new TunewsModel({
       id,
       title: 'Tick bite - What to do?',

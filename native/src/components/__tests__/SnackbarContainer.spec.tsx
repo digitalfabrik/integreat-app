@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react-native'
 import SnackbarContainer from '../SnackbarContainer'
 import { useSelector, useDispatch } from 'react-redux'
+import { mocked } from 'ts-jest/utils'
 
 jest.useFakeTimers()
 jest.mock('react-i18next', () => ({
@@ -21,8 +22,8 @@ jest.mock('react-redux', () => ({
 
 describe('SnackbarContainer', () => {
   const mockDispatch = jest.fn()
-  const mockUseSelector = (useSelector as unknown) as jest.Mock
-  const mockUseDispatch = (useDispatch as unknown) as jest.Mock
+  const mockUseSelector = mocked(useSelector)
+  const mockUseDispatch = mocked(useDispatch)
 
   beforeEach(() => {
     jest.clearAllMocks()

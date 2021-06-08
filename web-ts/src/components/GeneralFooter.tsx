@@ -4,8 +4,8 @@ import Footer from './Footer'
 import CleanAnchor from './CleanAnchor'
 import CleanLink from './CleanLink'
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes/RootSwitcher'
 import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
+import { RoutePatterns } from '../routes'
 
 type PropsType = {
   language: string

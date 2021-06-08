@@ -6,6 +6,7 @@ import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import NavigationTiles from '../../components/NavigationTiles'
 import buildConfig from '../../constants/buildConfig'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../components/NavigationTiles', () => {
   const Text = require('react-native').Text
@@ -13,6 +14,7 @@ jest.mock('../../components/NavigationTiles', () => {
   return () => <Text>NavigationTiles</Text>
 })
 jest.mock('rn-fetch-blob')
+
 describe('Dashboard', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
   const categoryLeaf = categoriesMapModel.toArray().find(category => categoriesMapModel.isLeaf(category))
@@ -63,8 +65,7 @@ describe('Dashboard', () => {
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
     const previous = buildConfig()
-    // @ts-ignore ts is not aware that buildConfig is a mock funciton
-    buildConfig.mockImplementation(() => ({
+    mocked(buildConfig).mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, pois, newsStream }
     }))
@@ -92,11 +93,13 @@ describe('Dashboard', () => {
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles.some(tile => tile.path === 'categories')).toBeTruthy()
   })
+
   it('should not show navigation tiles if there are no features enabled', () => {
     const cityModel = createCityModel(false, false, false, false, false)
     const result = TestRenderer.create(renderDashboard(cityModel))
     expect(() => result.root.findByType(NavigationTiles)).toThrowError()
   })
+
   it('should show news tile if at least one news feature is enabled', () => {
     mockBuildConfig(false, true)
     const cityModel = createCityModel(false, false, true, false, false)
@@ -108,6 +111,7 @@ describe('Dashboard', () => {
     const otherNavigationTiles = otherResult.root.findByType(NavigationTiles)
     expect(otherNavigationTiles.props.tiles.some(tile => tile.path === 'news')).toBeTruthy()
   })
+
   it('should show all tiles if all features are enabled in city model and build config', () => {
     mockBuildConfig(true, true)
     const cityModel = createCityModel(true, true, true, true, true)
@@ -116,6 +120,7 @@ describe('Dashboard', () => {
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles).toHaveLength(5)
   })
+
   it('should show any feature disabled in the build config', () => {
     mockBuildConfig(false, false)
     const cityModel = createCityModel(true, true, true, true, true)

@@ -32,7 +32,7 @@ describe('HeaderContainer', () => {
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
 
-  const prepareState = (): StateType => {
+  const prepareState = () => {
     return {
       resourceCacheUrl: 'http://localhost:8080',
       cityContent: {
@@ -141,6 +141,7 @@ describe('HeaderContainer', () => {
       shareUrl: expectedShareUrl
     })
   })
+
   it('shareUrl should be set correctly for events overview route', () => {
     const ownProps = {
       scene: {
@@ -155,6 +156,7 @@ describe('HeaderContainer', () => {
       shareUrl: expectedShareUrl
     })
   })
+
   it('shareUrl should be set correctly for specific event route', () => {
     const ownProps = {
       scene: {
@@ -169,6 +171,7 @@ describe('HeaderContainer', () => {
       shareUrl: expectedShareUrl
     })
   })
+
   it('shareUrl should be set correctly for local news route', () => {
     const ownProps = {
       scene: {
@@ -183,6 +186,7 @@ describe('HeaderContainer', () => {
       shareUrl: expectedShareUrl
     })
   })
+
   it('shareUrl should be set correctly for local news details route', () => {
     const ownProps = {
       scene: {
@@ -193,17 +197,30 @@ describe('HeaderContainer', () => {
       }
     }
     const state = prepareState()
-    // @ts-ignore Everything correct here, nothing to see.
-    state.cityContent.routeMapping.routeKeyNews1.newsId = '12345'
+    const newState = {
+      ...state,
+      cityContent: {
+        ...state.cityContent,
+        routeMapping: {
+          ...state.cityContent.routeMapping,
+          routeKeyNews1: {
+            ...state.cityContent.routeMapping.routeKeyNews1,
+            newsId: '12345'
+          }
+        }
+      }
+    }
+
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
     assertProps(
       ownProps,
       {
         shareUrl: expectedShareUrl
       },
-      mockStore(state)
+      mockStore(newState)
     )
   })
+
   it('shareUrl should be set correctly for offers route', () => {
     const ownProps = {
       scene: {
@@ -217,6 +234,7 @@ describe('HeaderContainer', () => {
       shareUrl: expectedShareUrl
     })
   })
+
   it('shareUrl should be set correctly for sprungbrett offer route', () => {
     const ownProps = {
       scene: {
@@ -230,6 +248,7 @@ describe('HeaderContainer', () => {
       shareUrl
     })
   })
+
   it('shareUrl should be set correctly for disclaimer route', () => {
     const ownProps = {
       scene: {
@@ -247,6 +266,7 @@ describe('HeaderContainer', () => {
       shareUrl: expectedShareUrl
     })
   })
+
   it('shareUrl should be set correctly for pois overview route', () => {
     const ownProps = {
       scene: {
