@@ -1,11 +1,8 @@
-// @flow
-
 import React, { useState } from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import buildConfig from '../../../modules/app/constants/buildConfig'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
+import buildConfig from '../constants/buildConfig'
 
-const Logo: StyledComponent<{||}, ThemeType, *> = styled.img`
+const Logo = styled.img`
   display: block;
   height: 70px;
   margin: 0 auto;

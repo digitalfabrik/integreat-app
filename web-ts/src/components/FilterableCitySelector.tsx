@@ -1,28 +1,25 @@
-// @flow
-
 import React from 'react'
 import Heading from './Heading'
-import ScrollingSearchBox from '../../../modules/common/components/ScrollingSearchBox'
+import ScrollingSearchBox from './ScrollingSearchBox'
 import CitySelector from './CitySelector'
 import { CityModel } from 'api-client'
-import styled, { type StyledComponent } from 'styled-components'
-import { withTranslation, type TFunction } from 'react-i18next'
-import type { ThemeType } from 'build-configs/ThemeType'
+import styled from 'styled-components'
+import { withTranslation, TFunction } from 'react-i18next'
 
-const Container: StyledComponent<{||}, ThemeType, *> = styled.div`
+const Container = styled.div`
   padding-top: 22px;
 `
 
-type PropsType = {|
-  cities: Array<CityModel>,
-  language: string,
+type PropsType = {
+  cities: Array<CityModel>
+  language: string
   t: TFunction
-|}
+}
 
-type StateType = {|
-  filterText: string,
+type StateType = {
+  filterText: string
   stickyTop: number
-|}
+}
 
 export class FilterableCitySelector extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
@@ -54,4 +51,4 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
   }
 }
 
-export default withTranslation<PropsType>('landing')(FilterableCitySelector)
+export default withTranslation('landing')(FilterableCitySelector)
