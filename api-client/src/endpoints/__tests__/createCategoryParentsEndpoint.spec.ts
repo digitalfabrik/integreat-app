@@ -3,6 +3,7 @@ import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../mapping/mapCategoryJson')
 
@@ -48,7 +49,7 @@ describe('createCategoryParentsEndpoint', () => {
   it('should map json to category', () => {
     const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
 
-    ;((mapCategoryJson as unknown) as jest.Mock)
+    mocked(mapCategoryJson)
       .mockImplementationOnce(() => parents[0])
       .mockImplementationOnce(() => parents[1])
 

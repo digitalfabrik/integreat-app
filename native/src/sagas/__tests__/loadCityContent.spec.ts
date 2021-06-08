@@ -13,7 +13,7 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
-import NetInfo from '@react-native-community/netinfo'
+import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
 import DatabaseConnector from '../../services/DatabaseConnector'
 import mockDate from '../../testing/mockDate'
 import { createFetchMap } from '../../testing/builder/util'
@@ -22,6 +22,7 @@ import loadCities from '../loadCities'
 import loadCategories from '../loadCategories'
 import loadEvents from '../loadEvents'
 import loadPois from '../loadPois'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('@react-native-community/netinfo')
 jest.mock('rn-fetch-blob')
@@ -313,10 +314,10 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
   it('should not fetch resources if connection type is cellular', async () => {
-    const previous = ((NetInfo.fetch as unknown) as jest.Mock).getMockImplementation()
-    ;((NetInfo.fetch as unknown) as jest.Mock).mockImplementation(() => {
+    const previous = mocked(NetInfo.fetch).getMockImplementation()
+    mocked(NetInfo.fetch).mockImplementation(async () => {
       return {
-        type: 'cellular',
+        type: NetInfoStateType.other,
         isConnected: true,
         isInternetReachable: true,
         details: {
@@ -344,7 +345,7 @@ describe('loadCityContent', () => {
       .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
-    ;((NetInfo.fetch as unknown) as jest.Mock).mockImplementation(previous)
+    mocked(NetInfo.fetch).mockImplementation(previous)
   })
   it('should update if last update was a long time ago', async () => {
     const dataContainer = new DefaultDataContainer()

@@ -8,6 +8,7 @@ import Geolocation from '@react-native-community/geolocation'
 import waitForExpect from 'wait-for-expect'
 import { ThemeProvider } from 'styled-components/native'
 import { checkLocationPermission, requestLocationPermission } from '../../services/LocationPermissionManager'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../services/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
@@ -16,9 +17,9 @@ jest.mock('../../services/LocationPermissionManager', () => ({
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
 
-const mockCheckLocationPermission = (checkLocationPermission as unknown) as jest.Mock
-const mockRequestLocationPermission = (requestLocationPermission as unknown) as jest.Mock
-const mockGetCurrentPosition = (Geolocation.getCurrentPosition as unknown) as jest.Mock
+const mockCheckLocationPermission = mocked(checkLocationPermission)
+const mockRequestLocationPermission = mocked(requestLocationPermission)
+const mockGetCurrentPosition = mocked(Geolocation.getCurrentPosition)
 
 describe('Landing', () => {
   beforeEach(() => {
@@ -32,12 +33,18 @@ describe('Landing', () => {
   const augsburgCoordinates = {
     coords: {
       latitude: 48.369696,
-      longitude: 10.892578
-    }
+      longitude: 10.892578,
+      altitude: null,
+      accuracy: 1,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null
+    },
+    timestamp: 1234566789
   }
 
   it('should only show non-live cities', () => {
-    mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
+    mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
     const { getByText, queryByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Landing
@@ -60,7 +67,7 @@ describe('Landing', () => {
 
   describe('nearby locations', () => {
     it('should not request location permission on mount', async () => {
-      mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
+      mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
       const { getByText } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
           <Landing
@@ -81,7 +88,7 @@ describe('Landing', () => {
     })
 
     it('should determine location and show nearby locations on mount if permission already granted', async () => {
-      mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
+      mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryByText, queryAllByText } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
@@ -104,10 +111,12 @@ describe('Landing', () => {
     })
 
     it('should determine location and show no nearby locations if there are none', async () => {
-      mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
+      mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition =>
         setPosition({
+          ...augsburgCoordinates,
           coords: {
+            ...augsburgCoordinates.coords,
             longitude: 0,
             latitude: 0
           }
@@ -135,7 +144,7 @@ describe('Landing', () => {
     })
 
     it('should open settings if permission is blocked on retry clicked', async () => {
-      mockCheckLocationPermission.mockImplementation(() => RESULTS.BLOCKED)
+      mockCheckLocationPermission.mockImplementation(async () => RESULTS.BLOCKED)
       const { getByText, getByA11yLabel } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
           <Landing
@@ -162,7 +171,7 @@ describe('Landing', () => {
     })
 
     it('should determine location if permission is granted on retry click', async () => {
-      mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.BLOCKED)
+      mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryAllByText, getByText, getByA11yLabel } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
@@ -179,7 +188,7 @@ describe('Landing', () => {
       await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(1)
       await waitForExpect(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(1))
-      mockCheckLocationPermission.mockImplementationOnce(() => RESULTS.GRANTED)
+      mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
       const retryDetermineLocationButton = getByA11yLabel('refresh')
       fireEvent.press(retryDetermineLocationButton)
       expect(getByText('loading')).toBeTruthy()
@@ -191,8 +200,8 @@ describe('Landing', () => {
     })
 
     it('should request permission and determine location on retry if not granted yet', async () => {
-      mockCheckLocationPermission.mockImplementation(() => RESULTS.DENIED)
-      mockRequestLocationPermission.mockImplementation(() => RESULTS.GRANTED)
+      mockCheckLocationPermission.mockImplementation(async () => RESULTS.DENIED)
+      mockRequestLocationPermission.mockImplementation(async () => RESULTS.GRANTED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryAllByText, getByText, getByA11yLabel } = render(
         <ThemeProvider theme={buildConfig().lightTheme}>
