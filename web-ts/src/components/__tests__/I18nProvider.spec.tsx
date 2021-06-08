@@ -4,12 +4,13 @@ import I18nProvider from '../I18nProvider'
 import { Translation } from 'react-i18next'
 import Helmet from 'react-helmet'
 import BrowserLanguageDetector from '../../services/BrowserLanguageDetector'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../services/BrowserLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 
 describe('I18nProvider', () => {
-  const mockDetect = (BrowserLanguageDetector.detect as unknown) as jest.Mock
+  const mockDetect = mocked(BrowserLanguageDetector.detect)
 
   it('should choose the browser language', async () => {
     mockDetect.mockReturnValue(['ar'])

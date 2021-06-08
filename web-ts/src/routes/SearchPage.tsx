@@ -1,7 +1,7 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, DISCLAIMER_ROUTE } from 'api-client'
-import LocationLayout from '../../components/LocationLayout'
+import { CityModel, LanguageModel, SEARCH_ROUTE } from 'api-client'
+import LocationLayout from '../components/LocationLayout'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -10,7 +10,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const DisclaimerPage = ({ match, cityModel, location }: PropsType) => {
+const SearchPage = ({ match, cityModel, location }: PropsType) => {
   const { languageCode } = match.params
 
   return (
@@ -20,12 +20,12 @@ const DisclaimerPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={DISCLAIMER_ROUTE}
+      route={SEARCH_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
-      <div>DisclaimerPage</div>
+      <div>SearchPage</div>
     </LocationLayout>
   )
 }
 
-export default DisclaimerPage
+export default SearchPage

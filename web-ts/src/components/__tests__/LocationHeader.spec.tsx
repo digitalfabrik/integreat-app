@@ -1,6 +1,15 @@
 import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
-import { CityModel } from 'api-client'
+import {
+  CATEGORIES_ROUTE,
+  CityModel,
+  EVENTS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  OFFERS_ROUTE,
+  POIS_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  TU_NEWS_TYPE
+} from 'api-client'
 import LocationHeader from '../LocationHeader'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
@@ -11,9 +20,7 @@ jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; ac
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
 ))
 
-// TODO IGAPP-668: enable tests again
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('LocationHeader', () => {
+describe('LocationHeader', () => {
   const theme = buildConfig().lightTheme
 
   const cityModel = (
@@ -84,6 +91,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(false, false, false, false, false)}
             languageChangePaths={languageChangePaths}
@@ -100,6 +108,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(false, true, false, false, false)}
             languageChangePaths={languageChangePaths}
@@ -116,6 +125,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(false, false, false, false, true)}
             languageChangePaths={languageChangePaths}
@@ -132,6 +142,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -148,6 +159,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -155,11 +167,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation active')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news inactive')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation active')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news inactive')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
     it('should highlight news if the local news route is selected', () => {
@@ -168,6 +180,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={LOCAL_NEWS_TYPE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -175,11 +188,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news active')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news active')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
     it('should highlight news if the local news detail route is selected', () => {
@@ -188,6 +201,8 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            // TODO IGAPP-652: Use right route for local news detail
+            route={LOCAL_NEWS_TYPE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -195,18 +210,20 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news active')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news active')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
+
     it('should highlight news if the tu news route is selected', () => {
       const { getByText } = renderWithRouter(
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={TU_NEWS_TYPE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -214,11 +231,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news active')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news active')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
     it('should highlight news if the tu news detail route is selected', () => {
@@ -227,6 +244,8 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            // TODO IGAPP-652: Use right route for local news detail
+            route={TU_NEWS_TYPE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -234,11 +253,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news active')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news active')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
     it('should highlight events if route corresponds', () => {
@@ -247,6 +266,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={EVENTS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -254,19 +274,20 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news inactive')).toBeTruthy()
-      expect(getByText('events active')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news inactive')).toBeTruthy()
+      expect(getByText('layout:events active')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
-    it('should highlight offers if offers route is active', () => {
+    it('layout:should highlight offers if offers route is active', () => {
       const { getByText } = renderWithRouter(
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={OFFERS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -274,11 +295,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers active')).toBeTruthy()
-      expect(getByText('news inactive')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers active')).toBeTruthy()
+      expect(getByText('layout:news inactive')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
     it('should highlight offers if sprungbrett route is selected', () => {
@@ -287,6 +308,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={SPRUNGBRETT_OFFER_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -294,11 +316,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers active')).toBeTruthy()
-      expect(getByText('news inactive')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers active')).toBeTruthy()
+      expect(getByText('layout:news inactive')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois inactive')).toBeTruthy()
     })
 
     it('should highlight pois if pois route is selected', () => {
@@ -307,6 +329,7 @@ describe.skip('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
+            route={POIS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -314,11 +337,11 @@ describe.skip('LocationHeader', () => {
           />
         </ThemeProvider>
       )
-      expect(getByText('localInformation inactive')).toBeTruthy()
-      expect(getByText('offers inactive')).toBeTruthy()
-      expect(getByText('news inactive')).toBeTruthy()
-      expect(getByText('events inactive')).toBeTruthy()
-      expect(getByText('pois active')).toBeTruthy()
+      expect(getByText('layout:localInformation inactive')).toBeTruthy()
+      expect(getByText('layout:offers inactive')).toBeTruthy()
+      expect(getByText('layout:news inactive')).toBeTruthy()
+      expect(getByText('layout:events inactive')).toBeTruthy()
+      expect(getByText('layout:pois active')).toBeTruthy()
     })
   })
 })
