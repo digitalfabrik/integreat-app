@@ -6,11 +6,20 @@ import LocationModel from '../../models/LocationModel'
 import createEventsEndpoint from '../createEventsEndpoint'
 import { JsonEventType } from '../../types'
 import FeaturedImageModel from '../../models/FeaturedImageModel'
+
 describe('events', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const events = createEventsEndpoint(baseUrl)
 
-  const createEvent = (id, allDay, startDate, startTime, endDate, endTime, timezone): JsonEventType => ({
+  const createEvent = (
+    id: number,
+    allDay: boolean,
+    startDate: string,
+    startTime: string,
+    endDate: string,
+    endTime: string,
+    timezone: string
+  ): JsonEventType => ({
     id,
     url: 'https://inegreat.app/augsburg/de/events/asylpolitischer_fruehschoppen',
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
@@ -77,7 +86,7 @@ describe('events', () => {
     }
   })
 
-  const createEventModel = (id, allDay, startDate: Moment, endDate: Moment): EventModel =>
+  const createEventModel = (id: number, allDay: boolean, startDate: Moment, endDate: Moment): EventModel =>
     new EventModel({
       path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
       title: 'Asylpolitischer Frühschoppen',

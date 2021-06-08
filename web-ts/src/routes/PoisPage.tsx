@@ -25,7 +25,7 @@ const PoisPage = ({ match, cityModel, location }: PropsType) => {
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={POIS_ROUTE}
+      route={POIS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>PoisPage</div>

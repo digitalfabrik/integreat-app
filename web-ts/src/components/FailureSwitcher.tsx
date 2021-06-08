@@ -2,8 +2,7 @@ import React, { ReactNode } from 'react'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NotFoundError, OFFERS_ROUTE, POIS_ROUTE } from 'api-client'
 import Failure from './Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import { RoutePatterns } from '../RootSwitcher'
-import { generatePath } from 'react-router-dom'
+import { createPath } from '../routes'
 
 type PropsType = {
   error: Error
@@ -19,13 +18,12 @@ export class FailureSwitcher extends React.Component<PropsType> {
     const { city, language } = error
 
     const params = { cityCode: city, languageCode: language }
-    // @ts-ignore TODO IGAPP-668 Wrong type for * parameters
-    const categoriesPath = generatePath(RoutePatterns[CATEGORIES_ROUTE], params)
-    const eventsPath = generatePath(RoutePatterns[EVENTS_ROUTE], params)
-    const offersPath = generatePath(RoutePatterns[OFFERS_ROUTE], params)
-    const poisPath = generatePath(RoutePatterns[POIS_ROUTE], params)
-    const localNewsPath = generatePath(RoutePatterns[LOCAL_NEWS_TYPE], params)
-    const tunewsPath = generatePath(RoutePatterns[TU_NEWS_TYPE], params)
+    const categoriesPath = createPath(CATEGORIES_ROUTE, params)
+    const eventsPath = createPath(EVENTS_ROUTE, params)
+    const offersPath = createPath(OFFERS_ROUTE, params)
+    const poisPath = createPath(POIS_ROUTE, params)
+    const localNewsPath = createPath(LOCAL_NEWS_TYPE, params)
+    const tunewsPath = createPath(TU_NEWS_TYPE, params)
 
     switch (error.type) {
       case 'category':

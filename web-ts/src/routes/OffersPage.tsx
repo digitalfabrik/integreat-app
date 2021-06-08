@@ -26,7 +26,7 @@ const OffersPage = ({ cityModel, match, location }: PropsType): ReactElement => 
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={OFFERS_ROUTE}
+      route={OFFERS_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>OffersPage</div>
