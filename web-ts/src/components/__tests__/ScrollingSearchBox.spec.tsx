@@ -55,11 +55,8 @@ describe('ScrollingSearchBox', () => {
     ).find(ScrollingSearchBox)
 
     component.find(SearchInput).prop('onFilterTextChange')('test')
-    const prop: ((stickyTop: number) => void) | undefined = component.find(Headroom).prop('onStickyTopChanged')
-    expect(prop).toBeTruthy()
-    if (prop) {
-      prop(5)
-    }
+    const prop: ((stickyTop: number) => void) = component.find(Headroom).prop('onStickyTopChanged')!
+    prop(5)
 
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
     expect(outerStickyTopChanged).toHaveBeenCalledWith(5)
