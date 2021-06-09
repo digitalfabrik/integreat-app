@@ -11,12 +11,18 @@ describe('useWindowDimensions', () => {
       </div>
     )
   }
+  const { innerWidth, innerHeight } = window
+
+  afterAll(() => {
+    Object.defineProperty(window, 'innerWidth', { value: innerWidth })
+    Object.defineProperty(window, 'innerHeight', { value: innerHeight })
+  })
 
   it('should correctly set all properties', () => {
     const width = 750
     const height = 400
-    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: width })
-    Object.defineProperty(window, 'innerHeight', { writable: true, configurable: true, value: height })
+    Object.defineProperty(window, 'innerWidth', { value: width })
+    Object.defineProperty(window, 'innerHeight', { value: height })
 
     const { getByText, queryByText, rerender } = render(<MockComponent />)
 
@@ -27,8 +33,8 @@ describe('useWindowDimensions', () => {
 
     const newWidth = 749
     const newHeight = 600
-    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: newWidth })
-    Object.defineProperty(window, 'innerHeight', { writable: true, configurable: true, value: newHeight })
+    Object.defineProperty(window, 'innerWidth', { value: newWidth })
+    Object.defineProperty(window, 'innerHeight', { value: newHeight })
     window.dispatchEvent(new Event('resize'))
     rerender(<MockComponent />)
 
