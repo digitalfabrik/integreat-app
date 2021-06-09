@@ -14,10 +14,10 @@ import {
   SPRUNGBRETT_OFFER
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
-import { RouteType } from '../../RootSwitcher'
 import buildConfig from '../../constants/buildConfig'
 import FeedbackBoxContainer from '../FeedbackBoxContainer'
 import { SendingStatusType } from '../FeedbackModal'
+import { RouteType } from '../../routes'
 
 const mockRequest = jest.fn()
 jest.mock('react-i18next')
@@ -41,12 +41,12 @@ describe('FeedbackBoxContainer', () => {
   const onSubmit = jest.fn()
 
   const buildDefaultProps = (
-    routeType: RouteType,
+    route: RouteType,
     isPositiveRatingSelected: boolean,
     sendingStatus: SendingStatusType = 'IDLE'
   ): ComponentProps<typeof FeedbackBoxContainer> => {
     return {
-      routeType,
+      route,
       cityCode,
       language,
       closeFeedbackModal,
@@ -75,7 +75,7 @@ describe('FeedbackBoxContainer', () => {
   })
 
   it.each`
-    routeType           | inputProps                             | feedbackType
+    route               | inputProps                             | feedbackType
     ${CATEGORIES_ROUTE} | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
     ${CATEGORIES_ROUTE} | ${{ path: 'augsburg/de' }}             | ${PAGE_FEEDBACK_TYPE}
     ${EVENTS_ROUTE}     | ${{}}                                  | ${EVENTS_FEEDBACK_TYPE}
@@ -85,10 +85,10 @@ describe('FeedbackBoxContainer', () => {
     ${DISCLAIMER_ROUTE} | ${{ path: 'augsburg/de/disclaimer' }}  | ${PAGE_FEEDBACK_TYPE}
     ${POIS_ROUTE}       | ${{ path: 'augsburg/de/pois/1234' }}   | ${PAGE_FEEDBACK_TYPE}
     ${POIS_ROUTE}       | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
-  `('should successfully request feedback for $feedbackType', async ({ routeType, inputProps, feedbackType }) => {
+  `('should successfully request feedback for $feedbackType', async ({ route, inputProps, feedbackType }) => {
     const { getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackBoxContainer {...buildDefaultProps(routeType, true)} {...inputProps} />
+        <FeedbackBoxContainer {...buildDefaultProps(route, true)} {...inputProps} />
       </ThemeProvider>
     )
     const button = getByRole('button', {

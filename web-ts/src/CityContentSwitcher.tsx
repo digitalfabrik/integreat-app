@@ -28,10 +28,10 @@ import LanguageFailure from './components/LanguageFailure'
 import GeneralHeader from './components/GeneralHeader'
 import GeneralFooter from './components/GeneralFooter'
 import LoadingSpinner from './components/LoadingSpinner'
-import { RoutePatterns } from './RootSwitcher'
 import LocalNewsPage from './routes/LocalNewsPage'
 import TuNewsPage from './routes/TuNewsPage'
 import SprungbrettOfferPage from './routes/SprungbrettOfferPage'
+import { RoutePatterns } from './routes'
 
 type PropsType = {
   cities: CityModel[]

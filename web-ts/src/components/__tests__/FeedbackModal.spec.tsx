@@ -32,7 +32,7 @@ describe('FeedbackModal', () => {
         <FeedbackModal
           cityCode={cityCode}
           language={language}
-          routeType={CATEGORIES_ROUTE}
+          route={CATEGORIES_ROUTE}
           path='augsburg/de'
           closeFeedbackModal={closeFeedbackModal}
           feedbackRating='up'
