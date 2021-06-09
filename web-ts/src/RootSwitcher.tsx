@@ -63,7 +63,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
 
   return (
     <Switch>
-      <Route exact path={RoutePatterns[LANDING_ROUTE]} component={LandingPage} />
+      <Route exact path={RoutePatterns[LANDING_ROUTE]} render={props => <LandingPage cities={cities} {...props} />} />
       <Route
         exact
         path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}

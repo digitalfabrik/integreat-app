@@ -16,6 +16,8 @@ import AppSettings from '../../services/AppSettings'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
 import sendTrackingSignal from '../../services/sendTrackingSignal'
+import { mocked } from 'ts-jest/utils'
+import { FixedCityType } from 'build-configs/BuildConfigType'
 
 const navigateTo = jest.fn()
 
@@ -24,24 +26,32 @@ jest.mock('../createNavigate', () => {
 })
 jest.mock('../navigateToCategory')
 jest.mock('../../services/sendTrackingSignal')
+
 describe('navigateToDeepLink', () => {
   const dispatch = jest.fn()
   const navigation = createNavigationPropMock()
   const language = 'kmr'
   const appSettings = new AppSettings()
+  const mockedBuildConfig = mocked(buildConfig)
+
+  const mockBuildConfig = (featureFlags: FixedCityType) => {
+    const previous = buildConfig()
+    mockedBuildConfig.mockImplementation(() => ({
+      ...previous,
+      featureFlags: { ...previous.featureFlags, ...featureFlags }
+    }))
+  }
+
   beforeEach(async () => {
     jest.clearAllMocks()
     await appSettings.clearAppSettings()
   })
+
   describe('landing deep links', () => {
     const url = 'https://integreat.app'
+
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: true, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
@@ -58,13 +68,9 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to landing if no city is selected and intro slides already shown', async () => {
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -80,13 +86,9 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to landing if no city is selected and intro slides disabled', async () => {
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: false
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
@@ -101,15 +103,10 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to dashboard if there is a fixed city and intro slides already shown', async () => {
       const fixedCity = 'aschaffenburg'
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true,
-          fixedCity
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity })
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -134,14 +131,10 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to dashboard if there is already a selected city', async () => {
       const selectedCity = 'nuernberg'
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: false
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setSelectedCity(selectedCity)
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -172,12 +165,7 @@ describe('navigateToDeepLink', () => {
     const languageCode = `ar`
     const url = `https://integreat.app/${cityCode}/${languageCode}`
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: true, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
@@ -194,13 +182,9 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to dashboard if intro slides already shown', async () => {
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -225,14 +209,10 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to dashboard and use current language if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}`
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -257,15 +237,11 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should open selected city dashboard and navigate to route', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/${cityCode}`
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
@@ -303,15 +279,10 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should navigate to fixed city if intro slides disabled', async () => {
       const fixedCity = 'aschaffenburg'
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: false,
-          fixedCity
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigateToCategory).toHaveBeenCalledTimes(1)
@@ -341,12 +312,7 @@ describe('navigateToDeepLink', () => {
     const languageCode = `ar`
     it('should navigate to the into slides if not shown yet and enabled in the build config', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: true, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
       expect(navigation.replace).toHaveBeenCalledTimes(1)
@@ -363,14 +329,10 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -407,14 +369,10 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should open dashboard and navigate to offers route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/offers`
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setIntroShown()
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -450,15 +408,11 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should open selected city dashboard and navigate to route', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/${cityCode}/en/news`
-      // @ts-ignore build config is a mock
-      buildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          introSlides: true
-        }
-      }))
+      mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await appSettings.setSelectedCity(selectedCity)
       await appSettings.setIntroShown()
@@ -526,6 +480,7 @@ describe('navigateToDeepLink', () => {
         }
       })
     })
+
     it('should open dashboard and navigate to tracking links if there is a selected city', async () => {
       const selectedCity = 'testumgebung'
       const url = `https://integreat.app/jpal/abcdef123456`

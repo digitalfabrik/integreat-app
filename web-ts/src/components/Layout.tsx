@@ -53,7 +53,7 @@ const Main = styled.main`
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 10px 30px;
   text-align: start;
   word-wrap: break-word;
 
@@ -69,11 +69,9 @@ const Main = styled.main`
   }
 `
 
-// TODO IGAPP-646
-// const Aside = withPlatform(styled.aside<{ platform: Platform }>`
-//   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
 const Aside = styled.aside`
   display: inline-block;
+  position: sticky;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
   vertical-align: top;
