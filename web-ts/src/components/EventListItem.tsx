@@ -6,7 +6,7 @@ import ListItem from '../../../modules/common/components/ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
 import textTruncator from '../../../modules/common/utils/textTruncator'
 
 export const NUM_OF_WORDS_ALLOWED = 15

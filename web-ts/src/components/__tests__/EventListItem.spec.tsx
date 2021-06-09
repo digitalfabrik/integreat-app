@@ -9,10 +9,10 @@ import EventPlaceholder2 from '../../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
 import { render } from '@testing-library/react'
 import EventListItem, { NUM_OF_WORDS_ALLOWED } from '../EventListItem'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
 import textTruncator from '../../../../modules/common/utils/textTruncator'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/theme/constants/theme'
+import theme from '../../../../web/src/modules/theme/constants/theme'
 
 jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
 
