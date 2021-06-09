@@ -4,7 +4,8 @@ import React from 'react'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 import { render, waitFor } from '@testing-library/react-native'
 import { sendRequest } from '../../services/sendTrackingSignal'
-import { useNetInfo } from '@react-native-community/netinfo'
+import { useNetInfo, NetInfoStateType } from '@react-native-community/netinfo'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('@react-native-community/netinfo', () => ({
   useNetInfo: jest.fn()
@@ -39,23 +40,32 @@ describe('useSendOfflineJpalSignals', () => {
   }
   const signal2 = { ...signal1, pageType: CATEGORIES_ROUTE }
 
-  const mockUseNetInfo = (useNetInfo as unknown) as jest.Mock
+  const mockedUseNetInfo = mocked(useNetInfo)
+
+  const mockUseNetInfo = (isInternetReachable: boolean) => {
+    mockedUseNetInfo.mockImplementation(() => {
+      return {
+        type: NetInfoStateType?.other,
+        isConnected: true,
+        isInternetReachable,
+        details: {
+          isConnectionExpensive: false
+        }
+      }
+    })
+  }
 
   it('should resend signals if internet is reachable again', async () => {
     const appSettings = new AppSettings()
     await appSettings.pushJpalSignal(signal1)
     await appSettings.pushJpalSignal(signal2)
 
-    mockUseNetInfo.mockImplementation(() => ({
-      isInternetReachable: false
-    }))
+    mockUseNetInfo(false)
 
     const { rerender } = render(<MockComponent />)
     expect(sendRequest).not.toHaveBeenCalled()
 
-    mockUseNetInfo.mockImplementation(() => ({
-      isInternetReachable: true
-    }))
+    mockUseNetInfo(true)
 
     rerender(<MockComponent />)
     await waitFor(() => expect(sendRequest).toHaveBeenCalledTimes(2))
@@ -68,14 +78,14 @@ describe('useSendOfflineJpalSignals', () => {
     const appSettings = new AppSettings()
     await appSettings.pushJpalSignal(signal1)
     await appSettings.pushJpalSignal(signal2)
-    mockUseNetInfo.mockImplementation(() => ({
-      isInternetReachable: true
-    }))
+
+    mockUseNetInfo(true)
+
     const { rerender } = render(<MockComponent />)
     expect(sendRequest).not.toHaveBeenCalled()
-    mockUseNetInfo.mockImplementation(() => ({
-      isInternetReachable: true
-    }))
+
+    mockUseNetInfo(true)
+
     rerender(<MockComponent />)
     expect(sendRequest).not.toHaveBeenCalled()
   })

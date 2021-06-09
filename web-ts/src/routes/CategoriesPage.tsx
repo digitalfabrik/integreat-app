@@ -32,7 +32,7 @@ const CategoriesPage = ({ cityModel, match, location }: PropsType): ReactElement
       feedbackTargetInformation={null}
       languageChangePaths={null}
       isLoading={false}
-      routeType={CATEGORIES_ROUTE}
+      route={CATEGORIES_ROUTE}
       languageCode={languageCode}
       pathname={location.pathname}>
       <div>CategoriesPage</div>
