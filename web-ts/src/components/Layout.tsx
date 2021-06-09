@@ -69,11 +69,9 @@ const Main = styled.main`
   }
 `
 
-// TODO IGAPP-646
-// const Aside = withPlatform(styled.aside<{ platform: Platform }>`
-//   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
 const Aside = styled.aside`
   display: inline-block;
+  position: sticky;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
   vertical-align: top;
