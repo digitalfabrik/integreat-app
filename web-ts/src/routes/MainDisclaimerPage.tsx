@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import GeneralHeader from '../components/GeneralHeader'
 
-type PropsType = { languageCode: string}
+type PropsType = { languageCode: string }
 
 const MainDisclaimerPage = ({ languageCode }: PropsType): ReactElement => {
   return (
