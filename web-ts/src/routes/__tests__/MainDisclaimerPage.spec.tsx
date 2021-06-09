@@ -1,15 +1,21 @@
 import React from 'react'
-import { mount } from 'enzyme'
 import MainDisclaimerPage from '../MainDisclaimerPage'
-import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
+import { ThemeProvider } from 'styled-components'
+import { renderWithRouter } from '../../testing/render'
+
+jest.mock('react-i18next')
 
 describe('MainDisclaimerPage', () => {
-  it('should render', () => {
-    mount(
+  const languageCode = 'de'
+
+  it('should render the Page with caption', () => {
+    const { getByText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <MainDisclaimerPage />
+        <MainDisclaimerPage languageCode={languageCode} />
       </ThemeProvider>
     )
+
+    expect(getByText('Impressum und Datenschutz')).toBeTruthy()
   })
 })
