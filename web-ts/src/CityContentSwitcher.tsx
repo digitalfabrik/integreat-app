@@ -81,7 +81,9 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
           pathname={location.pathname}
           languageCode={languageCode}
           languageChangePaths={languages.map(({ code, name }) => ({
-            code, name, path: createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code})
+            code,
+            name,
+            path: createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code })
           }))}
         />
       </Layout>

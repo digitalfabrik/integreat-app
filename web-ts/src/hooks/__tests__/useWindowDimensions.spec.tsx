@@ -5,7 +5,11 @@ import useWindowDimensions from '../useWindowDimensions'
 describe('useWindowDimensions', () => {
   const MockComponent = () => {
     const { width, height, viewportSmall } = useWindowDimensions()
-    return <div>{width} {height} {viewportSmall.toString()}</div>
+    return (
+      <div>
+        {width} {height} {viewportSmall.toString()}
+      </div>
+    )
   }
 
   it('should correctly set all properties', () => {
