@@ -25,6 +25,7 @@ import { cmsApiBaseUrl } from './constants/urls'
 import Layout from './components/Layout'
 import FailureSwitcher from './components/FailureSwitcher'
 import LanguageFailure from './components/LanguageFailure'
+import useWindowDimensions from './hooks/useWindowDimensions'
 import GeneralHeader from './components/GeneralHeader'
 import GeneralFooter from './components/GeneralFooter'
 import LoadingSpinner from './components/LoadingSpinner'
@@ -39,6 +40,7 @@ type PropsType = {
 
 // TODO pass right props instead of constants: viewportSmall, languageChangePaths, isLoading, feedbackTargetInformation
 const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
   const { cityCode, languageCode } = match.params
   const cityModel = cities.find(it => it.code === cityCode)
 
@@ -61,7 +63,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     if (error) {
       return (
         <Layout
-          header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
+          header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
           footer={<GeneralFooter language={languageCode} />}>
           <FailureSwitcher error={error} />
         </Layout>
@@ -70,7 +72,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
 
     return (
       <Layout
-        header={<GeneralHeader languageCode={languageCode} viewportSmall={false} />}
+        header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
         footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
           cities={cities}

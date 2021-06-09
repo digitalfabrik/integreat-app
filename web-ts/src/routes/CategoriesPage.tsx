@@ -28,6 +28,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import moment from 'moment'
 import { config } from 'translations'
 import { createPath } from './index'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   const title = category.isRoot() ? cityName : category.title
@@ -56,7 +57,7 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)
   const uiDirection = config.getScriptDirection(languageCode)
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   useEffect(() => {
     // Hooks are only run after render, therefore if the user navigates, the old data is still valid for a moment.
