@@ -149,7 +149,7 @@ describe('morphContentLanguage', () => {
 
   const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
     new PoiModel({
-      path: 'test',
+      path: path,
       title: 'test',
       content: 'test',
       thumbnail: 'test',

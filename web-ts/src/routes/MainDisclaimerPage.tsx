@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MainDisclaimerPage = (props: void) => {
+const MainDisclaimerPage = () => {
   return <div>MainDisclaimerPage</div>
 }
 
