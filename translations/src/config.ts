@@ -105,6 +105,9 @@ class Config {
     prs: {
       rtl: true,
       additionalFont: 'lateef'
+    },
+    hu: {
+      rtl: false
     }
   }
 

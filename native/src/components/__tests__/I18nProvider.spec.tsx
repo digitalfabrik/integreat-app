@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import DateFormatterContext from '../../contexts/DateFormatterContext'
 import moment from 'moment'
 import { setSystemLanguage } from '../../services/sendTrackingSignal'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../services/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
@@ -64,7 +65,7 @@ const prepareState = ({
 }
 
 const mockStore = configureMockStore()
-const mockDetect = (NativeLanguageDetector.detect as unknown) as jest.Mock
+const mockDetect = mocked(NativeLanguageDetector.detect)
 
 describe('I18nProvider', () => {
   beforeEach(async () => {
