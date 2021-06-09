@@ -46,7 +46,7 @@ describe('Header', () => {
       />
     )
 
-    const prop: ((stickyTop: number) => void) = component.find(Headroom).prop('onStickyTopChanged')!
+    const prop: (stickyTop: number) => void = component.find(Headroom).prop('onStickyTopChanged')!
     prop(42)
     expect(callback).toHaveBeenCalledWith(42)
   })
