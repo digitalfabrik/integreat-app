@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const VIEWPORT_SMALL_THRESHOLD = 750
 
-type WindowDimensionsType = { width: number, height: number, viewportSmall: boolean }
+type WindowDimensionsType = { width: number; height: number; viewportSmall: boolean }
 
 const getWindowDimensions = (): WindowDimensionsType => {
   const { innerWidth: width, innerHeight: height } = window
