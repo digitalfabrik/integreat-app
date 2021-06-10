@@ -40,20 +40,16 @@ type PropsType = {
   t: TFunction
 }
 
-class Tab extends React.PureComponent<PropsType> {
-  render() {
-    const { type, active, destination, t } = this.props
-
-    if (type === TU_NEWS) {
-      return <TuStyledTab active={active} to={destination} />
-    }
-
-    return (
-      <StyledTab active={active} to={destination}>
-        {t('local').toUpperCase()}
-      </StyledTab>
-    )
+const Tab = ({ type, active, destination, t }: PropsType): ReactElement => {
+  if (type === TU_NEWS_TYPE) {
+    return <TuStyledTab $active={active} to={destination} aria-label={t('tuNews')} />
   }
+
+  return (
+    <StyledTab $active={active} to={destination} aria-label={t('local')}>
+      {t('local').toUpperCase()}
+    </StyledTab>
+  )
 }
 
 export default Tab
