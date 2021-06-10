@@ -96,17 +96,35 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
 
   return (
     <Switch>
-      {eventsEnabled && <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />}
-      {offersEnabled && <Route
-        exact
-        path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
-        render={props => <SprungbrettOfferPage {...params} {...props} />}
-      />}
-      {offersEnabled && <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />}
-      {poisEnabled && <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />}
-      {localNewsEnabled && <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} render={props => <LocalNewsPage {...params} {...props} />} />}
-      {tuNewsEnabled && <Route exact path={RoutePatterns[TU_NEWS_ROUTE]} render={props => <TuNewsPage {...params} {...props} />} />}
-      {tuNewsEnabled && <Route exact path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]} render={props => <TuNewsDetailPage {...params} {...props} />} />}
+      {eventsEnabled && (
+        <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />
+      )}
+      {offersEnabled && (
+        <Route
+          exact
+          path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
+          render={props => <SprungbrettOfferPage {...params} {...props} />}
+        />
+      )}
+      {offersEnabled && (
+        <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />
+      )}
+      {poisEnabled && (
+        <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
+      )}
+      {localNewsEnabled && (
+        <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} render={props => <LocalNewsPage {...params} {...props} />} />
+      )}
+      {tuNewsEnabled && (
+        <Route exact path={RoutePatterns[TU_NEWS_ROUTE]} render={props => <TuNewsPage {...params} {...props} />} />
+      )}
+      {tuNewsEnabled && (
+        <Route
+          exact
+          path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]}
+          render={props => <TuNewsDetailPage {...params} {...props} />}
+        />
+      )}
       <Route exact path={RoutePatterns[SEARCH_ROUTE]} render={props => <SearchPage {...params} {...props} />} />
       <Route exact path={RoutePatterns[DISCLAIMER_ROUTE]} render={props => <DisclaimerPage {...params} {...props} />} />
       <Route path={RoutePatterns[CATEGORIES_ROUTE]} render={props => <CategoriesPage {...params} {...props} />} />

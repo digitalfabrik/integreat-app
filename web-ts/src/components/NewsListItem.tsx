@@ -45,12 +45,12 @@ const StyledContainer = styled.div`
 `
 
 type PropsType = {
-  title: string,
-  content: string,
-  timestamp: Moment,
-  formatter: DateFormatter,
-  link: string,
-  type: NewsType,
+  title: string
+  content: string
+  timestamp: Moment
+  formatter: DateFormatter
+  link: string
+  type: NewsType
   t: TFunction<'news'>
 }
 
@@ -78,9 +78,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
           <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
-            <ReadMore $type={type}>
-              {readMoreLinkText}
-            </ReadMore>
+            <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>
       </Link>

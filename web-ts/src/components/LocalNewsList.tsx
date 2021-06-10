@@ -18,9 +18,9 @@ const Wrapper = styled.div`
 `
 
 type PropsType = {
-  items: Array<LocalNewsModel>,
-  noItemsMessage: string,
-  renderItem: (item: LocalNewsModel, city: string) => ReactNode,
+  items: Array<LocalNewsModel>
+  noItemsMessage: string
+  renderItem: (item: LocalNewsModel, city: string) => ReactNode
   city: string
 }
 
