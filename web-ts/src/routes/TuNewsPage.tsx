@@ -1,16 +1,15 @@
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import {
   CityModel,
+  createTunewsEndpoint,
   LanguageModel,
   normalizePath,
-  createTunewsEndpoint,
   TU_NEWS_TYPE,
-  TunewsModel
+  TunewsModel,
+  loadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import DateFormatterContext from '../context/DateFormatterContext'
 import { useTranslation } from 'react-i18next'
 import NewsListItem from '../components/NewsListItem'
@@ -20,7 +19,6 @@ import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { FailureSwitcher } from '../components/FailureSwitcher'
 import TuNewsList from '../components/TuNewsList'
-import { loadFromEndpoint } from '../../../api-client/src/endpoints/hooks/useLoadFromEndpoint'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
@@ -64,6 +62,15 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
     }
   }, [page, cityCode, languageCode, tuNews, setTuNews, setError, setLoading, hasMore])
 
+  useEffect(() => {
+    // Reset on language change
+    setTuNews([])
+    setError(null)
+    setLoading(false)
+    setHasMore(true)
+    setPage(DEFAULT_PAGE)
+  }, [languageCode, setTuNews, setError, setLoading, setHasMore, setPage])
+
   const renderTuNewsListItem = (tuNewsModel: TunewsModel) => {
     const { id, title, content, date } = tuNewsModel
     return (
@@ -72,7 +79,7 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
         content={content}
         timestamp={date}
         key={id}
-        link={createPath(TU_NEWS_DETAIL_ROUTE, { cityCode, languageCode, newsId: id})}
+        link={createPath(TU_NEWS_DETAIL_ROUTE, { cityCode, languageCode, newsId: id })}
         t={t}
         formatter={formatter}
         type={TU_NEWS_TYPE}
@@ -80,30 +87,20 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
     )
   }
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
-  )
-
-  const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(TU_NEWS_ROUTE, { cityCode, languageCode: code })
-    return {
-      // TODO
-      path: rootPath,
-      name,
-      code
-    }
-  })
+  const languageChangePaths = languages.map(({ code, name }) => ({
+    path: createPath(TU_NEWS_ROUTE, { cityCode, languageCode: code }),
+    name,
+    code
+  }))
 
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    // TODO
     feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
-    pathname,
-    toolbar
+    pathname
   }
 
   if (loading && tuNews.length === 0) {

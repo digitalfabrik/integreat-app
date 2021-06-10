@@ -10,10 +10,8 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import DateFormatterContext from '../context/DateFormatterContext'
-import { createPath, TU_NEWS_DETAIL_ROUTE } from './index'
+import { TU_NEWS_DETAIL_ROUTE } from './index'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { FailureSwitcher } from '../components/FailureSwitcher'
@@ -69,33 +67,21 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
   const viewportSmall = false
 
   const requestTuNews = useCallback(async () => {
-    const id = parseInt(newsId)
-    return createTunewsElementEndpoint(tunewsApiBaseUrl).request({ city: cityCode, language: languageCode, id })
-  }, [cityCode, languageCode, newsId])
+    return createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId) })
+  }, [newsId])
   const { data: newsModel, loading, error: newsError } = useLoadFromEndpoint(requestTuNews)
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
-  )
-
-  const languageChangePaths = languages.map(({ code, name }) => {
-    return {
-      path: createPath(TU_NEWS_DETAIL_ROUTE, { cityCode, languageCode: code, newsId }),
-      name,
-      code
-    }
-  })
+  // Language change is not possible between tuNews detail views because we don't know the id of other languages
+  const languageChangePaths = languages.map(({ code, name }) => ({ path: null, name, code }))
 
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    // TODO
     feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    pathname,
-    toolbar
+    pathname
   }
 
   if (loading) {
@@ -107,12 +93,14 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
   }
 
   if (!newsModel) {
-    const error = newsError || new NotFoundError({
-      type: TU_NEWS_TYPE,
-      id: pathname,
-      city: cityCode,
-      language: languageCode
-    })
+    const error =
+      newsError ||
+      new NotFoundError({
+        type: TU_NEWS_TYPE,
+        id: pathname,
+        city: cityCode,
+        language: languageCode
+      })
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
