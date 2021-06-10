@@ -37,7 +37,7 @@ type PropsType = {
   type: NewsType,
   active: boolean,
   destination: string,
-  t: TFunction
+  t: TFunction<'news'>
 }
 
 const NewsTab = ({ type, active, destination, t }: PropsType): ReactElement => {
