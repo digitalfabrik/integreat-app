@@ -32,7 +32,9 @@ const formatNotes = ({ notes, language, production, platformName }) => {
   const formattedNotes = notes
     .map(note => {
       const localizedNote = note[language] || note[DEFAULT_LANGUAGE]
-      return production ? `* ${localizedNote}` : `* [ ${note.issue_key} ] ${localizedNote}`
+      // Double quotes make mattermost status alerts fail
+      const escapedNote = localizedNote.replace(/"/g, '\'')
+      return production ? `* ${escapedNote}` : `* [ ${note.issue_key} ] ${escapedNote}`
     })
     .reduce((text, note) => {
       if (production && text.length + note.length > MAX_RELEASE_NOTES_LENGTH) {
