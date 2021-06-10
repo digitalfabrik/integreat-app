@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement} from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import styled from 'styled-components'
 import { TFunction } from 'react-i18next'
 import NewsTab from './NewsTab'
@@ -12,12 +12,12 @@ const StyledTabs = styled.div`
 `
 
 type PropsType = {
-  type: NewsType,
-  children: ReactNode,
-  city: string,
-  localNewsEnabled: boolean,
-  tunewsEnabled: boolean,
-  language: string,
+  type: NewsType
+  children: ReactNode
+  city: string
+  localNewsEnabled: boolean
+  tunewsEnabled: boolean
+  language: string
   t: TFunction<'news'>
 }
 
@@ -28,7 +28,9 @@ const NewsTabs = ({ children, language, city, localNewsEnabled, tunewsEnabled, t
   return (
     <>
       <StyledTabs>
-        {localNewsEnabled && <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />}
+        {localNewsEnabled && (
+          <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />
+        )}
         {tunewsEnabled && <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />}
       </StyledTabs>
       {children}

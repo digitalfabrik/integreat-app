@@ -20,13 +20,13 @@ const StyledList = styled.div`
 `
 
 type PropsType = {
-  items: Array<TunewsModel>,
-  noItemsMessage: string,
-  renderItem: (item: TunewsModel, city: string) => ReactNode,
-  city: string,
-  language: string,
-  isFetching: boolean,
-  hasMore: boolean,
+  items: Array<TunewsModel>
+  noItemsMessage: string
+  renderItem: (item: TunewsModel, city: string) => ReactNode
+  city: string
+  language: string
+  isFetching: boolean
+  hasMore: boolean
   fetchMoreTunews: (page: number, count: number) => void
 }
 

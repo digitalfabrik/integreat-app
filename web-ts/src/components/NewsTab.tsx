@@ -28,15 +28,16 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
 
 const TuStyledTab = styled(StyledTab)`
   background-image: ${({ $active }) => ($active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`)};
-  background-color: ${({ $active, theme }) => ($active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor)};
+  background-color: ${({ $active, theme }) =>
+    $active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
   background-size: cover;
   background-position: center center;
 `
 
 type PropsType = {
-  type: NewsType,
-  active: boolean,
-  destination: string,
+  type: NewsType
+  active: boolean
+  destination: string
   t: TFunction<'news'>
 }
 
