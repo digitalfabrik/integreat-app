@@ -6,7 +6,6 @@ import {
   LanguageModel,
   DISCLAIMER_ROUTE,
   createDisclaimerEndpoint,
-  NotFoundError,
   useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
@@ -65,14 +64,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   }
 
   if (!disclaimer) {
-    const error =
-      disclaimerError ||
-      new NotFoundError({
-        type: 'disclaimer',
-        id: pathname,
-        city: cityCode,
-        language: languageCode
-      })
+    const error = disclaimerError || new Error('Disclaimer should not be null!')
     return (
       <LocationLayout isLoading {...locationLayoutParams}>
         <FailureSwitcher error={error} />
