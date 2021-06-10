@@ -42,8 +42,8 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(DISCLAIMER_ROUTE, { cityCode, languageCode: code })
-    return { path: rootPath, name, code }
+    const disclaimerPath = createPath(DISCLAIMER_ROUTE, { cityCode, languageCode: code })
+    return { path: disclaimerPath, name, code }
   })
 
   const locationLayoutParams = {
