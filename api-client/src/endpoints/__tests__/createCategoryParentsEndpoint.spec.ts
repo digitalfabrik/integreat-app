@@ -3,13 +3,15 @@ import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
-import { JsonCategoryType } from '../../types'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../../mapping/mapCategoryJson')
+
 describe('createCategoryParentsEndpoint', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory']
   const params = {
@@ -31,29 +33,26 @@ describe('createCategoryParentsEndpoint', () => {
     hash: ''
   })
   const endpoint = createCategoryParentsEndpoint(baseUrl)
+
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/parents?&url=${params.cityContentPath}`
     )
   })
+
   it('should throw if using the endpoint for the root category', () => {
     expect(() => endpoint.mapParamsToUrl({ ...params, cityContentPath: `/${params.city}/${params.language}` })).toThrow(
       'This endpoint does not support the root category!'
     )
   })
+
   it('should map json to category', () => {
     const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
 
-    ;((mapCategoryJson as unknown) as jest.Mock<
-      (json: JsonCategoryType, basePath: string) => CategoryModel
-      // @ts-ignore this mock in invalid
-    >).mockImplementation((json: string) => {
-      if (json === 'myFirstCategory') {
-        return parents[0]
-      }
+    mocked(mapCategoryJson)
+      .mockImplementationOnce(() => parents[0])
+      .mockImplementationOnce(() => parents[1])
 
-      return parents[1]
-    })
     parents.push(rootCategory)
     expect(endpoint.mapResponse(json, params)).toEqual(parents)
     expect(mapCategoryJson).toHaveBeenCalledTimes(2)

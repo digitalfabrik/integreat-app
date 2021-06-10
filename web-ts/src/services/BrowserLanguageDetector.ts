@@ -25,7 +25,7 @@ const localStorageAvailable = () => {
 const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
 const languageDetector: LanguageDetectorModule = {
   type: 'languageDetector',
-  init: (services, detectorOptions, i18nextOptions) => {},
+  init: () => {},
   // Returns array of ISO-639-2 or ISO-639-3 language codes
   detect: () => {
     const bcp47Tags: string[] = []

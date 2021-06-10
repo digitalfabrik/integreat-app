@@ -4,6 +4,7 @@ import AppSettings from '../AppSettings'
 import buildConfig from '../../constants/buildConfig'
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Sentry from '@sentry/react-native'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -18,8 +19,16 @@ jest.mock('@sentry/react-native')
 
 describe('sendTrackingSignal', () => {
   const mockRequest = jest.fn()
-  const mockCreateTrackingEndpoint = (createTrackingEndpoint as unknown) as jest.Mock
-  const mockBuildConfig = (buildConfig as unknown) as jest.Mock
+  const mockCreateTrackingEndpoint = mocked(createTrackingEndpoint)
+  const mockedBuildConfig = mocked(buildConfig)
+
+  const mockBuildConfig = (jpalTracking: boolean) => {
+    const previous = buildConfig()
+    mockedBuildConfig.mockImplementation(() => ({
+      ...previous,
+      featureFlags: { ...previous.featureFlags, jpalTracking }
+    }))
+  }
 
   beforeEach(() => {
     AsyncStorage.clear()
@@ -49,11 +58,7 @@ describe('sendTrackingSignal', () => {
     }
 
     it('should request the tracking endpoint if tracking enabled and tracking code set', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: true
-        }
-      }))
+      mockBuildConfig(true)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
@@ -70,11 +75,7 @@ describe('sendTrackingSignal', () => {
     })
 
     it('should not send a signal if disabled in build config', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: false
-        }
-      }))
+      mockBuildConfig(false)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
@@ -88,11 +89,7 @@ describe('sendTrackingSignal', () => {
       expect(mockRequest).not.toHaveBeenCalled()
     })
     it('should not send a signal if disabled in app settings', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: true
-        }
-      }))
+      mockBuildConfig(true)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: false,
@@ -107,11 +104,7 @@ describe('sendTrackingSignal', () => {
     })
 
     it('should not send a signal if no tracking code set', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: true
-        }
-      }))
+      mockBuildConfig(true)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
@@ -126,11 +119,7 @@ describe('sendTrackingSignal', () => {
     })
 
     it('should push signal to app settings if user is offline', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: true
-        }
-      }))
+      mockBuildConfig(true)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
@@ -151,11 +140,7 @@ describe('sendTrackingSignal', () => {
     })
 
     it('should report error to sentry if an error occurs', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: true
-        }
-      }))
+      mockBuildConfig(true)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
@@ -178,11 +163,7 @@ describe('sendTrackingSignal', () => {
 
   describe('sendTrackingSignal', () => {
     it('should send correct signal', async () => {
-      mockBuildConfig.mockImplementationOnce(() => ({
-        featureFlags: {
-          jpalTracking: true
-        }
-      }))
+      mockBuildConfig(true)
       const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
