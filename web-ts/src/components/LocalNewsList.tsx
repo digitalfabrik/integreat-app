@@ -1,5 +1,3 @@
-// @flow
-
 import React, { ReactElement, ReactNode } from 'react'
 import { isEmpty } from 'lodash'
 import styled from 'styled-components'

@@ -51,7 +51,7 @@ type PropsType = {
   formatter: DateFormatter,
   link: string,
   type: NewsType,
-  t: TFunction
+  t: TFunction<'news'>
 }
 
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
