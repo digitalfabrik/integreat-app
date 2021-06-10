@@ -16,6 +16,10 @@ import {
 import { ExtractRouteParams } from 'react-router'
 import { generatePath } from 'react-router-dom'
 
+export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
+export const TU_NEWS_ROUTE = TU_NEWS_TYPE
+export const TU_NEWS_DETAIL_ROUTE = `${TU_NEWS_ROUTE}-detail` as const
+
 export const cityContentPattern = `/:cityCode/:languageCode`
 export const RoutePatterns = {
   [LANDING_ROUTE]: `/${LANDING_ROUTE}/:languageCode`,
@@ -26,8 +30,9 @@ export const RoutePatterns = {
   [SPRUNGBRETT_OFFER_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`,
   [OFFERS_ROUTE]: `${cityContentPattern}/${OFFERS_ROUTE}`,
   [POIS_ROUTE]: `${cityContentPattern}/${POIS_ROUTE}/:poiId?`,
-  [LOCAL_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/:newsId?`,
-  [TU_NEWS_TYPE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/:newsId?`,
+  [LOCAL_NEWS_ROUTE]: `${cityContentPattern}/${NEWS_ROUTE}/${LOCAL_NEWS_ROUTE}/:newsId?`,
+  [TU_NEWS_ROUTE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_ROUTE}`,
+  [TU_NEWS_DETAIL_ROUTE]: `${cityContentPattern}/${NEWS_ROUTE}/${TU_NEWS_ROUTE}/:newsId`,
   [SEARCH_ROUTE]: `${cityContentPattern}/${SEARCH_ROUTE}`,
   [DISCLAIMER_ROUTE]: `${cityContentPattern}/${DISCLAIMER_ROUTE}`,
   [CATEGORIES_ROUTE]: `${cityContentPattern}/:categoryId*`
