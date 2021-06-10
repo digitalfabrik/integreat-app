@@ -1,17 +1,13 @@
-// @flow
-
-import React, { type Node } from 'react'
+import React from 'react'
 import moment from 'moment'
 import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
-import { LOCAL_NEWS } from '../../../web/src/routes/news/constants'
-import textTruncator from '../../../../modules/common/utils/textTruncator'
-import DateFormatter from '../api-client/src/i18n/DateFormatter'
+import textTruncator from '../../services/textTruncator'
 import { render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../../web/src/modules/theme/constants/theme'
+import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
+import buildConfig from '../../constants/buildConfig'
 
-jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
-jest.mock('../../../../modules/common/components/LastUpdateInfo', () =>
+jest.mock('../LastUpdateInfo', () =>
   jest.fn(({ lastUpdate, withText }) => (
     <div>
       {withText ? 'lastUpdate ' : ''}
@@ -21,9 +17,10 @@ jest.mock('../../../../modules/common/components/LastUpdateInfo', () =>
 )
 
 describe('NewsListItem', () => {
+  const theme = buildConfig().lightTheme
   const language = 'en'
   const link = '/testumgebung/en/news/local'
-  const t = (key: ?string): string => key || ''
+  const t = key => key
 
   const lastUpdate = moment('2020-03-20T17:50:00.000Z')
   const title = 'Tick bite - What to do?'
@@ -41,7 +38,7 @@ describe('NewsListItem', () => {
     const { getByText } = render(
       <ThemeProvider theme={theme}>
         <NewsListItem
-          type={LOCAL_NEWS}
+          type={LOCAL_NEWS_TYPE}
           title={title}
           content={message}
           timestamp={lastUpdate}
@@ -65,7 +62,7 @@ describe('NewsListItem', () => {
     const { getByText } = render(
       <ThemeProvider theme={theme}>
         <NewsListItem
-          type={LOCAL_NEWS}
+          type={LOCAL_NEWS_TYPE}
           title={title}
           content={message}
           timestamp={lastUpdate}

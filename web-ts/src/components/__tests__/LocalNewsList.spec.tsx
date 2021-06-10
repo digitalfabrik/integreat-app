@@ -1,27 +1,23 @@
-// @flow
-
 import React from 'react'
-import { LocalNewsModel } from 'api-client'
+import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
-import { LOCAL_NEWS } from '../../../web/src/routes/news/constants'
-import DateFormatter from '../api-client/src/i18n/DateFormatter'
 
 describe('LocalNewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
-  const t = (key: ?string): string => key || ''
+  const t = key => key
   const city = 'testcity'
 
-  const renderItem = ({ id, title, message, timestamp }, city) => (
+  const renderItem = ({ id, title, message, timestamp }) => (
     <NewsListItem
       title={title}
       content={message}
       timestamp={timestamp}
-      type={LOCAL_NEWS}
-      key={localNews1.id}
+      type={LOCAL_NEWS_TYPE}
+      key={id}
       link={link}
       t={t}
       formatter={new DateFormatter(language)}
