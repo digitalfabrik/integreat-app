@@ -6,7 +6,8 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 
 describe('Header', () => {
-  const onStickyTopChanged = (value: number) => undefined
+  const onStickyTopChanged = () => undefined
+
   it('should match snapshot with smallViewport', () => {
     const component = shallow(
       <Header
@@ -46,7 +47,7 @@ describe('Header', () => {
       />
     )
 
-    const prop: (stickyTop: number) => void = component.find(Headroom).prop('onStickyTopChanged')
+    const prop: (stickyTop: number) => void = component.find(Headroom).prop('onStickyTopChanged')!
     prop(42)
     expect(callback).toHaveBeenCalledWith(42)
   })

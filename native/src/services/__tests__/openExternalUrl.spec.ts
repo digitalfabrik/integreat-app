@@ -3,6 +3,7 @@ import InAppBrowser from 'react-native-inappbrowser-reborn'
 import { Linking } from 'react-native'
 import sendTrackingSignal from '../sendTrackingSignal'
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('@sentry/react-native', () => ({
   captureException: () => {}
@@ -47,7 +48,7 @@ describe('openExternalUrl', () => {
   })
   it('should open http urls with linking if inapp browser is not available', async () => {
     const url = 'https://som.niceli.nk/mor/etext'
-    ;((InAppBrowser.isAvailable as unknown) as jest.Mock).mockImplementation(() => false)
+    mocked(InAppBrowser.isAvailable).mockImplementation(async () => false)
     await openExternalUrl(url)
     expect(InAppBrowser.open).not.toHaveBeenCalled()
     expect(Linking.openURL).toHaveBeenLastCalledWith(url)
@@ -66,7 +67,7 @@ describe('openExternalUrl', () => {
   })
   it('should show snackbar if opening url is not supported', async () => {
     const url = 'mor:erando.mstu.ff'
-    ;((Linking.canOpenURL as unknown) as jest.Mock).mockImplementation(() => false)
+    mocked(Linking.canOpenURL).mockImplementation(async () => false)
     await openExternalUrl(url)
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(InAppBrowser.open).not.toHaveBeenCalled() // TODO IGAPP-521 assert snackbar is shown

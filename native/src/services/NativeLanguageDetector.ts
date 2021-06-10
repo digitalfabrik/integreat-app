@@ -1,4 +1,5 @@
 import { getLocales } from 'react-native-localize'
+
 export default {
   type: 'languageDetector' as const,
   async: false,
@@ -13,5 +14,7 @@ export default {
     return locales.map(locale => locale.languageTag)
   },
   init: () => {},
-  cacheUserLanguage: (newLanguage: string) => {}
+  cacheUserLanguage: (newLanguage: string) => {
+    console.log('Skipping caching of new language ', newLanguage)
+  }
 }
