@@ -30,7 +30,7 @@ type PropsType = {
   fetchMoreTunews: (page: number, count: number) => void
 }
 
-class TunewsList extends React.PureComponent<PropsType> {
+class TuNewsList extends React.PureComponent<PropsType> {
   loadItems = (page: number): void => {
     this.props.fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
   }
@@ -51,4 +51,4 @@ class TunewsList extends React.PureComponent<PropsType> {
   }
 }
 
-export default TunewsList
+export default TuNewsList

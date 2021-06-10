@@ -40,7 +40,7 @@ type PropsType = {
   t: TFunction
 }
 
-const Tab = ({ type, active, destination, t }: PropsType): ReactElement => {
+const NewsTab = ({ type, active, destination, t }: PropsType): ReactElement => {
   if (type === TU_NEWS_TYPE) {
     return <TuStyledTab $active={active} to={destination} aria-label={t('tuNews')} />
   }
@@ -52,4 +52,4 @@ const Tab = ({ type, active, destination, t }: PropsType): ReactElement => {
   )
 }
 
-export default Tab
+export default NewsTab
