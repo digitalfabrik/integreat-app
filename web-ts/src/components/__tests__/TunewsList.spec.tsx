@@ -1,26 +1,22 @@
-// @flow
-
 import React from 'react'
-import { TunewsModel } from 'api-client'
+import { DateFormatter, TU_NEWS_TYPE, TunewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'
 import NewsListItem from '../NewsListItem'
-import { TU_NEWS } from '../../../web/src/routes/news/constants'
-import DateFormatter from '../api-client/src/i18n/DateFormatter'
 
 describe('TunewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
-  const t = (key: ?string): string => key || ''
+  const t = key => key
   const city = 'testcity'
 
-  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel, city: string) => (
+  const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel) => (
     <NewsListItem
       title={title}
       content={content}
       timestamp={date}
-      type={TU_NEWS}
+      type={TU_NEWS_TYPE}
       key={id}
       link={link}
       t={t}

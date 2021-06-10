@@ -1,55 +1,50 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import type Moment from 'moment'
-import CleanLink from '../../../modules/common/components/CleanLink'
-import LastUpdateInfo from '../../../modules/common/components/LastUpdateInfo'
-import { Description } from '../../../modules/common/components/ListItem'
-import { type TFunction } from 'react-i18next'
-import textTruncator from '../../../modules/common/utils/textTruncator'
-import { LOCAL_NEWS } from '../../../web/src/routes/news/constants'
-import type { NewsType } from '../../../web/src/routes/news/constants'
-import DateFormatter from '../api-client/src/i18n/DateFormatter'
-import type { ThemeType } from '../build-configs/ThemeType'
+import React, { ReactElement } from 'react'
+import styled from 'styled-components'
+import { Moment } from 'moment'
+import CleanLink from './CleanLink'
+import LastUpdateInfo from './LastUpdateInfo'
+import { Description } from './ListItem'
+import { TFunction } from 'react-i18next'
+import textTruncator from '../services/textTruncator'
+import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
 import { Parser } from 'htmlparser2'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 
-const Link: StyledComponent<{||}, ThemeType, *> = styled(CleanLink)`
+const Link = styled(CleanLink)`
   display: flex;
   background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
-const ReadMoreLink: StyledComponent<{||}, ThemeType, *> = styled(({ type, ...props }) => <Link {...props} />)`
+const ReadMoreLink = styled(Link)<{ $type: NewsType }>`
   align-self: flex-end;
-  color: ${({ theme, type }) => (type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
-  color: ${({ theme, type }) => (type === LOCAL_NEWS ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
+  color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
+  color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
   font-weight: 600;
 `
 
-const Title: StyledComponent<{||}, ThemeType, *> = styled.h3`
+const Title = styled.h3`
   margin-bottom: 0;
   font-family: Raleway;
   font-size: 18px;
   font-weight: 700;
 `
-const Body: StyledComponent<{||}, ThemeType, *> = styled.p`
+const Body = styled.p`
   font-size: 16px;
   line-height: 1.38;
 `
 
-const StyledNewsListItem: StyledComponent<{||}, ThemeType, *> = styled.div`
+const StyledNewsListItem = styled.div`
   padding-bottom: 2px;
   background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 
-const StyledContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
+const StyledContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
 `
 
-type PropsType = {|
+type PropsType = {
   title: string,
   content: string,
   timestamp: Moment,
@@ -57,9 +52,9 @@ type PropsType = {|
   link: string,
   type: NewsType,
   t: TFunction
-|}
+}
 
-const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType) => {
+const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
   // Decode html entities
   let decodedContent = ''
   const parser = new Parser(
@@ -73,6 +68,8 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
   parser.write(content)
   parser.end()
 
+  const readMoreLinkText = `${t('readMore')} >`
+
   return (
     <StyledNewsListItem>
       <Link to={link}>
@@ -81,8 +78,8 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
           <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
-            <ReadMoreLink to={link} type={type}>
-              {t('readMore')} >
+            <ReadMoreLink to={link} $type={type}>
+              {readMoreLinkText}
             </ReadMoreLink>
           </StyledContainer>
         </Description>

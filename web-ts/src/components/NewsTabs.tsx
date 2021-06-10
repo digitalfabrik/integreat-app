@@ -1,46 +1,39 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import { type TFunction } from 'react-i18next'
+import React, { ReactNode, ReactElement} from 'react'
+import styled from 'styled-components'
+import { TFunction } from 'react-i18next'
 import Tab from './Tab'
-import { LOCAL_NEWS, TU_NEWS } from '../../../web/src/routes/news/constants'
-import LocalNewsRouteConfig from '../../../web/src/modules/app/route-configs/LocalNewsRouteConfig'
-import TunewsRouteConfig from '../../../web/src/modules/app/route-configs/TunewsRouteConfig'
-import type { ThemeType } from '../build-configs/ThemeType'
+import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 
-const StyledTabs: StyledComponent<{||}, ThemeType, *> = styled.div`
+const StyledTabs = styled.div`
   display: flex;
   padding-top: 45px;
   padding-bottom: 40px;
 `
 
-type PropsType = {|
-  type: string,
-  children: React.Node,
+type PropsType = {
+  type: NewsType,
+  children: ReactNode,
   city: string,
   localNewsEnabled: boolean,
   tunewsEnabled: boolean,
   language: string,
   t: TFunction
-|}
+}
 
-class NewsTabs extends React.PureComponent<PropsType> {
-  render() {
-    const { children, language, city, localNewsEnabled, tunewsEnabled, t, type } = this.props
-    const localNewsPath = new LocalNewsRouteConfig().getRoutePath({ city, language })
-    const tunewsPath = new TunewsRouteConfig().getRoutePath({ city, language })
+const NewsTabs = ({ children, language, city, localNewsEnabled, tunewsEnabled, t, type }: PropsType): ReactElement => {
+  // TODO
+  const localNewsPath = '/'
+  const tunewsPath = '/'
 
-    return (
-      <>
-        <StyledTabs>
-          {localNewsEnabled && <Tab active={type === LOCAL_NEWS} type={LOCAL_NEWS} destination={localNewsPath} t={t} />}
-          {tunewsEnabled && <Tab active={type === TU_NEWS} type={TU_NEWS} destination={tunewsPath} t={t} />}
-        </StyledTabs>
-        {children}
-      </>
-    )
-  }
+  return (
+    <>
+      <StyledTabs>
+        {localNewsEnabled && <Tab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />}
+        {tunewsEnabled && <Tab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />}
+      </StyledTabs>
+      {children}
+    </>
+  )
 }
 
 export default NewsTabs

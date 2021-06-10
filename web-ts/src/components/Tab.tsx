@@ -1,17 +1,12 @@
-// @flow
-
-import React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import Link from 'redux-first-router-link'
-import { type TFunction } from 'react-i18next'
+import React, { ReactElement } from 'react'
+import styled from 'styled-components'
+import { TFunction } from 'react-i18next'
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
-import { TU_NEWS } from '../../../web/src/routes/news/constants'
-import type { ThemeType } from '../build-configs/ThemeType'
+import { Link } from 'react-router-dom'
+import { NewsType, TU_NEWS_TYPE } from 'api-client'
 
-const NewsLink = ({ active, ...props }: { active: boolean }) => <Link {...props} />
-
-const StyledTab: StyledComponent<{||}, ThemeType, *> = styled(NewsLink)`
+const StyledTab = styled(Link)<{ $active: boolean }>`
   display: flex;
   width: 160px;
   height: 50px;
@@ -24,26 +19,26 @@ const StyledTab: StyledComponent<{||}, ThemeType, *> = styled(NewsLink)`
   padding: 13px 15px;
   color: ${({ theme }) => theme.colors.backgroundColor};
   object-fit: contain;
-  background-color: ${({ active, theme }) => (active ? theme.colors.themeColor : theme.colors.textDisabledColor)};
+  background-color: ${({ $active, theme }) => ($active ? theme.colors.themeColor : theme.colors.textDisabledColor)};
   border-radius: 11px;
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
 `
 
-const TuStyledTab: StyledComponent<{||}, ThemeType, *> = styled(StyledTab)`
-  background-image: ${({ active, theme }) => (active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`)};
-  background-color: ${({ active, theme }) => (active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor)};
+const TuStyledTab = styled(StyledTab)`
+  background-image: ${({ $active }) => ($active ? `url(${tunewsLogoActive})` : `url(${tunewsLogoInactive})`)};
+  background-color: ${({ $active, theme }) => ($active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor)};
   background-size: cover;
   background-position: center center;
 `
 
-type PropsType = {|
-  type: string,
+type PropsType = {
+  type: NewsType,
   active: boolean,
   destination: string,
   t: TFunction
-|}
+}
 
 class Tab extends React.PureComponent<PropsType> {
   render() {
