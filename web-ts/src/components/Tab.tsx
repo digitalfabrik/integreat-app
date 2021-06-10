@@ -6,8 +6,8 @@ import Link from 'redux-first-router-link'
 import { type TFunction } from 'react-i18next'
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
-import { TU_NEWS } from '../constants'
-import type { ThemeType } from 'build-configs/ThemeType'
+import { TU_NEWS } from '../../../web/src/routes/news/constants'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const NewsLink = ({ active, ...props }: { active: boolean }) => <Link {...props} />
 

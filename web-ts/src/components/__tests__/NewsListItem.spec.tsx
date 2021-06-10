@@ -3,12 +3,12 @@
 import React, { type Node } from 'react'
 import moment from 'moment'
 import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
-import { LOCAL_NEWS } from '../../constants'
+import { LOCAL_NEWS } from '../../../web/src/routes/news/constants'
 import textTruncator from '../../../../modules/common/utils/textTruncator'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
 import { render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
-import theme from '../../../../modules/theme/constants/theme'
+import theme from '../../../../web/src/modules/theme/constants/theme'
 
 jest.mock('redux-first-router-link', () => ({ children }: { children: Array<Node>, ... }) => <div>{children}</div>)
 jest.mock('../../../../modules/common/components/LastUpdateInfo', () =>

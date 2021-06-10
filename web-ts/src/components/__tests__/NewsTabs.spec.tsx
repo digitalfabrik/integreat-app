@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import NewsTabs from '../NewsTabs'
-import { LOCAL_NEWS } from '../../constants'
+import { LOCAL_NEWS } from '../../../web/src/routes/news/constants'
 import Tab from '../Tab'
 
 describe('NewsTabs', () => {

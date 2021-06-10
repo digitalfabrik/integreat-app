@@ -3,7 +3,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import Tab from '../Tab'
-import { TU_NEWS, LOCAL_NEWS } from '../../constants'
+import { TU_NEWS, LOCAL_NEWS } from '../../../web/src/routes/news/constants'
 
 describe('Tab', () => {
   const active = true
