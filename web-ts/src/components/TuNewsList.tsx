@@ -43,7 +43,7 @@ class TuNewsList extends React.PureComponent<PropsType> {
 
     return (
       <StyledList>
-        <InfiniteScroll loadMore={this.loadItems} hasMore={!isFetching && hasMore} loader={<LoadingSpinner key={0} />}>
+        <InfiniteScroll loadMore={this.loadItems} hasMore={!isFetching && hasMore}>
           <div>{items.map(item => renderItem(item, city))}</div>
         </InfiniteScroll>
       </StyledList>
