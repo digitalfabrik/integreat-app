@@ -6,8 +6,8 @@ import moment from 'moment'
 import { shallow } from 'enzyme'
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
-import { LOCAL_NEWS } from '../../constants'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { LOCAL_NEWS } from '../../../web/src/routes/news/constants'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
 
 describe('LocalNewsList', () => {
   const language = 'en'

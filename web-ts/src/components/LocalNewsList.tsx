@@ -4,7 +4,7 @@ import * as React from 'react'
 import { isEmpty } from 'lodash'
 import styled, { type StyledComponent } from 'styled-components'
 import { LocalNewsModel } from 'api-client'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const NoItemsMessage: StyledComponent<{||}, ThemeType, *> = styled.div`
   padding-top: 25px;

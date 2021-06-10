@@ -6,7 +6,7 @@ import styled, { type StyledComponent } from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
 import { TunewsModel } from 'api-client'
 import LoadingSpinner from '../../../modules/common/components/LoadingSpinner'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const TUNEWS_PAGE_COUNT = 20
 

@@ -6,8 +6,8 @@ import moment from 'moment'
 import { shallow } from 'enzyme'
 import TunewsList from '../TunewsList'
 import NewsListItem from '../NewsListItem'
-import { TU_NEWS } from '../../constants'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { TU_NEWS } from '../../../web/src/routes/news/constants'
+import DateFormatter from '../api-client/src/i18n/DateFormatter'
 
 describe('TunewsList', () => {
   const language = 'en'
