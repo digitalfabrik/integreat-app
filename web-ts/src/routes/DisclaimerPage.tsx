@@ -9,7 +9,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { createPath } from './index'
