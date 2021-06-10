@@ -15,7 +15,7 @@ const Link = styled(CleanLink)`
   display: flex;
   background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
-const ReadMoreLink = styled(Link)<{ $type: NewsType }>`
+const ReadMore = styled.div<{ $type: NewsType }>`
   align-self: flex-end;
   color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
   color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
@@ -78,9 +78,9 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
           <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
-            <ReadMoreLink to={link} $type={type}>
+            <ReadMore $type={type}>
               {readMoreLinkText}
-            </ReadMoreLink>
+            </ReadMore>
           </StyledContainer>
         </Description>
       </Link>

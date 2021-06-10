@@ -90,7 +90,15 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   if (loading) {
     return (
       <LocationLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        <NewsTabs
+          type={LOCAL_NEWS_TYPE}
+          city={cityCode}
+          tunewsEnabled={cityModel.tunewsEnabled}
+          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          t={t}
+          language={languageCode}>
+          <LoadingSpinner />
+        </NewsTabs>
       </LocationLayout>
     )
   }
