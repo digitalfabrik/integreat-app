@@ -1,21 +1,21 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import {
-  useLoadFromEndpoint,
-  LOCAL_NEWS_TYPE,
   CityModel,
+  createLocalNewsEndpoint,
   LanguageModel,
+  LOCAL_NEWS_TYPE,
   LocalNewsModel,
   normalizePath,
-  createLocalNewsEndpoint, NotFoundError, replaceLinks
+  NotFoundError,
+  replaceLinks,
+  useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import DateFormatterContext from '../context/DateFormatterContext'
 import { useTranslation } from 'react-i18next'
 import NewsListItem from '../components/NewsListItem'
-import { createPath } from './index'
+import { createPath, LOCAL_NEWS_ROUTE } from './index'
 import NewsTabs from '../components/NewsTabs'
 import LocalNewsList from '../components/LocalNewsList'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -53,7 +53,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
         content={message}
         timestamp={timestamp}
         key={id}
-        link={createPath(LOCAL_NEWS_TYPE, { cityCode, languageCode, newsId: id})}
+        link={createPath(LOCAL_NEWS_ROUTE, { cityCode, languageCode, newsId: id })}
         t={t}
         formatter={formatter}
         type={LOCAL_NEWS_TYPE}
@@ -61,30 +61,21 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
     )
   }
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
-  )
-
-  const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(LOCAL_NEWS_TYPE, { cityCode, languageCode: code })
-    return {
-      // TODO
-      path: rootPath,
-      name,
-      code
-    }
-  })
+  // Language change is not possible between local news detail views because we don't know the id of other languages
+  const languageChangePaths = languages.map(({ code, name }) => ({
+    path: newsId ? null : createPath(LOCAL_NEWS_ROUTE, { cityCode, languageCode: code }),
+    name,
+    code
+  }))
 
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    // TODO
     feedbackTargetInformation: null,
     languageChangePaths,
-    route: LOCAL_NEWS_TYPE,
+    route: LOCAL_NEWS_ROUTE,
     languageCode,
-    pathname,
-    toolbar
+    pathname
   }
 
   if (loading) {
@@ -104,12 +95,14 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   }
 
   if (!localNews || (newsId && !newsModel)) {
-    const error = newsError || new NotFoundError({
-      type: LOCAL_NEWS_TYPE,
-      id: pathname,
-      city: cityCode,
-      language: languageCode
-    })
+    const error =
+      newsError ||
+      new NotFoundError({
+        type: LOCAL_NEWS_TYPE,
+        id: pathname,
+        city: cityCode,
+        language: languageCode
+      })
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
