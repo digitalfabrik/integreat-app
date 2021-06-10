@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import NewsTabs from '../NewsTabs'
-import Tab from '../Tab'
+import NewsTab from '../NewsTab'
 import { LOCAL_NEWS_TYPE } from 'api-client'
 
 describe('NewsTabs', () => {
@@ -14,6 +14,6 @@ describe('NewsTabs', () => {
         <div>dummy child</div>
       </NewsTabs>
     )
-    expect(wrapper.find(Tab)).toHaveLength(2)
+    expect(wrapper.find(NewsTab)).toHaveLength(2)
   })
 })

@@ -2,10 +2,10 @@ import React from 'react'
 import { DateFormatter, TU_NEWS_TYPE, TunewsModel } from 'api-client'
 import moment from 'moment'
 import { shallow } from 'enzyme'
-import TunewsList from '../TunewsList'
+import TuNewsList from '../TuNewsList'
 import NewsListItem from '../NewsListItem'
 
-describe('TunewsList', () => {
+describe('TuNewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
   const t = key => key
@@ -53,7 +53,7 @@ describe('TunewsList', () => {
 
   it('should have two NewsListItem', () => {
     const tunewsList = shallow(
-      <TunewsList
+      <TuNewsList
         language={language}
         items={tunews}
         renderItem={renderItem(language)}
@@ -73,7 +73,7 @@ describe('TunewsList', () => {
 
   it('should render "currentlyNoTunews" if the items is an empty array and hasMore is false', () => {
     const tunewsList = shallow(
-      <TunewsList
+      <TuNewsList
         language={language}
         items={[]}
         renderItem={renderItem(language)}
