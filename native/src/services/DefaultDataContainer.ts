@@ -169,7 +169,11 @@ class DefaultDataContainer implements DataContainer {
     )
   }
 
-  setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType): Promise<void> => {
+  setResourceCache = async (
+    city: string,
+    language: string,
+    resourceCache: LanguageResourceCacheStateType
+  ): Promise<void> => {
     const context = new DatabaseContext(city)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)

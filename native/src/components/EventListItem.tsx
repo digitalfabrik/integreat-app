@@ -30,7 +30,7 @@ const getEventPlaceholder = (id: number): number => {
   return placeholders[id % placeholders.length]
 }
 
-const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType) : ReactElement=> {
+const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const navigateToEventInCity = useCallback(() => {
     navigateTo({

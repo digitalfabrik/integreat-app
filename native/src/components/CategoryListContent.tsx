@@ -31,13 +31,13 @@ const bulletSizeRelativeToFont = 2.8
 const bulletAlignmentRelativeToFont = 2
 
 const CategoryListContent = ({
-                               content,
-                               navigateToLink,
-                               cacheDictionary,
-                               language,
-                               lastUpdate,
-                               theme
-                             }: ContentPropsType): ReactElement => {
+  content,
+  navigateToLink,
+  cacheDictionary,
+  language,
+  lastUpdate,
+  theme
+}: ContentPropsType): ReactElement => {
   const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
   const onLinkPress = useCallback(

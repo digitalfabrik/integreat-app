@@ -180,8 +180,8 @@ const Header = (props: PropsType): ReactElement => {
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable && renderItem(t('search'), 'always', goToSearch, t('search'), 'search')}
           {!peeking &&
-          goToLanguageChange &&
-          renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
+            goToLanguageChange &&
+            renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
           {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
           {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
           {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}

@@ -95,11 +95,13 @@ type ContentCityJsonType = {
   sorting_name: string
   longitude: number | null
   latitude: number | null
-  aliases: Record<string,
+  aliases: Record<
+    string,
     {
       longitude: number
       latitude: number
-    }> | null
+    }
+  > | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
 }
@@ -117,20 +119,26 @@ type ContentPoiJsonType = {
 type CityCodeType = string
 type LanguageCodeType = string
 type MetaCitiesEntryType = {
-  languages: Record<LanguageCodeType,
+  languages: Record<
+    LanguageCodeType,
     {
       lastUpdate: Moment
-    }>
+    }
+  >
   lastUsage: Moment
 }
-type MetaCitiesJsonType = Record<CityCodeType,
+type MetaCitiesJsonType = Record<
+  CityCodeType,
   {
-    languages: Record<LanguageCodeType,
+    languages: Record<
+      LanguageCodeType,
       {
         last_update: string
-      }>
+      }
+    >
     last_usage: string
-  }>
+  }
+>
 type CityLastUsageType = {
   city: CityCodeType
   lastUsage: Moment
@@ -156,9 +164,9 @@ const mapToObject = (map: Map<string, string>) => {
 class DatabaseConnector {
   getContentPath(key: string, context: DatabaseContext): string {
     if (!key) {
-      throw Error('Key mustn\'t be empty')
+      throw Error("Key mustn't be empty")
     } else if (!context.cityCode) {
-      throw Error('cityCode mustn\'t be empty')
+      throw Error("cityCode mustn't be empty")
     }
 
     if (!context.languageCode) {
@@ -170,7 +178,7 @@ class DatabaseConnector {
 
   getResourceCachePath(context: DatabaseContext): string {
     if (!context.cityCode) {
-      throw Error('cityCode mustn\'t be empty')
+      throw Error("cityCode mustn't be empty")
     }
 
     return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
@@ -200,9 +208,9 @@ class DatabaseConnector {
     const languageCode = context.languageCode
 
     if (!cityCode) {
-      throw Error('cityCode mustn\'t be empty')
+      throw Error("cityCode mustn't be empty")
     } else if (!languageCode) {
-      throw Error('languageCode mustn\'t be empty')
+      throw Error("languageCode mustn't be empty")
     }
 
     const metaData = (await this._loadMetaCities()) || {}
@@ -286,7 +294,7 @@ class DatabaseConnector {
     const city = context.cityCode
 
     if (!city) {
-      throw Error('cityCode mustn\'t be null')
+      throw Error("cityCode mustn't be null")
     }
 
     const metaData = await this._loadMetaCities()
@@ -509,12 +517,12 @@ class DatabaseConnector {
         },
         featured_image: event.featuredImage
           ? {
-            description: event.featuredImage.description,
-            thumbnail: event.featuredImage.thumbnail,
-            medium: event.featuredImage.medium,
-            large: event.featuredImage.large,
-            full: event.featuredImage.full
-          }
+              description: event.featuredImage.description,
+              thumbnail: event.featuredImage.thumbnail,
+              medium: event.featuredImage.medium,
+              large: event.featuredImage.large,
+              full: event.featuredImage.full
+            }
           : null
       })
     )
@@ -541,12 +549,12 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         featuredImage: jsonObject.featured_image
           ? new FeaturedImageModel({
-            description: jsonObject.featured_image.description,
-            thumbnail: jsonObject.featured_image.thumbnail,
-            medium: jsonObject.featured_image.medium,
-            large: jsonObject.featured_image.large,
-            full: jsonObject.featured_image.full
-          })
+              description: jsonObject.featured_image.description,
+              thumbnail: jsonObject.featured_image.thumbnail,
+              medium: jsonObject.featured_image.medium,
+              large: jsonObject.featured_image.large,
+              full: jsonObject.featured_image.full
+            })
           : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
@@ -622,7 +630,7 @@ class DatabaseConnector {
     const city = context.cityCode
 
     if (!city) {
-      throw Error('cityCode mustn\'t be null')
+      throw Error("cityCode mustn't be null")
     }
 
     const lastUsages = await this.loadLastUsages()
