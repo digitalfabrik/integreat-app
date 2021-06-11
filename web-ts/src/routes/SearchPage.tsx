@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { CityModel, LanguageModel, SEARCH_ROUTE } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
@@ -10,7 +10,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const SearchPage = ({ match, cityModel, location }: PropsType) => {
+const SearchPage = ({ match, cityModel, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
 
   return (

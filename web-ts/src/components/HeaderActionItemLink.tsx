@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
@@ -36,7 +36,7 @@ type PropsType = {
  * Designed to work with Header. In the ActionBar you can display icons as link or dropDown involving actions like
  * 'Change language', 'Change location' and similar items.
  */
-const HeaderActionItemLink = ({ href, text, iconSrc }: PropsType) => {
+const HeaderActionItemLink = ({ href, text, iconSrc }: PropsType): ReactElement => {
   return (
     <Tooltip text={text} flow='down' smallViewportFlow='left'>
       {href ? (
