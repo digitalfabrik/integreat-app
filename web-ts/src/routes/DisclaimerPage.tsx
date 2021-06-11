@@ -1,7 +1,20 @@
-import React, { ReactElement } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import { CityModel, LanguageModel, DISCLAIMER_ROUTE } from 'api-client'
+import React, { useCallback, useContext, ReactElement } from 'react'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
+import {
+  normalizePath,
+  CityModel,
+  LanguageModel,
+  DISCLAIMER_ROUTE,
+  createDisclaimerEndpoint,
+  useLoadFromEndpoint
+} from 'api-client'
 import LocationLayout from '../components/LocationLayout'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import Page from '../components/Page'
+import { cmsApiBaseUrl } from '../constants/urls'
+import { createPath } from './index'
+import LoadingSpinner from '../components/LoadingSpinner'
+import FailureSwitcher from '../components/FailureSwitcher'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -10,20 +23,63 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
-const DisclaimerPage = ({ match, cityModel, location }: PropsType): ReactElement => {
-  const { languageCode } = match.params
+const DisclaimerPage = (props: PropsType): ReactElement => {
+  const { match, cityModel, languages, location } = props
+  const { languageCode, cityCode } = match.params
+  const viewportSmall = false
+  const pathname = normalizePath(location.pathname)
+  const dateFormatter = useContext(DateFormatterContext)
+  const history = useHistory()
 
+  const requestDisclaimer = useCallback(async () => {
+    return createDisclaimerEndpoint(cmsApiBaseUrl).request({
+      city: cityCode,
+      language: languageCode
+    })
+  }, [cityCode, languageCode])
+
+  const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
+
+  const languageChangePaths = languages.map(({ code, name }) => {
+    const disclaimerPath = createPath(DISCLAIMER_ROUTE, { cityCode, languageCode: code })
+    return { path: disclaimerPath, name, code }
+  })
+
+  const locationLayoutParams = {
+    cityModel,
+    viewportSmall,
+    feedbackTargetInformation: disclaimer ? { path: disclaimer.path } : null,
+    languageChangePaths,
+    route: DISCLAIMER_ROUTE,
+    languageCode,
+    pathname
+  }
+
+  if (loading) {
+    return (
+      <LocationLayout isLoading {...locationLayoutParams}>
+        <LoadingSpinner />
+      </LocationLayout>
+    )
+  }
+
+  if (!disclaimer) {
+    const error = disclaimerError || new Error('Disclaimer should not be null!')
+    return (
+      <LocationLayout isLoading {...locationLayoutParams}>
+        <FailureSwitcher error={error} />
+      </LocationLayout>
+    )
+  }
   return (
-    <LocationLayout
-      cityModel={cityModel}
-      viewportSmall={false}
-      feedbackTargetInformation={null}
-      languageChangePaths={null}
-      isLoading={false}
-      route={DISCLAIMER_ROUTE}
-      languageCode={languageCode}
-      pathname={location.pathname}>
-      <div>DisclaimerPage</div>
+    <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Page
+        lastUpdate={disclaimer.lastUpdate}
+        title={disclaimer.title}
+        content={disclaimer.content}
+        formatter={dateFormatter}
+        onInternalLinkClick={history.push}
+      />
     </LocationLayout>
   )
 }
