@@ -9,7 +9,7 @@ const navigateToLanding = <T extends RoutesType>({
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
-}) => {
+}): void => {
   // We have to clear the whole navigation state if navigating to the landing route.
   // Otherwise there would still be open routes from the last city in the new city.
   navigation.reset({

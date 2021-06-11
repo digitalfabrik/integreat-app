@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import NavigationTile from './NavigationTile'
-import { ScrollView, Dimensions } from 'react-native'
+import { Dimensions, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AnchorIcon from './AnchorIcon'
 import { ScrollEvent } from 'react-native/Libraries/Types/CoreEventTypes'
@@ -117,7 +117,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
   }
 }
 
-const NavigationTilesWithScrollableView = (props: { tiles: Array<TileModel>; theme: ThemeType; language: string }) => {
+const NavigationTilesWithScrollableView = (props: { tiles: Array<TileModel>; theme: ThemeType; language: string }): ReactElement => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width

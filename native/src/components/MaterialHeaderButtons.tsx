@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import {
   defaultOnOverflowMenuPress,
   HeaderButton,
@@ -25,7 +26,7 @@ const onOverflowMenuPress = (cancelButtonLabel: string) => ({
     cancelButtonLabel
   })
 
-const MaterialHeaderButtons = (props: { cancelLabel: string; children: React.ReactNode; theme: ThemeType }) => {
+const MaterialHeaderButtons = (props: { cancelLabel: string; children: React.ReactNode; theme: ThemeType }): ReactElement => {
   const { cancelLabel, theme, ...otherProps } = props
   return (
     <HeaderButtons

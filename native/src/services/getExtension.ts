@@ -4,7 +4,7 @@ import Url from 'url-parse'
  * @throws {Error} If urlString is invalid or it is not possible to get an extension from it
  */
 
-export default (urlString: string) => {
+export default (urlString: string): string => {
   const url = new Url(urlString)
 
   if (!url.protocol) {
