@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { CityModel, LanguageModel, TU_NEWS_TYPE } from 'api-client'
 import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
@@ -11,7 +11,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
 
-const TuNewsPage = ({ match, cityModel, location }: PropsType) => {
+const TuNewsPage = ({ match, cityModel, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />

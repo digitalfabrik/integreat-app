@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
-const MainDisclaimerPage = () => {
+const MainDisclaimerPage = (): ReactElement => {
   return <div>MainDisclaimerPage</div>
 }
 

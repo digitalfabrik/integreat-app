@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import Heading from './Heading'
 import ScrollingSearchBox from './ScrollingSearchBox'
 import CitySelector from './CitySelector'
@@ -27,11 +27,11 @@ export class FilterableCitySelector extends React.Component<PropsType, StateType
     this.state = { filterText: '', stickyTop: 0 }
   }
 
-  handleFilterTextChanged = (filterText: string) => this.setState({ filterText })
+  handleFilterTextChanged = (filterText: string): void => this.setState({ filterText })
 
-  handleStickyTopChanged = (stickyTop: number) => this.setState({ stickyTop })
+  handleStickyTopChanged = (stickyTop: number): void => this.setState({ stickyTop })
 
-  render() {
+  render(): ReactNode {
     const { cities, language, t } = this.props
     const { filterText, stickyTop } = this.state
 

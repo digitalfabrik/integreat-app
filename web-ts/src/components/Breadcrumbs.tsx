@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
+import { ReactNode } from 'react'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
@@ -41,7 +42,7 @@ type PropsType = {
 class Breadcrumbs extends React.PureComponent<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
-  render() {
+  render(): ReactNode {
     const { direction, ancestorBreadcrumbs, currentBreadcrumb } = this.props
     // The current page should not be listed in the UI, but should be within the JsonLd.
     const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]

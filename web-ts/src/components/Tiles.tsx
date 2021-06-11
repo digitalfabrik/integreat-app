@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import Caption from './Caption'
 import Tile from './Tile'
 import { Row } from 'react-styled-flexboxgrid'
@@ -18,7 +18,7 @@ const TilesRow = styled(Row)`
  * Displays a table of Tiles
  */
 class Tiles extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     return (
       <div>
         {this.props.title && <Caption title={this.props.title} />}
