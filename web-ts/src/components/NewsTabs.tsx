@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { TFunction } from 'react-i18next'
 import NewsTab from './NewsTab'
 import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
-import { createPath } from '../routes'
+import { createPath, LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
 
 const StyledTabs = styled.div`
   display: flex;
@@ -22,8 +22,8 @@ type PropsType = {
 }
 
 const NewsTabs = ({ children, language, city, localNewsEnabled, tunewsEnabled, t, type }: PropsType): ReactElement => {
-  const localNewsPath = createPath(LOCAL_NEWS_TYPE, { cityCode: city, languageCode: language })
-  const tunewsPath = createPath(TU_NEWS_TYPE, { cityCode: city, languageCode: language })
+  const localNewsPath = createPath(LOCAL_NEWS_ROUTE, { cityCode: city, languageCode: language })
+  const tunewsPath = createPath(TU_NEWS_ROUTE, { cityCode: city, languageCode: language })
 
   return (
     <>
