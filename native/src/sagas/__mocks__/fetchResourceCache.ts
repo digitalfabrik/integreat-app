@@ -6,4 +6,6 @@ export default function* fetchResourceCache(
   _unusedCanguage: string,
   _unusedFetchMap: FetchMapType,
   _unusedDataContainer: DataContainer
-): Generator {}
+): Generator {
+  // only used in tests
+}

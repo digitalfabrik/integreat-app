@@ -1,6 +1,8 @@
 import navigateToCategory from '../navigateToCategory'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client/src/routes'
+import { mocked } from 'ts-jest'
+
 jest.mock('../url', () => ({
   url: jest.fn(path => path)
 }))
@@ -89,7 +91,7 @@ describe('navigateToCategory', () => {
         key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
       })
     )
-    const key = (navigation.navigate as any).mock.calls[0][0].key
+    const key = mocked(navigation.navigate).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_CATEGORY',
       params: expect.objectContaining({

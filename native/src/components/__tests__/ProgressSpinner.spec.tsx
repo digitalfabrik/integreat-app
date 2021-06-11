@@ -3,8 +3,12 @@ import * as React from 'react'
 import ProgressSpinner from '../ProgressSpinner'
 import { ThemeType } from 'build-configs'
 
+type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>
+}
+
 describe('ProgressSpinner', () => {
-  let theme: any
+  let theme: DeepPartial<ThemeType>
 
   const t = input => input
 
