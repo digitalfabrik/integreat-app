@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { PoiModel } from 'api-client'
 import ListItem from './ListItem'
 import styled from 'styled-components/native'
@@ -16,7 +17,7 @@ const Description = styled.Text`
 `
 
 class PoiListItem extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { poi, language, navigateToPois, theme } = this.props
     const thumbnail = poi.thumbnail
     return (

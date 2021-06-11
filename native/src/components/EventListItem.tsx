@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { useCallback, useContext } from 'react'
+import { ReactElement, useCallback, useContext } from 'react'
 import ListItem from './ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import styled from 'styled-components/native'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { EVENTS_ROUTE, EventModel, RouteInformationType } from 'api-client'
+import { EventModel, EVENTS_ROUTE, RouteInformationType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 type PropsType = {
@@ -30,7 +30,7 @@ const getEventPlaceholder = (id: number): number => {
   return placeholders[id % placeholders.length]
 }
 
-const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType) => {
+const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType) : ReactElement=> {
   const formatter = useContext(DateFormatterContext)
   const navigateToEventInCity = useCallback(() => {
     navigateTo({

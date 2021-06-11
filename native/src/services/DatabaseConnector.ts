@@ -95,13 +95,11 @@ type ContentCityJsonType = {
   sorting_name: string
   longitude: number | null
   latitude: number | null
-  aliases: Record<
-    string,
+  aliases: Record<string,
     {
       longitude: number
       latitude: number
-    }
-  > | null
+    }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
 }
@@ -119,26 +117,20 @@ type ContentPoiJsonType = {
 type CityCodeType = string
 type LanguageCodeType = string
 type MetaCitiesEntryType = {
-  languages: Record<
-    LanguageCodeType,
+  languages: Record<LanguageCodeType,
     {
       lastUpdate: Moment
-    }
-  >
+    }>
   lastUsage: Moment
 }
-type MetaCitiesJsonType = Record<
-  CityCodeType,
+type MetaCitiesJsonType = Record<CityCodeType,
   {
-    languages: Record<
-      LanguageCodeType,
+    languages: Record<LanguageCodeType,
       {
         last_update: string
-      }
-    >
+      }>
     last_usage: string
-  }
->
+  }>
 type CityLastUsageType = {
   city: CityCodeType
   lastUsage: Moment
@@ -164,9 +156,9 @@ const mapToObject = (map: Map<string, string>) => {
 class DatabaseConnector {
   getContentPath(key: string, context: DatabaseContext): string {
     if (!key) {
-      throw Error("Key mustn't be empty")
+      throw Error('Key mustn\'t be empty')
     } else if (!context.cityCode) {
-      throw Error("cityCode mustn't be empty")
+      throw Error('cityCode mustn\'t be empty')
     }
 
     if (!context.languageCode) {
@@ -178,7 +170,7 @@ class DatabaseConnector {
 
   getResourceCachePath(context: DatabaseContext): string {
     if (!context.cityCode) {
-      throw Error("cityCode mustn't be empty")
+      throw Error('cityCode mustn\'t be empty')
     }
 
     return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
@@ -192,14 +184,14 @@ class DatabaseConnector {
     return `${CACHE_DIR_PATH}/cities.json`
   }
 
-  async deleteAllFiles() {
+  async deleteAllFiles(): Promise<void> {
     await RNFetchBlob.fs.unlink(CACHE_DIR_PATH)
   }
 
   /**
    * Prior to storing lastUpdate, there needs to be a lastUsage of the city.
    */
-  async storeLastUpdate(lastUpdate: Moment | null, context: DatabaseContext) {
+  async storeLastUpdate(lastUpdate: Moment | null, context: DatabaseContext): Promise<void> {
     if (lastUpdate === null) {
       throw Error('cannot set lastUsage to null')
     }
@@ -208,9 +200,9 @@ class DatabaseConnector {
     const languageCode = context.languageCode
 
     if (!cityCode) {
-      throw Error("cityCode mustn't be empty")
+      throw Error('cityCode mustn\'t be empty')
     } else if (!languageCode) {
-      throw Error("languageCode mustn't be empty")
+      throw Error('languageCode mustn\'t be empty')
     }
 
     const metaData = (await this._loadMetaCities()) || {}
@@ -226,7 +218,7 @@ class DatabaseConnector {
     this._storeMetaCities(metaData)
   }
 
-  async _deleteMetaOfCities(cities: Array<string>) {
+  async _deleteMetaOfCities(cities: Array<string>): Promise<void> {
     const metaCities = await this._loadMetaCities()
     cities.forEach(city => delete metaCities[city])
     await this._storeMetaCities(metaCities)
@@ -269,7 +261,7 @@ class DatabaseConnector {
     return {}
   }
 
-  async _storeMetaCities(metaCities: MetaCitiesType) {
+  async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {
     const path = this.getMetaCitiesPath()
     const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
       languages: mapValues(cityMeta.languages, ({ lastUpdate }): {
@@ -290,11 +282,11 @@ class DatabaseConnector {
     }))
   }
 
-  async storeLastUsage(context: DatabaseContext, peeking: boolean) {
+  async storeLastUsage(context: DatabaseContext, peeking: boolean): Promise<void> {
     const city = context.cityCode
 
     if (!city) {
-      throw Error("cityCode mustn't be null")
+      throw Error('cityCode mustn\'t be null')
     }
 
     const metaData = await this._loadMetaCities()
@@ -311,7 +303,7 @@ class DatabaseConnector {
     }
   }
 
-  async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext) {
+  async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext): Promise<void> {
     const categoryModels = categoriesMap.toArray()
     const jsonModels = categoryModels.map(
       (category: CategoryModel): ContentCategoryJsonType => ({
@@ -371,12 +363,12 @@ class DatabaseConnector {
     return languages.map(language => new LanguageModel(language._code, language._name))
   }
 
-  async storeLanguages(languages: Array<LanguageModel>, context: DatabaseContext) {
+  async storeLanguages(languages: Array<LanguageModel>, context: DatabaseContext): Promise<void> {
     const path = this.getContentPath('languages', context)
     await this.writeFile(path, JSON.stringify(languages))
   }
 
-  async storePois(pois: Array<PoiModel>, context: DatabaseContext) {
+  async storePois(pois: Array<PoiModel>, context: DatabaseContext): Promise<void> {
     const jsonModels = pois.map(
       (poi: PoiModel): ContentPoiJsonType => ({
         path: poi.path,
@@ -439,7 +431,7 @@ class DatabaseConnector {
     })
   }
 
-  async storeCities(cities: Array<CityModel>) {
+  async storeCities(cities: Array<CityModel>): Promise<void> {
     const jsonModels = cities.map(
       (city: CityModel): ContentCityJsonType => ({
         name: city.name,
@@ -488,7 +480,7 @@ class DatabaseConnector {
     })
   }
 
-  async storeEvents(events: Array<EventModel>, context: DatabaseContext) {
+  async storeEvents(events: Array<EventModel>, context: DatabaseContext): Promise<void> {
     const jsonModels = events.map(
       (event: EventModel): ContentEventJsonType => ({
         path: event.path,
@@ -517,12 +509,12 @@ class DatabaseConnector {
         },
         featured_image: event.featuredImage
           ? {
-              description: event.featuredImage.description,
-              thumbnail: event.featuredImage.thumbnail,
-              medium: event.featuredImage.medium,
-              large: event.featuredImage.large,
-              full: event.featuredImage.full
-            }
+            description: event.featuredImage.description,
+            thumbnail: event.featuredImage.thumbnail,
+            medium: event.featuredImage.medium,
+            large: event.featuredImage.large,
+            full: event.featuredImage.full
+          }
           : null
       })
     )
@@ -549,12 +541,12 @@ class DatabaseConnector {
         thumbnail: jsonObject.thumbnail,
         featuredImage: jsonObject.featured_image
           ? new FeaturedImageModel({
-              description: jsonObject.featured_image.description,
-              thumbnail: jsonObject.featured_image.thumbnail,
-              medium: jsonObject.featured_image.medium,
-              large: jsonObject.featured_image.large,
-              full: jsonObject.featured_image.full
-            })
+            description: jsonObject.featured_image.description,
+            thumbnail: jsonObject.featured_image.thumbnail,
+            medium: jsonObject.featured_image.medium,
+            large: jsonObject.featured_image.large,
+            full: jsonObject.featured_image.full
+          })
           : null,
         availableLanguages,
         lastUpdate: moment(jsonObject.last_update, moment.ISO_8601),
@@ -603,7 +595,7 @@ class DatabaseConnector {
     )
   }
 
-  async storeResourceCache(resourceCache: CityResourceCacheStateType, context: DatabaseContext) {
+  async storeResourceCache(resourceCache: CityResourceCacheStateType, context: DatabaseContext): Promise<void> {
     const path = this.getResourceCachePath(context)
     const json: CityResourceCacheJsonType = mapValues(
       resourceCache,
@@ -626,11 +618,11 @@ class DatabaseConnector {
    * Deletes the resource caches and files of all but the latest used cities
    * @return {Promise<void>}
    */
-  async deleteOldFiles(context: DatabaseContext) {
+  async deleteOldFiles(context: DatabaseContext): Promise<void> {
     const city = context.cityCode
 
     if (!city) {
-      throw Error("cityCode mustn't be null")
+      throw Error('cityCode mustn\'t be null')
     }
 
     const lastUsages = await this.loadLastUsages()

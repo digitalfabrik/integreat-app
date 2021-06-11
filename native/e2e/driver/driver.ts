@@ -11,7 +11,7 @@ const IMPLICIT_WAIT_TIMEOUT = 80000
 const INIT_RETRY_TIME = 3000
 const STARTUP_DELAY = 3000
 const ADDITIONAL_ENV_VARIABLES = ['CIRCLE_BUILD_URL', 'CIRCLE_BUILD_NUM']
-export const timer = (ms: number) => new Promise<number>(resolve => setTimeout(resolve, ms))
+export const timer = (ms: number): Promise<number> => new Promise<number>(resolve => setTimeout(resolve, ms))
 
 type ConfigType = {
   url: string
@@ -38,10 +38,10 @@ const getConfig = (): ConfigType | null => {
   return config
 }
 
-export const isAndroid = (config: ConfigType) => {
+export const isAndroid = (config: ConfigType): boolean => {
   return config.platform.toLowerCase() === 'android'
 }
-export const isIOS = (config: ConfigType) => {
+export const isIOS = (config: ConfigType): boolean => {
   return config.platform.toLowerCase() === 'ios'
 }
 
@@ -65,7 +65,7 @@ export const select = <T, K>(input: { android: T; ios: K }): T | K => {
   throw new Error('Unknown platform.')
 }
 
-const initDriver = async (config, desiredCaps) => {
+const initDriver = async (config, desiredCaps): Promise<any> => {
   try {
     const driver = wd.promiseChainRemote(config.url)
     await driver.init(desiredCaps)
@@ -81,7 +81,7 @@ const initDriver = async (config, desiredCaps) => {
   }
 }
 
-const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
+const fetchTestResults = async (driver: wd.PromiseChainWebdriver): Promise<void> => {
   if (!driver.sessionID) {
     // We are not using BrowserStack probably
     return
@@ -111,15 +111,15 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver) => {
   }
 }
 
-const getGitBranch = () => {
+const getGitBranch = (): string => {
   return childProcess.execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
 }
 
-const getGitHeadReference = () => {
+const getGitHeadReference = (): string => {
   return childProcess.execSync('git rev-parse --short HEAD').toString().trim()
 }
 
-export const setupDriver = async (additionalCaps: any = {}) => {
+export const setupDriver = async (additionalCaps: any = {}): Promise<any>  => {
   const config = getConfig()
 
   if (!config) {
@@ -142,7 +142,7 @@ export const setupDriver = async (additionalCaps: any = {}) => {
   await timer(STARTUP_DELAY)
   return driver
 }
-export const stopDriver = async (driver: wd.PromiseChainWebdriver) => {
+export const stopDriver = async (driver: wd.PromiseChainWebdriver): Promise<void> => {
   await fetchTestResults(driver)
 
   if (driver === undefined) {

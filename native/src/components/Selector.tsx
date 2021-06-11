@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import styled from 'styled-components/native'
 import { css } from 'styled-components'
@@ -81,7 +82,7 @@ class Selector extends React.Component<PropsType> {
     })
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
         {this.getItems()}

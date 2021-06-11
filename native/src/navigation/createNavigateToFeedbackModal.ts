@@ -6,7 +6,7 @@ import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 const createNavigateToFeedbackModal = <T extends RoutesType>(navigation: NavigationPropType<T>) => (
   feedbackInformation: FeedbackInformationType
-) => {
+): void => {
   sendTrackingSignal({
     signal: {
       name: OPEN_PAGE_SIGNAL_NAME,

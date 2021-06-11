@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import TileModel from '../models/TileModel'
 import Tiles from '../components/Tiles'
 import { TFunction } from 'react-i18next'
@@ -31,7 +31,7 @@ const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
   })
 }
 
-const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType) => {
+const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType): ReactElement => {
   return (
     <SpaceBetween>
       <View>

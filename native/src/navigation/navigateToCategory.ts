@@ -24,7 +24,7 @@ const navigateToCategory = <T extends RoutesType>({
   key?: string
   forceRefresh?: boolean
   resetNavigation?: boolean
-}) => {
+}): void => {
   const route = {
     name: routeName,
     key

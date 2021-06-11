@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { View } from 'react-native'
 import Page from './Page'
 import Tiles from './Tiles'
@@ -26,12 +27,13 @@ export type PropsType = {
   resourceCacheUrl: string
   theme: ThemeType
 }
+
 /**
  * Displays a CategoryTable, CategoryList or a single category as page matching the route /<cityCode>/<language>*
  */
 
 class Categories extends React.Component<PropsType> {
-  onTilePress = (tile: TileModel) => {
+  onTilePress = (tile: TileModel): void => {
     const { cityModel, language, navigateTo } = this.props
     navigateTo({
       route: CATEGORIES_ROUTE,
@@ -41,7 +43,7 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
-  onItemPress = (category: CategoryListModelType) => {
+  onItemPress = (category: CategoryListModelType): void => {
     const { cityModel, language, navigateTo } = this.props
     navigateTo({
       route: CATEGORIES_ROUTE,
@@ -51,7 +53,7 @@ class Categories extends React.Component<PropsType> {
     })
   }
 
-  navigateToFeedback = (isPositiveFeedback: boolean) => {
+  navigateToFeedback = (isPositiveFeedback: boolean): void => {
     const { navigateToFeedback, stateView, cityModel, language } = this.props
     const category = stateView.root()
     navigateToFeedback({
@@ -107,11 +109,11 @@ class Categories extends React.Component<PropsType> {
     const { resourceCacheUrl } = this.props
     return category.content
       ? {
-          content: category.content,
-          files: this.getCategoryResourceCache(category),
-          resourceCacheUrl: resourceCacheUrl,
-          lastUpdate: category?.lastUpdate
-        }
+        content: category.content,
+        files: this.getCategoryResourceCache(category),
+        resourceCacheUrl: resourceCacheUrl,
+        lastUpdate: category?.lastUpdate
+      }
       : undefined
   }
 
@@ -122,7 +124,7 @@ class Categories extends React.Component<PropsType> {
    * c) list with categories
    * @return {*} The content to be displayed
    */
-  render() {
+  render(): ReactNode {
     const { stateView, navigateToLink, theme, language, resourceCacheUrl } = this.props
     const category = stateView.root()
     const children = stateView.children()

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import { Moment } from 'moment'
 import styled from 'styled-components/native'
@@ -30,7 +31,7 @@ type PropsType = {
 }
 
 export class TimeStamp extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { lastUpdate, formatter, t, language, theme, showText = true, format = 'LL' } = this.props
     // only show day, month and year
     const dateText = formatter.format(lastUpdate, {
