@@ -71,7 +71,7 @@ class CategoryList extends React.Component<PropsType> {
     )
   }
 
-  render(): ReactNode  {
+  render(): ReactNode {
     const { categories, title, listContent, query, theme, onItemPress, language, thumbnail } = this.props
     return (
       <>

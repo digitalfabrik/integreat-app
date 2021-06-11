@@ -109,11 +109,11 @@ class Categories extends React.Component<PropsType> {
     const { resourceCacheUrl } = this.props
     return category.content
       ? {
-        content: category.content,
-        files: this.getCategoryResourceCache(category),
-        resourceCacheUrl: resourceCacheUrl,
-        lastUpdate: category?.lastUpdate
-      }
+          content: category.content,
+          files: this.getCategoryResourceCache(category),
+          resourceCacheUrl: resourceCacheUrl,
+          lastUpdate: category?.lastUpdate
+        }
       : undefined
   }
 

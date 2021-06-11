@@ -117,7 +117,11 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
   }
 }
 
-const NavigationTilesWithScrollableView = (props: { tiles: Array<TileModel>; theme: ThemeType; language: string }): ReactElement => {
+const NavigationTilesWithScrollableView = (props: {
+  tiles: Array<TileModel>
+  theme: ThemeType
+  language: string
+}): ReactElement => {
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width

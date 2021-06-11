@@ -113,7 +113,7 @@ class AppSettings {
     })
   }
 
-  pushJpalSignal = async (signal: SignalType) : Promise<void>=> {
+  pushJpalSignal = async (signal: SignalType): Promise<void> => {
     const { jpalSignals } = await this.loadSettings()
     jpalSignals.push(signal)
     await this.setSettings({
@@ -145,7 +145,7 @@ class AppSettings {
     return settings.introShown
   }
 
-  setApiUrlOverride = async (apiUrlOverride: string) : Promise<void>=> {
+  setApiUrlOverride = async (apiUrlOverride: string): Promise<void> => {
     await this.setSettings({
       apiUrlOverride
     })
