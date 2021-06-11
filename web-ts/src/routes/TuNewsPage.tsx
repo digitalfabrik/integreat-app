@@ -51,10 +51,10 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
       const request = () => endpoint.request({ city: cityCode, language: languageCode, page, count: DEFAULT_COUNT })
       const addTuNews = (data: TunewsModel[] | null) => {
         if (data !== null) {
-          if (data.length === 0) {
+          setTuNews(tuNews.concat(data))
+
+          if (data.length !== DEFAULT_COUNT) {
             setHasMore(false)
-          } else {
-            setTuNews(tuNews.concat(data))
           }
         }
       }

@@ -10,8 +10,6 @@ import {
   EVENTS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  LOCAL_NEWS_TYPE,
-  TU_NEWS_TYPE,
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   CityModel,
@@ -31,7 +29,7 @@ import LoadingSpinner from './components/LoadingSpinner'
 import LocalNewsPage from './routes/LocalNewsPage'
 import TuNewsPage from './routes/TuNewsPage'
 import SprungbrettOfferPage from './routes/SprungbrettOfferPage'
-import { RoutePatterns, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import { LOCAL_NEWS_ROUTE, RoutePatterns, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
 import buildConfig from './constants/buildConfig'
 import TuNewsDetailPage from './routes/TuNewsDetailPage'
 
@@ -113,7 +111,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
         <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
       )}
       {localNewsEnabled && (
-        <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} render={props => <LocalNewsPage {...params} {...props} />} />
+        <Route exact path={RoutePatterns[LOCAL_NEWS_ROUTE]} render={props => <LocalNewsPage {...params} {...props} />} />
       )}
       {tuNewsEnabled && (
         <Route exact path={RoutePatterns[TU_NEWS_ROUTE]} render={props => <TuNewsPage {...params} {...props} />} />
