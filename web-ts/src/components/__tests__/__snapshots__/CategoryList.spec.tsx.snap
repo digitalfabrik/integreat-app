@@ -2,12 +2,12 @@
 
 exports[`CategoryList should render and display a caption 1`] = `
 <div>
-  <CategoryList__Centering>
-    <CategoryList__CategoryIcon
+  <styled.div>
+    <styled.img
       alt=""
       src="thumb-nail"
     />
-  </CategoryList__Centering>
+  </styled.div>
   <Caption
     title="Willkommen"
   />
@@ -20,7 +20,7 @@ exports[`CategoryList should render and display a caption 1`] = `
     }
     onInternalLinkClick={[Function]}
   />
-  <CategoryList__List>
+  <styled.div>
     <WithTheme(CategoryEntry)
       category={
         CategoryModel {
@@ -99,13 +99,13 @@ exports[`CategoryList should render and display a caption 1`] = `
         ]
       }
     />
-  </CategoryList__List>
+  </styled.div>
 </div>
 `;
 
 exports[`CategoryList should render and not display a caption 1`] = `
 <div>
-  <CategoryList__List>
+  <styled.div>
     <WithTheme(CategoryEntry)
       category={
         CategoryModel {
@@ -184,6 +184,6 @@ exports[`CategoryList should render and not display a caption 1`] = `
         ]
       }
     />
-  </CategoryList__List>
+  </styled.div>
 </div>
 `;
