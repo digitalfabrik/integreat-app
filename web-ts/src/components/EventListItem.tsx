@@ -1,20 +1,17 @@
-// @flow
-
-import * as React from 'react'
-import { EventModel } from 'api-client'
-import ListItem from '../../../modules/common/components/ListItem'
+import React, { ReactElement } from 'react'
+import { EventModel, DateFormatter } from 'api-client'
+import ListItem from './ListItem'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import textTruncator from '../../../modules/common/utils/textTruncator'
+import textTruncator from '../services/textTruncator'
 
 export const NUM_OF_WORDS_ALLOWED = 15
 
-type PropsType = {|
-  event: EventModel,
+type PropsType = {
+  event: EventModel
   formatter: DateFormatter
-|}
+}
 
 /**
  * We have three placeholder thumbnails to display when cities don't provide a thumbnail
@@ -26,7 +23,7 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]
 }
 
-const EventListItem = ({ event, formatter }: PropsType) => {
+const EventListItem = ({ event, formatter }: PropsType): ReactElement => {
   return (
     <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
       <div>
