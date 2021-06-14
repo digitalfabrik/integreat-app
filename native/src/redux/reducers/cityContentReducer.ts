@@ -55,7 +55,7 @@ export default (
       }
     }
   } else if (action.type === 'FETCH_MORE_NEWS') {
-    const { language, newsId, key, city, type, page, previouslyFetchedNews } = action.params
+    const { language, newsId, key, city, type, previouslyFetchedNews } = action.params
     const initializedState = state || createCityContent(city)
     return {
       ...initializedState,

@@ -16,7 +16,7 @@ jest.mock('../../services/sendTrackingSignal')
 jest.mock('api-client', () => {
   return {
     ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: (baseUrl: string) => ({
+    createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
       request: mockRequest
     })
   }

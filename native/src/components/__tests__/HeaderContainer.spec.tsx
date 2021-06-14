@@ -2,7 +2,6 @@ import * as React from 'react'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import { StateType } from '../../redux/StateType'
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
