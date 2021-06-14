@@ -6,7 +6,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
   viewportSmall={true}
 >
   <ToolbarItem
-    href="https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fwillkommen"
+    href="https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fcategory_0"
     icon={
       Object {
         "icon": Array [
@@ -20,7 +20,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
         "prefix": "far",
       }
     }
-    text="createPdf"
+    text="categories:createPdf"
     viewportSmall={true}
   />
 </LocationToolbar>
@@ -46,7 +46,7 @@ exports[`CategoriesToolbar should render root-url for pdf endpoint 1`] = `
         "prefix": "far",
       }
     }
-    text="createPdf"
+    text="categories:createPdf"
     viewportSmall={true}
   />
 </LocationToolbar>
