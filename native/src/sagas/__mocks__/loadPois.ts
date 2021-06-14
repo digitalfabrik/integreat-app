@@ -1,5 +1,5 @@
 import { DataContainer } from '../../services/DataContainer'
-import { EventModel, PoiModel } from 'api-client'
+import { PoiModel } from 'api-client'
 import { call, StrictEffect } from 'redux-saga/effects'
 
 export default function* loadPois(

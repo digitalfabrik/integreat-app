@@ -4,7 +4,6 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { JPAL_TRACKING_ROUTE } from 'api-client'
 
 const navigateToJpalTracking = <T extends RoutesType>({
-  dispatch,
   navigation,
   trackingCode
 }: {

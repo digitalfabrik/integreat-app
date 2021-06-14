@@ -8,13 +8,13 @@ jest.mock('react-i18next')
 describe('CategoriesToolbar', () => {
   const city = 'augsburg'
   const language = 'de'
-  const category = new CategoriesMapModelBuilder(city, language).build()[0]
+  const categories = new CategoriesMapModelBuilder(city, language).build().toArray()
 
   it('should render Toolbar, if category can be found', () => {
     const component = shallow(
       <CategoriesToolbar
         viewportSmall
-        category={category}
+        category={categories[1]}
         cityCode={city}
         languageCode={language}
         openFeedbackModal={() => {}}
@@ -28,7 +28,7 @@ describe('CategoriesToolbar', () => {
     const component = shallow(
       <CategoriesToolbar
         viewportSmall
-        category={category}
+        category={categories[0]}
         cityCode={city}
         languageCode={language}
         openFeedbackModal={() => {}}
