@@ -9,7 +9,7 @@ import textTruncator from '../services/textTruncator'
 export const NUM_OF_WORDS_ALLOWED = 15
 
 type PropsType = {
-  event: EventModel,
+  event: EventModel
   formatter: DateFormatter
 }
 

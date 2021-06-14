@@ -83,12 +83,14 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   }
 
   if (!events || (eventId && !event)) {
-    const error = eventsError || new NotFoundError({
-      type: 'event',
-      id: pathname,
-      city: cityCode,
-      language: languageCode
-    })
+    const error =
+      eventsError ||
+      new NotFoundError({
+        type: 'event',
+        id: pathname,
+        city: cityCode,
+        language: languageCode
+      })
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
