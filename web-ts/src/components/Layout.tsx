@@ -69,11 +69,10 @@ const Main = styled.main`
   }
 `
 
-// TODO IGAPP-646
-// const Aside = withPlatform(styled.aside<{ platform: Platform }>`
-//   position: ${props => (props.platform.positionStickyDisabled ? 'static' : 'sticky')};
-const Aside = styled.aside`
+const Aside = styled.aside<{ asideStickyTop: number }>`
+  top: ${props => props.asideStickyTop}px;
   display: inline-block;
+  position: sticky;
   width: ${dimensions.toolbarWidth}px;
   margin-top: 105px;
   vertical-align: top;
@@ -98,7 +97,7 @@ const Aside = styled.aside`
 `
 
 type PropsType = {
-  asideStickyTop: number
+  asideStickyTop?: number
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
@@ -111,30 +110,23 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-class Layout extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    asideStickyTop: 0
-  }
-
-  render() {
-    const { asideStickyTop, footer, header, toolbar, modal, children } = this.props
-    const modalVisible = !!modal
-    return (
-      <FlexWrapper>
-        <RichLayout>
-          <div aria-hidden={modalVisible}>
-            {header}
-            <Body>
-              <Aside style={{ top: `${asideStickyTop}px` }}>{toolbar}</Aside>
-              <Main>{children}</Main>
-            </Body>
-          </div>
-          {modal}
-          <div aria-hidden={modalVisible}>{footer}</div>
-        </RichLayout>
-      </FlexWrapper>
-    )
-  }
+const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }: PropsType): JSX.Element => {
+  const modalVisible = !!modal
+  return (
+    <FlexWrapper>
+      <RichLayout>
+        <div aria-hidden={modalVisible}>
+          {header}
+          <Body>
+            <Aside asideStickyTop={asideStickyTop}>{toolbar}</Aside>
+            <Main>{children}</Main>
+          </Body>
+        </div>
+        {modal}
+        <div aria-hidden={modalVisible}>{footer}</div>
+      </RichLayout>
+    </FlexWrapper>
+  )
 }
 
 export default Layout
