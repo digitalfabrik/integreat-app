@@ -13,7 +13,7 @@ import {
 } from 'api-client'
 import LocationToolbar from '../components/LocationToolbar'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { createPath } from './index'
@@ -26,6 +26,7 @@ import List from '../components/List'
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
 import JsonLdEvent from '../components/JsonLdEvent'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -40,7 +41,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   const history = useHistory()
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
 
   const requestEvents = useCallback(async () => {
     return createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
@@ -50,7 +51,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   const event = eventId && events?.find(event => event.path === pathname)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
+    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
