@@ -4,7 +4,7 @@ import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import { loadTranslations, config } from 'translations'
 import { DateFormatter } from 'api-client'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import buildConfig from '../constants/buildConfig'
 import BrowserLanguageDetectorService from '../services/BrowserLanguageDetector'
 

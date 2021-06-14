@@ -6,7 +6,7 @@ exports[`CategoriesToolbar should render Toolbar, if category can be found 1`] =
   viewportSmall={true}
 >
   <ToolbarItem
-    href="https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf"
+    href="https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fcategory_0"
     icon={
       Object {
         "icon": Array [

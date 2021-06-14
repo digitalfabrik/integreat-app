@@ -31,7 +31,7 @@ const SearchModalContainer = ({ navigation }: PropsType) => {
     [dispatch, navigation]
   )
 
-  const closeModal = (query: string) => {
+  const closeModal = () => {
     navigation.goBack()
   }
 

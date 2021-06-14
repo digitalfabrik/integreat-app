@@ -4,7 +4,7 @@ const isRTL = false
 const doLeftAndRightSwapInRTL = false
 export const I18nManager = {
   isRTL,
-  allowRTL: (allowRTL: boolean) => {
+  allowRTL: (_unusedAllowRTL: boolean) => {
     throw Error('Not yet implemented.')
   },
   forceRTL: (forceRTL: boolean) => {
@@ -15,7 +15,7 @@ export const I18nManager = {
     isRTL: isRTL,
     doLeftAndRightSwapInRTL: doLeftAndRightSwapInRTL
   }),
-  swapLeftAndRightInRTL: (swapLeftAndRight: boolean) => {
+  swapLeftAndRightInRTL: (_unusedSwapLeftAndRight: boolean) => {
     throw Error('Not yet implemented.')
   },
   doLeftAndRightSwapInRTL: doLeftAndRightSwapInRTL
