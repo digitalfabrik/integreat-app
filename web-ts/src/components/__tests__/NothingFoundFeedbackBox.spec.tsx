@@ -1,26 +1,23 @@
-// @flow
-
 import React from 'react'
-import { NothingFoundFeedbackBox } from '../NothingFoundFeedbackBox'
-import { SEARCH_ROUTE } from '../../../../web/src/modules/app/route-configs/SearchRouteConfig'
+import NothingFoundFeedbackBox from '../NothingFoundFeedbackBox'
 import { shallow } from 'enzyme'
-import createLocation from '../../../../web/src/createLocation'
-import TextButton from '../../../../modules/common/components/TextButton'
+import TextButton from '../TextButton'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
-  createFeedbackEndpoint: (baseUrl: string) => ({ request: () => {} })
+  createFeedbackEndpoint: (_: string) => ({ request: () => {} })
 }))
 
 describe('NothingFoundFeedbackBox', () => {
-  const t = (key: ?string): string => key || ''
-  const location = createLocation({ type: SEARCH_ROUTE, payload: { city: 'augsburg', language: 'de' } })
+  const cityCode = 'augsburg'
+  const languageCode = 'de'
+
   it('should match snapshot', () => {
-    expect(shallow(<NothingFoundFeedbackBox location={location} t={t} />)).toMatchSnapshot()
+    expect(shallow(<NothingFoundFeedbackBox cityCode={cityCode} languageCode={languageCode} />)).toMatchSnapshot()
   })
 
   it('should show a thanks message after feedback was sent', () => {
-    const component = shallow(<NothingFoundFeedbackBox location={location} t={t} />)
+    const component = shallow(<NothingFoundFeedbackBox cityCode={cityCode} languageCode={languageCode} />)
     const submitButton = component.find(TextButton)
     submitButton.simulate('click')
 

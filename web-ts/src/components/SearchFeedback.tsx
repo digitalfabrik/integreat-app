@@ -1,70 +1,58 @@
-// @flow
-
-import * as React from 'react'
-import styled, { type StyledComponent } from 'styled-components'
-import { withTranslation, type TFunction } from 'react-i18next'
+import React, { ReactElement, useState } from 'react'
+import styled from 'styled-components'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
-import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
-import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
-import TextButton from '../../../modules/common/components/TextButton'
-import type { ThemeType } from '../build-configs/ThemeType'
+import { cmsApiBaseUrl } from '../constants/urls'
+import TextButton from './TextButton'
+import { useTranslation } from 'react-i18next'
 
-const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
+const FeedbackContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-const NothingFound: StyledComponent<{||}, ThemeType, *> = styled.div`
+const NothingFound = styled.div`
   margin-top: 30px;
 `
 
-type PropsType = {|
-  location: LocationState,
-  query: string,
-  resultsFound: boolean,
-  t: TFunction
-|}
+type PropsType = {
+  cityCode: string
+  languageCode: string
+  query: string
+  resultsFound: boolean
+}
 
-type StateType = {|
-  boxOpenedForQuery: ?string
-|}
+const SearchFeedback = ({ cityCode, languageCode, query, resultsFound }: PropsType): ReactElement => {
+  const [boxOpenedForQuery, setBoxOpenedForQuery] = useState<string | null>(null)
+  const { t } = useTranslation('feedback')
 
-export class SearchFeedback extends React.Component<PropsType, StateType> {
-  state = { boxOpenedForQuery: null }
-
-  handleFeedbackLinkClicked = () => {
-    const { location, query } = this.props
-    const { city, language } = location.payload
+  const handleFeedbackLinkClicked = (): void => {
     createFeedbackEndpoint(cmsApiBaseUrl).request({
       feedbackType: SEARCH_FEEDBACK_TYPE,
       isPositiveRating: false,
       comment: '',
-      city,
-      language,
+      city: cityCode,
+      language: languageCode,
       query
     })
-    this.setState({ boxOpenedForQuery: this.props.query })
+    setBoxOpenedForQuery(query)
   }
 
-  render(): React.Node {
-    const { resultsFound, query, location, t } = this.props
-    if (!resultsFound || query === this.state.boxOpenedForQuery) {
-      return (
-        <FeedbackContainer>
-          <NothingFound>{t('nothingFound')}</NothingFound>
-          <NothingFoundFeedbackBox location={location} query={query} />
-        </FeedbackContainer>
-      )
-    } else {
-      return (
-        <FeedbackContainer>
-          <TextButton onClick={this.handleFeedbackLinkClicked} text={t('informationNotFound')} />
-        </FeedbackContainer>
-      )
-    }
+  if (!resultsFound || query === boxOpenedForQuery) {
+    return (
+      <FeedbackContainer>
+        <NothingFound>{t('nothingFound')}</NothingFound>
+        <NothingFoundFeedbackBox cityCode={cityCode} languageCode={languageCode} query={query} />
+      </FeedbackContainer>
+    )
+  } else {
+    return (
+      <FeedbackContainer>
+        <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
+      </FeedbackContainer>
+    )
   }
 }
 
-export default withTranslation<PropsType>('feedback')(SearchFeedback)
+export default SearchFeedback
