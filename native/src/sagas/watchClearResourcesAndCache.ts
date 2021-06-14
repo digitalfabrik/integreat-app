@@ -5,7 +5,7 @@ import { SagaIterator } from 'redux-saga'
 
 export function* clearResourcesAndCache(
   dataContainer: DataContainer,
-  action: ClearResourcesAndCacheActionType
+  _: ClearResourcesAndCacheActionType
 ): SagaIterator<void> {
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
