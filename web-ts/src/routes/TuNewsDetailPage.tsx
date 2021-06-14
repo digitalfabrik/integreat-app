@@ -10,7 +10,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'

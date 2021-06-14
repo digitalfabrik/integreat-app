@@ -12,7 +12,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import { useTranslation } from 'react-i18next'
 import NewsListItem from '../components/NewsListItem'
 import { createPath, LOCAL_NEWS_ROUTE } from './index'
