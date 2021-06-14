@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react'
-import { SEARCH_ROUTE } from '../../../../modules/app/route-configs/SearchRouteConfig'
+import { SEARCH_ROUTE } from '../../../../web/src/modules/app/route-configs/SearchRouteConfig'
 import { SearchFeedback } from '../SearchFeedback'
 import { shallow } from 'enzyme'
-import createLocation from '../../../../createLocation'
+import createLocation from '../../../../web/src/createLocation'
 
 jest.mock('react-i18next')
 
