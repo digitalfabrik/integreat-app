@@ -1,29 +1,34 @@
-// @flow
-
 import React from 'react'
-import { Provider } from 'react-redux'
-import ConnectedSearchPage, { SearchPage } from '../SearchPage'
-import { CategoriesMapModel, CategoryModel } from 'api-client'
-import { mount, shallow } from 'enzyme'
-import configureMockStore from 'redux-mock-store'
-import { SEARCH_ROUTE } from '../../../../web/src/modules/app/route-configs/SearchRouteConfig'
+import SearchPage from '../SearchPage'
+import { CategoriesMapModel, CategoryModel, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
 import moment from 'moment'
-import createLocation from '../../../../web/src/createLocation'
-import CityModelBuilder from '../api-client/src/testing/CityModelBuilder'
-import theme from '../../../../web/src/modules/theme/constants/theme'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { ThemeProvider } from 'styled-components'
+import buildConfig from '../../constants/buildConfig'
+import { renderWithBrowserRouter } from '../../testing/render'
+import { Route } from 'react-router-dom'
+import { createPath, RoutePatterns } from '../index'
+import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
+import { mocked } from 'ts-jest/utils'
+import { fireEvent } from '@testing-library/react'
 
-jest.mock('react-i18next')
-jest.mock('redux-first-router-link')
+jest.mock('api-client', () => {
+  return {
+    ...jest.requireActual('api-client'),
+    useLoadFromEndpoint: jest.fn()
+  }
+})
 
 describe('SearchPage', () => {
-  const t = (key: ?string): string => key || ''
+  const mockUseLoadFromEndpoint = mock => {
+    mocked(useLoadFromEndpoint).mockImplementation(mock)
+  }
 
   const categoryModels = [
     new CategoryModel({
       root: true,
       path: '/augsburg/en/',
-      title: 'Welcome',
+      title: 'Augsburg',
       content: '',
       parentPath: '/augsburg/en',
       order: 75,
@@ -46,32 +51,59 @@ describe('SearchPage', () => {
     })
   ]
 
-  const cities = new CityModelBuilder(1).build()
+  const cities = new CityModelBuilder(2).build()
+  const cityModel = cities[0]
+  const languages = new LanguageModelBuilder(2).build()
+  const languageModel = languages[0]
 
-  const city = 'augsburg'
-  const language = 'de'
   const categories = new CategoriesMapModel(categoryModels)
-  const location = createLocation({ type: SEARCH_ROUTE, payload: { city, language } })
-
-  it('should match snapshot', () => {
-    const wrapper = shallow(<SearchPage categories={categories} location={location} t={t} />)
-    expect(wrapper).toMatchSnapshot()
-  })
 
   it('should filter correctly', () => {
-    const tree = shallow(<SearchPage location={location} categories={categories} t={t} />)
+    mockUseLoadFromEndpoint(() => ({
+      data: categories,
+      loading: false,
+      error: null
+    }))
 
-    const searchPage = tree.instance()
-    const searchInputProps = tree.find('SearchInput').props()
+    const { getByText, queryByText, getByPlaceholderText } = renderWithBrowserRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Route
+          path={RoutePatterns[SEARCH_ROUTE]}
+          render={props => (
+            <SearchPage
+              cities={cities}
+              cityModel={cityModel}
+              languages={languages}
+              languageModel={languageModel}
+              {...props}
+            />
+          )}
+        />
+      </ThemeProvider>,
+      { route: createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code }) }
+    )
 
     // the root category should not be returned
-    expect(searchPage.findCategories()).toHaveLength(categories.toArray().length - 1)
+    expect(queryByText(categoryModels[0].title)).toBeFalsy()
+    expect(getByText(categoryModels[1].title)).toBeTruthy()
 
-    searchInputProps.onFilterTextChange('Does not exist!')
-    expect(searchPage.findCategories()).toHaveLength(0)
+    fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
+      target: {
+        value: 'Does not exist!'
+      }
+    })
 
-    searchInputProps.onFilterTextChange(categoryModels[1].title)
-    expect(searchPage.findCategories()).toHaveLength(1)
+    expect(queryByText(categoryModels[0].title)).toBeFalsy()
+    expect(queryByText(categoryModels[1].title)).toBeFalsy()
+
+    fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
+      target: {
+        value: categoryModels[1].title
+      }
+    })
+
+    expect(queryByText(categoryModels[0].title)).toBeFalsy()
+    expect(getByText(categoryModels[1].title)).toBeTruthy()
   })
 
   it('should sort correctly', () => {
@@ -80,7 +112,7 @@ describe('SearchPage', () => {
       new CategoryModel({
         root: false,
         path: '/abc',
-        title: 'abc',
+        title: 'abc-category',
         content: '',
         parentPath: '/',
         order: 1,
@@ -93,7 +125,7 @@ describe('SearchPage', () => {
       new CategoryModel({
         root: false,
         path: '/defabc',
-        title: 'defabc',
+        title: 'defabc-category',
         content: '',
         parentPath: '/',
         order: 1,
@@ -106,7 +138,7 @@ describe('SearchPage', () => {
       new CategoryModel({
         root: false,
         path: '/def',
-        title: 'def',
+        title: 'def-category',
         content: 'abc',
         parentPath: '/',
         order: 1,
@@ -119,7 +151,7 @@ describe('SearchPage', () => {
       new CategoryModel({
         root: false,
         path: '/ghi',
-        title: 'ghi',
+        title: 'ghi-category',
         content: 'abc',
         parentPath: '/',
         order: 1,
@@ -129,60 +161,134 @@ describe('SearchPage', () => {
         lastUpdate: moment('2017-11-18T19:30:00.000Z')
       })
     ]
-
     const categories = new CategoriesMapModel(categoryModels)
 
-    const searchPage = shallow(<SearchPage location={location} categories={categories} t={t} />).instance()
+    mockUseLoadFromEndpoint(() => ({
+      data: categories,
+      loading: false,
+      error: null
+    }))
 
-    searchPage.handleFilterTextChanged('abc')
-
-    expect(searchPage.findCategories()[0].model).toBe(categoryModels[0])
-    expect(searchPage.findCategories()[1].model).toBe(categoryModels[1])
-    expect(searchPage.findCategories()[2].model).toBe(categoryModels[2])
-    expect(searchPage.findCategories()[3].model).toBe(categoryModels[3])
-  })
-
-  it('should map state to props', () => {
-    const mockStore = configureMockStore()
-    const store = mockStore({
-      categories: { data: categories },
-      cities: { data: cities },
-      location
-    })
-
-    const searchPage = mount(
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ConnectedSearchPage categories={categories} />
-        </ThemeProvider>
-      </Provider>
+    const { getByPlaceholderText, getAllByLabelText } = renderWithBrowserRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Route
+          path={RoutePatterns[SEARCH_ROUTE]}
+          render={props => (
+            <SearchPage
+              cities={cities}
+              cityModel={cityModel}
+              languages={languages}
+              languageModel={languageModel}
+              {...props}
+            />
+          )}
+        />
+      </ThemeProvider>,
+      { route: createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code }) }
     )
 
-    expect(searchPage.find(SearchPage).props()).toMatchObject({
-      categories,
-      location
+    fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
+      target: {
+        value: 'abc'
+      }
+    })
+
+    const searchResults = getAllByLabelText('category', { exact: false })
+
+    expect(searchResults[0].attributes['aria-label'].value).toBe(categoryModels[0].title)
+    expect(searchResults[1].attributes['aria-label'].value).toBe(categoryModels[1].title)
+    expect(searchResults[2].attributes['aria-label'].value).toBe(categoryModels[2].title)
+    expect(searchResults[3].attributes['aria-label'].value).toBe(categoryModels[3].title)
+  })
+
+  describe('url query', () => {
+    mockUseLoadFromEndpoint(() => ({
+      data: categories,
+      loading: false,
+      error: null
+    }))
+
+    it('should set state from url', () => {
+      const query = '?query=SearchForThis'
+      const path = createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code })
+      const url = `${path}${query}`
+
+      const { getByPlaceholderText } = renderWithBrowserRouter(
+        <ThemeProvider theme={buildConfig().lightTheme}>
+          <Route
+            path={RoutePatterns[SEARCH_ROUTE]}
+            render={props => (
+              <SearchPage
+                cities={cities}
+                cityModel={cityModel}
+                languages={languages}
+                languageModel={languageModel}
+                {...props}
+              />
+            )}
+          />
+        </ThemeProvider>,
+        { route: url })
+
+      expect((getByPlaceholderText('searchPlaceholder') as HTMLInputElement).value).toBe('SearchForThis')
     })
   })
 
-  describe('Tests for url query', () => {
-    it('should set state from url', () => {
-      const location = createLocation({
-        type: SEARCH_ROUTE,
-        payload: { city, language },
-        query: { query: 'SearchForThis' }
-      })
-      const searchPage = shallow(<SearchPage categories={categories} location={location} t={t} />)
-      expect(searchPage.state().filterText).toBe('SearchForThis')
+  it('should set url when state changes', () => {
+    const { getByPlaceholderText } = renderWithBrowserRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Route
+          path={RoutePatterns[SEARCH_ROUTE]}
+          render={props => (
+            <SearchPage
+              cities={cities}
+              cityModel={cityModel}
+              languages={languages}
+              languageModel={languageModel}
+              {...props}
+            />
+          )}
+        />
+      </ThemeProvider>,
+      { route: createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code }) })
+
+    fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
+      target: {
+        value: 'ChangeToThis'
+      }
     })
-    it('should set url when state changes', () => {
-      const searchPage = shallow(<SearchPage categories={categories} location={location} t={t} />)
-      searchPage.instance().handleFilterTextChanged('ChangeToThis')
-      expect(global.window.location.href).toMatch(/\?query=ChangeToThis/)
+
+    expect(global.window.location.href).toMatch(/\?query=ChangeToThis/)
+  })
+
+  it('should remove ?query= when filteredText is empty', () => {
+    const query = '?query=RemoveThis'
+    const path = createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code })
+    const url = `${path}${query}`
+
+    const { getByPlaceholderText } = renderWithBrowserRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Route
+          path={RoutePatterns[SEARCH_ROUTE]}
+          render={props => (
+            <SearchPage
+              cities={cities}
+              cityModel={cityModel}
+              languages={languages}
+              languageModel={languageModel}
+              {...props}
+            />
+          )}
+        />
+      </ThemeProvider>,
+      { route: url })
+
+    fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
+      target: {
+        value: ''
+      }
     })
-    it('should remove ?query= when filteredText is empty', () => {
-      const searchPage = shallow(<SearchPage categories={categories} location={location} t={t} />)
-      searchPage.instance().handleFilterTextChanged('')
-      expect(global.window.location.href).toMatch(/^((?!\?query=).)*$/)
-    })
+
+    expect(global.window.location.href).toMatch(/^((?!\?query=).)*$/)
   })
 })
