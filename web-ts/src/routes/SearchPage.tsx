@@ -21,10 +21,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath } from './index'
 import { useTranslation } from 'react-i18next'
 
-type CategoryEntryType = { model: CategoryModel, contentWithoutHtml?: string, subCategories: Array<CategoryModel> }
+type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
-const noop = () => {
-}
+const noop = () => {}
 
 type PropsType = {
   cities: Array<CityModel>
@@ -34,7 +33,7 @@ type PropsType = {
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
 const SearchPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
-  const query = (new URLSearchParams(location.search)).get('query') ?? ''
+  const query = new URLSearchParams(location.search).get('query') ?? ''
   const { cityCode, languageCode } = match.params
   const [filterText, setFilterText] = useState<string>(query)
   const { viewportSmall } = useWindowDimensions()
@@ -99,16 +98,18 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   const categoriesWithContent = categories
     .toArray()
     .filter(category => !normalizeSearchString(category.title).includes(normalizedFilterText))
-    .map((category: CategoryModel): CategoryEntryType => {
-      contentWithoutHtml = []
-      parser.write(category.content)
-      parser.end()
-      return {
-        model: category,
-        contentWithoutHtml: contentWithoutHtml.join(' '),
-        subCategories: []
+    .map(
+      (category: CategoryModel): CategoryEntryType => {
+        contentWithoutHtml = []
+        parser.write(category.content)
+        parser.end()
+        return {
+          model: category,
+          contentWithoutHtml: contentWithoutHtml.join(' '),
+          subCategories: []
+        }
       }
-    })
+    )
     .filter(
       categoryEntry =>
         categoryEntry.contentWithoutHtml &&
@@ -124,9 +125,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
 
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
-    console.log(filterText)
     const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
-    console.log(appendToUrl)
     history.replace(`${location.pathname}${appendToUrl}`)
   }
 
@@ -139,10 +138,12 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
         spaceSearch
       />
       <CategoryList categories={searchResults} query={filterText} onInternalLinkClick={noop} />
-      <SearchFeedback cityCode={cityCode}
-                      languageCode={languageCode}
-                      resultsFound={searchResults.length !== 0}
-                      query={filterText} />
+      <SearchFeedback
+        cityCode={cityCode}
+        languageCode={languageCode}
+        resultsFound={searchResults.length !== 0}
+        query={filterText}
+      />
     </LocationLayout>
   )
 }

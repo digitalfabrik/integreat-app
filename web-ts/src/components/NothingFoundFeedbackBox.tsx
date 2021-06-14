@@ -37,11 +37,7 @@ const NothingFoundFeedbackBox = ({ query, cityCode, languageCode }: PropsType): 
         <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
       ) : (
         <>
-          <FeedbackComment
-            comment={comment}
-            commentMessage={t('wantedInformation')}
-            onCommentChanged={setComment}
-          />
+          <FeedbackComment comment={comment} commentMessage={t('wantedInformation')} onCommentChanged={setComment} />
           <TextButton onClick={handleSubmit} text={t('send')} />
         </>
       )}

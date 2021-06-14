@@ -228,7 +228,8 @@ describe('SearchPage', () => {
             )}
           />
         </ThemeProvider>,
-        { route: url })
+        { route: url }
+      )
 
       expect((getByPlaceholderText('searchPlaceholder') as HTMLInputElement).value).toBe('SearchForThis')
     })
@@ -250,7 +251,8 @@ describe('SearchPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code }) })
+      { route: createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code }) }
+    )
 
     fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
       target: {
@@ -281,7 +283,8 @@ describe('SearchPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: url })
+      { route: url }
+    )
 
     fireEvent.change(getByPlaceholderText('searchPlaceholder'), {
       target: {
