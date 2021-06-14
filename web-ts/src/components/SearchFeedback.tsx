@@ -8,7 +8,7 @@ import type { LocationState } from 'redux-first-router'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 import { cmsApiBaseUrl } from '../../../modules/app/constants/urls'
 import TextButton from '../../../modules/common/components/TextButton'
-import type { ThemeType } from 'build-configs/ThemeType'
+import type { ThemeType } from '../build-configs/ThemeType'
 
 const FeedbackContainer: StyledComponent<{||}, ThemeType, *> = styled.div`
   display: flex;
