@@ -180,14 +180,7 @@ class Config {
   }
 
   getScriptDirection(languageTag: string): UiDirectionType {
-    const language = this.getSupportedLanguage(languageTag)
-
-    if (!language) {
-      throw new Error(`Unable to determine whether ${languageTag} uses a RTL or LTR script. 
-                        Only supported languages have a defined direction.`)
-    }
-
-    return language.rtl ? 'rtl' : 'ltr'
+    return this.hasRTLScript(languageTag) ? 'rtl' : 'ltr'
   }
 
   getAdditionalFont(languageTag: string): FontType | null | undefined {

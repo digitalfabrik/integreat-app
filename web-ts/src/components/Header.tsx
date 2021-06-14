@@ -12,8 +12,6 @@ type PropsType = {
   viewportSmall: boolean
   cityName?: string
   onStickyTopChanged: (stickyTop: number) => void
-  // TODO IGAPP-646
-  // platform: Platform
 }
 
 const HeaderContainer = styled.header`
@@ -101,8 +99,6 @@ export const Header = ({
   actionItems = [],
   logoHref,
   navigationItems = [],
-  // TODO IGAPP-646
-  // platform,
   cityName
 }: PropsType) => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
@@ -113,13 +109,7 @@ export const Header = ({
   const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
 
   return (
-    <Headroom
-      onStickyTopChanged={onStickyTopChanged}
-      scrollHeight={scrollHeight}
-      height={height}
-      // TODO IGAPP-646
-      /* positionStickyDisabled={platform.positionStickyDisabled} */
-    >
+    <Headroom onStickyTopChanged={onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
           <HeaderLogo link={logoHref} />
@@ -137,6 +127,4 @@ export const Header = ({
   )
 }
 
-// TODO IGAPP-646
-// export default withPlatform(Header)
 export default Header

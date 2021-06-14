@@ -37,7 +37,6 @@ type RefreshPropsType = NavigationPropsType & {
   path: string | null | undefined
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
   dispatch({
