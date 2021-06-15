@@ -115,7 +115,11 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
         <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
       )}
       {localNewsEnabled && (
-        <Route exact path={RoutePatterns[LOCAL_NEWS_ROUTE]} render={props => <LocalNewsPage {...params} {...props} />} />
+        <Route
+          exact
+          path={RoutePatterns[LOCAL_NEWS_ROUTE]}
+          render={props => <LocalNewsPage {...params} {...props} />}
+        />
       )}
       {tuNewsEnabled && (
         <Route exact path={RoutePatterns[TU_NEWS_ROUTE]} render={props => <TuNewsPage {...params} {...props} />} />
