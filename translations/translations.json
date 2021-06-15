@@ -2700,7 +2700,8 @@
       "local": "Lokal",
       "readMore": "Weiterlesen",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
-      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten."
+      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "ar": {
       "news": "الأخبار",
@@ -2710,7 +2711,8 @@
       "local": "محلي",
       "readMore": "متابعة القراءة",
       "currentlyNoNews": "لا تُوجد أخبار حاليًا.",
-      "currentlyNoNewsAlternative": "لا تُوجد مستجدات حاليًا."
+      "currentlyNoNewsAlternative": "لا تُوجد مستجدات حاليًا.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "en": {
       "news": "News",
@@ -2720,7 +2722,8 @@
       "local": "Local",
       "readMore": "Continue",
       "currentlyNoNews": "There is no news at the moment.",
-      "currentlyNoNewsAlternative": "Currently there are no news."
+      "currentlyNoNewsAlternative": "Currently there are no news.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "es": {
       "news": "Noticias",
@@ -2730,7 +2733,8 @@
       "local": "Local  ",
       "readMore": "Seguir leyendo",
       "currentlyNoNews": "En la actualidad no hay noticias",
-      "currentlyNoNewsAlternative": "En la actualidad no hay novedades"
+      "currentlyNoNewsAlternative": "En la actualidad no hay novedades",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "pes": {
       "news": "اخبار",
@@ -2740,7 +2744,8 @@
       "local": "محل",
       "readMore": "ادامه",
       "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد.",
-      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد."
+      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "fr": {
       "news": "Nouvelles",
@@ -2750,7 +2755,8 @@
       "local": "Localement",
       "readMore": "Poursuivre la lecture",
       "currentlyNoNews": "Aucune nouvelle pour l'instant",
-      "currentlyNoNewsAlternative": "Aucune nouveauté pour l'instant"
+      "currentlyNoNewsAlternative": "Aucune nouveauté pour l'instant",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "it": {
       "news": "Messaggi",
@@ -2760,7 +2766,8 @@
       "local": "Locale",
       "readMore": "Continua",
       "currentlyNoNews": "Attualmente non ci sono notizie.",
-      "currentlyNoNewsAlternative": "Attualmente non ci sono novità."
+      "currentlyNoNewsAlternative": "Attualmente non ci sono novità.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "kmr": {
       "news": "Nûçe",
@@ -2770,7 +2777,8 @@
       "local": "Herêmî",
       "readMore": "Xwendina xwe bidomîne",
       "currentlyNoNews": "Niha nûçe tune.",
-      "currentlyNoNewsAlternative": "Niha nûçe tune."
+      "currentlyNoNewsAlternative": "Niha nûçe tune.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "pl": {
       "news": "Wiadomości",
@@ -2780,7 +2788,8 @@
       "local": "Lokalnie",
       "readMore": "Czytaj dalej",
       "currentlyNoNews": "Obecnie nie ma żadnej wiadomości.",
-      "currentlyNoNewsAlternative": "Obecnie nie ma żadnej wiadomości."
+      "currentlyNoNewsAlternative": "Obecnie nie ma żadnej wiadomości.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "ps": {
       "news": "خبرونه",
@@ -2790,7 +2799,8 @@
       "local": "سیمه ییز",
       "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته.",
-      "currentlyNoNewsAlternative": "دا مهال کومې نوې زړې نشته."
+      "currentlyNoNewsAlternative": "دا مهال کومې نوې زړې نشته.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "ro": {
       "news": "Știri",
@@ -2800,7 +2810,8 @@
       "local": "Local",
       "readMore": "Citire mai departe",
       "currentlyNoNews": "În prezent nu există nicio știre.",
-      "currentlyNoNewsAlternative": "În prezent nu există noutăți."
+      "currentlyNoNewsAlternative": "În prezent nu există noutăți.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "ru": {
       "news": "Новости",
@@ -2810,7 +2821,8 @@
       "local": "Местная информация",
       "readMore": "Подробнее",
       "currentlyNoNews": "В настоящий момент новости отсутствуют.",
-      "currentlyNoNewsAlternative": "В настоящий момент ничего нового."
+      "currentlyNoNewsAlternative": "В настоящий момент ничего нового.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "so": {
       "news": "War",
@@ -2820,7 +2832,8 @@
       "local": "Deegaanka",
       "readMore": "Sii wad akhriska",
       "currentlyNoNews": "Hada wax war ah ma jiraan.",
-      "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan."
+      "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "sr-Latn": {
       "news": "Vesti",
@@ -2830,7 +2843,8 @@
       "local": "Lokalno",
       "readMore": "Nastavite sa čitanjem",
       "currentlyNoNews": "Trenutno nema nikakvih vesti.",
-      "currentlyNoNewsAlternative": "Trenutno nema nikakvih novosti."
+      "currentlyNoNewsAlternative": "Trenutno nema nikakvih novosti.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "ti": {
       "news": "ዜና",
@@ -2840,7 +2854,8 @@
       "local": "ውሽጢ ዓዲ",
       "readMore": "ምንባብ ቀጽል",
       "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።",
-      "currentlyNoNewsAlternative": "ኣብዚ እዋን’ዚ ዜና የለን።"
+      "currentlyNoNewsAlternative": "ኣብዚ እዋን’ዚ ዜና የለን።",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "tr": {
       "news": "Bildirimler",
@@ -2850,7 +2865,8 @@
       "local": "Yerel",
       "readMore": "Okumaya devam edin",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır.",
-      "currentlyNoNewsAlternative": "Şu an yenilik bulunmamaktadır."
+      "currentlyNoNewsAlternative": "Şu an yenilik bulunmamaktadır.",
+      "tuNews": "tünews INTERNATIONAL"
     },
     "zh-CN": {
       "news": "新闻",
@@ -2860,7 +2876,8 @@
       "local": "本地",
       "readMore": "继续阅读",
       "currentlyNoNews": "目前没有新闻。",
-      "currentlyNoNewsAlternative": "目前没有新消息。"
+      "currentlyNoNewsAlternative": "目前没有新消息。",
+      "tuNews": "tünews INTERNATIONAL"
     }
   },
   "offers": {
