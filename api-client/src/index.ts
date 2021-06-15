@@ -80,7 +80,7 @@ export {
   SPRUNGBRETT_JOBS_ENDPOINT_NAME
 } from './endpoints/createSprungbrettJobsEndpoint'
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
-export { default as useLoadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
+export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
@@ -97,3 +97,4 @@ export { default as FeaturedImageModel } from './models/FeaturedImageModel'
 export { default as PageModel } from './models/PageModel'
 export { default as PoiModel } from './models/PoiModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
+export { default as normalizePath } from './normalizePath'

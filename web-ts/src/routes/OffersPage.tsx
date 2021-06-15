@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout, { FeedbackRatingType } from '../components/LocationLayout'
+import LocationLayout  from '../components/LocationLayout'
 import {
   CityModel,
   createOffersEndpoint,
@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Tiles from '../components/Tiles'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 
 type PropsType = {
   cities: Array<CityModel>
