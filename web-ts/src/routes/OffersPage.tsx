@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout  from '../components/LocationLayout'
+import LocationLayout from '../components/LocationLayout'
 import {
   CityModel,
   createOffersEndpoint,
