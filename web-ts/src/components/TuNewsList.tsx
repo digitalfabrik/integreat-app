@@ -3,7 +3,6 @@ import { isEmpty } from 'lodash'
 import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
 import { TunewsModel } from 'api-client'
-import LoadingSpinner from './LoadingSpinner'
 
 const TUNEWS_PAGE_COUNT = 20
 
