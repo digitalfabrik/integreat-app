@@ -1,9 +1,7 @@
-// @flow
-
 import { shallow } from 'enzyme'
 import React from 'react'
 import { OfferModel, SprungbrettJobModel } from 'api-client'
-import { SprungbrettOfferPage } from '../SprungbrettOfferPage'
+import SprungbrettOfferPage from '../SprungbrettOfferPage'
 
 describe('SprungbrettOfferPage', () => {
   const sprungbrettOffer = new OfferModel({
@@ -13,7 +11,6 @@ describe('SprungbrettOfferPage', () => {
     thumbnail: 'xy',
     postData: null
   })
-
   const sprungbrettJobs = [
     new SprungbrettJobModel({
       id: 0,
@@ -41,7 +38,7 @@ describe('SprungbrettOfferPage', () => {
     })
   ]
 
-  const t = (key: ?string): string => key || ''
+  const t = (key: string | null | undefined): string => key || ''
 
   it('should render list', () => {
     const sprunbrettPage = shallow(
@@ -49,7 +46,6 @@ describe('SprungbrettOfferPage', () => {
     )
     expect(sprunbrettPage).toMatchSnapshot()
   })
-
   it('should render error if offer is not supported', () => {
     const sprunbrettPage = shallow(<SprungbrettOfferPage sprungbrettJobs={sprungbrettJobs} offers={[]} t={t} />)
     expect(sprunbrettPage).toMatchSnapshot()
