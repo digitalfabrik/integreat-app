@@ -9,6 +9,7 @@ import {
   createSprungbrettJobsEndpoint,
   LanguageModel,
   normalizePath,
+  NotFoundError,
   Payload,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
@@ -94,7 +95,15 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   }
 
   if (!sprungbrettJobs || !offer) {
-    const error = sprungbrettError || offersError || new Error('Sprungbrett and Offers should be available!')
+    const error =
+      sprungbrettError ||
+      offersError ||
+      new NotFoundError({
+        type: 'offer',
+        id: pathname,
+        city: cityCode,
+        language: languageCode
+      })
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
