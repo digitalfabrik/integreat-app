@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NothingFoundFeedbackBox should match snapshot 1`] = `
-<FeedbackBox__StyledFeedbackBox>
+<styled.div>
   <FeedbackComment
     comment=""
     commentMessage="wantedInformation"
@@ -11,13 +11,13 @@ exports[`NothingFoundFeedbackBox should match snapshot 1`] = `
     onClick={[Function]}
     text="send"
   />
-</FeedbackBox__StyledFeedbackBox>
+</styled.div>
 `;
 
 exports[`NothingFoundFeedbackBox should show a thanks message after feedback was sent 1`] = `
-<FeedbackBox__StyledFeedbackBox>
-  <FeedbackBox__Description>
+<styled.div>
+  <styled.div>
     thanksMessage
-  </FeedbackBox__Description>
-</FeedbackBox__StyledFeedbackBox>
+  </styled.div>
+</styled.div>
 `;
