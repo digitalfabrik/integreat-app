@@ -9,6 +9,7 @@ import {
   createSprungbrettJobsEndpoint,
   LanguageModel,
   normalizePath,
+  Payload,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   useLoadFromEndpoint
@@ -43,19 +44,23 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
-  const requestSprungbrettOffer = useCallback(async () => {
-    return createSprungbrettJobsEndpoint(cmsApiBaseUrl).request()
-  }, [])
-  const { data: sprungbrettJobs, loading: sprungbrettLoading, error: sprungbrettError } = useLoadFromEndpoint(
-    requestSprungbrettOffer
-  )
-
   const requestOffers = useCallback(async () => {
     return createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
   }, [cityCode, languageCode])
   const { data: offers, loading: offersLoading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const offer = offers?.find(offer => offer.alias === 'sprungbrett')
+
+  const requestSprungbrettOffer = useCallback(async () => {
+    if (!offer) {
+      return new Payload(false, null, [])
+    }
+    return createSprungbrettJobsEndpoint(offer.path).request()
+  }, [offer])
+
+  const { data: sprungbrettJobs, loading: sprungbrettLoading, error: sprungbrettError } = useLoadFromEndpoint(
+    requestSprungbrettOffer
+  )
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
