@@ -13,12 +13,10 @@ import {
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LanguageModel,
-  LOCAL_NEWS_TYPE,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE,
   useLoadFromEndpoint
 } from 'api-client'
 import { cmsApiBaseUrl } from './constants/urls'
@@ -32,7 +30,9 @@ import LoadingSpinner from './components/LoadingSpinner'
 import LocalNewsPage from './routes/LocalNewsPage'
 import TuNewsPage from './routes/TuNewsPage'
 import SprungbrettOfferPage from './routes/SprungbrettOfferPage'
-import { createPath, RoutePatterns } from './routes'
+import { createPath, LOCAL_NEWS_ROUTE, RoutePatterns, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import buildConfig from './constants/buildConfig'
+import TuNewsDetailPage from './routes/TuNewsDetailPage'
 
 type PropsType = {
   cities: CityModel[]
@@ -91,19 +91,46 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   }
 
   const params = { cities, languages, cityModel, languageModel }
+  const { eventsEnabled, offersEnabled } = cityModel
+  const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.pushNotificationsEnabled
+  const tuNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.tunewsEnabled
+  const poisEnabled = buildConfig().featureFlags.pois && cityModel.poisEnabled
 
   return (
     <Switch>
-      <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />
-      <Route
-        exact
-        path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
-        render={props => <SprungbrettOfferPage {...params} {...props} />}
-      />
-      <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />
-      <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
-      <Route exact path={RoutePatterns[LOCAL_NEWS_TYPE]} render={props => <LocalNewsPage {...params} {...props} />} />
-      <Route exact path={RoutePatterns[TU_NEWS_TYPE]} render={props => <TuNewsPage {...params} {...props} />} />
+      {eventsEnabled && (
+        <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />
+      )}
+      {offersEnabled && (
+        <Route
+          exact
+          path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
+          render={props => <SprungbrettOfferPage {...params} {...props} />}
+        />
+      )}
+      {offersEnabled && (
+        <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />
+      )}
+      {poisEnabled && (
+        <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
+      )}
+      {localNewsEnabled && (
+        <Route
+          exact
+          path={RoutePatterns[LOCAL_NEWS_ROUTE]}
+          render={props => <LocalNewsPage {...params} {...props} />}
+        />
+      )}
+      {tuNewsEnabled && (
+        <Route exact path={RoutePatterns[TU_NEWS_ROUTE]} render={props => <TuNewsPage {...params} {...props} />} />
+      )}
+      {tuNewsEnabled && (
+        <Route
+          exact
+          path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]}
+          render={props => <TuNewsDetailPage {...params} {...props} />}
+        />
+      )}
       <Route exact path={RoutePatterns[SEARCH_ROUTE]} render={props => <SearchPage {...params} {...props} />} />
       <Route exact path={RoutePatterns[DISCLAIMER_ROUTE]} render={props => <DisclaimerPage {...params} {...props} />} />
       <Route path={RoutePatterns[CATEGORIES_ROUTE]} render={props => <CategoriesPage {...params} {...props} />} />
