@@ -45,13 +45,7 @@ describe('PoisPage', () => {
         <Route
           path={RoutePatterns[POIS_ROUTE]}
           render={props => (
-            <PoisPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
+            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
           )}
         />
       </ThemeProvider>,
@@ -75,13 +69,7 @@ describe('PoisPage', () => {
         <Route
           path={RoutePatterns[POIS_ROUTE]}
           render={props => (
-            <PoisPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
+            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
           )}
         />
       </ThemeProvider>,
@@ -106,13 +94,7 @@ describe('PoisPage', () => {
         <Route
           path={RoutePatterns[POIS_ROUTE]}
           render={props => (
-            <PoisPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
+            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
           )}
         />
       </ThemeProvider>,
@@ -135,13 +117,7 @@ describe('PoisPage', () => {
         <Route
           path={RoutePatterns[POIS_ROUTE]}
           render={props => (
-            <PoisPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
+            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
           )}
         />
       </ThemeProvider>,
