@@ -1,7 +1,10 @@
 import React from 'react'
 import { SprungbrettJobModel } from 'api-client'
-import { shallow } from 'enzyme'
 import SprungbrettListItem from '../SprungbrettListItem'
+import { render } from '@testing-library/react'
+import buildConfig from '../../constants/buildConfig'
+import { ThemeProvider } from 'styled-components'
+
 describe('SprungbrettListItem', () => {
   const job = new SprungbrettJobModel({
     id: 0,
@@ -11,7 +14,16 @@ describe('SprungbrettListItem', () => {
     isApprenticeship: true,
     url: 'http://awesome-jobs.domain'
   })
+
   it('should render and match snapshot', () => {
-    expect(shallow(<SprungbrettListItem job={job} />)).toMatchSnapshot()
+    const { getByText } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <SprungbrettListItem job={job} />
+      </ThemeProvider>
+    )
+
+    expect(getByText(job.title)).toBeTruthy()
+    expect(getByText(job.title).closest('a')).toHaveAttribute('href', job.url)
+    expect(getByText(job.location)).toBeTruthy()
   })
 })
