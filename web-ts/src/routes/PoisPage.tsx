@@ -4,7 +4,8 @@ import {
   CityModel,
   createPOIsEndpoint,
   LanguageModel,
-  normalizePath, NotFoundError,
+  normalizePath,
+  NotFoundError,
   PoiModel,
   POIS_ROUTE,
   useLoadFromEndpoint
