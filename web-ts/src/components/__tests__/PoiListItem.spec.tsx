@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { PoiModel, LocationModel } from 'api-client'
 import moment from 'moment'
