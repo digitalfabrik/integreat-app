@@ -4,7 +4,6 @@ import LandingPage from './routes/LandingPage'
 import NotFoundPage from './routes/NotFoundPage'
 import {
   CATEGORIES_ROUTE,
-  CityModel,
   createCitiesEndpoint,
   LANDING_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
@@ -22,15 +21,15 @@ import LoadingSpinner from './components/LoadingSpinner'
 import { useTranslation } from 'react-i18next'
 import { cityContentPattern, createPath, RoutePatterns } from './routes'
 import useWindowDimensions from './hooks/useWindowDimensions'
+import buildConfig from './constants/buildConfig'
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
 }
 
 const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
-  const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(undefined), [])
-  const { data: cities, loading, error } = useLoadFromEndpoint<CityModel[]>(requestCities)
   const { i18n } = useTranslation()
+  const fixedCity = buildConfig().featureFlags.fixedCity
   // LanguageCode is always the second param (if there is one)
   const languageCode = useRouteMatch<{ languageCode?: string }>('/:slug/:languageCode')?.params.languageCode
   const { viewportSmall } = useWindowDimensions()
@@ -42,8 +41,11 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     setContentLanguage(language)
   }
 
+  const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
+  const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
+
   const landingPath = createPath(LANDING_ROUTE, { languageCode: language })
-  const cityContentPath = createPath(CATEGORIES_ROUTE, { cityCode: ':cityCode', languageCode: language })
+  const cityContentPath = createPath(CATEGORIES_ROUTE, { cityCode: fixedCity ?? ':cityCode', languageCode: language })
 
   if (loading) {
     return (
@@ -65,6 +67,9 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
 
   return (
     <Switch>
+      <Redirect exact from='/' to={fixedCity ? cityContentPath : landingPath} />
+      <Redirect exact from={`/${LANDING_ROUTE}`} to={fixedCity ? cityContentPath : landingPath} />
+      <Redirect exact from={`/:cityCode`} to={cityContentPath} />
       <Route exact path={RoutePatterns[LANDING_ROUTE]} render={props => <LandingPage cities={cities} {...props} />} />
       <Route
         exact
@@ -73,11 +78,6 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
       />
       <Route exact path={RoutePatterns[NOT_FOUND_ROUTE]} component={NotFoundPage} />
       <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={cities} {...props} />} />
-
-      <Redirect exact from='/' to={landingPath} />
-      <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
-      <Redirect exact from={`/:cityCode`} to={cityContentPath} />
-      {/* TODO IGAPP-672: Add redirects for aschaffenburg */}
     </Switch>
   )
 }
