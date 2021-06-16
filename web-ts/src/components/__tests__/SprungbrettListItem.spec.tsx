@@ -15,7 +15,7 @@ describe('SprungbrettListItem', () => {
     url: 'http://awesome-jobs.domain'
   })
 
-  it('should render and match snapshot', () => {
+  it('should render a sprungbrett list item', () => {
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <SprungbrettListItem job={job} />
