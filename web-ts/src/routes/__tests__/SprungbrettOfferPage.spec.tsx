@@ -10,6 +10,7 @@ import buildConfig from '../../constants/buildConfig'
 import { createPath, RoutePatterns } from '../index'
 import { ThemeProvider } from 'styled-components'
 import { Route } from 'react-router-dom'
+import { RenderResult } from '@testing-library/react'
 
 jest.mock('api-client', () => {
   return {
@@ -58,42 +59,82 @@ describe('SprungbrettOfferPage', () => {
     })
   ]
 
-  it('should render page with title and content', () => {
-    const city = cities[0]
-    const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
-      data: sprungbrettJobs,
-      loading: false,
-      error: null
-    }))
-
-    mockUseLoadFromEndpointOnce(() => ({
-      data: sprungbrettOffer,
-      loading: false,
-      error: null
-    }))
-
-    const { getByText } = renderWithBrowserRouter(
+  const renderSprungbrett = (): RenderResult => {
+    return renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
           path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
           render={props => (
             <SprungbrettOfferPage
               cities={cities}
-              cityModel={city}
+              cityModel={cities[0]}
               languages={languages}
-              languageModel={language}
+              languageModel={languages[0]}
               {...props}
             />
           )}
         />
       </ThemeProvider>,
-      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
+      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: cities[0].code, languageCode: languages[0].code }) }
     )
+  }
+
+  it('should render page with title and content', () => {
+    mockUseLoadFromEndpointOnce(() => ({
+      data: sprungbrettOffer,
+      loading: false,
+      error: null
+    }))
+
+    mockUseLoadFromEndpointOnce(() => ({
+      data: sprungbrettJobs,
+      loading: false,
+      error: null
+    }))
+
+    const { getByText } = renderSprungbrett()
 
     expect(getByText(sprungbrettOffer[0].title)).toBeTruthy()
     for (const sprungbrettJob of sprungbrettJobs) {
       expect(getByText(sprungbrettJob.title)).toBeTruthy()
     }
+  })
+
+  it('should render error when offers cannot be fetched', () => {
+    const errorMessage = 'Offers are not available!'
+    mockUseLoadFromEndpointOnce(() => ({
+      data: null,
+      loading: false,
+      error: new Error(errorMessage)
+    }))
+
+    mockUseLoadFromEndpointOnce(() => ({
+      data: sprungbrettJobs,
+      loading: false,
+      error: null
+    }))
+
+    const { getByText } = renderSprungbrett()
+
+    expect(getByText(`error:${errorMessage}`)).toBeTruthy()
+  })
+
+  it('should render error when sprungbrettJobs cannot be fetched', () => {
+    const errorMessage = 'Jobs are not available!'
+    mockUseLoadFromEndpointOnce(() => ({
+      data: sprungbrettOffer,
+      loading: false,
+      error: null
+    }))
+
+    mockUseLoadFromEndpointOnce(() => ({
+      data: null,
+      loading: false,
+      error: new Error(errorMessage)
+    }))
+
+    const { getByText } = renderSprungbrett()
+
+    expect(getByText(`error:${errorMessage}`)).toBeTruthy()
   })
 })
