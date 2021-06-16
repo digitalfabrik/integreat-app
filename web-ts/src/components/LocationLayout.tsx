@@ -5,8 +5,8 @@ import LocationFooter from '../components/LocationFooter'
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 import FeedbackModal from './FeedbackModal'
 import { RouteType } from '../routes'
+import { FeedbackRatingType } from './FeedbackToolbarItem'
 
-export type FeedbackRatingType = 'up' | 'down'
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
 type PropsType = {

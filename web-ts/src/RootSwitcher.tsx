@@ -21,6 +21,7 @@ import MainDisclaimerPage from './routes/MainDisclaimerPage'
 import LoadingSpinner from './components/LoadingSpinner'
 import { useTranslation } from 'react-i18next'
 import { cityContentPattern, createPath, RoutePatterns } from './routes'
+import useWindowDimensions from './hooks/useWindowDimensions'
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
@@ -32,6 +33,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const { i18n } = useTranslation()
   // LanguageCode is always the second param (if there is one)
   const languageCode = useRouteMatch<{ languageCode?: string }>('/:slug/:languageCode')?.params.languageCode
+  const { viewportSmall } = useWindowDimensions()
 
   const detectedLanguageCode = i18n.language
   const language = languageCode ?? detectedLanguageCode
@@ -54,7 +56,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   if (!cities || error) {
     return (
       <Layout
-        header={<GeneralHeader languageCode={language} viewportSmall={false} />}
+        header={<GeneralHeader languageCode={language} viewportSmall={viewportSmall} />}
         footer={<GeneralFooter language={language} />}>
         <FailureSwitcher error={error ?? new Error('Cities not available')} />
       </Layout>

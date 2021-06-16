@@ -1,10 +1,9 @@
-import * as React from 'react'
-import type { UiDirectionType } from '../@types/UiDirectionType'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
-import { ReactNode } from 'react'
+import { UiDirectionType } from 'translations'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
