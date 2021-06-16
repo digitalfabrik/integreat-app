@@ -5,12 +5,12 @@ declare module '*.svg' {
   export default src
 }
 declare module '*.jpg' {
-  const content: number
+  const content: string
   export default content
 }
 
 declare module '*.png' {
-  const content: number
+  const content: string
   export default content
 }
 

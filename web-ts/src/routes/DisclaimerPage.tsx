@@ -15,6 +15,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import { createPath } from './index'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -26,7 +27,7 @@ type PropsType = {
 const DisclaimerPage = (props: PropsType): ReactElement => {
   const { match, cityModel, languages, location } = props
   const { languageCode, cityCode } = match.params
-  const viewportSmall = false
+  const { viewportSmall } = useWindowDimensions()
   const pathname = normalizePath(location.pathname)
   const dateFormatter = useContext(DateFormatterContext)
   const history = useHistory()
