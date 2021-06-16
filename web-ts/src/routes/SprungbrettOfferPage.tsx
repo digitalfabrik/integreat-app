@@ -21,9 +21,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath } from './index'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
-import Caption from 'src/components/Caption'
-import List from 'src/components/List'
-import CleanAnchor from 'src/components/CleanAnchor'
+import Caption from '../components/Caption'
+import List from '../components/List'
+import CleanAnchor from '../components/CleanAnchor'
 
 const Image = styled.img`
   display: block;
