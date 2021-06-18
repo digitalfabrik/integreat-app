@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
@@ -40,11 +41,11 @@ export type PropsType = StackHeaderProps & {
 }
 
 class SettingsHeader extends React.PureComponent<PropsType> {
-  goBack = () => {
+  goBack = (): void => {
     this.props.navigation.goBack()
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <BoxShadow theme={this.props.theme}>
         <Horizontal>

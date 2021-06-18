@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
 import StyledLink from './StyledLink'
@@ -107,7 +108,7 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
-  renderTitle(): React.ReactNode {
+  renderTitle(): ReactNode {
     const { query, theme, category, language } = this.props
     return (
       <CategoryEntryContainer theme={theme} language={language}>
@@ -127,7 +128,7 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
-  render(): JSX.Element {
+  render(): ReactNode {
     const { language, category, theme } = this.props
     return (
       <>

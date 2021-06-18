@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import CategoryListItem from './CategoryListItem'
 import styled from 'styled-components/native'
 import Image from './Image'
@@ -70,7 +71,7 @@ class CategoryList extends React.Component<PropsType> {
     )
   }
 
-  render() {
+  render(): ReactNode {
     const { categories, title, listContent, query, theme, onItemPress, language, thumbnail } = this.props
     return (
       <>

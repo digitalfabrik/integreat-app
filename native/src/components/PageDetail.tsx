@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 import { ThemeType } from 'build-configs'
@@ -26,7 +27,7 @@ type PropsType = {
 }
 
 class PageDetail extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { identifier, information, theme, language } = this.props
     return (
       <DetailContainer theme={theme} language={language}>

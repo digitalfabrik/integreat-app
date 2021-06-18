@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
 export const StyledButton = styled.button<{ disabled: boolean }>`
@@ -18,7 +18,7 @@ type ButtonPropsType = {
 }
 
 class TextButton extends React.PureComponent<ButtonPropsType> {
-  render() {
+  render(): ReactNode {
     const { onClick, text, disabled } = this.props
     return (
       <StyledButton onClick={onClick} disabled={!!disabled}>

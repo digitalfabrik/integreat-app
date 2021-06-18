@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { useCallback, useContext } from 'react'
-import { useWindowDimensions, Text, View, GestureResponderEvent } from 'react-native'
+import { ReactElement, useCallback, useContext } from 'react'
+import { GestureResponderEvent, Text, useWindowDimensions, View } from 'react-native'
 import Html, { HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import styled from 'styled-components/native'
@@ -37,7 +37,7 @@ const CategoryListContent = ({
   language,
   lastUpdate,
   theme
-}: ContentPropsType) => {
+}: ContentPropsType): ReactElement => {
   const width = useWindowDimensions().width
   const formatter = useContext(DateFormatterContext)
   const onLinkPress = useCallback(

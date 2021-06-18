@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { CityModel, LanguageModel, POIS_ROUTE } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
@@ -12,7 +12,7 @@ type PropsType = {
   languageModel: LanguageModel
 } & RouteComponentProps<{ cityCode: string; languageCode: string; poiId?: string }>
 
-const PoisPage = ({ match, cityModel, location }: PropsType) => {
+const PoisPage = ({ match, cityModel, location }: PropsType): ReactElement => {
   const { languageCode } = match.params
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />

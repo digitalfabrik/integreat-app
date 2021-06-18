@@ -12,7 +12,7 @@ const navigateToOffers = <T extends RoutesType>({
   navigation: NavigationPropType<T>
   cityCode: string
   languageCode: string
-}) => {
+}): void => {
   navigation.navigate({
     name: OFFERS_ROUTE,
     params: {

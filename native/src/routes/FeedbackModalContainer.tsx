@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { FeedbackModalRouteType } from 'api-client'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import FeedbackContainer from '../components/FeedbackContainer'
@@ -8,7 +8,7 @@ type PropsType = {
   navigation: NavigationPropType<FeedbackModalRouteType>
 }
 
-const FeedbackModalContainer = ({ route }: PropsType) => {
+const FeedbackModalContainer = ({ route }: PropsType): ReactElement => {
   const theme = useContext(ThemeContext)
   return <FeedbackContainer isSearchFeedback={false} theme={theme} {...route.params} />
 }

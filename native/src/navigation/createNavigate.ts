@@ -33,7 +33,7 @@ import { urlFromRouteInformation } from './url'
 const createNavigate = <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
-) => (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean) => {
+) => (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
   if (routeInformation) {
     const url = urlFromRouteInformation(routeInformation)
     sendTrackingSignal({
