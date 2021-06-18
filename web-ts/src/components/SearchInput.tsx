@@ -51,7 +51,7 @@ type PropsType = {
 export class SearchInput extends React.PureComponent<PropsType> {
   static defaultProps = { spaceSearch: false }
   handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.value) {
+    if (typeof event.target.value === 'string') {
       this.props.onFilterTextChange(event.target.value)
     }
   }
