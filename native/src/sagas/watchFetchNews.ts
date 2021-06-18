@@ -144,7 +144,7 @@ export function* fetchMoreNews(
   }
 }
 
-export default function* (dataContainer: DataContainer): Generator<ForkEffect, any> {
+export default function* (dataContainer: DataContainer): Generator<ForkEffect> {
   yield takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
 }

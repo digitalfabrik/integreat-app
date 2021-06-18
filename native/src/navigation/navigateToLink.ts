@@ -15,7 +15,7 @@ const navigateToLink = <T extends RoutesType>(
   language: string,
   navigateTo: (arg0: RouteInformationType) => void,
   shareUrl: string
-) => {
+): void => {
   if (url.includes('.pdf')) {
     sendTrackingSignal({
       signal: {

@@ -1,5 +1,5 @@
 export default {
   default: {
-    open: () => Promise.resolve()
+    open: (): Promise<void> => Promise.resolve()
   }
 }

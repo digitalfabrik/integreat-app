@@ -50,13 +50,13 @@ export default class Cache<T> {
     return !!this.value
   }
 
-  async cache(value: T, context: DatabaseContext) {
+  async cache(value: T, context: DatabaseContext): Promise<void> {
     await this.store(value, this.databaseConnector, context)
     this.value = value
     this.context = context
   }
 
-  evict() {
+  evict(): void {
     this.value = null
     this.context = null
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -40,7 +40,7 @@ export type PropsType = {
   negativeAction?: SnackbarActionType
 }
 
-const Snackbar = ({ message, positiveAction, negativeAction }: PropsType) => {
+const Snackbar = ({ message, positiveAction, negativeAction }: PropsType): ReactElement => {
   const horizontal = !(positiveAction && negativeAction)
   return (
     <Container row={horizontal}>

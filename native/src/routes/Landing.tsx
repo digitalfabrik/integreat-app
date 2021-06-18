@@ -10,6 +10,7 @@ import Geolocation, { GeolocationError, GeolocationResponse } from '@react-nativ
 import { checkLocationPermission, requestLocationPermission } from '../services/LocationPermissionManager'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import testID from '../testing/testID'
+import { ReactNode } from 'react'
 
 const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -49,11 +50,11 @@ class Landing extends React.Component<PropsType, StateType> {
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.determineLocationIfGranted()
   }
 
-  determineLocationIfGranted = async () => {
+  determineLocationIfGranted = async (): Promise<void> => {
     const locationPermissionStatus = await checkLocationPermission()
 
     if (locationPermissionStatus === RESULTS.GRANTED) {
@@ -74,7 +75,7 @@ class Landing extends React.Component<PropsType, StateType> {
     }
   }
 
-  requestAndDetermineLocation = async () => {
+  requestAndDetermineLocation = async (): Promise<void> => {
     this.setState({
       location: {
         message: 'loading',
@@ -107,7 +108,7 @@ class Landing extends React.Component<PropsType, StateType> {
     }
   }
 
-  determineLocation = () => {
+  determineLocation = (): void => {
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
         this.setState({
@@ -127,7 +128,7 @@ class Landing extends React.Component<PropsType, StateType> {
     )
   }
 
-  setLocationErrorMessage = (error: GeolocationError) => {
+  setLocationErrorMessage = (error: GeolocationError): void => {
     if (error.code === 1) {
       this.setState({
         location: {
@@ -152,12 +153,12 @@ class Landing extends React.Component<PropsType, StateType> {
     }
   }
 
-  navigateToDashboard = (cityModel: CityModel) => {
+  navigateToDashboard = (cityModel: CityModel): void => {
     const { navigateToDashboard, language } = this.props
     navigateToDashboard(cityModel.code, language)
   }
 
-  render() {
+  render(): ReactNode {
     const { theme, cities, t, clearResourcesAndCache } = this.props
     const { location } = this.state
     const retryDetermineLocation =

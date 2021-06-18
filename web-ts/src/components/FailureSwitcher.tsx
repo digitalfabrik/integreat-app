@@ -43,7 +43,7 @@ export class FailureSwitcher extends React.Component<PropsType> {
     throw new Error('Failed to find component to render a content error')
   }
 
-  render() {
+  render(): ReactNode {
     const error = this.props.error
     if (error instanceof NotFoundError) {
       return FailureSwitcher.renderContentNotFoundComponent(error)

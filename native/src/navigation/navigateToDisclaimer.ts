@@ -12,7 +12,7 @@ const navigateToDisclaimer = <T extends RoutesType>({
   navigation: NavigationPropType<T>
   cityCode: string
   languageCode: string
-}) => {
+}): void => {
   navigation.navigate({
     name: DISCLAIMER_ROUTE,
     params: {

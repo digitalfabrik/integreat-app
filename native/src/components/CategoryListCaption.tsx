@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
@@ -18,7 +19,7 @@ type PropsType = {
 }
 
 class CategoryListCaption extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     return (
       <H1 withThumbnail={this.props.withThumbnail} theme={this.props.theme}>
         {this.props.title}
