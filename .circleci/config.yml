@@ -157,7 +157,7 @@ commands:
                     - 3-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
-                command: bundle exec pod install --deployment
+                command: bundle exec pod install
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
