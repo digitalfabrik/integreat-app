@@ -39,10 +39,10 @@ class Tile extends React.Component<PropsType> {
     return (
       <TileContainer>
         <TouchableOpacity onPress={this.onTilePress}>
-         <View>
-           <ThumbnailContainer source={tile.thumbnail} />
-           <TileTitle theme={theme}>{tile.title}</TileTitle>
-         </View>
+          <View>
+            <ThumbnailContainer source={tile.thumbnail} />
+            <TileTitle theme={theme}>{tile.title}</TileTitle>
+          </View>
         </TouchableOpacity>
       </TileContainer>
     )
