@@ -21,7 +21,9 @@ import SnackbarContainer from './components/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
 import sendTrackingSignal from './services/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
+import { enableScreens } from 'react-native-screens';
 
+enableScreens(false)
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
 })
