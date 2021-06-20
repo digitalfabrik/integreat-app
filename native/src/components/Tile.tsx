@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components/native'
-import { TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
 import { ThemeType } from 'build-configs'
