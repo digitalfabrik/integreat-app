@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 
@@ -18,7 +18,7 @@ type PropsType = {
 }
 
 class Caption extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { title, className } = this.props
     return <H1 className={className}>{title}</H1>
   }

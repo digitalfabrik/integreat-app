@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState, useContext, useCallback } from 'react'
+import { ReactElement, useCallback, useContext, useState } from 'react'
 import styled from 'styled-components/native'
 import Caption from './Caption'
 import TimeStamp from './TimeStamp'
@@ -50,7 +50,7 @@ const Page = ({
   navigateToFeedback,
   navigateToLink,
   files
-}: PropsType) => {
+}: PropsType): ReactElement => {
   const [loading, setLoading] = useState<boolean>(true)
   const formatter = useContext(DateFormatterContext)
   const cacheDict = cacheDictionary(files, resourceCacheUrl)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 import { createHtmlSource } from '../constants/webview'
@@ -24,6 +24,7 @@ export const renderWebviewError = (
     </Text>
   )
 }
+
 type PropType = {
   content: string
   theme: ThemeType
@@ -34,7 +35,7 @@ type PropType = {
   onLoad: (arg0: void) => void
 }
 
-const RemoteContent = (props: PropType) => {
+const RemoteContent = (props: PropType): ReactElement => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
   const [webViewHeight, setWebViewHeight] = useState(0)
   const [webViewWidth, setWebViewWidth] = useState(0)

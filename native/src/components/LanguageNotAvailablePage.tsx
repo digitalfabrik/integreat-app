@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { LanguageModel } from 'api-client'
 import Selector from './Selector'
@@ -25,11 +26,11 @@ export type PropsType = {
 }
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
-  onPress = (model: LanguageModel) => {
+  onPress = (model: LanguageModel): void => {
     this.props.changeLanguage(model.code)
   }
 
-  render() {
+  render(): ReactNode {
     const { t, languages, theme } = this.props
     return (
       <Wrapper theme={theme}>
