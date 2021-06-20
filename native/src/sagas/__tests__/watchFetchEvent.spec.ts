@@ -6,9 +6,9 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import { ErrorCode } from '../../constants/ErrorCodes'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
+import { ErrorCode } from 'api-client'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')

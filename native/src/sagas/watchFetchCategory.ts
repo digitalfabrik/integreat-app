@@ -8,9 +8,8 @@ import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import { Moment } from 'moment'
-import { CategoriesMapModel, LanguageModel } from 'api-client'
+import { CategoriesMapModel, ErrorCode, fromError, LanguageModel } from 'api-client'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 /**

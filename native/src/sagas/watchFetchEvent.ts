@@ -4,9 +4,8 @@ import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import moment, { Moment } from 'moment'
-import { EventModel, LanguageModel } from 'api-client'
+import { ErrorCode, EventModel, fromError, LanguageModel } from 'api-client'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export function* fetchEvent(

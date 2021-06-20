@@ -7,11 +7,10 @@ import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvide
 import withTheme from '../hocs/withTheme'
 import * as React from 'react'
 import Pois, { PropsType as PoisPropsType } from './Pois'
-import { ErrorCode } from '../constants/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import navigateToLink from '../navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { POIS_ROUTE, PoisRouteType, PoiModel } from 'api-client'
+import { ErrorCode, POIS_ROUTE, PoisRouteType, PoiModel } from 'api-client'
 import createNavigate from '../navigation/createNavigate'
 
 type NavigationPropsType = {
