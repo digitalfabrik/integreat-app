@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import type { FeedbackType } from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
@@ -45,7 +45,7 @@ export const FeedbackBoxContainer = ({
   closeFeedbackModal,
   sendingStatus,
   onSubmit
-}: PropsType) => {
+}: PropsType): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
 

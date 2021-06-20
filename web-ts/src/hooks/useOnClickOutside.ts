@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useOnClickOutside = (ref: { current: HTMLElement | null }, callback: () => void) => {
+const useOnClickOutside = (ref: { current: HTMLElement | null }, callback: () => void): void => {
   useEffect(() => {
     const isOutside = (target: EventTarget | null) => {
       return target instanceof Node && ref.current && !ref.current.contains(target)

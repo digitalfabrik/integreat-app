@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
@@ -65,7 +66,7 @@ const NewsDot = styled.Text`
  */
 
 class NavigationTile extends React.Component<PropsType> {
-  getNewsDot(): React.ReactNode {
+  getNewsDot(): ReactNode {
     const notifications = this.props.tile.notifications
 
     if (notifications && notifications > 0) {
@@ -75,7 +76,7 @@ class NavigationTile extends React.Component<PropsType> {
     }
   }
 
-  getTileContent(): React.ReactNode {
+  getTileContent(): ReactNode {
     const { tile, theme } = this.props
     return (
       <>
@@ -88,7 +89,7 @@ class NavigationTile extends React.Component<PropsType> {
     )
   }
 
-  render() {
+  render(): ReactNode {
     const { tile, theme, width } = this.props
     return (
       <TileTouchable theme={theme} onPress={tile.onTilePress} width={width}>

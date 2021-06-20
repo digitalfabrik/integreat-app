@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components/native'
 import { TFunction, withTranslation } from 'react-i18next'
@@ -61,7 +62,7 @@ type PropsType = {
 class SiteHelpfulBox extends React.Component<PropsType> {
   navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
 
-  render() {
+  render(): ReactNode {
     const { theme, t } = this.props
     return (
       <FeedbackBoxContainer>

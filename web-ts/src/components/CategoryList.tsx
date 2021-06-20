@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
 import CategoryEntry from './CategoryEntry'
@@ -38,7 +38,7 @@ type PropsType = {
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 class CategoryList extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { categories, query, onInternalLinkClick, formatter, category } = this.props
     return (
       <div>
