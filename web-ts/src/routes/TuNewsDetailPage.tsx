@@ -18,6 +18,7 @@ import { FailureSwitcher } from '../components/FailureSwitcher'
 import Page from '../components/Page'
 import styled from 'styled-components'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import Helmet from '../components/Helmet'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -109,8 +110,11 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     )
   }
 
+  const pageTitle = `${newsModel.title} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <StyledContainer>
         <StyledWrapper>
           <StyledBanner>

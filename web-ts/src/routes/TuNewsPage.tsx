@@ -19,6 +19,7 @@ import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { FailureSwitcher } from '../components/FailureSwitcher'
 import TuNewsList from '../components/TuNewsList'
+import Helmet from '../components/Helmet'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
@@ -127,8 +128,11 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
     )
   }
 
+  const pageTitle = `${t('app:pageTitles.tunews')} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <NewsTabs
         type={TU_NEWS_TYPE}
         city={cityCode}
