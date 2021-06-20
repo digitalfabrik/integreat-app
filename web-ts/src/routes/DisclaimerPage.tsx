@@ -16,6 +16,8 @@ import { createPath } from './index'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Helmet from '../components/Helmet'
+import { useTranslation } from 'react-i18next'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -31,6 +33,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const pathname = normalizePath(location.pathname)
   const dateFormatter = useContext(DateFormatterContext)
   const history = useHistory()
+  const { t } = useTranslation('app')
 
   const requestDisclaimer = useCallback(async () => {
     return createDisclaimerEndpoint(cmsApiBaseUrl).request({
@@ -72,8 +75,12 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
       </LocationLayout>
     )
   }
+
+  const pageTitle = `${t('app:pageTitles.disclaimer')} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Page
         lastUpdate={disclaimer.lastUpdate}
         title={disclaimer.title}
