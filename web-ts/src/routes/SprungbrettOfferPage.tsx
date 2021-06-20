@@ -26,6 +26,7 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Caption from '../components/Caption'
 import List from '../components/List'
 import CleanAnchor from '../components/CleanAnchor'
+import Helmet from '../components/Helmet'
 
 const Image = styled.img`
   display: block;
@@ -116,8 +117,11 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
     <SprungbrettListItem key={job.id} job={job} />
   )
 
+  const pageTitle = `${offer.title} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
       <CleanAnchor href='https://www.sprungbrett-intowork.de'>
