@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { helpers } from '../constants/theme'
 import dimensions from '../constants/dimensions'
@@ -100,7 +100,7 @@ type PropsType = {
   icon: string
 }
 
-const HeaderNavigationItem = ({ active, text, href, icon }: PropsType) => (
+const HeaderNavigationItem = ({ active, text, href, icon }: PropsType): ReactElement => (
   <Container>
     <StyledLink to={href} $active={active}>
       <Circle>

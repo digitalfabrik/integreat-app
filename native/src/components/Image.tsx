@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { Image as RNImage, View } from 'react-native'
 import styled from 'styled-components/native'
 import { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet'
@@ -21,7 +22,7 @@ const getImageSource = (uri: string | number) =>
       }
 
 class Image extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     const { source, style } = this.props
 
     if (source === null) {

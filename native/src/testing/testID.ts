@@ -1,7 +1,17 @@
 import { Platform } from 'react-native'
 import buildConfig from '../constants/buildConfig'
 
-export default (id: string) => {
+type TestIDType =
+  | {
+      accessible: boolean
+      accessibilityLabel: string
+    }
+  | {
+      testID: string
+    }
+  | Record<string, never>
+
+export default (id: string): TestIDType => {
   if (buildConfig().e2e) {
     return Platform.OS === 'android'
       ? {

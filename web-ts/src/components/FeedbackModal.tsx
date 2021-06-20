@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import { POSITIVE_RATING } from 'api-client'
 import styled from 'styled-components'
 import FeedbackThanksMessage from './FeedbackThanksMessage'
@@ -92,7 +92,7 @@ export class FeedbackModal extends React.Component<PropsType, StateType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <FocusTrap>
         <ModalContainer role='dialog' aria-modal>
