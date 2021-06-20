@@ -6,9 +6,9 @@ import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import { ErrorCode } from '../../constants/ErrorCodes'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
+import { ErrorCode } from 'api-client'
 
 jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')

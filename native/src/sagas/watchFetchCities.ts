@@ -2,8 +2,7 @@ import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from 'redux-
 import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../services/DataContainer'
 import loadCities from './loadCities'
-import { fromError } from '../constants/ErrorCodes'
-import { CityModel } from 'api-client'
+import { CityModel, fromError } from 'api-client'
 
 export function* fetchCities(
   dataContainer: DataContainer,

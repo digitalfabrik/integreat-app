@@ -4,8 +4,7 @@ import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError } from '../constants/ErrorCodes'
-import { LanguageModel } from 'api-client'
+import { ErrorCode, fromError, LanguageModel } from 'api-client'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Generator<Effect, void, any> {
   const { city, language, path, key, criterion } = action.params

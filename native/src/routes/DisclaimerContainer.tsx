@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
+  fromError,
   PageModel,
   DisclaimerRouteType,
   useLoadFromEndpoint
@@ -21,7 +22,6 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import navigateToLink from '../navigation/navigateToLink'
 import createNavigate from '../navigation/createNavigate'
-import { fromError } from '../constants/ErrorCodes'
 import determineApiUrl from '../services/determineApiUrl'
 
 type OwnPropsType = {
