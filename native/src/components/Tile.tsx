@@ -24,10 +24,10 @@ const TileContainer = styled.View`
   margin-bottom: 20px;
   width: 50%;
 `
+
 /**
  * Displays a single Tile
  */
-
 class Tile extends React.Component<PropsType> {
   onTilePress = (): void => {
     this.props.onTilePress(this.props.tile)
@@ -35,14 +35,12 @@ class Tile extends React.Component<PropsType> {
 
   render(): ReactNode {
     const { tile, theme } = this.props
-    console.log(tile.thumbnail.toString())
+
     return (
       <TileContainer>
         <TouchableOpacity onPress={this.onTilePress}>
-          <View>
-            <ThumbnailContainer source={tile.thumbnail} />
-            <TileTitle theme={theme}>{tile.title}</TileTitle>
-          </View>
+          <ThumbnailContainer source={tile.thumbnail} />
+          <TileTitle theme={theme}>{tile.title}</TileTitle>
         </TouchableOpacity>
       </TileContainer>
     )
