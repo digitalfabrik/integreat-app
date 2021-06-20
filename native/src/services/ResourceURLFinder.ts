@@ -26,7 +26,7 @@ export default class ResourceURLFinder {
     this._allowedHostNames = allowedHostNames
   }
 
-  _onAttributeTagFound = (name: string, value: string) => {
+  _onAttributeTagFound = (name: string, value: string): void => {
     if (name === 'href' || name === 'src') {
       try {
         const extension = getExtension(value)
@@ -40,7 +40,7 @@ export default class ResourceURLFinder {
     }
   }
 
-  init() {
+  init(): void {
     this._parser = new Parser(
       {
         onattribute: this._onAttributeTagFound
@@ -51,7 +51,7 @@ export default class ResourceURLFinder {
     )
   }
 
-  finalize() {
+  finalize(): void {
     if (this._parser === null) {
       throw new Error('Did you forget to call the init method?')
     }

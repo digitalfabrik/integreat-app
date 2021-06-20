@@ -28,14 +28,14 @@ export function* fetchNews(
   try {
     const isLocalNews = type === LOCAL_NEWS_TYPE
     const languages = yield call(loadLanguages, city, dataContainer, criterion.forceUpdate)
-    const availableNewsLanguages: Array<LanguageModel> = isLocalNews ? languages : yield call(loadTunewsLanguages, city)
+    const availableNewsLanguages: Array<LanguageModel> = isLocalNews ? languages : yield call(loadTunewsLanguages)
     const validLanguage = availableNewsLanguages.find(languageModel => languageModel.code === language)
 
     if (validLanguage) {
       const news = isLocalNews
         ? yield call(loadLocalNews, city, language)
         : newsId // A better solution to prevent re-fetching news again from page 1
-        ? yield call(loadTunewsElement, city, language, parseInt(newsId, 0))
+        ? yield call(loadTunewsElement, parseInt(newsId, 0))
         : yield call(loadTunews, city, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
@@ -101,7 +101,7 @@ export function* fetchMoreNews(
   }
 
   try {
-    const availableLanguages: LanguageModel[] = (yield call(loadTunewsLanguages, city)) as LanguageModel[]
+    const availableLanguages: LanguageModel[] = (yield call(loadTunewsLanguages)) as LanguageModel[]
     const news: NewsModelsType = (yield call(
       loadTunews,
       city,
@@ -144,7 +144,7 @@ export function* fetchMoreNews(
   }
 }
 
-export default function* (dataContainer: DataContainer): Generator<ForkEffect, any> {
+export default function* (dataContainer: DataContainer): Generator<ForkEffect> {
   yield takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
 }

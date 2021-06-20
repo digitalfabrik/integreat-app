@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import { range } from 'lodash'
 
@@ -25,7 +25,7 @@ type PropsType = {
   goToSlide: (index: number) => void
 }
 
-const Pagination = ({ slideCount, currentSlide, goToSlide }: PropsType) => {
+const Pagination = ({ slideCount, currentSlide, goToSlide }: PropsType): ReactElement => {
   const goToSlideIndex = (index: number) => () => goToSlide(index)
 
   return (

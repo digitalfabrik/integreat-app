@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import SlideButton from './SlideButton'
 import Pagination from './Pagination'
 import styled from 'styled-components/native'
@@ -21,7 +22,7 @@ type PropsType = {
   t: TFunction
 }
 
-const SlideFooter = ({ onDone, theme, slideCount, goToSlide, currentSlide, t }: PropsType) => {
+const SlideFooter = ({ onDone, theme, slideCount, goToSlide, currentSlide, t }: PropsType): ReactElement => {
   const goToNextSlide = () => goToSlide(currentSlide + 1)
 
   const isLastSlide = currentSlide === slideCount - 1

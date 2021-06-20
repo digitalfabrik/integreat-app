@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 /** From https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css */
@@ -54,7 +55,7 @@ const Spinner = styled.div`
   }
 `
 
-const LoadingSpinner = () => (
+const LoadingSpinner = (): ReactElement => (
   <Spinner>
     <div />
     <div />
