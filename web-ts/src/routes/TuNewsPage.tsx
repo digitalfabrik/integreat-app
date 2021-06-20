@@ -17,7 +17,7 @@ import { createPath, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './index'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { FailureSwitcher } from '../components/FailureSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
 import TuNewsList from '../components/TuNewsList'
 import Helmet from '../components/Helmet'
 
