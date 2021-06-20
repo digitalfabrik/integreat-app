@@ -33,7 +33,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const pathname = normalizePath(location.pathname)
   const dateFormatter = useContext(DateFormatterContext)
   const history = useHistory()
-  const { t } = useTranslation('app')
+  const { t } = useTranslation()
 
   const requestDisclaimer = useCallback(async () => {
     return createDisclaimerEndpoint(cmsApiBaseUrl).request({
