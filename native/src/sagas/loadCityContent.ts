@@ -15,7 +15,15 @@ import loadCities from './loadCities'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
-import { CategoriesMapModel, CategoryModel, CityModel, EventModel, fromError, LanguageModel, PoiModel } from 'api-client'
+import {
+  CategoriesMapModel,
+  CategoryModel,
+  CityModel,
+  EventModel,
+  fromError,
+  LanguageModel,
+  PoiModel
+} from 'api-client'
 
 /**
  * Subscribes to the push notification topic of the new city and language

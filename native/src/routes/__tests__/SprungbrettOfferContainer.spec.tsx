@@ -1,7 +1,13 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType, CityModel, ErrorCode, useLoadFromEndpoint } from 'api-client'
+import {
+  SPRUNGBRETT_OFFER_ROUTE,
+  SprungbrettOfferRouteType,
+  CityModel,
+  ErrorCode,
+  useLoadFromEndpoint
+} from 'api-client'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
