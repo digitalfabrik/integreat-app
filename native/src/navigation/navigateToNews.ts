@@ -22,7 +22,7 @@ const navigateToNews = <T extends RoutesType>({
   newsId: string | null | undefined
   key?: string
   forceRefresh?: boolean
-}) => {
+}): void => {
   navigation.navigate({
     name: NEWS_ROUTE,
     key

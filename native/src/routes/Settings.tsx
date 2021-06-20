@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { Dispatch } from 'redux'
 import { SectionList, StyleSheet } from 'react-native'
 import styled from 'styled-components/native'
@@ -40,7 +40,7 @@ const SectionHeader = styled.Text`
 
 const appSettings = new AppSettings()
 
-const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType) => {
+const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
   const dispatch = useDispatch()
 

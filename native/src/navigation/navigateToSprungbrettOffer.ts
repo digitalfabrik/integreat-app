@@ -12,7 +12,7 @@ const navigateToSprungbrettOffer = <T extends RoutesType>({
   navigation: NavigationPropType<T>
   cityCode: string
   languageCode: string
-}) => {
+}): void => {
   navigation.navigate({
     name: SPRUNGBRETT_OFFER_ROUTE,
     params: {

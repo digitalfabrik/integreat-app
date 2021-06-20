@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { transform } from 'lodash/object'
 import { groupBy } from 'lodash/collection'
 import CityEntry from './CityEntry'
@@ -157,7 +158,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <View>
         {this._renderNearbyLocations()}

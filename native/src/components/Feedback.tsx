@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import { ThemeType } from 'build-configs/ThemeType'
@@ -55,7 +56,7 @@ export type PropsType = {
   t: TFunction<'feedback'>
 }
 
-const Feedback = (props: PropsType) => {
+const Feedback = (props: PropsType): ReactElement => {
   const renderBox = (): React.ReactNode => {
     const { theme, t, isSearchFeedback, isPositiveFeedback, comment, contactMail, sendingStatus } = props
     const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'

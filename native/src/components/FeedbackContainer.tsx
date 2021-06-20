@@ -1,34 +1,35 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import Feedback from './Feedback'
 import {
-  CategoriesRouteType,
-  DisclaimerRouteType,
-  EventsRouteType,
-  FeedbackParamsType,
-  FeedbackType,
-  OffersRouteType,
-  PoisRouteType,
-  SearchRouteType,
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
+  CategoriesRouteType,
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
+  DisclaimerRouteType,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
+  EventsRouteType,
+  FeedbackParamsType,
+  FeedbackType,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
+  OffersRouteType,
   PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
+  PoisRouteType,
   SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE,
+  SearchRouteType,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
 import determineApiUrl from '../services/determineApiUrl'
 import sendTrackingSignal from '../services/sendTrackingSignal'
 import { useTranslation } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
+
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 type RouteType =
@@ -58,7 +59,7 @@ export type PropsType = {
   theme: ThemeType
 }
 
-const FeedbackContainer = (props: PropsType) => {
+const FeedbackContainer = (props: PropsType): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
