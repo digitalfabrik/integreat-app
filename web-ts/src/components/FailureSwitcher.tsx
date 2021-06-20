@@ -3,6 +3,7 @@ import { CATEGORIES_ROUTE, EVENTS_ROUTE, fromError, NotFoundError, OFFERS_ROUTE,
 import Failure from './Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 import { createPath } from '../routes'
+import Helmet from './Helmet'
 import { useTranslation } from 'react-i18next'
 
 type PropsType = {
@@ -60,7 +61,10 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
   }
 
   return (
-    <Failure {...getFailureProps(error)} t={t} />
+    <>
+      <Helmet pageTitle={error instanceof NotFoundError ? t('app:pageTitles.notFound') : t('pageTitle')} />
+      <Failure {...getFailureProps(error)} t={t} />
+    </>
   )
 }
 
