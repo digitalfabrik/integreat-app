@@ -20,7 +20,7 @@ import NewsTabs from '../components/NewsTabs'
 import LocalNewsList from '../components/LocalNewsList'
 import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { FailureSwitcher } from '../components/FailureSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
 import Page from '../components/Page'
 import Helmet from '../components/Helmet'
 

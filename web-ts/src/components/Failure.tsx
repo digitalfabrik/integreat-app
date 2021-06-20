@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { ReactNode } from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
 import styled from 'styled-components'
 import { faFrown } from '../constants/icons'
 import { Link } from 'react-router-dom'
@@ -17,31 +17,17 @@ type PropsType = {
   errorMessage: string
   goToPath?: string
   goToMessage?: string
-  t: TFunction
+  t: TFunction<'error'>
 }
 
-/**
- * Our error component, but since the name Error collides with the ES6 class, we've called it Failure
- */
-export class Failure extends React.PureComponent<PropsType> {
-  static defaultProps = {
-    goToMessage: 'goTo.start',
-    goToPath: '/'
-  }
+const Failure = ({ errorMessage, goToPath = '/', goToMessage = 'goTo.start', t }: PropsType): ReactElement => (
+  <Centered>
+    <div>{t(errorMessage)}</div>
+    <div>
+      <FontAwesomeIcon icon={faFrown} size='5x' />
+    </div>
+    {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
+  </Centered>
+)
 
-  render(): ReactNode {
-    const { t, errorMessage, goToPath, goToMessage } = this.props
-
-    return (
-      <Centered>
-        <div>{t(errorMessage)}</div>
-        <div>
-          <FontAwesomeIcon icon={faFrown} size='5x' />
-        </div>
-        {goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
-      </Centered>
-    )
-  }
-}
-
-export default withTranslation('error')(Failure)
+export default Failure
