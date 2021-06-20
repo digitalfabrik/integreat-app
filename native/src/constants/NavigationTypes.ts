@@ -20,7 +20,26 @@ import {
   SearchRouteType,
   SettingsRouteType,
   SprungbrettOfferRouteType,
-  LanguageModel
+  LanguageModel,
+  POIS_ROUTE,
+  CATEGORIES_ROUTE,
+  DASHBOARD_ROUTE,
+  LANDING_ROUTE,
+  INTRO_ROUTE,
+  REDIRECT_ROUTE,
+  EVENTS_ROUTE,
+  NEWS_ROUTE,
+  DISCLAIMER_ROUTE,
+  OFFERS_ROUTE,
+  JPAL_TRACKING_ROUTE,
+  EXTERNAL_OFFER_ROUTE,
+  SPRUNGBRETT_OFFER_ROUTE,
+  SETTINGS_ROUTE,
+  SEARCH_ROUTE,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
+  PDF_VIEW_MODAL_ROUTE,
+  IMAGE_VIEW_MODAL_ROUTE,
+  FEEDBACK_MODAL_ROUTE
 } from 'api-client'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 
@@ -52,44 +71,44 @@ type CityContentParamsType = {
   languageCode: string
 }
 export type RoutesParamsType = {
-  redirect: {
+  [REDIRECT_ROUTE]: {
     url: string
   }
-  intro: {
+  [INTRO_ROUTE]: {
     deepLink?: string
   }
-  landing: undefined
-  dashboard: undefined
-  categories: undefined
-  pois: undefined
-  events: undefined
-  news: undefined
-  disclaimer: CityContentParamsType
-  offers: CityContentParamsType
-  jpal: {
+  [LANDING_ROUTE]: undefined
+  [DASHBOARD_ROUTE]: undefined
+  [CATEGORIES_ROUTE]: undefined
+  [POIS_ROUTE]: undefined
+  [EVENTS_ROUTE]: undefined
+  [NEWS_ROUTE]: undefined
+  [DISCLAIMER_ROUTE]: CityContentParamsType
+  [OFFERS_ROUTE]: CityContentParamsType
+  [JPAL_TRACKING_ROUTE]: {
     trackingCode: string | null
   }
-  externalOffer: ShareUrlType & {
+  [EXTERNAL_OFFER_ROUTE]: ShareUrlType & {
     url: string
     postData: Map<string, string> | null | undefined
   }
-  sprungbrett: CityContentParamsType
-  settings: undefined
-  search: undefined
-  changeLanguage: {
+  [SPRUNGBRETT_OFFER_ROUTE]: CityContentParamsType
+  [SETTINGS_ROUTE]: undefined
+  [SEARCH_ROUTE]: undefined
+  [CHANGE_LANGUAGE_MODAL_ROUTE]: {
     currentLanguage: string
     previousKey: string
     cityCode: string
     languages: Array<LanguageModel>
     availableLanguages: Array<string>
   }
-  pdf: ShareUrlType & {
+  [PDF_VIEW_MODAL_ROUTE]: ShareUrlType & {
     url: string
   }
-  image: ShareUrlType & {
+  [IMAGE_VIEW_MODAL_ROUTE]: ShareUrlType & {
     url: string
   }
-  feedback: FeedbackInformationType
+  [FEEDBACK_MODAL_ROUTE]: FeedbackInformationType
 }
 export type RoutePropType<T extends RoutesType> = RouteProp<RoutesParamsType, T>
 export type NavigationPropType<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>
