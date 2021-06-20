@@ -74,11 +74,11 @@ class DefaultDataContainer implements DataContainer {
     }
   }
 
-  clearInMemoryCache = () => {
+  clearInMemoryCache = (): void => {
     Object.keys(this.caches).forEach(cache => this.caches[cache].evict())
   }
 
-  clearOfflineCache = async () => {
+  clearOfflineCache = async (): Promise<void> => {
     await this._databaseConnector.deleteAllFiles()
   }
 
@@ -132,30 +132,30 @@ class DefaultDataContainer implements DataContainer {
     return cache.get(context)
   }
 
-  setCategoriesMap = async (city: string, language: string, categories: CategoriesMapModel) => {
+  setCategoriesMap = async (city: string, language: string, categories: CategoriesMapModel): Promise<void> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<CategoriesMapModel> = this.caches.categories
     await cache.cache(categories, context)
   }
 
-  setPois = async (city: string, language: string, pois: Array<PoiModel>) => {
+  setPois = async (city: string, language: string, pois: Array<PoiModel>): Promise<void> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<PoiModel>> = this.caches.pois
     await cache.cache(pois, context)
   }
 
-  setCities = async (cities: Array<CityModel>) => {
+  setCities = async (cities: Array<CityModel>): Promise<void> => {
     const cache = this.caches.cities
     await cache.cache(cities, new DatabaseContext())
   }
 
-  setEvents = async (city: string, language: string, events: Array<EventModel>) => {
+  setEvents = async (city: string, language: string, events: Array<EventModel>): Promise<void> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Array<EventModel>> = this.caches.events
     await cache.cache(events, context)
   }
 
-  setLanguages = async (city: string, languages: Array<LanguageModel>) => {
+  setLanguages = async (city: string, languages: Array<LanguageModel>): Promise<void> => {
     const context = new DatabaseContext(city)
     const cache: Cache<Array<LanguageModel>> = this.caches.languages
     await cache.cache(languages, context)
@@ -169,7 +169,11 @@ class DefaultDataContainer implements DataContainer {
     )
   }
 
-  setResourceCache = async (city: string, language: string, resourceCache: LanguageResourceCacheStateType) => {
+  setResourceCache = async (
+    city: string,
+    language: string,
+    resourceCache: LanguageResourceCacheStateType
+  ): Promise<void> => {
     const context = new DatabaseContext(city)
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const previousResourceCache = cache.getCached(context)
@@ -210,7 +214,7 @@ class DefaultDataContainer implements DataContainer {
     await cache.cache(newResourceCache, context)
   }
 
-  setLastUpdate = async (city: string, language: string, lastUpdate: Moment | null) => {
+  setLastUpdate = async (city: string, language: string, lastUpdate: Moment | null): Promise<void> => {
     const context = new DatabaseContext(city, language)
     const cache: Cache<Moment | null> = this.caches.lastUpdate
     await cache.cache(lastUpdate, context)
@@ -247,7 +251,7 @@ class DefaultDataContainer implements DataContainer {
     )
   }
 
-  storeLastUsage = async (city: string, peeking: boolean) => {
+  storeLastUsage = async (city: string, peeking: boolean): Promise<void> => {
     await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)
   }
 }

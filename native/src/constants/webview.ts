@@ -3,8 +3,8 @@ import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
 import { RESOURCE_CACHE_DIR_PATH } from '../services/DatabaseConnector'
 
 export const URL_PREFIX = 'file://'
-export const getResourceCacheFilesDirPath = (city: string) => `${RESOURCE_CACHE_DIR_PATH}/${city}/files`
-export const getFontFaceSource = (fontName: string) =>
+export const getResourceCacheFilesDirPath = (city: string): string => `${RESOURCE_CACHE_DIR_PATH}/${city}/files`
+export const getFontFaceSource = (fontName: string): string | undefined =>
   Platform.select({
     ios: `local('${fontName}') url('${fontName}.ttf') format('truetype')`,
     android: `url('file:///android_asset/fonts/${fontName}.ttf') format('truetype')`

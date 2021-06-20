@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { Text } from 'react-native'
@@ -17,7 +17,7 @@ type PropsType = {
   children: React.ReactNode
 }
 
-export default ({ children }: PropsType) => {
+export default ({ children }: PropsType): ReactElement | null => {
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<typeof i18next | null>(null)
   const dispatch = useDispatch()

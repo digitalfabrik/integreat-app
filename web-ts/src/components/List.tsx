@@ -18,7 +18,7 @@ type PropsType<T> = {
 }
 
 class List<T> extends React.PureComponent<PropsType<T>> {
-  render() {
+  render(): ReactNode {
     const { items, renderItem, noItemsMessage } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>

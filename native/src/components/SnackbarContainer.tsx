@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Animated } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
@@ -18,7 +18,7 @@ const SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 const translate = new Animated.Value(1)
 
-const SnackbarContainer = () => {
+const SnackbarContainer = (): ReactElement | null => {
   const [height, setHeight] = useState<number | null>(null)
   const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
   const snackbarState = useSelector<StateType, Array<SnackbarType>>((state: StateType) => state.snackbar)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import { Description } from './FeedbackBox'
 
@@ -17,7 +17,7 @@ type PropsType = {
 }
 
 class FeedbackComment extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { commentMessage, comment, onCommentChanged, required } = this.props
     return (
       <>

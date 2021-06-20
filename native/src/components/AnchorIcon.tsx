@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { ScrollView } from 'react-native'
 import styled from 'styled-components/native'
@@ -20,7 +20,7 @@ type PropsType = {
 }
 
 class AnchorIcon extends React.Component<PropsType> {
-  onAnchorPress = () => {
+  onAnchorPress = (): void => {
     const { navigationItemWidth, _scrollView, xPosition, contentSizeDiff } = this.props
     const didReachLastItem = parseInt(xPosition.toFixed(0)) + widthThreshold > contentSizeDiff
 
@@ -48,7 +48,7 @@ class AnchorIcon extends React.Component<PropsType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     const { name } = this.props
     return (
       <Icon

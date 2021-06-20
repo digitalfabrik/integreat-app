@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { RedirectRouteType } from 'api-client'
 import { useDispatch } from 'react-redux'
@@ -14,7 +14,7 @@ type PropsType = {
   navigation: NavigationPropType<any>
 }
 
-const RedirectContainer = ({ route, navigation }: PropsType) => {
+const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
   const dispatch = useDispatch()
   const { i18n } = useTranslation()
   const { language } = i18n

@@ -28,6 +28,7 @@ import {
   RouteInformationType
 } from 'api-client'
 import testID from '../testing/testID'
+import { ReactNode } from 'react'
 
 const Spacing = styled.View`
   padding: 10px;
@@ -147,7 +148,7 @@ class Dashboard extends React.Component<PropsType> {
     return tiles
   }
 
-  render() {
+  render(): ReactNode {
     const {
       stateView,
       theme,

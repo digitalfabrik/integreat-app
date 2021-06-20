@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { Item } from 'react-navigation-header-buttons'
@@ -60,7 +60,7 @@ export type PropsType = StackHeaderProps & {
   dispatch: Dispatch<StoreActionType>
 }
 
-const Header = (props: PropsType) => {
+const Header = (props: PropsType): ReactElement => {
   const {
     navigation,
     dispatch,
@@ -154,7 +154,7 @@ const Header = (props: PropsType) => {
     onPress: () => void,
     accessibilityLabel: string,
     iconName?: string
-  ): React.ReactElement => {
+  ): ReactElement => {
     return (
       <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show} onPress={onPress} />
     )
