@@ -14,6 +14,7 @@ import SpaceBetween from '../components/SpaceBetween'
 import { fromError } from '../constants/ErrorCodes'
 import PoiListItem from '../components/PoiListItem'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
+import { ReactNode } from 'react'
 
 export type PropsType = {
   path: string | null | undefined
@@ -28,13 +29,14 @@ export type PropsType = {
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
+
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 
 class Pois extends React.Component<PropsType> {
-  navigateToPois = (cityCode: string, language: string, path: string) => () => {
+  navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
     this.props.navigateTo({
       route: POIS_ROUTE,
       cityCode,
@@ -43,7 +45,7 @@ class Pois extends React.Component<PropsType> {
     })
   }
 
-  renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
+  renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => {
     const { theme } = this.props
     return (
       <PoiListItem
@@ -56,7 +58,7 @@ class Pois extends React.Component<PropsType> {
     )
   }
 
-  createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean) => {
+  createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
     const { navigateToFeedback, cityCode, language } = this.props
     navigateToFeedback({
       routeType: POIS_ROUTE,
@@ -67,7 +69,7 @@ class Pois extends React.Component<PropsType> {
     })
   }
 
-  navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
+  navigateToFeedbackForPois = (isPositiveFeedback: boolean): void => {
     const { navigateToFeedback, cityCode, language } = this.props
     navigateToFeedback({
       routeType: POIS_ROUTE,
@@ -77,7 +79,7 @@ class Pois extends React.Component<PropsType> {
     })
   }
 
-  render() {
+  render(): ReactNode {
     const { pois, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToLink, t } = this.props
     const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
 

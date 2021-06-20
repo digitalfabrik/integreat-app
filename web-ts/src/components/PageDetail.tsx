@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
 const Identifier = styled.span`
@@ -11,7 +11,7 @@ type PropsType = {
 }
 
 class PageDetail extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { identifier, information } = this.props
     return (
       <div>

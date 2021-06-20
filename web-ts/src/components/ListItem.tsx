@@ -66,7 +66,7 @@ class ListItem extends React.PureComponent<PropsType> {
     )
   }
 
-  render() {
+  render(): ReactNode {
     const { path, isExternalUrl } = this.props
 
     if (isExternalUrl) {

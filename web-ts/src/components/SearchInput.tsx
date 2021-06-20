@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, ReactNode } from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
@@ -56,7 +56,7 @@ export class SearchInput extends React.PureComponent<PropsType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     const { onClickInput, filterText, placeholderText } = this.props
     return (
       <Spacer space={this.props.spaceSearch}>

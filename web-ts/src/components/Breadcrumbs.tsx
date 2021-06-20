@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import Breadcrumb from './Breadcrumb'
 import BreadcrumbModel from '../models/BreadcrumbModel'
@@ -41,7 +41,7 @@ type PropsType = {
 class Breadcrumbs extends React.PureComponent<PropsType> {
   static defaultProps = { direction: 'ltr' }
 
-  render() {
+  render(): ReactNode {
     const { direction, ancestorBreadcrumbs, currentBreadcrumb } = this.props
     // The current page should not be listed in the UI, but should be within the JsonLd.
     const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]

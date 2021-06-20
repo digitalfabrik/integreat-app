@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
@@ -31,11 +32,11 @@ export type PropsType = StackHeaderProps & {
 }
 
 class TransparentHeader extends React.PureComponent<PropsType> {
-  goBackInStack = () => {
+  goBackInStack = (): void => {
     this.props.navigation.goBack()
   }
 
-  onShare = async () => {
+  onShare = async (): Promise<void> => {
     const { scene, t } = this.props
     // @ts-ignore
     const shareUrl = scene.route.params?.shareUrl || null
@@ -63,7 +64,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     const { theme, scene, t } = this.props
     // @ts-ignore
     const shareUrl = scene.route.params?.shareUrl || null
