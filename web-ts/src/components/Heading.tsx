@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 
@@ -8,7 +8,7 @@ const Logo = styled.img`
   margin: 0 auto;
 `
 
-const Heading = () => {
+const Heading = (): ReactElement => {
   const [counter, setCounter] = useState(0)
 
   const increment = () => {

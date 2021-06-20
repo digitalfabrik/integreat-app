@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { isEmpty } from 'lodash/lang'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
@@ -20,7 +21,7 @@ type PropsType<T> = {
 }
 
 class List<T> extends React.PureComponent<PropsType<T>> {
-  render() {
+  render(): ReactNode {
     const { items, renderItem, noItemsMessage, theme } = this.props
 
     if (isEmpty(items)) {

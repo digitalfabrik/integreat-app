@@ -26,7 +26,7 @@ export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
     this.state = { initialized: false }
   }
 
-  setReference = (node: HTMLElement | null) => {
+  setReference = (node: HTMLElement | null): void => {
     if (node) {
       this._node = node
       if (!this.state.initialized) {
@@ -35,7 +35,7 @@ export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     const { children, filterText, placeholderText, spaceSearch, onStickyTopChanged, onFilterTextChange } = this.props
 
     return (

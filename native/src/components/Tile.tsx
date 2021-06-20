@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
@@ -28,11 +29,11 @@ const TileContainer = styled.View`
  */
 
 class Tile extends React.Component<PropsType> {
-  onTilePress = () => {
+  onTilePress = (): void => {
     this.props.onTilePress(this.props.tile)
   }
 
-  render() {
+  render(): ReactNode {
     const { tile, theme } = this.props
     return (
       <TileContainer>

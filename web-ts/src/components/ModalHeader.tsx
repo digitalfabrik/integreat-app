@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import { faTimes } from '../constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +28,7 @@ type PropsType = {
 }
 
 export class ModalHeader extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { title, closeFeedbackModal, t } = this.props
     return (
       <Header>

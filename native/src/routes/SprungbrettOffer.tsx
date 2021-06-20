@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { SprungbrettJobModel } from 'api-client'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { TFunction } from 'react-i18next'
@@ -17,7 +17,7 @@ type PropsType = {
   navigateToFeedback: (isPositiveFeedback: boolean) => void
 }
 
-const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language }: PropsType) => {
+const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language }: PropsType): ReactElement => {
   const openJob = useCallback(
     (url: string) => () => {
       openExternalUrl(url)

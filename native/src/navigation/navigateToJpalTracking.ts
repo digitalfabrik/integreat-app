@@ -10,7 +10,7 @@ const navigateToJpalTracking = <T extends RoutesType>({
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
   trackingCode: string | null
-}) => {
+}): void => {
   navigation.navigate({
     name: JPAL_TRACKING_ROUTE,
     params: {
