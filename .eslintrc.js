@@ -86,5 +86,10 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off'
       }
     }
-  ]
+  ],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
 }
