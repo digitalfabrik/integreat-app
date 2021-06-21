@@ -3,6 +3,8 @@ import { JsonTunewsType } from '../types'
 import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
+import { sanitize } from 'isomorphic-dompurify'
+
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {
   city: string
@@ -23,7 +25,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<TunewsModel>> =>
             title: tunews.title,
             tags: tunews.tags,
             date: moment.tz(tunews.date, 'GMT'),
-            content: tunews.content,
+            content: sanitize(tunews.content),
             eNewsNo: tunews.enewsno
           })
         })

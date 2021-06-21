@@ -5,6 +5,7 @@ import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import NotFoundError from '../errors/NotFoundError'
 import { TU_NEWS_TYPE } from '../routes'
+import { sanitize } from 'isomorphic-dompurify'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
@@ -32,7 +33,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
           title: json.title,
           tags: json.tags,
           date: moment.tz(json.date, 'GMT'),
-          content: json.content,
+          content: sanitize(json.content),
           eNewsNo: json.enewsno
         })
       }

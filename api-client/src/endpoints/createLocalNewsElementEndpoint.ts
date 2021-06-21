@@ -6,6 +6,8 @@ import Endpoint from '../Endpoint'
 import MappingError from '../errors/MappingError'
 import NotFoundError from '../errors/NotFoundError'
 import { LOCAL_NEWS_TYPE } from '../routes'
+import { sanitize } from 'isomorphic-dompurify'
+
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 type ParamsType = {
   city: string
@@ -36,7 +38,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
           id,
           timestamp: moment.tz(timestamp, 'GMT'),
           title,
-          message
+          message: sanitize(message)
         })
       }
     )
