@@ -1,5 +1,4 @@
-import { SagaIterator } from 'redux-saga'
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { createLanguagesEndpoint, LanguageModel } from 'api-client'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
@@ -8,7 +7,7 @@ export default function* loadLanguages(
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): SagaIterator<Array<LanguageModel>> {
+): SagaGenerator<Array<LanguageModel>> {
   const languagesAvailable = yield* call(dataContainer.languagesAvailable, city)
 
   if (languagesAvailable && !forceRefresh) {

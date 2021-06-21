@@ -1,11 +1,10 @@
-import { call, put, takeLatest } from 'typed-redux-saga'
+import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../services/DataContainer'
 import loadCities from './loadCities'
 import { fromError } from '../constants/ErrorCodes'
-import { SagaIterator } from 'redux-saga'
 
-export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): SagaIterator<void> {
+export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): SagaGenerator<void> {
   try {
     const cities = yield* call(loadCities, dataContainer, action.params.forceRefresh)
     const insert: PushCitiesActionType = {
@@ -28,6 +27,6 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaIterator<void> {
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('FETCH_CITIES', fetchCities, dataContainer)
 }

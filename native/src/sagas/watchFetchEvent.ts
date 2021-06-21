@@ -1,13 +1,12 @@
-import { call, put, select, takeEvery } from 'typed-redux-saga'
+import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
 import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../constants/ErrorCodes'
-import { SagaIterator } from 'redux-saga'
 
-export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): SagaIterator<void> {
+export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params
 
   try {
@@ -75,6 +74,6 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaIterator<void> {
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
 }

@@ -1,6 +1,5 @@
 import { CategoriesMapModel, createCategoriesEndpoint } from 'api-client'
-import { SagaIterator } from 'redux-saga'
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
 
@@ -9,7 +8,7 @@ function* loadCategories(
   language: string,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): SagaIterator<CategoriesMapModel> {
+): SagaGenerator<CategoriesMapModel> {
   const categoriesAvailable = yield* call(dataContainer.categoriesAvailable, city, language)
 
   if (categoriesAvailable && !forceRefresh) {

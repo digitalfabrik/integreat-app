@@ -1,9 +1,8 @@
 import { createTunewsEndpoint, TunewsModel } from 'api-client'
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { tunewsApiUrl } from '../constants/endpoint'
-import { SagaIterator } from 'redux-saga'
 
-function* loadTunews(city: string, language: string, page: number, count: number): SagaIterator<Array<TunewsModel>> {
+function* loadTunews(city: string, language: string, page: number, count: number): SagaGenerator<Array<TunewsModel>> {
   console.debug('Fetching tunews')
   const payload = yield* call(() =>
     createTunewsEndpoint(tunewsApiUrl).request({

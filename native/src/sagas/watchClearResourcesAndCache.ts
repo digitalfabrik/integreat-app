@@ -1,12 +1,11 @@
 import { DataContainer } from '../services/DataContainer'
-import { call, put, takeLatest } from 'typed-redux-saga'
+import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 import { ClearResourcesAndCacheActionType } from '../redux/StoreActionType'
-import { SagaIterator } from 'redux-saga'
 
 export function* clearResourcesAndCache(
   dataContainer: DataContainer,
   _: ClearResourcesAndCacheActionType
-): SagaIterator<void> {
+): SagaGenerator<void> {
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
   yield* call(dataContainer.clearOfflineCache)
@@ -18,6 +17,6 @@ export function* clearResourcesAndCache(
   })
 }
 
-export default function* (dataContainer: DataContainer): SagaIterator<void> {
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
 }

@@ -1,6 +1,5 @@
-import { SagaIterator } from 'redux-saga'
 import { createPOIsEndpoint, PoiModel } from 'api-client'
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
 
@@ -10,7 +9,7 @@ function* loadPois(
   poisEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): SagaIterator<Array<PoiModel>> {
+): SagaGenerator<Array<PoiModel>> {
   const poisAvailable = yield* call(dataContainer.poisAvailable, city, language)
 
   if (poisAvailable && !forceRefresh) {

@@ -1,9 +1,8 @@
-import { call, spawn, takeLatest } from 'typed-redux-saga'
+import { call, SagaGenerator, spawn, takeLatest } from 'typed-redux-saga'
 import AppSettings from '../services/AppSettings'
 import * as NotificationsManager from '../services/PushNotificationsManager'
-import { SagaIterator } from 'redux-saga'
 
-export function* clearCity(): SagaIterator<void> {
+export function* clearCity(): SagaGenerator<void> {
   const appSettings = new AppSettings()
   const { selectedCity, contentLanguage, allowPushNotifications } = yield* call(appSettings.loadSettings)
 
@@ -14,6 +13,6 @@ export function* clearCity(): SagaIterator<void> {
   yield* call(appSettings.clearSelectedCity)
 }
 
-export default function* (): SagaIterator<void> {
+export default function* (): SagaGenerator<void> {
   yield* takeLatest('CLEAR_CITY', clearCity)
 }

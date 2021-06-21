@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from 'typed-redux-saga'
+import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
 import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -9,7 +9,6 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../constants/ErrorCodes'
-import { SagaIterator } from 'redux-saga'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -19,7 +18,7 @@ import { SagaIterator } from 'redux-saga'
  * @param routeCity The key of the current route
  * @returns true if the fetch corresponds to a peek
  */
-function* isPeeking(routeCity: string): SagaIterator<boolean> {
+function* isPeeking(routeCity: string): SagaGenerator<boolean> {
   return yield* select(state =>
     isPeekingRoute(state, {
       routeCity
@@ -27,7 +26,7 @@ function* isPeeking(routeCity: string): SagaIterator<boolean> {
   )
 }
 
-export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): SagaIterator<void> {
+export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): SagaGenerator<void> {
   const { city, language, path, depth, key, criterion } = action.params
 
   try {
@@ -94,6 +93,6 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaIterator<void> {
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }

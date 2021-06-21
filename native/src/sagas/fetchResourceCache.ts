@@ -1,6 +1,5 @@
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, cancel, fork, put, take } from 'typed-redux-saga'
-import { SagaIterator } from 'redux-saga'
+import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
 import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
 import FetcherModule, { FetchResultType, TargetFilePathsType } from '../services/FetcherModule'
 import { DataContainer } from '../services/DataContainer'
@@ -30,14 +29,14 @@ function* watchOnProgress() {
     let progress = 0
 
     while (progress < 1) {
-      progress = yield take(channel)
+      progress = yield* take(channel)
       const progressAction: ResourcesFetchProgressActionType = {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
           progress: progress
         }
       }
-      yield put(progressAction)
+      yield* put(progressAction)
     }
   } finally {
     channel.close()
@@ -49,7 +48,7 @@ export default function* fetchResourceCache(
   language: string,
   fetchMap: FetchMapType,
   dataContainer: DataContainer
-): SagaIterator<void> {
+): SagaGenerator<void> {
   try {
     const fetchMapTargets = flatten<FetchMapTargetType>(values(fetchMap))
     const targetFilePaths = reduce<FetchMapTargetType, TargetFilePathsType>(
