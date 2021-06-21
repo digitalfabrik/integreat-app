@@ -3,7 +3,8 @@ import createLocalNewsElementEndpoint from '../createLocalNewsElementEndpoint'
 import LocalNewsModel from '../../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../../types'
 import { Moment } from 'moment'
-describe('localnews', () => {
+
+describe('createLocalNewsElementEndpoint', () => {
   const baseUrl = 'https://cms.integreat-app.de'
   const localNewsElement = createLocalNewsElementEndpoint(baseUrl)
 
@@ -32,19 +33,37 @@ describe('localnews', () => {
     language: 'en',
     id: '1'
   }
+
   it('should map params to url', () => {
     expect(localNewsElement.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
     )
   })
+
   it('should map fetched data to models', () => {
     const itemModel = localNewsElement.mapResponse([item], params)
     expect(itemModel).toEqual(itemValue)
   })
+
   it('should throw if response is empty', () => {
     expect(() => localNewsElement.mapResponse([], params)).toThrowError('The local 1 does not exist here.')
   })
+
   it('should throw a not found error if the response contains more than one item', () => {
     expect(() => localNewsElement.mapResponse([item, item], params)).toThrowError()
+  })
+
+  it('should sanitize html', () => {
+    const json = [{
+      ...item,
+      message: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
+      title: 'Sanitize me!'
+    }]
+    expect(localNewsElement.mapResponse(json, params)).toEqual(new LocalNewsModel({
+      id: 1,
+      title: 'Sanitize me!',
+      timestamp: moment.tz('2020-03-20 17:50:00', 'GMT'),
+      message: '<a>Ich bleib aber da.</a>'
+    }))
   })
 })
