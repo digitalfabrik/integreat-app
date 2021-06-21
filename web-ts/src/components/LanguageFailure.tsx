@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
 import LanguageSelector from './LanguageSelector'
 import { CityModel } from 'api-client'
@@ -20,7 +20,7 @@ type PropsType = {
 }
 
 export class LanguageFailure extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { t, cities, languageChangePaths, cityCode, pathname, languageCode } = this.props
     const title = cities && CityModel.findCityName(cities, cityCode)
     return (

@@ -17,7 +17,7 @@ const navigateToLanguageChange = <T extends RoutesType>({
   previousKey: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
-}) => {
+}): void => {
   sendTrackingSignal({
     signal: {
       name: OPEN_PAGE_SIGNAL_NAME,

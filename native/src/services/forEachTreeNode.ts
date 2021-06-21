@@ -13,7 +13,7 @@ const forEachTreeNode = <T>(
   resolveChildren: (arg0: T) => Array<T>,
   depth: number,
   nodeAction: (arg0: T, arg1: Array<T> | null | undefined) => void
-) => {
+): void => {
   if (depth === 0) {
     nodeAction(root, null)
   } else {

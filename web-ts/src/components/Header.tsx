@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import styled from 'styled-components'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
@@ -100,7 +100,7 @@ export const Header = ({
   logoHref,
   navigationItems = [],
   cityName
-}: PropsType) => {
+}: PropsType): ReactElement => {
   const { headerHeightSmall, headerHeightLarge } = dimensions
   const hasNavigationBar = navigationItems.length > 0
   const height = viewportSmall

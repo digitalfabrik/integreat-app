@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
-import Svg, { Circle, Image, G } from 'react-native-svg'
+import Svg, { Circle, G, Image } from 'react-native-svg'
 import styled from 'styled-components/native'
 import { buildConfigAssets } from '../constants/buildConfig'
 import { ThemeType } from 'build-configs'
@@ -37,7 +38,7 @@ export type PropsType = {
 }
 
 class ProgressSpinner extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     const { t, progress, theme } = this.props
     return (
       <Container>
