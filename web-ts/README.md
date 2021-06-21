@@ -18,7 +18,7 @@ React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.m
 _Make sure to have read and followed the steps in the [general README](../README.md#project-setup)._
 
 - Run `yarn` in the terminal to install all dependencies.
-- Take a look at the [available scripts](../package.json). The most important scripts are also available as IntelliJ Run Configurations.
+- Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run Configurations.
 
 ### Run the App
 
