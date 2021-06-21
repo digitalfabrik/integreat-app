@@ -1,6 +1,6 @@
 import { SagaIterator } from 'redux-saga'
-import { call } from 'redux-saga/effects'
-import { createLanguagesEndpoint, LanguageModel, Payload } from 'api-client'
+import { call } from 'typed-redux-saga'
+import { createLanguagesEndpoint, LanguageModel } from 'api-client'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
 
@@ -9,20 +9,20 @@ export default function* loadLanguages(
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): SagaIterator<Array<LanguageModel>> {
-  const languagesAvailable: boolean = yield call(() => dataContainer.languagesAvailable(city))
+  const languagesAvailable = yield* call(dataContainer.languagesAvailable, city)
 
   if (languagesAvailable && !forceRefresh) {
     try {
       console.debug('Using cached languages')
-      return yield call(dataContainer.getLanguages, city)
+      return yield* call(dataContainer.getLanguages, city)
     } catch (e) {
       console.warn('An error occurred while loading languages from JSON', e)
     }
   }
 
   console.debug('Fetching languages')
-  const apiUrl: string = yield call(determineApiUrl)
-  const payload: Payload<Array<LanguageModel>> = yield call(() =>
+  const apiUrl = yield* call(determineApiUrl)
+  const payload = yield* call(() =>
     createLanguagesEndpoint(apiUrl).request({
       city
     })
@@ -31,6 +31,6 @@ export default function* loadLanguages(
   if (!languages) {
     throw new Error('Languages are not available.')
   }
-  yield call(dataContainer.setLanguages, city, languages)
+  yield* call(dataContainer.setLanguages, city, languages)
   return languages
 }

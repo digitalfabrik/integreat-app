@@ -1,43 +1,41 @@
-import { all, call, put, spawn, StrictEffect } from 'redux-saga/effects'
+import { all, call, put, spawn } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
-import moment, { Moment } from 'moment'
+import moment from 'moment'
 import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../redux/StoreActionType'
 import loadLanguages from './loadLanguages'
 import ResourceURLFinder from '../services/ResourceURLFinder'
 import buildResourceFilePath from '../services/buildResourceFilePath'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import AppSettings, { SettingsType } from '../services/AppSettings'
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo'
+import AppSettings from '../services/AppSettings'
+import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
 import { fromError } from '../constants/ErrorCodes'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
-import { CategoriesMapModel, CategoryModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel, EventModel, PoiModel } from 'api-client'
+import { SagaIterator } from 'redux-saga'
 
 /**
  * Subscribes to the push notification topic of the new city and language
  * @param newCity
  * @param newLanguage
  */
-function* subscribePushNotifications(
-  newCity: string,
-  newLanguage: string
-): Generator<StrictEffect, void, SettingsType | boolean> {
+function* subscribePushNotifications(newCity: string, newLanguage: string): SagaIterator<void> {
   const appSettings = new AppSettings()
-  const settings = (yield call(appSettings.loadSettings)) as SettingsType
+  const settings = yield* call(appSettings.loadSettings)
 
   if (settings.allowPushNotifications) {
-    const status = yield call(NotificationsManager.requestPushNotificationPermission)
+    const status = yield* call(NotificationsManager.requestPushNotificationPermission)
 
     if (status) {
-      yield call(NotificationsManager.subscribeNews, newCity, newLanguage)
+      yield* call(NotificationsManager.subscribeNews, newCity, newLanguage)
     } else {
       // Disable the feature to prevent the user from being asked again
-      yield call(appSettings.setSettings, {
+      yield* call(appSettings.setSettings, {
         allowPushNotifications: false
       })
     }
@@ -49,10 +47,10 @@ function* subscribePushNotifications(
  * @param newCity
  * @param newLanguage
  */
-function* selectCity(newCity: string, newLanguage: string): Generator<StrictEffect, void> {
+function* selectCity(newCity: string, newLanguage: string): SagaIterator<void> {
   const appSettings = new AppSettings()
-  yield call(appSettings.setSelectedCity, newCity)
-  yield spawn(subscribePushNotifications, newCity, newLanguage)
+  yield* call(appSettings.setSelectedCity, newCity)
+  yield* spawn(subscribePushNotifications, newCity, newLanguage)
 }
 
 /**
@@ -69,7 +67,7 @@ function* refreshResources(
   events: Array<EventModel>,
   newCity: string,
   newLanguage: string
-): Generator<StrictEffect, void, void> {
+): SagaIterator<void> {
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
   const input = (categoriesMap.toArray() as Array<CategoryModel | EventModel>).concat(events).map(it => ({
@@ -81,7 +79,7 @@ function* refreshResources(
     buildResourceFilePath(url, newCity, urlHash)
   )
   resourceURLFinder.finalize()
-  yield call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
+  yield* call(fetchResourceCache, newCity, newLanguage, fetchMap, dataContainer)
 }
 
 /**
@@ -97,17 +95,17 @@ function* prepareLanguages(
   newCity: string,
   newLanguage: string,
   shouldUpdate: boolean
-): Generator<StrictEffect, boolean, Array<LanguageModel>> {
+): SagaIterator<boolean> {
   try {
-    yield call(loadLanguages, newCity, dataContainer, shouldUpdate)
-    const languages = yield call(dataContainer.getLanguages, newCity)
+    yield* call(loadLanguages, newCity, dataContainer, shouldUpdate)
+    const languages = yield* call(dataContainer.getLanguages, newCity)
     const pushLanguages: PushLanguagesActionType = {
       type: 'PUSH_LANGUAGES',
       params: {
         languages
       }
     }
-    yield put(pushLanguages)
+    yield* put(pushLanguages)
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
     console.error(e)
@@ -118,16 +116,11 @@ function* prepareLanguages(
         code: fromError(e)
       }
     }
-    yield put(languagesFailed)
+    yield* put(languagesFailed)
     return false
   }
 }
 
-type LoadCityContentGeneratorReturnType =
-  | Moment
-  | null
-  | Array<CityModel>
-  | [CategoriesMapModel, Array<EventModel>, Array<PoiModel>]
 /**
  *
  * @param dataContainer
@@ -142,25 +135,25 @@ export default function* loadCityContent(
   newCity: string,
   newLanguage: string,
   criterion: ContentLoadCriterion
-): Generator<StrictEffect, boolean, LoadCityContentGeneratorReturnType | NetInfoState> {
-  yield call(dataContainer.storeLastUsage, newCity, criterion.peeking())
+): SagaIterator<boolean> {
+  yield* call(dataContainer.storeLastUsage, newCity, criterion.peeking())
 
   if (!criterion.peeking()) {
-    yield call(selectCity, newCity, newLanguage)
+    yield* call(selectCity, newCity, newLanguage)
   }
 
-  const lastUpdate = (yield call(dataContainer.getLastUpdate, newCity, newLanguage)) as Moment | null
+  const lastUpdate = yield* call(dataContainer.getLastUpdate, newCity, newLanguage)
   console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
-  const netInfo = (yield call(NetInfo.fetch)) as NetInfoState
+  const netInfo = yield* call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
   console.debug('City content should be refreshed: ', shouldUpdate)
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and
   // resources at the same time. This kind of serves as a lock.
-  yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
+  yield* call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
 
   try {
     // Refresh for flags like eventsEnabled necessary
-    const cities = (yield call(loadCities, dataContainer, shouldUpdate)) as Array<CityModel>
+    const cities = yield* call(loadCities, dataContainer, shouldUpdate)
 
     const cityModel = cities.find(city => city.code === newCity)
 
@@ -169,7 +162,7 @@ export default function* loadCityContent(
     }
 
     if (criterion.shouldLoadLanguages()) {
-      const languageAvailable = yield call(prepareLanguages, dataContainer, newCity, newLanguage, shouldUpdate)
+      const languageAvailable = yield* call(prepareLanguages, dataContainer, newCity, newLanguage, shouldUpdate)
 
       if (!languageAvailable) {
         return false
@@ -177,7 +170,7 @@ export default function* loadCityContent(
     }
 
     const { featureFlags } = buildConfig()
-    const [categoriesMap, events, _unusedPois] = (yield all([
+    const [categoriesMap, events, _unusedPois] = (yield* all<any>([
       call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
       call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
       call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
@@ -187,20 +180,20 @@ export default function* loadCityContent(
     // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
     // failed to download some resources an other call could fix this and download missing files.
     if (criterion.shouldRefreshResources() && netInfo.type !== 'cellular') {
-      yield call(refreshResources, dataContainer, categoriesMap, events, newCity, newLanguage)
+      yield* call(refreshResources, dataContainer, categoriesMap, events, newCity, newLanguage)
     }
 
     if (!shouldUpdate && lastUpdate) {
-      yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
+      yield* call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
     } else {
-      yield call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
+      yield* call(dataContainer.setLastUpdate, newCity, newLanguage, moment())
     }
 
     return true
   } catch (e) {
     // If any error occurs, we have to store the old value for lastUpdate again
     if (lastUpdate) {
-      yield call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
+      yield* call(dataContainer.setLastUpdate, newCity, newLanguage, lastUpdate)
     }
 
     throw e
