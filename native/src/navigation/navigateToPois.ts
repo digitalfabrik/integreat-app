@@ -20,7 +20,7 @@ const navigateToPois = <T extends RoutesType>({
   cityContentPath: string | null | undefined
   key?: string
   forceRefresh?: boolean
-}) => {
+}): void => {
   navigation.navigate({
     name: POIS_ROUTE,
     key

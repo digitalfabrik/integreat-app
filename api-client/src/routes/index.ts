@@ -8,8 +8,8 @@ export const DASHBOARD_ROUTE: DashboardRouteType = 'dashboard'
 export type CategoriesRouteType = 'categories'
 export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
 
-export type PoisRouteType = 'pois'
-export const POIS_ROUTE: PoisRouteType = 'pois'
+export type PoisRouteType = 'locations'
+export const POIS_ROUTE: PoisRouteType = 'locations'
 
 export type EventsRouteType = 'events'
 export const EVENTS_ROUTE: EventsRouteType = 'events'

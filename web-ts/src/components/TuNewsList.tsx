@@ -34,7 +34,7 @@ class TuNewsList extends React.PureComponent<PropsType> {
     this.props.fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
   }
 
-  render() {
+  render(): ReactNode {
     const { items, renderItem, noItemsMessage, city, hasMore, isFetching } = this.props
     if (isEmpty(items) && !hasMore) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>

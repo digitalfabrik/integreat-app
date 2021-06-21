@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import Caption from './Caption'
 import Tile from './Tile'
 import styled from 'styled-components/native'
@@ -31,7 +32,7 @@ const TilesRow = styled.View<TilesRowPropsType>`
  */
 
 class Tiles extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     const { title, language, tiles, onTilePress, theme } = this.props
     return (
       <>

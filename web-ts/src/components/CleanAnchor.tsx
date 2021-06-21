@@ -14,7 +14,7 @@ type PropsType = {
 }
 
 class CleanAnchor extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { href, children, className, ariaLabel } = this.props
     return (
       <StyledAnchor aria-label={ariaLabel} className={className} href={href}>

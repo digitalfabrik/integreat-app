@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { ReactElement } from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import styled, { css } from 'styled-components'
 import { helpers } from '../constants/theme'
@@ -77,7 +77,13 @@ type PropsType = {
 /**
  * Displays a Selector showing different items
  */
-const Selector = ({ items, activeItemCode, verticalLayout, closeDropDown, disabledItemTooltip }: PropsType) => {
+const Selector = ({
+  items,
+  activeItemCode,
+  verticalLayout,
+  closeDropDown,
+  disabledItemTooltip
+}: PropsType): ReactElement => {
   return (
     <Wrapper vertical={verticalLayout}>
       {items.map(item => {

@@ -6,10 +6,10 @@ import { ErrorCode, fromError } from '../constants/ErrorCodes'
 import * as Sentry from '@sentry/react-native'
 
 let systemLanguage: string
-export const setSystemLanguage = (language: string) => {
+export const setSystemLanguage = (language: string): void => {
   systemLanguage = language
 }
-export const sendRequest = async (signal: SignalType) => {
+export const sendRequest = async (signal: SignalType): Promise<void> => {
   const appSettings = new AppSettings()
 
   try {
@@ -35,7 +35,7 @@ const sendTrackingSignal = async ({
 }: {
   signal: SpecificSignalType
   offline?: boolean
-}) => {
+}): Promise<void> => {
   const appSettings = new AppSettings()
 
   try {
