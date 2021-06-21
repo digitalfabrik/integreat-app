@@ -3,7 +3,8 @@ import createTunewsElementEndpoint from '../createTunewsElementEndpoint'
 import TunewsModel from '../../models/TunewsModel'
 import { JsonTunewsType } from '../../types'
 import { Moment } from 'moment'
-describe('tunews', () => {
+
+describe('createTunewsElementEndpoint', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'
   const tunewsElement = createTunewsElementEndpoint(baseUrl)
 
@@ -36,14 +37,33 @@ describe('tunews', () => {
     language: 'de',
     id: 1
   }
+
   it('should map params to url', () => {
     expect(tunewsElement.mapParamsToUrl(params)).toEqual(`${baseUrl}/v1/news/${params.id}`)
   })
+
   it('should map fetched data to models', () => {
     const itemModel = tunewsElement.mapResponse(item1, params)
     expect(itemModel).toEqual(itemModel1)
   })
+
   it('should throw a not found error if the response is empty', () => {
     expect(() => tunewsElement.mapResponse([], params)).toThrowError('The tu-news 1 does not exist here.')
+  })
+
+  it('should sanitize html', () => {
+    const unsanitizedJson = {
+      ...item1,
+      content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
+      title: 'Sanitize me!'
+    }
+    expect(tunewsElement.mapResponse(unsanitizedJson, params)).toEqual(new TunewsModel({
+      id: 1,
+      title: 'Sanitize me!',
+      date: moment.tz('2020-01-20 12:04:22+00:00', 'GMT'),
+      content: '<a>Ich bleib aber da.</a>',
+      eNewsNo: 'tun0000009902',
+      tags: ['8 Gesundheit'],
+    }))
   })
 })
