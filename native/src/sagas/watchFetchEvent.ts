@@ -1,50 +1,31 @@
-import { call, Effect, ForkEffect, put, select, takeEvery } from 'redux-saga/effects'
+import { call, put, select, takeEvery } from 'typed-redux-saga'
 import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../constants/ErrorCodes'
-import moment, { Moment } from 'moment'
-import { EventModel, LanguageModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { SagaIterator } from 'redux-saga'
 
-export function* fetchEvent(
-  dataContainer: DataContainer,
-  action: FetchEventActionType
-): Generator<
-  Effect,
-  void,
-  boolean | Moment | null | LanguageModel | Array<EventModel> | LanguageResourceCacheStateType | Array<LanguageModel>
-> {
+export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): SagaIterator<void> {
   const { city, language, path, key, criterion } = action.params
 
   try {
-    const peeking: boolean = (yield select(state =>
+    const peeking: boolean = yield* select(state =>
       isPeekingRoute(state, {
         routeCity: city
       })
-    )) as boolean
+    )
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
-    const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const languageValid = yield* call(loadCityContent, dataContainer, city, language, loadCriterion)
     // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages()
-      ? ((yield call(dataContainer.getLanguages, city)) as Array<LanguageModel>)
-      : []
+    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield* call(dataContainer.getLanguages, city) : []
 
     if (languageValid) {
-      const events = (yield call(dataContainer.getEvents, city, language)) as Array<EventModel>
-      const resourceCache = (yield call(
-        dataContainer.getResourceCache,
-        city,
-        language
-      )) as LanguageResourceCacheStateType
+      const events = yield* call(dataContainer.getEvents, city, language)
+      const resourceCache = yield* call(dataContainer.getResourceCache, city, language)
 
-      const lastUpdate: moment.Moment | null = (yield call(
-        dataContainer.getLastUpdate,
-        city,
-        language
-      )) as Moment | null
+      const lastUpdate = yield* call(dataContainer.getLastUpdate, city, language)
       const refresh = loadCriterion.shouldUpdate(lastUpdate)
       const insert: PushEventActionType = {
         type: 'PUSH_EVENT',
@@ -59,7 +40,7 @@ export function* fetchEvent(
           refresh
         }
       }
-      yield put(insert)
+      yield* put(insert)
     } else {
       const allAvailableLanguages = path === null ? new Map(cityLanguages.map(lng => [lng.code, null])) : null
       const failed: FetchEventFailedActionType = {
@@ -74,7 +55,7 @@ export function* fetchEvent(
           city
         }
       }
-      yield put(failed)
+      yield* put(failed)
     }
   } catch (e) {
     console.error(e)
@@ -90,10 +71,10 @@ export function* fetchEvent(
         allAvailableLanguages: null
       }
     }
-    yield put(failed)
+    yield* put(failed)
   }
 }
 
-export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
-  yield takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+export default function* (dataContainer: DataContainer): SagaIterator<void> {
+  yield* takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
 }

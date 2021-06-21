@@ -1,4 +1,4 @@
-import { all, call, Effect, ForkEffect, put, spawn, takeLatest } from 'redux-saga/effects'
+import { all, call, put, spawn, takeLatest } from 'typed-redux-saga'
 import {
   EnqueueSnackbarActionType,
   MorphContentLanguageActionType,
@@ -9,19 +9,22 @@ import {
 import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import AppSettings, { SettingsType } from '../services/AppSettings'
+import AppSettings from '../services/AppSettings'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import { fromError } from '../constants/ErrorCodes'
+import { SagaIterator } from 'redux-saga'
+import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
   action: SwitchContentLanguageActionType
-): Generator<Effect, void, any[] | SettingsType> {
+): SagaIterator<void> {
   const { newLanguage, city } = action.params
 
   try {
     // We never want to force a refresh when switching languages
-    yield call(
+    yield* call(
       loadCityContent,
       dataContainer,
       city,
@@ -34,31 +37,29 @@ export function* switchContentLanguage(
         false
       )
     )
-    const [categories, resourceCache, events, pois] = (yield all([
+    const [categories, resourceCache, events, pois] = (yield* all<any>([
       call(dataContainer.getCategoriesMap, city, newLanguage),
       call(dataContainer.getResourceCache, city, newLanguage),
       call(dataContainer.getEvents, city, newLanguage),
       call(dataContainer.getPois, city, newLanguage)
-    ])) as Array<any>
+    ])) as [CategoriesMapModel, LanguageResourceCacheStateType, EventModel[], PoiModel[]]
     const appSettings = new AppSettings()
-    const { selectedCity, contentLanguage, allowPushNotifications }: SettingsType = (yield call(
-      appSettings.loadSettings
-    )) as SettingsType
+    const { selectedCity, contentLanguage, allowPushNotifications } = yield* call(appSettings.loadSettings)
 
     // Unsubscribe from prev. city notifications
     if (contentLanguage !== newLanguage && allowPushNotifications && contentLanguage && selectedCity) {
-      yield spawn(NotificationsManager.unsubscribeNews, selectedCity, contentLanguage)
+      yield* spawn(NotificationsManager.unsubscribeNews, selectedCity, contentLanguage)
     }
 
     // Only set new language after fetch succeeded
-    yield call(appSettings.setContentLanguage, newLanguage)
+    yield* call(appSettings.setContentLanguage, newLanguage)
     const setContentLanguage: SetContentLanguageActionType = {
       type: 'SET_CONTENT_LANGUAGE',
       params: {
         contentLanguage: newLanguage
       }
     }
-    yield put(setContentLanguage)
+    yield* put(setContentLanguage)
     const insert: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
@@ -69,7 +70,7 @@ export function* switchContentLanguage(
         newLanguage
       }
     }
-    yield put(insert)
+    yield* put(insert)
   } catch (e) {
     const enqueueSnackbar: EnqueueSnackbarActionType = {
       type: 'ENQUEUE_SNACKBAR',
@@ -77,7 +78,7 @@ export function* switchContentLanguage(
         text: fromError(e)
       }
     }
-    yield put(enqueueSnackbar)
+    yield* put(enqueueSnackbar)
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
@@ -85,10 +86,10 @@ export function* switchContentLanguage(
         message: `Error in switchContentLanguage: ${e.message}`
       }
     }
-    yield put(failed)
+    yield* put(failed)
   }
 }
 
-export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
-  yield takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
+export default function* (dataContainer: DataContainer): SagaIterator<void> {
+  yield* takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
 }

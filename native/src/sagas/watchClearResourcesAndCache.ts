@@ -1,5 +1,5 @@
 import { DataContainer } from '../services/DataContainer'
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'typed-redux-saga'
 import { ClearResourcesAndCacheActionType } from '../redux/StoreActionType'
 import { SagaIterator } from 'redux-saga'
 
@@ -9,8 +9,8 @@ export function* clearResourcesAndCache(
 ): SagaIterator<void> {
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
-  yield call(dataContainer.clearOfflineCache)
-  yield put({
+  yield* call(dataContainer.clearOfflineCache)
+  yield* put({
     type: 'FETCH_CITIES',
     params: {
       forceRefresh: true
@@ -19,5 +19,5 @@ export function* clearResourcesAndCache(
 }
 
 export default function* (dataContainer: DataContainer): SagaIterator<void> {
-  yield takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
+  yield* takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
 }

@@ -1,6 +1,6 @@
-import { CategoriesMapModel, createCategoriesEndpoint, Payload } from 'api-client'
+import { CategoriesMapModel, createCategoriesEndpoint } from 'api-client'
 import { SagaIterator } from 'redux-saga'
-import { call } from 'redux-saga/effects'
+import { call } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
 
@@ -10,20 +10,20 @@ function* loadCategories(
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): SagaIterator<CategoriesMapModel> {
-  const categoriesAvailable: boolean = yield call(() => dataContainer.categoriesAvailable(city, language))
+  const categoriesAvailable = yield* call(dataContainer.categoriesAvailable, city, language)
 
   if (categoriesAvailable && !forceRefresh) {
     try {
       console.debug('Using cached categories')
-      return yield call(dataContainer.getCategoriesMap, city, language)
+      return yield* call(dataContainer.getCategoriesMap, city, language)
     } catch (e) {
       console.warn('An error occurred while loading categories from JSON', e)
     }
   }
 
   console.debug('Fetching categories')
-  const apiUrl: string = yield call(determineApiUrl)
-  const categoriesPayload: Payload<CategoriesMapModel> = yield call(() =>
+  const apiUrl = yield* call(determineApiUrl)
+  const categoriesPayload = yield* call(() =>
     createCategoriesEndpoint(apiUrl).request({
       city,
       language
@@ -33,7 +33,7 @@ function* loadCategories(
   if (!categoriesMap) {
     throw new Error('Categories Map not available')
   }
-  yield call(dataContainer.setCategoriesMap, city, language, categoriesMap)
+  yield* call(dataContainer.setCategoriesMap, city, language, categoriesMap)
   return categoriesMap
 }
 
