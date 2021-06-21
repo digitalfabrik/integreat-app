@@ -1,4 +1,4 @@
-import { all, call, put, spawn } from 'typed-redux-saga'
+import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
@@ -17,14 +17,13 @@ import * as NotificationsManager from '../services/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
 import { CategoriesMapModel, CategoryModel, EventModel, PoiModel } from 'api-client'
-import { SagaIterator } from 'redux-saga'
 
 /**
  * Subscribes to the push notification topic of the new city and language
  * @param newCity
  * @param newLanguage
  */
-function* subscribePushNotifications(newCity: string, newLanguage: string): SagaIterator<void> {
+function* subscribePushNotifications(newCity: string, newLanguage: string): SagaGenerator<void> {
   const appSettings = new AppSettings()
   const settings = yield* call(appSettings.loadSettings)
 
@@ -47,7 +46,7 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
  * @param newCity
  * @param newLanguage
  */
-function* selectCity(newCity: string, newLanguage: string): SagaIterator<void> {
+function* selectCity(newCity: string, newLanguage: string): SagaGenerator<void> {
   const appSettings = new AppSettings()
   yield* call(appSettings.setSelectedCity, newCity)
   yield* spawn(subscribePushNotifications, newCity, newLanguage)
@@ -67,7 +66,7 @@ function* refreshResources(
   events: Array<EventModel>,
   newCity: string,
   newLanguage: string
-): SagaIterator<void> {
+): SagaGenerator<void> {
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
   const input = (categoriesMap.toArray() as Array<CategoryModel | EventModel>).concat(events).map(it => ({
@@ -95,7 +94,7 @@ function* prepareLanguages(
   newCity: string,
   newLanguage: string,
   shouldUpdate: boolean
-): SagaIterator<boolean> {
+): SagaGenerator<boolean> {
   try {
     yield* call(loadLanguages, newCity, dataContainer, shouldUpdate)
     const languages = yield* call(dataContainer.getLanguages, newCity)
@@ -135,7 +134,7 @@ export default function* loadCityContent(
   newCity: string,
   newLanguage: string,
   criterion: ContentLoadCriterion
-): SagaIterator<boolean> {
+): SagaGenerator<boolean> {
   yield* call(dataContainer.storeLastUsage, newCity, criterion.peeking())
 
   if (!criterion.peeking()) {

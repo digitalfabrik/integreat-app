@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'typed-redux-saga'
+import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 import {
   FetchMoreNewsActionType,
   FetchNewsActionType,
@@ -15,12 +15,11 @@ import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 import loadLanguages from './loadLanguages'
 import { LanguageModel } from 'api-client'
 import { NewsModelsType } from '../redux/StateType'
-import { SagaIterator } from 'redux-saga'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
 
-export function* fetchNews(dataContainer: DataContainer, action: FetchNewsActionType): SagaIterator<void> {
+export function* fetchNews(dataContainer: DataContainer, action: FetchNewsActionType): SagaGenerator<void> {
   const { city, language, newsId, key, type, criterion } = action.params
 
   try {
@@ -88,7 +87,7 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
   }
 }
 
-export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNewsActionType): SagaIterator<void> {
+export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNewsActionType): SagaGenerator<void> {
   const { city, language, newsId, key, type, page, previouslyFetchedNews } = action.params
 
   if (type === LOCAL_NEWS_TYPE) {
@@ -133,7 +132,7 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaIterator<void> {
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('FETCH_NEWS', fetchNews, dataContainer)
   yield* takeLatest('FETCH_MORE_NEWS', fetchMoreNews, dataContainer)
 }

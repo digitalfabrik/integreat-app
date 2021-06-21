@@ -1,4 +1,4 @@
-import { all, call, put, spawn, takeLatest } from 'typed-redux-saga'
+import { all, call, put, SagaGenerator, spawn, takeLatest } from 'typed-redux-saga'
 import {
   EnqueueSnackbarActionType,
   MorphContentLanguageActionType,
@@ -12,14 +12,13 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import AppSettings from '../services/AppSettings'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import { fromError } from '../constants/ErrorCodes'
-import { SagaIterator } from 'redux-saga'
 import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
   action: SwitchContentLanguageActionType
-): SagaIterator<void> {
+): SagaGenerator<void> {
   const { newLanguage, city } = action.params
 
   try {
@@ -90,6 +89,6 @@ export function* switchContentLanguage(
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaIterator<void> {
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
 }

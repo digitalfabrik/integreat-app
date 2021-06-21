@@ -1,6 +1,5 @@
 import { createEventsEndpoint, EventModel } from 'api-client'
-import { SagaIterator } from 'redux-saga'
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
 
@@ -10,7 +9,7 @@ function* loadEvents(
   eventsEnabled: boolean,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): SagaIterator<Array<EventModel>> {
+): SagaGenerator<Array<EventModel>> {
   const eventsAvailable = yield* call(dataContainer.eventsAvailable, city, language)
 
   if (eventsAvailable && !forceRefresh) {

@@ -1,10 +1,9 @@
 import { CityModel, createCitiesEndpoint } from 'api-client'
-import { SagaIterator } from 'redux-saga'
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { DataContainer } from '../services/DataContainer'
 import determineApiUrl from '../services/determineApiUrl'
 
-function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaIterator<Array<CityModel>> {
+function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaGenerator<Array<CityModel>> {
   const citiesAvailable = yield* call(dataContainer.citiesAvailable)
 
   if (citiesAvailable && !forceRefresh) {

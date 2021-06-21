@@ -1,9 +1,8 @@
-import { call } from 'typed-redux-saga'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { createTunewsLanguagesEndpoint, LanguageModel } from 'api-client'
 import { tunewsApiUrl } from '../constants/endpoint'
-import { SagaIterator } from 'redux-saga'
 
-export default function* loadTunewsLanguages(): SagaIterator<LanguageModel[]> {
+export default function* loadTunewsLanguages(): SagaGenerator<LanguageModel[]> {
   console.debug('Fetching tunews languages')
   const payload = yield* call(() => createTunewsLanguagesEndpoint(tunewsApiUrl).request(undefined))
 
