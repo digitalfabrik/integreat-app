@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { View } from 'react-native'
 import { withTranslation, TFunction } from 'react-i18next'
 import {
@@ -43,7 +43,7 @@ export type PropsType = {
   routeKey: string
 }
 
-const News = (props: PropsType) => {
+const News = (props: PropsType): ReactElement => {
   const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t, routeKey } = props
   const { navigateTo, navigateToLink, cityModel } = props
 

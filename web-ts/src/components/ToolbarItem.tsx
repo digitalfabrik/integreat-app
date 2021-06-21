@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 import StyledToolbarItem from './StyledToolbarItem'
@@ -12,7 +12,7 @@ type PropsType = {
   viewportSmall: boolean
 }
 
-const ToolbarItem = ({ href, text, icon, viewportSmall }: PropsType) => {
+const ToolbarItem = ({ href, text, icon, viewportSmall }: PropsType): ReactElement => {
   return (
     <Tooltip text={viewportSmall ? null : text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
       <StyledToolbarItem href={href} ariaLabel={text}>

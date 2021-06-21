@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
 import Footer from './Footer'
 import CleanLink from './CleanLink'
@@ -14,7 +14,7 @@ type PropsType = {
 }
 
 export class LocationFooter extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { t, city, language } = this.props
     const { aboutUrls, privacyUrls } = buildConfig()
 

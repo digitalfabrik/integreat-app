@@ -44,7 +44,7 @@ class Footer extends React.PureComponent<PropsType> {
     return null
   }
 
-  render() {
+  render(): ReactNode {
     const { children } = this.props
     return (
       <FooterContainer>

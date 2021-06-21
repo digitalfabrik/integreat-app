@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { ThemeType } from 'build-configs'
@@ -43,9 +44,9 @@ class SearchInput extends React.Component<PropsType> {
     spaceSearch: false
   }
 
-  onFilterTextChange = (text: string) => this.props.onFilterTextChange(text)
+  onFilterTextChange = (text: string): void => this.props.onFilterTextChange(text)
 
-  render() {
+  render(): ReactNode {
     const { onClickInput, filterText, placeholderText, theme, spaceSearch } = this.props
     return (
       <Wrapper theme={theme} space={spaceSearch}>

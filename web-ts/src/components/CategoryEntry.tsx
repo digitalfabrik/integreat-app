@@ -136,7 +136,7 @@ export class CategoryEntry extends React.PureComponent<PropsType> {
     )
   }
 
-  render() {
+  render(): ReactNode {
     const { category } = this.props
     return (
       <Row>

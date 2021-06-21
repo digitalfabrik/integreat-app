@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import CitySelector from './CitySelector'
 import { TFunction } from 'react-i18next'
 import SearchInput from './SearchInput'
@@ -34,12 +34,12 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
     }
   }
 
-  onFilterTextChange = (filterText: string) =>
+  onFilterTextChange = (filterText: string): void =>
     this.setState({
       filterText
     })
 
-  render() {
+  render(): ReactNode {
     const { t, theme } = this.props
     const filterText = this.state.filterText
     return (
