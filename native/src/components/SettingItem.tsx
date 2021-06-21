@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 import Touchable from './Touchable'
@@ -44,7 +45,7 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const SettingItem = (props: PropType) => {
+const SettingItem = (props: PropType): ReactElement => {
   const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, theme, accessibilityRole, t } = props
   return (
     <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
 import { WebView, WebViewNavigation } from 'react-native-webview'
 import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
@@ -11,7 +11,7 @@ export type PropsType = {
   postData: Map<string, string> | null | undefined
 }
 
-const ExternalOffer = (props: PropsType) => {
+const ExternalOffer = (props: PropsType): ReactElement => {
   const [canGoBack, setCanGoBack] = useState(false)
   const webviewRef = useRef<WebView>(null)
   useEffect(() => {

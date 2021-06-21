@@ -6,6 +6,7 @@ import CategoryList from './CategoryList'
 import TileModel from '../models/TileModel'
 import { TFunction } from 'i18next'
 import { useHistory } from 'react-router-dom'
+import { ReactElement } from 'react'
 
 const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
   return categories.map(
@@ -33,7 +34,7 @@ type PropsType = {
  * b) table with categories
  * c) list with categories
  */
-const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsType) => {
+const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsType): ReactElement => {
   const children = categories.getChildren(categoryModel)
   const history = useHistory()
 

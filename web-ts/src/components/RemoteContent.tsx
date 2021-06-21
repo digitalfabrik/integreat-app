@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react'
+import React, { ReactNode, RefObject } from 'react'
 import styled, { css } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 
@@ -75,7 +75,7 @@ class RemoteContent extends React.Component<PropsType> {
 
   sandBoxRef: RefObject<HTMLDivElement>
 
-  handleClick = (event: MouseEvent) => {
+  handleClick = (event: MouseEvent): void => {
     // https://stackoverflow.com/a/1000606
     // $FlowFixMe
     event.preventDefault ? event.preventDefault() : (event.returnValue = false)
@@ -92,7 +92,7 @@ class RemoteContent extends React.Component<PropsType> {
     this.sandBoxRef = React.createRef<HTMLDivElement>()
   }
 
-  hijackATags() {
+  hijackATags(): void {
     if (!this.sandBoxRef.current) {
       return
     }
@@ -104,15 +104,15 @@ class RemoteContent extends React.Component<PropsType> {
     })
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.hijackATags()
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.hijackATags()
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <SandBox
         centered={this.props.centered}

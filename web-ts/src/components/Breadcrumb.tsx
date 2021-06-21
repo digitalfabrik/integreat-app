@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 import { helpers } from '../constants/theme'
 
@@ -27,7 +27,7 @@ type PropsType = {
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ children }: PropsType) => (
+const Breadcrumb = ({ children }: PropsType): ReactElement => (
   <ListItem>
     <Separator aria-hidden />
     {children}

@@ -98,7 +98,7 @@ class Tile extends React.PureComponent<PropsType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <TileContainer xs={6} sm={4} md={3}>
         {this.getTile()}
