@@ -1,5 +1,5 @@
 import { Moment } from 'moment'
-import { htmlDecode } from '../utils/helpers'
+import { unescape } from 'he'
 
 class TunewsModel {
   _id: number
@@ -19,7 +19,7 @@ class TunewsModel {
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
     this._id = id
-    this._title = htmlDecode(title)
+    this._title = unescape(title)
     this._tags = tags
     this._date = date
     this._content = content
