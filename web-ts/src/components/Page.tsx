@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 import RemoteContent from './RemoteContent'
 import Caption from './Caption'
@@ -44,7 +44,7 @@ const Page = ({
   formatter,
   children,
   onInternalLinkClick
-}: PropsType) => {
+}: PropsType): ReactElement => {
   return (
     <>
       {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}

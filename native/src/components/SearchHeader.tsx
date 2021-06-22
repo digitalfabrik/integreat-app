@@ -5,6 +5,7 @@ import { HeaderBackButton } from '@react-navigation/stack'
 import ThemedSearchBar from './ThemedSearchBar'
 import { TFunction } from 'react-i18next'
 import dimensions from '../constants/dimensions'
+import { ReactElement } from 'react'
 
 const HorizontalLeft = styled.View`
   flex: 1;
@@ -28,7 +29,7 @@ type PropsType = {
   t: TFunction<'search'>
 }
 
-const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: PropsType) => {
+const SearchHeader = ({ theme, query, closeSearchBar, onSearchChanged, t }: PropsType): ReactElement => {
   const onClose = () => {
     closeSearchBar(query)
   }

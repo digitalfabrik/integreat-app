@@ -8,13 +8,13 @@ function deleteAllMockFiles() {
   }
 }
 
-function writeMockFile(file: string, content: string, encoding: string): Promise<void> {
+function writeMockFile(file: string, content: string, _unusedEncoding: string): Promise<void> {
   const filePath = path.normalize(file)
   mockFiles[filePath] = content
   return Promise.resolve()
 }
 
-function readMockFile(file: string, encoding: string): Promise<string> {
+function readMockFile(file: string, _unusedEncoding: string): Promise<string> {
   const filePath = path.normalize(file)
   return Promise.resolve(mockFiles[filePath])
 }
@@ -50,10 +50,10 @@ function unlink(file: string): Promise<void> {
 }
 
 export default {
-  DocumentDir: () => {},
+  DocumentDir: (): void => {},
   ImageCache: {
     get: {
-      clear: () => {}
+      clear: (): void => {}
     }
   },
   fs: {

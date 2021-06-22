@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { Dispatch } from 'redux'
 import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
 import { connect } from 'react-redux'
@@ -58,7 +59,7 @@ class StaticServerProvider extends React.Component<
     this.staticServer.stop()
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.errorMessage !== null) {
       return <Text>{this.state.errorMessage}</Text>
     }

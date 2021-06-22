@@ -4,7 +4,7 @@ import AppSettings from '../services/AppSettings'
 import { sendRequest } from '../services/sendTrackingSignal'
 const appSettings = new AppSettings()
 
-const useSendOfflineJpalSignals = () => {
+const useSendOfflineJpalSignals = (): void => {
   const { isInternetReachable } = useNetInfo()
   const previousIsInternetReachable = useRef<boolean>(false)
 

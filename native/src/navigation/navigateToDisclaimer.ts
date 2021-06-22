@@ -4,7 +4,6 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { DISCLAIMER_ROUTE } from 'api-client/src/routes'
 
 const navigateToDisclaimer = <T extends RoutesType>({
-  dispatch,
   navigation,
   cityCode,
   languageCode
@@ -13,7 +12,7 @@ const navigateToDisclaimer = <T extends RoutesType>({
   navigation: NavigationPropType<T>
   cityCode: string
   languageCode: string
-}) => {
+}): void => {
   navigation.navigate({
     name: DISCLAIMER_ROUTE,
     params: {

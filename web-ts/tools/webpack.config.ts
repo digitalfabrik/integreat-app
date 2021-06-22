@@ -10,6 +10,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
 import { config as translationsConfig } from 'translations'
+import 'webpack-dev-server'
 
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
@@ -60,7 +61,7 @@ const generateManifest = (content: Buffer, buildConfigName: string) => {
 const createConfig = (
   // eslint-disable-next-line camelcase
   env: { config_name?: string; dev_server?: boolean; version_name?: string; commit_sha?: string } = {}
-) => {
+): Configuration => {
   const {
     config_name: buildConfigName,
     commit_sha: passedCommitSha,
@@ -76,8 +77,6 @@ const createConfig = (
 
   // We have to override the env of the current process, such that babel-loader works with that.
   const NODE_ENV = devServer ? '"development"' : '"production"'
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   process.env.NODE_ENV = NODE_ENV
 
   // If version_name is not supplied read it from version file
@@ -131,7 +130,6 @@ const createConfig = (
       usedExports: true
     },
     devtool: 'source-map',
-    // @ts-ignore devServer is not available here
     devServer: {
       contentBase: distDirectory,
       compress: true,

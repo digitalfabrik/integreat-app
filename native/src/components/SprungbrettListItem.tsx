@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { Text } from 'react-native'
 import { SprungbrettJobModel } from 'api-client'
 import ListItem from './ListItem'
@@ -12,7 +13,7 @@ type PropsType = {
 }
 
 class SprungbrettListItem extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { language, job, openJobInBrowser, theme } = this.props
     return (
       <ListItem thumbnail={null} title={job.title} navigateTo={openJobInBrowser} theme={theme} language={language}>

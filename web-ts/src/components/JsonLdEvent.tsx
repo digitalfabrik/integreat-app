@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 import { EventModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
@@ -56,7 +56,7 @@ type PropsType = {
   formatter: DateFormatter
 }
 
-const JsonLdEvent = ({ event, formatter }: PropsType) => (
+const JsonLdEvent = ({ event, formatter }: PropsType): ReactElement => (
   <Helmet>
     <script type='application/ld+json'>{JSON.stringify(createJsonLd(event, formatter))}</script>
   </Helmet>

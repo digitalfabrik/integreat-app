@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { StatusBar as ReactNativeStatusBar } from 'react-native'
 import { ThemeType } from 'build-configs'
 
@@ -7,7 +8,7 @@ type PropsType = {
 }
 
 class StatusBar extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     return (
       <ReactNativeStatusBar backgroundColor={this.props.theme.colors.backgroundAccentColor} barStyle='dark-content' />
     )

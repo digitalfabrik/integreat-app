@@ -21,6 +21,7 @@ import FeedbackContainer from '../components/FeedbackContainer'
 import SadIcon from '../assets/smile-sad.svg'
 import sendTrackingSignal from '../services/sendTrackingSignal'
 import { urlFromRouteInformation } from '../navigation/url'
+import { ReactNode } from 'react'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -116,7 +117,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     return categoriesWithTitle.concat(categoriesWithContent)
   }
 
-  onItemPress = (category: { path: string }) => {
+  onItemPress = (category: { path: string }): void => {
     const { cityCode, language, navigateTo } = this.props
     const { query } = this.state
     const routeInformation: CategoriesRouteInformationType = {
@@ -140,7 +141,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     })
   }
 
-  onClose = () => {
+  onClose = (): void => {
     const { query } = this.state
     sendTrackingSignal({
       signal: {
@@ -152,13 +153,13 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     this.props.closeModal(query)
   }
 
-  onSearchChanged = (query: string) => {
+  onSearchChanged = (query: string): void => {
     this.setState({
       query
     })
   }
 
-  renderContent = () => {
+  renderContent = (): ReactNode => {
     const { language, cityCode, theme, categories, navigateToLink, t } = this.props
     const { query } = this.state
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
@@ -208,7 +209,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     )
   }
 
-  render() {
+  render(): ReactNode {
     const { theme, t } = this.props
     const { query } = this.state
     return (

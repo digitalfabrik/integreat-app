@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import AppSettings from './services/AppSettings'
 import { Platform, Text } from 'react-native'
 import initSentry from './services/initSentry'
@@ -76,7 +76,7 @@ type InitialRouteType =
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
-const Navigator = (props: PropsType) => {
+const Navigator = (props: PropsType): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>({

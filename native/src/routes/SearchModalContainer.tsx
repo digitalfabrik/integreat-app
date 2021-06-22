@@ -2,7 +2,7 @@ import SearchModal from './SearchModal'
 import { useTranslation } from 'react-i18next'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import navigateToLink from '../navigation/navigateToLink'
-import React, { useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { SearchRouteType, CategoriesMapModel } from 'api-client'
 import createNavigate from '../navigation/createNavigate'
 import { ThemeContext } from 'styled-components'
@@ -14,7 +14,7 @@ export type PropsType = {
   navigation: NavigationPropType<SearchRouteType>
 }
 
-const SearchModalContainer = ({ navigation }: PropsType) => {
+const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null => {
   const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
   const language = useSelector<StateType, string>(state => state.contentLanguage)
   const categories = useSelector<StateType, CategoriesMapModel | null>(
@@ -31,7 +31,7 @@ const SearchModalContainer = ({ navigation }: PropsType) => {
     [dispatch, navigation]
   )
 
-  const closeModal = (query: string) => {
+  const closeModal = () => {
     navigation.goBack()
   }
 

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import Image, { ImageSourceType } from './Image'
 import { contentDirection } from '../constants/contentDirection'
@@ -49,7 +50,7 @@ type PropsType = {
 }
 
 class ListItem extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { language, title, thumbnail, children, theme } = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo} theme={theme}>

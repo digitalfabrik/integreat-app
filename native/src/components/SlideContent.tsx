@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { ScrollView } from 'react-native'
 import { ThemeType } from 'build-configs'
@@ -42,7 +43,7 @@ type PropsType = {
 }
 
 class SlideContent extends React.Component<PropsType> {
-  render(): JSX.Element {
+  render(): ReactNode {
     const { width, theme, item } = this.props
     return (
       <ScrollView

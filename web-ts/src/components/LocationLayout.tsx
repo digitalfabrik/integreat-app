@@ -5,8 +5,8 @@ import LocationFooter from '../components/LocationFooter'
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 import FeedbackModal from './FeedbackModal'
 import { RouteType } from '../routes'
+import { FeedbackRatingType } from './FeedbackToolbarItem'
 
-export type FeedbackRatingType = 'up' | 'down'
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
 type PropsType = {
@@ -33,7 +33,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     this.state = { asideStickyTop: 0, feedbackModalRating: null }
   }
 
-  handleStickyTopChanged = (asideStickyTop: number) => this.setState({ asideStickyTop })
+  handleStickyTopChanged = (asideStickyTop: number): void => this.setState({ asideStickyTop })
 
   renderFeedbackModal = (): React.ReactNode => {
     if (!this.state.feedbackModalRating) {
@@ -53,9 +53,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     )
   }
 
-  openFeedbackModal = (rating: FeedbackRatingType) => this.setState({ feedbackModalRating: rating })
+  openFeedbackModal = (rating: FeedbackRatingType): void => this.setState({ feedbackModalRating: rating })
 
-  closeFeedbackModal = () => this.setState({ feedbackModalRating: null })
+  closeFeedbackModal = (): void => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): ReactNode => {
     const { toolbar } = this.props
@@ -65,7 +65,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
     return null
   }
 
-  render() {
+  render(): ReactNode {
     const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route } = this.props
     const { pathname, cityModel } = this.props
 

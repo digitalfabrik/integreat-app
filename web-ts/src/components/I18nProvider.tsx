@@ -1,10 +1,10 @@
 import i18next, { i18n } from 'i18next'
-import React, { ReactNode, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
 import { loadTranslations, config } from 'translations'
 import { DateFormatter } from 'api-client'
-import DateFormatterContext from '../context/DateFormatterContext'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import buildConfig from '../constants/buildConfig'
 import BrowserLanguageDetectorService from '../services/BrowserLanguageDetector'
 
@@ -13,7 +13,7 @@ type PropsType = {
   children: ReactNode
 }
 
-const I18nProvider = ({ children, contentLanguage }: PropsType) => {
+const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement => {
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
