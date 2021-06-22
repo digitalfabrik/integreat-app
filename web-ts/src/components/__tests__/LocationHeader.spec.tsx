@@ -4,16 +4,15 @@ import {
   CATEGORIES_ROUTE,
   CityModel,
   EVENTS_ROUTE,
-  LOCAL_NEWS_TYPE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 import LocationHeader from '../LocationHeader'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../routes'
 
 jest.mock('react-i18next')
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
@@ -180,29 +179,7 @@ describe('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
-            route={LOCAL_NEWS_TYPE}
-            viewportSmall
-            cityModel={cityModel(true, true, true, true, true)}
-            languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
-          />
-        </ThemeProvider>
-      )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:offers inactive')).toBeTruthy()
-      expect(getByText('layout:news active')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:pois inactive')).toBeTruthy()
-    })
-
-    it('should highlight news if the local news detail route is selected', () => {
-      const { getByText } = renderWithRouter(
-        <ThemeProvider theme={theme}>
-          <LocationHeader
-            languageCode={languageCode}
-            pathname={pathname}
-            // TODO IGAPP-652: Use right route for local news detail
-            route={LOCAL_NEWS_TYPE}
+            route={LOCAL_NEWS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -223,7 +200,7 @@ describe('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
-            route={TU_NEWS_TYPE}
+            route={TU_NEWS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
@@ -244,8 +221,7 @@ describe('LocationHeader', () => {
           <LocationHeader
             languageCode={languageCode}
             pathname={pathname}
-            // TODO IGAPP-652: Use right route for local news detail
-            route={TU_NEWS_TYPE}
+            route={TU_NEWS_DETAIL_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
