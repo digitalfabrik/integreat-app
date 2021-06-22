@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { Image as RNImage, View } from 'react-native'
-import styled from 'styled-components/native'
+import { Image, View, ImageSourcePropType } from 'react-native'
 import { ViewStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet'
 
 export type ImageSourceType = string | number | null
@@ -9,11 +8,8 @@ type PropsType = {
   source: ImageSourceType
   style?: ViewStyleProp
 }
-const ThumbnailImage = styled(RNImage)`
-  flex: 1;
-`
 
-const getImageSource = (uri: string | number) =>
+const getImageSource = (uri: string | number): ImageSourcePropType =>
   typeof uri === 'number'
     ? uri
     : {
@@ -21,7 +17,7 @@ const getImageSource = (uri: string | number) =>
         cache: 'reload'
       }
 
-class Image extends React.Component<PropsType> {
+class SimpleImage extends React.Component<PropsType> {
   render(): ReactNode {
     const { source, style } = this.props
 
@@ -29,12 +25,8 @@ class Image extends React.Component<PropsType> {
       return <View style={style} />
     }
 
-    return (
-      <View>
-        <ThumbnailImage source={getImageSource(source)} resizeMode='contain' style={style} />
-      </View>
-    )
+    return <Image source={getImageSource(source)} resizeMode='contain' style={style} />
   }
 }
 
-export default Image
+export default SimpleImage
