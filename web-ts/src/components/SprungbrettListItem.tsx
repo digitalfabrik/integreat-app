@@ -1,16 +1,14 @@
-// @flow
-
 import * as React from 'react'
-
+import { ReactNode } from 'react'
 import { SprungbrettJobModel } from 'api-client'
-import ListItem from '../../../modules/common/components/ListItem'
+import ListItem from './ListItem'
 
-type PropsType = {|
+type PropsType = {
   job: SprungbrettJobModel
-|}
+}
 
 class SprungbrettListItem extends React.PureComponent<PropsType> {
-  render() {
+  render(): ReactNode {
     const { job } = this.props
     return (
       <ListItem title={job.title} path={job.url} isExternalUrl>
