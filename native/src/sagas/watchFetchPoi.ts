@@ -5,8 +5,6 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, fromError } from '../constants/ErrorCodes'
-import { PoiModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params
@@ -23,10 +21,10 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield* call(dataContainer.getLanguages, city) : []
 
     if (languageValid) {
-      const [pois, resourceCache] = (yield* all<any>([
-        call(dataContainer.getPois, city, language),
-        call(dataContainer.getResourceCache, city, language)
-      ])) as [Array<PoiModel>, LanguageResourceCacheStateType]
+      const { pois, resourceCache } = yield* all({
+        pois: call(dataContainer.getPois, city, language),
+        resourceCache: call(dataContainer.getResourceCache, city, language)
+      })
       const insert: PushPoiActionType = {
         type: 'PUSH_POI',
         params: {
