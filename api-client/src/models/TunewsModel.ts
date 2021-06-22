@@ -1,4 +1,5 @@
 import { Moment } from 'moment'
+import { unescape } from 'he'
 
 class TunewsModel {
   _id: number
@@ -18,7 +19,7 @@ class TunewsModel {
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
     this._id = id
-    this._title = title
+    this._title = unescape(title)
     this._tags = tags
     this._date = date
     this._content = content
