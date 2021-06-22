@@ -23,12 +23,7 @@ const flattenModules = (modules: KeyValueType): Record<string, string> => {
 
 type LanguagePair = [string, string]
 
-const writePairs = (
-  toPath: string,
-  sourceLanguagePairs: LanguagePair[],
-  pairs: LanguagePair[],
-  name: string
-): void => {
+const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: LanguagePair[], name: string): void => {
   const output = fs.createWriteStream(`${toPath}/${name}.csv`)
   output.on('close', () => {
     console.log(`Successfully written ${name}.csv.`)
@@ -37,11 +32,9 @@ const writePairs = (
     console.log(`Failed to write ${name}.csv ${e}`)
   })
   const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
-  const withSourceLanguagePairs = zippedLanguagePairs.map(([[sourceKey, sourceTranslation], [key, translation]]) => [
-    key,
-    sourceTranslation,
-    translation
-  ])
+  const withSourceLanguagePairs = zippedLanguagePairs.map(
+    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation]
+  )
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
 
@@ -67,7 +60,7 @@ const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleT
       throw new Error(`Module ${moduleKey} is missing in source language!`)
     }
 
-    return [moduleKey, mapStringValuesDeep(module, translation => '')]
+    return [moduleKey, mapStringValuesDeep(module, _unusedTranslation => '')]
   })
 }
 
@@ -77,7 +70,7 @@ const mergeByLanguageModule = (
   sourceLanguage: string
 ): ModuleType[] => {
   const zippedModuleArray = zip(skeleton, byLanguageModule) as [ModuleType, ModuleType][]
-  return zippedModuleArray.map(([[skModuleKey, skModule], [moduleKey, module]]) => {
+  return zippedModuleArray.map(([[_unusedSkModuleKey, skModule], [moduleKey, module]]) => {
     const diff = without(Object.keys(flat(module)), ...Object.keys(flat(skModule)))
 
     if (!isEmpty(diff)) {
@@ -95,7 +88,7 @@ const writeCsvFromJson = (
   sourceLanguage: string,
   supportedLanguages: string[]
 ) => {
-  const moduleArray = sortBy(toPairs(json), ([moduleKey, module]) => moduleKey) // Sort by module key
+  const moduleArray = sortBy(toPairs(json), ([moduleKey, _unusedModule]) => moduleKey) // Sort by module key
 
   const byLanguageModuleArray = fromPairs<ModuleType[]>(
     supportedLanguages
@@ -126,7 +119,7 @@ const loadModules = (csvFile: string, csvColumn: string): Record<string, KeyValu
     skip_empty_lines: true
   })
   const flattened = fromPairs(
-    records.map(record => [record.key, record[csvColumn]]).filter(([key, translation]) => !!translation)
+    records.map(record => [record.key, record[csvColumn]]).filter(([_unusedKey, translation]) => !!translation)
   )
   return unflatten(flattened)
 }
