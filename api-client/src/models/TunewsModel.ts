@@ -1,5 +1,5 @@
 import { Moment } from 'moment'
-import { unescape } from 'he'
+import { parseHTML } from '../../../utils/helpers'
 
 class TunewsModel {
   _id: number
@@ -18,8 +18,14 @@ class TunewsModel {
     eNewsNo: string
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
+
+    let parsedTitle = ''
+    parseHTML(title, data => {
+      parsedTitle += data
+    })
+
     this._id = id
-    this._title = unescape(title)
+    this._title = parsedTitle
     this._tags = tags
     this._date = date
     this._content = content
