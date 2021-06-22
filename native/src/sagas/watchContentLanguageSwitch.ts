@@ -12,8 +12,6 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import AppSettings from '../services/AppSettings'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import { fromError } from '../constants/ErrorCodes'
-import { CategoriesMapModel, EventModel, PoiModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
@@ -36,12 +34,12 @@ export function* switchContentLanguage(
         false
       )
     )
-    const [categories, resourceCache, events, pois] = (yield* all<any>([
-      call(dataContainer.getCategoriesMap, city, newLanguage),
-      call(dataContainer.getResourceCache, city, newLanguage),
-      call(dataContainer.getEvents, city, newLanguage),
-      call(dataContainer.getPois, city, newLanguage)
-    ])) as [CategoriesMapModel, LanguageResourceCacheStateType, EventModel[], PoiModel[]]
+    const { categories, resourceCache, events, pois } = yield* all({
+      categories: call(dataContainer.getCategoriesMap, city, newLanguage),
+      resourceCache: call(dataContainer.getResourceCache, city, newLanguage),
+      events: call(dataContainer.getEvents, city, newLanguage),
+      pois: call(dataContainer.getPois, city, newLanguage)
+    })
     const appSettings = new AppSettings()
     const { selectedCity, contentLanguage, allowPushNotifications } = yield* call(appSettings.loadSettings)
 
