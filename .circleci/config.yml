@@ -70,7 +70,7 @@ commands:
                     else
                         echo 'export MM_MESSAGE=":fire: The [${CIRCLE_JOB}](${CIRCLE_BUILD_URL}) job has failed on the main branch! :fire:"' >> $BASH_ENV
                     fi
-                name: Mattermost - Failure message
+                name: Mattermost - Prepare failure message
                 when: on_fail
             - run:
                 command: |
@@ -81,7 +81,7 @@ commands:
                             echo 'export MM_MESSAGE="<< parameters.success_message >>"' >> $BASH_ENV
                         fi
                     fi
-                name: Mattermost - Success message
+                name: Mattermost - Prepare success message
                 when: on_success
             - run:
                 command: |
@@ -963,6 +963,36 @@ workflows:
                 requires:
                     - bump_version
                     - check_web
+            - build_web:
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
+                    - check_web
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
+                    - check_web
+            - deliver_web:
+                context:
+                    - mattermost
+                    - sentry
+                filters:
+                    branches:
+                        only:
+                            - main
+                production_delivery: false
+                requires:
+                    - check_web
+                    - build_ig_test_cms_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
             - check_native:
                 context:
                     - mattermost

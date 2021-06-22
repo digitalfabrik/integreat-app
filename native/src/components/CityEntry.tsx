@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { CityModel } from 'api-client'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
@@ -55,11 +55,11 @@ class CityEntry extends React.PureComponent<PropType> {
     return []
   }
 
-  navigateToDashboard = () => {
+  navigateToDashboard = (): void => {
     this.props.navigateToDashboard(this.props.city)
   }
 
-  render() {
+  render(): ReactNode {
     const { city, theme, filterText } = this.props
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchingAliases(city, normalizedFilter).slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)

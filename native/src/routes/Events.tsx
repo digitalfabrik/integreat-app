@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useContext } from 'react'
+import { ReactElement, useContext } from 'react'
 import { View } from 'react-native'
 import { TFunction } from 'react-i18next'
 import { CityModel, EventModel, EVENTS_ROUTE, NotFoundError, RouteInformationType } from 'api-client'
@@ -45,7 +45,7 @@ const Events = ({
   t,
   navigateToLink,
   navigateToFeedback
-}: PropsType) => {
+}: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
 
   const renderEventListItem = (event: EventModel) => {

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 import { BreadcrumbList, WithContext } from 'schema-dts'
 
@@ -49,7 +49,7 @@ type PropsType = {
   breadcrumbs: Array<BreadcrumbModel>
 }
 
-const JsonLdBreadcrumbs = ({ breadcrumbs }: PropsType) => (
+const JsonLdBreadcrumbs = ({ breadcrumbs }: PropsType): ReactElement => (
   <Helmet>
     <script type='application/ld+json'>{JSON.stringify(createJsonLd(breadcrumbs))}</script>
   </Helmet>

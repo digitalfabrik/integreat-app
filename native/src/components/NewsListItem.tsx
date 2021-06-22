@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { useContext } from 'react'
+import { ReactElement, useContext } from 'react'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { contentDirection, contentAlignment } from '../constants/contentDirection'
+import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import { config } from 'translations'
 import { Parser } from 'htmlparser2'
 import TimeStamp from './TimeStamp'
@@ -72,7 +72,7 @@ export const Content = styled.Text<{ language: string }>`
 const TimeStampContent = styled.Text<{ language: string }>`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   font-size: 14px;
-  padding: 10px 0px
+  padding: 10px 0px;
   text-align: ${props => contentAlignment(props.language)};
   color: ${props => props.theme.colors.textColor};
 `
@@ -84,7 +84,7 @@ export const ReadMore = styled.Text<{ isTunews: boolean }>`
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
 `
 
-const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType) => {
+const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''

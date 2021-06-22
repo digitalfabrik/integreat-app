@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
@@ -38,7 +39,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const appSettings = new AppSettings()
     appSettings
       .loadApiUrlOverride()
@@ -52,7 +53,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
       })
   }
 
-  onImagePress = async () => {
+  onImagePress = async (): Promise<void> => {
     const { cmsUrl, switchCmsUrl } = buildConfig()
 
     if (!switchCmsUrl) {
@@ -84,7 +85,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     }
   }
 
-  resetApiUrl = async () => {
+  resetApiUrl = async (): Promise<void> => {
     const appSettings = new AppSettings()
     await appSettings.setApiUrlOverride(buildConfig().cmsUrl)
     this.setState({
@@ -93,7 +94,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     this.props.clearResourcesAndCache()
   }
 
-  renderApiUrlText = () => {
+  renderApiUrlText = (): ReactNode => {
     const theme = this.props.theme
     const apiUrlOverride = this.state.apiUrlOverride
 
@@ -117,7 +118,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     }
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <>
         <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>

@@ -6,6 +6,7 @@ import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import TextButton from './TextButton'
 import type { SendingStatusType } from './FeedbackModal'
+import { ReactElement } from 'react'
 
 export const StyledFeedbackBox = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ export const FeedbackBox = ({
   comment,
   closeFeedbackModal,
   sendingStatus
-}: PropsType) => (
+}: PropsType): ReactElement => (
   <StyledFeedbackBox>
     <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
     <FeedbackComment

@@ -1,7 +1,7 @@
 import Page from '../components/Page'
 import { PageModel } from 'api-client'
 import { ThemeType } from 'build-configs'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 type PropsType = {
   navigateToLink: (url: string, language: string, shareUrl: string) => void
@@ -12,7 +12,7 @@ type PropsType = {
 }
 
 class Disclaimer extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     const { disclaimer, theme, language, resourceCacheUrl, navigateToLink } = this.props
     const { title, content, lastUpdate } = disclaimer
     return (

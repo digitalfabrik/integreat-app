@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import moment from 'moment'
@@ -43,7 +43,7 @@ const LogoContainer = styled.div`
 /**
  * A logo component designed for the Header.
  */
-export const HeaderLogo = ({ link }: PropsType) => {
+export const HeaderLogo = ({ link }: PropsType): ReactElement => {
   const { campaign, appName, icons } = buildConfig()
   const currentDate = moment()
   const showCampaignLogo = campaign && currentDate.isAfter(campaign.startDate) && currentDate.isBefore(campaign.endDate)

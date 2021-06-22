@@ -6,6 +6,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import { InteractionManager } from 'react-native'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { ChangeLanguageModalRouteType, NewsType, LanguageModel } from 'api-client'
+import { ReactNode } from 'react'
 
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -22,7 +23,7 @@ type PropsType = {
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
-  onPress = (model: LanguageModel) => {
+  onPress = (model: LanguageModel): void => {
     const { changeLanguage, newsType } = this.props
     this.closeModal()
     InteractionManager.runAfterInteractions(() => {
@@ -30,11 +31,11 @@ class ChangeLanguageModal extends React.Component<PropsType> {
     })
   }
 
-  closeModal = () => {
+  closeModal = (): void => {
     this.props.navigation.goBack()
   }
 
-  render() {
+  render(): ReactNode {
     const { theme, languages, availableLanguages, currentLanguage } = this.props
     return (
       <Wrapper

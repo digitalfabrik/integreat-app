@@ -22,6 +22,7 @@ import loadCities from '../loadCities'
 import loadCategories from '../loadCategories'
 import loadEvents from '../loadEvents'
 import loadPois from '../loadPois'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('@react-native-community/netinfo')
 jest.mock('rn-fetch-blob')
@@ -313,15 +314,19 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
   it('should not fetch resources if connection type is cellular', async () => {
-    const previous = ((NetInfo.fetch as unknown) as jest.Mock).getMockImplementation()
-    ;((NetInfo.fetch as unknown) as jest.Mock).mockImplementation(() => {
+    const previous = mocked(NetInfo.fetch).getMockImplementation()
+    // @ts-ignore cannot import enum because it is mocked
+    mocked(NetInfo.fetch).mockImplementation(async () => {
       return {
         type: 'cellular',
         isConnected: true,
         isInternetReachable: true,
         details: {
-          isConnectionExpensive: false
-        }
+          isConnectionExpensive: false,
+          cellularGeneration: null,
+          carrier: null
+        },
+        isWifiEnabled: false
       }
     })
     const dataContainer = new DefaultDataContainer()
@@ -344,7 +349,7 @@ describe('loadCityContent', () => {
       .not.call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
-    ;((NetInfo.fetch as unknown) as jest.Mock).mockImplementation(previous)
+    mocked(NetInfo.fetch).mockImplementation(previous)
   })
   it('should update if last update was a long time ago', async () => {
     const dataContainer = new DefaultDataContainer()
