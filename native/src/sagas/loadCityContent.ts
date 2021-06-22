@@ -16,7 +16,7 @@ import { fromError } from '../constants/ErrorCodes'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
-import { CategoriesMapModel, CategoryModel, EventModel, PoiModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel, EventModel } from 'api-client'
 
 /**
  * Subscribes to the push notification topic of the new city and language
@@ -169,11 +169,11 @@ export default function* loadCityContent(
     }
 
     const { featureFlags } = buildConfig()
-    const [categoriesMap, events, _unusedPois] = (yield* all<any>([
-      call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
-      call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
-      call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
-    ])) as [CategoriesMapModel, Array<EventModel>, Array<PoiModel>]
+    const { categoriesMap, events, _unusedPois } = yield* all({
+      categoriesMap: call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
+      events: call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
+      _unusedPois: call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
+    })
 
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,
     // loadLanguages did not update the dataContainer this is needed. In case the previous call to fetchResourceCache
