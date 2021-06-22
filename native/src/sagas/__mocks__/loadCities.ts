@@ -2,10 +2,7 @@ import { CityModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
 import { DataContainer } from '../../services/DataContainer'
 
-function* loadCities(
-  dataContainer: DataContainer,
-  _unusedForceRefresh: string
-): SagaGenerator<Array<CityModel>> {
+function* loadCities(dataContainer: DataContainer, _unusedForceRefresh: string): SagaGenerator<Array<CityModel>> {
   const citiesAvailable = yield* call(() => dataContainer.citiesAvailable())
 
   if (!citiesAvailable) {
