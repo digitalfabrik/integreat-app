@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components/native'
-import Image, { ImageSourceType } from './Image'
+import SimpleImage, { ImageSourceType } from './SimpleImage'
 import { contentDirection } from '../constants/contentDirection'
 import { ThemeType } from 'build-configs'
 
@@ -22,7 +22,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
-const Thumbnail = styled(Image)`
+const Thumbnail = styled(SimpleImage)`
   width: 75px;
   height: 75px;
   flex-shrink: 0;

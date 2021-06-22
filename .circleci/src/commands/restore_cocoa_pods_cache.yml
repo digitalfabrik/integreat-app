@@ -7,7 +7,7 @@ steps:
         - 3-pods-{{ arch }}-
   - run:
       name: "[CP] Install CocoaPods"
-      command: bundle exec pod install --deployment
+      command: bundle exec pod install
       working_directory: native/ios
   - save_cache:
       name: Save CocoaPods Cache
