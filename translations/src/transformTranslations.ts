@@ -11,7 +11,10 @@ export default (translations: TranslationsType): TransformedTranslationsType =>
     translations,
     (transformedTranslations, namespace, namespaceName) => {
       forEach(namespace, (language, languageTag) => {
-        transformedTranslations[languageTag] = { ...transformedTranslations[languageTag], [namespaceName]: language as Record<string, string> }
+        transformedTranslations[languageTag] = {
+          ...transformedTranslations[languageTag],
+          [namespaceName]: language as Record<string, string>
+        }
       })
       return transformedTranslations
     },
