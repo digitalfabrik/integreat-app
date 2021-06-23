@@ -50,7 +50,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   const languageModel = languages?.find(it => it.code === languageCode)
 
   if (!cityModel || !languageModel || !languages) {
-    if (loading) {
+    if (loading || (!languageModel && !loadingError)) {
       return (
         <Layout>
           <LoadingSpinner />
