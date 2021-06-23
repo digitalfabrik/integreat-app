@@ -28,6 +28,8 @@ type PropsType = {
 }
 
 const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
+  const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
+  const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
   const { i18n } = useTranslation()
   const fixedCity = buildConfig().featureFlags.fixedCity
   // LanguageCode is always the second param (if there is one)
@@ -40,9 +42,6 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   if (language !== detectedLanguageCode) {
     setContentLanguage(language)
   }
-
-  const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
-  const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
 
   const landingPath = createPath(LANDING_ROUTE, { languageCode: language })
   const cityContentPath = createPath(CATEGORIES_ROUTE, { cityCode: fixedCity ?? ':cityCode', languageCode: language })
