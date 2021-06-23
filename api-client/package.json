@@ -26,6 +26,7 @@
     "sanitize-html-react": "^1.13"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/js-md5": "^0.4.2",
     "@types/lodash": "^4.14.168",
     "@types/normalize-path": "^3.0.0",
