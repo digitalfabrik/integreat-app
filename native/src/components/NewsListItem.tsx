@@ -98,18 +98,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   }, {
     decodeEntities: true
   })
-  // const parser = new Parser(
-  //   {
-  //     ontext(data: string) {
-  //       decodedContent += data
-  //     }
-  //   },
-  //   {
-  //     decodeEntities: true
-  //   }
-  // )
-  // parser.write(content)
-  // parser.end()
+
   return (
     <>
       <Divider />

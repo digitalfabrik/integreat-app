@@ -7,7 +7,7 @@ import { Description } from './ListItem'
 import { TFunction } from 'react-i18next'
 import textTruncator from '../services/textTruncator'
 import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
-import { Parser } from 'htmlparser2'
+import { parseHTML } from '../../../native/src/utils/helpers'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 
@@ -57,16 +57,13 @@ type PropsType = {
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
   // Decode html entities
   let decodedContent = ''
-  const parser = new Parser(
-    {
-      ontext(data: string) {
-        decodedContent += data
-      }
+  parseHTML(
+    content, 
+    data => {
+      decodedContent += data
     },
     { decodeEntities: true }
   )
-  parser.write(content)
-  parser.end()
 
   const readMoreLinkText = `${t('readMore')} >`
 
