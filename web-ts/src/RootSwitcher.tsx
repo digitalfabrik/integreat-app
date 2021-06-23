@@ -47,7 +47,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const landingPath = createPath(LANDING_ROUTE, { languageCode: language })
   const cityContentPath = createPath(CATEGORIES_ROUTE, { cityCode: fixedCity ?? ':cityCode', languageCode: language })
 
-  if (loading) {
+  if (loading || (!cities && !error)) {
     return (
       <Layout>
         <LoadingSpinner />
@@ -64,20 +64,22 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
       </Layout>
     )
   }
+  const relevantCities = fixedCity ? cities.filter(city => city.code === fixedCity) : cities
 
   return (
     <Switch>
       <Redirect exact from='/' to={fixedCity ? cityContentPath : landingPath} />
-      <Redirect exact from={`/${LANDING_ROUTE}`} to={fixedCity ? cityContentPath : landingPath} />
       <Redirect exact from={`/:cityCode`} to={cityContentPath} />
-      <Route exact path={RoutePatterns[LANDING_ROUTE]} render={props => <LandingPage cities={cities} {...props} />} />
+      <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
+      {fixedCity && <Redirect exact from={RoutePatterns[LANDING_ROUTE]} to={landingPath} />}
+      <Route exact path={RoutePatterns[LANDING_ROUTE]} render={props => <LandingPage cities={relevantCities} {...props} />} />
       <Route
         exact
         path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}
         render={() => <MainDisclaimerPage languageCode={language} />}
       />
       <Route exact path={RoutePatterns[NOT_FOUND_ROUTE]} component={NotFoundPage} />
-      <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={cities} {...props} />} />
+      <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={relevantCities} {...props} />} />
     </Switch>
   )
 }
