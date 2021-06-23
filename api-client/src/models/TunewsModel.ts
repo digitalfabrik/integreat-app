@@ -1,5 +1,5 @@
 import { Moment } from 'moment'
-import { parseHTML } from '../../../utils/helpers'
+import { parseHTML } from '../../../native/src/utils/helpers'
 
 class TunewsModel {
   _id: number

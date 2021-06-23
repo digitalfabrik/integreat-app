@@ -15,13 +15,14 @@ import { TFunction } from 'react-i18next'
 import SearchHeader from '../components/SearchHeader'
 import { ThemeType } from 'build-configs'
 import normalizeSearchString from '../services/normalizeSearchString'
-import { Parser } from 'htmlparser2'
+// import { Parser } from 'htmlparser2'
 import dimensions from '../constants/dimensions'
 import FeedbackContainer from '../components/FeedbackContainer'
 import SadIcon from '../assets/smile-sad.svg'
 import sendTrackingSignal from '../services/sendTrackingSignal'
 import { urlFromRouteInformation } from '../navigation/url'
 import { ReactNode } from 'react'
+import { parseHTML } from '../utils/helpers'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -88,13 +89,17 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
       .map(
         (category: CategoryModel): ListEntryType => {
           const contentWithoutHtml: string[] = []
-          const parser = new Parser({
-            ontext(data: string) {
-              contentWithoutHtml.push(data)
-            }
+
+          parseHTML(category.content, data => {
+            contentWithoutHtml.push(data)
           })
-          parser.write(category.content)
-          parser.end()
+          // const parser = new Parser({
+          //   ontext(data: string) {
+          //     contentWithoutHtml.push(data)
+          //   }
+          // })
+          // parser.write(category.content)
+          // parser.end()
           return {
             model: {
               path: category.path,

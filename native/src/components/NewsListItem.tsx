@@ -7,9 +7,10 @@ import { ThemeType } from 'build-configs'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import { config } from 'translations'
-import { Parser } from 'htmlparser2'
+// import { Parser } from 'htmlparser2'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import { parseHTML } from '../utils/helpers'
 
 type PropsType = {
   newsItem: LocalNewsModel | TunewsModel
@@ -92,18 +93,23 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
   // Decode html entities
   let decodedContent = ''
-  const parser = new Parser(
-    {
-      ontext(data: string) {
-        decodedContent += data
-      }
-    },
-    {
-      decodeEntities: true
-    }
-  )
-  parser.write(content)
-  parser.end()
+  parseHTML(content, data => {
+    decodedContent += data
+  }, {
+    decodeEntities: true
+  })
+  // const parser = new Parser(
+  //   {
+  //     ontext(data: string) {
+  //       decodedContent += data
+  //     }
+  //   },
+  //   {
+  //     decodeEntities: true
+  //   }
+  // )
+  // parser.write(content)
+  // parser.end()
   return (
     <>
       <Divider />
