@@ -24,7 +24,6 @@ export default {
         https://github.com/facebook/jest/issues/6127 */
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
-    '\\.(css|less)$': 'identity-obj-proxy'
   },
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',
