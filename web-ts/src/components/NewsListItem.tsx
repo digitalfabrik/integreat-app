@@ -57,10 +57,18 @@ type PropsType = {
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
   // Decode html entities
   let decodedContent = ''
+  let decodedTitle = ''
   parseHTML(
     content, 
     data => {
       decodedContent += data
+    },
+    { decodeEntities: true }
+  )
+  parseHTML(
+    title, 
+    data => {
+      decodedTitle += data
     },
     { decodeEntities: true }
   )
@@ -71,7 +79,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
     <StyledNewsListItem>
       <Link to={link}>
         <Description>
-          <Title>{title}</Title>
+          <Title>{decodedTitle}</Title>
           <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
