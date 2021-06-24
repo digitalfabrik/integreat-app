@@ -71,7 +71,11 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
       <Redirect exact from={`/:cityCode`} to={cityContentPath} />
       <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
       {fixedCity && <Redirect exact from={RoutePatterns[LANDING_ROUTE]} to={landingPath} />}
-      <Route exact path={RoutePatterns[LANDING_ROUTE]} render={props => <LandingPage cities={relevantCities} {...props} />} />
+      <Route
+        exact
+        path={RoutePatterns[LANDING_ROUTE]}
+        render={props => <LandingPage cities={relevantCities} {...props} />}
+      />
       <Route
         exact
         path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}
