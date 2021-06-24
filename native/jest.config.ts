@@ -11,7 +11,6 @@ const transformNodeModules = [
   'api-client',
   'translations',
   '@sentry/react-native',
-  'hashids',
   'build-configs'
 ]
 export default {
