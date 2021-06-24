@@ -22,6 +22,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { FailureSwitcher } from '../components/FailureSwitcher'
 import Page from '../components/Page'
+import { parseHTML } from '../../../native/src/utils/helpers'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -112,11 +113,18 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   }
 
   if (newsModel) {
+    let decodedNewsModelTitle = ''
+    parseHTML(newsModel.title, data => {
+      decodedNewsModelTitle += data
+    }, {
+      decodeEntities: true
+    })
+
     const linkedContent = replaceLinks(newsModel.message)
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
         <Page
-          title={newsModel.title}
+          title={decodedNewsModelTitle}
           content={linkedContent}
           formatter={formatter}
           lastUpdateFormat='LLL'
