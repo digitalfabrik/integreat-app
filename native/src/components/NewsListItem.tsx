@@ -7,7 +7,6 @@ import { ThemeType } from 'build-configs'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import { config } from 'translations'
-// import { Parser } from 'htmlparser2'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { parseHTML } from '../utils/helpers'
@@ -93,8 +92,14 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
   // Decode html entities
   let decodedContent = ''
+  let decodedNewsItemTitle = ''
   parseHTML(content, data => {
     decodedContent += data
+  }, {
+    decodeEntities: true
+  })
+  parseHTML(newsItem.title, data => {
+    decodedNewsItemTitle += data
   }, {
     decodeEntities: true
   })
@@ -106,7 +111,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
         <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
           <Description theme={theme}>
             <ListItemView language={language} theme={theme}>
-              <Title theme={theme}>{newsItem.title}</Title>
+              <Title theme={theme}>{decodedNewsItemTitle}</Title>
             </ListItemView>
             <ListItemView language={language} theme={theme}>
               <Content numberOfLines={5} language={language} theme={theme}>

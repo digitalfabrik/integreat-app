@@ -9,6 +9,7 @@ import styled from 'styled-components/native'
 import Html from 'react-native-render-html'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import { parseHTML } from '../utils/helpers'
 
 const Container = styled.View`
   align-items: center;
@@ -56,6 +57,14 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
     },
     [navigateToLink, language]
   )
+
+  let decodedNewsItemTitle = ''
+  parseHTML(newsItem.title, data => {
+    decodedNewsItemTitle += data
+  }, {
+    decodeEntities: true
+  })
+
   return (
     <View
       style={{
@@ -74,7 +83,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
           </HeaderImageWrapper>
         )}
         <Container>
-          <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
+          <NewsHeadLine theme={theme}>{decodedNewsItemTitle}</NewsHeadLine>
           <Html
             source={{
               html: content
