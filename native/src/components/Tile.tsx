@@ -1,8 +1,9 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 import TileModel from '../models/TileModel'
-import Image from './Image'
+import SimpleImage from './SimpleImage'
 import { ThemeType } from 'build-configs'
 
 type PropsType = {
@@ -10,7 +11,7 @@ type PropsType = {
   onTilePress: (tile: TileModel) => void
   theme: ThemeType
 }
-const ThumbnailContainer = styled(Image)`
+const ThumbnailContainer = styled(SimpleImage)`
   height: 150px;
 `
 const TileTitle = styled.Text`
@@ -23,17 +24,18 @@ const TileContainer = styled.View`
   margin-bottom: 20px;
   width: 50%;
 `
+
 /**
  * Displays a single Tile
  */
-
 class Tile extends React.Component<PropsType> {
-  onTilePress = () => {
+  onTilePress = (): void => {
     this.props.onTilePress(this.props.tile)
   }
 
-  render() {
+  render(): ReactNode {
     const { tile, theme } = this.props
+
     return (
       <TileContainer>
         <TouchableOpacity onPress={this.onTilePress}>

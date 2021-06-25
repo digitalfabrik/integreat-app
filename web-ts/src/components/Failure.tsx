@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
 import styled from 'styled-components'
 import { faFrown } from '../constants/icons'
@@ -29,7 +29,7 @@ export class Failure extends React.PureComponent<PropsType> {
     goToPath: '/'
   }
 
-  render() {
+  render(): ReactNode {
     const { t, errorMessage, goToPath, goToMessage } = this.props
 
     return (

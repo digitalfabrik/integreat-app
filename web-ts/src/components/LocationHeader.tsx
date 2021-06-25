@@ -10,12 +10,10 @@ import {
   CityModel,
   EVENTS_ROUTE,
   LANDING_ROUTE,
-  LOCAL_NEWS_TYPE,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  TU_NEWS_TYPE
+  SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 import offersIcon from '../assets/offers.svg'
 import localInformationIcon from '../assets/local_information.svg'
@@ -24,7 +22,7 @@ import newsIcon from '../assets/news.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import buildConfig from '../constants/buildConfig'
-import { createPath, RouteType } from '../routes'
+import { createPath, LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 
 type PropsType = {
   cityModel: CityModel
@@ -45,7 +43,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
   const eventsPath = createPath(EVENTS_ROUTE, params)
   const offersPath = createPath(OFFERS_ROUTE, params)
   const poisPath = createPath(POIS_ROUTE, params)
-  const newsPath = createPath(pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE, params)
+  const newsPath = createPath(pushNotificationsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE, params)
   const searchPath = createPath(SEARCH_ROUTE, params)
   const landingPath = createPath(LANDING_ROUTE, { languageCode })
 
@@ -99,7 +97,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
       items.push(
         <HeaderNavigationItem
           key='news'
-          active={route === LOCAL_NEWS_TYPE || route === TU_NEWS_TYPE}
+          active={route === LOCAL_NEWS_ROUTE || route === TU_NEWS_ROUTE || route === TU_NEWS_DETAIL_ROUTE}
           href={newsPath}
           text={t('news')}
           icon={newsIcon}

@@ -50,10 +50,10 @@ function unlink(file: string): Promise<void> {
 }
 
 export default {
-  DocumentDir: () => {},
+  DocumentDir: (): void => {},
   ImageCache: {
     get: {
-      clear: () => {}
+      clear: (): void => {}
     }
   },
   fs: {

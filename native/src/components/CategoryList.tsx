@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import CategoryListItem from './CategoryListItem'
 import styled from 'styled-components/native'
-import Image from './Image'
+import SimpleImage from './SimpleImage'
 import CategoryListCaption from './CategoryListCaption'
 import CategoryListContent from './CategoryListContent'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
@@ -39,7 +40,7 @@ type PropsType = {
   language: string
   thumbnail?: string
 }
-const CategoryThumbnail = styled(Image)`
+const CategoryThumbnail = styled(SimpleImage)`
   align-self: center;
   flex-shrink: 0;
   width: 70px;
@@ -70,7 +71,7 @@ class CategoryList extends React.Component<PropsType> {
     )
   }
 
-  render() {
+  render(): ReactNode {
     const { categories, title, listContent, query, theme, onItemPress, language, thumbnail } = this.props
     return (
       <>

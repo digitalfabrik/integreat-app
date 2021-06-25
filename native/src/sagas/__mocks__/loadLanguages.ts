@@ -1,21 +1,21 @@
 import { DataContainer } from '../../services/DataContainer'
 import { LanguageModel } from 'api-client'
-import { call, StrictEffect } from 'redux-saga/effects'
+import { call, SagaGenerator } from 'typed-redux-saga'
 
 export default function* (
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean
-): Generator<StrictEffect, Array<LanguageModel>, boolean | Array<LanguageModel>> {
-  const languagesAvailable = (yield call(() => dataContainer.languagesAvailable(city))) as boolean
+): SagaGenerator<Array<LanguageModel>> {
+  const languagesAvailable = yield* call(() => dataContainer.languagesAvailable(city))
 
   if (!languagesAvailable || forceRefresh) {
     if (city === 'augsburg') {
-      return (yield call(dataContainer.getLanguages, city)) as Array<LanguageModel>
+      return yield* call(dataContainer.getLanguages, city)
     } else {
       throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
     }
   }
 
-  return (yield call(dataContainer.getLanguages, city)) as Array<LanguageModel>
+  return yield* call(dataContainer.getLanguages, city)
 }

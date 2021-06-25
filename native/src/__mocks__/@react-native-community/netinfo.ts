@@ -30,23 +30,23 @@ export const addEventListener = (
 export const useNetInfo = (): NetInfoState => {
   throw Error('Not yet implemented in mock.')
 }
-export const removeEventListener = () => {
+export const removeEventListener = (): void => {
   throw Error('Function is deprecated')
 }
-export const getConnectionInfo = () => {
+export const getConnectionInfo = (): void => {
   throw Error('Function is deprecated')
 }
-export const isConnectionExpensive = () => {
+export const isConnectionExpensive = (): void => {
   throw Error('Function is deprecated')
 }
 export const isConnected = {
-  addEventListener: () => {
+  addEventListener: (): void => {
     throw Error('Function is deprecated')
   },
-  removeEventListener: () => {
+  removeEventListener: (): void => {
     throw Error('Function is deprecated')
   },
-  fetch: () => {
+  fetch: (): void => {
     throw Error('Function is deprecated')
   }
 }

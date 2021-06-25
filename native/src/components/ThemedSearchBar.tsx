@@ -1,7 +1,9 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { ThemeType } from 'build-configs'
 import { SearchBar } from 'react-native-elements'
 import { TFunction } from 'react-i18next'
+
 type PropsType = {
   theme: ThemeType
   onChangeText: (text: string) => void
@@ -11,7 +13,7 @@ type PropsType = {
 }
 
 class ThemedSearchBar extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     const { theme, onChangeText, value, autofocus, t } = this.props
     const { colors } = theme
     return (

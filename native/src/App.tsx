@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, ReactElement } from 'react'
 import { Provider } from 'react-redux'
 import createReduxStore from './redux/createReduxStore'
 import IOSSafeAreaView from './components/IOSSafeAreaView'
@@ -21,7 +21,9 @@ import SnackbarContainer from './components/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
 import sendTrackingSignal from './services/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
+import { enableScreens } from 'react-native-screens'
 
+enableScreens(true)
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
 })
@@ -49,7 +51,7 @@ const linking: LinkingOptions = {
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 
-const App = () => {
+const App = (): ReactElement => {
   const [routeName, setRouteName] = useState<string | null | undefined>(null)
   const [routeKey, setRouteKey] = useState<string | null | undefined>(null)
   const [routeIndex, setRouteIndex] = useState<number>(0)

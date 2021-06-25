@@ -157,7 +157,7 @@ commands:
                     - 3-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
-                command: bundle exec pod install --deployment
+                command: bundle exec pod install
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
@@ -963,6 +963,36 @@ workflows:
                 requires:
                     - bump_version
                     - check_web
+            - build_web:
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
+                    - check_web
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
+                    - check_web
+            - deliver_web:
+                context:
+                    - mattermost
+                    - sentry
+                filters:
+                    branches:
+                        only:
+                            - main
+                production_delivery: false
+                requires:
+                    - check_web
+                    - build_ig_test_cms_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
             - check_native:
                 context:
                     - mattermost

@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useState } from 'react'
+import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import dimensions from '..//constants/dimensions'
@@ -71,15 +71,15 @@ type PropsType = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = (props: PropsType) => {
+const HeaderActionItemDropDown = (props: PropsType): ReactElement => {
   const { iconSrc, text, children } = props
   const [dropDownActive, setDropDownActive] = useState(false)
 
-  const toggleDropDown = () => {
+  const toggleDropDown = (): void => {
     setDropDownActive(!dropDownActive)
   }
 
-  const closeDropDown = () => {
+  const closeDropDown = (): void => {
     setDropDownActive(false)
   }
 

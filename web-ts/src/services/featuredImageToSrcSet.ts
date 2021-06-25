@@ -11,7 +11,7 @@ const roundToOneDecimal = number => Math.round(number * ten) / ten
  * @param defaultWidth
  * @returns {string}
  */
-const featuredImageToSrcSet = (featuredImage: FeaturedImageModel, defaultWidth: number) =>
+const featuredImageToSrcSet = (featuredImage: FeaturedImageModel, defaultWidth: number): string =>
   [featuredImage.thumbnail, featuredImage.medium, featuredImage.large, featuredImage.full]
     .map(({ url, width }) => `${encodeURI(url)} ${roundToOneDecimal(width / defaultWidth)}x`)
     .join(', ')

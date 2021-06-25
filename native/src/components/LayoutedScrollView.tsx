@@ -1,13 +1,14 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import LayoutContainer from './LayoutContainer'
-import { ScrollView } from 'react-native'
+import { RefreshControlProps, ScrollView } from 'react-native'
 
 type ScrollViewPropsType = {
   children?: React.ReactNode
-  refreshControl: React.ReactElement<any>
+  refreshControl: React.ReactElement<RefreshControlProps>
 }
 
-const LayoutedScrollView = (props: ScrollViewPropsType) => {
+const LayoutedScrollView = (props: ScrollViewPropsType): ReactElement => {
   const { children, refreshControl } = props
   return (
     <LayoutContainer>

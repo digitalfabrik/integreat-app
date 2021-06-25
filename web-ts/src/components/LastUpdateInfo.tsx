@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import { Moment } from 'moment'
 import styled from 'styled-components'
@@ -20,7 +20,14 @@ type PropsType = {
   formatter: DateFormatter
 }
 
-export const LastUpdateInfo = ({ lastUpdate, t, withText, className, formatter, format = 'LL' }: PropsType) => {
+export const LastUpdateInfo = ({
+  lastUpdate,
+  t,
+  withText,
+  className,
+  formatter,
+  format = 'LL'
+}: PropsType): ReactElement => {
   // only show day, month and year
   const timestamp = formatter.format(lastUpdate, { format })
   return (
