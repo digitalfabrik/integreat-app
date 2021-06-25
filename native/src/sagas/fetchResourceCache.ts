@@ -1,15 +1,10 @@
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, put, fork, take, cancel, StrictEffect } from 'redux-saga/effects'
-import { Task } from 'redux-saga'
-import { ResourcesFetchProgressActionType, ResourcesFetchFailedActionType } from '../redux/StoreActionType'
+import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
+import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
 import FetcherModule, { FetchResultType, TargetFilePathsType } from '../services/FetcherModule'
 import { DataContainer } from '../services/DataContainer'
 import moment from 'moment'
-import {
-  LanguageResourceCacheStateType,
-  PageResourceCacheEntryStateType,
-  PageResourceCacheStateType
-} from '../redux/StateType'
+import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { fromError } from '../constants/ErrorCodes'
 
 export type FetchMapTargetType = {
@@ -27,21 +22,21 @@ const createErrorMessage = (fetchResult: FetchResultType) => {
   )
 }
 
-function* watchOnProgress(): Generator<StrictEffect, void, number> {
+function* watchOnProgress() {
   const channel = new FetcherModule().createProgressChannel()
 
   try {
     let progress = 0
 
     while (progress < 1) {
-      progress = yield take(channel)
+      progress = yield* take(channel)
       const progressAction: ResourcesFetchProgressActionType = {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
           progress: progress
         }
       }
-      yield put(progressAction)
+      yield* put(progressAction)
     }
   } finally {
     channel.close()
@@ -53,7 +48,7 @@ export default function* fetchResourceCache(
   language: string,
   fetchMap: FetchMapType,
   dataContainer: DataContainer
-): Generator<StrictEffect, void, Task | FetchResultType> {
+): SagaGenerator<void> {
   try {
     const fetchMapTargets = flatten<FetchMapTargetType>(values(fetchMap))
     const targetFilePaths = reduce<FetchMapTargetType, TargetFilePathsType>(
@@ -69,11 +64,11 @@ export default function* fetchResourceCache(
       throw new Error('Already fetching!')
     }
 
-    const progressTask = (yield fork(watchOnProgress)) as Task
-    const results = (yield call(new FetcherModule().fetchAsync, targetFilePaths)) as FetchResultType
-    yield cancel(progressTask)
-    const successResults: FetchResultType = pickBy(results, result => !result.errorMessage)
-    const failureResults: FetchResultType = pickBy(results, result => !!result.errorMessage)
+    const progressTask = yield* fork(watchOnProgress)
+    const results = yield* call(new FetcherModule().fetchAsync, targetFilePaths)
+    yield* cancel(progressTask)
+    const successResults = pickBy(results, result => !result.errorMessage)
+    const failureResults = pickBy(results, result => !!result.errorMessage)
 
     if (!isEmpty(failureResults)) {
       // TODO: we might remember which files have failed to retry later
@@ -82,8 +77,8 @@ export default function* fetchResourceCache(
       console.log(message)
     }
 
-    const resourceCache: LanguageResourceCacheStateType = mapValues(fetchMap, fetchMapEntry =>
-      reduce<FetchMapTargetType, PageResourceCacheStateType>(
+    const resourceCache = mapValues(fetchMap, fetchMapEntry =>
+      reduce(
         fetchMapEntry,
         (acc: Record<string, PageResourceCacheEntryStateType>, fetchMapTarget: FetchMapTargetType) => {
           const filePath = fetchMapTarget.filePath
@@ -99,10 +94,10 @@ export default function* fetchResourceCache(
 
           return acc
         },
-        {} as PageResourceCacheStateType
+        {}
       )
     )
-    yield call(dataContainer.setResourceCache, city, language, resourceCache)
+    yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
@@ -112,6 +107,6 @@ export default function* fetchResourceCache(
         code: fromError(e)
       }
     }
-    yield put(failed)
+    yield* put(failed)
   }
 }

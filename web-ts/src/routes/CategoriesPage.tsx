@@ -12,6 +12,7 @@ import {
   normalizePath,
   NotFoundError,
   Payload,
+  ResponseError,
   useLoadFromEndpoint
 } from 'api-client'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -29,6 +30,8 @@ import moment from 'moment'
 import { config } from 'translations'
 import { createPath } from './index'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+
+const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
 const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   const title = category.isRoot() ? cityName : category.title
@@ -150,15 +153,12 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
   }
 
   if (!category || !parents || !categories) {
+    const notFoundError = new NotFoundError({ type: 'category', id: pathname, city: cityCode, language: languageCode })
     const error =
-      categoriesError ||
-      parentsError ||
-      new NotFoundError({
-        type: 'category',
-        id: pathname,
-        city: cityCode,
-        language: languageCode
-      })
+      // The cms returns a 400 BAD REQUEST if the path is not a valid categories path
+      categoriesError instanceof ResponseError && categoriesError.response.status === CATEGORY_NOT_FOUND_STATUS_CODE
+        ? notFoundError
+        : categoriesError || parentsError || notFoundError
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>

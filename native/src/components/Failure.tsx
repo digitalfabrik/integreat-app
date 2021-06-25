@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import { TFunction } from 'react-i18next'
@@ -24,7 +24,7 @@ export type PropsType = {
 }
 
 class Failure extends React.Component<PropsType> {
-  render() {
+  render(): ReactNode {
     const { t, code, tryAgain, theme } = this.props
     return (
       <ViewContainer>

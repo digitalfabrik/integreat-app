@@ -45,12 +45,16 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
 
     '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'warn',
-    '@typescript-eslint/no-unused-vars': ['error', {
-      'argsIgnorePattern': '_(unused)?',
-      'varsIgnorePattern': '_(unused)?',
-      'ignoreRestSiblings': true
-    }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '_(unused)?',
+        varsIgnorePattern: '_(unused)?',
+        ignoreRestSiblings: true
+      }
+    ],
     '@typescript-eslint/no-use-before-define': ['error'],
 
     'jest/consistent-test-it': 'error',

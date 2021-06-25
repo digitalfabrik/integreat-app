@@ -6,6 +6,7 @@ const availableLanguages = new Map([
   ['de', '/de/test'],
   ['en', '/en/test']
 ])
+
 const pois = [
   new PoiModel({
     path: 'test',
@@ -29,25 +30,25 @@ const pois = [
     hash: 'test'
   }),
   new PoiModel({
-    path: 'test',
-    title: 'test',
-    content: 'test',
-    thumbnail: 'test',
+    path: '/augsburg/en/locations/test_path_2',
+    title: 'test title 2',
+    content: 'test content 2',
+    thumbnail: 'test thumbnail 2',
     availableLanguages: availableLanguages,
-    excerpt: 'test',
+    excerpt: 'test excerpt 2',
     location: new LocationModel({
-      country: 'country',
-      region: 'region',
-      state: 'state',
-      address: 'address',
-      town: 'town',
-      postcode: 'postcode',
+      country: 'test country 2',
+      region: 'test region 2',
+      state: 'test state 2',
+      address: 'test address 2',
+      town: 'test town 2',
+      postcode: 'test postcode 2',
       latitude: '15',
       longitude: '15',
       name: 'name'
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-    hash: 'test'
+    hash: 'test hash'
   })
 ]
 

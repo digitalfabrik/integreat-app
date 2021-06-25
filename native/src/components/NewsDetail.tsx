@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useCallback, useContext } from 'react'
+import { ReactElement, useCallback, useContext } from 'react'
 import { ScrollView, useWindowDimensions, View } from 'react-native'
 import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
 import { ThemeType } from 'build-configs'
@@ -16,7 +16,7 @@ const Container = styled.View`
   flex: 1;
 `
 const TimeStampContent = styled.Text<{ language: string }>`
-  padding: 17px 0px
+  padding: 17px 0px;
   text-align: ${props => contentAlignment(props.language)};
 `
 const HeaderImageWrapper = styled.View`
@@ -46,7 +46,7 @@ type PropsType = {
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
-const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType) => {
+const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const width = useWindowDimensions().width
   const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)

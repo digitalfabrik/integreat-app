@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 import { CategoryListModelType } from './CategoryList'
@@ -30,11 +31,11 @@ type PropsType = {
 }
 
 class SubCategoryListItem extends React.PureComponent<PropsType> {
-  onSubCategoryPress = () => {
+  onSubCategoryPress = (): void => {
     this.props.onItemPress(this.props.subCategory)
   }
 
-  render() {
+  render(): ReactNode {
     const { language, subCategory, theme } = this.props
     return (
       <FlexStyledLink
