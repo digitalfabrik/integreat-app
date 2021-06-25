@@ -18,17 +18,18 @@ You need to follow several steps to add new languages:
 
 - Pick the correct tag for your language: https://iso639-3.sil.org/code_tables/639/data
   - Normally the two letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language tag should be used.
-  - Exceptions: If the ISO 639-1 language tag corresponds to the macro language or you want to prevent ambiguities/misconceptions, 
+  - Exceptions: If the ISO 639-1 language tag corresponds to the macro language or you want to prevent ambiguities/misconceptions,
     the three letter [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) language tag may be the better choice.
 - Add your language tag to the [config](src/config.ts) with its script direction (and possible additional fonts).
-- Test the new language on both native and web.  
+- Test the new language on both native and web.
 - Add the new language to the [wiki](https://wiki.tuerantuer.org/integreat-languages).
 - Translate our [translations](translations.json) in your new language, see [export and import workflow](#export-and-import-workflow).
 
 If you need a new font for your language, the following steps are required:
-- `web`: Add the new font as `.eot`, `.svg`, `.ttf`, `woff` and `woff2` along  with a `.css` stylesheet and a license [here](../web-ts/www/fonts).
+
+- `web`: Add the new font as `.eot`, `.svg`, `.ttf`, `woff` and `woff2` along with a `.css` stylesheet and a license [here](../web-ts/www/fonts).
 - `iOS` Add the new font as `.ttf` [here](../native/ios/Integreat/fonts) and register the new font in XCode.
-- `android`:  Add the new font as `.ttf` [here](../native/android/app/src/main/assets/fonts).
+- `android`: Add the new font as `.ttf` [here](../native/android/app/src/main/assets/fonts).
 
 ## Export and import workflow
 
