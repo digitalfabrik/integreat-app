@@ -11,7 +11,6 @@ import {
 import CategoryList from '../components/CategoryList'
 import SearchFeedback from '../components/SearchFeedback'
 import normalizeSearchString from '../services/normalizeSearchString'
-import { Parser } from 'htmlparser2'
 import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -20,6 +19,7 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath } from './index'
 import { useTranslation } from 'react-i18next'
+import { parseHTML } from 'api-client/src/utils/helpers'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
@@ -90,19 +90,18 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
 
   // find all categories whose contents but not titles include the filter text and sort them lexicographically
   let contentWithoutHtml: string[] = []
-  const parser = new Parser({
-    ontext(text: string) {
-      contentWithoutHtml.push(text)
-    }
-  })
+
   const categoriesWithContent = categories
     .toArray()
     .filter(category => !normalizeSearchString(category.title).includes(normalizedFilterText))
     .map(
       (category: CategoryModel): CategoryEntryType => {
         contentWithoutHtml = []
-        parser.write(category.content)
-        parser.end()
+
+        parseHTML(category.content, text => {
+          contentWithoutHtml.push(text)
+        })
+
         return {
           model: category,
           contentWithoutHtml: contentWithoutHtml.join(' '),

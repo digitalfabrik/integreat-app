@@ -9,7 +9,7 @@ import { contentAlignment, contentDirection } from '../constants/contentDirectio
 import { config } from 'translations'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { parseHTML } from '../utils/helpers'
+import { parseHTML } from 'api-client/src/utils/helpers'
 
 type PropsType = {
   newsItem: LocalNewsModel | TunewsModel

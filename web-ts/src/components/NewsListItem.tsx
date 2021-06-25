@@ -7,7 +7,7 @@ import { Description } from './ListItem'
 import { TFunction } from 'react-i18next'
 import textTruncator from '../services/textTruncator'
 import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
-import { parseHTML } from '../../../native/src/utils/helpers'
+import { parseHTML } from 'api-client/src/utils/helpers'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 

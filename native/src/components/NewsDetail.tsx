@@ -9,7 +9,7 @@ import styled from 'styled-components/native'
 import Html from 'react-native-render-html'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { parseHTML } from '../utils/helpers'
+import { parseHTML } from 'api-client/src/utils/helpers'
 
 const Container = styled.View`
   align-items: center;
