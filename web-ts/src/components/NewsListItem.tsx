@@ -59,14 +59,14 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
   let decodedContent = ''
   let decodedTitle = ''
   parseHTML(
-    content, 
+    content,
     data => {
       decodedContent += data
     },
     { decodeEntities: true }
   )
   parseHTML(
-    title, 
+    title,
     data => {
       decodedTitle += data
     },

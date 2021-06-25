@@ -93,16 +93,24 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   // Decode html entities
   let decodedContent = ''
   let decodedNewsItemTitle = ''
-  parseHTML(content, data => {
-    decodedContent += data
-  }, {
-    decodeEntities: true
-  })
-  parseHTML(newsItem.title, data => {
-    decodedNewsItemTitle += data
-  }, {
-    decodeEntities: true
-  })
+  parseHTML(
+    content,
+    data => {
+      decodedContent += data
+    },
+    {
+      decodeEntities: true
+    }
+  )
+  parseHTML(
+    newsItem.title,
+    data => {
+      decodedNewsItemTitle += data
+    },
+    {
+      decodeEntities: true
+    }
+  )
 
   return (
     <>
