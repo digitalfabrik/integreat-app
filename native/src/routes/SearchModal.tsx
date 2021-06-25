@@ -21,7 +21,7 @@ import SadIcon from '../assets/smile-sad.svg'
 import sendTrackingSignal from '../services/sendTrackingSignal'
 import { urlFromRouteInformation } from '../navigation/url'
 import { ReactNode } from 'react'
-import { parseHTML } from '../utils/helpers'
+import { parseHTML } from 'api-client/src/utils/helpers'
 
 const Wrapper = styled.View`
   position: absolute;
