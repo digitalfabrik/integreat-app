@@ -104,6 +104,7 @@ describe('RootSwitcher', () => {
       ${'/landing'}     | ${'/augsburg/de'}
       ${'/augsburg'}    | ${'/augsburg/de'}
       ${'/augsburg/de'} | ${'/augsburg/de'}
+      ${'/oldtown'}     | ${'/augsburg/de'}
       ${'/oldtown/de'}  | ${'/oldtown/de'}
     `('should redirect from $from to $to for fixedCity', ({ from, to }) => {
       mockUseLoadFromEndpoint(() => ({
