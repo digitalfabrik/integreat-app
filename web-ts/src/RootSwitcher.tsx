@@ -46,7 +46,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const landingPath = createPath(LANDING_ROUTE, { languageCode: language })
   const cityContentPath = createPath(CATEGORIES_ROUTE, { cityCode: fixedCity ?? ':cityCode', languageCode: language })
 
-  if (loading || (!cities && !error)) {
+  if (loading) {
     return (
       <Layout>
         <LoadingSpinner />
