@@ -3,7 +3,7 @@ import { parseHTML } from '../helpers'
 describe('Helper Methods', () => {
   describe('parseHTML', () => {
     let parsedResult = ''
-    const ontextFn = data => {
+    const ontextFn = (data: string): void => {
       parsedResult += data
     }
 
