@@ -97,7 +97,6 @@
     "@testing-library/jest-native": "^3.4.3",
     "@testing-library/react-native": "^7.1.0",
     "@types/hashids": "^1.0.32",
-    "@types/htmlparser2": "^3.10.2",
     "@types/jsdom": "^16.2.10",
     "@types/lodash": "^4.14.168",
     "@types/react-native": "0.63.4",
