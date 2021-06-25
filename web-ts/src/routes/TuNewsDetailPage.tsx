@@ -18,6 +18,7 @@ import { FailureSwitcher } from '../components/FailureSwitcher'
 import Page from '../components/Page'
 import styled from 'styled-components'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import { parseHTML } from 'api-client/src/utils/helpers'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -109,6 +110,15 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     )
   }
 
+  let decodedNewsModelTitle = ''
+  parseHTML(
+    newsModel.title,
+    data => {
+      decodedNewsModelTitle += data
+    },
+    { decodeEntities: true }
+  )
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <StyledContainer>
@@ -119,7 +129,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
             </StyledTitle>
           </StyledBanner>
           <Page
-            title={newsModel.title}
+            title={decodedNewsModelTitle}
             content={newsModel.content}
             formatter={formatter}
             lastUpdateFormat='LLL'
