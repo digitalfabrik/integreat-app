@@ -1,32 +1,30 @@
-import { all, call, Effect, ForkEffect, put, select, takeLatest } from 'redux-saga/effects'
+import { all, call, put, SagaGenerator, select, takeLatest } from 'typed-redux-saga'
 import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError, LanguageModel } from 'api-client'
+import { ErrorCode, fromError } from 'api-client'
 
-export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): Generator<Effect, void, any> {
+export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params
 
   try {
-    const peeking = yield select(state =>
+    const peeking = yield* select(state =>
       isPeekingRoute(state, {
         routeCity: city
       })
     )
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
-    const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const languageValid = yield* call(loadCityContent, dataContainer, city, language, loadCriterion)
     // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages()
-      ? yield call(dataContainer.getLanguages, city)
-      : []
+    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield* call(dataContainer.getLanguages, city) : []
 
     if (languageValid) {
-      const [pois, resourceCache] = yield all([
-        call(dataContainer.getPois, city, language),
-        call(dataContainer.getResourceCache, city, language)
-      ])
+      const { pois, resourceCache } = yield* all({
+        pois: call(dataContainer.getPois, city, language),
+        resourceCache: call(dataContainer.getResourceCache, city, language)
+      })
       const insert: PushPoiActionType = {
         type: 'PUSH_POI',
         params: {
@@ -39,7 +37,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
           city
         }
       }
-      yield put(insert)
+      yield* put(insert)
     } else {
       const allAvailableLanguages = path === null ? new Map(cityLanguages.map(lng => [lng.code, null])) : null
       const failed: FetchPoiFailedActionType = {
@@ -54,7 +52,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
           city
         }
       }
-      yield put(failed)
+      yield* put(failed)
     }
   } catch (e) {
     console.error(e)
@@ -70,9 +68,10 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
         allAvailableLanguages: null
       }
     }
-    yield put(failed)
+    yield* put(failed)
   }
 }
-export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
-  yield takeLatest('FETCH_POI', fetchPoi, dataContainer)
+
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+  yield* takeLatest('FETCH_POI', fetchPoi, dataContainer)
 }

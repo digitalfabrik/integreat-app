@@ -1,4 +1,4 @@
-import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeEvery } from 'redux-saga/effects'
+import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
 import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -8,9 +8,7 @@ import { DataContainer } from '../services/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { Moment } from 'moment'
-import { CategoriesMapModel, ErrorCode, fromError, LanguageModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { ErrorCode, fromError } from 'api-client'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -20,45 +18,28 @@ import { LanguageResourceCacheStateType } from '../redux/StateType'
  * @param routeCity The key of the current route
  * @returns true if the fetch corresponds to a peek
  */
-function* isPeeking(routeCity: string): Generator<SelectEffect, void> {
-  yield select(state =>
+function* isPeeking(routeCity: string): SagaGenerator<boolean> {
+  return yield* select(state =>
     isPeekingRoute(state, {
       routeCity
     })
   )
 }
 
-export function* fetchCategory(
-  dataContainer: DataContainer,
-  action: FetchCategoryActionType
-): Generator<
-  CallEffect | PutEffect,
-  void,
-  CategoriesMapModel | LanguageResourceCacheStateType | Moment | null | Array<LanguageModel> | boolean
-> {
+export function* fetchCategory(dataContainer: DataContainer, action: FetchCategoryActionType): SagaGenerator<void> {
   const { city, language, path, depth, key, criterion } = action.params
 
   try {
-    const peeking = (yield call(isPeeking, city)) as boolean
+    const peeking = yield* call(isPeeking, city)
     const loadCriterion = new ContentLoadCriterion(criterion, peeking)
-    const languageValid = yield call(loadCityContent, dataContainer, city, language, loadCriterion)
+    const languageValid = yield* call(loadCityContent, dataContainer, city, language, loadCriterion)
     // Only get languages if we've loaded them, otherwise we're peeking
-    const cityLanguages: Array<LanguageModel> = loadCriterion.shouldLoadLanguages()
-      ? ((yield call(dataContainer.getLanguages, city)) as Array<LanguageModel>)
-      : []
+    const cityLanguages = loadCriterion.shouldLoadLanguages() ? yield* call(dataContainer.getLanguages, city) : []
 
     if (languageValid) {
-      const categoriesMap: CategoriesMapModel = (yield call(
-        dataContainer.getCategoriesMap,
-        city,
-        language
-      )) as CategoriesMapModel
-      const resourceCache: LanguageResourceCacheStateType = (yield call(
-        dataContainer.getResourceCache,
-        city,
-        language
-      )) as LanguageResourceCacheStateType
-      const lastUpdate: Moment | null = (yield call(dataContainer.getLastUpdate, city, language)) as Moment | null
+      const categoriesMap = yield* call(dataContainer.getCategoriesMap, city, language)
+      const resourceCache = yield* call(dataContainer.getResourceCache, city, language)
+      const lastUpdate = yield* call(dataContainer.getLastUpdate, city, language)
       const refresh = loadCriterion.shouldUpdate(lastUpdate)
       const push: PushCategoryActionType = {
         type: 'PUSH_CATEGORY',
@@ -74,7 +55,7 @@ export function* fetchCategory(
           refresh
         }
       }
-      yield put(push)
+      yield* put(push)
     } else {
       const allAvailableLanguages =
         path === `/${city}/${language}` ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`])) : null
@@ -91,7 +72,7 @@ export function* fetchCategory(
           allAvailableLanguages
         }
       }
-      yield put(failedAction)
+      yield* put(failedAction)
     }
   } catch (e) {
     console.error(e)
@@ -108,10 +89,10 @@ export function* fetchCategory(
         allAvailableLanguages: null
       }
     }
-    yield put(failed)
+    yield* put(failed)
   }
 }
 
-export default function* (dataContainer: DataContainer): Generator<ForkEffect, void> {
-  yield takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
+export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+  yield* takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }
