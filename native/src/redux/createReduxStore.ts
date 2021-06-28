@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore, Middleware, Store } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createDebugger from 'redux-flipper'
-import { all, call } from 'redux-saga/effects'
+import { all, call } from 'typed-redux-saga'
 import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState, StateType } from './StateType'
 import { StoreActionType } from './StoreActionType'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -22,7 +22,7 @@ import resourceCacheUrlReducer from './reducers/resourceCacheUrlReducer'
 import snackbarReducer from './reducers/snackbarReducer'
 
 function* rootSaga(dataContainer: DataContainer) {
-  yield all([
+  yield* all([
     call(watchFetchCategory, dataContainer),
     call(watchFetchEvent, dataContainer),
     call(watchFetchPoi, dataContainer),

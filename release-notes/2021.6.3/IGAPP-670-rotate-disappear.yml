@@ -1,0 +1,6 @@
+issue_key: IGAPP-670
+show_in_stores: true
+platforms:
+  - android
+en: Fix disappearing of images when rotating the device.
+de: Behebt das Verwschinden von Bildern wenn das Gerät gedreht wird.

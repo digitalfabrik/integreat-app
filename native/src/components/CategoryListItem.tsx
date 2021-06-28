@@ -4,7 +4,7 @@ import iconPlaceholder from '../assets/IconPlaceholder.png'
 import styled from 'styled-components/native'
 import StyledLink from './StyledLink'
 import SubCategoryListItem from './SubCategoryListItem'
-import Image from './Image'
+import SimpleImage from './SimpleImage'
 import { contentDirection } from '../constants/contentDirection'
 import Highlighter from 'react-native-highlight-words'
 import normalizeSearchString from '../services/normalizeSearchString'
@@ -41,7 +41,7 @@ const CategoryTitle = styled<DirectionContainerPropsType>(Highlighter)`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
-const CategoryThumbnail = styled(Image)`
+const CategoryThumbnail = styled(SimpleImage)`
   align-self: center;
   flex-shrink: 0;
   width: ${dimensions.categoryListItem.iconSize}px;

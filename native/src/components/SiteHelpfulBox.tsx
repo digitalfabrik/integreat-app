@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import { TFunction, withTranslation } from 'react-i18next'
 import happyIcon from '../assets/smile-happy.svg'
 import sadIcon from '../assets/smile-sad.svg'
-import Image from './Image'
+import SimpleImage from './SimpleImage'
 import { ThemeType } from 'build-configs'
 
 const FeedbackBoxContainer = styled.View`
@@ -49,7 +49,7 @@ const Circle = styled(View)`
 `
 const MAXIMAL_ICON_SIZE = ICON_SIZE / Math.sqrt(2)
 const ICON_SCALE_FACTOR = 0.85
-const Thumbnail = styled(Image)`
+const Thumbnail = styled(SimpleImage)`
   height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
   width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
 `
