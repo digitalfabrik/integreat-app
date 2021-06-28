@@ -43,7 +43,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   }, [cityCode, languageCode])
   const { data: localNews, loading, error: newsError } = useLoadFromEndpoint(requestLocalNews)
 
-  const newsModel = newsId && localNews?.find(it => it.id.toString() === newsId)
+  const newsModel = newsId && localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId)
 
   const renderLocalNewsListItem = (localNewsItem: LocalNewsModel) => {
     const { id, title, message, timestamp } = localNewsItem

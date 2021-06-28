@@ -19,7 +19,7 @@ jest.mock('api-client', () => {
 jest.mock('react-i18next')
 
 describe('OffersPage', () => {
-  const mockUseLoadFromEndpointOnce = mock => {
+  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
@@ -60,8 +60,15 @@ describe('OffersPage', () => {
     })
   ]
 
-  const renderOffersRoute = mockData => {
-    mockUseLoadFromEndpointOnce(() => mockData)
+  type UseLoadFromEndpointReturnType<T> = {
+    data: T | null
+    error: Error | null
+    loading: boolean
+    refresh: () => void
+  }
+
+  const renderOffersRoute = (mockData: UseLoadFromEndpointReturnType<OfferModel[]>) => {
+    mockUseLoadFromEndpointOnce((() => mockData) as typeof useLoadFromEndpoint)
     return renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -79,7 +86,8 @@ describe('OffersPage', () => {
     const { getByText } = renderOffersRoute({
       data: offers,
       loading: false,
-      error: null
+      error: null,
+      refresh: () => {}
     })
     for (const offer of offers) {
       expect(getByText(offer.title)).toBeTruthy()

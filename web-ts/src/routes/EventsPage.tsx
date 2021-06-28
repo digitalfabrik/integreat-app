@@ -48,7 +48,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   }, [cityCode, languageCode])
   const { data: events, loading, error: eventsError } = useLoadFromEndpoint(requestEvents)
 
-  const event = eventId && events?.find(event => event.path === pathname)
+  const event = eventId && events?.find((event: EventModel) => event.path === pathname)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />

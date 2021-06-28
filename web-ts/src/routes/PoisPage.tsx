@@ -45,7 +45,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }, [cityCode, languageCode])
   const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
 
-  const poi = poiId && pois?.find(poi => poi.path === pathname)
+  const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
@@ -113,7 +113,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     )
   }
 
-  const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
+  const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
 
   return (
