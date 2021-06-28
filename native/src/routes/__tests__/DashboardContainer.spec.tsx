@@ -16,9 +16,8 @@ import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { render } from '@testing-library/react-native'
 import moment from 'moment'
-import { ErrorCode } from '../../constants/ErrorCodes'
 import DashboardContainer from '../DashboardContainer'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, ErrorCode } from 'api-client'
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
 const mockStore = configureMockStore()
