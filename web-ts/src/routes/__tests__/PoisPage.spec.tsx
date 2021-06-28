@@ -124,6 +124,6 @@ describe('PoisPage', () => {
       { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code, poiId: 'test_path_2' }) }
     )
 
-    expect(getByText('error:Something went wrong')).toBeTruthy()
+    expect(getByText('error:unknownError')).toBeTruthy()
   })
 })
