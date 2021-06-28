@@ -20,7 +20,7 @@ jest.mock('api-client', () => {
 jest.mock('react-i18next')
 
 describe('DisclaimerPage', () => {
-  const mockUseLoadFromEndpointOnce = mock => {
+  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
@@ -41,11 +41,14 @@ describe('DisclaimerPage', () => {
   it('should render page with title and content', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
+
+    const useLoadFromEndpointMock = (() => ({
       data: disclaimer,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route

@@ -4,7 +4,7 @@ import { Failure } from '../Failure'
 import { MemoryRouter } from 'react-router-dom'
 
 describe('Failure', () => {
-  const mockTranslate = key => key
+  const mockTranslate = (key: string) => key
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'

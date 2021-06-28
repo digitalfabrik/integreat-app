@@ -20,7 +20,7 @@ jest.mock('api-client', () => {
 })
 
 describe('SearchPage', () => {
-  const mockUseLoadFromEndpoint = mock => {
+  const mockUseLoadFromEndpoint = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementation(mock)
   }
 
@@ -59,11 +59,13 @@ describe('SearchPage', () => {
   const categories = new CategoriesMapModel(categoryModels)
 
   it('should filter correctly', () => {
-    mockUseLoadFromEndpoint(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: categories,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpoint(useLoadFromEndpointMock)
 
     const { getByText, queryByText, getByPlaceholderText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -163,11 +165,13 @@ describe('SearchPage', () => {
     ]
     const categories = new CategoriesMapModel(categoryModels)
 
-    mockUseLoadFromEndpoint(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: categories,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpoint(useLoadFromEndpointMock)
 
     const { getByPlaceholderText, getAllByLabelText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -202,11 +206,13 @@ describe('SearchPage', () => {
   })
 
   describe('url query', () => {
-    mockUseLoadFromEndpoint(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: categories,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpoint(useLoadFromEndpointMock)
 
     it('should set state from url', () => {
       const query = '?query=SearchForThis'

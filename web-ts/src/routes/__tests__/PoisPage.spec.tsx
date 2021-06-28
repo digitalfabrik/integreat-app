@@ -20,7 +20,7 @@ jest.mock('api-client', () => {
 jest.mock('react-i18next')
 
 describe('PoisPage', () => {
-  const mockUseLoadFromEndpointOnce = mock => {
+  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
@@ -35,11 +35,13 @@ describe('PoisPage', () => {
   it('should render a list with all pois', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: pois,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -59,11 +61,14 @@ describe('PoisPage', () => {
   it('should render a page with poi information', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: pois,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -84,11 +89,13 @@ describe('PoisPage', () => {
   it('should render a not found error', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: pois,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -110,7 +117,8 @@ describe('PoisPage', () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: null,
       loading: false,
-      error: new Error('Something went wrong')
+      error: new Error('Something went wrong'),
+      refresh: () => null
     }))
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
