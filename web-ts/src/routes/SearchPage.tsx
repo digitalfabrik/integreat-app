@@ -20,6 +20,7 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath } from './index'
 import { useTranslation } from 'react-i18next'
+import Helmet from '../components/Helmet'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
@@ -129,8 +130,11 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
     history.replace(`${location.pathname}${appendToUrl}`)
   }
 
+  const pageTitle = `${t('app:pageTitles.search')} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <SearchInput
         filterText={filterText}
         placeholderText={t('searchPlaceholder')}
