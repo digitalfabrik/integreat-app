@@ -11,7 +11,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import AppSettings from '../services/AppSettings'
 import * as NotificationsManager from '../services/PushNotificationsManager'
-import { fromError } from '../constants/ErrorCodes'
+import { fromError } from 'api-client'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
