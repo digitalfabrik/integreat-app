@@ -17,7 +17,7 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import { render } from '@testing-library/react-native'
 import moment from 'moment'
 import DashboardContainer from '../DashboardContainer'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
 const mockStore = configureMockStore()
@@ -135,7 +135,7 @@ describe('DashboardContainer', () => {
   it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState()
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<DashboardRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <DashboardContainer navigation={navigation} route={route} />
@@ -149,7 +149,7 @@ describe('DashboardContainer', () => {
 
   const expectError = (state: StateType, code: string) => {
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<DashboardRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <DashboardContainer navigation={navigation} route={route} />
@@ -194,7 +194,7 @@ describe('DashboardContainer', () => {
 
   const expectLoadingIndicator = (state: StateType) => {
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<DashboardRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <DashboardContainer navigation={navigation} route={route} />
@@ -247,7 +247,7 @@ describe('DashboardContainer', () => {
       allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city.code}/${lng.code}`]))
     })
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<DashboardRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <DashboardContainer navigation={navigation} route={route} />
@@ -258,7 +258,7 @@ describe('DashboardContainer', () => {
   it('should display Dashboard component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<DashboardRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <DashboardContainer navigation={navigation} route={route} />
