@@ -57,13 +57,15 @@ describe('createTunewsElementEndpoint', () => {
       content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
       title: 'Sanitize me!'
     }
-    expect(tunewsElement.mapResponse(unsanitizedJson, params)).toEqual(new TunewsModel({
-      id: 1,
-      title: 'Sanitize me!',
-      date: moment.tz('2020-01-20 12:04:22+00:00', 'GMT'),
-      content: '<a>Ich bleib aber da.</a>',
-      eNewsNo: 'tun0000009902',
-      tags: ['8 Gesundheit'],
-    }))
+    expect(tunewsElement.mapResponse(unsanitizedJson, params)).toEqual(
+      new TunewsModel({
+        id: 1,
+        title: 'Sanitize me!',
+        date: moment.tz('2020-01-20 12:04:22+00:00', 'GMT'),
+        content: '<a>Ich bleib aber da.</a>',
+        eNewsNo: 'tun0000009902',
+        tags: ['8 Gesundheit']
+      })
+    )
   })
 })
