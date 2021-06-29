@@ -1,7 +1,6 @@
 import { CityContentStateType, EventRouteStateType } from '../StateType'
 import { PushEventActionType } from '../StoreActionType'
-import { EventModel, EVENTS_ROUTE } from 'api-client'
-import { ErrorCode } from '../../constants/ErrorCodes'
+import { ErrorCode, EventModel, EVENTS_ROUTE } from 'api-client'
 
 const getEventRouteState = (
   currentPath: string | null | undefined,

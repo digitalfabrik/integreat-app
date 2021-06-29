@@ -30,6 +30,8 @@ import moment from 'moment'
 import { config } from 'translations'
 import { createPath } from './index'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Helmet from '../components/Helmet'
+import buildConfig from '../constants/buildConfig'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
@@ -169,8 +171,17 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
 
   const ancestorBreadcrumbs = parents.reverse().map(categoryModel => getBreadcrumb(categoryModel, cityModel.name))
 
+  const metaDescription = t('app:metaDescription', { appName: buildConfig().appName })
+  const pageTitle = `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet
+        pageTitle={pageTitle}
+        metaDescription={metaDescription}
+        languageChangePaths={languageChangePaths}
+        cityModel={cityModel}
+      />
       <Breadcrumbs
         ancestorBreadcrumbs={ancestorBreadcrumbs}
         currentBreadcrumb={getBreadcrumb(category, cityModel.name)}

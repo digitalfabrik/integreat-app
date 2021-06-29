@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
-import Image from './Image'
+import SimpleImage from './SimpleImage'
 import { ThemeType } from 'build-configs'
 
 const NEWS_DOT_RADIUS = 20
@@ -28,7 +28,7 @@ const Circle = styled(View)`
   shadow-opacity: 0.2;
   shadow-radius: 1.41px;
 `
-const ThumbnailContainer = styled(Image)`
+const ThumbnailContainer = styled(SimpleImage)`
   height: ${ICON_SIZE / Math.sqrt(2)}px;
   width: ${ICON_SIZE / Math.sqrt(2)}px;
 `

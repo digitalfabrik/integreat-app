@@ -2,6 +2,7 @@ import {
   CategoriesMapModel,
   CategoryModel,
   CityModel,
+  ErrorCode,
   EventModel,
   LanguageModel,
   LocalNewsModel,
@@ -14,7 +15,6 @@ import {
   PoisRouteType
 } from 'api-client'
 import moment from 'moment'
-import { ErrorCode } from '../constants/ErrorCodes'
 import { config } from 'translations'
 
 export type PathType = string
