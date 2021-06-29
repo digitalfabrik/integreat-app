@@ -21,6 +21,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Tiles from '../components/Tiles'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
+import Helmet from '../components/Helmet'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -105,8 +106,11 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
     )
   }
 
+  const pageTitle = `${t('app:pageTitles.offers')} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Tiles title={t('offers')} tiles={toTileModels(offers)} />
     </LocationLayout>
   )
