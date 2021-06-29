@@ -3,7 +3,7 @@ import { JsonLocalNewsType } from '../types'
 import LocalNewsModel from '../models/LocalNewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
-import { sanitize } from 'isomorphic-dompurify'
+import { sanitize } from 'dompurify'
 
 export const LOCAL_NEWS_ENDPOINT_NAME = 'localNews'
 type ParamsType = {
