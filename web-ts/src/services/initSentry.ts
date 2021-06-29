@@ -1,8 +1,6 @@
-// @flow
+import buildConfig from '../constants/buildConfig'
 
-import buildConfig from './constants/buildConfig'
-
-const initSentry = async () => {
+const initSentry = async (): Promise<void> => {
   if (!buildConfig().featureFlags.sentry) {
     console.log('Disabling sentry because it was disabled through the build config.')
     return

@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { withTranslation, TFunction } from 'react-i18next'
 import {
   CityModel,
+  fromError,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
   NotFoundError,
@@ -16,7 +17,6 @@ import NewsList from '../components/NewsList'
 import { ThemeType } from 'build-configs'
 import { NewsModelsType } from '../redux/StateType'
 import withTheme from '../hocs/withTheme'
-import { fromError } from '../constants/ErrorCodes'
 import NewsListItem from '../components/NewsListItem'
 import styled from 'styled-components/native'
 import NewsDetail from '../components/NewsDetail'

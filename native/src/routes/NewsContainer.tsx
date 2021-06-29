@@ -8,9 +8,8 @@ import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvide
 import NewsHeader from '../components/NewsHeader'
 import { View } from 'react-native'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { ErrorCode } from '../constants/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE, CityModel } from 'api-client'
+import { ErrorCode, NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE, CityModel } from 'api-client'
 import createNavigate from '../navigation/createNavigate'
 import navigateToLink from '../navigation/navigateToLink'
 
