@@ -58,18 +58,22 @@ describe('createTunewsEndpoint', () => {
   })
 
   it('should sanitize html', () => {
-    const unsanitizedJson = [{
-      ...item1,
-      content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
-      title: 'Sanitize me!'
-    }]
-    expect(tunews.mapResponse(unsanitizedJson, params)).toEqual([new TunewsModel({
-      id: 1,
-      title: 'Sanitize me!',
-      date: moment.tz('2020-01-20 12:04:22+00:00', 'GMT'),
-      content: '<a>Ich bleib aber da.</a>',
-      eNewsNo: 'tun0000009902',
-      tags: ['8 Gesundheit'],
-    })])
+    const unsanitizedJson = [
+      {
+        ...item1,
+        content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
+        title: 'Sanitize me!'
+      }
+    ]
+    expect(tunews.mapResponse(unsanitizedJson, params)).toEqual([
+      new TunewsModel({
+        id: 1,
+        title: 'Sanitize me!',
+        date: moment.tz('2020-01-20 12:04:22+00:00', 'GMT'),
+        content: '<a>Ich bleib aber da.</a>',
+        eNewsNo: 'tun0000009902',
+        tags: ['8 Gesundheit']
+      })
+    ])
   })
 })
