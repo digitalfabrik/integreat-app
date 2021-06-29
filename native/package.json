@@ -47,6 +47,7 @@
     "@sentry/react-native": "^2.3.0",
     "api-client": "0.0.1",
     "build-configs": "0.0.1",
+    "events": "^3.2.0",
     "htmlparser2": "^6.0.0",
     "i18next": "19.9.1",
     "lodash": "^4.17.19",
