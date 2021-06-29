@@ -14,6 +14,8 @@ native/ios/**/*
 
 **/dist/**
 
+**/.tsbuild/**
+
 # Ignore node_modules
 **/node_modules/**
 # Ignore external flow types
