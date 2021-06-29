@@ -65,12 +65,7 @@ describe('Helmet', () => {
 
   it('should add noindex tag, if city is not live', () => {
     const helmet = shallow(
-      <Helmet
-        pageTitle={pageTitle}
-        metaDescription={null}
-        languageChangePaths={inactiveLanguageChangePaths}
-        cityModel={hiddenCity}
-      />
+      <Helmet pageTitle={pageTitle} languageChangePaths={inactiveLanguageChangePaths} cityModel={hiddenCity} />
     )
 
     expect(helmet).toMatchSnapshot()

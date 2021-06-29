@@ -5,8 +5,7 @@ import FailureContainer from '../components/FailureContainer'
 import { ThemeType } from 'build-configs'
 import withTheme from '../hocs/withTheme'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { PdfViewModalRouteType } from 'api-client'
-import { ErrorCode } from '../constants/ErrorCodes'
+import { ErrorCode, PdfViewModalRouteType } from 'api-client'
 
 type PropsType = {
   route: RoutePropType<PdfViewModalRouteType>

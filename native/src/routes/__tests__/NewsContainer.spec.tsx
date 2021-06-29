@@ -6,8 +6,7 @@ import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from '../../redux/StateType'
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
-import { ErrorCode } from '../../constants/ErrorCodes'
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, CityModel } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, CityModel, ErrorCode } from 'api-client'
 import NewsContainer from '../NewsContainer'
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
@@ -128,7 +127,7 @@ describe('NewsContainer', () => {
   it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState(null)
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<NewsRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <NewsContainer navigation={navigation} route={route} />
@@ -142,7 +141,7 @@ describe('NewsContainer', () => {
 
   const expectError = (state: StateType, code: string) => {
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<NewsRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <NewsContainer navigation={navigation} route={route} />
@@ -176,7 +175,7 @@ describe('NewsContainer', () => {
   })
 
   const expectLoadingSpinner = (state: StateType) => {
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<NewsRouteType>()
     const store = mockStore(state)
     const { getByText } = render(
       <Provider store={store}>
@@ -201,7 +200,7 @@ describe('NewsContainer', () => {
   it('should display NewsListItem component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<NewsRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <NewsContainer navigation={navigation} route={route} />
