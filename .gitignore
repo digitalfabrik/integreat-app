@@ -120,3 +120,5 @@ dist
 
 # IntelliJ
 **/workspace.xml
+
+.tsbuild

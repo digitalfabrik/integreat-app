@@ -1,22 +1,21 @@
-import { call, StrictEffect } from 'redux-saga/effects'
+import { call, SagaGenerator } from 'typed-redux-saga'
 import { DataContainer } from '../../services/DataContainer'
 import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
-import { LanguageModel } from 'api-client'
 
 const loadCityContent = function* loadCityContent(
   dataContainer: DataContainer,
   newCity: string,
   newLanguage: string,
   criterion: ContentLoadCriterion
-): Generator<StrictEffect, boolean, Array<LanguageModel> | boolean> {
-  const languagesAvailable = (yield call(() => dataContainer.languagesAvailable(newCity))) as boolean
+): SagaGenerator<boolean> {
+  const languagesAvailable = yield* call(() => dataContainer.languagesAvailable(newCity))
 
   if (!languagesAvailable) {
     console.error('You have to prepare the data container properly in order to use the loadCityContent.js mock!')
   }
 
   if (criterion.shouldLoadLanguages()) {
-    const languages = (yield call(() => dataContainer.getLanguages(newCity))) as Array<LanguageModel>
+    const languages = yield* call(() => dataContainer.getLanguages(newCity))
 
     if (!languages.map(language => language.code).includes(newLanguage)) {
       return false
