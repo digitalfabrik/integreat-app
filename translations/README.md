@@ -17,7 +17,7 @@ All supported languages and language tags can be viewed [here](src/config.ts) or
 You need to follow several steps to add new languages:
 
 - Pick the correct tag for your language: https://iso639-3.sil.org/code_tables/639/data
-  - Normally the two letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language tag should be used.
+  - Usually the two letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language tag should be used.
   - Exceptions: If the ISO 639-1 language tag corresponds to the macro language or you want to prevent ambiguities/misconceptions,
     the three letter [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) language tag may be the better choice.
 - Add your language tag to the [config](src/config.ts) with its script direction (and possible additional fonts).
