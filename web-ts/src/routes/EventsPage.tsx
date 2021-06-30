@@ -27,6 +27,7 @@ import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
 import JsonLdEvent from '../components/JsonLdEvent'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Helmet from '../components/Helmet'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -102,8 +103,11 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   if (event) {
     const { featuredImage, thumbnail, lastUpdate, content, title, location, date } = event
     const defaultThumbnail = featuredImage ? featuredImage.medium.url : thumbnail
+    const pageTitle = `${event.title} - ${cityModel.name}`
+
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
         <JsonLdEvent event={event} formatter={formatter} />
         <Page
           defaultThumbnailSrc={defaultThumbnail}
@@ -126,8 +130,11 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
 
+  const pageTitle = `${t('app:pageTitles.events')} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('events')} />
       <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} />
     </LocationLayout>

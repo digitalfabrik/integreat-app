@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Failure } from '../Failure'
+import Failure from '../Failure'
 import { MemoryRouter } from 'react-router-dom'
 
 describe('Failure', () => {
@@ -10,8 +10,8 @@ describe('Failure', () => {
     const errorMessage = 'error message'
     const { getByText } = render(<Failure errorMessage={errorMessage} t={mockTranslate} />, { wrapper: MemoryRouter })
 
-    const link = getByText(Failure.defaultProps.goToMessage)
-    expect(link.closest('a')).toHaveAttribute('href', Failure.defaultProps.goToPath)
+    const link = getByText('goTo.start')
+    expect(link.closest('a')).toHaveAttribute('href', '/')
     expect(getByText(errorMessage)).toBeTruthy()
   })
 

@@ -20,8 +20,9 @@ import NewsTabs from '../components/NewsTabs'
 import LocalNewsList from '../components/LocalNewsList'
 import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { FailureSwitcher } from '../components/FailureSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
 import Page from '../components/Page'
+import Helmet from '../components/Helmet'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -112,9 +113,11 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   }
 
   if (newsModel) {
+    const pageTitle = `${newsModel.title} - ${cityModel.name}`
     const linkedContent = replaceLinks(newsModel.message)
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
         <Page
           title={newsModel.title}
           content={linkedContent}
@@ -128,8 +131,11 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
     )
   }
 
+  const pageTitle = `${t('app:pageTitles.localNews')} - ${cityModel.name}`
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <NewsTabs
         type={LOCAL_NEWS_TYPE}
         city={cityCode}

@@ -1,7 +1,7 @@
 import Failure from '../Failure'
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
-import { ErrorCode } from '../../constants/ErrorCodes'
+import { ErrorCode } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 
 describe('Failure', () => {

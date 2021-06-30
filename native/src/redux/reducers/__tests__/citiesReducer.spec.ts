@@ -1,7 +1,6 @@
 import { CitiesStateType } from '../../StateType'
 import citiesReducer from '../citiesReducer'
-import { CityModel } from 'api-client'
-import { ErrorCode } from '../../../constants/ErrorCodes'
+import { CityModel, ErrorCode } from 'api-client'
 import { StoreActionType } from '../../StoreActionType'
 
 describe('citiesReducer', () => {
