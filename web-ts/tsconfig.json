@@ -10,6 +10,7 @@
     "module": "ES2020",
     "noEmit": false,
     "outDir": "dist",
+    "sourceMap": true,
     "paths": {
       "api-client": ["../api-client"],
       "build-configs": ["../build-configs"],

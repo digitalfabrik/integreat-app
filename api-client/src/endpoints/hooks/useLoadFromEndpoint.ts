@@ -39,7 +39,7 @@ type ReturnType<T> = {
 export const useLoadFromEndpoint = <T>(request: RequestType<T>): ReturnType<T> => {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const load = useCallback(() => {
     loadFromEndpoint<T>(request, setData, setError, setLoading).catch(e => setError(e))

@@ -8,8 +8,9 @@ import moment from 'moment-timezone'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
-import sanitizeHtml from 'sanitize-html-react'
 import FeaturedImageModel from '../models/FeaturedImageModel'
+import { sanitize } from 'dompurify'
+
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
   city: string
@@ -31,11 +32,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
             return new EventModel({
               path: normalizePath(event.path),
               title: event.title,
-              content: sanitizeHtml(event.content, {
-                allowedSchemes: ['http', 'https', 'data', 'tel', 'mailto'],
-                allowedTags: false,
-                allowedAttributes: false
-              }),
+              content: sanitize(event.content),
               thumbnail: event.thumbnail,
               date: new DateModel({
                 startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
