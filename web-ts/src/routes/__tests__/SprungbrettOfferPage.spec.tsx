@@ -21,7 +21,7 @@ jest.mock('api-client', () => {
 jest.mock('react-i18next')
 
 describe('SprungbrettOfferPage', () => {
-  const mockUseLoadFromEndpointOnce = mock => {
+  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
@@ -80,17 +80,21 @@ describe('SprungbrettOfferPage', () => {
   }
 
   it('should render page with title and content', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMockOffers = (() => ({
       data: sprungbrettOffer,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockOffers)
 
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMockJobs = (() => ({
       data: sprungbrettJobs,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockJobs)
 
     const { getByText } = renderSprungbrett()
 
@@ -105,14 +109,17 @@ describe('SprungbrettOfferPage', () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: null,
       loading: false,
-      error: new Error(errorMessage)
+      error: new Error(errorMessage),
+      refresh: () => null
     }))
 
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMockJobs = (() => ({
       data: sprungbrettJobs,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockJobs)
 
     const { getByText } = renderSprungbrett()
 
@@ -121,16 +128,19 @@ describe('SprungbrettOfferPage', () => {
 
   it('should render error when sprungbrettJobs cannot be fetched', () => {
     const errorMessage = 'Jobs are not available!'
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMockOffers = (() => ({
       data: sprungbrettOffer,
       loading: false,
-      error: null
-    }))
+      error: null,
+      refresh: () => null
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMockOffers)
 
     mockUseLoadFromEndpointOnce(() => ({
       data: null,
       loading: false,
-      error: new Error(errorMessage)
+      error: new Error(errorMessage),
+      refresh: () => null
     }))
 
     const { getByText } = renderSprungbrett()

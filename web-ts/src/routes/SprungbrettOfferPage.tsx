@@ -13,7 +13,8 @@ import {
   Payload,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
+  OfferModel
 } from 'api-client'
 import LocationToolbar from '../components/LocationToolbar'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -51,7 +52,7 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   }, [cityCode, languageCode])
   const { data: offers, loading: offersLoading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
-  const offer = offers?.find(offer => offer.alias === 'sprungbrett')
+  const offer = offers?.find((offer: OfferModel) => offer.alias === 'sprungbrett')
 
   const requestSprungbrettOffer = useCallback(async () => {
     if (!offer) {

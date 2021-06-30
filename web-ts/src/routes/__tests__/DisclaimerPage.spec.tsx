@@ -1,15 +1,15 @@
-import React from 'react'
+import { DISCLAIMER_ROUTE, PageModel } from 'api-client'
 import moment from 'moment'
-import DisclaimerPage from '../DisclaimerPage'
-import { mocked } from 'ts-jest/utils'
-import { DISCLAIMER_ROUTE, PageModel, useLoadFromEndpoint } from 'api-client'
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
 import CityModelBuilder from '../../../../api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
-import { renderWithBrowserRouter } from '../../testing/render'
-import { Route } from 'react-router-dom'
-import { createPath, RoutePatterns } from '../index'
 import buildConfig from '../../constants/buildConfig'
-import { ThemeProvider } from 'styled-components'
+import { mockUseLoadFromEndpointOnceWitData } from '../../testing/mockUseLoadFromEndpoint'
+import { renderWithBrowserRouter } from '../../testing/render'
+import DisclaimerPage from '../DisclaimerPage'
+import { createPath, RoutePatterns } from '../index'
 
 jest.mock('api-client', () => {
   return {
@@ -20,10 +20,6 @@ jest.mock('api-client', () => {
 jest.mock('react-i18next')
 
 describe('DisclaimerPage', () => {
-  const mockUseLoadFromEndpointOnce = mock => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -41,11 +37,8 @@ describe('DisclaimerPage', () => {
   it('should render page with title and content', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
-      data: disclaimer,
-      loading: false,
-      error: null
-    }))
+
+    mockUseLoadFromEndpointOnceWitData(disclaimer)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
