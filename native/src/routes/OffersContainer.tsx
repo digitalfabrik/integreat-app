@@ -6,6 +6,7 @@ import { TFunction, withTranslation } from 'react-i18next'
 import {
   CityModel,
   createOffersEndpoint,
+  fromError,
   NotFoundError,
   OfferModel,
   OFFERS_ROUTE,
@@ -21,7 +22,6 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import openExternalUrl from '../services/openExternalUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { fromError } from '../constants/ErrorCodes'
 import TileModel from '../models/TileModel'
 import { StateType } from '../redux/StateType'
 import determineApiUrl from '../services/determineApiUrl'

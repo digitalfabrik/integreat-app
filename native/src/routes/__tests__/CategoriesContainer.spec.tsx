@@ -16,8 +16,7 @@ import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { render } from '@testing-library/react-native'
 import moment from 'moment'
-import { ErrorCode } from '../../constants/ErrorCodes'
-import { CATEGORIES_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, ErrorCode } from 'api-client'
 import CategoriesContainer from '../CategoriesContainer'
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
@@ -136,7 +135,7 @@ describe('CategoriesContainer', () => {
   it('should display nothing if the route is not initialized', () => {
     const state: StateType = prepareState()
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<CategoriesRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <CategoriesContainer navigation={navigation} route={route} />
@@ -150,7 +149,7 @@ describe('CategoriesContainer', () => {
 
   const expectError = (state: StateType, code: string) => {
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<CategoriesRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <CategoriesContainer navigation={navigation} route={route} />
@@ -195,7 +194,7 @@ describe('CategoriesContainer', () => {
 
   const expectLoadingIndicator = (state: StateType) => {
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<CategoriesRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <CategoriesContainer navigation={navigation} route={route} />
@@ -248,7 +247,7 @@ describe('CategoriesContainer', () => {
       allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city.code}/${lng.code}`]))
     })
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<CategoriesRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <CategoriesContainer navigation={navigation} route={route} />
@@ -259,7 +258,7 @@ describe('CategoriesContainer', () => {
   it('should display Categories component if the state is ready', () => {
     const state: StateType = prepareState(successfulRouteState)
     const store = mockStore(state)
-    const navigation = createNavigationScreenPropMock()
+    const navigation = createNavigationScreenPropMock<CategoriesRouteType>()
     const { getByText } = render(
       <Provider store={store}>
         <CategoriesContainer navigation={navigation} route={route} />

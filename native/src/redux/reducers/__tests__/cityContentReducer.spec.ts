@@ -13,10 +13,9 @@ import {
   SwitchContentLanguageActionType,
   SwitchContentLanguageFailedActionType
 } from '../../StoreActionType'
-import { CATEGORIES_ROUTE, CategoriesMapModel, EVENTS_ROUTE, LanguageModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, ErrorCode, EVENTS_ROUTE, LanguageModel } from 'api-client'
 import cityContentReducer from '../cityContentReducer'
 import { CityContentStateType } from '../../StateType'
-import { ErrorCode } from '../../../constants/ErrorCodes'
 
 describe('cityContentReducer', () => {
   const switchContentLanguageAction: SwitchContentLanguageActionType = {

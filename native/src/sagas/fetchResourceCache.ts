@@ -5,7 +5,7 @@ import FetcherModule, { FetchResultType, TargetFilePathsType } from '../services
 import { DataContainer } from '../services/DataContainer'
 import moment from 'moment'
 import { PageResourceCacheEntryStateType } from '../redux/StateType'
-import { fromError } from '../constants/ErrorCodes'
+import { fromError } from 'api-client'
 
 export type FetchMapTargetType = {
   url: string
