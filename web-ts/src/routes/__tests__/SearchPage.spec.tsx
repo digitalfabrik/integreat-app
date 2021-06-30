@@ -1,16 +1,16 @@
-import React from 'react'
-import SearchPage from '../SearchPage'
-import { CategoriesMapModel, CategoryModel, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
-import moment from 'moment'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import { ThemeProvider } from 'styled-components'
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
-import { Route } from 'react-router-dom'
-import { createPath, RoutePatterns } from '../index'
-import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
-import { mocked } from 'ts-jest/utils'
 import { fireEvent } from '@testing-library/react'
+import { CategoriesMapModel, CategoryModel, SEARCH_ROUTE } from 'api-client'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import moment from 'moment'
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
+import buildConfig from '../../constants/buildConfig'
+import { mockUseLoadFromEndpointWitData } from '../../testing/mockUseLoadFromEndpoint'
+import { renderWithBrowserRouter } from '../../testing/render'
+import { createPath, RoutePatterns } from '../index'
+import SearchPage from '../SearchPage'
 
 jest.mock('api-client', () => {
   return {
@@ -20,10 +20,6 @@ jest.mock('api-client', () => {
 })
 
 describe('SearchPage', () => {
-  const mockUseLoadFromEndpoint = (mock: typeof useLoadFromEndpoint) => {
-    mocked(useLoadFromEndpoint).mockImplementation(mock)
-  }
-
   const categoryModels = [
     new CategoryModel({
       root: true,
@@ -59,13 +55,7 @@ describe('SearchPage', () => {
   const categories = new CategoriesMapModel(categoryModels)
 
   it('should filter correctly', () => {
-    const useLoadFromEndpointMock = (() => ({
-      data: categories,
-      loading: false,
-      error: null,
-      refresh: () => null
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpoint(useLoadFromEndpointMock)
+    mockUseLoadFromEndpointWitData(categories)
 
     const { getByText, queryByText, getByPlaceholderText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -164,14 +154,7 @@ describe('SearchPage', () => {
       })
     ]
     const categories = new CategoriesMapModel(categoryModels)
-
-    const useLoadFromEndpointMock = (() => ({
-      data: categories,
-      loading: false,
-      error: null,
-      refresh: () => null
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpoint(useLoadFromEndpointMock)
+    mockUseLoadFromEndpointWitData(categories)
 
     const { getByPlaceholderText, getAllByLabelText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -206,14 +189,7 @@ describe('SearchPage', () => {
   })
 
   describe('url query', () => {
-    const useLoadFromEndpointMock = (() => ({
-      data: categories,
-      loading: false,
-      error: null,
-      refresh: () => null
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpoint(useLoadFromEndpointMock)
-
+    mockUseLoadFromEndpointWitData(categories)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
       const path = createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code })

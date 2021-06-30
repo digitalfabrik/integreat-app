@@ -1,8 +1,11 @@
 import React from 'react'
-import { mocked } from 'ts-jest/utils'
-import { useLoadFromEndpoint, POIS_ROUTE } from 'api-client'
+import { POIS_ROUTE } from 'api-client'
 import CityModelBuilder from '../../../../api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
+import {
+  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFormEndpointWithError
+} from '../../testing/mockUseLoadFromEndpoint'
 import { renderWithBrowserRouter } from '../../testing/render'
 import { Route } from 'react-router-dom'
 import { createPath, RoutePatterns } from '../index'
@@ -20,10 +23,6 @@ jest.mock('api-client', () => {
 jest.mock('react-i18next')
 
 describe('PoisPage', () => {
-  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -35,13 +34,7 @@ describe('PoisPage', () => {
   it('should render a list with all pois', () => {
     const city = cities[0]
     const language = languages[0]
-    const useLoadFromEndpointMock = (() => ({
-      data: pois,
-      loading: false,
-      error: null,
-      refresh: () => null
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+    mockUseLoadFromEndpointOnceWitData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -61,14 +54,7 @@ describe('PoisPage', () => {
   it('should render a page with poi information', () => {
     const city = cities[0]
     const language = languages[0]
-    const useLoadFromEndpointMock = (() => ({
-      data: pois,
-      loading: false,
-      error: null,
-      refresh: () => null
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
-
+    mockUseLoadFromEndpointOnceWitData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -89,13 +75,7 @@ describe('PoisPage', () => {
   it('should render a not found error', () => {
     const city = cities[0]
     const language = languages[0]
-    const useLoadFromEndpointMock = (() => ({
-      data: pois,
-      loading: false,
-      error: null,
-      refresh: () => null
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+    mockUseLoadFromEndpointOnceWitData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -114,12 +94,7 @@ describe('PoisPage', () => {
   it('should render an error', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnce(() => ({
-      data: null,
-      loading: false,
-      error: new Error('Something went wrong'),
-      refresh: () => null
-    }))
+    mockUseLoadFormEndpointWithError('Something went wrong')
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
