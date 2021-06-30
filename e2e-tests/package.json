@@ -3,8 +3,8 @@
   "name": "e2e",
   "private": true,
   "scripts": {
-    "test:web": "yarn workspace web-ts start & yarn wdio run web/wdio.conf.ts",
-    "test:web:browserstack": "yarn workspace web-ts start & yarn wdio run web/browserstack/wdio-browserstack.conf.ts",
+    "test:web": "yarn workspace web start & yarn wdio run web/wdio.conf.ts",
+    "test:web:browserstack": "yarn workspace web start & yarn wdio run web/browserstack/wdio-browserstack.conf.ts",
     "test:native:browserstack": "yarn wdio run native/wdio-browserstack.conf.ts",
     "test:native": "yarn wdio run native/wdio.conf.ts",
     "prepare:android:native": "yarn workspace native android:integreat-e2e",
