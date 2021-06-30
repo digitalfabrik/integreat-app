@@ -176,9 +176,15 @@ describe('events', () => {
     )
   })
   const json = [event1, event2, event3, event4]
+
   it('should map fetched data to models', () => {
     const eventsModels = events.mapResponse(json, params)
     const value = [eventModel2, eventModel1, eventModel3, eventModel4]
     expect(eventsModels).toEqual(value)
+  })
+
+  it('should sanitize html', () => {
+    const json = [{ ...event1, content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>' }]
+    expect(events.mapResponse(json, params)).toEqual([eventModel1])
   })
 })

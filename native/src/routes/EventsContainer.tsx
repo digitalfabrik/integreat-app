@@ -7,11 +7,10 @@ import { StoreActionType, SwitchContentLanguageActionType } from '../redux/Store
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import withTheme from '../hocs/withTheme'
 import * as React from 'react'
-import { ErrorCode } from '../constants/ErrorCodes'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import navigateToLink from '../navigation/navigateToLink'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { EVENTS_ROUTE, EventsRouteType, CityModel, EventModel } from 'api-client'
+import { ErrorCode, EVENTS_ROUTE, EventsRouteType, CityModel, EventModel } from 'api-client'
 import createNavigate from '../navigation/createNavigate'
 
 type NavigationPropsType = {

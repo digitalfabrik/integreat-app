@@ -1,13 +1,13 @@
 import React from 'react'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
-import { fireEvent, render, cleanup } from '@testing-library/react'
+import { fireEvent, render, cleanup, RenderResult } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 
 describe('HeaderActionItemDropDown', () => {
-  let wrapperComponent
-  let inner
-  let outside
+  let wrapperComponent: RenderResult
+  let inner: HTMLElement
+  let outside: HTMLElement
   const theme = buildConfig().lightTheme
 
   beforeEach(() => {

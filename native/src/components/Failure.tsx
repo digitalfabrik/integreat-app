@@ -4,7 +4,7 @@ import { Text } from 'react-native'
 import { TFunction } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
 import { Button } from 'react-native-elements'
-import { ErrorCode } from '../constants/ErrorCodes'
+import { ErrorCode } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 const ViewContainer = styled.View`

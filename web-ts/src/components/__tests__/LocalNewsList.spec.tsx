@@ -8,10 +8,10 @@ import NewsListItem from '../NewsListItem'
 describe('LocalNewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
-  const t = key => key
+  const t = (key: string) => key
   const city = 'testcity'
 
-  const renderItem = ({ id, title, message, timestamp }) => (
+  const renderItem = ({ id, title, message, timestamp }: LocalNewsModel) => (
     <NewsListItem
       title={title}
       content={message}
