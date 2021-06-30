@@ -20,7 +20,7 @@ describe('NewsListItem', () => {
   const theme = buildConfig().lightTheme
   const language = 'en'
   const link = '/testumgebung/en/news/local'
-  const t = key => key
+  const t = (key: string) => key
 
   const lastUpdate = moment('2020-03-20T17:50:00.000Z')
   const title = 'Tick bite - What to do?'

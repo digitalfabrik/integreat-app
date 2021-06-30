@@ -6,7 +6,7 @@ import HeaderLanguageSelectorItem from '../HeaderLanguageSelectorItem'
 jest.mock('react-i18next')
 
 describe('HeaderLanguageSelectorItem', () => {
-  const t = key => key
+  const t = (key: string) => key
   const selectorItems = [
     new SelectorItemModel({
       code: 'en',

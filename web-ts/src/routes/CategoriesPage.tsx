@@ -169,7 +169,9 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
     )
   }
 
-  const ancestorBreadcrumbs = parents.reverse().map(categoryModel => getBreadcrumb(categoryModel, cityModel.name))
+  const ancestorBreadcrumbs = parents
+    .reverse()
+    .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, cityModel.name))
 
   const metaDescription = t('app:metaDescription', { appName: buildConfig().appName })
   const pageTitle = `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
