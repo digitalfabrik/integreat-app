@@ -1,6 +1,7 @@
 import {
   CategoriesMapModel,
   CityModel,
+  ErrorCode,
   EventModel,
   LanguageModel,
   LocalNewsModel,
@@ -10,7 +11,6 @@ import {
 } from 'api-client'
 import { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
 import { ContentLoadCriterionType } from '../models/ContentLoadCriterion'
-import { ErrorCode } from '../constants/ErrorCodes'
 
 // Starts fetching all available cities
 export type FetchCitiesActionType = {

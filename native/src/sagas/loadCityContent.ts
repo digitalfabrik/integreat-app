@@ -12,11 +12,10 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import AppSettings from '../services/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
-import { fromError } from '../constants/ErrorCodes'
 import * as NotificationsManager from '../services/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
-import { CategoriesMapModel, CategoryModel, EventModel } from 'api-client'
+import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
 
 /**
  * Subscribes to the push notification topic of the new city and language
