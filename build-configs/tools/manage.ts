@@ -15,7 +15,7 @@ const loadBuildConfigAsKeyValue = (buildConfigName, platform, spaces = true, quo
 
   const quoteValue = value => {
     if (quotes && value.includes('"')) {
-      throw Error("Values in build configs musn't contain double quotes!")
+      throw Error("Values in build configs mustn't contain double quotes!")
     }
 
     return `${quotes ? '"' : ''}${value}${quotes ? '"' : ''}`
