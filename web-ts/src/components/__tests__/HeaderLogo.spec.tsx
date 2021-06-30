@@ -1,6 +1,6 @@
 import React from 'react'
 import HeaderLogo from '../HeaderLogo'
-import lolex from 'lolex'
+import lolex, { InstalledClock } from 'lolex'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 
@@ -12,7 +12,7 @@ describe('HeaderLogo', () => {
   }
   const previousConfig = buildConfig()
   let config = previousConfig
-  let clock
+  let clock: InstalledClock
 
   afterEach(() => {
     clock.uninstall()
