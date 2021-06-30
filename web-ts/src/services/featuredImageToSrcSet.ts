@@ -1,7 +1,7 @@
 import { FeaturedImageModel } from 'api-client'
 
 const ten = 10
-const roundToOneDecimal = number => Math.round(number * ten) / ten
+const roundToOneDecimal = (number: number) => Math.round(number * ten) / ten
 
 /**
  * This converts a FeaturedImageModel to a srcset.

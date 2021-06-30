@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components'
 describe('NewsTab', () => {
   const active = true
   const destination = '/testcity/en/news/local'
-  const t = key => key
+  const t = (key: string) => key
 
   it('should render the local news tab', () => {
     const { getByText, queryByLabelText } = renderWithRouter(

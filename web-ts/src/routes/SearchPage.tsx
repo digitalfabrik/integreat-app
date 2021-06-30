@@ -86,8 +86,8 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   // find all categories whose titles include the filter text and sort them lexicographically
   const categoriesWithTitle = categories
     .toArray()
-    .filter(category => normalizeSearchString(category.title).includes(normalizedFilterText))
-    .sort((category1, category2) => category1.title.localeCompare(category2.title))
+    .filter((category: CategoryModel) => normalizeSearchString(category.title).includes(normalizedFilterText))
+    .sort((category1: CategoryModel, category2: CategoryModel) => category1.title.localeCompare(category2.title))
 
   // find all categories whose contents but not titles include the filter text and sort them lexicographically
   let contentWithoutHtml: string[] = []
@@ -98,7 +98,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   })
   const categoriesWithContent = categories
     .toArray()
-    .filter(category => !normalizeSearchString(category.title).includes(normalizedFilterText))
+    .filter((category: CategoryModel) => !normalizeSearchString(category.title).includes(normalizedFilterText))
     .map(
       (category: CategoryModel): CategoryEntryType => {
         contentWithoutHtml = []
@@ -112,16 +112,18 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
       }
     )
     .filter(
-      categoryEntry =>
+      (categoryEntry: CategoryEntryType) =>
         categoryEntry.contentWithoutHtml &&
         normalizeSearchString(categoryEntry.contentWithoutHtml).includes(normalizedFilterText)
     )
-    .sort((category1, category2) => category1.model.title.localeCompare(category2.model.title))
+    .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
+      category1.model.title.localeCompare(category2.model.title)
+    )
 
   // return all categories from above and remove the root category
   const searchResults = categoriesWithTitle
-    .filter(category => !category._root)
-    .map((category): CategoryEntryType => ({ model: category, subCategories: [] }))
+    .filter((category: CategoryModel) => !category._root)
+    .map((category: CategoryModel): CategoryEntryType => ({ model: category, subCategories: [] }))
     .concat(categoriesWithContent)
 
   const handleFilterTextChanged = (filterText: string): void => {
