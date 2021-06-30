@@ -7,6 +7,7 @@ import {
   CityModel,
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
+  fromError,
   NotFoundError,
   OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
@@ -17,7 +18,6 @@ import {
 import withTheme from '../hocs/withTheme'
 import { ThemeType } from 'build-configs'
 import FailureContainer from '../components/FailureContainer'
-import { fromError } from '../constants/ErrorCodes'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'

@@ -123,7 +123,7 @@ describe('SprungbrettOfferPage', () => {
 
     const { getByText } = renderSprungbrett()
 
-    expect(getByText(`error:${errorMessage}`)).toBeTruthy()
+    expect(getByText(`error:unknownError`)).toBeTruthy()
   })
 
   it('should render error when sprungbrettJobs cannot be fetched', () => {
@@ -145,6 +145,6 @@ describe('SprungbrettOfferPage', () => {
 
     const { getByText } = renderSprungbrett()
 
-    expect(getByText(`error:${errorMessage}`)).toBeTruthy()
+    expect(getByText(`error:unknownError`)).toBeTruthy()
   })
 })

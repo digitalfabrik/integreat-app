@@ -7,11 +7,14 @@ import { TransformedTranslationsType, TranslationsType } from './types'
  */
 
 export default (translations: TranslationsType): TransformedTranslationsType =>
-  reduce(
+  reduce<TranslationsType, TransformedTranslationsType>(
     translations,
     (transformedTranslations, namespace, namespaceName) => {
       forEach(namespace, (language, languageTag) => {
-        transformedTranslations[languageTag] = { ...transformedTranslations[languageTag], [namespaceName]: language }
+        transformedTranslations[languageTag] = {
+          ...transformedTranslations[languageTag],
+          [namespaceName]: language as Record<string, string>
+        }
       })
       return transformedTranslations
     },

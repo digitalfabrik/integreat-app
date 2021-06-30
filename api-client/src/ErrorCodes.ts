@@ -1,4 +1,7 @@
-import { FetchError, MappingError, ResponseError, NotFoundError } from 'api-client'
+import FetchError from './errors/FetchError'
+import MappingError from './errors/MappingError'
+import NotFoundError from './errors/NotFoundError'
+import ResponseError from './errors/ResponseError'
 
 export enum ErrorCode {
   PageNotFound = 'pageNotFound',
