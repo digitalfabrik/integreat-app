@@ -6,7 +6,6 @@ React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.m
 
 - [Project Setup](#project-setup)
 - [Run the App](#run-the-app)
-- [Troubleshooting](#trouble-shooting)
 - [Build Configs](docs/build-configs.md)
 - [Technical Documentation](docs/technical-documentation.md)
 - [Supported Browsers](docs/supported-browsers.md)
@@ -15,7 +14,7 @@ React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.m
 
 ## Project Setup
 
-_Make sure to have read and followed the steps in the [general README](../README.md#project-setup)._
+_Make sure you read and followed the steps in the [general README](../README.md#project-setup)._
 
 - Run `yarn` in the terminal to install all dependencies.
 - Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run Configurations.
@@ -36,15 +35,8 @@ _Make sure to have read and followed the steps in the [general README](../README
 
 - `Run > Edit Configurations > Defaults > Jest`:
   - Set `Configuration file` to `jest.config.js`
-- `Settings > Languages & Frameworks > JavaScript`:
-  - Choose `Flow` as Language version
-  - Set `Flow package or executable` to `<project_dir>/node_modules/flow-bin`
 - [optional] Associate `.snap` files with the file type `JavaScript`.
 - [optional] Install the following plugins:
   - [Prettier](https://plugins.jetbrains.com/plugin/10456-prettier)
   - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
   - [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs)
-
-## Trouble Shooting
-
-- Use nodejs 12 LTS instead of the latest version.

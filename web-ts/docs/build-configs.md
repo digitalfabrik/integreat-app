@@ -18,10 +18,9 @@ yarn start:<build config name>
 
 For the standard development build config `integreat-test-cms` there is also the shortcut `yarn start`.
 
-To access the values of the build config import [buildConfig.js](../src/modules/app/constants/buildConfig.js).
+To access the values of the build config import [buildConfig.ts](../src/constants/buildConfig.ts).
 
 ## Technical Information
 
-The build config is loaded by webpack during [bundling and compiling the app](../tools/webpack.config.babel.js).
+The build config is loaded by webpack during [bundling and compiling the app](../tools/webpack.config.ts).
 It is then passed as `__BUILD_CONFIG__` environment variable to the javascript code.
-To access the values of the build config in javascript use [this method](../src/modules/app/constants/buildConfig.js).
