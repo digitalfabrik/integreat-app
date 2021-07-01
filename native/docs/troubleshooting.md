@@ -2,8 +2,7 @@
 
 ## Contents
 
-- [Problems with sharp or other node modules](#problems-with-sharp-or-other-node-modules)
-- [Incompatible Gradle Version](#incompatible-gradle-version)
+- [Could not initialize class org.codehouse.groovy.runtime.InvokeHelper](#could-not-initialize-class-orgcodehousegroovyruntimeinvokehelper)
 - [java.io.IOException: Unable to delete the directory on Windows 10](#javaioioexception-unable-to-delete-the-directory-on-windows-10)
 - [`ERROR watch... ENOSPC` when running `yarn start` on Linux](#error-watch-enospc-when-running-yarn-start-on-linux)
 - [adb not found](#adb-not-found)
@@ -19,13 +18,15 @@
 - [App crashing with java.lang.UnsatisfiedLinkError](#app-crashing-with-javalangunsatisfiedlinkerror)
 - [App crashing without any error](#app-crashing-without-any-error)
 
-## Problems with sharp or other node modules
+## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
-Use nodejs 12 LTS instead of the latest version.
-
-## Incompatible Gradle Version
-
-The current gradle version may not work with Java 14. Switch to a lower java version (e.g. v11) or try to fix the issue.
+The current gradle version may not work with Java 14 or 16. Switch to a lower java version (e.g. v11) and make sure it is actually used:
+```
+cd android
+./gradlew --version
+```
+and check that the version specified under `JVM` is correct.
+To uninstall a Java version on MacOS you can follow [these instructions](https://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html#A1096903).
 
 ## java.io.IOException: Unable to delete the directory on Windows 10
 
