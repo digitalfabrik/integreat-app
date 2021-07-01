@@ -19,7 +19,7 @@ yarn start:<build config name>
 
 For the standard development build config `integreat-test-cms` there is also the shortcut `yarn start`.
 
-To access the values of the build config import [buildConfig.js](../src/modules/app/constants/buildConfig.js).
+To access the values of the build config import [buildConfig.js](../src/constants/buildConfig.ts).
 
 ### Gradle (Android Build)
 
@@ -44,10 +44,7 @@ Not doing this will lead to [this error](troubleshooting.md#no-build_config_name
 ## Technical Information
 
 The concept and technical implementation of build configs is inspired by the library [react-native-config](https://github.com/luggit/react-native-config).
-
-The [prepare script](../tools/prepare.ts) and [gradle build config script](../android/app/buildConfigs.gradle)
-are reading the environment variable `BUILD_CONFIG_NAME` to select the right build config,
-whereas for XCode xcschemes are used as we don't have a bash command to build and install the app there.
+All conversions are done with the [manage.ts script](../build-configs/tools/manage.ts).
 
 ### Javascript
 
@@ -56,18 +53,16 @@ to the right name constant in the corresponding build config directory in the [b
 e.g. [this file](../build-configs/integreat/build-config-name/index.ts) for Integreat.
 This is done with a proxy in the [metro config](../metro.config.js) in the `extraNodeModules` prop.
 
-To access the values of the build config use [this method](../src/modules/app/constants/buildConfig.js).
+To access the values of the build config use [this method](../src/constants/buildConfig.ts).
 
 ### Native Containers
 
 #### XCode
 
-To make the build config available to XCode, [xcconfig files](https://nshipster.com/xcconfig/) (simple `<key> = <value>` syntax) are used as this is not possible with .js files.
-Also, XCode has built in support for xcconfig files (and uses them).
-
-In Xcode the build configs are converted with a so called `Pre Action` which is run whenever a build is made in xcode.
+For XCode we use hard coded xcschemes `Pre Actions` that select and convert the right build config to [xcconfig files](https://nshipster.com/xcconfig/).
+Xcconfig files use a simple `<key> = <value>` syntax XCode has built in support for (and uses them).
 
 #### Gradle
 
-For Gradle the build configs are converted to .json files for better typing and error handling.
+For Gradle the build config matching the `BUILD_CONFIG_NAME` environment variable is converted to a `.json` file for better typing and error handling.
 In Gradle the logic behind this can be found [here](../android/app/buildConfigs.gradle).

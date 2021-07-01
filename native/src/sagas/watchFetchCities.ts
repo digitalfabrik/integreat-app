@@ -2,7 +2,7 @@ import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../services/DataContainer'
 import loadCities from './loadCities'
-import { fromError } from '../constants/ErrorCodes'
+import { fromError } from 'api-client'
 
 export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): SagaGenerator<void> {
   try {

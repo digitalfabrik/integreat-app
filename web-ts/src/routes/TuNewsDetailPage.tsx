@@ -14,11 +14,12 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { FailureSwitcher } from '../components/FailureSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
 import Page from '../components/Page'
 import styled from 'styled-components'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
 import { parseHTML } from 'api-client/src/utils/helpers'
+import Helmet from '../components/Helmet'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -118,9 +119,11 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     },
     { decodeEntities: true }
   )
+  const pageTitle = `${newsModel.title} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <StyledContainer>
         <StyledWrapper>
           <StyledBanner>

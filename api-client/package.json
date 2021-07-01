@@ -18,19 +18,19 @@
   "dependencies": {
     "entities": "^2.0.0",
     "htmlparser2": "^6.1.0",
+    "dompurify": "^2.2.9",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
     "moment": "2.29.1",
     "moment-timezone": "^0.5",
     "normalize-path": "^3.0.0",
-    "react": "16.13.1",
-    "sanitize-html-react": "^1.13"
+    "react": "16.13.1"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.2.2",
     "@types/jest": "^26.0.23",
     "@types/js-md5": "^0.4.2",
     "@types/lodash": "^4.14.168",
-    "@types/node": "^15.0.2",
     "@types/normalize-path": "^3.0.0",
     "@types/react": "16.14.0",
     "@types/seedrandom": "^3.0.0",
