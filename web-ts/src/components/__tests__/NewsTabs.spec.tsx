@@ -6,7 +6,7 @@ import { LOCAL_NEWS_TYPE } from 'api-client'
 
 describe('NewsTabs', () => {
   const language = 'en'
-  const t = key => key
+  const t = (key: string) => key
 
   it('should render two tabs if both local news and tunews are enabled', () => {
     const wrapper = shallow(

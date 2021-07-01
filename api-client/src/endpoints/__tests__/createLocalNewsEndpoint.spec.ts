@@ -3,7 +3,8 @@ import createLocalNewsEndpoint from '../createLocalNewsEndpoint'
 import LocalNewsModel from '../../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../../types'
 import { Moment } from 'moment'
-describe('localnews', () => {
+
+describe('createLocalNewsEndpoint', () => {
   const baseUrl = 'https://cms.integreat-app.de'
   const localNews = createLocalNewsEndpoint(baseUrl)
 
@@ -36,15 +37,36 @@ describe('localnews', () => {
     language: 'en',
     count: 1
   }
+
   it('should map params to url', () => {
     expect(localNews.mapParamsToUrl(params)).toEqual(
       `https://cms.integreat-app.de/${params.city}/${params.language}/wp-json/extensions/v3/fcm?channel=news`
     )
   })
+
   const json = [item1, item2, item3]
+
   it('should map fetched data to models', () => {
     const localNewsModels = localNews.mapResponse(json, params)
     const value = [itemModel1, itemModel2, itemModel3]
     expect(localNewsModels).toEqual(value)
+  })
+
+  it('should sanitize html', () => {
+    const unsanitizedJson = [
+      {
+        ...item1,
+        message: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
+        title: 'Sanitize me!'
+      }
+    ]
+    expect(localNews.mapResponse(unsanitizedJson, params)).toEqual([
+      new LocalNewsModel({
+        id: 217,
+        title: 'Sanitize me!',
+        timestamp: moment.tz('2020-03-20 17:50:00', 'GMT'),
+        message: '<a>Ich bleib aber da.</a>'
+      })
+    ])
   })
 })

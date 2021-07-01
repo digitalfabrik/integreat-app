@@ -4,10 +4,10 @@ import { Helmet as ReactHelmet } from 'react-helmet'
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {
-  pageTitle: string | null
-  metaDescription: string | null
-  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
-  cityModel: CityModel | null
+  pageTitle?: string
+  metaDescription?: string
+  languageChangePaths?: Array<{ code: string; path: string | null; name: string }>
+  cityModel?: CityModel
 }
 
 class Helmet extends React.PureComponent<PropsType> {

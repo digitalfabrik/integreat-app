@@ -8,7 +8,7 @@ import NewsListItem from '../NewsListItem'
 describe('TuNewsList', () => {
   const language = 'en'
   const link = '/testumgebung/en/news/local'
-  const t = key => key
+  const t = (key: string) => key
   const city = 'testcity'
 
   const renderItem = (language: string) => ({ id, title, content, date }: TunewsModel) => (

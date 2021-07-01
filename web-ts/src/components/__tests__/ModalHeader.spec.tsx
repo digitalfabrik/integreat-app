@@ -9,7 +9,7 @@ describe('ModalHeader', () => {
     const onCloseFeedbackModal = jest.fn()
     const { getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <ModalHeader t={key => key} closeFeedbackModal={onCloseFeedbackModal} title='title' />
+        <ModalHeader t={(key: string) => key} closeFeedbackModal={onCloseFeedbackModal} title='title' />
       </ThemeProvider>
     )
     const closeButton = getByRole('button', {
