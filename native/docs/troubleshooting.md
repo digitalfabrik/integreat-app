@@ -21,10 +21,12 @@
 ## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
 The current gradle version may not work with Java 14 or 16. Switch to a lower java version (e.g. v11) and make sure it is actually used:
+
 ```
 cd android
 ./gradlew --version
 ```
+
 and check that the version specified under `JVM` is correct.
 To uninstall a Java version on MacOS you can follow [these instructions](https://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html#A1096903).
 
