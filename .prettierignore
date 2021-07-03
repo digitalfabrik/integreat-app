@@ -4,10 +4,8 @@ release-notes/
 tools/
 translations/
 
+web/dist/
 web/www/
-
-web-ts/dist/
-web-ts/www/
 
 native/android/**/*
 native/ios/**/*
