@@ -6,7 +6,8 @@ import {
   createCategoriesEndpoint,
   LanguageModel,
   SEARCH_ROUTE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
+  parseHTML
 } from 'api-client'
 import CategoryList from '../components/CategoryList'
 import SearchFeedback from '../components/SearchFeedback'
@@ -19,7 +20,6 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath } from './index'
 import { useTranslation } from 'react-i18next'
-import { parseHTML } from 'api-client/src/utils/helpers'
 import Helmet from '../components/Helmet'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }

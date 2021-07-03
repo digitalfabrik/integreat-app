@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
-import { LocalNewsModel, TunewsModel } from 'api-client'
+import { LocalNewsModel, TunewsModel, parseHTML } from 'api-client'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs'
@@ -9,7 +9,6 @@ import { contentAlignment, contentDirection } from '../constants/contentDirectio
 import { config } from 'translations'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { parseHTML } from 'api-client/src/utils/helpers'
 
 type PropsType = {
   newsItem: LocalNewsModel | TunewsModel

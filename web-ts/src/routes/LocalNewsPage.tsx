@@ -9,7 +9,8 @@ import {
   normalizePath,
   NotFoundError,
   replaceLinks,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
+  parseHTML
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -22,7 +23,6 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Page from '../components/Page'
-import { parseHTML } from 'api-client/src/utils/helpers'
 import Helmet from '../components/Helmet'
 
 type PropsType = {
