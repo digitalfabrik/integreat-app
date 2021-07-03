@@ -1,4 +1,4 @@
-# Run checks and tests for web-ts.
+# Run checks and tests for web.
 docker:
   - image: circleci/node:14.9.0
 resource_class: small
@@ -16,7 +16,7 @@ steps:
   - lint:
       directory: build-configs
   - lint:
-      directory: web-ts
+      directory: web
   - lint:
       directory: translations
   - run:
@@ -29,7 +29,7 @@ steps:
       name: TS check
       command: yarn workspace build-configs ts:check
   - unit_test:
-      directory: web-ts
+      directory: web
   - unit_test:
       directory: api-client
   - unit_test:
