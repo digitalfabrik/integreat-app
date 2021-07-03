@@ -1,13 +1,19 @@
 import { Parser, ParserOptions } from 'htmlparser2'
 
-export function parseHTML(html: string, ontext: (data: string) => void, options: ParserOptions = {}): void {
+export function parseHTML(html: string, options: ParserOptions = {}): void {
+  let decodedContent = ''
+
   const parser = new Parser(
     {
-      ontext
+      ontext: data => {
+        decodedContent += data
+      },
     },
     options
   )
 
   parser.write(html)
   parser.end()
+
+  return decodedContent;
 }

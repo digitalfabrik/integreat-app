@@ -57,12 +57,8 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
     [navigateToLink, language]
   )
 
-  let decodedNewsItemTitle = ''
-  parseHTML(
+  const decodedNewsItemTitle = parseHTML(
     newsItem.title,
-    data => {
-      decodedNewsItemTitle += data
-    },
     {
       decodeEntities: true
     }

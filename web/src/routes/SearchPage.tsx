@@ -99,6 +99,8 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
       (category: CategoryModel): CategoryEntryType => {
         contentWithoutHtml = []
 
+        // TODO: fix
+
         parseHTML(category.content, text => {
           contentWithoutHtml.push(text)
         })

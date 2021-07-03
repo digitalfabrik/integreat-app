@@ -90,22 +90,14 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   const content = localNewsContent || tuNewsContent
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
   // Decode html entities
-  let decodedContent = ''
-  let decodedNewsItemTitle = ''
-  parseHTML(
+  const decodedContent = parseHTML(
     content,
-    data => {
-      decodedContent += data
-    },
     {
       decodeEntities: true
     }
   )
-  parseHTML(
+  const decodedNewsItemTitle = parseHTML(
     newsItem.title,
-    data => {
-      decodedNewsItemTitle += data
-    },
     {
       decodeEntities: true
     }

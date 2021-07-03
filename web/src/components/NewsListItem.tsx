@@ -56,22 +56,15 @@ type PropsType = {
 
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
   // Decode html entities
-  let decodedContent = ''
-  let decodedTitle = ''
-  parseHTML(
+  const decodedContent = parseHTML(
     content,
-    data => {
-      decodedContent += data
-    },
     { decodeEntities: true }
   )
-  parseHTML(
+  const decodedTitle = parseHTML(
     title,
-    data => {
-      decodedTitle += data
-    },
     { decodeEntities: true }
   )
+  console.log("🚀 ~ file: NewsListItem.tsx ~ line 68 ~ NewsListItem ~ decodedTitle", decodedTitle)
 
   const readMoreLinkText = `${t('readMore')} >`
 
