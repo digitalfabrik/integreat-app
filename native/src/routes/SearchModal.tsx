@@ -89,6 +89,19 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         (category: CategoryModel): ListEntryType => {
           const contentWithoutHtml: string[] = []
 
+          // TODO: fix
+          // new Parser(
+          //   {
+          //     ontext: data => {
+          //       decodedContent += data
+          //     },
+          //   },
+          //   options
+          // )
+        
+          // parser.write(html)
+          // parser.end()
+
           parseHTML(category.content, data => {
             contentWithoutHtml.push(data)
           })

@@ -19,10 +19,7 @@ class TunewsModel {
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
 
-    let parsedTitle = ''
-    parseHTML(title, data => {
-      parsedTitle += data
-    })
+    const parsedTitle = parseHTML(title)
 
     this._id = id
     this._title = parsedTitle

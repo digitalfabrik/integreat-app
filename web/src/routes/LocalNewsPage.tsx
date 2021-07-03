@@ -114,12 +114,8 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   }
 
   if (newsModel) {
-    let decodedNewsModelTitle = ''
-    parseHTML(
+    const decodedNewsModelTitle = parseHTML(
       newsModel.title,
-      data => {
-        decodedNewsModelTitle += data
-      },
       {
         decodeEntities: true
       }
