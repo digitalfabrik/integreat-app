@@ -27,7 +27,7 @@ You need to follow several steps to add new languages:
 
 If you need a new font for your language, the following steps are required:
 
-- `web`: Add the new font as `.eot`, `.svg`, `.ttf`, `woff` and `woff2` along with a `.css` stylesheet and a license [here](../web-ts/www/fonts).
+- `web`: Add the new font as `.eot`, `.svg`, `.ttf`, `woff` and `woff2` along with a `.css` stylesheet and a license [here](../web/www/fonts).
 - `iOS` Add the new font as `.ttf` [here](../native/ios/Integreat/fonts) and register the new font in XCode.
 - `android`: Add the new font as `.ttf` [here](../native/android/app/src/main/assets/fonts).
 
