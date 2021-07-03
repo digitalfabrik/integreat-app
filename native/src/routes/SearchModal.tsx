@@ -7,7 +7,8 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
-  RouteInformationType
+  RouteInformationType,
+  parseHTML
 } from 'api-client'
 import CategoryList, { ListEntryType } from '../components/CategoryList'
 import styled from 'styled-components/native'
@@ -21,7 +22,6 @@ import SadIcon from '../assets/smile-sad.svg'
 import sendTrackingSignal from '../services/sendTrackingSignal'
 import { urlFromRouteInformation } from '../navigation/url'
 import { ReactNode } from 'react'
-import { parseHTML } from 'api-client/src/utils/helpers'
 
 const Wrapper = styled.View`
   position: absolute;

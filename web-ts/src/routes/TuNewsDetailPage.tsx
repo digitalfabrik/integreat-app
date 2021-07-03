@@ -7,7 +7,8 @@ import {
   normalizePath,
   NotFoundError,
   TU_NEWS_TYPE,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
+  parseHTML
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -18,7 +19,6 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Page from '../components/Page'
 import styled from 'styled-components'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
-import { parseHTML } from 'api-client/src/utils/helpers'
 import Helmet from '../components/Helmet'
 
 const StyledContainer = styled.div`

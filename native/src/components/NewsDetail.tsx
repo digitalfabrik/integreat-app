@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ReactElement, useCallback, useContext } from 'react'
 import { ScrollView, useWindowDimensions, View } from 'react-native'
-import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
+import { LocalNewsModel, replaceLinks, TunewsModel, parseHTML } from 'api-client'
 import { ThemeType } from 'build-configs'
 import { contentAlignment } from '../constants/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
@@ -9,7 +9,6 @@ import styled from 'styled-components/native'
 import Html from 'react-native-render-html'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { parseHTML } from 'api-client/src/utils/helpers'
 
 const Container = styled.View`
   align-items: center;
