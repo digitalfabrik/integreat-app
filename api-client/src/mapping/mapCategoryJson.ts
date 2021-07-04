@@ -3,7 +3,7 @@ import CategoryModel from '../models/CategoryModel'
 import moment from 'moment-timezone'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import normalizePath from '../normalizePath'
-import { sanitize } from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryModel =>
   new CategoryModel({

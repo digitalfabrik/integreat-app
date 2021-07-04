@@ -3,7 +3,7 @@ import { JsonTunewsType } from '../types'
 import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
-import { sanitize } from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {

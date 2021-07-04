@@ -3,7 +3,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment-timezone'
 import { JsonDisclaimerType } from '../types'
 import Endpoint from '../Endpoint'
-import { sanitize } from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 import normalizePath from '../normalizePath'
 import NotFoundError from '../errors/NotFoundError'
 

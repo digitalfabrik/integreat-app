@@ -6,7 +6,7 @@ import Endpoint from '../Endpoint'
 import MappingError from '../errors/MappingError'
 import NotFoundError from '../errors/NotFoundError'
 import { LOCAL_NEWS_TYPE } from '../routes'
-import { sanitize } from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 type ParamsType = {

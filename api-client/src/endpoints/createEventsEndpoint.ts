@@ -9,7 +9,7 @@ import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
 import FeaturedImageModel from '../models/FeaturedImageModel'
-import { sanitize } from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
