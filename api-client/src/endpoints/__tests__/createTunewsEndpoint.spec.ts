@@ -3,8 +3,7 @@ import createTunewsEndpoint from '../createTunewsEndpoint'
 import TunewsModel from '../../models/TunewsModel'
 import { JsonTunewsType } from '../../types'
 import { Moment } from 'moment'
-
-describe('createTunewsEndpoint', () => {
+describe('tunews', () => {
   const baseUrl = 'https://tunews.integreat-app.de'
   const tunews = createTunewsEndpoint(baseUrl)
 
@@ -42,34 +41,15 @@ describe('createTunewsEndpoint', () => {
     page: 1,
     count: 1
   }
-
   it('should map params to url', () => {
     expect(tunews.mapParamsToUrl(params)).toEqual(
       `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`
     )
   })
-
   const json = [item1, item2, item3]
-
   it('should map fetched data to models', () => {
     const tunewsModels = tunews.mapResponse(json, params)
     const newsItemsValues = [itemModel1, itemModel2, itemModel3]
     expect(tunewsModels).toEqual(newsItemsValues)
-  })
-
-  it('should sanitize html', () => {
-    const unsanitizedJson = [{
-      ...item1,
-      content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
-      title: 'Sanitize me!'
-    }]
-    expect(tunews.mapResponse(unsanitizedJson, params)).toEqual([new TunewsModel({
-      id: 1,
-      title: 'Sanitize me!',
-      date: moment.tz('2020-01-20 12:04:22+00:00', 'GMT'),
-      content: '<a>Ich bleib aber da.</a>',
-      eNewsNo: 'tun0000009902',
-      tags: ['8 Gesundheit'],
-    })])
   })
 })
