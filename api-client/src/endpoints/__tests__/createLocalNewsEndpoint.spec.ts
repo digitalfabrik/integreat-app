@@ -53,20 +53,16 @@ describe('createLocalNewsEndpoint', () => {
   })
 
   it('should sanitize html', () => {
-    const unsanitizedJson = [
-      {
-        ...item1,
-        message: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
-        title: 'Sanitize me!'
-      }
-    ]
-    expect(localNews.mapResponse(unsanitizedJson, params)).toEqual(
-      new LocalNewsModel({
-        id: 1,
-        title: 'Sanitize me!',
-        timestamp: moment.tz('2020-03-20 17:50:00', 'GMT'),
-        message: '<a>Ich bleib aber da.</a>'
-      })
-    )
+    const unsanitizedJson = [{
+      ...item1,
+      message: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>',
+      title: 'Sanitize me!'
+    }]
+    expect(localNews.mapResponse(unsanitizedJson, params)).toEqual(new LocalNewsModel({
+      id: 1,
+      title: 'Sanitize me!',
+      timestamp: moment.tz('2020-03-20 17:50:00', 'GMT'),
+      message: '<a>Ich bleib aber da.</a>'
+    }))
   })
 })
