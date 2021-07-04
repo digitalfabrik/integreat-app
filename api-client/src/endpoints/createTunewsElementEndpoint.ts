@@ -5,7 +5,7 @@ import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import NotFoundError from '../errors/NotFoundError'
 import { TU_NEWS_TYPE } from '../routes'
-import { sanitize } from 'dompurify'
+import { sanitize } from 'isomorphic-dompurify'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 

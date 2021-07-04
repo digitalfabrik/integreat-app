@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "entities": "^2.0.0",
-    "dompurify": "^2.2.9",
+    "isomorphic-dompurify": "^0.14.0",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
     "moment": "2.29.1",
@@ -26,7 +26,6 @@
     "react": "16.13.1"
   },
   "devDependencies": {
-    "@types/dompurify": "^2.2.2",
     "@types/jest": "^26.0.23",
     "@types/js-md5": "^0.4.2",
     "@types/lodash": "^4.14.168",
