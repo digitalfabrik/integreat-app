@@ -17,13 +17,13 @@
   },
   "dependencies": {
     "entities": "^2.0.0",
-    "isomorphic-dompurify": "^0.14.0",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
     "moment": "2.29.1",
     "moment-timezone": "^0.5",
     "normalize-path": "^3.0.0",
-    "react": "16.13.1"
+    "react": "16.13.1",
+    "sanitize-html-react": "^1.13"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
