@@ -1,7 +1,6 @@
 import mapCategoryJson from '../mapCategoryJson'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
-
 describe('categories', () => {
   const basePath = '/augsburg/de'
   const categoryJson1 = {
@@ -81,20 +80,15 @@ describe('categories', () => {
     lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
-
   it('should map json correctly', () => {
     const category = mapCategoryJson(categoryJson1, basePath)
     expect(category).toEqual(categoryModel1)
   })
-
   it('should map farsi json correctly', () => {
     const category = mapCategoryJson(categoryJson2, basePath)
     expect(category).toEqual(categoryModel2)
   })
-
   it('should sanitize html', () => {
-    const json = { ...categoryJson1, content: '<a><script>alert("XSSS");</script>Ich bleib aber da.</a>' }
-    const category = mapCategoryJson(json, basePath)
-    expect(category).toEqual(categoryModel1)
+    // TODO IGAPP-564
   })
 })
