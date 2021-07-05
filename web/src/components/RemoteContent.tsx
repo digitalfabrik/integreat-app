@@ -1,6 +1,7 @@
 import React, { ReactElement, RefObject, useEffect, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
+import Dompurify from 'dompurify'
 
 const SandBox = styled.div<{ centered: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -92,7 +93,7 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsTyp
   }, [html, handleClick, sandBoxRef])
 
   const dangerouslySetInnerHTML = {
-    __html: html
+    __html: Dompurify.sanitize(html)
   }
 
   return <SandBox centered={centered} dangerouslySetInnerHTML={dangerouslySetInnerHTML} ref={sandBoxRef} />
