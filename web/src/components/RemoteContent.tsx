@@ -70,15 +70,18 @@ const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsType): ReactElement => {
   const sandBoxRef: RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
 
-  const handleClick = useCallback((event: MouseEvent): void => {
-    event.preventDefault ? event.preventDefault() : (event.returnValue = false)
-    const target: EventTarget | null = event.currentTarget
+  const handleClick = useCallback(
+    (event: MouseEvent): void => {
+      event.preventDefault ? event.preventDefault() : (event.returnValue = false)
+      const target: EventTarget | null = event.currentTarget
 
-    if (target instanceof HTMLAnchorElement) {
-      const href = target.href
-      onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
-    }
-  }, [onInternalLinkClick])
+      if (target instanceof HTMLAnchorElement) {
+        const href = target.href
+        onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+      }
+    },
+    [onInternalLinkClick]
+  )
 
   useEffect(() => {
     if (!sandBoxRef.current) {
