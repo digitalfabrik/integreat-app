@@ -59,16 +59,14 @@ const SandBox = styled.div<{ centered: boolean }>`
 `
 
 type PropsType = {
-  dangerouslySetInnerHTML: {
-    __html: string
-  }
+  html: string
   onInternalLinkClick: (url: string) => void
   centered?: boolean
 }
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-const RemoteContent = ({ dangerouslySetInnerHTML, onInternalLinkClick, centered = false }: PropsType): ReactElement => {
+const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsType): ReactElement => {
   const sandBoxRef: RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
 
   const handleClick = useCallback((event: MouseEvent): void => {
@@ -91,7 +89,11 @@ const RemoteContent = ({ dangerouslySetInnerHTML, onInternalLinkClick, centered 
         node.addEventListener('click', handleClick)
       }
     })
-  }, [dangerouslySetInnerHTML, handleClick, sandBoxRef])
+  }, [html, handleClick, sandBoxRef])
+
+  const dangerouslySetInnerHTML = {
+    __html: html
+  }
 
   return <SandBox centered={centered} dangerouslySetInnerHTML={dangerouslySetInnerHTML} ref={sandBoxRef} />
 }
