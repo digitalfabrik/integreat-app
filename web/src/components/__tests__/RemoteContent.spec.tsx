@@ -55,8 +55,8 @@ describe('RemoteContent', () => {
     const previousAlert = window.alert
     window.alert = jest.fn()
 
-    const content = '<div>' +
-      '<p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
+    const content =
+      '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
