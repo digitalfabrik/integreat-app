@@ -1,4 +1,4 @@
-import React, { ReactNode, RefObject } from 'react'
+import React, { ReactElement, RefObject, useEffect, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 
@@ -63,64 +63,37 @@ type PropsType = {
     __html: string
   }
   onInternalLinkClick: (url: string) => void
-  centered: boolean
+  centered?: boolean
 }
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-class RemoteContent extends React.Component<PropsType> {
-  static defaultProps = {
-    centered: false
-  }
+const RemoteContent = ({ dangerouslySetInnerHTML, onInternalLinkClick, centered = false }: PropsType): ReactElement => {
+  const sandBoxRef: RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
 
-  sandBoxRef: RefObject<HTMLDivElement>
-
-  handleClick = (event: MouseEvent): void => {
-    // https://stackoverflow.com/a/1000606
-    // $FlowFixMe
+  const handleClick = useCallback((event: MouseEvent): void => {
     event.preventDefault ? event.preventDefault() : (event.returnValue = false)
     const target: EventTarget | null = event.currentTarget
 
     if (target instanceof HTMLAnchorElement) {
       const href = target.href
-      this.props.onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
+      onInternalLinkClick(decodeURIComponent(new URL(decodeURIComponent(href)).pathname))
     }
-  }
+  }, [onInternalLinkClick])
 
-  constructor(props: PropsType) {
-    super(props)
-    this.sandBoxRef = React.createRef<HTMLDivElement>()
-  }
-
-  hijackATags(): void {
-    if (!this.sandBoxRef.current) {
+  useEffect(() => {
+    if (!sandBoxRef.current) {
       return
     }
-    const collection: HTMLCollectionOf<HTMLAnchorElement> = this.sandBoxRef.current.getElementsByTagName('a')
+    const collection: HTMLCollectionOf<HTMLAnchorElement> = sandBoxRef.current.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
       if (HIJACK.test(node.href)) {
-        node.addEventListener('click', this.handleClick)
+        node.addEventListener('click', handleClick)
       }
     })
-  }
+  }, [dangerouslySetInnerHTML, handleClick, sandBoxRef])
 
-  componentDidMount(): void {
-    this.hijackATags()
-  }
-
-  componentDidUpdate(): void {
-    this.hijackATags()
-  }
-
-  render(): ReactNode {
-    return (
-      <SandBox
-        centered={this.props.centered}
-        dangerouslySetInnerHTML={this.props.dangerouslySetInnerHTML}
-        ref={this.sandBoxRef}
-      />
-    )
-  }
+  return <SandBox centered={centered} dangerouslySetInnerHTML={dangerouslySetInnerHTML} ref={sandBoxRef} />
 }
 
 export default RemoteContent
