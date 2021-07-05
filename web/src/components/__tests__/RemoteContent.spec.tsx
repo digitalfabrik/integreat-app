@@ -50,4 +50,21 @@ describe('RemoteContent', () => {
 
     expect(onInternalLinkClick).toHaveBeenCalledTimes(0)
   })
+
+  it('should sanitize the html', () => {
+    const previousAlert = window.alert
+    window.alert = jest.fn()
+
+    const content = '<p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p>'
+    const { getByText } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
+      </ThemeProvider>
+    )
+
+    expect(window.alert).not.toHaveBeenCalled()
+    expect(getByText('Ich bleib aber da.')).toBeTruthy()
+
+    window.alert = previousAlert
+  })
 })
