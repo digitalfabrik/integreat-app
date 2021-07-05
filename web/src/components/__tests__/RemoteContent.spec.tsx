@@ -9,7 +9,7 @@ describe('RemoteContent', () => {
     const content = 'Test html'
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }} onInternalLinkClick={() => {}} />
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
       </ThemeProvider>
     )
     expect(getByText(content)).toBeTruthy()
@@ -23,7 +23,7 @@ describe('RemoteContent', () => {
 
     const { getByRole, getAllByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent dangerouslySetInnerHTML={{ __html: html }} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
       </ThemeProvider>
     )
 
@@ -41,7 +41,7 @@ describe('RemoteContent', () => {
 
     const { getByRole, getAllByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent dangerouslySetInnerHTML={{ __html: html }} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
       </ThemeProvider>
     )
 
