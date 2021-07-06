@@ -33,6 +33,7 @@ const ModalContainer = styled.div`
 const Feedback = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   background-color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
@@ -50,6 +51,7 @@ const Header = styled.div`
   margin-bottom: 10px;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
+
 const CloseButton = styled.button`
   background-color: ${props => props.theme.colors.backgroundColor};
   border: none;
@@ -59,6 +61,7 @@ const CloseButton = styled.button`
     vertical-align: baseline;
   }
 `
+
 type PropsType = {
   path?: string
   alias?: string
@@ -75,27 +78,22 @@ const FeedbackModal = (props: PropsType): ReactElement => {
   const { feedbackRating, closeModal, ...otherProps } = props
   const { t } = useTranslation('feedback')
 
-
-  const handleOverlayClick = (): void => {
-    console.log(props)
-    closeModal()
-  }
-
   return (
     <FocusTrap>
       <div>
-        <Header>
-          <div>{t('feedback')}</div>
-          <CloseButton aria-label={t('close')} onClick={closeModal}>
-            <FontAwesomeIcon icon={faTimes} />
-          </CloseButton>
-        </Header>
         <ModalContainer role='dialog' aria-modal>
-          <Overlay onClick={handleOverlayClick} />
+          <Overlay onClick={closeModal} />
           <Feedback>
+            <Header>
+              <div>{t('feedback')}</div>
+              <CloseButton aria-label={t('close')} onClick={closeModal}>
+                <FontAwesomeIcon icon={faTimes} />
+              </CloseButton>
+            </Header>
             <FeedbackContainer
               isPositiveFeedback={feedbackRating === POSITIVE_RATING}
               isSearchFeedback={false}
+              closeModal={closeModal}
               {...otherProps}
             />
           </Feedback>
