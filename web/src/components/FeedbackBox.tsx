@@ -1,14 +1,14 @@
 import * as React from 'react'
+import { ReactElement } from 'react'
 import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import ModalHeader from './ModalHeader'
 import FeedbackComment from './FeedbackComment'
 import TextButton from './TextButton'
-import type { SendingStatusType } from './FeedbackModal'
-import { ReactElement } from 'react'
+import type { SendingStatusType } from './FeedbackContainer'
+import { ThemeType } from 'build-configs'
 
-export const StyledFeedbackBox = styled.div`
+export const StyledFeedback = styled.div`
   display: flex;
   width: 400px;
   height: auto;
@@ -29,45 +29,43 @@ export const Description = styled.div`
   padding: 10px 0 5px;
 `
 type PropsType = {
-  isPositiveRatingSelected: boolean
+  isPositiveFeedback: boolean
+  isSearchFeedback: boolean
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
   onSubmit: () => void
-  t: TFunction
-  closeFeedbackModal: () => void
   sendingStatus: SendingStatusType
 }
 
-/**
- * Renders all necessary inputs for a Feedback and posts the data to the feedback endpoint
- */
-export const FeedbackBox = ({
-  t,
-  isPositiveRatingSelected,
-  onCommentChanged,
-  onContactMailChanged,
-  onSubmit,
-  contactMail,
-  comment,
-  closeFeedbackModal,
-  sendingStatus
-}: PropsType): ReactElement => (
-  <StyledFeedbackBox>
-    <ModalHeader t={t} closeFeedbackModal={closeFeedbackModal} title={t('feedback')} />
-    <FeedbackComment
-      comment={comment}
-      commentMessage={isPositiveRatingSelected ? t('positiveComment') : t('negativeComment')}
-      onCommentChanged={onCommentChanged}
-      required={!isPositiveRatingSelected}
-    />
-    <Description>
-      {t('contactMailAddress')} ({t('optionalInfo')})
-    </Description>
-    <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
-    {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
-    <TextButton disabled={!isPositiveRatingSelected && !comment} onClick={onSubmit} text={t('send')} />
-  </StyledFeedbackBox>
-)
-export default withTranslation('feedback')(FeedbackBox)
+export const Feedback = (props: PropsType): ReactElement => {
+  const {
+    isPositiveFeedback,
+    comment,
+    contactMail,
+    sendingStatus,
+    onSubmit,
+    onCommentChanged,
+    onContactMailChanged
+  } = props
+  const { t } = useTranslation('feedback')
+  return (
+    <StyledFeedback>
+      <FeedbackComment
+        comment={comment}
+        commentMessage={isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
+        onCommentChanged={onCommentChanged}
+        required={!isPositiveFeedback}
+      />
+      <Description>
+        {t('contactMailAddress')} ({t('optionalInfo')})
+      </Description>
+      <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
+      {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
+      <TextButton disabled={!isPositiveFeedback && !comment} onClick={onSubmit} text={t('send')} />
+    </StyledFeedback>
+  )
+}
+
+export default Feedback
