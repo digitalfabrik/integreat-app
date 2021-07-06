@@ -1,3 +1,4 @@
+// tbd
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
@@ -5,8 +6,9 @@ import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TextButton from './TextButton'
 import { useTranslation } from 'react-i18next'
+import FeedbackContainer from './FeedbackContainer'
 
-const FeedbackContainer = styled.div`
+const FeedbackContainer1 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,19 +40,21 @@ const SearchFeedback = ({ cityCode, languageCode, query, resultsFound }: PropsTy
     })
     setBoxOpenedForQuery(query)
   }
+  
+  return <FeedbackContainer cityCode={} language={} routeType={} isPositiveFeedback={} closeFeedbackModal={} sendingStatus={} onSubmit={}
 
-  if (!resultsFound || query === boxOpenedForQuery) {
+                            if (!resultsFound || query === boxOpenedForQuery) {
     return (
-      <FeedbackContainer>
+      <FeedbackContainer1>
         <NothingFound>{t('nothingFound')}</NothingFound>
         <NothingFoundFeedbackBox cityCode={cityCode} languageCode={languageCode} query={query} />
-      </FeedbackContainer>
+      </FeedbackContainer1>
     )
   } else {
     return (
-      <FeedbackContainer>
+      <FeedbackContainer1>
         <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
-      </FeedbackContainer>
+      </FeedbackContainer1>
     )
   }
 }

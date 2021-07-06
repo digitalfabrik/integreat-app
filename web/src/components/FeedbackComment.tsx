@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Description } from './FeedbackBox'
+import { Description } from './Feedback'
 
 const CommentField = styled.textarea`
   resize: none;
