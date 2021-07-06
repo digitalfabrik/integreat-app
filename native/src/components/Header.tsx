@@ -2,18 +2,20 @@ import React, { ReactElement } from 'react'
 import { Share } from 'react-native'
 import styled from 'styled-components/native'
 import { Item } from 'react-navigation-header-buttons'
+import { Dispatch } from 'redux'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { StoreActionType } from '../redux/StoreActionType'
-import { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
 import sendTrackingSignal from '../services/sendTrackingSignal'
-import { ThemeType } from 'build-configs'
+import { forceNewLine } from '../services/forceNewLine'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -34,7 +36,7 @@ const Icon = styled.Image`
 const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
-  font-size: 20px;
+  font-size: ${props => props.width}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -145,8 +147,11 @@ const Header = (props: PropsType): ReactElement => {
     }
 
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
-    return `${routeCityModel.sortingName}${description}`
+    const cityNameLength = routeCityModel.sortingName.length
+    const minus = '-'
+    return cityNameLength < (dimensions.deviceWidth / dimensions.headerTextSize) && routeCityModel.sortingName.indexOf(minus) !== -1 ? `${routeCityModel.sortingName}${description}` : `${forceNewLine(routeCityModel.sortingName, minus)}${description}`
   }
+
 
   const renderItem = (
     title: string,
@@ -172,7 +177,8 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme}>
+            <HeaderText allowFontScaling={false} theme={theme}
+                        width={dimensions.deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}
@@ -180,8 +186,8 @@ const Header = (props: PropsType): ReactElement => {
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable && renderItem(t('search'), 'always', goToSearch, t('search'), 'search')}
           {!peeking &&
-            goToLanguageChange &&
-            renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
+          goToLanguageChange &&
+          renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
           {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
           {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
           {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}
