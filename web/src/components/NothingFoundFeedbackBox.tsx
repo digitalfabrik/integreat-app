@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
-import { Description, StyledFeedbackBox } from './FeedbackBox'
+import { Description, StyledFeedback } from './Feedback'
 import FeedbackComment from './FeedbackComment'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TextButton from './TextButton'
@@ -32,7 +32,7 @@ const NothingFoundFeedbackBox = ({ query, cityCode, languageCode }: PropsType): 
   }
 
   return (
-    <StyledFeedbackBox>
+    <StyledFeedback>
       {feedbackSent ? (
         <Description>{t('thanksMessage', { appName: buildConfig().appName })}</Description>
       ) : (
@@ -41,7 +41,7 @@ const NothingFoundFeedbackBox = ({ query, cityCode, languageCode }: PropsType): 
           <TextButton onClick={handleSubmit} text={t('send')} />
         </>
       )}
-    </StyledFeedbackBox>
+    </StyledFeedback>
   )
 }
 

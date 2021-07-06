@@ -45,9 +45,9 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
       <FeedbackModal
         cityCode={cityModel.code}
         language={languageCode}
-        route={route}
+        routeType={route}
         feedbackRating={this.state.feedbackModalRating}
-        closeFeedbackModal={this.closeFeedbackModal}
+        closeModal={this.closeFeedbackModal}
         {...feedbackTargetInformation}
       />
     )

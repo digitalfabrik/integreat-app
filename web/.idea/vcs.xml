@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="GithubSharedProjectSettings">
     <option name="branchProtectionPatterns">
       <list>
@@ -7,6 +8,8 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> bf4beb3ff... LUN-611: Refactoring Feedback
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
   </component>
