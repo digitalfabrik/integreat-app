@@ -1,12 +1,9 @@
 import * as React from 'react'
 import { ReactElement } from 'react'
-import type { TFunction } from 'react-i18next'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import FeedbackComment from './FeedbackComment'
 import TextButton from './TextButton'
 import type { SendingStatusType } from './FeedbackContainer'
-import { ThemeType } from 'build-configs'
 
 export const StyledFeedback = styled.div`
   display: flex;
@@ -19,6 +16,13 @@ export const StyledFeedback = styled.div`
   border-radius: 10px;
   border-color: #585858;
   font-size: ${props => props.theme.fonts.contentFontSize};
+`
+const CommentField = styled.textarea`
+  resize: none;
+`
+const RequiredText = styled.span`
+  color: red;
+  font-size: 1.5em;
 `
 const TextInput = styled.input.attrs({
   type: 'text'
@@ -42,6 +46,7 @@ type PropsType = {
 export const Feedback = (props: PropsType): ReactElement => {
   const {
     isPositiveFeedback,
+    isSearchFeedback,
     comment,
     contactMail,
     sendingStatus,
@@ -50,14 +55,17 @@ export const Feedback = (props: PropsType): ReactElement => {
     onContactMailChanged
   } = props
   const { t } = useTranslation('feedback')
+  const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'
+  const description = isSearchFeedback ? 'wantedInformation' : feedbackModalDescription
+  console.log(description)
+
   return (
     <StyledFeedback>
-      <FeedbackComment
-        comment={comment}
-        commentMessage={isPositiveFeedback ? t('positiveComment') : t('negativeComment')}
-        onCommentChanged={onCommentChanged}
-        required={!isPositiveFeedback}
-      />
+      <Description>
+        {t(description)}
+        {!isPositiveFeedback && <RequiredText>*</RequiredText>}
+      </Description>
+      <CommentField rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
       <Description>
         {t('contactMailAddress')} ({t('optionalInfo')})
       </Description>

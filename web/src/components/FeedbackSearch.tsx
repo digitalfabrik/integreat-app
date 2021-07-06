@@ -1,9 +1,7 @@
 // tbd
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
-import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
-import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
-import { cmsApiBaseUrl } from '../constants/urls'
+import { SEARCH_FEEDBACK_TYPE } from 'api-client'
 import TextButton from './TextButton'
 import { useTranslation } from 'react-i18next'
 import FeedbackContainer from './FeedbackContainer'
@@ -18,6 +16,14 @@ const NothingFound = styled.div`
   margin-top: 30px;
 `
 
+const CommentField = styled.textarea`
+  resize: none;
+`
+const RequiredText = styled.span`
+  color: red;
+  font-size: 1.5em;
+`
+
 type PropsType = {
   cityCode: string
   languageCode: string
@@ -25,29 +31,20 @@ type PropsType = {
   resultsFound: boolean
 }
 
-const SearchFeedback = ({ cityCode, languageCode, query, resultsFound }: PropsType): ReactElement => {
+const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: PropsType): ReactElement => {
   const [boxOpenedForQuery, setBoxOpenedForQuery] = useState<string | null>(null)
   const { t } = useTranslation('feedback')
 
   const handleFeedbackLinkClicked = (): void => {
-    createFeedbackEndpoint(cmsApiBaseUrl).request({
-      feedbackType: SEARCH_FEEDBACK_TYPE,
-      isPositiveRating: false,
-      comment: '',
-      city: cityCode,
-      language: languageCode,
-      query
-    })
     setBoxOpenedForQuery(query)
   }
-  
-  return <FeedbackContainer cityCode={} language={} routeType={} isPositiveFeedback={} closeFeedbackModal={} sendingStatus={} onSubmit={}
 
-                            if (!resultsFound || query === boxOpenedForQuery) {
+  if (!resultsFound || query === boxOpenedForQuery) {
     return (
       <FeedbackContainer1>
         <NothingFound>{t('nothingFound')}</NothingFound>
-        <NothingFoundFeedbackBox cityCode={cityCode} languageCode={languageCode} query={query} />
+        <FeedbackContainer cityCode={cityCode} language={languageCode} routeType={SEARCH_FEEDBACK_TYPE}
+                           isPositiveFeedback={false} isSearchFeedback query={query} />
       </FeedbackContainer1>
     )
   } else {
@@ -59,4 +56,4 @@ const SearchFeedback = ({ cityCode, languageCode, query, resultsFound }: PropsTy
   }
 }
 
-export default SearchFeedback
+export default FeedbackSearch

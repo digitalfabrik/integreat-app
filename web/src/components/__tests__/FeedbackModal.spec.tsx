@@ -1,10 +1,11 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { FeedbackModal } from '../FeedbackModal'
+
 import { ThemeProvider } from 'styled-components'
 import { MemoryRouter } from 'react-router-dom'
 import buildConfig from '../../constants/buildConfig'
 import { CATEGORIES_ROUTE } from 'api-client'
+import FeedbackModal from '../FeedbackModal'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {
