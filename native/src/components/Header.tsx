@@ -149,9 +149,11 @@ const Header = (props: PropsType): ReactElement => {
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
     const cityNameLength = routeCityModel.sortingName.length
     const minus = '-'
-    return cityNameLength < (dimensions.deviceWidth / dimensions.headerTextSize) && routeCityModel.sortingName.indexOf(minus) !== -1 ? `${routeCityModel.sortingName}${description}` : `${forceNewLine(routeCityModel.sortingName, minus)}${description}`
+    return cityNameLength < dimensions.deviceWidth / dimensions.headerTextSize &&
+      routeCityModel.sortingName.indexOf(minus) !== -1
+      ? `${routeCityModel.sortingName}${description}`
+      : `${forceNewLine(routeCityModel.sortingName, minus)}${description}`
   }
-
 
   const renderItem = (
     title: string,
@@ -177,8 +179,7 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme}
-                        width={dimensions.deviceWidth * dimensions.fontScaling}>
+            <HeaderText allowFontScaling={false} theme={theme} width={dimensions.deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}
@@ -186,8 +187,8 @@ const Header = (props: PropsType): ReactElement => {
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable && renderItem(t('search'), 'always', goToSearch, t('search'), 'search')}
           {!peeking &&
-          goToLanguageChange &&
-          renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
+            goToLanguageChange &&
+            renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
           {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
           {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
           {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}

@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native"
+import { Dimensions } from 'react-native'
 
 export type DimensionsType = {
   headerHeight: number
@@ -7,9 +7,9 @@ export type DimensionsType = {
     iconSize: number
     margin: number
   }
-  fontScaling: number,
-  deviceWidth: number;
-  headerTextSize: number;
+  fontScaling: number
+  deviceWidth: number
+  headerTextSize: number
 }
 const dimensions: DimensionsType = {
   headerHeight: 60,
