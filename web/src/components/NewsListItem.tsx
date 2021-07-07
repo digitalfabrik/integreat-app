@@ -64,7 +64,6 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
     title,
     { decodeEntities: true }
   )
-  console.log("🚀 ~ file: NewsListItem.tsx ~ line 68 ~ NewsListItem ~ decodedTitle", decodedTitle)
 
   const readMoreLinkText = `${t('readMore')} >`
 
