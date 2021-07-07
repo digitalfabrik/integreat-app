@@ -1,4 +1,4 @@
-import React, { ReactElement, RefObject, useEffect, useCallback } from 'react'
+import React, { ReactElement, useEffect, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 import Dompurify from 'dompurify'
@@ -68,12 +68,12 @@ type PropsType = {
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsType): ReactElement => {
-  const sandBoxRef: RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>()
+  const sandBoxRef = React.createRef<HTMLDivElement>()
 
   const handleClick = useCallback(
     (event: MouseEvent): void => {
       event.preventDefault ? event.preventDefault() : (event.returnValue = false)
-      const target: EventTarget | null = event.currentTarget
+      const target = event.currentTarget
 
       if (target instanceof HTMLAnchorElement) {
         const href = target.href
@@ -87,7 +87,7 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsTyp
     if (!sandBoxRef.current) {
       return
     }
-    const collection: HTMLCollectionOf<HTMLAnchorElement> = sandBoxRef.current.getElementsByTagName('a')
+    const collection = sandBoxRef.current.getElementsByTagName('a')
     Array.from(collection).forEach(node => {
       if (HIJACK.test(node.href)) {
         node.addEventListener('click', handleClick)
