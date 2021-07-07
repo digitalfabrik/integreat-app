@@ -6,8 +6,6 @@ import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment-timezone'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
-import { sanitize } from 'dompurify'
-
 export const POIS_ENDPOINT_NAME = 'pois'
 type ParamsType = {
   city: string
@@ -24,7 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
           return new PoiModel({
             path: normalizePath(poi.path),
             title: poi.title,
-            content: sanitize(poi.content),
+            content: poi.content,
             thumbnail: poi.thumbnail,
             availableLanguages: mapAvailableLanguages(poi.available_languages),
             excerpt: poi.excerpt,
