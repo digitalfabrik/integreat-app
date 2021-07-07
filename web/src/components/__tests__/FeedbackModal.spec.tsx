@@ -1,6 +1,5 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-
 import { ThemeProvider } from 'styled-components'
 import { MemoryRouter } from 'react-router-dom'
 import buildConfig from '../../constants/buildConfig'
@@ -17,15 +16,10 @@ jest.mock('api-client', () => {
   }
 })
 
-jest.mock('../FeedbackThanksMessage', () => {
-  return () => <div>Thanks</div>
-})
-
 describe('FeedbackModal', () => {
   const cityCode = 'augsburg'
   const language = 'de'
-
-  const closeFeedbackModal = jest.fn()
+  const closeModal = jest.fn()
 
   it('should display thanks message after successfully submitting feedback', async () => {
     const { getByRole, getByText } = render(
@@ -35,7 +29,7 @@ describe('FeedbackModal', () => {
           language={language}
           routeType={CATEGORIES_ROUTE}
           path='augsburg/de'
-          closeFeedbackModal={closeFeedbackModal}
+          closeModal={closeModal}
           feedbackRating='up'
         />
       </ThemeProvider>,
@@ -47,6 +41,6 @@ describe('FeedbackModal', () => {
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
     await waitFor(() => expect(button).not.toBeDisabled())
-    expect(getByText('Thanks')).toBeTruthy()
+    expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 })

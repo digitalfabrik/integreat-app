@@ -1,11 +1,14 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Feedback } from '../Feedback'
 import { ThemeProvider } from 'styled-components'
-import { SendingStatusType } from '../FeedbackModal'
+import { SendingStatusType } from '../FeedbackContainer'
 import buildConfig from '../../constants/buildConfig'
 
-describe('FeedbackBox', () => {
+const mockRequest = jest.fn()
+jest.mock('react-i18next')
+
+describe('Feedback', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -17,10 +20,11 @@ describe('FeedbackBox', () => {
   const onSubmit = jest.fn()
   const closeFeedbackModal = jest.fn()
 
-  const buildProps = (isPositiveRatingSelected: boolean, comment: string) => {
+  const buildProps = (isPositiveFeedback: boolean, comment: string) => {
     return {
       comment,
-      isPositiveRatingSelected,
+      isPositiveFeedback,
+      isSearchFeedback: false,
       contactMail: 'test@example.com',
       sendingStatus: 'IDLE' as SendingStatusType,
       onCommentChanged,
@@ -31,13 +35,32 @@ describe('FeedbackBox', () => {
     }
   }
 
+  it('should set the submit that an error occurred', async () => {
+    mockRequest.mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const { getByRole } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Feedback {...buildProps(true, '')} />
+      </ThemeProvider>
+    )
+    const button = getByRole('button', {
+      name: 'feedback:send'
+    })
+    fireEvent.click(button)
+    // Needed as submitFeedback is asynchronous
+    await waitFor(() => expect(button).not.toBeDisabled())
+    // TODO
+    // expect(onSubmit).toBeCalledWith('ERROR')
+  })
+
   it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Feedback {...buildProps(false, '')} />
       </ThemeProvider>
     )
-    expect(getByText('send')).toBeDisabled()
+    expect(getByText('feedback:send')).toBeDisabled()
   })
 
   it('button should be enabled for positive Feedback and no input', () => {
@@ -46,7 +69,7 @@ describe('FeedbackBox', () => {
         <Feedback {...buildProps(true, '')} />
       </ThemeProvider>
     )
-    expect(getByText('send')).not.toBeDisabled()
+    expect(getByText('feedback:send')).not.toBeDisabled()
   })
 
   it('button should be enabled for negative Feedback and input', () => {
@@ -55,7 +78,7 @@ describe('FeedbackBox', () => {
         <Feedback {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
-    expect(getByText('send')).not.toBeDisabled()
+    expect(getByText('feedback:send')).not.toBeDisabled()
   })
 
   it('onSubmit should be called on button press', async () => {
@@ -64,7 +87,7 @@ describe('FeedbackBox', () => {
         <Feedback {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
-    const button = getByText('send')
+    const button = getByText('feedback:send')
     fireEvent.click(button)
     expect(onSubmit).toBeCalled()
   })

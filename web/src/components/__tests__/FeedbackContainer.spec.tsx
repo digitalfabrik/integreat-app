@@ -11,12 +11,13 @@ import {
   OFFERS_ROUTE,
   PAGE_FEEDBACK_TYPE,
   POIS_ROUTE,
+  SEARCH_FEEDBACK_TYPE,
+  SEARCH_ROUTE,
   SPRUNGBRETT_OFFER
 } from 'api-client'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 import FeedbackContainer from '../FeedbackContainer'
-import { SendingStatusType } from '../FeedbackModal'
 import { RouteType } from '../../routes'
 
 const mockRequest = jest.fn()
@@ -37,26 +38,23 @@ describe('FeedbackContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const closeFeedbackModal = jest.fn()
-  const onSubmit = jest.fn()
+  const closeModal = jest.fn()
 
   const buildDefaultProps = (
-    route: RouteType,
-    isPositiveRatingSelected: boolean,
-    sendingStatus: SendingStatusType = 'IDLE'
+    routeType: RouteType,
+    isPositiveFeedback: boolean
   ): ComponentProps<typeof FeedbackContainer> => {
     return {
-      route,
+      routeType,
       cityCode,
       language,
-      closeFeedbackModal,
-      isPositiveRatingSelected,
-      sendingStatus,
-      onSubmit
+      closeModal,
+      isPositiveFeedback,
+      isSearchFeedback: false
     }
   }
 
-  it('should set the submit that an error occurred', async () => {
+  /* Moved to Feedback.spec.tsx it('should set the submit that an error occurred', async () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
@@ -72,7 +70,7 @@ describe('FeedbackContainer', () => {
     // Needed as submitFeedback is asynchronous
     await waitFor(() => expect(button).not.toBeDisabled())
     expect(onSubmit).toBeCalledWith('ERROR')
-  })
+  })*/
 
   it.each`
     route               | inputProps                             | feedbackType
@@ -85,6 +83,7 @@ describe('FeedbackContainer', () => {
     ${DISCLAIMER_ROUTE} | ${{ path: 'augsburg/de/disclaimer' }}  | ${PAGE_FEEDBACK_TYPE}
     ${POIS_ROUTE}       | ${{ path: 'augsburg/de/pois/1234' }}   | ${PAGE_FEEDBACK_TYPE}
     ${POIS_ROUTE}       | ${{}}                                  | ${CATEGORIES_FEEDBACK_TYPE}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}                 | ${SEARCH_FEEDBACK_TYPE}
   `('should successfully request feedback for $feedbackType', async ({ route, inputProps, feedbackType }) => {
     const { getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -103,11 +102,11 @@ describe('FeedbackContainer', () => {
       city: 'augsburg',
       language: 'de',
       comment: '    Kontaktadresse: Keine Angabe',
+      feedbackCategory: 'Inhalte',
       isPositiveRating: true,
       alias: inputProps.alias,
       permalink: inputProps.path,
       query: inputProps.query
     })
-    expect(onSubmit).toBeCalledWith('SUCCESS')
   })
 })

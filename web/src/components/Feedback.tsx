@@ -67,22 +67,17 @@ export const Feedback = (props: PropsType): ReactElement => {
   const { t } = useTranslation('feedback')
   const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'
   const description = isSearchFeedback ? 'wantedInformation' : feedbackModalDescription
-  console.log(description)
 
   return (
     <Container>
       <TextContainer>
-        <Description>
-          {t(description)}
-        </Description>
+        <Description>{t(description)}</Description>
         {isPositiveFeedback && <OptionalText>({t('optionalInfo')})</OptionalText>}
       </TextContainer>
       <CommentField rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
 
       <TextContainer>
-        <Description>
-          {t('contactMailAddress')}
-        </Description>
+        <Description>{t('contactMailAddress')}</Description>
         <OptionalText>({t('optionalInfo')})</OptionalText>
       </TextContainer>
       <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />

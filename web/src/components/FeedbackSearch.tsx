@@ -30,8 +30,14 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: PropsTy
   if (!resultsFound || query === boxOpenedForQuery) {
     return (
       <Container>
-        <FeedbackContainer cityCode={cityCode} language={languageCode} routeType={SEARCH_FEEDBACK_TYPE}
-                           isPositiveFeedback={false} isSearchFeedback query={query} />
+        <FeedbackContainer
+          cityCode={cityCode}
+          language={languageCode}
+          routeType={SEARCH_FEEDBACK_TYPE}
+          isPositiveFeedback={false}
+          isSearchFeedback
+          query={query}
+        />
       </Container>
     )
   } else {
