@@ -7,27 +7,9 @@ import buildConfig from '../../constants/buildConfig'
 
 jest.mock('react-i18next')
 
-describe('SearchFeedback', () => {
+describe('FeedbackSearch', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
-
-  it('should render a NothingFoundFeedbackBox if no results are found', () => {
-    expect(
-      shallow(<FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='abc' resultsFound={false} />)
-    ).toMatchSnapshot()
-  })
-
-  it('should render a FeedbackButton if results are found and the query is not empty', () => {
-    expect(
-      shallow(<FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='ab' resultsFound />)
-    ).toMatchSnapshot()
-  })
-
-  it('should render neither a NothingFoundFeedbackBox nor a FeedbackButton', () => {
-    expect(
-      shallow(<FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='' resultsFound />)
-    ).toMatchSnapshot()
-  })
 
   it('should open FeedbackSection on button click', () => {
     const { queryByText, getByRole } = render(

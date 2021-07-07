@@ -1,8 +1,8 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
-import { Feedback } from '../Feedback'
+import Feedback from '../Feedback'
 import { ThemeProvider } from 'styled-components'
-import { SendingStatusType } from '../FeedbackContainer'
+import { SendingState } from '../FeedbackContainer'
 import buildConfig from '../../constants/buildConfig'
 
 jest.mock('react-i18next')
@@ -23,7 +23,7 @@ describe('Feedback', () => {
     isPositiveFeedback: boolean,
     comment: string,
     isSearchFeedback = false,
-    sendingStatus = 'IDLE' as SendingStatusType
+    sendingStatus = SendingState.IDLE
   ) => {
     return {
       comment,
@@ -78,7 +78,7 @@ describe('Feedback', () => {
   it('should display error', () => {
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'comment', false, 'ERROR' as SendingStatusType)} />
+        <Feedback {...buildProps(false, 'comment', false, SendingState.ERROR)} />
       </ThemeProvider>
     )
     expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()

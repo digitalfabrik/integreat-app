@@ -52,12 +52,17 @@ type PropsType = {
   query?: string
 }
 
-export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR' | 'SENDING'
+export enum SendingState {
+  IDLE,
+  SUCCESS,
+  ERROR,
+  SENDING
+}
 
 export const FeedbackContainer = (props: PropsType): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
-  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('IDLE')
+  const [sendingStatus, setSendingStatus] = useState<SendingState>(SendingState.IDLE)
   const { path, alias, query, language, isPositiveFeedback, isSearchFeedback, routeType, cityCode, closeModal } = props
   const { t } = useTranslation('feedback')
 
@@ -102,28 +107,24 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     }
   }
 
-  const onFeedbackCommentChanged = (comment: string) => setComment(comment)
-
-  const onFeedbackContactMailChanged = (contactMail: string) => setContactMail(contactMail)
-
   const handleSubmit = () => {
     const feedbackData = getFeedbackData(comment, contactMail)
-    setSendingStatus('SENDING')
+    setSendingStatus(SendingState.SENDING)
 
     const request = async () => {
       const apiUrl = cmsApiBaseUrl
       const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
       await feedbackEndpoint.request(feedbackData)
-      setSendingStatus('SUCCESS')
+      setSendingStatus(SendingState.SUCCESS)
     }
 
     request().catch(err => {
       console.log(err)
-      setSendingStatus('ERROR')
+      setSendingStatus(SendingState.ERROR)
     })
   }
 
-  if (['IDLE', 'ERROR', 'SENDING'].includes(sendingStatus)) {
+  if (sendingStatus !== SendingState.SUCCESS) {
     return (
       <>
         {isSearchFeedback && (
@@ -133,8 +134,8 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
           </IconTextContainer>
         )}
         <Feedback
-          onCommentChanged={onFeedbackCommentChanged}
-          onContactMailChanged={onFeedbackContactMailChanged}
+          onCommentChanged={setComment}
+          onContactMailChanged={setContactMail}
           onSubmit={handleSubmit}
           sendingStatus={sendingStatus}
           isPositiveFeedback={isPositiveFeedback}

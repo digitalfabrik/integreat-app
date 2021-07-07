@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import TextButton from './TextButton'
-import type { SendingStatusType } from './FeedbackContainer'
+import { SendingState } from './FeedbackContainer'
 
 export const Container = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 20px;
   border-radius: 10px;
-  border-color: #585858;
+  border-color: ${props => props.theme.colors.textSecondaryColor};
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
 const CommentField = styled.textarea`
@@ -25,9 +25,7 @@ const TextContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-const OptionalText = styled.div`
-  font-weight: 400;
-`
+
 const TextInput = styled.input.attrs({
   type: 'text'
 })`
@@ -46,10 +44,10 @@ type PropsType = {
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
   onSubmit: () => void
-  sendingStatus: SendingStatusType
+  sendingStatus: SendingState
 }
 
-export const Feedback = (props: PropsType): ReactElement => {
+const Feedback = (props: PropsType): ReactElement => {
   const {
     isPositiveFeedback,
     isSearchFeedback,
@@ -68,17 +66,17 @@ export const Feedback = (props: PropsType): ReactElement => {
     <Container>
       <TextContainer>
         <Description>{t(description)}</Description>
-        {isPositiveFeedback && <OptionalText>({t('optionalInfo')})</OptionalText>}
+        {isPositiveFeedback && <div>({t('optionalInfo')})</div>}
       </TextContainer>
       <CommentField rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
 
       <TextContainer>
         <Description>{t('contactMailAddress')}</Description>
-        <OptionalText>({t('optionalInfo')})</OptionalText>
+        <div>({t('optionalInfo')})</div>
       </TextContainer>
       <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
 
-      {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
+      {sendingStatus === SendingState.ERROR && <Description>{t('failedSendingFeedback')}</Description>}
       <TextButton disabled={!isPositiveFeedback && !comment} onClick={onSubmit} text={t('send')} />
     </Container>
   )
