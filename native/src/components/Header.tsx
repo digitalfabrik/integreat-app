@@ -36,7 +36,7 @@ const Icon = styled.Image`
 const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
-  font-size: ${props => props.width}px;
+  font-size: ${props => Math.min(props.width, dimensions.headerTextSize)}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -148,11 +148,9 @@ const Header = (props: PropsType): ReactElement => {
 
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
     const cityNameLength = routeCityModel.sortingName.length
-    const minus = '-'
-    return cityNameLength < dimensions.deviceWidth / dimensions.headerTextSize &&
-      routeCityModel.sortingName.indexOf(minus) !== -1
+    return cityNameLength < dimensions.deviceWidth / dimensions.headerTextSize
       ? `${routeCityModel.sortingName}${description}`
-      : `${forceNewLine(routeCityModel.sortingName, minus)}${description}`
+      : `${forceNewLine(routeCityModel.sortingName, '-')}${description}`
   }
 
   const renderItem = (
@@ -169,6 +167,7 @@ const Header = (props: PropsType): ReactElement => {
 
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
+  console.debug(dimensions.deviceWidth * dimensions.fontScaling)
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
