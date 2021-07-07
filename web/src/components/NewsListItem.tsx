@@ -56,14 +56,8 @@ type PropsType = {
 
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
   // Decode html entities
-  const decodedContent = parseHTML(
-    content,
-    { decodeEntities: true }
-  )
-  const decodedTitle = parseHTML(
-    title,
-    { decodeEntities: true }
-  )
+  const decodedContent = parseHTML(content, { decodeEntities: true })
+  const decodedTitle = parseHTML(title, { decodeEntities: true })
 
   const readMoreLinkText = `${t('readMore')} >`
 
