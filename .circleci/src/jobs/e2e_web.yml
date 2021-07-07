@@ -1,0 +1,15 @@
+docker:
+  - image: circleci/node
+resource_class: small
+shell: /bin/bash -eo pipefail
+environment:
+  IS_CI: true
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_yarn_cache
+  - run:
+      name: "Web E2E Tests"
+      command: yarn workspace e2e test:web
+  - notify

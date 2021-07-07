@@ -1,15 +1,12 @@
+import { localCapabilities } from './capabilities'
+
 export const config = {
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
   maxInstances: 10,
 
-  capabilities: [
-    {
-      maxInstances: 5,
-      browserName: 'chrome'
-    }
-  ],
+  capabilities: [process.env.IS_CI ? localCapabilities.ci : localCapabilities.chrome],
   logLevel: 'info',
   coloredLogs: true,
   bail: 0,
