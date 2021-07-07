@@ -39,11 +39,13 @@ const RemoteContent = (props: PropType): ReactElement => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
   const [webViewHeight, setWebViewHeight] = useState(0)
   const [webViewWidth, setWebViewWidth] = useState(0)
+
   useEffect(() => {
     if (webViewHeight !== 0) {
       onLoad()
     }
   }, [onLoad, webViewHeight])
+
   const onLayout = useCallback(
     (event: ViewLayoutEvent) => {
       const { width } = event.nativeEvent.layout
@@ -51,6 +53,7 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [setWebViewWidth]
   )
+
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (!event.nativeEvent) {
@@ -69,6 +72,7 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [setWebViewHeight]
   )
+
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
       // Needed on iOS for the initial load
@@ -81,6 +85,7 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [resourceCacheUrl, onLinkPress]
   )
+
   return (
     <StyledView onLayout={onLayout}>
       <WebView
@@ -95,9 +100,13 @@ const RemoteContent = (props: PropType): ReactElement => {
         onMessage={onMessage}
         renderError={renderWebviewError}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
         style={{
+          flex: 1,
+          minHeight: 1,
           height: webViewHeight,
-          width: webViewWidth
+          width: webViewWidth,
+          opacity: 0.99
         }}
       />
     </StyledView>
