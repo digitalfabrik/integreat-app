@@ -72,34 +72,31 @@ type PropsType = {
   closeModal: () => void
 }
 
-
 const FeedbackModal = (props: PropsType): ReactElement => {
-
   const { feedbackRating, closeModal, ...otherProps } = props
   const { t } = useTranslation('feedback')
 
   return (
     <FocusTrap>
-        <ModalContainer role='dialog' aria-modal>
-          <Overlay onClick={closeModal} />
-          <ModalContent>
-            <Header>
-              <div>{t('feedback')}</div>
-              <CloseButton aria-label={t('close')} onClick={closeModal}>
-                <FontAwesomeIcon icon={faTimes} />
-              </CloseButton>
-            </Header>
-            <FeedbackContainer
-              isPositiveFeedback={feedbackRating === POSITIVE_RATING}
-              isSearchFeedback={false}
-              closeModal={closeModal}
-              {...otherProps}
-            />
-          </ModalContent>
-        </ModalContainer>
+      <ModalContainer role='dialog' aria-modal>
+        <Overlay onClick={closeModal} />
+        <ModalContent>
+          <Header>
+            <div>{t('feedback')}</div>
+            <CloseButton aria-label={t('close')} onClick={closeModal}>
+              <FontAwesomeIcon icon={faTimes} />
+            </CloseButton>
+          </Header>
+          <FeedbackContainer
+            isPositiveFeedback={feedbackRating === POSITIVE_RATING}
+            isSearchFeedback={false}
+            closeModal={closeModal}
+            {...otherProps}
+          />
+        </ModalContent>
+      </ModalContainer>
     </FocusTrap>
   )
-
 }
 
 export default FeedbackModal

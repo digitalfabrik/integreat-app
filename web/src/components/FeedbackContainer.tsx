@@ -27,7 +27,6 @@ import { faFrown, faSmile } from '../constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TextButton from './TextButton'
 
-
 const IconTextContainer = styled.div`
   margin-top: 30px;
   width: 340px;
@@ -128,10 +127,12 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
   if (['IDLE', 'ERROR'].includes(sendingStatus)) {
     return (
       <>
-        {isSearchFeedback && <IconTextContainer>
-          <FontAwesomeIcon icon={faFrown} size="4x" />
-          <Text>{t('nothingFound')}</Text>
-        </IconTextContainer>}
+        {isSearchFeedback && (
+          <IconTextContainer>
+            <FontAwesomeIcon icon={faFrown} size='4x' />
+            <Text>{t('nothingFound')}</Text>
+          </IconTextContainer>
+        )}
         <Feedback
           onCommentChanged={onFeedbackCommentChanged}
           onContactMailChanged={onFeedbackContactMailChanged}
@@ -147,15 +148,16 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
   } else {
     return (
       <IconTextContainer>
-          <FontAwesomeIcon icon={faSmile} size="4x" />
-          <Text>{t('thanksMessage', {
+        <FontAwesomeIcon icon={faSmile} size='4x' />
+        <Text>
+          {t('thanksMessage', {
             appName: buildConfig().appName
-          })}</Text>
-        {!!closeModal && <TextButton onClick={closeModal} text={t('close')}/>}
+          })}
+        </Text>
+        {!!closeModal && <TextButton onClick={closeModal} text={t('close')} />}
       </IconTextContainer>
     )
   }
-
 }
 
 export default FeedbackContainer

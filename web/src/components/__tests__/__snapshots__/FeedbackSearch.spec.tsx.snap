@@ -11,13 +11,13 @@ exports[`SearchFeedback should render a FeedbackButton if results are found and 
 
 exports[`SearchFeedback should render a NothingFoundFeedbackBox if no results are found 1`] = `
 <styled.div>
-  <styled.div>
-    feedback:nothingFound
-  </styled.div>
-  <NothingFoundFeedbackBox
+  <FeedbackContainer
     cityCode="augsburg"
-    languageCode="de"
+    isPositiveFeedback={false}
+    isSearchFeedback={true}
+    language="de"
     query="abc"
+    routeType="search"
   />
 </styled.div>
 `;
