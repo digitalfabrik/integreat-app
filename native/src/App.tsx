@@ -23,7 +23,9 @@ import sendTrackingSignal from './services/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { enableScreens } from 'react-native-screens'
 
-enableScreens(true)
+// https://github.com/software-mansion/react-native-screens/issues/105#issuecomment-605369538
+enableScreens(false)
+
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
 })
