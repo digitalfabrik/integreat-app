@@ -37,11 +37,13 @@ type PropType = {
 
 const RemoteContent = (props: PropType): ReactElement => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
-  const [webViewHeight, setWebViewHeight] = useState(0)
-  const [webViewWidth, setWebViewWidth] = useState(0)
+  // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
+  const defaultWebviewHeight = 1
+  const [webViewHeight, setWebViewHeight] = useState(defaultWebviewHeight)
+  const [webViewWidth, setWebViewWidth] = useState(defaultWebviewHeight)
 
   useEffect(() => {
-    if (webViewHeight !== 0) {
+    if (webViewHeight !== defaultWebviewHeight) {
       onLoad()
     }
   }, [onLoad, webViewHeight])
@@ -100,13 +102,9 @@ const RemoteContent = (props: PropType): ReactElement => {
         onMessage={onMessage}
         renderError={renderWebviewError}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
         style={{
-          flex: 1,
-          minHeight: 1,
           height: webViewHeight,
-          width: webViewWidth,
-          opacity: 0.99
+          width: webViewWidth
         }}
       />
     </StyledView>
