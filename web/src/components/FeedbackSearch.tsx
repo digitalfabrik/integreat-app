@@ -1,4 +1,3 @@
-// tbd
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
 import { SEARCH_FEEDBACK_TYPE } from 'api-client'

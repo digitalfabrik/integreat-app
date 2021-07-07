@@ -20,26 +20,22 @@ export const Container = styled.div`
 const CommentField = styled.textarea`
   resize: none;
 `
-
 const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
-
 const OptionalText = styled.div`
-  font-weight: normal;
+  font-weight: 400;
 `
-
 const TextInput = styled.input.attrs({
   type: 'text'
 })`
   resize: none;
 `
-
 export const Description = styled.div`
   padding: 10px 0 5px;
-  font-weight: bold;
+  font-weight: 700;
 `
 
 type PropsType = {
