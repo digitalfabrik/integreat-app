@@ -8,13 +8,13 @@ import {
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
   RouteInformationType,
-  parseHTML
 } from 'api-client'
 import CategoryList, { ListEntryType } from '../components/CategoryList'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import SearchHeader from '../components/SearchHeader'
 import { ThemeType } from 'build-configs'
+import { Parser } from 'htmlparser2'
 import normalizeSearchString from '../services/normalizeSearchString'
 import dimensions from '../constants/dimensions'
 import FeedbackContainer from '../components/FeedbackContainer'
@@ -89,22 +89,14 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         (category: CategoryModel): ListEntryType => {
           const contentWithoutHtml: string[] = []
 
-          // TODO: fix
-          // new Parser(
-          //   {
-          //     ontext: data => {
-          //       decodedContent += data
-          //     },
-          //   },
-          //   options
-          // )
-        
-          // parser.write(html)
-          // parser.end()
-
-          parseHTML(category.content, data => {
-            contentWithoutHtml.push(data)
+          const parser = new Parser({
+            ontext(data: string) {
+              contentWithoutHtml.push(data)
+            }
           })
+
+          parser.write(category.content)
+          parser.end()
 
           return {
             model: {
