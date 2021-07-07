@@ -7,7 +7,7 @@ export function parseHTML(html: string, options: ParserOptions): string {
     {
       ontext: data => {
         decodedContent += data
-      },
+      }
     },
     options
   )
@@ -15,5 +15,5 @@ export function parseHTML(html: string, options: ParserOptions): string {
   parser.write(html)
   parser.end()
 
-  return decodedContent;
+  return decodedContent
 }

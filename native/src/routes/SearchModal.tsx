@@ -7,7 +7,7 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
-  RouteInformationType,
+  RouteInformationType
 } from 'api-client'
 import CategoryList, { ListEntryType } from '../components/CategoryList'
 import styled from 'styled-components/native'

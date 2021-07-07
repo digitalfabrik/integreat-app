@@ -57,12 +57,9 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
     [navigateToLink, language]
   )
 
-  const decodedNewsItemTitle = parseHTML(
-    newsItem.title,
-    {
-      decodeEntities: true
-    }
-  )
+  const decodedNewsItemTitle = parseHTML(newsItem.title, {
+    decodeEntities: true
+  })
 
   return (
     <View
