@@ -52,8 +52,8 @@ describe('RemoteContent', () => {
   })
 
   it('should sanitize the html', () => {
-    const previousAlert = window.alert
-    window.alert = jest.fn()
+    const alertSpy = jest.spyOn(window, 'alert')
+    const errorSpy = jest.spyOn(console, 'error')
 
     const content =
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
@@ -63,9 +63,13 @@ describe('RemoteContent', () => {
       </ThemeProvider>
     )
 
-    expect(window.alert).not.toHaveBeenCalled()
+    expect(alertSpy).not.toHaveBeenCalled()
+    // window.alert is not implemented in jsdom and upon calling it an error message is logged to the console.
+    // Therefore ensure no error message was logged
+    expect(errorSpy).not.toHaveBeenCalled()
     expect(getByText('Ich bleib aber da.')).toBeTruthy()
 
-    window.alert = previousAlert
+    alertSpy.mockRestore()
+    errorSpy.mockRestore()
   })
 })
