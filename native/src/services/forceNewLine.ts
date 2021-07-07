@@ -1,1 +1,1 @@
-export const forceNewLine = (val: string, char: string): string => val.replace(char, `${char}\n`)
+export const forceNewLine = (text: string, char: string): string => text.replace(char, `${char}\n`)
