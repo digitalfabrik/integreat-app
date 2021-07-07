@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import TextButton from './TextButton'
 import type { SendingStatusType } from './FeedbackContainer'
 
-export const StyledFeedback = styled.div`
+export const Container = styled.div`
   display: flex;
   width: 400px;
   height: auto;
@@ -20,18 +20,28 @@ export const StyledFeedback = styled.div`
 const CommentField = styled.textarea`
   resize: none;
 `
-const RequiredText = styled.span`
-  color: red;
-  font-size: 1.5em;
+
+const TextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
+
+const OptionalText = styled.div`
+  font-weight: normal;
+`
+
 const TextInput = styled.input.attrs({
   type: 'text'
 })`
   resize: none;
 `
+
 export const Description = styled.div`
   padding: 10px 0 5px;
+  font-weight: bold;
 `
+
 type PropsType = {
   isPositiveFeedback: boolean
   isSearchFeedback: boolean
@@ -60,19 +70,26 @@ export const Feedback = (props: PropsType): ReactElement => {
   console.log(description)
 
   return (
-    <StyledFeedback>
-      <Description>
-        {t(description)}
-        {!isPositiveFeedback && <RequiredText>*</RequiredText>}
-      </Description>
+    <Container>
+      <TextContainer>
+        <Description>
+          {t(description)}
+        </Description>
+        {isPositiveFeedback && <OptionalText>({t('optionalInfo')})</OptionalText>}
+      </TextContainer>
       <CommentField rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
-      <Description>
-        {t('contactMailAddress')} ({t('optionalInfo')})
-      </Description>
+
+      <TextContainer>
+        <Description>
+          {t('contactMailAddress')}
+        </Description>
+        <OptionalText>({t('optionalInfo')})</OptionalText>
+      </TextContainer>
       <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
+
       {sendingStatus === 'ERROR' && <Description>{t('failedSendingFeedback')}</Description>}
       <TextButton disabled={!isPositiveFeedback && !comment} onClick={onSubmit} text={t('send')} />
-    </StyledFeedback>
+    </Container>
   )
 }
 

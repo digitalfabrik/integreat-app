@@ -17,21 +17,29 @@ import {
   SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE
 } from 'api-client'
-import Feedback, { Description } from './Feedback'
+import Feedback from './Feedback'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import buildConfig from '../constants/buildConfig'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { faFrown, faSmile } from '../constants/icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import TextButton from './TextButton'
 
-const CloseButton = styled.button`
-  background-color: ${props => props.theme.colors.backgroundColor};
-  border: none;
 
-  & * {
-    font-size: 0.8em;
-    vertical-align: baseline;
-  }
+const IconTextContainer = styled.div`
+  margin-top: 30px;
+  width: 340px;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const Text = styled.div`
+  padding: 10px;
+  text-align: center;
 `
 
 type PropsType = {
@@ -120,6 +128,10 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
   if (['IDLE', 'ERROR'].includes(sendingStatus)) {
     return (
       <>
+        {isSearchFeedback && <IconTextContainer>
+          <FontAwesomeIcon icon={faFrown} size="4x" />
+          <Text>{t('nothingFound')}</Text>
+        </IconTextContainer>}
         <Feedback
           onCommentChanged={onFeedbackCommentChanged}
           onContactMailChanged={onFeedbackContactMailChanged}
@@ -134,14 +146,13 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     )
   } else {
     return (
-      <>
-        <Description>
-          {t('thanksMessage', {
+      <IconTextContainer>
+          <FontAwesomeIcon icon={faSmile} size="4x" />
+          <Text>{t('thanksMessage', {
             appName: buildConfig().appName
-          })}
-        </Description>
-        {!!closeModal && <CloseButton onClick={closeModal}>Close</CloseButton>}
-      </>
+          })}</Text>
+        {!!closeModal && <TextButton onClick={closeModal} text={t('close')}/>}
+      </IconTextContainer>
     )
   }
 

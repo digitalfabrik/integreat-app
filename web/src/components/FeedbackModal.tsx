@@ -30,7 +30,7 @@ const ModalContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
-const Feedback = styled.div`
+const ModalContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -39,16 +39,16 @@ const Feedback = styled.div`
   @media ${dimensions.smallViewport} {
     width: 100%;
     height: 100%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
 `
 const Header = styled.div`
   display: flex;
-  width: 100%;
+  width: 360px;
+  padding: 20px;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 10px;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
 `
 
@@ -80,10 +80,9 @@ const FeedbackModal = (props: PropsType): ReactElement => {
 
   return (
     <FocusTrap>
-      <div>
         <ModalContainer role='dialog' aria-modal>
           <Overlay onClick={closeModal} />
-          <Feedback>
+          <ModalContent>
             <Header>
               <div>{t('feedback')}</div>
               <CloseButton aria-label={t('close')} onClick={closeModal}>
@@ -96,9 +95,8 @@ const FeedbackModal = (props: PropsType): ReactElement => {
               closeModal={closeModal}
               {...otherProps}
             />
-          </Feedback>
+          </ModalContent>
         </ModalContainer>
-      </div>
     </FocusTrap>
   )
 
