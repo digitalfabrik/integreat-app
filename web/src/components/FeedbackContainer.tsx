@@ -35,22 +35,21 @@ const IconTextContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `
-
 const Text = styled.div`
   padding: 10px;
   text-align: center;
 `
 
 type PropsType = {
-  alias?: string
-  path?: string
-  query?: string
   cityCode: string
   language: string
   routeType: RouteType
   isPositiveFeedback: boolean
   isSearchFeedback: boolean
   closeModal?: () => void
+  alias?: string
+  path?: string
+  query?: string
 }
 
 export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR' | 'SENDING'
@@ -124,7 +123,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     })
   }
 
-  if (['IDLE', 'ERROR'].includes(sendingStatus)) {
+  if (['IDLE', 'ERROR', 'SENDING'].includes(sendingStatus)) {
     return (
       <>
         {isSearchFeedback && (
@@ -154,7 +153,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
             appName: buildConfig().appName
           })}
         </Text>
-        {!!closeModal && <TextButton onClick={closeModal} text={t('close')} />}
+        {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}
       </IconTextContainer>
     )
   }

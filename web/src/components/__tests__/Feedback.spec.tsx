@@ -1,11 +1,10 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { Feedback } from '../Feedback'
 import { ThemeProvider } from 'styled-components'
 import { SendingStatusType } from '../FeedbackContainer'
 import buildConfig from '../../constants/buildConfig'
 
-const mockRequest = jest.fn()
 jest.mock('react-i18next')
 
 describe('Feedback', () => {
@@ -20,13 +19,18 @@ describe('Feedback', () => {
   const onSubmit = jest.fn()
   const closeFeedbackModal = jest.fn()
 
-  const buildProps = (isPositiveFeedback: boolean, comment: string) => {
+  const buildProps = (
+    isPositiveFeedback: boolean,
+    comment: string,
+    isSearchFeedback = false,
+    sendingStatus = 'IDLE' as SendingStatusType
+  ) => {
     return {
       comment,
       isPositiveFeedback,
-      isSearchFeedback: false,
+      isSearchFeedback,
       contactMail: 'test@example.com',
-      sendingStatus: 'IDLE' as SendingStatusType,
+      sendingStatus,
       onCommentChanged,
       onContactMailChanged,
       onSubmit,
@@ -34,25 +38,6 @@ describe('Feedback', () => {
       closeFeedbackModal
     }
   }
-
-  it('should set the submit that an error occurred', async () => {
-    mockRequest.mockImplementationOnce(() => {
-      throw new Error()
-    })
-    const { getByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(true, '')} />
-      </ThemeProvider>
-    )
-    const button = getByRole('button', {
-      name: 'feedback:send'
-    })
-    fireEvent.click(button)
-    // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).not.toBeDisabled())
-    // TODO
-    // expect(onSubmit).toBeCalledWith('ERROR')
-  })
 
   it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(
@@ -79,6 +64,24 @@ describe('Feedback', () => {
       </ThemeProvider>
     )
     expect(getByText('feedback:send')).not.toBeDisabled()
+  })
+
+  it('should display correct description for search', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Feedback {...buildProps(false, 'comment', true)} />
+      </ThemeProvider>
+    )
+    expect(getByText('feedback:wantedInformation')).toBeTruthy()
+  })
+
+  it('should display error', () => {
+    const { getByText } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Feedback {...buildProps(false, 'comment', false, 'ERROR' as SendingStatusType)} />
+      </ThemeProvider>
+    )
+    expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()
   })
 
   it('onSubmit should be called on button press', async () => {
@@ -108,5 +111,23 @@ describe('Feedback', () => {
     })
     expect(onContactMailChanged).toHaveBeenCalledTimes(1)
     expect(onContactMailChanged).toBeCalledWith('new@example.com')
+  })
+
+  it('should call callback on comment changed', () => {
+    const { getByDisplayValue, queryByDisplayValue } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Feedback {...buildProps(false, 'my comment')} />
+      </ThemeProvider>
+    )
+    expect(getByDisplayValue('my comment')).toBeTruthy()
+    expect(queryByDisplayValue('new comment')).toBeFalsy()
+    expect(onCommentChanged).not.toHaveBeenCalled()
+    fireEvent.change(getByDisplayValue('my comment'), {
+      target: {
+        value: 'new comment'
+      }
+    })
+    expect(onCommentChanged).toHaveBeenCalledTimes(1)
+    expect(onCommentChanged).toBeCalledWith('new comment')
   })
 })
