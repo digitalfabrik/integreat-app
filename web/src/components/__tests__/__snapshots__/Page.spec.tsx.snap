@@ -10,12 +10,7 @@ exports[`Page should render 1`] = `
     title="first Event"
   />
   <RemoteContent
-    centered={false}
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "content",
-      }
-    }
+    html="content"
     onInternalLinkClick={[Function]}
   />
   <Translate(LastUpdateInfo)
