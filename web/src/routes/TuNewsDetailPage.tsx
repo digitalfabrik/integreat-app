@@ -111,7 +111,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     )
   }
 
-  const decodedNewsModelTitle = parseHTML(newsModel.title, { decodeEntities: true })
+  const decodedNewsModelTitle = parseHTML(newsModel.title)
   const pageTitle = `${newsModel.title} - ${cityModel.name}`
 
   return (
