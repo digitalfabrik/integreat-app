@@ -25,7 +25,7 @@ export const config = {
   waitforTimeout: 100000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
-  services: ['selenium-standalone'],
+  services: process.env.CI ? [] : ['selenium-standalone'],
   framework: 'jasmine',
   reporters: ['junit'],
 
@@ -34,7 +34,7 @@ export const config = {
   },
 
   onPrepare: async function (): Promise<void> {
-    const startupDelay = 20000
+    const startupDelay = 25000
     await new Promise(resolve => setTimeout(resolve, startupDelay))
   },
 
