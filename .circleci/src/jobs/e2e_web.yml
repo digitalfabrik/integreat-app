@@ -3,13 +3,11 @@ docker:
   - image: selenium/hub
     name: hub
   - image: selenium/node-firefox
-    environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
-  IS_CI: true
+  HUB_PORT_4444_TCP_ADDR: hub
+  HUB_PORT_4444_TCP_PORT: 4444
 steps:
   - skip_job
   - checkout
