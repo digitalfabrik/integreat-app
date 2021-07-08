@@ -23,8 +23,7 @@
     "moment": "2.29.1",
     "moment-timezone": "^0.5",
     "normalize-path": "^3.0.0",
-    "react": "16.13.1",
-    "sanitize-html-react": "^1.13"
+    "react": "16.13.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
