@@ -1,6 +1,6 @@
 import { Parser, ParserOptions } from 'htmlparser2'
 
-export function parseHTML(html: string, options: ParserOptions): string {
+export const parseHTML = (html: string, options?: ParserOptions = { decodeEntities: true }): string => {
   let decodedContent = ''
 
   const parser = new Parser(
