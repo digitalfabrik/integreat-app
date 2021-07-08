@@ -790,7 +790,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: circleci/node::14.9.0
+            - image: circleci/node:14.9.0
         environment:
             IS_CI: true
         resource_class: small
