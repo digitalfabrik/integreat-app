@@ -791,6 +791,12 @@ jobs:
     e2e_web:
         docker:
             - image: circleci/node:14.9.0
+            - image: selenium/hub
+              name: hub
+            - environment:
+                  HUB_PORT_4444_TCP_ADDR: hub
+                  HUB_PORT_4444_TCP_PORT: 4444
+              image: selenium/node-firefox
         environment:
             IS_CI: true
         resource_class: small

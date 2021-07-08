@@ -1,12 +1,23 @@
 import { localCapabilities } from './capabilities'
 
+const ciConfiguration = () => {
+  return process.env.CI
+    ? {
+        host: 'hub',
+        port: 4444
+      }
+    : {}
+}
+
 export const config = {
+  ...ciConfiguration(),
+
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
   maxInstances: 10,
 
-  capabilities: [process.env.IS_CI ? localCapabilities.ci : localCapabilities.chrome],
+  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.chrome],
   logLevel: 'info',
   coloredLogs: true,
   bail: 0,
