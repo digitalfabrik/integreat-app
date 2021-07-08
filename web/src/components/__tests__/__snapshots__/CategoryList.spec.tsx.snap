@@ -12,12 +12,7 @@ exports[`CategoryList should render and display a caption 1`] = `
     title="Willkommen"
   />
   <RemoteContent
-    centered={false}
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "test content",
-      }
-    }
+    html="test content"
     onInternalLinkClick={[Function]}
   />
   <styled.div>
