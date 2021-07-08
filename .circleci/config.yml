@@ -805,12 +805,12 @@ jobs:
             - prepare_workspace
             - restore_yarn_cache
             - run:
-                  background: true
-                  command: yarn workspace web start
-                  name: Start WebApp
+                background: true
+                command: yarn workspace web start
+                name: Start WebApp
             - run:
-                  command: yarn workspace e2e test:web
-                  name: Web E2E Tests
+                command: yarn workspace e2e test:web
+                name: Web E2E Tests
             - notify
     move_release_notes:
         docker:
