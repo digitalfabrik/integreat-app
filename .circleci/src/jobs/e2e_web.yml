@@ -14,6 +14,10 @@ steps:
   - prepare_workspace
   - restore_yarn_cache
   - run:
+      name: "Start WebApp"
+      command: yarn workspace web start
+      background: true
+  - run:
       name: "Web E2E Tests"
       command: yarn workspace e2e test:web
   - notify
