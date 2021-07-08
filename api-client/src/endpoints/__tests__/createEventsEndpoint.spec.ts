@@ -25,7 +25,7 @@ describe('events', () => {
     path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
     title: 'Asylpolitischer Frühschoppen',
     excerpt: 'Asylpolitischer Fr&uuml;hschoppen',
-    content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
+    content: '<div>Some event test content :)</div>',
     available_languages: {},
     thumbnail: '',
     event: {
@@ -91,7 +91,7 @@ describe('events', () => {
       path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
       title: 'Asylpolitischer Frühschoppen',
       excerpt: 'Asylpolitischer Frühschoppen',
-      content: '<a>Ich bleib aber da.</a>',
+      content: '<div>Some event test content :)</div>',
       availableLanguages: new Map(),
       thumbnail: '',
       date: new DateModel({
