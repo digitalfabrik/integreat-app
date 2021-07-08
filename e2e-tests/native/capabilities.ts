@@ -10,7 +10,8 @@ const getGitHeadReference = () => {
 }
 
 const browserstackCaps = (config: Capabilities): Capabilities => {
-  const isCi = !!process.env.E2E_CI
+  // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md
+  const isCi = !!process.env.CI
   const prefix = isCi ? 'IG CI' : 'IG DEV'
   const app =
     config.platformName === 'android' ? process.env.E2E_BROWSERSTACK_APP_ANDROID : process.env.E2E_BROWSERSTACK_APP_IOS

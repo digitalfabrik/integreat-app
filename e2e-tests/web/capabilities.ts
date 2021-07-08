@@ -10,7 +10,7 @@ const getGitHeadReference = () => {
 }
 
 const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
-  const prefix = 'IG DEV'
+  const prefix = process.env.CI ? 'IG CI' : 'IG DEV'
   return {
     'bstack:options': {
       ...config,
