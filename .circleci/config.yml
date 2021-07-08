@@ -793,10 +793,10 @@ jobs:
             - image: circleci/node:14.9.0
             - image: selenium/hub
               name: hub
-            - image: selenium/node-firefox
-        environment:
-            HUB_PORT_4444_TCP_ADDR: hub
-            HUB_PORT_4444_TCP_PORT: 4444
+            - environment:
+                  HUB_PORT_4444_TCP_ADDR: hub
+                  HUB_PORT_4444_TCP_PORT: 4444
+              image: selenium/node-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
