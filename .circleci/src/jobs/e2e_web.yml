@@ -1,5 +1,5 @@
 docker:
-  - image: circleci/node::14.9.0
+  - image: circleci/node:14.9.0
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
