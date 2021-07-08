@@ -794,8 +794,8 @@ jobs:
             - image: selenium/hub
               name: hub
             - environment:
-                  HUB_PORT_4444_TCP_ADDR: hub
-                  HUB_PORT_4444_TCP_PORT: 4444
+                HUB_PORT_4444_TCP_ADDR: hub
+                HUB_PORT_4444_TCP_PORT: 4444
               image: selenium/node-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
