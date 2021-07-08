@@ -167,7 +167,6 @@ const Header = (props: PropsType): ReactElement => {
 
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
-  console.debug(dimensions.deviceWidth * dimensions.fontScaling)
   return (
     <BoxShadow theme={theme}>
       <Horizontal>

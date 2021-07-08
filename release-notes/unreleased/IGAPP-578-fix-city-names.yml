@@ -1,0 +1,7 @@
+issue_key: IGAPP-578
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed long city name overlap in header.
+de: Überlappung des Städtenamens im Header behoben.
