@@ -36,7 +36,7 @@ const Icon = styled.Image`
 const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
-  font-size: ${props => Math.min(props.width, dimensions.headerTextSize)}px;
+  font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -177,7 +177,7 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme} width={dimensions.deviceWidth * dimensions.fontScaling}>
+            <HeaderText allowFontScaling={false} theme={theme} fontSize={dimensions.deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}
