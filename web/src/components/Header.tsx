@@ -46,6 +46,7 @@ const Row = styled.div<{ hasTitle?: boolean }>`
     justify-content: space-between;
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
+    overflow-x: auto;
 
     :first-child {
       /* this is only necessary for IE11 */
