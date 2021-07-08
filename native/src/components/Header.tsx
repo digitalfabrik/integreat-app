@@ -177,7 +177,10 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme} fontSize={dimensions.deviceWidth * dimensions.fontScaling}>
+            <HeaderText
+              allowFontScaling={false}
+              theme={theme}
+              fontSize={dimensions.deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}
