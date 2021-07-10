@@ -8,11 +8,13 @@ import {
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
   DisclaimerRouteType,
+  ErrorCode,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   EventsRouteType,
   FeedbackParamsType,
   FeedbackType,
+  fromError,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
@@ -29,6 +31,7 @@ import determineApiUrl from '../services/determineApiUrl'
 import sendTrackingSignal from '../services/sendTrackingSignal'
 import { useTranslation } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
+import * as Sentry from '@sentry/react-native'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
@@ -134,7 +137,10 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
       }
     })
     request().catch(err => {
-      console.log(err)
+      console.error(err)
+      if (fromError(err) !== ErrorCode.NetworkConnectionFailed) {
+        Sentry.captureException(err);
+      }
       setSendingStatus('failed')
     })
   }
