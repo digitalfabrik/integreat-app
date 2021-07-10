@@ -1,10 +1,11 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
-import { createFeedbackEndpoint, SEARCH_FEEDBACK_TYPE } from 'api-client'
+import { createFeedbackEndpoint, ErrorCode, fromError, SEARCH_FEEDBACK_TYPE } from 'api-client'
 import NothingFoundFeedbackBox from './NothingFoundFeedbackBox'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TextButton from './TextButton'
 import { useTranslation } from 'react-i18next'
+import { reportError } from '../services/sentry'
 
 const FeedbackContainer = styled.div`
   display: flex;
@@ -27,16 +28,23 @@ const SearchFeedback = ({ cityCode, languageCode, query, resultsFound }: PropsTy
   const [boxOpenedForQuery, setBoxOpenedForQuery] = useState<string | null>(null)
   const { t } = useTranslation('feedback')
 
-  const handleFeedbackLinkClicked = (): void => {
-    createFeedbackEndpoint(cmsApiBaseUrl).request({
-      feedbackType: SEARCH_FEEDBACK_TYPE,
-      isPositiveRating: false,
-      comment: '',
-      city: cityCode,
-      language: languageCode,
-      query
-    })
-    setBoxOpenedForQuery(query)
+  const handleFeedbackLinkClicked = async (): Promise<void> => {
+    try {
+      await createFeedbackEndpoint(cmsApiBaseUrl).request({
+        feedbackType: SEARCH_FEEDBACK_TYPE,
+        isPositiveRating: false,
+        comment: '',
+        city: cityCode,
+        language: languageCode,
+        query
+      })
+      setBoxOpenedForQuery(query)
+    } catch (e) {
+      console.error(e)
+      if (fromError(e) !== ErrorCode.NetworkConnectionFailed) {
+        reportError(e)
+      }
+    }
   }
 
   if (!resultsFound || query === boxOpenedForQuery) {
