@@ -13852,10 +13852,10 @@ react-native-elements@2.3.2:
     react-native-ratings "^7.2.0"
     react-native-status-bar-height "^2.5.0"
 
-react-native-flipper@^0.79.1:
-  version "0.79.1"
-  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.79.1.tgz#894fd85665cf41639bf9fdfce74c65f0fd770e70"
-  integrity sha512-wCPTecTpGXYeHWYZXoeKc47xqA8TPEYuZfsDeJiJH/pivI/Fdqp1B0MKY9CGQPPNYjA47n4yTeFlQRxt48zamg==
+react-native-flipper@^0.96.1:
+  version "0.96.1"
+  resolved "https://registry.yarnpkg.com/react-native-flipper/-/react-native-flipper-0.96.1.tgz#f62fb648c17718aeb8d529c560e64824ae45f9ec"
+  integrity sha512-IOqaLWwX8mHlXoTsenugON8khe74GIOIOZamQFNc17ZGRLLazJmLMYGUivMeTffk6bRr5RCC+xveyEA0apluWw==
 
 react-native-gesture-handler@^1.10.3:
   version "1.10.3"
