@@ -17,7 +17,6 @@ class TunewsModel {
     eNewsNo: string
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
-
     this._id = id
     this._title = title
     this._tags = tags
