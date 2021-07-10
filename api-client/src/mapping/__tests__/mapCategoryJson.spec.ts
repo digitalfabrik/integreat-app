@@ -1,6 +1,7 @@
 import mapCategoryJson from '../mapCategoryJson'
 import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
+
 describe('categories', () => {
   const basePath = '/augsburg/de'
   const categoryJson1 = {
@@ -8,7 +9,7 @@ describe('categories', () => {
     url: 'https://cms.integreat-app.de/augsburg/de/anlaufstellen',
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
-    content: '<a href="javascript:IWantToBeRemoved();">Ich bleib aber da.</a>',
+    content: '<div>Some category test content :)</div>',
     excerpt: 'excerpt',
     parent: {
       id: 0,
@@ -60,7 +61,7 @@ describe('categories', () => {
     root: false,
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
-    content: '<a>Ich bleib aber da.</a>',
+    content: '<div>Some category test content :)</div>',
     parentPath: '/augsburg/de',
     order: 75,
     availableLanguages: new Map([['en', '/augsburg/en/anlaufstellen']]),
@@ -80,6 +81,7 @@ describe('categories', () => {
     lastUpdate: moment.tz('2016-01-07 10:36:24', 'GMT'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
+
   it('should map json correctly', () => {
     const category = mapCategoryJson(categoryJson1, basePath)
     expect(category).toEqual(categoryModel1)
@@ -87,8 +89,5 @@ describe('categories', () => {
   it('should map farsi json correctly', () => {
     const category = mapCategoryJson(categoryJson2, basePath)
     expect(category).toEqual(categoryModel2)
-  })
-  it('should sanitize html', () => {
-    // TODO IGAPP-564
   })
 })
