@@ -1,9 +1,9 @@
-import { parseHTML } from '../helpers'
+import { decodeHtmlEntities } from '../helpers'
 
 describe('Helper Methods', () => {
-  describe('parseHTML', () => {
+  describe('decodeHtmlEntities', () => {
     it('should decode HTML entities', () => {
-      const parsedResult = parseHTML('&#8220;&#8364;&#8221;')
+      const parsedResult = decodeHtmlEntities('&#8220;&#8364;&#8221;')
       expect(parsedResult).toBe('“€”')
     })
   })

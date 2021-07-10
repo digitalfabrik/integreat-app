@@ -9,8 +9,7 @@ import {
   normalizePath,
   NotFoundError,
   replaceLinks,
-  useLoadFromEndpoint,
-  parseHTML
+  useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -114,15 +113,13 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   }
 
   if (newsModel) {
-    const decodedNewsModelTitle = parseHTML(newsModel.title)
-
     const pageTitle = `${newsModel.title} - ${cityModel.name}`
     const linkedContent = replaceLinks(newsModel.message)
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
         <Page
-          title={decodedNewsModelTitle}
+          title={newsModel.title}
           content={linkedContent}
           formatter={formatter}
           lastUpdateFormat='LLL'
