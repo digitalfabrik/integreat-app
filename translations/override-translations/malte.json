@@ -24,12 +24,6 @@
       },
       "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
     },
-    "pes": {
-      "pageTitles": {
-        "events": "رویدادها"
-      },
-      "metaDescription": "{{appName}} یاور دیجیتال شما از مالتسر است. در اینجا می توانید اطلاعات محلی، تاریخ‌ها و توصیه‌های موسسه خود را پیدا کنید. همیشه به روز و به زبان شما!"
-    },
     "fr": {
       "pageTitles": {
         "events": "Rendez-vous"
@@ -41,6 +35,12 @@
         "events": "Randevû"
       },
       "metaDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê. Li vir hûn ê agahdariya herêmî, randevû û şîretên saziya xwe bibînin. Herdem nûvekirî û bi zimanê xwe!"
+    },
+    "pes": {
+      "pageTitles": {
+        "events": "رویدادها"
+      },
+      "metaDescription": "{{appName}} یاور دیجیتال شما از مالتسر است. در اینجا می توانید اطلاعات محلی، تاریخ‌ها و توصیه‌های موسسه خود را پیدا کنید. همیشه به روز و به زبان شما!"
     },
     "ps": {
       "pageTitles": {
@@ -92,14 +92,14 @@
     "es": {
       "events": "Fechas"
     },
-    "pes": {
-      "events": "رویدادها"
-    },
     "fr": {
       "events": "Rendez-vous"
     },
     "kmr": {
       "events": "Randevû"
+    },
+    "pes": {
+      "events": "رویدادها"
     },
     "ps": {
       "events": "ملاقاتونه"
@@ -153,14 +153,6 @@
         "events": "Ir a fechas"
       }
     },
-    "pes": {
-      "notFound": {
-        "event": "متأسفانه این رویداد یافت نشد."
-      },
-      "goTo": {
-        "events": "رفتن به رویداد"
-      }
-    },
     "fr": {
       "notFound": {
         "event": "Malheureusement, ce rendez-vous est introuvable."
@@ -175,6 +167,14 @@
       },
       "goTo": {
         "events": "Heya randevûyan"
+      }
+    },
+    "pes": {
+      "notFound": {
+        "event": "متأسفانه این رویداد یافت نشد."
+      },
+      "goTo": {
+        "events": "رفتن به رویداد"
       }
     },
     "ps": {
@@ -243,10 +243,6 @@
       "events": "Fechas",
       "currentlyNoEvents": "Actualmente no hay fechas."
     },
-    "pes": {
-      "events": "رویدادها",
-      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد."
-    },
     "fr": {
       "events": "Rendez-vous",
       "currentlyNoEvents": "Il n'y a actuellement aucun rendez-vous."
@@ -254,6 +250,10 @@
     "kmr": {
       "events": "Randevû",
       "currentlyNoEvents": "Niha randevû tuneye"
+    },
+    "pes": {
+      "events": "رویدادها",
+      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد."
     },
     "ps": {
       "events": "ملاقاتونه",
@@ -293,14 +293,14 @@
     "es": {
       "contentOfEvent": "Contenido de la fecha \"{{event}}\""
     },
-    "pes": {
-      "contentOfEvent": "محتوای رویداد \"{{event}}\""
-    },
     "fr": {
       "contentOfEvent": "Contenu du rendez-vous \"{{event}}\""
     },
     "kmr": {
       "contentOfEvent": "Naveroka randevûyê \"{{event}}\""
+    },
+    "pes": {
+      "contentOfEvent": "محتوای رویداد \"{{event}}\""
     },
     "ps": {
       "contentOfEvent": "د \"{{event}}\" ملاقات منځپانګه"
@@ -342,11 +342,6 @@
       "events": "Fechas",
       "eventsDescription": "Eventos actuales y fechas"
     },
-    "pes": {
-      "appDescription": "{{appName}} یاور دیجیتال شما از مالتسر است",
-      "events": "رویدادها",
-      "eventsDescription": "رویدادهای فعلی و مراسمات"
-    },
     "fr": {
       "appDescription": "{{appName}} est votre assistant numérique de Malteser",
       "events": "Rendez-vous",
@@ -356,6 +351,11 @@
       "appDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê",
       "events": "Randevû",
       "eventsDescription": "Randevû û bûyerên niha"
+    },
+    "pes": {
+      "appDescription": "{{appName}} یاور دیجیتال شما از مالتسر است",
+      "events": "رویدادها",
+      "eventsDescription": "رویدادهای فعلی و مراسمات"
     },
     "ps": {
       "appDescription": "{{appName}} مالټایانو لخوا ستاسو ډیجیټال کومک دی",
@@ -405,10 +405,6 @@
       "events": "Fechas",
       "noEvents": "No hay fechas"
     },
-    "pes": {
-      "events": "رویدادها",
-      "noEvents": "هیچ رویدادی وجود ندارد"
-    },
     "fr": {
       "events": "Rendez-vous",
       "noEvents": "Aucun rendez-vous"
@@ -416,6 +412,10 @@
     "kmr": {
       "events": "Randevû",
       "noEvents": "Randevû tuneye"
+    },
+    "pes": {
+      "events": "رویدادها",
+      "noEvents": "هیچ رویدادی وجود ندارد"
     },
     "ps": {
       "events": "ملاقاتونه",
