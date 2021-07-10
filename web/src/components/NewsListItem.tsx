@@ -7,7 +7,6 @@ import { Description } from './ListItem'
 import { TFunction } from 'react-i18next'
 import textTruncator from '../services/textTruncator'
 import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
-import { parseHTML } from 'api-client/src/utils/helpers'
 
 export const NUM_OF_WORDS_ALLOWED = 30
 
@@ -55,18 +54,14 @@ type PropsType = {
 }
 
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
-  // Decode html entities
-  const decodedContent = parseHTML(content)
-  const decodedTitle = parseHTML(title)
-
   const readMoreLinkText = `${t('readMore')} >`
 
   return (
     <StyledNewsListItem>
       <Link to={link}>
         <Description>
-          <Title>{decodedTitle}</Title>
-          <Body>{textTruncator(decodedContent, NUM_OF_WORDS_ALLOWED)}</Body>
+          <Title>{title}</Title>
+          <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>

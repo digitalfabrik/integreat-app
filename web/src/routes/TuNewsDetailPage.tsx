@@ -7,8 +7,7 @@ import {
   normalizePath,
   NotFoundError,
   TU_NEWS_TYPE,
-  useLoadFromEndpoint,
-  parseHTML
+  useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -111,7 +110,6 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     )
   }
 
-  const decodedNewsModelTitle = parseHTML(newsModel.title)
   const pageTitle = `${newsModel.title} - ${cityModel.name}`
 
   return (
@@ -125,7 +123,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
             </StyledTitle>
           </StyledBanner>
           <Page
-            title={decodedNewsModelTitle}
+            title={newsModel.title}
             content={newsModel.content}
             formatter={formatter}
             lastUpdateFormat='LLL'

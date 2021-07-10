@@ -1,5 +1,4 @@
 import { Moment } from 'moment'
-import { parseHTML } from '../utils/helpers'
 
 class LocalNewsModel {
   _id: number
@@ -10,13 +9,10 @@ class LocalNewsModel {
   constructor(params: { id: number; timestamp: Moment; title: string; message: string }) {
     const { id, timestamp, title, message } = params
 
-    const parsedTitle = parseHTML(title)
-    const parsedMessage = parseHTML(message)
-
     this._id = id
     this._timestamp = timestamp
-    this._title = parsedTitle
-    this._message = parsedMessage
+    this._title = title
+    this._message = message
   }
 
   get timestamp(): Moment {

@@ -1,5 +1,4 @@
 import { Moment } from 'moment'
-import { parseHTML } from '../utils/helpers'
 
 class TunewsModel {
   _id: number
@@ -19,14 +18,11 @@ class TunewsModel {
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
 
-    const parsedTitle = parseHTML(title)
-    const parsedContent = parseHTML(content)
-
     this._id = id
-    this._title = parsedTitle
+    this._title = title
     this._tags = tags
     this._date = date
-    this._content = parsedContent
+    this._content = content
     this._eNewsNo = eNewsNo
   }
 

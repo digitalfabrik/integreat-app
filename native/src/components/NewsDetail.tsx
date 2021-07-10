@@ -56,7 +56,6 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
     },
     [navigateToLink, language]
   )
-
   return (
     <View
       style={{

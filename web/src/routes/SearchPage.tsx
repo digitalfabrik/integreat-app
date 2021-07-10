@@ -96,7 +96,6 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
       contentWithoutHtml.push(text)
     }
   })
-
   const categoriesWithContent = categories
     .toArray()
     .filter((category: CategoryModel) => !normalizeSearchString(category.title).includes(normalizedFilterText))
@@ -105,7 +104,6 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
         contentWithoutHtml = []
         parser.write(category.content)
         parser.end()
-
         return {
           model: category,
           contentWithoutHtml: contentWithoutHtml.join(' '),
