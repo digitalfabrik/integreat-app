@@ -8,7 +8,6 @@ class LocalNewsModel {
 
   constructor(params: { id: number; timestamp: Moment; title: string; message: string }) {
     const { id, timestamp, title, message } = params
-
     this._id = id
     this._timestamp = timestamp
     this._title = title
