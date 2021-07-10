@@ -1385,8 +1385,6 @@
     },
     "ps": {
       "disclaimer": "د لټون",
-      "contentOfPage": "د \"{{page}}\" پاڼې منځپانګه",
-      "contentOfEvent": "د \"{{event}}\" غونډې منځپانګه",
       "send": "لېږل",
       "failedSendingFeedback": "د تبصرې په لېږلو کې یوه اشتباه رامینځته شوه.",
       "feedback": "تبصره",
