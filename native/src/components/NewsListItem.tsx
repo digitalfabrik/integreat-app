@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
-import { LocalNewsModel, TunewsModel, parseHTML } from 'api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs'
@@ -89,11 +89,6 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
   const content = localNewsContent || tuNewsContent
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
-  // Decode html entities
-  const decodedContent = parseHTML(content, {
-    decodeEntities: true
-  })
-  const decodedNewsItemTitle = parseHTML(newsItem.title)
 
   return (
     <>
@@ -102,11 +97,11 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
         <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
           <Description theme={theme}>
             <ListItemView language={language} theme={theme}>
-              <Title theme={theme}>{decodedNewsItemTitle}</Title>
+              <Title theme={theme}>{newsItem.title}</Title>
             </ListItemView>
             <ListItemView language={language} theme={theme}>
               <Content numberOfLines={5} language={language} theme={theme}>
-                {decodedContent}
+                {content}
               </Content>
             </ListItemView>
             {timestamp && (

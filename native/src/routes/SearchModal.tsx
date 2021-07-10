@@ -88,16 +88,13 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
       .map(
         (category: CategoryModel): ListEntryType => {
           const contentWithoutHtml: string[] = []
-
           const parser = new Parser({
             ontext(data: string) {
               contentWithoutHtml.push(data)
             }
           })
-
           parser.write(category.content)
           parser.end()
-
           return {
             model: {
               path: category.path,
