@@ -60,21 +60,6 @@
       },
       "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
     },
-    "fa": {
-      "pageTitles": {
-        "search": "جستجو",
-        "events": "رویدادها",
-        "offers": "خدمات",
-        "landing": "انتخاب محل",
-        "disclaimer": "اطلاعات ناشر و تماس",
-        "mainDisclaimer": "اطلاعات ناشر و تماس - {{appName}}",
-        "pois": "موارد مورد علاقه",
-        "notFound": "صفحه پیدا نشد",
-        "tunews": "tünews",
-        "localNews": "اخبار محلی"
-      },
-      "metaDescription": "{{appName}} راهنمای دیجیتالی شما در مورد آلمان است. اطلاعات، رویدادها و مشاوره محلی را بیابید. همیشه به روز و به زبان شما."
-    },
     "fr": {
       "pageTitles": {
         "search": "Recherche",
@@ -282,9 +267,6 @@
     "es": {
       "createPdf": "Crear PDF"
     },
-    "fa": {
-      "createPdf": "ایجاد پی دی اف"
-    },
     "fr": {
       "createPdf": "Créer PDF"
     },
@@ -350,11 +332,6 @@
       "lastUpdate": "Última modificación:",
       "loading": "Cargando ..."
     },
-    "pes": {
-      "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
-      "chooseALanguage": "یک زبان را انتخاب کنید.",
-      "lastUpdate": "آخرین تغییرات:"
-    },
     "fr": {
       "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
       "chooseALanguage": "Choisis une langue.",
@@ -376,6 +353,11 @@
       "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
       "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Guhertinên herî dawî:"
+    },
+    "pes": {
+      "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
+      "chooseALanguage": "یک زبان را انتخاب کنید.",
+      "lastUpdate": "آخرین تغییرات:"
     },
     "pl": {
       "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
@@ -457,13 +439,6 @@
       "news": "Noticias",
       "newsAlternative": "Novedades"
     },
-    "pes": {
-      "localInformation": "اطلاعات محلی",
-      "offers": "خدمات",
-      "events": "رویدادها",
-      "news": "اخبار",
-      "newsAlternative": "تازه‌ها"
-    },
     "fr": {
       "localInformation": "Informations locales",
       "offers": "Offres",
@@ -489,6 +464,13 @@
       "events": "Rûdan",
       "news": "Nûçe",
       "newsAlternative": "Nûçe"
+    },
+    "pes": {
+      "localInformation": "اطلاعات محلی",
+      "offers": "خدمات",
+      "events": "رویدادها",
+      "news": "اخبار",
+      "newsAlternative": "تازه‌ها"
     },
     "pl": {
       "localInformation": "Informacje lokalne",
@@ -680,32 +662,6 @@
       "pageTitle": "Error",
       "generalError": "Se ha producido un error"
     },
-    "pes": {
-      "notFound": {
-        "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
-        "city": "متاسفانه این شهر یافت نشد.",
-        "category": "متاسفانه این صفحه یافت نشد.",
-        "event": "متأسفانه این رویداد یافت نشد.",
-        "offer": "متأسفانه این خدمات یافت نشد.",
-        "poi": "متأسفانه این موارد مورد علاقه یافت نشد."
-      },
-      "pageNotFound": "متاسفانه این صفحه یافت نشد.",
-      "networkConnectionFailed": "اتصال به سرور انجام نشد.",
-      "networkRequestFailed": "درخواست قابل پردازش نیست.",
-      "responseMappingFailed": "پاسخ سرور قابل پردازش نیست.",
-      "unknownError": "خطای ناشناخته رخ داده است.",
-      "tryAgain": "مجددا سعی کنید",
-      "loadingFailed": "متاسفانه صفحه بارگیری نمی شود.",
-      "chooseALanguage": "یک زبان را انتخاب کنید:",
-      "goTo": {
-        "start": "به سوی صفحه اصلی",
-        "categories": "به سوی دسته بندی ها",
-        "events": "به سوی رویدادها",
-        "offers": "به سوی خدمات"
-      },
-      "pageTitle": "خطا",
-      "generalError": "خطایی رخ داده است"
-    },
     "fr": {
       "notFound": {
         "language": "Malheureusement, cette langue n'est pas disponible ici.",
@@ -819,6 +775,32 @@
       },
       "pageTitle": "Şaşitî (Eror)",
       "generalError": "Şaşitiyek qewimiye"
+    },
+    "pes": {
+      "notFound": {
+        "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
+        "city": "متاسفانه این شهر یافت نشد.",
+        "category": "متاسفانه این صفحه یافت نشد.",
+        "event": "متأسفانه این رویداد یافت نشد.",
+        "offer": "متأسفانه این خدمات یافت نشد.",
+        "poi": "متأسفانه این موارد مورد علاقه یافت نشد."
+      },
+      "pageNotFound": "متاسفانه این صفحه یافت نشد.",
+      "networkConnectionFailed": "اتصال به سرور انجام نشد.",
+      "networkRequestFailed": "درخواست قابل پردازش نیست.",
+      "responseMappingFailed": "پاسخ سرور قابل پردازش نیست.",
+      "unknownError": "خطای ناشناخته رخ داده است.",
+      "tryAgain": "مجددا سعی کنید",
+      "loadingFailed": "متاسفانه صفحه بارگیری نمی شود.",
+      "chooseALanguage": "یک زبان را انتخاب کنید:",
+      "goTo": {
+        "start": "به سوی صفحه اصلی",
+        "categories": "به سوی دسته بندی ها",
+        "events": "به سوی رویدادها",
+        "offers": "به سوی خدمات"
+      },
+      "pageTitle": "خطا",
+      "generalError": "خطایی رخ داده است"
     },
     "pl": {
       "notFound": {
@@ -1105,12 +1087,6 @@
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades."
     },
-    "pes": {
-      "location": "محل",
-      "date": "تاریخ",
-      "events": "رویدادها",
-      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد."
-    },
     "fr": {
       "location": "Lieu",
       "date": "Date",
@@ -1134,6 +1110,12 @@
       "date": "Roj",
       "events": "Rûdan",
       "currentlyNoEvents": "Di dema nika da tu rûdanek tuneye."
+    },
+    "pes": {
+      "location": "محل",
+      "date": "تاریخ",
+      "events": "رویدادها",
+      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد."
     },
     "pl": {
       "location": "Placówka",
@@ -1269,25 +1251,6 @@
       "negativeRating": "Esta página no sirve de ayuda",
       "positiveRating": "Esta página sirve de ayuda"
     },
-    "pes": {
-      "disclaimer": "اطلاعات ناشر و تماس",
-      "send": "ارسال",
-      "failedSendingFeedback": "هنگام ارسال بازخورد خطایی روی داد.",
-      "feedback": "بازخورد",
-      "positiveComment": "چه چیزی مفید بود؟",
-      "negativeComment": "چه چیزی را می توانیم بهتر کنیم؟",
-      "isThisSiteUseful": "آیا این صفحه مفید است؟",
-      "useful": "مفید",
-      "notUseful": "غیر مفید",
-      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
-      "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
-      "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
-      "feedbackSent": "بازخورد ارسال شد",
-      "thanksMessage": "از بازخورد شما سپاسگزاریم. شما با این کار به ما کمک می کنید تا مطالب خود و اپلیکیشن {{appName}} را بهبود بخشیم. از بازخوردهای بیشتر خوشحال خواهیم شد.",
-      "close": "بستن",
-      "negativeRating": "این صفحه مفید نیست",
-      "positiveRating": "این صفحه مفید است"
-    },
     "fr": {
       "disclaimer": "Contact et mentions légales",
       "send": "Envoyer",
@@ -1363,6 +1326,25 @@
       "close": "Girêdan",
       "negativeRating": "Ev rûpel sûdmend nîne",
       "positiveRating": "Ev rûpel sûdmend e"
+    },
+    "pes": {
+      "disclaimer": "اطلاعات ناشر و تماس",
+      "send": "ارسال",
+      "failedSendingFeedback": "هنگام ارسال بازخورد خطایی روی داد.",
+      "feedback": "بازخورد",
+      "positiveComment": "چه چیزی مفید بود؟",
+      "negativeComment": "چه چیزی را می توانیم بهتر کنیم؟",
+      "isThisSiteUseful": "آیا این صفحه مفید است؟",
+      "useful": "مفید",
+      "notUseful": "غیر مفید",
+      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
+      "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
+      "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
+      "feedbackSent": "بازخورد ارسال شد",
+      "thanksMessage": "از بازخورد شما سپاسگزاریم. شما با این کار به ما کمک می کنید تا مطالب خود و اپلیکیشن {{appName}} را بهبود بخشیم. از بازخوردهای بیشتر خوشحال خواهیم شد.",
+      "close": "بستن",
+      "negativeRating": "این صفحه مفید نیست",
+      "positiveRating": "این صفحه مفید است"
     },
     "pl": {
       "disclaimer": "Kontakt i nota prawna",
@@ -1649,34 +1631,6 @@
       "accept": "Aceptar",
       "privacyPolicy": "Declaración de privacidad"
     },
-    "pes": {
-      "appName": "{{appName}}",
-      "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
-      "search": "جستجو",
-      "searchDescription": "با استفاده از کلمات کلیدی، اطلاعات صحیح را به سرعت پیدا کنید",
-      "languageChange": "تغییر زبان",
-      "languageChangeDescription": "تغییر راحت زبان در تک تک صفحات",
-      "events": "رویدادها",
-      "eventsDescription": "رویدادهای فعلی و وقت های ملاقات در محیط اطراف",
-      "offers": "خدمات",
-      "offersDescription": "جستجوی کار، جستجوی کارورزی و بیشتر در محیط اطراف",
-      "inquiryTitle": "تنظیمات",
-      "inquiryIntro": "با کلیک بر روی \"{{accept}}\" به اپلیکیشن {{appName}} اجازه می دهم،...",
-      "sentryTitle": "پایداری اپلیکیشن",
-      "sentryCondition": "... با ارسال خودکار گزارش خرابی، {{appName}} را بهبود یابد",
-      "pushNewsTitle": "پیام های فوری",
-      "pushNewsCondition": "... پیام های فوری مربوط به اخبار محلی جدید، برای من ارسال شود",
-      "proposeCitiesTitle": "مکان های نزدیک",
-      "proposeCitiesCondition": "... با کمک مکان یاب GPS من، مکان های نزدیک به من پیشنهاد شود",
-      "skip": "رد شدن",
-      "next": "ادامه",
-      "cancel": "قطع",
-      "save": "ذخیره",
-      "customize": "تنظیم کردن",
-      "decline": "رد کردن",
-      "accept": "پذیرش",
-      "privacyPolicy": "بیانیه حفاظت از داده ها"
-    },
     "fr": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} est votre guide numérique pour l'Allemagne",
@@ -1788,6 +1742,34 @@
       "decline": "Nepejirandin",
       "accept": "Pejirandin",
       "privacyPolicy": "Daxuyaniya Parastina Daneyan"
+    },
+    "pes": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
+      "search": "جستجو",
+      "searchDescription": "با استفاده از کلمات کلیدی، اطلاعات صحیح را به سرعت پیدا کنید",
+      "languageChange": "تغییر زبان",
+      "languageChangeDescription": "تغییر راحت زبان در تک تک صفحات",
+      "events": "رویدادها",
+      "eventsDescription": "رویدادهای فعلی و وقت های ملاقات در محیط اطراف",
+      "offers": "خدمات",
+      "offersDescription": "جستجوی کار، جستجوی کارورزی و بیشتر در محیط اطراف",
+      "inquiryTitle": "تنظیمات",
+      "inquiryIntro": "با کلیک بر روی \"{{accept}}\" به اپلیکیشن {{appName}} اجازه می دهم،...",
+      "sentryTitle": "پایداری اپلیکیشن",
+      "sentryCondition": "... با ارسال خودکار گزارش خرابی، {{appName}} را بهبود یابد",
+      "pushNewsTitle": "پیام های فوری",
+      "pushNewsCondition": "... پیام های فوری مربوط به اخبار محلی جدید، برای من ارسال شود",
+      "proposeCitiesTitle": "مکان های نزدیک",
+      "proposeCitiesCondition": "... با کمک مکان یاب GPS من، مکان های نزدیک به من پیشنهاد شود",
+      "skip": "رد شدن",
+      "next": "ادامه",
+      "cancel": "قطع",
+      "save": "ذخیره",
+      "customize": "تنظیم کردن",
+      "decline": "رد کردن",
+      "accept": "پذیرش",
+      "privacyPolicy": "بیانیه حفاظت از داده ها"
     },
     "pl": {
       "appName": "{{appName}}",
@@ -2091,18 +2073,6 @@
       "timeout": "La localización falló",
       "refresh": "Actualizar lista de ubicaciones"
     },
-    "pes": {
-      "searchCity": "جستجوی مکان",
-      "nearbyPlaces": "مکان های نزدیک",
-      "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
-      "alert": "راهنمایی",
-      "locationError": "برای مشاهده مکان های نزدیک باید خدمات موقعیت مکانی فعال شوند.",
-      "noPermission": "دسترسی به مکان موفقیت‌آمیز بود",
-      "loading": "موقعیت مکانی را مشخص کنید...",
-      "notAvailable": "تعیین موقعیت مکانی غیرفعال شده است",
-      "timeout": "تعیین موقعیت مکانی انجام نشد",
-      "refresh": "به روز رسانی فهرست مکان‌ها"
-    },
     "fr": {
       "searchCity": "Chercher un lieu",
       "nearbyPlaces": "Lieux à proximité",
@@ -2145,6 +2115,18 @@
       "notAvailable": "Diyarkirina mekan neçalak e",
       "timeout": "Diyarkirinê mekanê serketî nebû",
       "refresh": "Lîsta mekanan nûve bike"
+    },
+    "pes": {
+      "searchCity": "جستجوی مکان",
+      "nearbyPlaces": "مکان های نزدیک",
+      "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
+      "alert": "راهنمایی",
+      "locationError": "برای مشاهده مکان های نزدیک باید خدمات موقعیت مکانی فعال شوند.",
+      "noPermission": "دسترسی به مکان موفقیت‌آمیز بود",
+      "loading": "موقعیت مکانی را مشخص کنید...",
+      "notAvailable": "تعیین موقعیت مکانی غیرفعال شده است",
+      "timeout": "تعیین موقعیت مکانی انجام نشد",
+      "refresh": "به روز رسانی فهرست مکان‌ها"
     },
     "pl": {
       "searchCity": "Znajdź lokalizację",
@@ -2336,26 +2318,6 @@
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
       "disclaimer": "Aviso legal"
     },
-    "pes": {
-      "imprintAndContact": "اطلاعات ناشر و تماس",
-      "privacy": "حفاظت از داده ها",
-      "offers": "خدمات",
-      "localInformation": "اطلاعات محلی",
-      "events": "رویدادها",
-      "noEvents": "رویدادی وجود ندارد",
-      "news": "اخبار",
-      "noLanguages": "به زبان های دیگر موجود نیست",
-      "noTranslation": "ترجمه موجود نیست",
-      "search": "جستجو",
-      "changeLocation": "تغییر محل",
-      "changeLanguage": "تغییر زبان",
-      "settings": "تنظیمات",
-      "share": "به اشتراک گذاری",
-      "cancel": "قطع",
-      "shareMessage": "اکنون یافت شد: {{message}}",
-      "shareFailDefaultMessage": "متأسفانه به اشتراک گذاشتن محتوا انجام نشد.",
-      "disclaimer": "اطلاعات ناشر"
-    },
     "fr": {
       "imprintAndContact": "Mentions légales et contact",
       "privacy": "Protection des données",
@@ -2434,6 +2396,26 @@
       "shareMessage": "Niha hat dîtin: {{message}}",
       "shareFailDefaultMessage": "Mixabin parvekirina babetên pêk nehat.",
       "disclaimer": "Lêzanînên Weşîner"
+    },
+    "pes": {
+      "imprintAndContact": "اطلاعات ناشر و تماس",
+      "privacy": "حفاظت از داده ها",
+      "offers": "خدمات",
+      "localInformation": "اطلاعات محلی",
+      "events": "رویدادها",
+      "noEvents": "رویدادی وجود ندارد",
+      "news": "اخبار",
+      "noLanguages": "به زبان های دیگر موجود نیست",
+      "noTranslation": "ترجمه موجود نیست",
+      "search": "جستجو",
+      "changeLocation": "تغییر محل",
+      "changeLanguage": "تغییر زبان",
+      "settings": "تنظیمات",
+      "share": "به اشتراک گذاری",
+      "cancel": "قطع",
+      "shareMessage": "اکنون یافت شد: {{message}}",
+      "shareFailDefaultMessage": "متأسفانه به اشتراک گذاشتن محتوا انجام نشد.",
+      "disclaimer": "اطلاعات ناشر"
     },
     "pl": {
       "imprintAndContact": "Nota prawna i kontakt",
@@ -2633,10 +2615,6 @@
       "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
       "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
     },
-    "pes": {
-      "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
-      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
-    },
     "fr": {
       "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des photos, {{appName}} doit accéder à la galerie.",
       "NSLocationWhenInUseUsageDescription": "Pour trouver des lieux situés à proximité,  {{appName}} a besoin d’un accès au site."
@@ -2651,6 +2629,10 @@
     "kmr": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
       "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
+    },
+    "pes": {
+      "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
+      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
     },
     "pl": {
       "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii.",
@@ -2734,17 +2716,6 @@
       "currentlyNoNewsAlternative": "En la actualidad no hay novedades",
       "tuNews": "tünews INTERNATIONAL"
     },
-    "pes": {
-      "news": "اخبار",
-      "newsAlternative": "تازه‌ها",
-      "localNews": "اخبار محلی",
-      "localNewsAlternative": "تازه‌های محلی",
-      "local": "محل",
-      "readMore": "ادامه",
-      "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد.",
-      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد.",
-      "tuNews": "tünews INTERNATIONAL"
-    },
     "fr": {
       "news": "Nouvelles",
       "newsAlternative": "Nouvelles",
@@ -2776,6 +2747,17 @@
       "readMore": "Xwendina xwe bidomîne",
       "currentlyNoNews": "Niha nûçe tune.",
       "currentlyNoNewsAlternative": "Niha nûçe tune.",
+      "tuNews": "tünews INTERNATIONAL"
+    },
+    "pes": {
+      "news": "اخبار",
+      "newsAlternative": "تازه‌ها",
+      "localNews": "اخبار محلی",
+      "localNewsAlternative": "تازه‌های محلی",
+      "local": "محل",
+      "readMore": "ادامه",
+      "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد.",
+      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد.",
       "tuNews": "tünews INTERNATIONAL"
     },
     "pl": {
@@ -2891,9 +2873,6 @@
     "es": {
       "offers": "Ofertas"
     },
-    "pes": {
-      "offers": "خدمات"
-    },
     "fr": {
       "offers": "Offres"
     },
@@ -2905,6 +2884,9 @@
     },
     "kmr": {
       "offers": "Xizmet"
+    },
+    "pes": {
+      "offers": "خدمات"
     },
     "pl": {
       "offers": "Oferty"
@@ -2947,9 +2929,6 @@
     "es": {
       "searchPlaceholder": "Búsqueda   "
     },
-    "pes": {
-      "searchPlaceholder": "جستجو"
-    },
     "fr": {
       "searchPlaceholder": "Recherche"
     },
@@ -2958,6 +2937,9 @@
     },
     "kmr": {
       "searchPlaceholder": "Lêgerîn"
+    },
+    "pes": {
+      "searchPlaceholder": "جستجو"
     },
     "pl": {
       "searchPlaceholder": "Wyszukaj"
@@ -3042,17 +3024,6 @@
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta"
     },
-    "pes": {
-      "sentryTitle": "پایداری اپلیکیشن",
-      "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ {{appName}} را بهبود بخشید",
-      "pushNewsTitle": "پیام های فوری",
-      "pushNewsDescription": "دریافت پیام های فوری برای آخرین اخبار محلی جدید",
-      "proposeCitiesTitle": "مکان های نزدیک",
-      "proposeCitiesDescription": "با استفاده از موقعیت GPS، پیشنهادات برای مکان های نزدیک را دریافت کنید",
-      "privacyPolicy": "بیانیه حفاظت از داده ها",
-      "version": "نسخه: {{version}}",
-      "openSourceLicenses": "لیسانس منبع باز"
-    },
     "fr": {
       "sentryTitle": "Stabilité de l'application",
       "sentryDescription": "Améliorer l'application {{appName}} grâce à l'envoi automatique de rapports d'erreur",
@@ -3100,6 +3071,17 @@
       "privacyPolicy": "Daxuyaniya Parastina Daneyan",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî"
+    },
+    "pes": {
+      "sentryTitle": "پایداری اپلیکیشن",
+      "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ {{appName}} را بهبود بخشید",
+      "pushNewsTitle": "پیام های فوری",
+      "pushNewsDescription": "دریافت پیام های فوری برای آخرین اخبار محلی جدید",
+      "proposeCitiesTitle": "مکان های نزدیک",
+      "proposeCitiesDescription": "با استفاده از موقعیت GPS، پیشنهادات برای مکان های نزدیک را دریافت کنید",
+      "privacyPolicy": "بیانیه حفاظت از داده ها",
+      "version": "نسخه: {{version}}",
+      "openSourceLicenses": "لیسانس منبع باز"
     },
     "pl": {
       "sentryTitle": "Stabilność aplikacji",
@@ -3223,9 +3205,6 @@
     "es": {
       "noOffersAvailable": "No hay ofertas disponibles"
     },
-    "pes": {
-      "noOffersAvailable": "هیچ خدماتی در دسترس نیست"
-    },
     "fr": {
       "noOffersAvailable": "Aucune offre disponible"
     },
@@ -3237,6 +3216,9 @@
     },
     "kmr": {
       "noOffersAvailable": "Tu xizmetek li ber dest nîne"
+    },
+    "pes": {
+      "noOffersAvailable": "هیچ خدماتی در دسترس نیست"
     },
     "pl": {
       "noOffersAvailable": "Brak dostępnych ofert"
