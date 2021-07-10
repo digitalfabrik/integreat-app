@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ReactElement, useCallback, useContext } from 'react'
 import { ScrollView, useWindowDimensions, View } from 'react-native'
-import { LocalNewsModel, replaceLinks, TunewsModel, parseHTML } from 'api-client'
+import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 import { contentAlignment } from '../constants/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
@@ -57,8 +57,6 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
     [navigateToLink, language]
   )
 
-  const decodedNewsItemTitle = parseHTML(newsItem.title)
-
   return (
     <View
       style={{
@@ -77,7 +75,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
           </HeaderImageWrapper>
         )}
         <Container>
-          <NewsHeadLine theme={theme}>{decodedNewsItemTitle}</NewsHeadLine>
+          <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
           <Html
             source={{
               html: content

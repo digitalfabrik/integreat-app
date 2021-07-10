@@ -20,12 +20,13 @@ class TunewsModel {
     const { id, date, title, tags, content, eNewsNo } = params
 
     const parsedTitle = parseHTML(title)
+    const parsedContent = parseHTML(content)
 
     this._id = id
     this._title = parsedTitle
     this._tags = tags
     this._date = date
-    this._content = content
+    this._content = parsedContent
     this._eNewsNo = eNewsNo
   }
 
