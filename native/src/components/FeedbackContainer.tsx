@@ -139,7 +139,7 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
     request().catch(err => {
       console.error(err)
       if (fromError(err) !== ErrorCode.NetworkConnectionFailed) {
-        Sentry.captureException(err);
+        Sentry.captureException(err)
       }
       setSendingStatus('failed')
     })
