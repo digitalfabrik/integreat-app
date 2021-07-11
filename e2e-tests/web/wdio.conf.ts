@@ -14,7 +14,7 @@ export const config = {
   waitforTimeout: 100000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
-  services: ['selenium-standalone'],
+  services: process.env.CI ? [] : ['selenium-standalone'],
   framework: 'jasmine',
   reporters: ['junit'],
 
