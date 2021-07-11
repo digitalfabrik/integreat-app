@@ -790,7 +790,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-          - image: circleci/node:14.9.0-browsers
+            - image: circleci/node:14.9.0-browsers
             - image: selenium/standalone-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
