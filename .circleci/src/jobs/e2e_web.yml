@@ -13,6 +13,16 @@ steps:
       command: yarn workspace web start
       background: true
   - run:
+      name: "Wait until WebApp is ready"
+      command: |
+        for i in `seq 1 50`;
+        do
+          nc -z localhost 9000 && echo Success && exit 0
+          echo -n .
+          sleep 1
+        done
+        echo Failed waiting for WebApp && exit 1
+  - run:
       name: "Web E2E Tests"
       command: yarn workspace e2e test:web
   - notify
