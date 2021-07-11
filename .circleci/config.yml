@@ -791,12 +791,7 @@ jobs:
     e2e_web:
         docker:
             - image: circleci/node:14.9.0
-            - image: selenium/hub
-              name: hub
-            - environment:
-                HUB_PORT_4444_TCP_ADDR: hub
-                HUB_PORT_4444_TCP_PORT: 4444
-              image: selenium/node-chrome
+            - image: selenium/standalone-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:
