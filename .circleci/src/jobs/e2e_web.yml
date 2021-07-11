@@ -1,11 +1,6 @@
 docker:
   - image: circleci/node:14.9.0
-  - image: selenium/hub
-    name: hub
-  - image: selenium/node-chrome
-    environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
+  - image: selenium/standalone-chrome
 resource_class: small
 shell: /bin/bash -eo pipefail
 steps:

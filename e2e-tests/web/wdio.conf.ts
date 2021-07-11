@@ -1,17 +1,6 @@
 import { localCapabilities } from './capabilities'
 
-const ciConfiguration = () => {
-  return process.env.CI
-    ? {
-        host: 'hub',
-        port: 4444
-      }
-    : {}
-}
-
 export const config = {
-  ...ciConfiguration(),
-
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
@@ -25,7 +14,7 @@ export const config = {
   waitforTimeout: 100000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
-  services: process.env.CI ? [] : ['selenium-standalone'],
+  services: ['selenium-standalone'],
   framework: 'jasmine',
   reporters: ['junit'],
 
