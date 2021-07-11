@@ -57,7 +57,7 @@ const navigateToDeepLink = async (
     const languageCode = routeInformationLanguageCode || language
 
     if (selectedCityCode && languageCode) {
-      // Reset the currently opened screens to just the dashboard of the  city and language
+      // Reset the currently opened screens to just the dashboard of the city and language
       // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
       navigateToCategory({
         dispatch,
