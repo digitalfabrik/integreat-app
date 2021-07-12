@@ -1,5 +1,6 @@
 import { URL } from 'url'
 import LandingPage from '../pageobjects/landing.page'
+import { openLink } from '../util'
 
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {
@@ -22,9 +23,8 @@ describe('navigate to dashboard', () => {
     expect(filteredCity).toBeDefined()
 
     // navigate to dashboard
-    await filteredCity.click()
+    const dashboardUrl = await openLink(filteredCity)
 
-    const dashboardUrl = await browser.getUrl()
     const parsedDashboardUrl = new URL(dashboardUrl)
 
     expect(parsedDashboardUrl.pathname).toContain(dashboardPath)
