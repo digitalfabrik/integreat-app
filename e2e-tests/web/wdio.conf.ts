@@ -18,7 +18,7 @@ export const config = {
   framework: 'jasmine',
   reporters: ['junit'],
 
-  jasmineNodeOpts: {
+  jasmineOpts: {
     defaultTimeoutInterval: 120000
   },
 
