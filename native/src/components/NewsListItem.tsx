@@ -7,7 +7,6 @@ import { ThemeType } from 'build-configs'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import { config } from 'translations'
-import { Parser } from 'htmlparser2'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 
@@ -90,20 +89,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
   const content = localNewsContent || tuNewsContent
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
-  // Decode html entities
-  let decodedContent = ''
-  const parser = new Parser(
-    {
-      ontext(data: string) {
-        decodedContent += data
-      }
-    },
-    {
-      decodeEntities: true
-    }
-  )
-  parser.write(content)
-  parser.end()
+
   return (
     <>
       <Divider />
@@ -115,7 +101,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
             </ListItemView>
             <ListItemView language={language} theme={theme}>
               <Content numberOfLines={5} language={language} theme={theme}>
-                {decodedContent}
+                {content}
               </Content>
             </ListItemView>
             {timestamp && (
