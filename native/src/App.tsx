@@ -57,7 +57,6 @@ const linking: LinkingOptions = {
     Linking.addEventListener('url', onReceiveURL)
 
     const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
-      console.log('on notification opened app')
       listener(
         urlFromRouteInformation({
           cityCode: CITY_CODE_PLACEHOLDER,
