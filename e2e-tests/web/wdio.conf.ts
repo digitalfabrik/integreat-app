@@ -19,7 +19,7 @@ export const config = {
   reporters: ['junit'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 120000
+    defaultTimeoutInterval: 50000
   },
 
   onPrepare: async function (): Promise<void> {
