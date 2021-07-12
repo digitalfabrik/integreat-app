@@ -119,7 +119,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     }
 
     request().catch(err => {
-      console.log(err)
+      console.error(err)
       setSendingStatus(SendingState.ERROR)
     })
   }
