@@ -10,7 +10,7 @@ const getCapability = () => {
     throw new Error('Value of E2E_CONFIG is invalid!')
   }
 
-  return capability[capability]
+  return capabilities[capability]
 }
 
 export const config = {
