@@ -5,7 +5,7 @@ import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
 import NotFoundError from '../errors/NotFoundError'
 import { TU_NEWS_TYPE } from '../routes'
-import { decodeHtmlEntities } from '../utils/helpers'
+import { parseHTMLEntities } from '../utils/helpers'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
@@ -28,7 +28,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
           })
         }
 
-        const decodedTitle = decodeHtmlEntities(json.title)
+        const decodedTitle = parseHTMLEntities(json.title)
 
         return new TunewsModel({
           id: json.id,
