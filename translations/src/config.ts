@@ -109,6 +109,10 @@ class Config {
     },
     hu: {
       rtl: false
+    },
+    ur: {
+      rtl: true,
+      additionalFont: 'lateef'
     }
   }
 
