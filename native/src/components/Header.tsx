@@ -142,6 +142,7 @@ const Header = (props: PropsType): ReactElement => {
   }
 
   const deviceWidth = useWindowDimensions().width
+
   const cityDisplayName = (): string => {
     if (!routeCityModel) {
       return ''
