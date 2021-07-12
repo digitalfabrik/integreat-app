@@ -1,5 +1,3 @@
-import { Dimensions, useWindowDimensions } from 'react-native'
-
 export type DimensionsType = {
   headerHeight: number
   modalHeaderHeight: number
