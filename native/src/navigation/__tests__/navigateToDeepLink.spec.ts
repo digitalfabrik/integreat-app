@@ -1,6 +1,6 @@
 import buildConfig from '../../constants/buildConfig'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
-import navigateToDeepLink from '../navigateToDeepLink'
+import navigateToDeepLink, { CITY_CODE_PLACEHOLDER, LANGUAGE_CODE_PLACEHOLDER } from '../navigateToDeepLink'
 import {
   DASHBOARD_ROUTE,
   EVENTS_ROUTE,
@@ -88,6 +88,24 @@ describe('navigateToDeepLink', () => {
     })
 
     it('should navigate to landing if no city is selected and intro slides disabled', async () => {
+      mockBuildConfig({ introSlides: false, fixedCity: null })
+      await appSettings.setContentLanguage(language)
+      await navigateToDeepLink(dispatch, navigation, url, language)
+      expect(navigation.replace).toHaveBeenCalledTimes(1)
+      expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+      expect(createNavigate).not.toHaveBeenCalled()
+      expect(navigateToCategory).not.toHaveBeenCalled()
+      expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+      expect(sendTrackingSignal).toHaveBeenCalledWith({
+        signal: {
+          name: OPEN_DEEP_LINK_SIGNAL_NAME,
+          url
+        }
+      })
+    })
+
+    it('should navigate to landing if placeholders are used but no city is selected', async () => {
+      const url = `https://integreat.app/${CITY_CODE_PLACEHOLDER}/${LANGUAGE_CODE_PLACEHOLDER}/news`
       mockBuildConfig({ introSlides: false, fixedCity: null })
       await appSettings.setContentLanguage(language)
       await navigateToDeepLink(dispatch, navigation, url, language)
@@ -452,6 +470,50 @@ describe('navigateToDeepLink', () => {
       })
     })
   })
+
+  it('should replace city and language placeholders with selected', async () => {
+    const selectedCity = 'testumgebung'
+    const url = `https://integreat.app/${CITY_CODE_PLACEHOLDER}/${LANGUAGE_CODE_PLACEHOLDER}/news`
+    mockBuildConfig({ introSlides: false, fixedCity: null })
+    await appSettings.setContentLanguage(language)
+    await appSettings.setSelectedCity(selectedCity)
+    await appSettings.setIntroShown()
+    await navigateToDeepLink(dispatch, navigation, url, language)
+    expect(navigateToCategory).toHaveBeenCalledTimes(1)
+    expect(navigateToCategory).toHaveBeenCalledWith({
+      dispatch,
+      navigation,
+      cityCode: selectedCity,
+      languageCode: language,
+      routeName: DASHBOARD_ROUTE,
+      cityContentPath: `/${selectedCity}/${language}`,
+      forceRefresh: false,
+      resetNavigation: true
+    })
+    expect(navigation.replace).not.toHaveBeenCalled()
+    expect(createNavigate).toHaveBeenCalledTimes(1)
+    expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
+    expect(navigateTo).toHaveBeenCalledTimes(1)
+    expect(navigateTo).toHaveBeenCalledWith(
+      {
+        cityCode: selectedCity,
+        languageCode: language,
+        newsId: undefined,
+        newsType: LOCAL_NEWS_TYPE,
+        route: NEWS_ROUTE
+      },
+      undefined,
+      false
+    )
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_DEEP_LINK_SIGNAL_NAME,
+        url
+      }
+    })
+  })
+
   describe('jpal tracking links', () => {
     it('should open landing and navigate to tracking links if there is no seleceted city', async () => {
       const url = `https://integreat.app/jpal/abcdef123456`

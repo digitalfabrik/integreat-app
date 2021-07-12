@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ReactElement } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { Provider } from 'react-redux'
 import createReduxStore from './redux/createReduxStore'
 import IOSSafeAreaView from './components/IOSSafeAreaView'
@@ -13,7 +13,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from './components/StaticServerProvider'
 import I18nProvider from './components/I18nProvider'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
-import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'api-client'
+import { Linking } from 'react-native'
+import { CLOSE_PAGE_SIGNAL_NAME, LOCAL_NEWS_TYPE, NEWS_ROUTE, REDIRECT_ROUTE } from 'api-client'
 import AppStateListener from './components/AppStateListener'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from './constants/buildConfig'
@@ -22,6 +23,9 @@ import NetInfo from '@react-native-community/netinfo'
 import sendTrackingSignal from './services/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { enableScreens } from 'react-native-screens'
+import messaging from '@react-native-firebase/messaging'
+import urlFromRouteInformation from './navigation/url'
+import { CITY_CODE_PLACEHOLDER, LANGUAGE_CODE_PLACEHOLDER } from './navigation/navigateToDeepLink'
 
 // https://github.com/software-mansion/react-native-screens/issues/105#issuecomment-605369538
 enableScreens(false)
@@ -36,17 +40,37 @@ const linking: LinkingOptions = {
       [REDIRECT_ROUTE]: '*'
     }
   },
-  getStateFromPath: path => {
-    return {
-      index: 0,
-      routes: [
-        {
-          name: REDIRECT_ROUTE,
-          params: {
-            url: `https://${path}`
-          }
+  getStateFromPath: path => ({
+    index: 0,
+    routes: [
+      {
+        name: REDIRECT_ROUTE,
+        params: {
+          url: `https://${path}`
         }
-      ]
+      }
+    ]
+  }),
+  subscribe: (listener: (url: string) => void) => {
+    const onReceiveURL = ({ url }: { url: string }) => listener(url)
+
+    Linking.addEventListener('url', onReceiveURL)
+
+    const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
+      console.log('on notification opened app')
+      listener(
+        urlFromRouteInformation({
+          cityCode: CITY_CODE_PLACEHOLDER,
+          languageCode: LANGUAGE_CODE_PLACEHOLDER,
+          route: NEWS_ROUTE,
+          newsType: LOCAL_NEWS_TYPE
+        })
+      )
+    })
+
+    return () => {
+      Linking.removeEventListener('url', onReceiveURL)
+      unsubscribeNotification()
     }
   }
 }
@@ -57,7 +81,9 @@ const App = (): ReactElement => {
   const [routeName, setRouteName] = useState<string | null | undefined>(null)
   const [routeKey, setRouteKey] = useState<string | null | undefined>(null)
   const [routeIndex, setRouteIndex] = useState<number>(0)
+
   useSendOfflineJpalSignals()
+
   const onStateChange = useCallback(
     state => {
       if (state) {
@@ -77,6 +103,7 @@ const App = (): ReactElement => {
     },
     [routeIndex]
   )
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={buildConfig().lightTheme}>
