@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Share } from 'react-native'
+import { Share, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { Item } from 'react-navigation-header-buttons'
 import { Dispatch } from 'redux'
@@ -15,7 +15,7 @@ import { StoreActionType } from '../redux/StoreActionType'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
 import sendTrackingSignal from '../services/sendTrackingSignal'
-import { forceNewLine } from '../services/forceNewLine'
+import { forceNewlineAfterChar } from '../services/forceNewLineAfterChar'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -141,16 +141,17 @@ const Header = (props: PropsType): ReactElement => {
     })
   }
 
-  const cityDisplayName = () => {
+  const deviceWidth = useWindowDimensions().width
+  const cityDisplayName = (): string => {
     if (!routeCityModel) {
       return ''
     }
 
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
     const cityNameLength = routeCityModel.sortingName.length
-    return cityNameLength < dimensions.deviceWidth / dimensions.headerTextSize
+    return cityNameLength < deviceWidth / dimensions.headerTextSize
       ? `${routeCityModel.sortingName}${description}`
-      : `${forceNewLine(routeCityModel.sortingName, '-')}${description}`
+      : `${forceNewlineAfterChar(routeCityModel.sortingName, '-')}${description}`
   }
 
   const renderItem = (
@@ -177,10 +178,7 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText
-              allowFontScaling={false}
-              theme={theme}
-              fontSize={dimensions.deviceWidth * dimensions.fontScaling}>
+            <HeaderText allowFontScaling={false} theme={theme} fontSize={deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}

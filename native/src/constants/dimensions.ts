@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native'
+import { Dimensions, useWindowDimensions } from 'react-native'
 
 export type DimensionsType = {
   headerHeight: number
@@ -7,8 +7,10 @@ export type DimensionsType = {
     iconSize: number
     margin: number
   }
+  /**
+   Multiplikator for font scaling depending on the device width to get variable font size
+   */
   fontScaling: number
-  deviceWidth: number
   headerTextSize: number
 }
 const dimensions: DimensionsType = {
@@ -19,7 +21,6 @@ const dimensions: DimensionsType = {
     margin: 10
   },
   fontScaling: 0.04,
-  deviceWidth: Number(Dimensions.get('window').width),
   headerTextSize: 20
 }
 export default dimensions
