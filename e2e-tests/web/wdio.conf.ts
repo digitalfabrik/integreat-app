@@ -22,6 +22,11 @@ export const config = {
     defaultTimeoutInterval: 120000
   },
 
+  onPrepare: async function (): Promise<void> {
+    const startupDelay = 20000
+    await new Promise(resolve => setTimeout(resolve, startupDelay))
+  },
+
   before: async function (): Promise<void> {
     await browser.setTimeout({ implicit: 80000 })
   }
