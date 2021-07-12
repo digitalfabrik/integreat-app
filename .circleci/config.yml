@@ -800,22 +800,22 @@ jobs:
             - prepare_workspace
             - restore_yarn_cache
             - run:
-                  background: true
-                  command: yarn workspace web start
-                  name: Start WebApp
+                background: true
+                command: yarn workspace web start
+                name: Start WebApp
             - run:
-                  command: |
-                      for i in `seq 1 50`;
-                      do
-                        nc -z localhost 9000 && echo Success && exit 0
-                        echo -n .
-                        sleep 1
-                      done
-                      echo Failed waiting for WebApp && exit 1
-                  name: Wait until WebApp is ready
+                command: |
+                    for i in `seq 1 50`;
+                    do
+                      nc -z localhost 9000 && echo Success && exit 0
+                      echo -n .
+                      sleep 1
+                    done
+                    echo Failed waiting for WebApp && exit 1
+                name: Wait until WebApp is ready
             - run:
-                  command: yarn workspace e2e test:web
-                  name: Web E2E Tests
+                command: yarn workspace e2e test:web
+                name: Web E2E Tests
             - notify
     move_release_notes:
         docker:
