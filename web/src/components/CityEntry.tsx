@@ -1,6 +1,6 @@
 import React from 'react'
 import Highlighter from 'react-highlight-words'
-import normalizeSearchString from '../services/normalizeSearchString'
+import { normalizeSearchString } from '../utils/stringUtils'
 import { CATEGORIES_ROUTE, CityModel } from 'api-client'
 import styled, { withTheme } from 'styled-components'
 import type { ThemeType } from 'build-configs'
