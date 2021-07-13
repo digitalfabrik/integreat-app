@@ -6,9 +6,10 @@
 - [Required Extensions](#required-extensions)
   - [Eslint Code Formatter](#eslint-code-formatter)
 - [Recommended Extensions](#recommended-extensions)
-  - [Git History](#git-history)
-  - [... Save your ass](#-save-your-ass)
-  - [Remote WSL](#remote-wsl)
+  - [Git Lens](#git-lens)
+  - [Intellisense for imports](#intellisense-for-imports)
+  - [File Change history](#file-change-history)
+  - [Jest support](#jest-support)
   - [.md-Files](#md-files)
 
 ## Installation
@@ -25,6 +26,16 @@ choco install vscode
 
 ## Settings
 
+There are global user settings and local workspace settings. You can search for the settings key in the settings page or edit the files directly.
+
+Open Settings:
+`File > Preferences > Settings (Ctrl+,)`
+
+Local workspace:
+[../web/.vscode/settings.json]()  
+Global settings (Windows):
+[%appdata%/Code/User/settings.json]()
+
 Adjust the following settings corresponding to your preferences:
 
 ```
@@ -34,10 +45,6 @@ File > Preferences > Keymaps
 ```
 
 ### Optional settings
-
-```
-File > Preferences > Settings (Ctrl+,)
-```
 
 ```
 // Do not close file when opening another one
@@ -62,35 +69,58 @@ The following extensions (or any alternatives) should be installed.
 
 ### Eslint Code Formatter
 
+For formatting we use eslint and prettier:
+
+https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint  
+https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode  
+https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint
+
 ```
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension esbenp.prettier-vscode
+code --install-extenstion rvest.vs-code-prettier-eslint
 ```
 
-Activate vs-code-prettier as default formatter. VSCode should ask you, otherwise set it manually:
+Activate vs-code-prettier as default formatter. VSCode should ask you when you format (Right mous menu in code or Alt-Shift-F). Otherwise add it manually to the [global user settings](%appdata%/Code/User/settings.json)
+file:
 
 ```
-"[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+"[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"[typescriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
 ```
 
-Until now Integreat uses an external repo for the eslint configuration. After Checking out the repo allow eslint to use the npm module in node_modules/eslint.  
-The eslint extension button is in the bottom right corner of the IDE
+Until now Integreat uses an external repo for the eslint configuration. After Checking out the repo allow eslint to use the npm module in node_modules/eslint.
 
 ## Recommended Extensions
 
-### Git History
+When opening the extension menu an vscode the recommended extenstions are marked with a star. They are defined in [../extensions.json]() and [../web/extensions.json]()
 
-(Alternative: Git Lens)
+### Git Lens
+
+https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
 
 ```
-code --install-extension donjayamanne.githistory
+code --install-extension eamodio.gitlens
 ```
 
-### ... Save your ass
+Remark: This extension adds a lot of context menus, configure it to your needs
 
-(Changes History)
+### Intellisense for imports
+
+https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense
+
+```
+code --install-extension christian-kohler.npm-intellisense
+code --install-extension christian-kohler.path-intellisense
+```
+
+### File Change history
+
+https://marketplace.visualstudio.com/items?itemName=xyz.local-history
 
 ```
 code --install-extension xyz.local-history
@@ -102,19 +132,22 @@ Set path in settings:
 "local-history.path": "<Path outside of project to not use .gitignore>",
 ```
 
-### Remote WSL
+### Jest support
 
-Use Visual Studio Code in Windows as GUI for code running in WSL  
-https://code.visualstudio.com/docs/remote/wsl
+https://marketplace.visualstudio.com/items?itemName=gamunu.vscode-yarn
 
 ```
-code --install-extension ms-vscode-remote.remote-wsl
+code --install-extenstion Orta.vscode-jest
 ```
 
 ### .md-Files
 
-use button in top right corner see the formatted markup
+Adds a button in the top right corner to see markdown files formatted
+https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
 
 ```
 code --install-extension yzhang.markdown-all-in-one
 ```
+
+... and many more like e.g. yarn support and jira support  
+Try out and enjoy! :)

@@ -1,15 +1,9 @@
 {
-  "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
-  "flow.useNPMPackagedFlow": true,
-  "javascript.validate.enable": false,
   "yarn.packageJson": "package.json",
   "files.associations": {
     "*.js": "javascriptreact"
   },
   "prettier.eslintIntegration": true,
-  "jira.baseUrl": "https://integreat.atlassian.net/",
-  "jira.projectNames": "WEBAPP",
   "jest.pathToConfig": "jest.config.js",
-  "jest.restartJestOnSnapshotUpdate": true,
-  "eslint.enable": true
+  "jest.restartJestOnSnapshotUpdate": true
 }
