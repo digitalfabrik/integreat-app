@@ -81,7 +81,7 @@ code --install-extension esbenp.prettier-vscode
 code --install-extenstion rvest.vs-code-prettier-eslint
 ```
 
-Activate vs-code-prettier as default formatter. VSCode should ask you when you format (Right mous menu in code or Alt-Shift-F). Otherwise add it manually to the [global user settings](%appdata%/Code/User/settings.json)
+Activate vs-code-prettier as default formatter. VSCode should ask you when you format (Right mouse menu in code or Alt-Shift-F). Otherwise add it manually to the [global user settings](%appdata%/Code/User/settings.json)
 file:
 
 ```
@@ -97,7 +97,7 @@ Until now Integreat uses an external repo for the eslint configuration. After Ch
 
 ## Recommended Extensions
 
-When opening the extension menu an vscode the recommended extenstions are marked with a star. They are defined in [../extensions.json]() and [../web/extensions.json]()
+When opening the extension menu in VSCode the recommended extensions are marked with a star. They are defined in [../extensions.json]() and [../web/extensions.json]()
 
 ### Git Lens
 
