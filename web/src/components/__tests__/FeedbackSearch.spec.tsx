@@ -1,6 +1,5 @@
 import React from 'react'
 import FeedbackSearch from '../FeedbackSearch'
-import { shallow } from 'enzyme'
 import { fireEvent, render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'

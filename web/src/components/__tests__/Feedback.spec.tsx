@@ -15,7 +15,7 @@ describe('Feedback', () => {
   const t = (key: string): string => key
 
   const onCommentChanged = jest.fn()
-  const onContactMailChanged = jest.fn()
+  const onContactMailChangedDummy = jest.fn()
   const onSubmit = jest.fn()
   const closeFeedbackModal = jest.fn()
 
@@ -23,7 +23,8 @@ describe('Feedback', () => {
     isPositiveFeedback: boolean,
     comment: string,
     isSearchFeedback = false,
-    sendingStatus = SendingState.IDLE
+    sendingStatus = SendingState.IDLE,
+    onContactMailChanged = onContactMailChangedDummy
   ) => {
     return {
       comment,
@@ -96,9 +97,10 @@ describe('Feedback', () => {
   })
 
   it('should call callback on contact mail changed', () => {
+    const onContactMailChanged = jest.fn()
     const { getByDisplayValue, queryByDisplayValue } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <Feedback {...buildProps(false, 'my comment')} />
+        <Feedback {...buildProps(false, 'my comment', false, SendingState.IDLE, onContactMailChanged)} />
       </ThemeProvider>
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()

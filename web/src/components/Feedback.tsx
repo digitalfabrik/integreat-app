@@ -17,9 +17,11 @@ export const Container = styled.div`
   border-color: ${props => props.theme.colors.textSecondaryColor};
   font-size: ${props => props.theme.fonts.contentFontSize};
 `
+
 const CommentField = styled.textarea`
   resize: none;
 `
+
 const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -31,6 +33,7 @@ const TextInput = styled.input.attrs({
 })`
   resize: none;
 `
+
 export const Description = styled.div`
   padding: 10px 0 5px;
   font-weight: 700;
