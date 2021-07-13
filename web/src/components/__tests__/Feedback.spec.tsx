@@ -54,7 +54,7 @@ describe('Feedback', () => {
         <Feedback {...buildProps(true, '')} />
       </ThemeProvider>
     )
-    expect(getByText('feedback:send')).not.toBeDisabled()
+    expect(getByText('feedback:send')).toBeEnabled()
   })
 
   it('button should be enabled for negative Feedback and input', () => {
@@ -63,7 +63,7 @@ describe('Feedback', () => {
         <Feedback {...buildProps(false, 'comment')} />
       </ThemeProvider>
     )
-    expect(getByText('feedback:send')).not.toBeDisabled()
+    expect(getByText('feedback:send')).toBeEnabled()
   })
 
   it('should display correct description for search', () => {

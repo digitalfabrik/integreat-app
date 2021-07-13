@@ -79,7 +79,7 @@ describe('FeedbackContainer', () => {
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).not.toBeDisabled())
+    await waitFor(() => expect(button).toBeEnabeld())
     expect(mockRequest).toBeCalledTimes(1)
     expect(mockRequest).toBeCalledWith({
       feedbackType: feedbackType,
@@ -105,7 +105,7 @@ describe('FeedbackContainer', () => {
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).not.toBeDisabled())
+    await waitFor(() => expect(button).toBeEnabled())
     expect(getByRole('button', { name: 'feedback:close' })).toBeTruthy()
     expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
@@ -121,7 +121,7 @@ describe('FeedbackContainer', () => {
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).not.toBeDisabled())
+    await waitFor(() => expect(button).toBeEnabled())
     expect(queryByRole('button', { name: 'feedback:close' })).toBeNull()
     expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })

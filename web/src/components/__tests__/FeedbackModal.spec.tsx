@@ -40,7 +40,7 @@ describe('FeedbackModal', () => {
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).not.toBeDisabled())
+    await waitFor(() => expect(button).toBeEnabled())
     expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 })
