@@ -23,7 +23,7 @@ export const config = {
   },
 
   onPrepare: async function (): Promise<void> {
-    const startupDelay = 20000
+    const startupDelay = 15000
     await new Promise(resolve => setTimeout(resolve, startupDelay))
   },
 
