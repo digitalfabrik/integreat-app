@@ -10,7 +10,7 @@ steps:
   - restore_yarn_cache
   - run:
       name: "Start WebApp"
-      command: yarn workspace web start
+      command: yarn workspace web start:integreat-e2e
       background: true
   - run:
       name: "Web E2E Tests"

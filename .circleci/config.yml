@@ -801,7 +801,7 @@ jobs:
             - restore_yarn_cache
             - run:
                 background: true
-                command: yarn workspace web start
+                command: yarn workspace web start:integreat-e2e
                 name: Start WebApp
             - run:
                 command: yarn workspace e2e test:web
