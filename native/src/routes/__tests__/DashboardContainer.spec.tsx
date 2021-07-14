@@ -22,6 +22,7 @@ import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
+jest.mock('rn-fetch-blob')
 jest.useFakeTimers()
 jest.mock('../Dashboard', () => {
   const Text = require('react-native').Text

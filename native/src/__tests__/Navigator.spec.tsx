@@ -11,6 +11,7 @@ import { NavigationContainer } from '@react-navigation/native'
 jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
 jest.mock('../utils/helpers', () => ({
+  ...jest.requireActual('../utils/helpers'),
   initSentry: jest.fn()
 }))
 jest.mock('../routes/IntroContainer', () => {

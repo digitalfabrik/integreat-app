@@ -4,6 +4,8 @@ import { CityContentStateType } from '../../StateType'
 import cityContentReducer from '../cityContentReducer'
 import { PushCategoryActionType } from '../../StoreActionType'
 
+jest.mock('rn-fetch-blob')
+
 describe('pushCategory', () => {
   const rootCategory = new CategoryModel({
     root: true,

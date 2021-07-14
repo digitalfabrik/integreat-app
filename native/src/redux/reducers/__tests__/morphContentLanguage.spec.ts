@@ -17,6 +17,8 @@ import { MorphContentLanguageActionType, PushCategoryActionType, PushEventAction
 import pushEvent from '../pushEvent'
 import createCityContent from '../createCityContent'
 
+jest.mock('rn-fetch-blob')
+
 describe('morphContentLanguage', () => {
   const createCategory = ({
     root,

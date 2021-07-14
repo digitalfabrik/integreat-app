@@ -8,6 +8,7 @@ import { REDIRECT_ROUTE } from 'api-client'
 import navigateToDeepLink from '../../navigation/navigateToDeepLink'
 import configureMockStore from 'redux-mock-store'
 
+jest.mock('rn-fetch-blob')
 jest.mock('../../navigation/navigateToDeepLink')
 jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('react-i18next', () => ({
