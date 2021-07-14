@@ -160,7 +160,7 @@ const Header = (props: PropsType): ReactElement => {
     )
   }
   // render placeholder while loading to spare space for icon
-  const renderPlaceholder = (title: string) => <Item style={{ opacity: 0 }} title={title} iconName='search' />
+  const renderIconPlaceholder = (title: string) => <Item style={{ opacity: 0 }} title={title} iconName='search' />
 
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
@@ -182,10 +182,10 @@ const Header = (props: PropsType): ReactElement => {
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
           {!peeking && categoriesAvailable
             ? renderItem(t('search'), 'always', goToSearch, t('search'), 'search')
-            : renderPlaceholder('search')}
+            : renderIconPlaceholder('search')}
           {!peeking && goToLanguageChange
             ? renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')
-            : renderPlaceholder('language')}
+            : renderIconPlaceholder('language')}
           {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
           {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
           {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}
