@@ -1,5 +1,3 @@
-.circleci/
-
 native/android/**/*
 native/ios/**/*
 
