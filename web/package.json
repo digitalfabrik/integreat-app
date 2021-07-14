@@ -28,7 +28,9 @@
     "eslint:fix": "eslint . --fix",
     "eslint": "eslint .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
-    "ts:check": "tsc --build"
+    "ts:check": "tsc --build",
+    "prettier:check": "yarn --cwd .. prettier:check",
+    "prettier:fix": "yarn --cwd .. prettier:fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
