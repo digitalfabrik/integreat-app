@@ -47,10 +47,6 @@ jobs:
         - build_malte_web
         - build_aschaffenburg_web
 
-  - check:
-      context:
-        - mattermost
-
   - build_android:
       name: build_e2e_android
       build_config_name: integreat-e2e

@@ -12,19 +12,19 @@ jobs:
         - deliverino
         - jira
       delivery: production
+  - check:
+      context:
+        - mattermost
 
-#  - check:
-#      context:
-#        - mattermost
-#  - build_web:
-#      name: build_integreat_web
-#      build_config_name: integreat
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - build_web:
-#      name: build_malte_web
+  #  - build_web:
+  #      name: build_integreat_web
+  #      build_config_name: integreat
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - build_web:
+  #      name: build_malte_web
 #      build_config_name: malte
 #      context:
 #        - mattermost
@@ -54,10 +54,6 @@ jobs:
 #      requires:
 #        - bump_version
 #        - deliver_web
-
-  - check:
-      context:
-        - mattermost
 
   - build_android:
       name: build_e2e_android
