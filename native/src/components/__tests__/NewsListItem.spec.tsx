@@ -40,7 +40,6 @@ describe('NewsListItem', () => {
       />
     )
     expect(getByText(localNews.title)).toBeTruthy()
-    expect(getByText('Some "test text with lots of "html entities" which won\'t be displayed.')).toBeTruthy()
     expect(getByText('January 20, 2020')).toBeTruthy()
     expect(queryByText('Last Update')).toBeNull()
     fireEvent.press(getByText(localNews.title))

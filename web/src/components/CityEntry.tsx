@@ -59,9 +59,8 @@ class CityEntry extends React.PureComponent<PropsType> {
         />
         <div style={{ margin: '0 5px', fontSize: '12px' }}>
           {aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
-            <>
+            <span key={alias}>
               <AliasItem
-                key={alias}
                 aria-label={alias}
                 searchWords={[filterText]}
                 sanitize={normalizeSearchString}
@@ -70,7 +69,7 @@ class CityEntry extends React.PureComponent<PropsType> {
                 highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
               />
               {index !== aliases.length - 1 && <span>, </span>}
-            </>
+            </span>
           ))}
           {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
         </div>

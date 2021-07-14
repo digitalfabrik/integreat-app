@@ -9,7 +9,7 @@ describe('RemoteContent', () => {
     const content = 'Test html'
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }} onInternalLinkClick={() => {}} />
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
       </ThemeProvider>
     )
     expect(getByText(content)).toBeTruthy()
@@ -23,7 +23,7 @@ describe('RemoteContent', () => {
 
     const { getByRole, getAllByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent dangerouslySetInnerHTML={{ __html: html }} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
       </ThemeProvider>
     )
 
@@ -41,7 +41,7 @@ describe('RemoteContent', () => {
 
     const { getByRole, getAllByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent dangerouslySetInnerHTML={{ __html: html }} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
       </ThemeProvider>
     )
 
@@ -49,5 +49,27 @@ describe('RemoteContent', () => {
     fireEvent.click(getByRole('link'))
 
     expect(onInternalLinkClick).toHaveBeenCalledTimes(0)
+  })
+
+  it('should sanitize the html', () => {
+    const alertSpy = jest.spyOn(window, 'alert')
+    const errorSpy = jest.spyOn(console, 'error')
+
+    const content =
+      '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
+    const { getByText } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
+      </ThemeProvider>
+    )
+
+    expect(alertSpy).not.toHaveBeenCalled()
+    // window.alert is not implemented in jsdom and upon calling it an error message is logged to the console.
+    // Therefore ensure no error message was logged
+    expect(errorSpy).not.toHaveBeenCalled()
+    expect(getByText('Ich bleib aber da.')).toBeTruthy()
+
+    alertSpy.mockRestore()
+    errorSpy.mockRestore()
   })
 })
