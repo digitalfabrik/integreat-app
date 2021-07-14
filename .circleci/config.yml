@@ -488,14 +488,14 @@ jobs:
                         command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
             - when:
-                  condition:
-                      equal:
-                          - production
-                          - << parameters.delivery >>
-                  steps:
-                      - run:
-                            command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
-                            name: Create jira release
+                condition:
+                    equal:
+                        - production
+                        - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
+                        name: Create jira release
             - persist_environment_variables
             - notify
     check:
@@ -512,22 +512,22 @@ jobs:
             - check_config
             - restore_yarn_cache
             - run:
-                  command: yarn prettier:check
-                  name: Prettier
+                command: yarn prettier:check
+                name: Prettier
             - run:
-                  command: yarn workspaces run lint
-                  name: Lint
+                command: yarn workspaces run lint
+                name: Lint
             - run:
-                  command: yarn workspace build-configs ts:check
-                  name: TS check
+                command: yarn workspace build-configs ts:check
+                name: TS check
             - unit_test:
-                  directory: api-client
+                directory: api-client
             - unit_test:
-                  directory: native
+                directory: native
             - unit_test:
-                  directory: translations
+                directory: translations
             - unit_test:
-                  directory: web
+                directory: web
             - notify
     deliver_android:
         docker:
@@ -726,11 +726,11 @@ jobs:
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
-                  directory: native
+                directory: native
             - run:
-                  command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
-                  name: '[FL] iOS E2E Tests on Browserstack'
-                  working_directory: native
+                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
+                name: '[FL] iOS E2E Tests on Browserstack'
+                working_directory: native
             - notify
     move_release_notes:
         docker:
@@ -897,8 +897,8 @@ workflows:
                     - mattermost
                 delivery: none
             - check:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - build_web:
                 build_config_name: integreat-test-cms
                 context:
@@ -979,8 +979,8 @@ workflows:
                     - jira
                 delivery: production
             - check:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1223,8 +1223,8 @@ workflows:
                     - jira
                 delivery: development
             - check:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1424,8 +1424,8 @@ workflows:
                     - jira
                 delivery: production
             - check:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
