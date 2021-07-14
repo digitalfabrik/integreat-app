@@ -30,20 +30,6 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
-    lint:
-        description: Runs the lint task and stores junit output
-        parameters:
-            directory:
-                type: string
-        steps:
-            - run:
-                command: yarn workspace << parameters.directory >> run lint:ci
-                name: Linting check
-            - run:
-                command: yarn workspace << parameters.directory >> prettier --check .
-                name: Prettier check
-            - store_test_results:
-                path: << parameters.directory >>/reports/lint
     notify:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
@@ -261,7 +247,7 @@ commands:
                 command: |
                     function skip_job {
                       build_config_name=$1
-                      variable_name=SKIP_JOB_${CIRCLE_JOB%-*} # Remove everything after "-". e.g. "check_web-1" -> check_web
+                      variable_name=SKIP_JOB_${CIRCLE_JOB%-*} # Remove everything after "-". e.g. "check-1" -> check
                       if [[ -n ${!variable_name} && ($build_config_name =~ ${!variable_name} || "all" =~  ${!variable_name}) ]]; then
                         echo "This job is skipped because the variable $variable_name is set"
                         circleci step halt
@@ -512,79 +498,6 @@ jobs:
                         name: Create jira release
             - persist_environment_variables
             - notify
-    check_native:
-        docker:
-            - image: circleci/node:14.9.0
-        environment:
-            TOTAL_CPUS: 1
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - skip_job
-            - checkout
-            - check_config
-            - restore_yarn_cache
-            - lint:
-                directory: api-client
-            - lint:
-                directory: build-configs
-            - lint:
-                directory: native
-            - lint:
-                directory: translations
-            - run:
-                command: yarn workspace api-client ts:check
-                name: TS check
-            - run:
-                command: yarn workspace translations ts:check
-                name: TS check
-            - run:
-                command: yarn workspace build-configs ts:check
-                name: TS check
-            - unit_test:
-                directory: native
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: translations
-            - notify
-    check_web:
-        docker:
-            - image: circleci/node:14.9.0
-        environment:
-            TOTAL_CPUS: 1
-            TZ: Europe/Berlin
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - skip_job
-            - checkout
-            - check_config
-            - restore_yarn_cache
-            - lint:
-                directory: api-client
-            - lint:
-                directory: build-configs
-            - lint:
-                directory: web
-            - lint:
-                directory: translations
-            - run:
-                command: yarn workspace api-client ts:check
-                name: TS check
-            - run:
-                command: yarn workspace translations ts:check
-                name: TS check
-            - run:
-                command: yarn workspace build-configs ts:check
-                name: TS check
-            - unit_test:
-                directory: web
-            - unit_test:
-                directory: api-client
-            - unit_test:
-                directory: translations
-            - notify
     deliver_android:
         docker:
             - image: circleci/android:api-29-node
@@ -782,11 +695,44 @@ jobs:
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
-                directory: native
+                  directory: native
             - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
-                name: '[FL] iOS E2E Tests on Browserstack'
-                working_directory: native
+                  command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
+                  name: '[FL] iOS E2E Tests on Browserstack'
+                  working_directory: native
+            - notify
+    check:
+        docker:
+            - image: circleci/node:14.9.0
+        environment:
+            TOTAL_CPUS: 1
+            TZ: Europe/Berlin
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - checkout
+            - check_config
+            - restore_yarn_cache
+            - run:
+                  command: yarn prettier:check
+                  name: Prettier
+            - run:
+                  command: yarn workspaces run lint
+                  name: Lint
+            - store_test_results:
+                  path: << parameters.directory >>/reports/lint
+            - run:
+                  command: yarn workspace build-configs ts:check
+                  name: TS check
+            - unit_test:
+                  directory: api-client
+            - unit_test:
+                  directory: native
+            - unit_test:
+                  directory: translations
+            - unit_test:
+                  directory: web
             - notify
     move_release_notes:
         docker:
@@ -952,9 +898,9 @@ workflows:
                 context:
                     - mattermost
                 delivery: none
-            - check_web:
-                context:
-                    - mattermost
+            - check:
+                  context:
+                      - mattermost
             - build_web:
                 build_config_name: integreat-test-cms
                 context:
@@ -962,7 +908,7 @@ workflows:
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
-                    - check_web
+                    - check
             - build_web:
                 build_config_name: malte
                 context:
@@ -970,7 +916,7 @@ workflows:
                 name: build_malte_web
                 requires:
                     - bump_version
-                    - check_web
+                    - check
             - build_web:
                 build_config_name: aschaffenburg
                 context:
@@ -978,7 +924,7 @@ workflows:
                 name: build_aschaffenburg_web
                 requires:
                     - bump_version
-                    - check_web
+                    - check
             - deliver_web:
                 context:
                     - mattermost
@@ -989,13 +935,13 @@ workflows:
                             - main
                 production_delivery: false
                 requires:
-                    - check_web
+                    - check
                     - build_ig_test_cms_web
                     - build_malte_web
                     - build_aschaffenburg_web
-            - check_native:
-                context:
-                    - mattermost
+            - check:
+                  context:
+                      - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1005,7 +951,7 @@ workflows:
                 name: build_e2e_android
                 requires:
                     - bump_version
-                    - check_native
+                    - check
             - e2e_android:
                 context:
                     - mattermost
@@ -1021,7 +967,7 @@ workflows:
                 name: build_e2e_ios
                 requires:
                     - bump_version
-                    - check_native
+                    - check
             - e2e_ios:
                 context:
                     - mattermost
@@ -1037,9 +983,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - check_native:
-                context:
-                    - mattermost
+            - check:
+                  context:
+                      - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1075,7 +1021,7 @@ workflows:
                 name: deliver_integreat_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_integreat_android
             - build_android:
@@ -1098,7 +1044,7 @@ workflows:
                 name: deliver_malte_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_malte_android
             - build_android:
@@ -1121,7 +1067,7 @@ workflows:
                 name: deliver_aschaffenburg_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_aschaffenburg_android
             - notify_android:
@@ -1168,7 +1114,7 @@ workflows:
                 name: deliver_integreat_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_integreat_ios
             - build_ios:
@@ -1191,7 +1137,7 @@ workflows:
                 name: deliver_malte_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_malte_ios
             - build_ios:
@@ -1214,7 +1160,7 @@ workflows:
                 name: deliver_aschaffenburg_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_aschaffenburg_ios
             - notify_ios:
@@ -1281,9 +1227,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: development
-            - check_native:
-                context:
-                    - mattermost
+            - check:
+                  context:
+                      - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1319,7 +1265,7 @@ workflows:
                 name: deliver_integreat_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_integreat_android
             - build_android:
@@ -1342,7 +1288,7 @@ workflows:
                 name: deliver_malte_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_malte_android
             - build_android:
@@ -1365,7 +1311,7 @@ workflows:
                 name: deliver_aschaffenburg_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_aschaffenburg_android
             - notify_android:
@@ -1412,7 +1358,7 @@ workflows:
                 name: deliver_integreat_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_integreat_ios
             - build_ios:
@@ -1435,7 +1381,7 @@ workflows:
                 name: deliver_malte_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_malte_ios
             - build_ios:
@@ -1458,7 +1404,7 @@ workflows:
                 name: deliver_aschaffenburg_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_aschaffenburg_ios
             - notify_ios:
@@ -1482,9 +1428,9 @@ workflows:
                     - deliverino
                     - jira
                 delivery: production
-            - check_native:
-                context:
-                    - mattermost
+            - check:
+                  context:
+                      - mattermost
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1520,7 +1466,7 @@ workflows:
                 name: deliver_integreat_android
                 production_delivery: true
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_integreat_android
             - build_android:
@@ -1543,7 +1489,7 @@ workflows:
                 name: deliver_malte_android
                 production_delivery: true
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_malte_android
             - build_android:
@@ -1566,7 +1512,7 @@ workflows:
                 name: deliver_aschaffenburg_android
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_android
                     - build_aschaffenburg_android
             - notify_android:
@@ -1613,7 +1559,7 @@ workflows:
                 name: deliver_integreat_ios
                 production_delivery: true
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_integreat_ios
             - build_ios:
@@ -1636,7 +1582,7 @@ workflows:
                 name: deliver_malte_ios
                 production_delivery: true
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_malte_ios
             - build_ios:
@@ -1659,7 +1605,7 @@ workflows:
                 name: deliver_aschaffenburg_ios
                 production_delivery: false
                 requires:
-                    - check_native
+                    - check
                     - e2e_ios
                     - build_aschaffenburg_ios
             - notify_ios:

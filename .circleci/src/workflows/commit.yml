@@ -5,7 +5,7 @@ jobs:
         - mattermost
       delivery: none
 
-  - check_web:
+  - check:
       context:
         - mattermost
   - build_web:
@@ -15,7 +15,7 @@ jobs:
         - mattermost
       requires:
         - bump_version
-        - check_web
+        - check
   - build_web:
       name: build_malte_web
       build_config_name: malte
@@ -23,7 +23,7 @@ jobs:
         - mattermost
       requires:
         - bump_version
-        - check_web
+        - check
   - build_web:
       name: build_aschaffenburg_web
       build_config_name: aschaffenburg
@@ -31,7 +31,7 @@ jobs:
         - mattermost
       requires:
         - bump_version
-        - check_web
+        - check
   - deliver_web:
       filters:
         branches:
@@ -42,12 +42,12 @@ jobs:
         - sentry
       production_delivery: false
       requires:
-        - check_web
+        - check
         - build_ig_test_cms_web
         - build_malte_web
         - build_aschaffenburg_web
 
-  - check_native:
+  - check:
       context:
         - mattermost
 
@@ -60,7 +60,7 @@ jobs:
         - tuerantuer-android
       requires:
         - bump_version
-        - check_native
+        - check
   - e2e_android:
       context:
         - mattermost
@@ -77,7 +77,7 @@ jobs:
         - tuerantuer-ios
       requires:
         - bump_version
-        - check_native
+        - check
   - e2e_ios:
       context:
         - mattermost
