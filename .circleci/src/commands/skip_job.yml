@@ -2,8 +2,8 @@ description: Skips the current build if neccassary
 parameters:
   build_config_name:
     type: enum
-    enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg, "all"]
-    default: "all"
+    enum: [ integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg, 'all' ]
+    default: 'all'
 steps:
   - run:
       name: Skip the current build if neccassary

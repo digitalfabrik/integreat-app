@@ -1,6 +1,6 @@
 triggers:
   - schedule:
-      cron: "1 5 * * 4" # For sanity checks for this syntax: https://crontab.guru/
+      cron: '1 5 * * 4' # For sanity checks for this syntax: https://crontab.guru/
       filters:
         branches:
           only:
@@ -25,35 +25,35 @@ jobs:
   #        - bump_version
   #  - build_web:
   #      name: build_malte_web
-#      build_config_name: malte
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - build_web:
-#      name: build_aschaffenburg_web
-#      build_config_name: aschaffenburg
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - deliver_web:
-#      context:
-#        - mattermost
-#        - sentry
-#      production_delivery: true
-#      requires:
+  #      build_config_name: malte
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - build_web:
+  #      name: build_aschaffenburg_web
+  #      build_config_name: aschaffenburg
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - deliver_web:
+  #      context:
+  #        - mattermost
+  #        - sentry
+  #      production_delivery: true
+  #      requires:
   #        - check
-#        - build_integreat_web
-#        - build_malte_web
-#        - build_aschaffenburg_web
-#  - notify_web:
-#      context:
-#        - mattermost
-#        - deliverino
-#      requires:
-#        - bump_version
-#        - deliver_web
+  #        - build_integreat_web
+  #        - build_malte_web
+  #        - build_aschaffenburg_web
+  #  - notify_web:
+  #      context:
+  #        - mattermost
+  #        - deliverino
+  #      requires:
+  #        - bump_version
+  #        - deliver_web
 
   - build_android:
       name: build_e2e_android
@@ -256,6 +256,6 @@ jobs:
         - mattermost
         - deliverino
       requires:
-#        - notify_web
+        #        - notify_web
         - notify_android
         - notify_ios
