@@ -33,7 +33,9 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
     "postinstall": "jetifier",
-    "ts:check": "tsc --build"
+    "ts:check": "tsc --build",
+    "prettier:check": "yarn --cwd .. prettier:check",
+    "prettier:fix": "yarn --cwd .. prettier:fix"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
