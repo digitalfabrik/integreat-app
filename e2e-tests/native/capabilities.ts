@@ -1,13 +1,5 @@
 import { Capabilities } from '@wdio/types/build/Capabilities'
-import { execSync } from 'child_process'
-
-const getGitBranch = () => {
-  return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-}
-
-const getGitHeadReference = () => {
-  return execSync('git rev-parse --short HEAD').toString().trim()
-}
+import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (config: Capabilities): Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md

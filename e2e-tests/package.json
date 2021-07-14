@@ -9,7 +9,7 @@
     "test:native": "yarn wdio run native/wdio.conf.ts",
     "prepare:android:native": "yarn workspace native android:integreat-e2e",
     "prepare:start:native": "yarn workspace native start:integreat-e2e",
-    "prepare:start:web": "yarn workspace web start",
+    "prepare:start:web": "yarn workspace web start:integreat-e2e",
     "lint": "yarn eslint ./",
     "ts:check": "tsc --build"
   },

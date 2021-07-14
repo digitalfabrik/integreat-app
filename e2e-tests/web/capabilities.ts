@@ -1,13 +1,5 @@
 import { BrowserStackCapabilities, Capabilities } from '@wdio/types/build/Capabilities'
-import { execSync } from 'child_process'
-
-const getGitBranch = () => {
-  return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-}
-
-const getGitHeadReference = () => {
-  return execSync('git rev-parse --short HEAD').toString().trim()
-}
+import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
   const prefix = process.env.CI ? 'IG CI' : 'IG DEV'
