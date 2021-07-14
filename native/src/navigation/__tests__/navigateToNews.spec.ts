@@ -2,6 +2,8 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import navigateToNews from '../navigateToNews'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
+jest.mock('rn-fetch-blob')
+
 describe('navigateToNews', () => {
   it('should generate key if not supplied with at least 6 chars and use it for navigation and redux actions', () => {
     const dispatch = jest.fn()

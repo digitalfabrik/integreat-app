@@ -3,6 +3,7 @@ import navigateToEvents from '../navigateToEvents'
 
 const url = path => `some.base.url/${path}`
 
+jest.mock('rn-fetch-blob')
 jest.mock('../url', () => ({
   url: jest.fn(url)
 }))

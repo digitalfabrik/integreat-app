@@ -3,6 +3,8 @@ import { times } from 'lodash'
 import AppSettings from '../AppSettings'
 import buildConfig from '../../constants/buildConfig'
 
+jest.mock('rn-fetch-blob')
+
 describe('generateRouteKey', () => {
   it('should not generate the same key multiple times', () => {
     const keys = new Array<string>()

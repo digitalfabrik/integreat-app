@@ -4,6 +4,8 @@ import { CityContentStateType } from '../../StateType'
 import cityContentReducer from '../cityContentReducer'
 import { PushEventActionType } from '../../StoreActionType'
 
+jest.mock('rn-fetch-blob')
+
 describe('pushEvent', () => {
   const event1 = new EventModel({
     path: '/augsburg/de/events/ev1',

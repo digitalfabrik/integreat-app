@@ -50,7 +50,9 @@ export const forEachTreeNode = <T>(
 // This code is adopted from: https://github.com/react-navigation/react-navigation-core/blob/c85a22d78a50e853632a11036ce562e4e1ecb523/src/routers/KeyGenerator.ts
 const uniqueBaseId = `route-id-${Date.now()}`
 let uuidCount = 0
-export const generateRouteKey = (): string => `${uniqueBaseId}-${uuidCount++}`
+export const generateRouteKey = (): string => {
+  return `${uniqueBaseId}-${uuidCount++}`
+}
 
 /**
  * @throws {Error} If urlString is invalid or it is not possible to get an extension from it
