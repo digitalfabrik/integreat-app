@@ -18,7 +18,7 @@ steps:
   - restore_ruby_cache:
       directory: native
   - run:
-      name: "[FL] App Store Connect Promotion"
+      name: '[FL] App Store Connect Promotion'
       command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
       working_directory: native
   - notify
