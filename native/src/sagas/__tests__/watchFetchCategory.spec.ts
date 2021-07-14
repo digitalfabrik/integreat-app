@@ -1,5 +1,5 @@
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { FetchCategoryActionType } from '../../redux/StoreActionType'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'

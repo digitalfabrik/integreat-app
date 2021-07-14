@@ -1,9 +1,9 @@
 import { runSaga } from 'redux-saga'
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import loadCities from '../loadCities'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import DatabaseConnector from '../../services/DatabaseConnector'
+import DatabaseConnector from '../../utils/DatabaseConnector'
 
 let mockCities
 jest.mock('rn-fetch-blob')

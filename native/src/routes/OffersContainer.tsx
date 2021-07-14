@@ -20,11 +20,11 @@ import withTheme from '../hocs/withTheme'
 import FailureContainer from '../components/FailureContainer'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import openExternalUrl from '../services/openExternalUrl'
+import openExternalUrl from '../utils/openExternalUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import TileModel from '../models/TileModel'
 import { StateType } from '../redux/StateType'
-import determineApiUrl from '../services/determineApiUrl'
+import { determineApiUrl } from '../utils/helpers'
 
 type OwnPropsType = {
   route: RoutePropType<OffersRouteType>
