@@ -119,10 +119,15 @@ class EastereggImage extends React.Component<PropsType, StateType> {
   }
 
   render(): ReactNode {
+    const locationMarker = buildConfigAssets().locationMarker
+    if (!locationMarker) {
+      throw new Error("Location Marker is not available.")
+    }
+
     return (
       <>
         <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>
-          <LocationImage source={buildConfigAssets().locationMarker} />
+          <LocationImage source={locationMarker} />
         </TouchableOpacity>
         {this.renderApiUrlText()}
       </>

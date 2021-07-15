@@ -92,7 +92,7 @@ class NavigationTile extends React.Component<PropsType> {
   render(): ReactNode {
     const { tile, theme, width } = this.props
     return (
-      <TileTouchable theme={theme} onPress={tile.onTilePress} width={width}>
+      <TileTouchable theme={theme} onPress={tile.onTilePress ?? undefined} width={width}>
         {this.getTileContent()}
       </TileTouchable>
     )
