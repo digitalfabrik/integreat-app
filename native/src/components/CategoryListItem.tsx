@@ -36,7 +36,7 @@ const CategoryEntryContainer = styled.View`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const CategoryTitle = styled<DirectionContainerPropsType>(Highlighter)`
+const CategoryTitle = styled(Highlighter)<DirectionContainerPropsType>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
@@ -111,7 +111,7 @@ class CategoryListItem extends React.Component<PropsType> {
   renderTitle(): ReactNode {
     const { query, theme, category, language } = this.props
     return (
-      <CategoryEntryContainer theme={theme} language={language}>
+      <CategoryEntryContainer theme={theme}>
         <CategoryTitle
           theme={theme}
           language={language}

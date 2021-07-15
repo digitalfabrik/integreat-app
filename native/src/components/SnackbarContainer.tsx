@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { Animated } from 'react-native'
+import { Animated, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
@@ -7,17 +7,17 @@ import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewProp
 import { SnackbarType, StateType } from '../redux/StateType'
 import Snackbar from '../components/Snackbar'
 
-const Container = styled(Animated.View)`
+const Container = styled(View)`
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
 `
+const AnimatedContainer = Animated.createAnimatedComponent(Container)
 const ANIMATION_DURATION = 300
 const SHOW_DURATION = 5000
 const MAX_HEIGHT = 9999
 const translate = new Animated.Value(1)
-
 const SnackbarContainer = (): ReactElement | null => {
   const [height, setHeight] = useState<number | null>(null)
   const [displayed, setDisplayed] = useState<SnackbarType | null>(null)
@@ -65,7 +65,7 @@ const SnackbarContainer = (): ReactElement | null => {
     outputRange: outputRange
   })
   return displayed ? (
-    <Container
+    <AnimatedContainer
       onLayout={onLayout}
       style={{
         transform: [
@@ -75,7 +75,7 @@ const SnackbarContainer = (): ReactElement | null => {
         ]
       }}>
       <Snackbar message={t(displayed.text)} />
-    </Container>
+    </AnimatedContainer>
   ) : null
 }
 

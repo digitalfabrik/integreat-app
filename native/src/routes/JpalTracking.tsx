@@ -123,10 +123,10 @@ const JpalTracking = (props: PropsType) => {
 
         <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
         <Input
-          value={settings.jpalTrackingCode}
+          value={settings.jpalTrackingCode ?? undefined}
           onChangeText={setTrackingCode}
           theme={theme}
-          editable={settings.jpalTrackingEnabled}
+          editable={settings.jpalTrackingEnabled ?? undefined}
           testID='input'
         />
       </View>
