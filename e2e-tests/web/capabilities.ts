@@ -34,16 +34,6 @@ export const browserstackCapabilities = {
     osVersion: 'Big Sur',
     browserName: 'Safari',
     browserVersion: '14.0'
-  }),
-  windows: browserstackCaps({
-    os: 'Windows',
-    osVersion: '10',
-    browserName: 'IE',
-    browserVersion: '11.0',
-    ie: {
-      driver: '3.141.59'
-    },
-    seleniumVersion: '3.141.59'
   })
 }
 
