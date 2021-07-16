@@ -121,7 +121,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
   render(): ReactNode {
     const locationMarker = buildConfigAssets().locationMarker
     if (!locationMarker) {
-      throw new Error("Location Marker is not available.")
+      throw new Error('Location Marker is not available.')
     }
 
     return (
