@@ -13,6 +13,7 @@ const Container = styled(View)`
   left: 0;
   right: 0;
 `
+// https://github.com/styled-components/styled-components/issues/892
 const AnimatedContainer = Animated.createAnimatedComponent(Container)
 const ANIMATION_DURATION = 300
 const SHOW_DURATION = 5000
