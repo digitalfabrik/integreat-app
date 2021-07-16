@@ -36,12 +36,12 @@ export const Wrapper = styled.View<WrapperPropsType>`
   text-align: center;
 
   ${props =>
-  props.vertical
-    ? css`
+    props.vertical
+      ? css`
           flex-flow: column;
           align-items: center;
         `
-    : ''}
+      : ''}
 `
 type PropsType = {
   verticalLayout: boolean

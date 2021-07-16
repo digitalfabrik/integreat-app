@@ -8,4 +8,4 @@ const IOSSafeAreaView = styled(SafeAreaView)`
   flex: 1;
 `
 
-export default withTheme(IOSSafeAreaView as (ComponentType<{theme:ThemeType}>))
+export default withTheme(IOSSafeAreaView as ComponentType<{ theme: ThemeType }>)
