@@ -46,8 +46,8 @@ steps:
   - unless:
       condition:
         or:
-          - equal: [ integreat-e2e, << parameters.build_config_name >> ]
-          - equal: [ integreat-test-cms, << parameters.build_config_name >> ]
+          - equal: [integreat-e2e, << parameters.build_config_name >>]
+          - equal: [integreat-test-cms, << parameters.build_config_name >>]
       steps:
         - run:
             name: Persist artifact url
