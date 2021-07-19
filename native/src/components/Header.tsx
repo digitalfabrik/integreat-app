@@ -193,7 +193,7 @@ const Header = (props: PropsType): ReactElement => {
             t('changeLanguage'),
             goToLanguageChange,
             'language',
-            !!(!peeking && goToLanguageChange)
+            !peeking && !!goToLanguageChange
           )}
           {showShare && renderItem(t('share'), 'never', t('share'), onShare, undefined)}
           {showChangeLocation && renderItem(t('changeLocation'), 'never', t('changeLocation'), goToLanding, undefined)}
