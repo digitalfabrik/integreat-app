@@ -166,11 +166,11 @@ const Header = (props: PropsType): ReactElement => {
   ): ReactElement => {
     return (
       <Item
-        title={t(title)}
+        title={title}
         accessibilityLabel={t(title)}
         iconName={iconName || undefined}
         show={show ? 'always' : 'never'}
-        onPress={onPress}
+        onPress={visible ? onPress : undefined}
         style={{ opacity: visible ? 1 : 0 }}
       />
     )
