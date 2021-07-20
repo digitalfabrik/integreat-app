@@ -16,7 +16,6 @@ jest.mock('../../utils/LocationPermissionManager', () => ({
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
-jest.mock('rn-fetch-blob')
 
 const mockCheckLocationPermission = mocked(checkLocationPermission)
 const mockRequestLocationPermission = mocked(requestLocationPermission)

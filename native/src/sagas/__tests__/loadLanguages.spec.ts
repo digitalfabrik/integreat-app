@@ -7,7 +7,6 @@ import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 
 let mockLanguages
-jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   return {

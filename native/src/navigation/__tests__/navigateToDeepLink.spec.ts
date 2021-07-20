@@ -21,8 +21,6 @@ import { FixedCityType } from 'build-configs/BuildConfigType'
 
 const navigateTo = jest.fn()
 
-jest.mock('rn-fetch-blob')
-
 jest.mock('../createNavigate', () => {
   return jest.fn(() => navigateTo)
 })

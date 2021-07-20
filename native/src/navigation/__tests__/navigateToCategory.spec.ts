@@ -3,7 +3,6 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client/src/routes'
 import { mocked } from 'ts-jest'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../url', () => ({
   url: jest.fn(path => path)
 }))

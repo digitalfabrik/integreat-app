@@ -7,7 +7,6 @@ import loadPois from '../loadPois'
 import DatabaseContext from '../../models/DatabaseContext'
 
 let mockPois
-jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   return {

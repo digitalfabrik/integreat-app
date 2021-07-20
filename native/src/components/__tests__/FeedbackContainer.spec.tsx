@@ -10,8 +10,6 @@ import {
 } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 
-jest.mock('rn-fetch-blob')
-
 const mockRequest = jest.fn(() => Promise.resolve())
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')

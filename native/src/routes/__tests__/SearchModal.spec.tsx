@@ -8,7 +8,6 @@ import { urlFromRouteInformation } from '../../navigation/url'
 import { ThemeProvider } from 'styled-components/native'
 import buildConfig from '../../constants/buildConfig'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/TimeStamp')
 jest.mock('react-i18next', () => ({

@@ -8,7 +8,6 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import { ErrorCode } from 'api-client'
 
 jest.mock('../../utils/FetcherModule')
-jest.mock('rn-fetch-blob')
 describe('fetchResourceCache', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()

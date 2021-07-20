@@ -8,7 +8,6 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import { ClearResourcesAndCacheActionType } from '../../redux/StoreActionType'
 
-jest.mock('rn-fetch-blob')
 describe('watchClearResourcesAndCache', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()

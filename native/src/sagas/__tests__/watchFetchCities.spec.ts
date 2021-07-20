@@ -7,7 +7,6 @@ import loadCities from '../loadCities'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { ErrorCode } from 'api-client'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../loadCities')
 describe('watchFetchCities', () => {
   beforeEach(() => {

@@ -6,7 +6,6 @@ import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('rn-fetch-blob')
 
 describe('navigateToLanguageChange', () => {
   beforeEach(() => {

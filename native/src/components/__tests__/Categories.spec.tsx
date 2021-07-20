@@ -18,7 +18,6 @@ jest.mock('../PageDetail', () => {
 
   return () => <Text>PageDetail</Text>
 })
-jest.mock('rn-fetch-blob')
 describe('Categories', () => {
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
     const cityModel = new CityModelBuilder(1).build()[0]
