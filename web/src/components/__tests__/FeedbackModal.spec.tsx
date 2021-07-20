@@ -1,10 +1,10 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { FeedbackModal } from '../FeedbackModal'
 import { ThemeProvider } from 'styled-components'
 import { MemoryRouter } from 'react-router-dom'
 import buildConfig from '../../constants/buildConfig'
 import { CATEGORIES_ROUTE } from 'api-client'
+import FeedbackModal from '../FeedbackModal'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {
@@ -16,15 +16,10 @@ jest.mock('api-client', () => {
   }
 })
 
-jest.mock('../FeedbackThanksMessage', () => {
-  return () => <div>Thanks</div>
-})
-
 describe('FeedbackModal', () => {
   const cityCode = 'augsburg'
   const language = 'de'
-
-  const closeFeedbackModal = jest.fn()
+  const closeModal = jest.fn()
 
   it('should display thanks message after successfully submitting feedback', async () => {
     const { getByRole, getByText } = render(
@@ -32,9 +27,9 @@ describe('FeedbackModal', () => {
         <FeedbackModal
           cityCode={cityCode}
           language={language}
-          route={CATEGORIES_ROUTE}
+          routeType={CATEGORIES_ROUTE}
           path='augsburg/de'
-          closeFeedbackModal={closeFeedbackModal}
+          closeModal={closeModal}
           feedbackRating='up'
         />
       </ThemeProvider>,
@@ -45,7 +40,7 @@ describe('FeedbackModal', () => {
     })
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
-    await waitFor(() => expect(button).not.toBeDisabled())
-    expect(getByText('Thanks')).toBeTruthy()
+    await waitFor(() => expect(button).toBeEnabled())
+    expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 })

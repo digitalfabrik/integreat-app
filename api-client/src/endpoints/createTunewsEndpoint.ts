@@ -3,6 +3,7 @@ import { JsonTunewsType } from '../types'
 import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
 import Endpoint from '../Endpoint'
+import { parseHTMLEntities } from '../utils/helpers'
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {
   city: string
@@ -18,12 +19,15 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<TunewsModel>> =>
     .withMapper(
       (json: Array<JsonTunewsType>): Array<TunewsModel> =>
         json.map((tunews: JsonTunewsType) => {
+          const decodedTitle = parseHTMLEntities(tunews.title)
+          const decodedContent = parseHTMLEntities(tunews.content)
+
           return new TunewsModel({
             id: tunews.id,
-            title: tunews.title,
+            title: decodedTitle,
             tags: tunews.tags,
             date: moment.tz(tunews.date, 'GMT'),
-            content: tunews.content,
+            content: decodedContent,
             eNewsNo: tunews.enewsno
           })
         })
