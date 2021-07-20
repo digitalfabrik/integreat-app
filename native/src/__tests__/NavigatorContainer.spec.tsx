@@ -26,7 +26,6 @@ jest.mock('../components/HeaderContainer', () => {
 jest.mock('../utils/PushNotificationsManager')
 jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
-jest.mock('rn-fetch-blob')
 const mockStore = configureMockStore()
 
 class MockNavigator extends React.Component<void> {

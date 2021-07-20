@@ -10,7 +10,6 @@ import moment from 'moment'
 import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 describe('watchFetchEvents', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')

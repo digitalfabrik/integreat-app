@@ -5,8 +5,6 @@ import { PushNewsActionType } from '../../StoreActionType'
 import moment from 'moment'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
-jest.mock('rn-fetch-blob')
-
 describe('pushNews', () => {
   const news1: LocalNewsModel = new LocalNewsModel({
     id: 12,

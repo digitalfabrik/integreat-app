@@ -11,7 +11,6 @@ import AppSettings from '../../utils/AppSettings'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../../utils/PushNotificationsManager')
 jest.mock('../loadCityContent')
 describe('watchContentLanguageSwitch', () => {

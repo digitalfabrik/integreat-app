@@ -25,7 +25,6 @@ import loadPois from '../loadPois'
 import { mocked } from 'ts-jest/utils'
 
 jest.mock('@react-native-community/netinfo')
-jest.mock('rn-fetch-blob')
 jest.mock('../fetchResourceCache')
 jest.mock('../loadCategories')
 jest.mock('../loadEvents')

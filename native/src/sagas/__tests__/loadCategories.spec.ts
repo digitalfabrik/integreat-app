@@ -7,7 +7,6 @@ import DatabaseConnector from '../../utils/DatabaseConnector'
 import DatabaseContext from '../../models/DatabaseContext'
 
 let mockCategories
-jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   const city = 'augsburg'

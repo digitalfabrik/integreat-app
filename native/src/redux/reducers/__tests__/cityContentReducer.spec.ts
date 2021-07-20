@@ -17,8 +17,6 @@ import { CATEGORIES_ROUTE, CategoriesMapModel, ErrorCode, EVENTS_ROUTE, Language
 import cityContentReducer from '../cityContentReducer'
 import { CityContentStateType } from '../../StateType'
 
-jest.mock('rn-fetch-blob')
-
 describe('cityContentReducer', () => {
   const switchContentLanguageAction: SwitchContentLanguageActionType = {
     type: 'SWITCH_CONTENT_LANGUAGE',

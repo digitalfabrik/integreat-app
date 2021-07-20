@@ -10,7 +10,6 @@ import moment from 'moment'
 import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 
 const languages = new LanguageModelBuilder(2).build()
