@@ -1,10 +1,12 @@
 import React from 'react'
-import { render } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import buildConfig from '../../constants/buildConfig'
 import Header from '../Header'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import { SEARCH_ROUTE } from 'api-client'
 
 describe('Header', () => {
   beforeEach(() => {
@@ -16,6 +18,7 @@ describe('Header', () => {
   const dispatch = jest.fn()
   const [city] = new CityModelBuilder(1).build()
   const language = new LanguageModelBuilder(1).build()[0]
+  const navigation = createNavigationScreenPropMock()
 
   const buildProps = (peeking: boolean, categoriesAvailable: boolean, mode: 'float' | 'screen', goToLanguageChange) => {
     return {
@@ -29,25 +32,39 @@ describe('Header', () => {
       shareUrl: 'testUrl',
       dispatch,
       mode,
-      layout: { width: 300, height: 300 },
-      insets: { top: 20, left: 20, right: 20, bottom: 20 },
-      scene: undefined,
-      previous: undefined,
-      navigation: undefined,
-      styleInterpolator: undefined
+      navigation
     }
   }
-  // TODO fix mocking data
-  it('should set opacity to material header buttons to one after loading was finished', async () => {
-    // @ts-ignore
+
+  it('search header button should be enabled and visible after loading was finished', () => {
+    // @ts-ignore StackHeaderProps not needed
     const { getByLabelText } = render(<Header {...buildProps(false, true, 'screen', goToLanguageChange)} />)
     expect(getByLabelText('search')).toHaveStyle({ opacity: 1 })
-    expect(getByLabelText('changeLanguage')).toHaveStyle({ opacity: 1 })
+    fireEvent.press(getByLabelText('search'))
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE)
   })
-  it('should set opacity to material header buttons to zero while loading', () => {
-    // @ts-ignore
-    const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', undefined)} />)
+  it('language header button should be enabled and visible after loading was finished', () => {
+    // @ts-ignore StackHeaderProps not needed
+    const { getByLabelText } = render(<Header {...buildProps(false, true, 'screen', goToLanguageChange)} />)
+    expect(getByLabelText('changeLanguage')).toHaveStyle({ opacity: 1 })
+    fireEvent.press(getByLabelText('changeLanguage'))
+    expect(goToLanguageChange).toHaveBeenCalledTimes(1)
+  })
+  it('search header button should be disabled and invisible while loading', () => {
+    // @ts-ignore StackHeaderProps not needed
+    const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', goToLanguageChange)} />)
     expect(getByLabelText('search')).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText('changeLanguage')).toBeDisabled()
+    fireEvent.press(getByLabelText('search'))
+    expect(navigation.navigate).not.toHaveBeenCalled()
+  })
+  it('language header button should be disabled and invisible while loading', () => {
+    // @ts-ignore StackHeaderProps not needed
+    const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', goToLanguageChange)} />)
     expect(getByLabelText('changeLanguage')).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText('changeLanguage')).toBeDisabled()
+    fireEvent.press(getByLabelText('changeLanguage'))
+    expect(goToLanguageChange).not.toHaveBeenCalled()
   })
 })
