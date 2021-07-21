@@ -1,6 +1,4 @@
 import { localCapabilities } from './capabilities'
-import { RemoteCapabilities } from '@wdio/types/build/Capabilities'
-import { Testrunner } from '@wdio/types/build/Options'
 
 export const config = {
   runner: 'local',
@@ -25,8 +23,10 @@ export const config = {
   },
 
   onPrepare: async function (): Promise<void> {
-    const startupDelay = 20000
-    await new Promise(resolve => setTimeout(resolve, startupDelay))
+    if (process.env.CI) {
+      const startupDelay = 20000
+      await new Promise(resolve => setTimeout(resolve, startupDelay))
+    }
   },
 
   before: async function (): Promise<void> {

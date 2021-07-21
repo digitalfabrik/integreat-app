@@ -39,7 +39,6 @@ export const browserstackCapabilities = {
 
 export const localCapabilities = {
   chrome: {
-    maxInstances: 5,
     browserName: 'chrome'
   },
   ci: {
