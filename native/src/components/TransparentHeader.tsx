@@ -60,7 +60,6 @@ class TransparentHeader extends React.PureComponent<PropsType> {
     } catch (e) {
       const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
       // TODO Show snackbar
-      // eslint-disable-next-line no-console
       console.error(errorMessage)
     }
   }

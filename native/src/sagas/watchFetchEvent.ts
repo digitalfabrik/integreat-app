@@ -57,7 +57,6 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
       yield* put(failed)
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     const failed: FetchEventFailedActionType = {
       type: 'FETCH_EVENT_FAILED',

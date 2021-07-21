@@ -119,7 +119,6 @@ const Header = (props: PropsType): ReactElement => {
         title: buildConfig().appName
       })
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(e.message)
     }
   }

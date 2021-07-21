@@ -64,7 +64,6 @@ export default ({ children }: PropsType): ReactElement | null => {
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
       const matchedLanguage = i18nextInstance.languages[0]
       await setContentLanguage(matchedLanguage).catch(e => {
-        // eslint-disable-next-line no-console
         console.error(e)
       })
       setSystemLanguage(matchedLanguage)
@@ -73,7 +72,6 @@ export default ({ children }: PropsType): ReactElement | null => {
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      // eslint-disable-next-line no-console
       console.error(e)
     })
   }, [setContentLanguage])

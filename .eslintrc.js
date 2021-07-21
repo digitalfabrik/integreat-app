@@ -24,6 +24,7 @@ module.exports = {
     '**/lib-dist/'
   ],
   rules: {
+    'no-console': ['error', { allow: ['error', 'warn'] }],
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
     'no-loop-func': 'error',
@@ -72,7 +73,6 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       excludedFiles: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
-        'no-console': 'error',
         'no-magic-numbers': [
           'error',
           {

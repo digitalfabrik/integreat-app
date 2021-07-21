@@ -22,7 +22,6 @@ export const sendRequest = async (signal: SignalType): Promise<void> => {
       // Offline usage, save signal to be sent later
       await appSettings.pushJpalSignal({ ...signal, offline: true })
     } else {
-      // eslint-disable-next-line no-console
       console.error(e)
       Sentry.captureException(e)
     }
@@ -58,7 +57,6 @@ const sendTrackingSignal = async ({
       await sendRequest(signal)
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
   }
 }

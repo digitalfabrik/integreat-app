@@ -6,7 +6,6 @@ const deleteIfExists = async (path: string): Promise<void> => {
   if (await RNFetchBlob.fs.exists(path)) {
     await RNFetchBlob.fs.unlink(path)
   } else {
-    // eslint-disable-next-line no-console
     console.warn(`File or directory ${path} does not exist and was therefore not deleted.`)
   }
 }

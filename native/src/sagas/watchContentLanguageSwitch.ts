@@ -76,7 +76,6 @@ export function* switchContentLanguage(
       }
     }
     yield* put(enqueueSnackbar)
-    // eslint-disable-next-line no-console
     console.error(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',

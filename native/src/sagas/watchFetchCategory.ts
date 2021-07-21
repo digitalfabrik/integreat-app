@@ -75,7 +75,6 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
       yield* put(failedAction)
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     const failed: FetchCategoryFailedActionType = {
       type: 'FETCH_CATEGORY_FAILED',

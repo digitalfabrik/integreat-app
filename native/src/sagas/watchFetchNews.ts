@@ -68,7 +68,6 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
       yield* put(failed)
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
@@ -114,7 +113,6 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
     }
     yield* put(insert)
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
