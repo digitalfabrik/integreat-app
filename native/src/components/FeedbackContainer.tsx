@@ -134,7 +134,8 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
       }
     })
     request().catch(err => {
-      console.log(err)
+      // eslint-disable-next-line no-console
+      console.error(err)
       setSendingStatus('failed')
     })
   }
