@@ -29,7 +29,6 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
   const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
   const [clickStart, setClickStart] = useState<null | Moment>(null)
 
-
   useEffect(() => {
     const appSettings = new AppSettings()
     appSettings
@@ -96,16 +95,16 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
     }
   }
 
-    const locationMarker = buildConfigAssets().locationMarker
+  const locationMarker = buildConfigAssets().locationMarker
 
-    return (
-      <>
-        <TouchableOpacity activeOpacity={1} onPress={onImagePress}>
-          {locationMarker && <LocationImage source={locationMarker} />}
-        </TouchableOpacity>
-        {renderApiUrlText()}
-      </>
-    )
+  return (
+    <>
+      <TouchableOpacity activeOpacity={1} onPress={onImagePress}>
+        {locationMarker && <LocationImage source={locationMarker} />}
+      </TouchableOpacity>
+      {renderApiUrlText()}
+    </>
+  )
 }
 
 export default EastereggImage
