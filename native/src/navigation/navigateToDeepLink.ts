@@ -88,7 +88,6 @@ const navigateToDeepLink = async (
     }
 
     if (!routeInformation) {
-      // eslint-disable-next-line no-console
       console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
     }
   }

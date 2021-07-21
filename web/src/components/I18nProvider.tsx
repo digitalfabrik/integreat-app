@@ -53,7 +53,6 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      // eslint-disable-next-line no-console
       console.error(e)
     })
   }, [])

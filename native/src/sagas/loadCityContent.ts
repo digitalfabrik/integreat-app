@@ -106,7 +106,6 @@ function* prepareLanguages(
     yield* put(pushLanguages)
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',

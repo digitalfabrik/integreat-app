@@ -17,7 +17,6 @@ const useSendOfflineJpalSignals = (): void => {
     previousIsInternetReachable.current = !!isInternetReachable
 
     if (isInternetReachable) {
-      // eslint-disable-next-line no-console
       sendOfflineSignals().catch(e => console.error(e))
     }
   }

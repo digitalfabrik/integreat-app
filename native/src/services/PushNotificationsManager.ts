@@ -33,7 +33,6 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   try {
     await messaging().unsubscribeFromTopic(topic)
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
   }
   // eslint-disable-next-line no-console

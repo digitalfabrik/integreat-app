@@ -17,7 +17,6 @@ function* loadCategories(
       console.debug('Using cached categories')
       return yield* call(dataContainer.getCategoriesMap, city, language)
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.warn('An error occurred while loading categories from JSON', e)
     }
   }

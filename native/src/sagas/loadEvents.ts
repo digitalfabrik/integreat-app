@@ -18,7 +18,6 @@ function* loadEvents(
       console.debug('Using cached events')
       return yield* call(dataContainer.getEvents, city, language)
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.warn('An error occurred while loading events from JSON', e)
     }
   }

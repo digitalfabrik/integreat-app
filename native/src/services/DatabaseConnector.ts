@@ -262,7 +262,6 @@ class DatabaseConnector {
           lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
         }))
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.warn('An error occurred while loading cities from JSON', e)
       }
     }

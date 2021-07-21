@@ -16,7 +16,6 @@ export default function* loadLanguages(
       console.debug('Using cached languages')
       return yield* call(dataContainer.getLanguages, city)
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.warn('An error occurred while loading languages from JSON', e)
     }
   }

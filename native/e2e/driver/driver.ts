@@ -4,6 +4,8 @@ import * as childProcess from 'child_process'
 import * as serverConfigs from '../config/configs'
 import { clone } from 'lodash'
 
+/* eslint-disable no-console */
+
 const BROWSERSTACK_EXHAUSTED_MESSAGE =
   'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
@@ -24,7 +26,6 @@ const getConfig = (): ConfigType | null => {
   const configName: string | null | undefined = process.env.E2E_CONFIG
 
   if (!configName) {
-    // eslint-disable-next-line no-console
     console.error('E2E_CONFIG name is not set!')
     return null
   }
@@ -32,7 +33,6 @@ const getConfig = (): ConfigType | null => {
   const config = serverConfigs[configName.toLowerCase()]
 
   if (!config) {
-    // eslint-disable-next-line no-console
     console.error(`Server config ${configName} not found!`)
     return null
   }
@@ -74,7 +74,6 @@ const initDriver = async (config, desiredCaps): Promise<any> => {
     return driver
   } catch (e) {
     if (e.message.includes(BROWSERSTACK_EXHAUSTED_MESSAGE)) {
-      // eslint-disable-next-line no-console
       console.log('Waiting because queue is full!')
       await timer(INIT_RETRY_TIME)
       await initDriver(config, desiredCaps)
@@ -94,7 +93,6 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver): Promise<void>
   const password = process.env.E2E_BROWSERSTACK_KEY
 
   if (!user || !password) {
-    // eslint-disable-next-line no-console
     console.log('Can not fetch test results from BrowserStack as username or password is not set!')
     return
   }
@@ -109,10 +107,8 @@ const fetchTestResults = async (driver: wd.PromiseChainWebdriver): Promise<void>
       }
     })
     const json = await response.json()
-    // eslint-disable-next-line no-console
     console.log(`View the results here: ${json.automation_session.public_url}`)
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(error)
   }
 }
@@ -131,7 +127,6 @@ export const setupDriver = async (additionalCaps: any = {}): Promise<any> => {
   if (!config) {
     throw Error('Failed to get config!')
   }
-  // eslint-disable-next-line no-console
   console.log(`Trying to use ${config.url} ...`)
   const desiredCaps = {
     ...clone(config.caps),
@@ -142,9 +137,7 @@ export const setupDriver = async (additionalCaps: any = {}): Promise<any> => {
   }
   const driver = await initDriver(config, desiredCaps)
   const status = await driver.status()
-  // eslint-disable-next-line no-console
   console.log(`Session ID is ${JSON.stringify(driver.sessionID)}`)
-  // eslint-disable-next-line no-console
   console.log(`Status of Driver is ${JSON.stringify(status)}`)
   await driver.setImplicitWaitTimeout(IMPLICIT_WAIT_TIMEOUT)
   await timer(STARTUP_DELAY)

@@ -100,7 +100,6 @@ export default function* fetchResourceCache(
     )
     yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',

@@ -12,7 +12,6 @@ function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaG
       console.debug('Using cached cities')
       return yield* call(dataContainer.getCities)
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.warn('An error occurred while loading cities from JSON', e)
     }
   }
