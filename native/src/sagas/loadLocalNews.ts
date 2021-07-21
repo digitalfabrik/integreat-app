@@ -3,6 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { determineApiUrl } from '../utils/helpers'
 
 function* loadLocalNews(city: string, language: string): SagaGenerator<LocalNewsModel[]> {
+  // eslint-disable-next-line no-console
   console.debug('Fetching news')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>

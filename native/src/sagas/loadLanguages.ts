@@ -12,13 +12,14 @@ export default function* loadLanguages(
 
   if (languagesAvailable && !forceRefresh) {
     try {
+      // eslint-disable-next-line no-console
       console.debug('Using cached languages')
       return yield* call(dataContainer.getLanguages, city)
     } catch (e) {
       console.warn('An error occurred while loading languages from JSON', e)
     }
   }
-
+  // eslint-disable-next-line no-console
   console.debug('Fetching languages')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>

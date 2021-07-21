@@ -8,13 +8,14 @@ function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaG
 
   if (citiesAvailable && !forceRefresh) {
     try {
+      // eslint-disable-next-line no-console
       console.debug('Using cached cities')
       return yield* call(dataContainer.getCities)
     } catch (e) {
       console.warn('An error occurred while loading cities from JSON', e)
     }
   }
-
+  // eslint-disable-next-line no-console
   console.debug('Fetching cities')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() => createCitiesEndpoint(apiUrl).request())

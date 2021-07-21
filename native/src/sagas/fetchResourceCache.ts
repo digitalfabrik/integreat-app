@@ -74,6 +74,7 @@ export default function* fetchResourceCache(
       // TODO: we might remember which files have failed to retry later
       // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
+      // eslint-disable-next-line no-console
       console.log(message)
     }
 
