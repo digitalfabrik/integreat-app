@@ -4,7 +4,7 @@ import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser
 import buildConfig from '../constants/buildConfig'
 import Url from 'url-parse'
 import { Dispatch } from 'redux'
-import AppSettings, { SettingsType } from '../services/AppSettings'
+import AppSettings, { SettingsType } from '../utils/AppSettings'
 import {
   DASHBOARD_ROUTE,
   INTRO_ROUTE,
@@ -15,7 +15,7 @@ import {
 import navigateToCategory from './navigateToCategory'
 import { cityContentPath as createCityContentPath } from './url'
 import createNavigate from './createNavigate'
-import sendTrackingSignal from '../services/sendTrackingSignal'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const navigateToDeepLink = async (
   dispatch: Dispatch<StoreActionType>,
