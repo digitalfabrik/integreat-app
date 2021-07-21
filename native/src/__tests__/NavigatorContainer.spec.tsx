@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store'
 import * as React from 'react'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
-import { generateKey } from '../services/generateRouteKey'
+import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../routes/LandingContainer', () => {
   const Text = require('react-native').Text
@@ -23,10 +23,9 @@ jest.mock('../components/HeaderContainer', () => {
 
   return () => <Text>Header</Text>
 })
-jest.mock('../services/PushNotificationsManager')
+jest.mock('../utils/PushNotificationsManager')
 jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
-jest.mock('rn-fetch-blob')
 const mockStore = configureMockStore()
 
 class MockNavigator extends React.Component<void> {
@@ -51,7 +50,7 @@ describe('NavigatorContainer', () => {
     const NavigatorContainer = require('../NavigatorContainer').default
 
     const store = mockStore({})
-    const key = generateKey()
+    const key = generateRouteKey()
     const result = TestRenderer.create(
       <Provider store={store}>
         <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
@@ -84,7 +83,7 @@ describe('NavigatorContainer', () => {
     const NavigatorContainer = require('../NavigatorContainer').default
 
     const store = mockStore({})
-    const key = generateKey()
+    const key = generateRouteKey()
     const result = TestRenderer.create(
       <Provider store={store}>
         <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />

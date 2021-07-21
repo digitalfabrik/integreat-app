@@ -13,7 +13,6 @@ jest.mock('../../components/NavigationTiles', () => {
 
   return () => <Text>NavigationTiles</Text>
 })
-jest.mock('rn-fetch-blob')
 
 describe('Dashboard', () => {
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
