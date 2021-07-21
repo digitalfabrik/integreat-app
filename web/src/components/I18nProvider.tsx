@@ -6,7 +6,7 @@ import { loadTranslations, config } from 'translations'
 import { DateFormatter } from 'api-client'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import buildConfig from '../constants/buildConfig'
-import BrowserLanguageDetectorService from '../services/BrowserLanguageDetector'
+import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
 
 type PropsType = {
   contentLanguage: string | undefined

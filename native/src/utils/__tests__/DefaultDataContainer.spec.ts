@@ -9,7 +9,6 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import DatabaseConnector from '../DatabaseConnector'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
-jest.mock('rn-fetch-blob')
 beforeEach(() => {
   RNFetchBlob.fs._reset()
 

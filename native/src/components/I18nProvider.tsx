@@ -8,10 +8,10 @@ import { config, loadTranslations } from 'translations'
 import i18next from 'i18next'
 import { useDispatch } from 'react-redux'
 import { SetContentLanguageActionType } from '../redux/StoreActionType'
-import NativeLanguageDetector from '../services/NativeLanguageDetector'
-import AppSettings from '../services/AppSettings'
+import NativeLanguageDetector from '../utils/NativeLanguageDetector'
+import AppSettings from '../utils/AppSettings'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import { setSystemLanguage } from '../services/sendTrackingSignal'
+import { setSystemLanguage } from '../utils/sendTrackingSignal'
 
 type PropsType = {
   children: React.ReactNode

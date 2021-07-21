@@ -7,11 +7,11 @@ import {
   OPEN_MEDIA_SIGNAL_NAME,
   PDF_VIEW_MODAL_ROUTE
 } from 'api-client'
-import sendTrackingSignal from '../../services/sendTrackingSignal'
-import openExternalUrl from '../../services/openExternalUrl'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import openExternalUrl from '../../utils/openExternalUrl'
 
-jest.mock('../../services/sendTrackingSignal')
-jest.mock('../../services/openExternalUrl')
+jest.mock('../../utils/sendTrackingSignal')
+jest.mock('../../utils/openExternalUrl')
 describe('navigateToLink', () => {
   beforeEach(() => {
     jest.clearAllMocks()

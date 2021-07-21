@@ -1,6 +1,6 @@
 import { call, SagaGenerator, spawn, takeLatest } from 'typed-redux-saga'
-import AppSettings from '../services/AppSettings'
-import * as NotificationsManager from '../services/PushNotificationsManager'
+import AppSettings from '../utils/AppSettings'
+import * as NotificationsManager from '../utils/PushNotificationsManager'
 
 export function* clearCity(): SagaGenerator<void> {
   const appSettings = new AppSettings()
