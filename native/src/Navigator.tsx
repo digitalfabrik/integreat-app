@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import AppSettings from './services/AppSettings'
+import AppSettings from './utils/AppSettings'
 import { Platform, Text } from 'react-native'
-import initSentry from './services/initSentry'
+import { initSentry } from './utils/helpers'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import buildConfig from './constants/buildConfig'
 import { StackHeaderProps, createStackNavigator, TransitionPresets } from '@react-navigation/stack'
@@ -91,6 +91,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
       if (usingHermes) {
+        // eslint-disable-next-line no-console
         console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 

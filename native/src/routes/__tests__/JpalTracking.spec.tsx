@@ -5,7 +5,7 @@ import createNavigationMock from '../../testing/createNavigationPropMock'
 import AsyncStorage from '@react-native-community/async-storage'
 import { RoutePropType } from '../../constants/NavigationTypes'
 import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
-import AppSettings from '../../services/AppSettings'
+import AppSettings from '../../utils/AppSettings'
 
 jest.mock('@react-native-community/async-storage')
 jest.mock('react-i18next', () => ({

@@ -1,4 +1,4 @@
-import { DataContainer } from '../../services/DataContainer'
+import { DataContainer } from '../../utils/DataContainer'
 import { FetchMapType } from '../fetchResourceCache'
 
 export default function* fetchResourceCache(

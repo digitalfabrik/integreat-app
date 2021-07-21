@@ -11,14 +11,16 @@ jest.mock('../../constants/NativeConstants', () => ({
   appVersion: '1.0.0'
 }))
 
-jest.mock('../../services/PushNotificationsManager', () => ({
+jest.mock('../../utils/PushNotificationsManager', () => ({
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn()
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
-jest.mock('../../services/initSentry')
+jest.mock('../../utils/helpers', () => ({
+  initSentry: jest.fn()
+}))
 
 const mockRequestPushNotificationPermission = mocked(requestPushNotificationPermission)
 const mockUnsubscribeNews = mocked(unsubscribeNews)

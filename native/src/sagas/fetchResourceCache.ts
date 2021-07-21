@@ -1,8 +1,8 @@
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
 import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
 import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
-import FetcherModule, { FetchResultType, TargetFilePathsType } from '../services/FetcherModule'
-import { DataContainer } from '../services/DataContainer'
+import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
+import { DataContainer } from '../utils/DataContainer'
 import moment from 'moment'
 import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { fromError } from 'api-client'
@@ -74,6 +74,7 @@ export default function* fetchResourceCache(
       // TODO: we might remember which files have failed to retry later
       // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
+      // eslint-disable-next-line no-console
       console.log(message)
     }
 

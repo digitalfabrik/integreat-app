@@ -18,7 +18,7 @@ import {
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import { useTranslation } from 'react-i18next'
 import BreadcrumbModel from '../models/BreadcrumbModel'
-import urlFromPath from '../services/urlFromPath'
+import { urlFromPath } from '../utils/stringUtils'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
