@@ -20,7 +20,8 @@ describe('Header', () => {
   const language = new LanguageModelBuilder(1).build()[0]
   const navigation = createNavigationScreenPropMock()
 
-  const buildProps = (peeking: boolean, categoriesAvailable: boolean, mode: 'float' | 'screen', goToLanguageChange) => {
+  const buildProps = (peeking: boolean, categoriesAvailable: boolean, mode: 'float' | 'screen', goToLanguageChange): React.ComponentProps<typeof Header> => {
+    // @ts-ignore StackHeaderProps not needed
     return {
       t,
       theme: buildConfig().lightTheme,
