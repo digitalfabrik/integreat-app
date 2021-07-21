@@ -13,13 +13,15 @@ function* loadCategories(
 
   if (categoriesAvailable && !forceRefresh) {
     try {
+      // eslint-disable-next-line no-console
       console.debug('Using cached categories')
       return yield* call(dataContainer.getCategoriesMap, city, language)
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn('An error occurred while loading categories from JSON', e)
     }
   }
-
+  // eslint-disable-next-line no-console
   console.debug('Fetching categories')
   const apiUrl = yield* call(determineApiUrl)
   const categoriesPayload = yield* call(() =>

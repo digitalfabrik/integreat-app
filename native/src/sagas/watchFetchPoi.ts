@@ -55,6 +55,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
       yield* put(failed)
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
     const failed: FetchPoiFailedActionType = {
       type: 'FETCH_POI_FAILED',

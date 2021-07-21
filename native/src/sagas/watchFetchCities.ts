@@ -15,6 +15,7 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     }
     yield* put(insert)
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
     const failed: FetchCitiesFailedActionType = {
       type: 'FETCH_CITIES_FAILED',

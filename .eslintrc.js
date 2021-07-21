@@ -72,6 +72,7 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       excludedFiles: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
+        'no-console': 2,
         'no-magic-numbers': [
           'error',
           {

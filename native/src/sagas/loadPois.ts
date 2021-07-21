@@ -14,19 +14,22 @@ function* loadPois(
 
   if (poisAvailable && !forceRefresh) {
     try {
+      // eslint-disable-next-line no-console
       console.debug('Using cached pois')
       return yield* call(dataContainer.getPois, city, language)
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn('An error occurred while loading pois from JSON', e)
     }
   }
 
   if (!poisEnabled) {
+    // eslint-disable-next-line no-console
     console.debug('Pois disabled')
     yield* call(dataContainer.setPois, city, language, [])
     return []
   }
-
+  // eslint-disable-next-line no-console
   console.debug('Fetching pois')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>

@@ -32,10 +32,12 @@ const openExternalUrl = async (url: string): Promise<void> => {
         })
         await Linking.openURL(url)
       } else {
+        // eslint-disable-next-line no-console
         console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
       }
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error)
   }
 }
