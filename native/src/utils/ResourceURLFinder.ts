@@ -1,4 +1,4 @@
-import getExtension from './getExtension'
+import { getExtension } from './helpers'
 import { Parser } from 'htmlparser2'
 import { FetchMapType } from '../sagas/fetchResourceCache'
 import { reduce } from 'lodash'

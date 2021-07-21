@@ -1,8 +1,8 @@
 import { runSaga } from 'redux-saga'
 import { clearCity } from '../watchClearCity'
-import AppSettings from '../../services/AppSettings'
+import AppSettings from '../../utils/AppSettings'
 
-jest.mock('../../services/PushNotificationsManager')
+jest.mock('../../utils/PushNotificationsManager')
 
 describe('watchClearCity', () => {
   it('should clear selected city of app settings', async () => {

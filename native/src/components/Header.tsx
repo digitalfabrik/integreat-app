@@ -12,7 +12,7 @@ import { StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
-import sendTrackingSignal from '../services/sendTrackingSignal'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { ThemeType } from 'build-configs'
 
 const Horizontal = styled.View`

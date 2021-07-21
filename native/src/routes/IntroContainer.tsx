@@ -14,7 +14,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { IntroRouteType, LANDING_ROUTE } from 'api-client'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import { StoreActionType } from '../redux/StoreActionType'
-import AppSettings from '../services/AppSettings'
+import AppSettings from '../utils/AppSettings'
 import withTheme from '../hocs/withTheme'
 
 const Container = styled.View<{ width: number }>`

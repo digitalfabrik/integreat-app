@@ -1,7 +1,7 @@
 import { createPOIsEndpoint, PoiModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
-import { DataContainer } from '../services/DataContainer'
-import determineApiUrl from '../services/determineApiUrl'
+import { DataContainer } from '../utils/DataContainer'
+import { determineApiUrl } from '../utils/helpers'
 
 function* loadPois(
   city: string,
