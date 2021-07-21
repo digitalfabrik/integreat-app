@@ -10,6 +10,7 @@ const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>()
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     initSentry().catch(e => console.error(e))
   }, [])
 

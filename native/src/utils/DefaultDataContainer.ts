@@ -205,7 +205,9 @@ class DefaultDataContainer implements DataContainer {
           this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
+        // eslint-disable-next-line no-console
         console.debug('Cleaning up the following resources:')
+        // eslint-disable-next-line no-console
         console.debug(pathsToClean)
         await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
       }

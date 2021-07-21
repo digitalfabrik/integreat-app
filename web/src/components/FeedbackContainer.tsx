@@ -119,6 +119,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     }
 
     request().catch(err => {
+      // eslint-disable-next-line no-console
       console.error(err)
       setSendingStatus(SendingState.ERROR)
     })
