@@ -20,7 +20,7 @@ import {
 } from '../redux/StateType'
 import DatabaseContext from '../models/DatabaseContext'
 import { map, mapValues } from 'lodash'
-import deleteIfExists from './deleteIfExists'
+import { deleteIfExists } from './helpers'
 
 export const CONTENT_VERSION = 'v1'
 export const RESOURCE_CACHE_VERSION = 'v1'

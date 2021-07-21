@@ -22,7 +22,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import navigateToLink from '../navigation/navigateToLink'
 import createNavigate from '../navigation/createNavigate'
-import determineApiUrl from '../services/determineApiUrl'
+import { determineApiUrl } from '../utils/helpers'
 
 type OwnPropsType = {
   route: RoutePropType<DisclaimerRouteType>
