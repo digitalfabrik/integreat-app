@@ -1,19 +1,21 @@
 import React, { ReactElement } from 'react'
-import { Share } from 'react-native'
+import { Share, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { Item } from 'react-navigation-header-buttons'
+import { Dispatch } from 'redux'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { StoreActionType } from '../redux/StoreActionType'
-import { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
+import { forceNewlineAfterChar } from '../services/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { ThemeType } from 'build-configs'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -34,7 +36,7 @@ const Icon = styled.Image`
 const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
-  font-size: 20px;
+  font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -148,13 +150,18 @@ const Header = (props: PropsType): ReactElement => {
     })
   }
 
-  const cityDisplayName = () => {
+  const deviceWidth = useWindowDimensions().width
+
+  const cityDisplayName = (): string => {
     if (!routeCityModel) {
       return ''
     }
 
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
-    return `${routeCityModel.sortingName}${description}`
+    const cityNameLength = routeCityModel.sortingName.length
+    return cityNameLength < deviceWidth / dimensions.headerTextSize
+      ? `${routeCityModel.sortingName}${description}`
+      : `${forceNewlineAfterChar(routeCityModel.sortingName, '-')}${description}`
   }
 
   const renderItem = (
@@ -189,7 +196,7 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme}>
+            <HeaderText allowFontScaling={false} theme={theme} fontSize={deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}
