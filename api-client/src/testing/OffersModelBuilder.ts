@@ -6,21 +6,18 @@ const offers = [
     title: 'Sprungbrett',
     path: 'https://my.sprung.br/ett/api',
     thumbnail: '',
-    postData: null
   }),
   new OfferModel({
     alias: 'jobboerse',
     title: 'Jobboerse',
     path: 'https://my.jobs.com/api',
     thumbnail: '',
-    postData: null
   }),
   new OfferModel({
     alias: 'some_extra',
     title: 'Some Extra',
     path: 'https://my.ran.om/api',
     thumbnail: '',
-    postData: null
   })
 ]
 
