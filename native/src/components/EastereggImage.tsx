@@ -49,6 +49,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
         })
       )
       .catch(e => {
+        // eslint-disable-next-line no-console
         console.error(e)
       })
   }
@@ -74,6 +75,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
         clickStart: null
       })
       this.props.clearResourcesAndCache()
+      // eslint-disable-next-line no-console
       console.debug(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()

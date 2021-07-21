@@ -74,6 +74,7 @@ export default function* fetchResourceCache(
       // TODO: we might remember which files have failed to retry later
       // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
+      // eslint-disable-next-line no-console
       console.log(message)
     }
 
@@ -99,6 +100,7 @@ export default function* fetchResourceCache(
     )
     yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',

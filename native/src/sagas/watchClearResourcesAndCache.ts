@@ -6,6 +6,7 @@ export function* clearResourcesAndCache(
   dataContainer: DataContainer,
   _: ClearResourcesAndCacheActionType
 ): SagaGenerator<void> {
+  // eslint-disable-next-line no-console
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
   yield* call(dataContainer.clearOfflineCache)

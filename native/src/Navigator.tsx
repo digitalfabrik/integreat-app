@@ -91,6 +91,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
       if (usingHermes) {
+        // eslint-disable-next-line no-console
         console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 

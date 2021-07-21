@@ -145,6 +145,7 @@ class Intro extends React.Component<PropsType, StateType> {
         navigation.replace(LANDING_ROUTE)
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn(e)
     }
   }
