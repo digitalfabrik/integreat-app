@@ -62,6 +62,15 @@ export type PropsType = StackHeaderProps & {
   dispatch: Dispatch<StoreActionType>
 }
 
+enum HeaderButtonTitle {
+  Disclaimer = 'disclaimer',
+  Language = 'changeLanguage',
+  Location = 'changeLocation',
+  Search = 'search',
+  Share = 'share',
+  Settings = 'settings'
+}
+
 const Header = (props: PropsType): ReactElement => {
   const {
     navigation,
@@ -157,13 +166,21 @@ const Header = (props: PropsType): ReactElement => {
 
   const renderItem = (
     title: string,
-    show: 'never' | 'always',
-    onPress: () => void,
-    accessibilityLabel: string,
-    iconName?: string
+    show: boolean,
+    onPress?: () => void,
+    iconName?: string,
+    visible = true
   ): ReactElement => {
     return (
-      <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show} onPress={onPress} />
+      <Item
+        disabled={!visible}
+        title={title}
+        accessibilityLabel={t(title)}
+        iconName={iconName || undefined}
+        show={show ? 'always' : 'never'}
+        onPress={onPress}
+        style={{ opacity: visible ? 1 : 0 }}
+      />
     )
   }
 
@@ -185,14 +202,18 @@ const Header = (props: PropsType): ReactElement => {
           )}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-          {!peeking && categoriesAvailable && renderItem(t('search'), 'always', goToSearch, t('search'), 'search')}
-          {!peeking &&
-            goToLanguageChange &&
-            renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
-          {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
-          {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
-          {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}
-          {routeCityModel && renderItem(t('disclaimer'), 'never', goToDisclaimer, t('disclaimer'), undefined)}
+          {renderItem(HeaderButtonTitle.Search, true, goToSearch, 'search', !peeking && categoriesAvailable)}
+          {renderItem(
+            HeaderButtonTitle.Language,
+            true,
+            goToLanguageChange,
+            'language',
+            !peeking && !!goToLanguageChange
+          )}
+          {showShare && renderItem(HeaderButtonTitle.Share, false, onShare)}
+          {showChangeLocation && renderItem(HeaderButtonTitle.Location, false, goToLanding)}
+          {renderItem(HeaderButtonTitle.Settings, false, goToSettings)}
+          {routeCityModel && renderItem(HeaderButtonTitle.Disclaimer, false, goToDisclaimer)}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>
