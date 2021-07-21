@@ -3,7 +3,7 @@ import { transform, groupBy } from 'lodash'
 import { CityModel } from 'api-client'
 import CityEntry from './CityEntry'
 import styled from 'styled-components'
-import normalizeSearchString from '../services/normalizeSearchString'
+import { normalizeSearchString } from '../utils/stringUtils'
 
 const CityListParent = styled.div<{ stickyTop: number }>`
   position: sticky;

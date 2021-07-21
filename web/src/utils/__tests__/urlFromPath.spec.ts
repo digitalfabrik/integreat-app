@@ -1,4 +1,4 @@
-import urlFromPath from '../urlFromPath'
+import { urlFromPath } from '../stringUtils'
 
 describe('urlFromPath', () => {
   it('should give the correct url', () => {

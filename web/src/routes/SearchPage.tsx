@@ -10,7 +10,7 @@ import {
 } from 'api-client'
 import CategoryList from '../components/CategoryList'
 import FeedbackSearch from '../components/FeedbackSearch'
-import normalizeSearchString from '../services/normalizeSearchString'
+import { normalizeSearchString } from '../utils/stringUtils'
 import { Parser } from 'htmlparser2'
 import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'

@@ -4,7 +4,7 @@ import {
   FetchCategoryFailedActionType,
   PushCategoryActionType
 } from '../redux/StoreActionType'
-import { DataContainer } from '../services/DataContainer'
+import { DataContainer } from '../utils/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'

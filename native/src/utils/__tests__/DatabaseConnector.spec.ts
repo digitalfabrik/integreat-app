@@ -8,7 +8,6 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import mockDate from '../../testing/mockDate'
 
-jest.mock('rn-fetch-blob')
 const databaseConnector = new DatabaseConnector()
 afterEach(() => {
   RNFetchBlob.fs._reset()
