@@ -5,7 +5,7 @@ import { TFunction } from 'react-i18next'
 import { ThemeType } from 'build-configs'
 import List from '../components/List'
 import Caption from '../components/Caption'
-import openExternalUrl from '../services/openExternalUrl'
+import openExternalUrl from '../utils/openExternalUrl'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 
 type PropsType = {
