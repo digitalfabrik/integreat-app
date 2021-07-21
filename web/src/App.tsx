@@ -4,12 +4,13 @@ import { ThemeProvider } from 'styled-components'
 import buildConfig from './constants/buildConfig'
 import RootSwitcher from './RootSwitcher'
 import I18nProvider from './components/I18nProvider'
-import initSentry from './services/initSentry'
+import initSentry from './utils/initSentry'
 
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>()
 
   useEffect(() => {
+    // eslint-disable-next-line no-console
     initSentry().catch(e => console.error(e))
   }, [])
 

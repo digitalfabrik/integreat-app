@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
-import NativeLanguageDetector from '../../services/NativeLanguageDetector'
+import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { render, waitFor } from '@testing-library/react-native'
@@ -9,16 +9,16 @@ import I18nProvider from '../I18nProvider'
 import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/StateType'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import AppSettings from '../../services/AppSettings'
+import AppSettings from '../../utils/AppSettings'
 import AsyncStorage from '@react-native-community/async-storage'
 import DateFormatterContext from '../../contexts/DateFormatterContext'
 import moment from 'moment'
-import { setSystemLanguage } from '../../services/sendTrackingSignal'
+import { setSystemLanguage } from '../../utils/sendTrackingSignal'
 import { mocked } from 'ts-jest/utils'
 
-jest.mock('../../services/NativeLanguageDetector')
+jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
-jest.mock('../../services/sendTrackingSignal')
+jest.mock('../../utils/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
 const city = cities[0]

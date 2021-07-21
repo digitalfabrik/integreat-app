@@ -9,7 +9,7 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { mocked } from 'ts-jest/utils'
 
 jest.mock('react-i18next')
-jest.mock('../../services/openExternalUrl')
+jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()

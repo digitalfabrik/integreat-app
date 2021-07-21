@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 import moment, { Moment } from 'moment'
-import AppSettings from '../services/AppSettings'
+import AppSettings from '../utils/AppSettings'
 import { Button } from 'react-native-elements'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
@@ -49,6 +49,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
         })
       )
       .catch(e => {
+        // eslint-disable-next-line no-console
         console.error(e)
       })
   }
@@ -74,6 +75,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
         clickStart: null
       })
       this.props.clearResourcesAndCache()
+      // eslint-disable-next-line no-console
       console.debug(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()
