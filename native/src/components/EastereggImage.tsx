@@ -35,6 +35,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
       .loadApiUrlOverride()
       .then(setApiUrlOverride)
       .catch(e => {
+        // eslint-disable-next-line no-console
         console.error(e)
       })
   }, [])
@@ -58,6 +59,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
       setClickStart(null)
 
       clearResourcesAndCache()
+      // eslint-disable-next-line no-console
       console.debug(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()

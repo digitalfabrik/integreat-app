@@ -15,6 +15,7 @@ export default {
   },
   init: (): void => {},
   cacheUserLanguage: (newLanguage: string): void => {
+    // eslint-disable-next-line no-console
     console.log('Skipping caching of new language ', newLanguage)
   }
 }

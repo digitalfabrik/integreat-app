@@ -7,11 +7,13 @@ const pushNotificationsDisabled = (): boolean => {
 
 export const requestPushNotificationPermission = async (): Promise<boolean> => {
   if (pushNotificationsDisabled()) {
+    // eslint-disable-next-line no-console
     console.debug('Push notifications disabled, no permissions requested.')
     return false
   }
 
   const authStatus = await messaging().requestPermission()
+  // eslint-disable-next-line no-console
   console.debug('Authorization status:', authStatus)
   // Firebase returns either 1 or 2 for granted or 0 for rejected permissions
   return authStatus !== 0
@@ -21,6 +23,7 @@ const newsTopic = (city: string, language: string): string => `${city}-${languag
 
 export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
   if (pushNotificationsDisabled()) {
+    // eslint-disable-next-line no-console
     console.debug('Push notifications disabled, unsubscription skipped.')
     return
   }
@@ -32,11 +35,12 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   } catch (e) {
     console.error(e)
   }
-
+  // eslint-disable-next-line no-console
   console.debug(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
   if (pushNotificationsDisabled()) {
+    // eslint-disable-next-line no-console
     console.debug('Push notifications disabled, subscription skipped.')
     return
   }
@@ -46,8 +50,9 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   try {
     await messaging().subscribeToTopic(topic)
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
   }
-
+  // eslint-disable-next-line no-console
   console.debug(`Subscribed to ${topic} topic!`)
 }

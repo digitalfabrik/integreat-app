@@ -43,6 +43,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
       setI18nextInstance(i18nextInstance)
       // Apply ui language as language
       i18nextInstance.on('languageChanged', () => {
+        // eslint-disable-next-line no-console
         console.log(i18nextInstance.languages)
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
         const matchedLanguage = i18nextInstance.languages[0]

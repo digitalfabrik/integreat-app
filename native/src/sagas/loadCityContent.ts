@@ -141,9 +141,11 @@ export default function* loadCityContent(
   }
 
   const lastUpdate = yield* call(dataContainer.getLastUpdate, newCity, newLanguage)
+  // eslint-disable-next-line no-console
   console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
   const netInfo = yield* call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
+  // eslint-disable-next-line no-console
   console.debug('City content should be refreshed: ', shouldUpdate)
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and
   // resources at the same time. This kind of serves as a lock.

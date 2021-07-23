@@ -14,6 +14,7 @@ function* loadEvents(
 
   if (eventsAvailable && !forceRefresh) {
     try {
+      // eslint-disable-next-line no-console
       console.debug('Using cached events')
       return yield* call(dataContainer.getEvents, city, language)
     } catch (e) {
@@ -22,11 +23,12 @@ function* loadEvents(
   }
 
   if (!eventsEnabled) {
+    // eslint-disable-next-line no-console
     console.debug('Events disabled')
     yield* call(dataContainer.setEvents, city, language, [])
     return []
   }
-
+  // eslint-disable-next-line no-console
   console.debug('Fetching events')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>

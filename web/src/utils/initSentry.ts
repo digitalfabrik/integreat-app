@@ -2,6 +2,7 @@ import buildConfig from '../constants/buildConfig'
 
 const initSentry = async (): Promise<void> => {
   if (!buildConfig().featureFlags.sentry) {
+    // eslint-disable-next-line no-console
     console.log('Disabling sentry because it was disabled through the build config.')
     return
   }
@@ -17,7 +18,9 @@ const initSentry = async (): Promise<void> => {
       release: `web-${__BUILD_CONFIG_NAME__}@${__VERSION_NAME__}`
     })
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
+    // eslint-disable-next-line no-console
     console.error('Failed to load sentry entry point!')
   }
 }
