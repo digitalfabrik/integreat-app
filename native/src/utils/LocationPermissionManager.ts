@@ -12,6 +12,7 @@ export const checkLocationPermission = async (): Promise<PermissionStatus> => {
 }
 export const requestLocationPermission = async (): Promise<PermissionStatus | undefined> => {
   if (buildConfig().featureFlags.fixedCity) {
+    // eslint-disable-next-line no-console
     console.debug('Location permission disabled, no permissions requested.')
     return
   }

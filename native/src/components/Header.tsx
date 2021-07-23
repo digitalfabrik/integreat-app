@@ -1,19 +1,21 @@
 import React, { ReactElement } from 'react'
-import { Share } from 'react-native'
+import { Share, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { Item } from 'react-navigation-header-buttons'
+import { Dispatch } from 'redux'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { StoreActionType } from '../redux/StoreActionType'
-import { Dispatch } from 'redux'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
+import { forceNewlineAfterChar } from '../services/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { ThemeType } from 'build-configs'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -34,7 +36,7 @@ const Icon = styled.Image`
 const HeaderText = styled.Text`
   flex: 1;
   flex-direction: column;
-  font-size: 20px;
+  font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
@@ -58,6 +60,15 @@ export type PropsType = StackHeaderProps & {
   language: string
   shareUrl: string | null | undefined
   dispatch: Dispatch<StoreActionType>
+}
+
+enum HeaderButtonTitle {
+  Disclaimer = 'disclaimer',
+  Language = 'changeLanguage',
+  Location = 'changeLocation',
+  Search = 'search',
+  Share = 'share',
+  Settings = 'settings'
 }
 
 const Header = (props: PropsType): ReactElement => {
@@ -139,24 +150,37 @@ const Header = (props: PropsType): ReactElement => {
     })
   }
 
-  const cityDisplayName = () => {
+  const deviceWidth = useWindowDimensions().width
+
+  const cityDisplayName = (): string => {
     if (!routeCityModel) {
       return ''
     }
 
     const description = routeCityModel.prefix ? ` (${routeCityModel.prefix})` : ''
-    return `${routeCityModel.sortingName}${description}`
+    const cityNameLength = routeCityModel.sortingName.length
+    return cityNameLength < deviceWidth / dimensions.headerTextSize
+      ? `${routeCityModel.sortingName}${description}`
+      : `${forceNewlineAfterChar(routeCityModel.sortingName, '-')}${description}`
   }
 
   const renderItem = (
     title: string,
-    show: 'never' | 'always',
-    onPress: () => void,
-    accessibilityLabel: string,
-    iconName?: string
+    show: boolean,
+    onPress?: () => void,
+    iconName?: string,
+    visible = true
   ): ReactElement => {
     return (
-      <Item title={title} accessibilityLabel={accessibilityLabel} iconName={iconName} show={show} onPress={onPress} />
+      <Item
+        disabled={!visible}
+        title={title}
+        accessibilityLabel={t(title)}
+        iconName={iconName || undefined}
+        show={show ? 'always' : 'never'}
+        onPress={onPress}
+        style={{ opacity: visible ? 1 : 0 }}
+      />
     )
   }
 
@@ -172,20 +196,24 @@ const Header = (props: PropsType): ReactElement => {
             <Icon source={buildConfigAssets().appIcon} />
           )}
           {routeCityModel && (
-            <HeaderText allowFontScaling={false} theme={theme}>
+            <HeaderText allowFontScaling={false} theme={theme} fontSize={deviceWidth * dimensions.fontScaling}>
               {cityDisplayName()}
             </HeaderText>
           )}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-          {!peeking && categoriesAvailable && renderItem(t('search'), 'always', goToSearch, t('search'), 'search')}
-          {!peeking &&
-            goToLanguageChange &&
-            renderItem(t('changeLanguage'), 'always', goToLanguageChange, t('changeLanguage'), 'language')}
-          {showShare && renderItem(t('share'), 'never', onShare, t('share'), undefined)}
-          {showChangeLocation && renderItem(t('changeLocation'), 'never', goToLanding, t('changeLocation'), undefined)}
-          {renderItem(t('settings'), 'never', goToSettings, t('settings'), undefined)}
-          {routeCityModel && renderItem(t('disclaimer'), 'never', goToDisclaimer, t('disclaimer'), undefined)}
+          {renderItem(HeaderButtonTitle.Search, true, goToSearch, 'search', !peeking && categoriesAvailable)}
+          {renderItem(
+            HeaderButtonTitle.Language,
+            true,
+            goToLanguageChange,
+            'language',
+            !peeking && !!goToLanguageChange
+          )}
+          {showShare && renderItem(HeaderButtonTitle.Share, false, onShare)}
+          {showChangeLocation && renderItem(HeaderButtonTitle.Location, false, goToLanding)}
+          {renderItem(HeaderButtonTitle.Settings, false, goToSettings)}
+          {routeCityModel && renderItem(HeaderButtonTitle.Disclaimer, false, goToDisclaimer)}
         </MaterialHeaderButtons>
       </Horizontal>
     </BoxShadow>

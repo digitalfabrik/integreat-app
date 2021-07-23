@@ -49,6 +49,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
       appSettings
         .loadSettings()
         .then(settings => setSettings(settings))
+        // eslint-disable-next-line no-console
         .catch(e => console.error('Failed to load settings.', e))
     }, [])
   )
@@ -72,7 +73,9 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
       await appSettings.setSettings(newSettings)
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e)
+      // eslint-disable-next-line no-console
       console.error('Failed to persist settings.')
       setSettings(oldSettings)
     }

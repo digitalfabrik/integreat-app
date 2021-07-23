@@ -3,6 +3,7 @@ import { createTunewsLanguagesEndpoint, LanguageModel } from 'api-client'
 import { tunewsApiUrl } from '../constants/endpoint'
 
 export default function* loadTunewsLanguages(): SagaGenerator<LanguageModel[]> {
+  // eslint-disable-next-line no-console
   console.debug('Fetching tunews languages')
   const payload = yield* call(() => createTunewsLanguagesEndpoint(tunewsApiUrl).request(undefined))
 
