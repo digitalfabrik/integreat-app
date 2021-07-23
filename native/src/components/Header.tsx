@@ -33,7 +33,7 @@ const Icon = styled.Image`
   height: 50px;
   resize-mode: contain;
 `
-const HeaderText = styled.Text`
+const HeaderText = styled.Text<{ fontSize: number }>`
   flex: 1;
   flex-direction: column;
   font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
