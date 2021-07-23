@@ -12,7 +12,7 @@ exports[`Tiles should match snapshot 1`] = `
         TileModel {
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen/willkommen-in-augsburg",
-          "_postData": null,
+          "_postData": undefined,
           "_thumbnail": "some-thumnail.jpg",
           "_title": "Willkommen in Augsburg",
         }
@@ -24,7 +24,7 @@ exports[`Tiles should match snapshot 1`] = `
         TileModel {
           "_isExternalUrl": false,
           "_path": "/augsburg/de/willkommen/erste-schritte",
-          "_postData": null,
+          "_postData": undefined,
           "_thumbnail": "some-other-thumbnail.jpg",
           "_title": "Erste Schritte",
         }

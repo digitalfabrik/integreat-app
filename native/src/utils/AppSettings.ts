@@ -151,7 +151,7 @@ class AppSettings {
     })
   }
 
-  loadApiUrlOverride = async (): Promise<string | null | undefined> => {
+  loadApiUrlOverride = async (): Promise<string | null> => {
     const settings = await this.loadSettings()
     return settings.apiUrlOverride
   }
