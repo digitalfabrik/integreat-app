@@ -2775,6 +2775,24 @@
   dependencies:
     "@types/node" "*"
 
+"@types/styled-components-react-native@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@types/styled-components-react-native/-/styled-components-react-native-5.1.1.tgz#dcee7171b3844ce00a8303d8f5fcaeae7b25915d"
+  integrity sha512-1CJvTkaTb9YJXjmecZAZNyMHlvGdNtunRrOeyaXYdOzLKgwABIeEcZiO/TKT7CAzLdgPwBUj5Z4ixe4Vk5ndlw==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+    "@types/styled-components" "*"
+
+"@types/styled-components@*":
+  version "5.1.11"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.11.tgz#a3a1bc0f2cdad7318d8ce219ee507e6b353503b5"
+  integrity sha512-u8g3bSw9KUiZY+S++gh+LlURGraqBe3MC5I5dygrNjGDHWWQfsmZZRTJ9K9oHU2CqWtxChWmJkDI/gp+TZPQMw==
+  dependencies:
+    "@types/hoist-non-react-statics" "*"
+    "@types/react" "*"
+    csstype "^3.0.2"
+
 "@types/styled-components@^5.1.9":
   version "5.1.9"
   resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.9.tgz#00d3d84b501420521c4db727e3c195459f87a6cf"
