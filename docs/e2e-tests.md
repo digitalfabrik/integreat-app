@@ -3,36 +3,6 @@
 The E2E-tests can be found in the [e2e-tests subdirectory](../e2e-tests).
 To run the E2e-tests take a look at the commands in the [package.json](../e2e-tests/package.json).
 
-## Running the tests
-
-### Local
-
-To run the web E2E-tests you just have run
-
-```
-yarn workspace e2e test:web
-```
-
-This will launch the webapp and an automated chrome session where you can follow the test execution. If your don't have chrome installed you can adjust the `browserName` (firefox, edge, safari) in the `wdio.conf.ts` in the E2E-test web subdirectory.
-
-For you first have to build and install the app with the E2E build configuration:
-
-```
-yarn workspace e2e prepare:android
-```
-
-Then start the packager:
-
-```
-yarn workspace e2e prepare:start
-```
-
-It is recommended to start the app once manually to avoid timeouts during local testing. After you have the app installed and running you can execute the native E2E-test with
-
-```
-yarn workspace e2e test:native
-```
-
 ## WebdriverIO
 
 [WebdriverIO](https://webdriver.io/) is the framework surrounding the E2E-tests. It provides services to instantiate a local selenium server, connect to browserstack and to select the correct chromedriver. Additionally, it can be configured to run multiple E2E-tests in parallel.
@@ -59,7 +29,37 @@ The [E2E test folder](../e2e-tests/web/test) contains two important subdirectori
 When writing new tests create helper classes for each Page you are using in the tests to keep the tests uniform and readable. This is also called the [page object pattern](https://webdriver.io/docs/pageobjects/).
 The tests itself are then created in the test folder and have to end on `*.e2e.ts`.
 
+### Web
+
+### Local Testing
+
+To run the web E2E-tests you first have to start the web app, and then execute the e2e tests:
+
+```
+yarn workspace e2e prepare:web:start
+yarn workspace e2e test:web
+```
+
+This will launch an automated chrome session where you can follow the test execution. If your don't have chrome installed you can adjust the `browserName` (firefox, edge, safari) in the `wdio.conf.ts` in the E2E-test web subdirectory.
+
+
 ### Native
+
+### Local Testing
+
+For you first have to build and install the app with the E2E build configuration and start the packager:
+
+```
+yarn workspace e2e prepare:android
+yarn workspace e2e prepare:start
+```
+
+It is recommended to start the app once manually to avoid timeouts during local testing. After you have the app installed and running you can execute the native E2E-tests with
+
+```
+yarn workspace e2e test:native
+```
+
 
 #### Selectors
 
