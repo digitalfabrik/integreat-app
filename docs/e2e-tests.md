@@ -44,8 +44,7 @@ yarn workspace e2e test:web
 > Run the following command in your terminal:
 >``/usr/bin/safaridriver --enable``
 
-This will launch an automated chrome session where you can follow the test execution. If your don't have chrome installed you can adjust the `browserName` (firefox, edge, safari) in the `wdio.conf.ts` in the E2E-test web subdirectory.
-
+This will launch an automated chrome session where you can follow the test execution. If your don't have chrome installed you can adjust the `browserName` (firefox, edge, safari) in the `wdio.conf.ts` in the E2E-test web subdirectory. Chromium does not seem to work currently. Safari also does not work on the current version (14.1).
 
 ### Native
 
@@ -63,7 +62,6 @@ It is recommended to start the app once manually to avoid timeouts during local 
 ```
 yarn workspace e2e test:native
 ```
-
 
 #### Selectors
 
