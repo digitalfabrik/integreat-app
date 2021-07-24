@@ -1,9 +1,5 @@
 {
   "yarn.packageJson": "package.json",
-  "files.associations": {
-    "*.js": "javascriptreact"
-  },
   "prettier.eslintIntegration": true,
-  "jest.pathToConfig": "jest.config.js",
   "local-history.path": "C:\\Projects\\Integreat\\intregreat-app backup"
 }

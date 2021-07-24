@@ -62,5 +62,28 @@ describe('LocationModel', () => {
       })
       expect(location.location).toEqual('Wertachstr. 29, 86353 Augsburg')
     })
+    it('should be transformed to GeoJson type', () => {
+      const location = new LocationModel({
+        name: 'Test',
+        address: 'Wertachstr. 29',
+        town: 'Augsburg',
+        state: 'Bayern',
+        postcode: '86353',
+        region: 'Schwaben',
+        latitude : '29.979848',
+        longitude : '31.133859',
+        country: 'DE'
+      })
+      expect(location.toGeoJson()).toEqual({
+        type: 'Feature',
+          geometry: {
+            type: 'Point',
+              coordinates: [29.979848, 31.133859]
+          },
+          properties: {
+            name: 'Test'
+          }
+        })
+    })
   })
 })
