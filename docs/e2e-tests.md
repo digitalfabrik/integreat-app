@@ -50,8 +50,8 @@ This will launch an automated chrome session where you can follow the test execu
 For you first have to build and install the app with the E2E build configuration and start the packager:
 
 ```
-yarn workspace e2e prepare:android
-yarn workspace e2e prepare:start
+yarn workspace e2e prepare:native:android
+yarn workspace e2e prepare:native:start
 ```
 
 It is recommended to start the app once manually to avoid timeouts during local testing. After you have the app installed and running you can execute the native E2E-tests with
