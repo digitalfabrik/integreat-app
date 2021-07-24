@@ -15,8 +15,7 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
         title: category.title,
         path: category.path,
         thumbnail: category.thumbnail,
-        isExternalUrl: false,
-        postData: null
+        isExternalUrl: false
       })
   )
 }

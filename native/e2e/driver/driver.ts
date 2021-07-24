@@ -4,6 +4,8 @@ import * as childProcess from 'child_process'
 import * as serverConfigs from '../config/configs'
 import { clone } from 'lodash'
 
+/* eslint-disable no-console */
+
 const BROWSERSTACK_EXHAUSTED_MESSAGE =
   'All parallel tests are currently in use, including the queued tests. ' +
   'Please wait to finish or upgrade your plan to add more sessions.'
@@ -125,7 +127,6 @@ export const setupDriver = async (additionalCaps: any = {}): Promise<any> => {
   if (!config) {
     throw Error('Failed to get config!')
   }
-
   console.log(`Trying to use ${config.url} ...`)
   const desiredCaps = {
     ...clone(config.caps),
