@@ -1,0 +1,7 @@
+issue_key: IGAPP-578
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Clean display of long city names on all devices.
+de: Saubere Darstellung von langen Städtenamen auf allen Geräten.

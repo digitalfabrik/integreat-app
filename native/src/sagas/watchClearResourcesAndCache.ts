@@ -1,4 +1,4 @@
-import { DataContainer } from '../services/DataContainer'
+import { DataContainer } from '../utils/DataContainer'
 import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 import { ClearResourcesAndCacheActionType } from '../redux/StoreActionType'
 
@@ -6,6 +6,7 @@ export function* clearResourcesAndCache(
   dataContainer: DataContainer,
   _: ClearResourcesAndCacheActionType
 ): SagaGenerator<void> {
+  // eslint-disable-next-line no-console
   console.debug('Clearing Resource Cache')
   dataContainer.clearInMemoryCache()
   yield* call(dataContainer.clearOfflineCache)
