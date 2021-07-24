@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
-import textTruncator from '../../services/textTruncator'
+import { textTruncator } from '../../utils/stringUtils'
 import { ThemeProvider } from 'styled-components'
 import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
@@ -53,26 +53,5 @@ describe('NewsListItem', () => {
     expect(getByText(textTruncator(message, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
     expect(getByText(lastUpdate.toISOString())).toBeTruthy()
     expect(() => getByText('lastUpdate')).toThrow()
-  })
-
-  it('should correctly decode html entities', () => {
-    const message = 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.'
-    const decodedMessage = 'Some "test text with lots of "html entities" which won\'t be displayed.'
-
-    const { getByText } = renderWithRouter(
-      <ThemeProvider theme={theme}>
-        <NewsListItem
-          type={LOCAL_NEWS_TYPE}
-          title={title}
-          content={message}
-          timestamp={lastUpdate}
-          formatter={new DateFormatter(language)}
-          t={t}
-          link={link}
-        />
-      </ThemeProvider>
-    )
-
-    expect(getByText(textTruncator(decodedMessage, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
   })
 })

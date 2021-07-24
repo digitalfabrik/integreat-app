@@ -1,13 +1,12 @@
 import { runSaga } from 'redux-saga'
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import loadEvents from '../loadEvents'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import DatabaseContext from '../../models/DatabaseContext'
-import DatabaseConnector from '../../services/DatabaseConnector'
+import DatabaseConnector from '../../utils/DatabaseConnector'
 
 let mockEvents
-jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   const city = 'augsburg'

@@ -240,6 +240,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				FCE17F1E70FA43899589ED22 /* [CP] Copy Pods Resources */,
 				31AF7631F7FB8B3BE99E14B2 /* [CP-User] [RNFB] Core Configuration */,
+				11B3E1710E70AE59D235F335 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -330,6 +331,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../node_modules/react-native/scripts/react-native-xcode.sh index.ts\n";
+		};
+		11B3E1710E70AE59D235F335 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		31AF7631F7FB8B3BE99E14B2 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -490,8 +509,8 @@
 				DEVELOPMENT_TEAM = 7272KE28TJ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
+					"$(inherited)",
+					"$(inherited)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -596,8 +615,8 @@
 				DEVELOPMENT_TEAM = 7272KE28TJ;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleAppMeasurement/Frameworks",
+					"$(inherited)",
+					"$(inherited)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",

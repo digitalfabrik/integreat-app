@@ -3,14 +3,14 @@ export default class OfferModel {
   _title: string
   _path: string
   _thumbnail: string
-  _postData: Map<string, string> | null
+  _postData?: Map<string, string>
 
   constructor(params: {
     alias: string
     title: string
     path: string
     thumbnail: string
-    postData: Map<string, string> | null
+    postData?: Map<string, string>
   }) {
     this._alias = params.alias
     this._title = params.title
@@ -35,7 +35,7 @@ export default class OfferModel {
     return this._path
   }
 
-  get postData(): Map<string, string> | null {
+  get postData(): Map<string, string> | undefined {
     return this._postData
   }
 }

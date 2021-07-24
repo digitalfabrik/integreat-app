@@ -27,7 +27,7 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import navigateToJpalTracking from './navigateToJpalTracking'
 import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import sendTrackingSignal from '../services/sendTrackingSignal'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { urlFromRouteInformation } from './url'
 
 const createNavigate = <T extends RoutesType>(
@@ -125,7 +125,6 @@ const createNavigate = <T extends RoutesType>(
         return
     }
   }
-
   console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
 }
 

@@ -5,7 +5,7 @@ import {
   FetchNewsFailedActionType,
   PushNewsActionType
 } from '../redux/StoreActionType'
-import { DataContainer } from '../services/DataContainer'
+import { DataContainer } from '../utils/DataContainer'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
 import loadTunewsLanguages from './loadTunewsLanguages'
