@@ -1,5 +1,5 @@
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { FetchNewsActionType } from '../../redux/StoreActionType'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
@@ -8,7 +8,6 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 describe('watchFetchNews', () => {
   beforeEach(() => {

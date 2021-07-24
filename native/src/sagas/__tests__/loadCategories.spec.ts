@@ -1,13 +1,12 @@
 import { runSaga } from 'redux-saga'
 import loadCategories from '../loadCategories'
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import DatabaseConnector from '../../services/DatabaseConnector'
+import DatabaseConnector from '../../utils/DatabaseConnector'
 import DatabaseContext from '../../models/DatabaseContext'
 
 let mockCategories
-jest.mock('rn-fetch-blob')
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   const city = 'augsburg'
