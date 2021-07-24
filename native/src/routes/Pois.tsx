@@ -14,6 +14,7 @@ import SpaceBetween from '../components/SpaceBetween'
 import PoiListItem from '../components/PoiListItem'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import { ReactNode } from 'react'
+import MapView from '../components/MapView'
 
 export type PropsType = {
   path: string | null | undefined
@@ -121,12 +122,13 @@ class Pois extends React.Component<PropsType> {
       <SpaceBetween>
         <View>
           <Caption title={t('poi')} theme={theme} />
-          <List
-            noItemsMessage={t('currentlyNoPois')}
-            items={sortedPois}
-            renderItem={this.renderPoiListItem(cityCode, language)}
-            theme={theme}
-          />
+          <MapView />
+          {/*<List*/}
+          {/*  noItemsMessage={t('currentlyNoPois')}*/}
+          {/*  items={sortedPois}*/}
+          {/*  renderItem={this.renderPoiListItem(cityCode, language)}*/}
+          {/*  theme={theme}*/}
+          {/*/>*/}
         </View>
         <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} />
       </SpaceBetween>
