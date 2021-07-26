@@ -1,7 +1,6 @@
 # integreat-app-web
 
-React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html)
-and [Aschaffenburg](https://aschaffenburg.app).
+React JS WebApp for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app).
 
 ## Contents
 
@@ -18,8 +17,7 @@ and [Aschaffenburg](https://aschaffenburg.app).
 _Make sure you read and followed the steps in the [general README](../README.md#project-setup)._
 
 - Run `yarn` in the terminal to install all dependencies.
-- Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run
-  Configurations.
+- Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run Configurations.
 
 ### Run the App
 
@@ -44,9 +42,9 @@ _Make sure that `sourceMap` is set to true in the `tsconfig.json`_
 ### Additional Configuration
 
 - `Run > Edit Configurations > Defaults > Jest`:
-    - Set `Configuration file` to `jest.config.js`
+  - Set `Configuration file` to `jest.config.js`
 - [optional] Associate `.snap` files with the file type `JavaScript`.
 - [optional] Install the following plugins:
-    - [Prettier](https://plugins.jetbrains.com/plugin/10456-prettier)
-    - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
-    - [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs)
+  - [Prettier](https://plugins.jetbrains.com/plugin/10456-prettier)
+  - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
+  - [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs)
