@@ -27,8 +27,11 @@ const mockUnsubscribeNews = mocked(unsubscribeNews)
 const mockSubscribeNews = mocked(subscribeNews)
 const mockedBuildConfig = mocked(buildConfig)
 
+type changeSettingFnType = (settings: SettingsType) => Partial<SettingsType>
+type changeActionFnType = void | ((newSettings: SettingsType) => Promise<void>)
+
 describe('createSettingsSections', () => {
-  let changeSetting: (settings: SettingsType) => Partial<SettingsType>
+  let changeSetting: changeSettingFnType
   let changeAction: void | ((newSettings: SettingsType) => Promise<void>)
 
   beforeEach(() => {
@@ -37,12 +40,12 @@ describe('createSettingsSections', () => {
     changeAction = async () => {}
   })
 
-  const setSetting = async (newChangeSetting, newChangeAction) => {
+  const setSetting = async (newChangeSetting: changeSettingFnType, newChangeAction: changeActionFnType) => {
     changeSetting = newChangeSetting
     changeAction = newChangeAction
   }
 
-  const t = key => key
+  const t = (key: string) => key
 
   const languageCode = 'de'
   const cityCode = 'augsburg'

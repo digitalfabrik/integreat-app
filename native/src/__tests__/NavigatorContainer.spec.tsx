@@ -1,6 +1,9 @@
-import configureMockStore from 'redux-mock-store'
-import * as React from 'react'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import * as React from 'react'
+import { ElementType } from 'react'
+import type { Provider as ProviderType } from 'react-redux'
+import type * as TestRendererType from 'react-test-renderer'
+import configureMockStore from 'redux-mock-store'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../routes/LandingContainer', () => {
@@ -35,8 +38,9 @@ class MockNavigator extends React.Component<void> {
 }
 
 describe('NavigatorContainer', () => {
-  let TestRenderer
-  let Provider
+  let TestRenderer: typeof TestRendererType
+  let Provider: typeof ProviderType
+
   beforeEach(() => {
     jest.resetModules()
     // Reimporting these modules fixes the following issue:
@@ -56,7 +60,7 @@ describe('NavigatorContainer', () => {
         <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
-    const navigator = result.root.findByType(MockNavigator)
+    const navigator = result.root.findByType(MockNavigator as ElementType)
     store.clearActions()
     navigator.props.fetchCategory('augsburg', 'de', 'route-key-0', true)
     expect(store.getActions()).toEqual([
@@ -89,7 +93,7 @@ describe('NavigatorContainer', () => {
         <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
-    const navigator = result.root.findByType(MockNavigator)
+    const navigator = result.root.findByType(MockNavigator as ElementType)
     store.clearActions()
     navigator.props.fetchCities(true)
     expect(store.getActions()).toEqual([

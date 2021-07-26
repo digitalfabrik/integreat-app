@@ -61,7 +61,7 @@ describe('SprungbrettOfferContainer', () => {
   const mockStore = configureMockStore()
   const store = mockStore(state)
 
-  const mockUseLoadFromEndpointOnce = mock => {
+  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
@@ -70,13 +70,14 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: false,
       error: null,
       refresh
-    }))
-    const { getByText } = render(
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+     const { getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
@@ -87,12 +88,13 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display offers with a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: true,
       error: null,
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
@@ -104,12 +106,13 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display error without a loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: false,
       error: new Error('myError'),
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
@@ -121,12 +124,13 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display error with spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: true,
       error: new Error('myError'),
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
