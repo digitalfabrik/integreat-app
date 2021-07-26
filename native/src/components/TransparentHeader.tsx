@@ -31,6 +31,8 @@ export type PropsType = StackHeaderProps & {
   t: TFunction<'layout'>
 }
 
+type RouteParams = {[key: string]: string } | null;
+
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBackInStack = (): void => {
     this.props.navigation.goBack()
@@ -38,8 +40,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   onShare = async (): Promise<void> => {
     const { scene, t } = this.props
-    // @ts-ignore
-    const shareUrl = scene.route.params?.shareUrl || null
+    const shareUrl = (scene.route.params as RouteParams)?.shareUrl
 
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -66,8 +67,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
 
   render(): ReactNode {
     const { theme, scene, t } = this.props
-    // @ts-ignore
-    const shareUrl = scene.route.params?.shareUrl || null
+    const shareUrl = (scene.route.params as RouteParams)?.shareUrl
     return (
       <BoxShadow theme={theme}>
         <Horizontal>

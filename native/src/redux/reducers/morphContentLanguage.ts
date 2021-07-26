@@ -2,11 +2,13 @@ import {
   CategoryRouteStateType,
   CityContentStateType,
   EventRouteStateType,
+  PathType,
   PoiRouteStateType,
-  RouteMappingType
+  RouteMappingType,
+  RouteStateType
 } from '../StateType'
 import { mapValues } from 'lodash/object'
-import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiModel, POIS_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiModel, POIS_ROUTE, CategoryModel } from 'api-client'
 import { MorphContentLanguageActionType } from '../StoreActionType'
 import { forEachTreeNode } from '../../utils/helpers'
 
@@ -43,8 +45,8 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     return route
   }
 
-  const resultModels = {}
-  const resultChildren = {}
+  const resultModels = {} as Record<PathType, CategoryModel>
+  const resultChildren = {} as Record<PathType, ReadonlyArray<PathType>>
   forEachTreeNode(
     rootModel,
     node => newCategoriesMap.getChildren(node),
@@ -190,7 +192,7 @@ const translateRoutes = (state: CityContentStateType, action: MorphContentLangua
   const categoryTranslator = categoryRouteTranslator(newCategoriesMap, city, newLanguage)
   const eventTranslator = eventRouteTranslator(newEvents, newLanguage)
   const poiTranslator = poiRouteTranslator(newPois, newLanguage)
-  return mapValues(routeMapping, route => {
+  return mapValues(routeMapping, (route: RouteStateType) => {
     if (route.routeType === CATEGORIES_ROUTE) {
       return categoryTranslator(route)
     } else if (route.routeType === EVENTS_ROUTE) {

@@ -55,7 +55,7 @@ describe('OffersContainer', () => {
   const mockStore = configureMockStore()
   const store = mockStore(state)
 
-  const mockUseLoadFromEndpointOnce = mock => {
+  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
   }
 
@@ -64,12 +64,13 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: false,
       error: null,
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -81,12 +82,13 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers with a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: true,
       error: null,
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -98,12 +100,13 @@ describe('OffersContainer', () => {
   })
 
   it('should display error without a loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: false,
       error: new Error('myError'),
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -115,12 +118,13 @@ describe('OffersContainer', () => {
   })
 
   it('should display error with spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
+    const useLoadFromEndpointMock = (() => ({
       data: [],
       loading: true,
       error: new Error('myError'),
       refresh
-    }))
+    })) as typeof useLoadFromEndpoint
+    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />

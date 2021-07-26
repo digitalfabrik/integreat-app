@@ -64,7 +64,7 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
 describe('loadCityContent', () => {
   const lastUpdate = moment('2000-01-05T10:10:00.000Z')
   const mockedDate = moment('2000-01-05T11:10:00.000Z')
-  let restoreMockedDate
+  let restoreMockedDate: () => void;
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
 

@@ -15,6 +15,11 @@ import {
 import HeaderContainer from '../HeaderContainer'
 import { render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
+import { Store } from 'redux'
+import { StateType } from 'src/redux/StateType'
+import { StoreActionType } from 'src/redux/StoreActionType'
+import { StackHeaderProps } from '@react-navigation/stack'
+import { TFunction } from 'i18next'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
@@ -25,13 +30,17 @@ jest.mock('../../components/Header', () => {
   return (props: Record<string, unknown>) => <Text {...props}>Header</Text>
 })
 
+type OwnPropsType = StackHeaderProps & {
+  t: TFunction
+}
+
 describe('HeaderContainer', () => {
-  let store, state
+  let store: Store<StateType, StoreActionType>, state: StateType
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
 
-  const prepareState = () => {
+  const prepareState = (): StateType => {
     return {
       resourceCacheUrl: 'http://localhost:8080',
       cityContent: {
@@ -114,10 +123,10 @@ describe('HeaderContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     state = prepareState()
-    store = mockStore(state)
+    store = mockStore(state) as unknown as Store<StateType, StoreActionType>
   })
 
-  const assertProps = (props, expected, customStore = store) => {
+  const assertProps = (props: OwnPropsType, expected: {[key: string]: string}, customStore = store) => {
     const { getByText } = render(
       <Provider store={customStore}>
         <HeaderContainer {...props} />
@@ -134,7 +143,7 @@ describe('HeaderContainer', () => {
           key: 'routeKey1'
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -149,7 +158,7 @@ describe('HeaderContainer', () => {
           key: 'routeKeyEvent1'
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -164,7 +173,7 @@ describe('HeaderContainer', () => {
           key: 'routeKeyEvent2'
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -179,7 +188,7 @@ describe('HeaderContainer', () => {
           key: 'routeKeyNews1'
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -194,16 +203,16 @@ describe('HeaderContainer', () => {
           key: 'routeKeyNews1'
         }
       }
-    }
+    } as OwnPropsType
     const state = prepareState()
     const newState = {
       ...state,
       cityContent: {
         ...state.cityContent,
         routeMapping: {
-          ...state.cityContent.routeMapping,
+          ...state.cityContent?.routeMapping,
           routeKeyNews1: {
-            ...state.cityContent.routeMapping.routeKeyNews1,
+            ...state.cityContent?.routeMapping.routeKeyNews1,
             newsId: '12345'
           }
         }
@@ -216,7 +225,7 @@ describe('HeaderContainer', () => {
       {
         shareUrl: expectedShareUrl
       },
-      mockStore(newState)
+      mockStore(newState) as unknown as Store<StateType, StoreActionType>
     )
   })
 
@@ -227,7 +236,7 @@ describe('HeaderContainer', () => {
           name: OFFERS_ROUTE
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -241,7 +250,7 @@ describe('HeaderContainer', () => {
           name: SPRUNGBRETT_OFFER_ROUTE
         }
       }
-    }
+    } as OwnPropsType
     const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
     assertProps(ownProps, {
       shareUrl
@@ -259,7 +268,7 @@ describe('HeaderContainer', () => {
           }
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/nuernberg/ar/${DISCLAIMER_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -274,7 +283,7 @@ describe('HeaderContainer', () => {
           key: 'routeKeyPois1'
         }
       }
-    }
+    } as OwnPropsType
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
