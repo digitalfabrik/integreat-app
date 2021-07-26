@@ -30,6 +30,6 @@ export const config = {
   },
 
   before: async function (): Promise<void> {
-    await browser.setTimeout({ implicit: 80000, pageLoad: 40000 })
+    await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
   }
 }
