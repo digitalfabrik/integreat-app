@@ -29,8 +29,8 @@ _Make sure you read and followed the steps in the [general README](../README.md#
 _Make sure that `sourceMap` is set to true in the `tsconfig.json`_
 
 - Run `yarn start` to start a local webpack dev server.
-- Start the JavaScript Debug with Chrome configuration in debug mode.
-- You can now Debug the webapp directly in IntelliJ.
+- Start the JavaScript `Debug with Chrome` configuration in debug mode.
+- You can now debug the webapp directly in IntelliJ.
 
 #### Run the App in production mode
 
