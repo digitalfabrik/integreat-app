@@ -13,6 +13,11 @@ jobs:
 #  - check_web:
 #      context:
 #        - mattermost
+#  - e2e_web:
+#      context:
+#        - mattermost
+#      requires:
+#        - bump_version
 #  - build_web:
 #      name: build_integreat_web
 #      build_config_name: integreat
