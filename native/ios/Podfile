@@ -6,8 +6,14 @@ platform :ios, '10.0'
 target 'Integreat' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
+  # Use MapLibre
+  $RNMBGL_Use_SPM = true
 
   if !ENV['CI']
+      pre_install do |installer|
+      # Required for Mapbox
+      $RNMBGL.pre_install(installer)
+    end
       # Enables Flipper.
       #
       # Note that if you have use_frameworks! enabled, Flipper will not work and
@@ -15,10 +21,13 @@ target 'Integreat' do
       use_flipper!({ 'Flipper' => '0.96.1' })
       post_install do |installer|
         flipper_post_install(installer)
+        # Required for Mapbox
+        $RNMBGL.post_install(installer)
       end
   end
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
+
 end
