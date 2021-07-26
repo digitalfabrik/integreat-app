@@ -1,11 +1,10 @@
 import { URL } from 'url'
 import LandingPage from '../pageobjects/landing.page'
+import { defaultCity, filter, language, Routes } from '../../../shared/constants'
 
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {
-    const language = 'en'
-    const filter = 'Augsburg'
-    const dashboardPath = `/${filter.toLowerCase()}/en`
+    const dashboardPath = Routes.dashboard
     LandingPage.language = language
     await LandingPage.open()
 
@@ -15,7 +14,7 @@ describe('navigate to dashboard', () => {
     await browser.keys(filter)
 
     const filteredCities = await LandingPage.cities
-    const filteredCity = await LandingPage.city(filter)
+    const filteredCity = await LandingPage.city(defaultCity)
 
     expect(cities.length).toBeGreaterThan(0)
     expect(filteredCities.length).toBeLessThan(cities.length)
