@@ -123,12 +123,12 @@ class Pois extends React.Component<PropsType> {
         <View>
           <Caption title={t('poi')} theme={theme} />
           <MapView />
-          {/*<List*/}
-          {/*  noItemsMessage={t('currentlyNoPois')}*/}
-          {/*  items={sortedPois}*/}
-          {/*  renderItem={this.renderPoiListItem(cityCode, language)}*/}
-          {/*  theme={theme}*/}
-          {/*/>*/}
+          <List
+            noItemsMessage={t('currentlyNoPois')}
+            items={sortedPois}
+            renderItem={this.renderPoiListItem(cityCode, language)}
+            theme={theme}
+          />
         </View>
         <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} />
       </SpaceBetween>
