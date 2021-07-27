@@ -9,7 +9,7 @@ export const convertToPoint = (location: LocationModel): Feature => {
       coordinates: [Number(location._latitude), Number(location.longitude)]
     },
     properties: {
-      name: location._name
+      name: location.name
     }
   }
 }
