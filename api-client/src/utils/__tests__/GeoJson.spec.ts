@@ -29,7 +29,7 @@ describe('geoJson', () => {
       expect(convertToPoint(location)).toEqual(expectedGeoJsonMarkerFeature)
     })
   })
-  describe('EmbedInCollection', () => {
+  describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: FeatureCollection = {
       features: [expectedGeoJsonMarkerFeature],
       type: 'FeatureCollection'
