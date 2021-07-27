@@ -174,7 +174,7 @@ const Header = (props: PropsType): ReactElement => {
     return (
       <Item
         disabled={!visible}
-        title={title}
+        title={t(title)}
         accessibilityLabel={t(title)}
         iconName={iconName || undefined}
         show={show ? 'always' : 'never'}
