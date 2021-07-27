@@ -6,7 +6,7 @@ export const convertToPoint = (location: LocationModel): Feature => {
     type: 'Feature',
     geometry: {
       type: 'Point',
-      coordinates: [Number(location._latitude), Number(location.longitude)]
+      coordinates: [Number(location.longitude), Number(location.latitude)]
     },
     properties: {
       name: location._name
