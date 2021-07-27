@@ -1,5 +1,5 @@
 import LocationModel from '../../models/LocationModel'
-import { convertToPoint, embedInCollection } from '../GeoJson'
+import { convertToPoint, embedInCollection } from '../geoJson'
 import { Feature, FeatureCollection } from 'geojson'
 
 describe('geoJson', () => {
