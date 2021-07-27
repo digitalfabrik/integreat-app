@@ -1,0 +1,18 @@
+docker:
+  - image: circleci/node:14.9.0-browsers
+  - image: selenium/standalone-chrome
+resource_class: small
+shell: /bin/bash -eo pipefail
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_yarn_cache
+  - run:
+      name: "Start WebApp"
+      command: yarn workspace web start:integreat-e2e
+      background: true
+  - run:
+      name: "Web E2E Tests"
+      command: yarn workspace e2e test:web
+  - notify

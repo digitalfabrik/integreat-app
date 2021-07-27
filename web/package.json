@@ -12,6 +12,7 @@
     "start": "yarn run webpack-dev-server-ts --env.config_name=integreat-test-cms --env.dev_server",
     "start:malte": "yarn run webpack-dev-server-ts --env.config_name=malte --env.dev_server",
     "start:aschaffenburg": "yarn run webpack-dev-server-ts --env.config_name=aschaffenburg --env.dev_server",
+    "start:integreat-e2e": "yarn run webpack-dev-server-ts --env.config_name=integreat-e2e --env.dev_server",
     "build": "yarn build:integreat",
     "build:integreat": "yarn run webpack-ts --env.config_name=integreat",
     "build:malte": "yarn run webpack-ts --env.config_name=malte",
