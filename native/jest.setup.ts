@@ -40,6 +40,7 @@ walkDir(mocksPath, name => {
   })
 })
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
+jest.doMock('constants/NativeConstants')
 jest.doMock('constants/buildConfig')
 jest.doMock('rn-fetch-blob')
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
