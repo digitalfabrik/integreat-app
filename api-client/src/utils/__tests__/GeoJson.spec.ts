@@ -2,7 +2,7 @@ import LocationModel from '../../models/LocationModel'
 import { convertToPoint, embedInCollection } from '../GeoJson'
 import { Feature, FeatureCollection } from 'geojson'
 
-describe('GeoHelper Methods', () => {
+describe('geoJson', () => {
   const expectedGeoJsonMarkerFeature: Feature = {
     type: 'Feature',
     geometry: {
@@ -13,7 +13,7 @@ describe('GeoHelper Methods', () => {
       name: 'Test'
     }
   }
-  describe('ConvertToPoint', () => {
+  describe('convertToPoint', () => {
     it('should be transformed to GeoJson type', () => {
       const location = new LocationModel({
         name: 'Test',
@@ -29,7 +29,7 @@ describe('GeoHelper Methods', () => {
       expect(convertToPoint(location)).toEqual(expectedGeoJsonMarkerFeature)
     })
   })
-  describe('EmbedInCollection', () => {
+  describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: FeatureCollection = {
       features: [expectedGeoJsonMarkerFeature],
       type: 'FeatureCollection'
