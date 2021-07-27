@@ -5,9 +5,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import { defaultViewportConfig, mapStyleUrl } from 'api-client/src/mapView'
 
 const MapView: React.FunctionComponent = () => {
-  const [viewport, setViewport] = useState({
-    ...defaultViewportConfig
-  })
+  const [viewport, setViewport] = useState(defaultViewportConfig)
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
