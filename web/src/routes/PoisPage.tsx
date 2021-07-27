@@ -26,6 +26,7 @@ import PageDetail from '../components/PageDetail'
 import Caption from '../components/Caption'
 import List from '../components/List'
 import Helmet from '../components/Helmet'
+import MapView from '../components/MapView'
 
 type PropsType = {
   cities: Array<CityModel>
@@ -125,6 +126,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
+      <MapView />
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )
