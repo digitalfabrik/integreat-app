@@ -7,7 +7,7 @@ describe('GeoHelper Methods', () => {
     type: 'Feature',
     geometry: {
       type: 'Point',
-      coordinates: [29.979848, 31.133859]
+      coordinates: [31.133859, 29.979848]
     },
     properties: {
       name: 'Test'
