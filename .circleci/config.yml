@@ -1058,68 +1058,68 @@ workflows:
     scheduled_delivery:
         jobs:
             - bump_version:
-                  context:
-                      - mattermost
-                      - deliverino
-                      - jira
-                  delivery: production
+                context:
+                    - mattermost
+                    - deliverino
+                    - jira
+                delivery: production
             - check_web:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - e2e_web:
-                  context:
-                      - mattermost
-                  requires:
-                      - bump_version
+                context:
+                    - mattermost
+                requires:
+                    - bump_version
             - build_web:
-                  build_config_name: integreat
-                  context:
-                      - mattermost
-                  name: build_integreat_web
-                  requires:
-                      - bump_version
+                build_config_name: integreat
+                context:
+                    - mattermost
+                name: build_integreat_web
+                requires:
+                    - bump_version
             - build_web:
-                  build_config_name: malte
-                  context:
-                      - mattermost
-                  name: build_malte_web
-                  requires:
-                      - bump_version
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
             - build_web:
-                  build_config_name: aschaffenburg
-                  context:
-                      - mattermost
-                  name: build_aschaffenburg_web
-                  requires:
-                      - bump_version
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
             - deliver_web:
-                  context:
-                      - mattermost
-                      - sentry
-                  production_delivery: true
-                  requires:
-                      - check_web
-                      - e2e_web
-                      - build_integreat_web
-                      - build_malte_web
-                      - build_aschaffenburg_web
+                context:
+                    - mattermost
+                    - sentry
+                production_delivery: true
+                requires:
+                    - check_web
+                    - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
             - notify_web:
-                  context:
-                      - mattermost
-                      - deliverino
-                  requires:
-                      - bump_version
-                      - deliver_web
+                context:
+                    - mattermost
+                    - deliverino
+                requires:
+                    - bump_version
+                    - deliver_web
             - check_native:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - build_android:
-                  build_config_name: integreat-e2e
-                  context:
-                      - mattermost
-                      - tuerantuer-google-play
-                      - tuerantuer-android
-                  name: build_e2e_android
+                build_config_name: integreat-e2e
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_e2e_android
                 requires:
                     - bump_version
             - e2e_android:
@@ -1551,68 +1551,68 @@ workflows:
     triggered_production_delivery:
         jobs:
             - bump_version:
-                  context:
-                      - mattermost
-                      - deliverino
-                      - jira
-                  delivery: production
+                context:
+                    - mattermost
+                    - deliverino
+                    - jira
+                delivery: production
             - check_web:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - e2e_web:
-                  context:
-                      - mattermost
-                  requires:
-                      - bump_version
+                context:
+                    - mattermost
+                requires:
+                    - bump_version
             - build_web:
-                  build_config_name: integreat
-                  context:
-                      - mattermost
-                  name: build_integreat_web
-                  requires:
-                      - bump_version
+                build_config_name: integreat
+                context:
+                    - mattermost
+                name: build_integreat_web
+                requires:
+                    - bump_version
             - build_web:
-                  build_config_name: malte
-                  context:
-                      - mattermost
-                  name: build_malte_web
-                  requires:
-                      - bump_version
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
             - build_web:
-                  build_config_name: aschaffenburg
-                  context:
-                      - mattermost
-                  name: build_aschaffenburg_web
-                  requires:
-                      - bump_version
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
             - deliver_web:
-                  context:
-                      - mattermost
-                      - sentry
-                  production_delivery: true
-                  requires:
-                      - check_web
-                      - e2e_web
-                      - build_integreat_web
-                      - build_malte_web
-                      - build_aschaffenburg_web
+                context:
+                    - mattermost
+                    - sentry
+                production_delivery: true
+                requires:
+                    - check_web
+                    - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
             - notify_web:
-                  context:
-                      - mattermost
-                      - deliverino
-                  requires:
-                      - bump_version
-                      - deliver_web
+                context:
+                    - mattermost
+                    - deliverino
+                requires:
+                    - bump_version
+                    - deliver_web
             - check_native:
-                  context:
-                      - mattermost
+                context:
+                    - mattermost
             - build_android:
-                  build_config_name: integreat-e2e
-                  context:
-                      - mattermost
-                      - tuerantuer-google-play
-                      - tuerantuer-android
-                  name: build_e2e_android
+                build_config_name: integreat-e2e
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_e2e_android
                 requires:
                     - bump_version
             - e2e_android:
