@@ -22,8 +22,7 @@ import NetInfo from '@react-native-community/netinfo'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { enableScreens } from 'react-native-screens'
-import NativeConstants from './constants/NativeConstants'
-import { Platform } from 'react-native'
+import { userAgent } from './constants/endpoint'
 
 enableScreens(true)
 
@@ -54,7 +53,7 @@ const linking: LinkingOptions = {
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
 defaultRequestOptions.headers = {
-  'User-Agent': `Integreat Native App (${Platform.OS} ${NativeConstants.appVersion})`
+  'User-Agent': userAgent
 }
 
 const App = (): ReactElement => {
