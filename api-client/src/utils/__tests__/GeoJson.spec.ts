@@ -13,7 +13,7 @@ describe('geoJson', () => {
       name: 'Test'
     }
   }
-  describe('ConvertToPoint', () => {
+  describe('convertToPoint', () => {
     it('should be transformed to GeoJson type', () => {
       const location = new LocationModel({
         name: 'Test',
