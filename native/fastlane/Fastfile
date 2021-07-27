@@ -47,7 +47,7 @@ platform :android do
         file_path: "#{ENV['HOME']}/#{apk_path}"
     )
 
-    ENV["E2E_CONFIG"] = "browserstack_ci_android"
+    ENV["E2E_CONFIG"] = "android"
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
     ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
@@ -211,7 +211,7 @@ platform :ios do
         file_path: "#{ENV['HOME']}/#{ipa_path}"
     )
 
-    ENV["E2E_CONFIG"] = "browserstack_ci_ios"
+    ENV["E2E_CONFIG"] = "ios"
     ENV["E2E_BROWSERSTACK_USER"] = ENV["BROWSERSTACK_USERNAME"]
     ENV["E2E_BROWSERSTACK_KEY"] = ENV["BROWSERSTACK_ACCESS_KEY"]
     ENV["E2E_BROWSERSTACK_APP"] = lane_context[SharedValues::BROWSERSTACK_APP_ID]
