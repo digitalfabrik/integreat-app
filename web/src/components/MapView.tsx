@@ -9,7 +9,7 @@ const MapView: React.FunctionComponent = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <ReactMapGL {...viewport} onViewportChange={nextViewport => setViewport(nextViewport)} mapStyle={mapStyleUrl} />
+      <ReactMapGL {...viewport} onViewportChange={setViewport} mapStyle={mapStyleUrl} />
     </div>
   )
 }
