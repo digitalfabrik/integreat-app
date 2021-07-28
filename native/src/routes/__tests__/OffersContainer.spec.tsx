@@ -1,13 +1,16 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { OFFERS_ROUTE, OffersRouteType, useLoadFromEndpoint, CityModel, ErrorCode, OfferModel } from 'api-client'
+import { CityModel, ErrorCode, OFFERS_ROUTE, OffersRouteType } from 'api-client'
 import OffersContainer from '../OffersContainer'
 import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import { mocked } from 'ts-jest/utils'
-import OffersModelBuilder from '../../../../api-client/src/testing/OffersModelBuilder'
+import {
+  mockUseLoadFromEndpointWithError,
+  mockUseLoadFromEndpointLoading,
+  mockUseLoadFromEndpointOnceWitData
+} from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
@@ -33,7 +36,6 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 
 describe('OffersContainer', () => {
   const navigation = createNavigationScreenPropMock<OffersRouteType>()
-  const offers = new OffersModelBuilder(2).build()
   const cityCode = 'augsburg'
   const languageCode = 'de'
   const route = {
@@ -47,8 +49,6 @@ describe('OffersContainer', () => {
   const errorText = `Failure ${ErrorCode.UnknownError}`
   const cities = new CityModelBuilder(1).build()
 
-  const refresh = () => {}
-
   const state = {
     cities: {
       models: cities
@@ -57,21 +57,12 @@ describe('OffersContainer', () => {
   const mockStore = configureMockStore()
   const store = mockStore(state)
 
-  const mockUseLoadFromEndpointOnce = <P extends typeof useLoadFromEndpoint>(mock: ReturnType<P>) => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(() => mock)
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce({
-      data: offers,
-      loading: false,
-      error: null,
-      refresh
-    })
+    mockUseLoadFromEndpointOnceWitData([])
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -82,32 +73,8 @@ describe('OffersContainer', () => {
     expect(queryByText(errorText)).toBeFalsy()
   })
 
-  it('should display offers with a Loading spinner', () => {
-    const useLoadFromEndpointMock = (() => ({
-      data: [],
-      loading: true,
-      error: null,
-      refresh
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
-    const { queryByText } = render(
-      <Provider store={store}>
-        <OffersContainer navigation={navigation} route={route} />
-      </Provider>
-    )
-    expect(queryByText('Offers')).toBeTruthy()
-    expect(queryByText('loading')).toBeTruthy()
-    expect(queryByText(errorText)).toBeFalsy()
-  })
-
   it('should display error without a loading spinner', () => {
-    const useLoadFromEndpointMock = (() => ({
-      data: [],
-      loading: false,
-      error: new Error('myError'),
-      refresh
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+    mockUseLoadFromEndpointWithError('Error')
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -118,20 +85,14 @@ describe('OffersContainer', () => {
     expect(queryByText('loading')).toBeFalsy()
   })
 
-  it('should display error with spinner', () => {
-    const useLoadFromEndpointMock = (() => ({
-      data: [],
-      loading: true,
-      error: new Error('myError'),
-      refresh
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+  it('should display a loading spinner', () => {
+    mockUseLoadFromEndpointLoading()
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(queryByText(errorText)).toBeTruthy()
+    expect(queryByText(errorText)).toBeFalsy()
     expect(queryByText('loading')).toBeTruthy()
     expect(queryByText('Offers')).toBeFalsy()
   })
@@ -163,12 +124,7 @@ describe('OffersContainer', () => {
         models: [disabledOffersCity]
       }
     })
-    mockUseLoadFromEndpointOnce(() => ({
-      data: null,
-      loading: false,
-      error: null,
-      refresh
-    }))
+    mockUseLoadFromEndpointOnceWitData(null)
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -180,3 +136,4 @@ describe('OffersContainer', () => {
     expect(queryByText(`Failure ${ErrorCode.PageNotFound}`)).toBeTruthy()
   })
 })
+
