@@ -923,7 +923,7 @@ workflows:
                     - mattermost
                 requires:
                     - bump_version
-                    - check_web
+                    - check
             - build_web:
                 build_config_name: integreat-test-cms
                 context:
