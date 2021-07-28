@@ -34,7 +34,6 @@
 
   <link rel="preload" href="<%= config.cmsUrl %>/wp-json/extensions/v3/sites" as="fetch" crossorigin />
 
-  <link rel="stylesheet" href="/fonts/open-sans/open-sans.css" as="style" type="text/css" />
   <link rel="preload"
         href="/fonts/open-sans/open-sans-v15-greek_cyrillic-ext_vietnamese_latin_cyrillic_greek-ext-700.woff2" as="font"
         type="font/woff2" crossorigin />
@@ -42,7 +41,9 @@
         href="/fonts/open-sans/open-sans-v15-greek_cyrillic-ext_vietnamese_latin_cyrillic_greek-ext-regular.woff2"
         as="font" type="font/woff2" crossorigin />
 
-  <link rel="stylesheet" href="/fonts/raleway/raleway.css" type="text/css" />
+   <link href='/fonts/open-sans/open-sans.css' rel='preload' as='style' />
+            <link href='/fonts/raleway/raleway.css' rel='preload' as='style' />
+            <link href='/fonts/varela-round/varela-round.css' rel='preload' as='style' />
   <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-700.woff2" as="font" type="font/woff2"
         crossorigin />
   <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-regular.woff2" as="font" type="font/woff2"
