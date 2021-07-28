@@ -76,10 +76,10 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
     const sorted = this._sort(cities)
-    const groups = groupBy(sorted, city => city.sortCategory)
+    const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
     return transform(
       groups,
-      (result, cities, key) => {
+      (result: CityGroupContainer[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
             <CityGroup theme={this.props.theme}>{key}</CityGroup>
