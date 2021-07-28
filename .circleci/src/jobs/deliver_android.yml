@@ -28,18 +28,19 @@ steps:
       command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/de-DE/changelogs/default.txt --language de --production
   - run:
       name: Parse english android release notes
-      command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-GB/changelogs/default.txt --language en --production
+      command:
+        tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-GB/changelogs/default.txt --language en --production
         && tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-US/changelogs/default.txt --language en --production
   - run:
-      name: "[FL] Browserstack Upload Live"
+      name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane android browserstack_upload_live apk_path:attached_workspace/<< parameters.build_config_name >>.apk
       working_directory: native
   - run:
-      name: "[FL] Play Store Upload"
+      name: '[FL] Play Store Upload'
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native
   - run:
-      name: "Sentry Upload"
+      name: 'Sentry Upload'
       # A react-native app reports its version as: application_id@version+build_number
       command: |
         eval $(yarn workspace --silent build-configs --silent manage to-bash << parameters.build_config_name >> android)

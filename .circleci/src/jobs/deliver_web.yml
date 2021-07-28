@@ -11,7 +11,7 @@ steps:
   - skip_job
   - add_ssh_keys:
       fingerprints:
-        - "68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02"
+        - '68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02'
   - checkout
   - prepare_workspace
   - restore_environment_variables
@@ -28,13 +28,13 @@ steps:
             name: Aschaffenburg production delivery
             command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
         - run:
-            name: "Sentry Upload: integreat"
+            name: 'Sentry Upload: integreat'
             command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
         - run:
-            name: "Sentry Upload: malte"
+            name: 'Sentry Upload: malte'
             command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
         - run:
-            name: "Sentry Upload: aschaffenburg"
+            name: 'Sentry Upload: aschaffenburg'
             command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
   - unless:
       condition: << parameters.production_delivery >>
@@ -49,12 +49,12 @@ steps:
             name: Aschaffenburg development delivery
             command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
         - run:
-            name: "Sentry Upload: integreat-test-cms"
+            name: 'Sentry Upload: integreat-test-cms'
             command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
         - run:
-            name: "Sentry Upload: malte"
+            name: 'Sentry Upload: malte'
             command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
         - run:
-            name: "Sentry Upload: aschaffenburg"
+            name: 'Sentry Upload: aschaffenburg'
             command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
   - notify

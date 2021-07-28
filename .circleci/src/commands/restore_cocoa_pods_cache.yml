@@ -6,7 +6,7 @@ steps:
         - 3-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
         - 3-pods-{{ arch }}-
   - run:
-      name: "[CP] Install CocoaPods"
+      name: '[CP] Install CocoaPods'
       command: bundle exec pod install
       working_directory: native/ios
   - save_cache:
