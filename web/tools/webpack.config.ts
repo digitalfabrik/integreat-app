@@ -135,16 +135,7 @@ const createConfig = (
     },
     optimization: {
       usedExports: true,
-      runtimeChunk: 'single',
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all'
-          }
-        }
-      }
+      runtimeChunk: 'single'
     },
     devtool: 'source-map',
     devServer: {
@@ -184,7 +175,7 @@ const createConfig = (
       }),
       new PreloadWebpackPlugin({
         rel: 'preload',
-        include: ['main', 'vendors', 'runtime']
+        include: ['main', 'runtime']
       }),
       new CopyPlugin({
         patterns: [
