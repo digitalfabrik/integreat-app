@@ -7,6 +7,7 @@ import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import PreloadWebpackPlugin from 'preload-webpack-plugin'
 import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
 import { config as translationsConfig } from 'translations'
@@ -177,6 +178,10 @@ const createConfig = (
         templateParameters: {
           config: buildConfig
         }
+      }),
+      new PreloadWebpackPlugin({
+        rel: 'preload',
+        include: ['vendors']
       }),
       new CopyPlugin({
         patterns: [
