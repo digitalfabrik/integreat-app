@@ -6,8 +6,11 @@ platform :ios, '10.0'
 target 'Integreat' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
-  # Use MapLibre
-  $RNMBGL_Use_SPM = true
+  # Use MapLibre currently not working
+  # https://github.com/react-native-mapbox-gl/maps/issues/1472
+  #$RNMBGL_Use_SPM = true
+
+  $ReactNativeMapboxGLIOSVersion = '5.9'
 
   if !ENV['CI']
       pre_install do |installer|
