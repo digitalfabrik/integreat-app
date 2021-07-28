@@ -57,7 +57,7 @@ jobs:
   #        - bump_version
   #        - deliver_web
 
-  - check_native:
+  - check:
       context:
         - mattermost
 
@@ -97,7 +97,7 @@ jobs:
         - tuerantuer-android
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_android
         - build_integreat_android
 
@@ -121,7 +121,7 @@ jobs:
         - tuerantuer-android
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_android
         - build_malte_android
 
@@ -145,7 +145,7 @@ jobs:
         - tuerantuer-android
       production_delivery: false # TODO IGAPP-567 Enable production delivery
       requires:
-        - check_native
+        - check
         - e2e_android
         - build_aschaffenburg_android
 
@@ -195,7 +195,7 @@ jobs:
         - tuerantuer-ios
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_ios
         - build_integreat_ios
 
@@ -219,7 +219,7 @@ jobs:
         - tuerantuer-ios
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_ios
         - build_malte_ios
 
@@ -243,7 +243,7 @@ jobs:
         - tuerantuer-ios
       production_delivery: false # TODO IGAPP-567 Enable production delivery
       requires:
-        - check_native
+        - check
         - e2e_ios
         - build_aschaffenburg_ios
 

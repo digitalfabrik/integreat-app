@@ -13,7 +13,7 @@ jobs:
         - mattermost
       requires:
         - bump_version
-        - check_web
+        - check
   - build_web:
       name: build_ig_test_cms_web
       build_config_name: integreat-test-cms
