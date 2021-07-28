@@ -1,18 +1,18 @@
 import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
-import { DataContainer } from '../services/DataContainer'
+import { DataContainer } from '../utils/DataContainer'
 import loadCategories from './loadCategories'
 import loadEvents from './loadEvents'
 import fetchResourceCache from './fetchResourceCache'
 import moment from 'moment'
 import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../redux/StoreActionType'
 import loadLanguages from './loadLanguages'
-import ResourceURLFinder from '../services/ResourceURLFinder'
-import buildResourceFilePath from '../services/buildResourceFilePath'
+import ResourceURLFinder from '../utils/ResourceURLFinder'
+import buildResourceFilePath from '../utils/buildResourceFilePath'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import AppSettings from '../services/AppSettings'
+import AppSettings from '../utils/AppSettings'
 import NetInfo from '@react-native-community/netinfo'
 import loadCities from './loadCities'
-import * as NotificationsManager from '../services/PushNotificationsManager'
+import * as NotificationsManager from '../utils/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
 import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
@@ -141,9 +141,11 @@ export default function* loadCityContent(
   }
 
   const lastUpdate = yield* call(dataContainer.getLastUpdate, newCity, newLanguage)
+  // eslint-disable-next-line no-console
   console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
   const netInfo = yield* call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
+  // eslint-disable-next-line no-console
   console.debug('City content should be refreshed: ', shouldUpdate)
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and
   // resources at the same time. This kind of serves as a lock.

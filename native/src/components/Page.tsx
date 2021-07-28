@@ -8,7 +8,7 @@ import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import { RESOURCE_CACHE_DIR_PATH } from '../services/DatabaseConnector'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import { mapValues } from 'lodash'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { ThemeType } from 'build-configs'

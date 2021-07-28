@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
-import textTruncator from '../../services/textTruncator'
+import { textTruncator } from '../../utils/stringUtils'
 import { ThemeProvider } from 'styled-components'
 import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
 import buildConfig from '../../constants/buildConfig'

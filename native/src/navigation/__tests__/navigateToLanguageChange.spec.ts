@@ -1,11 +1,11 @@
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToLanguageChange from '../navigateToLanguageChange'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import { generateKey } from '../../services/generateRouteKey'
-import sendTrackingSignal from '../../services/sendTrackingSignal'
+import { generateRouteKey } from '../../utils/helpers'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
-jest.mock('../../services/sendTrackingSignal')
+jest.mock('../../utils/sendTrackingSignal')
 
 describe('navigateToLanguageChange', () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe('navigateToLanguageChange', () => {
   })
   const languages = new LanguageModelBuilder(3).build()
   const availableLanguages = ['de', 'en']
-  const previousKey = generateKey()
+  const previousKey = generateRouteKey()
   const cityCode = 'augsburg'
   const languageCode = 'de'
   it('should navigate to language change and send a tracking signal', () => {

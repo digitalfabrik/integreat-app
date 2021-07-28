@@ -321,6 +321,10 @@ PODS:
     - React-Core
   - react-native-pdf (6.3.0):
     - React-Core
+  - react-native-progress-bar-android (1.0.4):
+    - React
+  - react-native-progress-view (1.2.4):
+    - React
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-static-server (0.5.0):
@@ -497,6 +501,8 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pdf (from `../node_modules/react-native-pdf`)
+  - "react-native-progress-bar-android (from `../node_modules/@react-native-community/progress-bar-android`)"
+  - "react-native-progress-view (from `../node_modules/@react-native-community/progress-view`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-static-server (from `../node_modules/react-native-static-server`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -598,6 +604,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-pdf:
     :path: "../node_modules/react-native-pdf"
+  react-native-progress-bar-android:
+    :path: "../node_modules/@react-native-community/progress-bar-android"
+  react-native-progress-view:
+    :path: "../node_modules/@react-native-community/progress-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-static-server:
@@ -701,6 +711,8 @@ SPEC CHECKSUMS:
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
   react-native-pdf: ef641e79a6d550cfabe5d7ec1916799726514c43
+  react-native-progress-bar-android: be43138ab7da30d51fc038bafa98e9ed594d0c40
+  react-native-progress-view: 5e9560b491a149035b869d63603d4fc7f9258cb1
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-static-server: 201b2a945a35096be3ae7f43e367c65bcbd61343
   react-native-webview: 0e49a2e85f42b20ea5579928a8b254a07fa901dc
