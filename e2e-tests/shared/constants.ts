@@ -1,4 +1,5 @@
 export const filter = 'wirschaffendas'
+export const contentSearch = 'language'
 export const defaultCity = 'Testumgebung Ende-zu-Ende-Testing'
 export const language = 'en'
 
