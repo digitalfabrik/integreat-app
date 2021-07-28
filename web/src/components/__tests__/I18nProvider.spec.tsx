@@ -3,10 +3,10 @@ import { render, act, screen, waitFor } from '@testing-library/react'
 import I18nProvider from '../I18nProvider'
 import { Translation } from 'react-i18next'
 import Helmet from 'react-helmet'
-import BrowserLanguageDetector from '../../services/BrowserLanguageDetector'
+import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
 import { mocked } from 'ts-jest/utils'
 
-jest.mock('../../services/BrowserLanguageDetector')
+jest.mock('../../utils/BrowserLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 
 describe('I18nProvider', () => {

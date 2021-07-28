@@ -22,7 +22,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { StateType } from '../redux/StateType'
-import determineApiUrl from '../services/determineApiUrl'
+import { determineApiUrl } from '../utils/helpers'
 
 type OwnPropsType = {
   route: RoutePropType<SprungbrettOfferRouteType>

@@ -1,5 +1,5 @@
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { FetchEventActionType } from '../../redux/StoreActionType'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
@@ -10,7 +10,6 @@ import moment from 'moment'
 import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
 
-jest.mock('rn-fetch-blob')
 jest.mock('../loadCityContent')
 describe('watchFetchEvents', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')

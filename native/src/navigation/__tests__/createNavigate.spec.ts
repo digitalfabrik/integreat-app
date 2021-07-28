@@ -23,7 +23,7 @@ import {
 } from 'api-client/src/routes'
 import buildConfig from '../../constants/buildConfig'
 import navigateToJpalTracking from '../navigateToJpalTracking'
-import sendTrackingSignal from '../../services/sendTrackingSignal'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import { mocked } from 'ts-jest/utils'
 
@@ -36,7 +36,7 @@ jest.mock('../navigateToSearch', () => jest.fn())
 jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
 jest.mock('../navigateToJpalTracking', () => jest.fn())
-jest.mock('../../services/sendTrackingSignal', () => jest.fn())
+jest.mock('../../utils/sendTrackingSignal', () => jest.fn())
 jest.mock('../url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com')
 }))

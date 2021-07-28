@@ -20,10 +20,6 @@ jest.mock('react-native-reanimated', () => {
 })
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
 
-// Setup fetch mock
-global.fetch = require('jest-fetch-mock')
-jest.mock('rn-fetch-blob')
-
 function walkDir(dir, callback) {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
@@ -45,6 +41,7 @@ walkDir(mocksPath, name => {
 })
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock('constants/buildConfig')
+jest.doMock('rn-fetch-blob')
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
 jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

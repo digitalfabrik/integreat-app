@@ -7,10 +7,10 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import Geolocation from '@react-native-community/geolocation'
 import waitForExpect from 'wait-for-expect'
 import { ThemeProvider } from 'styled-components/native'
-import { checkLocationPermission, requestLocationPermission } from '../../services/LocationPermissionManager'
+import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import { mocked } from 'ts-jest/utils'
 
-jest.mock('../../services/LocationPermissionManager', () => ({
+jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
   requestLocationPermission: jest.fn()
 }))
