@@ -1,6 +1,6 @@
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import * as React from 'react'
-import { ElementType } from 'react'
+import { ElementType, ReactElement, ReactNode } from 'react'
 import type { Provider as ProviderType } from 'react-redux'
 import type * as TestRendererType from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
@@ -31,10 +31,8 @@ jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
 const mockStore = configureMockStore()
 
-class MockNavigator extends React.Component<void> {
-  render() {
+const MockNavigator: React.FC = () => {
     return null
-  }
 }
 
 describe('NavigatorContainer', () => {
@@ -60,7 +58,7 @@ describe('NavigatorContainer', () => {
         <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
-    const navigator = result.root.findByType(MockNavigator as ElementType)
+    const navigator = result.root.findByType(MockNavigator)
     store.clearActions()
     navigator.props.fetchCategory('augsburg', 'de', 'route-key-0', true)
     expect(store.getActions()).toEqual([
@@ -93,7 +91,7 @@ describe('NavigatorContainer', () => {
         <NavigatorContainer routeName={DASHBOARD_ROUTE} routeKey={key} />
       </Provider>
     )
-    const navigator = result.root.findByType(MockNavigator as ElementType)
+    const navigator = result.root.findByType(MockNavigator)
     store.clearActions()
     navigator.props.fetchCities(true)
     expect(store.getActions()).toEqual([

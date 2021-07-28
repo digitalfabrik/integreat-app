@@ -18,10 +18,10 @@ import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { StateType } from 'src/redux/StateType'
 import { StoreActionType } from 'src/redux/StoreActionType'
-import { StackHeaderProps } from '@react-navigation/stack'
-import { TFunction } from 'i18next'
+import { merge } from 'lodash/object'
+import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 
-const mockStore = configureMockStore()
+const mockStore = configureMockStore<StateType, StoreActionType>()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../../components/Header', () => {
@@ -30,9 +30,7 @@ jest.mock('../../components/Header', () => {
   return (props: Record<string, unknown>) => <Text {...props}>Header</Text>
 })
 
-type OwnPropsType = StackHeaderProps & {
-  t: TFunction
-}
+type OwnPropsType = React.ComponentProps<typeof HeaderContainer>
 
 describe('HeaderContainer', () => {
   let store: Store<StateType, StoreActionType>, state: StateType
@@ -123,10 +121,10 @@ describe('HeaderContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     state = prepareState()
-    store = mockStore(state) as unknown as Store<StateType, StoreActionType>
+    store = mockStore(state)
   })
 
-  const assertProps = (props: OwnPropsType, expected: {[key: string]: string}, customStore = store) => {
+  const assertProps = (props: OwnPropsType, expected: { [key: string]: string }, customStore = store) => {
     const { getByText } = render(
       <Provider store={customStore}>
         <HeaderContainer {...props} />
@@ -137,13 +135,13 @@ describe('HeaderContainer', () => {
   }
 
   it('shareUrl should be set correctly for categories route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           key: 'routeKey1'
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -151,14 +149,14 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for events overview route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: EVENTS_ROUTE,
           key: 'routeKeyEvent1'
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -166,14 +164,14 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for specific event route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: EVENTS_ROUTE,
           key: 'routeKeyEvent2'
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -181,14 +179,14 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for local news route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: NEWS_ROUTE,
           key: 'routeKeyNews1'
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -196,28 +194,16 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for local news details route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: NEWS_ROUTE,
           key: 'routeKeyNews1'
         }
       }
-    } as OwnPropsType
+    })
     const state = prepareState()
-    const newState = {
-      ...state,
-      cityContent: {
-        ...state.cityContent,
-        routeMapping: {
-          ...state.cityContent?.routeMapping,
-          routeKeyNews1: {
-            ...state.cityContent?.routeMapping.routeKeyNews1,
-            newsId: '12345'
-          }
-        }
-      }
-    }
+    const newState = merge(state, { cityContent: { routeMapping: { routeKeyNews1: { newsId: '12345' } } } })
 
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
     assertProps(
@@ -225,18 +211,18 @@ describe('HeaderContainer', () => {
       {
         shareUrl: expectedShareUrl
       },
-      mockStore(newState) as unknown as Store<StateType, StoreActionType>
+      mockStore(newState)
     )
   })
 
   it('shareUrl should be set correctly for offers route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: OFFERS_ROUTE
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -244,13 +230,13 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for sprungbrett offer route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: SPRUNGBRETT_OFFER_ROUTE
         }
       }
-    } as OwnPropsType
+    })
     const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
     assertProps(ownProps, {
       shareUrl
@@ -258,7 +244,7 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for disclaimer route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: DISCLAIMER_ROUTE,
@@ -268,7 +254,7 @@ describe('HeaderContainer', () => {
           }
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/nuernberg/ar/${DISCLAIMER_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
@@ -276,14 +262,14 @@ describe('HeaderContainer', () => {
   })
 
   it('shareUrl should be set correctly for pois overview route', () => {
-    const ownProps = {
+    const ownProps = mockStackHeaderProps({
       scene: {
         route: {
           name: POIS_ROUTE,
           key: 'routeKeyPois1'
         }
       }
-    } as OwnPropsType
+    })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`
     assertProps(ownProps, {
       shareUrl: expectedShareUrl
