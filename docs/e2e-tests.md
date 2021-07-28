@@ -72,6 +72,24 @@ Add the accessibility-id to a React component using `testID('Example-Component')
 
 For more complex queries you should add/use a custom [Selector]('../e2e/native/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
 
+#### Using Appium
+
+For inspecting the displayed screen it is helpful to use Appium. 
+Getting started:
+* Download and start Appium 
+* Start Server
+* Click `search icon`
+* Add to `Desired Capabilities`: 
+```
+{
+  "app": "<your-path-to>/integreat-app/native/android/app/build/outputs/apk/debug/app-debug.apk",
+  "platformName": "Android"
+  } 
+```
+* Click `start sesscion`
+* Now you can open a page in the emulator and inspect it
+
+
 ## Troubleshooting
 
 ### Cannot hide Keyboard on iOS
