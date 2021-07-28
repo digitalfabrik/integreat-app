@@ -10,54 +10,54 @@ jobs:
         - jira
       delivery: production
 
-#  - check_web:
-#      context:
-#        - mattermost
-#  - e2e_web:
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - build_web:
-#      name: build_integreat_web
-#      build_config_name: integreat
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - build_web:
-#      name: build_malte_web
-#      build_config_name: malte
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - build_web:
-#      name: build_aschaffenburg_web
-#      build_config_name: aschaffenburg
-#      context:
-#        - mattermost
-#      requires:
-#        - bump_version
-#  - deliver_web:
-#      context:
-#        - mattermost
-#        - sentry
-#      production_delivery: true
-#      requires:
-#        - check_web
-#        - build_integreat_web
-#        - build_malte_web
-#        - build_aschaffenburg_web
-#  - notify_web:
-#      context:
-#        - mattermost
-#        - deliverino
-#      requires:
-#        - bump_version
-#        - deliver_web
+  #  - check_web:
+  #      context:
+  #        - mattermost
+  #  - e2e_web:
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - build_web:
+  #      name: build_integreat_web
+  #      build_config_name: integreat
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - build_web:
+  #      name: build_malte_web
+  #      build_config_name: malte
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - build_web:
+  #      name: build_aschaffenburg_web
+  #      build_config_name: aschaffenburg
+  #      context:
+  #        - mattermost
+  #      requires:
+  #        - bump_version
+  #  - deliver_web:
+  #      context:
+  #        - mattermost
+  #        - sentry
+  #      production_delivery: true
+  #      requires:
+  #        - check_web
+  #        - build_integreat_web
+  #        - build_malte_web
+  #        - build_aschaffenburg_web
+  #  - notify_web:
+  #      context:
+  #        - mattermost
+  #        - deliverino
+  #      requires:
+  #        - bump_version
+  #        - deliver_web
 
-  - check_native:
+  - check:
       context:
         - mattermost
 
@@ -97,7 +97,7 @@ jobs:
         - tuerantuer-android
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_android
         - build_integreat_android
 
@@ -121,7 +121,7 @@ jobs:
         - tuerantuer-android
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_android
         - build_malte_android
 
@@ -145,7 +145,7 @@ jobs:
         - tuerantuer-android
       production_delivery: false # TODO IGAPP-567 Enable production delivery
       requires:
-        - check_native
+        - check
         - e2e_android
         - build_aschaffenburg_android
 
@@ -195,7 +195,7 @@ jobs:
         - tuerantuer-ios
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_ios
         - build_integreat_ios
 
@@ -219,7 +219,7 @@ jobs:
         - tuerantuer-ios
       production_delivery: true
       requires:
-        - check_native
+        - check
         - e2e_ios
         - build_malte_ios
 
@@ -243,7 +243,7 @@ jobs:
         - tuerantuer-ios
       production_delivery: false # TODO IGAPP-567 Enable production delivery
       requires:
-        - check_native
+        - check
         - e2e_ios
         - build_aschaffenburg_ios
 
@@ -262,6 +262,6 @@ jobs:
         - mattermost
         - deliverino
       requires:
-#        - notify_web
+        #        - notify_web
         - notify_android
         - notify_ios
