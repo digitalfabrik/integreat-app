@@ -1,12 +1,13 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { OFFERS_ROUTE, OffersRouteType, useLoadFromEndpoint, CityModel, ErrorCode } from 'api-client'
+import { OFFERS_ROUTE, OffersRouteType, useLoadFromEndpoint, CityModel, ErrorCode, OfferModel } from 'api-client'
 import OffersContainer from '../OffersContainer'
 import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { mocked } from 'ts-jest/utils'
+import OffersModelBuilder from '../../../../api-client/src/testing/OffersModelBuilder'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
@@ -32,6 +33,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 
 describe('OffersContainer', () => {
   const navigation = createNavigationScreenPropMock<OffersRouteType>()
+  const offers = new OffersModelBuilder(2).build()
   const cityCode = 'augsburg'
   const languageCode = 'de'
   const route = {
@@ -55,8 +57,8 @@ describe('OffersContainer', () => {
   const mockStore = configureMockStore()
   const store = mockStore(state)
 
-  const mockUseLoadFromEndpointOnce = (mock: typeof useLoadFromEndpoint) => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
+  const mockUseLoadFromEndpointOnce = <P extends typeof useLoadFromEndpoint>(mock: ReturnType<P>) => {
+    mocked(useLoadFromEndpoint).mockImplementationOnce(() => mock)
   }
 
   beforeEach(() => {
@@ -64,13 +66,12 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    const useLoadFromEndpointMock = (() => ({
-      data: [],
+    mockUseLoadFromEndpointOnce({
+      data: offers,
       loading: false,
       error: null,
       refresh
-    })) as typeof useLoadFromEndpoint
-    mockUseLoadFromEndpointOnce(useLoadFromEndpointMock)
+    })
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
