@@ -19,7 +19,7 @@ class Helmet extends React.PureComponent<PropsType> {
 
     return languageChangePaths.map(languageChangePath => {
       const { code, path } = languageChangePath
-      return path && <link key={code} rel='alternate' hrefLang={code} href={path} />
+      return path && <link key={code} rel='alternate' hrefLang={code} href={window.location.href} />
     })
   }
 
