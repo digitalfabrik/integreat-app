@@ -6,7 +6,7 @@ import { DateFormatter } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 
 describe('TimeStamp', () => {
-  const t = input => input
+  const t = (input: string) => input
 
   it('should display last update text and formatted timestamp', () => {
     const dateFormatter = new DateFormatter('de')
