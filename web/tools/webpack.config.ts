@@ -130,7 +130,17 @@ const createConfig = (
       sourcePrefix: '  '
     },
     optimization: {
-      usedExports: true
+      usedExports: true,
+      runtimeChunk: 'single',
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          }
+        }
+      }
     },
     devtool: 'source-map',
     devServer: {
