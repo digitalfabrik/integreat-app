@@ -75,7 +75,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   clearInMemoryCache = (): void => {
-    Object.keys(this.caches).forEach(cache => this.caches[(cache as CacheKeyType)].evict())
+    Object.keys(this.caches).forEach(cache => this.caches[cache].evict())
   }
 
   clearOfflineCache = async (): Promise<void> => {
