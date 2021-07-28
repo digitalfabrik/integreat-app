@@ -181,7 +181,7 @@ const createConfig = (
       }),
       new PreloadWebpackPlugin({
         rel: 'preload',
-        include: ['vendors']
+        include: ['main', 'vendors', 'runtime']
       }),
       new CopyPlugin({
         patterns: [
