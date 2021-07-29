@@ -115,7 +115,7 @@ class CategoryListItem extends React.Component<PropsType> {
         <CategoryTitle
           theme={theme}
           language={language}
-          autoEscape={true}
+          autoEscape
           textToHighlight={category.title}
           sanitize={normalizeSearchString}
           searchWords={query ? [query] : []}
