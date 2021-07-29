@@ -7,7 +7,12 @@ import buildConfig from '../../constants/buildConfig'
 describe('Failure', () => {
   it('should render a retry button if tryAgain is passed', () => {
     const { getByTestId } = render(
-      <Failure theme={buildConfig().lightTheme} tryAgain={() => {}} code={ErrorCode.UnknownError} t={(key: string) => key} />
+      <Failure
+        theme={buildConfig().lightTheme}
+        tryAgain={() => {}}
+        code={ErrorCode.UnknownError}
+        t={(key: string) => key}
+      />
     )
     expect(getByTestId('button-tryAgain')).toBeTruthy()
   })
@@ -26,7 +31,12 @@ describe('Failure', () => {
   it('should try again if button is pressed', () => {
     const tryAgain = jest.fn()
     const { getByTestId } = render(
-      <Failure theme={buildConfig().lightTheme} code={ErrorCode.UnknownError} tryAgain={tryAgain} t={(key: string) => key} />
+      <Failure
+        theme={buildConfig().lightTheme}
+        code={ErrorCode.UnknownError}
+        tryAgain={tryAgain}
+        t={(key: string) => key}
+      />
     )
     fireEvent.press(getByTestId('button-tryAgain'))
     expect(tryAgain).toHaveBeenCalled()

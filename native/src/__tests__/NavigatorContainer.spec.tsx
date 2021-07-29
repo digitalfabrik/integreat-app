@@ -1,6 +1,5 @@
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import * as React from 'react'
-import { ElementType, ReactElement, ReactNode } from 'react'
 import type { Provider as ProviderType } from 'react-redux'
 import type * as TestRendererType from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
@@ -32,7 +31,7 @@ jest.mock('react-native-share')
 const mockStore = configureMockStore()
 
 const MockNavigator: React.FC = () => {
-    return null
+  return null
 }
 
 describe('NavigatorContainer', () => {

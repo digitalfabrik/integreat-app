@@ -1,17 +1,16 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import {
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettOfferRouteType,
-  CityModel,
-  ErrorCode,
-} from 'api-client'
+import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType, CityModel, ErrorCode } from 'api-client'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import { mockUseLoadFromEndpointOnceWitData, mockUseLoadFromEndpointWithError, mockUseLoadFromEndpointLoading } from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
+import {
+  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointWithError,
+  mockUseLoadFromEndpointLoading
+} from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
@@ -64,7 +63,7 @@ describe('SprungbrettOfferContainer', () => {
 
   it('should display offers without a Loading spinner', () => {
     mockUseLoadFromEndpointOnceWitData([])
-     const { queryByText, getByText } = render(
+    const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>

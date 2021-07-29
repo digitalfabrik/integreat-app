@@ -64,7 +64,7 @@ const prepareDataContainer = async (dataContainer: DataContainer, city: string, 
 describe('loadCityContent', () => {
   const lastUpdate = moment('2000-01-05T10:10:00.000Z')
   const mockedDate = moment('2000-01-05T11:10:00.000Z')
-  let restoreMockedDate: () => void;
+  let restoreMockedDate: () => void
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
 
@@ -314,7 +314,6 @@ describe('loadCityContent', () => {
   })
   it('should not fetch resources if connection type is cellular', async () => {
     const previous = mocked(NetInfo.fetch).getMockImplementation()
-    // @ts-ignore cannot import enum because it is mocked
     mocked(NetInfo.fetch).mockImplementation(async () => {
       return {
         type: 'cellular',

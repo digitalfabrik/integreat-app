@@ -136,4 +136,3 @@ describe('OffersContainer', () => {
     expect(queryByText(`Failure ${ErrorCode.PageNotFound}`)).toBeTruthy()
   })
 })
-

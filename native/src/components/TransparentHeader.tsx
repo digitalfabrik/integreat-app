@@ -31,7 +31,7 @@ export type PropsType = StackHeaderProps & {
   t: TFunction<'layout'>
 }
 
-type RouteParams = {[key: string]: string } | null;
+type RouteParams = { [key: string]: string } | null
 
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBackInStack = (): void => {
