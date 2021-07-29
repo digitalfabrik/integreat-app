@@ -26,9 +26,7 @@ import PageDetail from '../components/PageDetail'
 import Caption from '../components/Caption'
 import List from '../components/List'
 import Helmet from '../components/Helmet'
-
-/** Lazy import for code splitting map library */
-const MapView = React.lazy(() => import('../components/MapView'))
+import MapView from '../components/MapView'
 
 type PropsType = {
   cities: Array<CityModel>
