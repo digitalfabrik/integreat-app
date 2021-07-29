@@ -34,7 +34,7 @@ const createDataContainer = async (city: string, language: string) => {
 
 describe('watchFetchCategories', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
-  let restoreMockedDate: () => void;
+  let restoreMockedDate: () => void
 
   beforeEach(() => {
     RNFetchBlob.fs._reset()

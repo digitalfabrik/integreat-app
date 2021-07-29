@@ -18,7 +18,7 @@ import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { StateType } from 'src/redux/StateType'
 import { StoreActionType } from 'src/redux/StoreActionType'
-import { merge } from 'lodash/object'
+import { merge } from 'lodash'
 import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 
 const mockStore = configureMockStore<StateType, StoreActionType>()

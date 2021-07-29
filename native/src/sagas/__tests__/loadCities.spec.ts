@@ -6,7 +6,7 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import { CityModel } from 'api-client'
 
-let mockCities: CityModel[];
+let mockCities: CityModel[]
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   return {

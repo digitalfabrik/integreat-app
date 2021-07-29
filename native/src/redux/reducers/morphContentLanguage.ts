@@ -7,8 +7,16 @@ import {
   RouteMappingType,
   RouteStateType
 } from '../StateType'
-import { mapValues } from 'lodash/object'
-import { CATEGORIES_ROUTE, CategoriesMapModel, EventModel, EVENTS_ROUTE, PoiModel, POIS_ROUTE, CategoryModel } from 'api-client'
+import { mapValues } from 'lodash'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesMapModel,
+  EventModel,
+  EVENTS_ROUTE,
+  PoiModel,
+  POIS_ROUTE,
+  CategoryModel
+} from 'api-client'
 import { MorphContentLanguageActionType } from '../StoreActionType'
 import { forEachTreeNode } from '../../utils/helpers'
 
