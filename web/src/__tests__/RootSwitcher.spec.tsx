@@ -8,7 +8,7 @@ import { useLoadFromEndpoint } from 'api-client'
 import CityModelBuilder from '../../../api-client/src/testing/CityModelBuilder'
 import buildConfig from '../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
-import { RenderResult } from '@testing-library/react'
+import { RenderResult, waitFor } from '@testing-library/react'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -55,7 +55,7 @@ describe('RootSwitcher', () => {
     jest.clearAllMocks()
   })
 
-  it('should render the landing page', () => {
+  it('should render the landing page', async () => {
     mockUseLoadFromEndpointOnce(() => ({
       data: cities,
       loading: false,
@@ -65,7 +65,7 @@ describe('RootSwitcher', () => {
     const { getByText, location } = renderRootSwitcherWithLocation('/landing/de')
 
     expect(location?.pathname).toBe('/landing/de')
-    expect(getByText(cities[0].name)).toBeTruthy()
+    await waitFor(() => expect(getByText(cities[0].name)).toBeTruthy())
   })
 
   it.each`
