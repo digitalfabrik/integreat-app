@@ -136,6 +136,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     <Switch>
       {routes.map(({ exact = true, route, render }) => (
         <Route
+          key={route}
           exact={exact}
           path={RoutePatterns[route]}
           render={props => (
