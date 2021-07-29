@@ -1,4 +1,4 @@
-import React, { ReactElement, Suspense, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import {
   CityModel,
@@ -125,9 +125,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
-      <Suspense fallback={<LoadingSpinner />}>
-        <MapView />
-      </Suspense>
+      <MapView />
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )
