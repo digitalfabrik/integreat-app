@@ -22,7 +22,6 @@ export const ANDROID = 'android'
 export const IOS = 'ios'
 export const WEB = 'web'
 
-
 type BuildConfigPlatformType = {
   common: CommonBuildConfigType
   android: AndroidBuildConfigType
@@ -31,7 +30,6 @@ type BuildConfigPlatformType = {
 }
 
 export type PlatformType = keyof BuildConfigPlatformType
-type BuildConfigType = BuildConfigPlatformType[PlatformType]
 
 const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
 
@@ -43,7 +41,10 @@ export const buildConfigs: Record<string, BuildConfigPlatformType> = {
   [aschaffenburgBuildConfigName]: aschaffenburgBuildConfig
 }
 
-const loadBuildConfig = (buildConfigName: string | null | undefined, platform: PlatformType): BuildConfigType => {
+const loadBuildConfig = <T extends PlatformType>(
+  buildConfigName: string | null | undefined,
+  platform: T
+): BuildConfigPlatformType[T] => {
   if (!buildConfigName) {
     throw Error('No BUILD_CONFIG_NAME supplied!')
   }

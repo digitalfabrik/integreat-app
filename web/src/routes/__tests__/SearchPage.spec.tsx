@@ -7,10 +7,10 @@ import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
 import buildConfig from '../../constants/buildConfig'
-import { mockUseLoadFromEndpointWitData } from '../../testing/mockUseLoadFromEndpoint'
 import { renderWithBrowserRouter } from '../../testing/render'
 import { createPath, RoutePatterns } from '../index'
 import SearchPage from '../SearchPage'
+import { mockUseLoadFromEndpointWitData } from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('api-client', () => {
   return {
@@ -182,10 +182,10 @@ describe('SearchPage', () => {
 
     const searchResults = getAllByLabelText('category', { exact: false })
 
-    expect(searchResults[0].attributes['aria-label'].value).toBe(categoryModels[0].title)
-    expect(searchResults[1].attributes['aria-label'].value).toBe(categoryModels[1].title)
-    expect(searchResults[2].attributes['aria-label'].value).toBe(categoryModels[2].title)
-    expect(searchResults[3].attributes['aria-label'].value).toBe(categoryModels[3].title)
+    expect(searchResults[0].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[0].title)
+    expect(searchResults[1].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[1].title)
+    expect(searchResults[2].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[2].title)
+    expect(searchResults[3].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3].title)
   })
 
   describe('url query', () => {
