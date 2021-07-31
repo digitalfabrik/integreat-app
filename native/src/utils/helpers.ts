@@ -94,4 +94,14 @@ export const initSentry = (): void => {
   })
 }
 
+export const reportError = (err: Error): void => {
+  if (!buildConfig().featureFlags.sentry) {
+    // eslint-disable-next-line no-console
+    console.log('Tried to report error via sentry, but it is disabled via the build config.')
+    return
+  }
+
+  Sentry.captureException(err)
+}
+
 export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase()
