@@ -9,8 +9,8 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import CategoryList from '../components/CategoryList'
-import SearchFeedback from '../components/SearchFeedback'
-import normalizeSearchString from '../services/normalizeSearchString'
+import FeedbackSearch from '../components/FeedbackSearch'
+import { normalizeSearchString } from '../utils/stringUtils'
 import { Parser } from 'htmlparser2'
 import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
@@ -144,7 +144,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
         spaceSearch
       />
       <CategoryList categories={searchResults} query={filterText} onInternalLinkClick={noop} />
-      <SearchFeedback
+      <FeedbackSearch
         cityCode={cityCode}
         languageCode={languageCode}
         resultsFound={searchResults.length !== 0}

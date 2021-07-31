@@ -31,8 +31,7 @@ describe('OffersPage', () => {
     alias: 'sprungbrett',
     path: 'path to fetch jobs from',
     title: 'Sprungbrett',
-    thumbnail: 'xy',
-    postData: null
+    thumbnail: 'xy'
   })
   const lehrstellenRadarPostData = new Map()
   lehrstellenRadarPostData.set('partner', '0006')
@@ -51,8 +50,7 @@ describe('OffersPage', () => {
       alias: 'ihk-praktikumsboerse',
       path: 'ihk-pratkitkumsboerse.com',
       title: 'Praktikumsboerse',
-      thumbnail: 'xy',
-      postData: null
+      thumbnail: 'xy'
     })
   ]
 

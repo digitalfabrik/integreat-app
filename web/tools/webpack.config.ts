@@ -82,10 +82,13 @@ const createConfig = (
   // If version_name is not supplied read it from version file
   const versionName = passedVersionName || readVersionName()
   const shortCommitSha = passedCommitSha?.substring(0, SHORT_COMMIT_SHA_LENGTH) || 'Commit SHA unknown'
-
+  // eslint-disable-next-line no-console
   console.log('Used config: ', buildConfigName)
+  // eslint-disable-next-line no-console
   console.log('Configured as running in dev server: ', !devServer)
+  // eslint-disable-next-line no-console
   console.log('Version name: ', versionName)
+  // eslint-disable-next-line no-console
   console.log('Commit SHA ', shortCommitSha)
 
   const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
@@ -106,7 +109,10 @@ const createConfig = (
     mode: devServer ? 'development' : 'production',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      modules: [nodeModules, rootNodeModules]
+      modules: [nodeModules, rootNodeModules],
+      alias: {
+        'mapbox-gl': 'maplibre-gl'
+      }
     },
     // The base directory for resolving the entry option
     context: srcDirectory,
