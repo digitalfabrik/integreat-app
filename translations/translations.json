@@ -2067,6 +2067,7 @@
       "thanksMessage": "Muchas gracias por sus comentarios. Con ellos nos ayuda a mejorar nuestros contenidos y la app {{appName}}. Le invitamos a enviarnos más comentarios.",
       "close": "Cerrar",
       "negativeRating": "Esta página no sirve de ayuda",
+      "positiveRating": "Esta página sirve de ayuda",
       "contactMailAddress": "Correo electrónico para consultas",
       "optionalInfo": "opcional"
     },
