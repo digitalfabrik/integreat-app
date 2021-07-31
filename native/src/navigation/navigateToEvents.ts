@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { FetchEventActionType, StoreActionType } from '../redux/StoreActionType'
 import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { generateKey } from '../services/generateRouteKey'
+import { generateRouteKey } from '../utils/helpers'
 import { EVENTS_ROUTE } from 'api-client/src/routes'
 
 const navigateToEvents = <T extends RoutesType>({
@@ -10,7 +10,7 @@ const navigateToEvents = <T extends RoutesType>({
   cityCode,
   languageCode,
   cityContentPath,
-  key = generateKey(),
+  key = generateRouteKey(),
   forceRefresh = false
 }: {
   dispatch: Dispatch<StoreActionType>

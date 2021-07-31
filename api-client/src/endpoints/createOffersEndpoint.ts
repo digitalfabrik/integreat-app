@@ -27,7 +27,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<OfferModel>> =>
             title: offer.name,
             path: offer.url,
             thumbnail: offer.thumbnail,
-            postData: offer.post ? createPostMap(offer.post) : null
+            postData: offer.post ? createPostMap(offer.post) : undefined
           })
       )
     )

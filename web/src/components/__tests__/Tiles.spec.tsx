@@ -8,15 +8,13 @@ const tiles = [
     path: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
     thumbnail: 'some-thumnail.jpg',
-    isExternalUrl: false,
-    postData: null
+    isExternalUrl: false
   }),
   new TileModel({
     path: '/augsburg/de/willkommen/erste-schritte',
     title: 'Erste Schritte',
     thumbnail: 'some-other-thumbnail.jpg',
-    isExternalUrl: false,
-    postData: null
+    isExternalUrl: false
   })
 ]
 

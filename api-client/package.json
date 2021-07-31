@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "entities": "^2.0.0",
+    "htmlparser2": "^6.1.0",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.19",
     "moment": "2.29.1",

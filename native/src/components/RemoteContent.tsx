@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text } from 'react-native'
 import styled from 'styled-components/native'
 import { createHtmlSource } from '../constants/webview'
-import renderHtml from '../services/renderHtml'
+import renderHtml from '../utils/renderHtml'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
@@ -37,13 +37,17 @@ type PropType = {
 
 const RemoteContent = (props: PropType): ReactElement => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
-  const [webViewHeight, setWebViewHeight] = useState(0)
-  const [webViewWidth, setWebViewWidth] = useState(0)
+  // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
+  const defaultWebviewHeight = 1
+  const [webViewHeight, setWebViewHeight] = useState(defaultWebviewHeight)
+  const [webViewWidth, setWebViewWidth] = useState(defaultWebviewHeight)
+
   useEffect(() => {
-    if (webViewHeight !== 0) {
+    if (webViewHeight !== defaultWebviewHeight) {
       onLoad()
     }
   }, [onLoad, webViewHeight])
+
   const onLayout = useCallback(
     (event: ViewLayoutEvent) => {
       const { width } = event.nativeEvent.layout
@@ -51,6 +55,7 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [setWebViewWidth]
   )
+
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (!event.nativeEvent) {
@@ -69,6 +74,7 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [setWebViewHeight]
   )
+
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
       // Needed on iOS for the initial load
@@ -81,6 +87,7 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [resourceCacheUrl, onLinkPress]
   )
+
   return (
     <StyledView onLayout={onLayout}>
       <WebView

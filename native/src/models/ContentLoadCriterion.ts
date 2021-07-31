@@ -1,11 +1,10 @@
 import moment, { Moment } from 'moment'
 
-const MAX_CONTENT_AGE = 24
-
 export type ContentLoadCriterionType = {
   readonly forceUpdate: boolean
   readonly shouldRefreshResources: boolean
 }
+
 export class ContentLoadCriterion {
   _forceUpdate: boolean
   _shouldRefreshResources: boolean
@@ -22,8 +21,8 @@ export class ContentLoadCriterion {
   }
 
   shouldUpdate(lastUpdate: Moment | null | undefined): boolean {
-    // If an update is forced or the last update was more than 24h ago it should update
-    return this._forceUpdate || !lastUpdate || lastUpdate.isBefore(moment.utc().subtract(MAX_CONTENT_AGE, 'hours'))
+    // If an update is forced or the last update was before the start of today
+    return this._forceUpdate || !lastUpdate || lastUpdate.isBefore(moment.utc().startOf('day'))
   }
 
   shouldLoadLanguages(): boolean {

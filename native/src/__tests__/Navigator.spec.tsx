@@ -2,15 +2,17 @@ import * as React from 'react'
 import { render, act } from '@testing-library/react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import Navigator from '../Navigator'
-import AppSettings from '../services/AppSettings'
-import { generateKey } from '../services/generateRouteKey'
+import AppSettings from '../utils/AppSettings'
+import { generateRouteKey } from '../utils/helpers'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import waitForExpect from 'wait-for-expect'
 import { NavigationContainer } from '@react-navigation/native'
 
-jest.mock('rn-fetch-blob')
 jest.mock('react-i18next')
-jest.mock('../services/initSentry')
+jest.mock('../utils/helpers', () => ({
+  ...jest.requireActual('../utils/helpers'),
+  initSentry: jest.fn()
+}))
 jest.mock('../routes/IntroContainer', () => {
   const Text = require('react-native').Text
 
@@ -106,7 +108,7 @@ jest.mock('../components/TransparentHeaderContainer', () => {
 
   return () => <Text>TransparentHeader</Text>
 })
-jest.mock('../services/PushNotificationsManager', () => ({
+jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true)
 }))
 
@@ -199,7 +201,7 @@ describe('Navigator', () => {
   it('should call fetch category if the dashboard route is the initial route', async () => {
     await act(async () => {
       const appSettings = new AppSettings()
-      const routeKey = generateKey()
+      const routeKey = generateRouteKey()
       await appSettings.setSelectedCity(cityCode)
       await appSettings.setContentLanguage(languageCode)
       await appSettings.setIntroShown()
