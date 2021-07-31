@@ -1,7 +1,7 @@
 import { createPOIsEndpoint, PoiModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
-import { DataContainer } from '../services/DataContainer'
-import determineApiUrl from '../services/determineApiUrl'
+import { DataContainer } from '../utils/DataContainer'
+import { determineApiUrl } from '../utils/helpers'
 
 function* loadPois(
   city: string,
@@ -14,6 +14,7 @@ function* loadPois(
 
   if (poisAvailable && !forceRefresh) {
     try {
+      // eslint-disable-next-line no-console
       console.debug('Using cached pois')
       return yield* call(dataContainer.getPois, city, language)
     } catch (e) {
@@ -22,11 +23,12 @@ function* loadPois(
   }
 
   if (!poisEnabled) {
+    // eslint-disable-next-line no-console
     console.debug('Pois disabled')
     yield* call(dataContainer.setPois, city, language, [])
     return []
   }
-
+  // eslint-disable-next-line no-console
   console.debug('Fetching pois')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>

@@ -3,13 +3,12 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import SearchModal from '../SearchModal'
 import { CategoriesRouteInformationType, CATEGORIES_ROUTE, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import sendTrackingSignal from '../../services/sendTrackingSignal'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import { urlFromRouteInformation } from '../../navigation/url'
 import { ThemeProvider } from 'styled-components/native'
 import buildConfig from '../../constants/buildConfig'
 
-jest.mock('rn-fetch-blob')
-jest.mock('../../services/sendTrackingSignal')
+jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/TimeStamp')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
