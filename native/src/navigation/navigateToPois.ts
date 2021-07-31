@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { FetchPoiActionType, StoreActionType } from '../redux/StoreActionType'
-import { generateKey } from '../services/generateRouteKey'
+import { generateRouteKey } from '../utils/helpers'
 import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { POIS_ROUTE } from 'api-client/src/routes'
 
@@ -10,7 +10,7 @@ const navigateToPois = <T extends RoutesType>({
   cityCode,
   languageCode,
   cityContentPath,
-  key = generateKey(),
+  key = generateRouteKey(),
   forceRefresh = false
 }: {
   dispatch: Dispatch<StoreActionType>

@@ -86,6 +86,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       throw new Error('language not available route status not handled!')
     }
     if (languages.status === 'error' || languages.status === 'loading') {
+      // eslint-disable-next-line no-console
       console.error('languageNotAvailable status impossible if languages not ready')
       return {
         status: 'error',

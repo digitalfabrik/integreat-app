@@ -39,15 +39,13 @@ describe('endpoint', () => {
       alias: 'serlo-abc',
       thumbnail: 'some_thumbnail',
       title: 'Serlo ABC',
-      path: 'https://abc-app.serlo.org/',
-      postData: null
+      path: 'https://abc-app.serlo.org/'
     }),
     new OfferModel({
       alias: 'sprungbrett',
       thumbnail: 'some_other_thumbnail',
       title: 'Sprungbrett',
-      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg',
-      postData: null
+      path: 'https://web.integreat-app.de/proxy/sprungbrett/app-search-internships?location=augsburg'
     }),
     new OfferModel({
       alias: 'lehrstellen-radar',

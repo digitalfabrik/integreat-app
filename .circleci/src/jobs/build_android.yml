@@ -24,11 +24,11 @@ steps:
       directory: native/android
   - restore_gradle_cache
   - run:
-      name: "[FL] Prepare Android Keystore"
+      name: '[FL] Prepare Android Keystore'
       command: bundle exec fastlane keystore
       working_directory: native/android
   - run:
-      name: "[FL] << parameters.build_config_name >> build"
+      name: '[FL] << parameters.build_config_name >> build'
       command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
       working_directory: native/android
   - run:
@@ -54,8 +54,8 @@ steps:
   - unless:
       condition:
         or:
-          - equal: [ integreat-e2e, << parameters.build_config_name >>]
-          - equal: [ integreat-test-cms, << parameters.build_config_name >>]
+          - equal: [integreat-e2e, << parameters.build_config_name >>]
+          - equal: [integreat-test-cms, << parameters.build_config_name >>]
       steps:
         - run:
             name: Persist artifact url
