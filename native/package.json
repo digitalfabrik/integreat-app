@@ -60,7 +60,7 @@
     "moment": "2.29.1",
     "normalize-strings": "^1.1.0",
     "query-string": "^6.11.0",
-    "react": "16.13.1",
+    "react": "17.0.2",
     "react-i18next": "^11.8.8",
     "react-native": "0.63.4",
     "react-native-elements": "2.3.2",
