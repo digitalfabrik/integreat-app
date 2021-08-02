@@ -10,7 +10,7 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import { createPath, RoutePatterns } from '../index'
 import SearchPage from '../SearchPage'
-import { mockUseLoadFromEndpointWitData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('api-client', () => {
   return {
@@ -55,7 +55,7 @@ describe('SearchPage', () => {
   const categories = new CategoriesMapModel(categoryModels)
 
   it('should filter correctly', () => {
-    mockUseLoadFromEndpointWitData(categories)
+    mockUseLoadFromEndpointWithData(categories)
 
     const { getByText, queryByText, getByPlaceholderText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -154,7 +154,7 @@ describe('SearchPage', () => {
       })
     ]
     const categories = new CategoriesMapModel(categoryModels)
-    mockUseLoadFromEndpointWitData(categories)
+    mockUseLoadFromEndpointWithData(categories)
 
     const { getByPlaceholderText, getAllByLabelText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -189,7 +189,7 @@ describe('SearchPage', () => {
   })
 
   describe('url query', () => {
-    mockUseLoadFromEndpointWitData(categories)
+    mockUseLoadFromEndpointWithData(categories)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
       const path = createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code })

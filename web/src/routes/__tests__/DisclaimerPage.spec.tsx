@@ -1,5 +1,5 @@
 import { DISCLAIMER_ROUTE, PageModel } from 'api-client'
-import { mockUseLoadFromEndpointOnceWitData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 import moment from 'moment'
 import React from 'react'
 import { Route } from 'react-router-dom'
@@ -38,7 +38,7 @@ describe('DisclaimerPage', () => {
     const city = cities[0]
     const language = languages[0]
 
-    mockUseLoadFromEndpointOnceWitData(disclaimer)
+    mockUseLoadFromEndpointOnceWithData(disclaimer)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
