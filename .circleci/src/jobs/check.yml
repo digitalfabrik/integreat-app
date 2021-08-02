@@ -1,36 +1,31 @@
-# Run checks and tests for native.
+# Run checks and tests.
 docker:
   - image: circleci/node:14.9.0
 resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small
+  TZ: 'Europe/Berlin' # Should be removed in IGAPP-39
 shell: /bin/bash -eo pipefail
 steps:
   - skip_job
   - checkout
   - check_config
   - restore_yarn_cache
-  - lint:
-      directory: api-client
-  - lint:
-      directory: build-configs
-  - lint:
-      directory: native
-  - lint:
-      directory: translations
   - run:
-      name: TS check
-      command: yarn workspace api-client ts:check
+      name: Prettier
+      command: yarn prettier:check
   - run:
-      name: TS check
-      command: yarn workspace translations ts:check
+      name: Lint
+      command: yarn workspaces run lint
   - run:
       name: TS check
       command: yarn workspace build-configs ts:check
   - unit_test:
-      directory: native
-  - unit_test:
       directory: api-client
   - unit_test:
+      directory: native
+  - unit_test:
       directory: translations
+  - unit_test:
+      directory: web
   - notify

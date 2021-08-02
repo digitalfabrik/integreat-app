@@ -6,9 +6,11 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
+  ErrorCode,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   FeedbackParamsType,
+  fromError,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
@@ -26,6 +28,7 @@ import styled from 'styled-components'
 import { faFrown, faSmile } from '../constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TextButton from './TextButton'
+import { reportError } from '../utils/sentry'
 
 const IconTextContainer = styled.div`
   margin-top: 30px;
@@ -112,8 +115,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     setSendingStatus(SendingState.SENDING)
 
     const request = async () => {
-      const apiUrl = cmsApiBaseUrl
-      const feedbackEndpoint = createFeedbackEndpoint(apiUrl)
+      const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request(feedbackData)
       setSendingStatus(SendingState.SUCCESS)
     }
@@ -121,6 +123,14 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     request().catch(err => {
       // eslint-disable-next-line no-console
       console.error(err)
+
+      if (fromError(err) !== ErrorCode.NetworkConnectionFailed) {
+        reportError(err).catch(err => {
+          // eslint-disable-next-line no-console
+          console.error(err)
+        })
+      }
+
       setSendingStatus(SendingState.ERROR)
     })
   }
