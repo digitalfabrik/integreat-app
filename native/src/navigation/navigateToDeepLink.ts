@@ -8,37 +8,14 @@ import AppSettings, { SettingsType } from '../utils/AppSettings'
 import {
   DASHBOARD_ROUTE,
   INTRO_ROUTE,
+  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
-  OPEN_DEEP_LINK_SIGNAL_NAME,
-  RouteInformationType
+  OPEN_DEEP_LINK_SIGNAL_NAME
 } from 'api-client'
 import navigateToCategory from './navigateToCategory'
 import { cityContentPath as createCityContentPath } from './url'
 import createNavigate from './createNavigate'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-
-export const CITY_CODE_PLACEHOLDER = 'city_code_placeholder'
-export const LANGUAGE_CODE_PLACEHOLDER = 'language_code_placeholder'
-
-const getRouteInformation = (url: string, language: string, selectedCity: string | null): RouteInformationType => {
-  const fixedCity = buildConfig().featureFlags.fixedCity
-  const pathname = new Url(url).pathname
-  const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
-  const routeInformation = routeParser.route()
-
-  const newSelectedCity = fixedCity || selectedCity
-
-  if (routeInformation?.cityContentRoute && routeInformation.cityCode === CITY_CODE_PLACEHOLDER) {
-    if (!newSelectedCity) {
-      return null
-    }
-    // Replace empty cityCode and languageCode (placeholders)
-    const languageCode =
-      routeInformation.languageCode === LANGUAGE_CODE_PLACEHOLDER ? language : routeInformation.languageCode
-    return { ...routeInformation, cityCode: newSelectedCity, languageCode }
-  }
-  return routeInformation
-}
 
 const navigateToDeepLink = async (
   dispatch: Dispatch<StoreActionType>,
@@ -64,14 +41,21 @@ const navigateToDeepLink = async (
       deepLink: url
     })
   } else {
-    const routeInformation = getRouteInformation(url, language, selectedCity)
+    const pathname = new Url(url).pathname
+    const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
+    const routeInformation = routeParser.route()
 
-    const deepLinkCityCode = routeInformation?.cityContentRoute ? routeInformation.cityCode : null
-    const deepLinkLanguageCode = routeInformation?.cityContentRoute ? routeInformation.languageCode : null
-
+    const routeInformationCityCode =
+      routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+        ? routeInformation.cityCode
+        : null
+    const routeInformationLanguageCode =
+      routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+        ? routeInformation.languageCode
+        : null
     // Don't overwrite already selected city
-    const selectedCityCode = fixedCity || selectedCity || deepLinkCityCode || null
-    const languageCode = deepLinkLanguageCode || language
+    const selectedCityCode = fixedCity || selectedCity || routeInformationCityCode || null
+    const languageCode = routeInformationLanguageCode || language
 
     if (selectedCityCode && languageCode) {
       // Reset the currently opened screens to just the dashboard of the city and language
@@ -103,7 +87,7 @@ const navigateToDeepLink = async (
       return
     }
 
-    const isPeekingCity = deepLinkCityCode && selectedCity && deepLinkCityCode !== selectedCity
+    const isPeekingCity = routeInformationCityCode && selectedCity && routeInformationCityCode !== selectedCity
 
     // Only navigate again if either the city of the deep link differs from the currently selected city or
     // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.

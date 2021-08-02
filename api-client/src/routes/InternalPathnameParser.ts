@@ -56,8 +56,7 @@ class InternalPathnameParser {
       const trackingCode = this._length === 2 ? this._parts[1] : null
       return {
         route: JPAL_TRACKING_ROUTE,
-        trackingCode,
-        cityContentRoute: false
+        trackingCode
       }
     }
 
@@ -74,8 +73,7 @@ class InternalPathnameParser {
       // '/', '/landing' or '/landing/de'
       return {
         route: LANDING_ROUTE,
-        languageCode: this.languageCode(),
-        cityContentRoute: false
+        languageCode: this.languageCode()
       }
     }
 
@@ -93,8 +91,7 @@ class InternalPathnameParser {
           route: DASHBOARD_ROUTE,
           cityCode: fixedCity,
           languageCode: this.languageCode(),
-          cityContentPath,
-          cityContentRoute: true
+          cityContentPath
         }
       }
     } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
@@ -104,8 +101,7 @@ class InternalPathnameParser {
         route: DASHBOARD_ROUTE,
         cityCode: this._parts[0],
         languageCode: this.languageCode(),
-        cityContentPath,
-        cityContentRoute: true
+        cityContentPath
       }
     }
 
@@ -138,7 +134,7 @@ class InternalPathnameParser {
 
     // Single events are identified via their city content path, e.g. '/augsburg/de/events/1234'
     const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: EVENTS_ROUTE, cityContentPath, cityContentRoute: true }
+    return { ...params, route: EVENTS_ROUTE, cityContentPath }
   }
 
   pois = (): RouteInformationType => {
@@ -150,7 +146,7 @@ class InternalPathnameParser {
 
     // Single pois are identified via their city content path, e.g. '/augsburg/de/events/1234'
     const cityContentPath = this._length > ENTITY_ID_INDEX ? this._pathname : undefined
-    return { ...params, route: POIS_ROUTE, cityContentPath, cityContentRoute: true }
+    return { ...params, route: POIS_ROUTE, cityContentPath }
   }
 
   news = (): RouteInformationType => {
@@ -174,8 +170,7 @@ class InternalPathnameParser {
       cityCode: this._parts[0],
       languageCode: this._parts[1],
       newsType,
-      newsId,
-      cityContentRoute: true
+      newsId
     }
   }
 
@@ -187,14 +182,12 @@ class InternalPathnameParser {
       if (route === OFFERS_ROUTE) {
         return {
           route: OFFERS_ROUTE,
-          ...params,
-          cityContentRoute: true
+          ...params
         }
       } else if (route === SPRUNGBRETT_OFFER_ROUTE) {
         return {
           route: SPRUNGBRETT_OFFER_ROUTE,
-          ...params,
-          cityContentRoute: true
+          ...params
         }
       }
     }
@@ -211,8 +204,7 @@ class InternalPathnameParser {
 
     return {
       route: DISCLAIMER_ROUTE,
-      ...params,
-      cityContentRoute: true
+      ...params
     }
   }
 
@@ -225,8 +217,7 @@ class InternalPathnameParser {
 
     return {
       route: SEARCH_ROUTE,
-      ...params,
-      cityContentRoute: true
+      ...params
     }
   }
 
@@ -245,8 +236,7 @@ class InternalPathnameParser {
         route: CATEGORIES_ROUTE,
         cityCode: this._parts[0],
         languageCode: this._parts[1],
-        cityContentPath: this._pathname,
-        cityContentRoute: true
+        cityContentPath: this._pathname
       }
     }
 
