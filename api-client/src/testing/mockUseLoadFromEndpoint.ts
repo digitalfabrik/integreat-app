@@ -18,11 +18,11 @@ export function mockUseLoadFromEndpointOnceWitData<T>(data: T): void {
   mocked(useLoadFromEndpoint).mockImplementationOnce(mockData(data))
 }
 
-export function mockUseLoadFromEndpointLoading(): void {
+export function mockUseLoadFromEndpointLoading({ data, error }: { data?: unknown; error?: string } = {}): void {
   const useLoadFromEndpointMock = (() => ({
-    data: null,
+    data: data || null,
     loading: true,
-    error: null,
+    error: error ? new Error(error) : null,
     refresh: () => null
   })) as typeof useLoadFromEndpoint
   mocked(useLoadFromEndpoint).mockImplementationOnce(useLoadFromEndpointMock)

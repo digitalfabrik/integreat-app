@@ -3,14 +3,14 @@ import { renderWithBrowserRouter } from '../testing/render'
 import RootSwitcher from '../RootSwitcher'
 import { Route } from 'react-router-dom'
 import { Location } from 'history'
-import CityModelBuilder from '../../../api-client/src/testing/CityModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import buildConfig from '../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
 import { RenderResult } from '@testing-library/react'
 import {
   mockUseLoadFromEndpointOnceWitData,
   mockUseLoadFromEndpointWitData
-} from '../../../api-client/src/testing/mockUseLoadFromEndpoint'
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
