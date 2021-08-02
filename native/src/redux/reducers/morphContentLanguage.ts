@@ -53,8 +53,8 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
     return route
   }
 
-  const resultModels = {} as Record<PathType, CategoryModel>
-  const resultChildren = {} as Record<PathType, ReadonlyArray<PathType>>
+  const resultModels: Record<PathType, CategoryModel> = {}
+  const resultChildren: Record<PathType, ReadonlyArray<PathType>> = {}
   forEachTreeNode(
     rootModel,
     node => newCategoriesMap.getChildren(node),
