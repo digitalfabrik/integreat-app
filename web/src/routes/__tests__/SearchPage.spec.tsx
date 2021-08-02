@@ -5,12 +5,12 @@ import moment from 'moment'
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import { createPath, RoutePatterns } from '../index'
 import SearchPage from '../SearchPage'
-import { mockUseLoadFromEndpointWitData } from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
+import { mockUseLoadFromEndpointWitData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('api-client', () => {
   return {

@@ -7,9 +7,9 @@ import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
-  mockUseLoadFromEndpointWithError,
   mockUseLoadFromEndpointLoading,
-  mockUseLoadFromEndpointOnceWitData
+  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointWithError
 } from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('react-i18next')
@@ -73,7 +73,7 @@ describe('OffersContainer', () => {
     expect(queryByText(errorText)).toBeFalsy()
   })
 
-  it('should display error without a loading spinner', () => {
+  it('should display error', () => {
     mockUseLoadFromEndpointWithError('Error')
     const { queryByText } = render(
       <Provider store={store}>
@@ -85,7 +85,19 @@ describe('OffersContainer', () => {
     expect(queryByText('loading')).toBeFalsy()
   })
 
-  it('should display a loading spinner', () => {
+  it('should display offers with a Loading spinner', () => {
+    mockUseLoadFromEndpointLoading({ data: [] })
+    const { queryByText } = render(
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
+    )
+    expect(queryByText('Offers')).toBeTruthy()
+    expect(queryByText('loading')).toBeTruthy()
+    expect(queryByText(errorText)).toBeFalsy()
+  })
+
+  it('should display offers with a loading spinner', () => {
     mockUseLoadFromEndpointLoading()
     const { queryByText } = render(
       <Provider store={store}>
@@ -93,6 +105,18 @@ describe('OffersContainer', () => {
       </Provider>
     )
     expect(queryByText(errorText)).toBeFalsy()
+    expect(queryByText('loading')).toBeTruthy()
+    expect(queryByText('Offers')).toBeFalsy()
+  })
+
+  it('should display error with loading spinner', () => {
+    mockUseLoadFromEndpointLoading({ data: [], error: 'Error'})
+    const { queryByText } = render(
+      <Provider store={store}>
+        <OffersContainer navigation={navigation} route={route} />
+      </Provider>
+    )
+    expect(queryByText(errorText)).toBeTruthy()
     expect(queryByText('loading')).toBeTruthy()
     expect(queryByText('Offers')).toBeFalsy()
   })
