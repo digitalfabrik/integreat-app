@@ -110,7 +110,7 @@ describe('OffersContainer', () => {
   })
 
   it('should display error with loading spinner', () => {
-    mockUseLoadFromEndpointLoading({ data: [], error: 'Error'})
+    mockUseLoadFromEndpointLoading({ data: [], error: 'Error' })
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
