@@ -22,6 +22,7 @@ import SadIcon from '../assets/smile-sad.svg'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { urlFromRouteInformation } from '../navigation/url'
 import { ReactNode } from 'react'
+import testID from '../testing/testID'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -213,7 +214,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     const { theme, t } = this.props
     const { query } = this.state
     return (
-      <Wrapper theme={theme}>
+      <Wrapper theme={theme} {...testID('Search-Page')}>
         <SearchHeader
           theme={theme}
           query={query}

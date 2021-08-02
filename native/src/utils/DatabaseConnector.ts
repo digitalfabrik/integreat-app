@@ -154,7 +154,7 @@ type LanguageResourceCacheJsonType = Record<string, PageResourceCacheJsonType>
 type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
 const mapToObject = (map: Map<string, string>) => {
-  const output = {}
+  const output: Record<string, string> = {}
   map.forEach((value, key) => {
     output[key] = value
   })
@@ -367,7 +367,7 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const languages = JSON.parse(await this.readFile(path))
+    const languages: Array<LanguageModel> = JSON.parse(await this.readFile(path))
     return languages.map(language => new LanguageModel(language._code, language._name))
   }
 

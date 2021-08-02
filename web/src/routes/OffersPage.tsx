@@ -106,7 +106,7 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
     )
   }
 
-  const pageTitle = `${t('app:pageTitles.offers')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

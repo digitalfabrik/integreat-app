@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { isEmpty } from 'lodash/lang'
+import { isEmpty } from 'lodash'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
