@@ -1,5 +1,5 @@
 import React from 'react'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CityModelBuilder } from 'api-client'
 import { renderWithRouter } from '../../testing/render'
 import buildConfig from '../../constants/buildConfig'
 import FilterableCitySelector from '../FilterableCitySelector'
