@@ -18,7 +18,7 @@ steps:
   - restore_ruby_cache:
       directory: native
   - run:
-      name: "[FL] Play Store Promotion"
+      name: '[FL] Play Store Promotion'
       command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
       working_directory: native
   - notify
