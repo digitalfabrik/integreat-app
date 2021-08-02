@@ -12,15 +12,9 @@
     "outDir": "dist",
     "sourceMap": true,
     "paths": {
-      "api-client/*": [
-        "../api-client/*"
-      ],
-      "build-configs/*": [
-        "../build-configs/*"
-      ],
-      "translations/*": [
-        "../translations/*"
-      ]
+      "api-client/*": ["../api-client/*"],
+      "build-configs/*": ["../build-configs/*"],
+      "translations/*": ["../translations/*"]
     },
     "skipLibCheck": true,
     "target": "ES2019",
