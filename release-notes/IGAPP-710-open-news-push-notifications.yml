@@ -1,0 +1,7 @@
+issue_key: IGAPP-710
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Open local news directly when clicking on a notification.
+de: Beim Klicken auf Push-Benachrichtigungen werden jetzt direkt die lokalen Nachrichten geöffnet.

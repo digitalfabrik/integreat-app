@@ -81,9 +81,11 @@ describe('createNavigate', () => {
     navigateToOffers
   ]
 
-  const assertNotCalled = mocks => mocks.forEach(mock => expect(mock).not.toHaveBeenCalled())
+  const assertNotCalled = (mocks: Array<CallableFunction>) =>
+    mocks.forEach(mock => expect(mocked(mock)).not.toHaveBeenCalled())
 
-  const assertOnlyCalled = (mocks, times = 1) => {
+  const assertOnlyCalled = (mocks: Array<CallableFunction>, times = 1) => {
+    mocks.map(m => mocked(m))
     allMocks.forEach(mock => {
       if (mocks.includes(mock)) {
         expect(mock).toHaveBeenCalledTimes(times)

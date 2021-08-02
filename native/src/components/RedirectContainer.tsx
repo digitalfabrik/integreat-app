@@ -19,6 +19,7 @@ const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
   const { i18n } = useTranslation()
   const { language } = i18n
   const { url } = route.params
+
   useEffect(() => {
     // If actions are dispatched/navigate is called to early it fails and nothing happens
     // Therefore we wait for a short time period and try again if the component is still rendered
@@ -28,6 +29,7 @@ const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
     }, TIMEOUT)
     return () => clearTimeout(timeout)
   }, [url, dispatch, navigation, route, language])
+
   useEffect(() => {
     // To support potentially older devices taking longer we setup a separate interval to retry the navigation
     const interval = setInterval(() => {
@@ -35,6 +37,7 @@ const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
     }, INTERVAL_TIMEOUT)
     return () => clearInterval(interval)
   }, [url, dispatch, navigation, route, language])
+
   return <LayoutContainer />
 }
 

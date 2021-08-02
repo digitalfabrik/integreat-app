@@ -4,7 +4,7 @@ import { Platform, Text } from 'react-native'
 import { initSentry } from './utils/helpers'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import buildConfig from './constants/buildConfig'
-import { StackHeaderProps, createStackNavigator, TransitionPresets } from '@react-navigation/stack'
+import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import IntroContainer from './routes/IntroContainer'
 import LandingContainer from './routes/LandingContainer'
 import DashboardContainer from './routes/DashboardContainer'
@@ -26,20 +26,20 @@ import SettingsContainer from './routes/SettingsContainer'
 import DisclaimerContainer from './routes/DisclaimerContainer'
 import CategoriesContainer from './routes/CategoriesContainer'
 import {
-  DashboardRouteType,
-  IntroRouteType,
-  LandingRouteType,
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   DASHBOARD_ROUTE,
+  DashboardRouteType,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EXTERNAL_OFFER_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
+  IntroRouteType,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
+  LandingRouteType,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
@@ -84,6 +84,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   })
   const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
+
   useEffect(() => {
     fetchCities(false)
 
@@ -149,6 +150,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
     initialize().catch(error => setErrorMessage(error.message))
   }, [fetchCities, setInitialRoute, setErrorMessage])
+
   // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {
     // Fetch categories if the initial route is the dashboard route and there was no route before
@@ -176,6 +178,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
     android: TransitionPresets.FadeFromBottomAndroid,
     ios: TransitionPresets.DefaultTransition
   })
+
   return (
     <Stack.Navigator initialRouteName={initialRoute.name} headerMode='screen' screenOptions={transitionPreset}>
       <Stack.Screen

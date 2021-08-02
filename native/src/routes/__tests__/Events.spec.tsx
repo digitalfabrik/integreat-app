@@ -34,7 +34,7 @@ describe('Events', () => {
           notAvailable: {}
         }}
         theme={buildConfig().lightTheme}
-        t={key => key}
+        t={(key: string) => key}
         navigateTo={() => {}}
         navigateToLink={() => {}}
         navigateToFeedback={() => {}}
