@@ -12,7 +12,7 @@ describe('Header', () => {
     jest.clearAllMocks()
   })
 
-  const t = key => key
+  const t = (key: string) => `t_${key}`
   const goToLanguageChange = jest.fn()
   const dispatch = jest.fn()
   const [city] = new CityModelBuilder(1).build()
@@ -42,29 +42,29 @@ describe('Header', () => {
 
   it('search header button should be enabled and visible after loading was finished', () => {
     const { getByLabelText } = render(<Header {...buildProps(false, true, 'screen', goToLanguageChange)} />)
-    expect(getByLabelText('search')).toHaveStyle({ opacity: 1 })
-    fireEvent.press(getByLabelText('search'))
+    expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 1 })
+    fireEvent.press(getByLabelText(t('search')))
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE)
   })
   it('language header button should be enabled and visible after loading was finished', () => {
     const { getByLabelText } = render(<Header {...buildProps(false, true, 'screen', goToLanguageChange)} />)
-    expect(getByLabelText('changeLanguage')).toHaveStyle({ opacity: 1 })
-    fireEvent.press(getByLabelText('changeLanguage'))
+    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
+    fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(goToLanguageChange).toHaveBeenCalledTimes(1)
   })
   it('search header button should be disabled and invisible while loading', () => {
     const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', goToLanguageChange)} />)
-    expect(getByLabelText('search')).toHaveStyle({ opacity: 0 })
-    expect(getByLabelText('changeLanguage')).toBeDisabled()
-    fireEvent.press(getByLabelText('search'))
+    expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText(t('changeLanguage'))).toBeDisabled()
+    fireEvent.press(getByLabelText(t('search')))
     expect(navigation.navigate).not.toHaveBeenCalled()
   })
   it('language header button should be disabled and invisible while loading', () => {
     const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', goToLanguageChange)} />)
-    expect(getByLabelText('changeLanguage')).toHaveStyle({ opacity: 0 })
-    expect(getByLabelText('changeLanguage')).toBeDisabled()
-    fireEvent.press(getByLabelText('changeLanguage'))
+    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText(t('changeLanguage'))).toBeDisabled()
+    fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(goToLanguageChange).not.toHaveBeenCalled()
   })
 })
