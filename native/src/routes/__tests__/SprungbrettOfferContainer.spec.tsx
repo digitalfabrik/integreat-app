@@ -111,7 +111,7 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display error with spinner', () => {
-    mockUseLoadFromEndpointLoading({ data: [], error: 'Error'})
+    mockUseLoadFromEndpointLoading({ data: [], error: 'Error' })
     const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
