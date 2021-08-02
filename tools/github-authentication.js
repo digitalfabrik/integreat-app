@@ -6,8 +6,12 @@ const authenticate = async ({ deliverinoPrivateKey, owner, repo }) => {
   const privateKey = Buffer.from(deliverinoPrivateKey, 'base64').toString('ascii')
 
   const octokit = new Octokit({ authStrategy: createAppAuth, auth: { id: appId, privateKey: privateKey } })
-  const { data: { id: installationId } } = await octokit.apps.getRepoInstallation({ owner, repo })
-  const { data: { token } } = await octokit.apps.createInstallationAccessToken({ installation_id: installationId })
+  const {
+    data: { id: installationId }
+  } = await octokit.apps.getRepoInstallation({ owner, repo })
+  const {
+    data: { token }
+  } = await octokit.apps.createInstallationAccessToken({ installation_id: installationId })
 
   return new Octokit({ auth: token })
 }
