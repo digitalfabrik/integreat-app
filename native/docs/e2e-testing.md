@@ -13,15 +13,21 @@ To build for e2e tests, use the [corresponding build config](../../build-configs
 
 ### Using appium-desktop
 
-[Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app. To set it up I recommend to clone the repository and run the electron app manually:
+[Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app.
 
-```bash
-git clone https://github.com/appium/appium-desktop.git
-cd appium-desktop
-npm install
-cd ..
-electron .
+Getting started:
+* Download and start Appium
+* Start Server
+* Click `search icon`
+* Add to `Desired Capabilities`:
 ```
+{
+  "app": "<your-path-to>/integreat-app/native/android/app/build/outputs/apk/debug/app-debug.apk",
+  "platformName": "Android"
+  } 
+```
+* Click `start session`
+* Now you can open a page in the emulator and inspect it
 
 ### Running tests locally
 
