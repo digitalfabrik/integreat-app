@@ -14,14 +14,15 @@ import styled from 'styled-components/native'
 import { TFunction } from 'react-i18next'
 import SearchHeader from '../components/SearchHeader'
 import { ThemeType } from 'build-configs'
-import normalizeSearchString from '../services/normalizeSearchString'
+import { normalizeSearchString } from '../utils/helpers'
 import { Parser } from 'htmlparser2'
 import dimensions from '../constants/dimensions'
 import FeedbackContainer from '../components/FeedbackContainer'
 import SadIcon from '../assets/smile-sad.svg'
-import sendTrackingSignal from '../services/sendTrackingSignal'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { urlFromRouteInformation } from '../navigation/url'
 import { ReactNode } from 'react'
+import testID from '../testing/testID'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -213,7 +214,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     const { theme, t } = this.props
     const { query } = this.state
     return (
-      <Wrapper theme={theme}>
+      <Wrapper theme={theme} {...testID('Search-Page')}>
         <SearchHeader
           theme={theme}
           query={query}

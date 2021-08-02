@@ -1,7 +1,7 @@
 import { CategoryRouteStateType, CityContentStateType, PathType } from '../StateType'
 import { PushCategoryActionType } from '../StoreActionType'
 import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, ErrorCode, LanguageModel } from 'api-client'
-import forEachTreeNode from '../../services/forEachTreeNode'
+import { forEachTreeNode } from '../../utils/helpers'
 
 const getAllAvailableLanguages = (
   category: CategoryModel,
@@ -79,18 +79,6 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     }
   }
 
-  // Check whether another page in the same city is loading, e.g. because it is being refreshed.
-  // This is important for displaying the loading spinner.
-  const otherPageLoading = Object.values(state.routeMapping)
-    .filter(
-      route =>
-        route.routeType === CATEGORIES_ROUTE &&
-        route.status !== 'languageNotAvailable' &&
-        path !== route.path &&
-        city === route.city &&
-        language === route.language
-    )
-    .some(route => route.status === 'loading')
   const newRouteMapping = { ...state.routeMapping }
 
   if (refresh) {
@@ -160,16 +148,10 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     language,
     city
   }
-  const newRoute: CategoryRouteStateType =
-    otherPageLoading && !refresh
-      ? {
-          status: 'loading',
-          ...newRouteData
-        }
-      : {
-          status: 'ready',
-          ...newRouteData
-        }
+  const newRoute: CategoryRouteStateType = {
+    status: 'ready',
+    ...newRouteData
+  }
   return {
     ...state,
     routeMapping: { ...newRouteMapping, [key]: newRoute },

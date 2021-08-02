@@ -7,7 +7,7 @@ import SubCategoryListItem from './SubCategoryListItem'
 import SimpleImage from './SimpleImage'
 import { contentDirection } from '../constants/contentDirection'
 import Highlighter from 'react-native-highlight-words'
-import normalizeSearchString from '../services/normalizeSearchString'
+import { normalizeSearchString } from '../utils/helpers'
 import { CategoryListModelType } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
 import dimensions from '../constants/dimensions'
@@ -36,7 +36,7 @@ const CategoryEntryContainer = styled.View`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const CategoryTitle = styled<DirectionContainerPropsType>(Highlighter)`
+const CategoryTitle = styled(Highlighter)<DirectionContainerPropsType>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
@@ -111,7 +111,7 @@ class CategoryListItem extends React.Component<PropsType> {
   renderTitle(): ReactNode {
     const { query, theme, category, language } = this.props
     return (
-      <CategoryEntryContainer theme={theme} language={language}>
+      <CategoryEntryContainer theme={theme}>
         <CategoryTitle
           theme={theme}
           language={language}

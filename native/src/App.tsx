@@ -6,8 +6,8 @@ import StatusBarContainer from './components/StatusBarContainer'
 import { Store } from 'redux'
 import { StateType } from './redux/StateType'
 import { StoreActionType } from './redux/StoreActionType'
-import DefaultDataContainer from './services/DefaultDataContainer'
-import { DataContainer } from './services/DataContainer'
+import DefaultDataContainer from './utils/DefaultDataContainer'
+import { DataContainer } from './utils/DataContainer'
 import NavigatorContainer from './NavigatorContainer'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from './components/StaticServerProvider'
@@ -20,15 +20,14 @@ import { ThemeProvider } from 'styled-components'
 import buildConfig from './constants/buildConfig'
 import SnackbarContainer from './components/SnackbarContainer'
 import NetInfo from '@react-native-community/netinfo'
-import sendTrackingSignal from './services/sendTrackingSignal'
+import sendTrackingSignal from './utils/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
 import urlFromRouteInformation from './navigation/url'
 import { CITY_CODE_PLACEHOLDER, LANGUAGE_CODE_PLACEHOLDER } from './navigation/navigateToDeepLink'
 
-// https://github.com/software-mansion/react-native-screens/issues/105#issuecomment-605369538
-enableScreens(false)
+enableScreens(true)
 
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'

@@ -7,14 +7,14 @@ import { TouchableHighlight } from 'react-native'
 import dimensions from '..//constants/dimensions'
 import { ThemeType } from 'build-configs'
 
-const ItemWrapper = styled.View`
+const ItemWrapper = styled.View<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.colors.backgroundColor};
   ${props => (props.selected ? `background-color: ${props.theme.colors.backgroundAccentColor}` : '')};
   height: ${dimensions.headerHeight}px;
 `
-const Element = styled.Text`
+const Element = styled.Text<{ enabled: boolean }>`
   font-size: 20px;
   ${props => (props.enabled ? 'font-weight: 700' : '')};
   color: ${props => (props.enabled ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)}};
@@ -50,6 +50,7 @@ type PropsType = {
   selectedItemCode: string | null
   theme: ThemeType
 }
+
 /**
  * Displays a Selector showing different items
  */

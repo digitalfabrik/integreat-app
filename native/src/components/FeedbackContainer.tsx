@@ -8,11 +8,13 @@ import {
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
   DisclaimerRouteType,
+  ErrorCode,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   EventsRouteType,
   FeedbackParamsType,
   FeedbackType,
+  fromError,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
@@ -25,8 +27,8 @@ import {
   SearchRouteType,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
-import determineApiUrl from '../services/determineApiUrl'
-import sendTrackingSignal from '../services/sendTrackingSignal'
+import { determineApiUrl, reportError } from '../utils/helpers'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { useTranslation } from 'react-i18next'
 import { ThemeType } from 'build-configs/ThemeType'
 
@@ -134,7 +136,13 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
       }
     })
     request().catch(err => {
-      console.log(err)
+      // eslint-disable-next-line no-console
+      console.error(err)
+
+      if (fromError(err) !== ErrorCode.NetworkConnectionFailed) {
+        reportError(err)
+      }
+
       setSendingStatus('failed')
     })
   }

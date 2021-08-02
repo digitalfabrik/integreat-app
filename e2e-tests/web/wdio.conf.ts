@@ -1,15 +1,12 @@
+import { localCapabilities } from './capabilities'
+
 export const config = {
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
   maxInstances: 10,
 
-  capabilities: [
-    {
-      maxInstances: 5,
-      browserName: 'chrome'
-    }
-  ],
+  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.chrome],
   logLevel: 'info',
   coloredLogs: true,
   bail: 0,
@@ -17,20 +14,22 @@ export const config = {
   waitforTimeout: 100000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
-  services: ['selenium-standalone'],
+  services: process.env.CI ? [] : ['selenium-standalone'],
   framework: 'jasmine',
   reporters: ['junit'],
 
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 120000
+  jasmineOpts: {
+    defaultTimeoutInterval: 50000
   },
 
   onPrepare: async function (): Promise<void> {
-    const startupDelay = 20000
-    await new Promise(resolve => setTimeout(resolve, startupDelay))
+    if (process.env.CI) {
+      const startupDelay = 20000
+      await new Promise(resolve => setTimeout(resolve, startupDelay))
+    }
   },
 
   before: async function (): Promise<void> {
-    await browser.setTimeout({ implicit: 80000 })
+    await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
   }
 }
