@@ -6,6 +6,7 @@ import {
   FeedbackType as ImportedFeedbackType,
   FeedbackCategoryType as ImportedFeedbackCategoryType
 } from './endpoints/createFeedbackEndpoint'
+
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
@@ -16,6 +17,7 @@ export { default as InternalPathnameParser } from './routes/InternalPathnamePars
 export * from './routes'
 export * from './routes/RouteInformationTypes'
 export * from './tracking'
+export * from './maps'
 export { default as Endpoint } from './Endpoint'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
