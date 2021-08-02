@@ -40,9 +40,9 @@ yarn workspace e2e prepare:web:start
 yarn workspace e2e test:web
 ```
 
->**Note**: Running tests local on mac you have to enable safari web-driver support.
+> **Note**: Running tests local on mac you have to enable safari web-driver support.
 > Run the following command in your terminal:
->``/usr/bin/safaridriver --enable``
+> `/usr/bin/safaridriver --enable`
 
 This will launch an automated chrome session where you can follow the test execution. If your don't have chrome installed you can adjust the `browserName` (firefox, edge, safari) in the `wdio.conf.ts` in the E2E-test web subdirectory. Chromium does not seem to work currently. Safari also does not work on the current version (14.1).
 
@@ -71,7 +71,6 @@ Therefore, you should use the accessibility identifier for this.
 Add the accessibility-id to a React component using `testID('Example-Component')`. You can query this component with `$('~Example-Component')` in your test.
 
 For more complex queries you should add/use a custom [Selector]('../e2e/native/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
-
 
 ## Troubleshooting
 

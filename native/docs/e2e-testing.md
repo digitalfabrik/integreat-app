@@ -16,18 +16,21 @@ To build for e2e tests, use the [corresponding build config](../../build-configs
 [Appium Desktop](https://github.com/appium/appium-desktop) allows you to inspect the tree of the app.
 
 Getting started:
-* Download and start Appium
-* Start Server
-* Click `search icon`
-* Add to `Desired Capabilities`:
+
+- Download and start Appium
+- Start Server
+- Click `search icon`
+- Add to `Desired Capabilities`:
+
 ```
 {
   "app": "<your-path-to>/integreat-app/native/android/app/build/outputs/apk/debug/app-debug.apk",
   "platformName": "Android"
-  } 
+  }
 ```
-* Click `start session`
-* Now you can open a page in the emulator and inspect it
+
+- Click `start session`
+- Now you can open a page in the emulator and inspect it
 
 ### Running tests locally
 
