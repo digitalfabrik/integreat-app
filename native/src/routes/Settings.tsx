@@ -1,13 +1,12 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { Dispatch } from 'redux'
-import { SectionList, StyleSheet } from 'react-native'
+import { SectionList, StyleSheet, SectionListData } from 'react-native'
 import styled from 'styled-components/native'
 import SettingItem from '../components/SettingItem'
 import { ThemeType } from 'build-configs'
 import { TFunction } from 'react-i18next'
 import AppSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
-import { SectionBase } from 'react-native/Libraries/Lists/SectionList'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutContainer from '../components/LayoutContainer'
 import { SettingsRouteType } from 'api-client'
@@ -25,8 +24,8 @@ export type PropsType = {
   dispatch: Dispatch<StoreActionType>
 }
 
-type SectionType = SectionBase<SettingsSectionType> & {
-  title: string | null | undefined
+type SectionType = SectionListData<SettingsSectionType> & {
+  title?: string | null
 }
 
 const ItemSeparator = styled.View`

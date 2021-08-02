@@ -50,7 +50,7 @@ describe('Landing', () => {
         <Landing
           cities={cities}
           language={language}
-          t={key => key}
+          t={(key: string) => key}
           theme={buildConfig().lightTheme}
           navigateToDashboard={navigateToDashboard}
           clearResourcesAndCache={clearResourcesAndCache}
@@ -73,7 +73,7 @@ describe('Landing', () => {
           <Landing
             cities={cities}
             language={language}
-            t={key => key}
+            t={(key: string) => key}
             theme={buildConfig().lightTheme}
             navigateToDashboard={navigateToDashboard}
             clearResourcesAndCache={clearResourcesAndCache}
@@ -95,7 +95,7 @@ describe('Landing', () => {
           <Landing
             cities={cities}
             language={language}
-            t={key => key}
+            t={(key: string) => key}
             theme={buildConfig().lightTheme}
             navigateToDashboard={navigateToDashboard}
             clearResourcesAndCache={clearResourcesAndCache}
@@ -127,7 +127,7 @@ describe('Landing', () => {
           <Landing
             cities={cities}
             language={language}
-            t={key => key}
+            t={(key: string) => key}
             theme={buildConfig().lightTheme}
             navigateToDashboard={navigateToDashboard}
             clearResourcesAndCache={clearResourcesAndCache}
@@ -150,7 +150,7 @@ describe('Landing', () => {
           <Landing
             cities={cities}
             language={language}
-            t={key => key}
+            t={(key: string) => key}
             theme={buildConfig().lightTheme}
             navigateToDashboard={navigateToDashboard}
             clearResourcesAndCache={clearResourcesAndCache}
@@ -178,7 +178,7 @@ describe('Landing', () => {
           <Landing
             cities={cities}
             language={language}
-            t={key => key}
+            t={(key: string) => key}
             theme={buildConfig().lightTheme}
             navigateToDashboard={navigateToDashboard}
             clearResourcesAndCache={clearResourcesAndCache}
@@ -208,7 +208,7 @@ describe('Landing', () => {
           <Landing
             cities={cities}
             language={language}
-            t={key => key}
+            t={(key: string) => key}
             theme={buildConfig().lightTheme}
             navigateToDashboard={navigateToDashboard}
             clearResourcesAndCache={clearResourcesAndCache}
