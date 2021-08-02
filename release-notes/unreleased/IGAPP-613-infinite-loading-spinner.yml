@@ -1,0 +1,7 @@
+issue_key: IGAPP-613
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed endless loading after opening links in the app.
+de: Endloses Laden beim Öffnen von Links in der App behoben.
