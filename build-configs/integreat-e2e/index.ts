@@ -1,4 +1,4 @@
-import integreatTestCmsPlatformBuildConfigs from '../integreat-test-cms'
+import integreatPlatformBuildConfigs from '../integreat'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
@@ -20,15 +20,15 @@ const integreatE2e = {
   }
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {
-  ...integreatTestCmsPlatformBuildConfigs.common,
+  ...integreatPlatformBuildConfigs.common,
   ...integreatE2e
 }
-const webIntegreatE2eBuildConfig: WebBuildConfigType = { ...integreatTestCmsPlatformBuildConfigs.web, ...integreatE2e }
+const webIntegreatE2eBuildConfig: WebBuildConfigType = { ...integreatPlatformBuildConfigs.web, ...integreatE2e }
 const androidIntegreatE2eBuildCOnfig: AndroidBuildConfigType = {
-  ...integreatTestCmsPlatformBuildConfigs.android,
+  ...integreatPlatformBuildConfigs.android,
   ...integreatE2e
 }
-const iosIntegreatE2eBuildConfig: iOSBuildConfigType = { ...integreatTestCmsPlatformBuildConfigs.ios, ...integreatE2e }
+const iosIntegreatE2eBuildConfig: iOSBuildConfigType = { ...integreatPlatformBuildConfigs.ios, ...integreatE2e }
 const platformBuildConfigs = {
   common: commonIntegreatE2eBuildConfig,
   web: webIntegreatE2eBuildConfig,
