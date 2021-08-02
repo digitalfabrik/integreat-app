@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
-import { RESOURCE_CACHE_DIR_PATH } from '../services/DatabaseConnector'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 
 export const URL_PREFIX = 'file://'
 export const getResourceCacheFilesDirPath = (city: string): string => `${RESOURCE_CACHE_DIR_PATH}/${city}/files`

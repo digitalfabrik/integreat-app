@@ -1,12 +1,14 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import { POSITIVE_RATING } from 'api-client'
 import styled from 'styled-components'
-import FeedbackThanksMessage from './FeedbackThanksMessage'
-import FeedbackBoxContainer from './FeedbackBoxContainer'
+import { useTranslation } from 'react-i18next'
+import FeedbackContainer from './FeedbackContainer'
 import FocusTrap from 'focus-trap-react'
 import dimensions from '../constants/dimensions'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
 import { RouteType } from '../routes'
+import { faTimes } from '../constants/icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Overlay = styled.div`
   position: absolute;
@@ -28,80 +30,73 @@ const ModalContainer = styled.div`
   align-items: center;
   justify-content: center;
 `
-const FeedbackContainer = styled.div`
+const ModalContent = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   background-color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
     width: 100%;
     height: 100%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
 `
+const Header = styled.div`
+  display: flex;
+  width: 360px;
+  padding: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: ${props => props.theme.fonts.subTitleFontSize};
+`
+
+const CloseButton = styled.button`
+  background-color: ${props => props.theme.colors.backgroundColor};
+  border: none;
+
+  & * {
+    font-size: 0.8em;
+    vertical-align: baseline;
+  }
+`
+
 type PropsType = {
   path?: string
   alias?: string
   cityCode: string
   language: string
-  route: RouteType
+  routeType: RouteType
   feedbackRating: FeedbackRatingType
-  closeFeedbackModal: () => void
+  closeModal: () => void
 }
 
-export type SendingStatusType = 'IDLE' | 'SUCCESS' | 'ERROR'
-type StateType = {
-  sendingStatus: SendingStatusType
-}
+const FeedbackModal = (props: PropsType): ReactElement => {
+  const { feedbackRating, closeModal, ...otherProps } = props
+  const { t } = useTranslation('feedback')
 
-export class FeedbackModal extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props)
-    this.state = { sendingStatus: 'IDLE' }
-  }
-
-  handleSubmit = (sendingStatus: SendingStatusType): void => {
-    this.setState({
-      sendingStatus: sendingStatus
-    })
-  }
-
-  handleOverlayClick = (): void => {
-    this.setState({
-      sendingStatus: 'IDLE'
-    })
-    this.props.closeFeedbackModal()
-  }
-
-  renderContent(): React.ReactNode {
-    const { feedbackRating, ...otherProps } = this.props
-    const { sendingStatus } = this.state
-
-    if (['IDLE', 'ERROR'].includes(sendingStatus)) {
-      return (
-        <FeedbackBoxContainer
-          isPositiveRatingSelected={feedbackRating === POSITIVE_RATING}
-          onSubmit={this.handleSubmit}
-          sendingStatus={sendingStatus}
-          {...otherProps}
-        />
-      )
-    } else {
-      return <FeedbackThanksMessage closeFeedbackModal={this.props.closeFeedbackModal} />
-    }
-  }
-
-  render(): ReactNode {
-    return (
-      <FocusTrap>
-        <ModalContainer role='dialog' aria-modal>
-          <Overlay onClick={this.handleOverlayClick} />
-          <FeedbackContainer>{this.renderContent()}</FeedbackContainer>
-        </ModalContainer>
-      </FocusTrap>
-    )
-  }
+  return (
+    <FocusTrap>
+      <ModalContainer role='dialog' aria-modal>
+        <Overlay onClick={closeModal} />
+        <ModalContent>
+          <Header>
+            <div>{t('feedback')}</div>
+            <CloseButton aria-label={t('close')} onClick={closeModal}>
+              <FontAwesomeIcon icon={faTimes} />
+            </CloseButton>
+          </Header>
+          <FeedbackContainer
+            isPositiveFeedback={feedbackRating === POSITIVE_RATING}
+            isSearchFeedback={false}
+            closeModal={closeModal}
+            {...otherProps}
+          />
+        </ModalContent>
+      </ModalContainer>
+    </FocusTrap>
+  )
 }
 
 export default FeedbackModal

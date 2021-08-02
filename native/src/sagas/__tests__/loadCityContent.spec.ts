@@ -1,10 +1,10 @@
-import DefaultDataContainer from '../../services/DefaultDataContainer'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { expectSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
-import AppSettings from '../../services/AppSettings'
+import AppSettings from '../../utils/AppSettings'
 import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
-import { DataContainer } from '../../services/DataContainer'
+import { DataContainer } from '../../utils/DataContainer'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
@@ -14,7 +14,7 @@ import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import AsyncStorage from '@react-native-community/async-storage'
 import fetchResourceCache from '../fetchResourceCache'
 import NetInfo from '@react-native-community/netinfo'
-import DatabaseConnector from '../../services/DatabaseConnector'
+import DatabaseConnector from '../../utils/DatabaseConnector'
 import mockDate from '../../testing/mockDate'
 import { createFetchMap } from '../../testing/builder/util'
 import loadLanguages from '../loadLanguages'
@@ -25,14 +25,13 @@ import loadPois from '../loadPois'
 import { mocked } from 'ts-jest/utils'
 
 jest.mock('@react-native-community/netinfo')
-jest.mock('rn-fetch-blob')
 jest.mock('../fetchResourceCache')
 jest.mock('../loadCategories')
 jest.mock('../loadEvents')
 jest.mock('../loadCities')
 jest.mock('../loadLanguages')
 jest.mock('../loadPois')
-jest.mock('../../services/PushNotificationsManager')
+jest.mock('../../utils/PushNotificationsManager')
 
 const prepareDataContainer = async (dataContainer: DataContainer, city: string, language: string) => {
   const categoriesBuilder = new CategoriesMapModelBuilder(city, language, 2, 2)

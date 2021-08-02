@@ -12,10 +12,10 @@ import {
   OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME
 } from 'api-client'
-import AppSettings from '../../services/AppSettings'
+import AppSettings from '../../utils/AppSettings'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
-import sendTrackingSignal from '../../services/sendTrackingSignal'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import { mocked } from 'ts-jest/utils'
 import { FixedCityType } from 'build-configs/BuildConfigType'
 
@@ -25,7 +25,7 @@ jest.mock('../createNavigate', () => {
   return jest.fn(() => navigateTo)
 })
 jest.mock('../navigateToCategory')
-jest.mock('../../services/sendTrackingSignal')
+jest.mock('../../utils/sendTrackingSignal')
 
 describe('navigateToDeepLink', () => {
   const dispatch = jest.fn()

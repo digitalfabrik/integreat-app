@@ -1,32 +1,16 @@
-import { execSync } from 'child_process'
-import { Capabilities } from '@wdio/types/build/Capabilities'
+import capabilities from './capabilities'
 
-const getGitBranch = () => {
-  return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
-}
-
-const getGitHeadReference = () => {
-  return execSync('git rev-parse --short HEAD').toString().trim()
-}
-
-const browserstackCaps = (config: Capabilities): Capabilities => {
-  const isCi = !!process.env.E2E_CI
-  const prefix = isCi ? 'IG CI' : 'IG DEV'
-  const app =
-    config.platformName === 'android' ? process.env.E2E_BROWSERSTACK_APP_ANDROID : process.env.E2E_BROWSERSTACK_APP_IOS
-  return {
-    'bstack:options': {
-      buildName: `${prefix}: ${getGitBranch()}`,
-      sessionName: `${config.browserName?.toLowerCase()}: ${getGitHeadReference()}`,
-      projectName: 'integreat-app-native',
-      local: true,
-      debug: true,
-      realMobile: isCi,
-      appiumVersion: '1.17.0'
-    },
-    ...config,
-    'appium:app': app
+const getCapability = () => {
+  const capability = process.env.E2E_CONFIG
+  if (!capability) {
+    throw new Error('E2E_CONFIG name is not set!')
   }
+
+  if (!capabilities[capability]) {
+    throw new Error('Value of E2E_CONFIG is invalid!')
+  }
+
+  return capabilities[capability]
 }
 
 export const config = {
@@ -39,20 +23,7 @@ export const config = {
   user: process.env.E2E_BROWSERSTACK_USER,
   key: process.env.E2E_BROWSERSTACK_KEY,
 
-  capabilities: [
-    browserstackCaps({
-      'appium:platformVersion': '9.0',
-      'appium:deviceName': 'Google Pixel 3',
-      'appium:automationName': 'UiAutomator2',
-      platformName: 'android'
-    }),
-    browserstackCaps({
-      'appium:platformVersion': '12',
-      'appium:deviceName': 'iPhone 8',
-      'appium:automationName': 'XCUITest',
-      platformName: 'ios'
-    })
-  ],
+  capabilities: [getCapability()],
 
   logLevel: 'info',
   coloredLogs: true,

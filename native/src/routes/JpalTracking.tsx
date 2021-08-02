@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ThemeType } from 'build-configs'
 import { Switch, Text, TextInput, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import AppSettings, { defaultSettings } from '../services/AppSettings'
+import AppSettings, { defaultSettings } from '../utils/AppSettings'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { JpalTrackingRouteType } from 'api-client'
 import styled from 'styled-components/native'
@@ -123,10 +123,10 @@ const JpalTracking = (props: PropsType) => {
 
         <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
         <Input
-          value={settings.jpalTrackingCode}
+          value={settings.jpalTrackingCode ?? undefined}
           onChangeText={setTrackingCode}
           theme={theme}
-          editable={settings.jpalTrackingEnabled}
+          editable={settings.jpalTrackingEnabled ?? undefined}
           testID='input'
         />
       </View>
