@@ -2,10 +2,9 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import TileModel from '../models/TileModel'
 import NavigationTile from './NavigationTile'
-import { Dimensions, ScrollView } from 'react-native'
+import { Dimensions, ScrollView, NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import AnchorIcon from './AnchorIcon'
-import { ScrollEvent } from 'react-native/Libraries/Types/CoreEventTypes'
 import { ThemeType } from 'build-configs'
 
 const widthBreakPoint = 400
@@ -56,7 +55,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
     })
   }
 
-  onMomentumScrollEnd = (event: ScrollEvent) => {
+  onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { nativeEvent } = event
     const contentSizeDiff = nativeEvent.contentSize.width - nativeEvent.layoutMeasurement.width
     this.setState({

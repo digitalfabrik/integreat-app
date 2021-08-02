@@ -1,7 +1,8 @@
+import { mocked } from 'ts-jest'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToEvents from '../navigateToEvents'
 
-const url = path => `some.base.url/${path}`
+const url = (path: string) => `some.base.url/${path}`
 
 jest.mock('../url', () => ({
   url: jest.fn(url)
@@ -25,7 +26,7 @@ describe('navigateToEvents', () => {
         key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
       })
     )
-    const key = (navigation.navigate as any).mock.calls[0][0].key
+    const key = mocked(navigation.navigate).mock.calls[0][0].key
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_EVENT',
       params: expect.objectContaining({
