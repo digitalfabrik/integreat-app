@@ -14,12 +14,14 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from '../'
+
 const cityCode = 'bochum'
 const languageCode = 'de'
 describe('InternalPathnameParser', () => {
   it('should match landing route if pathname is emtpy', () => {
     const parser = new InternalPathnameParser('', languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: false,
       route: LANDING_ROUTE,
       languageCode
     })
@@ -27,6 +29,7 @@ describe('InternalPathnameParser', () => {
   it('should match landing route if pathname is landing without a language', () => {
     const parser = new InternalPathnameParser(`/${LANDING_ROUTE}`, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: false,
       route: LANDING_ROUTE,
       languageCode
     })
@@ -34,6 +37,7 @@ describe('InternalPathnameParser', () => {
   it('should match landing route if pathname is landing with a language', () => {
     const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar`, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: false,
       route: LANDING_ROUTE,
       languageCode: 'ar'
     })
@@ -41,6 +45,7 @@ describe('InternalPathnameParser', () => {
   it('should match jpal tracking route', () => {
     const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}`, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: false,
       route: JPAL_TRACKING_ROUTE,
       trackingCode: null
     })
@@ -48,6 +53,7 @@ describe('InternalPathnameParser', () => {
   it('should match landing route if pathname with tracking code', () => {
     const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}/abcdef12345`, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: false,
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef12345'
     })
@@ -55,6 +61,7 @@ describe('InternalPathnameParser', () => {
   it('should match dashboard route if pathname is a city without a language', () => {
     const parser = new InternalPathnameParser(`/${cityCode}`, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: DASHBOARD_ROUTE,
       languageCode,
       cityCode,
@@ -64,6 +71,7 @@ describe('InternalPathnameParser', () => {
   it('should match dashboard route if pathname is a city with a language', () => {
     const parser = new InternalPathnameParser(`/${cityCode}/ar`, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: DASHBOARD_ROUTE,
       languageCode: 'ar',
       cityCode,
@@ -74,6 +82,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${EVENTS_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: EVENTS_ROUTE,
       languageCode,
       cityCode,
@@ -84,6 +93,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${EVENTS_ROUTE}/1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: EVENTS_ROUTE,
       languageCode,
       cityCode,
@@ -94,6 +104,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: POIS_ROUTE,
       languageCode,
       cityCode,
@@ -104,6 +115,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: POIS_ROUTE,
       languageCode,
       cityCode,
@@ -114,6 +126,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: DISCLAIMER_ROUTE,
       languageCode,
       cityCode
@@ -123,6 +136,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${OFFERS_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: OFFERS_ROUTE,
       languageCode,
       cityCode
@@ -132,6 +146,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: SPRUNGBRETT_OFFER_ROUTE,
       languageCode,
       cityCode
@@ -146,6 +161,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${SEARCH_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: SEARCH_ROUTE,
       languageCode,
       cityCode
@@ -155,6 +171,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${NEWS_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: NEWS_ROUTE,
       newsType: LOCAL_NEWS_TYPE,
       newsId: undefined,
@@ -166,6 +183,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: NEWS_ROUTE,
       newsType: LOCAL_NEWS_TYPE,
       newsId: undefined,
@@ -177,6 +195,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: NEWS_ROUTE,
       newsType: LOCAL_NEWS_TYPE,
       newsId: '1234',
@@ -188,6 +207,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: NEWS_ROUTE,
       newsType: TU_NEWS_TYPE,
       newsId: undefined,
@@ -199,6 +219,7 @@ describe('InternalPathnameParser', () => {
     const pathname = `/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
+      cityContentRoute: true,
       route: NEWS_ROUTE,
       newsType: TU_NEWS_TYPE,
       newsId: '1234',
@@ -215,6 +236,7 @@ describe('InternalPathnameParser', () => {
     const pathname1 = `/${cityCode}/${languageCode}/some-category`
     const parser1 = new InternalPathnameParser(pathname1, languageCode, null)
     expect(parser1.route()).toEqual({
+      cityContentRoute: true,
       route: CATEGORIES_ROUTE,
       languageCode,
       cityCode,
@@ -223,6 +245,7 @@ describe('InternalPathnameParser', () => {
     const pathname2 = `/${cityCode}/${languageCode}/some-category/2nd-level/3rd-level`
     const parser2 = new InternalPathnameParser(pathname2, languageCode, null)
     expect(parser2.route()).toEqual({
+      cityContentRoute: true,
       route: CATEGORIES_ROUTE,
       languageCode,
       cityCode,
@@ -234,6 +257,7 @@ describe('InternalPathnameParser', () => {
     it('should match dashboard route if pathname is emtpy', () => {
       const parser = new InternalPathnameParser('', languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: DASHBOARD_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -243,6 +267,7 @@ describe('InternalPathnameParser', () => {
     it('should match dashboard route if pathname is landing without a language', () => {
       const parser = new InternalPathnameParser(`/${LANDING_ROUTE}`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: DASHBOARD_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -252,6 +277,7 @@ describe('InternalPathnameParser', () => {
     it('should match dashboard route if pathname is landing with a language', () => {
       const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar/`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: DASHBOARD_ROUTE,
         languageCode: 'ar',
         cityCode: fixedCity,
@@ -261,6 +287,7 @@ describe('InternalPathnameParser', () => {
     it('should match dashboard route if pathname the fixed city without a language', () => {
       const parser = new InternalPathnameParser(`/${fixedCity}/`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: DASHBOARD_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -270,6 +297,7 @@ describe('InternalPathnameParser', () => {
     it('should match dashboard route if pathname is the fixed city with a language', () => {
       const parser = new InternalPathnameParser(`/${fixedCity}/ar`, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: DASHBOARD_ROUTE,
         languageCode: 'ar',
         cityCode: fixedCity,
@@ -280,6 +308,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${EVENTS_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: EVENTS_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -291,6 +320,7 @@ describe('InternalPathnameParser', () => {
       const trailingPathname = `${pathname}/`
       const parser = new InternalPathnameParser(trailingPathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: EVENTS_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -301,6 +331,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -311,6 +342,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${POIS_ROUTE}/1234`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: POIS_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -321,6 +353,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${DISCLAIMER_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: DISCLAIMER_ROUTE,
         languageCode,
         cityCode: fixedCity
@@ -330,6 +363,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${OFFERS_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: OFFERS_ROUTE,
         languageCode,
         cityCode: fixedCity
@@ -339,6 +373,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: SPRUNGBRETT_OFFER_ROUTE,
         languageCode,
         cityCode: fixedCity
@@ -353,6 +388,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${SEARCH_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: SEARCH_ROUTE,
         languageCode,
         cityCode: fixedCity
@@ -362,6 +398,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${NEWS_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: NEWS_ROUTE,
         newsType: LOCAL_NEWS_TYPE,
         newsId: undefined,
@@ -373,6 +410,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: NEWS_ROUTE,
         newsType: LOCAL_NEWS_TYPE,
         newsId: undefined,
@@ -384,6 +422,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: NEWS_ROUTE,
         newsType: LOCAL_NEWS_TYPE,
         newsId: '1234',
@@ -395,6 +434,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: NEWS_ROUTE,
         newsType: TU_NEWS_TYPE,
         newsId: undefined,
@@ -406,6 +446,7 @@ describe('InternalPathnameParser', () => {
       const pathname = `/${fixedCity}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
+        cityContentRoute: true,
         route: NEWS_ROUTE,
         newsType: TU_NEWS_TYPE,
         newsId: '1234',
@@ -422,6 +463,7 @@ describe('InternalPathnameParser', () => {
       const pathname1 = `/${fixedCity}/${languageCode}/some-category`
       const parser1 = new InternalPathnameParser(pathname1, languageCode, fixedCity)
       expect(parser1.route()).toEqual({
+        cityContentRoute: true,
         route: CATEGORIES_ROUTE,
         languageCode,
         cityCode: fixedCity,
@@ -431,6 +473,7 @@ describe('InternalPathnameParser', () => {
       const trailingPathname2 = `${pathname2}/`
       const parser2 = new InternalPathnameParser(trailingPathname2, languageCode, fixedCity)
       expect(parser2.route()).toEqual({
+        cityContentRoute: true,
         route: CATEGORIES_ROUTE,
         languageCode,
         cityCode: fixedCity,

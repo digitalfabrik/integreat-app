@@ -8,7 +8,6 @@ import AppSettings, { SettingsType } from '../utils/AppSettings'
 import {
   DASHBOARD_ROUTE,
   INTRO_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
   RouteInformationType
@@ -21,23 +20,24 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 export const CITY_CODE_PLACEHOLDER = 'city_code_placeholder'
 export const LANGUAGE_CODE_PLACEHOLDER = 'language_code_placeholder'
 
-const getDeepLinkCityCode = (routeInformation: RouteInformationType, selectedCity: string | null): string | null => {
-  const cityCode =
-    routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
-      ? routeInformation.cityCode
-      : null
-  return cityCode === CITY_CODE_PLACEHOLDER ? selectedCity : cityCode
-}
+const getRouteInformation = (url: string, language: string, selectedCity: string | null): RouteInformationType => {
+  const fixedCity = buildConfig().featureFlags.fixedCity
+  const pathname = new Url(url).pathname
+  const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
+  const routeInformation = routeParser.route()
 
-const getDeepLinkLanguageCode = (
-  routeInformation: RouteInformationType,
-  selectedLanguage: string | null
-): string | null => {
-  const languageCode =
-    routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
-      ? routeInformation.languageCode
-      : null
-  return languageCode === LANGUAGE_CODE_PLACEHOLDER ? selectedLanguage : languageCode
+  const newSelectedCity = fixedCity || selectedCity
+
+  if (routeInformation?.cityContentRoute && routeInformation.cityCode === CITY_CODE_PLACEHOLDER) {
+    if (!newSelectedCity) {
+      return null
+    }
+    // Replace empty cityCode and languageCode (placeholders)
+    const languageCode =
+      routeInformation.languageCode === LANGUAGE_CODE_PLACEHOLDER ? language : routeInformation.languageCode
+    return { ...routeInformation, cityCode: newSelectedCity, languageCode }
+  }
+  return routeInformation
 }
 
 const navigateToDeepLink = async (
@@ -64,12 +64,10 @@ const navigateToDeepLink = async (
       deepLink: url
     })
   } else {
-    const pathname = new Url(url).pathname
-    const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
-    const routeInformation = routeParser.route()
+    const routeInformation = getRouteInformation(url, language, selectedCity)
 
-    const deepLinkCityCode = getDeepLinkCityCode(routeInformation, selectedCity)
-    const deepLinkLanguageCode = getDeepLinkLanguageCode(routeInformation, language)
+    const deepLinkCityCode = routeInformation?.cityContentRoute ? routeInformation.cityCode : null
+    const deepLinkLanguageCode = routeInformation?.cityContentRoute ? routeInformation.languageCode : null
 
     // Don't overwrite already selected city
     const selectedCityCode = fixedCity || selectedCity || deepLinkCityCode || null
@@ -95,10 +93,13 @@ const navigateToDeepLink = async (
       navigation.replace(LANDING_ROUTE)
     }
 
-    if (routeInformation?.route === LANDING_ROUTE) {
+    if (!routeInformation) {
+      console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
       return
-    } else if (routeInformation?.route === JPAL_TRACKING_ROUTE) {
-      createNavigate(dispatch, navigation)(routeInformation, undefined, false)
+    }
+
+    if (routeInformation.route === LANDING_ROUTE) {
+      // Already handled
       return
     }
 
@@ -106,23 +107,8 @@ const navigateToDeepLink = async (
 
     // Only navigate again if either the city of the deep link differs from the currently selected city or
     // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-    if (
-      routeInformation &&
-      deepLinkCityCode &&
-      deepLinkLanguageCode &&
-      (routeInformation.route !== DASHBOARD_ROUTE || isPeekingCity)
-    ) {
-      // Replace placeholders if used
-      const finalRouteInformation = {
-        ...routeInformation,
-        cityCode: deepLinkCityCode,
-        languageCode: deepLinkLanguageCode
-      }
-      createNavigate(dispatch, navigation)(finalRouteInformation, undefined, false)
-    }
-
-    if (!routeInformation) {
-      console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+    if (routeInformation.route !== DASHBOARD_ROUTE || isPeekingCity) {
+      createNavigate(dispatch, navigation)(routeInformation, undefined, false)
     }
   }
 }
