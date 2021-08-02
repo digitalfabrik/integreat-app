@@ -6,11 +6,16 @@ platform :ios, '10.0'
 target 'Integreat' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
-  # Use MapLibre currently not working
+  # MapLibre 5.12 currently not working on IOS, we have to stick to 5.11.0
   # https://github.com/react-native-mapbox-gl/maps/issues/1472
-  #$RNMBGL_Use_SPM = true
-
-  $ReactNativeMapboxGLIOSVersion = '5.9'
+    $RNMBGL_Use_SPM = {
+      url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+      requirement: {
+          kind: "exactVersion",
+          version: "5.11.0"
+      },
+      product_name: "Mapbox"
+    }
 
   if !ENV['CI']
       pre_install do |installer|
