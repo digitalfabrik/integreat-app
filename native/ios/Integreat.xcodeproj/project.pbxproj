@@ -248,7 +248,7 @@
 			);
 			name = Integreat;
 			packageProductDependencies = (
-				CC8ECA9BB2C91CD28548DAA3 /* SwiftPackageProductDependency */,
+				5CA8FB30AB1F6C9C89CA07EA /* SwiftPackageProductDependency */,
 			);
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* IntegreatTestCms.app */;
@@ -291,7 +291,7 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				5F2385CD505A73A89EC6123C /* RemoteSwiftPackageReference */,
+				E6BFD1B1BE1C2FA07D20E821 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -754,9 +754,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5F2385CD505A73A89EC6123C /* RemoteSwiftPackageReference */ = {
+		E6BFD1B1BE1C2FA07D20E821 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			repositoryURL = "git@github.com:maplibre/maplibre-gl-native-distribution.git";
 			requirement = {
 				kind = exactVersion;
 				version = 5.11.0;
@@ -765,9 +765,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CC8ECA9BB2C91CD28548DAA3 /* SwiftPackageProductDependency */ = {
+		5CA8FB30AB1F6C9C89CA07EA /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5F2385CD505A73A89EC6123C /* RemoteSwiftPackageReference */;
+			package = E6BFD1B1BE1C2FA07D20E821 /* RemoteSwiftPackageReference */;
 			productName = Mapbox;
 		};
 /* End XCSwiftPackageProductDependency section */
