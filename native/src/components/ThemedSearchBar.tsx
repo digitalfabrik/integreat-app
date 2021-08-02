@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { ThemeType } from 'build-configs'
 import { SearchBar } from 'react-native-elements'
 import { TFunction } from 'react-i18next'
+import testID from '../testing/testID'
 
 type PropsType = {
   theme: ThemeType
@@ -18,6 +19,7 @@ class ThemedSearchBar extends React.Component<PropsType> {
     const { colors } = theme
     return (
       <SearchBar
+        {...testID('Content-Search-Input')}
         accessibilityRole='search'
         allowFontScaling={false}
         containerStyle={{
