@@ -5,7 +5,7 @@ import { contentSearch } from '../../../shared/constants'
 import { Selector } from '../Selector'
 
 describe('navigateToSearchResult', () => {
-  it('open and test content search', async () => {
+  it('should open and search content', async () => {
     await navigateToDashboard()
     const searchIcon = await DashboardPage.searchIcon
     await searchIcon.click()
