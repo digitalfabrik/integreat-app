@@ -1,6 +1,6 @@
 import React from 'react'
 import CitySelector from '../CitySelector'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CityModelBuilder } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
 import { renderWithRouter } from '../../testing/render'
