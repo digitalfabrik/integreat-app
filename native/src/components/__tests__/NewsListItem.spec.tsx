@@ -23,7 +23,7 @@ describe('NewsListItem', () => {
   const language = 'de'
   const navigateToNews = jest.fn()
 
-  const t = key => key
+  const t = (key: string) => key
 
   beforeEach(() => {
     jest.clearAllMocks()

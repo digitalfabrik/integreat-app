@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ReactElement, useCallback, useContext } from 'react'
+import { ReactElement, ReactNode, useCallback, useContext } from 'react'
 import { GestureResponderEvent, Text, useWindowDimensions, View } from 'react-native'
 import Html, { HTMLNode } from 'react-native-render-html'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -115,15 +115,15 @@ const CategoryListContent = ({
       const { transientChildren, nodeIndex, key, listsPrefixesRenderers } = passProps
       children =
         children &&
-        children.map((child, index) => {
+        children.map((child: ReactNode, index: number) => {
           const rawChild = transientChildren[index]
           let prefix = false
 
           if (rawChild && rawChild.tagName === 'li') {
             if (rawChild.parentTag === 'ul') {
-              prefix = listsPrefixesRenderers.ul(htmlAttribs, children, convertedCSSStyles, { ...passProps })
+              prefix = listsPrefixesRenderers?.ul(htmlAttribs, children, convertedCSSStyles, { ...passProps })
             } else if (rawChild.parentTag === 'ol') {
-              prefix = listsPrefixesRenderers.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
+              prefix = listsPrefixesRenderers?.ol(htmlAttribs, children, convertedCSSStyles, { ...passProps, index })
             }
           }
 
