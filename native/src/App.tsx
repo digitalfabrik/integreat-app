@@ -25,7 +25,7 @@ import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { enableScreens } from 'react-native-screens'
 import messaging from '@react-native-firebase/messaging'
 import urlFromRouteInformation from './navigation/url'
-import { CITY_CODE_PLACEHOLDER, LANGUAGE_CODE_PLACEHOLDER } from './navigation/navigateToDeepLink'
+import AppSettings from './utils/AppSettings'
 
 enableScreens(true)
 
@@ -55,16 +55,22 @@ const linking: LinkingOptions = {
 
     Linking.addEventListener('url', onReceiveURL)
 
+    // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
     const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
-      listener(
-        urlFromRouteInformation({
-          cityCode: CITY_CODE_PLACEHOLDER,
-          languageCode: LANGUAGE_CODE_PLACEHOLDER,
-          route: NEWS_ROUTE,
-          newsType: LOCAL_NEWS_TYPE,
-          cityContentRoute: true
-        })
-      )
+      const appSettings = new AppSettings()
+      appSettings.loadSettings().then(settings => {
+        const { selectedCity, contentLanguage } = settings
+        if (selectedCity && contentLanguage) {
+          listener(
+            urlFromRouteInformation({
+              cityCode: selectedCity,
+              languageCode: contentLanguage,
+              route: NEWS_ROUTE,
+              newsType: LOCAL_NEWS_TYPE
+            })
+          )
+        }
+      })
     })
 
     return () => {

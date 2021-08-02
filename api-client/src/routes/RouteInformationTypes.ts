@@ -14,36 +14,33 @@ import {
   TuNewsType
 } from './'
 
-type CityContentParamsType = {
+type ParamsType = {
   cityCode: string
   languageCode: string
-  cityContentRoute: true
 }
 export type LandingRouteInformationType = {
   route: LandingRouteType
   languageCode: string
-  cityContentRoute: false
 }
 export type JpalTrackingRouteInformationType = {
   route: JpalTrackingRouteType
   trackingCode: string | null
-  cityContentRoute: false
 }
-export type CategoriesRouteInformationType = CityContentParamsType & {
+export type CategoriesRouteInformationType = ParamsType & {
   route: DashboardRouteType | CategoriesRouteType
   cityContentPath: string
 }
-export type NewsRouteInformationType = CityContentParamsType & {
+export type NewsRouteInformationType = ParamsType & {
   // Two levels of ids: news type and news id
   route: NewsRouteType
   newsType: LocalNewsType | TuNewsType
   newsId?: string
 }
-export type SimpleCityContentFeatureType = CityContentParamsType & {
+export type SimpleCityContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/
   route: DisclaimerRouteType | OffersRouteType | SprungbrettOfferRouteType | SearchRouteType
 }
-export type EventsPoisRouteInformationType = CityContentParamsType & {
+export type EventsPoisRouteInformationType = ParamsType & {
   // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
   route: EventsRouteType | PoisRouteType
   cityContentPath?: string
