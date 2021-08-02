@@ -7,6 +7,7 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import NavigationTiles from '../../components/NavigationTiles'
 import buildConfig from '../../constants/buildConfig'
 import { mocked } from 'ts-jest/utils'
+import TileModel from '../../models/TileModel'
 
 jest.mock('../../components/NavigationTiles', () => {
   const Text = require('react-native').Text
@@ -90,7 +91,7 @@ describe('Dashboard', () => {
     const result = TestRenderer.create(renderDashboard(cityModel))
     expect(() => result.root.findByType(NavigationTiles)).not.toThrowError()
     const navigationTiles = result.root.findByType(NavigationTiles)
-    expect(navigationTiles.props.tiles.some(tile => tile.path === 'categories')).toBeTruthy()
+    expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'categories')).toBeTruthy()
   })
 
   it('should not show navigation tiles if there are no features enabled', () => {
@@ -104,11 +105,11 @@ describe('Dashboard', () => {
     const cityModel = createCityModel(false, false, true, false, false)
     const result = TestRenderer.create(renderDashboard(cityModel))
     const navigationTiles = result.root.findByType(NavigationTiles)
-    expect(navigationTiles.props.tiles.some(tile => tile.path === 'news')).toBeTruthy()
+    expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'news')).toBeTruthy()
     const otherCityModel = createCityModel(false, false, false, true, false)
     const otherResult = TestRenderer.create(renderDashboard(otherCityModel))
     const otherNavigationTiles = otherResult.root.findByType(NavigationTiles)
-    expect(otherNavigationTiles.props.tiles.some(tile => tile.path === 'news')).toBeTruthy()
+    expect(otherNavigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'news')).toBeTruthy()
   })
 
   it('should show all tiles if all features are enabled in city model and build config', () => {
@@ -127,7 +128,7 @@ describe('Dashboard', () => {
     expect(() => result.root.findByType(NavigationTiles)).not.toThrowError()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles).toHaveLength(3)
-    expect(navigationTiles.props.tiles.some(tile => tile.path === 'news')).toBeFalsy()
-    expect(navigationTiles.props.tiles.some(tile => tile.path === 'pois')).toBeFalsy()
+    expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'news')).toBeFalsy()
+    expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'pois')).toBeFalsy()
   })
 })

@@ -2,14 +2,14 @@ import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
-  EVENTS_ROUTE,
   CityModel,
-  LanguageModel,
-  EventModel,
-  NotFoundError,
-  useLoadFromEndpoint,
   createEventsEndpoint,
-  normalizePath
+  EventModel,
+  EVENTS_ROUTE,
+  LanguageModel,
+  normalizePath,
+  NotFoundError,
+  useLoadFromEndpoint
 } from 'api-client'
 import LocationToolbar from '../components/LocationToolbar'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -130,7 +130,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
     <EventListItem event={event} formatter={formatter} key={event.path} />
   )
 
-  const pageTitle = `${t('app:pageTitles.events')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
