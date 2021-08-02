@@ -33,7 +33,10 @@
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "eslint": "eslint .",
     "postinstall": "jetifier",
-    "ts:check": "tsc --build"
+    "ts:check": "tsc --build",
+    "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
+    "prettier:fix": "yarn prettier --ignore-path  ../.prettierignore --write .",
+    "circleci:update-config": "yarn --cwd .. circleci:update-config"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
