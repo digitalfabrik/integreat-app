@@ -3,7 +3,7 @@ import { POIS_ROUTE } from 'api-client'
 import CityModelBuilder from '../../../../api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
 import {
-  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 import { renderWithBrowserRouter } from '../../testing/render'
@@ -34,7 +34,7 @@ describe('PoisPage', () => {
   it('should render a list with all pois', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnceWitData(pois)
+    mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -54,7 +54,7 @@ describe('PoisPage', () => {
   it('should render a page with poi information', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnceWitData(pois)
+    mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -75,7 +75,7 @@ describe('PoisPage', () => {
   it('should render a not found error', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFromEndpointOnceWitData(pois)
+    mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
