@@ -16,7 +16,7 @@ describe('watchFetchNews', () => {
   const city = 'altmuehlfranken'
   const language = 'en'
   describe('fetch news', () => {
-    const createDataContainer = async (city, language) => {
+    const createDataContainer = async (city: string, language: string) => {
       const newsBuilder = new LocalNewsModelBuilder('loadCityContent-news', 2, city, language)
       const news = newsBuilder.build()
       const languages = new LanguageModelBuilder(2).build()
