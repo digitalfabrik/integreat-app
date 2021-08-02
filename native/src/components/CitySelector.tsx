@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { transform } from 'lodash/object'
-import { groupBy } from 'lodash/collection'
+import { transform, groupBy } from 'lodash'
 import CityEntry from './CityEntry'
 import { View } from 'react-native'
 import { CityModel } from 'api-client'
@@ -76,10 +75,10 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
     const sorted = this._sort(cities)
-    const groups = groupBy(sorted, city => city.sortCategory)
+    const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
     return transform(
       groups,
-      (result, cities, key) => {
+      (result: React.ReactNode[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
             <CityGroup theme={this.props.theme}>{key}</CityGroup>

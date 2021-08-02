@@ -12,20 +12,24 @@ exports[`Helmet should add noindex tag, if city is not live 1`] = `
     content="noindex"
     name="robots"
   />
+  <meta
+    content="PageTitle"
+    name="description"
+  />
   <link
-    href="/testinstanz/de"
+    href="http://localhost/testinstanz/de"
     hrefLang="de"
     key="de"
     rel="alternate"
   />
   <link
-    href="/testinstanz/en"
+    href="http://localhost/testinstanz/en"
     hrefLang="en"
     key="en"
     rel="alternate"
   />
   <link
-    href="/testinstanz/ar"
+    href="http://localhost/testinstanz/ar"
     hrefLang="ar"
     key="ar"
     rel="alternate"
@@ -37,6 +41,10 @@ exports[`Helmet should add noindex tag, if city is not live 1`] = `
   <meta
     content="https://integreat.app/social-media-preview.png"
     property="og:image"
+  />
+  <meta
+    content="PageTitle"
+    property="og:description"
   />
   <meta
     content="http://localhost/"
@@ -62,19 +70,19 @@ exports[`Helmet should render and match snapshot 1`] = `
     name="description"
   />
   <link
-    href="/augsburg/de"
+    href="http://localhost/augsburg/de"
     hrefLang="de"
     key="de"
     rel="alternate"
   />
   <link
-    href="/augsburg/en"
+    href="http://localhost/augsburg/en"
     hrefLang="en"
     key="en"
     rel="alternate"
   />
   <link
-    href="/augsburg/ar"
+    href="http://localhost/augsburg/ar"
     hrefLang="ar"
     key="ar"
     rel="alternate"
