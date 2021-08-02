@@ -284,7 +284,8 @@ describe('navigateToDeepLink', () => {
           cityCode,
           languageCode: language,
           cityContentPath: `/${cityCode}/${language}`,
-          route: DASHBOARD_ROUTE
+          route: DASHBOARD_ROUTE,
+          cityContentRoute: true
         },
         undefined,
         false
@@ -374,7 +375,8 @@ describe('navigateToDeepLink', () => {
           cityCode,
           languageCode,
           cityContentPath: `/${cityCode}/${languageCode}/events/some-event`,
-          route: EVENTS_ROUTE
+          route: EVENTS_ROUTE,
+          cityContentRoute: true
         },
         undefined,
         false
@@ -413,7 +415,8 @@ describe('navigateToDeepLink', () => {
         {
           cityCode,
           languageCode,
-          route: OFFERS_ROUTE
+          route: OFFERS_ROUTE,
+          cityContentRoute: true
         },
         undefined,
         false
@@ -456,7 +459,8 @@ describe('navigateToDeepLink', () => {
           languageCode: 'en',
           newsId: undefined,
           newsType: LOCAL_NEWS_TYPE,
-          route: NEWS_ROUTE
+          route: NEWS_ROUTE,
+          cityContentRoute: true
         },
         undefined,
         false
@@ -500,7 +504,8 @@ describe('navigateToDeepLink', () => {
         languageCode: language,
         newsId: undefined,
         newsType: LOCAL_NEWS_TYPE,
-        route: NEWS_ROUTE
+        route: NEWS_ROUTE,
+        cityContentRoute: true
       },
       undefined,
       false
@@ -529,7 +534,8 @@ describe('navigateToDeepLink', () => {
       expect(navigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef123456'
+          trackingCode: 'abcdef123456',
+          cityContentRoute: false
         },
         undefined,
         false
@@ -568,7 +574,8 @@ describe('navigateToDeepLink', () => {
       expect(navigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef123456'
+          trackingCode: 'abcdef123456',
+          cityContentRoute: false
         },
         undefined,
         false

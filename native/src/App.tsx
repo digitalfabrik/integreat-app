@@ -61,7 +61,8 @@ const linking: LinkingOptions = {
           cityCode: CITY_CODE_PLACEHOLDER,
           languageCode: LANGUAGE_CODE_PLACEHOLDER,
           route: NEWS_ROUTE,
-          newsType: LOCAL_NEWS_TYPE
+          newsType: LOCAL_NEWS_TYPE,
+          cityContentRoute: true
         })
       )
     })
