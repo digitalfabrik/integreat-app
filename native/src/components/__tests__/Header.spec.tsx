@@ -6,6 +6,7 @@ import buildConfig from '../../constants/buildConfig'
 import Header from '../Header'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { SEARCH_ROUTE } from 'api-client'
+import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 
 describe('Header', () => {
   beforeEach(() => {
@@ -22,10 +23,10 @@ describe('Header', () => {
     peeking: boolean,
     categoriesAvailable: boolean,
     mode: 'float' | 'screen',
-    goToLanguageChange
+    goToLanguageChange: () => void
   ): React.ComponentProps<typeof Header> => {
-    // @ts-ignore
     return {
+      ...mockStackHeaderProps(),
       t,
       theme: buildConfig().lightTheme,
       peeking,
