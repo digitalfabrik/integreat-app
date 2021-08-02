@@ -7,7 +7,7 @@ type DeepPartial<T> = {
 }
 
 const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackHeaderProps => {
-  return merge(props, {
+  return merge({
     mode: 'screen',
     layout: {
       width: 450,
@@ -23,7 +23,6 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
     scene: {
       route: {
         key: 'key-0',
-        name: 'Root'
       },
       descriptor: {
         render: jest.fn(),
@@ -37,7 +36,7 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
       }
     },
     navigation: createNavigationMock()
-  }) as StackHeaderProps
+  }, props) as StackHeaderProps
 }
 
 export default mockStackHeaderProps
