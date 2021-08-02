@@ -1,4 +1,4 @@
-import { SectionListData } from 'react-native'
+import { SectionListData, AccessibilityRole } from 'react-native'
 import { TFunction } from 'react-i18next'
 import NativeConstants from '../constants/NativeConstants'
 import { SettingsType } from './AppSettings'
@@ -11,7 +11,6 @@ import openExternalUrl from './openExternalUrl'
 import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
 import { NavigationPropType } from '../constants/NavigationTypes'
 import { openSettings } from 'react-native-permissions'
-import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
@@ -136,7 +135,6 @@ const createSettingsSections = ({
         onPress: () => openPrivacyPolicy(languageCode)
       },
       {
-        accessibilityRole: 'none',
         title: t('version', {
           version: NativeConstants.appVersion
         }),
@@ -153,7 +151,6 @@ const createSettingsSections = ({
         ? []
         : [
             {
-              accessibilityRole: 'none',
               title: t('tracking'),
               description: t('trackingDescription'),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,

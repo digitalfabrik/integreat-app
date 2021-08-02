@@ -5,7 +5,7 @@
     "lib": ["ES5", "ES6"],
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "resolveJsonModule": true,
     "strict": true,
     "target": "ESNext"
