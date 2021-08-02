@@ -4,7 +4,7 @@ import MapboxGL from '@react-native-mapbox-gl/maps'
 
 import { mapConfig } from 'api-client'
 
-const StyledContainer = styled.View`
+const MapContainer = styled.View`
   flex-direction: row;
   justify-content: center;
 `
@@ -16,9 +16,9 @@ const StyledMap = styled(MapboxGL.MapView)`
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView: React.FunctionComponent = (): ReactElement => {
   return (
-    <StyledContainer>
+    <MapContainer>
       <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled />
-    </StyledContainer>
+    </MapContainer>
   )
 }
 
