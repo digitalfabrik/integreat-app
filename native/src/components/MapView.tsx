@@ -13,6 +13,7 @@ const StyledMap = styled(MapboxGL.MapView)`
   height: 500px;
 `
 
+// Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView: React.FunctionComponent = (): ReactElement => {
   return (
