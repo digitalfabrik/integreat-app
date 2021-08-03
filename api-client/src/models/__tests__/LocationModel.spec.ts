@@ -1,3 +1,4 @@
+import { Feature } from 'geojson'
 import LocationModel from '../LocationModel'
 describe('LocationModel', () => {
   describe('location', () => {
@@ -62,5 +63,59 @@ describe('LocationModel', () => {
       })
       expect(location.location).toEqual('Wertachstr. 29, 86353 Augsburg')
     })
+  })
+})
+describe('convertToPoint', () => {
+  const expectedGeoJsonMarkerFeature: Feature = {
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [31.133859, 29.979848]
+    },
+    properties: {
+      name: 'Test'
+    }
+  }
+  it('should be transformed to GeoJson type', () => {
+    const location = new LocationModel({
+      name: 'Test',
+      address: 'Wertachstr. 29',
+      town: 'Augsburg',
+      state: 'Bayern',
+      postcode: '86353',
+      region: 'Schwaben',
+      latitude: '29.979848',
+      longitude: '31.133859',
+      country: 'DE'
+    })
+    expect(location.convertToPoint()).toEqual(expectedGeoJsonMarkerFeature)
+  })
+  it('should return null when latitude is null ', () => {
+    const location = new LocationModel({
+      name: 'Test',
+      address: 'Wertachstr. 29',
+      town: 'Augsburg',
+      state: 'Bayern',
+      postcode: '86353',
+      region: 'Schwaben',
+      latitude: null,
+      longitude: '31.133859',
+      country: 'DE'
+    })
+    expect(location.convertToPoint()).toBeNull()
+  })
+  it('should return null when longitude is null ', () => {
+    const location = new LocationModel({
+      name: 'Test',
+      address: 'Wertachstr. 29',
+      town: 'Augsburg',
+      state: 'Bayern',
+      postcode: '86353',
+      region: 'Schwaben',
+      latitude: '31.133859',
+      longitude: null,
+      country: 'DE'
+    })
+    expect(location.convertToPoint()).toBeNull()
   })
 })

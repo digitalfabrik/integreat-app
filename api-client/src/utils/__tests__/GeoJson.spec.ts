@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import LocationModel from '../../models/LocationModel'
-import { convertToPoint, embedInCollection } from '../geoJson'
 import { Feature, FeatureCollection } from 'geojson'
+import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {
   const expectedGeoJsonMarkerFeature: Feature = {
@@ -13,22 +14,6 @@ describe('geoJson', () => {
       name: 'Test'
     }
   }
-  describe('convertToPoint', () => {
-    it('should be transformed to GeoJson type', () => {
-      const location = new LocationModel({
-        name: 'Test',
-        address: 'Wertachstr. 29',
-        town: 'Augsburg',
-        state: 'Bayern',
-        postcode: '86353',
-        region: 'Schwaben',
-        latitude: '29.979848',
-        longitude: '31.133859',
-        country: 'DE'
-      })
-      expect(convertToPoint(location)).toEqual(expectedGeoJsonMarkerFeature)
-    })
-  })
   describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: FeatureCollection = {
       features: [expectedGeoJsonMarkerFeature],
@@ -46,7 +31,7 @@ describe('geoJson', () => {
         longitude: '31.133859',
         country: 'DE'
       })
-      expect(embedInCollection([convertToPoint(location)])).toEqual(expectedGeoJsonFeatureCollection)
+      expect(embedInCollection([location.convertToPoint()!])).toEqual(expectedGeoJsonFeatureCollection)
     })
   })
 })
