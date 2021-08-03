@@ -109,7 +109,10 @@ const createConfig = (
     mode: devServer ? 'development' : 'production',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      modules: [nodeModules, rootNodeModules]
+      modules: [nodeModules, rootNodeModules],
+      alias: {
+        'mapbox-gl': 'maplibre-gl'
+      }
     },
     // The base directory for resolving the entry option
     context: srcDirectory,
@@ -130,7 +133,8 @@ const createConfig = (
       sourcePrefix: '  '
     },
     optimization: {
-      usedExports: true
+      usedExports: true,
+      runtimeChunk: 'single'
     },
     devtool: 'source-map',
     devServer: {

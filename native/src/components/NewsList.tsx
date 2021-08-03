@@ -4,14 +4,14 @@ import { LocalNewsModel, NEWS_ROUTE, NewsType, RouteInformationType, TunewsModel
 import { NewsModelsType } from '../redux/StateType'
 import LoadingSpinner from './LoadingSpinner'
 
-const keyExtractor = (item, index) => `${index}`
+const keyExtractor = (item: unknown, index: number) => `${index}`
 
 type PropType = {
   items: NewsModelsType
   renderItem: ListRenderItem<LocalNewsModel | TunewsModel>
   isFetchingMore: boolean
   fetchMoreItems: () => void
-  renderNoItemsComponent: React.ComponentType<any>
+  renderNoItemsComponent: React.ComponentType<unknown>
   routeKey: string
   navigateTo: (arg0: RouteInformationType, arg1: string, arg2: boolean) => void
   selectedNewsType: NewsType

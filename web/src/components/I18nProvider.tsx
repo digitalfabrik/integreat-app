@@ -95,9 +95,6 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
           {additionalFont === 'noto-sans-georgian' && (
             <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />
           )}
-          <link href='/fonts/open-sans/open-sans.css' rel='stylesheet' />
-          <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
-          <link href='/fonts/varela-round/varela-round.css' rel='stylesheet' />
         </ReactHelmet>
         <DateFormatterContext.Provider value={dateFormatter}>{children}</DateFormatterContext.Provider>
       </div>
