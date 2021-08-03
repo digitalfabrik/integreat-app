@@ -7,6 +7,7 @@ target 'Integreat' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
 
+# Since Map Libre 5.12.0 is not working yet, we stick to 5.11.0
 $RNMBGL_Use_SPM = {
     url: "https://github.com/maplibre/maplibre-gl-native-distribution",
     requirement: {
