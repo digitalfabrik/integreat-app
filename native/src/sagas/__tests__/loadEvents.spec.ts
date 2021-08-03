@@ -5,8 +5,9 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../../utils/DatabaseConnector'
+import { EventModel } from 'api-client'
 
-let mockEvents
+let mockEvents: EventModel
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   const city = 'augsburg'

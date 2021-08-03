@@ -20,7 +20,7 @@ jest.mock('react-native-reanimated', () => {
 })
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
 
-function walkDir(dir, callback) {
+function walkDir(dir: string, callback: (filePath: string) => void): void {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
     const isDirectory = fs.statSync(filePath).isDirectory()
@@ -40,6 +40,7 @@ walkDir(mocksPath, name => {
   })
 })
 jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
+jest.doMock('constants/NativeConstants')
 jest.doMock('constants/buildConfig')
 jest.doMock('rn-fetch-blob')
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
