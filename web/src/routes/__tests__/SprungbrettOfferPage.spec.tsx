@@ -1,10 +1,14 @@
 import React from 'react'
-import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettJobModel, useLoadFromEndpoint } from 'api-client'
+import {
+  CityModelBuilder,
+  LanguageModelBuilder,
+  OffersModelBuilder,
+  SPRUNGBRETT_OFFER_ROUTE,
+  SprungbrettJobModel,
+  useLoadFromEndpoint
+} from 'api-client'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
-import OffersModelBuilder from '../../../../api-client/src/testing/OffersModelBuilder'
 import { mocked } from 'ts-jest/utils'
-import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
-import CityModelBuilder from '../../../../api-client/src/testing/CityModelBuilder'
 import { renderWithBrowserRouter } from '../../testing/render'
 import buildConfig from '../../constants/buildConfig'
 import { createPath, RoutePatterns } from '../index'
