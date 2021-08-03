@@ -131,7 +131,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
     )
   }
 
-  const pageTitle = `${t('app:pageTitles.localNews')} - ${cityModel.name}`
+  const pageTitle = `${t('localNews.pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

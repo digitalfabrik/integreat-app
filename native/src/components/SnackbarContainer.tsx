@@ -1,9 +1,8 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { Animated, View } from 'react-native'
+import { Animated, View, LayoutChangeEvent } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-import { ViewLayoutEvent } from 'react-native/Libraries/Components/View/ViewPropTypes'
 import { SnackbarType, StateType } from '../redux/StateType'
 import Snackbar from '../components/Snackbar'
 
@@ -58,7 +57,7 @@ const SnackbarContainer = (): ReactElement | null => {
     }
   }, [displayed, hide, show])
 
-  const onLayout = (event: ViewLayoutEvent) => setHeight(event.nativeEvent.layout.height)
+  const onLayout = (event: LayoutChangeEvent) => setHeight(event.nativeEvent.layout.height)
 
   const outputRange: number[] = [0, height ?? MAX_HEIGHT]
   const interpolated = translate.interpolate({

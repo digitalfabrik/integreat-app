@@ -5,8 +5,9 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DatabaseContext from '../../models/DatabaseContext'
+import { CategoryModel } from 'api-client'
 
-let mockCategories
+let mockCategories: CategoryModel[]
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   const city = 'augsburg'

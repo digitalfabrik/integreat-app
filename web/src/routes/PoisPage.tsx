@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, Suspense, useCallback, useContext } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import {
   CityModel,
@@ -26,6 +26,9 @@ import PageDetail from '../components/PageDetail'
 import Caption from '../components/Caption'
 import List from '../components/List'
 import Helmet from '../components/Helmet'
+
+/** Lazy import for code splitting map library */
+const MapView = React.lazy(() => import('../components/MapView'))
 
 type PropsType = {
   cities: Array<CityModel>
@@ -116,15 +119,17 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
       </LocationLayout>
     )
   }
-
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
-  const pageTitle = `${t('app:pageTitles.pois')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <MapView />
+      </Suspense>
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )

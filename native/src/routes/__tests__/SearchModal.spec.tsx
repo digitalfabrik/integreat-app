@@ -12,7 +12,7 @@ jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/TimeStamp')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: text => text
+    t: (text: string) => text
   }),
   withTranslation: () => () => null
 }))
@@ -23,7 +23,7 @@ describe('SearchModal', () => {
   })
   const dummy = jest.fn()
 
-  const t = key => key
+  const t = (key: string) => key
 
   const categoriesMapModel = new CategoriesMapModelBuilder('augsburg', 'de').build()
   const language = 'de'

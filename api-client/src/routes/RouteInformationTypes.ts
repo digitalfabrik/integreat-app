@@ -13,6 +13,7 @@ import {
   SprungbrettOfferRouteType,
   TuNewsType
 } from './'
+
 type ParamsType = {
   cityCode: string
   languageCode: string

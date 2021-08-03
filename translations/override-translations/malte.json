@@ -1,84 +1,4 @@
 {
-  "app": {
-    "de": {
-      "pageTitles": {
-        "events": "Termine"
-      },
-      "metaDescription": "{{appName}} ist Ihr digitaler Helfer von den Maltesern. Hier finden Sie lokale Informationen, Termine und Beratung aus Ihrer Einrichtung. Immer aktuell und in Ihrer Sprache!"
-    },
-    "ar": {
-      "pageTitles": {
-        "events": "المواعيد"
-      },
-      "metaDescription": "تطبيق {{appName}} هو مُساعدك الرقمي المقدم من مؤسسة مالتيزر (Malteser). تجد هنا معلومات ومواعيد ومشورة محلية مُقدمة من مؤسستك. مُحدَّثة دائمًا وبلغتك!"
-    },
-    "en": {
-      "pageTitles": {
-        "events": "Events"
-      },
-      "metaDescription": "{{appName}} is your digital assistant from the Maltesers. Here you will find local information, events and advice from your institution. Always up-to-date and in your language!"
-    },
-    "es": {
-      "pageTitles": {
-        "events": "Fechas"
-      },
-      "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
-    },
-    "pes": {
-      "pageTitles": {
-        "events": "رویدادها"
-      },
-      "metaDescription": "{{appName}} یاور دیجیتال شما از مالتسر است. در اینجا می توانید اطلاعات محلی، تاریخ‌ها و توصیه‌های موسسه خود را پیدا کنید. همیشه به روز و به زبان شما!"
-    },
-    "fr": {
-      "pageTitles": {
-        "events": "Rendez-vous"
-      },
-      "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
-    },
-    "kmr": {
-      "pageTitles": {
-        "events": "Randevû"
-      },
-      "metaDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê. Li vir hûn ê agahdariya herêmî, randevû û şîretên saziya xwe bibînin. Herdem nûvekirî û bi zimanê xwe!"
-    },
-    "ps": {
-      "pageTitles": {
-        "events": "ملاقاتونه"
-      },
-      "metaDescription": "{{appName}} مالټایانو لخوا تاسو سره ډیجیټال کومک دی. دلته تاسو سیمه ییز معلومات، ستاسو د مرکز ملاقاتونه او مشوره پیدا کولی شئ. تل تازه او ستاسو په ژبه کې."
-    },
-    "ru": {
-      "pageTitles": {
-        "events": "События"
-      },
-      "metaDescription": "Приложение {{appName}} – это ваш цифровой помощник от Мальтийского ордена. Он предоставит вам местную информацию, информацию о событиях, а также консультации от вашей организации. Всегда актуальная информация на вашем языке!"
-    },
-    "so": {
-      "pageTitles": {
-        "events": "Dhacdooyin"
-      },
-      "metaDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese. Halkan waxaad ka heli doontaa macluumaadka deegaanka, taariikho iyo talobixinta hay'addaada. Had iyo jeer waa ay cusbooneysiisan tahay waxayna ku qoran tahay luqaddaada!"
-    },
-    "sr-Latn": {
-      "pageTitles": {
-        "events": "Termini"
-      },
-      "metaDescription": "{{appName}} je digilatni pomoćnik Malteških vitezova. Ovde ćete naći lokalne informacije, termina i savetovanje iz vaše ustanove. Uvek aktuelno i na vašem jeziku!"
-    },
-    "ti": {
-      "pageTitles": {
-        "events": "ኣጋጣሚታት"
-      },
-      "metaDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ። ኣብዚ ከባብያዊ ሓበሬታ፡ ዕለታትን ምኽርን ካብ ትካልኩም ክትረኽቡ ኢኹም። ንሱ ኩሉግዜ ዝተሓደሰን ብቛንቋኹምን’ዩ!"
-    },
-    "tr": {
-      "pageTitles": {
-        "events": "Etkinlikler"
-      },
-      "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
-    }
-  },
   "dashboard": {
     "de": {
       "events": "Termine"
@@ -86,20 +6,35 @@
     "ar": {
       "events": "المواعيد"
     },
+    "ckb": {
+      "events": "سەردانەکان"
+    },
     "en": {
       "events": "Events"
     },
     "es": {
       "events": "Fechas"
     },
-    "pes": {
-      "events": "رویدادها"
-    },
     "fr": {
       "events": "Rendez-vous"
     },
+    "hr": {
+      "events": "Termini"
+    },
+    "ka": {
+      "events": "ტერმინები"
+    },
     "kmr": {
       "events": "Randevû"
+    },
+    "mk": {
+      "events": "Термини"
+    },
+    "pes": {
+      "events": "رویدادها"
+    },
+    "prs": {
+      "events": "ملاقات ها"
     },
     "ps": {
       "events": "ملاقاتونه"
@@ -109,6 +44,12 @@
     },
     "so": {
       "events": "Dhacdooyin"
+    },
+    "sq": {
+      "events": "Terminet"
+    },
+    "sr-Cyrl": {
+      "events": "Термини"
     },
     "sr-Latn": {
       "events": "Termini"
@@ -137,6 +78,14 @@
         "events": "إلى المواعيد"
       }
     },
+    "ckb": {
+      "notFound": {
+        "event": "بەداخەوە ئەم سەردانە نەدۆزراوە."
+      },
+      "goTo": {
+        "events": "بۆ سەردانەکان"
+      }
+    },
     "en": {
       "notFound": {
         "event": "Unfortunately this event was not found."
@@ -153,14 +102,6 @@
         "events": "Ir a fechas"
       }
     },
-    "pes": {
-      "notFound": {
-        "event": "متأسفانه این رویداد یافت نشد."
-      },
-      "goTo": {
-        "events": "رفتن به رویداد"
-      }
-    },
     "fr": {
       "notFound": {
         "event": "Malheureusement, ce rendez-vous est introuvable."
@@ -169,12 +110,52 @@
         "events": "Vers les rendez-vous"
       }
     },
+    "hr": {
+      "notFound": {
+        "event": "Ovaj termin nažalost nije pronađen."
+      },
+      "goTo": {
+        "events": "Idi na termine"
+      }
+    },
+    "ka": {
+      "notFound": {
+        "event": "სამწუხაროდ ეს ტერმინი არ მოიძებნა"
+      },
+      "goTo": {
+        "events": "ტერმინებთან"
+      }
+    },
     "kmr": {
       "notFound": {
         "event": "Mixabin vê randevûyê nehat dîtin."
       },
       "goTo": {
         "events": "Heya randevûyan"
+      }
+    },
+    "mk": {
+      "notFound": {
+        "event": "За жал овој термин не е пронајден."
+      },
+      "goTo": {
+        "events": "Кон термини"
+      }
+    },
+    "pes": {
+      "notFound": {
+        "event": "متأسفانه این رویداد یافت نشد."
+      },
+      "goTo": {
+        "events": "رفتن به رویداد"
+      }
+    },
+    "prs": {
+      "notFound": {
+        "event": "این ملاقات متاسفانه پیدا نشد."
+      },
+      "goTo": {
+        "events": "به ملاقات ها"
       }
     },
     "ps": {
@@ -201,12 +182,28 @@
         "events": "Aad qeybta dhacdooyinka"
       }
     },
+    "sq": {
+      "notFound": {
+        "event": "Ky termin për fat të keq nuk u gjet."
+      },
+      "goTo": {
+        "events": "Tek terminet"
+      }
+    },
+    "sr-Cyrl": {
+      "notFound": {
+        "event": "Овај термин нажалост није пронађен."
+      },
+      "goTo": {
+        "events": "Ка терминима"
+      }
+    },
     "sr-Latn": {
       "notFound": {
         "event": "Ovaj termin nažalost nije pronađen."
       },
       "goTo": {
-        "events": "Na termine"
+        "events": "Ka terminima"
       }
     },
     "ti": {
@@ -229,55 +226,103 @@
   "events": {
     "de": {
       "events": "Termine",
-      "currentlyNoEvents": "Es gibt aktuell keine Termine."
+      "currentlyNoEvents": "Es gibt aktuell keine Termine.",
+      "pageTitle": "Termine"
     },
     "ar": {
       "events": "المواعيد",
-      "currentlyNoEvents": "لا توجد مواعيد حاليًا."
+      "currentlyNoEvents": "لا توجد مواعيد حاليًا.",
+      "pageTitle": "المواعيد"
+    },
+    "ckb": {
+      "events": "سەردانەکان",
+      "currentlyNoEvents": "ئێستا هیچ سەردانێکی تێدا نییە.",
+      "pageTitle": "سەردانەکان"
     },
     "en": {
       "events": "Events",
-      "currentlyNoEvents": "There are currently no events."
+      "currentlyNoEvents": "There are currently no events.",
+      "pageTitle": "Events"
     },
     "es": {
       "events": "Fechas",
-      "currentlyNoEvents": "Actualmente no hay fechas."
-    },
-    "pes": {
-      "events": "رویدادها",
-      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد."
+      "currentlyNoEvents": "Actualmente no hay fechas.",
+      "pageTitle": "Fechas"
     },
     "fr": {
       "events": "Rendez-vous",
-      "currentlyNoEvents": "Il n'y a actuellement aucun rendez-vous."
+      "currentlyNoEvents": "Il n'y a actuellement aucun rendez-vous.",
+      "pageTitle": "Rendez-vous"
+    },
+    "hr": {
+      "events": "Termini",
+      "currentlyNoEvents": "Trenutačno nema termina.",
+      "pageTitle": "Termini"
+    },
+    "ka": {
+      "events": "ტერმინები",
+      "currentlyNoEvents": "ამჟამად არ არსებობენ აქტუალური ტერმინები.",
+      "pageTitle": "ტერმინები"
     },
     "kmr": {
       "events": "Randevû",
-      "currentlyNoEvents": "Niha randevû tuneye"
+      "currentlyNoEvents": "Niha randevû tuneye",
+      "pageTitle": "Randevû"
+    },
+    "mk": {
+      "events": "Термини",
+      "currentlyNoEvents": "Моментално нема термини.",
+      "pageTitle": "Термини"
+    },
+    "pes": {
+      "events": "رویدادها",
+      "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد.",
+      "pageTitle": "رویدادها"
+    },
+    "prs": {
+      "events": "ملاقات ها",
+      "currentlyNoEvents": "فعلاً کدام ملاقاتی وجود ندارد.",
+      "pageTitle": "ملاقات ها"
     },
     "ps": {
       "events": "ملاقاتونه",
-      "currentlyNoEvents": "دا مهال کوم ملاقات نشته."
+      "currentlyNoEvents": "دا مهال کوم ملاقات نشته.",
+      "pageTitle": "ملاقاتونه"
     },
     "ru": {
       "events": "События",
-      "currentlyNoEvents": "В настоящий момент события отсутствуют."
+      "currentlyNoEvents": "В настоящий момент события отсутствуют.",
+      "pageTitle": "События"
     },
     "so": {
       "events": "Dhacdooyin",
-      "currentlyNoEvents": "Waqti xaadirkan ma jiraan taariikho."
+      "currentlyNoEvents": "Waqti xaadirkan ma jiraan taariikho.",
+      "pageTitle": "Dhacdooyin"
+    },
+    "sq": {
+      "events": "Terminet",
+      "currentlyNoEvents": "Aktualisht nuk ka asnjë termin.",
+      "pageTitle": "Terminet"
+    },
+    "sr-Cyrl": {
+      "events": "Термини",
+      "currentlyNoEvents": "Тренутно нема термина.",
+      "pageTitle": "Термини"
     },
     "sr-Latn": {
       "events": "Termini",
-      "currentlyNoEvents": "Trenutno nema termina."
+      "currentlyNoEvents": "Trenutno nema termina.",
+      "pageTitle": "Termini"
     },
     "ti": {
       "events": "ኣጋጣሚታት",
-      "currentlyNoEvents": "ኣብዚ እዋን’ዚ ዕለታት የለዉን።"
+      "currentlyNoEvents": "ኣብዚ እዋን’ዚ ዕለታት የለዉን።",
+      "pageTitle": "ኣጋጣሚታት"
     },
     "tr": {
       "events": "Etkinlikler",
-      "currentlyNoEvents": "Güncel etkinlik bulunmamaktadır."
+      "currentlyNoEvents": "Güncel etkinlik bulunmamaktadır.",
+      "pageTitle": "Etkinlikler"
     }
   },
   "feedback": {
@@ -287,20 +332,35 @@
     "ar": {
       "contentOfEvent": "موضوع الموعد \"{{event}}\""
     },
+    "ckb": {
+      "contentOfEvent": "ناوەرۆکی سەردان \"{{event}}\""
+    },
     "en": {
       "contentOfEvent": "Topic of the \"{{event}}\""
     },
     "es": {
       "contentOfEvent": "Contenido de la fecha \"{{event}}\""
     },
-    "pes": {
-      "contentOfEvent": "محتوای رویداد \"{{event}}\""
-    },
     "fr": {
       "contentOfEvent": "Contenu du rendez-vous \"{{event}}\""
     },
+    "hr": {
+      "contentOfEvent": "Sadržaj termina \"{{event}}\""
+    },
+    "ka": {
+      "contentOfEvent": "ტერმინთა შინაარსი \"{{event}}\""
+    },
     "kmr": {
       "contentOfEvent": "Naveroka randevûyê \"{{event}}\""
+    },
+    "mk": {
+      "contentOfEvent": "Содржина на термини\"{{event}}\""
+    },
+    "pes": {
+      "contentOfEvent": "محتوای رویداد \"{{event}}\""
+    },
+    "prs": {
+      "contentOfEvent": "محتوای ملاقات \"{{event}}\""
     },
     "ps": {
       "contentOfEvent": "د \"{{event}}\" ملاقات منځپانګه"
@@ -311,8 +371,14 @@
     "so": {
       "contentOfEvent": "Tusmooyinka dhacdada \"{{event}}\""
     },
+    "sq": {
+      "contentOfEvent": "Përmbajtja e terminit \"{{event}}\""
+    },
+    "sr-Cyrl": {
+      "contentOfEvent": "Садржај термина \"{{event}}\""
+    },
     "sr-Latn": {
-      "contentOfEvent": "Sadržaj termina \"{{event}}\""
+      "contentOfEvent": "Sadržaj ovog termina \"{{event}}\""
     },
     "ti": {
       "contentOfEvent": "ትሕዝቶ ናይቲ ናይ \"{{event}}\" ኣጋጣሚ"
@@ -332,6 +398,11 @@
       "events": "المواعيد",
       "eventsDescription": "مواعيد وفعاليات حالية"
     },
+    "ckb": {
+      "appDescription": "{{appName}} یارمەتیدەری دیجیتاڵی تۆ لەلایەن Malteserیە",
+      "events": "سەردانەکان",
+      "eventsDescription": "سەردانەکان و ڕووداوە هەنووکەییەکان"
+    },
     "en": {
       "appDescription": "{{appName}} is your digital assistant from the Maltesers",
       "events": "Events",
@@ -342,20 +413,40 @@
       "events": "Fechas",
       "eventsDescription": "Eventos actuales y fechas"
     },
-    "pes": {
-      "appDescription": "{{appName}} یاور دیجیتال شما از مالتسر است",
-      "events": "رویدادها",
-      "eventsDescription": "رویدادهای فعلی و مراسمات"
-    },
     "fr": {
       "appDescription": "{{appName}} est votre assistant numérique de Malteser",
       "events": "Rendez-vous",
       "eventsDescription": "Rendez-vous actuels et évènements"
     },
+    "hr": {
+      "appDescription": "{{appName}} vaš je digitalni pomoćnik ustanove Malteser",
+      "events": "Termini",
+      "eventsDescription": "Trenutačni termini i događanja"
+    },
+    "ka": {
+      "appDescription": "‎{{appName}} არის თქვენი ციფრული დამხმარე მალთეზერებისაგან",
+      "events": "ტერმინები",
+      "eventsDescription": "აქტუალური ტერმინები და ღონისძიებები"
+    },
     "kmr": {
       "appDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê",
       "events": "Randevû",
       "eventsDescription": "Randevû û bûyerên niha"
+    },
+    "mk": {
+      "appDescription": "{{appName}} е вашиот дигитален водич за Малтежани",
+      "events": "Термини",
+      "eventsDescription": "Актуелни термини и настани"
+    },
+    "pes": {
+      "appDescription": "{{appName}} یاور دیجیتال شما از مالتسر است",
+      "events": "رویدادها",
+      "eventsDescription": "رویدادهای فعلی و مراسمات"
+    },
+    "prs": {
+      "appDescription": "{{appName}} یاری کننده دیجیتل شما از طرف Malteser است",
+      "events": "ملاقات ها",
+      "eventsDescription": "ملاقات ها و رویدادهای فعلی"
     },
     "ps": {
       "appDescription": "{{appName}} مالټایانو لخوا ستاسو ډیجیټال کومک دی",
@@ -372,10 +463,20 @@
       "events": "Dhacdooyin",
       "eventsDescription": "Taariikhaha iyo dhacdooyinka hadda ah"
     },
+    "sq": {
+      "appDescription": "{{appName}} është ndihma juaj dixhitale nga Malteser",
+      "events": "Terminet",
+      "eventsDescription": "Terminet aktuale dhe evenimentet"
+    },
+    "sr-Cyrl": {
+      "appDescription": "{{appName}} је ваш дигитални помоћник организације Малтезер",
+      "events": "Термини",
+      "eventsDescription": "Актуелни термини и догађаји"
+    },
     "sr-Latn": {
-      "appDescription": "{{appName}} je digilatni pomoćnik Malteških vitezova",
+      "appDescription": "{{appName}} je vaš digitalni pomoćnik organizacije Malteser",
       "events": "Termini",
-      "eventsDescription": "Aktuelni termini i manifestacije"
+      "eventsDescription": "Aktuelni termini i događaji"
     },
     "ti": {
       "appDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ",
@@ -397,6 +498,10 @@
       "events": "المواعيد",
       "noEvents": "لا توجد مواعيد"
     },
+    "ckb": {
+      "events": "سەردانەکان",
+      "noEvents": "هیچ سەردانێکی تێدا نییە"
+    },
     "en": {
       "events": "Events",
       "noEvents": "No events"
@@ -405,17 +510,33 @@
       "events": "Fechas",
       "noEvents": "No hay fechas"
     },
-    "pes": {
-      "events": "رویدادها",
-      "noEvents": "هیچ رویدادی وجود ندارد"
-    },
     "fr": {
       "events": "Rendez-vous",
       "noEvents": "Aucun rendez-vous"
     },
+    "hr": {
+      "events": "Termini",
+      "noEvents": "Nema termina"
+    },
+    "ka": {
+      "events": "ტერმინები",
+      "noEvents": "არანაირი ტერმინები"
+    },
     "kmr": {
       "events": "Randevû",
       "noEvents": "Randevû tuneye"
+    },
+    "mk": {
+      "events": "Термини",
+      "noEvents": "Нема термини"
+    },
+    "pes": {
+      "events": "رویدادها",
+      "noEvents": "هیچ رویدادی وجود ندارد"
+    },
+    "prs": {
+      "events": "ملاقات ها",
+      "noEvents": "هیچ ملاقاتی وجود ندارد"
     },
     "ps": {
       "events": "ملاقاتونه",
@@ -429,6 +550,14 @@
       "events": "Dhacdooyin",
       "noEvents": "Dhacdooyin majiraan"
     },
+    "sq": {
+      "events": "Terminet",
+      "noEvents": "Nuk ka termine"
+    },
+    "sr-Cyrl": {
+      "events": "Термини",
+      "noEvents": "Нема термина"
+    },
     "sr-Latn": {
       "events": "Termini",
       "noEvents": "Nema termina"
@@ -440,6 +569,130 @@
     "tr": {
       "events": "Etkinlikler",
       "noEvents": "Etkinlik yok"
+    }
+  },
+  "landing": {
+    "de": {
+      "metaDescription": "{{appName}} ist Ihr digitaler Helfer von den Maltesern. Hier finden Sie lokale Informationen, Termine und Beratung aus Ihrer Einrichtung. Immer aktuell und in Ihrer Sprache!"
+    },
+    "ar": {
+      "metaDescription": "تطبيق {{appName}} هو مُساعدك الرقمي المقدم من مؤسسة مالتيزر (Malteser). تجد هنا معلومات ومواعيد ومشورة محلية مُقدمة من مؤسستك. مُحدَّثة دائمًا وبلغتك!"
+    },
+    "ckb": {
+      "metaDescription": "{{appName}} یارمەتیدەری دیجیتاڵی تۆ لەلایەن Malteserیە. لێرە زانیارییە خۆجییەکان، سەردانەکان و ڕاوێژکاری دەدۆزییەوە. هەمیشە بەڕۆژ و بەزمانی تۆ!"
+    },
+    "en": {
+      "metaDescription": "{{appName}} is your digital assistant from the Maltesers. Here you will find local information, events and advice from your institution. Always up-to-date and in your language!"
+    },
+    "es": {
+      "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
+    },
+    "fr": {
+      "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
+    },
+    "hr": {
+      "metaDescription": "{{appName}} vaš je digitalni pomoćnik ustanove Malteser. Ovdje ćete pronaći lokalne informacije, termine i savjetovanje vaše ustanove. Uvijek aktualno i na vašem jeziku!"
+    },
+    "ka": {
+      "metaDescription": "‎{{appName}} არის თქვენი ციფრული დამხმარე მალთეზერებისაგან. აქ იპოვით ადგილობრივ ინფორმაციებს, ტერმინებს და რჩევებს თქვენი დაწესებულებისაგან. მუდამ აქტუალური და თან თქვენს ენაზე!"
+    },
+    "kmr": {
+      "metaDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê. Li vir hûn ê agahdariya herêmî, randevû û şîretên saziya xwe bibînin. Herdem nûvekirî û bi zimanê xwe!"
+    },
+    "mk": {
+      "metaDescription": "{{appName}} е вашиот дигитален водич за Малтежани. Тука ќе пронајдете локални информации, термини и совети од вашиот уред. Секогаш актуелно и на вашиот јазик!"
+    },
+    "pes": {
+      "metaDescription": "{{appName}} یاور دیجیتال شما از مالتسر است. در اینجا می توانید اطلاعات محلی، تاریخ‌ها و توصیه‌های موسسه خود را پیدا کنید. همیشه به روز و به زبان شما!"
+    },
+    "prs": {
+      "metaDescription": "{{appName}} یاری کننده دیجیتل شما از طرف Malteser است. در اینجا معلومات محلی، ملاقات ها و مشاوره را پیدا می کنید. همواره به‎​روز و به لسان شما!"
+    },
+    "ps": {
+      "metaDescription": "{{appName}} مالټایانو لخوا تاسو سره ډیجیټال کومک دی. دلته تاسو سیمه ییز معلومات، ستاسو د مرکز ملاقاتونه او مشوره پیدا کولی شئ. تل تازه او ستاسو په ژبه کې."
+    },
+    "ru": {
+      "metaDescription": "Приложение {{appName}} – это ваш цифровой помощник от Мальтийского ордена. Он предоставит вам местную информацию, информацию о событиях, а также консультации от вашей организации. Всегда актуальная информация на вашем языке!"
+    },
+    "so": {
+      "metaDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese. Halkan waxaad ka heli doontaa macluumaadka deegaanka, taariikho iyo talobixinta hay'addaada. Had iyo jeer waa ay cusbooneysiisan tahay waxayna ku qoran tahay luqaddaada!"
+    },
+    "sq": {
+      "metaDescription": "{{appName}} është ndihma juaj dixhitale nga Malteser. Këtu do të gjeni informacione lokale, takime dhe këshilla nga institucioni juaj. Gjithnjë aktuale dhe në gjuhën tuaj!"
+    },
+    "sr-Cyrl": {
+      "metaDescription": "{{appName}} је ваш дигитални помоћник организације Малтезер. Овде можете пронаћи локалне информације, термине и савете у вези са вашом установом. Увек актуелне и на вашем језику!"
+    },
+    "sr-Latn": {
+      "metaDescription": "{{appName}} je vaš digitalni pomoćnik organizacije Malteser. Ovde možete pronaći lokalne informacije, termine i savete u vezi sa vašom ustanovom. Uvek aktuelno na važem jeziku!"
+    },
+    "ti": {
+      "metaDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ። ኣብዚ ከባብያዊ ሓበሬታ፡ ዕለታትን ምኽርን ካብ ትካልኩም ክትረኽቡ ኢኹም። ንሱ ኩሉግዜ ዝተሓደሰን ብቛንቋኹምን’ዩ!"
+    },
+    "tr": {
+      "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
+    }
+  },
+  "categories": {
+    "de": {
+      "metaDescription": "{{appName}} ist Ihr digitaler Helfer von den Maltesern. Hier finden Sie lokale Informationen, Termine und Beratung aus Ihrer Einrichtung. Immer aktuell und in Ihrer Sprache!"
+    },
+    "ar": {
+      "metaDescription": "تطبيق {{appName}} هو مُساعدك الرقمي المقدم من مؤسسة مالتيزر (Malteser). تجد هنا معلومات ومواعيد ومشورة محلية مُقدمة من مؤسستك. مُحدَّثة دائمًا وبلغتك!"
+    },
+    "ckb": {
+      "metaDescription": "{{appName}} یارمەتیدەری دیجیتاڵی تۆ لەلایەن Malteserیە. لێرە زانیارییە خۆجییەکان، سەردانەکان و ڕاوێژکاری دەدۆزییەوە. هەمیشە بەڕۆژ و بەزمانی تۆ!"
+    },
+    "en": {
+      "metaDescription": "{{appName}} is your digital assistant from the Maltesers. Here you will find local information, events and advice from your institution. Always up-to-date and in your language!"
+    },
+    "es": {
+      "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
+    },
+    "fr": {
+      "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
+    },
+    "hr": {
+      "metaDescription": "{{appName}} vaš je digitalni pomoćnik ustanove Malteser. Ovdje ćete pronaći lokalne informacije, termine i savjetovanje vaše ustanove. Uvijek aktualno i na vašem jeziku!"
+    },
+    "ka": {
+      "metaDescription": "‎{{appName}} არის თქვენი ციფრული დამხმარე მალთეზერებისაგან. აქ იპოვით ადგილობრივ ინფორმაციებს, ტერმინებს და რჩევებს თქვენი დაწესებულებისაგან. მუდამ აქტუალური და თან თქვენს ენაზე!"
+    },
+    "kmr": {
+      "metaDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê. Li vir hûn ê agahdariya herêmî, randevû û şîretên saziya xwe bibînin. Herdem nûvekirî û bi zimanê xwe!"
+    },
+    "mk": {
+      "metaDescription": "{{appName}} е вашиот дигитален водич за Малтежани. Тука ќе пронајдете локални информации, термини и совети од вашиот уред. Секогаш актуелно и на вашиот јазик!"
+    },
+    "pes": {
+      "metaDescription": "{{appName}} یاور دیجیتال شما از مالتسر است. در اینجا می توانید اطلاعات محلی، تاریخ‌ها و توصیه‌های موسسه خود را پیدا کنید. همیشه به روز و به زبان شما!"
+    },
+    "prs": {
+      "metaDescription": "{{appName}} یاری کننده دیجیتل شما از طرف Malteser است. در اینجا معلومات محلی، ملاقات ها و مشاوره را پیدا می کنید. همواره به‎​روز و به لسان شما!"
+    },
+    "ps": {
+      "metaDescription": "{{appName}} مالټایانو لخوا تاسو سره ډیجیټال کومک دی. دلته تاسو سیمه ییز معلومات، ستاسو د مرکز ملاقاتونه او مشوره پیدا کولی شئ. تل تازه او ستاسو په ژبه کې."
+    },
+    "ru": {
+      "metaDescription": "Приложение {{appName}} – это ваш цифровой помощник от Мальтийского ордена. Он предоставит вам местную информацию, информацию о событиях, а также консультации от вашей организации. Всегда актуальная информация на вашем языке!"
+    },
+    "so": {
+      "metaDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese. Halkan waxaad ka heli doontaa macluumaadka deegaanka, taariikho iyo talobixinta hay'addaada. Had iyo jeer waa ay cusbooneysiisan tahay waxayna ku qoran tahay luqaddaada!"
+    },
+    "sq": {
+      "metaDescription": "{{appName}} është ndihma juaj dixhitale nga Malteser. Këtu do të gjeni informacione lokale, takime dhe këshilla nga institucioni juaj. Gjithnjë aktuale dhe në gjuhën tuaj!"
+    },
+    "sr-Cyrl": {
+      "metaDescription": "{{appName}} је ваш дигитални помоћник организације Малтезер. Овде можете пронаћи локалне информације, термине и савете у вези са вашом установом. Увек актуелне и на вашем језику!"
+    },
+    "sr-Latn": {
+      "metaDescription": "{{appName}} je vaš digitalni pomoćnik organizacije Malteser. Ovde možete pronaći lokalne informacije, termine i savete u vezi sa vašom ustanovom. Uvek aktuelno na važem jeziku!"
+    },
+    "ti": {
+      "metaDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ። ኣብዚ ከባብያዊ ሓበሬታ፡ ዕለታትን ምኽርን ካብ ትካልኩም ክትረኽቡ ኢኹም። ንሱ ኩሉግዜ ዝተሓደሰን ብቛንቋኹምን’ዩ!"
+    },
+    "tr": {
+      "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
     }
   }
 }

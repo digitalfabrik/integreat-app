@@ -58,7 +58,7 @@ they can be submitted to professionals for translations as follows:
 ## Conversion between JSON, CSV and ODS
 
 External translators generally need csv or ods files.
-For conversion between json and csv the [manage tool](tools/manage.js) can be used.
+For conversion between json and csv the [manage tool](tools/manage.ts) can be used.
 For conversion between csv and ods the [csv-to-ods](tools/csv-to-ods) and [ods-to-csv](tools/ods-to-csv) can be used.
 
 **In order to convert json to ods and vice versa, the intermediate step of converting to csv has to be made.**

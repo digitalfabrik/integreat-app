@@ -14,6 +14,7 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from '../'
+
 const cityCode = 'bochum'
 const languageCode = 'de'
 describe('InternalPathnameParser', () => {
