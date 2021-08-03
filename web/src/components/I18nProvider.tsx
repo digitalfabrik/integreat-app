@@ -2,7 +2,7 @@ import i18next, { i18n } from 'i18next'
 import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
-import { loadTranslations, config } from 'translations'
+import { config, loadTranslations } from 'translations'
 import { DateFormatter } from 'api-client'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import buildConfig from '../constants/buildConfig'
@@ -41,7 +41,8 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         debug: buildConfig().featureFlags.developerFriendly
       })
       setI18nextInstance(i18nextInstance)
-      // Apply ui language as language
+      setLanguage(i18nextInstance.language)
+
       i18nextInstance.on('languageChanged', () => {
         // eslint-disable-next-line no-console
         console.log(i18nextInstance.languages)
