@@ -6,7 +6,7 @@ import { MapParamsToBodyType } from './MapParamsToBody'
 import ResponseError, { RequestOptionsType } from './errors/ResponseError'
 import FetchError from './errors/FetchError'
 import NotFoundError from './errors/NotFoundError'
-import { request as fetch } from './Request'
+import { request as fetch } from './request'
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
