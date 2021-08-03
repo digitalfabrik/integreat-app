@@ -13,7 +13,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import StaticServerProvider from './components/StaticServerProvider'
 import I18nProvider from './components/I18nProvider'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
-import { CLOSE_PAGE_SIGNAL_NAME, defaultRequestOptions, REDIRECT_ROUTE } from 'api-client'
+import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE, setUserAgent } from 'api-client'
 import AppStateListener from './components/AppStateListener'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from './constants/buildConfig'
@@ -52,9 +52,7 @@ const linking: LinkingOptions = {
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
-defaultRequestOptions.headers = {
-  'User-Agent': userAgent
-}
+setUserAgent(userAgent)
 
 const App = (): ReactElement => {
   const [routeName, setRouteName] = useState<string | null | undefined>(null)

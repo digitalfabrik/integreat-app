@@ -9,7 +9,7 @@ import {
 } from '../tracking'
 import ResponseError from '../errors/ResponseError'
 import FetchError from '../errors/FetchError'
-import { request as fetch } from '../Request'
+import { request as fetch } from '../request'
 export const TRACKING_ENDPOINT_NAME = 'tracking'
 export const JPAL_TRACKING_ENDPOINT_URL = 'https://jpal.tuerantuer.org/'
 const JSON_HEADERS = {
