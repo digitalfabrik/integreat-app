@@ -136,6 +136,9 @@ PODS:
   - GoogleUtilities/UserDefaults (7.5.0):
     - GoogleUtilities/Logger
   - libevent (2.1.12)
+  - Mapbox-iOS-SDK (5.9.0):
+    - MapboxMobileEvents (= 0.10.2)
+  - MapboxMobileEvents (0.10.2)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -318,14 +321,17 @@ PODS:
   - react-native-geolocation (2.0.2):
     - React
   - react-native-mapbox-gl (8.2.1):
+    - Mapbox-iOS-SDK (~> 5.9)
     - React
     - React-Core
     - react-native-mapbox-gl/DynamicLibrary (= 8.2.1)
     - react-native-mapbox-gl/StaticLibraryFixer (= 8.2.1)
   - react-native-mapbox-gl/DynamicLibrary (8.2.1):
+    - Mapbox-iOS-SDK (~> 5.9)
     - React
     - React-Core
   - react-native-mapbox-gl/StaticLibraryFixer (8.2.1):
+    - Mapbox-iOS-SDK (~> 5.9)
     - React
     - React-Core
   - react-native-netinfo (5.9.10):
@@ -568,6 +574,8 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleUtilities
     - libevent
+    - Mapbox-iOS-SDK
+    - MapboxMobileEvents
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
@@ -707,6 +715,8 @@ SPEC CHECKSUMS:
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   Permission-LocationWhenInUse: 3a2b0dbc167d79e8e920a4377ff9520cdc108407
@@ -724,7 +734,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-flipper: a5b02e319fab599965d522d79aa34dc865a07d16
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
-  react-native-mapbox-gl: 8c29dd4d4d8af57ac45098b11f58d1988036e300
+  react-native-mapbox-gl: d0279ce35865c5438b53651edc14c955029832b5
   react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
   react-native-pdf: ef641e79a6d550cfabe5d7ec1916799726514c43
   react-native-progress-bar-android: be43138ab7da30d51fc038bafa98e9ed594d0c40
@@ -760,6 +770,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 95a7195126009489ad711e4ec707d2b39e685ff0
+PODFILE CHECKSUM: 496a2863abdad9fb371816138b4767f57b8aa09c
 
 COCOAPODS: 1.10.1
