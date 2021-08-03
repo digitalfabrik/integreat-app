@@ -17,6 +17,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
   const [language, setLanguage] = useState<string>(config.defaultFallback)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
   const [i18nextInstance, setI18nextInstance] = useState<i18n | null>(null)
+  const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
 
   useEffect(() => {
     const initI18Next = async () => {
@@ -74,9 +75,6 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
     }
   }, [language])
 
-  const additionalFont = config.getAdditionalFont(language)
-  const dateFormatter = useMemo(() => new DateFormatter(config.defaultFallback), [])
-
   if (errorMessage) {
     return <>{errorMessage}</>
   }
@@ -84,6 +82,8 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
   if (!i18nextInstance) {
     return <></>
   }
+
+  const additionalFont = config.getAdditionalFont(language)
 
   return (
     <I18nextProvider i18n={i18nextInstance}>
