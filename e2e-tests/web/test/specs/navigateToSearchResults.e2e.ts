@@ -14,7 +14,7 @@ describe('navigateToSearchResult', () => {
 
     const searchUrl = await browser.getUrl()
     const parsedSearchUrl = new URL(searchUrl)
-    expect(parsedSearchUrl.pathname).toContain(searchPath)
+    expect(parsedSearchUrl.pathname).toBe(searchPath)
 
     const searchBar = await SearchPage.search
     expect(searchBar).toBeDefined()
@@ -25,5 +25,10 @@ describe('navigateToSearchResult', () => {
 
     expect(firstResult).toBeDefined()
     expect(secondResult).toBeDefined()
+
+    await firstResult.click()
+    const resultUrl = await browser.getUrl()
+    const parsedResultUrl = new URL(resultUrl)
+    expect(parsedResultUrl.pathname).toBe(`${Routes.dashboard}/language`)
   })
 })
