@@ -40,6 +40,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         },
         debug: buildConfig().featureFlags.developerFriendly
       })
+      setLanguage(i18nextInstance.language)
       setI18nextInstance(i18nextInstance)
       // Apply ui language as language
       i18nextInstance.on('languageChanged', () => {
@@ -90,7 +91,9 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         data-testid={'direction'}
         dir={config.isSupportedLanguage(language) ? (config.hasRTLScript(language) ? 'rtl' : 'ltr') : undefined}>
         <ReactHelmet>
-          {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
+          {additionalFont === 'noto-sans-arabic' && (
+            <link href='/fonts/noto-sans-arabic/noto-sans-arabic.css' rel='stylesheet' />
+          )}
           {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
           {additionalFont === 'noto-sans-georgian' && (
             <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />
