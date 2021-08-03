@@ -247,9 +247,6 @@
 			dependencies = (
 			);
 			name = Integreat;
-			packageProductDependencies = (
-				5CA8FB30AB1F6C9C89CA07EA /* SwiftPackageProductDependency */,
-			);
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* IntegreatTestCms.app */;
 			productType = "com.apple.product-type.application";
@@ -290,9 +287,6 @@
 				ps,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
-			packageReferences = (
-				E6BFD1B1BE1C2FA07D20E821 /* RemoteSwiftPackageReference */,
-			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -345,10 +339,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-frameworks.sh",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -752,25 +750,6 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E6BFD1B1BE1C2FA07D20E821 /* RemoteSwiftPackageReference */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:maplibre/maplibre-gl-native-distribution.git";
-			requirement = {
-				kind = exactVersion;
-				version = 5.11.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5CA8FB30AB1F6C9C89CA07EA /* SwiftPackageProductDependency */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6BFD1B1BE1C2FA07D20E821 /* RemoteSwiftPackageReference */;
-			productName = Mapbox;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
