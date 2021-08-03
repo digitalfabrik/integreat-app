@@ -1,10 +1,10 @@
 type FontType =
-  | 'lateef'
-  | 'openSans'
+  | 'notoSans'
   | 'raleway'
   | 'varelaRound'
   | 'noto-sans-sc' // https://www.google.com/get/noto/help/cjk/
   | 'noto-sans-georgian'
+  | 'noto-sans-arabic'
 export type UiDirectionType = 'rtl' | 'ltr'
 type LanguageType = {
   rtl: boolean
@@ -25,14 +25,14 @@ class Config {
     ar: {
       // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
       rtl: true,
-      additionalFont: 'lateef'
+      additionalFont: 'noto-sans-arabic'
     },
     en: {
       rtl: false
     },
     pes: {
       rtl: true,
-      additionalFont: 'lateef'
+      additionalFont: 'noto-sans-arabic'
     },
     fr: {
       rtl: false
@@ -51,7 +51,7 @@ class Config {
     },
     ckb: {
       rtl: true,
-      additionalFont: 'lateef'
+      additionalFont: 'noto-sans-arabic'
     },
     ru: {
       rtl: false
@@ -105,14 +105,14 @@ class Config {
     },
     prs: {
       rtl: true,
-      additionalFont: 'lateef'
+      additionalFont: 'noto-sans-arabic'
     },
     hu: {
       rtl: false
     },
     ur: {
       rtl: true,
-      additionalFont: 'lateef'
+      additionalFont: 'noto-sans-arabic'
     }
   }
 

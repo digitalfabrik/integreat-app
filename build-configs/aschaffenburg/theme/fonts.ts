@@ -4,13 +4,13 @@ const fonts: FontsType = {
   native: {
     decorativeFontBold: 'VarelaRound-Regular',
     decorativeFontRegular: 'VarelaRound-Regular',
-    contentFontRegular: 'OpenSans-Regular',
-    contentFontBold: 'OpenSans-Bold',
-    webviewFont: 'OpenSans, Lateef, Noto Sans SC, Noto Sans Georgian, sans-serif'
+    contentFontRegular: 'NotoSans-Regular',
+    contentFontBold: 'NotoSans-Bold',
+    webviewFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif'
   },
   web: {
-    decorativeFont: 'Varela Round, Lateef, Noto Sans SC, Noto Sans Georgian, sans-serif',
-    contentFont: 'Open Sans, Lateef, Noto Sans SC, Noto Sans Georgian, sans-serif'
+    decorativeFont: 'Varela Round, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
+    contentFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif'
   },
   ...commonFonts
 }
