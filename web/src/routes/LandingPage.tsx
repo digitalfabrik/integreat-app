@@ -16,8 +16,8 @@ const LandingPage = ({ cities, match }: PropsType): ReactElement => {
   const { languageCode } = match.params
   const { t } = useTranslation('landing')
 
-  const pageTitle = t('app:pageTitles.landing')
-  const metaDescription = t('app:metaDescription', { appName: buildConfig().appName })
+  const pageTitle = t('pageTitle')
+  const metaDescription = t('metaDescription', { appName: buildConfig().appName })
 
   return (
     <Layout footer={<GeneralFooter language={languageCode} />}>

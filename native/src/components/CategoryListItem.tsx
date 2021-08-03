@@ -36,7 +36,7 @@ const CategoryEntryContainer = styled.View`
   border-bottom-color: ${props => props.theme.colors.themeColor};
 `
 
-const CategoryTitle = styled(Highlighter)<DirectionContainerPropsType>`
+const CategoryTitle = styled(Highlighter)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
@@ -58,6 +58,7 @@ type PropsType = {
   onItemPress: (tile: CategoryListModelType) => void
   language: string
 }
+
 /**
  * Displays a single CategoryListItem
  */
@@ -81,7 +82,7 @@ class CategoryListItem extends React.Component<PropsType> {
     ))
   }
 
-  getMatchedContent(numWordsSurrounding: number): Highlighter | null | undefined {
+  getMatchedContent(numWordsSurrounding: number): ReactNode {
     const { query, theme, category } = this.props
     const textToHighlight = this.contentMatcher.getMatchedContent(
       query,
@@ -89,13 +90,12 @@ class CategoryListItem extends React.Component<PropsType> {
       numWordsSurrounding
     )
 
-    if (textToHighlight == null) {
+    if (textToHighlight === null || !query) {
       return null
     }
 
     return (
       <Highlighter
-        theme={theme}
         searchWords={[query]}
         sanitize={normalizeSearchString}
         textToHighlight={textToHighlight}

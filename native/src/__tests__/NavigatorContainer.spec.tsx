@@ -1,6 +1,8 @@
-import configureMockStore from 'redux-mock-store'
-import * as React from 'react'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+import * as React from 'react'
+import type { Provider as ProviderType } from 'react-redux'
+import type * as TestRendererType from 'react-test-renderer'
+import configureMockStore from 'redux-mock-store'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../routes/LandingContainer', () => {
@@ -28,15 +30,14 @@ jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
 const mockStore = configureMockStore()
 
-class MockNavigator extends React.Component<void> {
-  render() {
-    return null
-  }
+const MockNavigator: React.FC = () => {
+  return null
 }
 
 describe('NavigatorContainer', () => {
-  let TestRenderer
-  let Provider
+  let TestRenderer: typeof TestRendererType
+  let Provider: typeof ProviderType
+
   beforeEach(() => {
     jest.resetModules()
     // Reimporting these modules fixes the following issue:

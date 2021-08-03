@@ -8,6 +8,10 @@ import { CityModelBuilder, useLoadFromEndpoint } from 'api-client'
 import buildConfig from '../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
 import { RenderResult } from '@testing-library/react'
+import {
+  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointWitData
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -21,14 +25,6 @@ jest.mock('i18next', () => ({
 jest.mock('react-i18next')
 
 describe('RootSwitcher', () => {
-  const mockUseLoadFromEndpointOnce = mock => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
-  }
-
-  const mockUseLoadFromEndpoint = mock => {
-    mocked(useLoadFromEndpoint).mockImplementation(mock)
-  }
-
   const setContentLanguage = jest.fn()
   const cities = new CityModelBuilder(2).build()
 
@@ -55,11 +51,7 @@ describe('RootSwitcher', () => {
   })
 
   it('should render the landing page', () => {
-    mockUseLoadFromEndpointOnce(() => ({
-      data: cities,
-      loading: false,
-      error: null
-    }))
+    mockUseLoadFromEndpointOnceWitData(cities)
 
     const { getByText, location } = renderRootSwitcherWithLocation('/landing/de')
 
@@ -74,11 +66,7 @@ describe('RootSwitcher', () => {
     ${'/augsburg'}    | ${'/augsburg/de'}
     ${'/augsburg/de'} | ${'/augsburg/de'}
   `('should redirect from $from to $to', ({ from, to }) => {
-    mockUseLoadFromEndpoint(() => ({
-      data: cities,
-      loading: false,
-      error: null
-    }))
+    mockUseLoadFromEndpointWitData(cities)
 
     const { location } = renderRootSwitcherWithLocation(from)
 
@@ -106,11 +94,7 @@ describe('RootSwitcher', () => {
       ${'/oldtown'}     | ${'/augsburg/de'}
       ${'/oldtown/de'}  | ${'/oldtown/de'}
     `('should redirect from $from to $to for fixedCity', ({ from, to }) => {
-      mockUseLoadFromEndpoint(() => ({
-        data: cities,
-        loading: false,
-        error: null
-      }))
+      mockUseLoadFromEndpointWitData(cities)
 
       const { location } = renderRootSwitcherWithLocation(from)
 
