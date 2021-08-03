@@ -17,5 +17,5 @@ export const navigateToDashboard = async () => {
   const dashboardUrl = await browser.getUrl()
   const parsedDashboardUrl = new URL(dashboardUrl)
 
-  expect(parsedDashboardUrl.pathname).toContain(dashboardPath)
+  expect(parsedDashboardUrl.pathname).toBe(dashboardPath)
 }
