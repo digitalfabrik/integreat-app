@@ -16,6 +16,7 @@ export { default as InternalPathnameParser } from './routes/InternalPathnamePars
 export * from './routes'
 export * from './routes/RouteInformationTypes'
 export * from './tracking'
+export * from './testing'
 export { default as Endpoint } from './Endpoint'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
