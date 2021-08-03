@@ -7,24 +7,33 @@ target 'Integreat' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
 
-$ReactNativeMapboxGLIOSVersion = '~> 5.9'
+$RNMBGL_Use_SPM = {
+    url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+    requirement: {
+        kind: "exactVersion",
+        version: "5.11.0"
+    },
+    product_name: "Mapbox"
+  }
 
-  if !ENV['CI']
       pre_install do |installer|
-      # Required for Mapbox
-      $RNMBGL.pre_install(installer)
-    end
+        # Required for Mapbox
+        $RNMBGL.pre_install(installer)
+      end
       # Enables Flipper.
       #
       # Note that if you have use_frameworks! enabled, Flipper will not work and
       # you should disable these next few lines.
+      if !ENV['CI']
       use_flipper!({ 'Flipper' => '0.96.1' })
+      end
       post_install do |installer|
-        flipper_post_install(installer)
+       if !ENV['CI']
+       flipper_post_install(installer)
+       end
         # Required for Mapbox
         $RNMBGL.post_install(installer)
       end
-  end
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
