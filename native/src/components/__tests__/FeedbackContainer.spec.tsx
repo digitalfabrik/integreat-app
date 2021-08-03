@@ -23,7 +23,7 @@ jest.mock('api-client', () => {
 })
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: text => text
+    t: (text: string) => text
   })
 }))
 describe('FeedbackContainer', () => {
