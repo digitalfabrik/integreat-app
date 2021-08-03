@@ -6,17 +6,18 @@ import {
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
+  LocalNewsType,
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
-  LocalNewsType,
   TuNewsType
 } from './'
 import { RouteInformationType } from './RouteInformationTypes'
 import normalizePath from '../normalizePath'
+
 const ENTITY_ID_INDEX = 3
 
 class InternalPathnameParser {
@@ -34,15 +35,15 @@ class InternalPathnameParser {
     this._fallbackLanguageCode = languageCode
   }
 
-  pathnameParts = (pathname: string) => {
+  pathnameParts = (pathname: string): string[] => {
     return pathname.split('/').filter(Boolean)
   }
 
-  isFixedCity = () => {
-    return this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
+  isFixedCity = (): boolean => {
+    return !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
   }
 
-  isCityContentFeatureRoute = (feature: string) => {
+  isCityContentFeatureRoute = (feature: string): boolean => {
     return this._length > 2 && this._parts[2] === feature
   }
 

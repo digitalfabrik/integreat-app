@@ -5,8 +5,9 @@ import DatabaseConnector from '../../utils/DatabaseConnector'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 import loadPois from '../loadPois'
 import DatabaseContext from '../../models/DatabaseContext'
+import { PoiModel } from 'api-client'
 
-let mockPois
+let mockPois: PoiModel[]
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   return {

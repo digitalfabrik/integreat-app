@@ -133,7 +133,8 @@ const createConfig = (
       sourcePrefix: '  '
     },
     optimization: {
-      usedExports: true
+      usedExports: true,
+      runtimeChunk: 'single'
     },
     devtool: 'source-map',
     devServer: {

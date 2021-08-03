@@ -1,39 +1,4 @@
 {
-  "app": {
-    "de": {
-      "metaDescription": "Die {{appName}} ist Ihr digitaler Begleiter für die Stadt Aschaffenburg. Hier finden Sie lokale Informationen, Anlaufstellen und Services."
-    },
-    "ar": {
-      "metaDescription": "التطبيق {{appName}} هو المُرافق الرقمي في مدينة أشافنبورج. تجدون فيه المعلومات وجهات الاتصال والخدمات المحلية."
-    },
-    "en": {
-      "metaDescription": "{{appName}} is your digital companion for the town of Aschaffenburg. Here you can find local information, advice centres and services."
-    },
-    "es": {
-      "metaDescription": "{{appName}} es su acompañante digital para la ciudad de Aschaffenburg. Aquí encontrará información local, puntos de encuentro y servicios."
-    },
-    "fr": {
-      "metaDescription": "{{appName}} est votre compagnon numérique dans la ville de Aschaffenburg. Vous trouverez ici des information locales, les points de contact et les services."
-    },
-    "it": {
-      "metaDescription": "{{appName}} è il tuo compagno digitale per la città di Aschaffenburg. Qui troverai informazioni locali, contatti e servizi."
-    },
-    "pl": {
-      "metaDescription": "{{appName}} to Twój towarzysz w mieście Aschaffenburg. Tu znajdziesz lokalne informacje, punkty kontaktowe i serwisy."
-    },
-    "ro": {
-      "metaDescription": "{{appName}} este însoțitorul dvs. digital pentru orașul Aschaffenburg. Aici veți găsi informații locale, puncte de contact și servicii."
-    },
-    "ru": {
-      "metaDescription": "{{appName}} — это ваш цифровой гид по городу Aschaffenburg. Здесь вы найдете местную информацию, координационные пункты и службы."
-    },
-    "tr": {
-      "metaDescription": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
-    },
-    "zh-CN": {
-      "metaDescription": "{{appName}}是您在 Aschaffenburg 的数字伙伴。您能够以此查找本地信息、联系点和各项服务。"
-    }
-  },
   "feedback": {
     "de": {
       "thanksMessage": "Vielen Dank für Ihr Feedback. Damit helfen Sie uns, unsere Inhalte und die {{appName}} zu verbessern. Wir würden uns über weiteres Feedback freuen."
@@ -159,6 +124,76 @@
     "zh-CN": {
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}",
       "about": "关于{{appName}}"
+    }
+  },
+  "landing": {
+    "de": {
+      "metaDescription": "Die {{appName}} ist Ihr digitaler Begleiter für die Stadt Aschaffenburg. Hier finden Sie lokale Informationen, Anlaufstellen und Services."
+    },
+    "ar": {
+      "metaDescription": "التطبيق {{appName}} هو المُرافق الرقمي في مدينة أشافنبورج. تجدون فيه المعلومات وجهات الاتصال والخدمات المحلية."
+    },
+    "en": {
+      "metaDescription": "{{appName}} is your digital companion for the town of Aschaffenburg. Here you can find local information, advice centres and services."
+    },
+    "es": {
+      "metaDescription": "{{appName}} es su acompañante digital para la ciudad de Aschaffenburg. Aquí encontrará información local, puntos de encuentro y servicios."
+    },
+    "fr": {
+      "metaDescription": "{{appName}} est votre compagnon numérique dans la ville de Aschaffenburg. Vous trouverez ici des information locales, les points de contact et les services."
+    },
+    "it": {
+      "metaDescription": "{{appName}} è il tuo compagno digitale per la città di Aschaffenburg. Qui troverai informazioni locali, contatti e servizi."
+    },
+    "pl": {
+      "metaDescription": "{{appName}} to Twój towarzysz w mieście Aschaffenburg. Tu znajdziesz lokalne informacje, punkty kontaktowe i serwisy."
+    },
+    "ro": {
+      "metaDescription": "{{appName}} este însoțitorul dvs. digital pentru orașul Aschaffenburg. Aici veți găsi informații locale, puncte de contact și servicii."
+    },
+    "ru": {
+      "metaDescription": "{{appName}} — это ваш цифровой гид по городу Aschaffenburg. Здесь вы найдете местную информацию, координационные пункты и службы."
+    },
+    "tr": {
+      "metaDescription": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
+    },
+    "zh-CN": {
+      "metaDescription": "{{appName}}是您在 Aschaffenburg 的数字伙伴。您能够以此查找本地信息、联系点和各项服务。"
+    }
+  },
+  "categories": {
+    "de": {
+      "metaDescription": "Die {{appName}} ist Ihr digitaler Begleiter für die Stadt Aschaffenburg. Hier finden Sie lokale Informationen, Anlaufstellen und Services."
+    },
+    "ar": {
+      "metaDescription": "التطبيق {{appName}} هو المُرافق الرقمي في مدينة أشافنبورج. تجدون فيه المعلومات وجهات الاتصال والخدمات المحلية."
+    },
+    "en": {
+      "metaDescription": "{{appName}} is your digital companion for the town of Aschaffenburg. Here you can find local information, advice centres and services."
+    },
+    "es": {
+      "metaDescription": "{{appName}} es su acompañante digital para la ciudad de Aschaffenburg. Aquí encontrará información local, puntos de encuentro y servicios."
+    },
+    "fr": {
+      "metaDescription": "{{appName}} est votre compagnon numérique dans la ville de Aschaffenburg. Vous trouverez ici des information locales, les points de contact et les services."
+    },
+    "it": {
+      "metaDescription": "{{appName}} è il tuo compagno digitale per la città di Aschaffenburg. Qui troverai informazioni locali, contatti e servizi."
+    },
+    "pl": {
+      "metaDescription": "{{appName}} to Twój towarzysz w mieście Aschaffenburg. Tu znajdziesz lokalne informacje, punkty kontaktowe i serwisy."
+    },
+    "ro": {
+      "metaDescription": "{{appName}} este însoțitorul dvs. digital pentru orașul Aschaffenburg. Aici veți găsi informații locale, puncte de contact și servicii."
+    },
+    "ru": {
+      "metaDescription": "{{appName}} — это ваш цифровой гид по городу Aschaffenburg. Здесь вы найдете местную информацию, координационные пункты и службы."
+    },
+    "tr": {
+      "metaDescription": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
+    },
+    "zh-CN": {
+      "metaDescription": "{{appName}}是您在 Aschaffenburg 的数字伙伴。您能够以此查找本地信息、联系点和各项服务。"
     }
   }
 }

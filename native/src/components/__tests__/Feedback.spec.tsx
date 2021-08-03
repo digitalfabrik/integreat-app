@@ -8,7 +8,7 @@ describe('Feedback', () => {
     jest.clearAllMocks()
   })
 
-  const t = key => key
+  const t = (key: string) => key
 
   const onCommentChanged = jest.fn()
   const onFeedbackContactMailChanged = jest.fn()
