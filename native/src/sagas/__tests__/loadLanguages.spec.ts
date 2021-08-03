@@ -5,8 +5,9 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../../utils/DatabaseConnector'
+import { LanguageModel } from 'api-client'
 
-let mockLanguages
+let mockLanguages: LanguageModel[]
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   return {

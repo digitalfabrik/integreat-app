@@ -2,8 +2,8 @@ import React from 'react'
 import { CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWitData,
-  mockUseLoadFormEndpointWithError
-} from '../../testing/mockUseLoadFromEndpoint'
+  mockUseLoadFromEndpointWithError
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
 import { renderWithBrowserRouter } from '../../testing/render'
 import { Route } from 'react-router-dom'
 import { createPath, RoutePatterns } from '../index'
@@ -91,7 +91,7 @@ describe('PoisPage', () => {
   it('should render an error', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFormEndpointWithError('Something went wrong')
+    mockUseLoadFromEndpointWithError('Something went wrong')
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route

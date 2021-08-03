@@ -10,7 +10,10 @@
     "paths": {
       "api-client/*": ["../api-client/*"],
       "build-configs/*": ["../build-configs/*"],
-      "translations/*": ["../translations/*"]
+      "translations/*": ["../translations/*"],
+      "normalize-strings": ["src/@types/normalize-strings"],
+      "react-native-static-server": ["src/@types/react-native-static-server"],
+      "@react-native-community/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
     "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],

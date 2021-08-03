@@ -121,7 +121,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
-  const pageTitle = `${t('app:pageTitles.pois')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

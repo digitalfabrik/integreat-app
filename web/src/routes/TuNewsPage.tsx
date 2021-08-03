@@ -4,10 +4,10 @@ import {
   CityModel,
   createTunewsEndpoint,
   LanguageModel,
+  loadFromEndpoint,
   normalizePath,
   TU_NEWS_TYPE,
-  TunewsModel,
-  loadFromEndpoint
+  TunewsModel
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -128,7 +128,7 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
     )
   }
 
-  const pageTitle = `${t('app:pageTitles.tunews')} - ${cityModel.name}`
+  const pageTitle = `${t('tuNews.pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

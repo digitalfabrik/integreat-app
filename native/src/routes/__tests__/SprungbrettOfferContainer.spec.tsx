@@ -1,18 +1,16 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import {
-  SPRUNGBRETT_OFFER_ROUTE,
-  SprungbrettOfferRouteType,
-  CityModel,
-  ErrorCode,
-  useLoadFromEndpoint
-} from 'api-client'
+import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType, CityModel, ErrorCode } from 'api-client'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import { mocked } from 'ts-jest/utils'
+import {
+  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointWithError,
+  mockUseLoadFromEndpointLoading
+} from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
@@ -50,8 +48,6 @@ describe('SprungbrettOfferContainer', () => {
   }
   const errorText = `Failure ${ErrorCode.UnknownError}`
 
-  const refresh = () => {}
-
   const cities = new CityModelBuilder(1).build()
   const state = {
     cities: {
@@ -61,80 +57,69 @@ describe('SprungbrettOfferContainer', () => {
   const mockStore = configureMockStore()
   const store = mockStore(state)
 
-  const mockUseLoadFromEndpointOnce = mock => {
-    mocked(useLoadFromEndpoint).mockImplementationOnce(mock)
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
-      data: [],
-      loading: false,
-      error: null,
-      refresh
-    }))
-    const { getByText } = render(
+    mockUseLoadFromEndpointOnceWitData([])
+    const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
     )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
-    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
-    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
+    expect(queryByText('loading')).toBeFalsy()
+    expect(queryByText(errorText)).toBeFalsy()
   })
 
   it('should display offers with a Loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
-      data: [],
-      loading: true,
-      error: null,
-      refresh
-    }))
-    const { getByText } = render(
+    mockUseLoadFromEndpointLoading({ data: [] })
+
+    const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
     )
     expect(getByText('SprungbrettOffer')).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
+    expect(queryByText(errorText)).toBeFalsy()
   })
 
   it('should display error without a loading spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
-      data: [],
-      loading: false,
-      error: new Error('myError'),
-      refresh
-    }))
-    const { getByText } = render(
+    mockUseLoadFromEndpointWithError('Error')
+    const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
     )
     expect(getByText(errorText)).toBeTruthy()
-    expect(() => getByText('SprungbrettOffer')).toThrow('Unable to find an element with text: SprungbrettOffer')
-    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
+    expect(queryByText('SprungbrettOffer')).toBeFalsy()
+    expect(queryByText('loading')).toBeFalsy()
+  })
+
+  it('should display a loading spinner', () => {
+    mockUseLoadFromEndpointLoading()
+    const { queryByText, getByText } = render(
+      <Provider store={store}>
+        <SprungbrettOfferContainer navigation={navigation} route={route} />
+      </Provider>
+    )
+    expect(queryByText(errorText)).toBeFalsy()
+    expect(getByText('loading')).toBeTruthy()
+    expect(queryByText('SprungbrettOffer')).toBeFalsy()
   })
 
   it('should display error with spinner', () => {
-    mockUseLoadFromEndpointOnce(() => ({
-      data: [],
-      loading: true,
-      error: new Error('myError'),
-      refresh
-    }))
-    const { getByText } = render(
+    mockUseLoadFromEndpointLoading({ data: [], error: 'Error' })
+    const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
     )
     expect(getByText(errorText)).toBeTruthy()
     expect(getByText('loading')).toBeTruthy()
-    expect(() => getByText('SprungbrettOffer')).toThrow('Unable to find an element with text: SprungbrettOffer')
+    expect(queryByText('SprungbrettOffer')).toBeFalsy()
   })
 
   it('should display a page not found error if offers disabled for city', () => {
@@ -164,21 +149,16 @@ describe('SprungbrettOfferContainer', () => {
         models: [disabledOffersCity]
       }
     })
-    mockUseLoadFromEndpointOnce(() => ({
-      data: null,
-      loading: false,
-      error: null,
-      refresh
-    }))
+    mockUseLoadFromEndpointOnceWitData(null)
 
-    const { getByText } = render(
+    const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
       </Provider>
     )
-    expect(() => getByText('Offers')).toThrow('Unable to find an element with text: Offers')
-    expect(() => getByText('loading')).toThrow('Unable to find an element with text: loading')
-    expect(() => getByText(errorText)).toThrow(`Unable to find an element with text: ${errorText}`)
+    expect(queryByText('Offers')).toBeFalsy()
+    expect(queryByText('loading')).toBeFalsy()
+    expect(queryByText(errorText)).toBeFalsy()
     expect(getByText(`Failure ${ErrorCode.PageNotFound}`)).toBeTruthy()
   })
 })
