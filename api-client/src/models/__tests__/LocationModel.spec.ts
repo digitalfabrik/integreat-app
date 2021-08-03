@@ -1,5 +1,6 @@
 import { Feature } from 'geojson'
 import LocationModel from '../LocationModel'
+
 describe('LocationModel', () => {
   describe('location', () => {
     it('should return null if town, address and name is null', () => {
