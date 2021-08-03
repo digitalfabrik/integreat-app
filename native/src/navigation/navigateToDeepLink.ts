@@ -27,6 +27,7 @@ const navigateToDeepLink = async (
   const settings: SettingsType = await appSettings.loadSettings()
   const { introShown, selectedCity } = settings
   const { introSlides, fixedCity } = buildConfig().featureFlags
+
   sendTrackingSignal({
     signal: {
       name: OPEN_DEEP_LINK_SIGNAL_NAME,
@@ -57,7 +58,7 @@ const navigateToDeepLink = async (
     const languageCode = routeInformationLanguageCode || language
 
     if (selectedCityCode && languageCode) {
-      // Reset the currently opened screens to just the dashboard of the  city and language
+      // Reset the currently opened screens to just the dashboard of the city and language
       // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
       navigateToCategory({
         dispatch,
@@ -76,19 +77,22 @@ const navigateToDeepLink = async (
       navigation.replace(LANDING_ROUTE)
     }
 
+    if (!routeInformation) {
+      console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+      return
+    }
+
+    if (routeInformation.route === LANDING_ROUTE) {
+      // Already handled
+      return
+    }
+
     const isPeekingCity = routeInformationCityCode && selectedCity && routeInformationCityCode !== selectedCity
 
     // Only navigate again if either the city of the deep link differs from the currently selected city or
     // it is a city content route which was not handled already, i.e. everything apart from landing and dashboard.
-    if (
-      routeInformation &&
-      ((routeInformation.route !== LANDING_ROUTE && routeInformation.route !== DASHBOARD_ROUTE) || isPeekingCity)
-    ) {
+    if (routeInformation.route !== DASHBOARD_ROUTE || isPeekingCity) {
       createNavigate(dispatch, navigation)(routeInformation, undefined, false)
-    }
-
-    if (!routeInformation) {
-      console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
     }
   }
 }

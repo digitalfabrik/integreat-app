@@ -27,8 +27,8 @@ const extractResultModelsAndChildren = (
   resultChildren: Record<PathType, ReadonlyArray<PathType>>
 } => {
   // Extracts models and children from the (updated) categories map.
-  const resultModels = {}
-  const resultChildren = {}
+  const resultModels: Record<PathType, CategoryModel> = {}
+  const resultChildren: Record<PathType, ReadonlyArray<PathType>> = {}
   forEachTreeNode(
     root,
     (node: CategoryModel) => categoriesMap.getChildren(node),

@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, ReactElement } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import {
-  normalizePath,
   CityModel,
-  LanguageModel,
-  DISCLAIMER_ROUTE,
   createDisclaimerEndpoint,
+  DISCLAIMER_ROUTE,
+  LanguageModel,
+  normalizePath,
   useLoadFromEndpoint
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
@@ -33,7 +33,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const pathname = normalizePath(location.pathname)
   const dateFormatter = useContext(DateFormatterContext)
   const history = useHistory()
-  const { t } = useTranslation()
+  const { t } = useTranslation('disclaimer')
 
   const requestDisclaimer = useCallback(async () => {
     return createDisclaimerEndpoint(cmsApiBaseUrl).request({
@@ -76,7 +76,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
     )
   }
 
-  const pageTitle = `${t('app:pageTitles.disclaimer')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

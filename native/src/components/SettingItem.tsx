@@ -3,9 +3,8 @@ import { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 import Touchable from './Touchable'
-import { AccessibilityRole } from 'react-native/Libraries/Components/View/ViewAccessibility'
 import { Badge, Icon } from 'react-native-elements'
-import { Switch, Text, View } from 'react-native'
+import { Switch, Text, View, AccessibilityRole } from 'react-native'
 import { TFunction } from 'react-i18next'
 
 type PropType = {
