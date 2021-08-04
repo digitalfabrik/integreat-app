@@ -9,7 +9,7 @@ class DashboardPage extends Page {
   }
 
   get searchIcon() {
-    return $('//header/div/div[4]/div[1]/a')
+    return $('//header//a[@aria-label=\'Search\']')
   }
 }
 

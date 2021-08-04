@@ -1,5 +1,5 @@
 import { URL } from 'url'
-import { contentSearch, defaultCity, filter, language, Routes } from '../../../shared/constants'
+import { contentSearch, Routes } from '../../../shared/constants'
 import { navigateToDashboard } from '../utils/navigationUtils'
 import DashboardPage from '../pageobjects/dashboard.page'
 import SearchPage from '../pageobjects/search.page'
