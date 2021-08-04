@@ -5,6 +5,7 @@ import { fromPairs } from 'lodash'
 import { createGetSource, createPostSource } from '../constants/webview'
 import { renderWebviewError } from '../components/RemoteContent'
 import { BackHandler } from 'react-native'
+import { userAgent } from '../constants/endpoint'
 
 export type PropsType = {
   url: string
@@ -41,6 +42,7 @@ const ExternalOffer = (props: PropsType): ReactElement => {
       javaScriptEnabled
       dataDetectorTypes='none'
       domStorageEnabled={false}
+      userAgent={userAgent}
       ref={webviewRef}
       /* The Lehrstellenradar does not work in the webview if you are navigating back (probably because of FormData?).
     Without this the webview itself shows an error which looks more like it is our fault.}
