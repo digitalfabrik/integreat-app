@@ -14,7 +14,7 @@ import StaticServerProvider from './components/StaticServerProvider'
 import I18nProvider from './components/I18nProvider'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { Linking } from 'react-native'
-import { CLOSE_PAGE_SIGNAL_NAME, LOCAL_NEWS_TYPE, NEWS_ROUTE, REDIRECT_ROUTE } from 'api-client'
+import { CLOSE_PAGE_SIGNAL_NAME, LOCAL_NEWS_TYPE, NEWS_ROUTE, REDIRECT_ROUTE, setUserAgent } from 'api-client'
 import AppStateListener from './components/AppStateListener'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from './constants/buildConfig'
@@ -23,6 +23,7 @@ import NetInfo from '@react-native-community/netinfo'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import { enableScreens } from 'react-native-screens'
+import { userAgent } from './constants/endpoint'
 import messaging from '@react-native-firebase/messaging'
 import urlFromRouteInformation from './navigation/url'
 import AppSettings from './utils/AppSettings'
@@ -81,6 +82,7 @@ const linking: LinkingOptions = {
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
+setUserAgent(userAgent)
 
 const App = (): ReactElement => {
   const [routeName, setRouteName] = useState<string | null | undefined>(null)
