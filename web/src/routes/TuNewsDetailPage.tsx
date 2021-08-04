@@ -1,9 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import {
-  CityModel,
   createTunewsElementEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   TU_NEWS_TYPE,
@@ -19,6 +17,7 @@ import Page from '../components/Page'
 import styled from 'styled-components'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -53,12 +52,7 @@ const StyledTitle = styled.div`
   font-weight: 700;
 `
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string; newsId: string }>
 
 const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
   const { cityCode, languageCode, newsId } = match.params

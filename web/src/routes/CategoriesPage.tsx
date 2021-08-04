@@ -5,10 +5,8 @@ import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   Payload,
@@ -32,6 +30,7 @@ import { createPath } from './index'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Helmet from '../components/Helmet'
 import buildConfig from '../constants/buildConfig'
+import { CityRouteProps } from '../CityContentSwitcher'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
@@ -48,12 +47,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   })
 }
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
 
 const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const previousPathname = useRef<string | null | undefined>(null)

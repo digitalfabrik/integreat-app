@@ -1,13 +1,6 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import SearchInput from '../components/SearchInput'
-import {
-  CategoryModel,
-  CityModel,
-  createCategoriesEndpoint,
-  LanguageModel,
-  SEARCH_ROUTE,
-  useLoadFromEndpoint
-} from 'api-client'
+import { CategoryModel, createCategoriesEndpoint, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
 import CategoryList from '../components/CategoryList'
 import FeedbackSearch from '../components/FeedbackSearch'
 import { normalizeSearchString } from '../utils/stringUtils'
@@ -21,17 +14,13 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath } from './index'
 import { useTranslation } from 'react-i18next'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
 const noop = () => {}
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
 const SearchPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
   const query = new URLSearchParams(location.search).get('query') ?? ''

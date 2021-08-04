@@ -1,9 +1,7 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import {
-  CityModel,
   createTunewsEndpoint,
-  LanguageModel,
   loadFromEndpoint,
   normalizePath,
   TU_NEWS_TYPE,
@@ -20,16 +18,12 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import TuNewsList from '../components/TuNewsList'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
 const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params

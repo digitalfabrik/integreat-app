@@ -1,9 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import {
-  CityModel,
   createPOIsEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   PoiModel,
@@ -27,13 +25,9 @@ import Caption from '../components/Caption'
 import List from '../components/List'
 import Helmet from '../components/Helmet'
 import MapView from '../components/MapView'
+import { CityRouteProps } from '../CityContentSwitcher'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; poiId?: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string; poiId?: string }>
 
 const PoisPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
   const { cityCode, languageCode, poiId } = match.params
