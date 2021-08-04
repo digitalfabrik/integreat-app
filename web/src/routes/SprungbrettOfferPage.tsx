@@ -4,10 +4,8 @@ import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
-  CityModel,
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   Payload,
@@ -28,18 +26,14 @@ import Caption from '../components/Caption'
 import List from '../components/List'
 import CleanAnchor from '../components/CleanAnchor'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
 const Image = styled.img`
   display: block;
   margin: 0 auto;
 `
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string }>
 
 const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params

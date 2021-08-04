@@ -1,9 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import {
-  CityModel,
   createLocalNewsEndpoint,
-  LanguageModel,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
   normalizePath,
@@ -23,13 +21,9 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Page from '../components/Page'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
+type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
 
 const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
   const { cityCode, languageCode, newsId } = match.params
