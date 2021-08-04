@@ -7,6 +7,7 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { ParsedCacheDictionaryType } from './Page'
 import { ThemeType } from 'build-configs'
+import { userAgent } from '../constants/endpoint'
 
 const StyledView = styled.View`
   overflow: hidden;
@@ -94,6 +95,7 @@ const RemoteContent = (props: PropType): ReactElement => {
         originWhitelist={['*']} // Needed by iOS to load the initial html
         javaScriptEnabled
         dataDetectorTypes='none'
+        userAgent={userAgent}
         domStorageEnabled={false}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

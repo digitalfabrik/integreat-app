@@ -6,5 +6,6 @@ export const language = 'en'
 const defaultCityCode = 'testumgebung-e2e'
 
 export const Routes = {
-  dashboard: `/${defaultCityCode}/${language}`
+  dashboard: `/${defaultCityCode}/${language}`,
+  search: `/${defaultCityCode}/${language}/search`
 }
