@@ -7,7 +7,7 @@ import { mocked } from 'ts-jest/utils'
 jest.useFakeTimers()
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: text => text
+    t: (text: string) => text
   })
 }))
 jest.mock('../../components/Snackbar', () => {

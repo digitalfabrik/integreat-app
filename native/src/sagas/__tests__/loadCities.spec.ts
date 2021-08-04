@@ -4,8 +4,9 @@ import loadCities from '../loadCities'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import DatabaseConnector from '../../utils/DatabaseConnector'
+import { CityModel } from 'api-client'
 
-let mockCities
+let mockCities: CityModel[]
 jest.mock('api-client', () => {
   const actual = jest.requireActual('api-client')
   return {

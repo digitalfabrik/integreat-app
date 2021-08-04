@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { StateType } from '../redux/StateType'
+import { NewsRouteStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import ChangeLanguageModal from './ChangeLanguageModal'
 import withTheme from '../hocs/withTheme'
@@ -34,9 +34,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       newsRouteMapping &&
       newsRouteMapping[previousKey] &&
       newsRouteMapping[previousKey].routeType === NEWS_ROUTE &&
-      // @ts-ignore we already check that we are in the news route
-      newsRouteMapping[previousKey].type) ||
-    null
+      (newsRouteMapping[previousKey] as NewsRouteStateType).type) ||
+    undefined
   return {
     currentLanguage,
     languages,

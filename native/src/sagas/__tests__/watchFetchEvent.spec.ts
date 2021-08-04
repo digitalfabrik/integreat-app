@@ -13,7 +13,7 @@ import { ErrorCode } from 'api-client'
 jest.mock('../loadCityContent')
 describe('watchFetchEvents', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
-  let restoreMockedDate
+  let restoreMockedDate: () => void
   beforeEach(() => {
     RNFetchBlob.fs._reset()
 
@@ -26,7 +26,7 @@ describe('watchFetchEvents', () => {
   const city = 'augsburg'
   const language = 'en'
   describe('fetchEvents', () => {
-    const createDataContainer = async (city, language) => {
+    const createDataContainer = async (city: string, language: string) => {
       const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city, language)
       const events = eventsBuilder.build()
       const resources = eventsBuilder.buildResources()
