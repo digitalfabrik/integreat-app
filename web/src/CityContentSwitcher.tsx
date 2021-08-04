@@ -22,10 +22,17 @@ import useWindowDimensions from './hooks/useWindowDimensions'
 import GeneralHeader from './components/GeneralHeader'
 import GeneralFooter from './components/GeneralFooter'
 import LoadingSpinner from './components/LoadingSpinner'
-import { createPath, LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import {
+  createPath,
+  LOCAL_NEWS_ROUTE,
+  RoutePatterns,
+  RouteProps,
+  RouteType,
+  TU_NEWS_DETAIL_ROUTE,
+  TU_NEWS_ROUTE
+} from './routes'
 import buildConfig from './constants/buildConfig'
 import LocationLayout from './components/LocationLayout'
-import { ExtractRouteParams } from 'react-router'
 
 const TuNewsDetailPage = React.lazy(() => import('./routes/TuNewsDetailPage'))
 const TuNewsPage = React.lazy(() => import('./routes/TuNewsPage'))
@@ -48,11 +55,6 @@ export type CityRouteProps = {
   languages: Array<LanguageModel>
   languageModel: LanguageModel
 }
-
-type ExtractedParams<S extends RouteType> = ExtractRouteParams<typeof RoutePatterns[S], string>
-type ExpectedParams<S extends RouteType> = ExtractedParams<S> extends { [K in keyof ExtractedParams<S>]?: string }
-  ? ExtractedParams<S> : never
-type RouteProps<S extends RouteType> = RouteComponentProps<ExpectedParams<S>>
 
 const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
