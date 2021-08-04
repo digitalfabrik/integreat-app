@@ -1,9 +1,19 @@
+interface MapConfigProps {
+  styleJSON: string
+  accessToken: string
+}
+
 interface MapViewViewport {
   width: number
   height: number
   latitude: number
   longitude: number
   zoom: number
+}
+
+export const mapConfig: MapConfigProps = {
+  styleJSON: 'https://integreat.github.io/integreat-osm-liberty/style.json',
+  accessToken: 'test'
 }
 
 export const defaultViewportConfig: MapViewViewport = {
@@ -13,5 +23,3 @@ export const defaultViewportConfig: MapViewViewport = {
   longitude: 10.894446,
   zoom: 8
 }
-
-export const mapStyleUrl = 'https://integreat.github.io/integreat-osm-liberty/style.json'
