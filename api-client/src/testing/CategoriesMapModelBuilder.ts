@@ -50,7 +50,7 @@ class CategoriesMapModelBuilder {
     }
   }
 
-  _addChildren(category: CategoryModel, depth: number) {
+  _addChildren(category: CategoryModel, depth: number): void {
     this._categories.push(category)
 
     if (depth === 0) {
@@ -82,7 +82,7 @@ class CategoriesMapModelBuilder {
         thumbnail,
         parentPath: category.path,
         lastUpdate,
-        hash: md5.create().update(category.path).hex()
+        hash: md5.create().update(path).hex()
       })
       this._resourceCache[path] = {
         [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),

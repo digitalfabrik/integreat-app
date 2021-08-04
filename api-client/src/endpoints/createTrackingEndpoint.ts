@@ -9,6 +9,7 @@ import {
 } from '../tracking'
 import ResponseError from '../errors/ResponseError'
 import FetchError from '../errors/FetchError'
+import { request as fetch } from '../request'
 export const TRACKING_ENDPOINT_NAME = 'tracking'
 export const JPAL_TRACKING_ENDPOINT_URL = 'https://jpal.tuerantuer.org/'
 const JSON_HEADERS = {
@@ -16,7 +17,11 @@ const JSON_HEADERS = {
   'Content-Type': 'application/json'
 }
 
-const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL) => {
+type TrackingEndpointType = {
+  request: (signal: SignalType) => Promise<void>
+}
+
+const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL): TrackingEndpointType => {
   const request = async (signal: SignalType) => {
     const pageType = signal.name === OPEN_PAGE_SIGNAL_NAME ? signal.pageType : undefined
     const signalUrl =
