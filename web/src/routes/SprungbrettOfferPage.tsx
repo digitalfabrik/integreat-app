@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
   createOffersEndpoint,
@@ -19,7 +18,7 @@ import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Caption from '../components/Caption'
@@ -33,7 +32,7 @@ const Image = styled.img`
   margin: 0 auto;
 `
 
-type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof SPRUNGBRETT_OFFER_ROUTE>
 
 const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params

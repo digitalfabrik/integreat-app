@@ -5,13 +5,12 @@ import CategoryList from '../components/CategoryList'
 import FeedbackSearch from '../components/FeedbackSearch'
 import { normalizeSearchString } from '../utils/stringUtils'
 import { Parser } from 'htmlparser2'
-import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import { useTranslation } from 'react-i18next'
 import Helmet from '../components/Helmet'
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -20,7 +19,7 @@ type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; su
 
 const noop = () => {}
 
-type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof SEARCH_ROUTE>
 
 const SearchPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
   const query = new URLSearchParams(location.search).get('query') ?? ''

@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
-import { Link, RouteComponentProps } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
   CATEGORIES_ROUTE,
@@ -26,7 +26,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import moment from 'moment'
 import { config } from 'translations'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Helmet from '../components/Helmet'
 import buildConfig from '../constants/buildConfig'
@@ -47,7 +47,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   })
 }
 
-type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
+type PropsType = CityRouteProps & RouteProps<typeof CATEGORIES_ROUTE>
 
 const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const previousPathname = useRef<string | null | undefined>(null)

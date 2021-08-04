@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import {
   createTunewsElementEndpoint,
   normalizePath,
@@ -9,7 +9,7 @@ import {
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { TU_NEWS_DETAIL_ROUTE } from './index'
+import { RouteProps, TU_NEWS_DETAIL_ROUTE } from './index'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -52,7 +52,7 @@ const StyledTitle = styled.div`
   font-weight: 700;
 `
 
-type PropsType = CityRouteProps & RouteComponentProps<{ cityCode: string; languageCode: string; newsId: string }>
+type PropsType = CityRouteProps & RouteProps<typeof TU_NEWS_DETAIL_ROUTE>
 
 const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
   const { cityCode, languageCode, newsId } = match.params
