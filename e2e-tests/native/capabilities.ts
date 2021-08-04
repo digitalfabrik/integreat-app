@@ -14,9 +14,9 @@ const browserstackCaps = (
       buildName: `${prefix}: ${getGitBranch()}`,
       sessionName: `${platformName.toLowerCase()}: ${getGitHeadReference()}`,
       projectName: 'integreat-app-native',
-      local: true,
       debug: true,
       realMobile: isCi,
+      networkProfile: '4g-lte-good',
       appiumVersion: '1.21.0'
     },
     ...config,
@@ -44,4 +44,4 @@ export default {
     },
     'ios'
   )
-}
+} as Record<string, Capabilities.Capabilities>
