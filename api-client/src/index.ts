@@ -6,6 +6,7 @@ import {
   FeedbackType as ImportedFeedbackType,
   FeedbackCategoryType as ImportedFeedbackCategoryType
 } from './endpoints/createFeedbackEndpoint'
+
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
@@ -16,6 +17,8 @@ export { default as InternalPathnameParser } from './routes/InternalPathnamePars
 export * from './routes'
 export * from './routes/RouteInformationTypes'
 export * from './tracking'
+export * from './maps'
+export * from './testing'
 export { default as Endpoint } from './Endpoint'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
@@ -90,7 +93,6 @@ export { default as DateModel } from './models/DateModel'
 export { default as EventModel } from './models/EventModel'
 export { default as LocalNewsModel } from './models/LocalNewsModel'
 export { default as TunewsModel } from './models/TunewsModel'
-export { default as ExtendedPageModel } from './models/ExtendedPageModel'
 export { default as OfferModel } from './models/OfferModel'
 export { default as LanguageModel } from './models/LanguageModel'
 export { default as LocationModel } from './models/LocationModel'
@@ -100,3 +102,4 @@ export { default as PoiModel } from './models/PoiModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
 export { default as normalizePath } from './normalizePath'
 export { ErrorCode, fromError } from './ErrorCodes'
+export { setUserAgent } from './request'
