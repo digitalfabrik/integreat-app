@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import I18nProvider from '../I18nProvider'
 import { Translation } from 'react-i18next'
 import Helmet from 'react-helmet'
@@ -23,6 +23,74 @@ describe('I18nProvider', () => {
     })
     await waitFor(() => screen.getByText('ar'))
     expect(screen.getByText('ar')).toBeTruthy()
+  })
+
+  it('should set the browser direction correctly to ltr', async () => {
+    mockDetect.mockReturnValue(['ru'])
+    act(() => {
+      render(
+        <I18nProvider contentLanguage={undefined}>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() => screen.getByText('ru'))
+    expect(screen.getByText('ru').parentElement?.dir).toBe('ltr')
+  })
+
+  it('should set the browser direction correctly to rtl', async () => {
+    mockDetect.mockReturnValue(['ar'])
+    act(() => {
+      render(
+        <I18nProvider contentLanguage={undefined}>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() => screen.getByText('ar'))
+    expect(screen.getByText('ar').parentElement?.dir).toBe('rtl')
+  })
+
+  it('should set link for additional font lateef', async () => {
+    mockDetect.mockReturnValue(['ar'])
+    act(() => {
+      render(
+        <I18nProvider contentLanguage={undefined}>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() => expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/lateef/lateef.css'))
+  })
+
+  it('should set link for additional font noto-sans-sc', async () => {
+    mockDetect.mockReturnValue(['zh-CN'])
+    act(() => {
+      render(
+        <I18nProvider contentLanguage={undefined}>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() =>
+      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-sc/noto-sans-sc.css')
+    )
+  })
+
+  it('should set link for additional font noto-sans-georgian', async () => {
+    mockDetect.mockReturnValue(['ka'])
+    act(() => {
+      render(
+        <I18nProvider contentLanguage={undefined}>
+          <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
+        </I18nProvider>
+      )
+    })
+    await waitFor(() =>
+      expect(document.querySelector('link')?.getAttribute('href')).toBe(
+        '/fonts/noto-sans-georgian/noto-sans-georgian.css'
+      )
+    )
   })
 
   it('should use fallbacks for ui translations', async () => {
