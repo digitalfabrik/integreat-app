@@ -80,7 +80,7 @@ For complex HOCs it is probably easier to use the real implementation (e.g. conn
 Apart from unit tests it can also be beneficial to test the integration between the component and the HOCs:
 
 ```js
-const t = key => key
+const t = (key: string) => key
 const tryAgain = () => {}
 
 const { asJSON: asJSONFailure } = render(<Failure theme={lightTheme} tryAgain={tryAgain} t={t} />)

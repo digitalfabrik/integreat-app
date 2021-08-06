@@ -8,7 +8,7 @@ const withTranslation = (_unusedNamespace: string) => (
 ): React.ComponentType<any> => {
   return class extends React.Component<any> {
     render() {
-      return <Component {...this.props} t={key => key} />
+      return <Component {...this.props} t={(key: string) => key} />
     }
   }
 }

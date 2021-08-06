@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 import ReactMapGL from 'react-map-gl'
+import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
-import { defaultViewportConfig, mapStyleUrl } from 'api-client/src/mapView'
+import { defaultViewportConfig, mapConfig } from 'api-client'
+
+const MapContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const MapView: React.FunctionComponent = () => {
   const [viewport, setViewport] = useState(defaultViewportConfig)
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <ReactMapGL {...viewport} onViewportChange={setViewport} mapStyle={mapStyleUrl} />
-    </div>
+    <MapContainer>
+      <ReactMapGL {...viewport} onViewportChange={setViewport} mapStyle={mapConfig.styleJSON} />
+    </MapContainer>
   )
 }
 

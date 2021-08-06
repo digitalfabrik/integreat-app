@@ -132,7 +132,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
     history.replace(`${location.pathname}${appendToUrl}`)
   }
 
-  const pageTitle = `${t('app:pageTitles.search')} - ${cityModel.name}`
+  const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
