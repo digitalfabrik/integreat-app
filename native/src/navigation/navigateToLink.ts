@@ -7,6 +7,8 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
+import { SUPPORTED_IMAGE_FILE_TYPES } from '../routes/ImageViewModal'
+
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 const navigateToLink = <T extends RoutesType>(
@@ -27,7 +29,7 @@ const navigateToLink = <T extends RoutesType>(
       url,
       shareUrl
     })
-  } else if (url.includes('.png') || url.includes('.jpg')) {
+  } else if (SUPPORTED_IMAGE_FILE_TYPES.some(it => url.includes(it))) {
     sendTrackingSignal({
       signal: {
         name: OPEN_MEDIA_SIGNAL_NAME,
