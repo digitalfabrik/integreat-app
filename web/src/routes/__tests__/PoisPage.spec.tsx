@@ -1,17 +1,14 @@
 import React from 'react'
-import { POIS_ROUTE } from 'api-client'
-import CityModelBuilder from '../../../../api-client/src/testing/CityModelBuilder'
-import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
+import { CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWitData,
-  mockUseLoadFormEndpointWithError
-} from '../../testing/mockUseLoadFromEndpoint'
+  mockUseLoadFromEndpointWithError
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
 import { renderWithBrowserRouter } from '../../testing/render'
 import { Route } from 'react-router-dom'
 import { createPath, RoutePatterns } from '../index'
 import buildConfig from '../../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
-import PoiModelBuilder from '../../../../api-client/src/testing/PoiModelBuilder'
 import PoisPage from '../PoisPage'
 
 jest.mock('api-client', () => {
@@ -94,7 +91,7 @@ describe('PoisPage', () => {
   it('should render an error', () => {
     const city = cities[0]
     const language = languages[0]
-    mockUseLoadFormEndpointWithError('Something went wrong')
+    mockUseLoadFromEndpointWithError('Something went wrong')
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
