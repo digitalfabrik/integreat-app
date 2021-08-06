@@ -32,7 +32,11 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
         },
         progress: {
           current: {
-            interpolate: jest.fn()
+            interpolate: jest.fn(),
+            addListener: jest.fn(),
+            removeListener: jest.fn(),
+            removeAllListeners: jest.fn(),
+            hasListeners: jest.fn(),
           }
         }
       },
