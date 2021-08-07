@@ -109,7 +109,7 @@ cmake-build-release/
 out/
 
 # VSCode
-.vscode/
+.vscode/settings.json
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
