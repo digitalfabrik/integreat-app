@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import LocationModel from '../../models/LocationModel'
 import { Feature, FeatureCollection } from 'geojson'
-import { embedInCollection } from '../geoJson_1'
+import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {
   const expectedGeoJsonMarkerFeature: Feature = {
