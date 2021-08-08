@@ -108,6 +108,9 @@ cmake-build-release/
 # IntelliJ
 out/
 
+# VSCode
+.vscode/settings.json
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
