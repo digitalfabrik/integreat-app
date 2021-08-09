@@ -33,7 +33,7 @@ export const config = {
   waitforInterval: 2000,
   connectionRetryTimeout: 50000,
   connectionRetryCount: 3,
-  services: [['browserstack', { browserstackLocal: true }]],
+  services: [['browserstack']],
   host: 'hub.browserstack.com',
   framework: 'jasmine',
   reporters: ['junit'],

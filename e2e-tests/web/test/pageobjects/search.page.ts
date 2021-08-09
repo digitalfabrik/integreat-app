@@ -1,15 +1,14 @@
 import Page from './page'
+import { Routes } from '../../../shared/constants'
 
 class SearchPage extends Page {
-  public language: string
-
-  public constructor(language = 'en') {
-    super()
-    this.language = language
-  }
 
   get search() {
     return $('//input')
+  }
+
+  open(): Promise<string> {
+    return super.open(Routes.search)
   }
 }
 
