@@ -1,15 +1,14 @@
 import Page from './page'
+import { Routes } from '../../../shared/constants'
 
 class DashboardPage extends Page {
-  public language: string
-
-  public constructor(language = 'en') {
-    super()
-    this.language = language
-  }
 
   get searchIcon() {
     return $("//header//a[@aria-label='Search']")
+  }
+
+  open(): Promise<string> {
+    return super.open(Routes.dashboard)
   }
 }
 
