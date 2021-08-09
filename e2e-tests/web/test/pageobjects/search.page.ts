@@ -2,7 +2,6 @@ import Page from './page'
 import { Routes } from '../../../shared/constants'
 
 class SearchPage extends Page {
-
   get search() {
     return $('//input')
   }
