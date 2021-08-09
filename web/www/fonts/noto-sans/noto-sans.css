@@ -3,7 +3,7 @@
   font-family: 'Noto Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+  src: local('Noto Sans'), local('NotoSans-Regular'),
     url('noto-sans-v14-vietnamese_latin-ext_latin_greek-ext_greek_devanagari_cyrillic-ext_cyrillic-regular.woff2')
       format('woff2'),
     /* Super Modern Browsers */
