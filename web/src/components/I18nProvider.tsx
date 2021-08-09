@@ -41,7 +41,6 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         },
         debug: buildConfig().featureFlags.developerFriendly
       })
-      setLanguage(i18nextInstance.language)
       setI18nextInstance(i18nextInstance)
       setLanguage(i18nextInstance.language)
 
