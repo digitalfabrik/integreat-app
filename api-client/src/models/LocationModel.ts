@@ -1,3 +1,5 @@
+import { Feature } from 'geojson'
+
 class LocationModel {
   _name: string | null | undefined
   _address: string | null | undefined
@@ -100,6 +102,23 @@ class LocationModel {
       this.longitude === other.longitude &&
       this.latitude === other.latitude
     )
+  }
+
+  convertToPoint(): Feature | null {
+    if (this.longitude == null || this.latitude == null) {
+      return null
+    }
+
+    return {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [Number(this.longitude), Number(this.latitude)]
+      },
+      properties: {
+        name: this.name
+      }
+    }
   }
 }
 
