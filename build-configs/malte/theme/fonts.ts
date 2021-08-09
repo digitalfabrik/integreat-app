@@ -4,7 +4,7 @@ const fonts: FontsType = {
   native: {
     decorativeFontBold: 'Raleway-Bold',
     decorativeFontRegular: 'Raleway-Regular',
-    contentFontRegular: 'NotoSans-Regular',
+    contentFontRegular: 'NotoSans',
     contentFontBold: 'NotoSans-Bold',
     webviewFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif'
   },
