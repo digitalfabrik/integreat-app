@@ -5,7 +5,6 @@ import { Routes } from '../../../shared/constants'
  * sub page containing specific selectors and methods for a specific page
  */
 class LandingPage extends Page {
-
   get cities() {
     return $$('//main//a')
   }
