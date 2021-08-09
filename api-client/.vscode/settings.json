@@ -1,0 +1,4 @@
+{
+  "yarn.packageJson": "package.json",
+  "prettier.eslintIntegration": true
+}
