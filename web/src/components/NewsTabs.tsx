@@ -27,12 +27,12 @@ const NewsTabs = ({ children, language, city, localNewsEnabled, tunewsEnabled, t
 
   return (
     <>
-      <StyledTabs>
-        {localNewsEnabled && (
+      {localNewsEnabled && tunewsEnabled && (
+        <StyledTabs>
           <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />
-        )}
-        {tunewsEnabled && <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />}
-      </StyledTabs>
+          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />
+        </StyledTabs>
+      )}
       {children}
     </>
   )
