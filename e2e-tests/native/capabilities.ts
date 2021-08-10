@@ -1,7 +1,10 @@
-import { Capabilities } from '@wdio/types/build/Capabilities'
+import { Capabilities } from '@wdio/types'
 import { getGitBranch, getGitHeadReference } from '../shared/git'
 
-const browserstackCaps = (config: Capabilities): Capabilities => {
+const browserstackCaps = (
+  config: Capabilities.AppiumW3CCapabilities,
+  platformName: 'ios' | 'android'
+): Capabilities.Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md
   const isCi = !!process.env.CI
   const prefix = isCi ? 'IG CI' : 'IG DEV'
@@ -9,29 +12,36 @@ const browserstackCaps = (config: Capabilities): Capabilities => {
   return {
     'bstack:options': {
       buildName: `${prefix}: ${getGitBranch()}`,
-      sessionName: `${config.browserName?.toLowerCase()}: ${getGitHeadReference()}`,
+      sessionName: `${platformName.toLowerCase()}: ${getGitHeadReference()}`,
       projectName: 'integreat-app-native',
-      local: true,
       debug: true,
       realMobile: isCi,
-      appiumVersion: '1.17.0'
+      networkProfile: '4g-lte-good',
+      appiumVersion: '1.21.0'
     },
     ...config,
-    'appium:app': app
+    'appium:app': app,
+    platformName
   }
 }
 
 export default {
-  android: browserstackCaps({
-    'appium:platformVersion': '9.0',
-    'appium:deviceName': 'Google Pixel 3',
-    'appium:automationName': 'UiAutomator2',
-    platformName: 'android'
-  }),
-  ios: browserstackCaps({
-    'appium:platformVersion': '12',
-    'appium:deviceName': 'iPhone 8',
-    'appium:automationName': 'XCUITest',
-    platformName: 'ios'
-  })
-}
+  android: browserstackCaps(
+    {
+      'appium:platformVersion': '10.0',
+      'appium:deviceName': 'Google Pixel 3',
+      'appium:automationName': 'UiAutomator2'
+    },
+    'android'
+  ),
+  ios: browserstackCaps(
+    {
+      'appium:platformVersion': '12',
+      'appium:deviceName': 'iPhone 8',
+      'appium:automationName': 'XCUITest',
+      // @ts-ignore unknown property
+      'appium:waitForQuiescence': true
+    },
+    'ios'
+  )
+} as Record<string, Capabilities.Capabilities>
