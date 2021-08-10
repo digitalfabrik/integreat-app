@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { mapValues, toPairs } from 'lodash/object'
-import { fromPairs } from 'lodash/array'
+import { mapValues, toPairs, fromPairs } from 'lodash'
 import { SignalType } from 'api-client'
 
 export type SettingsType = {
@@ -36,14 +35,20 @@ class AppSettings {
   }
 
   loadSettings = async (): Promise<SettingsType> => {
-    const settingsKeys = Object.keys(defaultSettings)
+    const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]
     const settingsArray = await this.asyncStorage.multiGet(settingsKeys)
-    return mapValues(fromPairs(settingsArray), (value, key) => {
+    const settings = fromPairs(settingsArray) as Record<keyof SettingsType, string | null>
+    return mapValues(settings, (value: string | null, key) => {
+      if (value === null) {
+        // null means this setting does not exist
+        return defaultSettings[key as keyof SettingsType]
+      }
+
       const parsed = JSON.parse(value)
 
       if (parsed === null) {
         // null means this setting does not exist
-        return defaultSettings[key]
+        return defaultSettings[key as keyof SettingsType]
       }
 
       return parsed
@@ -51,7 +56,7 @@ class AppSettings {
   }
 
   setSettings = async (settings: Partial<SettingsType>): Promise<void> => {
-    const settingsArray = toPairs(mapValues(settings, value => JSON.stringify(value)))
+    const settingsArray = toPairs<string>(mapValues(settings, value => JSON.stringify(value)))
     await this.asyncStorage.multiSet(settingsArray)
   }
 
@@ -151,7 +156,7 @@ class AppSettings {
     })
   }
 
-  loadApiUrlOverride = async (): Promise<string | null | undefined> => {
+  loadApiUrlOverride = async (): Promise<string | null> => {
     const settings = await this.loadSettings()
     return settings.apiUrlOverride
   }

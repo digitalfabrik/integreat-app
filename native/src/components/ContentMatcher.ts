@@ -20,10 +20,10 @@ class ContentMatcher {
   }
 
   getMatchedContent(
-    query: string | null | undefined,
-    content: string | null | undefined,
+    query: string | undefined,
+    content: string | undefined,
     numWordsSurrounding: number
-  ): string | null | undefined {
+  ): string | null {
     if (!query || !query.length || !content) {
       return null
     }

@@ -12,9 +12,9 @@ type PropsType = { languageCode: string }
 
 const MainDisclaimerPage = ({ languageCode }: PropsType): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const { t } = useTranslation()
+  const { t } = useTranslation('mainDisclaimer')
 
-  const pageTitle = t('app:pageTitles.mainDisclaimer', { appName: buildConfig().appName })
+  const pageTitle = t('pageTitle', { appName: buildConfig().appName })
 
   return (
     <Layout

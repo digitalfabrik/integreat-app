@@ -33,7 +33,6 @@ const LogoContainer = styled.div`
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
-
     & a {
       max-height: 75%;
     }
@@ -52,7 +51,7 @@ export const HeaderLogo = ({ link }: PropsType): ReactElement => {
   return (
     <LogoContainer>
       <Link to={link}>
-        <img src={src} alt={appName} />
+        <img src={src} alt={appName} width='100%' height='auto' />
       </Link>
     </LogoContainer>
   )

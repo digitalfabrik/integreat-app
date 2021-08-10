@@ -1,0 +1,5 @@
+issue_key: IGAPP-725
+show_in_stores: true
+platforms:
+  - web
+en: Fixed RTL layouts and additional fonts for rtl languages.

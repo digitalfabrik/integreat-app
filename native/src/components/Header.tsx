@@ -14,7 +14,7 @@ import dimensions from '../constants/dimensions'
 import { StoreActionType } from '../redux/StoreActionType'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
-import { forceNewlineAfterChar } from '../services/forceNewLineAfterChar'
+import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const Horizontal = styled.View`
@@ -33,7 +33,7 @@ const Icon = styled.Image`
   height: 50px;
   resize-mode: contain;
 `
-const HeaderText = styled.Text`
+const HeaderText = styled.Text<{ fontSize: number }>`
   flex: 1;
   flex-direction: column;
   font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
@@ -174,7 +174,7 @@ const Header = (props: PropsType): ReactElement => {
     return (
       <Item
         disabled={!visible}
-        title={title}
+        title={t(title)}
         accessibilityLabel={t(title)}
         iconName={iconName || undefined}
         show={show ? 'always' : 'never'}

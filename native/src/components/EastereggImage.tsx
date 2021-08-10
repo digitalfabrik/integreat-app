@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
@@ -11,11 +11,6 @@ import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
 
-type StateType = {
-  clickCount: number
-  clickStart: Moment | null | undefined
-  apiUrlOverride: string | null | undefined
-}
 type PropsType = {
   clearResourcesAndCache: () => void
   theme: ThemeType
@@ -29,40 +24,30 @@ const ApiUrlText = styled.Text`
   color: red;
 `
 
-class EastereggImage extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props)
-    this.state = {
-      clickCount: 0,
-      apiUrlOverride: null,
-      clickStart: null
-    }
-  }
+const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElement => {
+  const [clickCount, setClickCount] = useState(0)
+  const [apiUrlOverride, setApiUrlOverride] = useState<string | null>(null)
+  const [clickStart, setClickStart] = useState<null | Moment>(null)
 
-  componentDidMount(): void {
+  useEffect(() => {
     const appSettings = new AppSettings()
     appSettings
       .loadApiUrlOverride()
-      .then(apiUrlOverride =>
-        this.setState({
-          apiUrlOverride
-        })
-      )
+      .then(setApiUrlOverride)
       .catch(e => {
         // eslint-disable-next-line no-console
         console.error(e)
       })
-  }
+  }, [])
 
-  onImagePress = async (): Promise<void> => {
+  const onImagePress = useCallback(async () => {
     const { cmsUrl, switchCmsUrl } = buildConfig()
 
     if (!switchCmsUrl) {
       return
     }
 
-    const prevClickCount = this.state.clickCount
-    const clickStart = this.state.clickStart
+    const prevClickCount = clickCount
     const clickedInTimeInterval = clickStart && clickStart.isAfter(moment().subtract(CLICK_TIMEOUT, 's'))
 
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
@@ -70,36 +55,28 @@ class EastereggImage extends React.Component<PropsType, StateType> {
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
       const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
       await appSettings.setApiUrlOverride(newApiUrl)
-      this.setState({
-        clickCount: 0,
-        clickStart: null
-      })
-      this.props.clearResourcesAndCache()
+      setClickCount(0)
+      setClickStart(null)
+
+      clearResourcesAndCache()
       // eslint-disable-next-line no-console
       console.debug(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()
       const newClickCount = clickedInTimeInterval ? prevClickCount + 1 : 1
-      this.setState({
-        clickCount: newClickCount,
-        clickStart: newClickStart
-      })
+      setClickCount(newClickCount)
+      setClickStart(newClickStart)
     }
-  }
+  }, [clearResourcesAndCache, clickCount, clickStart])
 
-  resetApiUrl = async (): Promise<void> => {
+  const resetApiUrl = useCallback(async () => {
     const appSettings = new AppSettings()
     await appSettings.setApiUrlOverride(buildConfig().cmsUrl)
-    this.setState({
-      clickCount: 0
-    })
-    this.props.clearResourcesAndCache()
-  }
+    setClickCount(0)
+    clearResourcesAndCache()
+  }, [clearResourcesAndCache])
 
-  renderApiUrlText = (): ReactNode => {
-    const theme = this.props.theme
-    const apiUrlOverride = this.state.apiUrlOverride
-
+  const renderApiUrlText = (): ReactNode => {
     if (apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl) {
       return (
         <>
@@ -112,7 +89,7 @@ class EastereggImage extends React.Component<PropsType, StateType> {
               backgroundColor: theme.colors.themeColor,
               marginTop: 10
             }}
-            onPress={this.resetApiUrl}
+            onPress={resetApiUrl}
             title='Switch back to default API'
           />
         </>
@@ -120,16 +97,16 @@ class EastereggImage extends React.Component<PropsType, StateType> {
     }
   }
 
-  render(): ReactNode {
-    return (
-      <>
-        <TouchableOpacity activeOpacity={1} onPress={this.onImagePress}>
-          <LocationImage source={buildConfigAssets().locationMarker} />
-        </TouchableOpacity>
-        {this.renderApiUrlText()}
-      </>
-    )
-  }
+  const locationMarker = buildConfigAssets().locationMarker
+
+  return (
+    <>
+      <TouchableOpacity activeOpacity={1} onPress={onImagePress}>
+        {locationMarker && <LocationImage source={locationMarker} />}
+      </TouchableOpacity>
+      {renderApiUrlText()}
+    </>
+  )
 }
 
 export default EastereggImage

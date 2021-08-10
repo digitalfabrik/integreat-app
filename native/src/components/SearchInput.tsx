@@ -35,7 +35,6 @@ type PropsType = {
   filterText: string
   onFilterTextChange: (arg0: string) => void
   spaceSearch: boolean
-  onClickInput?: () => void
   theme: ThemeType
 }
 
@@ -47,7 +46,7 @@ class SearchInput extends React.Component<PropsType> {
   onFilterTextChange = (text: string): void => this.props.onFilterTextChange(text)
 
   render(): ReactNode {
-    const { onClickInput, filterText, placeholderText, theme, spaceSearch } = this.props
+    const { filterText, placeholderText, theme, spaceSearch } = this.props
     return (
       <Wrapper theme={theme} space={spaceSearch}>
         <SearchIcon theme={theme} />
@@ -58,7 +57,6 @@ class SearchInput extends React.Component<PropsType> {
           aria-label={placeholderText}
           defaultValue={filterText}
           onChangeText={this.onFilterTextChange}
-          onClick={onClickInput}
         />
       </Wrapper>
     )

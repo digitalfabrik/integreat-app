@@ -1,10 +1,8 @@
 import React from 'react'
 import { renderWithBrowserRouter } from '../../testing/render'
-import { OfferModel, OFFERS_ROUTE, useLoadFromEndpoint } from 'api-client'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import { CityModelBuilder, LanguageModelBuilder, OfferModel, OFFERS_ROUTE, useLoadFromEndpoint } from 'api-client'
 import OffersPage from '../OffersPage'
 import { createPath, RoutePatterns } from '../index'
-import LanguageModelBuilder from '../../../../api-client/src/testing/LanguageModelBuilder'
 import { Route } from 'react-router-dom'
 import { mocked } from 'ts-jest/utils'
 import buildConfig from '../../constants/buildConfig'
@@ -31,8 +29,7 @@ describe('OffersPage', () => {
     alias: 'sprungbrett',
     path: 'path to fetch jobs from',
     title: 'Sprungbrett',
-    thumbnail: 'xy',
-    postData: null
+    thumbnail: 'xy'
   })
   const lehrstellenRadarPostData = new Map()
   lehrstellenRadarPostData.set('partner', '0006')
@@ -51,8 +48,7 @@ describe('OffersPage', () => {
       alias: 'ihk-praktikumsboerse',
       path: 'ihk-pratkitkumsboerse.com',
       title: 'Praktikumsboerse',
-      thumbnail: 'xy',
-      postData: null
+      thumbnail: 'xy'
     })
   ]
 
