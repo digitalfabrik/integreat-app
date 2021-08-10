@@ -13980,10 +13980,10 @@ react-native-reanimated@^2.0.0:
     mockdate "^3.0.2"
     string-hash-64 "^1.0.3"
 
-react-native-render-html@^6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-6.0.4.tgz#117fb4fda7a2b3c3d0221082e883c87ace4463ba"
-  integrity sha512-JEp+ljOWmVtG3f8IWsfA1GRUxm5EJOOdPYcaHqLQpLjZtt/NKdyLL3OtBlWYP6kPU5hKHyl1hG37bwQlO07Fqw==
+react-native-render-html@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-6.0.5.tgz#b36c020a67760d8aace943e40a4c8b0c61a4759a"
+  integrity sha512-EpLJ7zeshoRAICnlNDDZD+wc109bo47yBSpXahlnFs0txAw45SL9IfB9KiN15vLrXIq+mneV1GDPKhP8S0e4fw==
   dependencies:
     "@jsamr/counter-style" "^2.0.1"
     "@jsamr/react-native-li" "^2.2.1"
