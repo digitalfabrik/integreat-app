@@ -8,13 +8,16 @@
     "jsx": "react",
     "outDir": "dist",
     "paths": {
-      "api-client": ["../api-client"],
-      "build-configs": ["../build-configs"],
-      "translations": ["../translations"]
+      "api-client/*": ["../api-client/*"],
+      "build-configs/*": ["../build-configs/*"],
+      "translations/*": ["../translations/*"],
+      "normalize-strings": ["src/@types/normalize-strings"],
+      "react-native-static-server": ["src/@types/react-native-static-server"],
+      "@react-native-community/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
     "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],
-    "types": ["jest", "node", "react-native"]
+    "types": ["jest", "node", "react-native", "styled-components-react-native"]
   },
   "include": ["src/**/*", "./jest.setup.ts"],
   "references": [

@@ -10,7 +10,7 @@ type DeepPartial<T> = {
 describe('ProgressSpinner', () => {
   let theme: DeepPartial<ThemeType>
 
-  const t = input => input
+  const t = (input: string) => input
 
   beforeEach(() => {
     theme = {
