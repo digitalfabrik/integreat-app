@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { ReactElement, useCallback, useContext } from 'react'
-import { ScrollView, useWindowDimensions, View } from 'react-native'
+import { ReactElement, useContext } from 'react'
+import { ScrollView, View } from 'react-native'
 import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 import { contentAlignment } from '../constants/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
-import Html from 'react-native-render-html'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import NativeHtml from './NativeHtml'
 
 const Container = styled.View`
   align-items: center;
@@ -48,14 +48,7 @@ type PropsType = {
 
 const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
-  const width = useWindowDimensions().width
   const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
-  const onLinkPress = useCallback(
-    (_, url: string) => {
-      navigateToLink(url, language, url)
-    },
-    [navigateToLink, language]
-  )
   return (
     <View
       style={{
@@ -75,25 +68,7 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
         )}
         <Container>
           <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
-          <Html
-            source={{
-              html: content
-            }}
-            contentWidth={width}
-            onLinkPress={onLinkPress}
-            baseFontStyle={{
-              fontFamily: theme.fonts.native.decorativeFontRegular,
-              fontSize: 16,
-              letterSpacing: 0.5,
-              lineHeight: 24,
-              textAlign: contentAlignment(language),
-              color: theme.colors.textColor
-            }}
-            defaultTextProps={{
-              selectable: true,
-              allowFontScaling: true
-            }}
-          />
+          <NativeHtml theme={theme} language={language} content={content} navigateToLink={navigateToLink} />
           {newsItem instanceof LocalNewsModel && (
             <TimeStampContent language={language} theme={theme}>
               <TimeStamp
