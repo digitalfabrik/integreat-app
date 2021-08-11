@@ -1,16 +1,10 @@
 import Page from './page'
+import { Routes } from '../../../shared/constants'
 
 /**
  * sub page containing specific selectors and methods for a specific page
  */
 class LandingPage extends Page {
-  public language: string
-
-  public constructor(language = 'en') {
-    super()
-    this.language = language
-  }
-
   get cities() {
     return $$('//main//a')
   }
@@ -24,7 +18,7 @@ class LandingPage extends Page {
   }
 
   open() {
-    return super.open(`landing/${this.language}`)
+    return super.open(Routes.landing)
   }
 }
 
