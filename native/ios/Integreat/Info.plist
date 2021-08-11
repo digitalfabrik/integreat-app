@@ -46,7 +46,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansArabic-Regular.ttf</string>
-			<string>NotoSansArabic-Bold.ttf</string>
+		<string>NotoSansArabic-Bold.ttf</string>
 		<string>NotoSans-Bold.ttf</string>
 		<string>NotoSans.ttf</string>
 		<string>Raleway-Bold.ttf</string>
