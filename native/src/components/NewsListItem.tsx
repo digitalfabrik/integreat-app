@@ -9,7 +9,6 @@ import { contentAlignment, contentDirection } from '../constants/contentDirectio
 import { config } from 'translations'
 import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { View } from 'react-native'
 
 type PropsType = {
   index: number
