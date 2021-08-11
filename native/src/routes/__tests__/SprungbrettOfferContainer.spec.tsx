@@ -7,7 +7,7 @@ import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
-  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError,
   mockUseLoadFromEndpointLoading
 } from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
@@ -62,7 +62,7 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnceWitData([])
+    mockUseLoadFromEndpointOnceWithData([])
     const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
@@ -149,7 +149,7 @@ describe('SprungbrettOfferContainer', () => {
         models: [disabledOffersCity]
       }
     })
-    mockUseLoadFromEndpointOnceWitData(null)
+    mockUseLoadFromEndpointOnceWithData(null)
 
     const { queryByText, getByText } = render(
       <Provider store={store}>

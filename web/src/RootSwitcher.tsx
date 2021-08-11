@@ -1,7 +1,5 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, Suspense, useCallback } from 'react'
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
-import LandingPage from './routes/LandingPage'
-import NotFoundPage from './routes/NotFoundPage'
 import {
   CATEGORIES_ROUTE,
   createCitiesEndpoint,
@@ -16,7 +14,6 @@ import Layout from './components/Layout'
 import GeneralHeader from './components/GeneralHeader'
 import GeneralFooter from './components/GeneralFooter'
 import FailureSwitcher from './components/FailureSwitcher'
-import MainDisclaimerPage from './routes/MainDisclaimerPage'
 import LoadingSpinner from './components/LoadingSpinner'
 import { useTranslation } from 'react-i18next'
 import { cityContentPattern, createPath, RoutePatterns } from './routes'
@@ -26,6 +23,10 @@ import buildConfig from './constants/buildConfig'
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
 }
+
+const MainDisclaimerPage = React.lazy(() => import('./routes/MainDisclaimerPage'))
+const LandingPage = React.lazy(() => import('./routes/LandingPage'))
+const NotFoundPage = React.lazy(() => import('./routes/NotFoundPage'))
 
 const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
@@ -66,25 +67,27 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const relevantCities = fixedCity ? cities.filter(city => city.code === fixedCity) : cities
 
   return (
-    <Switch>
-      {fixedCity && <Redirect exact from={RoutePatterns[LANDING_ROUTE]} to={cityContentPath} />}
+    <Suspense fallback={<LoadingSpinner />}>
+      <Switch>
+        {fixedCity && <Redirect exact from={RoutePatterns[LANDING_ROUTE]} to={cityContentPath} />}
 
-      <Route
-        exact
-        path={RoutePatterns[LANDING_ROUTE]}
-        render={props => <LandingPage cities={relevantCities} {...props} />}
-      />
-      <Route
-        exact
-        path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}
-        render={() => <MainDisclaimerPage languageCode={language} />}
-      />
-      <Route exact path={RoutePatterns[NOT_FOUND_ROUTE]} component={NotFoundPage} />
-      <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={relevantCities} {...props} />} />
-      <Redirect exact from='/' to={landingPath} />
-      <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
-      <Redirect exact from={`/:cityCode`} to={cityContentPath} />
-    </Switch>
+        <Route
+          exact
+          path={RoutePatterns[LANDING_ROUTE]}
+          render={props => <LandingPage cities={relevantCities} {...props} />}
+        />
+        <Route
+          exact
+          path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}
+          render={() => <MainDisclaimerPage languageCode={language} />}
+        />
+        <Route exact path={RoutePatterns[NOT_FOUND_ROUTE]} component={NotFoundPage} />
+        <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={relevantCities} {...props} />} />
+        <Redirect exact from='/' to={landingPath} />
+        <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
+        <Redirect exact from={`/:cityCode`} to={cityContentPath} />
+      </Switch>
+    </Suspense>
   )
 }
 
