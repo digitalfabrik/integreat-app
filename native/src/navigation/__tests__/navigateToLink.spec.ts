@@ -12,6 +12,7 @@ import openExternalUrl from '../../utils/openExternalUrl'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl')
+
 describe('navigateToLink', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -20,6 +21,7 @@ describe('navigateToLink', () => {
   const languageCode = 'de'
   const navigateTo = jest.fn()
   const shareUrl = 'https://example.com/my/share/url'
+
   it('should navigate to pdf modal route', () => {
     const url = 'https://example.com/my.pdf'
     navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
@@ -38,6 +40,7 @@ describe('navigateToLink', () => {
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
+
   it('should navigate to image modal route for jpgs', () => {
     const url = 'https://example.com/my.jpg'
     navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
@@ -56,6 +59,26 @@ describe('navigateToLink', () => {
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
+
+  it('should navigate to image modal route for jpegs', () => {
+    const url = 'https://example.com/my.jpeg'
+    navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
+      url,
+      shareUrl
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_MEDIA_SIGNAL_NAME,
+        url
+      }
+    })
+    expect(navigateTo).not.toHaveBeenCalled()
+    expect(openExternalUrl).not.toHaveBeenCalled()
+  })
+
   it('should navigate to image modal route for pngs', () => {
     const url = 'https://example.com/my.png'
     navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
@@ -74,6 +97,7 @@ describe('navigateToLink', () => {
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
+
   it('should call navigateTo for internal links', () => {
     const url = 'https://integreat.app'
     navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
@@ -92,6 +116,7 @@ describe('navigateToLink', () => {
     expect(navigation.navigate).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
+
   it('should call openExternalUrl for external links', () => {
     const url = 'https://example.com'
     navigateToLink(url, navigation, languageCode, navigateTo, shareUrl)
