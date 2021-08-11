@@ -5,16 +5,21 @@ import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import watchFetchNews, { fetchNews } from '../watchFetchNews'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
-import loadCityContent from '../loadCityContent'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
+import loadLocalNews from '../loadLocalNews'
 
 jest.mock('../loadCityContent')
+jest.mock('../loadLanguages')
+jest.mock('../loadLocalNews')
+
 describe('watchFetchNews', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
   })
+
   const city = 'altmuehlfranken'
   const language = 'en'
+
   describe('fetch news', () => {
     const createDataContainer = async (city: string, language: string) => {
       const newsBuilder = new LocalNewsModelBuilder('loadCityContent-news', 2, city, language)
@@ -59,8 +64,12 @@ describe('watchFetchNews', () => {
         })
         .run()
     })
-    it('should put an error action', () => {
+
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
+      const languages = new LanguageModelBuilder(2).build()
+      await dataContainer.setLanguages(city, languages)
+
       const action: FetchNewsActionType = {
         type: 'FETCH_NEWS',
         params: {
@@ -83,8 +92,8 @@ describe('watchFetchNews', () => {
         })
         .provide({
           call: (effect, next) => {
-            if (effect.fn === loadCityContent) {
-              throw new Error('Something is wrong!')
+            if (effect.fn === loadLocalNews) {
+              throw new Error('Jemand hat keine 4 Issues geschafft!')
             }
 
             return next()
@@ -98,6 +107,7 @@ describe('watchFetchNews', () => {
         .run()
     })
   })
+
   it('should correctly call fetch news when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     return testSaga(watchFetchNews, dataContainer).next().takeLatest('FETCH_NEWS', fetchNews, dataContainer)
