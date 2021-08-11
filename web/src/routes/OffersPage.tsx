@@ -1,10 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
-  CityModel,
   createOffersEndpoint,
-  LanguageModel,
   OfferModel,
   OFFERS_ROUTE,
   SPRUNGBRETT_OFFER,
@@ -13,7 +10,7 @@ import {
 } from 'api-client'
 import LocationToolbar from '../components/LocationToolbar'
 import TileModel from '../models/TileModel'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import { cmsApiBaseUrl } from '../constants/urls'
 import normalizePath from 'api-client/src/normalizePath'
 import { useTranslation } from 'react-i18next'
@@ -22,13 +19,9 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Tiles from '../components/Tiles'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof OFFERS_ROUTE>
 
 const OffersPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { languageCode, cityCode } = match.params
