@@ -36,7 +36,7 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
             addListener: jest.fn(),
             removeListener: jest.fn(),
             removeAllListeners: jest.fn(),
-            hasListeners: jest.fn(),
+            hasListeners: jest.fn()
           }
         }
       },
