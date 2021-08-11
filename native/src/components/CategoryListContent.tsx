@@ -44,7 +44,7 @@ const CategoryListContent = ({
         />
         {lastUpdate && (
           <LastUpdateContainer>
-            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />
+            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} theme={theme} />
           </LastUpdateContainer>
         )}
       </Container>

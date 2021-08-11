@@ -8,11 +8,7 @@ import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
 import AppSettings from '../../utils/AppSettings'
 
 jest.mock('@react-native-community/async-storage')
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: jest.fn()
-  })
-}))
+jest.mock('react-i18next')
 
 describe('JpalTracking', () => {
   beforeEach(() => {

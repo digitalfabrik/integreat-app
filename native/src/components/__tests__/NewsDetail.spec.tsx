@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
 import buildConfig from '../../constants/buildConfig'
@@ -8,7 +8,7 @@ import NewsDetail from '../NewsDetail'
 jest.mock('react-i18next')
 
 const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
-  <h1><a href="https://tunewsinternational.com/category/corona-deutsch/">Aktuelle Informationen zu Corona: Hier klicken</a></h1>\n</main>\n`
+  <h1><a href='https://tunewsinternational.com/category/corona-deutsch/'>Aktuelle Informationen zu Corona: Hier klicken</a></h1>\n</main>\n`
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
@@ -23,6 +23,7 @@ const localNews = new LocalNewsModel({
   title: 'Test Push Notification',
   message: 'Some test text mailto:app@integreat-app.de with lots of links https://integreat.app'
 })
+
 describe('NewsDetail', () => {
   const theme = buildConfig().lightTheme
   const language = 'de'
