@@ -70,13 +70,12 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
           <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
           <NativeHtml theme={theme} language={language} content={content} navigateToLink={navigateToLink} />
           {newsItem instanceof LocalNewsModel && (
-            <TimeStampContent language={language} theme={theme}>
+            <TimeStampContent language={language}>
               <TimeStamp
                 formatter={formatter}
                 lastUpdate={newsItem.timestamp}
                 showText={false}
                 format={'LLL'}
-                language={language}
                 theme={theme}
               />
             </TimeStampContent>
