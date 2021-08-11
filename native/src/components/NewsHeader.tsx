@@ -38,6 +38,7 @@ const HeaderContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 12px;
 `
 
 type PropsType = {
@@ -62,7 +63,7 @@ class NewsHeader extends React.PureComponent<PropsType> {
     return (
       <>
         <Caption title={t('news')} theme={theme} />
-        {cityModel.pushNotificationsEnabled && false && (
+        {cityModel.pushNotificationsEnabled && cityModel.tunewsEnabled && (
           <HeaderContainer>
             <TouchableWrapper onPress={this.navigateToLocalNews}>
               <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE} theme={theme}>
