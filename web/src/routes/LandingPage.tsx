@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react'
-import { CityModel } from 'api-client'
-import { RouteComponentProps } from 'react-router-dom'
+import { CityModel, LANDING_ROUTE } from 'api-client'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import Helmet from '../components/Helmet'
 import { useTranslation } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
+import { RouteProps } from './index'
 
 type PropsType = {
   cities: Array<CityModel>
-} & RouteComponentProps<{ languageCode: string }>
+} & RouteProps<typeof LANDING_ROUTE>
 
 const LandingPage = ({ cities, match }: PropsType): ReactElement => {
   const { languageCode } = match.params

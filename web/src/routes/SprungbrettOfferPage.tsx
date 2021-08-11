@@ -1,13 +1,10 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { RouteComponentProps } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
-  CityModel,
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   Payload,
@@ -21,25 +18,21 @@ import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Caption from '../components/Caption'
 import List from '../components/List'
 import CleanAnchor from '../components/CleanAnchor'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
 const Image = styled.img`
   display: block;
   margin: 0 auto;
 `
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof SPRUNGBRETT_OFFER_ROUTE>
 
 const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params

@@ -58,8 +58,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = (): void => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): ReactNode => {
-    const { toolbar } = this.props
-    if (toolbar) {
+    const { toolbar, isLoading } = this.props
+    if (toolbar && !isLoading) {
       return toolbar(this.openFeedbackModal)
     }
     return null

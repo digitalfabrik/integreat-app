@@ -1,12 +1,10 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import LocationLayout from '../components/LocationLayout'
 import {
-  CityModel,
   createEventsEndpoint,
   EventModel,
   EVENTS_ROUTE,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   useLoadFromEndpoint
@@ -16,7 +14,7 @@ import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { cmsApiBaseUrl } from '../constants/urls'
 import LoadingSpinner from '../components/LoadingSpinner'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
@@ -28,13 +26,9 @@ import EventListItem from '../components/EventListItem'
 import JsonLdEvent from '../components/JsonLdEvent'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Helmet from '../components/Helmet'
+import { CityRouteProps } from '../CityContentSwitcher'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; eventId?: string }>
+type PropsType = CityRouteProps & RouteProps<typeof EVENTS_ROUTE>
 
 const EventsPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { cityCode, languageCode, eventId } = match.params
