@@ -7,7 +7,8 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
-import { SUPPORTED_IMAGE_FILE_TYPES } from '../routes/ImageViewModal'
+
+const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
