@@ -43,7 +43,7 @@ const ListItemWrapper = styled.View`
 const StyledTouchableOpacity = styled.TouchableOpacity`
   flex-direction: column;
 `
-const Divider = styled(View)<{ firstItem?: boolean }>`
+const Divider = styled.View<{ firstItem: boolean }>`
   border-top-width: 0.5px;
   border-top-color: rgba(168, 168, 168, 0.7);
   width: 80%;
