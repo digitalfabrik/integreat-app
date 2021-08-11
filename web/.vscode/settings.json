@@ -5,5 +5,5 @@
   },
   "prettier.eslintIntegration": true,
   "jest.pathToConfig": "jest.config.js",
-  "jest.restartJestOnSnapshotUpdate": true
+  "local-history.path": "C:\\Projects\\Integreat\\intregreat-app backup"
 }
