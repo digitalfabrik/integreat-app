@@ -3,11 +3,11 @@ import capabilities from './capabilities'
 const getCapability = () => {
   const capability = process.env.E2E_CONFIG
   if (!capability) {
-    throw new Error('E2E_CONFIG name is not set!')
+    throw new Error(`E2E_CONFIG name is not set! It should be one of ${Object.keys(capabilities)}`)
   }
 
   if (!capabilities[capability]) {
-    throw new Error('Value of E2E_CONFIG is invalid!')
+    throw new Error(`Value of E2E_CONFIG is invalid! It should be one of ${Object.keys(capabilities)}`)
   }
 
   return capabilities[capability]
@@ -33,7 +33,7 @@ export const config = {
   waitforInterval: 2000,
   connectionRetryTimeout: 50000,
   connectionRetryCount: 3,
-  services: [['browserstack', { browserstackLocal: true }]],
+  services: [['browserstack']],
   host: 'hub.browserstack.com',
   framework: 'jasmine',
   reporters: ['junit'],
