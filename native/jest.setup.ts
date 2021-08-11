@@ -4,6 +4,9 @@ import path from 'path'
 import fs from 'fs'
 import '@testing-library/jest-native/extend-expect'
 
+// https://github.com/callstack/react-native-testing-library/issues/658#issuecomment-809099084
+jest.mock('react-native/Libraries/LogBox/LogBox')
+
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
 
 // react-navigation jest setup

@@ -47,5 +47,6 @@ export default {
         outputDirectory: '<rootDir>/../reports/unit-test'
       }
     ]
-  ]
+  ],
+  testEnvironment: 'jsdom'
 }
