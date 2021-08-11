@@ -8,7 +8,7 @@ import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
   mockUseLoadFromEndpointLoading,
-  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
 } from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
 
@@ -62,7 +62,7 @@ describe('OffersContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnceWitData([])
+    mockUseLoadFromEndpointOnceWithData([])
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
@@ -148,7 +148,7 @@ describe('OffersContainer', () => {
         models: [disabledOffersCity]
       }
     })
-    mockUseLoadFromEndpointOnceWitData(null)
+    mockUseLoadFromEndpointOnceWithData(null)
     const { queryByText } = render(
       <Provider store={store}>
         <OffersContainer navigation={navigation} route={route} />
