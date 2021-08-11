@@ -3,7 +3,7 @@ import { defaultCity, filter } from '../../../shared/constants'
 import { hideKeyboard, swipe, SwipeDirection } from '../Action'
 import DashboardPage from '../pageobjects/dashboard.page'
 
-export const navigateToDashboard = async () => {
+export const navigateToDashboard = async (): Promise<void> => {
   expect(await LandingPage.exists()).toBeTruthy()
   const search = await LandingPage.search
   await search.click()
