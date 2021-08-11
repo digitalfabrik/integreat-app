@@ -5,8 +5,6 @@ import { ImageViewModalRouteType } from 'api-client'
 import React, { ReactElement, useContext } from 'react'
 import { ThemeContext } from 'styled-components'
 
-export const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
-
 type PropsType = {
   route: RoutePropType<ImageViewModalRouteType>
   navigation: NavigationPropType<ImageViewModalRouteType>
