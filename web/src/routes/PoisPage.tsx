@@ -1,15 +1,5 @@
-import React, { ReactElement, Suspense, useCallback, useContext } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import {
-  CityModel,
-  createPOIsEndpoint,
-  LanguageModel,
-  normalizePath,
-  NotFoundError,
-  PoiModel,
-  POIS_ROUTE,
-  useLoadFromEndpoint
-} from 'api-client'
+import React, { ReactElement, useCallback, useContext } from 'react'
+import { createPOIsEndpoint, normalizePath, NotFoundError, PoiModel, useLoadFromEndpoint, POIS_ROUTE } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -17,7 +7,7 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import PoiListItem from '../components/PoiListItem'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { cmsApiBaseUrl } from '../constants/urls'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import { useTranslation } from 'react-i18next'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -26,16 +16,10 @@ import PageDetail from '../components/PageDetail'
 import Caption from '../components/Caption'
 import List from '../components/List'
 import Helmet from '../components/Helmet'
+import MapView from '../components/MapView'
+import { CityRouteProps } from '../CityContentSwitcher'
 
-/** Lazy import for code splitting map library */
-const MapView = React.lazy(() => import('../components/MapView'))
-
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; poiId?: string }>
+type PropsType = CityRouteProps & RouteProps<typeof POIS_ROUTE>
 
 const PoisPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
   const { cityCode, languageCode, poiId } = match.params
@@ -127,9 +111,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
-      <Suspense fallback={<LoadingSpinner />}>
-        <MapView />
-      </Suspense>
+      <MapView />
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )
