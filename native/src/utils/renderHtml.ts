@@ -126,7 +126,7 @@ const renderHtml = (
     @font-face {
       font-family: 'Noto Sans Arabic';
       font-style: normal;
-      font-weight: 400;
+      font-weight: 700;
       src: ${getFontFaceSource('NotoSansArabic-Bold')};
     }
     
