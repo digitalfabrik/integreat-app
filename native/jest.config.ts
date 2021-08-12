@@ -2,6 +2,7 @@ import { defaults as tsjPreset } from 'ts-jest/presets'
 
 const transformNodeModules = [
   'react-native',
+  '@react-native',
   '@react-native-firebase/messaging',
   '@react-native-firebase/app',
   '@react-native-community',
