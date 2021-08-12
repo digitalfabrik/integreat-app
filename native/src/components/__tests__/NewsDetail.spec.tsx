@@ -1,9 +1,13 @@
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
 import buildConfig from '../../constants/buildConfig'
 import React from 'react'
 import NewsDetail from '../NewsDetail'
+
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: jest.fn(() => ({ width: 1234 }))
+}))
 
 const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
   <h1><a href="https://tunewsinternational.com/category/corona-deutsch/">Aktuelle Informationen zu Corona: Hier klicken</a></h1>\n</main>\n`
