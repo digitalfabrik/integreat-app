@@ -1,10 +1,10 @@
-import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock'
 import { I18nManager } from './src/testing/I18nManagerMock'
 import path from 'path'
 import fs from 'fs'
 import '@testing-library/jest-native/extend-expect'
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
 // react-navigation jest setup
 // https://reactnavigation.org/docs/testing#mocking-native-modules
