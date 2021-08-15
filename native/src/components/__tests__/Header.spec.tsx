@@ -8,6 +8,10 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import { SEARCH_ROUTE } from 'api-client'
 import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: jest.fn(() => ({ width: 1234 }))
+}))
+
 describe('Header', () => {
   beforeEach(() => {
     jest.clearAllMocks()

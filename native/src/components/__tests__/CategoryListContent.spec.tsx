@@ -3,7 +3,11 @@ import CategoryListContent from '../CategoryListContent'
 import { render } from '@testing-library/react-native'
 import moment, { Moment } from 'moment'
 import buildConfig from '../../constants/buildConfig'
+import 'react-native/Libraries/Utilities/useWindowDimensions'
 
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: jest.fn(() => ({ width: 1234 }))
+}))
 jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
   const Text = require('react-native').Text
 

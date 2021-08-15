@@ -10,7 +10,6 @@ exports[`Selector should be vertical and match snapshot 1`] = `
     as={
       Object {
         "$$typeof": Symbol(react.forward_ref),
-        "displayName": "Link",
         "propTypes": Object {
           "innerRef": [Function],
           "onClick": [Function],
@@ -36,7 +35,6 @@ exports[`Selector should be vertical and match snapshot 1`] = `
     as={
       Object {
         "$$typeof": Symbol(react.forward_ref),
-        "displayName": "Link",
         "propTypes": Object {
           "innerRef": [Function],
           "onClick": [Function],
@@ -82,7 +80,6 @@ exports[`Selector should match snapshot 1`] = `
     as={
       Object {
         "$$typeof": Symbol(react.forward_ref),
-        "displayName": "Link",
         "propTypes": Object {
           "innerRef": [Function],
           "onClick": [Function],
@@ -108,7 +105,6 @@ exports[`Selector should match snapshot 1`] = `
     as={
       Object {
         "$$typeof": Symbol(react.forward_ref),
-        "displayName": "Link",
         "propTypes": Object {
           "innerRef": [Function],
           "onClick": [Function],

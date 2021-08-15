@@ -7,7 +7,6 @@ import testID from '../testing/testID'
 
 export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
-  textColor: props.theme.colors.textSecondaryColor,
   placeholderTextColor: props.theme.colors.textSecondaryColor
 }))`
   margin: 0 5px;

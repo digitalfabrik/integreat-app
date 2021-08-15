@@ -1,36 +1,16 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
-import ConnectedSearchInput, { SearchInput } from '../SearchInput'
+import SearchInput from '../SearchInput'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
+import { fireEvent, render } from '@testing-library/react'
 
 describe('SearchInput', () => {
-  it('should render', () => {
-    expect(
-      shallow(<SearchInput filterText='Test' placeholderText='Placeholder' onFilterTextChange={() => {}} />)
-    ).toMatchSnapshot()
-  })
-
-  it('should render and space search', () => {
-    expect(
-      shallow(<SearchInput filterText='Test' placeholderText='Placeholder' onFilterTextChange={() => {}} spaceSearch />)
-    ).toMatchSnapshot()
-  })
-
-  describe('connect', () => {
-    it('should render', () => {
-      expect(
-        shallow(<ConnectedSearchInput filterText='Test' placeholderText='Placeholder' onFilterTextChange={() => {}} />)
-      ).toMatchSnapshot()
-    })
-  })
-
   it('should pass onFilterTextChange and onClickInput', () => {
     const outerFilterTextChange = jest.fn()
     const onClickInput = jest.fn()
-    const component = mount(
+    const { getByPlaceholderText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <ConnectedSearchInput
+        <SearchInput
           filterText='Test'
           placeholderText='Placeholder'
           onClickInput={onClickInput}
@@ -38,9 +18,14 @@ describe('SearchInput', () => {
         />
       </ThemeProvider>
     )
-    component.find('input').simulate('click')
+    fireEvent.click(getByPlaceholderText('Placeholder'))
     expect(onClickInput).toHaveBeenCalled()
-    component.find('input').simulate('change', { target: { value: 'test' } })
+
+    fireEvent.change(getByPlaceholderText('Placeholder'), {
+      target: {
+        value: 'test'
+      }
+    })
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
   })
 })

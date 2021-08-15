@@ -7,6 +7,10 @@ import NewsDetail from '../NewsDetail'
 
 jest.mock('react-i18next')
 
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: jest.fn(() => ({ width: 1234 }))
+}))
+
 const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
   <h1><a href='https://tunewsinternational.com/category/corona-deutsch/'>Aktuelle Informationen zu Corona: Hier klicken</a></h1>\n</main>\n`
 const tuNews = new TunewsModel({
