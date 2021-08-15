@@ -10,7 +10,7 @@ import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/Stat
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import AppSettings from '../../utils/AppSettings'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import DateFormatterContext from '../../contexts/DateFormatterContext'
 import moment from 'moment'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
