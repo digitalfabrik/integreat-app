@@ -51,7 +51,7 @@ describe('I18nProvider', () => {
     expect(screen.getByText('ar').parentElement?.dir).toBe('rtl')
   })
 
-  it('should set link for additional font lateef', async () => {
+  it('should set link for additional font noto sans arabic', async () => {
     mockDetect.mockReturnValue(['ar'])
     act(() => {
       render(
@@ -60,7 +60,9 @@ describe('I18nProvider', () => {
         </I18nProvider>
       )
     })
-    await waitFor(() => expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/lateef/lateef.css'))
+    await waitFor(() =>
+      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-arabic/noto-sans-arabic.css')
+    )
   })
 
   it('should set link for additional font noto-sans-sc', async () => {
@@ -163,7 +165,7 @@ describe('I18nProvider', () => {
     await waitFor(() => screen.getByTestId('direction'))
     // Checking for side-effect
     const helmet = Helmet.peek()
-    expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/lateef/lateef.css')
+    expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
   })
 
   it('should use no additional font for english', async () => {
@@ -173,7 +175,7 @@ describe('I18nProvider', () => {
     await waitFor(() => screen.getByTestId('direction'))
     // Checking for side-effect
     const helmet = Helmet.peek()
-    expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/lateef/lateef.css')
+    expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
