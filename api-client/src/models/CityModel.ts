@@ -11,6 +11,10 @@ class CityModel {
   _prefix: string | null | undefined
   _latitude: number | null
   _longitude: number | null
+  _boundingBox: { latitude: number; longitude: number }[] | null
+
+  _aliases: Record<string, { longitude: number; latitude: number }> | null
+
   constructor(params: {
     name: string
     code: string
@@ -41,12 +45,6 @@ class CityModel {
     this._longitude = params.longitude
     this._aliases = params.aliases
     this._boundingBox = params.boundingBox
-  }
-
-  _aliases: Record<string, { longitude: number; latitude: number }> | null
-
-  get aliases(): Record<string, { longitude: number; latitude: number }> | null {
-    return this._aliases
   }
 
   get live(): boolean {
@@ -101,7 +99,9 @@ class CityModel {
     return this._latitude
   }
 
-  _boundingBox: { latitude: number; longitude: number }[] | null
+  get aliases(): Record<string, { longitude: number; latitude: number }> | null {
+    return this._aliases
+  }
 
   get boundingBox(): { latitude: number; longitude: number }[] | null {
     return this._boundingBox
