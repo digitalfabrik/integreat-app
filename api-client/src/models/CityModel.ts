@@ -12,7 +12,6 @@ class CityModel {
   _latitude: number | null
   _longitude: number | null
   _boundingBox: { latitude: number; longitude: number }[] | null
-
   _aliases: Record<string, { longitude: number; latitude: number }> | null
 
   constructor(params: {
