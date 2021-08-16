@@ -1,4 +1,5 @@
 import { Feature } from 'geojson'
+import { customMarker } from '../maps'
 
 class LocationModel {
   _name: string | null | undefined
@@ -116,7 +117,8 @@ class LocationModel {
         coordinates: [Number(this.longitude), Number(this.latitude)]
       },
       properties: {
-        name: this.name
+        title: this.name,
+        symbol: customMarker.name
       }
     }
   }
