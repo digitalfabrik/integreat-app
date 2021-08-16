@@ -9,6 +9,7 @@ import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, fromError } from 'api-client'
+import { reportError } from '../utils/helpers'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -76,6 +77,7 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
     }
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchCategoryFailedActionType = {
       type: 'FETCH_CATEGORY_FAILED',
       params: {
