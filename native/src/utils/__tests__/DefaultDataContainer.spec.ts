@@ -77,6 +77,8 @@ describe('DefaultDataContainer', () => {
     await defaultDataContainer.setPois('anotherTestCity', 'en', [testPois[1]])
     const receivedTestPois = await defaultDataContainer.getPois('testCity', 'de')
     const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestCity', 'en')
+    console.log('testRec', receivedTestPois[0])
+    console.log('test', testPois[0])
     expect(receivedTestPois[0].isEqual(testPois[0])).toBeTruthy()
     expect(receivedAnotherTestPois[0].isEqual(testPois[1])).toBeTruthy()
   })
