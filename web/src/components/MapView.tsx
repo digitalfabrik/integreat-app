@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import ReactMapGL, { Layer, LayerProps, MapRef, Source } from 'react-map-gl'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapRef, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { customMarker, defaultViewportConfig, mapConfig } from 'api-client'
@@ -10,6 +10,7 @@ const MapContainer = styled.div`
   justify-content: center;
 `
 
+const textOffsetY = 1.75
 const layerStyle: LayerProps = {
   id: 'point',
   type: 'symbol',
@@ -18,13 +19,17 @@ const layerStyle: LayerProps = {
     'icon-image': ['get', 'symbol'],
     'text-field': ['get', 'title'],
     'text-font': ['Roboto Regular'],
-    'text-offset': [0, 1.75],
+    'text-offset': [0, textOffsetY],
     'text-anchor': 'top',
     'text-size': 12
   },
   paint: {
     'icon-color': 'blue'
   }
+}
+const geolocateControlStyle = {
+  right: 10,
+  top: 10
 }
 
 interface MapViewProps {
@@ -51,6 +56,11 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   return (
     <MapContainer>
       <ReactMapGL ref={mapRef} {...viewport} onViewportChange={setViewport} mapStyle={mapConfig.styleJSON}>
+        <GeolocateControl
+          style={geolocateControlStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+        />
         <Source id='my-data' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
         </Source>
