@@ -42,7 +42,6 @@ class PoiModel extends ExtendedPageModel {
       other instanceof PoiModel &&
       super.isEqual(other) &&
       this.location.isEqual(other.location) &&
-      this.featureLocation === other.featureLocation &&
       this.excerpt === other.excerpt
     )
   }

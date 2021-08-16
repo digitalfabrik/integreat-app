@@ -10,6 +10,7 @@ const MapContainer = styled.div`
   justify-content: center;
 `
 
+const textOffsetY = 1.75
 const layerStyle: LayerProps = {
   id: 'point',
   type: 'symbol',
@@ -18,7 +19,7 @@ const layerStyle: LayerProps = {
     'icon-image': ['get', 'symbol'],
     'text-field': ['get', 'title'],
     'text-font': ['Roboto Regular'],
-    'text-offset': [0, 1.75],
+    'text-offset': [0, textOffsetY],
     'text-anchor': 'top',
     'text-size': 12
   },
