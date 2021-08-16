@@ -96,13 +96,14 @@ export const initSentry = (): void => {
 }
 
 export const reportError = (err: Error): void => {
-  if (!buildConfig().featureFlags.sentry) {
-    // eslint-disable-next-line no-console
-    console.log('Tried to report error via sentry, but it is disabled via the build config.')
-    return
-  }
-
+  // Do not report errors if a user navigates to an unknown site or has no internet connection
   if (!(err instanceof NotFoundError) && !(err instanceof FetchError)) {
+    if (!buildConfig().featureFlags.sentry) {
+      // eslint-disable-next-line no-console
+      console.log('Tried to report error via sentry, but it is disabled via the build config.')
+      return
+    }
+
     Sentry.captureException(err)
   }
 }
