@@ -8,6 +8,7 @@ import {
   EVENTS_ROUTE,
   LanguageModel,
   normalizePath,
+  NotFoundError,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
@@ -77,7 +78,9 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     }
 
     if (loadingError || !cityModel || !languages) {
-      const cityError = !cityModel ? new Error('notFound.category') : null
+      const cityError = !cityModel
+        ? new NotFoundError({ type: 'category', id: cityCode, city: cityCode, language: languageCode })
+        : null
       const error = cityError || loadingError || new Error('Languages should not be null!')
 
       return (
