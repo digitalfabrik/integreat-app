@@ -7,7 +7,11 @@ import watchFetchNews, { fetchNews } from '../watchFetchNews'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 import loadLocalNews from '../loadLocalNews'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../loadCityContent')
 jest.mock('../loadLanguages')
 jest.mock('../loadLocalNews')
@@ -15,6 +19,7 @@ jest.mock('../loadLocalNews')
 describe('watchFetchNews', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+    jest.clearAllMocks()
   })
 
   const city = 'altmuehlfranken'
@@ -51,7 +56,7 @@ describe('watchFetchNews', () => {
           }
         }
       }
-      return expectSaga(fetchNews, dataContainer, action)
+      await expectSaga(fetchNews, dataContainer, action)
         .withState({
           cityContent: {
             city
@@ -63,6 +68,8 @@ describe('watchFetchNews', () => {
           }
         })
         .run()
+
+      expect(reportError).not.toHaveBeenCalled()
     })
 
     it('should put an error action', async () => {
@@ -84,7 +91,8 @@ describe('watchFetchNews', () => {
           }
         }
       }
-      return expectSaga(fetchNews, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(fetchNews, dataContainer, action)
         .withState({
           cityContent: {
             city
@@ -93,7 +101,7 @@ describe('watchFetchNews', () => {
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadLocalNews) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -105,11 +113,15 @@ describe('watchFetchNews', () => {
           }
         })
         .run()
+
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetch news when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
-    return testSaga(watchFetchNews, dataContainer).next().takeLatest('FETCH_NEWS', fetchNews, dataContainer)
+    await testSaga(watchFetchNews, dataContainer).next().takeLatest('FETCH_NEWS', fetchNews, dataContainer)
+    expect(reportError).not.toHaveBeenCalled()
   })
 })

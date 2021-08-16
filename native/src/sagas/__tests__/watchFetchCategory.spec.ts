@@ -9,7 +9,11 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../loadCityContent')
 
 const languages = new LanguageModelBuilder(2).build()
@@ -41,6 +45,7 @@ describe('watchFetchCategories', () => {
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate
+    jest.clearAllMocks()
   })
 
   afterEach(async () => {
@@ -332,7 +337,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put an error action', () => {
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchCategoryActionType = {
         type: 'FETCH_CATEGORY',
@@ -348,7 +353,8 @@ describe('watchFetchCategories', () => {
           }
         }
       }
-      return expectSaga(fetchCategory, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
             city
@@ -357,7 +363,7 @@ describe('watchFetchCategories', () => {
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -377,11 +383,13 @@ describe('watchFetchCategories', () => {
           }
         })
         .run()
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetchCategory when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
-    return testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
+    await testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
   })
 })
