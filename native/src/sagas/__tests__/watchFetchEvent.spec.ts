@@ -11,6 +11,7 @@ import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
 
 jest.mock('../loadCityContent')
+
 describe('watchFetchEvents', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
@@ -25,6 +26,7 @@ describe('watchFetchEvents', () => {
   })
   const city = 'augsburg'
   const language = 'en'
+
   describe('fetchEvents', () => {
     const createDataContainer = async (city: string, language: string) => {
       const eventsBuilder = new EventModelBuilder('loadCityContent-events', 2, city, language)
@@ -81,6 +83,7 @@ describe('watchFetchEvents', () => {
         })
         .run()
     })
+
     it('should put an action which pushes the events if the events should not be refreshed', async () => {
       const { events, dataContainer, resources, languages } = await createDataContainer(city, language)
       const action: FetchEventActionType = {
@@ -153,6 +156,7 @@ describe('watchFetchEvents', () => {
         })
         .run()
     })
+
     it('should put an error action if language is not available for specific event', async () => {
       const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
@@ -220,6 +224,7 @@ describe('watchFetchEvents', () => {
         .run()
     })
   })
+
   it('should correctly call fetchEvent when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     return testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)

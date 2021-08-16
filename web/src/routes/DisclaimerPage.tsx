@@ -1,30 +1,19 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
-import {
-  CityModel,
-  createDisclaimerEndpoint,
-  DISCLAIMER_ROUTE,
-  LanguageModel,
-  normalizePath,
-  useLoadFromEndpoint
-} from 'api-client'
+import { useHistory } from 'react-router-dom'
+import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, normalizePath, useLoadFromEndpoint } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import { createPath } from './index'
+import { createPath, RouteProps } from './index'
 import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Helmet from '../components/Helmet'
 import { useTranslation } from 'react-i18next'
+import { CityRouteProps } from '../CityContentSwitcher'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof DISCLAIMER_ROUTE>
 
 const DisclaimerPage = (props: PropsType): ReactElement => {
   const { match, cityModel, languages, location } = props
