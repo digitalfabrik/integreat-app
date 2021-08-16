@@ -85,6 +85,7 @@ export {
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { parseHTMLEntities } from './utils/helpers'
+export { embedInCollection } from './utils/geoJson'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
