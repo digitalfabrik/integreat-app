@@ -36,7 +36,8 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               prefix: city.prefix,
               longitude: city.longitude,
               latitude: city.latitude,
-              aliases: city.aliases
+              aliases: city.aliases,
+              boundingBox: city.bounding_box?.map(it => ({ latitude: it[0], longitude: it[1] })) ?? null
             })
         )
         .sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName))
