@@ -123,7 +123,8 @@ class Config {
     'fa-AF': ['prs'],
     fa_pr: ['pes'],
     'de-si': ['de'],
-    sr: ['sr-Cyrl']
+    sr: ['sr-Cyrl'],
+    'zh-hans': ['zh-CN']
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this

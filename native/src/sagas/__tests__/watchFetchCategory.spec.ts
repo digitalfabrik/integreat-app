@@ -8,7 +8,8 @@ import loadCityContent from '../loadCityContent'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
-import { ErrorCode } from 'api-client'
+import { DASHBOARD_ROUTE, ErrorCode } from 'api-client'
+import { cityContentPath } from '../../navigation/url'
 
 jest.mock('../loadCityContent')
 
@@ -32,7 +33,7 @@ const createDataContainer = async (city: string, language: string) => {
   }
 }
 
-describe('watchFetchCategories', () => {
+describe('watchFetchCategory', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
 
@@ -209,7 +210,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put error action if language is not available for root model', async () => {
+    it('should put error action if language is not available', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchCategoryActionType = {
@@ -226,6 +227,16 @@ describe('watchFetchCategories', () => {
           }
         }
       }
+      const allAvailableLanguages = new Map(
+        languages.map(lng => [
+          lng.code,
+          cityContentPath({
+            route: DASHBOARD_ROUTE,
+            cityCode: city,
+            languageCode: lng.code
+          })
+        ])
+      )
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
@@ -240,7 +251,7 @@ describe('watchFetchCategories', () => {
               language: '??',
               depth: 2,
               path: '/augsburg/??',
-              allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city}/${lng.code}`])),
+              allAvailableLanguages,
               key: 'categories-key'
             }
           }
