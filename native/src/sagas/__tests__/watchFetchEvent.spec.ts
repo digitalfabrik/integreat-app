@@ -8,11 +8,12 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
-import { ErrorCode } from 'api-client'
+import { ErrorCode, EVENTS_ROUTE } from 'api-client'
+import { cityContentPath } from '../../navigation/url'
 
 jest.mock('../loadCityContent')
 
-describe('watchFetchEvents', () => {
+describe('watchFetchEvent', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
   beforeEach(() => {
@@ -120,7 +121,7 @@ describe('watchFetchEvents', () => {
         })
         .run()
     })
-    it('should put error action if language is not available for events list', async () => {
+    it('should put error action if language is not available', async () => {
       const { dataContainer, languages } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchEventActionType = {
@@ -150,42 +151,22 @@ describe('watchFetchEvents', () => {
             message: 'Could not load event.',
             code: ErrorCode.PageNotFound,
             path: null,
-            allAvailableLanguages: new Map(languages.map(lng => [lng.code, null])),
+            allAvailableLanguages: new Map(
+              languages.map(lng => [
+                lng.code,
+                cityContentPath({
+                  route: EVENTS_ROUTE,
+                  cityCode: city,
+                  languageCode: lng.code
+                })
+              ])
+            ),
             key: 'route-0'
           }
         })
         .run()
     })
 
-    it('should put an error action if language is not available for specific event', async () => {
-      const { dataContainer } = await createDataContainer(city, language)
-      const invalidLanguage = '??'
-      const action: FetchEventActionType = {
-        type: 'FETCH_EVENT',
-        params: {
-          city,
-          language: invalidLanguage,
-          path: `/${city}/${invalidLanguage}/events/some_event`,
-          key: 'route-0',
-          criterion: {
-            forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
-      }
-      return expectSaga(fetchEvent, dataContainer, action)
-        .withState({
-          cityContent: {
-            city
-          }
-        })
-        .put.like({
-          action: {
-            type: 'FETCH_EVENT_FAILED'
-          }
-        })
-        .run()
-    })
     it('should put an error action', () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchEventActionType = {
