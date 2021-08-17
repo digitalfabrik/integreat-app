@@ -39,7 +39,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   const mapRef = React.useRef<MapRef>(null)
   useEffect(() => {
     const map = mapRef?.current?.getMap()
-    map.loadImage(customMarker.iconSrc, (error: Error, image: ImageBitmap) => {
+    map?.loadImage(customMarker.iconSrc, (error: Error, image: ImageBitmap) => {
       if (error) {
         throw new Error('Image can not be loaded')
       }
