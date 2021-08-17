@@ -8,7 +8,7 @@ import { DataContainer } from '../utils/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { DASHBOARD_ROUTE, ErrorCode, fromError } from 'api-client'
+import { ErrorCode, fromError } from 'api-client'
 import { cityContentPath } from '../navigation/url'
 
 /**
@@ -62,7 +62,6 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
         cityLanguages.map(lng => [
           lng.code,
           cityContentPath({
-            route: DASHBOARD_ROUTE,
             cityCode: city,
             languageCode: lng.code
           })
