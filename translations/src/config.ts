@@ -120,7 +120,7 @@ class Config {
   fallbacks: FallbacksType = {
     ku: ['kmr'],
     fa: ['pes'],
-    'fa-AF': ['pes'],
+    'fa-AF': ['prs'],
     fa_pr: ['pes'],
     'de-si': ['de'],
     sr: ['sr-Cyrl']
