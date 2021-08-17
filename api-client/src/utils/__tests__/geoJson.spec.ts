@@ -11,7 +11,8 @@ describe('geoJson', () => {
       coordinates: [31.133859, 29.979848]
     },
     properties: {
-      name: 'Test'
+      title: 'Test',
+      symbol: 'map-pin'
     }
   }
   describe('embedInCollection', () => {
