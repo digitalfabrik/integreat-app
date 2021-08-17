@@ -8,8 +8,7 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCityContent from '../loadCityContent'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
-import { ErrorCode, EVENTS_ROUTE } from 'api-client'
-import { cityContentPath } from '../../navigation/url'
+import { ErrorCode } from 'api-client'
 
 jest.mock('../loadCityContent')
 
@@ -122,7 +121,7 @@ describe('watchFetchEvent', () => {
         .run()
     })
     it('should put error action if language is not available', async () => {
-      const { dataContainer, languages } = await createDataContainer(city, language)
+      const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
@@ -151,16 +150,10 @@ describe('watchFetchEvent', () => {
             message: 'Could not load event.',
             code: ErrorCode.PageNotFound,
             path: null,
-            allAvailableLanguages: new Map(
-              languages.map(lng => [
-                lng.code,
-                cityContentPath({
-                  route: EVENTS_ROUTE,
-                  cityCode: city,
-                  languageCode: lng.code
-                })
-              ])
-            ),
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events'],
+              ['de', '/augsburg/de/events']
+            ]),
             key: 'route-0'
           }
         })
