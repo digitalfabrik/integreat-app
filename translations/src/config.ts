@@ -136,6 +136,15 @@ class Config {
     return Object.keys(this.supportedLanguages)
   }
 
+  /**
+   * Returns the passed languageTag if it is supported or that of a supported fallback or undefined if not supported
+   */
+  getLanguageTagIfSupported(languageTag: string): string | undefined {
+    return Object.keys(this.supportedLanguages).find(
+      key => key === languageTag || this.fallbacks[languageTag]?.includes(key)
+    )
+  }
+
   getSupportedLanguage(languageTag: string): LanguageType | undefined {
     const fallbacks = this.fallbacks[languageTag]
 
