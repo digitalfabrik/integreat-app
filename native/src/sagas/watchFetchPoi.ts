@@ -4,7 +4,8 @@ import { DataContainer } from '../utils/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError } from 'api-client'
+import { ErrorCode, fromError, POIS_ROUTE } from 'api-client'
+import { cityContentPath } from '../navigation/url'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params
@@ -39,7 +40,16 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
       }
       yield* put(insert)
     } else {
-      const allAvailableLanguages = path === null ? new Map(cityLanguages.map(lng => [lng.code, null])) : null
+      const allAvailableLanguages = new Map(
+        cityLanguages.map(lng => [
+          lng.code,
+          cityContentPath({
+            route: POIS_ROUTE,
+            cityCode: city,
+            languageCode: lng.code
+          })
+        ])
+      )
       const failed: FetchPoiFailedActionType = {
         type: 'FETCH_POI_FAILED',
         params: {
