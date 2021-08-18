@@ -1,9 +1,9 @@
+import { LanguageDetectorModule } from 'i18next'
 import { getLocales } from 'react-native-localize'
 import { config } from 'translations'
 
-export default {
+const NativeLanguageDetector: LanguageDetectorModule = {
   type: 'languageDetector' as const,
-  async: false,
   // Returns ISO-639-2 or ISO-639-3 language tag
   detect: (): string => {
     const locales = getLocales()
@@ -30,3 +30,5 @@ export default {
     console.log('Skipping caching of new language ', newLanguage)
   }
 }
+
+export default NativeLanguageDetector
