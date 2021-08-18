@@ -45,9 +45,10 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Lateef.ttf</string>
-		<string>OpenSans-Bold.ttf</string>
-		<string>OpenSans-Regular.ttf</string>
+		<string>NotoSansArabic-Regular.ttf</string>
+		<string>NotoSansArabic-Bold.ttf</string>
+		<string>NotoSans-Bold.ttf</string>
+		<string>NotoSans.ttf</string>
 		<string>Raleway-Bold.ttf</string>
 		<string>Raleway-Regular.ttf</string>
 		<string>VarelaRound-Regular.ttf</string>
