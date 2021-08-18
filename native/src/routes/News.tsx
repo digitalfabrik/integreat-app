@@ -52,7 +52,13 @@ const News = (props: PropsType): ReactElement => {
   }
 
   const rendersNewsListItem = useCallback(
-    (cityCode: string, language: string) => ({ item }: { item: LocalNewsModel | TunewsModel }) => {
+    (cityCode: string, language: string) => ({
+      item,
+      index
+    }: {
+      item: LocalNewsModel | TunewsModel
+      index: number
+    }) => {
       const navigateToNews = () => {
         navigateTo({
           route: NEWS_ROUTE,
@@ -65,6 +71,7 @@ const News = (props: PropsType): ReactElement => {
 
       return (
         <NewsListItem
+          index={index}
           key={item.id}
           newsItem={item}
           language={language}
