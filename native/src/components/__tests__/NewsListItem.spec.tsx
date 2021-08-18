@@ -31,6 +31,7 @@ describe('NewsListItem', () => {
   it('should correctly render a local news item', () => {
     const { getByText, queryByText } = render(
       <NewsListItem
+        index={0}
         newsItem={localNews}
         language={language}
         navigateToNews={navigateToNews}
@@ -48,6 +49,7 @@ describe('NewsListItem', () => {
   it('should correctly render a tu news item', () => {
     const { getByText } = render(
       <NewsListItem
+        index={0}
         newsItem={tuNews}
         language={language}
         navigateToNews={navigateToNews}
