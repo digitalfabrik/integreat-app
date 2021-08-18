@@ -50,9 +50,7 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
       }
       yield* put(insert)
     } else {
-      const allAvailableLanguages = !newsId
-        ? new Map(availableNewsLanguages.map(language => [language.code, null]))
-        : null
+      const allAvailableLanguages = new Map(availableNewsLanguages.map(language => [language.code, null]))
       const failed: FetchNewsFailedActionType = {
         type: 'FETCH_NEWS_FAILED',
         params: {

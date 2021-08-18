@@ -16,7 +16,7 @@ jest.mock('../../utils/helpers', () => ({
 }))
 jest.mock('../loadCityContent')
 
-describe('watchFetchEvents', () => {
+describe('watchFetchEvent', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
   beforeEach(() => {
@@ -126,8 +126,8 @@ describe('watchFetchEvents', () => {
         .run()
     })
 
-    it('should put error action if language is not available for events list', async () => {
-      const { dataContainer, languages } = await createDataContainer(city, language)
+    it('should put error action if language is not available', async () => {
+      const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
@@ -156,38 +156,11 @@ describe('watchFetchEvents', () => {
             message: 'Could not load event.',
             code: ErrorCode.PageNotFound,
             path: null,
-            allAvailableLanguages: new Map(languages.map(lng => [lng.code, null])),
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events'],
+              ['de', '/augsburg/de/events']
+            ]),
             key: 'route-0'
-          }
-        })
-        .run()
-    })
-
-    it('should put an error action if language is not available for specific event', async () => {
-      const { dataContainer } = await createDataContainer(city, language)
-      const invalidLanguage = '??'
-      const action: FetchEventActionType = {
-        type: 'FETCH_EVENT',
-        params: {
-          city,
-          language: invalidLanguage,
-          path: `/${city}/${invalidLanguage}/events/some_event`,
-          key: 'route-0',
-          criterion: {
-            forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
-      }
-      return expectSaga(fetchEvent, dataContainer, action)
-        .withState({
-          cityContent: {
-            city
-          }
-        })
-        .put.like({
-          action: {
-            type: 'FETCH_EVENT_FAILED'
           }
         })
         .run()
