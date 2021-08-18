@@ -4,6 +4,7 @@ import { DataContainer } from '../utils/DataContainer'
 import loadCityContent from './loadCityContent'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
+import { reportError } from '../utils/helpers'
 import { ErrorCode, fromError, POIS_ROUTE } from 'api-client'
 import { cityContentPath } from '../navigation/url'
 
@@ -66,6 +67,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     }
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchPoiFailedActionType = {
       type: 'FETCH_POI_FAILED',
       params: {

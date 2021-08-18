@@ -9,7 +9,11 @@ import loadCityContent from '../loadCityContent'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../loadCityContent')
 
 describe('watchFetchEvent', () => {
@@ -20,6 +24,7 @@ describe('watchFetchEvent', () => {
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate
+    jest.clearAllMocks()
   })
   afterEach(async () => {
     restoreMockedDate()
@@ -120,6 +125,7 @@ describe('watchFetchEvent', () => {
         })
         .run()
     })
+
     it('should put error action if language is not available', async () => {
       const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
@@ -160,7 +166,7 @@ describe('watchFetchEvent', () => {
         .run()
     })
 
-    it('should put an error action', () => {
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
@@ -175,7 +181,8 @@ describe('watchFetchEvent', () => {
           }
         }
       }
-      return expectSaga(fetchEvent, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
             city
@@ -184,7 +191,7 @@ describe('watchFetchEvent', () => {
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -196,11 +203,15 @@ describe('watchFetchEvent', () => {
           }
         })
         .run()
+
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetchEvent when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
-    return testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    await testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    expect(reportError).not.toHaveBeenCalled()
   })
 })
