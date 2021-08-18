@@ -3,6 +3,7 @@ import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionTyp
 import { DataContainer } from '../utils/DataContainer'
 import loadCities from './loadCities'
 import { fromError } from 'api-client'
+import { reportError } from '../utils/helpers'
 
 export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesActionType): SagaGenerator<void> {
   try {
@@ -16,6 +17,7 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     yield* put(insert)
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchCitiesFailedActionType = {
       type: 'FETCH_CITIES_FAILED',
       params: {

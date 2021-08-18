@@ -6,14 +6,21 @@ import FetcherModule from '../../utils/FetcherModule'
 import { createFetchMap } from '../../testing/builder/util'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import { ErrorCode } from 'api-client'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../../utils/FetcherModule')
+
 describe('fetchResourceCache', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+    jest.clearAllMocks()
   })
   const city = 'augsburg'
   const language = 'en'
+
   it('should fetch and create warning message', async () => {
     const spy = jest.spyOn(console, 'log')
     const dataContainer = new DefaultDataContainer()
@@ -43,13 +50,15 @@ describe('fetchResourceCache', () => {
     )
     expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed to download'))
     spy.mockRestore()
+    expect(reportError).not.toHaveBeenCalled()
   })
-  it('should put error if fetching fails', () => {
+
+  it('should put error if fetching fails', async () => {
     const dataContainer = new DefaultDataContainer()
     const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
     const fetchMap = createFetchMap(categoriesBuilder.buildResources())
     FetcherModule.currentlyFetching = true
-    return expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)
+    await expectSaga(fetchResourceCache, city, language, fetchMap, dataContainer)
       .put({
         type: 'FETCH_RESOURCES_FAILED',
         params: {
@@ -58,5 +67,6 @@ describe('fetchResourceCache', () => {
         }
       })
       .run()
+    expect(reportError).toHaveBeenCalledTimes(1)
   })
 })
