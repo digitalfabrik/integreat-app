@@ -115,7 +115,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
-  const featureLocations = pois.map(poi => poi.featureLocation).filter(poi => poi) as Feature[]
+  const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is Feature => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
