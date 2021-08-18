@@ -1,3 +1,5 @@
+type CoordinateType = { latitude: number; longitude: number }
+
 class CityModel {
   _name: string
   _code: string
@@ -11,9 +13,6 @@ class CityModel {
   _prefix: string | null | undefined
   _latitude: number | null
   _longitude: number | null
-  _boundingBox: { latitude: number; longitude: number }[] | null
-  _aliases: Record<string, { longitude: number; latitude: number }> | null
-
   constructor(params: {
     name: string
     code: string
@@ -27,8 +26,8 @@ class CityModel {
     prefix: string | null | undefined
     latitude: number | null
     longitude: number | null
-    aliases: Record<string, { longitude: number; latitude: number }> | null
-    boundingBox: { latitude: number; longitude: number }[] | null
+    aliases: Record<string, CoordinateType> | null
+    boundingBox: CoordinateType[] | null
   }) {
     this._name = params.name
     this._code = params.code
@@ -44,6 +43,12 @@ class CityModel {
     this._longitude = params.longitude
     this._aliases = params.aliases
     this._boundingBox = params.boundingBox
+  }
+
+  _boundingBox: CoordinateType[] | null
+
+  get boundingBox(): CoordinateType[] | null {
+    return this._boundingBox
   }
 
   get live(): boolean {
@@ -98,12 +103,10 @@ class CityModel {
     return this._latitude
   }
 
-  get aliases(): Record<string, { longitude: number; latitude: number }> | null {
-    return this._aliases
-  }
+  _aliases: Record<string, CoordinateType> | null
 
-  get boundingBox(): { latitude: number; longitude: number }[] | null {
-    return this._boundingBox
+  get aliases(): Record<string, CoordinateType> | null {
+    return this._aliases
   }
 
   static findCityName(cities: ReadonlyArray<CityModel>, code: string): string {
