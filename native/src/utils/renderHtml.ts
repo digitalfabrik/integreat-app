@@ -94,16 +94,16 @@ const renderHtml = (
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0">
   <style>
     @font-face {
-      font-family: 'OpenSans';
+      font-family: 'Noto Sans';
       font-style: normal;
       font-weight: 400;
-      src: ${getFontFaceSource('OpenSans-Regular')};
+      src: ${getFontFaceSource('NotoSans')};
     }
     @font-face {
-      font-family: 'OpenSans';
+      font-family: 'Noto Sans';
       font-style: normal;
       font-weight: 700;
-      src: ${getFontFaceSource('OpenSans-Bold')};
+      src: ${getFontFaceSource('NotoSans-Bold')};
     }
     @font-face {
       font-family: 'Raleway';
@@ -118,10 +118,16 @@ const renderHtml = (
       src: ${getFontFaceSource('Raleway-Bold')};
     }
     @font-face {
-      font-family: 'Lateef';
+      font-family: 'Noto Sans Arabic';
       font-style: normal;
       font-weight: 400;
-      src: ${getFontFaceSource('Lateef')};
+      src: ${getFontFaceSource('NotoSansArabic-Regular')};
+    }
+    @font-face {
+      font-family: 'Noto Sans Arabic';
+      font-style: normal;
+      font-weight: 700;
+      src: ${getFontFaceSource('NotoSansArabic-Bold')};
     }
     
     html {
