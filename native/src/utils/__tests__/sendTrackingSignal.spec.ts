@@ -1,8 +1,8 @@
 import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
-import { DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME, createTrackingEndpoint } from 'api-client'
+import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import AppSettings from '../AppSettings'
 import buildConfig from '../../constants/buildConfig'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Sentry from '@sentry/react-native'
 import { mocked } from 'ts-jest/utils'
 

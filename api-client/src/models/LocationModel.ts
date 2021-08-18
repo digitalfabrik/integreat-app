@@ -116,7 +116,9 @@ class LocationModel {
         coordinates: [Number(this.longitude), Number(this.latitude)]
       },
       properties: {
-        name: this.name
+        title: this.name,
+        // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
+        symbol: '9'
       }
     }
   }

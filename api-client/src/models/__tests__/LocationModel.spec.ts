@@ -74,7 +74,8 @@ describe('convertToPoint', () => {
       coordinates: [31.133859, 29.979848]
     },
     properties: {
-      name: 'Test'
+      title: 'Test',
+      symbol: '9'
     }
   }
   it('should be transformed to GeoJson type', () => {
