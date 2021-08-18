@@ -75,7 +75,7 @@ describe('convertToPoint', () => {
     },
     properties: {
       title: 'Test',
-      symbol: 'map-pin'
+      symbol: '9'
     }
   }
   it('should be transformed to GeoJson type', () => {
