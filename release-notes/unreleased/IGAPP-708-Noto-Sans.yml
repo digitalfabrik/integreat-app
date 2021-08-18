@@ -1,0 +1,8 @@
+issue_key: IGAPP-708
+show_in_stores: yes
+platforms:
+  - web
+  - ios
+  - android
+en: Use of noto sans as primary font.
+de: Benutzung von Noto Sans als primären Font.
