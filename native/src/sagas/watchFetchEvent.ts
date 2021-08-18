@@ -6,6 +6,7 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, EVENTS_ROUTE, fromError } from 'api-client'
 import { cityContentPath } from '../navigation/url'
+import { reportError } from '../utils/helpers'
 
 export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params
@@ -68,6 +69,7 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
     }
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchEventFailedActionType = {
       type: 'FETCH_EVENT_FAILED',
       params: {
