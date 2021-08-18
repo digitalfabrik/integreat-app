@@ -23,7 +23,12 @@ import loadCategories from '../loadCategories'
 import loadEvents from '../loadEvents'
 import loadPois from '../loadPois'
 import { mocked } from 'ts-jest/utils'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  ...jest.requireActual('../../utils/helpers'),
+  reportError: jest.fn()
+}))
 jest.mock('@react-native-community/netinfo')
 jest.mock('../fetchResourceCache')
 jest.mock('../loadCategories')
@@ -77,6 +82,7 @@ describe('loadCityContent', () => {
   })
   const city = 'augsburg'
   const language = 'en'
+
   it('should set selected city when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -99,6 +105,7 @@ describe('loadCityContent', () => {
     expect(await new AppSettings().loadSelectedCity()).toBe('augsburg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
   it('should not set selected city when peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -121,6 +128,7 @@ describe('loadCityContent', () => {
     expect(await new AppSettings().loadSelectedCity()).toBe('nuernberg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
   it('should store last usage', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -144,6 +152,7 @@ describe('loadCityContent', () => {
       }
     ])
   })
+
   it('should load languages when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     const { languages } = await prepareDataContainer(dataContainer, city, language)
@@ -171,6 +180,7 @@ describe('loadCityContent', () => {
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
   it('should not load languages when peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -197,6 +207,7 @@ describe('loadCityContent', () => {
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
   it('should return false if language does not exist', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -221,6 +232,7 @@ describe('loadCityContent', () => {
     expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(lastUpdate)).toBe(true)
     expect(lastUpdateAfterLoading && lastUpdateAfterLoading.isSame(mockedDate)).toBe(false)
   })
+
   it('should return true if language does exist', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -243,6 +255,7 @@ describe('loadCityContent', () => {
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
   it('should force a content refresh if criterion says so', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
@@ -268,6 +281,7 @@ describe('loadCityContent', () => {
       .call(loadPois, city, language, false, dataContainer, true)
       .run()
   })
+
   it('should fetch resources when requested and connection type is not cellular', async () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
@@ -290,6 +304,48 @@ describe('loadCityContent', () => {
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
+  it('should put languages failed action and report error to sentry', async () => {
+    const dataContainer = new DefaultDataContainer()
+    await prepareDataContainer(dataContainer, city, language)
+    await dataContainer.storeLastUsage(city, false)
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
+
+    const error = new Error('Jemand hat keine 4 Issues geschafft!')
+
+    await expectSaga(
+      loadCityContent,
+      dataContainer,
+      city,
+      language,
+      new ContentLoadCriterion(
+        {
+          forceUpdate: false,
+          shouldRefreshResources: true
+        },
+        false
+      )
+    )
+      .provide({
+        call: (effect, next) => {
+          if (effect.fn === loadLanguages) {
+            throw error
+          }
+
+          return next()
+        }
+      })
+      .put.like({
+        action: {
+          type: 'FETCH_LANGUAGES_FAILED'
+        }
+      })
+      .run()
+
+    expect(reportError).toHaveBeenCalledTimes(1)
+    expect(reportError).toHaveBeenCalledWith(error)
+  })
+
   it('should not fetch resources when not requested and connection type is not cellular', async () => {
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
@@ -312,6 +368,7 @@ describe('loadCityContent', () => {
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
+
   it('should not fetch resources if connection type is cellular', async () => {
     const previous = mocked(NetInfo.fetch).getMockImplementation()
     // @ts-ignore cannot import enum because it is mocked
@@ -350,6 +407,7 @@ describe('loadCityContent', () => {
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
     mocked(NetInfo.fetch).mockImplementation(previous)
   })
+
   it('should update if last update was a long time ago', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)

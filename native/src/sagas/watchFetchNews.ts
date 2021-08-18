@@ -14,6 +14,7 @@ import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 import loadLanguages from './loadLanguages'
 import { ErrorCode, fromError, LanguageModel } from 'api-client'
 import { NewsModelsType } from '../redux/StateType'
+import { reportError } from '../utils/helpers'
 
 const TUNEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
@@ -67,6 +68,7 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
     }
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
       params: {
@@ -112,6 +114,7 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
     yield* put(insert)
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
       params: {

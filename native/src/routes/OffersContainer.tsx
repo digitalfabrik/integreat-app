@@ -6,14 +6,14 @@ import { TFunction, withTranslation } from 'react-i18next'
 import {
   CityModel,
   createOffersEndpoint,
+  EXTERNAL_OFFER_ROUTE,
   fromError,
   NotFoundError,
   OfferModel,
   OFFERS_ROUTE,
-  useLoadFromEndpoint,
   OffersRouteType,
-  EXTERNAL_OFFER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  useLoadFromEndpoint
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 import withTheme from '../hocs/withTheme'
@@ -25,6 +25,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import TileModel from '../models/TileModel'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
+import useReportError from '../hooks/useReportError'
 
 type OwnPropsType = {
   route: RoutePropType<OffersRouteType>
@@ -48,6 +49,8 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     })
   }, [cityCode, languageCode])
   const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
+  useReportError(offersError)
+
   const navigateToOffer = useCallback(
     (tile: TileModel) => {
       const { title, path, isExternalUrl, postData } = tile

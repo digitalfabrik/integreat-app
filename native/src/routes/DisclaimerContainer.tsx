@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
+  DisclaimerRouteType,
   fromError,
   PageModel,
-  DisclaimerRouteType,
   useLoadFromEndpoint
 } from 'api-client'
 import { ThemeType } from 'build-configs'
@@ -23,6 +23,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import navigateToLink from '../navigation/navigateToLink'
 import createNavigate from '../navigation/createNavigate'
 import { determineApiUrl } from '../utils/helpers'
+import useReportError from '../hooks/useReportError'
 
 type OwnPropsType = {
   route: RoutePropType<DisclaimerRouteType>
@@ -54,6 +55,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
     })
   }, [cityCode, languageCode])
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
+  useReportError(error)
 
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
