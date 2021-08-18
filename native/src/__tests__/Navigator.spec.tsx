@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { act, render } from '@testing-library/react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Navigator from '../Navigator'
 import AppSettings from '../utils/AppSettings'
 import { generateRouteKey } from '../utils/helpers'
