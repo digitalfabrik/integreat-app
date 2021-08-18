@@ -120,10 +120,11 @@ class Config {
   fallbacks: FallbacksType = {
     ku: ['kmr'],
     fa: ['pes'],
-    'fa-AF': ['pes'],
+    'fa-AF': ['prs'],
     fa_pr: ['pes'],
     'de-si': ['de'],
-    sr: ['sr-Cyrl']
+    sr: ['sr-Cyrl'],
+    'zh-hans': ['zh-CN']
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this
@@ -134,6 +135,15 @@ class Config {
 
   getSupportedLanguageTags(): string[] {
     return Object.keys(this.supportedLanguages)
+  }
+
+  /**
+   * Returns the passed languageTag if it is supported or that of a supported fallback or undefined if not supported
+   */
+  getLanguageTagIfSupported(languageTag: string): string | undefined {
+    return Object.keys(this.supportedLanguages).find(
+      key => key === languageTag || this.fallbacks[languageTag]?.includes(key)
+    )
   }
 
   getSupportedLanguage(languageTag: string): LanguageType | undefined {
