@@ -1,5 +1,4 @@
 import { Feature } from 'geojson'
-import { customMarker } from '../maps'
 
 class LocationModel {
   _name: string | null | undefined
@@ -118,7 +117,8 @@ class LocationModel {
       },
       properties: {
         title: this.name,
-        symbol: customMarker.name
+        // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
+        symbol: '9'
       }
     }
   }

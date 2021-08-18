@@ -12,7 +12,7 @@ describe('geoJson', () => {
     },
     properties: {
       title: 'Test',
-      symbol: 'map-pin'
+      symbol: '9'
     }
   }
   describe('embedInCollection', () => {
