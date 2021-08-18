@@ -110,7 +110,7 @@ function* prepareLanguages(
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',
       params: {
-        message: `Error in fetchCategoryhttps://en.wikipedia.org/wiki/Serbian_language: ${e.message}`,
+        message: `Error while fetching languages: ${e.message}`,
         code: fromError(e)
       }
     }
