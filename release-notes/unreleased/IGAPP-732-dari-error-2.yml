@@ -1,0 +1,7 @@
+issue_key: IGAPP-732
+show_in_stores: yes
+platforms:
+  - ios
+  - android
+en: We fixed a bug showing errors with Dari as system language.
+de: Ein Fehler mit Dari als Systemsprache wurde behoben.

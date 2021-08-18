@@ -1,4 +1,5 @@
 import { Moment } from 'moment'
+import { Feature } from 'geojson'
 import LocationModel from './LocationModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import PageModel from './PageModel'
@@ -30,6 +31,10 @@ class PoiModel extends ExtendedPageModel {
 
   get excerpt(): string {
     return this._excerpt
+  }
+
+  get featureLocation(): Feature | null {
+    return this._location.convertToPoint()
   }
 
   isEqual(other: PageModel): boolean {

@@ -10,6 +10,7 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { ErrorCode, fromError } from 'api-client'
 import { reportError } from '../utils/helpers'
+import { cityContentPath } from '../navigation/url'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.
@@ -58,8 +59,15 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
       }
       yield* put(push)
     } else {
-      const allAvailableLanguages =
-        path === `/${city}/${language}` ? new Map(cityLanguages.map(lng => [lng.code, `/${city}/${lng.code}`])) : null
+      const allAvailableLanguages = new Map(
+        cityLanguages.map(lng => [
+          lng.code,
+          cityContentPath({
+            cityCode: city,
+            languageCode: lng.code
+          })
+        ])
+      )
       const failedAction: FetchCategoryFailedActionType = {
         type: 'FETCH_CATEGORY_FAILED',
         params: {

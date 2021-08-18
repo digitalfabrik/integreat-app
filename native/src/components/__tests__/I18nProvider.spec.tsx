@@ -10,7 +10,7 @@ import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/Stat
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import AppSettings from '../../utils/AppSettings'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import DateFormatterContext from '../../contexts/DateFormatterContext'
 import moment from 'moment'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
@@ -74,7 +74,7 @@ describe('I18nProvider', () => {
   })
 
   it('should set content language if not yet set', async () => {
-    mockDetect.mockReturnValue(['kmr'])
+    mockDetect.mockReturnValue('kmr')
     const store = mockStore(prepareState())
     render(
       <Provider store={store}>
@@ -107,7 +107,7 @@ describe('I18nProvider', () => {
   })
 
   it('should use fallbacks for ui translations', async () => {
-    mockDetect.mockReturnValue(['ku'])
+    mockDetect.mockReturnValue('ku')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -120,7 +120,7 @@ describe('I18nProvider', () => {
   })
 
   it('should choose the default fallback for ui translations', async () => {
-    mockDetect.mockReturnValue(['en'])
+    mockDetect.mockReturnValue('en')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -206,7 +206,7 @@ describe('I18nProvider', () => {
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
-    mockDetect.mockReturnValue(['zh-CN'])
+    mockDetect.mockReturnValue('zh-CN')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -220,7 +220,7 @@ describe('I18nProvider', () => {
   })
 
   it('should support language tags with dashes', async () => {
-    mockDetect.mockReturnValue(['zh-hans'])
+    mockDetect.mockReturnValue('zh-CN')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -234,7 +234,7 @@ describe('I18nProvider', () => {
   })
 
   it('should support de-DE and select de', async () => {
-    mockDetect.mockReturnValue(['de-DE'])
+    mockDetect.mockReturnValue('de-DE')
     const store = mockStore(prepareState())
     const { getByText, queryByText } = render(
       <Provider store={store}>

@@ -36,7 +36,7 @@ const createDataContainer = async (city: string, language: string) => {
   }
 }
 
-describe('watchFetchCategories', () => {
+describe('watchFetchCategory', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
 
@@ -214,8 +214,8 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put error action if language is not available for root model', async () => {
-      const { dataContainer, languages } = await createDataContainer(city, language)
+    it('should put error action if language is not available', async () => {
+      const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchCategoryActionType = {
         type: 'FETCH_CATEGORY',
@@ -231,6 +231,10 @@ describe('watchFetchCategories', () => {
           }
         }
       }
+      const allAvailableLanguages = new Map([
+        ['en', '/augsburg/en'],
+        ['de', '/augsburg/de']
+      ])
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
@@ -245,7 +249,7 @@ describe('watchFetchCategories', () => {
               language: '??',
               depth: 2,
               path: '/augsburg/??',
-              allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city}/${lng.code}`])),
+              allAvailableLanguages,
               key: 'categories-key'
             }
           }
