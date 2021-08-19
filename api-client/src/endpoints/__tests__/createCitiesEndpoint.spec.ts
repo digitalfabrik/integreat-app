@@ -1,10 +1,11 @@
 import createCitiesEndpoint from '../createCitiesEndpoint'
 import CityModel from '../../models/CityModel'
+import { JsonCityType } from '../../types'
 
 describe('cities', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const cities = createCitiesEndpoint(baseUrl)
-  const city1 = {
+  const city1: JsonCityType = {
     name: 'Augsburg',
     path: '/augsburg/',
     live: true,
@@ -28,7 +29,7 @@ describe('cities', () => {
       [11.0174493, 48.297834]
     ]
   }
-  const city2 = {
+  const city2: JsonCityType = {
     name: 'Stadt Regensburg',
     path: '/regensburg/',
     live: true,
@@ -42,7 +43,7 @@ describe('cities', () => {
     longitude: null,
     latitude: null,
     aliases: null,
-    boundingBox: null
+    bounding_box: null
   }
 
   const cityJson = [city1, city2]
