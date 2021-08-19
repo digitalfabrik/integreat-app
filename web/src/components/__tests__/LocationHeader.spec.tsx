@@ -58,8 +58,7 @@ describe('LocationHeader', () => {
 
   const languageCode = 'de'
   const pathname = '/augsburg/de/willkommen'
-  const onStickyTopChanged = () => {
-  }
+  const onStickyTopChanged = () => {}
 
   type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
