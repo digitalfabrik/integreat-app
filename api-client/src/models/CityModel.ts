@@ -1,3 +1,5 @@
+import { BBox } from 'geojson'
+
 type CoordinateType = { latitude: number; longitude: number }
 
 class CityModel {
@@ -13,6 +15,7 @@ class CityModel {
   _prefix: string | null | undefined
   _latitude: number | null
   _longitude: number | null
+
   constructor(params: {
     name: string
     code: string
@@ -27,7 +30,7 @@ class CityModel {
     latitude: number | null
     longitude: number | null
     aliases: Record<string, CoordinateType> | null
-    boundingBox: CoordinateType[] | null
+    boundingBox: BBox | null
   }) {
     this._name = params.name
     this._code = params.code
@@ -45,9 +48,9 @@ class CityModel {
     this._boundingBox = params.boundingBox
   }
 
-  _boundingBox: CoordinateType[] | null
+  _boundingBox: BBox | null
 
-  get boundingBox(): CoordinateType[] | null {
+  get boundingBox(): BBox | null {
     return this._boundingBox
   }
 

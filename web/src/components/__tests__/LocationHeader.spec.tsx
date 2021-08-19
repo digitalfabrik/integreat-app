@@ -48,10 +48,7 @@ describe('LocationHeader', () => {
           longitude: 10.889586
         }
       },
-      boundingBox: [
-        { latitude: 48.447238, longitude: 10.7880103 },
-        { latitude: 48.297834, longitude: 11.0174493 }
-      ]
+      boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
     })
 
   const languageChangePaths = [
@@ -61,7 +58,8 @@ describe('LocationHeader', () => {
 
   const languageCode = 'de'
   const pathname = '/augsburg/de/willkommen'
-  const onStickyTopChanged = () => {}
+  const onStickyTopChanged = () => {
+  }
 
   type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
