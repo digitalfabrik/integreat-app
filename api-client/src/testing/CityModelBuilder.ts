@@ -20,10 +20,8 @@ const cities = [
         longitude: 10.889586
       }
     },
-    boundingBox: [
-      { latitude: 48.447238, longitude: 10.7880103 },
-      { latitude: 48.297834, longitude: 11.0174493 }
-    ]
+    // eslint-disable-next-line no-magic-numbers
+    boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
   }),
   new CityModel({
     name: 'Oldtown',

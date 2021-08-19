@@ -12,6 +12,7 @@ import {
 } from 'api-client'
 import RNFetchBlob from 'rn-fetch-blob'
 import moment, { Moment } from 'moment'
+import { BBox } from 'geojson'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
@@ -98,7 +99,7 @@ type ContentCityJsonType = {
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
-  bounding_box: { latitude: number; longitude: number }[] | null
+  bounding_box: BBox | null
 }
 type ContentPoiJsonType = {
   path: string

@@ -1,3 +1,4 @@
+import { BBox } from 'geojson'
 import CityModel from '../models/CityModel'
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
@@ -38,10 +39,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               latitude: city.latitude,
               aliases: city.aliases,
               boundingBox: Array.isArray(city.bounding_box)
-                ? city.bounding_box.map(it => ({
-                    latitude: it[0],
-                    longitude: it[1]
-                  }))
+                ? (city.bounding_box.reduce((acc, val) => acc.concat(val), []) as BBox)
                 : null
             })
         )
