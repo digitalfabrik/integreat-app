@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { Feature } from 'geojson'
+import { Feature, GeoJsonProperties, Point } from 'geojson'
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -7,7 +7,8 @@ import {
   PoiModel,
   useLoadFromEndpoint,
   POIS_ROUTE,
-  embedInCollection
+  embedInCollection,
+  mapParam
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
@@ -94,7 +95,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }
 
   if (poi) {
-    const { thumbnail, lastUpdate, content, title, location } = poi
+    const { thumbnail, lastUpdate, content, title, location, path, featureLocation } = poi
     const pageTitle = `${title} - ${cityModel.name}`
 
     return (
@@ -107,7 +108,15 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
           title={title}
           formatter={formatter}
           onInternalLinkClick={history.push}>
-          {location.location && <PageDetail identifier={t('location')} information={location.location} />}
+          {location.location && (
+            <PageDetail
+              identifier={t('location')}
+              information={location.location}
+              mapLink={
+                featureLocation ? `${path.substring(0, path.lastIndexOf('/'))}?${mapParam}=${location.id}` : undefined
+              }
+            />
+          )}
         </Page>
       </LocationLayout>
     )
@@ -115,7 +124,9 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
-  const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is Feature => !!feature)
+  const featureLocations = pois
+    .map(poi => poi.featureLocation)
+    .filter((feature): feature is Feature<Point, GeoJsonProperties> => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

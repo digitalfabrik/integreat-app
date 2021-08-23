@@ -8,15 +8,21 @@ const Identifier = styled.span`
 type PropsType = {
   identifier: string
   information: string
+  mapLink?: string
 }
 
 class PageDetail extends React.PureComponent<PropsType> {
   render(): ReactNode {
-    const { identifier, information } = this.props
+    const { identifier, information, mapLink } = this.props
     return (
       <div>
         <Identifier>{identifier}: </Identifier>
         <span>{information}</span>
+        {mapLink && (
+          <p>
+            <a href={mapLink}>Karte</a>
+          </p>
+        )}
       </div>
     )
   }

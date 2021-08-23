@@ -1,6 +1,8 @@
-import { Feature, FeatureCollection } from 'geojson'
+import { Feature, FeatureCollection, GeoJsonProperties, Point } from 'geojson'
 
-export const embedInCollection = (features: Feature[]): FeatureCollection => {
+export const embedInCollection = (
+  features: Feature<Point, GeoJsonProperties>[]
+): FeatureCollection<Point, GeoJsonProperties> => {
   return {
     type: 'FeatureCollection',
     features
