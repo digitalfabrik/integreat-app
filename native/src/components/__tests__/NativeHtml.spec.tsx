@@ -4,6 +4,8 @@ import buildConfig from '../../constants/buildConfig'
 import { fireEvent, render } from '@testing-library/react-native'
 import NativeHtml from '../NativeHtml'
 
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
+
 describe('NativeHtml', () => {
   const navigateToLink = jest.fn()
   const dictUrl = 'https://my.cust/om/dict/url'
