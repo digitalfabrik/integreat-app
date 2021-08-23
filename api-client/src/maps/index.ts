@@ -23,3 +23,7 @@ export const defaultViewportConfig: MapViewViewport = {
   longitude: 10.894446,
   zoom: 8
 }
+
+export const detailZoom = 15
+
+export const mapParam = 'id'

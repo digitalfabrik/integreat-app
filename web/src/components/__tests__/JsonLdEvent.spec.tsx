@@ -14,6 +14,7 @@ describe('EventJsonLd', () => {
       allDay: false
     })
     const locationModel = new LocationModel({
+      id: 1,
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
