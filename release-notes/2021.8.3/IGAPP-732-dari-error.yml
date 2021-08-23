@@ -1,0 +1,7 @@
+issue_key: IGAPP-732
+show_in_stores: yes
+platforms:
+  - ios
+  - android
+en: We improved the automatic selection of the language most relevant to you.
+de: Wir haben das automatische Auswählen der relevantesten Sprache verbessert.

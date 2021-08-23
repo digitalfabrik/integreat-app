@@ -11,6 +11,7 @@ import TimeStamp from './TimeStamp'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 
 type PropsType = {
+  index: number
   newsItem: LocalNewsModel | TunewsModel
   language: string
   navigateToNews: () => void
@@ -41,11 +42,11 @@ const ListItemWrapper = styled.View`
 const StyledTouchableOpacity = styled.TouchableOpacity`
   flex-direction: column;
 `
-const Divider = styled.View`
+const Divider = styled.View<{ firstItem: boolean }>`
   border-top-width: 0.5px;
   border-top-color: rgba(168, 168, 168, 0.7);
   width: 80%;
-  margin-top: 12px;
+  margin-top: ${props => (props.firstItem ? '0px' : '12px')};
   margin-bottom: 12px;
   align-self: center;
 `
@@ -83,7 +84,7 @@ export const ReadMore = styled.Text<{ isTunews: boolean }>`
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
 `
 
-const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }: PropsType): ReactElement => {
+const NewsListItem = ({ index, newsItem, language, navigateToNews, theme, t, isTunews }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
@@ -92,7 +93,7 @@ const NewsListItem = ({ newsItem, language, navigateToNews, theme, t, isTunews }
 
   return (
     <>
-      <Divider />
+      <Divider firstItem={index === 0} />
       <ListItemWrapper>
         <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
           <Description theme={theme}>
