@@ -6,6 +6,7 @@ import { DataContainer } from '../utils/DataContainer'
 import moment from 'moment'
 import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { fromError } from 'api-client'
+import { reportError } from '../utils/helpers'
 
 export type FetchMapTargetType = {
   url: string
@@ -101,6 +102,7 @@ export default function* fetchResourceCache(
     yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',
       params: {
