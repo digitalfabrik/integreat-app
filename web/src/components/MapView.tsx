@@ -34,6 +34,19 @@ const layerStyle: LayerProps = {
   paint: {}
 }
 
+const renderPopup = (coordinates: Position, description: string): ReactElement => {
+  return (
+    <StyledPopup
+      longitude={coordinates[0]}
+      latitude={coordinates[1]}
+      closeButton={false}
+      closeOnClick={false}
+      anchor='bottom'>
+      <div dangerouslySetInnerHTML={{ __html: description }} />
+    </StyledPopup>
+  )
+}
+
 const getPopUpDescription = (properties: GeoJsonProperties): string => {
   return `<div><strong>${properties?.title}</strong></div>`
 }
@@ -49,17 +62,15 @@ interface MapViewProps {
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const [viewport, setViewport] = useState(defaultViewportConfig)
   const [showPopup, togglePopup] = React.useState(false)
-  const [popUp, setPopup] = React.useState<{ coordinates: Position; description: string }>({
-    coordinates: [],
-    description: ''
-  })
+  const [popUp, setPopup] = React.useState<{ coordinates?: Position; description?: string }>()
+
   const { featureCollection } = props
   const query = new URLSearchParams(useLocation().search)
   const geoId = Number(query.get(mapParam))
 
   useEffect(() => {
     const item: Feature<Point, GeoJsonProperties> | undefined = featureCollection.features.find(
-      feature => feature?.properties?.id === geoId
+      feature => feature.properties?.id === geoId
     )
     if (item?.geometry?.coordinates) {
       const { geometry, properties } = item
@@ -73,23 +84,6 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
       togglePopup(true)
     }
   }, [featureCollection.features, geoId])
-
-  const renderPopup = (coordinates?: Position, description?: string): ReactElement | null => {
-    if (!coordinates || !description) {
-      return null
-    }
-
-    return (
-      <StyledPopup
-        longitude={coordinates[0]}
-        latitude={coordinates[1]}
-        closeButton={false}
-        closeOnClick={false}
-        anchor='bottom'>
-        <div dangerouslySetInnerHTML={{ __html: description }} />
-      </StyledPopup>
-    )
-  }
 
   const clickItem = (e: MapEvent) => {
     if (e.features) {
@@ -117,7 +111,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         onClick={e => clickItem(e)}>
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
-          {showPopup && renderPopup(popUp.coordinates, popUp.description)}
+          {showPopup && popUp?.coordinates && popUp?.description && renderPopup(popUp.coordinates, popUp.description)}
         </Source>
       </ReactMapGL>
     </MapContainer>

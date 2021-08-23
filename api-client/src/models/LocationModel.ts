@@ -1,4 +1,4 @@
-import { Feature } from 'geojson'
+import { Feature, GeoJsonProperties, Point } from 'geojson'
 
 class LocationModel {
   _id: number | null | undefined
@@ -113,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(): Feature | null {
+  convertToPoint(): Feature<Point, GeoJsonProperties> | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
