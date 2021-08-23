@@ -4,7 +4,9 @@ import buildConfig from '../../constants/buildConfig'
 import { fireEvent, render } from '@testing-library/react-native'
 import NativeHtml from '../NativeHtml'
 
-jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  default: jest.fn(() => ({ width: 1234 }))
+}))
 
 describe('NativeHtml', () => {
   const navigateToLink = jest.fn()
