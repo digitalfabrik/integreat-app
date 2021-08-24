@@ -12,6 +12,7 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import AppSettings from '../utils/AppSettings'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 import { fromError } from 'api-client'
+import { reportError } from '../utils/helpers'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,
@@ -77,6 +78,7 @@ export function* switchContentLanguage(
     }
     yield* put(enqueueSnackbar)
     console.error(e)
+    reportError(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
       params: {

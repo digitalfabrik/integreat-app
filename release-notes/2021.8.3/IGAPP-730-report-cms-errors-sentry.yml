@@ -1,0 +1,7 @@
+issue_key: IGAPP-730
+show_in_stores: false
+platforms:
+  - web
+  - ios
+  - android
+en: Errors because of bad cms responses or wrong mapping in the apps are now reported to sentry.
