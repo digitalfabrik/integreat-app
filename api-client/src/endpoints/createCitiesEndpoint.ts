@@ -39,7 +39,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               latitude: city.latitude,
               aliases: city.aliases,
               boundingBox: Array.isArray(city.bounding_box)
-                ? (city.bounding_box.reduce((minPoint, maxPoint) => [...minPoint, ...maxPoint]) as BBox)
+                ? ([...city.bounding_box[0], ...city.bounding_box[1]] as BBox)
                 : null
             })
         )
