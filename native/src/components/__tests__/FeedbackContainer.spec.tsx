@@ -21,11 +21,7 @@ jest.mock('api-client', () => {
     })
   }
 })
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (text: string) => text
-  })
-}))
+
 describe('FeedbackContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
