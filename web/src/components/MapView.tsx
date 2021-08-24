@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import ReactMapGL, { Layer, LayerProps, Source } from 'react-map-gl'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { defaultViewportConfig, mapConfig } from 'api-client'
@@ -27,6 +27,10 @@ const layerStyle: LayerProps = {
   },
   paint: {}
 }
+const geolocateControlStyle: React.CSSProperties = {
+  right: 10,
+  top: 10
+}
 
 interface MapViewProps {
   featureCollection: FeatureCollection
@@ -39,6 +43,11 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   return (
     <MapContainer>
       <ReactMapGL {...viewport} onViewportChange={setViewport} mapStyle={mapConfig.styleJSON}>
+        <GeolocateControl
+          style={geolocateControlStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+        />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
         </Source>
