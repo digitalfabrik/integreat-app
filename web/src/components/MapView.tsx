@@ -47,7 +47,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   const [viewport, setViewport] = useState<MapViewViewport>(defaultViewportConfig)
 
   useEffect(() => {
-    setViewport(boundingBox ? moveViewToBBox(boundingBox, defaultViewportConfig) : defaultViewportConfig)
+    boundingBox && setViewport(moveViewToBBox(boundingBox, defaultViewportConfig))
   }, [boundingBox])
 
   return (
