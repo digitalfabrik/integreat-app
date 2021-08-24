@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { Feature } from 'geojson'
+import { BBox, Feature } from 'geojson'
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -116,12 +116,13 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
   const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is Feature => !!feature)
-
+  // eslint-disable-next-line no-magic-numbers
+  const mockBoundingBox: BBox = [10.7880103, 48.447238, 11.0174493, 48.297834]
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
-      <MapView featureCollection={embedInCollection(featureLocations)} />
+      <MapView featureCollection={embedInCollection(featureLocations)} boundingBox={mockBoundingBox} />
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )
