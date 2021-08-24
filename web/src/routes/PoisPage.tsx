@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { Feature, GeoJsonProperties, Point } from 'geojson'
+import { Feature, Point } from 'geojson'
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -95,7 +95,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }
 
   if (poi) {
-    const { thumbnail, lastUpdate, content, title, location, path, featureLocation } = poi
+    const { thumbnail, lastUpdate, content, title, location, featureLocation } = poi
     const pageTitle = `${title} - ${cityModel.name}`
 
     return (
@@ -113,7 +113,9 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
               identifier={t('location')}
               information={location.location}
               mapLink={
-                featureLocation ? `${path.substring(0, path.lastIndexOf('/'))}?${mapParam}=${location.id}` : undefined
+                featureLocation
+                  ? `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapParam}=${location.id}`
+                  : undefined
               }
             />
           )}
@@ -126,7 +128,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
   const featureLocations = pois
     .map(poi => poi.featureLocation)
-    .filter((feature): feature is Feature<Point, GeoJsonProperties> => !!feature)
+    .filter((feature): feature is Feature<Point> => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

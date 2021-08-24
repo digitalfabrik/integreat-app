@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect, useCallback } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import ReactMapGL, { Layer, LayerProps, MapEvent, Popup, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
@@ -56,30 +56,20 @@ const getCursor = ({ isHovering, isDragging }: { isHovering: boolean; isDragging
 }
 
 interface MapViewProps {
-  featureCollection: FeatureCollection<Point, GeoJsonProperties>
+  featureCollection: FeatureCollection<Point>
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const [viewport, setViewport] = useState<MapViewViewport>(defaultViewportConfig)
   const [showPopup, togglePopup] = React.useState<boolean>(false)
-  const [currentPoi, setCurrentPoi] = React.useState<Feature<Point, GeoJsonProperties> | null>(null)
+  const [currentPoi, setCurrentPoi] = React.useState<Feature<Point> | null>(null)
 
   const { featureCollection } = props
   const query = new URLSearchParams(useLocation().search)
   const queryId = Number(query.get(mapParam))
 
-  const getCurrentPoi = useCallback(
-    (
-      features: FeatureCollection<Point, GeoJsonProperties>,
-      queryId: number
-    ): Feature<Point, GeoJsonProperties> | undefined => {
-      return featureCollection.features.find(feature => feature.properties?.id === queryId)
-    },
-    [featureCollection.features]
-  )
-
   useEffect(() => {
-    const currentPoi = getCurrentPoi(featureCollection, queryId)
+    const currentPoi = featureCollection.features.find(feature => feature.properties?.id === queryId)
     if (currentPoi?.geometry?.coordinates) {
       const { geometry } = currentPoi
       setViewport({
@@ -91,13 +81,13 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
       setCurrentPoi(currentPoi)
       togglePopup(true)
     }
-  }, [featureCollection, getCurrentPoi, queryId])
+  }, [featureCollection, queryId])
 
   const clickItem = (e: MapEvent) => {
     if (e.features) {
-      const feature: Feature<Point, GeoJsonProperties> = e.features[0]
+      const feature: Feature<Point> = e.features[0]
 
-      if (feature.properties?.title) {
+      if (feature?.properties?.title) {
         setCurrentPoi(feature)
         togglePopup(true)
       } else {
