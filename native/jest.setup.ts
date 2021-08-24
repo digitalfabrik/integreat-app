@@ -43,6 +43,8 @@ jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock('constants/NativeConstants')
 jest.doMock('constants/buildConfig')
 jest.doMock('rn-fetch-blob')
+jest.doMock('path', () => path.posix)
+
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
 jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
