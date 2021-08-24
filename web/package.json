@@ -10,7 +10,6 @@
     "webpack-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack --config tools/webpack.config.ts",
     "webpack-dev-server-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack-dev-server --config tools/webpack.config.ts --progress",
     "start": "yarn run webpack-dev-server-ts --env.config_name=integreat-test-cms --env.dev_server",
-    "start:https": "yarn run webpack-dev-server-ts --https --env.config_name=integreat-test-cms --env.dev_server",
     "start:malte": "yarn run webpack-dev-server-ts --env.config_name=malte --env.dev_server",
     "start:aschaffenburg": "yarn run webpack-dev-server-ts --env.config_name=aschaffenburg --env.dev_server",
     "start:integreat-e2e": "yarn run webpack-dev-server-ts --env.config_name=integreat-e2e --env.dev_server",

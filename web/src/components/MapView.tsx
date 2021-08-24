@@ -27,7 +27,7 @@ const layerStyle: LayerProps = {
   },
   paint: {}
 }
-const geolocateControlStyle = {
+const geolocateControlStyle: React.CSSProperties = {
   right: 10,
   top: 10
 }
