@@ -113,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(): Feature<Point, GeoJsonProperties> | null {
+  convertToPoint(): Feature<Point> | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
