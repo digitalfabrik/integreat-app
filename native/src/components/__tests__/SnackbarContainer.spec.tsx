@@ -5,11 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { mocked } from 'ts-jest/utils'
 
 jest.useFakeTimers()
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (text: string) => text
-  })
-}))
+
 jest.mock('../../components/Snackbar', () => {
   const Text = require('react-native').Text
 

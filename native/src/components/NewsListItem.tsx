@@ -108,13 +108,7 @@ const NewsListItem = ({ index, newsItem, language, navigateToNews, theme, t, isT
             {timestamp && (
               <ListItemView language={language} theme={theme}>
                 <TimeStampContent language={language} theme={theme}>
-                  <TimeStamp
-                    formatter={formatter}
-                    lastUpdate={timestamp}
-                    showText={false}
-                    language={language}
-                    theme={theme}
-                  />
+                  <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} theme={theme} />
                 </TimeStampContent>
               </ListItemView>
             )}
