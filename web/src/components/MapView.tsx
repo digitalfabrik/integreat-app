@@ -1,9 +1,9 @@
-import React, { ReactElement, useState } from 'react'
-import ReactMapGL, { Layer, LayerProps, Source } from 'react-map-gl'
+import React, { ReactElement, useEffect, useState } from 'react'
+import ReactMapGL, { Layer, LayerProps, Source, WebMercatorViewport } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { defaultViewportConfig, mapConfig } from 'api-client'
-import { FeatureCollection } from 'geojson'
+import { defaultViewportConfig, mapConfig, MapViewViewport } from 'api-client'
+import { FeatureCollection, BBox } from 'geojson'
 
 const MapContainer = styled.div`
   display: flex;
@@ -30,11 +30,25 @@ const layerStyle: LayerProps = {
 
 interface MapViewProps {
   featureCollection: FeatureCollection
+  boundingBox?: BBox
+}
+
+const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
+  const mercatorVp = new WebMercatorViewport(defaultVp)
+  const vp = mercatorVp.fitBounds([
+    [bBox[0], bBox[1]],
+    [bBox[2], bBox[3]]
+  ])
+  return vp
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const [viewport, setViewport] = useState(defaultViewportConfig)
-  const { featureCollection } = props
+  const { featureCollection, boundingBox } = props
+  const [viewport, setViewport] = useState<MapViewViewport>(defaultViewportConfig)
+
+  useEffect(() => {
+    setViewport(boundingBox ? moveViewToBBox(boundingBox, defaultViewportConfig) : defaultViewportConfig)
+  }, [boundingBox])
 
   return (
     <MapContainer>
