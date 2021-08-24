@@ -79,7 +79,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   )
 
   useEffect(() => {
-    const currentPoi: Feature<Point, GeoJsonProperties> | undefined = getCurrentPoi(featureCollection, queryId)
+    const currentPoi = getCurrentPoi(featureCollection, queryId)
     if (currentPoi?.geometry?.coordinates) {
       const { geometry } = currentPoi
       setViewport({
