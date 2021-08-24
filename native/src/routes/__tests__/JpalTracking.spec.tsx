@@ -7,11 +7,7 @@ import { RoutePropType } from '../../constants/NavigationTypes'
 import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
 import AppSettings from '../../utils/AppSettings'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: jest.fn()
-  })
-}))
+jest.mock('react-i18next')
 
 describe('JpalTracking', () => {
   beforeEach(() => {
