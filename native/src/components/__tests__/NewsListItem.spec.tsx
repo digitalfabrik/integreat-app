@@ -5,6 +5,8 @@ import NewsListItem from '../NewsListItem'
 import buildConfig from '../../constants/buildConfig'
 import React from 'react'
 
+jest.mock('react-i18next')
+
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
