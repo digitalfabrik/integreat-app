@@ -114,7 +114,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         {...viewport}
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
-        onClick={e => clickItem(e)}>
+        onClick={clickItem}>
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
           {showPopup &&
