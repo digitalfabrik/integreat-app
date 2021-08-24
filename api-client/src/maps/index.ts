@@ -3,7 +3,7 @@ interface MapConfigProps {
   accessToken: string
 }
 
-interface MapViewViewport {
+export interface MapViewViewport {
   width: number
   height: number
   latitude: number
