@@ -1,8 +1,8 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useState, useEffect, useCallback } from 'react'
 import ReactMapGL, { Layer, LayerProps, MapEvent, Popup, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { defaultViewportConfig, detailZoom, mapConfig, mapParam } from 'api-client'
+import { defaultViewportConfig, detailZoom, mapConfig, mapParam, MapViewViewport } from 'api-client'
 import { FeatureCollection, Feature, Point, GeoJsonProperties, Position } from 'geojson'
 import { useLocation } from 'react-router-dom'
 import { Property } from 'csstype'
@@ -60,39 +60,45 @@ interface MapViewProps {
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const [viewport, setViewport] = useState(defaultViewportConfig)
-  const [showPopup, togglePopup] = React.useState(false)
-  const [popUp, setPopup] = React.useState<{ coordinates?: Position; description?: string }>()
+  const [viewport, setViewport] = useState<MapViewViewport>(defaultViewportConfig)
+  const [showPopup, togglePopup] = React.useState<boolean>(false)
+  const [currentPoi, setCurrentPoi] = React.useState<Feature<Point, GeoJsonProperties> | null>(null)
 
   const { featureCollection } = props
   const query = new URLSearchParams(useLocation().search)
-  const geoId = Number(query.get(mapParam))
+  const queryId = Number(query.get(mapParam))
+
+  const getCurrentPoi = useCallback(
+    (
+      features: FeatureCollection<Point, GeoJsonProperties>,
+      queryId: number
+    ): Feature<Point, GeoJsonProperties> | undefined => {
+      return featureCollection.features.find(feature => feature.properties?.id === queryId)
+    },
+    [featureCollection.features]
+  )
 
   useEffect(() => {
-    const item: Feature<Point, GeoJsonProperties> | undefined = featureCollection.features.find(
-      feature => feature.properties?.id === geoId
-    )
-    if (item?.geometry?.coordinates) {
-      const { geometry, properties } = item
+    const currentPoi: Feature<Point, GeoJsonProperties> | undefined = getCurrentPoi(featureCollection, queryId)
+    if (currentPoi?.geometry?.coordinates) {
+      const { geometry } = currentPoi
       setViewport({
         ...defaultViewportConfig,
         longitude: geometry.coordinates[0],
         latitude: geometry.coordinates[1],
         zoom: detailZoom
       })
-      setPopup({ coordinates: geometry.coordinates, description: getPopUpDescription(properties) })
+      setCurrentPoi(currentPoi)
       togglePopup(true)
     }
-  }, [featureCollection.features, geoId])
+  }, [featureCollection, getCurrentPoi, queryId])
 
   const clickItem = (e: MapEvent) => {
     if (e.features) {
-      const feature = e.features[0]
-      const coordinates = feature?.geometry.coordinates
-      const description = getPopUpDescription(feature?.properties)
+      const feature: Feature<Point, GeoJsonProperties> = e.features[0]
 
-      if (feature?.properties?.title) {
-        setPopup({ coordinates: coordinates, description: description })
+      if (feature.properties?.title) {
+        setCurrentPoi(feature)
         togglePopup(true)
       } else {
         togglePopup(false)
@@ -111,7 +117,9 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         onClick={e => clickItem(e)}>
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
-          {showPopup && popUp?.coordinates && popUp?.description && renderPopup(popUp.coordinates, popUp.description)}
+          {showPopup &&
+            currentPoi &&
+            renderPopup(currentPoi.geometry.coordinates, getPopUpDescription(currentPoi.properties))}
         </Source>
       </ReactMapGL>
     </MapContainer>
