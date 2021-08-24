@@ -17,7 +17,7 @@ describe('geoJson', () => {
     }
   }
   describe('embedInCollection', () => {
-    const expectedGeoJsonFeatureCollection: FeatureCollection<Point, GeoJsonProperties> = {
+    const expectedGeoJsonFeatureCollection: FeatureCollection<Point> = {
       features: [expectedGeoJsonMarkerFeature],
       type: 'FeatureCollection'
     }
