@@ -1,19 +1,16 @@
 import React, { ReactElement, useState, useEffect } from 'react'
-import ReactMapGL, { Layer, LayerProps, MapEvent, Popup, Source } from 'react-map-gl'
+import ReactMapGL, { Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { defaultViewportConfig, detailZoom, mapConfig, mapParam, MapViewViewport } from 'api-client'
-import { FeatureCollection, Feature, Point, GeoJsonProperties, Position } from 'geojson'
+import { defaultViewportConfig, detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
+import { FeatureCollection, Feature, Point } from 'geojson'
 import { useLocation } from 'react-router-dom'
-import { Property } from 'csstype'
+
+import MapPopup from './MapPopup'
 
 const MapContainer = styled.div`
   display: flex;
   justify-content: center;
-`
-
-const StyledPopup = styled(Popup)`
-  width: 250px;
 `
 
 const textOffsetY = 1.25
@@ -34,27 +31,6 @@ const layerStyle: LayerProps = {
   paint: {}
 }
 
-const renderPopup = (coordinates: Position, description: string): ReactElement => {
-  return (
-    <StyledPopup
-      longitude={coordinates[0]}
-      latitude={coordinates[1]}
-      closeButton={false}
-      closeOnClick={false}
-      anchor='bottom'>
-      <div dangerouslySetInnerHTML={{ __html: description }} />
-    </StyledPopup>
-  )
-}
-
-const getPopUpDescription = (properties: GeoJsonProperties): string => {
-  return `<div><strong>${properties?.title}</strong></div>`
-}
-
-const getCursor = ({ isHovering, isDragging }: { isHovering: boolean; isDragging: boolean }): Property.Cursor => {
-  return isDragging ? 'grabbing' : isHovering ? 'pointer' : 'default'
-}
-
 interface MapViewProps {
   featureCollection: FeatureCollection<Point>
 }
@@ -65,34 +41,32 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   const [currentPoi, setCurrentPoi] = React.useState<Feature<Point> | null>(null)
 
   const { featureCollection } = props
-  const query = new URLSearchParams(useLocation().search)
-  const queryId = Number(query.get(mapParam))
+  const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {
+    if (!queryId) {
+      return
+    }
     const currentPoi = featureCollection.features.find(feature => feature.properties?.id === queryId)
-    if (currentPoi?.geometry?.coordinates) {
+    if (currentPoi?.geometry.coordinates) {
       const { geometry } = currentPoi
-      setViewport({
-        ...defaultViewportConfig,
+      setViewport(prevState => ({
+        ...prevState,
         longitude: geometry.coordinates[0],
         latitude: geometry.coordinates[1],
         zoom: detailZoom
-      })
+      }))
       setCurrentPoi(currentPoi)
       togglePopup(true)
     }
   }, [featureCollection, queryId])
 
   const clickItem = (e: MapEvent) => {
-    if (e.features) {
-      const feature: Feature<Point> = e.features[0]
-
-      if (feature?.properties?.title) {
-        setCurrentPoi(feature)
-        togglePopup(true)
-      } else {
-        togglePopup(false)
-      }
+    if (e.features?.length) {
+      setCurrentPoi(e.features[0])
+      togglePopup(true)
+    } else {
+      togglePopup(false)
     }
   }
 
@@ -100,16 +74,15 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
     <MapContainer>
       <ReactMapGL
         interactiveLayerIds={[layerStyle.id!]}
-        getCursor={getCursor}
         {...viewport}
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={clickItem}>
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
-          {showPopup &&
-            currentPoi &&
-            renderPopup(currentPoi.geometry.coordinates, getPopUpDescription(currentPoi.properties))}
+          {showPopup && currentPoi && (
+            <MapPopup coordinates={currentPoi.geometry.coordinates} properties={currentPoi.properties} />
+          )}
         </Source>
       </ReactMapGL>
     </MapContainer>

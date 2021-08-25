@@ -25,4 +25,4 @@ export const defaultViewportConfig: MapViewViewport = {
 }
 
 export const detailZoom = 15
-export const mapParam = 'id'
+export const mapQueryId = 'id'
