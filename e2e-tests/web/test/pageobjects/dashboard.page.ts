@@ -6,6 +6,10 @@ class DashboardPage extends Page {
     return $("//header//a[@aria-label='Search']")
   }
 
+  public async openCategory(category: string) {
+    return (await $(`*=${category}`)).click();
+  }
+
   open(): Promise<string> {
     return super.open(Routes.dashboard)
   }
