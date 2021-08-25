@@ -1,9 +1,9 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import ReactMapGL, { GeolocateControl, Layer, LayerProps, Source, WebMercatorViewport } from 'react-map-gl'
+import React, { ReactElement, useState } from 'react'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { defaultViewportConfig, mapConfig, MapViewViewport } from 'api-client'
-import { FeatureCollection, BBox } from 'geojson'
+import { FeatureCollection } from 'geojson'
 
 const MapContainer = styled.div`
   display: flex;
@@ -34,25 +34,12 @@ const geolocateControlStyle: React.CSSProperties = {
 
 interface MapViewProps {
   featureCollection: FeatureCollection
-  boundingBox?: BBox
-}
-
-const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
-  const mercatorVp = new WebMercatorViewport(defaultVp)
-  const vp = mercatorVp.fitBounds([
-    [bBox[0], bBox[1]],
-    [bBox[2], bBox[3]]
-  ])
-  return vp
+  defaultViewport?: MapViewViewport
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const { featureCollection, boundingBox } = props
-  const [viewport, setViewport] = useState<MapViewViewport>(defaultViewportConfig)
-
-  useEffect(() => {
-    boundingBox && setViewport(moveViewToBBox(boundingBox, defaultViewportConfig))
-  }, [boundingBox])
+  const { featureCollection, defaultViewport } = props
+  const [viewport, setViewport] = useState<MapViewViewport>(defaultViewport ?? defaultViewportConfig)
 
   return (
     <MapContainer>
