@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { View } from 'react-native'
 import { TFunction, useTranslation } from 'react-i18next'
 import { CityModel, fromError, NotFoundError, PoiModel, POIS_ROUTE, RouteInformationType } from 'api-client'
@@ -45,7 +45,8 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('poi')
   const theme = useTheme()
-  const navigateToPois = (cityCode: string, language: string, path: string) => () => {
+
+  const navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
@@ -54,7 +55,7 @@ const Pois = ({
     })
   }
 
-  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel) => {
+  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => {
     return (
       <PoiListItem
         key={poi.path}
@@ -88,7 +89,7 @@ const Pois = ({
   const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
 
   if (path) {
-    const poi: PoiModel | null | undefined = sortedPois.find(_poi => _poi.path === path)
+    const poi = sortedPois.find(_poi => _poi.path === path)
 
     if (poi) {
       const location = poi.location.location
