@@ -5312,14 +5312,14 @@
       "pageTitle": "版本说明和联系方式- {{appName}}"
     }
   },
-  "pois" : {
+  "pois": {
     "de": {
       "location": "Standort",
-      "map" :"Karte"
+      "map": "Karte"
     },
     "en": {
       "location": "Location",
-      "map" :"Map"
+      "map": "Map"
     }
   }
 }
