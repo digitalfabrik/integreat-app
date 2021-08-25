@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { Feature } from 'geojson'
+import { BBox, Feature } from 'geojson'
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -7,7 +7,9 @@ import {
   PoiModel,
   useLoadFromEndpoint,
   POIS_ROUTE,
-  embedInCollection
+  embedInCollection,
+  MapViewViewport,
+  defaultViewportConfig
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
@@ -27,6 +29,16 @@ import List from '../components/List'
 import Helmet from '../components/Helmet'
 import MapView from '../components/MapView'
 import { CityRouteProps } from '../CityContentSwitcher'
+import { WebMercatorViewport } from 'react-map-gl'
+
+const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
+  const mercatorVp = new WebMercatorViewport(defaultVp)
+  const vp = mercatorVp.fitBounds([
+    [bBox[0], bBox[1]],
+    [bBox[2], bBox[3]]
+  ])
+  return vp
+}
 
 type PropsType = CityRouteProps & RouteProps<typeof POIS_ROUTE>
 
@@ -125,7 +137,9 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
       <Caption title={t('pois')} />
       <MapView
         featureCollection={embedInCollection(featureLocations)}
-        boundingBox={cityModel.boundingBox ?? undefined}
+        defaultViewport={
+          cityModel.boundingBox ? moveViewToBBox(cityModel.boundingBox, defaultViewportConfig) : undefined
+        }
       />
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
