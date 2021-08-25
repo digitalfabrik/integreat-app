@@ -137,9 +137,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
       <Caption title={t('pois')} />
       <MapView
         featureCollection={embedInCollection(featureLocations)}
-        defaultViewport={
-          cityModel.boundingBox ? moveViewToBBox(cityModel.boundingBox, defaultViewportConfig) : undefined
-        }
+        bboxViewport={cityModel.boundingBox ? moveViewToBBox(cityModel.boundingBox, defaultViewportConfig) : undefined}
       />
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>

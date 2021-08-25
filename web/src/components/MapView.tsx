@@ -34,12 +34,12 @@ const geolocateControlStyle: React.CSSProperties = {
 
 interface MapViewProps {
   featureCollection: FeatureCollection
-  defaultViewport?: MapViewViewport
+  bboxViewport?: MapViewViewport
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const { featureCollection, defaultViewport } = props
-  const [viewport, setViewport] = useState<MapViewViewport>(defaultViewport ?? defaultViewportConfig)
+  const { featureCollection, bboxViewport } = props
+  const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport ?? defaultViewportConfig)
 
   return (
     <MapContainer>
