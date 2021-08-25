@@ -8,7 +8,7 @@ import {
   useLoadFromEndpoint,
   POIS_ROUTE,
   embedInCollection,
-  mapParam
+  mapQueryId
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
@@ -98,6 +98,9 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     const { thumbnail, lastUpdate, content, title, location, featureLocation } = poi
     const pageTitle = `${title} - ${cityModel.name}`
 
+    const mapUrlParams = new URLSearchParams({ [mapQueryId]: String(location.id) })
+    const mapLink = `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapUrlParams}`
+
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
@@ -112,11 +115,8 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
             <PageDetail
               identifier={t('location')}
               information={location.location}
-              mapLink={
-                featureLocation
-                  ? `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapParam}=${location.id}`
-                  : undefined
-              }
+              link={featureLocation ? mapLink : undefined}
+              linkLabel={t('map')}
             />
           )}
         </Page>
