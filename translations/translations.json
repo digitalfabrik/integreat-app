@@ -5316,10 +5316,6 @@
     "de": {
       "location": "Standort",
       "map": "Karte"
-    },
-    "en": {
-      "location": "Location",
-      "map": "Map"
     }
   }
 }
