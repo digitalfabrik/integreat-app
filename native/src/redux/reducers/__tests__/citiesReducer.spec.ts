@@ -37,7 +37,8 @@ describe('citiesReducer', () => {
         prefix: 'Stadt',
         aliases: null,
         latitude: null,
-        longitude: null
+        longitude: null,
+        boundingBox: null
       })
     ]
     expect(

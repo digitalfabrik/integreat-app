@@ -17,7 +17,8 @@ describe('Helmet', () => {
     prefix: 'Stadt',
     latitude: null,
     longitude: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   })
   const hiddenCity = new CityModel({
     name: 'Testinstanz',
@@ -32,7 +33,8 @@ describe('Helmet', () => {
     prefix: 'Stadt',
     latitude: null,
     longitude: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   })
 
   const languageChangePaths = [

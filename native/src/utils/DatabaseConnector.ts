@@ -12,6 +12,7 @@ import {
 } from 'api-client'
 import RNFetchBlob from 'rn-fetch-blob'
 import moment, { Moment } from 'moment'
+import { BBox } from 'geojson'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
@@ -95,15 +96,10 @@ type ContentCityJsonType = {
   sorting_name: string
   longitude: number | null
   latitude: number | null
-  aliases: Record<
-    string,
-    {
-      longitude: number
-      latitude: number
-    }
-  > | null
+  aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
+  bounding_box: BBox | null
 }
 type ContentPoiJsonType = {
   path: string
@@ -454,7 +450,8 @@ class DatabaseConnector {
         sorting_name: city.sortingName,
         longitude: city.longitude,
         latitude: city.latitude,
-        aliases: city.aliases
+        aliases: city.aliases,
+        bounding_box: city.boundingBox
       })
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -483,7 +480,8 @@ class DatabaseConnector {
         prefix: jsonObject.prefix,
         longitude: jsonObject.longitude,
         latitude: jsonObject.latitude,
-        aliases: jsonObject.aliases
+        aliases: jsonObject.aliases,
+        boundingBox: jsonObject.bounding_box ?? null
       })
     })
   }
