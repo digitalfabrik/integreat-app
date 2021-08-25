@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import { TFunction } from 'react-i18next'
@@ -19,34 +19,31 @@ const IconContainer = styled.Image`
 export type PropsType = {
   code: ErrorCode
   tryAgain?: () => void
-  t: TFunction
+  t: TFunction<string>
   theme: ThemeType
 }
 
-class Failure extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { t, code, tryAgain, theme } = this.props
-    return (
-      <ViewContainer>
-        <IconContainer source={FailureIcon} />
-        <Text>{t(code)}</Text>
-        {tryAgain && (
-          <Button
-            testID='button-tryAgain'
-            titleStyle={{
-              color: theme.colors.textColor
-            }}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-              marginTop: 20
-            }}
-            onPress={tryAgain}
-            title={t('tryAgain')}
-          />
-        )}
-      </ViewContainer>
-    )
-  }
+const Failure = ({ code, tryAgain, theme, t }: PropsType): ReactElement => {
+  return (
+    <ViewContainer>
+      <IconContainer source={FailureIcon} />
+      <Text>{t(code)}</Text>
+      {tryAgain && (
+        <Button
+          testID='button-tryAgain'
+          titleStyle={{
+            color: theme.colors.textColor
+          }}
+          buttonStyle={{
+            backgroundColor: theme.colors.themeColor,
+            marginTop: 20
+          }}
+          onPress={tryAgain}
+          title={t('tryAgain')}
+        />
+      )}
+    </ViewContainer>
+  )
 }
 
 export default Failure
