@@ -21,8 +21,8 @@ type MapViewPropsType = {
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox }: MapViewPropsType): ReactElement => {
   const bounds = {
-    ne: [boundingBox[0], boundingBox[1]],
-    sw: [boundingBox[2], boundingBox[3]]
+    ne: [boundingBox[2], boundingBox[3]],
+    sw: [boundingBox[0], boundingBox[1]]
   }
 
   const defaultSettings: CameraSettings = {
