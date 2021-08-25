@@ -7,7 +7,8 @@ import testID from '../testing/testID'
 
 export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
-  placeholderTextColor: props.theme.colors.textSecondaryColor
+  placeholderTextColor: props.theme.colors.textSecondaryColor,
+  color: props.theme.colors.textColor
 }))`
   margin: 0 5px;
   flex-grow: 1;
