@@ -135,10 +135,12 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
-      <MapView
-        featureCollection={embedInCollection(featureLocations)}
-        bboxViewport={cityModel.boundingBox ? moveViewToBBox(cityModel.boundingBox, defaultViewportConfig) : undefined}
-      />
+      {cityModel.boundingBox && (
+        <MapView
+          featureCollection={embedInCollection(featureLocations)}
+          bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
+        />
+      )}
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )
