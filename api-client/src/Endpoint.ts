@@ -7,6 +7,7 @@ import ResponseError, { RequestOptionsType } from './errors/ResponseError'
 import FetchError from './errors/FetchError'
 import NotFoundError from './errors/NotFoundError'
 import { request as fetch } from './request'
+
 /**
  * A Endpoint holds all the relevant information to fetch data from it
  */
@@ -83,6 +84,7 @@ class Endpoint<P, T> {
       const fetchedData = this.mapResponse(json, params)
       return new Payload(false, url, fetchedData, null)
     } catch (e) {
+      console.error(e)
       throw e instanceof MappingError || e instanceof NotFoundError ? e : new MappingError(this.stateName, e.message)
     }
   }
