@@ -5,6 +5,7 @@ import EventModel from '../models/EventModel'
 import DateModel from '../models/DateModel'
 import LocationModel from '../models/LocationModel'
 import hashUrl from '../hashUrl'
+
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
   readonly lastUpdate: Moment
@@ -96,6 +97,7 @@ class EventModelBuilder {
               allDay: false
             }),
             location: new LocationModel({
+              id: null,
               name: null,
               address: 'address',
               town: 'town',

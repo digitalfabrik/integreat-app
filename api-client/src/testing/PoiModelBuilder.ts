@@ -16,6 +16,7 @@ const pois = [
     availableLanguages: availableLanguages,
     excerpt: 'test',
     location: new LocationModel({
+      id: 1,
       country: 'country',
       region: 'region',
       state: 'state',
@@ -37,6 +38,7 @@ const pois = [
     availableLanguages: availableLanguages,
     excerpt: 'test excerpt 2',
     location: new LocationModel({
+      id: 1,
       country: 'test country 2',
       region: 'test region 2',
       state: 'test state 2',
