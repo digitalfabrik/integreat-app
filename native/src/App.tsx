@@ -27,6 +27,7 @@ import { userAgent } from './constants/endpoint'
 import messaging from '@react-native-firebase/messaging'
 import urlFromRouteInformation from './navigation/url'
 import AppSettings from './utils/AppSettings'
+import { OverflowMenuProvider } from 'react-navigation-header-buttons'
 
 enableScreens(true)
 
@@ -121,7 +122,9 @@ const App = (): ReactElement => {
                 <StatusBarContainer />
                 <IOSSafeAreaView>
                   <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                    <NavigatorContainer routeKey={routeKey} routeName={routeName} />
+                    <OverflowMenuProvider>
+                      <NavigatorContainer routeKey={routeKey} routeName={routeName} />
+                    </OverflowMenuProvider>
                   </NavigationContainer>
                 </IOSSafeAreaView>
                 <SnackbarContainer />

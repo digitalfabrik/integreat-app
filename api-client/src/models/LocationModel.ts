@@ -1,6 +1,7 @@
-import { Feature } from 'geojson'
+import { Feature, GeoJsonProperties, Point } from 'geojson'
 
 class LocationModel {
+  _id: number | null | undefined
   _name: string | null | undefined
   _address: string | null | undefined
   _town: string | null | undefined
@@ -12,6 +13,7 @@ class LocationModel {
   _longitude: string | null | undefined
 
   constructor({
+    id,
     name,
     address,
     town,
@@ -22,6 +24,7 @@ class LocationModel {
     latitude,
     longitude
   }: {
+    id: number | null | undefined
     name: string | null | undefined
     address: string | null | undefined
     town: string | null | undefined
@@ -32,6 +35,7 @@ class LocationModel {
     latitude?: string | null | undefined
     longitude?: string | null | undefined
   }) {
+    this._id = id
     this._name = name
     this._address = address
     this._town = town
@@ -42,6 +46,10 @@ class LocationModel {
     this._latitude = latitude
     this._longitude = longitude
     this._name = name
+  }
+
+  get id(): number | null | undefined {
+    return this._id
   }
 
   get name(): string | null | undefined {
@@ -92,6 +100,7 @@ class LocationModel {
 
   isEqual(other: LocationModel): boolean {
     return (
+      this.id === other.id &&
       this.name === other.name &&
       this.address === other.address &&
       this.town === other.town &&
@@ -104,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(): Feature | null {
+  convertToPoint(): Feature<Point> | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
@@ -117,6 +126,7 @@ class LocationModel {
       },
       properties: {
         title: this.name,
+        id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
         symbol: '9'
       }
