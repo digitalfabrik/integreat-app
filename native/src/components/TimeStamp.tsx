@@ -4,7 +4,6 @@ import { Moment } from 'moment'
 import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import { ThemeType } from 'build-configs'
 import { ReactElement } from 'react'
 
 const TimeStampText = styled.Text`
@@ -23,27 +22,20 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
 type PropsType = {
   lastUpdate: Moment
   formatter: DateFormatter
-  theme: ThemeType
   showText?: boolean
   format?: string
 }
 
-export const TimeStamp = ({
-  lastUpdate,
-  formatter,
-  theme,
-  showText = true,
-  format = 'LL'
-}: PropsType): ReactElement => {
+export const TimeStamp = ({ lastUpdate, formatter, showText = true, format = 'LL' }: PropsType): ReactElement => {
   const { i18n, t } = useTranslation('common')
   // only show day, month and year
   const dateText = formatter.format(lastUpdate, {
     format
   })
   return (
-    <DirectionContainer theme={theme} language={i18n.language}>
-      {showText && <TimeStampText theme={theme}>{t('lastUpdate')} </TimeStampText>}
-      <TimeStampText theme={theme}>{dateText}</TimeStampText>
+    <DirectionContainer language={i18n.language}>
+      {showText && <TimeStampText>{t('lastUpdate')} </TimeStampText>}
+      <TimeStampText>{dateText}</TimeStampText>
     </DirectionContainer>
   )
 }

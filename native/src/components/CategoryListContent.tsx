@@ -1,7 +1,6 @@
 import React, { ReactElement, useContext } from 'react'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs/ThemeType'
 import { Moment } from 'moment'
 import TimeStamp from './TimeStamp'
 import SpaceBetween from './SpaceBetween'
@@ -20,7 +19,6 @@ type ContentPropsType = {
   cacheDictionary: Record<string, string>
   language: string
   lastUpdate?: Moment
-  theme: ThemeType
 }
 
 const CategoryListContent = ({
@@ -29,14 +27,12 @@ const CategoryListContent = ({
   cacheDictionary,
   language,
   lastUpdate,
-  theme
 }: ContentPropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   return (
     <SpaceBetween>
       <Container>
         <NativeHtml
-          theme={theme}
           language={language}
           content={content}
           navigateToLink={navigateToLink}
@@ -44,7 +40,7 @@ const CategoryListContent = ({
         />
         {lastUpdate && (
           <LastUpdateContainer>
-            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} theme={theme} />
+            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />
           </LastUpdateContainer>
         )}
       </Container>
