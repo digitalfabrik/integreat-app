@@ -8,7 +8,6 @@ import { detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
 
 import MapPopup from './MapPopup'
 
-
 const MapContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -44,26 +43,24 @@ interface MapViewProps {
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const { featureCollection, bboxViewport } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
- const [showPopup, togglePopup] = React.useState<boolean>(false)
+  const [showPopup, togglePopup] = React.useState<boolean>(false)
   const [currentPoi, setCurrentPoi] = React.useState<Feature<Point> | null>(null)
-
   const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {
-    if (!queryId) {
-      return
-    }
-    const currentPoi = featureCollection.features.find(feature => feature.properties?.id === queryId)
-    if (currentPoi?.geometry.coordinates) {
-      const { geometry } = currentPoi
-      setViewport(prevState => ({
-        ...prevState,
-        longitude: geometry.coordinates[0],
-        latitude: geometry.coordinates[1],
-        zoom: detailZoom
-      }))
-      setCurrentPoi(currentPoi)
-      togglePopup(true)
+    if (queryId) {
+      const currentPoi = featureCollection.features.find(feature => feature.properties?.id === queryId)
+      if (currentPoi?.geometry.coordinates) {
+        const { geometry } = currentPoi
+        setViewport(prevState => ({
+          ...prevState,
+          longitude: geometry.coordinates[0],
+          latitude: geometry.coordinates[1],
+          zoom: detailZoom
+        }))
+        setCurrentPoi(currentPoi)
+        togglePopup(true)
+      }
     }
   }, [featureCollection, queryId])
 
