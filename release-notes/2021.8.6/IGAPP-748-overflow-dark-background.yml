@@ -1,0 +1,7 @@
+issue_key: IGAPP-748
+show_in_stores: yes
+platforms:
+  - ios
+  - android
+en: We fixed the text contrast in a few places.
+de: Der Textkontrast wurde an einigen Stellen erhöht.
