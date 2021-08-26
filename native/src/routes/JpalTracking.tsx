@@ -58,9 +58,7 @@ const JpalTracking = (props: PropsType) => {
     appSettings
       .setJpalTrackingCode(value)
       .then(() => setError(false))
-      .catch(() => {
-        setError(true)
-      })
+      .catch(() => setError(true))
   }
 
   useEffect(() => {
@@ -70,20 +68,16 @@ const JpalTracking = (props: PropsType) => {
   }, [routeTrackingCode])
 
   useEffect(() => {
-    if (!settingsLoaded) {
-      appSettings
-        .loadSettings()
-        .then(settings => {
-          // Do not override previous set tracking code (e.g. from route params)
-          setTrackingCode(previous => previous ?? settings.jpalTrackingCode)
-          setTrackingEnabled(settings.jpalTrackingEnabled)
-          setSettingsLoaded(true)
-        })
-        .catch(() => {
-          setError(true)
-        })
-    }
-  }, [settingsLoaded])
+    appSettings
+      .loadSettings()
+      .then(settings => {
+        // Do not override previous set tracking code (e.g. from route params)
+        setTrackingCode(previous => previous ?? settings.jpalTrackingCode)
+        setTrackingEnabled(settings.jpalTrackingEnabled)
+        setSettingsLoaded(true)
+      })
+      .catch(() => setError(true))
+  }, [])
 
   const toggleTrackingEnabled = () => {
     const newTrackingEnabled = !trackingEnabled
@@ -91,9 +85,7 @@ const JpalTracking = (props: PropsType) => {
     appSettings
       .setJpalTrackingEnabled(newTrackingEnabled)
       .then(() => setError(false))
-      .catch(() => {
-        setError(true)
-      })
+      .catch(() => setError(true))
   }
 
   if (!settingsLoaded) {

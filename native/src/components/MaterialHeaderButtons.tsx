@@ -32,7 +32,6 @@ const MaterialHeaderButtons = (props: {
       {items}
       <OverflowMenu
         onPress={onOverflowMenuPress(cancelLabel)}
-        style={{ marginHorizontal: 10 }}
         OverflowIcon={<MaterialIcon name='more-vert' size={23} color={theme.colors.textColor} />}>
         {overflowItems}
       </OverflowMenu>
