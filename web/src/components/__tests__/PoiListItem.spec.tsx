@@ -16,6 +16,7 @@ describe('PoiListItem', () => {
       ['ar', '/augsburg/ar/locations/erster_poi']
     ]),
     location: new LocationModel({
+      id: 1,
       name: 'name',
       address: 'address',
       town: 'town',
