@@ -170,17 +170,22 @@ const Header = (props: PropsType): ReactElement => {
       disabled={!visible}
       title={t(title)}
       iconName={iconName}
-      onPress={onPress}
+      onPress={visible ? onPress : () => {}}
       style={{ opacity: visible ? 1 : 0 }}
+      // @ts-ignore accessibilityLabel missing in props
+      accessibilityLabel={t(title)}
     />
   )
 
   const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    <HiddenItem key={title} title={t(title)} onPress={onPress} />
+    // @ts-ignore accessibilityLabel missing in props
+    <HiddenItem key={title} title={t(title)} onPress={onPress} accessibilityLabel={t(title)} />
   )
 
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
+  const showItems = !peeking && !!goToLanguageChange && categoriesAvailable
+
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
@@ -200,8 +205,8 @@ const Header = (props: PropsType): ReactElement => {
           cancelLabel={t('cancel')}
           theme={theme}
           items={[
-            renderItem(HeaderButtonTitle.Search, 'search', !peeking && categoriesAvailable, goToSearch),
-            renderItem(HeaderButtonTitle.Language, 'language', !peeking && !!goToLanguageChange, goToLanguageChange)
+            renderItem(HeaderButtonTitle.Search, 'search', showItems, goToSearch),
+            renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange)
           ]}
           overflowItems={[
             showShare && renderOverflowItem(HeaderButtonTitle.Share, onShare),
