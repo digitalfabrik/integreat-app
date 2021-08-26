@@ -46,6 +46,7 @@ type ContentCategoryJsonType = {
   hash: string
 }
 type LocationJsonType = {
+  id: number | null | undefined
   address: string | null | undefined
   town: string | null | undefined
   postcode: string | null | undefined
@@ -382,6 +383,7 @@ class DatabaseConnector {
         availableLanguages: mapToObject(poi.availableLanguages),
         excerpt: poi.excerpt,
         location: {
+          id: poi.location.id,
           address: poi.location.address,
           town: poi.location.town,
           postcode: poi.location.postcode,
@@ -419,6 +421,7 @@ class DatabaseConnector {
         availableLanguages,
         excerpt: jsonObject.excerpt,
         location: new LocationModel({
+          id: jsonLocation.id,
           name: jsonLocation.name,
           region: jsonLocation.region,
           state: jsonLocation.state,
@@ -503,6 +506,7 @@ class DatabaseConnector {
           all_day: event.date.allDay
         },
         location: {
+          id: event.location.id,
           address: event.location.address,
           town: event.location.town,
           postcode: event.location.postcode,
@@ -564,6 +568,7 @@ class DatabaseConnector {
           allDay: jsonDate.all_day
         }),
         location: new LocationModel({
+          id: jsonObject.location.id,
           name: jsonObject.location.name,
           region: jsonObject.location.region,
           state: jsonObject.location.state,

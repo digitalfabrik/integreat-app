@@ -52,23 +52,24 @@ describe('Header', () => {
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE)
   })
+
   it('language header button should be enabled and visible after loading was finished', () => {
     const { getByLabelText } = render(<Header {...buildProps(false, true, 'screen', goToLanguageChange)} />)
     expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(goToLanguageChange).toHaveBeenCalledTimes(1)
   })
+
   it('search header button should be disabled and invisible while loading', () => {
     const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', goToLanguageChange)} />)
     expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 0 })
-    expect(getByLabelText(t('changeLanguage'))).toBeDisabled()
     fireEvent.press(getByLabelText(t('search')))
     expect(navigation.navigate).not.toHaveBeenCalled()
   })
+
   it('language header button should be disabled and invisible while loading', () => {
     const { getByLabelText } = render(<Header {...buildProps(true, true, 'screen', goToLanguageChange)} />)
     expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 0 })
-    expect(getByLabelText(t('changeLanguage'))).toBeDisabled()
     fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(goToLanguageChange).not.toHaveBeenCalled()
   })

@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { BBox, Feature } from 'geojson'
+import { BBox, Feature, Point } from 'geojson'
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -8,6 +8,7 @@ import {
   useLoadFromEndpoint,
   POIS_ROUTE,
   embedInCollection,
+  mapQueryId,
   MapViewViewport,
   defaultViewportConfig
 } from 'api-client'
@@ -108,8 +109,11 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }
 
   if (poi) {
-    const { thumbnail, lastUpdate, content, title, location } = poi
+    const { thumbnail, lastUpdate, content, title, location, featureLocation } = poi
     const pageTitle = `${title} - ${cityModel.name}`
+
+    const mapUrlParams = new URLSearchParams({ [mapQueryId]: String(location.id) })
+    const mapLink = `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapUrlParams}`
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
@@ -121,7 +125,14 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
           title={title}
           formatter={formatter}
           onInternalLinkClick={history.push}>
-          {location.location && <PageDetail identifier={t('location')} information={location.location} />}
+          {location.location && (
+            <PageDetail
+              identifier={t('location')}
+              information={location.location}
+              link={featureLocation ? mapLink : undefined}
+              linkLabel={t('map')}
+            />
+          )}
         </Page>
       </LocationLayout>
     )
@@ -129,7 +140,9 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
-  const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is Feature => !!feature)
+  const featureLocations = pois
+    .map(poi => poi.featureLocation)
+    .filter((feature): feature is Feature<Point> => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
