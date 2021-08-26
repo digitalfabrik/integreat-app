@@ -25,8 +25,8 @@ export class LocationFooter extends React.PureComponent<PropsType> {
     return (
       <Footer>
         <CleanLink to={disclaimerPath}>{t('imprintAndContact')}</CleanLink>
-        <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
-        <CleanAnchor href={privacyUrl}>{t('privacy')}</CleanAnchor>
+        <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
+        <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
       </Footer>
     )
   }
