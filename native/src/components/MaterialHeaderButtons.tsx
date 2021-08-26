@@ -9,9 +9,12 @@ import {
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { ThemeType } from 'build-configs'
 
-const MaterialHeaderButton = (props: { title: string; onPress: () => void }) => (
-  <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
-)
+const MaterialHeaderButton = (props: {
+  disabled: boolean
+  title: string
+  onPress: () => void
+  getButtonElement: () => React.ReactElement<any>
+}) => <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' disabled={true} />
 
 // Adjust cancel label for ios overflow menu of HeaderButtons
 const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMenuPressParams) =>
