@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ThemeType } from 'build-configs'
 import { Switch, Text, TextInput, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import AppSettings, { defaultSettings } from '../utils/AppSettings'
+import AppSettings from '../utils/AppSettings'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { JpalTrackingRouteType } from 'api-client'
 import styled from 'styled-components/native'
@@ -36,63 +36,58 @@ const Input = styled(TextInput)`
   text-align-vertical: top;
   height: 50px;
 `
+
 export type PropsType = {
   theme: ThemeType
   route: RoutePropType<JpalTrackingRouteType>
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
-const errorDisplayTime = 5000
+
 const appSettings = new AppSettings()
 
 const JpalTracking = (props: PropsType) => {
-  const [settings, setSettings] = useState(defaultSettings)
-  const [settingsLoaded, setSettingsLoaded] = useState(false)
-  const [error, setError] = useState(false)
   const routeTrackingCode = props.route.params.trackingCode
+  const [trackingCode, setTrackingCode] = useState<string | null>(routeTrackingCode)
+  const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
+  const [settingsLoaded, setSettingsLoaded] = useState(false)
+  const [error, setError] = useState<boolean>(false)
   const { t } = useTranslation(['settings', 'error'])
 
-  const loadSettings = useCallback(async () => {
-    try {
-      const loadedSettings = await appSettings.loadSettings().catch()
-      setSettingsLoaded(true)
-      setSettings(loadedSettings)
-      const timeout = setTimeout(() => setError(false), errorDisplayTime)
-      return () => clearTimeout(timeout)
-    } catch (e) {
-      setError(true)
-    }
-  }, [])
-
   useEffect(() => {
-    if (routeTrackingCode) {
+    if (!settingsLoaded) {
       appSettings
-        .setJpalTrackingCode(routeTrackingCode)
-        .then(() => loadSettings())
+        .loadSettings()
+        .then(settings => {
+          // Do not override previous set tracking code (e.g. from route params)
+          setTrackingCode(previous => previous ?? settings.jpalTrackingCode)
+          setTrackingEnabled(settings.jpalTrackingEnabled)
+          setSettingsLoaded(true)
+        })
         .catch(() => {
           setError(true)
-          loadSettings()
         })
     }
-  }, [routeTrackingCode, loadSettings])
-
-  useEffect(() => {
-    loadSettings()
-  }, [loadSettings])
+  }, [settingsLoaded])
 
   const toggleTrackingEnabled = () => {
-    setSettings({ ...settings, jpalTrackingEnabled: !settings.jpalTrackingEnabled })
-    appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).catch(() => {
-      setError(true)
-      loadSettings()
-    })
+    const newTrackingEnabled = !trackingEnabled
+    setTrackingEnabled(newTrackingEnabled)
+    appSettings
+      .setJpalTrackingEnabled(newTrackingEnabled)
+      .then(() => setError(false))
+      .catch(() => {
+        setError(true)
+      })
   }
 
-  const setTrackingCode = (value: string) => {
-    setSettings({ ...settings, jpalTrackingCode: value })
-    appSettings.setJpalTrackingCode(value).catch(() => {
-      setError(true)
-      loadSettings()
-    })
+  const updateTrackingCode = (value: string) => {
+    setTrackingCode(value)
+    appSettings
+      .setJpalTrackingCode(value)
+      .then(() => setError(false))
+      .catch(() => {
+        setError(true)
+      })
   }
 
   if (!settingsLoaded) {
@@ -119,7 +114,7 @@ const JpalTracking = (props: PropsType) => {
               true: props.theme.colors.themeColor,
               false: props.theme.colors.backgroundAccentColor
             }}
-            value={!!settings.jpalTrackingEnabled}
+            value={!!trackingEnabled}
             onValueChange={toggleTrackingEnabled}
             testID='switch'
           />
@@ -127,10 +122,10 @@ const JpalTracking = (props: PropsType) => {
 
         <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
         <Input
-          value={settings.jpalTrackingCode ?? undefined}
-          onChangeText={setTrackingCode}
+          value={trackingCode ?? ''}
+          onChangeText={updateTrackingCode}
           theme={theme}
-          editable={settings.jpalTrackingEnabled ?? undefined}
+          editable={!!trackingEnabled}
           testID='input'
         />
       </View>
