@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { Feature, Point } from 'geojson'
+import { BBox, Feature, Point } from 'geojson'
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -8,7 +8,9 @@ import {
   useLoadFromEndpoint,
   POIS_ROUTE,
   embedInCollection,
-  mapQueryId
+  mapQueryId,
+  MapViewViewport,
+  defaultViewportConfig
 } from 'api-client'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
@@ -28,6 +30,16 @@ import List from '../components/List'
 import Helmet from '../components/Helmet'
 import MapView from '../components/MapView'
 import { CityRouteProps } from '../CityContentSwitcher'
+import { WebMercatorViewport } from 'react-map-gl'
+
+const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
+  const mercatorVp = new WebMercatorViewport(defaultVp)
+  const vp = mercatorVp.fitBounds([
+    [bBox[0], bBox[1]],
+    [bBox[2], bBox[3]]
+  ])
+  return vp
+}
 
 type PropsType = CityRouteProps & RouteProps<typeof POIS_ROUTE>
 
@@ -37,6 +49,8 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const { t } = useTranslation('pois')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
+  // eslint-disable-next-line no-console
+  console.log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
 
   const requestPois = useCallback(async () => {
     return createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
@@ -134,7 +148,12 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
-      <MapView featureCollection={embedInCollection(featureLocations)} />
+      {cityModel.boundingBox && (
+        <MapView
+          featureCollection={embedInCollection(featureLocations)}
+          bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
+        />
+      )}
       <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
     </LocationLayout>
   )
