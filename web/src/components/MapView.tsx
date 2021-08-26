@@ -44,21 +44,21 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   const { featureCollection, bboxViewport } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [showPopup, togglePopup] = React.useState<boolean>(false)
-  const [currentPoi, setCurrentPoi] = React.useState<Feature<Point> | null>(null)
+  const [currentFeature, setCurrentFeature] = React.useState<Feature<Point> | null>(null)
   const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {
     if (queryId) {
-      const currentPoi = featureCollection.features.find(feature => feature.properties?.id === queryId)
-      if (currentPoi?.geometry.coordinates) {
-        const { geometry } = currentPoi
+      const currentFeature = featureCollection.features.find(feature => feature.properties?.id === queryId)
+      if (currentFeature?.geometry.coordinates) {
+        const { geometry } = currentFeature
         setViewport(prevState => ({
           ...prevState,
           longitude: geometry.coordinates[0],
           latitude: geometry.coordinates[1],
           zoom: detailZoom
         }))
-        setCurrentPoi(currentPoi)
+        setCurrentFeature(currentFeature)
         togglePopup(true)
       }
     }
@@ -66,7 +66,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
 
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
-      setCurrentPoi(e.features[0])
+      setCurrentFeature(e.features[0])
       togglePopup(true)
     } else {
       togglePopup(false)
@@ -88,8 +88,8 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
-          {showPopup && currentPoi && (
-            <MapPopup coordinates={currentPoi.geometry.coordinates} properties={currentPoi.properties} />
+          {showPopup && currentFeature && (
+            <MapPopup coordinates={currentFeature.geometry.coordinates} properties={currentFeature.properties} />
           )}
         </Source>
       </ReactMapGL>
