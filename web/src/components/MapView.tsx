@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { defaultViewportConfig, mapConfig } from 'api-client'
+import { mapConfig, MapViewViewport } from 'api-client'
 import { FeatureCollection } from 'geojson'
 
 const MapContainer = styled.div`
@@ -34,11 +34,12 @@ const geolocateControlStyle: React.CSSProperties = {
 
 interface MapViewProps {
   featureCollection: FeatureCollection
+  bboxViewport: MapViewViewport
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const [viewport, setViewport] = useState(defaultViewportConfig)
-  const { featureCollection } = props
+  const { featureCollection, bboxViewport } = props
+  const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
 
   return (
     <MapContainer>
