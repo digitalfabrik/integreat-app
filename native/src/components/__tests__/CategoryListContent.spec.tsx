@@ -14,6 +14,11 @@ jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
   return <Text>lastUpdate {lastUpdate.toISOString()}</Text>
 })
 
+jest.mock('../NativeHtml', () => ({ content }: { content: string }) => {
+  const Text = require('react-native').Text
+  return <Text>{content}</Text>
+})
+
 describe('CategoryListContent', () => {
   it('should display the last update timestamp correctly', () => {
     const content = 'This is some content'

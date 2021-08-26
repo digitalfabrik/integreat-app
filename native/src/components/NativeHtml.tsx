@@ -3,18 +3,18 @@ import { useWindowDimensions } from 'react-native'
 import { ReactElement, useCallback } from 'react'
 import { config } from 'translations'
 import { contentAlignment } from '../constants/contentDirection'
-import { ThemeType } from 'build-configs'
 import { RenderHTML, Element } from 'react-native-render-html'
+import { useTheme } from 'styled-components'
 
 type PropsType = {
-  theme: ThemeType
   language: string
   content: string
   cacheDictionary?: Record<string, string>
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
-const NativeHtml = ({ content, navigateToLink, cacheDictionary, language, theme }: PropsType): ReactElement => {
+const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: PropsType): ReactElement => {
+  const theme = useTheme()
   const width = useWindowDimensions().width
   const onLinkPress = useCallback(
     (_, url: string) => {
