@@ -32,6 +32,7 @@ const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
   border-color: ${props => (props.editable ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor)};
+  color: ${props => props.theme.colors.textColor};
   text-align-vertical: top;
   height: 50px;
 `
@@ -49,6 +50,7 @@ const JpalTracking = (props: PropsType) => {
   const [error, setError] = useState(false)
   const routeTrackingCode = props.route.params.trackingCode
   const { t } = useTranslation(['settings', 'error'])
+
   const loadSettings = useCallback(async () => {
     try {
       const loadedSettings = await appSettings.loadSettings().catch()
@@ -60,6 +62,7 @@ const JpalTracking = (props: PropsType) => {
       setError(true)
     }
   }, [])
+
   useEffect(() => {
     if (routeTrackingCode) {
       appSettings
@@ -71,6 +74,7 @@ const JpalTracking = (props: PropsType) => {
         })
     }
   }, [routeTrackingCode, loadSettings])
+
   useEffect(() => {
     loadSettings()
   }, [loadSettings])
