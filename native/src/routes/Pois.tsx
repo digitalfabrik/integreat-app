@@ -13,7 +13,7 @@ import PoiListItem from '../components/PoiListItem'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import MapView from '../components/MapView'
 import { useTheme } from 'styled-components'
-import FailureContainer from 'src/components/FailureContainer'
+import FailureContainer from '../components/FailureContainer'
 
 export type PropsType = {
   path: string | null | undefined
