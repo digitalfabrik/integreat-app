@@ -1,12 +1,11 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { View } from 'react-native'
-import { TFunction, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { CityModel, fromError, NotFoundError, PoiModel, POIS_ROUTE, RouteInformationType } from 'api-client'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import List from '../components/List'
 import Caption from '../components/Caption'
-import Failure from '../components/Failure'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
@@ -14,6 +13,7 @@ import PoiListItem from '../components/PoiListItem'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import MapView from '../components/MapView'
 import { useTheme } from 'styled-components'
+import FailureContainer from 'src/components/FailureContainer'
 
 export type PropsType = {
   path: string | null | undefined
@@ -43,7 +43,7 @@ const Pois = ({
   navigateToFeedback,
   navigateToLink
 }: PropsType): ReactElement => {
-  const { t } = useTranslation('poi')
+  const { t } = useTranslation('pois')
   const theme = useTheme()
 
   const navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
@@ -120,7 +120,7 @@ const Pois = ({
       city: cityModel.code,
       language
     })
-    return <Failure code={fromError(error)} t={t as TFunction<string>} theme={theme} />
+    return <FailureContainer code={fromError(error)} />
   }
 
   return (
