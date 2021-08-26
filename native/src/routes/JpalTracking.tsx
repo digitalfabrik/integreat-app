@@ -46,12 +46,28 @@ export type PropsType = {
 const appSettings = new AppSettings()
 
 const JpalTracking = (props: PropsType) => {
-  const routeTrackingCode = props.route.params.trackingCode
-  const [trackingCode, setTrackingCode] = useState<string | null>(routeTrackingCode)
+  const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
   const [error, setError] = useState<boolean>(false)
   const { t } = useTranslation(['settings', 'error'])
+  const routeTrackingCode = props.route.params.trackingCode
+
+  const updateTrackingCode = (value: string) => {
+    setTrackingCode(value)
+    appSettings
+      .setJpalTrackingCode(value)
+      .then(() => setError(false))
+      .catch(() => {
+        setError(true)
+      })
+  }
+
+  useEffect(() => {
+    if (routeTrackingCode) {
+      updateTrackingCode(routeTrackingCode)
+    }
+  }, [routeTrackingCode])
 
   useEffect(() => {
     if (!settingsLoaded) {
@@ -74,16 +90,6 @@ const JpalTracking = (props: PropsType) => {
     setTrackingEnabled(newTrackingEnabled)
     appSettings
       .setJpalTrackingEnabled(newTrackingEnabled)
-      .then(() => setError(false))
-      .catch(() => {
-        setError(true)
-      })
-  }
-
-  const updateTrackingCode = (value: string) => {
-    setTrackingCode(value)
-    appSettings
-      .setJpalTrackingCode(value)
       .then(() => setError(false))
       .catch(() => {
         setError(true)
