@@ -9,7 +9,7 @@ describe('Categories', () => {
     await DashboardPage.openCategory('Welcome')
   })
 
-  it('Should open category "Welcome" and display sub categories', async () => {
+  it('should open category "Welcome" and display sub categories', async () => {
     expect(await getUrl()).toBe(`/${Routes.dashboard}/welcome`)
 
     const subCategory = await $(`*=Welcome to [Stadt]`)
