@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import FailureIcon from '../assets/FailureIcon.svg'
 import { Button } from 'react-native-elements'
 import { ErrorCode } from 'api-client'
@@ -19,11 +19,11 @@ const IconContainer = styled.Image`
 export type PropsType = {
   code: ErrorCode
   tryAgain?: () => void
-  t: TFunction<string>
   theme: ThemeType
 }
 
-const Failure = ({ code, tryAgain, theme, t }: PropsType): ReactElement => {
+const Failure = ({ code, tryAgain, theme }: PropsType): ReactElement => {
+  const { t } = useTranslation('error')
   return (
     <ViewContainer>
       <IconContainer source={FailureIcon} />
