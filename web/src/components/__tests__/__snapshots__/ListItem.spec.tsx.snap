@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ListItem should render a Link and match snapshot 1`] = `
-<Styled(Styled(Link))
+<Styled(CleanLink)
   to="/augsburg/en/events/first_event"
 >
   <styled.img
@@ -13,12 +13,12 @@ exports[`ListItem should render a Link and match snapshot 1`] = `
       first Event
     </styled.div>
   </styled.div>
-</Styled(Styled(Link))>
+</Styled(CleanLink)>
 `;
 
 exports[`ListItem should render an Anchor and match snapshot 1`] = `
-<Styled(CleanAnchor)
-  href="/augsburg/en/events/first_event"
+<Styled(CleanLink)
+  to="https://tuerantuer.org"
 >
   <styled.img
     alt=""
@@ -29,5 +29,5 @@ exports[`ListItem should render an Anchor and match snapshot 1`] = `
       first Event
     </styled.div>
   </styled.div>
-</Styled(CleanAnchor)>
+</Styled(CleanLink)>
 `;
