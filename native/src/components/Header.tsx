@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Share, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
-import { Item } from 'react-navigation-header-buttons'
+import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import { Dispatch } from 'redux'
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
@@ -164,25 +164,20 @@ const Header = (props: PropsType): ReactElement => {
       : `${forceNewlineAfterChar(routeCityModel.sortingName, '-')}${description}`
   }
 
-  const renderItem = (
-    title: string,
-    show: boolean,
-    onPress?: () => void,
-    iconName?: string,
-    visible = true
-  ): ReactElement => {
-    return (
-      <Item
-        disabled={!visible}
-        title={t(title)}
-        accessibilityLabel={t(title)}
-        iconName={iconName || undefined}
-        show={show ? 'always' : 'never'}
-        onPress={onPress}
-        style={{ opacity: visible ? 1 : 0 }}
-      />
-    )
-  }
+  const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
+    <Item
+      key={title}
+      disabled={!visible}
+      title={t(title)}
+      iconName={iconName}
+      onPress={onPress}
+      style={{ opacity: visible ? 1 : 0 }}
+    />
+  )
+
+  const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
+    <HiddenItem key={title} title={t(title)} onPress={onPress} />
+  )
 
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
@@ -201,20 +196,20 @@ const Header = (props: PropsType): ReactElement => {
             </HeaderText>
           )}
         </HorizontalLeft>
-        <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-          {renderItem(HeaderButtonTitle.Search, true, goToSearch, 'search', !peeking && categoriesAvailable)}
-          {renderItem(
-            HeaderButtonTitle.Language,
-            true,
-            goToLanguageChange,
-            'language',
-            !peeking && !!goToLanguageChange
-          )}
-          {showShare && renderItem(HeaderButtonTitle.Share, false, onShare)}
-          {showChangeLocation && renderItem(HeaderButtonTitle.Location, false, goToLanding)}
-          {renderItem(HeaderButtonTitle.Settings, false, goToSettings)}
-          {routeCityModel && renderItem(HeaderButtonTitle.Disclaimer, false, goToDisclaimer)}
-        </MaterialHeaderButtons>
+        <MaterialHeaderButtons
+          cancelLabel={t('cancel')}
+          theme={theme}
+          items={[
+            renderItem(HeaderButtonTitle.Search, 'search', !peeking && categoriesAvailable, goToSearch),
+            renderItem(HeaderButtonTitle.Language, 'language', !peeking && !!goToLanguageChange, goToLanguageChange)
+          ]}
+          overflowItems={[
+            showShare && renderOverflowItem(HeaderButtonTitle.Share, onShare),
+            showChangeLocation && renderOverflowItem(HeaderButtonTitle.Location, goToLanding),
+            renderOverflowItem(HeaderButtonTitle.Settings, goToSettings),
+            routeCityModel && renderOverflowItem(HeaderButtonTitle.Disclaimer, goToDisclaimer)
+          ]}
+        />
       </Horizontal>
     </BoxShadow>
   )
