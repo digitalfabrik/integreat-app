@@ -1,12 +1,13 @@
 import React, { ReactElement, useState, useEffect } from 'react'
-import ReactMapGL, { Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
+import { useLocation } from 'react-router-dom'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { defaultViewportConfig, detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
 import { FeatureCollection, Feature, Point } from 'geojson'
-import { useLocation } from 'react-router-dom'
+import { detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
 
 import MapPopup from './MapPopup'
+
 
 const MapContainer = styled.div`
   display: flex;
@@ -30,17 +31,22 @@ const layerStyle: LayerProps = {
   },
   paint: {}
 }
+const geolocateControlStyle: React.CSSProperties = {
+  right: 10,
+  top: 10
+}
 
 interface MapViewProps {
+  bboxViewport: MapViewViewport
   featureCollection: FeatureCollection<Point>
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const [viewport, setViewport] = useState<MapViewViewport>(defaultViewportConfig)
-  const [showPopup, togglePopup] = React.useState<boolean>(false)
+  const { featureCollection, bboxViewport } = props
+  const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
+ const [showPopup, togglePopup] = React.useState<boolean>(false)
   const [currentPoi, setCurrentPoi] = React.useState<Feature<Point> | null>(null)
 
-  const { featureCollection } = props
   const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {
@@ -78,6 +84,11 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={clickItem}>
+        <GeolocateControl
+          style={geolocateControlStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+        />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
           {showPopup && currentPoi && (

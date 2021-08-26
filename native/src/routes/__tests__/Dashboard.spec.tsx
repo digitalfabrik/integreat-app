@@ -60,7 +60,8 @@ describe('Dashboard', () => {
           latitude: 48.267499,
           longitude: 10.889586
         }
-      }
+      },
+      boundingBox: null
     })
 
   const mockBuildConfig = (pois: boolean, newsStream: boolean) => {
