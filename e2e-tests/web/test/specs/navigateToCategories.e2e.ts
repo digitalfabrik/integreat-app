@@ -1,7 +1,7 @@
 import { Routes } from '../../../shared/constants'
 import CategoriesPage from '../pageobjects/categories.page'
 import DashboardPage from '../pageobjects/dashboard.page'
-import { getUrl } from '../utils/helpers'
+import { getPathname } from '../utils/helpers'
 
 describe('Categories', () => {
   beforeEach(async () => {
@@ -10,7 +10,7 @@ describe('Categories', () => {
   })
 
   it('should open category "Welcome" and display sub categories', async () => {
-    expect(await getUrl()).toBe(`/${Routes.dashboard}/welcome`)
+    expect(await getPathname()).toBe(`/${Routes.dashboard}/welcome`)
 
     const subCategory = await $(`*=Welcome to [Stadt]`)
     expect(await subCategory.isDisplayed()).toBeTrue()
