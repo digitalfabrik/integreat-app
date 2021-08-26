@@ -1,9 +1,12 @@
-import React, { ReactElement, useState } from 'react'
-import ReactMapGL, { GeolocateControl, Layer, LayerProps, Source } from 'react-map-gl'
+import React, { ReactElement, useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { mapConfig, MapViewViewport } from 'api-client'
-import { FeatureCollection } from 'geojson'
+import { FeatureCollection, Feature, Point } from 'geojson'
+import { detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
+
+import MapPopup from './MapPopup'
 
 const MapContainer = styled.div`
   display: flex;
@@ -33,17 +36,51 @@ const geolocateControlStyle: React.CSSProperties = {
 }
 
 interface MapViewProps {
-  featureCollection: FeatureCollection
   bboxViewport: MapViewViewport
+  featureCollection: FeatureCollection<Point>
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const { featureCollection, bboxViewport } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
+  const [showPopup, togglePopup] = React.useState<boolean>(false)
+  const [currentFeature, setCurrentFeature] = React.useState<Feature<Point> | null>(null)
+  const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
+
+  useEffect(() => {
+    if (queryId) {
+      const currentFeature = featureCollection.features.find(feature => feature.properties?.id === queryId)
+      if (currentFeature?.geometry.coordinates) {
+        const { geometry } = currentFeature
+        setViewport(prevState => ({
+          ...prevState,
+          longitude: geometry.coordinates[0],
+          latitude: geometry.coordinates[1],
+          zoom: detailZoom
+        }))
+        setCurrentFeature(currentFeature)
+        togglePopup(true)
+      }
+    }
+  }, [featureCollection, queryId])
+
+  const clickItem = (e: MapEvent) => {
+    if (e.features?.length) {
+      setCurrentFeature(e.features[0])
+      togglePopup(true)
+    } else {
+      togglePopup(false)
+    }
+  }
 
   return (
     <MapContainer>
-      <ReactMapGL {...viewport} onViewportChange={setViewport} mapStyle={mapConfig.styleJSON}>
+      <ReactMapGL
+        interactiveLayerIds={[layerStyle.id!]}
+        {...viewport}
+        onViewportChange={setViewport}
+        mapStyle={mapConfig.styleJSON}
+        onClick={clickItem}>
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
@@ -51,6 +88,9 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
+          {showPopup && currentFeature && (
+            <MapPopup coordinates={currentFeature.geometry.coordinates} properties={currentFeature.properties} />
+          )}
         </Source>
       </ReactMapGL>
     </MapContainer>
