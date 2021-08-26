@@ -6,6 +6,7 @@ import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment-timezone'
 import LocationModel from '../models/LocationModel'
 import Endpoint from '../Endpoint'
+
 export const POIS_ENDPOINT_NAME = 'pois'
 type ParamsType = {
   city: string
@@ -27,6 +28,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
             availableLanguages: mapAvailableLanguages(poi.available_languages),
             excerpt: poi.excerpt,
             location: new LocationModel({
+              id: poi.location.id,
               name: poi.location.name,
               address: poi.location.address,
               town: poi.location.town,
