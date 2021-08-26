@@ -1,0 +1,6 @@
+issue_key: IGAPP-540
+show_in_stores: false
+platforms:
+  - ios
+  - android
+en: Locations are now displayed on the map.
