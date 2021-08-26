@@ -13,8 +13,8 @@ const MaterialHeaderButton = (props: {
   disabled: boolean
   title: string
   onPress: () => void
-  getButtonElement: () => React.ReactElement<any>
-}) => <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' disabled={true} />
+  getButtonElement: () => ReactNode
+}) => <HeaderButton {...props} IconComponent={MaterialIcon} iconSize={23} color='black' />
 
 // Adjust cancel label for ios overflow menu of HeaderButtons
 const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMenuPressParams) =>
