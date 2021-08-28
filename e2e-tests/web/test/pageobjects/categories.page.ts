@@ -1,12 +1,12 @@
 import Page from './page'
 
-class CategoriesPage extends Page {
-  public findCategory(cat: string) {
-    return $(`*=${cat}`)
+export class CategoriesPage extends Page {
+  public findCategory(category: string): Promise<WebdriverIO.Element> {
+    return $(`*=${category}`)
   }
 
-  public async openCategory(category: string) {
-    return (await $(`*=${category}`)).click()
+  public async openCategory(category: string): Promise<void> {
+    return (await this.findCategory(category)).click()
   }
 }
 
