@@ -7,7 +7,7 @@ describe('Categories', () => {
   const category = 'Welcome'
   const subCategory = 'Welcome to [Stadt]'
   const leafCategory = 'Community life in Germany'
-  
+
   beforeEach(async () => {
     await dashboardPage.open()
     await dashboardPage.openCategory(category)
