@@ -1,43 +1,47 @@
 import { Routes } from '../../../shared/constants'
-import CategoriesPage from '../pageobjects/categories.page'
-import DashboardPage from '../pageobjects/dashboard.page'
+import categoriesPage from '../pageobjects/categories.page'
+import dashboardPage from '../pageobjects/dashboard.page'
 import { getPathname } from '../utils/helpers'
 
 describe('Categories', () => {
+  const category = 'Welcome'
+  const subCategory = 'Welcome to [Stadt]'
+  const leafCategory = 'Community life in Germany'
+  
   beforeEach(async () => {
-    await DashboardPage.open()
-    await DashboardPage.openCategory('Welcome')
+    await dashboardPage.open()
+    await dashboardPage.openCategory(category)
   })
 
-  it('should open category "Welcome" and display sub categories', async () => {
+  it('should open category and display sub categories', async () => {
     expect(await getPathname()).toBe(`/${Routes.dashboard}/welcome`)
 
-    const subCategory = await $(`*=Welcome to [Stadt]`)
-    expect(await subCategory.isDisplayed()).toBeTrue()
+    const subCategoryEl = await $(`*=${subCategory}`)
+    expect(await subCategoryEl.isDisplayed()).toBeTrue()
 
-    const leaf = await $(`*=Community life in Germany`)
+    const leaf = await $(`*=${leafCategory}`)
     expect(await leaf.isDisplayed()).toBeTrue()
   })
 
-  it('Should open sub category "Welcome to [Stadt]"', async () => {
-    await CategoriesPage.openCategory('Welcome to [Stadt]')
+  it('should open sub category', async () => {
+    await categoriesPage.openCategory(subCategory)
 
-    const headline = await $('h1=Welcome to [Stadt]')
+    const headline = await $(`h1=${subCategory}`)
     expect(await headline.isDisplayed()).toBeTrue()
   })
 
-  it('Should open leaf "Community life" in category "Welcome"', async () => {
-    await CategoriesPage.openCategory('Community life in Germany')
+  it('should open leaf in category', async () => {
+    await categoriesPage.openCategory(leafCategory)
 
-    const headline = await $('h1=Community life in Germany')
+    const headline = await $(`h1=${leafCategory}`)
     expect(await headline.isDisplayed()).toBeTrue()
   })
 
-  it('Should open leaf "Community life" in sub category "Welcome to [Stadt]"', async () => {
-    await CategoriesPage.openCategory('Welcome to [Stadt]')
-    await CategoriesPage.openCategory('Community life in Germany')
+  it('should open leaf in sub category', async () => {
+    await categoriesPage.openCategory(subCategory)
+    await categoriesPage.openCategory(leafCategory)
 
-    const headline = await $('h1=Community life in Germany')
+    const headline = await $(`h1=${leafCategory}`)
     expect(await headline.isDisplayed()).toBeTrue()
   })
 })
