@@ -37,11 +37,14 @@ describe('Categories', () => {
     expect(await headline.isDisplayed()).toBeTrue()
   })
 
-  it('should open leaf in sub category', async () => {
+  it('should open leaf in sub category and display the content', async () => {
     await categoriesPage.openCategory(subCategory)
     await categoriesPage.openCategory(leafCategory)
 
     const headline = await $(`h1=${leafCategory}`)
     expect(await headline.isDisplayed()).toBeTrue()
+
+    const contentExcerpt = await $('li*=Everyone is allowed to have their own opinion.')
+    expect(await contentExcerpt.isDisplayed()).toBeTrue()
   })
 })
