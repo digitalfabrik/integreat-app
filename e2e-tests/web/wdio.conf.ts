@@ -6,7 +6,7 @@ export const config = {
   exclude: [],
   maxInstances: 10,
 
-  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.chrome],
+  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.browser],
   logLevel: 'info',
   coloredLogs: true,
   bail: 0,
