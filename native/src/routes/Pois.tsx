@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { CityModel, fromError, NotFoundError, PoiModel, POIS_ROUTE, RouteInformationType } from 'api-client'
 import Page from '../components/Page'
@@ -124,19 +124,21 @@ const Pois = ({
   }
 
   return (
-    <SpaceBetween>
-      <View>
-        <Caption title={t('poi')} theme={theme} />
-        {cityModel.boundingBox && <MapView boundingBox={cityModel.boundingBox} />}
-        <List
-          noItemsMessage={t('currentlyNoPois')}
-          items={sortedPois}
-          renderItem={renderPoiListItem(cityModel.code, language)}
-          theme={theme}
-        />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />
-    </SpaceBetween>
+    <ScrollView>
+      <SpaceBetween>
+        <View>
+          <Caption title={t('poi')} theme={theme} />
+          {cityModel.boundingBox && <MapView boundingBox={cityModel.boundingBox} />}
+          <List
+            noItemsMessage={t('currentlyNoPois')}
+            items={sortedPois}
+            renderItem={renderPoiListItem(cityModel.code, language)}
+            theme={theme}
+          />
+        </View>
+        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />
+      </SpaceBetween>
+    </ScrollView>
   )
 }
 
