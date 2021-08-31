@@ -33,18 +33,18 @@ const ThumbnailContainer = styled(SimpleImage)`
 `
 
 type LocationButtonProps = {
-  setLocationPermission: (locationPermission: boolean) => void
+  updateLocationPermission: (locationPermission: boolean) => void
 }
 
-const LocationButton = ({ setLocationPermission }: LocationButtonProps): ReactElement => {
+const LocationButton = ({ updateLocationPermission }: LocationButtonProps): ReactElement => {
 
   useEffect(() => {
-    checkLocationPermission().then(locationPermissionStatus => setLocationPermission(locationPermissionStatus === RESULTS.GRANTED))
-  }, [setLocationPermission])
+    checkLocationPermission().then(locationPermissionStatus => updateLocationPermission(locationPermissionStatus === RESULTS.GRANTED))
+  }, [updateLocationPermission])
 
   const requestPermission = useCallback(() => {
-    requestLocationPermission().then(locationPermissionStatus => setLocationPermission(locationPermissionStatus === RESULTS.GRANTED))
-  }, [setLocationPermission])
+    requestLocationPermission().then(locationPermissionStatus => updateLocationPermission(locationPermissionStatus === RESULTS.GRANTED))
+  }, [updateLocationPermission])
 
   return (
     <Circle>
