@@ -8,6 +8,11 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))
 }))
 
+jest.mock('styled-components', () => ({
+  ...jest.requireActual('styled-components'),
+  useTheme: () => buildConfig().lightTheme
+}))
+
 describe('NativeHtml', () => {
   const navigateToLink = jest.fn()
   const dictUrl = 'https://my.cust/om/dict/url'
@@ -30,7 +35,6 @@ describe('NativeHtml', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='de'
-        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(content1)).toBeTruthy()
@@ -50,7 +54,6 @@ describe('NativeHtml', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='ar'
-        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(content1)).toBeTruthy()
@@ -69,7 +72,6 @@ describe('NativeHtml', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='de'
-        theme={buildConfig().lightTheme}
       />
     )
     fireEvent.press(getByText(text1))
@@ -84,14 +86,7 @@ describe('NativeHtml', () => {
     const text1 = 'Click me!'
     const content1 = `<a href='${url1}'>${text1}</a>`
     const htmlContent = `<div><p dir='rtl'>${content1}</p></div>`
-    const { getByText } = render(
-      <NativeHtml
-        content={htmlContent}
-        navigateToLink={navigateToLink}
-        language='de'
-        theme={buildConfig().lightTheme}
-      />
-    )
+    const { getByText } = render(<NativeHtml content={htmlContent} navigateToLink={navigateToLink} language='de' />)
     fireEvent.press(getByText(text1))
     expect(navigateToLink).toHaveBeenCalledTimes(1)
     expect(navigateToLink).toHaveBeenCalledWith(url1, 'de', url1)
