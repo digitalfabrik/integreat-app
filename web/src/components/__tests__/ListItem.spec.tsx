@@ -1,19 +1,22 @@
-import React from 'react'
-import { render } from 'enzyme'
+import React, { FunctionComponent } from 'react'
+import { render } from '@testing-library/react'
 
 import ListItem from '../ListItem'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 
-// TODO write a proper test
+describe('ListItemSpec', () => {
+  const path = 'https://tuerantuer.org'
 
-describe('ListItem', () => {
-  const path = '/augsburg/en/events/first_event'
-  const pathExternal = 'https://tuerantuer.org'
-
-  it('should render a Link and match snapshot', () => {
-    expect(render(<ListItem thumbnail='thumbnail' title='first Event' path={path} />)).toMatchSnapshot()
+  it('should not render thumbnail in the ListItem', () => {
+    const { getByRole } = render(<ListItem title='first Event' path={path} />, {
+      wrapper: wrapWithTheme as FunctionComponent
+    })
+    expect(getByRole('link').closest('img')).not.toBeInTheDocument()
   })
-
-  it('should render an Anchor and match snapshot', () => {
-    expect(render(<ListItem thumbnail='thumbnail' title='first Event' path={pathExternal} />)).toMatchSnapshot()
+  it('should render thumbnail in the ListItem', () => {
+    const { getByRole } = render(<ListItem title='first Event' thumbnail='thumbnail' path={path} />, {
+      wrapper: wrapWithTheme as FunctionComponent
+    })
+    expect(getByRole('img')).toBeInTheDocument()
   })
 })
