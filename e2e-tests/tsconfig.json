@@ -12,6 +12,7 @@
       "@wdio/browserstack-service",
       "@wdio/appium-service"
     ],
+    "sourceMap": true,
     "typeRoots": ["./node_modules/@types"]
   },
   "include": ["web", "native", "shared"]

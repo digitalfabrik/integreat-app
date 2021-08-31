@@ -16,6 +16,7 @@ const Input = styled(TextInput)`
   border-width: 1px;
   border-color: ${props => props.theme.colors.themeColor};
   text-align-vertical: top;
+  color: ${props => props.theme.colors.textColor};
 `
 const MailInput = styled(Input)`
   height: 50px;
