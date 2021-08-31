@@ -1,7 +1,15 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { CityModel, fromError, NotFoundError, PoiModel, POIS_ROUTE, RouteInformationType } from 'api-client'
+import {
+  CityModel,
+  embedInCollection,
+  fromError,
+  NotFoundError,
+  PoiModel,
+  POIS_ROUTE,
+  RouteInformationType
+} from 'api-client'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import List from '../components/List'
@@ -14,6 +22,7 @@ import { FeedbackInformationType } from '../components/FeedbackContainer'
 import MapView from '../components/MapView'
 import { useTheme } from 'styled-components'
 import FailureContainer from '../components/FailureContainer'
+import type { Feature, Point } from 'geojson'
 
 export type PropsType = {
   path: string | null | undefined
@@ -123,11 +132,17 @@ const Pois = ({
     return <FailureContainer code={fromError(error)} />
   }
 
+  const featureLocations = pois
+    .map(poi => poi.featureLocation)
+    .filter((feature): feature is Feature<Point> => !!feature)
+
   return (
     <SpaceBetween>
       <View>
         <Caption title={t('poi')} theme={theme} />
-        {cityModel.boundingBox && <MapView boundingBox={cityModel.boundingBox} />}
+        {cityModel.boundingBox && (
+          <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
+        )}
         <List
           noItemsMessage={t('currentlyNoPois')}
           items={sortedPois}
