@@ -26,7 +26,7 @@ const CategoryListContent = ({
   navigateToLink,
   cacheDictionary,
   language,
-  lastUpdate,
+  lastUpdate
 }: ContentPropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   return (
