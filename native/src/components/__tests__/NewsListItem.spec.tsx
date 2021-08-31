@@ -33,7 +33,8 @@ describe('NewsListItem', () => {
         language={language}
         navigateToNews={navigateToNews}
         isTunews={isTuNews}
-      />, { wrapper: wrapWithTheme }
+      />,
+      { wrapper: wrapWithTheme }
     )
 
   beforeEach(() => {
