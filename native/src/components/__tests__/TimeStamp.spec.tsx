@@ -3,8 +3,7 @@ import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
 import { TimeStamp } from '../TimeStamp'
 import { DateFormatter } from 'api-client'
-import buildConfig from '../../constants/__mocks__/buildConfig'
-import { ThemeProvider } from 'styled-components/native'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 
 jest.mock('react-i18next')
 
@@ -14,14 +13,12 @@ describe('TimeStamp', () => {
 
   const renderTimeStamp = (format: string | null, showText: boolean | null): RenderAPI =>
     render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <TimeStamp
-          formatter={dateFormatter}
-          lastUpdate={lastUpdate}
-          format={format ?? undefined}
-          showText={showText ?? undefined}
-        />
-      </ThemeProvider>
+      <TimeStamp
+        formatter={dateFormatter}
+        lastUpdate={lastUpdate}
+        format={format ?? undefined}
+        showText={showText ?? undefined}
+      />, { wrapper: wrapWithTheme }
     )
 
   it('should display last update text and formatted timestamp', () => {

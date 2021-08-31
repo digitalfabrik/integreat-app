@@ -54,7 +54,6 @@ describe('NativeHtml', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='ar'
-        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(content1)).toBeTruthy()
@@ -73,7 +72,6 @@ describe('NativeHtml', () => {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         language='de'
-        theme={buildConfig().lightTheme}
       />
     )
     fireEvent.press(getByText(text1))

@@ -76,7 +76,7 @@ const Page = ({
           language={language}
           resourceCacheUrl={resourceCacheUrl}
         />
-        {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} theme={theme} />}
+        {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
       </Container>
       {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />}
     </SpaceBetween>

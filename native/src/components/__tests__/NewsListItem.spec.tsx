@@ -1,10 +1,9 @@
-import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
 import NewsListItem from '../NewsListItem'
 import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
-import buildConfig from '../../constants/__mocks__/buildConfig'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 
 jest.mock('react-i18next')
 
@@ -28,15 +27,13 @@ describe('NewsListItem', () => {
 
   const renderNewsListItem = (newsItem: LocalNewsModel | TunewsModel, isTuNews: boolean): RenderAPI =>
     render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <NewsListItem
-          index={0}
-          newsItem={newsItem}
-          language={language}
-          navigateToNews={navigateToNews}
-          isTunews={isTuNews}
-        />
-      </ThemeProvider>
+      <NewsListItem
+        index={0}
+        newsItem={newsItem}
+        language={language}
+        navigateToNews={navigateToNews}
+        isTunews={isTuNews}
+      />, { wrapper: wrapWithTheme }
     )
 
   beforeEach(() => {
