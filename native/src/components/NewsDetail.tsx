@@ -2,7 +2,6 @@ import * as React from 'react'
 import { ReactElement, useContext } from 'react'
 import { ScrollView, View } from 'react-native'
 import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 import { contentAlignment } from '../constants/contentDirection'
 import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
@@ -40,13 +39,12 @@ const NewsHeadLine = styled.Text`
   margin-bottom: 15px;
 `
 type PropsType = {
-  theme: ThemeType
   language: string
   newsItem: TunewsModel | LocalNewsModel
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
-const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): ReactElement => {
+const NewsDetail = ({ newsItem, language, navigateToLink }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
   return (
@@ -67,17 +65,11 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
           </HeaderImageWrapper>
         )}
         <Container>
-          <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
-          <NativeHtml theme={theme} language={language} content={content} navigateToLink={navigateToLink} />
+          <NewsHeadLine>{newsItem.title}</NewsHeadLine>
+          <NativeHtml language={language} content={content} navigateToLink={navigateToLink} />
           {newsItem instanceof LocalNewsModel && (
             <TimeStampContent language={language}>
-              <TimeStamp
-                formatter={formatter}
-                lastUpdate={newsItem.timestamp}
-                showText={false}
-                format={'LLL'}
-                theme={theme}
-              />
+              <TimeStamp formatter={formatter} lastUpdate={newsItem.timestamp} showText={false} format={'LLL'} />
             </TimeStampContent>
           )}
         </Container>
