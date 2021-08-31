@@ -100,6 +100,7 @@ describe('events', () => {
         endDate
       }),
       location: new LocationModel({
+        id: 1234,
         name: 'Senkelfabrik',
         address: 'Wertachstr. 29',
         town: 'Augsburg',

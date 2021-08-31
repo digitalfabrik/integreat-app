@@ -1,7 +1,7 @@
-import Page from './page'
+import { CategoriesPage } from './categories.page'
 import { Routes } from '../../../shared/constants'
 
-class DashboardPage extends Page {
+class DashboardPage extends CategoriesPage {
   get searchIcon() {
     return $("//header//a[@aria-label='Search']")
   }

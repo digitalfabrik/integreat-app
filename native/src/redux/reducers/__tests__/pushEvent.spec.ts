@@ -21,6 +21,7 @@ describe('pushEvent', () => {
     }),
     hash: '123456',
     location: new LocationModel({
+      id: 1,
       name: 'name',
       address: 'address',
       town: 'town',
@@ -181,6 +182,7 @@ describe('pushEvent', () => {
             thumbnail: '',
             featuredImage: null,
             location: new LocationModel({
+              id: 1,
               name: 'name',
               address: 'address',
               town: 'town',

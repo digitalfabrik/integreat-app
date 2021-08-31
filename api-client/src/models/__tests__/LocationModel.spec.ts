@@ -6,6 +6,7 @@ describe('LocationModel', () => {
     it('should return null if town, address and name is null', () => {
       expect(
         new LocationModel({
+          id: null,
           name: null,
           country: null,
           region: null,
@@ -19,6 +20,7 @@ describe('LocationModel', () => {
     it('should only return town (and postcode) if address is null', () => {
       expect(
         new LocationModel({
+          id: null,
           name: null,
           country: null,
           region: null,
@@ -30,6 +32,7 @@ describe('LocationModel', () => {
       ).toBe('86161 Augsburg')
       expect(
         new LocationModel({
+          id: null,
           name: null,
           country: null,
           region: null,
@@ -42,6 +45,7 @@ describe('LocationModel', () => {
     })
     it('should include the name if available', () => {
       const location = new LocationModel({
+        id: null,
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -54,6 +58,7 @@ describe('LocationModel', () => {
     })
     it('should exclude the name if unavailable', () => {
       const location = new LocationModel({
+        id: null,
         name: null,
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -74,12 +79,14 @@ describe('convertToPoint', () => {
       coordinates: [31.133859, 29.979848]
     },
     properties: {
+      id: 1,
       title: 'Test',
       symbol: '9'
     }
   }
   it('should be transformed to GeoJson type', () => {
     const location = new LocationModel({
+      id: 1,
       name: 'Test',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -94,6 +101,7 @@ describe('convertToPoint', () => {
   })
   it('should return null when latitude is null ', () => {
     const location = new LocationModel({
+      id: 1,
       name: 'Test',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -108,6 +116,7 @@ describe('convertToPoint', () => {
   })
   it('should return null when longitude is null ', () => {
     const location = new LocationModel({
+      id: 1,
       name: 'Test',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
