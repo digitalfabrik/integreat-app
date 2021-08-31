@@ -142,8 +142,8 @@ const Pois = ({
         <View>
           <Caption title={t('poi')} theme={theme} />
           {cityModel.boundingBox && (
-          <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
-        )}
+            <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
+          )}
           <List
             noItemsMessage={t('currentlyNoPois')}
             items={sortedPois}
