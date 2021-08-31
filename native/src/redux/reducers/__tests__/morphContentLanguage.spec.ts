@@ -129,6 +129,7 @@ describe('morphContentLanguage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        id: 1,
         name: 'name',
         address: 'address',
         town: 'town',
@@ -156,6 +157,7 @@ describe('morphContentLanguage', () => {
       availableLanguages: availableLanguages,
       excerpt: 'test',
       location: new LocationModel({
+        id: 1,
         country: 'country',
         region: 'region',
         state: 'state',

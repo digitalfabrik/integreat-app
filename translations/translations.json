@@ -5311,5 +5311,11 @@
     "zh-CN": {
       "pageTitle": "版本说明和联系方式- {{appName}}"
     }
+  },
+  "pois": {
+    "de": {
+      "location": "Standort",
+      "map": "Karte"
+    }
   }
 }

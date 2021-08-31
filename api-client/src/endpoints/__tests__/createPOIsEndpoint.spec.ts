@@ -15,6 +15,7 @@ describe('pois', () => {
     available_languages: [],
     thumbnail: '',
     location: {
+      id: 1,
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -36,6 +37,7 @@ describe('pois', () => {
       availableLanguages: new Map(),
       thumbnail: '',
       location: new LocationModel({
+        id: 1,
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
