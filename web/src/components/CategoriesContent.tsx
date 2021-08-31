@@ -14,8 +14,7 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
       new TileModel({
         title: category.title,
         path: category.path,
-        thumbnail: category.thumbnail,
-        isExternalUrl: false
+        thumbnail: category.thumbnail
       })
   )
 }

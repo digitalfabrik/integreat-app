@@ -23,11 +23,13 @@ const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, classNam
   return (
     <>
       {isExternalUrl(to) ? (
-        <StyledCleanAnchor href={to} aria-label={ariaLabel} className={className}>
+        <StyledCleanAnchor href={to} aria-label={ariaLabel} className={className} data-testid={'externalLink'}>
           {children}
         </StyledCleanAnchor>
       ) : (
-        <StyledCleanLink to={to}>{children}</StyledCleanLink>
+        <StyledCleanLink to={to} data-testid={'internalLink'}>
+          {children}
+        </StyledCleanLink>
       )}
     </>
   )
