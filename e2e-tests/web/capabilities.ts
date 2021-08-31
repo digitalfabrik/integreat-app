@@ -38,7 +38,7 @@ export const browserstackCapabilities = {
 }
 
 export const localCapabilities = {
-  chrome: {
+  browser: {
     browserName: 'chrome'
   },
   ci: {

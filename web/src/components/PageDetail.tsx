@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 const Identifier = styled.span`
@@ -8,18 +8,23 @@ const Identifier = styled.span`
 type PropsType = {
   identifier: string
   information: string
+  link?: string
+  linkLabel?: string
 }
 
-class PageDetail extends React.PureComponent<PropsType> {
-  render(): ReactNode {
-    const { identifier, information } = this.props
-    return (
-      <div>
-        <Identifier>{identifier}: </Identifier>
-        <span>{information}</span>
-      </div>
-    )
-  }
+// TODO refactor anchor with new clean link component IGAPP-749
+const PageDetail: React.FC<PropsType> = ({ identifier, information, link, linkLabel }: PropsType): ReactElement => {
+  return (
+    <div>
+      <Identifier>{identifier}: </Identifier>
+      <span>{information}</span>
+      {link && (
+        <p>
+          <a href={link}>{linkLabel}</a>
+        </p>
+      )}
+    </div>
+  )
 }
 
 export default PageDetail

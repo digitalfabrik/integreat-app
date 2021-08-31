@@ -27,6 +27,7 @@ describe('EventListItem', () => {
       allDay: true
     }),
     location: new LocationModel({
+      id: 1,
       name: 'name',
       address: 'address',
       town: 'town',
