@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import {
   CityModel,
@@ -137,21 +137,23 @@ const Pois = ({
     .filter((feature): feature is Feature<Point> => !!feature)
 
   return (
-    <SpaceBetween>
-      <View>
-        <Caption title={t('poi')} theme={theme} />
-        {cityModel.boundingBox && (
-          <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
-        )}
-        <List
-          noItemsMessage={t('currentlyNoPois')}
-          items={sortedPois}
-          renderItem={renderPoiListItem(cityModel.code, language)}
-          theme={theme}
-        />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />
-    </SpaceBetween>
+    <ScrollView>
+      <SpaceBetween>
+        <View>
+          <Caption title={t('poi')} theme={theme} />
+          {cityModel.boundingBox && (
+            <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
+          )}
+          <List
+            noItemsMessage={t('currentlyNoPois')}
+            items={sortedPois}
+            renderItem={renderPoiListItem(cityModel.code, language)}
+            theme={theme}
+          />
+        </View>
+        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />
+      </SpaceBetween>
+    </ScrollView>
   )
 }
 
