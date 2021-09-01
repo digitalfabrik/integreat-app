@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { ErrorCode, LanguageModel } from 'api-client'
 import { RefreshControl } from 'react-native'
 import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
-import { StoreActionType } from '../redux/StoreActionType'
+import { EnqueueSnackbarActionType, StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
 import FailureContainer from '../components/FailureContainer'
 import wrapDisplayName from '../hocs/wrapDisplayName'
@@ -98,7 +98,14 @@ const withPayloadProvider = <
           props.status === 'loading' ||
           props.status === 'languageNotAvailable'
         ) {
-          throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
+          const enqueueSnackbar: EnqueueSnackbarActionType = {
+            type: 'ENQUEUE_SNACKBAR',
+            params: {
+              text: 'Refreshing is not possible because the route is not yet initialized or already loading.'
+            }
+          }
+          props.dispatch(enqueueSnackbar)
+          return
         }
 
         if (props.refreshProps) {
