@@ -23,6 +23,7 @@ import MapView from '../components/MapView'
 import { useTheme } from 'styled-components'
 import FailureContainer from '../components/FailureContainer'
 import type { Feature, Point } from 'geojson'
+import { useRoute } from '@react-navigation/native'
 
 export type PropsType = {
   path: string | null | undefined
@@ -35,6 +36,8 @@ export type PropsType = {
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
+
+type RouteParams = { [key: string]: string } | null
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -54,6 +57,7 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const route = useRoute()
 
   const navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -61,6 +65,15 @@ const Pois = ({
       cityCode,
       languageCode: language,
       cityContentPath: path
+    })
+  }
+
+  const navigateToMap = (cityCode: string, language: string, locationId: string) => (): void => {
+    navigateTo({
+      route: POIS_ROUTE,
+      cityCode,
+      languageCode: language,
+      locationId
     })
   }
 
@@ -116,7 +129,14 @@ const Pois = ({
           navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && (
-              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+              <PageDetail
+                identifier={t('location')}
+                information={location}
+                theme={theme}
+                language={language}
+                linkLabel={t('map')}
+                navigateToMap={navigateToMap(cityModel.code, language, String(poi.location.id))}
+              />
             )}
           </>
         </Page>
@@ -135,6 +155,10 @@ const Pois = ({
   const featureLocations = pois
     .map(poi => poi.featureLocation)
     .filter((feature): feature is Feature<Point> => !!feature)
+  const locId = (route?.params as RouteParams)?.locationId
+  const currentFeature: Feature<Point> | undefined = featureLocations.find(
+    feature => feature.properties?.id === Number(locId)
+  )
 
   return (
     <ScrollView>
@@ -142,7 +166,11 @@ const Pois = ({
         <View>
           <Caption title={t('poi')} theme={theme} />
           {cityModel.boundingBox && (
-            <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
+            <MapView
+              boundingBox={cityModel.boundingBox}
+              featureCollection={embedInCollection(featureLocations)}
+              currentFeature={currentFeature}
+            />
           )}
           <List
             noItemsMessage={t('currentlyNoPois')}

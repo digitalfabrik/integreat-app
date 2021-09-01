@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { ReactNode } from 'react'
+import { Button } from 'react-native'
+import { ReactElement } from 'react'
 import styled from 'styled-components/native'
-import { contentDirection } from '../constants/contentDirection'
 import { ThemeType } from 'build-configs'
+import { contentDirection } from '../constants/contentDirection'
 
 const Identifier = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontBold};
@@ -24,18 +25,19 @@ type PropsType = {
   information: string
   theme: ThemeType
   language: string
+  navigateToMap: () => void
+  linkLabel?: string
 }
 
-class PageDetail extends React.PureComponent<PropsType> {
-  render(): ReactNode {
-    const { identifier, information, theme, language } = this.props
-    return (
-      <DetailContainer theme={theme} language={language}>
-        <Identifier theme={theme}>{identifier}: </Identifier>
-        {information}
-      </DetailContainer>
-    )
-  }
+const PageDetail: React.FC<PropsType> = (props: PropsType): ReactElement => {
+  const { identifier, information, theme, language, navigateToMap, linkLabel } = props
+  return (
+    <DetailContainer theme={theme} language={language}>
+      <Identifier theme={theme}>{identifier}: </Identifier>
+      {information}
+      {linkLabel && <Button title={linkLabel} onPress={() => navigateToMap()} />}
+    </DetailContainer>
+  )
 }
 
 export default PageDetail
