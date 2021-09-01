@@ -2,8 +2,8 @@ import React, { ReactElement, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, FeatureCollection } from 'geojson'
-import { defaultViewportConfig, mapConfig } from 'api-client'
-import LocationButton from './LocationButton'
+import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
+import RequestLocationPermissionButton from './RequestLocationPermissionButton'
 
 const MapContainer = styled.View`
   flex-direction: row;
@@ -54,11 +54,8 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
   const updateLocationPermission = useCallback((locationPermission: boolean) => {
     setLocationPermissionGranted(locationPermission)
     setFollowUserLocation(false)
-    if (locationPermission) {
-      setFollowUserLocation(true)
-    }
+    locationPermission && setFollowUserLocation(true)
   }, [])
-
 
   return (
     <MapContainer>
@@ -67,11 +64,13 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
-        <MapboxGL.Camera defaultSettings={defaultSettings}
-                         followUserLocation={followUserLocation}
-                         followZoomLevel={16}/>
+        <MapboxGL.Camera
+          defaultSettings={defaultSettings}
+          followUserLocation={followUserLocation}
+          followZoomLevel={detailZoom}
+        />
       </StyledMap>
-      <LocationButton updateLocationPermission={updateLocationPermission} />
+      <RequestLocationPermissionButton requestLocationPermissionCallback={updateLocationPermission} />
     </MapContainer>
   )
 }

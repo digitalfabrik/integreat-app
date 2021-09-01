@@ -32,19 +32,24 @@ const ThumbnailContainer = styled(SimpleImage)`
   width: ${ICON_SIZE / Math.sqrt(2)}px;
 `
 
-type LocationButtonProps = {
-  updateLocationPermission: (locationPermission: boolean) => void
+type RequestLocationPermissionButtonProps = {
+  requestLocationPermissionCallback: (locationPermissionGranted: boolean) => void
 }
 
-const LocationButton = ({ updateLocationPermission }: LocationButtonProps): ReactElement => {
-
+const RequestLocationPermissionButton = ({
+  requestLocationPermissionCallback
+}: RequestLocationPermissionButtonProps): ReactElement => {
   useEffect(() => {
-    checkLocationPermission().then(locationPermissionStatus => updateLocationPermission(locationPermissionStatus === RESULTS.GRANTED))
-  }, [updateLocationPermission])
+    checkLocationPermission().then(locationPermissionStatus =>
+      requestLocationPermissionCallback(locationPermissionStatus === RESULTS.GRANTED)
+    )
+  }, [requestLocationPermissionCallback])
 
   const requestPermission = useCallback(() => {
-    requestLocationPermission().then(locationPermissionStatus => updateLocationPermission(locationPermissionStatus === RESULTS.GRANTED))
-  }, [updateLocationPermission])
+    requestLocationPermission().then(locationPermissionStatus =>
+      requestLocationPermissionCallback(locationPermissionStatus === RESULTS.GRANTED)
+    )
+  }, [requestLocationPermissionCallback])
 
   return (
     <Circle>
@@ -55,4 +60,4 @@ const LocationButton = ({ updateLocationPermission }: LocationButtonProps): Reac
   )
 }
 
-export default LocationButton
+export default RequestLocationPermissionButton
