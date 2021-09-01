@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { FunctionComponent, ReactElement } from 'react'
 import { ThemeProvider } from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 
@@ -6,4 +6,4 @@ const wrapWithTheme = ({ children }: { children: ReactElement }): ReactElement =
   <ThemeProvider theme={buildConfig().lightTheme}>{children}</ThemeProvider>
 )
 
-export default wrapWithTheme
+export default wrapWithTheme as FunctionComponent

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { render } from '@testing-library/react'
 
 import ListItem from '../ListItem'
@@ -9,13 +9,13 @@ describe('ListItemSpec', () => {
 
   it('should not render thumbnail in the ListItem', () => {
     const { getByRole } = render(<ListItem title='first Event' path={path} />, {
-      wrapper: wrapWithTheme as FunctionComponent
+      wrapper: wrapWithTheme
     })
     expect(getByRole('link').closest('img')).not.toBeInTheDocument()
   })
   it('should render thumbnail in the ListItem', () => {
     const { getByRole } = render(<ListItem title='first Event' thumbnail='thumbnail' path={path} />, {
-      wrapper: wrapWithTheme as FunctionComponent
+      wrapper: wrapWithTheme
     })
     expect(getByRole('img')).toBeInTheDocument()
   })
