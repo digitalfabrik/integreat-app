@@ -5,7 +5,7 @@ import { render } from '@testing-library/react'
 
 describe('CleanLink', () => {
   const linkInternal = '/augsburg/de/willkommen/willkommen-in-augsburg'
-  const externalLink = 'https://integreat.app/'
+  const externalLink = 'https://tuerantuer.de'
 
   it('should render CleanLink internal', () => {
     const { getByTestId } = renderWithRouter(<CleanLink to={linkInternal}>Test</CleanLink>)

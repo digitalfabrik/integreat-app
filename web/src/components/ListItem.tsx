@@ -42,13 +42,11 @@ type PropsType = {
 
 const ListItem: React.FC<PropsType> = ({ path, title, thumbnail, children }: PropsType): ReactElement => (
   <Link to={path}>
-    <>
-      {thumbnail && <Thumbnail alt='' src={thumbnail} />}
-      <Description>
-        <Title>{title}</Title>
-        {children}
-      </Description>
-    </>
+    {thumbnail && <Thumbnail alt='' src={thumbnail} />}
+    <Description>
+      <Title>{title}</Title>
+      {children}
+    </Description>
   </Link>
 )
 
