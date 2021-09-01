@@ -1,0 +1,7 @@
+issue_key: IGAPP-497
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: We now show an error message if refreshing fails.
+de: Wir zeigen jetzt eine Fehlermeldung an wenn das Aktualisieren fehlschlägt.
