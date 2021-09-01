@@ -116,6 +116,15 @@ yarn start
 yarn android
 ```
 
+- Start the app on mobile device using **ADB over network**:
+1. Enable ADB via Network on your phone (Dev Settings)
+2. Connect phone via usb 
+3. Run: `adb tcpip 5555` 
+4. Plug out phone 
+5. Run: `adb connect 192.168.x.x`
+6. Use the commands in the section above
+
+
 ### Building the App using a test signing keystore (without Fastlane)
 
 - [optional] Set the environment variables for the android keystore explicitly:
