@@ -31,6 +31,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        // TODO Remove. Still required for some librariers.
+        jcenter()
         maven {
             url = "https://dl.bintray.com/maplibre/maplibre-gl-native"
         }
@@ -48,6 +50,8 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
+        // TODO Remove. Still required for some librariers.
+        jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
