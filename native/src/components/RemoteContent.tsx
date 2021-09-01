@@ -67,7 +67,8 @@ const RemoteContent = (props: PropType): ReactElement => {
       if (message.type === 'error') {
         throw Error(`An error occurred in the webview:\n${message.message}`)
       } else if (message.type === 'height' && typeof message.height === 'number') {
-        setWebViewHeight(message.height)
+        // TODO check:setting height each time to 0 triggers the effect, is that useful?
+        message.height > 0 && setWebViewHeight(message.height)
       } else {
         throw Error('Got an unknown message from the webview.')
       }

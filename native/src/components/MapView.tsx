@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import type { BBox, FeatureCollection } from 'geojson'
-import { defaultViewportConfig, mapConfig } from 'api-client'
+import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
+import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 const MapContainer = styled.View`
   flex-direction: row;
@@ -16,6 +17,7 @@ const StyledMap = styled(MapboxGL.MapView)`
 type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: FeatureCollection
+  currentFeature?: Feature<Point>
 }
 
 const textOffsetY = 1.25
@@ -36,15 +38,18 @@ const layerProps: SymbolLayerProps = {
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
-const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactElement => {
+const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
     sw: [boundingBox[0], boundingBox[1]]
   }
 
+  // TODO improve logic for defaultSettings
+
   const defaultSettings: CameraSettings = {
-    zoomLevel: defaultViewportConfig.zoom,
-    bounds
+    zoomLevel: currentFeature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
+    centerCoordinate: currentFeature?.geometry.coordinates,
+    bounds: currentFeature?.geometry.coordinates ? undefined : bounds
   }
   return (
     <MapContainer>
