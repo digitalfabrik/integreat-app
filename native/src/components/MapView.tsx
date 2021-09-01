@@ -38,8 +38,8 @@ const layerProps: SymbolLayerProps = {
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactElement => {
-  const [locationPermission, setLocationPermission] = useState(false)
-  const [followUserLocation, setFollowUserLocation] = useState(false)
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -52,7 +52,7 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
   }
 
   const updateLocationPermission = useCallback((locationPermission: boolean) => {
-    setLocationPermission(locationPermission)
+    setLocationPermissionGranted(locationPermission)
     setFollowUserLocation(false)
     if (locationPermission) {
       setFollowUserLocation(true)
@@ -63,7 +63,7 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
   return (
     <MapContainer>
       <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled>
-        <MapboxGL.UserLocation visible={locationPermission} />
+        <MapboxGL.UserLocation visible={locationPermissionGranted} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
