@@ -1,0 +1,7 @@
+issue_key: IGAPP-744
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Set alignment of the news 'Continue' text according to system language.
+de: Richte den Nachrichten 'Weiterlesen' Text abhängig von der Systemsprache aus.
