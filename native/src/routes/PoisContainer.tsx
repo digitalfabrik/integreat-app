@@ -186,6 +186,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 })
 
 class PoisContainer extends React.Component<ContainerPropsType> {
+  // Workaround to fix rerender cycle with null path in Poi Detail page
+  shouldComponentUpdate(nextProps: ContainerPropsType) {
+    if (this.props.path === nextProps.path) {
+      return false
+    }
+    return true
+  }
+
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
     const navigateTo = createNavigate(dispatch, navigation)
