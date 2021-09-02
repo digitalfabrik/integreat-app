@@ -6,5 +6,7 @@
   "printWidth": 120,
   "jsxBracketSameLine": true,
   "jsxSingleQuote": true,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "importOrder": ["^([^(.|api\\-client|build\\-config)])", "api-client", "build-configs", "translations", "^./*"],
+  "importOrderSeparation": true
 }
