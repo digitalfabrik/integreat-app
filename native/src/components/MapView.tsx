@@ -3,7 +3,6 @@ import styled from 'styled-components/native'
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
 import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
-import { useNavigation, useRoute } from '@react-navigation/native'
 
 const MapContainer = styled.View`
   flex-direction: row;
@@ -21,31 +20,31 @@ type MapViewPropsType = {
 }
 
 const textOffsetY = 1.25
-const layerProps: SymbolLayerProps = {
-  id: 'point',
-  style: {
-    symbolPlacement: 'point',
-    iconAllowOverlap: true,
-    iconIgnorePlacement: true,
-    iconImage: ['get', 'symbol'],
-    textField: ['get', 'title'],
-    textFont: ['Roboto Regular'],
-    textOffset: [0, textOffsetY],
-    textAnchor: 'top',
-    textSize: 12
-  }
-}
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
+  const layerProps: SymbolLayerProps = {
+    id: 'point',
+    style: {
+      symbolPlacement: 'point',
+      iconAllowOverlap: true,
+      iconIgnorePlacement: true,
+      iconImage: ['get', 'symbol'],
+      textField: ['case', ['==', ['get', 'id'], currentFeature?.properties?.id ?? -1], ['get', 'title'], ''],
+      textFont: ['Roboto Regular'],
+      textOffset: [0, textOffsetY],
+      textAnchor: 'top',
+      textSize: 12
+    }
+  }
+
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
     sw: [boundingBox[0], boundingBox[1]]
   }
 
-  // TODO improve logic for defaultSettings
-
+  // if there is a current feature use the coordinates if not use bounding box
   const defaultSettings: CameraSettings = {
     zoomLevel: currentFeature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
     centerCoordinate: currentFeature?.geometry.coordinates,

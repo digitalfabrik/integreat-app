@@ -59,7 +59,7 @@ const Pois = ({
   const theme = useTheme()
   const route = useRoute()
 
-  const navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
+  const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
@@ -84,7 +84,7 @@ const Pois = ({
         poi={poi}
         language={language}
         theme={theme}
-        navigateToPois={navigateToPois(cityCode, language, poi.path)}
+        navigateToPoi={navigateToPoi(cityCode, language, poi.path)}
       />
     )
   }
@@ -134,7 +134,7 @@ const Pois = ({
                 information={location}
                 theme={theme}
                 language={language}
-                linkLabel={t('map')}
+                linkLabel={poi?.featureLocation && t('map')}
                 navigateToMap={navigateToMap(cityModel.code, language, String(poi.location.id))}
               />
             )}

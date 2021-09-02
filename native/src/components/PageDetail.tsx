@@ -26,7 +26,7 @@ type PropsType = {
   theme: ThemeType
   language: string
   navigateToMap: () => void
-  linkLabel?: string
+  linkLabel?: string | null
 }
 
 const PageDetail: React.FC<PropsType> = (props: PropsType): ReactElement => {
