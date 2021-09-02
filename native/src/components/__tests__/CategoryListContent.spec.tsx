@@ -2,7 +2,6 @@ import React from 'react'
 import CategoryListContent from '../CategoryListContent'
 import { render } from '@testing-library/react-native'
 import moment, { Moment } from 'moment'
-import buildConfig from '../../constants/buildConfig'
 import 'react-native/Libraries/Utilities/useWindowDimensions'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
@@ -12,6 +11,11 @@ jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
   const Text = require('react-native').Text
 
   return <Text>lastUpdate {lastUpdate.toISOString()}</Text>
+})
+
+jest.mock('../NativeHtml', () => ({ content }: { content: string }) => {
+  const Text = require('react-native').Text
+  return <Text>{content}</Text>
 })
 
 describe('CategoryListContent', () => {
@@ -26,7 +30,6 @@ describe('CategoryListContent', () => {
         cacheDictionary={{}}
         language='de'
         lastUpdate={lastUpdate}
-        theme={buildConfig().lightTheme}
       />
     )
     expect(getByText(content)).toBeTruthy()
