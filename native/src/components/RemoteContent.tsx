@@ -63,12 +63,10 @@ const RemoteContent = (props: PropType): ReactElement => {
       }
 
       const message = JSON.parse(event.nativeEvent.data)
-
       if (message.type === 'error') {
         throw Error(`An error occurred in the webview:\n${message.message}`)
       } else if (message.type === 'height' && typeof message.height === 'number') {
-        // TODO check:setting height each time to 0 triggers the effect, is that useful?
-        message.height > 0 && setWebViewHeight(message.height)
+        setWebViewHeight(message.height)
       } else {
         throw Error('Got an unknown message from the webview.')
       }
@@ -90,26 +88,30 @@ const RemoteContent = (props: PropType): ReactElement => {
   )
 
   return (
-    <StyledView onLayout={onLayout}>
-      <WebView
-        source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
-        originWhitelist={['*']} // Needed by iOS to load the initial html
-        javaScriptEnabled
-        dataDetectorTypes='none'
-        userAgent={userAgent}
-        domStorageEnabled={false}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false} // to disable scrolling in iOS
-        onMessage={onMessage}
-        renderError={renderWebviewError}
-        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        style={{
-          height: webViewHeight,
-          width: webViewWidth
-        }}
-      />
-    </StyledView>
+    <>
+      {!!content.length && (
+        <StyledView onLayout={onLayout}>
+          <WebView
+            source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
+            originWhitelist={['*']} // Needed by iOS to load the initial html
+            javaScriptEnabled
+            dataDetectorTypes='none'
+            userAgent={userAgent}
+            domStorageEnabled={false}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            scrollEnabled={false} // to disable scrolling in iOS
+            onMessage={onMessage}
+            renderError={renderWebviewError}
+            onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+            style={{
+              height: webViewHeight,
+              width: webViewWidth
+            }}
+          />
+        </StyledView>
+      )}
+    </>
   )
 }
 
