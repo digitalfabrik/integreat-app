@@ -1,39 +1,39 @@
 import * as React from 'react'
-import { View } from 'react-native'
-import { ImageViewer } from 'react-native-image-zoom-viewer'
+import { ReactElement, useState } from 'react'
+import { View, Image, Text } from 'react-native'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 import { ThemeType } from 'build-configs'
 import { ImageViewModalRouteType } from 'api-client'
+
 type PropsType = {
   route: RoutePropType<ImageViewModalRouteType>
   navigation: NavigationPropType<ImageViewModalRouteType>
   theme: ThemeType
 }
+const ImageViewModal = (props: PropsType): ReactElement => {
+  const [isError, setError] = useState(false)
 
-class ImageViewModal extends React.Component<PropsType> {
-  render() {
-    return (
-      <View
-        style={{
-          flex: 1
-        }}>
-        <ImageViewer
-          style={{
-            flex: 1
-          }}
-          renderIndicator={() => <></>}
-          backgroundColor={this.props.theme.colors.backgroundAccentColor}
-          saveToLocalByLongPress={false}
-          imageUrls={[
-            {
-              url: this.props.route.params.url
-            }
-          ]}
-        />
-      </View>
-    )
+  if (isError) {
+    return <Text>Error</Text>
   }
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: props.theme.colors.backgroundAccentColor
+      }}>
+      <Image
+        style={{ flex: 1 }}
+        resizeMode='center'
+        source={{ uri: props.route.params.url }}
+        onError={() => {
+          setError(true)
+        }}
+      />
+    </View>
+  )
 }
 
 export default withTheme(ImageViewModal)

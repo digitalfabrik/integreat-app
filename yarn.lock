@@ -2572,7 +2572,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/geojson@*", "@types/geojson@7946.0.8":
+"@types/geojson@*", "@types/geojson@7946.0.8", "@types/geojson@^7946.0.7", "@types/geojson@^7946.0.8":
   version "7946.0.8"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
   integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
@@ -14394,18 +14394,6 @@ react-native-highlight-words@^1.0.1:
   dependencies:
     highlight-words-core "^1.0.3"
     prop-types "^15.5.7"
-
-react-native-image-pan-zoom@^2.1.12:
-  version "2.1.12"
-  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
-  integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
-
-react-native-image-zoom-viewer@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-3.0.1.tgz#a2bd5fb3bda15e0686ce88fcde8576726495d7fb"
-  integrity sha512-la6s5DNSuq4GCRLsi5CZ29FPjgTpdCuGIRdO5T9rUrAtxrlpBPhhSnHrbmPVxsdtOUvxHacTh2Gfa9+RraMZQA==
-  dependencies:
-    react-native-image-pan-zoom "^2.1.12"
 
 react-native-inappbrowser-reborn@^3.5.1:
   version "3.5.1"
