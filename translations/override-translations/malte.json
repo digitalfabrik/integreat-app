@@ -59,6 +59,9 @@
     },
     "tr": {
       "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
+    },
+    "ur": {
+      "metaDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔ یہاں آپ کو مقامی معلومات، ایونٹس اور اپنے ادارے کی جانب سے مشورے ملیں گے۔ ہمیشہ تازہ ترین اور آپ کی زبان میں!"
     }
   },
   "dashboard": {
@@ -121,6 +124,9 @@
     },
     "tr": {
       "events": "Etkinlikler"
+    },
+    "ur": {
+      "events": "ایونٹ"
     }
   },
   "error": {
@@ -283,6 +289,14 @@
       "goTo": {
         "events": "Etkinliklere bak"
       }
+    },
+    "ur": {
+      "notFound": {
+        "event": "معذرت، یہ ایونٹس نہیں ملے۔"
+      },
+      "goTo": {
+        "events": "اپائنٹمنٹس میں"
+      }
     }
   },
   "events": {
@@ -385,6 +399,11 @@
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel etkinlik bulunmamaktadır.",
       "pageTitle": "Etkinlikler"
+    },
+    "ur": {
+      "events": "ایونٹ",
+      "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
+      "pageTitle": "ایونٹ"
     }
   },
   "feedback": {
@@ -447,6 +466,9 @@
     },
     "tr": {
       "contentOfEvent": "\"{{event}}\" etkinliğinin içeriği"
+    },
+    "ur": {
+      "contentOfEvent": "‎\"{{event}}\"‎ ایونٹ کا مواد"
     }
   },
   "intro": {
@@ -549,6 +571,11 @@
       "appDescription": "{{appName}} uygulaması Maltalılar için dijital bir yardımcıdır.",
       "events": "Etkinlikler",
       "eventsDescription": "Güncel etkinlik ve organizasyonlar"
+    },
+    "ur": {
+      "appDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔",
+      "events": "ایونٹ",
+      "eventsDescription": "حالیہ تاریخیں اور ایونٹس"
     }
   },
   "landing": {
@@ -611,6 +638,9 @@
     },
     "tr": {
       "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
+    },
+    "ur": {
+      "metaDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔ یہاں آپ کو مقامی معلومات، ایونٹس اور اپنے ادارے کی جانب سے مشورے ملیں گے۔ ہمیشہ تازہ ترین اور آپ کی زبان میں!"
     }
   },
   "layout": {
@@ -693,6 +723,10 @@
     "tr": {
       "events": "Etkinlikler",
       "noEvents": "Etkinlik yok"
+    },
+    "ur": {
+      "events": "ایونٹ",
+      "noEvents": "کوئی ایونٹس نہیں"
     }
   }
 }

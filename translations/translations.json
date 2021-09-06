@@ -104,6 +104,10 @@
       "createPdf": "PDF oluşturun",
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
     },
+    "ur": {
+      "createPdf": "PDF بنائیں",
+      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
+    },
     "zh-CN": {
       "createPdf": "创建 PDF",
       "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
@@ -265,6 +269,12 @@
       "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ..."
+    },
+    "ur": {
+      "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
+      "chooseALanguage": "زبان منتخب کریں۔",
+      "lastUpdate": "آخری ترمیم:",
+      "loading": "لوڈ ہو رہا ہے ‎…"
     },
     "zh-CN": {
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
@@ -456,6 +466,13 @@
       "news": "Mesajlar",
       "newsAlternative": "Yenilikler"
     },
+    "ur": {
+      "localInformation": "مقامی معلومات",
+      "offers": "پیش کشیں",
+      "events": "ایونٹس",
+      "news": "خبریں",
+      "newsAlternative": "خبریں"
+    },
     "zh-CN": {
       "localInformation": "本地信息",
       "offers": "提供项目",
@@ -542,6 +559,9 @@
     },
     "tr": {
       "pageTitle": "Künye ve iletişim"
+    },
+    "ur": {
+      "pageTitle": "چھاپ اور رابطہ"
     },
     "zh-CN": {
       "pageTitle": "版本说明和联系方式"
@@ -1433,6 +1453,41 @@
       "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
       "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
     },
+    "ur": {
+      "notFound": {
+        "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
+        "city": "معذرت، یہ شہر نہیں ملا۔",
+        "category": "معذرت، یہ صفحہ نہیں ملا۔",
+        "event": "معذرت، یہ ایونٹ نہیں ملا۔",
+        "offer": "معذرت، یہ پیش کش نہیں ملی۔",
+        "poi": "معذرت، یہ دلچسپی کا مقام نہیں ملا۔",
+        "localNews": "معذرت، یہ خبر نہیں ملی۔",
+        "tunews": "معذرت، یہ tünews نہیں ملا۔",
+        "pageTitle": "صفحہ نہیں ملا"
+      },
+      "pageNotFound": "معذرت، یہ صفحہ نہیں ملا۔",
+      "networkConnectionFailed": "سرور سے رابطہ ناکام ہو گیا۔",
+      "networkRequestFailed": "درخواست پر عمل نہیں ہو سکا۔",
+      "responseMappingFailed": "سرور کے جواب پر عمل نہیں ہو سکا۔",
+      "unknownError": "نامعلوم خرابی پیش آئی ہے۔",
+      "tryAgain": "دوبارہ کوشش کریں",
+      "loadingFailed": "معذرت، یہ صفجہ لوڈ نہیں ہو سکا۔",
+      "chooseALanguage": "زبان منتخب کریں:",
+      "goTo": {
+        "start": "صفحہ اول پر",
+        "categories": "زمروں پر",
+        "events": "ایونٹس پر",
+        "offers": "پیش کشوں کے متعلق",
+        "pois": "دلچسپی کے مقامات پر",
+        "localNews": "خبروں پر",
+        "tunews": "Tünews پر"
+      },
+      "pageTitle": "خرابی",
+      "generalError": "ایک خرابی پیش آئی ہے",
+      "notSupportedByDevice": "یہ فنکشن اس ڈیوائس پر نہیں چل سکتا۔",
+      "languageSwitchFailedTitle": "معذرت، زبان کی تبدیلی ناکام رہی۔",
+      "languageSwitchFailedMessage": "منتخب کردہ زبان آف لائن دستیاب نہیں، فعال انٹرنیٹ کنکشن ضروری ہے۔"
+    },
     "zh-CN": {
       "notFound": {
         "language": "很抱歉，这里没有提供该语言。",
@@ -1650,6 +1705,13 @@
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok.",
       "pageTitle": "Etkinlikler"
+    },
+    "ur": {
+      "location": "مقام",
+      "date": "تاریخ",
+      "events": "ایونٹس",
+      "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
+      "pageTitle": "ایونٹس"
     },
     "zh-CN": {
       "location": "位置",
@@ -2203,6 +2265,27 @@
       "positiveRating": "Bu sayfa yardımcı oldu",
       "contactMailAddress": "Sorularınız için e-posta",
       "optionalInfo": "isteğe bağlı"
+    },
+    "ur": {
+      "disclaimer": "رابطہ اور چھاپ",
+      "send": "بھیجیں",
+      "failedSendingFeedback": "رائے بھیجنے میں ایک خرابی پیش آئی۔",
+      "feedback": "رائے",
+      "positiveComment": "کیا اس سے مدد ملی؟",
+      "negativeComment": "ہم کیا کام بہتر کر سکتے ہیں؟",
+      "isThisSiteUseful": "کیا یہ صفحہ مددگار رہا؟",
+      "useful": "مددگار",
+      "notUseful": "غیر مددگار",
+      "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔",
+      "informationNotFound": "درست والا نہیں ملا؟",
+      "wantedInformation": "یہاں کون سی معلومات موجود نہیں؟",
+      "feedbackSent": "رائے بھیج دی گئی",
+      "thanksMessage": "آپ کی رائے کا شکریہ۔ اس سے ہمیں اپنا مواد اور ‎{{appName}}‎ ایپ بہتر بنانے میں مدد ملے گی۔ ہم مزید آراء کے منتظر ہیں۔",
+      "close": "بند کریں",
+      "negativeRating": "یہ صفحہ مددگار نہیں ہے",
+      "positiveRating": "یہ صفحہ مددگار ہے",
+      "contactMailAddress": "سوالات کے لئے ای میل",
+      "optionalInfo": "اختیاری"
     },
     "zh-CN": {
       "disclaimer": "版本说明和联系方式",
@@ -2953,6 +3036,34 @@
       "accept": "Kabul et",
       "privacyPolicy": "Gizlilik politikası"
     },
+    "ur": {
+      "appName": "‎{{appName}}‎ کے متعلق",
+      "appDescription": "‎{{appName}}‎ جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے",
+      "search": "تلاش کریں",
+      "searchDescription": "کلیدی الفاظ استعمال کرتے ہوئے تیزی سے درست معلومات تلاش کریں",
+      "languageChange": "زبان کی تبدیلی",
+      "languageChangeDescription": "انفرادی صفحات کی زبان آسانی سے تبدیل کریں",
+      "events": "ایونٹس",
+      "eventsDescription": "علاقے میں حالیہ ایونٹس اور تاریخیں",
+      "offers": "پیش کشیں",
+      "offersDescription": "علاقے میں نوکری کی تلاش، انٹرن شپ کی تلاش اور مزید",
+      "inquiryTitle": "ترتیبات",
+      "inquiryIntro": "‎\"{{accept}}\"‎ پر کلک کر کے میں ‎{{appName}}‎ کو اجازت دوں گا/گی کہ، ...",
+      "sentryTitle": "ایپ کا استحکام",
+      "sentryCondition": "‎…‎ ایپ بند ہونے کی خود کار رپورٹس بھیج کر ‎{{appName}}‎ میں بہتری لائیں",
+      "pushNewsTitle": "پش نوٹیفیکیشنز",
+      "pushNewsCondition": "‎…‎ مجھے تازہ مقامی خبروں کے پش نوٹیفیکیشنز بھیجیں",
+      "proposeCitiesTitle": "قریبی مقامات",
+      "proposeCitiesCondition": "‎…‎ میرا GPS مقام استعمال کرتے ہوئے قریبی مقامات کی تجاویز دیں",
+      "skip": "رہنے دیں",
+      "next": "آگے",
+      "cancel": "منسوخ کریں",
+      "save": "محفوظ کریں",
+      "customize": "مرضی کے مطابق کریں",
+      "decline": "مسترد کریں",
+      "accept": "قبول کریں",
+      "privacyPolicy": "رازاداری کی پالیسی"
+    },
     "zh-CN": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}}是您在德国生活的数字指南",
@@ -3346,6 +3457,20 @@
       "refresh": "Konum listesini güncelle",
       "pageTitle": "Konum seçimi",
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
+    },
+    "ur": {
+      "searchCity": "مقام تلاش کریں",
+      "nearbyPlaces": "قریبی مقامات",
+      "noNearbyPlaces": "کوئی قریبی مقامات نہیں ملے۔",
+      "alert": "نوٹ",
+      "locationError": "قریبی مقامات دیکھنے کے لئے ضروری ہے کہ مقام کی خدمات فعال ہوں۔",
+      "noPermission": "مقام تک رسائی درکار ہے",
+      "loading": "مقام کا تعین کریں ‎…",
+      "notAvailable": "مقام کی خدمات غیر فعال کر دی گئیں",
+      "timeout": "مقام کا تعین ناکام رہا",
+      "refresh": "مقامات کی فہرست کو تازہ کریں",
+      "pageTitle": "مقام کا انتخاب",
+      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
     },
     "zh-CN": {
       "searchCity": "搜索地点",
@@ -3883,6 +4008,26 @@
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
       "disclaimer": "Künye"
     },
+    "ur": {
+      "imprintAndContact": "چھاپ اور رابطہ",
+      "privacy": "ڈیٹا کا تحفظ",
+      "offers": "پیش کشیں",
+      "localInformation": "مقامی معلومات",
+      "events": "ایونٹس",
+      "noEvents": "کوئی ایونٹس نہیں ہیں",
+      "news": "خبریں",
+      "noLanguages": "دیگر زبانوں میں دستیاب نہیں",
+      "noTranslation": "ترجمہ دستیاب نہیں",
+      "search": "تلاش کریں",
+      "changeLocation": "مقام تبدیل کریں",
+      "changeLanguage": "زبان تبدیل کریں",
+      "settings": "ترتیبات",
+      "share": "شیئر کریں",
+      "cancel": "منسوخ کریں",
+      "shareMessage": "ابھی ملا: {{message}}",
+      "shareFailDefaultMessage": "بدقسمتی سے مواد شیئر کرنے میں ناکام رہے۔",
+      "disclaimer": "چھاپ"
+    },
     "zh-CN": {
       "imprintAndContact": "版本说明和联系方式",
       "privacy": "数据保护",
@@ -3982,6 +4127,9 @@
     },
     "tr": {
       "pageTitle": "Künye ve iletişim - {{appName}}"
+    },
+    "ur": {
+      "pageTitle": "چھاپ اور رابطہ - {{appName}}"
     },
     "zh-CN": {
       "pageTitle": "版本说明和联系方式- {{appName}}"
@@ -4091,6 +4239,10 @@
     "tr": {
       "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir.",
       "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
+    },
+    "ur": {
+      "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔",
+      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو مقام تک رسائی درکار ہے۔"
     },
     "zh-CN": {
       "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
@@ -4510,6 +4662,22 @@
         "pageTitle": "tünews INTERNATIONAL"
       }
     },
+    "ur": {
+      "news": "خبریں",
+      "newsAlternative": "خبریں",
+      "localNews": {
+        "localNews": "مقامی خبریں",
+        "pageTitle": "مقامی خبریں"
+      },
+      "local": "مقامی",
+      "readMore": "مطالعہ جاری رکھیں",
+      "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔",
+      "currentlyNoNewsAlternative": "فی الحال کوئی خبریں نہیں ہیں۔",
+      "tuNews": {
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
+      }
+    },
     "zh-CN": {
       "news": "新闻",
       "newsAlternative": "新消息",
@@ -4632,6 +4800,10 @@
       "offers": "Teklifler",
       "pageTitle": "Teklifler"
     },
+    "ur": {
+      "offers": "پیش کشیں",
+      "pageTitle": "پیش کشیں"
+    },
     "zh-CN": {
       "offers": "提供项目",
       "pageTitle": "提供项目"
@@ -4741,6 +4913,10 @@
     "tr": {
       "searchPlaceholder": "Arama",
       "pageTitle": "Arama"
+    },
+    "ur": {
+      "searchPlaceholder": "تلاش کریں",
+      "pageTitle": "تلاش کریں"
     },
     "zh-CN": {
       "searchPlaceholder": "搜索",
@@ -5216,6 +5392,24 @@
       "enabled": "etkin",
       "disabled": "devre dışı"
     },
+    "ur": {
+      "sentryTitle": "ایپ کا استحکام",
+      "sentryDescription": "خودکار طریقے سے ایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
+      "pushNewsTitle": "پش نوٹیفیکیشنز",
+      "pushNewsDescription": "تازہ مقامی خبروں کے لئے پش نوٹیفیکیشنز وصول کریں",
+      "proposeCitiesTitle": "قریبی مقامات",
+      "proposeCitiesDescription": "GPS مقام استعمال کرتے ہوئے قریبی مقامات کی تجاویز حاصل کریں",
+      "about": "‎{{appName}}‎ کے متعلق",
+      "privacyPolicy": "رازاداری کی پالیسی",
+      "version": "ورژن: {{version}}",
+      "openSourceLicenses": "اوپن سورس لائسنس",
+      "tracking": "J-PAL تجزیہ",
+      "allowTracking": "ٹریکنگ کی اجازت دیں",
+      "trackingCode": "ٹریکنگ کوڈ",
+      "trackingDescription": "ٹریکنگ ڈیٹا بھیج کر Integreat کو مستقبل کے لئے بہتر بنائیں۔",
+      "enabled": "فعال",
+      "disabled": "غیر فعال"
+    },
     "zh-CN": {
       "sentryTitle": "应用程序稳定性",
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
@@ -5307,6 +5501,9 @@
     },
     "tr": {
       "noOffersAvailable": "Teklif yok"
+    },
+    "ur": {
+      "noOffersAvailable": "کوئی پیش کشیں دستیاب نہیں"
     },
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
