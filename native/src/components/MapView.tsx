@@ -26,7 +26,7 @@ const layerId = 'point'
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
   const ref = React.useRef<MapboxGL.MapView | null>(null)
-  const [feature, setFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
+  const [activeFeature, setActiveFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
   const layerProps: SymbolLayerProps = {
     id: layerId,
     style: {
@@ -34,7 +34,7 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
       iconImage: ['get', 'symbol'],
-      textField: ['case', ['==', ['get', 'id'], feature?.properties?.id ?? -1], ['get', 'title'], ''],
+      textField: ['case', ['==', ['get', 'id'], activeFeature?.properties?.id ?? -1], ['get', 'title'], ''],
       textFont: ['Roboto Regular'],
       textOffset: [0, textOffsetY],
       textAnchor: 'top',
@@ -49,9 +49,9 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
 
   // if there is a current feature use the coordinates if not use bounding box
   const defaultSettings: CameraSettings = {
-    zoomLevel: feature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
-    centerCoordinate: feature?.geometry.coordinates,
-    bounds: feature?.geometry.coordinates ? undefined : bounds
+    zoomLevel: activeFeature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
+    centerCoordinate: activeFeature?.geometry.coordinates,
+    bounds: activeFeature?.geometry.coordinates ? undefined : bounds
   }
 
   const onPress = useCallback(
@@ -62,9 +62,9 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
         [layerId]
       )) as FeatureCollection<Point>
       if (featureCollection?.features?.length) {
-        setFeature(featureCollection.features[0])
+        setActiveFeature(featureCollection.features[0])
       } else {
-        setFeature(null)
+        setActiveFeature(null)
       }
     },
     [ref]
