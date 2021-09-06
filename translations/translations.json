@@ -464,6 +464,89 @@
       "newsAlternative": "新消息"
     }
   },
+  "disclaimer": {
+    "de": {
+      "pageTitle": "Impressum und Kontakt"
+    },
+    "am": {
+      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
+    },
+    "ar": {
+      "pageTitle": "هيئة التحرير وجهة الاتصال"
+    },
+    "bg": {
+      "pageTitle": "Импресум и контакт"
+    },
+    "ckb": {
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
+    },
+    "el": {
+      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+    },
+    "en": {
+      "pageTitle": "Imprint and contacts"
+    },
+    "es": {
+      "pageTitle": "Aviso legal y contacto"
+    },
+    "fr": {
+      "pageTitle": "Mentions légales et contact"
+    },
+    "hr": {
+      "pageTitle": "Impresum i kontakt"
+    },
+    "it": {
+      "pageTitle": "Impressum e contatti"
+    },
+    "ka": {
+      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
+    },
+    "kmr": {
+      "pageTitle": "Lêzanînên Weşîner û Têkillî"
+    },
+    "mk": {
+      "pageTitle": "Импресум и контакт"
+    },
+    "pes": {
+      "pageTitle": "اطلاعات ناشر و تماس"
+    },
+    "pl": {
+      "pageTitle": "Nota prawna i kontakt"
+    },
+    "prs": {
+      "pageTitle": "معلومات ناشر و تماس"
+    },
+    "ps": {
+      "pageTitle": "خپروونکی او تماس"
+    },
+    "ro": {
+      "pageTitle": "Caseta tehnică și contact"
+    },
+    "ru": {
+      "pageTitle": "Выходные данные и контактная информация"
+    },
+    "so": {
+      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
+    },
+    "sq": {
+      "pageTitle": "Botuesi dhe kontakti"
+    },
+    "sr-Cyrl": {
+      "pageTitle": "Импресум и контакт"
+    },
+    "sr-Latn": {
+      "pageTitle": "Impresum i kontakt"
+    },
+    "ti": {
+      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
+    },
+    "tr": {
+      "pageTitle": "Künye ve iletişim"
+    },
+    "zh-CN": {
+      "pageTitle": "版本说明和联系方式"
+    }
+  },
   "error": {
     "de": {
       "notFound": {
@@ -3821,6 +3904,89 @@
       "disclaimer": "版本说明"
     }
   },
+  "mainDisclaimer": {
+    "de": {
+      "pageTitle": "Impressum und Kontakt - {{appName}}"
+    },
+    "am": {
+      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
+    },
+    "ar": {
+      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
+    },
+    "bg": {
+      "pageTitle": "Импресум и контакт - {{appName}}"
+    },
+    "ckb": {
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
+    },
+    "el": {
+      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+    },
+    "en": {
+      "pageTitle": "Imprint and contacts - {{appName}}"
+    },
+    "es": {
+      "pageTitle": "Aviso legal y contacto - {{appName}}"
+    },
+    "fr": {
+      "pageTitle": "Mentions légales et contact - {{appName}}"
+    },
+    "hr": {
+      "pageTitle": "Impresum i kontakt - {{appName}}"
+    },
+    "it": {
+      "pageTitle": "Impressum e contatti - {{appName}}"
+    },
+    "ka": {
+      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{აპპ სახელი}}"
+    },
+    "kmr": {
+      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
+    },
+    "mk": {
+      "pageTitle": "Импресум и контакт - {{appName}}"
+    },
+    "pes": {
+      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
+    },
+    "pl": {
+      "pageTitle": "Nota prawna i kontakt - {{appName}}"
+    },
+    "prs": {
+      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
+    },
+    "ps": {
+      "pageTitle": "خپروونکی او تماس - {{appName}}"
+    },
+    "ro": {
+      "pageTitle": "Caseta tehnică și contact - {{appName}}"
+    },
+    "ru": {
+      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+    },
+    "so": {
+      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
+    },
+    "sq": {
+      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
+    },
+    "sr-Cyrl": {
+      "pageTitle": "Импресум и контакт - {{appName}}"
+    },
+    "sr-Latn": {
+      "pageTitle": "Impresum i kontakt - {{appName}}"
+    },
+    "ti": {
+      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
+    },
+    "tr": {
+      "pageTitle": "Künye ve iletişim - {{appName}}"
+    },
+    "zh-CN": {
+      "pageTitle": "版本说明和联系方式- {{appName}}"
+    }
+  },
   "native": {
     "de": {
       "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
@@ -5144,172 +5310,6 @@
     },
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
-    }
-  },
-  "disclaimer": {
-    "de": {
-      "pageTitle": "Impressum und Kontakt"
-    },
-    "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
-    },
-    "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
-    },
-    "bg": {
-      "pageTitle": "Импресум и контакт"
-    },
-    "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
-    },
-    "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
-    },
-    "en": {
-      "pageTitle": "Imprint and contacts"
-    },
-    "es": {
-      "pageTitle": "Aviso legal y contacto"
-    },
-    "fr": {
-      "pageTitle": "Mentions légales et contact"
-    },
-    "hr": {
-      "pageTitle": "Impresum i kontakt"
-    },
-    "it": {
-      "pageTitle": "Impressum e contatti"
-    },
-    "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
-    },
-    "kmr": {
-      "pageTitle": "Lêzanînên Weşîner û Têkillî"
-    },
-    "mk": {
-      "pageTitle": "Импресум и контакт"
-    },
-    "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس"
-    },
-    "pl": {
-      "pageTitle": "Nota prawna i kontakt"
-    },
-    "prs": {
-      "pageTitle": "معلومات ناشر و تماس"
-    },
-    "ps": {
-      "pageTitle": "خپروونکی او تماس"
-    },
-    "ro": {
-      "pageTitle": "Caseta tehnică și contact"
-    },
-    "ru": {
-      "pageTitle": "Выходные данные и контактная информация"
-    },
-    "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
-    },
-    "sq": {
-      "pageTitle": "Botuesi dhe kontakti"
-    },
-    "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт"
-    },
-    "sr-Latn": {
-      "pageTitle": "Impresum i kontakt"
-    },
-    "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
-    },
-    "tr": {
-      "pageTitle": "Künye ve iletişim"
-    },
-    "zh-CN": {
-      "pageTitle": "版本说明和联系方式"
-    }
-  },
-  "mainDisclaimer": {
-    "de": {
-      "pageTitle": "Impressum und Kontakt - {{appName}}"
-    },
-    "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
-    },
-    "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
-    },
-    "bg": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
-    },
-    "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
-    },
-    "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
-    },
-    "en": {
-      "pageTitle": "Imprint and contacts - {{appName}}"
-    },
-    "es": {
-      "pageTitle": "Aviso legal y contacto - {{appName}}"
-    },
-    "fr": {
-      "pageTitle": "Mentions légales et contact - {{appName}}"
-    },
-    "hr": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
-    },
-    "it": {
-      "pageTitle": "Impressum e contatti - {{appName}}"
-    },
-    "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{აპპ სახელი}}"
-    },
-    "kmr": {
-      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
-    },
-    "mk": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
-    },
-    "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
-    },
-    "pl": {
-      "pageTitle": "Nota prawna i kontakt - {{appName}}"
-    },
-    "prs": {
-      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
-    },
-    "ps": {
-      "pageTitle": "خپروونکی او تماس - {{appName}}"
-    },
-    "ro": {
-      "pageTitle": "Caseta tehnică și contact - {{appName}}"
-    },
-    "ru": {
-      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
-    },
-    "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
-    },
-    "sq": {
-      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
-    },
-    "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
-    },
-    "sr-Latn": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
-    },
-    "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
-    },
-    "tr": {
-      "pageTitle": "Künye ve iletişim - {{appName}}"
-    },
-    "zh-CN": {
-      "pageTitle": "版本说明和联系方式- {{appName}}"
     }
   }
 }
