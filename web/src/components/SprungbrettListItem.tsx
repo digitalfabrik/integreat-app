@@ -11,7 +11,7 @@ class SprungbrettListItem extends React.PureComponent<PropsType> {
   render(): ReactNode {
     const { job } = this.props
     return (
-      <ListItem title={job.title} path={job.url} isExternalUrl>
+      <ListItem title={job.title} path={job.url}>
         <div>{job.location}</div>
       </ListItem>
     )
