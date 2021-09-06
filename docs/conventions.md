@@ -24,15 +24,15 @@ StyledComponents.
 
 **Some Shortcuts:**
 
-| Shortcut  | Description  | 
-| :------------ |:---------------| 
-| *rfc* | React Functional Component       |  
-| *rnfc* | React Native Functional Component              |   
-| *rccc* | React class component with constructor        |   
-| *rrdc* | React class connect to redux   |   
-| *rtc* | Standard Component test with react testing-library        |   
-| *rntc* | Standard Component test with react native testing-library      |   
-| *scnv* | styled view native component      |   
+| Shortcut | Description                                               |
+| :------- | :-------------------------------------------------------- |
+| _rfc_    | React Functional Component                                |
+| _rnfc_   | React Native Functional Component                         |
+| _rccc_   | React class component with constructor                    |
+| _rrdc_   | React class connect to redux                              |
+| _rtc_    | Standard Component test with react testing-library        |
+| _rntc_   | Standard Component test with react native testing-library |
+| _scnv_   | styled view native component                              |
 
 ## Git commit messages and Pull request names
 
