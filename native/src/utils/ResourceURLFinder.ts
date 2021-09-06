@@ -4,7 +4,8 @@ import { FetchMapType } from '../sagas/fetchResourceCache'
 import { reduce } from 'lodash'
 import { hashUrl } from 'api-client'
 import Url from 'url-parse'
-interface InputEntryType {
+
+type InputEntryType = {
   path: string
   content: string
   thumbnail: string
