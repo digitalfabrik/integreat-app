@@ -7,15 +7,15 @@ the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci)
 ## Contents
 
 - iOS
-    - [Setup and prerequisites](#setup-on-ios)
-    - [Running the app](#running-the-app-on-ios)
-    - [Building the app with a distribution certificate](#building-the-app-with-a-distribution-certificate)
+  - [Setup and prerequisites](#setup-on-ios)
+  - [Running the app](#running-the-app-on-ios)
+  - [Building the app with a distribution certificate](#building-the-app-with-a-distribution-certificate)
 - Android
-    - [Setup and prerequisites](#setup-on-android)
-    - [Running the app](#running-the-app-on-android)
-    - [Running the App via ADB network on mobile device](#running-the-app-via-adb-network)
-    - [Building the app using a test signing keystore](#building-the-app-using-a-test-signing-keystore-without-fastlane)
-    - [Building the app using for the Play Store](#building-the-app-for-the-play-store)
+  - [Setup and prerequisites](#setup-on-android)
+  - [Running the app](#running-the-app-on-android)
+  - [Running the App via ADB network on mobile device](#running-the-app-via-adb-network)
+  - [Building the app using a test signing keystore](#building-the-app-using-a-test-signing-keystore-without-fastlane)
+  - [Building the app using for the Play Store](#building-the-app-for-the-play-store)
 
 ## iOS
 
@@ -74,8 +74,8 @@ yarn start
 ```
 
 - Run the app in a simulator or on a real device via XCode:
-    - Start XCode and open `ios/Integreat.xcworkspace`.
-    - Run the app.
+  - Start XCode and open `ios/Integreat.xcworkspace`.
+  - Run the app.
 
 #### Trouble Shooting
 
@@ -133,7 +133,7 @@ Start the app on mobile device using **ADB over network**
 4. Plug out phone
 5. Run: `adb connect 192.168.x.x`
 6. Use the commands in the section above More
-   information:  [Android 11](https://developer.android.com/studio/command-line/adb#connect-to-a-device-over-wi-fi-android-11+) [Android 10 and below](https://developer.android.com/studio/command-line/adb#wireless)
+   information: [Android 11](https://developer.android.com/studio/command-line/adb#connect-to-a-device-over-wi-fi-android-11+) [Android 10 and below](https://developer.android.com/studio/command-line/adb#wireless)
 
 ### Building the App using a test signing keystore (without Fastlane)
 
