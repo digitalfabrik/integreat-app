@@ -1,26 +1,29 @@
 import moment from 'moment-timezone'
 import React from 'react'
-import { render } from '@testing-library/react-native'
+import { render, RenderAPI } from '@testing-library/react-native'
 import { TimeStamp } from '../TimeStamp'
 import { DateFormatter } from 'api-client'
-import buildConfig from '../../constants/buildConfig'
+import wrapWithTheme from '../../testing/wrapWithTheme'
+
+jest.mock('react-i18next')
 
 describe('TimeStamp', () => {
-  const t = (input: string) => input
+  const dateFormatter = new DateFormatter('de')
+  const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
 
-  it('should display last update text and formatted timestamp', () => {
-    const dateFormatter = new DateFormatter('de')
-    const language = 'en'
-    const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
-    const { getByText } = render(
+  const renderTimeStamp = (format: string | null, showText: boolean | null): RenderAPI =>
+    render(
       <TimeStamp
         formatter={dateFormatter}
-        language={language}
-        theme={buildConfig().lightTheme}
         lastUpdate={lastUpdate}
-        t={t}
-      />
+        format={format ?? undefined}
+        showText={showText ?? undefined}
+      />,
+      { wrapper: wrapWithTheme }
     )
+
+  it('should display last update text and formatted timestamp', () => {
+    const { getByText } = renderTimeStamp(null, null)
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
     })
@@ -28,19 +31,7 @@ describe('TimeStamp', () => {
     expect(getByText(formattedDate)).toBeTruthy()
   })
   it('should display last update text and formatted timestamp explicitly', () => {
-    const dateFormatter = new DateFormatter('de')
-    const language = 'en'
-    const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
-    const { getByText } = render(
-      <TimeStamp
-        formatter={dateFormatter}
-        language={language}
-        theme={buildConfig().lightTheme}
-        lastUpdate={lastUpdate}
-        t={t}
-        showText={true}
-      />
-    )
+    const { getByText } = renderTimeStamp(null, true)
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
     })
@@ -48,19 +39,7 @@ describe('TimeStamp', () => {
     expect(getByText(formattedDate)).toBeTruthy()
   })
   it('should only display formatted timestamp', () => {
-    const dateFormatter = new DateFormatter('de')
-    const language = 'en'
-    const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
-    const { getByText, queryByText } = render(
-      <TimeStamp
-        formatter={dateFormatter}
-        language={language}
-        theme={buildConfig().lightTheme}
-        lastUpdate={lastUpdate}
-        t={t}
-        showText={false}
-      />
-    )
+    const { getByText, queryByText } = renderTimeStamp(null, false)
     const formattedDate = dateFormatter.format(lastUpdate, {
       format: 'LL'
     })
@@ -68,21 +47,8 @@ describe('TimeStamp', () => {
     expect(getByText(formattedDate)).toBeTruthy()
   })
   it('should display formatted timestamp with format provided', () => {
-    const dateFormatter = new DateFormatter('de')
-    const language = 'en'
     const format = 'LLL'
-    const lastUpdate = moment.tz('2020-03-20 17:50:00', 'GMT')
-    const { getByText } = render(
-      <TimeStamp
-        formatter={dateFormatter}
-        language={language}
-        theme={buildConfig().lightTheme}
-        lastUpdate={lastUpdate}
-        t={t}
-        format={format}
-        showText={false}
-      />
-    )
+    const { getByText } = renderTimeStamp(format, false)
     const formattedDate = dateFormatter.format(lastUpdate, {
       format
     })

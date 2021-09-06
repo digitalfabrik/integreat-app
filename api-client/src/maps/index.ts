@@ -3,7 +3,7 @@ interface MapConfigProps {
   accessToken: string
 }
 
-interface MapViewViewport {
+export interface MapViewViewport {
   width: number
   height: number
   latitude: number
@@ -23,3 +23,6 @@ export const defaultViewportConfig: MapViewViewport = {
   longitude: 10.894446,
   zoom: 8
 }
+
+export const detailZoom = 15
+export const mapQueryId = 'id'

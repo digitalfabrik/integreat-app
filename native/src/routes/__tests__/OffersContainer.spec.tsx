@@ -10,8 +10,12 @@ import {
   mockUseLoadFromEndpointLoading,
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
-} from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
@@ -83,6 +87,7 @@ describe('OffersContainer', () => {
     expect(queryByText(errorText)).toBeTruthy()
     expect(queryByText('Offers')).toBeFalsy()
     expect(queryByText('loading')).toBeFalsy()
+    expect(reportError).toHaveBeenCalledTimes(1)
   })
 
   it('should display offers with a Loading spinner', () => {
@@ -140,7 +145,8 @@ describe('OffersContainer', () => {
           latitude: 48.267499,
           longitude: 10.889586
         }
-      }
+      },
+      boundingBox: null
     })
     const store = mockStore({
       cities: {

@@ -1,9 +1,11 @@
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
 import NewsListItem from '../NewsListItem'
-import buildConfig from '../../constants/buildConfig'
 import React from 'react'
+import wrapWithTheme from '../../testing/wrapWithTheme'
+
+jest.mock('react-i18next')
 
 const tuNews = new TunewsModel({
   id: 9902,
@@ -23,22 +25,23 @@ describe('NewsListItem', () => {
   const language = 'de'
   const navigateToNews = jest.fn()
 
-  const t = (key: string) => key
+  const renderNewsListItem = (newsItem: LocalNewsModel | TunewsModel, isTuNews: boolean): RenderAPI =>
+    render(
+      <NewsListItem
+        index={0}
+        newsItem={newsItem}
+        language={language}
+        navigateToNews={navigateToNews}
+        isTunews={isTuNews}
+      />,
+      { wrapper: wrapWithTheme }
+    )
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
   it('should correctly render a local news item', () => {
-    const { getByText, queryByText } = render(
-      <NewsListItem
-        newsItem={localNews}
-        language={language}
-        navigateToNews={navigateToNews}
-        theme={buildConfig().lightTheme}
-        t={t}
-        isTunews={false}
-      />
-    )
+    const { getByText, queryByText } = renderNewsListItem(localNews, false)
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('January 20, 2020')).toBeTruthy()
     expect(queryByText('Last Update')).toBeNull()
@@ -46,16 +49,7 @@ describe('NewsListItem', () => {
     expect(navigateToNews).toHaveBeenCalled()
   })
   it('should correctly render a tu news item', () => {
-    const { getByText } = render(
-      <NewsListItem
-        newsItem={tuNews}
-        language={language}
-        navigateToNews={navigateToNews}
-        theme={buildConfig().lightTheme}
-        t={t}
-        isTunews
-      />
-    )
+    const { getByText } = renderNewsListItem(tuNews, true)
     expect(getByText(tuNews.title)).toBeTruthy()
     expect(getByText(tuNews.content)).toBeTruthy()
     fireEvent.press(getByText(tuNews.title))

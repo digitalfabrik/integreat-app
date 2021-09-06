@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { View } from 'react-native'
-import { withTranslation, TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import {
   CityModel,
   fromError,
@@ -14,9 +14,7 @@ import {
   RouteInformationType
 } from 'api-client'
 import NewsList from '../components/NewsList'
-import { ThemeType } from 'build-configs'
 import { NewsModelsType } from '../redux/StateType'
-import withTheme from '../hocs/withTheme'
 import NewsListItem from '../components/NewsListItem'
 import styled from 'styled-components/native'
 import NewsDetail from '../components/NewsDetail'
@@ -33,8 +31,6 @@ export type PropsType = {
   news: NewsModelsType
   cityModel: CityModel
   language: string
-  theme: ThemeType
-  t: TFunction
   selectedNewsType: NewsType
   isFetchingMore: boolean
   fetchMoreNews: () => void
@@ -44,15 +40,22 @@ export type PropsType = {
 }
 
 const News = (props: PropsType): ReactElement => {
-  const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, theme, t, routeKey } = props
+  const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, routeKey } = props
   const { navigateTo, navigateToLink, cityModel } = props
+  const { t } = useTranslation('news')
 
   const renderNoItemsComponent = (): React.ReactElement => {
-    return <NoNews theme={theme}>{t('currentlyNoNews')}</NoNews>
+    return <NoNews>{t('currentlyNoNews')}</NoNews>
   }
 
   const rendersNewsListItem = useCallback(
-    (cityCode: string, language: string) => ({ item }: { item: LocalNewsModel | TunewsModel }) => {
+    (cityCode: string, language: string) => ({
+      item,
+      index
+    }: {
+      item: LocalNewsModel | TunewsModel
+      index: number
+    }) => {
       const navigateToNews = () => {
         navigateTo({
           route: NEWS_ROUTE,
@@ -65,17 +68,16 @@ const News = (props: PropsType): ReactElement => {
 
       return (
         <NewsListItem
+          index={index}
           key={item.id}
           newsItem={item}
           language={language}
-          theme={theme}
           isTunews={selectedNewsType === TU_NEWS_TYPE}
           navigateToNews={navigateToNews}
-          t={t}
         />
       )
     },
-    [selectedNewsType, theme, t, navigateTo]
+    [selectedNewsType, navigateTo]
   )
 
   if (selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled) {
@@ -92,9 +94,7 @@ const News = (props: PropsType): ReactElement => {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
 
     if (selectedNewsItem) {
-      return (
-        <NewsDetail newsItem={selectedNewsItem} theme={theme} language={language} navigateToLink={navigateToLink} />
-      )
+      return <NewsDetail newsItem={selectedNewsItem} language={language} navigateToLink={navigateToLink} />
     } else {
       const error = new NotFoundError({
         type: selectedNewsType,
@@ -128,5 +128,4 @@ const News = (props: PropsType): ReactElement => {
   )
 }
 
-const TranslatedWithThemeNewsList = withTranslation('news')(withTheme<PropsType>(News))
-export default TranslatedWithThemeNewsList
+export default News

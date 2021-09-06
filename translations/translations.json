@@ -5508,5 +5508,11 @@
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
     }
+  },
+  "pois": {
+    "de": {
+      "location": "Standort",
+      "map": "Karte"
+    }
   }
 }

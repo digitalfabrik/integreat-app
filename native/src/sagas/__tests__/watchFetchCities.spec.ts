@@ -6,12 +6,19 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import loadCities from '../loadCities'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import { ErrorCode } from 'api-client'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../loadCities')
+
 describe('watchFetchCities', () => {
   beforeEach(() => {
     RNFetchBlob.fs._reset()
+    jest.clearAllMocks()
   })
+
   describe('fetchCities', () => {
     it('should put an action which pushes the cities', async () => {
       const cities = new CityModelBuilder(1).build()
@@ -23,7 +30,7 @@ describe('watchFetchCities', () => {
           forceRefresh: false
         }
       }
-      return expectSaga(fetchCities, dataContainer, action)
+      await expectSaga(fetchCities, dataContainer, action)
         .call(loadCities, dataContainer, false)
         .put({
           type: 'PUSH_CITIES',
@@ -32,8 +39,10 @@ describe('watchFetchCities', () => {
           }
         })
         .run()
+      expect(reportError).not.toHaveBeenCalled()
     })
-    it('should put an error action', () => {
+
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchCitiesActionType = {
         type: 'FETCH_CITIES',
@@ -41,11 +50,12 @@ describe('watchFetchCities', () => {
           forceRefresh: false
         }
       }
-      return expectSaga(fetchCities, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(fetchCities, dataContainer, action)
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCities) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -60,10 +70,14 @@ describe('watchFetchCities', () => {
           }
         })
         .run()
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
+
   it('should correctly call fetchCities when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
-    return testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
+    await testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
+    expect(reportError).not.toHaveBeenCalled()
   })
 })

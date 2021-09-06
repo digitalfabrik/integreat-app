@@ -1,7 +1,7 @@
 import navigateToCategory from '../navigateToCategory'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client/src/routes'
-import { mocked } from 'ts-jest'
+import { mocked } from 'ts-jest/utils'
 
 jest.mock('../url', () => ({
   url: jest.fn(path => path)

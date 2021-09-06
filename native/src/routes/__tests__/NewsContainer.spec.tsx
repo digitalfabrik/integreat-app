@@ -3,10 +3,10 @@ import configureMockStore from 'redux-mock-store'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from '../../redux/StateType'
+import { CitiesStateType, LanguagesStateType, NewsRouteStateType, StateType } from '../../redux/StateType'
 import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, CityModel, ErrorCode } from 'api-client'
+import { CityModel, ErrorCode, LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'api-client'
 import NewsContainer from '../NewsContainer'
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
@@ -62,7 +62,8 @@ describe('NewsContainer', () => {
         latitude: 48.267499,
         longitude: 10.889586
       }
-    }
+    },
+    boundingBox: null
   })
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]

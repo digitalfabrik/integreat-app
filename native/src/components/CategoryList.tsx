@@ -53,7 +53,7 @@ const CategoryThumbnail = styled(SimpleImage)`
 
 class CategoryList extends React.Component<PropsType> {
   getListContent(listContent: ListContentModelType): React.ReactNode {
-    const { theme, language, navigateToLink } = this.props
+    const { language, navigateToLink } = this.props
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
       return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
@@ -66,7 +66,6 @@ class CategoryList extends React.Component<PropsType> {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         lastUpdate={listContent.lastUpdate}
-        theme={theme}
       />
     )
   }
