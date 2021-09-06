@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs'
 import program from 'commander'
 import path from 'path'
