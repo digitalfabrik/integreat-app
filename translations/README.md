@@ -88,15 +88,15 @@ Notes:
 
 ### CSV to ODS
 
-Convert all csv in the specified directory to ods: `yarn manage csv-to-ods <csv_directory> <ods_directory>`
+Convert all csv in the specified directory to ods: `./tools/csv-to-ods <csv_directory> <ods_directory>`
 
-Example: `yarn manage csv-to-ods translations-csv translation-ods`
+Example: `./tools/csv-to-ods translations-csv translation-ods`
 
 ### ODS to CSV
 
-Convert all ods in the specified directory to csv: `yarn manage ods-to-csv <ods_directory> <csv_directory>`
+Convert all ods in the specified directory to csv: `./tools/ods-to-csv <ods_directory> <csv_directory>`
 
-Example: `yarn manage ods-to-csv translations-ods translation-csv`
+Example: `./tools/ods-to-csv translations-ods translation-csv`
 
 ## Used file formats
 
