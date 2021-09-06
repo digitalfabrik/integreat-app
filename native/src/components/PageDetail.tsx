@@ -20,6 +20,7 @@ const DetailContainer = styled.Text<DetailContainerPropsType>`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
   color: ${props => props.theme.colors.textColor};
 `
+
 type PropsType = {
   identifier: string
   information: string
@@ -32,11 +33,13 @@ type PropsType = {
 const PageDetail: React.FC<PropsType> = (props: PropsType): ReactElement => {
   const { identifier, information, theme, language, navigateToMap, linkLabel } = props
   return (
-    <DetailContainer theme={theme} language={language}>
-      <Identifier theme={theme}>{identifier}: </Identifier>
-      {information}
+    <>
+      <DetailContainer theme={theme} language={language}>
+        <Identifier theme={theme}>{identifier}: </Identifier>
+        {information}
+      </DetailContainer>
       {linkLabel && <Button title={linkLabel} onPress={() => navigateToMap()} />}
-    </DetailContainer>
+    </>
   )
 }
 
