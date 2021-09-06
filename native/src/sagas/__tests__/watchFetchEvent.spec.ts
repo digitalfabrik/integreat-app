@@ -9,10 +9,14 @@ import loadCityContent from '../loadCityContent'
 import moment from 'moment'
 import mockDate from '../../testing/mockDate'
 import { ErrorCode } from 'api-client'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../loadCityContent')
 
-describe('watchFetchEvents', () => {
+describe('watchFetchEvent', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
   beforeEach(() => {
@@ -20,6 +24,7 @@ describe('watchFetchEvents', () => {
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate
+    jest.clearAllMocks()
   })
   afterEach(async () => {
     restoreMockedDate()
@@ -120,8 +125,9 @@ describe('watchFetchEvents', () => {
         })
         .run()
     })
-    it('should put error action if language is not available for events list', async () => {
-      const { dataContainer, languages } = await createDataContainer(city, language)
+
+    it('should put error action if language is not available', async () => {
+      const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
@@ -150,43 +156,17 @@ describe('watchFetchEvents', () => {
             message: 'Could not load event.',
             code: ErrorCode.PageNotFound,
             path: null,
-            allAvailableLanguages: new Map(languages.map(lng => [lng.code, null])),
+            allAvailableLanguages: new Map([
+              ['en', '/augsburg/en/events'],
+              ['de', '/augsburg/de/events']
+            ]),
             key: 'route-0'
           }
         })
         .run()
     })
 
-    it('should put an error action if language is not available for specific event', async () => {
-      const { dataContainer } = await createDataContainer(city, language)
-      const invalidLanguage = '??'
-      const action: FetchEventActionType = {
-        type: 'FETCH_EVENT',
-        params: {
-          city,
-          language: invalidLanguage,
-          path: `/${city}/${invalidLanguage}/events/some_event`,
-          key: 'route-0',
-          criterion: {
-            forceUpdate: false,
-            shouldRefreshResources: true
-          }
-        }
-      }
-      return expectSaga(fetchEvent, dataContainer, action)
-        .withState({
-          cityContent: {
-            city
-          }
-        })
-        .put.like({
-          action: {
-            type: 'FETCH_EVENT_FAILED'
-          }
-        })
-        .run()
-    })
-    it('should put an error action', () => {
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchEventActionType = {
         type: 'FETCH_EVENT',
@@ -201,7 +181,8 @@ describe('watchFetchEvents', () => {
           }
         }
       }
-      return expectSaga(fetchEvent, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
             city
@@ -210,7 +191,7 @@ describe('watchFetchEvents', () => {
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -222,11 +203,15 @@ describe('watchFetchEvents', () => {
           }
         })
         .run()
+
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetchEvent when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
-    return testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    await testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
+    expect(reportError).not.toHaveBeenCalled()
   })
 })

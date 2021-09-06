@@ -16,6 +16,7 @@ import * as NotificationsManager from '../utils/PushNotificationsManager'
 import buildConfig from '../constants/buildConfig'
 import loadPois from './loadPois'
 import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
+import { reportError } from '../utils/helpers'
 
 /**
  * Subscribes to the push notification topic of the new city and language
@@ -107,10 +108,11 @@ function* prepareLanguages(
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
     console.error(e)
+    reportError(e)
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',
       params: {
-        message: `Error in fetchCategoryhttps://en.wikipedia.org/wiki/Serbian_language: ${e.message}`,
+        message: `Error while fetching languages: ${e.message}`,
         code: fromError(e)
       }
     }

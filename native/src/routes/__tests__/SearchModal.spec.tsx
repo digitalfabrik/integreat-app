@@ -10,12 +10,7 @@ import buildConfig from '../../constants/buildConfig'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/TimeStamp')
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (text: string) => text
-  }),
-  withTranslation: () => () => null
-}))
+jest.mock('react-i18next')
 
 describe('SearchModal', () => {
   beforeEach(() => {

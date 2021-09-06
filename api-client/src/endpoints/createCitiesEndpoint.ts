@@ -1,3 +1,4 @@
+import { BBox } from 'geojson'
 import CityModel from '../models/CityModel'
 import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
@@ -36,7 +37,10 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               prefix: city.prefix,
               longitude: city.longitude,
               latitude: city.latitude,
-              aliases: city.aliases
+              aliases: city.aliases,
+              boundingBox: Array.isArray(city.bounding_box)
+                ? ([...city.bounding_box[0], ...city.bounding_box[1]] as BBox)
+                : null
             })
         )
         .sort((city1, city2) => city1.sortingName.localeCompare(city2.sortingName))

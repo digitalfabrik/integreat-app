@@ -1,17 +1,21 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType, CityModel, ErrorCode } from 'api-client'
+import { CityModel, ErrorCode, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
+  mockUseLoadFromEndpointLoading,
   mockUseLoadFromEndpointOnceWithData,
-  mockUseLoadFromEndpointWithError,
-  mockUseLoadFromEndpointLoading
-} from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
+  mockUseLoadFromEndpointWithError
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { reportError } from '../../utils/helpers'
 
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
@@ -96,6 +100,7 @@ describe('SprungbrettOfferContainer', () => {
     expect(getByText(errorText)).toBeTruthy()
     expect(queryByText('SprungbrettOffer')).toBeFalsy()
     expect(queryByText('loading')).toBeFalsy()
+    expect(reportError).toHaveBeenCalledTimes(1)
   })
 
   it('should display a loading spinner', () => {
@@ -141,7 +146,8 @@ describe('SprungbrettOfferContainer', () => {
           latitude: 48.267499,
           longitude: 10.889586
         }
-      }
+      },
+      boundingBox: null
     })
     const store = mockStore({
       cities: {

@@ -1,10 +1,10 @@
-import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock'
 import { I18nManager } from './src/testing/I18nManagerMock'
 import path from 'path'
 import fs from 'fs'
 import '@testing-library/jest-native/extend-expect'
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage)
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
 // react-navigation jest setup
 // https://reactnavigation.org/docs/testing#mocking-native-modules
@@ -43,6 +43,8 @@ jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock('constants/NativeConstants')
 jest.doMock('constants/buildConfig')
 jest.doMock('rn-fetch-blob')
+jest.doMock('path', () => path.posix)
+
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
 jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -12,8 +12,8 @@ import {
   OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
-  useLoadFromEndpoint,
-  SprungbrettOfferRouteType
+  SprungbrettOfferRouteType,
+  useLoadFromEndpoint
 } from 'api-client'
 import withTheme from '../hocs/withTheme'
 import { ThemeType } from 'build-configs'
@@ -23,6 +23,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
+import useReportError from '../hooks/useReportError'
 
 type OwnPropsType = {
   route: RoutePropType<SprungbrettOfferRouteType>
@@ -70,6 +71,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   const { data: jobs, error: jobsError, loading, refresh } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(
     requestJobs
   )
+  useReportError(jobsError)
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({

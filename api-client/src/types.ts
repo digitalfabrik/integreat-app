@@ -177,11 +177,6 @@ export type JsonCityType = {
   prefix: string | null | undefined
   latitude: number | null
   longitude: number | null
-  aliases: Record<
-    string,
-    {
-      longitude: number
-      latitude: number
-    }
-  > | null
+  aliases: Record<string, { longitude: number; latitude: number }> | null
+  bounding_box: number[][] | null
 }

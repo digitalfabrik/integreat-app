@@ -19,7 +19,9 @@ const cities = [
         latitude: 48.267499,
         longitude: 10.889586
       }
-    }
+    },
+    // eslint-disable-next-line no-magic-numbers
+    boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
   }),
   new CityModel({
     name: 'Oldtown',
@@ -34,7 +36,8 @@ const cities = [
     prefix: 'GoT',
     latitude: null,
     longitude: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   }),
   new CityModel({
     name: 'City',
@@ -49,7 +52,8 @@ const cities = [
     latitude: null,
     longitude: null,
     prefix: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   }),
   new CityModel({
     name: 'Other city',
@@ -64,7 +68,8 @@ const cities = [
     latitude: null,
     longitude: null,
     prefix: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   }),
   new CityModel({
     name: 'Notlive',
@@ -79,7 +84,8 @@ const cities = [
     latitude: null,
     longitude: null,
     prefix: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   }),
   new CityModel({
     name: 'Yet another city',
@@ -94,7 +100,8 @@ const cities = [
     latitude: null,
     longitude: null,
     prefix: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   })
 ]
 

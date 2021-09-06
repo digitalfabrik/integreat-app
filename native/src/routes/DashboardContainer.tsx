@@ -1,11 +1,9 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import Dashboard, { PropsType as DashboardPropsType } from './Dashboard'
+import Dashboard from './Dashboard'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import withTheme from '../hocs/withTheme'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import { StoreActionType } from '../redux/StoreActionType'
-import { withTranslation } from 'react-i18next'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import React, { useCallback } from 'react'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
@@ -201,8 +199,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedDashboard = withTranslation('dashboard')(withTheme<DashboardPropsType>(Dashboard))
-
 const DashboardContainer = (props: ContainerPropsType) => {
   const { dispatch, navigation, route, ...rest } = props
   const navigateToLinkProp = useCallback(
@@ -213,7 +209,7 @@ const DashboardContainer = (props: ContainerPropsType) => {
     [dispatch, navigation]
   )
   return (
-    <ThemedTranslatedDashboard
+    <Dashboard
       {...rest}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
       navigateToLink={navigateToLinkProp}

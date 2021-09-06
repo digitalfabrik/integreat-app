@@ -8,6 +8,7 @@ import {
   EVENTS_ROUTE,
   LanguageModel,
   normalizePath,
+  NotFoundError,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
@@ -77,7 +78,9 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     }
 
     if (loadingError || !cityModel || !languages) {
-      const cityError = !cityModel ? new Error('notFound.category') : null
+      const cityError = !cityModel
+        ? new NotFoundError({ type: 'category', id: cityCode, city: cityCode, language: languageCode })
+        : null
       const error = cityError || loadingError || new Error('Languages should not be null!')
 
       return (
@@ -140,34 +143,63 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
 
   const routes: ReactElement[] = []
   if (eventsEnabled) {
-    routes.push(<Route render={render(EVENTS_ROUTE, EventsPage)} path={RoutePatterns[EVENTS_ROUTE]} exact />)
+    routes.push(
+      <Route key={EVENTS_ROUTE} render={render(EVENTS_ROUTE, EventsPage)} path={RoutePatterns[EVENTS_ROUTE]} exact />
+    )
   }
   if (offersEnabled) {
     routes.push(
       <Route
+        key={SPRUNGBRETT_OFFER_ROUTE}
         render={render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
         path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
         exact
       />,
-      <Route render={render(OFFERS_ROUTE, OffersPage)} path={RoutePatterns[OFFERS_ROUTE]} exact />
+      <Route key={OFFERS_ROUTE} render={render(OFFERS_ROUTE, OffersPage)} path={RoutePatterns[OFFERS_ROUTE]} exact />
     )
   }
   if (poisEnabled) {
-    routes.push(<Route render={render(POIS_ROUTE, PoisPage)} path={RoutePatterns[POIS_ROUTE]} exact />)
+    routes.push(<Route key={POIS_ROUTE} render={render(POIS_ROUTE, PoisPage)} path={RoutePatterns[POIS_ROUTE]} exact />)
   }
   if (localNewsEnabled) {
-    routes.push(<Route render={render(LOCAL_NEWS_ROUTE, LocalNewsPage)} path={RoutePatterns[LOCAL_NEWS_ROUTE]} exact />)
+    routes.push(
+      <Route
+        key={LOCAL_NEWS_ROUTE}
+        render={render(LOCAL_NEWS_ROUTE, LocalNewsPage)}
+        path={RoutePatterns[LOCAL_NEWS_ROUTE]}
+        exact
+      />
+    )
   }
   if (tuNewsEnabled) {
     routes.push(
-      <Route render={render(TU_NEWS_ROUTE, TuNewsPage)} path={RoutePatterns[TU_NEWS_ROUTE]} exact />,
-      <Route render={render(TU_NEWS_DETAIL_ROUTE, TuNewsDetailPage)} path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]} exact />
+      <Route
+        key={TU_NEWS_ROUTE}
+        render={render(TU_NEWS_ROUTE, TuNewsPage)}
+        path={RoutePatterns[TU_NEWS_ROUTE]}
+        exact
+      />,
+      <Route
+        key={TU_NEWS_DETAIL_ROUTE}
+        render={render(TU_NEWS_DETAIL_ROUTE, TuNewsDetailPage)}
+        path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]}
+        exact
+      />
     )
   }
   routes.push(
-    <Route render={render(SEARCH_ROUTE, SearchPage)} path={RoutePatterns[SEARCH_ROUTE]} exact />,
-    <Route render={render(DISCLAIMER_ROUTE, DisclaimerPage)} path={RoutePatterns[DISCLAIMER_ROUTE]} exact />,
-    <Route render={render(CATEGORIES_ROUTE, CategoriesPage)} path={RoutePatterns[CATEGORIES_ROUTE]} />
+    <Route key={SEARCH_ROUTE} render={render(SEARCH_ROUTE, SearchPage)} path={RoutePatterns[SEARCH_ROUTE]} exact />,
+    <Route
+      key={DISCLAIMER_ROUTE}
+      render={render(DISCLAIMER_ROUTE, DisclaimerPage)}
+      path={RoutePatterns[DISCLAIMER_ROUTE]}
+      exact
+    />,
+    <Route
+      key={CATEGORIES_ROUTE}
+      render={render(CATEGORIES_ROUTE, CategoriesPage)}
+      path={RoutePatterns[CATEGORIES_ROUTE]}
+    />
   )
   return <Switch>{routes}</Switch>
 }
