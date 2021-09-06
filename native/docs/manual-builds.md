@@ -1,23 +1,26 @@
 # Manually Running and Building the App
 
-If you want to run the app locally or create `.ipa` or `.apk` builds for testing purposes you can follow this guide.
-If you only want to quickly push an update to the stores then take a look at the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci).
+If you want to run the app locally or create `.ipa` or `.apk` builds for testing purposes you can follow this guide. If
+you only want to quickly push an update to the stores then take a look at
+the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci).
 
 ## Contents
 
 - iOS
-  - [Setup and prerequisites](#setup-on-ios)
-  - [Running the app](#running-the-app-on-ios)
-  - [Building the app with a distribution certificate](#building-the-app-with-a-distribution-certificate)
+    - [Setup and prerequisites](#setup-on-ios)
+    - [Running the app](#running-the-app-on-ios)
+    - [Building the app with a distribution certificate](#building-the-app-with-a-distribution-certificate)
 - Android
-  - [Setup and prerequisites](#setup-on-android)
-  - [Running the app](#running-the-app-on-android)
-  - [Building the app using a test signing keystore](#building-the-app-using-a-test-signing-keystore-without-fastlane)
-  - [Building the app using for the Play Store](#building-the-app-for-the-play-store)
+    - [Setup and prerequisites](#setup-on-android)
+    - [Running the app](#running-the-app-on-android)
+    - [Running the App via ADB network on mobile device](#running-the-app-via-adb-network)
+    - [Building the app using a test signing keystore](#building-the-app-using-a-test-signing-keystore-without-fastlane)
+    - [Building the app using for the Play Store](#building-the-app-for-the-play-store)
 
 ## iOS
 
-**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be found [here](build-configs.md).**
+**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be
+found [here](build-configs.md).**
 
 ### Setup on iOS
 
@@ -29,7 +32,8 @@ If you only want to quickly push an update to the stores then take a look at the
 
 #### Certificates Setup
 
-- Prepare the necessary environment variables as specified [here](../../docs/cicd.md#environment-variables-and-dependencies).
+- Prepare the necessary environment variables as
+  specified [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 - Install the certificates locally:
 
@@ -40,13 +44,13 @@ cd ios && bundle exec fastlane certificates
 ##### Trouble Shooting
 
 - [Installing certificates hangs on `Cloning remote git repo...`](troubleshooting.md#bundle-exec-fastlane-certificates-hangs-on-cloning-remote-git-repo)
-- Secrets containing `'`: Exporting as environment variable is possible as follows: `export SECRET='<prefix>'"'"'<suffix>'`.
+- Secrets containing `'`: Exporting as environment variable is possible as
+  follows: `export SECRET='<prefix>'"'"'<suffix>'`.
 - 2FA prompt: Message @Max or @Steffen.
 
 #### Dependency Management
 
-CocoaPods is used for dependency management of the native libraries.
-It should be usable after setting up Fastlane.
+CocoaPods is used for dependency management of the native libraries. It should be usable after setting up Fastlane.
 
 - Make sure CocoaPods is installed by running `bundle exec pod --version`.
 
@@ -70,8 +74,8 @@ yarn start
 ```
 
 - Run the app in a simulator or on a real device via XCode:
-  - Start XCode and open `ios/Integreat.xcworkspace`.
-  - Run the app.
+    - Start XCode and open `ios/Integreat.xcworkspace`.
+    - Run the app.
 
 #### Trouble Shooting
 
@@ -85,18 +89,21 @@ yarn start
 cd ios && bundle exec fastlane build
 ```
 
-Fastlane should report where the build artifacts are. These can be uploaded to App Store Connect or distributed via another way.
+Fastlane should report where the build artifacts are. These can be uploaded to App Store Connect or distributed via
+another way.
 
 ## Android
 
-**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be found [here](build-configs.md).**
+**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be
+found [here](build-configs.md).**
 
 ### Setup on Android
 
 #### Prerequisites
 
 - Install and setup the Android SDK.
-- **Building for the Play Store only:** [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup) (necessary for keystore management).
+- **Building for the Play Store only:** [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup) (necessary for
+  keystore management).
 
 #### Dependency Management
 
@@ -116,14 +123,17 @@ yarn start
 yarn android
 ```
 
-- Start the app on mobile device using **ADB over network**:
+### Running the App via ADB network
+
+Start the app on mobile device using **ADB over network**
+
 1. Enable ADB via Network on your phone (Dev Settings)
-2. Connect phone via usb 
-3. Run: `adb tcpip 5555` 
-4. Plug out phone 
+2. Connect phone via usb
+3. Run: `adb tcpip 5555`
+4. Plug out phone
 5. Run: `adb connect 192.168.x.x`
-6. Use the commands in the section above
-More information:  [Android 11](https://developer.android.com/studio/command-line/adb#connect-to-a-device-over-wi-fi-android-11+) [Android 10 and below](https://developer.android.com/studio/command-line/adb#wireless)
+6. Use the commands in the section above More
+   information:  [Android 11](https://developer.android.com/studio/command-line/adb#connect-to-a-device-over-wi-fi-android-11+) [Android 10 and below](https://developer.android.com/studio/command-line/adb#wireless)
 
 ### Building the App using a test signing keystore (without Fastlane)
 
@@ -163,7 +173,8 @@ export CREDENTIALS_KEYSTORE_PATH=/tmp/credentials/<secret>.enc
 export KEYSTORE_PATH=/tmp/keystore.jks
 ```
 
-More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be
+found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 - Setup the production JKS:
 
@@ -179,7 +190,8 @@ export KEYSTORE_PASSWORD=<secret>
 export KEYSTORE_KEY_PASSWORD=<secret>
 ```
 
-More information about the necessary environment variables can be found [here](../../docs/cicd.md#environment-variables-and-dependencies).
+More information about the necessary environment variables can be
+found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
 #### Build the App
 
