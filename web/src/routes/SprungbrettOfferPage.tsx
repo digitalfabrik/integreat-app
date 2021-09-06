@@ -23,9 +23,9 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Caption from '../components/Caption'
 import List from '../components/List'
-import CleanAnchor from '../components/CleanAnchor'
 import Helmet from '../components/Helmet'
 import { CityRouteProps } from '../CityContentSwitcher'
+import CleanLink from '../components/CleanLink'
 
 const Image = styled.img`
   display: block;
@@ -118,9 +118,9 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
-      <CleanAnchor href='https://www.sprungbrett-intowork.de'>
+      <CleanLink to='https://www.sprungbrett-intowork.de'>
         <Image src={offer.thumbnail} />
-      </CleanAnchor>
+      </CleanLink>
     </LocationLayout>
   )
 }
