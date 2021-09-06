@@ -46,6 +46,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
 
     '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'warn',
     '@typescript-eslint/no-unused-vars': [

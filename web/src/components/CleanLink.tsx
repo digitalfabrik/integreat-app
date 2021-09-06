@@ -12,7 +12,7 @@ const StyledCleanAnchor = styled.a`
   text-decoration: none;
 `
 
-interface CleanLinkProps {
+type CleanLinkProps = {
   to: string
   children: ReactNode
   ariaLabel?: string

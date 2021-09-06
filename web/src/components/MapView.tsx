@@ -1,9 +1,9 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import styled from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { FeatureCollection, Feature, Point } from 'geojson'
+import { Feature, FeatureCollection, Point } from 'geojson'
 import { detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
 
 import MapPopup from './MapPopup'
@@ -35,7 +35,7 @@ const geolocateControlStyle: React.CSSProperties = {
   top: 10
 }
 
-interface MapViewProps {
+type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: FeatureCollection<Point>
 }
