@@ -66,9 +66,9 @@ For conversion between csv and ods the [csv-to-ods](tools/csv-to-ods) and [ods-t
 ### JSON to CSV
 
 Convert the specified json file to multiple csv (one per language) in the given directory:
-`./tools/manage convert <json file> <csv directory> csv`
+`yarn manage convert <json file> <csv directory> csv`
 
-Example: `./tools/manage convert ./translations.json translations-csv csv`
+Example: `yarn manage convert ./translations.json translations-csv csv`
 
 Notes:
 
@@ -77,9 +77,9 @@ Notes:
 ### CSV to JSON
 
 Convert the csv files in the specified directory to a json file:
-`./tools/manage convert <csv directory> <json file> json`
+`yarn manage convert <csv directory> <json file> json`
 
-Example: `./tools/manage convert translations-csv ./translations.json json`
+Example: `yarn manage convert translations-csv ./translations.json json`
 
 Notes:
 
@@ -88,15 +88,15 @@ Notes:
 
 ### CSV to ODS
 
-Convert all csv in the specified directory to ods: `./tools/csv-to-ods <csv_directory> <ods_directory>`
+Convert all csv in the specified directory to ods: `yarn manage csv-to-ods <csv_directory> <ods_directory>`
 
-Example: `./tools/csv-to-ods translations-csv translation-ods`
+Example: `yarn manage csv-to-ods translations-csv translation-ods`
 
 ### ODS to CSV
 
-Convert all ods in the specified directory to csv: `./tools/ods-to-csv <ods_directory> <csv_directory>`
+Convert all ods in the specified directory to csv: `yarn manage ods-to-csv <ods_directory> <csv_directory>`
 
-Example: `./tools/ods-to-csv translations-ods translation-csv`
+Example: `yarn manage ods-to-csv translations-ods translation-csv`
 
 ## Used file formats
 
