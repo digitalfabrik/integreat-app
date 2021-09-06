@@ -123,7 +123,7 @@ yarn android
 4. Plug out phone 
 5. Run: `adb connect 192.168.x.x`
 6. Use the commands in the section above
-
+More information:  [Android 11](https://developer.android.com/studio/command-line/adb#connect-to-a-device-over-wi-fi-android-11+) [Android 10 and below](https://developer.android.com/studio/command-line/adb#wireless)
 
 ### Building the App using a test signing keystore (without Fastlane)
 
