@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
@@ -20,18 +20,21 @@ type MapViewPropsType = {
 }
 
 const textOffsetY = 1.25
+const layerId = 'point'
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
+  const ref = React.useRef<MapboxGL.MapView | null>(null)
+  const [feature, setFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
   const layerProps: SymbolLayerProps = {
-    id: 'point',
+    id: layerId,
     style: {
       symbolPlacement: 'point',
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
       iconImage: ['get', 'symbol'],
-      textField: ['case', ['==', ['get', 'id'], currentFeature?.properties?.id ?? -1], ['get', 'title'], ''],
+      textField: ['case', ['==', ['get', 'id'], feature?.properties?.id ?? -1], ['get', 'title'], ''],
       textFont: ['Roboto Regular'],
       textOffset: [0, textOffsetY],
       textAnchor: 'top',
@@ -46,13 +49,30 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
 
   // if there is a current feature use the coordinates if not use bounding box
   const defaultSettings: CameraSettings = {
-    zoomLevel: currentFeature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
-    centerCoordinate: currentFeature?.geometry.coordinates,
-    bounds: currentFeature?.geometry.coordinates ? undefined : bounds
+    zoomLevel: feature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
+    centerCoordinate: feature?.geometry.coordinates,
+    bounds: feature?.geometry.coordinates ? undefined : bounds
   }
+
+  const onPress = useCallback(
+    async (e: Feature) => {
+      const featureCollection: FeatureCollection<Point> = (await ref.current?.queryRenderedFeaturesAtPoint(
+        [e.properties?.screenPointX, e.properties?.screenPointY],
+        undefined,
+        [layerId]
+      )) as FeatureCollection<Point>
+      if (featureCollection?.features?.length) {
+        setFeature(featureCollection.features[0])
+      } else {
+        setFeature(null)
+      }
+    },
+    [ref]
+  )
+
   return (
     <MapContainer>
-      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled>
+      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={ref}>
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
