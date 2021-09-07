@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
-import ListItem from './ListItem'
+
 import { PoiModel } from 'api-client'
+
+import ListItem from './ListItem'
 
 type PropsType = {
   poi: PoiModel

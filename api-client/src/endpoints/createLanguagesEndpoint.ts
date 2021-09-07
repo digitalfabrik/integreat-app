@@ -1,7 +1,7 @@
-import LanguageModel from '../models/LanguageModel'
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonLanguageType } from '../types'
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import LanguageModel from '../models/LanguageModel'
+import { JsonLanguageType } from '../types'
 
 export const LANGUAGES_ENDPOINT_NAME = 'languages'
 

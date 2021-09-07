@@ -1,4 +1,5 @@
 import normalizePath from 'normalize-path'
+
 import CategoryModel from './CategoryModel'
 
 /**

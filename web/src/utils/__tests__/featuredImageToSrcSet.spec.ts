@@ -1,5 +1,6 @@
-import featuredImageToSrcSet from '../featuredImageToSrcSet'
 import { FeaturedImageModel } from 'api-client'
+
+import featuredImageToSrcSet from '../featuredImageToSrcSet'
 
 describe('featuredImageToSrcSet', () => {
   it('should calculate the correct sizes for srcSet and encode urls', () => {

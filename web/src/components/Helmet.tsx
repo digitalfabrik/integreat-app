@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react'
-import { CityModel } from 'api-client'
 import { Helmet as ReactHelmet } from 'react-helmet'
+
+import { CityModel } from 'api-client'
+
 import buildConfig from '../constants/buildConfig'
 
 type PropsType = {

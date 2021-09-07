@@ -1,9 +1,11 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import { LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
-import NewsListItem from '../NewsListItem'
 import React from 'react'
+
+import { LocalNewsModel, TunewsModel } from 'api-client'
+
 import wrapWithTheme from '../../testing/wrapWithTheme'
+import NewsListItem from '../NewsListItem'
 
 jest.mock('react-i18next')
 

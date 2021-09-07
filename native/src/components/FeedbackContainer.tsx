@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
-import Feedback from './Feedback'
+import { useTranslation } from 'react-i18next'
+
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
@@ -25,10 +26,11 @@ import {
   SearchRouteType,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
+import { ThemeType } from 'build-configs/ThemeType'
+
 import { determineApiUrl, reportError } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { useTranslation } from 'react-i18next'
-import { ThemeType } from 'build-configs/ThemeType'
+import Feedback from './Feedback'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 

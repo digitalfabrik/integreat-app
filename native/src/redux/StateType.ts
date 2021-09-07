@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -14,7 +16,6 @@ import {
   NewsType,
   PoisRouteType
 } from 'api-client'
-import moment from 'moment'
 import { config } from 'translations'
 
 export type PathType = string

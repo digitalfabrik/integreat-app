@@ -1,11 +1,13 @@
-import RNFetchBlob from 'rn-fetch-blob'
-import AppSettings from './AppSettings'
-import buildConfig from '../constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
-import normalizeStrings from 'normalize-strings'
 import { last } from 'lodash'
+import normalizeStrings from 'normalize-strings'
+import RNFetchBlob from 'rn-fetch-blob'
 import Url from 'url-parse'
+
 import { FetchError, NotFoundError } from 'api-client/src'
+
+import buildConfig from '../constants/buildConfig'
+import AppSettings from './AppSettings'
 
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333

@@ -1,10 +1,12 @@
 import React, { ReactNode, ReactElement } from 'react'
-import styled from 'styled-components'
 import { TFunction } from 'react-i18next'
-import NewsTab from './NewsTab'
+import styled from 'styled-components'
+
 import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
+
 import { createPath, LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Caption from './Caption'
+import NewsTab from './NewsTab'
 
 const StyledTabs = styled.div`
   display: flex;

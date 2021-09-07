@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
+
 import { SprungbrettJobModel } from 'api-client'
+
 import ListItem from './ListItem'
 
 type PropsType = {

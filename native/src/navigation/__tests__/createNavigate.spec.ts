@@ -1,13 +1,6 @@
-import createNavigate from '../createNavigate'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import navigateToDisclaimer from '../navigateToDisclaimer'
-import navigateToLanding from '../navigateToLanding'
-import navigateToOffers from '../navigateToOffers'
-import navigateToEvents from '../navigateToEvents'
-import navigateToPois from '../navigateToPois'
-import navigateToSearch from '../navigateToSearch'
-import navigateToNews from '../navigateToNews'
-import navigateToCategory from '../navigateToCategory'
+import { mocked } from 'ts-jest/utils'
+
+import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -21,11 +14,20 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE
 } from 'api-client/src/routes'
+
 import buildConfig from '../../constants/buildConfig'
-import navigateToJpalTracking from '../navigateToJpalTracking'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import { mocked } from 'ts-jest/utils'
+import createNavigate from '../createNavigate'
+import navigateToCategory from '../navigateToCategory'
+import navigateToDisclaimer from '../navigateToDisclaimer'
+import navigateToEvents from '../navigateToEvents'
+import navigateToJpalTracking from '../navigateToJpalTracking'
+import navigateToLanding from '../navigateToLanding'
+import navigateToNews from '../navigateToNews'
+import navigateToOffers from '../navigateToOffers'
+import navigateToPois from '../navigateToPois'
+import navigateToSearch from '../navigateToSearch'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
 jest.mock('../navigateToLanding', () => jest.fn())

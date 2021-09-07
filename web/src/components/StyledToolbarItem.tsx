@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import CleanAnchor from './CleanAnchor'
+
 import dimensions from '../constants/dimensions'
+import CleanAnchor from './CleanAnchor'
 
 const StyledToolbarItem = styled(CleanAnchor)`
   display: inline-block;

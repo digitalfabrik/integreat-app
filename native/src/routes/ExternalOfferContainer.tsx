@@ -1,7 +1,9 @@
-import ExternalOffer from './ExternalOffer'
 import React, { ReactNode } from 'react'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+
 import { ExternalOfferRouteType } from 'api-client'
+
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import ExternalOffer from './ExternalOffer'
 
 type PropsType = {
   route: RoutePropType<ExternalOfferRouteType>

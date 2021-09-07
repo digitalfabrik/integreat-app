@@ -1,13 +1,14 @@
-import { lightTheme } from './theme'
+import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg.json'
+
+import { ASCHAFFENBURG_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
-import { ASCHAFFENBURG_ASSETS } from '../AssetsType'
 import mainImprint from './mainImprint'
-import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg.json'
+import { lightTheme } from './theme'
 
 const APPLE_APP_ID = '1551810291'
 

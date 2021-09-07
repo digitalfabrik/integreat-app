@@ -1,5 +1,7 @@
-import React, { ComponentProps } from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import React, { ComponentProps } from 'react'
+import { ThemeProvider } from 'styled-components'
+
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
@@ -15,10 +17,10 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER
 } from 'api-client'
-import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../../constants/buildConfig'
-import FeedbackContainer from '../FeedbackContainer'
 import { RouteType, TU_NEWS_ROUTE } from '../../routes'
+import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
 jest.mock('react-i18next')

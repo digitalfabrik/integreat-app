@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux'
+
+import { CategoriesRouteType, DashboardRouteType } from 'api-client/src/routes'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { FetchCategoryActionType, StoreActionType } from '../redux/StoreActionType'
 import { generateRouteKey } from '../utils/helpers'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { CategoriesRouteType, DashboardRouteType } from 'api-client/src/routes'
 
 const navigateToCategory = <T extends RoutesType>({
   navigation,

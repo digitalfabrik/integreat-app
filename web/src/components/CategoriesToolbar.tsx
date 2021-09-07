@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react'
-import { faFilePdf } from '../constants/icons'
+import { useTranslation } from 'react-i18next'
+
 import { CategoryModel } from 'api-client'
-import ToolbarItem from './ToolbarItem'
-import LocationToolbar from './LocationToolbar'
+
+import { faFilePdf } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
-import { useTranslation } from 'react-i18next'
+import LocationToolbar from './LocationToolbar'
+import ToolbarItem from './ToolbarItem'
 
 type PropsType = {
   category?: CategoryModel

@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { RefreshControl } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
-import SprungbrettOffer from './SprungbrettOffer'
+import { RefreshControl } from 'react-native'
+import { useSelector } from 'react-redux'
+
 import {
   CityModel,
   createOffersEndpoint,
@@ -15,15 +15,17 @@ import {
   SprungbrettOfferRouteType,
   useLoadFromEndpoint
 } from 'api-client'
-import withTheme from '../hocs/withTheme'
 import { ThemeType } from 'build-configs'
+
 import FailureContainer from '../components/FailureContainer'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
+import useReportError from '../hooks/useReportError'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
-import useReportError from '../hooks/useReportError'
+import SprungbrettOffer from './SprungbrettOffer'
 
 type OwnPropsType = {
   route: RoutePropType<SprungbrettOfferRouteType>

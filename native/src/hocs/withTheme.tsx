@@ -1,7 +1,9 @@
 import * as React from 'react'
-import wrapDisplayName from './wrapDisplayName'
+
 import { ThemeType } from 'build-configs'
+
 import buildConfig from '../constants/buildConfig'
+import wrapDisplayName from './wrapDisplayName'
 
 function withTheme<Props extends { theme: ThemeType }>(
   Component: React.ComponentType<Props>
