@@ -15,7 +15,7 @@ import {
 } from 'api-client'
 
 import Caption from '../components/Caption'
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import MapView from '../components/MapView'
@@ -131,7 +131,7 @@ const Pois = ({
       city: cityModel.code,
       language
     })
-    return <FailureContainer code={fromError(error)} />
+    return <Failure code={fromError(error)} />
   }
 
   const featureLocations = pois

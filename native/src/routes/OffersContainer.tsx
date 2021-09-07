@@ -17,7 +17,7 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
@@ -107,7 +107,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
       })
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-        <FailureContainer code={fromError(error)} tryAgain={refresh} />
+        <Failure code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }

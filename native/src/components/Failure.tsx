@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import { Button } from 'react-native-elements'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import FailureIcon from '../assets/FailureIcon.svg'
 
@@ -21,11 +21,11 @@ const IconContainer = styled.Image`
 export type PropsType = {
   code: ErrorCode
   tryAgain?: () => void
-  theme: ThemeType
 }
 
-const Failure = ({ code, tryAgain, theme }: PropsType): ReactElement => {
+const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
   const { t } = useTranslation('error')
+  const theme = useTheme()
   return (
     <ViewContainer>
       <IconContainer source={FailureIcon} />
