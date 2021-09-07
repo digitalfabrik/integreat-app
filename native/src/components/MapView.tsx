@@ -29,9 +29,10 @@ const layerId = 'point'
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
-  const ref = React.useRef<MapboxGL.MapView | null>(null)
+  const mapRef = React.useRef<MapboxGL.MapView | null>(null)
+  const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const [activeFeature, setActiveFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
-  const [showPopup, setShowPopup] = useState<boolean>(false)
+  const [showPopup, setShowPopup] = useState<boolean>(!!activeFeature)
   const layerProps: SymbolLayerProps = {
     id: layerId,
     style: {
@@ -61,30 +62,34 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
 
   const onPress = useCallback(
     async (e: Feature) => {
-      const featureCollection: FeatureCollection<Point> = (await ref.current?.queryRenderedFeaturesAtPoint(
+      const featureCollection: FeatureCollection<Point> = (await mapRef?.current?.queryRenderedFeaturesAtPoint(
         [e.properties?.screenPointX, e.properties?.screenPointY],
         undefined,
         [layerId]
       )) as FeatureCollection<Point>
-      const { features } = featureCollection
-      if (features?.length) {
+      if (featureCollection?.features?.length && cameraRef?.current) {
+        const { features } = featureCollection
         setActiveFeature(features[0])
         setShowPopup(true)
+        const {
+          geometry: { coordinates }
+        } = features[0]
+        cameraRef?.current?.flyTo([coordinates[0], coordinates[1]])
       } else {
         setActiveFeature(null)
         setShowPopup(false)
       }
     },
-    [ref]
+    [cameraRef]
   )
 
   return (
     <MapContainer>
-      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={ref}>
+      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={mapRef}>
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
-        <MapboxGL.Camera defaultSettings={defaultSettings} />
+        <MapboxGL.Camera defaultSettings={defaultSettings} ref={cameraRef} />
       </StyledMap>
       {showPopup && activeFeature && <MapPopup feature={activeFeature} />}
     </MapContainer>
