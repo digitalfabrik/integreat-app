@@ -1,8 +1,9 @@
-import React from 'react'
-import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 import { fireEvent, render, cleanup, RenderResult } from '@testing-library/react'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../../constants/buildConfig'
+import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent: RenderResult

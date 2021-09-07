@@ -1,6 +1,7 @@
 import { call, SagaGenerator } from 'typed-redux-saga'
-import { DataContainer } from '../../utils/DataContainer'
+
 import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
+import { DataContainer } from '../../utils/DataContainer'
 
 const loadCityContent = function* loadCityContent(
   dataContainer: DataContainer,

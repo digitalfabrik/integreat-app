@@ -1,5 +1,7 @@
 import React, { ReactElement, Suspense, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
+
 import {
   CATEGORIES_ROUTE,
   createCitiesEndpoint,
@@ -8,17 +10,17 @@ import {
   NOT_FOUND_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
+
 import CityContentSwitcher from './CityContentSwitcher'
-import { cmsApiBaseUrl } from './constants/urls'
-import Layout from './components/Layout'
-import GeneralHeader from './components/GeneralHeader'
-import GeneralFooter from './components/GeneralFooter'
 import FailureSwitcher from './components/FailureSwitcher'
+import GeneralFooter from './components/GeneralFooter'
+import GeneralHeader from './components/GeneralHeader'
+import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
-import { useTranslation } from 'react-i18next'
-import { cityContentPattern, createPath, RoutePatterns } from './routes'
-import useWindowDimensions from './hooks/useWindowDimensions'
 import buildConfig from './constants/buildConfig'
+import { cmsApiBaseUrl } from './constants/urls'
+import useWindowDimensions from './hooks/useWindowDimensions'
+import { cityContentPattern, createPath, RoutePatterns } from './routes'
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void

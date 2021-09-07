@@ -1,5 +1,5 @@
-import { Page } from './page'
 import { Selector } from '../Selector'
+import { Page } from './page'
 
 class LandingPage extends Page {
   constructor() {

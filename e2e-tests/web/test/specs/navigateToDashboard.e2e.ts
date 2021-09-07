@@ -1,6 +1,7 @@
 import { URL } from 'url'
-import LandingPage from '../pageobjects/landing.page'
+
 import { defaultCity, filter, language, Routes } from '../../../shared/constants'
+import LandingPage from '../pageobjects/landing.page'
 
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {

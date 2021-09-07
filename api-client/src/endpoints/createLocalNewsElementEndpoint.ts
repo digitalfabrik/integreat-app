@@ -1,11 +1,13 @@
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonLocalNewsType } from '../types'
-import LocalNewsModel from '../models/LocalNewsModel'
 import moment from 'moment-timezone'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
 import MappingError from '../errors/MappingError'
 import NotFoundError from '../errors/NotFoundError'
+import LocalNewsModel from '../models/LocalNewsModel'
 import { LOCAL_NEWS_TYPE } from '../routes'
+import { JsonLocalNewsType } from '../types'
+
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 type ParamsType = {
   city: string

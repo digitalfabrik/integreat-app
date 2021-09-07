@@ -1,9 +1,10 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import buildConfig from './constants/buildConfig'
+
 import RootSwitcher from './RootSwitcher'
 import I18nProvider from './components/I18nProvider'
+import buildConfig from './constants/buildConfig'
 import initSentry from './utils/sentry'
 
 const App = (): ReactElement => {

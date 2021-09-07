@@ -4,8 +4,10 @@ import { TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, G, Image } from 'react-native-svg'
 import styled from 'styled-components/native'
-import { buildConfigAssets } from '../constants/buildConfig'
+
 import { ThemeType } from 'build-configs'
+
+import { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.View`
   width: 100%;

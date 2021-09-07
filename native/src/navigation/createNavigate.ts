@@ -1,5 +1,6 @@
-import { StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
+
+import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -13,21 +14,22 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client/src/routes'
-import navigateToDisclaimer from './navigateToDisclaimer'
-import navigateToLanding from './navigateToLanding'
-import navigateToOffers from './navigateToOffers'
-import navigateToEvents from './navigateToEvents'
-import navigateToPois from './navigateToPois'
-import navigateToSearch from './navigateToSearch'
-import navigateToNews from './navigateToNews'
-import navigateToCategory from './navigateToCategory'
+import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+
 import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import navigateToJpalTracking from './navigateToJpalTracking'
-import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
-import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { StoreActionType } from '../redux/StoreActionType'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import navigateToCategory from './navigateToCategory'
+import navigateToDisclaimer from './navigateToDisclaimer'
+import navigateToEvents from './navigateToEvents'
+import navigateToJpalTracking from './navigateToJpalTracking'
+import navigateToLanding from './navigateToLanding'
+import navigateToNews from './navigateToNews'
+import navigateToOffers from './navigateToOffers'
+import navigateToPois from './navigateToPois'
+import navigateToSearch from './navigateToSearch'
+import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { urlFromRouteInformation } from './url'
 
 const createNavigate = <T extends RoutesType>(

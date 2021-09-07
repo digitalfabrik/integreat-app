@@ -1,7 +1,8 @@
-import React from 'react'
-import CleanLink from '../CleanLink'
-import { renderWithRouter } from '../../testing/render'
 import { render } from '@testing-library/react'
+import React from 'react'
+
+import { renderWithRouter } from '../../testing/render'
+import CleanLink from '../CleanLink'
 
 describe('CleanLink', () => {
   const linkInternal = '/augsburg/de/willkommen/willkommen-in-augsburg'

@@ -1,10 +1,12 @@
 import * as React from 'react'
-import { useWindowDimensions } from 'react-native'
 import { ReactElement, useCallback } from 'react'
-import { config } from 'translations'
-import { contentAlignment } from '../constants/contentDirection'
+import { useWindowDimensions } from 'react-native'
 import { RenderHTML, Element } from 'react-native-render-html'
 import { useTheme } from 'styled-components'
+
+import { config } from 'translations'
+
+import { contentAlignment } from '../constants/contentDirection'
 
 type PropsType = {
   language: string

@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react'
-import Caption from './Caption'
-import Tile from './Tile'
 import { Row } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
+
 import TileModel from '../models/TileModel'
+import Caption from './Caption'
+import Tile from './Tile'
 
 type PropsType = {
   title: string | null

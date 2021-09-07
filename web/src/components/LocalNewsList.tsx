@@ -1,6 +1,7 @@
-import React, { ReactElement, ReactNode } from 'react'
 import { isEmpty } from 'lodash'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
+
 import { LocalNewsModel } from 'api-client'
 
 const NoItemsMessage = styled.div`

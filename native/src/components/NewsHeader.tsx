@@ -1,13 +1,15 @@
-import React from 'react'
-import { CityModel } from 'api-client'
-import styled from 'styled-components/native'
-import { withTranslation } from 'react-i18next'
-import withTheme from '../hocs/withTheme'
-import activeInternational from '../assets/tu-news-active.svg'
-import inactiveInternational from '../assets/tu-news-inactive.svg'
 import { TFunction } from 'i18next'
+import React from 'react'
+import { withTranslation } from 'react-i18next'
+import styled from 'styled-components/native'
+
+import { CityModel } from 'api-client'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE, NewsType } from 'api-client/src/routes'
 import { ThemeType } from 'build-configs'
+
+import activeInternational from '../assets/tu-news-active.svg'
+import inactiveInternational from '../assets/tu-news-inactive.svg'
+import withTheme from '../hocs/withTheme'
 import Caption from './Caption'
 
 const NewsTypeIcon = styled.Image`
