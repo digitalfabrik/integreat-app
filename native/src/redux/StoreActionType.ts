@@ -9,8 +9,9 @@ import {
   TunewsModel,
   NewsType
 } from 'api-client'
-import { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
+
 import { ContentLoadCriterionType } from '../models/ContentLoadCriterion'
+import { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
 
 // Starts fetching all available cities
 export type FetchCitiesActionType = {

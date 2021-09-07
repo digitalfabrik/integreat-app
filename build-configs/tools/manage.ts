@@ -1,7 +1,8 @@
 import program from 'commander'
-import fs from 'fs'
-import flat from 'flat'
 import decamelize from 'decamelize'
+import flat from 'flat'
+import fs from 'fs'
+
 import loadBuildConfig, { PlatformType } from '../index'
 
 const loadBuildConfigAsKeyValue = (buildConfigName: string, platform: PlatformType, spaces = true, quotes = false) => {

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
+import { Event, WithContext } from 'schema-dts'
+
 import { EventModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
-import { Event, WithContext } from 'schema-dts'
 
 const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<Event> => {
   const date = event.date

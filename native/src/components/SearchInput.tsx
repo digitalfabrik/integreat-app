@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
 import testID from '../testing/testID'
 
 export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({

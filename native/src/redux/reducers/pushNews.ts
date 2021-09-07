@@ -1,6 +1,7 @@
+import { ErrorCode, LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
+
 import { CityContentStateType, NewsRouteStateType } from '../StateType'
 import { PushNewsActionType } from '../StoreActionType'
-import { ErrorCode, LocalNewsModel, NEWS_ROUTE, TunewsModel } from 'api-client'
 
 const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
   const {

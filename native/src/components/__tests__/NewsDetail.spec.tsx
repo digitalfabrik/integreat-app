@@ -1,14 +1,22 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
 import moment from 'moment'
-import buildConfig from '../../constants/buildConfig'
 import React from 'react'
+import { ThemeProvider } from 'styled-components/native'
+
+import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
 import NewsDetail from '../NewsDetail'
 
 jest.mock('react-i18next')
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))
+}))
+
+jest.mock('styled-components', () => ({
+  ...jest.requireActual('styled-components'),
+  useTheme: () => buildConfig().lightTheme
 }))
 
 const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
@@ -32,6 +40,15 @@ describe('NewsDetail', () => {
   const theme = buildConfig().lightTheme
   const language = 'de'
   const navigateToLink = jest.fn()
+
+  const renderNewsDetail = (news: LocalNewsModel | TunewsModel) => {
+    return render(
+      <ThemeProvider theme={theme}>
+        <NewsDetail newsItem={news} language={language} navigateToLink={navigateToLink} />
+      </ThemeProvider>
+    )
+  }
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -40,9 +57,7 @@ describe('NewsDetail', () => {
     const timestamp = dateFormatter.format(localNews.timestamp, {
       format: 'LLL'
     })
-    const { getByText, queryByText } = render(
-      <NewsDetail newsItem={localNews} language={language} navigateToLink={navigateToLink} theme={theme} />
-    )
+    const { getByText, queryByText } = renderNewsDetail(localNews)
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('Some test text ')).toBeTruthy()
     expect(getByText('mailto:app@integreat-app.de')).toBeTruthy()
@@ -56,18 +71,14 @@ describe('NewsDetail', () => {
     expect(navigateToLink).toHaveBeenCalledWith('https://integreat.app/', language, 'https://integreat.app/')
   })
   it('should correctly render a tu news item', () => {
-    const { getByText, queryByText } = render(
-      <NewsDetail newsItem={tuNews} language={language} navigateToLink={navigateToLink} theme={theme} />
-    )
+    const { getByText, queryByText } = renderNewsDetail(tuNews)
     expect(queryByText('<main>')).toBeFalsy()
     expect(getByText(tuNews.title)).toBeTruthy()
     expect(getByText('ArbeitnehmerInnen in Quarantäne haben nicht zwangsläufig frei.')).toBeTruthy()
     expect(getByText('Aktuelle Informationen zu Corona: Hier klicken')).toBeTruthy()
   })
   it('should correctly render a tu news item link', () => {
-    const { getByText, queryByText } = render(
-      <NewsDetail newsItem={tuNews} language={language} navigateToLink={navigateToLink} theme={theme} />
-    )
+    const { getByText, queryByText } = renderNewsDetail(tuNews)
     expect(queryByText('https://tunewsinternational.com/category/corona-deutsch/')).toBeFalsy()
     fireEvent.press(getByText('Aktuelle Informationen zu Corona: Hier klicken'))
     expect(navigateToLink).toHaveBeenCalledWith(

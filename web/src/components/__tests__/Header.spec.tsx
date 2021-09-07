@@ -1,9 +1,10 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import HeaderNavigationItem from '../HeaderNavigationItem'
-import { Header } from '../Header'
 import Headroom from '@integreat-app/react-sticky-headroom'
+import { shallow } from 'enzyme'
+import React from 'react'
+
+import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
+import HeaderNavigationItem from '../HeaderNavigationItem'
 
 describe('Header', () => {
   const onStickyTopChanged = () => undefined

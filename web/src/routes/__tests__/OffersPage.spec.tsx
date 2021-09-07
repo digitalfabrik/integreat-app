@@ -1,12 +1,14 @@
 import React from 'react'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import { mocked } from 'ts-jest/utils'
+
 import { CityModelBuilder, LanguageModelBuilder, OfferModel, OFFERS_ROUTE, useLoadFromEndpoint } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
+import { renderWithBrowserRouter } from '../../testing/render'
 import OffersPage from '../OffersPage'
 import { createPath, RoutePatterns } from '../index'
-import { Route } from 'react-router-dom'
-import { mocked } from 'ts-jest/utils'
-import buildConfig from '../../constants/buildConfig'
-import { ThemeProvider } from 'styled-components'
 
 jest.mock('api-client', () => {
   return {

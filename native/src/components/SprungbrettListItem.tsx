@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { Text } from 'react-native'
+
 import { SprungbrettJobModel } from 'api-client'
-import ListItem from './ListItem'
 import { ThemeType } from 'build-configs'
+
+import ListItem from './ListItem'
 
 type PropsType = {
   job: SprungbrettJobModel

@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux'
+
+import { NewsType, NEWS_ROUTE } from 'api-client/src/routes'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { FetchNewsActionType, StoreActionType } from '../redux/StoreActionType'
 import { generateRouteKey } from '../utils/helpers'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { NewsType, NEWS_ROUTE } from 'api-client/src/routes'
 
 const navigateToNews = <T extends RoutesType>({
   navigation,

@@ -1,5 +1,5 @@
-import { config as defaultConfig } from '../wdio.conf'
 import { browserstackCapabilities } from '../capabilities'
+import { config as defaultConfig } from '../wdio.conf'
 
 export const config = Object.assign(defaultConfig, {
   maxInstances: 1,

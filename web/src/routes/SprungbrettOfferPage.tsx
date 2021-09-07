@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import LocationLayout from '../components/LocationLayout'
+
 import {
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
@@ -13,19 +13,21 @@ import {
   useLoadFromEndpoint,
   OfferModel
 } from 'api-client'
-import LocationToolbar from '../components/LocationToolbar'
+
+import { CityRouteProps } from '../CityContentSwitcher'
+import Caption from '../components/Caption'
+import CleanLink from '../components/CleanLink'
+import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
+import Helmet from '../components/Helmet'
+import List from '../components/List'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { createPath, RouteProps } from './index'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Caption from '../components/Caption'
-import List from '../components/List'
-import CleanAnchor from '../components/CleanAnchor'
-import Helmet from '../components/Helmet'
-import { CityRouteProps } from '../CityContentSwitcher'
 
 const Image = styled.img`
   display: block;
@@ -118,9 +120,9 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
-      <CleanAnchor href='https://www.sprungbrett-intowork.de'>
+      <CleanLink to='https://www.sprungbrett-intowork.de'>
         <Image src={offer.thumbnail} />
-      </CleanAnchor>
+      </CleanLink>
     </LocationLayout>
   )
 }

@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
-import RemoteContent from './RemoteContent'
+import styled from 'styled-components'
+
+import { CategoryModel, DateFormatter } from 'api-client'
+
+import { helpers } from '../constants/theme'
 import Caption from './Caption'
 import CategoryEntry from './CategoryEntry'
-import { CategoryModel, DateFormatter } from 'api-client'
-import styled from 'styled-components'
-import { helpers } from '../constants/theme'
 import LastUpdateInfo from './LastUpdateInfo'
+import RemoteContent from './RemoteContent'
 
 const List = styled.div`
   & a {

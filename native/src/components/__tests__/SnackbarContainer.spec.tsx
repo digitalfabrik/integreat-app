@@ -1,8 +1,9 @@
-import React from 'react'
 import { render } from '@testing-library/react-native'
-import SnackbarContainer from '../SnackbarContainer'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { mocked } from 'ts-jest/utils'
+
+import SnackbarContainer from '../SnackbarContainer'
 
 jest.useFakeTimers()
 

@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+
 import dimensions from '../constants/dimensions'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167

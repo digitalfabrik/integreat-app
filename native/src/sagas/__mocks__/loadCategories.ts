@@ -1,6 +1,8 @@
-import { DataContainer } from '../../utils/DataContainer'
-import { CategoriesMapModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { CategoriesMapModel } from 'api-client'
+
+import { DataContainer } from '../../utils/DataContainer'
 
 export default function* loadCategories(
   city: string,

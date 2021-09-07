@@ -1,11 +1,13 @@
-import * as React from 'react'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs'
 import { HeaderBackButton } from '@react-navigation/stack'
-import ThemedSearchBar from './ThemedSearchBar'
-import { TFunction } from 'react-i18next'
-import dimensions from '../constants/dimensions'
+import * as React from 'react'
 import { ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
+import dimensions from '../constants/dimensions'
+import ThemedSearchBar from './ThemedSearchBar'
 
 const HorizontalLeft = styled.View`
   flex: 1;

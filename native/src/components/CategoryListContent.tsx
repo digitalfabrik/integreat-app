@@ -1,11 +1,11 @@
-import React, { ReactElement, useContext } from 'react'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs/ThemeType'
 import { Moment } from 'moment'
-import TimeStamp from './TimeStamp'
-import SpaceBetween from './SpaceBetween'
+import React, { ReactElement, useContext } from 'react'
+import styled from 'styled-components/native'
+
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import NativeHtml from './NativeHtml'
+import SpaceBetween from './SpaceBetween'
+import TimeStamp from './TimeStamp'
 
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`
@@ -20,7 +20,6 @@ type ContentPropsType = {
   cacheDictionary: Record<string, string>
   language: string
   lastUpdate?: Moment
-  theme: ThemeType
 }
 
 const CategoryListContent = ({
@@ -28,15 +27,13 @@ const CategoryListContent = ({
   navigateToLink,
   cacheDictionary,
   language,
-  lastUpdate,
-  theme
+  lastUpdate
 }: ContentPropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   return (
     <SpaceBetween>
       <Container>
         <NativeHtml
-          theme={theme}
           language={language}
           content={content}
           navigateToLink={navigateToLink}
@@ -44,7 +41,7 @@ const CategoryListContent = ({
         />
         {lastUpdate && (
           <LastUpdateContainer>
-            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} theme={theme} />
+            <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />
           </LastUpdateContainer>
         )}
       </Container>

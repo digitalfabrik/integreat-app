@@ -1,14 +1,16 @@
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
-import Dashboard from '../Dashboard'
-import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
+import { ThemeProvider } from 'styled-components'
+import { mocked } from 'ts-jest/utils'
+
 import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+
 import NavigationTiles from '../../components/NavigationTiles'
 import buildConfig from '../../constants/buildConfig'
-import { mocked } from 'ts-jest/utils'
+import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
 import TileModel from '../../models/TileModel'
-import { ThemeProvider } from 'styled-components'
+import Dashboard from '../Dashboard'
 
 jest.mock('react-i18next')
 jest.mock('../../components/NavigationTiles', () => {

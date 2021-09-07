@@ -1,6 +1,7 @@
+import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
+
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToSprungbrettOffer from '../navigateToSprungbrettOffer'
-import { SPRUNGBRETT_OFFER_ROUTE } from 'api-client/src/routes'
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
