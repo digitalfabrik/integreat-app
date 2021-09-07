@@ -1,5 +1,7 @@
 import { forEach, reduce } from 'lodash'
+
 import { TransformedTranslationsType, TranslationsType } from './types'
+
 /**
  * Transform translation resources from our internal translations format to be i18next compatible.
  * @param {object} translations in our format: namespace -> languageTag -> key -> value

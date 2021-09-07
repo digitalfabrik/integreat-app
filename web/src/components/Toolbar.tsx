@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
 import { withTranslation, TFunction } from 'react-i18next'
+import styled from 'styled-components'
+
 import dimensions from '../constants/dimensions'
 
 const ToolbarContainer = styled.div`

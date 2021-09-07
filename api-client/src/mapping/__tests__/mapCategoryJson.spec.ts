@@ -1,6 +1,7 @@
-import mapCategoryJson from '../mapCategoryJson'
-import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
+
+import CategoryModel from '../../models/CategoryModel'
+import mapCategoryJson from '../mapCategoryJson'
 
 describe('categories', () => {
   const basePath = '/augsburg/de'

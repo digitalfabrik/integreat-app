@@ -1,7 +1,8 @@
-import { getFontFaceSource } from '../constants/webview'
-import { ParsedCacheDictionaryType } from '../components/Page'
-import { config } from 'translations'
 import { ThemeType } from 'build-configs'
+import { config } from 'translations'
+
+import { ParsedCacheDictionaryType } from '../components/Page'
+import { getFontFaceSource } from '../constants/webview'
 
 // language=JavaScript
 const renderJS = (cacheDictionary: Record<string, string>) => `

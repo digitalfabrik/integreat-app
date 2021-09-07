@@ -1,11 +1,12 @@
+import moment from 'moment-timezone'
+
+import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
-import { JsonPoiType } from '../types'
+import mapAvailableLanguages from '../mapAvailableLanguages'
+import LocationModel from '../models/LocationModel'
 import PoiModel from '../models/PoiModel'
 import normalizePath from '../normalizePath'
-import mapAvailableLanguages from '../mapAvailableLanguages'
-import moment from 'moment-timezone'
-import LocationModel from '../models/LocationModel'
-import Endpoint from '../Endpoint'
+import { JsonPoiType } from '../types'
 
 export const POIS_ENDPOINT_NAME = 'pois'
 type ParamsType = {

@@ -14,6 +14,7 @@ import {
   SettingsRouteType,
   SprungbrettOfferRouteType
 } from '../routes'
+
 type OpenPageSignalNameType = 'open_page'
 export const OPEN_PAGE_SIGNAL_NAME: OpenPageSignalNameType = 'open_page'
 export type OpenPageSignalType = {

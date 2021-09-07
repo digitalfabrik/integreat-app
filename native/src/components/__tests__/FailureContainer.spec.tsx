@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
+
 import { ErrorCode } from 'api-client'
 
 jest.mock('react-i18next')

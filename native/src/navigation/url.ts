@@ -1,5 +1,5 @@
-import buildConfig from '../constants/buildConfig'
 import Url from 'url-parse'
+
 import {
   JPAL_TRACKING_ROUTE,
   OFFERS_ROUTE,
@@ -13,6 +13,8 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE
 } from 'api-client'
+
+import buildConfig from '../constants/buildConfig'
 
 type CityContentRouteUrlType = {
   cityCode: string

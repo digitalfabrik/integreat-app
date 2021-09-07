@@ -1,4 +1,5 @@
 import { merge } from 'lodash'
+
 import defaultTranslations from '../translations.json'
 import transformTranslations from './transformTranslations'
 import { TranslationsType, TransformedTranslationsType } from './types'

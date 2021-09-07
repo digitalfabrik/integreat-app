@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
 import { hot } from 'react-hot-loader'
+
+import App from './App'
 import buildConfig from './constants/buildConfig'
 
 const HMRApp = hot(module)(App)

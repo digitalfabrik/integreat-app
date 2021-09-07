@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
-import SelectorItemModel from '../models/SelectorItemModel'
-import Selector from '../components/Selector'
 import { useTranslation } from 'react-i18next'
+
+import Selector from '../components/Selector'
+import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
 type PropsType = {

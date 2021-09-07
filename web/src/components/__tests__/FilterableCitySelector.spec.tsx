@@ -1,10 +1,12 @@
-import React from 'react'
-import { CityModelBuilder } from 'api-client'
-import { renderWithRouter } from '../../testing/render'
-import buildConfig from '../../constants/buildConfig'
-import FilterableCitySelector from '../FilterableCitySelector'
-import { ThemeProvider } from 'styled-components'
 import { fireEvent } from '@testing-library/react'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import { CityModelBuilder } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
+import { renderWithRouter } from '../../testing/render'
+import FilterableCitySelector from '../FilterableCitySelector'
 
 describe('FilterableCitySelector', () => {
   const cities = new CityModelBuilder(5).build()

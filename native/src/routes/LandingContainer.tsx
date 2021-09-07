@@ -1,16 +1,18 @@
-import withTheme from '../hocs/withTheme'
-import { withTranslation } from 'react-i18next'
-import { StateType } from '../redux/StateType'
-import { Dispatch } from 'redux'
-import { StoreActionType } from '../redux/StoreActionType'
-import Landing, { PropsType as LandingPropsType } from './Landing'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import { CityModel, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
 import * as React from 'react'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
+import { CityModel, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
+
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import withTheme from '../hocs/withTheme'
 import navigateToCategory from '../navigation/navigateToCategory'
 import { cityContentPath } from '../navigation/url'
+import { StateType } from '../redux/StateType'
+import { StoreActionType } from '../redux/StoreActionType'
+import Landing, { PropsType as LandingPropsType } from './Landing'
 
 type OwnPropsType = {
   route: RoutePropType<LandingRouteType>

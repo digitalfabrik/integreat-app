@@ -1,7 +1,8 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import Selector from '../Selector'
+import React from 'react'
+
 import SelectorItemModel from '../../models/SelectorItemModel'
+import Selector from '../Selector'
 
 const selectorItems = [
   new SelectorItemModel({

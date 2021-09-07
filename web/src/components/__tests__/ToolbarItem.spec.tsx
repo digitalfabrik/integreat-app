@@ -1,9 +1,10 @@
-import React from 'react'
 import { render } from 'enzyme'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import buildConfig from '../../constants/buildConfig'
 import { faSmile } from '../../constants/icons'
 import ToolbarItem from '../ToolbarItem'
-import { ThemeProvider } from 'styled-components'
-import buildConfig from '../../constants/buildConfig'
 
 describe('ToolbarItem', () => {
   it('should render', () => {

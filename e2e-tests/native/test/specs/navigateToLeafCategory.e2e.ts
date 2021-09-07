@@ -1,5 +1,5 @@
-import { navigateToDashboard } from '../utils/navigationUtils'
 import { Selector } from '../Selector'
+import { navigateToDashboard } from '../utils/navigationUtils'
 
 describe('navigateToLeafCategory', () => {
   it('should open leaf category', async () => {
