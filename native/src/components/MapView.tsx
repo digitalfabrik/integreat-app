@@ -32,7 +32,7 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const [activeFeature, setActiveFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
-  const [showPopup, setShowPopup] = useState<boolean>(!!activeFeature)
+  const [showPopup, setShowPopup] = useState<boolean>(!!currentFeature)
   const layerProps: SymbolLayerProps = {
     id: layerId,
     style: {
