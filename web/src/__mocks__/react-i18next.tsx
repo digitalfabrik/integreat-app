@@ -1,5 +1,6 @@
-import React, { ComponentType, ReactNode } from 'react'
 import i18next, { i18n, TFunction } from 'i18next'
+import React, { ComponentType, ReactNode } from 'react'
+
 import wrapDisplayName from '../utils/wrapDisplayName'
 
 // this mock makes sure any components using the translate HoC receive the t function as a prop

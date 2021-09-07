@@ -1,8 +1,10 @@
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import * as React from 'react'
 import type { Provider as ProviderType } from 'react-redux'
 import type * as TestRendererType from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
+
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../routes/LandingContainer', () => {

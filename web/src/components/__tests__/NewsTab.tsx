@@ -1,9 +1,11 @@
 import React from 'react'
-import NewsTab from '../NewsTab'
-import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client'
-import { renderWithRouter } from '../../testing/render'
-import buildConfig from '../../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
+
+import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
+import { renderWithRouter } from '../../testing/render'
+import NewsTab from '../NewsTab'
 
 describe('NewsTab', () => {
   const active = true

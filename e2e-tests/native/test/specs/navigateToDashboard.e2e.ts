@@ -1,7 +1,7 @@
-import LandingPage from '../pageobjects/landing.page'
-import DashboardPage from '../pageobjects/dashboard.page'
-import { hideKeyboard, swipe, SwipeDirection } from '../Action'
 import { defaultCity, filter } from '../../../shared/constants'
+import { hideKeyboard, swipe, SwipeDirection } from '../Action'
+import DashboardPage from '../pageobjects/dashboard.page'
+import LandingPage from '../pageobjects/landing.page'
 
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {

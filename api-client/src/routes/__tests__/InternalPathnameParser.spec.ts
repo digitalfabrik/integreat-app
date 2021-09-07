@@ -1,4 +1,3 @@
-import InternalPathnameParser from '../InternalPathnameParser'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -14,6 +13,7 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from '../'
+import InternalPathnameParser from '../InternalPathnameParser'
 
 const cityCode = 'bochum'
 const languageCode = 'de'

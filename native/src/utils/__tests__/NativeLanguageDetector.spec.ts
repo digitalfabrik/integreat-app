@@ -1,6 +1,7 @@
-import NativeLanguageDetector from '../NativeLanguageDetector'
 import { getLocales } from 'react-native-localize'
 import { mocked } from 'ts-jest/utils'
+
+import NativeLanguageDetector from '../NativeLanguageDetector'
 
 jest.mock('react-native-localize')
 

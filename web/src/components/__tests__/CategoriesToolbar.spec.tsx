@@ -1,7 +1,9 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import CategoriesToolbar from '../CategoriesToolbar'
+import React from 'react'
+
 import { CategoriesMapModelBuilder } from 'api-client'
+
+import CategoriesToolbar from '../CategoriesToolbar'
 
 jest.mock('react-i18next')
 

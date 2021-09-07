@@ -1,11 +1,11 @@
-import Payload from './Payload'
-import MappingError from './errors/MappingError'
-import { MapResponseType } from './MapResponseType'
-import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapParamsToBodyType } from './MapParamsToBody'
-import ResponseError, { RequestOptionsType } from './errors/ResponseError'
+import { MapParamsToUrlType } from './MapParamsToUrlType'
+import { MapResponseType } from './MapResponseType'
+import Payload from './Payload'
 import FetchError from './errors/FetchError'
+import MappingError from './errors/MappingError'
 import NotFoundError from './errors/NotFoundError'
+import ResponseError, { RequestOptionsType } from './errors/ResponseError'
 import { request as fetch } from './request'
 
 /**

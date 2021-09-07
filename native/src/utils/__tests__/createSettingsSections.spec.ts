@@ -1,11 +1,13 @@
-import createSettingsSections from '../createSettingsSections'
+import { openSettings } from 'react-native-permissions'
+import { mocked } from 'ts-jest/utils'
+
+import { SettingsRouteType } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { defaultSettings, SettingsType } from '../AppSettings'
-import buildConfig from '../../constants/buildConfig'
-import { openSettings } from 'react-native-permissions'
-import { SettingsRouteType } from 'api-client'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
-import { mocked } from 'ts-jest/utils'
+import createSettingsSections from '../createSettingsSections'
 
 jest.mock('../../constants/NativeConstants', () => ({
   appVersion: '1.0.0'

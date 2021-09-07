@@ -1,12 +1,14 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components/native'
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, FeatureCollection } from 'geojson'
-import { defaultViewportConfig, mapConfig } from 'api-client'
-import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { FAB } from 'react-native-elements'
 import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
-import { FAB } from 'react-native-elements'
+import styled from 'styled-components/native'
+
+import { defaultViewportConfig, mapConfig } from 'api-client'
+
+import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 
 const MapContainer = styled.View`
   flex-direction: row;

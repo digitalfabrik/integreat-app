@@ -1,4 +1,5 @@
 import Payload from '../Payload'
+
 describe('Payload', () => {
   const data = {
     data: 'something'

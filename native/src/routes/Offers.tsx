@@ -1,12 +1,14 @@
 import React, { ReactElement } from 'react'
-import TileModel from '../models/TileModel'
-import Tiles from '../components/Tiles'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
-import { ThemeType } from 'build-configs'
-import SpaceBetween from '../components/SpaceBetween'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
+
 import { SPRUNGBRETT_OFFER_ROUTE, OfferModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
+import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import SpaceBetween from '../components/SpaceBetween'
+import Tiles from '../components/Tiles'
+import TileModel from '../models/TileModel'
 
 type PropsType = {
   offers: Array<OfferModel>

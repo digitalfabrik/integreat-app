@@ -1,16 +1,18 @@
 import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
+
+import { ErrorCode, fromError } from 'api-client'
+
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
+import { cityContentPath } from '../navigation/url'
 import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
   PushCategoryActionType
 } from '../redux/StoreActionType'
-import { DataContainer } from '../utils/DataContainer'
-import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError } from 'api-client'
+import { DataContainer } from '../utils/DataContainer'
 import { reportError } from '../utils/helpers'
-import { cityContentPath } from '../navigation/url'
+import loadCityContent from './loadCityContent'
 
 /**
  * This fetch corresponds to a peek if the major content city is not equal to the city of the current route.

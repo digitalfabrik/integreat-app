@@ -1,4 +1,5 @@
 import { mocked } from 'ts-jest/utils'
+
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToEvents from '../navigateToEvents'
 
