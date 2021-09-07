@@ -14,10 +14,11 @@ const Popup = styled.View`
   bottom: 16px;
   width: 90%;
   height: 30%;
-  background-color: #ffffff;
+  background-color: ${props => props.theme.colors.backgroundColor};
   z-index: 10;
   border-radius: 10px;
   padding: 20px;
+  box-shadow: 0 0 5px #29000000;
 `
 
 const Title = styled.Text`
