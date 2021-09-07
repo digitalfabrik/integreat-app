@@ -41,7 +41,12 @@ const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: 
   })
   const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
   const withSourceLanguagePairs = zippedLanguagePairs.map(
-    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation]
+    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => {
+      if (!translation) {
+        console.log('Missing translation:', key, '[', name, ']')
+      }
+      return [key, sourceTranslation, translation]
+    }
   )
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
