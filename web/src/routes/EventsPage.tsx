@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
-import LocationLayout from '../components/LocationLayout'
+
 import {
   createEventsEndpoint,
   EventModel,
@@ -9,24 +10,25 @@ import {
   NotFoundError,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationToolbar from '../components/LocationToolbar'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import { createPath, RouteProps } from './index'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Page, { THUMBNAIL_WIDTH } from '../components/Page'
-import PageDetail from '../components/PageDetail'
-import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-import { useTranslation } from 'react-i18next'
-import List from '../components/List'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
-import JsonLdEvent from '../components/JsonLdEvent'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
-import { CityRouteProps } from '../CityContentSwitcher'
+import JsonLdEvent from '../components/JsonLdEvent'
+import List from '../components/List'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
+import Page, { THUMBNAIL_WIDTH } from '../components/Page'
+import PageDetail from '../components/PageDetail'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+import { createPath, RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof EVENTS_ROUTE>
 

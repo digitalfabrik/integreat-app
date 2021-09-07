@@ -1,4 +1,5 @@
 import { Config } from '@jest/types'
+
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
 const transformNodeModules = ['api-client', 'build-configs', 'translations']

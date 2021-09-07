@@ -1,13 +1,14 @@
-import { lightTheme } from './theme'
+import malteOverrideTranslations from 'translations/override-translations/malte.json'
+
+import { MALTE_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
-import { MALTE_ASSETS } from '../AssetsType'
-import malteOverrideTranslations from 'translations/override-translations/malte.json'
 import mainImprint from './mainImprint'
+import { lightTheme } from './theme'
 
 const APPLE_APP_ID = '1535758339'
 

@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
-import { CityModel } from 'api-client'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs'
-import { normalizeSearchString } from '../utils/helpers'
 import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
+import styled from 'styled-components/native'
+
+import { CityModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import testID from '../testing/testID'
+import { normalizeSearchString } from '../utils/helpers'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 

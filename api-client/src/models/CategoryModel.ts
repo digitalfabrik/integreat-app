@@ -1,4 +1,5 @@
 import { Moment } from 'moment'
+
 import ExtendedPageModel from './ExtendedPageModel'
 import PageModel from './PageModel'
 

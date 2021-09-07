@@ -1,6 +1,9 @@
-import { CategoryModel } from 'api-client'
-import CategoriesRouteStateView from '../CategoriesRouteStateView'
 import moment from 'moment'
+
+import { CategoryModel } from 'api-client'
+
+import CategoriesRouteStateView from '../CategoriesRouteStateView'
+
 describe('CategoriesRouteStateView', () => {
   const models = {
     '/augsburg/de': new CategoryModel({

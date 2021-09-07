@@ -1,6 +1,8 @@
+import moment from 'moment'
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import LocationLayout from '../components/LocationLayout'
+
 import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
@@ -13,24 +15,24 @@ import {
   ResponseError,
   useLoadFromEndpoint
 } from 'api-client'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
-import { useTranslation } from 'react-i18next'
-import BreadcrumbModel from '../models/BreadcrumbModel'
-import { urlFromPath } from '../utils/stringUtils'
-import FailureSwitcher from '../components/FailureSwitcher'
+import { config } from 'translations'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import CategoriesToolbar from '../components/CategoriesToolbar'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import moment from 'moment'
-import { config } from 'translations'
-import { createPath, RouteProps } from './index'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
 import buildConfig from '../constants/buildConfig'
-import { CityRouteProps } from '../CityContentSwitcher'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import BreadcrumbModel from '../models/BreadcrumbModel'
+import { urlFromPath } from '../utils/stringUtils'
+import { createPath, RouteProps } from './index'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 

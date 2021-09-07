@@ -1,17 +1,19 @@
-import { NewsModelsType, StateType } from '../redux/StateType'
-import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
+import React, { useCallback } from 'react'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import React, { useCallback } from 'react'
-import News from './News'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import NewsHeader from '../components/NewsHeader'
-import { View } from 'react-native'
-import LoadingSpinner from '../components/LoadingSpinner'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+
 import { ErrorCode, NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE, CityModel } from 'api-client'
+
+import LoadingSpinner from '../components/LoadingSpinner'
+import NewsHeader from '../components/NewsHeader'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import createNavigate from '../navigation/createNavigate'
 import navigateToLink from '../navigation/navigateToLink'
+import { NewsModelsType, StateType } from '../redux/StateType'
+import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
+import News from './News'
 
 type NavigationPropsType = {
   route: RoutePropType<NewsRouteType>

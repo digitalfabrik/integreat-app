@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { ScrollView } from 'react-native'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
+
 import { isRTL } from '../constants/contentDirection'
 
 const anchorWidth = 30

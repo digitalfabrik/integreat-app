@@ -1,6 +1,8 @@
-import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { Moment } from 'moment'
+
+import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+
+import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export interface DataContainer {
   /**

@@ -1,5 +1,6 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+
 import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
@@ -41,6 +42,7 @@ import {
   IMAGE_VIEW_MODAL_ROUTE,
   FEEDBACK_MODAL_ROUTE
 } from 'api-client'
+
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 
 export type RoutesType =

@@ -1,6 +1,10 @@
+import { useRoute } from '@react-navigation/native'
+import type { Feature, Point } from 'geojson'
 import React, { ReactElement, ReactNode } from 'react'
-import { ScrollView, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { ScrollView, View } from 'react-native'
+import { useTheme } from 'styled-components'
+
 import {
   CityModel,
   embedInCollection,
@@ -10,20 +14,18 @@ import {
   POIS_ROUTE,
   RouteInformationType
 } from 'api-client'
+
+import Caption from '../components/Caption'
+import FailureContainer from '../components/FailureContainer'
+import { FeedbackInformationType } from '../components/FeedbackContainer'
+import List from '../components/List'
+import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import List from '../components/List'
-import Caption from '../components/Caption'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
-import PoiListItem from '../components/PoiListItem'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
-import MapView from '../components/MapView'
-import { useTheme } from 'styled-components'
-import FailureContainer from '../components/FailureContainer'
-import type { Feature, Point } from 'geojson'
-import { useRoute } from '@react-navigation/native'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export type PropsType = {
   path: string | null | undefined

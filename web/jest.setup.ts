@@ -1,10 +1,10 @@
-import 'raf/polyfill'
-import { configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
 import '@testing-library/jest-dom'
 import '@testing-library/jest-dom/extend-expect'
+import { configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import * as fs from 'fs'
 import * as path from 'path'
+import 'raf/polyfill'
 
 configure({
   adapter: new Adapter()

@@ -1,4 +1,5 @@
 import path from 'path'
+
 type MockFilesType = Record<string, string>
 const mockFiles: MockFilesType = {}
 

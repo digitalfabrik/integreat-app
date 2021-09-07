@@ -1,5 +1,6 @@
-import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
 import Navigator from './Navigator'
 import { StoreActionType } from './redux/StoreActionType'
 

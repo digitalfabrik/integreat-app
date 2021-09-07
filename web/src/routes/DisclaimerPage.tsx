@@ -1,17 +1,19 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+
 import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, normalizePath, useLoadFromEndpoint } from 'api-client'
+
+import { CityRouteProps } from '../CityContentSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
+import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import { createPath, RouteProps } from './index'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Helmet from '../components/Helmet'
-import { useTranslation } from 'react-i18next'
-import { CityRouteProps } from '../CityContentSwitcher'
+import { createPath, RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof DISCLAIMER_ROUTE>
 

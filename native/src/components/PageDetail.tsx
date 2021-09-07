@@ -1,8 +1,9 @@
-import * as React from 'react'
+import React, { ReactElement } from 'react'
 import { Button } from 'react-native'
-import { ReactElement } from 'react'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
 import { contentDirection } from '../constants/contentDirection'
 
 const Identifier = styled.Text`

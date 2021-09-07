@@ -1,7 +1,8 @@
 import { BBox } from 'geojson'
-import CityModel from '../models/CityModel'
-import EndpointBuilder from '../EndpointBuilder'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import CityModel from '../models/CityModel'
 import { JsonCityType } from '../types'
 
 const stripSlashes = (path: string): string => {

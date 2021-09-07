@@ -1,6 +1,5 @@
-import buildConfig from '../../constants/buildConfig'
-import createNavigationPropMock from '../../testing/createNavigationPropMock'
-import navigateToDeepLink from '../navigateToDeepLink'
+import { mocked } from 'ts-jest/utils'
+
 import {
   DASHBOARD_ROUTE,
   EVENTS_ROUTE,
@@ -12,12 +11,15 @@ import {
   OFFERS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME
 } from 'api-client'
+import { FixedCityType } from 'build-configs/BuildConfigType'
+
+import buildConfig from '../../constants/buildConfig'
+import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import AppSettings from '../../utils/AppSettings'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import { mocked } from 'ts-jest/utils'
-import { FixedCityType } from 'build-configs/BuildConfigType'
+import navigateToDeepLink from '../navigateToDeepLink'
 
 const navigateTo = jest.fn()
 

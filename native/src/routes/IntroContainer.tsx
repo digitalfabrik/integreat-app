@@ -1,20 +1,22 @@
-import { TFunction, withTranslation } from 'react-i18next'
 import * as React from 'react'
-import { Dispatch } from 'redux'
-import { ThemeType } from 'build-configs'
+import { TFunction, withTranslation } from 'react-i18next'
 import { FlatList, Dimensions, ViewToken } from 'react-native'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 import styled from 'styled-components/native'
+
+import { IntroRouteType, LANDING_ROUTE } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
-import { StateType as ReduxStateType } from '../redux/StateType'
-import { connect } from 'react-redux'
-import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { IntroRouteType, LANDING_ROUTE } from 'api-client'
+import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import withTheme from '../hocs/withTheme'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
+import { StateType as ReduxStateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings from '../utils/AppSettings'
-import withTheme from '../hocs/withTheme'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;

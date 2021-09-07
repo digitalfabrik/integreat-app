@@ -1,18 +1,22 @@
+import { render } from '@testing-library/react'
 import React from 'react'
-import { shallow } from 'enzyme'
 
+import wrapWithTheme from '../../testing/wrapWithTheme'
 import ListItem from '../ListItem'
 
-describe('ListItem', () => {
-  const path = '/augsburg/en/events/first_event'
+describe('ListItemSpec', () => {
+  const path = 'https://tuerantuer.org'
 
-  it('should render a Link and match snapshot', () => {
-    expect(
-      shallow(<ListItem thumbnail='thumbnail' title='first Event' path={path} isExternalUrl={false} />)
-    ).toMatchSnapshot()
+  it('should not render thumbnail in the ListItem', () => {
+    const { getByRole } = render(<ListItem title='first Event' path={path} />, {
+      wrapper: wrapWithTheme
+    })
+    expect(getByRole('link').closest('img')).not.toBeInTheDocument()
   })
-
-  it('should render an Anchor and match snapshot', () => {
-    expect(shallow(<ListItem thumbnail='thumbnail' title='first Event' path={path} isExternalUrl />)).toMatchSnapshot()
+  it('should render thumbnail in the ListItem', () => {
+    const { getByRole } = render(<ListItem title='first Event' thumbnail='thumbnail' path={path} />, {
+      wrapper: wrapWithTheme
+    })
+    expect(getByRole('img')).toBeInTheDocument()
   })
 })

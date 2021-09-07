@@ -1,5 +1,6 @@
-import { EventChannel, eventChannel } from 'redux-saga'
 import { isEmpty, mapValues, sortBy, toPairs } from 'lodash'
+import { EventChannel, eventChannel } from 'redux-saga'
+
 import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 
 class FetcherModule {

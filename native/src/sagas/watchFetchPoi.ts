@@ -1,12 +1,14 @@
 import { all, call, put, SagaGenerator, select, takeLatest } from 'typed-redux-saga'
-import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
-import { DataContainer } from '../utils/DataContainer'
-import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { reportError } from '../utils/helpers'
+
 import { ErrorCode, fromError, POIS_ROUTE } from 'api-client'
+
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import { cityContentPath } from '../navigation/url'
+import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
+import isPeekingRoute from '../redux/selectors/isPeekingRoute'
+import { DataContainer } from '../utils/DataContainer'
+import { reportError } from '../utils/helpers'
+import loadCityContent from './loadCityContent'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params

@@ -1,13 +1,15 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text, LayoutChangeEvent } from 'react-native'
-import styled from 'styled-components/native'
-import { createHtmlSource } from '../constants/webview'
-import renderHtml from '../utils/renderHtml'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
-import { ParsedCacheDictionaryType } from './Page'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
 import { userAgent } from '../constants/endpoint'
+import { createHtmlSource } from '../constants/webview'
+import renderHtml from '../utils/renderHtml'
+import { ParsedCacheDictionaryType } from './Page'
 
 const StyledView = styled.View`
   overflow: hidden;

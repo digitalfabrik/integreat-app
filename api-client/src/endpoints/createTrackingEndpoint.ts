@@ -1,3 +1,6 @@
+import FetchError from '../errors/FetchError'
+import ResponseError from '../errors/ResponseError'
+import { request as fetch } from '../request'
 import {
   CLOSE_PAGE_SIGNAL_NAME,
   OPEN_PAGE_SIGNAL_NAME,
@@ -7,9 +10,7 @@ import {
   SignalType,
   SUSPEND_SIGNAL_NAME
 } from '../tracking'
-import ResponseError from '../errors/ResponseError'
-import FetchError from '../errors/FetchError'
-import { request as fetch } from '../request'
+
 export const TRACKING_ENDPOINT_NAME = 'tracking'
 export const JPAL_TRACKING_ENDPOINT_URL = 'https://jpal.tuerantuer.org/'
 const JSON_HEADERS = {
