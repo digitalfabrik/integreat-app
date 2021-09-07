@@ -79,17 +79,15 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
   )
 
   return (
-    <>
-      <MapContainer>
-        <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={ref}>
-          <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
-            <MapboxGL.SymbolLayer {...layerProps} />
-          </MapboxGL.ShapeSource>
-          <MapboxGL.Camera defaultSettings={defaultSettings} />
-        </StyledMap>
-        {showPopup && activeFeature && <MapPopup feature={activeFeature} />}
-      </MapContainer>
-    </>
+    <MapContainer>
+      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={ref}>
+        <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
+          <MapboxGL.SymbolLayer {...layerProps} />
+        </MapboxGL.ShapeSource>
+        <MapboxGL.Camera defaultSettings={defaultSettings} />
+      </StyledMap>
+      {showPopup && activeFeature && <MapPopup feature={activeFeature} />}
+    </MapContainer>
   )
 }
 
