@@ -58,13 +58,9 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
   }
 
   const onLocationPermissionRequest = useCallback((locationPermission: PermissionStatus | undefined) => {
-    if (locationPermission === RESULTS.GRANTED) {
-      setFollowUserLocation(true)
-      setLocationPermissionGranted(true)
-    } else {
-      setFollowUserLocation(false)
-      setLocationPermissionGranted(false)
-    }
+    const permissionGranted = locationPermission === RESULTS.GRANTED
+    setFollowUserLocation(permissionGranted)
+    setLocationPermissionGranted(permissionGranted)
   }, [])
 
   useEffect(() => {
@@ -97,13 +93,13 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
         </MapboxGL.ShapeSource>
         <MapboxGL.Camera
           defaultSettings={defaultSettings}
-          followUserMode={'normal'}
+          followUserMode='normal'
           followUserLocation={followUserLocation}
           onUserTrackingModeChange={onUserTrackingModeChange}
         />
       </StyledMap>
       <FAB
-        placement={'right'}
+        placement='right'
         onPress={requestPermission}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
