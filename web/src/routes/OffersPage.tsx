@@ -54,8 +54,6 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
           // the url stored in the sprungbrett offer is the url of the endpoint
           path: path,
           thumbnail: offer.thumbnail,
-          // every offer except from the sprungbrett offer is just a link to an external site
-          isExternalUrl: path === offer.path,
           postData: offer.postData
         })
       })
