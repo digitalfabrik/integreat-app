@@ -187,6 +187,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 
 class PoisContainer extends React.Component<ContainerPropsType> {
   // Workaround to fix rerender cycle with null path in Poi Detail page
+  // TODO IGAPP-758
   shouldComponentUpdate(nextProps: ContainerPropsType) {
     if (this.props.path === nextProps.path) {
       return false

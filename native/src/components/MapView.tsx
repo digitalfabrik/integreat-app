@@ -4,6 +4,8 @@ import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
 import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
 
+import MapPopup from './MapPopup'
+
 const MapContainer = styled.View`
   flex-direction: row;
   justify-content: center;
@@ -11,6 +13,7 @@ const MapContainer = styled.View`
 const StyledMap = styled(MapboxGL.MapView)`
   width: 700px;
   height: 500px;
+  z-index: 1;
 `
 
 type MapViewPropsType = {
@@ -27,6 +30,7 @@ MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
   const ref = React.useRef<MapboxGL.MapView | null>(null)
   const [activeFeature, setActiveFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
+  const [showPopup, setShowPopup] = useState<boolean>(false)
   const layerProps: SymbolLayerProps = {
     id: layerId,
     style: {
@@ -61,24 +65,30 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
         undefined,
         [layerId]
       )) as FeatureCollection<Point>
-      if (featureCollection?.features?.length) {
-        setActiveFeature(featureCollection.features[0])
+      const { features } = featureCollection
+      if (features?.length) {
+        setActiveFeature(features[0])
+        setShowPopup(true)
       } else {
         setActiveFeature(null)
+        setShowPopup(false)
       }
     },
     [ref]
   )
 
   return (
-    <MapContainer>
-      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={ref}>
-        <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
-          <MapboxGL.SymbolLayer {...layerProps} />
-        </MapboxGL.ShapeSource>
-        <MapboxGL.Camera defaultSettings={defaultSettings} />
-      </StyledMap>
-    </MapContainer>
+    <>
+      <MapContainer>
+        <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={ref}>
+          <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
+            <MapboxGL.SymbolLayer {...layerProps} />
+          </MapboxGL.ShapeSource>
+          <MapboxGL.Camera defaultSettings={defaultSettings} />
+        </StyledMap>
+        {showPopup && activeFeature && <MapPopup feature={activeFeature} />}
+      </MapContainer>
+    </>
   )
 }
 
