@@ -89,7 +89,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
     [resourceCacheUrl, onLinkPress]
   )
 
-  if (content.length) {
+  if (content.length === 0) {
     return null
   }
 
