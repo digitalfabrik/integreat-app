@@ -14,9 +14,9 @@ const { unflatten } = flat
 
 const XCODE_LANGUAGES_MAP: Record<string, string> = {
   'sr-Cyrl': 'sr',
-  'pes': 'fa',
-  'prs': 'fa-AF',
-  'kmr': 'ku',
+  pes: 'fa',
+  prs: 'fa-AF',
+  kmr: 'ku',
   'zh-CN': 'zh-HANS'
 } as const
 
