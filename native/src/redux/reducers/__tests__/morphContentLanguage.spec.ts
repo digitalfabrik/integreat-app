@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
@@ -9,13 +11,13 @@ import {
   LocationModel,
   PoiModel
 } from 'api-client'
-import moment from 'moment'
-import morphContentLanguage from '../morphContentLanguage'
-import pushCategory from '../pushCategory'
+
 import { CityContentStateType } from '../../StateType'
 import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
-import pushEvent from '../pushEvent'
 import createCityContent from '../createCityContent'
+import morphContentLanguage from '../morphContentLanguage'
+import pushCategory from '../pushCategory'
+import pushEvent from '../pushEvent'
 
 describe('morphContentLanguage', () => {
   const createCategory = ({

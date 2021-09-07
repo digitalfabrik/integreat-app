@@ -1,4 +1,5 @@
 import { URL } from 'url'
+
 import { contentSearch, Routes } from '../../../shared/constants'
 import DashboardPage from '../pageobjects/dashboard.page'
 import SearchPage from '../pageobjects/search.page'

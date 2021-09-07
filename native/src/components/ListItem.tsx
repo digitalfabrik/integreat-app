@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components/native'
-import SimpleImage, { ImageSourceType } from './SimpleImage'
-import { contentDirection } from '../constants/contentDirection'
+
 import { ThemeType } from 'build-configs'
+
+import { contentDirection } from '../constants/contentDirection'
+import SimpleImage, { ImageSourceType } from './SimpleImage'
 
 type ListItemViewPropsType = {
   language: string

@@ -1,6 +1,8 @@
+import moment from 'moment'
+
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
-import moment from 'moment'
+
 describe('CategoriesMapModel', () => {
   const farsiCategory = new CategoryModel({
     root: false,

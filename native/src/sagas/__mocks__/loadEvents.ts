@@ -1,6 +1,8 @@
-import { DataContainer } from '../../utils/DataContainer'
-import { EventModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { EventModel } from 'api-client'
+
+import { DataContainer } from '../../utils/DataContainer'
 
 export default function* loadEvents(
   city: string,

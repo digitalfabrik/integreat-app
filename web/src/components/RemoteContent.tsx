@@ -1,7 +1,8 @@
+import Dompurify from 'dompurify'
 import React, { ReactElement, useEffect, useCallback } from 'react'
 import styled, { css } from 'styled-components'
+
 import buildConfig from '../constants/buildConfig'
-import Dompurify from 'dompurify'
 
 const SandBox = styled.div<{ centered: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};

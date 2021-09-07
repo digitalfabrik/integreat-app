@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import {
   defaultOnOverflowMenuPress,
   HeaderButton,
@@ -6,7 +7,7 @@ import {
   OnOverflowMenuPressParams,
   OverflowMenu
 } from 'react-navigation-header-buttons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+
 import { ThemeType } from 'build-configs'
 
 const MaterialHeaderButton = (props: {

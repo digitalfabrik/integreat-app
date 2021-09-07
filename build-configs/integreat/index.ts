@@ -1,12 +1,13 @@
-import { lightTheme } from './theme'
+import { INTEGREAT_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
-import { INTEGREAT_ASSETS } from '../AssetsType'
 import mainImprint from './mainImprint'
+import { lightTheme } from './theme'
+
 const APPLE_APP_ID = '1072353915'
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',

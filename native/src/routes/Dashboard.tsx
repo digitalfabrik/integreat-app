@@ -1,19 +1,9 @@
 import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
-import Categories from '../components/Categories'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
-import NavigationTiles from '../components/NavigationTiles'
-import TileModel from '../models/TileModel'
-import eventsIcon from '../assets/events.svg'
-import offersIcon from '../assets/offers.svg'
-import poisIcon from '../assets/pois.svg'
-import newsIcon from '../assets/news.svg'
 import { useTranslation } from 'react-i18next'
-import buildConfig from '../constants/buildConfig'
-import SpaceBetween from '../components/SpaceBetween'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
+
 import {
   CityModel,
   EVENTS_ROUTE,
@@ -24,8 +14,20 @@ import {
   RouteInformationType,
   TU_NEWS_TYPE
 } from 'api-client'
+
+import eventsIcon from '../assets/events.svg'
+import newsIcon from '../assets/news.svg'
+import offersIcon from '../assets/offers.svg'
+import poisIcon from '../assets/pois.svg'
+import Categories from '../components/Categories'
+import { FeedbackInformationType } from '../components/FeedbackContainer'
+import NavigationTiles from '../components/NavigationTiles'
+import SpaceBetween from '../components/SpaceBetween'
+import buildConfig from '../constants/buildConfig'
+import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
+import TileModel from '../models/TileModel'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
 import testID from '../testing/testID'
-import { useTheme } from 'styled-components'
 
 const Spacing = styled.View`
   padding: 10px;

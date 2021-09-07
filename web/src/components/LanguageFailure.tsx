@@ -1,9 +1,11 @@
 import React, { ReactNode } from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
-import LanguageSelector from './LanguageSelector'
-import { CityModel } from 'api-client'
-import Caption from './Caption'
 import styled from 'styled-components'
+
+import { CityModel } from 'api-client'
+
+import Caption from './Caption'
+import LanguageSelector from './LanguageSelector'
 
 const ChooseLanguage = styled.p`
   margin: 25px 0;

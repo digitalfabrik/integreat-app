@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { Dispatch } from 'redux'
-import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
-import { connect } from 'react-redux'
-import StaticServer from 'react-native-static-server'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import { Text } from 'react-native'
+import StaticServer from 'react-native-static-server'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
+import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 
 type OwnPropsType = {
   children: React.ReactNode

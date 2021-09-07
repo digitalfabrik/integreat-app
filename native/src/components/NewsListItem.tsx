@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
-import { LocalNewsModel, TunewsModel } from 'api-client'
-import styled from 'styled-components/native'
 import { useTranslation } from 'react-i18next'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { contentAlignment, contentDirection } from '../constants/contentDirection'
+import styled from 'styled-components/native'
+
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import { config } from 'translations'
-import TimeStamp from './TimeStamp'
+
+import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import TimeStamp from './TimeStamp'
 
 type PropsType = {
   index: number

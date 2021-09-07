@@ -1,4 +1,8 @@
 import { all, call, put, SagaGenerator, spawn, takeLatest } from 'typed-redux-saga'
+
+import { fromError } from 'api-client'
+
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import {
   EnqueueSnackbarActionType,
   MorphContentLanguageActionType,
@@ -6,13 +10,11 @@ import {
   SwitchContentLanguageActionType,
   SwitchContentLanguageFailedActionType
 } from '../redux/StoreActionType'
-import { DataContainer } from '../utils/DataContainer'
-import loadCityContent from './loadCityContent'
-import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import AppSettings from '../utils/AppSettings'
+import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
-import { fromError } from 'api-client'
 import { reportError } from '../utils/helpers'
+import loadCityContent from './loadCityContent'
 
 export function* switchContentLanguage(
   dataContainer: DataContainer,

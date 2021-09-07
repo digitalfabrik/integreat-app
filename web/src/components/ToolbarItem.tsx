@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconDefinition } from '@fortawesome/fontawesome-common-types'
-import StyledToolbarItem from './StyledToolbarItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { ReactElement } from 'react'
+
 import StyledSmallViewTip from './StyledSmallViewTip'
+import StyledToolbarItem from './StyledToolbarItem'
 import Tooltip from './Tooltip'
 
 type PropsType = {

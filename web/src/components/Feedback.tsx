@@ -2,8 +2,9 @@ import * as React from 'react'
 import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import TextButton from './TextButton'
+
 import { SendingState } from './FeedbackContainer'
+import TextButton from './TextButton'
 
 export const Container = styled.div`
   display: flex;

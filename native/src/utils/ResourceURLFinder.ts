@@ -1,9 +1,12 @@
-import { getExtension } from './helpers'
 import { Parser } from 'htmlparser2'
-import { FetchMapType } from '../sagas/fetchResourceCache'
 import { reduce } from 'lodash'
-import { hashUrl } from 'api-client'
 import Url from 'url-parse'
+
+import { hashUrl } from 'api-client'
+
+import { FetchMapType } from '../sagas/fetchResourceCache'
+import { getExtension } from './helpers'
+
 interface InputEntryType {
   path: string
   content: string

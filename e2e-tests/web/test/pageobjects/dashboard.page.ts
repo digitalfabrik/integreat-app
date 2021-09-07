@@ -1,5 +1,5 @@
-import { CategoriesPage } from './categories.page'
 import { Routes } from '../../../shared/constants'
+import { CategoriesPage } from './categories.page'
 
 class DashboardPage extends CategoriesPage {
   get searchIcon() {

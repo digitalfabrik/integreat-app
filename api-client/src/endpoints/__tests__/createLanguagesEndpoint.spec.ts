@@ -1,5 +1,5 @@
-import createLanguagesEndpoint from '../createLanguagesEndpoint'
 import LanguageModel from '../../models/LanguageModel'
+import createLanguagesEndpoint from '../createLanguagesEndpoint'
 
 describe('languages', () => {
   const baseUrl = 'https://integreat-api-url.de'
