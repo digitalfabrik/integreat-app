@@ -67,7 +67,7 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
         undefined,
         [layerId]
       )) as FeatureCollection<Point>
-      if (featureCollection?.features?.length && cameraRef?.current) {
+      if (featureCollection?.features?.length) {
         const { features } = featureCollection
         setActiveFeature(features[0])
         setShowPopup(true)
