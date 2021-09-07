@@ -137,7 +137,7 @@ const Pois = ({
                 theme={theme}
                 language={language}
                 linkLabel={poi?.featureLocation && t('map')}
-                navigateToMap={navigateToMap(cityModel.code, language, String(poi.location.id))}
+                onLinkClick={navigateToMap(cityModel.code, language, String(poi.location.id))}
               />
             )}
           </>
