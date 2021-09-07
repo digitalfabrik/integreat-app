@@ -1,5 +1,5 @@
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import type { BBox, Feature, FeatureCollection, GeoJsonProperties, Geometry, Point } from 'geojson'
+import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
 import React, { ReactElement, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 
@@ -30,7 +30,7 @@ MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
-  const [activeFeature, setActiveFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
   const layerProps: SymbolLayerProps = {
     id: featureLayerId,
     style: {
@@ -52,31 +52,31 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
   }
 
   // if there is a current feature use the coordinates if not use bounding box
-  const coordinates = activeFeature?.geometry?.coordinates
+  const coordinates = selectedFeature?.geometry?.coordinates
   const defaultSettings: CameraSettings = {
     zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
     centerCoordinate: coordinates,
     bounds: coordinates ? undefined : bounds
   }
 
-  const onPress = useCallback(async (pressedLocation: Feature<Geometry, GeoJsonProperties>) => {
+  const onPress = useCallback(async (pressedLocation: Feature) => {
     if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
       return
     }
     const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties?.screenPointY],
+      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
       undefined,
       [featureLayerId]
     )
     const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
     if (feature) {
-      setActiveFeature(feature)
+      setSelectedFeature(feature)
       const {
         geometry: { coordinates }
       } = feature
       cameraRef.current.flyTo(coordinates)
     } else {
-      setActiveFeature(null)
+      setSelectedFeature(null)
     }
   }, [])
 
@@ -88,7 +88,7 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
         </MapboxGL.ShapeSource>
         <MapboxGL.Camera defaultSettings={defaultSettings} ref={cameraRef} />
       </StyledMap>
-      {activeFeature && <MapPopup feature={activeFeature} />}
+      {selectedFeature && <MapPopup feature={selectedFeature} />}
     </MapContainer>
   )
 }
