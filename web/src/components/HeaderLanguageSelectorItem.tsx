@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
+
+import languageIcon from '../assets/language-icon.svg'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
-import Selector from './Selector'
-import { TFunction } from 'react-i18next'
-import languageIcon from '../assets/language-icon.svg'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
+import Selector from './Selector'
 
 type PropsType = {
   selectorItems: Array<SelectorItemModel>

@@ -1,11 +1,13 @@
-import React from 'react'
-import { renderWithRouter } from '../../testing/render'
 import moment from 'moment'
-import { CategoryEntry } from '../CategoryEntry'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
 import { CategoryModel } from 'api-client'
+
 import iconPlaceholder from '../../assets/IconPlaceholder.svg'
 import buildConfig from '../../constants/buildConfig'
-import { ThemeProvider } from 'styled-components'
+import { renderWithRouter } from '../../testing/render'
+import { CategoryEntry } from '../CategoryEntry'
 
 const category = new CategoryModel({
   root: false,

@@ -1,5 +1,6 @@
 import React, { FunctionComponent, ReactElement } from 'react'
 import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../constants/buildConfig'
 
 const wrapWithTheme = ({ children }: { children: ReactElement }): ReactElement => (

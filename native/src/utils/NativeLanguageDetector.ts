@@ -1,5 +1,6 @@
 import { LanguageDetectorModule } from 'i18next'
 import { getLocales } from 'react-native-localize'
+
 import { config } from 'translations'
 
 const NativeLanguageDetector: LanguageDetectorModule = {

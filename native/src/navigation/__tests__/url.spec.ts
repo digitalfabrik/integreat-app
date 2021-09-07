@@ -1,4 +1,3 @@
-import { cityContentPath, urlFromRouteInformation } from '../url'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -15,6 +14,8 @@ import {
   TU_NEWS_TYPE
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
+
+import { cityContentPath, urlFromRouteInformation } from '../url'
 
 describe('url', () => {
   const cityCode = 'augsburg'

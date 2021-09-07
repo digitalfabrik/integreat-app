@@ -1,3 +1,6 @@
+import { ExtractRouteParams } from 'react-router'
+import { generatePath, RouteComponentProps } from 'react-router-dom'
+
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -13,8 +16,6 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
 } from 'api-client'
-import { ExtractRouteParams } from 'react-router'
-import { generatePath, RouteComponentProps } from 'react-router-dom'
 
 export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
 export const TU_NEWS_ROUTE = TU_NEWS_TYPE

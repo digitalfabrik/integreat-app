@@ -1,6 +1,7 @@
 import moment from 'moment'
-import DateModel from '../DateModel'
+
 import DateFormatter from '../../i18n/DateFormatter'
+import DateModel from '../DateModel'
 
 describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']

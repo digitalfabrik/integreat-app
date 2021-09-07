@@ -1,5 +1,6 @@
 import React, { FunctionComponent, ReactElement, ReactNode, Suspense, useCallback } from 'react'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
+
 import {
   CATEGORIES_ROUTE,
   CityModel,
@@ -15,14 +16,17 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
-import { cmsApiBaseUrl } from './constants/urls'
-import Layout from './components/Layout'
+
 import FailureSwitcher from './components/FailureSwitcher'
-import LanguageFailure from './components/LanguageFailure'
-import useWindowDimensions from './hooks/useWindowDimensions'
-import GeneralHeader from './components/GeneralHeader'
 import GeneralFooter from './components/GeneralFooter'
+import GeneralHeader from './components/GeneralHeader'
+import LanguageFailure from './components/LanguageFailure'
+import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
+import LocationLayout from './components/LocationLayout'
+import buildConfig from './constants/buildConfig'
+import { cmsApiBaseUrl } from './constants/urls'
+import useWindowDimensions from './hooks/useWindowDimensions'
 import {
   createPath,
   LOCAL_NEWS_ROUTE,
@@ -32,8 +36,6 @@ import {
   TU_NEWS_DETAIL_ROUTE,
   TU_NEWS_ROUTE
 } from './routes'
-import buildConfig from './constants/buildConfig'
-import LocationLayout from './components/LocationLayout'
 
 const TuNewsDetailPage = React.lazy(() => import('./routes/TuNewsDetailPage'))
 const TuNewsPage = React.lazy(() => import('./routes/TuNewsPage'))

@@ -1,12 +1,14 @@
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import watchFetchCities, { fetchCities } from '../watchFetchCities'
-import { FetchCitiesActionType } from '../../redux/StoreActionType'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
-import loadCities from '../loadCities'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+
 import { ErrorCode } from 'api-client'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import { FetchCitiesActionType } from '../../redux/StoreActionType'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { reportError } from '../../utils/helpers'
+import loadCities from '../loadCities'
+import watchFetchCities, { fetchCities } from '../watchFetchCities'
 
 jest.mock('../../utils/helpers', () => ({
   reportError: jest.fn()

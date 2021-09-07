@@ -1,14 +1,15 @@
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonEventType } from '../types'
-import EventModel from '../models/EventModel'
-import normalizePath from '../normalizePath'
 import { decodeHTML } from 'entities'
-import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment-timezone'
-import DateModel from '../models/DateModel'
-import LocationModel from '../models/LocationModel'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import mapAvailableLanguages from '../mapAvailableLanguages'
+import DateModel from '../models/DateModel'
+import EventModel from '../models/EventModel'
 import FeaturedImageModel from '../models/FeaturedImageModel'
+import LocationModel from '../models/LocationModel'
+import normalizePath from '../normalizePath'
+import { JsonEventType } from '../types'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {

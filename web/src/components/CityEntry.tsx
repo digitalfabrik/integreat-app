@@ -1,11 +1,13 @@
 import React from 'react'
 import Highlighter from 'react-highlight-words'
-import { normalizeSearchString } from '../utils/stringUtils'
-import { CATEGORIES_ROUTE, CityModel } from 'api-client'
-import styled, { withTheme } from 'styled-components'
-import type { ThemeType } from 'build-configs'
 import { Link } from 'react-router-dom'
+import styled, { withTheme } from 'styled-components'
+
+import { CATEGORIES_ROUTE, CityModel } from 'api-client'
+import type { ThemeType } from 'build-configs'
+
 import { createPath } from '../routes'
+import { normalizeSearchString } from '../utils/stringUtils'
 
 const MAX_NUMBER_OF_ALIASES = 3
 

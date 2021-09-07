@@ -1,7 +1,8 @@
-import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
+import { mocked } from 'ts-jest/utils'
+
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
-import { mocked } from 'ts-jest/utils'
+import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
 
 jest.mock('../../mapping/mapCategoryJson')
 

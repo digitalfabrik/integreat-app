@@ -1,7 +1,9 @@
-import Page from '../components/Page'
+import React, { ReactNode } from 'react'
+
 import { PageModel } from 'api-client'
 import { ThemeType } from 'build-configs'
-import React, { ReactNode } from 'react'
+
+import Page from '../components/Page'
 
 type PropsType = {
   navigateToLink: (url: string, language: string, shareUrl: string) => void
