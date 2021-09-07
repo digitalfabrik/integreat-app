@@ -1,8 +1,7 @@
+import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-
-import { render } from '@testing-library/react-native'
 
 import { CityModel, ErrorCode, LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'api-client'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'

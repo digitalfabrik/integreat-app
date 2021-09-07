@@ -1,6 +1,5 @@
-import React from 'react'
-
 import { fireEvent, render } from '@testing-library/react-native'
+import React from 'react'
 
 import buildConfig from '../../constants/buildConfig'
 import CategoryListContent from '../CategoryListContent'

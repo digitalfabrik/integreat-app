@@ -1,8 +1,7 @@
-import React from 'react'
-import 'react-native/Libraries/Utilities/useWindowDimensions'
-
 import { render } from '@testing-library/react-native'
 import moment, { Moment } from 'moment'
+import React from 'react'
+import 'react-native/Libraries/Utilities/useWindowDimensions'
 
 import CategoryListContent from '../CategoryListContent'
 

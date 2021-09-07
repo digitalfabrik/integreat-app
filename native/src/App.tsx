@@ -1,3 +1,6 @@
+import NetInfo from '@react-native-community/netinfo'
+import messaging from '@react-native-firebase/messaging'
+import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { Linking } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -6,10 +9,6 @@ import { OverflowMenuProvider } from 'react-navigation-header-buttons'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { ThemeProvider } from 'styled-components'
-
-import NetInfo from '@react-native-community/netinfo'
-import messaging from '@react-native-firebase/messaging'
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 
 import { CLOSE_PAGE_SIGNAL_NAME, LOCAL_NEWS_TYPE, NEWS_ROUTE, REDIRECT_ROUTE, setUserAgent } from 'api-client'
 

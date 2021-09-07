@@ -1,7 +1,6 @@
+import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Platform, Text } from 'react-native'
-
-import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 
 import {
   CATEGORIES_ROUTE,

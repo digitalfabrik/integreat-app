@@ -1,6 +1,5 @@
-import React, { ReactNode } from 'react'
-
 import Headroom from '@integreat-app/react-sticky-headroom'
+import React, { ReactNode } from 'react'
 
 import SearchInput from './SearchInput'
 

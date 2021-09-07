@@ -1,10 +1,9 @@
+import Geolocation from '@react-native-community/geolocation'
+import { render, fireEvent } from '@testing-library/react-native'
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import { ThemeProvider } from 'styled-components/native'
 import { mocked } from 'ts-jest/utils'
-
-import Geolocation from '@react-native-community/geolocation'
-import { render, fireEvent } from '@testing-library/react-native'
 import waitForExpect from 'wait-for-expect'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'

@@ -1,7 +1,6 @@
-import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
-
 import NetInfo from '@react-native-community/netinfo'
 import moment from 'moment'
+import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
 
 import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
 

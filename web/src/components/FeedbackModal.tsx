@@ -1,9 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import FocusTrap from 'focus-trap-react'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { POSITIVE_RATING } from 'api-client'
 

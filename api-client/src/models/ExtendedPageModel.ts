@@ -1,5 +1,4 @@
 import { isEqual } from 'lodash'
-
 import { Moment } from 'moment'
 
 import PageModel from './PageModel'

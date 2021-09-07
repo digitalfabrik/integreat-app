@@ -1,8 +1,7 @@
+import { render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-
-import { render } from '@testing-library/react-native'
 import waitForExpect from 'wait-for-expect'
 
 import { REDIRECT_ROUTE } from 'api-client'

@@ -1,8 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useCallback } from 'react'
 import type { TFunction } from 'react-i18next'
 import { withTranslation } from 'react-i18next'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 

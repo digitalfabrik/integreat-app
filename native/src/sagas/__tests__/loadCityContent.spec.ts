@@ -1,9 +1,8 @@
-import { expectSaga } from 'redux-saga-test-plan'
-import { mocked } from 'ts-jest/utils'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from '@react-native-community/netinfo'
 import moment from 'moment'
+import { expectSaga } from 'redux-saga-test-plan'
+import { mocked } from 'ts-jest/utils'
 
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'

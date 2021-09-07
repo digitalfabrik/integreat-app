@@ -1,7 +1,6 @@
+import Headroom from '@integreat-app/react-sticky-headroom'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
-
-import Headroom from '@integreat-app/react-sticky-headroom'
 
 import dimensions from '../constants/dimensions'
 import HeaderLogo from './HeaderLogo'

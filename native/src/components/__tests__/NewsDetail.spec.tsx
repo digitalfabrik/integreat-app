@@ -1,8 +1,7 @@
-import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
-
 import { fireEvent, render } from '@testing-library/react-native'
 import moment from 'moment'
+import React from 'react'
+import { ThemeProvider } from 'styled-components/native'
 
 import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
 

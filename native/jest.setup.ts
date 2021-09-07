@@ -1,8 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 import '@testing-library/jest-native/extend-expect'
+import fs from 'fs'
+import path from 'path'
 
 import { I18nManager } from './src/testing/I18nManagerMock'
 

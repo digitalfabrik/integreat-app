@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { fireEvent, render } from '@testing-library/react-native'
+import * as React from 'react'
 
 import { ErrorCode } from 'api-client'
 

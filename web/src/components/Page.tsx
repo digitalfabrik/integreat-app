@@ -1,7 +1,6 @@
+import { Moment } from 'moment'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
-
-import { Moment } from 'moment'
 
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 

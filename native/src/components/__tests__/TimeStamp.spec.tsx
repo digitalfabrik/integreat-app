@@ -1,7 +1,6 @@
-import React from 'react'
-
 import { render, RenderAPI } from '@testing-library/react-native'
 import moment from 'moment-timezone'
+import React from 'react'
 
 import { DateFormatter } from 'api-client'
 

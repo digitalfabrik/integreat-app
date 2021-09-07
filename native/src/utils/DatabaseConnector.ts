@@ -1,9 +1,8 @@
 /* eslint-disable camelcase */
 import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
-import RNFetchBlob from 'rn-fetch-blob'
-
 import moment, { Moment } from 'moment'
+import RNFetchBlob from 'rn-fetch-blob'
 
 import {
   CategoriesMapModel,

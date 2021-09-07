@@ -1,7 +1,6 @@
+import { Parser } from 'htmlparser2'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { Parser } from 'htmlparser2'
 
 import { CategoryModel, createCategoriesEndpoint, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
 

@@ -1,7 +1,6 @@
+import { StackHeaderProps } from '@react-navigation/stack'
 import { TFunction, withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-
-import { StackHeaderProps } from '@react-navigation/stack'
 
 import {
   CityModel,

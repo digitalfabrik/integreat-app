@@ -1,7 +1,6 @@
+import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-
-import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 
 import {
   CATEGORIES_ROUTE,

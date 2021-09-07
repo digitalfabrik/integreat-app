@@ -1,9 +1,8 @@
+import { Moment } from 'moment'
 import * as React from 'react'
 import { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-
-import { Moment } from 'moment'
 
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 

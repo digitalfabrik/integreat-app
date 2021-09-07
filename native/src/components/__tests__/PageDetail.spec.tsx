@@ -1,7 +1,6 @@
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import { I18nManager } from 'react-native'
-
-import { render } from '@testing-library/react-native'
 
 import buildConfig from '../../constants/buildConfig'
 import PageDetail from '../PageDetail'

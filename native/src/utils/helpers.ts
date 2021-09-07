@@ -1,9 +1,8 @@
+import * as Sentry from '@sentry/react-native'
 import { last } from 'lodash'
 import normalizeStrings from 'normalize-strings'
 import RNFetchBlob from 'rn-fetch-blob'
 import Url from 'url-parse'
-
-import * as Sentry from '@sentry/react-native'
 
 import { FetchError, NotFoundError } from 'api-client/src'
 

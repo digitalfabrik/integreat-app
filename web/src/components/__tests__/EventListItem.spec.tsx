@@ -1,7 +1,6 @@
+import moment from 'moment'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-
-import moment from 'moment'
 
 import { DateFormatter, DateModel, EventModel, LocationModel } from 'api-client'
 

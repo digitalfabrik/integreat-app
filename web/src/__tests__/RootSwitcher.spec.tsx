@@ -1,9 +1,8 @@
+import { RenderResult, waitFor } from '@testing-library/react'
+import { Location } from 'history'
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-
-import { RenderResult, waitFor } from '@testing-library/react'
-import { Location } from 'history'
 
 import { CityModelBuilder } from 'api-client'
 import {

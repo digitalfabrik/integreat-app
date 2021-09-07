@@ -8,8 +8,8 @@
   "jsxSingleQuote": true,
   "endOfLine": "auto",
   "importOrder": [
-    "^([^(.|api\\-client|build\\-config|translations)])",
-    "^(api\\-client|build\\-configs|translations)",
+    "^(?!(api-client|build-configs|translations|\\.)).*",
+    "^(api-client|build-configs|translations)",
     "^(\\.)+(\\/)+"
   ],
   "importOrderSeparation": true

@@ -1,8 +1,7 @@
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-
-import { render } from '@testing-library/react-native'
 
 import { CityModel, ErrorCode, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'

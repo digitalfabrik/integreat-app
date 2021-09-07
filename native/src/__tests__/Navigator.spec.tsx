@@ -1,8 +1,7 @@
-import * as React from 'react'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { act, render } from '@testing-library/react-native'
+import * as React from 'react'
 import waitForExpect from 'wait-for-expect'
 
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'

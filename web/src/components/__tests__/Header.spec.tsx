@@ -1,7 +1,6 @@
+import Headroom from '@integreat-app/react-sticky-headroom'
 import { shallow } from 'enzyme'
 import React from 'react'
-
-import Headroom from '@integreat-app/react-sticky-headroom'
 
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'

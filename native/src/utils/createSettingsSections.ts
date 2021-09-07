@@ -1,8 +1,7 @@
+import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'react-i18next'
 import { SectionListData, AccessibilityRole } from 'react-native'
 import { openSettings } from 'react-native-permissions'
-
-import * as Sentry from '@sentry/react-native'
 
 import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
 
