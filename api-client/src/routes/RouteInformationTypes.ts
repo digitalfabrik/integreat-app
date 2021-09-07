@@ -44,7 +44,7 @@ export type EventsPoisRouteInformationType = ParamsType & {
   // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
   route: EventsRouteType | PoisRouteType
   cityContentPath?: string
-  locationId?: string
+  selectedPoiId?: string
 }
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType

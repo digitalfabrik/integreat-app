@@ -84,7 +84,7 @@ export type RoutesParamsType = {
   [DASHBOARD_ROUTE]: undefined
   [CATEGORIES_ROUTE]: undefined
   [POIS_ROUTE]: {
-    locationId?: string
+    selectedPoiId?: string
   }
   [EVENTS_ROUTE]: undefined
   [NEWS_ROUTE]: undefined

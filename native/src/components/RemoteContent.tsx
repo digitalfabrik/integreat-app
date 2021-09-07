@@ -37,7 +37,7 @@ type PropType = {
   onLoad: (arg0: void) => void
 }
 
-const RemoteContent = (props: PropType): ReactElement => {
+const RemoteContent = (props: PropType): ReactElement | null => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -89,31 +89,31 @@ const RemoteContent = (props: PropType): ReactElement => {
     [resourceCacheUrl, onLinkPress]
   )
 
+  if (content.length) {
+    return null
+  }
+
   return (
-    <>
-      {!!content.length && (
-        <StyledView onLayout={onLayout}>
-          <WebView
-            source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
-            originWhitelist={['*']} // Needed by iOS to load the initial html
-            javaScriptEnabled
-            dataDetectorTypes='none'
-            userAgent={userAgent}
-            domStorageEnabled={false}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            scrollEnabled={false} // to disable scrolling in iOS
-            onMessage={onMessage}
-            renderError={renderWebviewError}
-            onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-            style={{
-              height: webViewHeight,
-              width: webViewWidth
-            }}
-          />
-        </StyledView>
-      )}
-    </>
+    <StyledView onLayout={onLayout}>
+      <WebView
+        source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
+        originWhitelist={['*']} // Needed by iOS to load the initial html
+        javaScriptEnabled
+        dataDetectorTypes='none'
+        userAgent={userAgent}
+        domStorageEnabled={false}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        scrollEnabled={false} // to disable scrolling in iOS
+        onMessage={onMessage}
+        renderError={renderWebviewError}
+        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        style={{
+          height: webViewHeight,
+          width: webViewWidth
+        }}
+      />
+    </StyledView>
   )
 }
 
