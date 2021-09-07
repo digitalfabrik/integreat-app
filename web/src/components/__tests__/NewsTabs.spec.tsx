@@ -1,8 +1,10 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import NewsTabs from '../NewsTabs'
-import NewsTab from '../NewsTab'
+import React from 'react'
+
 import { LOCAL_NEWS_TYPE } from 'api-client'
+
+import NewsTab from '../NewsTab'
+import NewsTabs from '../NewsTabs'
 
 describe('NewsTabs', () => {
   const language = 'en'

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { ReactElement } from 'react'
-import LayoutContainer from './LayoutContainer'
 import { RefreshControlProps, ScrollView } from 'react-native'
+
+import LayoutContainer from './LayoutContainer'
 
 type ScrollViewPropsType = {
   children?: React.ReactNode

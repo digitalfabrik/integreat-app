@@ -1,6 +1,8 @@
 import React, { ReactElement, useCallback } from 'react'
-import { View } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
+import styled from 'styled-components/native'
+
 import {
   CityModel,
   fromError,
@@ -13,12 +15,12 @@ import {
   NewsType,
   RouteInformationType
 } from 'api-client'
-import NewsList from '../components/NewsList'
-import { NewsModelsType } from '../redux/StateType'
-import NewsListItem from '../components/NewsListItem'
-import styled from 'styled-components/native'
-import NewsDetail from '../components/NewsDetail'
+
 import FailureContainer from '../components/FailureContainer'
+import NewsDetail from '../components/NewsDetail'
+import NewsList from '../components/NewsList'
+import NewsListItem from '../components/NewsListItem'
+import { NewsModelsType } from '../redux/StateType'
 
 const NoNews = styled.Text`
   color: ${props => props.theme.colors.textColor};

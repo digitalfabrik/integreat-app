@@ -1,17 +1,19 @@
+import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
-import { Dispatch } from 'redux'
-import { SectionList, StyleSheet, SectionListData } from 'react-native'
-import styled from 'styled-components/native'
-import SettingItem from '../components/SettingItem'
-import { ThemeType } from 'build-configs'
 import { TFunction } from 'react-i18next'
+import { SectionList, StyleSheet, SectionListData } from 'react-native'
+import { Dispatch } from 'redux'
+import styled from 'styled-components/native'
+
+import { SettingsRouteType } from 'api-client'
+import { ThemeType } from 'build-configs'
+
+import LayoutContainer from '../components/LayoutContainer'
+import SettingItem from '../components/SettingItem'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import LayoutContainer from '../components/LayoutContainer'
-import { SettingsRouteType } from 'api-client'
-import { StoreActionType } from '../redux/StoreActionType'
-import { useFocusEffect } from '@react-navigation/native'
 
 export type PropsType = {
   theme: ThemeType

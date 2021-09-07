@@ -1,6 +1,7 @@
-import { Moment } from 'moment'
-import PageModel from './PageModel'
 import { isEqual } from 'lodash'
+import { Moment } from 'moment'
+
+import PageModel from './PageModel'
 
 class ExtendedPageModel extends PageModel {
   _thumbnail: string

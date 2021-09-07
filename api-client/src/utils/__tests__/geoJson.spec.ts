@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import LocationModel from '../../models/LocationModel'
 import { Feature, FeatureCollection, Point } from 'geojson'
+
+import LocationModel from '../../models/LocationModel'
 import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {

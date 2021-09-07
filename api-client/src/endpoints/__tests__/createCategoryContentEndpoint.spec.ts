@@ -1,7 +1,8 @@
-import createCategoryContentEndpoint from '../createCategoryContentEndpoint'
+import { mocked } from 'ts-jest/utils'
+
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
-import { mocked } from 'ts-jest/utils'
+import createCategoryContentEndpoint from '../createCategoryContentEndpoint'
 
 jest.mock('../../mapping/mapCategoryJson')
 

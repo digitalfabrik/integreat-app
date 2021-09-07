@@ -1,12 +1,14 @@
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
+
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import Page from '../Page'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import Categories from '../Categories'
-import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
+
 import buildConfig from '../../constants/buildConfig'
+import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
+import Categories from '../Categories'
+import Page from '../Page'
 
 jest.mock('../Page', () => {
   const Text = require('react-native').Text

@@ -1,4 +1,5 @@
 import { call, SagaGenerator, spawn, takeLatest } from 'typed-redux-saga'
+
 import AppSettings from '../utils/AppSettings'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 

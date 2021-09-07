@@ -1,6 +1,7 @@
 # integreat-app-native
 
-Android and iOS React Native App for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app).
+Android and iOS React Native App for [Integreat](https://integreat-app.de)
+, [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app).
 
 ## Contents
 
@@ -17,15 +18,18 @@ Android and iOS React Native App for [Integreat](https://integreat-app.de), [Mal
 _Make sure to have read and followed the steps in the [general README](../README.md#project-setup)._
 
 - Run `yarn` in the terminal to install all dependencies.
-- Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run Configurations.
+- Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run
+  Configurations.
 
 Depending on whether you want to develop for Android, iOS or both the following extra steps are necessary:
 
 ### Android
 
 - Install Java JDK, SDK and Runtime (v8 or v11).
-- Install the Android SDK by using the [Android Support plugin](https://plugins.jetbrains.com/plugin/1792-android-support) in IntelliJ.
-- Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour > System Settings > Android SDK).
+- Install the Android SDK by using
+  the [Android Support plugin](https://plugins.jetbrains.com/plugin/1792-android-support) in IntelliJ.
+- Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour >
+  System Settings > Android SDK).
 - Install and accept the SDK license in the SDK Manager.
 - \[optional\]: If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings.
 
@@ -47,4 +51,5 @@ _Note: In order to work with the project in XCode, always open `ios/Integreat.xc
 
 ## Running the app
 
-Take a look at the docs for [iOS](docs/manual-builds.md#ios) and [Android](docs/manual-builds.md#android) to see how to run the app.
+Take a look at the docs for [iOS](docs/manual-builds.md#ios) and [Android](docs/manual-builds.md#android) to see how to
+run the app.

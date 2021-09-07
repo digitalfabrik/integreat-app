@@ -1,20 +1,22 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { View } from 'react-native'
-import Page from './Page'
-import Tiles from './Tiles'
-import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
-import TileModel from '..//models/TileModel'
+
 import { CategoryModel, CityModel } from 'api-client'
-import { URL_PREFIX } from '../constants/webview'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
-import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
-import SpaceBetween from './SpaceBetween'
-import SiteHelpfulBox from './SiteHelpfulBox'
-import { FeedbackInformationType } from './FeedbackContainer'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import { ThemeType } from 'build-configs'
+
+import TileModel from '..//models/TileModel'
+import { URL_PREFIX } from '../constants/webview'
+import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
+import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
+import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
+import { FeedbackInformationType } from './FeedbackContainer'
+import Page from './Page'
+import SiteHelpfulBox from './SiteHelpfulBox'
+import SpaceBetween from './SpaceBetween'
+import Tiles from './Tiles'
 
 export type PropsType = {
   cityModel: CityModel

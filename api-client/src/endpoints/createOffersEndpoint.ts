@@ -1,7 +1,8 @@
-import OfferModel from '../models/OfferModel'
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonOfferPostType, JsonOfferType } from '../types'
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import OfferModel from '../models/OfferModel'
+import { JsonOfferPostType, JsonOfferType } from '../types'
+
 export const OFFERS_ENDPOINT_NAME = 'offers'
 
 const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {

@@ -1,5 +1,6 @@
-import createOffersEndpoint from '../createOffersEndpoint'
 import OfferModel from '../../models/OfferModel'
+import createOffersEndpoint from '../createOffersEndpoint'
+
 describe('endpoint', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const offers = createOffersEndpoint(baseUrl)

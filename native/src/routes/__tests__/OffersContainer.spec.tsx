@@ -1,17 +1,19 @@
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { CityModel, ErrorCode, OFFERS_ROUTE, OffersRouteType } from 'api-client'
-import OffersContainer from '../OffersContainer'
-import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
+
+import { CityModel, ErrorCode, OFFERS_ROUTE, OffersRouteType } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
   mockUseLoadFromEndpointLoading,
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { reportError } from '../../utils/helpers'
+import OffersContainer from '../OffersContainer'
 
 jest.mock('../../utils/helpers', () => ({
   reportError: jest.fn()

@@ -1,17 +1,19 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ErrorCode, LanguageModel } from 'api-client'
 import { RefreshControl } from 'react-native'
-import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
-import { StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
+
+import { ErrorCode, LanguageModel } from 'api-client'
+
 import FailureContainer from '../components/FailureContainer'
-import wrapDisplayName from '../hocs/wrapDisplayName'
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressContainer from '../components/ProgressContainer'
 import showSnackbar from '../utils/showSnackbar'
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import wrapDisplayName from '../hocs/wrapDisplayName'
+import { StoreActionType } from '../redux/StoreActionType'
 
 // A waiting time of >=1s feels like an interruption
 export const LOADING_TIMEOUT = 800

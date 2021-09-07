@@ -1,11 +1,13 @@
 import i18next, { i18n } from 'i18next'
 import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react'
-import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
-import { config, loadTranslations } from 'translations'
+import { I18nextProvider } from 'react-i18next'
+
 import { DateFormatter } from 'api-client'
-import DateFormatterContext from '../contexts/DateFormatterContext'
+import { config, loadTranslations } from 'translations'
+
 import buildConfig from '../constants/buildConfig'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
 
 type PropsType = {
