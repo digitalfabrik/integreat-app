@@ -11,6 +11,14 @@ import { TranslationsType } from '../src'
 
 const { unflatten } = flat
 
+const XCODE_LANGUAGES_MAP: Record<string, string> = {
+  'sr-Cyrl': 'sr',
+  'pes': 'fa',
+  'prs': 'fa-AF',
+  'kmr': 'ku',
+  'zh-CN': 'zh-HANS'
+} as const
+
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
 type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj?: KeyValueType) => string
@@ -217,6 +225,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
   languageCodes.forEach(language => {
     const translations = nativeTranslations[language]
     const keys = Object.keys(translations)
+
     const content = keys
       .map(key => {
         const regex = /{{appName}}/gi
@@ -224,7 +233,11 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
         return `${key} = "${value}";`
       })
       .join('\n')
-    const path = `${destination}/${language}.lproj/`
+
+    // XCode uses different tags for some languages
+    const languageKey = XCODE_LANGUAGES_MAP[language] ?? language
+    const path = `${destination}/${languageKey}.lproj/`
+
     fs.mkdirSync(path, {
       recursive: true
     })
