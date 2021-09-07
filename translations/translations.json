@@ -4326,7 +4326,8 @@
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە.",
       "currentlyNoNewsAlternative": "لەئێستادا هیچ نوێترین هەواڵەکانی تێدا نییە.",
       "tuNews": {
-        "pageTitle": "هەواڵەکانی توبیگێن"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "el": {
@@ -4341,7 +4342,8 @@
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις.",
       "currentlyNoNewsAlternative": "Προς το παρόν δεν υπάρχουν νέα.",
       "tuNews": {
-        "pageTitle": "Νέα"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "en": {
@@ -4436,7 +4438,8 @@
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები.",
       "currentlyNoNewsAlternative": "ამჟამად არ არსებობს არანაირი სიახლეები.",
       "tuNews": {
-        "pageTitle": "ტუნიუს ინფორმაციები"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "kmr": {
@@ -4515,7 +4518,8 @@
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎.",
       "currentlyNoNewsAlternative": "در حال حاضر هیچ جدیدترین خبری وجود ندارد‎.",
       "tuNews": {
-        "pageTitle": "اخبار توبینگن"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "ps": {
