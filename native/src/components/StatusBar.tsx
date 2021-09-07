@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { StatusBar as ReactNativeStatusBar } from 'react-native'
+
 import { ThemeType } from 'build-configs'
 
 type PropsType = {

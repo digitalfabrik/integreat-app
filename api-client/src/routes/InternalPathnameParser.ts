@@ -1,3 +1,4 @@
+import normalizePath from '../normalizePath'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -16,7 +17,6 @@ import {
   TuNewsType
 } from './'
 import { RouteInformationType } from './RouteInformationTypes'
-import normalizePath from '../normalizePath'
 
 const ENTITY_ID_INDEX = 3
 

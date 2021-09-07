@@ -1,8 +1,9 @@
-import Settings, { PropsType as SettingsPropsType } from './Settings'
-import withTheme from '../hocs/withTheme'
 import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+
+import withTheme from '../hocs/withTheme'
 import { StateType } from '../redux/StateType'
+import Settings, { PropsType as SettingsPropsType } from './Settings'
 
 type StatePropsType = {
   languageCode: string

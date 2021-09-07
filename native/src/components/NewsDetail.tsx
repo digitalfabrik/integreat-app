@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
 import { ScrollView, View } from 'react-native'
-import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
-import { contentAlignment } from '../constants/contentDirection'
-import headerImage from '../assets/tu-news-header-details-icon.svg'
 import styled from 'styled-components/native'
-import TimeStamp from './TimeStamp'
+
+import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
+
+import headerImage from '../assets/tu-news-header-details-icon.svg'
+import { contentAlignment } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import NativeHtml from './NativeHtml'
+import TimeStamp from './TimeStamp'
 
 const Container = styled.View`
   align-items: center;

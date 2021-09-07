@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { CityModel, LANDING_ROUTE } from 'api-client'
+
 import FilterableCitySelector from '../components/FilterableCitySelector'
-import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import Helmet from '../components/Helmet'
-import { useTranslation } from 'react-i18next'
+import Layout from '../components/Layout'
 import buildConfig from '../constants/buildConfig'
 import { RouteProps } from './index'
 

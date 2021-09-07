@@ -1,4 +1,5 @@
 import { Capabilities } from '@wdio/types'
+
 import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (

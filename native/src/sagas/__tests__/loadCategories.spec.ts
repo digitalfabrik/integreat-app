@@ -1,11 +1,13 @@
 import { runSaga } from 'redux-saga'
-import loadCategories from '../loadCategories'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import DatabaseConnector from '../../utils/DatabaseConnector'
-import DatabaseContext from '../../models/DatabaseContext'
+
 import { CategoryModel } from 'api-client'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DatabaseContext from '../../models/DatabaseContext'
+import DatabaseConnector from '../../utils/DatabaseConnector'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
+import loadCategories from '../loadCategories'
 
 let mockCategories: CategoryModel[]
 jest.mock('api-client', () => {

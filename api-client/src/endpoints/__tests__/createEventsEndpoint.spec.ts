@@ -1,11 +1,12 @@
 import { Moment } from 'moment'
 import moment from 'moment-timezone'
-import EventModel from '../../models/EventModel'
+
 import DateModel from '../../models/DateModel'
-import LocationModel from '../../models/LocationModel'
-import createEventsEndpoint from '../createEventsEndpoint'
-import { JsonEventType } from '../../types'
+import EventModel from '../../models/EventModel'
 import FeaturedImageModel from '../../models/FeaturedImageModel'
+import LocationModel from '../../models/LocationModel'
+import { JsonEventType } from '../../types'
+import createEventsEndpoint from '../createEventsEndpoint'
 
 describe('events', () => {
   const baseUrl = 'https://integreat-api-url.de'

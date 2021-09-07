@@ -1,15 +1,17 @@
-import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import * as React from 'react'
-import Pois from './Pois'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import navigateToLink from '../navigation/navigateToLink'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+
 import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-client'
+
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import createNavigate from '../navigation/createNavigate'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
+import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
+import Pois from './Pois'
 
 type NavigationPropsType = {
   route: RoutePropType<PoisRouteType>

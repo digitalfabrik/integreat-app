@@ -1,8 +1,9 @@
-import React from 'react'
-import HeaderLogo from '../HeaderLogo'
 import lolex, { InstalledClock } from 'lolex'
+import React from 'react'
+
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import HeaderLogo from '../HeaderLogo'
 
 describe('HeaderLogo', () => {
   const womensDayCampaign = {

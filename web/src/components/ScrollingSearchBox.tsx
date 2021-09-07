@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react'
-import SearchInput from './SearchInput'
 import Headroom from '@integreat-app/react-sticky-headroom'
+import React, { ReactNode } from 'react'
+
+import SearchInput from './SearchInput'
 
 const SEARCH_BAR_HEIGHT = 45
 

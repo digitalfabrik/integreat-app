@@ -1,6 +1,6 @@
+import { range } from 'lodash'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
-import { range } from 'lodash'
 
 const DotsContainer = styled.View`
   flex: 1;

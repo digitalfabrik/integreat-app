@@ -1,8 +1,8 @@
-import React from 'react'
 import { render } from '@testing-library/react'
+import React from 'react'
 
-import ListItem from '../ListItem'
 import wrapWithTheme from '../../testing/wrapWithTheme'
+import ListItem from '../ListItem'
 
 describe('ListItemSpec', () => {
   const path = 'https://tuerantuer.org'

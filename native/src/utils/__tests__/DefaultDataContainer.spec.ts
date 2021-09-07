@@ -1,13 +1,15 @@
-import DefaultDataContainer from '../DefaultDataContainer'
-import DatabaseContext from '../../models/DatabaseContext'
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import moment from 'moment'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
-import DatabaseConnector from '../DatabaseConnector'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DatabaseContext from '../../models/DatabaseContext'
+import DatabaseConnector from '../DatabaseConnector'
+import DefaultDataContainer from '../DefaultDataContainer'
 
 beforeEach(() => {
   RNFetchBlob.fs._reset()

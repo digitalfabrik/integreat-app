@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { reportError } from '../utils/helpers'
 
 const useReportError = (error: Error | null): void => {

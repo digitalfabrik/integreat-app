@@ -1,4 +1,9 @@
 /* eslint-disable camelcase */
+import { BBox } from 'geojson'
+import { map, mapValues } from 'lodash'
+import moment, { Moment } from 'moment'
+import RNFetchBlob from 'rn-fetch-blob'
+
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -10,17 +15,14 @@ import {
   LocationModel,
   PoiModel
 } from 'api-client'
-import RNFetchBlob from 'rn-fetch-blob'
-import moment, { Moment } from 'moment'
-import { BBox } from 'geojson'
+
+import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import DatabaseContext from '../models/DatabaseContext'
-import { map, mapValues } from 'lodash'
 import { deleteIfExists } from './helpers'
 
 export const CONTENT_VERSION = 'v1'

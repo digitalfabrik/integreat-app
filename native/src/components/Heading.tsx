@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import EastereggImage from './EastereggImage'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
+import EastereggImage from './EastereggImage'
 
 type PropsType = {
   clearResourcesAndCache: () => void

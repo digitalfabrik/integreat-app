@@ -1,12 +1,14 @@
 import React, { ReactNode } from 'react'
-import { CategoryModel } from 'api-client'
-import iconPlaceholder from '../assets/IconPlaceholder.svg'
-import styled, { withTheme } from 'styled-components'
 import Highlighter from 'react-highlight-words'
-import { normalizeSearchString } from '../utils/stringUtils'
-import type { ThemeType } from 'build-configs'
-import ContentMatcher from './ContentMatcher'
 import { Link } from 'react-router-dom'
+import styled, { withTheme } from 'styled-components'
+
+import { CategoryModel } from 'api-client'
+import type { ThemeType } from 'build-configs'
+
+import iconPlaceholder from '../assets/IconPlaceholder.svg'
+import { normalizeSearchString } from '../utils/stringUtils'
+import ContentMatcher from './ContentMatcher'
 
 const NUM_WORDS_SURROUNDING_MATCH = 10
 

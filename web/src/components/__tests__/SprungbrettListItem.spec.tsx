@@ -1,9 +1,11 @@
-import React from 'react'
-import { SprungbrettJobModel } from 'api-client'
-import SprungbrettListItem from '../SprungbrettListItem'
 import { render } from '@testing-library/react'
-import buildConfig from '../../constants/buildConfig'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
+
+import { SprungbrettJobModel } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
+import SprungbrettListItem from '../SprungbrettListItem'
 
 describe('SprungbrettListItem', () => {
   const job = new SprungbrettJobModel({

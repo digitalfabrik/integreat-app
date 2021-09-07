@@ -1,20 +1,23 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
-import { View } from 'react-native'
 import { TFunction } from 'react-i18next'
+import { View } from 'react-native'
+
 import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
+import { ThemeType } from 'build-configs'
+
+import Caption from '../components/Caption'
+import EventListItem from '../components/EventListItem'
+import FailureContainer from '../components/FailureContainer'
+import { FeedbackInformationType } from '../components/FeedbackContainer'
+import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import EventListItem from '../components/EventListItem'
-import List from '../components/List'
-import Caption from '../components/Caption'
-import { ThemeType } from 'build-configs'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import FailureContainer from '../components/FailureContainer'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
+
 export type PropsType = {
   path: string | null | undefined
   events: Array<EventModel>
