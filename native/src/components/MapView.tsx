@@ -64,7 +64,7 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
       return
     }
     const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties?.screenPointY],
+      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
       undefined,
       [featureLayerId]
     )
