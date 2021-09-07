@@ -1,13 +1,10 @@
 import React from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
-
-import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
-
-import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes'
-import CleanAnchor from './CleanAnchor'
-import CleanLink from './CleanLink'
 import Footer from './Footer'
+import CleanLink from './CleanLink'
+import buildConfig from '../constants/buildConfig'
+import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
+import { RoutePatterns } from '../routes'
 
 type PropsType = {
   language: string
@@ -25,8 +22,8 @@ class GeneralFooter extends React.PureComponent<PropsType> {
     return (
       <Footer>
         <CleanLink to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprintAndContact')}</CleanLink>
-        <CleanAnchor href={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanAnchor>
-        <CleanAnchor href={privacyUrl}>{t('privacy')}</CleanAnchor>
+        <CleanLink to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</CleanLink>
+        <CleanLink to={privacyUrl}>{t('privacy')}</CleanLink>
       </Footer>
     )
   }
