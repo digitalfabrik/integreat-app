@@ -1,12 +1,13 @@
 /* eslint-disable no-magic-numbers */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 
-(function () {
+;(function () {
   /**
    * detect IE
    * returns version of IE or false, if browser is not Internet Explorer
    * From https://codepen.io/gapcode/pen/vEJNZN
    */
-  function detectIE () {
+  function detectIE() {
     var ua = window.navigator.userAgent
     var msie = ua.indexOf('MSIE ')
     if (msie > 0) {
@@ -27,6 +28,6 @@
   var version = detectIE()
 
   if (version !== false && version < 11) {
-    alert('You are using a deprecated browser, that we don\'t support. Please upgrade your browser to view this site.')
+    alert("You are using a deprecated browser, that we don't support. Please upgrade your browser to view this site.")
   }
 })()
