@@ -1,12 +1,15 @@
 import * as React from 'react'
-import { render } from '@testing-library/react-native'
-import RedirectContainer from '../RedirectContainer'
-import waitForExpect from 'wait-for-expect'
 import { Provider } from 'react-redux'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { REDIRECT_ROUTE } from 'api-client'
-import navigateToDeepLink from '../../navigation/navigateToDeepLink'
 import configureMockStore from 'redux-mock-store'
+
+import { render } from '@testing-library/react-native'
+import waitForExpect from 'wait-for-expect'
+
+import { REDIRECT_ROUTE } from 'api-client'
+
+import navigateToDeepLink from '../../navigation/navigateToDeepLink'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import RedirectContainer from '../RedirectContainer'
 
 jest.mock('../../navigation/navigateToDeepLink')
 jest.mock('../../utils/NativeLanguageDetector')

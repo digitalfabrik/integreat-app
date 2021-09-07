@@ -7,6 +7,10 @@
   "jsxBracketSameLine": true,
   "jsxSingleQuote": true,
   "endOfLine": "auto",
-  "importOrder": ["^([^(.|api\\-client|build\\-config)])", "api-client", "build-configs", "translations", "^./*"],
+  "importOrder": [
+    "^([^(.|api\\-client|build\\-config|translations)])",
+    "^(api\\-client|build\\-configs|translations)",
+    "^(\\.)+(\\/)+"
+  ],
   "importOrderSeparation": true
 }

@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
 import { contentDirection } from '../constants/contentDirection'
 import { CategoryListModelType } from './CategoryList'
-import { ThemeType } from 'build-configs'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;

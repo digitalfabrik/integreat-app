@@ -1,4 +1,10 @@
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+
 import { fireEvent } from '@testing-library/react'
+import moment from 'moment'
+
 import {
   CategoriesMapModel,
   CategoriesMapModelBuilder,
@@ -7,15 +13,12 @@ import {
   LanguageModelBuilder,
   SEARCH_ROUTE
 } from 'api-client'
-import moment from 'moment'
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
+import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
-import { createPath, RoutePatterns } from '../index'
 import SearchPage from '../SearchPage'
-import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { createPath, RoutePatterns } from '../index'
 
 jest.mock('react-i18next')
 jest.mock('api-client', () => {

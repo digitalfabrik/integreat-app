@@ -1,7 +1,10 @@
-import React from 'react'
-import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
-import moment from 'moment'
 import { shallow } from 'enzyme'
+import React from 'react'
+
+import moment from 'moment'
+
+import { DateFormatter, LOCAL_NEWS_TYPE, LocalNewsModel } from 'api-client'
+
 import LocalNewsList from '../LocalNewsList'
 import NewsListItem from '../NewsListItem'
 

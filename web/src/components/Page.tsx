@@ -1,10 +1,13 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
-import RemoteContent from './RemoteContent'
-import Caption from './Caption'
+
 import { Moment } from 'moment'
-import LastUpdateInfo from './LastUpdateInfo'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import Caption from './Caption'
+import LastUpdateInfo from './LastUpdateInfo'
+import RemoteContent from './RemoteContent'
 
 export const THUMBNAIL_WIDTH = 300
 

@@ -1,5 +1,11 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
+import { TFunction } from 'react-i18next'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
+import styled from 'styled-components/native'
+
+import { Parser } from 'htmlparser2'
+
 import {
   CategoriesRouteInformationType,
   CategoriesMapModel,
@@ -9,20 +15,17 @@ import {
   CATEGORIES_ROUTE,
   RouteInformationType
 } from 'api-client'
-import CategoryList, { ListEntryType } from '../components/CategoryList'
-import styled from 'styled-components/native'
-import { TFunction } from 'react-i18next'
-import SearchHeader from '../components/SearchHeader'
 import { ThemeType } from 'build-configs'
-import { normalizeSearchString } from '../utils/helpers'
-import { Parser } from 'htmlparser2'
-import dimensions from '../constants/dimensions'
-import FeedbackContainer from '../components/FeedbackContainer'
+
 import SadIcon from '../assets/smile-sad.svg'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
+import CategoryList, { ListEntryType } from '../components/CategoryList'
+import FeedbackContainer from '../components/FeedbackContainer'
+import SearchHeader from '../components/SearchHeader'
+import dimensions from '../constants/dimensions'
 import { urlFromRouteInformation } from '../navigation/url'
-import { ReactNode } from 'react'
 import testID from '../testing/testID'
+import { normalizeSearchString } from '../utils/helpers'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const Wrapper = styled.View`
   position: absolute;

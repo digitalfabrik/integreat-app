@@ -1,12 +1,14 @@
 import * as React from 'react'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs'
-import Selector from '../components/Selector'
-import SelectorItemModel from '../models/SelectorItemModel'
-import { InteractionManager } from 'react-native'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { ChangeLanguageModalRouteType, NewsType, LanguageModel } from 'api-client'
 import { ReactNode } from 'react'
+import { InteractionManager } from 'react-native'
+import styled from 'styled-components/native'
+
+import { ChangeLanguageModalRouteType, NewsType, LanguageModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
+import Selector from '../components/Selector'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import SelectorItemModel from '../models/SelectorItemModel'
 
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};

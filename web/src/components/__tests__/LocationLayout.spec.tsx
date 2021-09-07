@@ -1,9 +1,12 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
-import { LocationLayout, ToolbarPropType } from '../LocationLayout'
 import { ThemeProvider } from 'styled-components'
+
+import { render } from '@testing-library/react'
+
+import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
+
 import buildConfig from '../../constants/buildConfig'
+import { LocationLayout, ToolbarPropType } from '../LocationLayout'
 
 jest.mock('../LocationFooter', () => {
   return () => <div>LocationFooter</div>

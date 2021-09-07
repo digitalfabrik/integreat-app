@@ -1,7 +1,9 @@
 import React from 'react'
-import Feedback from '../Feedback'
+
 import { fireEvent, render } from '@testing-library/react-native'
+
 import buildConfig from '../../constants/buildConfig'
+import Feedback from '../Feedback'
 
 describe('Feedback', () => {
   beforeEach(() => {

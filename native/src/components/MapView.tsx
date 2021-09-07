@@ -1,7 +1,9 @@
+import type { BBox, FeatureCollection } from 'geojson'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
+
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import type { BBox, FeatureCollection } from 'geojson'
+
 import { defaultViewportConfig, mapConfig } from 'api-client'
 
 const MapContainer = styled.View`

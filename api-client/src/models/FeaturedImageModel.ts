@@ -1,4 +1,5 @@
 import { isEqual } from 'lodash'
+
 type FeaturedImageInstanceType = {
   url: string
   width: number

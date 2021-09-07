@@ -1,11 +1,14 @@
 import React from 'react'
-import moment from 'moment'
-import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
-import { textTruncator } from '../../utils/stringUtils'
 import { ThemeProvider } from 'styled-components'
+
+import moment from 'moment'
+
 import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
+
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import { textTruncator } from '../../utils/stringUtils'
+import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
   jest.fn(({ lastUpdate, withText }) => (

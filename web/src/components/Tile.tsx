@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react'
 import { Col } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
+
 import TileModel from '../models/TileModel'
-import CleanLink from './CleanLink'
 import CleanAnchor from './CleanAnchor'
+import CleanLink from './CleanLink'
 
 type PropsType = {
   tile: TileModel

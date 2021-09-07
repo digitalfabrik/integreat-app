@@ -1,8 +1,11 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
+
 import moment from 'moment'
-import Page from '../Page'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import Page from '../Page'
 
 jest.mock('react-i18next')
 

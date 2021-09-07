@@ -1,3 +1,17 @@
+import { reduce } from 'lodash'
+import React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+
+import { render } from '@testing-library/react-native'
+import moment from 'moment'
+
+import { CATEGORIES_ROUTE, CategoriesRouteType, ErrorCode } from 'api-client'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
+import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 import {
   CategoryRouteStateType,
   CitiesStateType,
@@ -6,19 +20,8 @@ import {
   ResourceCacheStateType,
   StateType
 } from '../../redux/StateType'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import { reduce } from 'lodash'
-import configureMockStore from 'redux-mock-store'
-import React from 'react'
-import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { render } from '@testing-library/react-native'
-import moment from 'moment'
-import { CATEGORIES_ROUTE, CategoriesRouteType, ErrorCode } from 'api-client'
 import CategoriesContainer from '../CategoriesContainer'
-import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')

@@ -1,13 +1,14 @@
-import fs from 'fs'
 import program from 'commander'
-import path from 'path'
-import flat from 'flat'
-import stringify from 'csv-stringify'
 import parse from 'csv-parse/lib/sync'
-import config from '../src/config'
+import stringify from 'csv-stringify'
+import flat from 'flat'
+import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
-import { KeyValueType } from '../src/types'
+import path from 'path'
+
 import { TranslationsType } from '../src'
+import config from '../src/config'
+import { KeyValueType } from '../src/types'
 
 const { unflatten } = flat
 

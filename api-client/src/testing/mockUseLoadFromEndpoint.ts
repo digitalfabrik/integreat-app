@@ -1,5 +1,6 @@
-import { useLoadFromEndpoint } from 'api-client'
 import { mocked } from 'ts-jest/utils'
+
+import { useLoadFromEndpoint } from 'api-client'
 
 const mockData = (data: unknown): typeof useLoadFromEndpoint => {
   return (() => ({

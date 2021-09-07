@@ -1,15 +1,18 @@
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { FetchCategoryActionType } from '../../redux/StoreActionType'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
-import loadCityContent from '../loadCityContent'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+
 import moment from 'moment'
-import mockDate from '../../testing/mockDate'
+
 import { ErrorCode } from 'api-client'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import { FetchCategoryActionType } from '../../redux/StoreActionType'
+import mockDate from '../../testing/mockDate'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { reportError } from '../../utils/helpers'
+import loadCityContent from '../loadCityContent'
+import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 
 jest.mock('../../utils/helpers', () => ({
   reportError: jest.fn()

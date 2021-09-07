@@ -1,10 +1,12 @@
-import CategoryModel from '../models/CategoryModel'
-import CategoriesMapModel from '../models/CategoriesMapModel'
-import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment-timezone'
-import { JsonCategoryType } from '../types'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
 import mapCategoryJson from '../mapping/mapCategoryJson'
+import CategoriesMapModel from '../models/CategoriesMapModel'
+import CategoryModel from '../models/CategoryModel'
+import { JsonCategoryType } from '../types'
+
 export const CATEGORIES_ENDPOINT_NAME = 'categories'
 type ParamsType = {
   city: string

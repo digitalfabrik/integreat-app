@@ -1,4 +1,5 @@
 import { CityModel } from 'api-client'
+
 const NUMBER_OF_CLOSEST_CITIES = 3
 const MAXIMAL_DISTANCE = 90
 

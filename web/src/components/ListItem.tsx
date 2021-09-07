@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import CleanLink from './CleanLink'
+
 import CleanAnchor from './CleanAnchor'
+import CleanLink from './CleanLink'
 
 const Link = styled(CleanLink)`
   display: flex;

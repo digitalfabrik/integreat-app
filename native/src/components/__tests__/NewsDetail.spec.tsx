@@ -1,10 +1,13 @@
-import { fireEvent, render } from '@testing-library/react-native'
-import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
-import moment from 'moment'
-import buildConfig from '../../constants/buildConfig'
 import React from 'react'
-import NewsDetail from '../NewsDetail'
 import { ThemeProvider } from 'styled-components/native'
+
+import { fireEvent, render } from '@testing-library/react-native'
+import moment from 'moment'
+
+import { DateFormatter, LocalNewsModel, TunewsModel } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
+import NewsDetail from '../NewsDetail'
 
 jest.mock('react-i18next')
 

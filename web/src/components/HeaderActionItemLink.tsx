@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
 import dimensions from '../constants/dimensions'
 import Tooltip from './Tooltip'
 

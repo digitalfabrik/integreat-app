@@ -1,7 +1,9 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import Failure from '../Failure'
 import { MemoryRouter } from 'react-router-dom'
+
+import { render } from '@testing-library/react'
+
+import Failure from '../Failure'
 
 describe('Failure', () => {
   const mockTranslate = (key: string) => key

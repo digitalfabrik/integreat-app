@@ -1,8 +1,11 @@
-import Failure from '../Failure'
-import { fireEvent, render } from '@testing-library/react-native'
 import * as React from 'react'
+
+import { fireEvent, render } from '@testing-library/react-native'
+
 import { ErrorCode } from 'api-client'
+
 import buildConfig from '../../constants/buildConfig'
+import Failure from '../Failure'
 
 jest.mock('react-i18next')
 

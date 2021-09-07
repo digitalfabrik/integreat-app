@@ -1,9 +1,12 @@
-import React from 'react'
-import { DateFormatter, TU_NEWS_TYPE, TunewsModel } from 'api-client'
-import moment from 'moment'
 import { shallow } from 'enzyme'
-import TuNewsList from '../TuNewsList'
+import React from 'react'
+
+import moment from 'moment'
+
+import { DateFormatter, TU_NEWS_TYPE, TunewsModel } from 'api-client'
+
 import NewsListItem from '../NewsListItem'
+import TuNewsList from '../TuNewsList'
 
 describe('TuNewsList', () => {
   const language = 'en'

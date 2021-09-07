@@ -1,8 +1,11 @@
-import { MappingError } from 'api-client'
 import React from 'react'
+
 import { render } from '@testing-library/react-native'
-import useReportError from '../useReportError'
+
+import { MappingError } from 'api-client'
+
 import { reportError } from '../../utils/helpers'
+import useReportError from '../useReportError'
 
 jest.mock('../../utils/helpers', () => ({
   reportError: jest.fn()

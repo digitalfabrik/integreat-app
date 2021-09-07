@@ -1,9 +1,11 @@
 import React, { ReactElement, ReactNode } from 'react'
-import Headroom from '@integreat-app/react-sticky-headroom'
 import styled from 'styled-components'
-import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
-import HeaderLogo from './HeaderLogo'
+
+import Headroom from '@integreat-app/react-sticky-headroom'
+
 import dimensions from '../constants/dimensions'
+import HeaderLogo from './HeaderLogo'
+import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 
 type PropsType = {
   navigationItems: Array<ReactNode>

@@ -1,4 +1,10 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import { mocked } from 'ts-jest/utils'
+
+import { RenderResult } from '@testing-library/react'
+
 import {
   CityModelBuilder,
   LanguageModelBuilder,
@@ -7,14 +13,11 @@ import {
   SprungbrettJobModel,
   useLoadFromEndpoint
 } from 'api-client'
-import SprungbrettOfferPage from '../SprungbrettOfferPage'
-import { mocked } from 'ts-jest/utils'
-import { renderWithBrowserRouter } from '../../testing/render'
+
 import buildConfig from '../../constants/buildConfig'
+import { renderWithBrowserRouter } from '../../testing/render'
+import SprungbrettOfferPage from '../SprungbrettOfferPage'
 import { createPath, RoutePatterns } from '../index'
-import { ThemeProvider } from 'styled-components'
-import { Route } from 'react-router-dom'
-import { RenderResult } from '@testing-library/react'
 
 jest.mock('api-client', () => {
   return {

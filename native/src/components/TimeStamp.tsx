@@ -1,10 +1,13 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
-import { Moment } from 'moment'
-import styled from 'styled-components/native'
-import { contentDirection } from '../constants/contentDirection'
-import DateFormatter from 'api-client/src/i18n/DateFormatter'
 import { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components/native'
+
+import { Moment } from 'moment'
+
+import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import { contentDirection } from '../constants/contentDirection'
 
 const TimeStampText = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};

@@ -1,7 +1,9 @@
-import { Moment } from 'moment'
 import { Feature } from 'geojson'
-import LocationModel from './LocationModel'
+
+import { Moment } from 'moment'
+
 import ExtendedPageModel from './ExtendedPageModel'
+import LocationModel from './LocationModel'
 import PageModel from './PageModel'
 
 class PoiModel extends ExtendedPageModel {

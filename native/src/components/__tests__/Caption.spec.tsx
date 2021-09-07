@@ -1,7 +1,9 @@
-import Caption from '../Caption'
-import { render } from '@testing-library/react-native'
 import React from 'react'
+
+import { render } from '@testing-library/react-native'
+
 import buildConfig from '../../constants/buildConfig'
+import Caption from '../Caption'
 
 describe('Caption', () => {
   it('should render and display a Caption', () => {

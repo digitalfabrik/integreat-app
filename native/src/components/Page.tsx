@@ -1,17 +1,20 @@
+import { mapValues } from 'lodash'
 import * as React from 'react'
 import { ReactElement, useCallback, useContext, useState } from 'react'
 import styled from 'styled-components/native'
-import Caption from './Caption'
-import TimeStamp from './TimeStamp'
+
 import { Moment } from 'moment'
+
+import { ThemeType } from 'build-configs'
+
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+import Caption from './Caption'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
-import { mapValues } from 'lodash'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { ThemeType } from 'build-configs'
+import TimeStamp from './TimeStamp'
 
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`

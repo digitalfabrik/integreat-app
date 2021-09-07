@@ -1,9 +1,11 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
+
+import moment from 'moment'
+
+import { CategoryModel } from 'api-client'
 
 import CategoryList from '../CategoryList'
-import { CategoryModel } from 'api-client'
-import moment from 'moment'
 
 const modelWithTitle = new CategoryModel({
   root: false,

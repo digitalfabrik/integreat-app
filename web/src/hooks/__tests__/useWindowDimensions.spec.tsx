@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { render } from '@testing-library/react'
+
 import useWindowDimensions from '../useWindowDimensions'
 
 describe('useWindowDimensions', () => {

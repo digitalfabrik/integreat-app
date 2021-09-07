@@ -1,8 +1,10 @@
-import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
+
+import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
+
 import { CityContentStateType } from '../../StateType'
-import cityContentReducer from '../cityContentReducer'
 import { PushEventActionType } from '../../StoreActionType'
+import cityContentReducer from '../cityContentReducer'
 
 describe('pushEvent', () => {
   const event1 = new EventModel({

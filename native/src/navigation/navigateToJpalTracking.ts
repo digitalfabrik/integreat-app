@@ -1,7 +1,9 @@
 import { Dispatch } from 'redux'
-import { StoreActionType } from '../redux/StoreActionType'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+
 import { JPAL_TRACKING_ROUTE } from 'api-client'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { StoreActionType } from '../redux/StoreActionType'
 
 const navigateToJpalTracking = <T extends RoutesType>({
   navigation,

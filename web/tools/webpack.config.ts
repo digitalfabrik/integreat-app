@@ -1,16 +1,18 @@
-import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize } from 'webpack'
-import { join, resolve } from 'path'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import { readFileSync } from 'fs'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
-import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
-import CopyPlugin from 'copy-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
+import { readFileSync } from 'fs'
+import { join, resolve } from 'path'
+
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
-import { config as translationsConfig } from 'translations'
+import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
+import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize } from 'webpack'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
+
+import loadBuildConfig, { ANDROID, IOS, WEB } from 'build-configs'
+import { config as translationsConfig } from 'translations'
 
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT

@@ -1,10 +1,12 @@
 import React, { ReactElement, useContext } from 'react'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import styled from 'styled-components/native'
+
 import { Moment } from 'moment'
-import TimeStamp from './TimeStamp'
-import SpaceBetween from './SpaceBetween'
+
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import NativeHtml from './NativeHtml'
+import SpaceBetween from './SpaceBetween'
+import TimeStamp from './TimeStamp'
 
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
 import { ScrollView } from 'react-native'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 const Container = styled.View<{ width: number }>`

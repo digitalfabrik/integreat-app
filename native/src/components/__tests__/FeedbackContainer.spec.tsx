@@ -1,14 +1,17 @@
 import React from 'react'
+
 import { render, fireEvent } from '@testing-library/react-native'
-import FeedbackContainer from '../FeedbackContainer'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
+
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
   CONTENT_FEEDBACK_CATEGORY,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
+
 import buildConfig from '../../constants/buildConfig'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn(() => Promise.resolve())
 jest.mock('react-i18next')

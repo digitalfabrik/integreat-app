@@ -1,5 +1,7 @@
-import { StackHeaderProps } from '@react-navigation/stack'
 import { merge } from 'lodash'
+
+import { StackHeaderProps } from '@react-navigation/stack'
+
 import createNavigationMock from './createNavigationPropMock'
 
 type DeepPartial<T> = {

@@ -1,16 +1,19 @@
+import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
+import RNFetchBlob from 'rn-fetch-blob'
+
+import { Moment } from 'moment'
+
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+
+import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import DatabaseConnector from './DatabaseConnector'
 import { DataContainer } from './DataContainer'
-import { Moment } from 'moment'
-import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
-import RNFetchBlob from 'rn-fetch-blob'
-import Cache from '../models/Cache'
+import DatabaseConnector from './DatabaseConnector'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>
