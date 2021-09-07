@@ -30,7 +30,7 @@ jest.mock('../Dashboard', () => {
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../../components/FailureContainer', () => {
+jest.mock('../../components/Failure', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>

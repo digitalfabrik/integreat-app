@@ -8,7 +8,7 @@ import { ThemeType } from 'build-configs'
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import Page from '../components/Page'
@@ -89,7 +89,7 @@ const Events = ({
       city: cityModel.code,
       language
     })
-    return <FailureContainer code={fromError(error)} />
+    return <Failure code={fromError(error)} />
   }
 
   if (path) {
@@ -130,7 +130,7 @@ const Events = ({
       city: cityModel.code,
       language
     })
-    return <FailureContainer code={fromError(error)} />
+    return <Failure code={fromError(error)} />
   }
 
   return (

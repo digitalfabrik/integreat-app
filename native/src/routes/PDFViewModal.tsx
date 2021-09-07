@@ -5,7 +5,7 @@ import Pdf from 'react-native-pdf'
 import { ErrorCode, PdfViewModalRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 
@@ -37,7 +37,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
     const { error } = this.state
 
     if (error) {
-      return <FailureContainer code={ErrorCode.UnknownError} />
+      return <Failure code={ErrorCode.UnknownError} />
     }
 
     return (
