@@ -1,4 +1,3 @@
-import { useRoute } from '@react-navigation/native'
 import type { Feature, Point } from 'geojson'
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +11,7 @@ import {
   NotFoundError,
   PoiModel,
   POIS_ROUTE,
+  PoisRouteType,
   RouteInformationType
 } from 'api-client'
 
@@ -25,6 +25,7 @@ import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
+import { RoutePropType } from '../constants/NavigationTypes'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export type PropsType = {
@@ -37,9 +38,8 @@ export type PropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   navigateToLink: (url: string, language: string, shareUrl: string) => void
+  route: RoutePropType<PoisRouteType>
 }
-
-type RouteParams = { [key: string]: string } | null
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -55,11 +55,11 @@ const Pois = ({
   resourceCacheUrl,
   navigateTo,
   navigateToFeedback,
-  navigateToLink
+  navigateToLink,
+  route
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const route = useRoute()
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -70,12 +70,12 @@ const Pois = ({
     })
   }
 
-  const navigateToMap = (cityCode: string, language: string, locationId: string) => (): void => {
+  const navigateToPois = (cityCode: string, language: string, selectedPoiId: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      locationId
+      selectedPoiId
     })
   }
 
@@ -137,7 +137,7 @@ const Pois = ({
                 theme={theme}
                 language={language}
                 linkLabel={poi?.featureLocation && t('map')}
-                onLinkClick={navigateToMap(cityModel.code, language, String(poi.location.id))}
+                onLinkClick={navigateToPois(cityModel.code, language, String(poi.location.id))}
               />
             )}
           </>
@@ -157,9 +157,9 @@ const Pois = ({
   const featureLocations = pois
     .map(poi => poi.featureLocation)
     .filter((feature): feature is Feature<Point> => !!feature)
-  const locId = (route?.params as RouteParams)?.locationId
+
   const currentFeature: Feature<Point> | undefined = featureLocations.find(
-    feature => feature.properties?.id === Number(locId)
+    feature => feature.properties?.id === Number(route.params.selectedPoiId)
   )
 
   return (

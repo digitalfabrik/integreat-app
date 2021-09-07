@@ -208,6 +208,7 @@ class PoisContainer extends React.Component<ContainerPropsType> {
     return (
       <Pois
         {...rest}
+        route={route}
         navigateTo={createNavigate(dispatch, navigation)}
         navigateToFeedback={createNavigateToFeedbackModal(navigation)}
         navigateToLink={this.navigateToLinkProp}

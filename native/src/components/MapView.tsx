@@ -1,5 +1,5 @@
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
+import type { BBox, Feature, FeatureCollection, GeoJsonProperties, Geometry, Point } from 'geojson'
 import React, { ReactElement, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 
@@ -12,9 +12,8 @@ const MapContainer = styled.View`
   justify-content: center;
 `
 const StyledMap = styled(MapboxGL.MapView)`
-  width: 700px;
+  width: 100%;
   height: 500px;
-  z-index: 1;
 `
 
 type MapViewPropsType = {
@@ -24,7 +23,7 @@ type MapViewPropsType = {
 }
 
 const textOffsetY = 1.25
-const layerId = 'point'
+const featureLayerId = 'point'
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
@@ -32,15 +31,14 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const [activeFeature, setActiveFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
-  const [showPopup, setShowPopup] = useState<boolean>(!!currentFeature)
   const layerProps: SymbolLayerProps = {
-    id: layerId,
+    id: featureLayerId,
     style: {
       symbolPlacement: 'point',
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
       iconImage: ['get', 'symbol'],
-      textField: ['case', ['==', ['get', 'id'], activeFeature?.properties?.id ?? -1], ['get', 'title'], ''],
+      textField: ['get', 'title'],
       textFont: ['Roboto Regular'],
       textOffset: [0, textOffsetY],
       textAnchor: 'top',
@@ -54,34 +52,33 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
   }
 
   // if there is a current feature use the coordinates if not use bounding box
+  const coordinates = activeFeature?.geometry?.coordinates
   const defaultSettings: CameraSettings = {
-    zoomLevel: activeFeature?.geometry.coordinates ? detailZoom : defaultViewportConfig.zoom,
-    centerCoordinate: activeFeature?.geometry.coordinates,
-    bounds: activeFeature?.geometry.coordinates ? undefined : bounds
+    zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
+    centerCoordinate: coordinates,
+    bounds: coordinates ? undefined : bounds
   }
 
-  const onPress = useCallback(
-    async (e: Feature) => {
-      const featureCollection: FeatureCollection<Point> = (await mapRef?.current?.queryRenderedFeaturesAtPoint(
-        [e.properties?.screenPointX, e.properties?.screenPointY],
-        undefined,
-        [layerId]
-      )) as FeatureCollection<Point>
-      if (featureCollection?.features?.length) {
-        const { features } = featureCollection
-        setActiveFeature(features[0])
-        setShowPopup(true)
-        const {
-          geometry: { coordinates }
-        } = features[0]
-        cameraRef?.current?.flyTo([coordinates[0], coordinates[1]])
-      } else {
-        setActiveFeature(null)
-        setShowPopup(false)
-      }
-    },
-    [cameraRef]
-  )
+  const onPress = useCallback(async (pressedLocation: Feature<Geometry, GeoJsonProperties>) => {
+    if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
+      return
+    }
+    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+      [pressedLocation.properties.screenPointX, pressedLocation.properties?.screenPointY],
+      undefined,
+      [featureLayerId]
+    )
+    const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+    if (feature) {
+      setActiveFeature(feature)
+      const {
+        geometry: { coordinates }
+      } = feature
+      cameraRef.current.flyTo(coordinates)
+    } else {
+      setActiveFeature(null)
+    }
+  }, [])
 
   return (
     <MapContainer>
@@ -91,7 +88,7 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
         </MapboxGL.ShapeSource>
         <MapboxGL.Camera defaultSettings={defaultSettings} ref={cameraRef} />
       </StyledMap>
-      {showPopup && activeFeature && <MapPopup feature={activeFeature} />}
+      {activeFeature && <MapPopup feature={activeFeature} />}
     </MapContainer>
   )
 }
