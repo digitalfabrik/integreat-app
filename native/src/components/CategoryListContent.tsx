@@ -1,7 +1,6 @@
+import { Moment } from 'moment'
 import React, { ReactElement, useContext } from 'react'
 import styled from 'styled-components/native'
-
-import { Moment } from 'moment'
 
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import NativeHtml from './NativeHtml'

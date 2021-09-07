@@ -1,8 +1,7 @@
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-
-import { fireEvent, render, waitFor } from '@testing-library/react'
 
 import { CATEGORIES_ROUTE } from 'api-client'
 

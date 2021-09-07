@@ -1,9 +1,8 @@
+import { fireEvent } from '@testing-library/react'
+import moment from 'moment'
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-
-import { fireEvent } from '@testing-library/react'
-import moment from 'moment'
 
 import {
   CategoriesMapModel,

@@ -1,10 +1,9 @@
+import { Parser } from 'htmlparser2'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import styled from 'styled-components/native'
-
-import { Parser } from 'htmlparser2'
 
 import {
   CategoriesRouteInformationType,

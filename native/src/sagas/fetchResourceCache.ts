@@ -1,7 +1,6 @@
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
-
 import moment from 'moment'
+import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
 
 import { fromError } from 'api-client'
 

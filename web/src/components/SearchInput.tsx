@@ -1,8 +1,7 @@
-import React, { ChangeEvent, ReactNode } from 'react'
-import styled from 'styled-components'
-
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { ChangeEvent, ReactNode } from 'react'
+import styled from 'styled-components'
 
 const searchLogoWidth = '25px'
 

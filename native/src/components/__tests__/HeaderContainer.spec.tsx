@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react-native'
 import { merge } from 'lodash'
 import * as React from 'react'
 import { Provider } from 'react-redux'
@@ -5,8 +6,6 @@ import { Store } from 'redux'
 import configureMockStore from 'redux-mock-store'
 import { StateType } from 'src/redux/StateType'
 import { StoreActionType } from 'src/redux/StoreActionType'
-
-import { render } from '@testing-library/react-native'
 
 import {
   CATEGORIES_ROUTE,

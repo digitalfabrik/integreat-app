@@ -1,10 +1,9 @@
+import { render } from '@testing-library/react-native'
 import { reduce } from 'lodash'
+import moment from 'moment'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-
-import { render } from '@testing-library/react-native'
-import moment from 'moment'
 
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'

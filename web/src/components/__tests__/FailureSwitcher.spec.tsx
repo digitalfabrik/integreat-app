@@ -1,7 +1,6 @@
+import { render } from '@testing-library/react'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-
-import { render } from '@testing-library/react'
 
 import { FetchError, fromError, MappingError, NotFoundError, ResponseError } from 'api-client'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'

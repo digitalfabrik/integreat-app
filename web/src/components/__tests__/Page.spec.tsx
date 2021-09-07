@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme'
-import React from 'react'
-
 import moment from 'moment'
+import React from 'react'
 
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 

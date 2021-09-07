@@ -1,7 +1,6 @@
-import React, { ReactElement } from 'react'
-
 import { IconDefinition } from '@fortawesome/fontawesome-common-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { ReactElement } from 'react'
 
 import StyledSmallViewTip from './StyledSmallViewTip'
 import StyledToolbarItem from './StyledToolbarItem'

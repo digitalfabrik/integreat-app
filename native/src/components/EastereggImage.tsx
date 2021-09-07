@@ -1,10 +1,9 @@
+import moment, { Moment } from 'moment'
 import * as React from 'react'
 import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import styled from 'styled-components/native'
-
-import moment, { Moment } from 'moment'
 
 import { ThemeType } from 'build-configs'
 

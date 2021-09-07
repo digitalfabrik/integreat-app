@@ -1,6 +1,5 @@
-import React from 'react'
-
 import { fireEvent, render } from '@testing-library/react-native'
+import React from 'react'
 
 import { SEARCH_ROUTE } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'

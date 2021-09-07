@@ -1,11 +1,10 @@
+import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { TFunction } from 'react-i18next'
 import { SectionList, StyleSheet, SectionListData } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components/native'
-
-import { useFocusEffect } from '@react-navigation/native'
 
 import { SettingsRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'

@@ -1,7 +1,6 @@
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
-import RNFetchBlob from 'rn-fetch-blob'
-
 import { Moment } from 'moment'
+import RNFetchBlob from 'rn-fetch-blob'
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 

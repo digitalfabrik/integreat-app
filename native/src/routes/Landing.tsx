@@ -1,11 +1,10 @@
+import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import styled from 'styled-components/native'
-
-import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 
 import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'

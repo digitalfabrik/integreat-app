@@ -1,7 +1,6 @@
+import { fireEvent, render, cleanup, RenderResult } from '@testing-library/react'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-
-import { fireEvent, render, cleanup, RenderResult } from '@testing-library/react'
 
 import buildConfig from '../../constants/buildConfig'
 import HeaderActionItemDropDown from '../HeaderActionItemDropDown'

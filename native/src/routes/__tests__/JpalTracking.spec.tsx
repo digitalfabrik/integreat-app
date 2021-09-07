@@ -1,7 +1,6 @@
-import React from 'react'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fireEvent, render } from '@testing-library/react-native'
+import React from 'react'
 
 import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
 

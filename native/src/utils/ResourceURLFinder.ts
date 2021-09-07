@@ -1,7 +1,6 @@
+import { Parser } from 'htmlparser2'
 import { reduce } from 'lodash'
 import Url from 'url-parse'
-
-import { Parser } from 'htmlparser2'
 
 import { hashUrl } from 'api-client'
 

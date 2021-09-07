@@ -1,7 +1,6 @@
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 import { ThemeProvider } from 'styled-components'
-
-import { fireEvent, render, waitFor } from '@testing-library/react'
 
 import {
   CATEGORIES_FEEDBACK_TYPE,

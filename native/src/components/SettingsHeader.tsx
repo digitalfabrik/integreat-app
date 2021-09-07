@@ -1,9 +1,8 @@
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components/native'
-
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 
 import { ThemeType } from 'build-configs'
 

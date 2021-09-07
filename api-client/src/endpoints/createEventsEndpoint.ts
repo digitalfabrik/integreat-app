@@ -1,5 +1,4 @@
 import { decodeHTML } from 'entities'
-
 import moment from 'moment-timezone'
 
 import Endpoint from '../Endpoint'

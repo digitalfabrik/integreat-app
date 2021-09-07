@@ -1,11 +1,10 @@
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import { Share } from 'react-native'
 import { Item } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
-
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 
 import { ThemeType } from 'build-configs'
 

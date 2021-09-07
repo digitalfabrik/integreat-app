@@ -1,8 +1,7 @@
 import { shallow } from 'enzyme'
+import moment from 'moment'
 import React from 'react'
 import { Helmet } from 'react-helmet'
-
-import moment from 'moment'
 
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'

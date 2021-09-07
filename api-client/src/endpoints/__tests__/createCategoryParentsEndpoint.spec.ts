@@ -1,6 +1,5 @@
-import { mocked } from 'ts-jest/utils'
-
 import moment from 'moment-timezone'
+import { mocked } from 'ts-jest/utils'
 
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoryModel from '../../models/CategoryModel'

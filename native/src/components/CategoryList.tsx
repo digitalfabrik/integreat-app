@@ -1,9 +1,8 @@
 import { mapValues } from 'lodash'
+import { Moment } from 'moment'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components/native'
-
-import { Moment } from 'moment'
 
 import { ThemeType } from 'build-configs'
 

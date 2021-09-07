@@ -1,7 +1,6 @@
-import React from 'react'
-
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import moment from 'moment'
+import React from 'react'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
 

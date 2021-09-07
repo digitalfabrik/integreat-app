@@ -1,11 +1,10 @@
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import { Dispatch } from 'redux'
 import styled from 'styled-components/native'
-
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'

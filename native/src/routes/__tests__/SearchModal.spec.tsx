@@ -1,7 +1,6 @@
+import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import React from 'react'
 import { ThemeProvider } from 'styled-components/native'
-
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
 
 import { CategoriesRouteInformationType, CATEGORIES_ROUTE, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'

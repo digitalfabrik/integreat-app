@@ -1,7 +1,6 @@
-import seedrandom from 'seedrandom'
-
 import md5 from 'js-md5'
 import moment, { Moment } from 'moment'
+import seedrandom from 'seedrandom'
 
 import hashUrl from '../hashUrl'
 import CategoriesMapModel from '../models/CategoriesMapModel'

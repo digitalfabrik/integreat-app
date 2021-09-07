@@ -1,5 +1,4 @@
 import { Feature } from 'geojson'
-
 import { Moment } from 'moment'
 
 import ExtendedPageModel from './ExtendedPageModel'
