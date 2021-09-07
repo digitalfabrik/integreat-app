@@ -1,9 +1,12 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components/native'
-import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
+import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, FeatureCollection } from 'geojson'
-import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
-import RequestLocationPermissionButton from './RequestLocationPermissionButton'
+import { defaultViewportConfig, mapConfig } from 'api-client'
+import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
+import { PermissionStatus, RESULTS } from 'react-native-permissions'
+import { useTheme } from 'styled-components'
+import { FAB } from 'react-native-elements'
 
 const MapContainer = styled.View`
   flex-direction: row;
@@ -38,8 +41,9 @@ const layerProps: SymbolLayerProps = {
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactElement => {
-  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
+  const theme = useTheme()
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -51,11 +55,36 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
     bounds
   }
 
-  const updateLocationPermission = useCallback((locationPermission: boolean) => {
-    setLocationPermissionGranted(locationPermission)
-    setFollowUserLocation(false)
-    locationPermission && setFollowUserLocation(true)
+  const onLocationPermissionRequest = useCallback((locationPermission: PermissionStatus | undefined) => {
+    if (locationPermission === RESULTS.GRANTED) {
+      setFollowUserLocation(true)
+      setLocationPermissionGranted(true)
+    } else {
+      setFollowUserLocation(false)
+      setLocationPermissionGranted(false)
+    }
   }, [])
+
+  useEffect(() => {
+    checkLocationPermission().then(onLocationPermissionRequest)
+  }, [onLocationPermissionRequest])
+
+  const requestPermission = useCallback(() => {
+    requestLocationPermission().then(onLocationPermissionRequest)
+  }, [onLocationPermissionRequest])
+
+  const onUserTrackingModeChange = (
+    event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
+  ) => {
+    setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
+  }
+
+  const locationPermissionIcon =
+    locationPermissionGranted && followUserLocation
+      ? 'my-location'
+      : locationPermissionGranted
+      ? 'location-searching'
+      : 'location-disabled'
 
   return (
     <MapContainer>
@@ -66,11 +95,17 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
         </MapboxGL.ShapeSource>
         <MapboxGL.Camera
           defaultSettings={defaultSettings}
+          followUserMode={'normal'}
           followUserLocation={followUserLocation}
-          followZoomLevel={detailZoom}
+          onUserTrackingModeChange={onUserTrackingModeChange}
         />
       </StyledMap>
-      <RequestLocationPermissionButton requestLocationPermissionCallback={updateLocationPermission} />
+      <FAB
+        placement={'right'}
+        onPress={requestPermission}
+        icon={{ name: locationPermissionIcon }}
+        color={theme.colors.themeColor}
+      />
     </MapContainer>
   )
 }
