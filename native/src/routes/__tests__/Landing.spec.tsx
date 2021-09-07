@@ -1,14 +1,17 @@
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import { render, fireEvent } from '@testing-library/react-native'
-import buildConfig from '../../constants/buildConfig'
-import Landing from '../Landing'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import Geolocation from '@react-native-community/geolocation'
-import waitForExpect from 'wait-for-expect'
 import { ThemeProvider } from 'styled-components/native'
-import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import { mocked } from 'ts-jest/utils'
+
+import Geolocation from '@react-native-community/geolocation'
+import { render, fireEvent } from '@testing-library/react-native'
+import waitForExpect from 'wait-for-expect'
+
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+
+import buildConfig from '../../constants/buildConfig'
+import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
+import Landing from '../Landing'
 
 jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),

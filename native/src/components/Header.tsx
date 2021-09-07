@@ -1,21 +1,23 @@
 import React, { ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
-import styled from 'styled-components/native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import { Dispatch } from 'redux'
+import styled from 'styled-components/native'
+
 import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
-import { TFunction } from 'react-i18next'
+
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
+import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import { ThemeType } from 'build-configs'
 
-import MaterialHeaderButtons from './MaterialHeaderButtons'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import { StoreActionType } from '../redux/StoreActionType'
-import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 import navigateToLanding from '../navigation/navigateToLanding'
+import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
   flex: 1;

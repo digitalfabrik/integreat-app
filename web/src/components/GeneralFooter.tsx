@@ -1,11 +1,13 @@
 import React from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
-import Footer from './Footer'
+
+import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
+
+import buildConfig from '../constants/buildConfig'
+import { RoutePatterns } from '../routes'
 import CleanAnchor from './CleanAnchor'
 import CleanLink from './CleanLink'
-import buildConfig from '../constants/buildConfig'
-import { MAIN_DISCLAIMER_ROUTE } from 'api-client'
-import { RoutePatterns } from '../routes'
+import Footer from './Footer'
 
 type PropsType = {
   language: string

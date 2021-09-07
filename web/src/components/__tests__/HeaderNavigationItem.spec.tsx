@@ -1,8 +1,9 @@
 import React from 'react'
-import HeaderNavigationItem from '../HeaderNavigationItem'
 import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import HeaderNavigationItem from '../HeaderNavigationItem'
 
 describe('HeaderNavigationItem', () => {
   const tooltip = 'random tooltip'

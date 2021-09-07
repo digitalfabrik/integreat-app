@@ -1,8 +1,9 @@
 import React from 'react'
-import MainDisclaimerPage from '../MainDisclaimerPage'
-import buildConfig from '../../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
+
+import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import MainDisclaimerPage from '../MainDisclaimerPage'
 
 jest.mock('react-i18next')
 

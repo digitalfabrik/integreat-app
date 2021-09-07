@@ -1,8 +1,10 @@
 import React from 'react'
-import CategoryListContent from '../CategoryListContent'
+import 'react-native/Libraries/Utilities/useWindowDimensions'
+
 import { render } from '@testing-library/react-native'
 import moment, { Moment } from 'moment'
-import 'react-native/Libraries/Utilities/useWindowDimensions'
+
+import CategoryListContent from '../CategoryListContent'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))

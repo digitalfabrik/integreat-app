@@ -1,12 +1,15 @@
 import * as React from 'react'
 import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs'
-import moment, { Moment } from 'moment'
-import AppSettings from '../utils/AppSettings'
 import { Button } from 'react-native-elements'
+import styled from 'styled-components/native'
+
+import moment, { Moment } from 'moment'
+
+import { ThemeType } from 'build-configs'
+
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import AppSettings from '../utils/AppSettings'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8

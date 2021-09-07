@@ -1,5 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
-import LocationLayout from '../components/LocationLayout'
+import { useTranslation } from 'react-i18next'
+
 import {
   createOffersEndpoint,
   OfferModel,
@@ -8,18 +9,19 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationToolbar from '../components/LocationToolbar'
-import TileModel from '../models/TileModel'
-import { createPath, RouteProps } from './index'
-import { cmsApiBaseUrl } from '../constants/urls'
 import normalizePath from 'api-client/src/normalizePath'
-import { useTranslation } from 'react-i18next'
-import LoadingSpinner from '../components/LoadingSpinner'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
-import Tiles from '../components/Tiles'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
-import { CityRouteProps } from '../CityContentSwitcher'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
+import Tiles from '../components/Tiles'
+import { cmsApiBaseUrl } from '../constants/urls'
+import TileModel from '../models/TileModel'
+import { createPath, RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof OFFERS_ROUTE>
 

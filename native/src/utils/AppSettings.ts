@@ -1,5 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fromPairs, mapValues, toPairs } from 'lodash'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import { SignalType } from 'api-client'
 
 export type SettingsType = {

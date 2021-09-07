@@ -1,11 +1,14 @@
 import React from 'react'
-import JpalTracking from '../JpalTracking'
-import { fireEvent, render } from '@testing-library/react-native'
-import createNavigationMock from '../../testing/createNavigationPropMock'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { RoutePropType } from '../../constants/NavigationTypes'
+import { fireEvent, render } from '@testing-library/react-native'
+
 import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
+
+import { RoutePropType } from '../../constants/NavigationTypes'
+import createNavigationMock from '../../testing/createNavigationPropMock'
 import AppSettings from '../../utils/AppSettings'
+import JpalTracking from '../JpalTracking'
 
 jest.mock('react-i18next')
 

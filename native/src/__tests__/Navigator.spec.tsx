@@ -1,12 +1,15 @@
 import * as React from 'react'
-import { act, render } from '@testing-library/react-native'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigationContainer } from '@react-navigation/native'
+import { act, render } from '@testing-library/react-native'
+import waitForExpect from 'wait-for-expect'
+
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+
 import Navigator from '../Navigator'
 import AppSettings from '../utils/AppSettings'
 import { generateRouteKey } from '../utils/helpers'
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
-import waitForExpect from 'wait-for-expect'
-import { NavigationContainer } from '@react-navigation/native'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('@react-navigation/native/lib/commonjs/useLinking', () => () => ({

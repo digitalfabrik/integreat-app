@@ -1,9 +1,12 @@
-import { DISCLAIMER_ROUTE, PageModel, CityModelBuilder, LanguageModelBuilder } from 'api-client'
-import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
-import moment from 'moment'
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
+
+import moment from 'moment'
+
+import { DISCLAIMER_ROUTE, PageModel, CityModelBuilder, LanguageModelBuilder } from 'api-client'
+import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import DisclaimerPage from '../DisclaimerPage'

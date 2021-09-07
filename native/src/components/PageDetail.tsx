@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components/native'
-import { contentDirection } from '../constants/contentDirection'
+
 import { ThemeType } from 'build-configs'
+
+import { contentDirection } from '../constants/contentDirection'
 
 const Identifier = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontBold};

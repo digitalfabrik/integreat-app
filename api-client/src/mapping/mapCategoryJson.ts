@@ -1,8 +1,9 @@
-import { JsonCategoryType } from '../types'
-import CategoryModel from '../models/CategoryModel'
 import moment from 'moment-timezone'
+
 import mapAvailableLanguages from '../mapAvailableLanguages'
+import CategoryModel from '../models/CategoryModel'
 import normalizePath from '../normalizePath'
+import { JsonCategoryType } from '../types'
 
 const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryModel =>
   new CategoryModel({

@@ -1,16 +1,19 @@
 import * as React from 'react'
-import { CityModel } from 'api-client'
-import { View } from 'react-native'
-import Heading from '../components/Heading'
-import styled from 'styled-components/native'
-import FilterableCitySelector from '../components/FilterableCitySelector'
-import { TFunction } from 'react-i18next'
-import { ThemeType } from 'build-configs'
-import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
-import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
-import { openSettings, RESULTS } from 'react-native-permissions'
-import testID from '../testing/testID'
 import { ReactNode } from 'react'
+import { TFunction } from 'react-i18next'
+import { View } from 'react-native'
+import { openSettings, RESULTS } from 'react-native-permissions'
+import styled from 'styled-components/native'
+
+import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
+
+import { CityModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
+import FilterableCitySelector from '../components/FilterableCitySelector'
+import Heading from '../components/Heading'
+import testID from '../testing/testID'
+import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 
 const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};

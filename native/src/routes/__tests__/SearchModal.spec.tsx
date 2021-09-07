@@ -1,12 +1,15 @@
 import React from 'react'
+import { ThemeProvider } from 'styled-components/native'
+
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import SearchModal from '../SearchModal'
+
 import { CategoriesRouteInformationType, CATEGORIES_ROUTE, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import { urlFromRouteInformation } from '../../navigation/url'
-import { ThemeProvider } from 'styled-components/native'
+
 import buildConfig from '../../constants/buildConfig'
+import { urlFromRouteInformation } from '../../navigation/url'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import SearchModal from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../components/TimeStamp')

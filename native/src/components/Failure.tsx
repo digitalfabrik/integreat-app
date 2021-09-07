@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
-import { Text } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import FailureIcon from '../assets/FailureIcon.svg'
+import { Text } from 'react-native'
 import { Button } from 'react-native-elements'
+import styled from 'styled-components/native'
+
 import { ErrorCode } from 'api-client'
 import { ThemeType } from 'build-configs'
+
+import FailureIcon from '../assets/FailureIcon.svg'
 
 const ViewContainer = styled.View`
   flex: 1;

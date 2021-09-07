@@ -1,8 +1,10 @@
 import React from 'react'
-import ScrollingSearchBox from '../ScrollingSearchBox'
 import { ThemeProvider } from 'styled-components'
-import buildConfig from '../../constants/buildConfig'
+
 import { fireEvent, render } from '@testing-library/react'
+
+import buildConfig from '../../constants/buildConfig'
+import ScrollingSearchBox from '../ScrollingSearchBox'
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />

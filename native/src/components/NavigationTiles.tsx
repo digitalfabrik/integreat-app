@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
-import TileModel from '../models/TileModel'
-import NavigationTile from './NavigationTile'
 import { Dimensions, ScrollView, NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import AnchorIcon from './AnchorIcon'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
+import TileModel from '../models/TileModel'
+import AnchorIcon from './AnchorIcon'
+import NavigationTile from './NavigationTile'
 
 const widthBreakPoint = 400
 const anchorWidth = 30

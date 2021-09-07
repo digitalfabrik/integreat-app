@@ -1,9 +1,11 @@
-import createCategoryParentsEndpoint from '../createCategoryParentsEndpoint'
-import mapCategoryJson from '../../mapping/mapCategoryJson'
-import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
-import CategoryModel from '../../models/CategoryModel'
-import moment from 'moment-timezone'
 import { mocked } from 'ts-jest/utils'
+
+import moment from 'moment-timezone'
+
+import mapCategoryJson from '../../mapping/mapCategoryJson'
+import CategoryModel from '../../models/CategoryModel'
+import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
+import createCategoryParentsEndpoint from '../createCategoryParentsEndpoint'
 
 jest.mock('../../mapping/mapCategoryJson')
 

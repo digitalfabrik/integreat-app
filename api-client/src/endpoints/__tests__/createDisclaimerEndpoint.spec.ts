@@ -1,6 +1,7 @@
-import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
-import PageModel from '../../models/PageModel'
 import moment from 'moment-timezone'
+
+import PageModel from '../../models/PageModel'
+import createDisclaimerEndpoint from '../createDisclaimerEndpoint'
 
 describe('disclaimer', () => {
   const baseUrl = 'https://integreat-api-url.de'

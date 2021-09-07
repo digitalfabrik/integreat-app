@@ -1,9 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
-import styled from 'styled-components'
-import { faFrown } from '../constants/icons'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faFrown } from '../constants/icons'
 
 const Centered = styled.div`
   & > * {

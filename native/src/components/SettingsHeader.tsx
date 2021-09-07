@@ -1,10 +1,13 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
-import dimensions from '../constants/dimensions'
+import styled from 'styled-components/native'
+
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
+
 import { ThemeType } from 'build-configs'
+
+import dimensions from '../constants/dimensions'
 
 const Horizontal = styled.View`
   flex: 1;

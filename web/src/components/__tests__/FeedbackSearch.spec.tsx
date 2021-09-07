@@ -1,8 +1,10 @@
 import React from 'react'
-import FeedbackSearch from '../FeedbackSearch'
-import { fireEvent, render } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
+
+import { fireEvent, render } from '@testing-library/react'
+
 import buildConfig from '../../constants/buildConfig'
+import FeedbackSearch from '../FeedbackSearch'
 
 jest.mock('react-i18next')
 

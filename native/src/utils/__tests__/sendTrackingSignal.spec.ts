@@ -1,10 +1,13 @@
-import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
-import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
-import AppSettings from '../AppSettings'
-import buildConfig from '../../constants/buildConfig'
+import { mocked } from 'ts-jest/utils'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Sentry from '@sentry/react-native'
-import { mocked } from 'ts-jest/utils'
+
+import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
+import AppSettings from '../AppSettings'
+import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),

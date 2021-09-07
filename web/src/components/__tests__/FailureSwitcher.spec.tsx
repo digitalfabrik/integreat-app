@@ -1,10 +1,13 @@
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
+
 import { render } from '@testing-library/react'
-import FailureSwitcher from '../FailureSwitcher'
+
 import { FetchError, fromError, MappingError, NotFoundError, ResponseError } from 'api-client'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
-import { MemoryRouter } from 'react-router-dom'
+
 import { reportError } from '../../utils/sentry'
+import FailureSwitcher from '../FailureSwitcher'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/sentry', () => ({

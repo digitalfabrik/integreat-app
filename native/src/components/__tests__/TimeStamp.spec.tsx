@@ -1,9 +1,12 @@
-import moment from 'moment-timezone'
 import React from 'react'
+
 import { render, RenderAPI } from '@testing-library/react-native'
-import { TimeStamp } from '../TimeStamp'
+import moment from 'moment-timezone'
+
 import { DateFormatter } from 'api-client'
+
 import wrapWithTheme from '../../testing/wrapWithTheme'
+import { TimeStamp } from '../TimeStamp'
 
 jest.mock('react-i18next')
 

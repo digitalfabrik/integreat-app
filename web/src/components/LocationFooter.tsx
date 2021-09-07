@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
 import { withTranslation, TFunction } from 'react-i18next'
-import Footer from './Footer'
-import CleanLink from './CleanLink'
-import CleanAnchor from './CleanAnchor'
-import buildConfig from '../constants/buildConfig'
+
 import { DISCLAIMER_ROUTE } from 'api-client'
+
+import buildConfig from '../constants/buildConfig'
 import { createPath } from '../routes'
+import CleanAnchor from './CleanAnchor'
+import CleanLink from './CleanLink'
+import Footer from './Footer'
 
 type PropsType = {
   city: string

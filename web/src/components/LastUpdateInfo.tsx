@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
-import { Moment } from 'moment'
 import styled from 'styled-components'
+
+import { Moment } from 'moment'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
 
 const TimeStamp = styled.p`

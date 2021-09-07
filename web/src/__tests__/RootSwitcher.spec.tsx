@@ -1,16 +1,19 @@
 import React from 'react'
-import { renderWithBrowserRouter } from '../testing/render'
-import RootSwitcher from '../RootSwitcher'
 import { Route } from 'react-router-dom'
-import { Location } from 'history'
-import { CityModelBuilder } from 'api-client'
-import buildConfig from '../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
+
 import { RenderResult, waitFor } from '@testing-library/react'
+import { Location } from 'history'
+
+import { CityModelBuilder } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithData
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
+import RootSwitcher from '../RootSwitcher'
+import buildConfig from '../constants/buildConfig'
+import { renderWithBrowserRouter } from '../testing/render'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),

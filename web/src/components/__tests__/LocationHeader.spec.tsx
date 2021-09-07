@@ -1,5 +1,8 @@
-import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
 import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import { Matcher, SelectorMatcherOptions } from '@testing-library/react'
+
 import {
   CATEGORIES_ROUTE,
   CityModel,
@@ -8,11 +11,11 @@ import {
   POIS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
-import LocationHeader from '../LocationHeader'
-import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../../constants/buildConfig'
-import { renderWithRouter } from '../../testing/render'
 import { LOCAL_NEWS_ROUTE, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../../routes'
+import { renderWithRouter } from '../../testing/render'
+import LocationHeader from '../LocationHeader'
 
 jest.mock('react-i18next')
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (

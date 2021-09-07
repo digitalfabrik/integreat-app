@@ -1,5 +1,6 @@
-import { NetInfoState, NetInfoSubscription } from '@react-native-community/netinfo'
 import { isString } from 'lodash'
+
+import { NetInfoState, NetInfoSubscription } from '@react-native-community/netinfo'
 
 export const fetch = jest.fn<Promise<NetInfoState>, []>(
   async (): Promise<NetInfoState> => {

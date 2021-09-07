@@ -1,4 +1,5 @@
 import moment from 'moment'
+
 import LocalNewsModel from '../models/LocalNewsModel'
 
 class LocalNewsModelBuilder {

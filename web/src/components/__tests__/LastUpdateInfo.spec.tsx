@@ -1,8 +1,11 @@
-import React from 'react'
-import { LastUpdateInfo } from '../LastUpdateInfo'
 import { shallow } from 'enzyme'
+import React from 'react'
+
 import moment from 'moment'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import { LastUpdateInfo } from '../LastUpdateInfo'
 
 describe('LastUpdateInfo', () => {
   const t = (key: string) => key
