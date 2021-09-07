@@ -1,6 +1,6 @@
 import MapboxGL, { CameraSettings, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
-import React, { ReactElement,useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 
 import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'

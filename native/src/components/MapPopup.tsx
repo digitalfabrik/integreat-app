@@ -1,7 +1,7 @@
 import type { Feature, Point } from 'geojson'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
 import { useTheme } from 'styled-components'
+import styled from 'styled-components/native'
 
 type MapPopupProps = {
   feature: Feature<Point>
