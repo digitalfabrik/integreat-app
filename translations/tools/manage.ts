@@ -12,6 +12,14 @@ import { KeyValueType } from '../src/types'
 
 const { unflatten } = flat
 
+const XCODE_LANGUAGES_MAP: Record<string, string> = {
+  'sr-Cyrl': 'sr',
+  pes: 'fa',
+  prs: 'fa-AF',
+  kmr: 'ku',
+  'zh-CN': 'zh-HANS'
+} as const
+
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
 type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj?: KeyValueType) => string
@@ -34,7 +42,12 @@ const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: 
   })
   const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
   const withSourceLanguagePairs = zippedLanguagePairs.map(
-    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation]
+    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => {
+      if (!translation) {
+        console.log('Missing translation:', key, '[', name, ']')
+      }
+      return [key, sourceTranslation, translation]
+    }
   )
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
@@ -218,6 +231,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
   languageCodes.forEach(language => {
     const translations = nativeTranslations[language]
     const keys = Object.keys(translations)
+
     const content = keys
       .map(key => {
         const regex = /{{appName}}/gi
@@ -225,7 +239,11 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
         return `${key} = "${value}";`
       })
       .join('\n')
-    const path = `${destination}/${language}.lproj/`
+
+    // XCode uses different tags for some languages
+    const languageKey = XCODE_LANGUAGES_MAP[language] ?? language
+    const path = `${destination}/${languageKey}.lproj/`
+
     fs.mkdirSync(path, {
       recursive: true
     })
