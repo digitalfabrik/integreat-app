@@ -1,8 +1,9 @@
-import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
-import RemoteContent from '../RemoteContent'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../../constants/buildConfig'
+import RemoteContent from '../RemoteContent'
 
 describe('RemoteContent', () => {
   it('should render the html content', () => {

@@ -1,5 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+
 import {
   createTunewsElementEndpoint,
   normalizePath,
@@ -7,17 +9,17 @@ import {
   TU_NEWS_TYPE,
   useLoadFromEndpoint
 } from 'api-client'
+
+import { CityRouteProps } from '../CityContentSwitcher'
+import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import FailureSwitcher from '../components/FailureSwitcher'
+import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
+import Page from '../components/Page'
+import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { RouteProps, TU_NEWS_DETAIL_ROUTE } from './index'
-import { tunewsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Page from '../components/Page'
-import styled from 'styled-components'
-import TunewsIcon from '../assets/TunewsActiveLogo.png'
-import Helmet from '../components/Helmet'
-import { CityRouteProps } from '../CityContentSwitcher'
 
 const StyledContainer = styled.div`
   display: flex;

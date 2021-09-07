@@ -1,7 +1,8 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import FeedbackToolbarItem from '../FeedbackToolbarItem'
+import React from 'react'
+
 import { faFrown, faSmile } from '../../constants/icons'
+import FeedbackToolbarItem from '../FeedbackToolbarItem'
 
 jest.mock('react-i18next')
 

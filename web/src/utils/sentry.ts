@@ -1,5 +1,6 @@
-import buildConfig from '../constants/buildConfig'
 import type Sentry from '@sentry/react'
+
+import buildConfig from '../constants/buildConfig'
 
 const loadSentry = async (): Promise<typeof Sentry> => {
   return await import(

@@ -1,7 +1,7 @@
-import LanguageModel from '../models/LanguageModel'
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonTunewsLanguageType } from '../types'
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import LanguageModel from '../models/LanguageModel'
+import { JsonTunewsLanguageType } from '../types'
 
 export const TUNEWS_LANGUAGES_ENDPOINT_NAME = 'tunewsLanguages'
 

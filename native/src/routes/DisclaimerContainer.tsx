@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react'
+import { RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
@@ -9,21 +12,20 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 import { ThemeType } from 'build-configs'
-import { StateType } from '../redux/StateType'
-import withTheme from '../hocs/withTheme'
-import Disclaimer from './Disclaimer'
+
 import FailureContainer from '../components/FailureContainer'
-import { Dispatch } from 'redux'
-import { StoreActionType } from '../redux/StoreActionType'
-import { RefreshControl } from 'react-native'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import navigateToLink from '../navigation/navigateToLink'
-import createNavigate from '../navigation/createNavigate'
-import { determineApiUrl } from '../utils/helpers'
+import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
 import useReportError from '../hooks/useReportError'
+import createNavigate from '../navigation/createNavigate'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { StateType } from '../redux/StateType'
+import { StoreActionType } from '../redux/StoreActionType'
+import { determineApiUrl } from '../utils/helpers'
+import Disclaimer from './Disclaimer'
 
 type OwnPropsType = {
   route: RoutePropType<DisclaimerRouteType>

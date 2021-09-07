@@ -1,16 +1,18 @@
-import { SectionListData, AccessibilityRole } from 'react-native'
-import { TFunction } from 'react-i18next'
-import NativeConstants from '../constants/NativeConstants'
-import { SettingsType } from './AppSettings'
-import openPrivacyPolicy from './openPrivacyPolicy'
-import buildConfig from '../constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
+import { TFunction } from 'react-i18next'
+import { SectionListData, AccessibilityRole } from 'react-native'
+import { openSettings } from 'react-native-permissions'
+
+import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
+
+import NativeConstants from '../constants/NativeConstants'
+import { NavigationPropType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
+import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
 import { initSentry } from './helpers'
 import openExternalUrl from './openExternalUrl'
-import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
-import { NavigationPropType } from '../constants/NavigationTypes'
-import { openSettings } from 'react-native-permissions'
+import openPrivacyPolicy from './openPrivacyPolicy'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,

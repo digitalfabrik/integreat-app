@@ -1,5 +1,7 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useHistory } from 'react-router-dom'
+
 import {
   createLocalNewsEndpoint,
   LOCAL_NEWS_TYPE,
@@ -9,19 +11,19 @@ import {
   replaceLinks,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { useTranslation } from 'react-i18next'
-import NewsListItem from '../components/NewsListItem'
-import { createPath, LOCAL_NEWS_ROUTE, RouteProps } from './index'
-import NewsTabs from '../components/NewsTabs'
-import LocalNewsList from '../components/LocalNewsList'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Page from '../components/Page'
-import Helmet from '../components/Helmet'
+
 import { CityRouteProps } from '../CityContentSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
+import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocalNewsList from '../components/LocalNewsList'
+import LocationLayout from '../components/LocationLayout'
+import NewsListItem from '../components/NewsListItem'
+import NewsTabs from '../components/NewsTabs'
+import Page from '../components/Page'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import { createPath, LOCAL_NEWS_ROUTE, RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof LOCAL_NEWS_ROUTE>
 

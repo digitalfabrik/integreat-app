@@ -1,12 +1,14 @@
 import React, { ReactNode } from 'react'
-import CitySelector from './CitySelector'
 import { TFunction } from 'react-i18next'
-import SearchInput from './SearchInput'
-import { CityModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
+
+import { CityModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import { LocationType } from '../routes/Landing'
+import CitySelector from './CitySelector'
+import SearchInput from './SearchInput'
 
 const SearchBar = styled.View`
   flex-direction: row;

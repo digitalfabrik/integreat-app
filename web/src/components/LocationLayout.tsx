@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
-import Layout from '../components/Layout'
-import LocationHeader from './LocationHeader'
-import LocationFooter from '../components/LocationFooter'
+
 import { CityModel, SEARCH_ROUTE } from 'api-client'
-import FeedbackModal from './FeedbackModal'
+
+import Layout from '../components/Layout'
+import LocationFooter from '../components/LocationFooter'
 import { RouteType } from '../routes'
+import FeedbackModal from './FeedbackModal'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
+import LocationHeader from './LocationHeader'
 
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 

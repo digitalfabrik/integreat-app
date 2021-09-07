@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
-import { WebView, WebViewNavigation } from 'react-native-webview'
-import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
-import { createGetSource, createPostSource } from '../constants/webview'
-import { renderWebviewError } from '../components/RemoteContent'
+import { stringify } from 'query-string'
+import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
 import { BackHandler } from 'react-native'
+import { WebView, WebViewNavigation } from 'react-native-webview'
+
+import { renderWebviewError } from '../components/RemoteContent'
 import { userAgent } from '../constants/endpoint'
+import { createGetSource, createPostSource } from '../constants/webview'
 
 export type PropsType = {
   url: string

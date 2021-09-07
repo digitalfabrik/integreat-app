@@ -1,10 +1,11 @@
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonTunewsType } from '../types'
-import TunewsModel from '../models/TunewsModel'
 import moment from 'moment-timezone'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
 import NotFoundError from '../errors/NotFoundError'
+import TunewsModel from '../models/TunewsModel'
 import { TU_NEWS_TYPE } from '../routes'
+import { JsonTunewsType } from '../types'
 import { parseHTMLEntities } from '../utils/helpers'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'

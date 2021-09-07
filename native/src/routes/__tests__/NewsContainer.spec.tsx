@@ -1,14 +1,16 @@
-import * as React from 'react'
-import configureMockStore from 'redux-mock-store'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import { CitiesStateType, LanguagesStateType, NewsRouteStateType, StateType } from '../../redux/StateType'
-import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
+import * as React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+
 import { CityModel, ErrorCode, LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'api-client'
-import NewsContainer from '../NewsContainer'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
+
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
+import { CitiesStateType, LanguagesStateType, NewsRouteStateType, StateType } from '../../redux/StateType'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import NewsContainer from '../NewsContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')

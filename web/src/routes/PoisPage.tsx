@@ -1,5 +1,8 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
 import { BBox, Feature, Point } from 'geojson'
+import React, { ReactElement, useCallback, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
+import { WebMercatorViewport } from 'react-map-gl'
+
 import {
   createPOIsEndpoint,
   normalizePath,
@@ -12,25 +15,24 @@ import {
   MapViewViewport,
   defaultViewportConfig
 } from 'api-client'
+
+import { CityRouteProps } from '../CityContentSwitcher'
+import Caption from '../components/Caption'
+import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
+import Helmet from '../components/Helmet'
+import List from '../components/List'
+import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import PoiListItem from '../components/PoiListItem'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { cmsApiBaseUrl } from '../constants/urls'
-import { createPath, RouteProps } from './index'
-import { useTranslation } from 'react-i18next'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
+import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import Caption from '../components/Caption'
-import List from '../components/List'
-import Helmet from '../components/Helmet'
-import MapView from '../components/MapView'
-import { CityRouteProps } from '../CityContentSwitcher'
-import { WebMercatorViewport } from 'react-map-gl'
+import PoiListItem from '../components/PoiListItem'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import { createPath, RouteProps } from './index'
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)

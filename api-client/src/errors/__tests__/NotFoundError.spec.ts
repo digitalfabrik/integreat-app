@@ -1,5 +1,7 @@
-import NotFoundError from '../NotFoundError'
 import { escapeRegExp } from 'lodash'
+
+import NotFoundError from '../NotFoundError'
+
 describe('NotFoundError', () => {
   it('should have correct message', () => {
     const error = new NotFoundError({

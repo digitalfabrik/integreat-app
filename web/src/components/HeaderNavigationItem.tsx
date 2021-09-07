@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
-import { helpers } from '../constants/theme'
-import dimensions from '../constants/dimensions'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 
 const Container = styled.div`
   flex: 1 1 135px;
