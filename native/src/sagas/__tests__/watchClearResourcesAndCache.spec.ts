@@ -1,12 +1,14 @@
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import { CACHE_DIR_PATH } from '../../utils/DatabaseConnector'
 import path from 'path'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
-import watchClearResourcesAndCache, { clearResourcesAndCache } from '../watchClearResourcesAndCache'
+
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { ClearResourcesAndCacheActionType } from '../../redux/StoreActionType'
+import { CACHE_DIR_PATH } from '../../utils/DatabaseConnector'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
+import watchClearResourcesAndCache, { clearResourcesAndCache } from '../watchClearResourcesAndCache'
 
 describe('watchClearResourcesAndCache', () => {
   beforeEach(() => {

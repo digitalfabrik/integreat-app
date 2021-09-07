@@ -1,8 +1,8 @@
+import { contentSearch } from '../../../shared/constants'
+import { Selector } from '../Selector'
 import DashboardPage from '../pageobjects/dashboard.page'
 import SearchPage from '../pageobjects/search.page'
 import { navigateToDashboard } from '../utils/navigationUtils'
-import { contentSearch } from '../../../shared/constants'
-import { Selector } from '../Selector'
 
 describe('navigateToSearchResult', () => {
   it('should open and search content', async () => {

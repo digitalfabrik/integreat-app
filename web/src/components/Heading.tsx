@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import styled from 'styled-components'
+
 import buildConfig from '../constants/buildConfig'
 
 const Logo = styled.img`

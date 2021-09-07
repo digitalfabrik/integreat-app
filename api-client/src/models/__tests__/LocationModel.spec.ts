@@ -1,4 +1,5 @@
 import { Feature } from 'geojson'
+
 import LocationModel from '../LocationModel'
 
 describe('LocationModel', () => {

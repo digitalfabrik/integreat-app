@@ -1,4 +1,5 @@
 import { Moment } from 'moment'
+
 import DateFormatter from '../i18n/DateFormatter'
 
 class DateModel {

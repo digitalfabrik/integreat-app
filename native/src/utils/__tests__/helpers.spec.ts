@@ -1,7 +1,8 @@
-import { generateRouteKey, getExtension, determineApiUrl } from '../helpers'
 import { times } from 'lodash'
-import AppSettings from '../AppSettings'
+
 import buildConfig from '../../constants/buildConfig'
+import AppSettings from '../AppSettings'
+import { generateRouteKey, getExtension, determineApiUrl } from '../helpers'
 
 describe('generateRouteKey', () => {
   it('should not generate the same key multiple times', () => {

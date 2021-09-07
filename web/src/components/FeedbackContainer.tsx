@@ -1,4 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
 import type { FeedbackType } from 'api-client'
 import {
   CATEGORIES_FEEDBACK_TYPE,
@@ -19,16 +23,14 @@ import {
   SEARCH_FEEDBACK_TYPE,
   SEARCH_ROUTE
 } from 'api-client'
-import Feedback from './Feedback'
+
+import buildConfig from '../constants/buildConfig'
+import { faFrown, faSmile } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
-import buildConfig from '../constants/buildConfig'
-import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
-import { faFrown, faSmile } from '../constants/icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import TextButton from './TextButton'
 import { reportError } from '../utils/sentry'
+import Feedback from './Feedback'
+import TextButton from './TextButton'
 
 const IconTextContainer = styled.div`
   margin-top: 30px;

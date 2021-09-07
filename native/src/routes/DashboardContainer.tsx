@@ -1,16 +1,18 @@
-import { Dispatch } from 'redux'
-import { connect } from 'react-redux'
-import Dashboard from './Dashboard'
-import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
-import { StoreActionType } from '../redux/StoreActionType'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import React, { useCallback } from 'react'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
 import { DASHBOARD_ROUTE, DashboardRouteType, CATEGORIES_ROUTE, CityModel, ErrorCode } from 'api-client'
-import navigateToLink from '../navigation/navigateToLink'
+
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
+import { StoreActionType } from '../redux/StoreActionType'
+import Dashboard from './Dashboard'
 
 type NavigationPropsType = {
   route: RoutePropType<DashboardRouteType>

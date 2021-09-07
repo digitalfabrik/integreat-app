@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 import { TFunction } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import { NewsType, TU_NEWS_TYPE } from 'api-client'
+
 import tunewsLogoActive from '../assets/TunewsActiveLogo.png'
 import tunewsLogoInactive from '../assets/TunewsInactiveLogo.png'
-import { Link } from 'react-router-dom'
-import { NewsType, TU_NEWS_TYPE } from 'api-client'
 
 const StyledTab = styled(Link)<{ $active: boolean }>`
   display: flex;

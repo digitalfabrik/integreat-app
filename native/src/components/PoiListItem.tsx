@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { PoiModel } from 'api-client'
-import ListItem from './ListItem'
 import styled from 'styled-components/native'
+
+import { PoiModel } from 'api-client'
 import { ThemeType } from 'build-configs'
+
+import ListItem from './ListItem'
 
 type PropsType = {
   poi: PoiModel

@@ -1,10 +1,12 @@
 import React, { ReactElement, useEffect } from 'react'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { RedirectRouteType } from 'api-client'
-import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import LayoutContainer from './LayoutContainer'
+import { useDispatch } from 'react-redux'
+
+import { RedirectRouteType } from 'api-client'
+
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
+import LayoutContainer from './LayoutContainer'
 
 const TIMEOUT = 10
 const INTERVAL_TIMEOUT = 500

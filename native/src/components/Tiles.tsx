@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
+import { contentDirection } from '../constants/contentDirection'
+import TileModel from '../models/TileModel'
 import Caption from './Caption'
 import Tile from './Tile'
-import styled from 'styled-components/native'
-import TileModel from '../models/TileModel'
-import { contentDirection } from '../constants/contentDirection'
-import { ThemeType } from 'build-configs'
 
 type PropsType = {
   title?: string

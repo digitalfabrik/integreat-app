@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import Caption from '../components/Caption'
-import buildConfig from '../constants/buildConfig'
-import Layout from '../components/Layout'
 import GeneralFooter from '../components/GeneralFooter'
 import GeneralHeader from '../components/GeneralHeader'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import Helmet from '../components/Helmet'
-import { useTranslation } from 'react-i18next'
+import Layout from '../components/Layout'
+import buildConfig from '../constants/buildConfig'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 type PropsType = { languageCode: string }
 

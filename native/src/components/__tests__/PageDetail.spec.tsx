@@ -1,8 +1,9 @@
 import { render } from '@testing-library/react-native'
 import React from 'react'
-import PageDetail from '../PageDetail'
 import { I18nManager } from 'react-native'
+
 import buildConfig from '../../constants/buildConfig'
+import PageDetail from '../PageDetail'
 
 describe('PageDetail', () => {
   it('should display the given identifier followed by a colon', () => {

@@ -1,7 +1,8 @@
-import React from 'react'
-import CategoryListContent from '../CategoryListContent'
-import buildConfig from '../../constants/buildConfig'
 import { fireEvent, render } from '@testing-library/react-native'
+import React from 'react'
+
+import buildConfig from '../../constants/buildConfig'
+import CategoryListContent from '../CategoryListContent'
 import NativeHtml from '../NativeHtml'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({

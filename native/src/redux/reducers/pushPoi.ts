@@ -1,6 +1,7 @@
+import { PoiModel, POIS_ROUTE } from 'api-client'
+
 import { CityContentStateType, PoiRouteStateType } from '../StateType'
 import { PushPoiActionType } from '../StoreActionType'
-import { PoiModel, POIS_ROUTE } from 'api-client'
 
 const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityContentStateType => {
   const { pois, path, key, language, resourceCache, cityLanguages, city } = action.params

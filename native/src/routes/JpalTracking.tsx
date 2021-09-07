@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { ThemeType } from 'build-configs'
-import { Switch, Text, TextInput, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import AppSettings from '../utils/AppSettings'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { JpalTrackingRouteType } from 'api-client'
+import { Switch, Text, TextInput, View } from 'react-native'
 import styled from 'styled-components/native'
-import LayoutContainer from '../components/LayoutContainer'
-import withTheme from '../hocs/withTheme'
+
+import { JpalTrackingRouteType } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import Caption from '../components/Caption'
+import LayoutContainer from '../components/LayoutContainer'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
+import AppSettings from '../utils/AppSettings'
 
 const ThemedText = styled.Text`
   display: flex;

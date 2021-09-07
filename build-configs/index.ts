@@ -4,16 +4,16 @@ import {
   iOSBuildConfigType,
   WebBuildConfigType
 } from './BuildConfigType'
-import integreatBuildConfig from './integreat'
-import integreatBuildConfigName from './integreat/build-config-name'
-import integreatTestCmsBuildConfig from './integreat-test-cms'
-import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name'
-import integreatE2eBuildConfig from './integreat-e2e'
-import integreatE2eBuildConfigName from './integreat-e2e/build-config-name'
-import malteBuildConfig from './malte'
-import malteBuildConfigName from './malte/build-config-name'
 import aschaffenburgBuildConfig from './aschaffenburg'
 import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name'
+import integreatBuildConfig from './integreat'
+import integreatE2eBuildConfig from './integreat-e2e'
+import integreatE2eBuildConfigName from './integreat-e2e/build-config-name'
+import integreatTestCmsBuildConfig from './integreat-test-cms'
+import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name'
+import integreatBuildConfigName from './integreat/build-config-name'
+import malteBuildConfig from './malte'
+import malteBuildConfigName from './malte/build-config-name'
 
 export type { ThemeType } from './ThemeType'
 

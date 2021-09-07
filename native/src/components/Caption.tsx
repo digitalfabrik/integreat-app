@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 const H1 = styled.Text`

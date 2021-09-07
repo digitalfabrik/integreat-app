@@ -1,13 +1,15 @@
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { FetchNewsActionType } from '../../redux/StoreActionType'
-import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import watchFetchNews, { fetchNews } from '../watchFetchNews'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
+
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
-import loadLocalNews from '../loadLocalNews'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import { FetchNewsActionType } from '../../redux/StoreActionType'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { reportError } from '../../utils/helpers'
+import loadLocalNews from '../loadLocalNews'
+import watchFetchNews, { fetchNews } from '../watchFetchNews'
 
 jest.mock('../../utils/helpers', () => ({
   reportError: jest.fn()

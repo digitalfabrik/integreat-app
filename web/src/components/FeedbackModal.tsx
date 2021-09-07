@@ -1,14 +1,16 @@
-import React, { ReactElement } from 'react'
-import { POSITIVE_RATING } from 'api-client'
-import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
-import FeedbackContainer from './FeedbackContainer'
-import FocusTrap from 'focus-trap-react'
-import dimensions from '../constants/dimensions'
-import { FeedbackRatingType } from './FeedbackToolbarItem'
-import { RouteType } from '../routes'
-import { faTimes } from '../constants/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import FocusTrap from 'focus-trap-react'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
+import { POSITIVE_RATING } from 'api-client'
+
+import dimensions from '../constants/dimensions'
+import { faTimes } from '../constants/icons'
+import { RouteType } from '../routes'
+import FeedbackContainer from './FeedbackContainer'
+import { FeedbackRatingType } from './FeedbackToolbarItem'
 
 const Overlay = styled.div`
   position: absolute;
