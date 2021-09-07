@@ -1,12 +1,14 @@
 import React, { ReactElement, useCallback } from 'react'
-import { SprungbrettJobModel } from 'api-client'
-import SprungbrettListItem from '../components/SprungbrettListItem'
 import { TFunction } from 'react-i18next'
+
+import { SprungbrettJobModel } from 'api-client'
 import { ThemeType } from 'build-configs'
-import List from '../components/List'
+
 import Caption from '../components/Caption'
-import openExternalUrl from '../utils/openExternalUrl'
+import List from '../components/List'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import SprungbrettListItem from '../components/SprungbrettListItem'
+import openExternalUrl from '../utils/openExternalUrl'
 
 type PropsType = {
   jobs: Array<SprungbrettJobModel>

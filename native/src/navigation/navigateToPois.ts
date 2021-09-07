@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux'
+
+import { POIS_ROUTE } from 'api-client/src/routes'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { FetchPoiActionType, StoreActionType } from '../redux/StoreActionType'
 import { generateRouteKey } from '../utils/helpers'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { POIS_ROUTE } from 'api-client/src/routes'
 
 const navigateToPois = <T extends RoutesType>({
   navigation,

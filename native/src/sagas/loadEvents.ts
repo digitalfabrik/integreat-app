@@ -1,5 +1,7 @@
-import { createEventsEndpoint, EventModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { createEventsEndpoint, EventModel } from 'api-client'
+
 import { DataContainer } from '../utils/DataContainer'
 import { determineApiUrl } from '../utils/helpers'
 

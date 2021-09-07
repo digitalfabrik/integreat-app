@@ -1,4 +1,5 @@
 import replaceLinks from '../replaceLinks'
+
 describe('replaceLinks', () => {
   beforeEach(() => {
     jest.clearAllMocks()

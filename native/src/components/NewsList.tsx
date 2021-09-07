@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native'
+
 import { LocalNewsModel, NEWS_ROUTE, NewsType, RouteInformationType, TunewsModel } from 'api-client'
+
 import { NewsModelsType } from '../redux/StateType'
 import LoadingSpinner from './LoadingSpinner'
 

@@ -1,9 +1,10 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
-import styled from 'styled-components'
+import { FeatureCollection, Feature, Point } from 'geojson'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { Feature, FeatureCollection, Point } from 'geojson'
+import React, { ReactElement, useEffect, useState } from 'react'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
+import { useLocation } from 'react-router-dom'
+import styled from 'styled-components'
+
 import { detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
 
 import MapPopup from './MapPopup'

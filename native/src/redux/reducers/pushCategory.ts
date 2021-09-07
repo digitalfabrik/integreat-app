@@ -1,7 +1,8 @@
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, ErrorCode, LanguageModel } from 'api-client'
+
+import { forEachTreeNode } from '../../utils/helpers'
 import { CategoryRouteStateType, CityContentStateType, PathType } from '../StateType'
 import { PushCategoryActionType } from '../StoreActionType'
-import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, ErrorCode, LanguageModel } from 'api-client'
-import { forEachTreeNode } from '../../utils/helpers'
 
 const getAllAvailableLanguages = (
   category: CategoryModel,

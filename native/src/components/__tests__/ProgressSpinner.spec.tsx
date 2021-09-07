@@ -1,7 +1,9 @@
 import { render } from '@testing-library/react-native'
 import * as React from 'react'
-import ProgressSpinner from '../ProgressSpinner'
+
 import { ThemeType } from 'build-configs'
+
+import ProgressSpinner from '../ProgressSpinner'
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>

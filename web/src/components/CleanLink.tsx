@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
 import { isExternalUrl } from '../utils/UrlCheck'
 
 const StyledCleanLink = styled(Link)`

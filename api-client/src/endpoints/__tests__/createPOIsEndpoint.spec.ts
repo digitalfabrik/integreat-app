@@ -1,7 +1,9 @@
 import moment from 'moment-timezone'
-import createPOIsEndpoint from '../createPOIsEndpoint'
-import PoiModel from '../../models/PoiModel'
+
 import LocationModel from '../../models/LocationModel'
+import PoiModel from '../../models/PoiModel'
+import createPOIsEndpoint from '../createPOIsEndpoint'
+
 describe('pois', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const pois = createPOIsEndpoint(baseUrl)

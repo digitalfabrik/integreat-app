@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Button } from 'react-native-elements'
+
 import { ThemeType } from 'build-configs'
 
 type PropsType = {
