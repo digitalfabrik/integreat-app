@@ -27,8 +27,7 @@ const Title = styled.Text`
 `
 
 const MapPopup: React.FC<MapPopupProps> = ({ feature }: MapPopupProps): ReactElement => {
-  const theme = useTheme()
-  return <Popup>{feature?.properties?.title && <Title theme={theme}>{feature.properties.title}</Title>}</Popup>
+  return <Popup>{feature.properties?.title && <Title>{feature.properties.title}</Title>}</Popup>
 }
 
 export default MapPopup
