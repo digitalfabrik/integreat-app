@@ -41,7 +41,6 @@ type CreateSettingsSectionsPropsType = {
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (arg0: string) => void
 }
 
 const createSettingsSections = ({

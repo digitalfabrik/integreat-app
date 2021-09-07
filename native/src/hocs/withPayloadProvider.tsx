@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { ErrorCode, LanguageModel } from 'api-client'
 import { RefreshControl } from 'react-native'
 import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
-import { EnqueueSnackbarActionType, StoreActionType } from '../redux/StoreActionType'
+import { StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
 import FailureContainer from '../components/FailureContainer'
 import wrapDisplayName from '../hocs/wrapDisplayName'
@@ -11,6 +11,7 @@ import { NavigationPropType, RoutePropType, RoutesType } from '../constants/Navi
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressContainer from '../components/ProgressContainer'
+import showSnackbar from '../utils/showSnackbar'
 
 // A waiting time of >=1s feels like an interruption
 export const LOADING_TIMEOUT = 800
@@ -98,13 +99,10 @@ const withPayloadProvider = <
           props.status === 'loading' ||
           props.status === 'languageNotAvailable'
         ) {
-          const enqueueSnackbar: EnqueueSnackbarActionType = {
-            type: 'ENQUEUE_SNACKBAR',
-            params: {
-              text: 'Refreshing is not possible because the route is not yet initialized or already loading.'
-            }
-          }
-          props.dispatch(enqueueSnackbar)
+          showSnackbar(
+            props.dispatch,
+            'Refreshing is not possible because the route is not yet initialized or already loading.'
+          )
           return
         }
 

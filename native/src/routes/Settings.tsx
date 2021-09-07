@@ -12,7 +12,6 @@ import LayoutContainer from '../components/LayoutContainer'
 import { SettingsRouteType } from 'api-client'
 import { StoreActionType } from '../redux/StoreActionType'
 import { useFocusEffect } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
 
 export type PropsType = {
   theme: ThemeType
@@ -41,7 +40,6 @@ const appSettings = new AppSettings()
 
 const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
-  const dispatch = useDispatch()
 
   useFocusEffect(
     useCallback(() => {
@@ -98,14 +96,6 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
   const ThemedItemSeparator = () => <ItemSeparator theme={theme} />
 
-  const showSnackbar = (key: string) =>
-    dispatch({
-      type: 'ENQUEUE_SNACKBAR',
-      params: {
-        text: key
-      }
-    })
-
   if (!settings) {
     return <LayoutContainer />
   }
@@ -120,8 +110,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
           languageCode,
           cityCode,
           navigation,
-          settings,
-          showSnackbar
+          settings
         })}
         extraData={settings}
         renderItem={renderItem}
