@@ -72,6 +72,7 @@ type CityContentParamsType = {
   cityCode: string
   languageCode: string
 }
+
 export type RoutesParamsType = {
   [REDIRECT_ROUTE]: {
     url: string
@@ -82,7 +83,9 @@ export type RoutesParamsType = {
   [LANDING_ROUTE]: undefined
   [DASHBOARD_ROUTE]: undefined
   [CATEGORIES_ROUTE]: undefined
-  [POIS_ROUTE]: undefined
+  [POIS_ROUTE]: {
+    selectedPoiId?: string
+  }
   [EVENTS_ROUTE]: undefined
   [NEWS_ROUTE]: undefined
   [DISCLAIMER_ROUTE]: CityContentParamsType
