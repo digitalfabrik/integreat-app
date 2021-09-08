@@ -1,6 +1,8 @@
+import { Testrunner } from '@wdio/types/build/Options'
+
 import { localCapabilities } from './capabilities'
 
-export const config = {
+export const config: Testrunner = {
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
@@ -8,7 +10,6 @@ export const config = {
 
   capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.browser],
   logLevel: 'info',
-  coloredLogs: true,
   bail: 0,
   baseUrl: 'http://localhost:9000',
   waitforTimeout: 100000,
