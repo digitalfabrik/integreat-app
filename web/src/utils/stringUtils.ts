@@ -2,7 +2,7 @@ import normalizeStrings from 'normalize-strings'
 
 export const textTruncator = (text: string, numOfCharsAllowed: number): string => {
   const ellipsis = '...'
-  const cleanText = text.replace('\n', ' ')
+  const cleanText = text.replace(/\n/g, ' ')
   if (cleanText.length < numOfCharsAllowed) {
     return cleanText
   }
