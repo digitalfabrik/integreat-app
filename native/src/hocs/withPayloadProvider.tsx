@@ -94,7 +94,7 @@ const withPayloadProvider = <
         }
       }, [props.route.key, props.dispatch])
 
-      function refreshIfPossible() {
+      const refreshIfPossible = () => {
         if (
           props.status === 'routeNotInitialized' ||
           props.status === 'loading' ||
@@ -108,7 +108,7 @@ const withPayloadProvider = <
         }
       }
 
-      function changeUnavailableLanguage(newLanguage: string) {
+      const changeUnavailableLanguage = (newLanguage: string) => {
         if (props.status !== 'languageNotAvailable') {
           throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }

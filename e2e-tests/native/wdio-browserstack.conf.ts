@@ -1,3 +1,5 @@
+import { Testrunner } from '@wdio/types/build/Options'
+
 import capabilities from './capabilities'
 
 const getCapability = () => {
@@ -13,32 +15,31 @@ const getCapability = () => {
   return capabilities[capability]
 }
 
-export const config = {
+export const config: Testrunner = {
   runner: 'local',
   specs: ['./native/test/specs/**/*.ts'],
   exclude: [],
 
-  maxInstances: 2,
-
+  maxInstances: 1,
+  maxInstancesPerCapability: 1,
   user: process.env.E2E_BROWSERSTACK_USER,
   key: process.env.E2E_BROWSERSTACK_KEY,
 
   capabilities: [getCapability()],
 
   logLevel: 'info',
-  coloredLogs: true,
-  bail: 0,
+
+  bail: 1,
   baseUrl: 'http://localhost:9000',
   waitforTimeout: 100000,
   waitforInterval: 2000,
-  connectionRetryTimeout: 50000,
-  connectionRetryCount: 3,
-  services: [['browserstack']],
-  host: 'hub.browserstack.com',
+  connectionRetryTimeout: 120000,
+  connectionRetryCount: 2,
+  services: ['browserstack'],
   framework: 'jasmine',
   reporters: ['junit'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 200000
+    defaultTimeoutInterval: 300000
   }
 }

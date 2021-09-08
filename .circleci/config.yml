@@ -515,7 +515,7 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn workspaces run lint
+                command: yarn lint
                 name: Lint
             - run:
                 command: yarn workspace build-configs ts:check
