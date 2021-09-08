@@ -1,4 +1,4 @@
-import { Feature, GeoJsonProperties, Point } from 'geojson'
+import { Feature, Point } from 'geojson'
 
 class LocationModel {
   _id: number | null | undefined
