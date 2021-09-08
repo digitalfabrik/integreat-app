@@ -10,7 +10,7 @@ import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 import { textTruncator } from '../../utils/stringUtils'
-import EventListItem, { NUM_OF_WORDS_ALLOWED } from '../EventListItem'
+import EventListItem, { NUM_OF_CHARS_ALLOWED } from '../EventListItem'
 
 describe('EventListItem', () => {
   const language = 'de'
@@ -60,7 +60,7 @@ describe('EventListItem', () => {
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
     expect(getByText(String(event.location.location))).toBeTruthy()
     expect(getByRole('img')).toHaveProperty('src', event.thumbnail)
-    expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+    expect(getByText(textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
   })
 
   it('should show event list item with placeholder thumbnail and no location', () => {
@@ -77,6 +77,6 @@ describe('EventListItem', () => {
     expect(getByText(String(event.location.location))).toBeTruthy()
     const src = (getByRole('img') as HTMLMediaElement).src
     expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
-    expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+    expect(getByText(textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
   })
 })
