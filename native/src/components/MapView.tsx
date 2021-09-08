@@ -8,9 +8,8 @@ import styled from 'styled-components/native'
 
 import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
 
-import MapPopup from './MapPopup'
-
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
+import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
   flex-direction: row;
@@ -29,33 +28,30 @@ type MapViewPropsType = {
 
 const textOffsetY = 1.25
 const featureLayerId = 'point'
+const layerProps: SymbolLayerProps = {
+  id: featureLayerId,
+  style: {
+    symbolPlacement: 'point',
+    iconAllowOverlap: true,
+    iconIgnorePlacement: true,
+    iconImage: ['get', 'symbol'],
+    textField: ['get', 'title'],
+    textFont: ['Roboto Regular'],
+    textOffset: [0, textOffsetY],
+    textAnchor: 'top',
+    textSize: 12
+  }
+}
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
-  const mapRef = React.useRef<MapboxGL.MapView | null>(null)
-  const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
-  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
-  const layerProps: SymbolLayerProps = {
-    id: featureLayerId,
-    style: {
-      symbolPlacement: 'point',
-      iconAllowOverlap: true,
-      iconIgnorePlacement: true,
-      iconImage: ['get', 'symbol'],
-      textField: ['get', 'title'],
-      textFont: ['Roboto Regular'],
-      textOffset: [0, textOffsetY],
-      textAnchor: 'top',
-      textSize: 12
-    }
-  }
-
-// Has to be set even if we use map libre
-MapboxGL.setAccessToken(mapConfig.accessToken)
-const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
+
+  const mapRef = React.useRef<MapboxGL.MapView | null>(null)
+  const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
 
   const bounds = {
@@ -98,7 +94,6 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
       ? 'location-searching'
       : 'location-disabled'
 
-
   const onPress = useCallback(async (pressedLocation: Feature) => {
     if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
       return
@@ -134,14 +129,14 @@ const MapView = ({ boundingBox, featureCollection }: MapViewPropsType): ReactEle
           onUserTrackingModeChange={onUserTrackingModeChange}
           ref={cameraRef}
         />
-
-      {selectedFeature && <MapPopup feature={selectedFeature} />}
       </StyledMap>
+      {selectedFeature && <MapPopup feature={selectedFeature} />}
       <FAB
         placement='right'
         onPress={requestPermission}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
+        style={selectedFeature && { top: 0 }}
       />
     </MapContainer>
   )
