@@ -180,7 +180,7 @@ const createConfig = (
           {
             from: manifestPreset,
             to: distDirectory,
-            transform(content: Buffer) {
+            transform: (content: Buffer) => {
               return generateManifest(content, buildConfigName)
             }
           }

@@ -16,7 +16,7 @@ steps:
       command: yarn prettier:check
   - run:
       name: Lint
-      command: yarn workspaces run lint
+      command: yarn lint
   - run:
       name: TS check
       command: yarn workspace build-configs ts:check
