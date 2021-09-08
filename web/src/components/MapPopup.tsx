@@ -7,7 +7,7 @@ const StyledPopup = styled(Popup)`
   width: 250px;
 `
 
-interface MapPopupProps {
+type MapPopupProps = {
   coordinates: Position
   properties: GeoJsonProperties
 }
