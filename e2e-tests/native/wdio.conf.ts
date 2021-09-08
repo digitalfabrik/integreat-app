@@ -32,7 +32,7 @@ export const config: Testrunner = {
     defaultTimeoutInterval: 100000
   },
 
-  before: async function (): Promise<void> {
+  before: async (): Promise<void> => {
     const startupDelay = 10000
     await new Promise(resolve => setTimeout(resolve, startupDelay))
   }
