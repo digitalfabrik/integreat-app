@@ -10,6 +10,7 @@ const browserstackCaps = (
   const isCi = !!process.env.CI
   const prefix = isCi ? 'IG CI' : 'IG DEV'
   const app = process.env.E2E_BROWSERSTACK_APP
+
   return {
     'bstack:options': {
       buildName: `${prefix}: ${getGitBranch()}`,
@@ -17,8 +18,8 @@ const browserstackCaps = (
       projectName: 'integreat-app-native',
       debug: true,
       realMobile: isCi,
-      networkProfile: '4g-lte-good',
-      appiumVersion: '1.21.0'
+      appiumVersion: '1.21.0',
+      idleTimeout: 10000
     },
     ...config,
     'appium:app': app,
@@ -41,7 +42,7 @@ export default {
       'appium:deviceName': 'iPhone 8',
       'appium:automationName': 'XCUITest',
       // @ts-ignore unknown property
-      'appium:waitForQuiescence': true
+      'appium:waitForIdleTimeout': 10000
     },
     'ios'
   )
