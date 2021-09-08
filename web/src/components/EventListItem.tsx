@@ -8,7 +8,7 @@ import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
 import { textTruncator } from '../utils/stringUtils'
 import ListItem from './ListItem'
 
-export const NUM_OF_WORDS_ALLOWED = 15
+export const NUM_OF_CHARS_ALLOWED = 110
 
 type PropsType = {
   event: EventModel
@@ -32,7 +32,7 @@ const EventListItem = ({ event, formatter }: PropsType): ReactElement => {
         <div>{event.date.toFormattedString(formatter)}</div>
         {event.location.location && <div>{event.location.location}</div>}
       </div>
-      <div>{textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED)}</div>
+      <div>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
     </ListItem>
   )
 }

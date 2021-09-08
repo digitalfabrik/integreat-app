@@ -7,7 +7,7 @@ import { DateFormatter, LOCAL_NEWS_TYPE } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 import { textTruncator } from '../../utils/stringUtils'
-import NewsListItem, { NUM_OF_WORDS_ALLOWED } from '../NewsListItem'
+import NewsListItem, { NUM_OF_CHARS_ALLOWED } from '../NewsListItem'
 
 jest.mock('../LastUpdateInfo', () =>
   jest.fn(({ lastUpdate, withText }) => (
@@ -52,7 +52,7 @@ describe('NewsListItem', () => {
     )
 
     expect(getByText(title)).toBeTruthy()
-    expect(getByText(textTruncator(message, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+    expect(getByText(textTruncator(message, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
     expect(getByText(lastUpdate.toISOString())).toBeTruthy()
     expect(() => getByText('lastUpdate')).toThrow()
   })
