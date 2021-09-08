@@ -40,6 +40,10 @@
       "createPdf": "Kreiraj PDF",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
     },
+    "hu": {
+      "createPdf": "PDF létrehozása",
+      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
+    },
     "it": {
       "createPdf": "Crea PDF",
       "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
@@ -173,6 +177,12 @@
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
       "loading": "Učitava se..."
+    },
+    "hu": {
+      "languageNotAvailable": "A nyelved sajnos nem elérhető.",
+      "chooseALanguage": "Válassz ki egy nyelvet.",
+      "lastUpdate": "Utolsó aktualizálás:",
+      "loading": "Betöltés..."
     },
     "it": {
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
@@ -354,6 +364,13 @@
       "news": "Vijesti",
       "newsAlternative": "Novosti"
     },
+    "hu": {
+      "localInformation": "Helyi információk",
+      "offers": "Ajánlatok",
+      "events": "Események",
+      "news": "Hírek",
+      "newsAlternative": "Újdonságok"
+    },
     "it": {
       "localInformation": "Informazioni locali",
       "offers": "Offerte",
@@ -511,6 +528,9 @@
     },
     "hr": {
       "pageTitle": "Impresum i kontakt"
+    },
+    "hu": {
+      "pageTitle": "Impresszum és elérhetőség"
     },
     "it": {
       "pageTitle": "Impressum e contatti"
@@ -908,6 +928,40 @@
       "generalError": "Došlo je do pogreške",
       "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
       "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
+    },
+    "hu": {
+      "notFound": {
+        "language": "A nyelved itt sajnos nem elérhető.",
+        "city": "Ez a város sajnos nem található.",
+        "category": "Ez az oldal sajnos nem található.",
+        "event": "Ez az esemény sajnos nem található.",
+        "offer": "Ez az ajánlat sajnos nem található.",
+        "poi": "Ez az érdekesség sajnos nem található.",
+        "localNews": "Ez az üzenet sajnos nem található.",
+        "tunews": "Ez a tünews sajnos nem található.",
+        "pageTitle": "Az oldal nem található"
+      },
+      "pageNotFound": "Ez az oldal sajnos nem található.",
+      "networkConnectionFailed": "Kapcsolódás a szerverhez sikertelen.",
+      "networkRequestFailed": "A kérése nem került feldolgozásra.",
+      "responseMappingFailed": "A szerver válasza nem volt feldolgozható.",
+      "unknownError": "Ismeretlen hiba lépett fel.",
+      "tryAgain": "Próbáld meg újra",
+      "loadingFailed": "Az oldal betöltése sikertelen.",
+      "chooseALanguage": "Válassz ki egy nyelvet:",
+      "goTo": {
+        "start": "A Kezdőoldalra",
+        "categories": "A Kategóriákhoz",
+        "events": "Az Eseményekhez",
+        "offers": "Az Ajánlatokhoz",
+        "pois": "Az Érdekességekhez",
+        "localNews": "A hírekhez",
+        "tunews": "A tünews-hoz"
+      },
+      "pageTitle": "Hiba",
+      "generalError": "Hiba lépett fel.",
+      "languageSwitchFailedTitle": "Sikertelen nyelvváltoztatás.",
+      "languageSwitchFailedMessage": "A kiválasztott nyelv offline nem elérhető. Aktív internetkapcsolat szükséges."
     },
     "it": {
       "notFound": {
@@ -1594,6 +1648,13 @@
       "currentlyNoEvents": "Trenutačno nema događanja.",
       "pageTitle": "Događanja"
     },
+    "hu": {
+      "location": "Helyszín",
+      "date": "Dátum",
+      "events": "Események",
+      "currentlyNoEvents": "Jelenleg nincsenek események.",
+      "pageTitle": "Események"
+    },
     "it": {
       "location": "Posizione",
       "date": "Data",
@@ -1931,6 +1992,27 @@
       "positiveRating": "Ova stranica je korisna",
       "contactMailAddress": "E-pošta za povratna pitanja",
       "optionalInfo": "opcijski"
+    },
+    "hu": {
+      "disclaimer": "Elérhetőség és impresszum",
+      "send": "Küldés",
+      "failedSendingFeedback": "A visszajelzés elküldésekor hiba lépett fel.",
+      "feedback": "Visszajelzés",
+      "positiveComment": "Mi volt hasznos?",
+      "negativeComment": "Milyen téren tudunk fejlődni?",
+      "isThisSiteUseful": "Hasznos ez az oldal?",
+      "useful": "Hasznos",
+      "notUseful": "Nem hasznos",
+      "nothingFound": "Sajnos nem találtunk megfelelő eredményt.",
+      "informationNotFound": "Nem találtad meg a megfelelőt?",
+      "wantedInformation": "Mely információk hiányoznak itt?",
+      "feedbackSent": "A visszajelzést elküldtük",
+      "thanksMessage": "Köszönjük a visszajelzését. Ezzel segít nekünk javítani a tartalmainkat és a(z) {{appName}} alkalmazást. Örömmel fogadnánk a további visszajelzéseket.",
+      "close": "Bezárás",
+      "negativeRating": "Ez az oldal nem hasznos",
+      "positiveRating": "Ez az oldal hasznos",
+      "contactMailAddress": "E-mail visszajelzések számára",
+      "optionalInfo": "opcionális"
     },
     "it": {
       "disclaimer": "Contatti e impressum",
@@ -2588,6 +2670,34 @@
       "accept": "Prihvati",
       "privacyPolicy": "Izjava o zaštiti podataka"
     },
+    "hu": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} az Ön digitális idegenvezetője Németországban.",
+      "search": "Keresés",
+      "searchDescription": "A megfelelő információ gyors megtalálása kulcsszavak segítségével",
+      "languageChange": "Nyelvváltás",
+      "languageChangeDescription": "Egyes oldalak nyelvének egyszerű átállítása",
+      "events": "Események",
+      "eventsDescription": "Aktuális események és időpontok a környéken",
+      "offers": "Ajánlatok",
+      "offersDescription": "Állásajánlatok, gyakornoki helyek és egyéb a környéken",
+      "inquiryTitle": "Beállítások",
+      "inquiryIntro": "Az \"{{accept}\" gombra kattintva engedélyezem a(z) {{appName}} alkalmazásnak",
+      "sentryTitle": "Alkalmazás stabilitása",
+      "sentryCondition": "...a hibajelentések automatikus küldésével javuljon {{appName}}",
+      "pushNewsTitle": "Push értesítések",
+      "pushNewsCondition": "...hogy push értesítéseket küldjön a legújabb helyi hírekkel kapcsolatban",
+      "proposeCitiesTitle": "Közeli helyek",
+      "proposeCitiesCondition": "...hogy közeli helyeket ajánljon nekem a GPS helymeghatározás segítségével",
+      "skip": "Átugrás",
+      "next": "Tovább",
+      "cancel": "Megszakítás",
+      "save": "Mentés",
+      "customize": "Igazítás",
+      "decline": "Elutasítás",
+      "accept": "Elfogadás",
+      "privacyPolicy": "Adatvédelmi nyilatkozat"
+    },
     "it": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}} è la tua guida digitale per la Germania",
@@ -3234,6 +3344,20 @@
       "pageTitle": "Odabir mjesta",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
     },
+    "hu": {
+      "searchCity": "Hely keresése",
+      "nearbyPlaces": "Helyek a közelben",
+      "noNearbyPlaces": "Nincsenek helyek a közelben.",
+      "alert": "Megjegyzés",
+      "locationError": "A közeli helyek megtekintéséhez engedélyezni kell a helymeghatározási szolgáltatásokat.",
+      "noPermission": "Helyhozzáférés szükséges",
+      "loading": "Meghatározott helyszín...",
+      "notAvailable": "Helymeghatározás deaktiválva",
+      "timeout": "Helymeghatározás sikertelen",
+      "refresh": "Helyek listájának aktualizálása",
+      "pageTitle": "Hely kiválasztása",
+      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
+    },
     "it": {
       "searchCity": "Cerca luogo",
       "nearbyPlaces": "Luoghi nelle vicinanze",
@@ -3688,6 +3812,26 @@
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
       "disclaimer": "Impresum"
     },
+    "hu": {
+      "imprintAndContact": "Impresszum és elérhetőség",
+      "privacy": "Adatvédelem",
+      "offers": "Ajánlatok",
+      "localInformation": "Helyi információk",
+      "events": "Események",
+      "noEvents": "Nincs esemény",
+      "news": "Hírek",
+      "noLanguages": "Más nyelveken nem elérhető",
+      "noTranslation": "Nincs fordítás",
+      "search": "Keresés",
+      "changeLocation": "Hely változtatás",
+      "changeLanguage": "Nyelv változtatás",
+      "settings": "Beállítások",
+      "share": "Megosztás",
+      "cancel": "Megszakítás",
+      "shareMessage": "Ezt találtuk éppen: {{message}}",
+      "shareFailDefaultMessage": "Sikertelen tartalom megosztás.",
+      "disclaimer": "Impresszum"
+    },
     "it": {
       "imprintAndContact": "Impressum e contatti",
       "privacy": "Protezione dei dati",
@@ -4080,6 +4224,9 @@
     "hr": {
       "pageTitle": "Impresum i kontakt - {{appName}}"
     },
+    "hu": {
+      "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+    },
     "it": {
       "pageTitle": "Impressum e contatti - {{appName}}"
     },
@@ -4175,6 +4322,10 @@
     "hr": {
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikaciji {{appName}} potreban je pristup lokaciji."
+    },
+    "hu": {
+      "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához.",
+      "NSLocationWhenInUseUsageDescription": "A közeli helyek megtalálásához az {{appName}} alkalmazásnak hozzáférésre van szüksége a helyhez."
     },
     "it": {
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
@@ -4405,6 +4556,22 @@
       "readMore": "Nastavi čitati",
       "currentlyNoNews": "Trenutačno nema nikakvih vijesti.",
       "currentlyNoNewsAlternative": "Trenutačno nema nikakvih novosti.",
+      "tuNews": {
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
+      }
+    },
+    "hu": {
+      "news": "Hírek",
+      "newsAlternative": "Újdonságok",
+      "localNews": {
+        "localNews": "Helyi hírek",
+        "pageTitle": "Helyi hírek"
+      },
+      "local": "Helyi",
+      "readMore": "Továbbolvasás",
+      "currentlyNoNews": "Jelenleg nincsenek hírek.",
+      "currentlyNoNewsAlternative": "Jelenleg nincsenek újdonságok.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4740,6 +4907,10 @@
       "offers": "Ponude",
       "pageTitle": "Ponude"
     },
+    "hu": {
+      "offers": "Ajánlatok",
+      "pageTitle": "Ajánlatok"
+    },
     "it": {
       "offers": "Offerte",
       "pageTitle": "Offerte"
@@ -4853,6 +5024,10 @@
     "hr": {
       "searchPlaceholder": "Pretraživanje",
       "pageTitle": "Pretraživanje"
+    },
+    "hu": {
+      "searchPlaceholder": "Keresés",
+      "pageTitle": "Keresés"
     },
     "it": {
       "searchPlaceholder": "Ricerca",
@@ -5107,6 +5282,24 @@
       "trackingDescription": "Integreat se dugoročno poboljšava slanjem podataka o praćenju.",
       "enabled": "aktivirano",
       "disabled": "deaktivirano"
+    },
+    "hu": {
+      "sentryTitle": "Alkalmazás stabilitása",
+      "sentryDescription": "A(z) {{appName}}-App javítása hibajelentések automatikus küldésével",
+      "pushNewsTitle": "Push értesítések",
+      "pushNewsDescription": "A legújabb helyi hírekkel kapcsolatos Push értesítések küldése ",
+      "proposeCitiesTitle": "Közeli helyek",
+      "proposeCitiesDescription": "Közeli helyekkel kapcsolatos javaslatok küldése GPS helymeghatározás segítségével",
+      "about": "A(z) {{appName}} alkalmazásról",
+      "privacyPolicy": "Adatvédelmi nyilatkozat",
+      "version": "Verzió: {{version}}",
+      "openSourceLicenses": "Open-Source-licencek",
+      "tracking": "J-PAL Evaluation",
+      "allowTracking": "Követés engedélyezése",
+      "trackingCode": "Tracking Code",
+      "trackingDescription": "Az Integreat hosszú távú javítása a követési adatok küldésével.",
+      "enabled": "aktiválva",
+      "disabled": "deaktiválva"
     },
     "it": {
       "sentryTitle": "Stabilità dell’app",
@@ -5457,6 +5650,9 @@
     },
     "hr": {
       "noOffersAvailable": "Nema dostupnih ponuda"
+    },
+    "hu": {
+      "noOffersAvailable": "Nincsenek ajánlatok"
     },
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"
