@@ -4,7 +4,7 @@ type ReplaceType = (match: string) => string
 export const linkify = (link: string): string => {
   return `<a href="${link}">${link}</a>`
 }
-export const replaceLinks = (content: string, replace: ReplaceType = linkify) => {
+export const replaceLinks = (content: string, replace: ReplaceType = linkify): string => {
   return content.replace(regex, replace)
 }
 export default replaceLinks
