@@ -25,7 +25,7 @@ type PropType = {
 const NewsList = (props: PropType): ReactElement => {
   const { items, renderItem, isFetchingMore, fetchMoreItems, renderNoItemsComponent } = props
 
-  function onRefresh() {
+  const onRefresh = () => {
     const { routeKey, navigateTo, cityCode, language, newsId, selectedNewsType } = props
     navigateTo(
       {

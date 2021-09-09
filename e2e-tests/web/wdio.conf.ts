@@ -23,14 +23,14 @@ export const config: Testrunner = {
     defaultTimeoutInterval: 50000
   },
 
-  onPrepare: async function (): Promise<void> {
+  onPrepare: async (): Promise<void> => {
     if (process.env.CI) {
       const startupDelay = 20000
       await new Promise(resolve => setTimeout(resolve, startupDelay))
     }
   },
 
-  before: async function (): Promise<void> {
+  before: async (): Promise<void> => {
     await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
   }
 }
