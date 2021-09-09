@@ -37,7 +37,7 @@ type PropType = {
   onLoad: (arg0: void) => void
 }
 
-const RemoteContent = (props: PropType): ReactElement => {
+const RemoteContent = (props: PropType): ReactElement | null => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -65,7 +65,6 @@ const RemoteContent = (props: PropType): ReactElement => {
       }
 
       const message = JSON.parse(event.nativeEvent.data)
-
       if (message.type === 'error') {
         throw Error(`An error occurred in the webview:\n${message.message}`)
       } else if (message.type === 'height' && typeof message.height === 'number') {
@@ -89,6 +88,10 @@ const RemoteContent = (props: PropType): ReactElement => {
     },
     [resourceCacheUrl, onLinkPress]
   )
+
+  if (content.length === 0) {
+    return null
+  }
 
   return (
     <StyledView onLayout={onLayout}>

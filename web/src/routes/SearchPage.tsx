@@ -82,7 +82,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   // find all categories whose contents but not titles include the filter text and sort them lexicographically
   let contentWithoutHtml: string[] = []
   const parser = new Parser({
-    ontext(text: string) {
+    ontext: (text: string) => {
       contentWithoutHtml.push(text)
     }
   })
