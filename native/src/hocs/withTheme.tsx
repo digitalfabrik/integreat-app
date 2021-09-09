@@ -5,9 +5,9 @@ import { ThemeType } from 'build-configs'
 import buildConfig from '../constants/buildConfig'
 import wrapDisplayName from './wrapDisplayName'
 
-function withTheme<Props extends { theme: ThemeType }>(
+const withTheme = <Props extends { theme: ThemeType }>(
   Component: React.ComponentType<Props>
-): React.ComponentType<Omit<Props, 'theme'>> {
+): React.ComponentType<Omit<Props, 'theme'>> => {
   return class extends React.Component<Omit<Props, 'theme'>> {
     static displayName = wrapDisplayName(Component, 'withTheme')
 

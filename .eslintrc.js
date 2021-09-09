@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow'],
   extends: [
     'standard',
     'plugin:@typescript-eslint/recommended',
@@ -46,6 +46,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
 
     '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'warn',
     '@typescript-eslint/no-unused-vars': [
@@ -66,7 +67,9 @@ module.exports = {
     'jest/prefer-to-be-null': 'error',
     'jest/prefer-to-have-length': 'error',
     'jest/valid-describe': 'error',
-    'jest/valid-expect': 'error'
+    'jest/valid-expect': 'error',
+
+    'prefer-arrow/prefer-arrow-functions': 'error'
   },
   overrides: [
     {

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import program from 'commander'
 import parse from 'csv-parse/lib/sync'
 import stringify from 'csv-stringify'
@@ -193,7 +194,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
 
 program
   .command('convert <translations_file> <toPath> <format>')
-  .action(function (fromPath: string, toPath: string, targetFormat: string) {
+  .action((fromPath: string, toPath: string, targetFormat: string) => {
     const { supportedLanguages, sourceLanguage } = config
     const sourceFormat = path.extname(fromPath).replace('.', '') || 'csv'
     const converter: Record<string, () => void> = {
