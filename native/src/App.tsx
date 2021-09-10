@@ -52,7 +52,7 @@ const linking: LinkingOptions = {
       }
     ]
   }),
-  subscribe: (listener: (url: string) => void) => {
+  subscribe: buildConfig().featureFlags.pushNotifications ? (listener: (url: string) => void) => {
     const onReceiveURL = ({ url }: { url: string }) => listener(url)
 
     Linking.addEventListener('url', onReceiveURL)
@@ -79,7 +79,7 @@ const linking: LinkingOptions = {
       Linking.removeEventListener('url', onReceiveURL)
       unsubscribeNotification()
     }
-  }
+  } : undefined
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
