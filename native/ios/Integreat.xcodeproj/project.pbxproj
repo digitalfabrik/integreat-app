@@ -77,6 +77,7 @@
 		A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		AA122B6227569D12B58DFF11 /* Pods-Integreat.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.production.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.production.xcconfig"; sourceTree = "<group>"; };
+		B844D9F326E8A50400B6E963 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B2252DF2A200D4695A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B3252DF2A500D4695A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B4252DF2A800D4695A /* so */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = so; path = so.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -321,6 +322,7 @@
 				"sr-Latn",
 				sr,
 				ur,
+				hu,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
@@ -509,6 +511,7 @@
 				B876661626E7560F00E363C4 /* sr-Latn */,
 				B876661726E7562700E363C4 /* sr */,
 				B876661826E7565E00E363C4 /* ur */,
+				B844D9F326E8A50400B6E963 /* hu */,
 			);
 			name = InfoPlist.strings;
 			path = Integreat;
