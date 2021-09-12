@@ -118,8 +118,13 @@ const createNavigate = <T extends RoutesType>(
         if (!buildConfig().featureFlags.pois) {
           break
         }
-
-        navigateToPois({ ...params, cityContentPath: routeInformation.cityContentPath, key, forceRefresh })
+        navigateToPois({
+          ...params,
+          selectedPoiId: routeInformation.selectedPoiId,
+          cityContentPath: routeInformation.cityContentPath,
+          key,
+          forceRefresh
+        })
         return
 
       case SEARCH_ROUTE:

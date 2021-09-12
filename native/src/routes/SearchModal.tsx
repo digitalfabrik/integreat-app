@@ -92,7 +92,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         (category: CategoryModel): ListEntryType => {
           const contentWithoutHtml: string[] = []
           const parser = new Parser({
-            ontext(data: string) {
+            ontext: (data: string) => {
               contentWithoutHtml.push(data)
             }
           })

@@ -7,7 +7,7 @@ import { hashUrl } from 'api-client'
 import { FetchMapType } from '../sagas/fetchResourceCache'
 import { getExtension } from './helpers'
 
-interface InputEntryType {
+type InputEntryType = {
   path: string
   content: string
   thumbnail: string

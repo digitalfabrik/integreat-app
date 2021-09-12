@@ -30,7 +30,7 @@ class LocalNewsModelBuilder {
       {
         length: this._newsCount
       },
-      (x, index) => {
+      () => {
         return {
           path: null,
           newsItem: new LocalNewsModel({
