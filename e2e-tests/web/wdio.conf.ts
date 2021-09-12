@@ -6,7 +6,7 @@ export const config: Testrunner = {
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
-  maxInstances: 10,
+  maxInstances: 1,
 
   capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.browser],
   logLevel: 'info',
