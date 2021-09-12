@@ -53,6 +53,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         cleanXamarinData();
+        // https://github.com/software-mansion/react-native-screens/issues/17#issuecomment-862283867
+        if (savedInstanceState != null) {
+            savedInstanceState.remove("android:support:fragments");
+            savedInstanceState.remove("android:fragments");
+        }
         super.onCreate(savedInstanceState);
         currentLocale = getResources().getConfiguration().locale;
     }
