@@ -2,5 +2,5 @@ issue_key: IGAPP-760
 show_in_stores: true
 platforms:
   - web
-en: Improvement of the news preview for web application
-de: Verbesserung der Newsvorschau für die Webapplikation.
+en: Improvement of the news preview.
+de: Verbesserung der Newsvorschau.
