@@ -11,11 +11,12 @@ import {
   NotFoundError,
   PoiModel,
   POIS_ROUTE,
+  PoisRouteType,
   RouteInformationType
 } from 'api-client'
 
 import Caption from '../components/Caption'
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import MapView from '../components/MapView'
@@ -24,6 +25,7 @@ import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
+import { RoutePropType } from '../constants/NavigationTypes'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export type PropsType = {
@@ -36,6 +38,7 @@ export type PropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   navigateToLink: (url: string, language: string, shareUrl: string) => void
+  route: RoutePropType<PoisRouteType>
 }
 
 /**
@@ -52,17 +55,27 @@ const Pois = ({
   resourceCacheUrl,
   navigateTo,
   navigateToFeedback,
-  navigateToLink
+  navigateToLink,
+  route
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
-  const navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
+  const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
       cityContentPath: path
+    })
+  }
+
+  const navigateToPois = (cityCode: string, language: string, selectedPoiId: string) => (): void => {
+    navigateTo({
+      route: POIS_ROUTE,
+      cityCode,
+      languageCode: language,
+      selectedPoiId
     })
   }
 
@@ -73,7 +86,7 @@ const Pois = ({
         poi={poi}
         language={language}
         theme={theme}
-        navigateToPois={navigateToPois(cityCode, language, poi.path)}
+        navigateToPoi={navigateToPoi(cityCode, language, poi.path)}
       />
     )
   }
@@ -118,7 +131,14 @@ const Pois = ({
           navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && (
-              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+              <PageDetail
+                identifier={t('location')}
+                information={location}
+                theme={theme}
+                language={language}
+                linkLabel={poi?.featureLocation && t('map')}
+                onLinkClick={navigateToPois(cityModel.code, language, String(poi.location.id))}
+              />
             )}
           </>
         </Page>
@@ -131,12 +151,16 @@ const Pois = ({
       city: cityModel.code,
       language
     })
-    return <FailureContainer code={fromError(error)} />
+    return <Failure code={fromError(error)} />
   }
 
   const featureLocations = pois
     .map(poi => poi.featureLocation)
     .filter((feature): feature is Feature<Point> => !!feature)
+
+  const currentFeature: Feature<Point> | undefined = featureLocations.find(
+    feature => feature.properties?.id === Number(route.params.selectedPoiId)
+  )
 
   return (
     <ScrollView>
@@ -144,7 +168,11 @@ const Pois = ({
         <View>
           <Caption title={t('poi')} theme={theme} />
           {cityModel.boundingBox && (
-            <MapView boundingBox={cityModel.boundingBox} featureCollection={embedInCollection(featureLocations)} />
+            <MapView
+              boundingBox={cityModel.boundingBox}
+              featureCollection={embedInCollection(featureLocations)}
+              currentFeature={currentFeature}
+            />
           )}
           <List
             noItemsMessage={t('currentlyNoPois')}

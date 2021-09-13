@@ -64,7 +64,7 @@
     "react": "17.0.2",
     "react-i18next": "^11.8.8",
     "react-native": "0.64.2",
-    "react-native-elements": "2.3.2",
+    "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-highlight-words": "^1.0.1",
     "react-native-image-zoom-viewer": "^3.0.1",

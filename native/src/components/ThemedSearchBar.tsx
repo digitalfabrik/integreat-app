@@ -37,6 +37,7 @@ class ThemedSearchBar extends React.Component<PropsType> {
         inputStyle={{
           backgroundColor: colors.backgroundColor
         }}
+        // @ts-ignore on change text is currently not typed correctly
         onChangeText={onChangeText}
         value={value}
         autoFocus={autofocus}

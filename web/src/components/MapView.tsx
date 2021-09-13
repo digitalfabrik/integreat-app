@@ -1,6 +1,6 @@
 import { FeatureCollection, Feature, Point } from 'geojson'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
@@ -36,7 +36,7 @@ const geolocateControlStyle: React.CSSProperties = {
   top: 10
 }
 
-interface MapViewProps {
+type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: FeatureCollection<Point>
 }
