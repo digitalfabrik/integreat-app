@@ -1,9 +1,9 @@
-interface MapConfigProps {
+type MapConfigProps = {
   styleJSON: string
   accessToken: string
 }
 
-export interface MapViewViewport {
+export type MapViewViewport = {
   width: number
   height: number
   latitude: number

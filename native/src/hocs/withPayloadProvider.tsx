@@ -5,7 +5,7 @@ import { Dispatch } from 'redux'
 
 import { ErrorCode, LanguageModel } from 'api-client'
 
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
@@ -94,7 +94,7 @@ const withPayloadProvider = <
         }
       }, [props.route.key, props.dispatch])
 
-      function refreshIfPossible() {
+      const refreshIfPossible = () => {
         if (
           props.status === 'routeNotInitialized' ||
           props.status === 'loading' ||
@@ -108,7 +108,7 @@ const withPayloadProvider = <
         }
       }
 
-      function changeUnavailableLanguage(newLanguage: string) {
+      const changeUnavailableLanguage = (newLanguage: string) => {
         if (props.status !== 'languageNotAvailable') {
           throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }
@@ -121,7 +121,7 @@ const withPayloadProvider = <
       } else if (props.status === 'error') {
         return (
           <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-            <FailureContainer tryAgain={refreshIfPossible} code={props.code} />
+            <Failure tryAgain={refreshIfPossible} code={props.code} />
           </LayoutedScrollView>
         )
       } else if (props.status === 'languageNotAvailable') {
