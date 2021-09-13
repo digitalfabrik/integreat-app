@@ -16,7 +16,7 @@ import {
   RouteInformationType
 } from 'api-client'
 
-import FailureContainer from '../components/FailureContainer'
+import Failure from '../components/Failure'
 import NewsDetail from '../components/NewsDetail'
 import NewsList from '../components/NewsList'
 import NewsListItem from '../components/NewsListItem'
@@ -89,7 +89,7 @@ const News = (props: PropsType): ReactElement => {
       city: cityModel.code,
       language
     })
-    return <FailureContainer code={fromError(error)} />
+    return <Failure code={fromError(error)} />
   }
 
   if (newsId) {
@@ -104,7 +104,7 @@ const News = (props: PropsType): ReactElement => {
         city: cityModel.code,
         language
       })
-      return <FailureContainer code={fromError(error)} />
+      return <Failure code={fromError(error)} />
     }
   }
 
