@@ -1,17 +1,17 @@
-import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import { connect } from 'react-redux'
-import { withTranslation } from 'react-i18next'
-import { Dispatch } from 'redux'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import withTheme from '../hocs/withTheme'
 import * as React from 'react'
-import Pois, { PropsType as PoisPropsType } from './Pois'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
+import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-client'
+
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import navigateToLink from '../navigation/navigateToLink'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { ErrorCode, POIS_ROUTE, PoisRouteType, PoiModel } from 'api-client'
+import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import createNavigate from '../navigation/createNavigate'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
+import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
+import Pois from './Pois'
 
 type NavigationPropsType = {
   route: RoutePropType<PoisRouteType>
@@ -21,7 +21,7 @@ type OwnPropsType = NavigationPropsType
 type ContainerPropsType = OwnPropsType & {
   path: string | null | undefined
   pois: Array<PoiModel>
-  cityCode: string
+  cityModel: CityModel
   language: string
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
@@ -112,7 +112,14 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     route: ownProps.route
   }
 
-  if (resourceCache.status === 'error') {
+  if (state.cities.status === 'error') {
+    return {
+      status: 'error',
+      message: state.cities.message,
+      code: state.cities.code,
+      refreshProps
+    }
+  } else if (resourceCache.status === 'error') {
     return {
       status: 'error',
       message: resourceCache.message,
@@ -137,10 +144,26 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   const resourceCacheUrl = state.resourceCacheUrl
 
-  if (resourceCacheUrl === null || switchingLanguage || route.status === 'loading' || languages.status === 'loading') {
+  if (
+    resourceCacheUrl === null ||
+    switchingLanguage ||
+    state.cities.status === 'loading' ||
+    route.status === 'loading' ||
+    languages.status === 'loading'
+  ) {
     return {
       status: 'loading',
-      progress: 0
+      progress: resourceCache.progress
+    }
+  }
+
+  const cityModel = state.cities.models.find(city => city.code === route.city)
+  if (!cityModel) {
+    return {
+      status: 'error',
+      refreshProps,
+      message: 'Unknown city',
+      code: ErrorCode.PageNotFound
     }
   }
 
@@ -150,7 +173,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     innerProps: {
       path: route.path,
       pois: Array.from(route.models),
-      cityCode: route.city,
+      cityModel,
       language: route.language,
       resourceCache: resourceCache.value,
       resourceCacheUrl,
@@ -164,9 +187,16 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedPois = withTranslation('pois')(withTheme<PoisPropsType>(Pois))
-
 class PoisContainer extends React.Component<ContainerPropsType> {
+  // Workaround to fix rerender cycle with null path in Poi Detail page
+  // TODO IGAPP-758
+  shouldComponentUpdate(nextProps: ContainerPropsType) {
+    if (this.props.path === nextProps.path) {
+      return false
+    }
+    return true
+  }
+
   navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const { dispatch, navigation } = this.props
     const navigateTo = createNavigate(dispatch, navigation)
@@ -176,8 +206,9 @@ class PoisContainer extends React.Component<ContainerPropsType> {
   render() {
     const { dispatch, navigation, route, ...rest } = this.props
     return (
-      <ThemedTranslatedPois
+      <Pois
         {...rest}
+        route={route}
         navigateTo={createNavigate(dispatch, navigation)}
         navigateToFeedback={createNavigateToFeedbackModal(navigation)}
         navigateToLink={this.navigateToLinkProp}
@@ -205,4 +236,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose)(PoisContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose, true)(PoisContainer))

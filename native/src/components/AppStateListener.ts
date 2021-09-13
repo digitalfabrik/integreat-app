@@ -1,7 +1,9 @@
 import { ReactElement, useEffect } from 'react'
 import { AppState } from 'react-native'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
+
 import { RESUME_SIGNAL_NAME, SUSPEND_SIGNAL_NAME } from 'api-client'
+
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const AppStateListener = (): ReactElement | null => {
   const handleAppStateChange = (nextAppState: string) => {

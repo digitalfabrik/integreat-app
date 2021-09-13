@@ -1,17 +1,19 @@
+import React from 'react'
 import { connect } from 'react-redux'
-import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { Dispatch } from 'redux'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
+
+import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
+
+import Categories, { PropsType as CategoriesPropsType } from '../components/Categories'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import withTheme from '../hocs/withTheme'
-import Categories, { PropsType as CategoriesPropsType } from '../components/Categories'
-import React from 'react'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
-import navigateToLink from '../navigation/navigateToLink'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
+import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 
 type NavigationPropsType = {
   route: RoutePropType<CategoriesRouteType>

@@ -1,9 +1,10 @@
-import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
-import Feedback from '../Feedback'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import { SendingState } from '../FeedbackContainer'
+
 import buildConfig from '../../constants/buildConfig'
+import Feedback from '../Feedback'
+import { SendingState } from '../FeedbackContainer'
 
 jest.mock('react-i18next')
 

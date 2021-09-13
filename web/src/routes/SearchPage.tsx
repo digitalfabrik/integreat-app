@@ -1,19 +1,21 @@
-import React, { ReactElement, useCallback, useState } from 'react'
-import SearchInput from '../components/SearchInput'
-import { CategoryModel, createCategoriesEndpoint, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
-import CategoryList from '../components/CategoryList'
-import FeedbackSearch from '../components/FeedbackSearch'
-import { normalizeSearchString } from '../utils/stringUtils'
 import { Parser } from 'htmlparser2'
-import LocationLayout from '../components/LocationLayout'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath, RouteProps } from './index'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Helmet from '../components/Helmet'
+
+import { CategoryModel, createCategoriesEndpoint, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
+
 import { CityRouteProps } from '../CityContentSwitcher'
+import CategoryList from '../components/CategoryList'
+import FailureSwitcher from '../components/FailureSwitcher'
+import FeedbackSearch from '../components/FeedbackSearch'
+import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import SearchInput from '../components/SearchInput'
+import { cmsApiBaseUrl } from '../constants/urls'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import { normalizeSearchString } from '../utils/stringUtils'
+import { createPath, RouteProps } from './index'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
@@ -80,7 +82,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   // find all categories whose contents but not titles include the filter text and sort them lexicographically
   let contentWithoutHtml: string[] = []
   const parser = new Parser({
-    ontext(text: string) {
+    ontext: (text: string) => {
       contentWithoutHtml.push(text)
     }
   })

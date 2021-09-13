@@ -1,16 +1,18 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { ErrorCode, LanguageModel } from 'api-client'
 import { RefreshControl } from 'react-native'
-import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
-import { StoreActionType } from '../redux/StoreActionType'
 import { Dispatch } from 'redux'
-import FailureContainer from '../components/FailureContainer'
-import wrapDisplayName from '../hocs/wrapDisplayName'
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+
+import { ErrorCode, LanguageModel } from 'api-client'
+
+import Failure from '../components/Failure'
+import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressContainer from '../components/ProgressContainer'
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import wrapDisplayName from '../hocs/wrapDisplayName'
+import { StoreActionType } from '../redux/StoreActionType'
 
 // A waiting time of >=1s feels like an interruption
 export const LOADING_TIMEOUT = 800
@@ -92,7 +94,7 @@ const withPayloadProvider = <
         }
       }, [props.route.key, props.dispatch])
 
-      function refreshIfPossible() {
+      const refreshIfPossible = () => {
         if (
           props.status === 'routeNotInitialized' ||
           props.status === 'loading' ||
@@ -106,7 +108,7 @@ const withPayloadProvider = <
         }
       }
 
-      function changeUnavailableLanguage(newLanguage: string) {
+      const changeUnavailableLanguage = (newLanguage: string) => {
         if (props.status !== 'languageNotAvailable') {
           throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
         }
@@ -119,7 +121,7 @@ const withPayloadProvider = <
       } else if (props.status === 'error') {
         return (
           <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-            <FailureContainer tryAgain={refreshIfPossible} code={props.code} />
+            <Failure tryAgain={refreshIfPossible} code={props.code} />
           </LayoutedScrollView>
         )
       } else if (props.status === 'languageNotAvailable') {

@@ -1,5 +1,7 @@
-import { createLocalNewsEndpoint, LocalNewsModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { createLocalNewsEndpoint, LocalNewsModel } from 'api-client'
+
 import { determineApiUrl } from '../utils/helpers'
 
 function* loadLocalNews(city: string, language: string): SagaGenerator<LocalNewsModel[]> {

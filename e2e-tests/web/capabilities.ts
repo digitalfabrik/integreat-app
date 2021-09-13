@@ -1,4 +1,5 @@
 import { BrowserStackCapabilities, Capabilities } from '@wdio/types/build/Capabilities'
+
 import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
@@ -38,7 +39,7 @@ export const browserstackCapabilities = {
 }
 
 export const localCapabilities = {
-  chrome: {
+  browser: {
     browserName: 'chrome'
   },
   ci: {

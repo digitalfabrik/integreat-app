@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react'
 import { Col } from 'react-styled-flexboxgrid'
 import styled from 'styled-components'
+
 import TileModel from '../models/TileModel'
 import CleanLink from './CleanLink'
-import CleanAnchor from './CleanAnchor'
 
 type PropsType = {
   tile: TileModel
@@ -80,10 +80,8 @@ class Tile extends React.PureComponent<PropsType> {
 
   getTile(): ReactNode {
     const tile = this.props.tile
-    if (!tile.isExternalUrl) {
+    if (!tile.postData) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
-    } else if (!tile.postData) {
-      return <CleanAnchor href={tile.path}>{this.getTileContent()}</CleanAnchor>
     } else {
       const inputs: ReactNode[] = []
       tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))

@@ -1,0 +1,7 @@
+issue_key: IGAPP-745
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Removed Local Information tile from Header.
+de: Die Lokalen Informationen können nun nicht mehr im Header ausgewählt werden.

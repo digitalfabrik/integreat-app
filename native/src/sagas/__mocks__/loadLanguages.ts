@@ -1,6 +1,8 @@
-import { DataContainer } from '../../utils/DataContainer'
-import { LanguageModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { LanguageModel } from 'api-client'
+
+import { DataContainer } from '../../utils/DataContainer'
 
 export default function* (
   city: string,

@@ -1,9 +1,10 @@
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import navigateToLanguageChange from '../navigateToLanguageChange'
+import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { generateRouteKey } from '../../utils/helpers'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import { CHANGE_LANGUAGE_MODAL_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import navigateToLanguageChange from '../navigateToLanguageChange'
 
 jest.mock('../../utils/sendTrackingSignal')
 

@@ -2,9 +2,11 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
-import { ThemeType } from 'build-configs'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50

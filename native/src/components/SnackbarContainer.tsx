@@ -1,10 +1,11 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Animated, View, LayoutChangeEvent } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-import { SnackbarType, StateType } from '../redux/StateType'
+
 import Snackbar from '../components/Snackbar'
+import { SnackbarType, StateType } from '../redux/StateType'
 
 const Container = styled(View)`
   position: absolute;

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
-import Toolbar from './Toolbar'
+
 import FeedbackToolbarItem, { FeedbackRatingType } from './FeedbackToolbarItem'
+import Toolbar from './Toolbar'
 
 type PropsType = {
   openFeedbackModal: (rating: FeedbackRatingType) => void

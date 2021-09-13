@@ -1,9 +1,11 @@
-import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
-import { CityContentStateType } from '../../StateType'
-import cityContentReducer from '../cityContentReducer'
-import { PushNewsActionType } from '../../StoreActionType'
 import moment from 'moment'
+
+import { LocalNewsModel, LanguageModel, NEWS_ROUTE } from 'api-client'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
+
+import { CityContentStateType } from '../../StateType'
+import { PushNewsActionType } from '../../StoreActionType'
+import cityContentReducer from '../cityContentReducer'
 
 describe('pushNews', () => {
   const news1: LocalNewsModel = new LocalNewsModel({

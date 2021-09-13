@@ -1,5 +1,7 @@
-import { ThemeType } from './ThemeType'
 import { TranslationsType } from 'translations'
+
+import { ThemeType } from './ThemeType'
+
 // Build Configs
 // These are the types of our build configs and therefore define the structure and available options.
 // Each build config (e.g. integreat, malte) is available per platform (android, ios, web) with some shared options.

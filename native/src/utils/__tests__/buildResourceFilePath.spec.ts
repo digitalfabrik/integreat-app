@@ -1,5 +1,6 @@
-import buildResourceFilePath from '../buildResourceFilePath'
 import { hashUrl } from 'api-client'
+
+import buildResourceFilePath from '../buildResourceFilePath'
 
 describe('buildResourceFilePath', () => {
   it('should return the resource file path', () => {

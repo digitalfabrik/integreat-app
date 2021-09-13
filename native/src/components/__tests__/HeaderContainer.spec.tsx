@@ -1,7 +1,12 @@
+import { render } from '@testing-library/react-native'
+import { merge } from 'lodash'
 import * as React from 'react'
+import { Provider } from 'react-redux'
+import { Store } from 'redux'
 import configureMockStore from 'redux-mock-store'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import { StateType } from 'src/redux/StateType'
+import { StoreActionType } from 'src/redux/StoreActionType'
+
 import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
@@ -12,14 +17,11 @@ import {
   POIS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
-import HeaderContainer from '../HeaderContainer'
-import { render } from '@testing-library/react-native'
-import { Provider } from 'react-redux'
-import { Store } from 'redux'
-import { StateType } from 'src/redux/StateType'
-import { StoreActionType } from 'src/redux/StoreActionType'
-import { merge } from 'lodash'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
 import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
+import HeaderContainer from '../HeaderContainer'
 
 const mockStore = configureMockStore<StateType, StoreActionType>()
 jest.mock('react-i18next')

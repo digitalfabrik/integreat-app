@@ -1,13 +1,15 @@
+import { omit } from 'lodash'
+
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
+
 import { CityContentStateType, defaultCityContentState } from '../StateType'
-import morphContentLanguage from './morphContentLanguage'
-import pushEvent from './pushEvent'
-import pushNews from './pushNews'
 import { StoreActionType } from '../StoreActionType'
 import createCityContent from './createCityContent'
-import { omit } from 'lodash'
-import pushPoi from './pushPoi'
+import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
+import pushEvent from './pushEvent'
+import pushNews from './pushNews'
+import pushPoi from './pushPoi'
 
 export default (
   state: CityContentStateType | null = defaultCityContentState,

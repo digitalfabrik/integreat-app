@@ -1,4 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import {
   CATEGORIES_ROUTE,
   EVENTS_ROUTE,
@@ -8,12 +10,12 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE
 } from 'api-client'
-import Failure from './Failure'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
+
 import { createPath } from '../routes'
-import Helmet from './Helmet'
-import { useTranslation } from 'react-i18next'
 import { reportError } from '../utils/sentry'
+import Failure from './Failure'
+import Helmet from './Helmet'
 
 type PropsType = {
   error: Error

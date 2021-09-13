@@ -1,15 +1,25 @@
-import fs from 'fs'
+/* eslint-disable no-console */
 import program from 'commander'
-import path from 'path'
-import flat from 'flat'
-import stringify from 'csv-stringify'
 import parse from 'csv-parse/lib/sync'
-import config from '../src/config'
+import stringify from 'csv-stringify'
+import flat from 'flat'
+import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
-import { KeyValueType } from '../src/types'
+import path from 'path'
+
 import { TranslationsType } from '../src'
+import config from '../src/config'
+import { KeyValueType } from '../src/types'
 
 const { unflatten } = flat
+
+const XCODE_LANGUAGES_MAP: Record<string, string> = {
+  'sr-Cyrl': 'sr',
+  pes: 'fa',
+  prs: 'fa-AF',
+  kmr: 'ku',
+  'zh-CN': 'zh-HANS'
+} as const
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
@@ -33,7 +43,12 @@ const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: 
   })
   const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
   const withSourceLanguagePairs = zippedLanguagePairs.map(
-    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation]
+    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => {
+      if (!translation) {
+        console.log('Missing translation:', key, '[', name, ']')
+      }
+      return [key, sourceTranslation, translation]
+    }
   )
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
@@ -179,7 +194,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
 
 program
   .command('convert <translations_file> <toPath> <format>')
-  .action(function (fromPath: string, toPath: string, targetFormat: string) {
+  .action((fromPath: string, toPath: string, targetFormat: string) => {
     const { supportedLanguages, sourceLanguage } = config
     const sourceFormat = path.extname(fromPath).replace('.', '') || 'csv'
     const converter: Record<string, () => void> = {
@@ -217,6 +232,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
   languageCodes.forEach(language => {
     const translations = nativeTranslations[language]
     const keys = Object.keys(translations)
+
     const content = keys
       .map(key => {
         const regex = /{{appName}}/gi
@@ -224,7 +240,11 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
         return `${key} = "${value}";`
       })
       .join('\n')
-    const path = `${destination}/${language}.lproj/`
+
+    // XCode uses different tags for some languages
+    const languageKey = XCODE_LANGUAGES_MAP[language] ?? language
+    const path = `${destination}/${languageKey}.lproj/`
+
     fs.mkdirSync(path, {
       recursive: true
     })

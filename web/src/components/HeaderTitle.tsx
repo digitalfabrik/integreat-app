@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
+
 import dimensions from '../constants/dimensions'
 
 type PropsType = {

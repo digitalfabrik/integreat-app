@@ -1,8 +1,9 @@
-import { I18nManager } from './src/testing/I18nManagerMock'
-import path from 'path'
-import fs from 'fs'
-import '@testing-library/jest-native/extend-expect'
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
+import '@testing-library/jest-native/extend-expect'
+import fs from 'fs'
+import path from 'path'
+
+import { I18nManager } from './src/testing/I18nManagerMock'
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
@@ -20,7 +21,7 @@ jest.mock('react-native-reanimated', () => {
 })
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 
-function walkDir(dir: string, callback: (filePath: string) => void): void {
+const walkDir = (dir: string, callback: (filePath: string) => void): void => {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
     const isDirectory = fs.statSync(filePath).isDirectory()

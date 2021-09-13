@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
-import SelectorItemModel from '../models/SelectorItemModel'
-import styled, { css } from 'styled-components'
-import { helpers } from '../constants/theme'
-import dimensions from '../constants/dimensions'
-import Tooltip from './Tooltip'
 import { Link } from 'react-router-dom'
+import styled, { css } from 'styled-components'
+
+import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
+import SelectorItemModel from '../models/SelectorItemModel'
+import Tooltip from './Tooltip'
 
 const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};

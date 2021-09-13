@@ -1,22 +1,21 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
-import { LocalNewsModel, TunewsModel } from 'api-client'
-import styled from 'styled-components/native'
-import { TFunction } from 'react-i18next'
-import { ThemeType } from 'build-configs'
+import { useTranslation } from 'react-i18next'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import { contentAlignment, contentDirection } from '../constants/contentDirection'
+import styled from 'styled-components/native'
+
+import { LocalNewsModel, TunewsModel } from 'api-client'
 import { config } from 'translations'
-import TimeStamp from './TimeStamp'
+
+import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import TimeStamp from './TimeStamp'
 
 type PropsType = {
   index: number
   newsItem: LocalNewsModel | TunewsModel
   language: string
   navigateToNews: () => void
-  theme: ThemeType
-  t: TFunction
   isTunews: boolean
 }
 
@@ -84,7 +83,8 @@ export const ReadMore = styled.Text<{ isTunews: boolean }>`
   color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
 `
 
-const NewsListItem = ({ index, newsItem, language, navigateToNews, theme, t, isTunews }: PropsType): ReactElement => {
+const NewsListItem = ({ index, newsItem, language, navigateToNews, isTunews }: PropsType): ReactElement => {
+  const { t, i18n } = useTranslation('news')
   const formatter = useContext(DateFormatterContext)
   const localNewsContent = newsItem instanceof LocalNewsModel ? newsItem.message : ''
   const tuNewsContent = newsItem instanceof TunewsModel ? newsItem.content : ''
@@ -95,34 +95,33 @@ const NewsListItem = ({ index, newsItem, language, navigateToNews, theme, t, isT
     <>
       <Divider firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledTouchableOpacity onPress={navigateToNews} theme={theme}>
-          <Description theme={theme}>
-            <ListItemView language={language} theme={theme}>
-              <Title theme={theme}>{newsItem.title}</Title>
+        <StyledTouchableOpacity onPress={navigateToNews}>
+          <Description>
+            <ListItemView language={language}>
+              <Title>{newsItem.title}</Title>
             </ListItemView>
-            <ListItemView language={language} theme={theme}>
-              <Content numberOfLines={5} language={language} theme={theme}>
+            <ListItemView language={language}>
+              <Content numberOfLines={5} language={language}>
                 {content}
               </Content>
             </ListItemView>
             {timestamp && (
-              <ListItemView language={language} theme={theme}>
-                <TimeStampContent language={language} theme={theme}>
-                  <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} theme={theme} />
+              <ListItemView language={language}>
+                <TimeStampContent language={language}>
+                  <TimeStamp formatter={formatter} lastUpdate={timestamp} showText={false} />
                 </TimeStampContent>
               </ListItemView>
             )}
           </Description>
-          <ReadMoreWrapper language={language}>
-            <ReadMore theme={theme} isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
+          <ReadMoreWrapper language={i18n.language}>
+            <ReadMore isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
             <Icon
-              theme={theme}
               isTunews={isTunews}
               name='keyboard-arrow-right'
               style={{
                 transform: [
                   {
-                    scaleX: config.hasRTLScript(language) ? -1 : 1
+                    scaleX: config.hasRTLScript(i18n.language) ? -1 : 1
                   }
                 ]
               }}

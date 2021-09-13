@@ -1,5 +1,6 @@
-import { CategoryModel } from 'api-client'
 import { has } from 'lodash'
+
+import { CategoryModel } from 'api-client'
 
 class CategoriesRouteStateView {
   readonly rawPath: string

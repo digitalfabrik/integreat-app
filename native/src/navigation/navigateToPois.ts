@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux'
+
+import { POIS_ROUTE } from 'api-client/src/routes'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import { FetchPoiActionType, StoreActionType } from '../redux/StoreActionType'
 import { generateRouteKey } from '../utils/helpers'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { POIS_ROUTE } from 'api-client/src/routes'
 
 const navigateToPois = <T extends RoutesType>({
   navigation,
@@ -11,7 +13,8 @@ const navigateToPois = <T extends RoutesType>({
   languageCode,
   cityContentPath,
   key = generateRouteKey(),
-  forceRefresh = false
+  forceRefresh = false,
+  selectedPoiId
 }: {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
@@ -20,10 +23,14 @@ const navigateToPois = <T extends RoutesType>({
   cityContentPath: string | null | undefined
   key?: string
   forceRefresh?: boolean
+  selectedPoiId?: string
 }): void => {
   navigation.navigate({
     name: POIS_ROUTE,
-    key
+    key,
+    params: {
+      selectedPoiId
+    }
   })
   const fetchPoi: FetchPoiActionType = {
     type: 'FETCH_POI',

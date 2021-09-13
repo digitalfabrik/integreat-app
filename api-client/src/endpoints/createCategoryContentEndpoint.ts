@@ -1,8 +1,9 @@
-import CategoryModel from '../models/CategoryModel'
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonCategoryType } from '../types'
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
 import mapCategoryJson from '../mapping/mapCategoryJson'
+import CategoryModel from '../models/CategoryModel'
+import { JsonCategoryType } from '../types'
+
 export const CATEGORY_CONTENT_ENDPOINT_NAME = 'categoryContent'
 type ParamsType = {
   city: string

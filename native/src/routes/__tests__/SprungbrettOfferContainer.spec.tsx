@@ -1,17 +1,19 @@
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { CityModel, ErrorCode, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
-import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
-import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
+
+import { CityModel, ErrorCode, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
   mockUseLoadFromEndpointLoading,
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { reportError } from '../../utils/helpers'
+import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 
 jest.mock('../../utils/helpers', () => ({
   reportError: jest.fn()
@@ -27,7 +29,7 @@ jest.mock('../SprungbrettOffer', () => {
 
   return () => <Text>SprungbrettOffer</Text>
 })
-jest.mock('../../components/FailureContainer', () => {
+jest.mock('../../components/Failure', () => {
   const Text = require('react-native').Text
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>

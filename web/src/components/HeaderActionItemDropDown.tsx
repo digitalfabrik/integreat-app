@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
-import useOnClickOutside from '../hooks/useOnClickOutside'
+
 import dimensions from '..//constants/dimensions'
+import useOnClickOutside from '../hooks/useOnClickOutside'
 import Tooltip from './Tooltip'
 
 export const Container = styled.div`

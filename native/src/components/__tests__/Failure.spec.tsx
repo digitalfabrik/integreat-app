@@ -1,43 +1,33 @@
-import Failure from '../Failure'
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import * as React from 'react'
+
 import { ErrorCode } from 'api-client'
-import buildConfig from '../../constants/buildConfig'
+
+import wrapWithTheme from '../../testing/wrapWithTheme'
+import Failure from '../Failure'
+
+jest.mock('react-i18next')
 
 describe('Failure', () => {
+  const renderFailure = (tryAgain?: () => void, code: ErrorCode = ErrorCode.UnknownError): RenderAPI => {
+    return render(<Failure code={code} tryAgain={tryAgain} />, { wrapper: wrapWithTheme })
+  }
+
   it('should render a retry button if tryAgain is passed', () => {
-    const { getByTestId } = render(
-      <Failure
-        theme={buildConfig().lightTheme}
-        tryAgain={() => {}}
-        code={ErrorCode.UnknownError}
-        t={(key: string) => key}
-      />
-    )
+    const { getByTestId } = renderFailure(() => {})
     expect(getByTestId('button-tryAgain')).toBeTruthy()
   })
   it('should not render a retry button if tryAgain is not passed', () => {
-    const { queryByTestId } = render(
-      <Failure theme={buildConfig().lightTheme} code={ErrorCode.UnknownError} t={(key: string) => key} />
-    )
+    const { queryByTestId } = renderFailure()
     expect(queryByTestId('button-tryAgain')).toBeNull()
   })
   it('should have a correct message as title', () => {
-    const { getByText } = render(
-      <Failure theme={buildConfig().lightTheme} code={ErrorCode.UnknownError} t={(key: string) => key} />
-    )
+    const { getByText } = renderFailure()
     expect(getByText(ErrorCode.UnknownError)).toBeTruthy()
   })
   it('should try again if button is pressed', () => {
     const tryAgain = jest.fn()
-    const { getByTestId } = render(
-      <Failure
-        theme={buildConfig().lightTheme}
-        code={ErrorCode.UnknownError}
-        tryAgain={tryAgain}
-        t={(key: string) => key}
-      />
-    )
+    const { getByTestId } = renderFailure(tryAgain)
     fireEvent.press(getByTestId('button-tryAgain'))
     expect(tryAgain).toHaveBeenCalled()
   })

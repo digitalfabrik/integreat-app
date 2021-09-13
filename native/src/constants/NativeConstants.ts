@@ -1,4 +1,5 @@
 import { NativeModules } from 'react-native'
+
 export type NativeConstantsType = {
   readonly appVersion: string | null | undefined
 }

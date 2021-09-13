@@ -1,19 +1,21 @@
+import { transform, groupBy } from 'lodash'
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { transform, groupBy } from 'lodash'
-import CityEntry from './CityEntry'
-import { View } from 'react-native'
-import { CityModel } from 'api-client'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs'
 import { TFunction } from 'react-i18next'
-import getNearbyPlaces from '../utils/getNearbyPlaces'
-import { LocationType } from '../routes/Landing'
+import { View } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import CityGroup from './CityGroup'
-import { normalizeSearchString } from '../utils/helpers'
+import styled from 'styled-components/native'
+
+import { CityModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import buildConfig from '../constants/buildConfig'
+import { LocationType } from '../routes/Landing'
+import getNearbyPlaces from '../utils/getNearbyPlaces'
+import { normalizeSearchString } from '../utils/helpers'
+import CityEntry from './CityEntry'
+import CityGroup from './CityGroup'
 
 const CityGroupContainer = styled.View`
   flex: 0;

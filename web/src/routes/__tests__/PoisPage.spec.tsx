@@ -1,15 +1,17 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+
 import { CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
-import { renderWithBrowserRouter } from '../../testing/render'
-import { Route } from 'react-router-dom'
-import { createPath, RoutePatterns } from '../index'
+
 import buildConfig from '../../constants/buildConfig'
-import { ThemeProvider } from 'styled-components'
+import { renderWithBrowserRouter } from '../../testing/render'
 import PoisPage from '../PoisPage'
+import { createPath, RoutePatterns } from '../index'
 
 jest.mock('api-client', () => {
   return {

@@ -1,6 +1,7 @@
-import React from 'react'
-import SelectorItemModel from '../../models/SelectorItemModel'
 import { shallow } from 'enzyme'
+import React from 'react'
+
+import SelectorItemModel from '../../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from '../HeaderLanguageSelectorItem'
 
 jest.mock('react-i18next')
