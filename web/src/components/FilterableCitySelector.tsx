@@ -1,10 +1,12 @@
 import React, { ReactNode } from 'react'
+import { withTranslation, TFunction } from 'react-i18next'
+import styled from 'styled-components'
+
+import { CityModel } from 'api-client'
+
+import CitySelector from './CitySelector'
 import Heading from './Heading'
 import ScrollingSearchBox from './ScrollingSearchBox'
-import CitySelector from './CitySelector'
-import { CityModel } from 'api-client'
-import styled from 'styled-components'
-import { withTranslation, TFunction } from 'react-i18next'
 
 const Container = styled.div`
   padding-top: 22px;

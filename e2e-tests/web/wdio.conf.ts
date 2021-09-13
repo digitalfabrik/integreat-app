@@ -1,14 +1,15 @@
+import { Testrunner } from '@wdio/types/build/Options'
+
 import { localCapabilities } from './capabilities'
 
-export const config = {
+export const config: Testrunner = {
   runner: 'local',
   specs: ['./web/test/specs/**/*.ts'],
   exclude: [],
-  maxInstances: 10,
+  maxInstances: 1,
 
-  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.chrome],
+  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.browser],
   logLevel: 'info',
-  coloredLogs: true,
   bail: 0,
   baseUrl: 'http://localhost:9000',
   waitforTimeout: 100000,
@@ -22,14 +23,14 @@ export const config = {
     defaultTimeoutInterval: 50000
   },
 
-  onPrepare: async function (): Promise<void> {
+  onPrepare: async (): Promise<void> => {
     if (process.env.CI) {
       const startupDelay = 20000
       await new Promise(resolve => setTimeout(resolve, startupDelay))
     }
   },
 
-  before: async function (): Promise<void> {
+  before: async (): Promise<void> => {
     await browser.setTimeout({ implicit: 80000, pageLoad: 60000 })
   }
 }

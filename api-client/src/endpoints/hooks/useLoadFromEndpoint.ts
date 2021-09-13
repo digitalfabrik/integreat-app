@@ -1,5 +1,6 @@
-import { Payload } from 'api-client'
 import { useCallback, useEffect, useState } from 'react'
+
+import { Payload } from 'api-client'
 
 type RequestType<T> = () => Promise<Payload<T>>
 

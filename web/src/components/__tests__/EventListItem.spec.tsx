@@ -1,14 +1,16 @@
-import React from 'react'
-import { DateFormatter, DateModel, EventModel, LocationModel } from 'api-client'
 import moment from 'moment'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import { DateFormatter, DateModel, EventModel, LocationModel } from 'api-client'
+
 import EventPlaceholder1 from '../../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
-import EventListItem, { NUM_OF_WORDS_ALLOWED } from '../EventListItem'
-import { textTruncator } from '../../utils/stringUtils'
-import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import { textTruncator } from '../../utils/stringUtils'
+import EventListItem, { NUM_OF_WORDS_ALLOWED } from '../EventListItem'
 
 describe('EventListItem', () => {
   const language = 'de'

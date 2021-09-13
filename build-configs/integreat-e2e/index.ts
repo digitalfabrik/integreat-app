@@ -1,10 +1,11 @@
-import integreatPlatformBuildConfigs from '../integreat'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
+import integreatPlatformBuildConfigs from '../integreat'
+
 const integreatE2e = {
   appName: 'IntegreatE2E',
   e2e: true,

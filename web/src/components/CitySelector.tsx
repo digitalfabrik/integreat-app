@@ -1,9 +1,11 @@
-import React, { ReactNode, ReactElement } from 'react'
 import { transform, groupBy } from 'lodash'
-import { CityModel } from 'api-client'
-import CityEntry from './CityEntry'
+import React, { ReactNode, ReactElement } from 'react'
 import styled from 'styled-components'
+
+import { CityModel } from 'api-client'
+
 import { normalizeSearchString } from '../utils/stringUtils'
+import CityEntry from './CityEntry'
 
 const CityListParent = styled.div<{ stickyTop: number }>`
   position: sticky;

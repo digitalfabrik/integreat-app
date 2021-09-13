@@ -1,6 +1,7 @@
+import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
+
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import navigateToNews from '../navigateToNews'
-import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 describe('navigateToNews', () => {
   it('should generate key if not supplied with at least 6 chars and use it for navigation and redux actions', () => {

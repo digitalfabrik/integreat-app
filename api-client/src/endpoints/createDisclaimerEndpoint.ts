@@ -1,10 +1,12 @@
-import PageModel from '../models/PageModel'
-import EndpointBuilder from '../EndpointBuilder'
 import moment from 'moment-timezone'
-import { JsonDisclaimerType } from '../types'
+
 import Endpoint from '../Endpoint'
-import normalizePath from '../normalizePath'
+import EndpointBuilder from '../EndpointBuilder'
 import NotFoundError from '../errors/NotFoundError'
+import PageModel from '../models/PageModel'
+import normalizePath from '../normalizePath'
+import { JsonDisclaimerType } from '../types'
+
 export const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
 type ParamsType = {
   city: string

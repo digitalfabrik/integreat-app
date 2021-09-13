@@ -1,9 +1,11 @@
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components'
-import { SEARCH_FEEDBACK_TYPE } from 'api-client'
-import TextButton from './TextButton'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
+import { SEARCH_FEEDBACK_TYPE } from 'api-client'
+
 import FeedbackContainer from './FeedbackContainer'
+import TextButton from './TextButton'
 
 const Container = styled.div`
   display: flex;

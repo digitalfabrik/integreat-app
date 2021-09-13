@@ -1,15 +1,17 @@
 import * as React from 'react'
 import { ReactElement } from 'react'
-import styled from 'styled-components/native'
-import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
-import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs/ThemeType'
+
+import HappyIcon from '../assets/smile-happy.svg'
+import buildConfig from '../constants/buildConfig'
 import Caption from './Caption'
 import { SendingStatusType } from './FeedbackContainer'
-import buildConfig from '../constants/buildConfig'
-import HappyIcon from '../assets/smile-happy.svg'
 
 const Input = styled(TextInput)`
   padding: 15px;

@@ -1,7 +1,8 @@
+import { isEmpty } from 'lodash'
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { isEmpty } from 'lodash'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 const StyledView = styled.View`

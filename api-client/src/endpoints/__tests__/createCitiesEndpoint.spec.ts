@@ -1,6 +1,6 @@
-import createCitiesEndpoint from '../createCitiesEndpoint'
 import CityModel from '../../models/CityModel'
 import { JsonCityType } from '../../types'
+import createCitiesEndpoint from '../createCitiesEndpoint'
 
 describe('cities', () => {
   const baseUrl = 'https://integreat-api-url.de'

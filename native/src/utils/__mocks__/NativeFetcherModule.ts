@@ -1,8 +1,9 @@
-import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
-import { NativeEventEmitter } from 'react-native'
 import { mapValues } from 'lodash'
+import { NativeEventEmitter } from 'react-native'
 
-function mockFetchAsync(targetFilePaths: TargetFilePathsType): Promise<FetchResultType> {
+import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
+
+const mockFetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
   const fetchResult = mapValues(targetFilePaths, (url: string) => ({
     lastUpdate: '2004-06-14T23:34:30Z',
     url: url,

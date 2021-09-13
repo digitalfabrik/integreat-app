@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { ThemeType } from 'build-configs'
-import { SearchBar } from 'react-native-elements'
 import { TFunction } from 'react-i18next'
+import { SearchBar } from 'react-native-elements'
+
+import { ThemeType } from 'build-configs'
+
 import testID from '../testing/testID'
 
 type PropsType = {
@@ -35,6 +37,7 @@ class ThemedSearchBar extends React.Component<PropsType> {
         inputStyle={{
           backgroundColor: colors.backgroundColor
         }}
+        // @ts-ignore on change text is currently not typed correctly
         onChangeText={onChangeText}
         value={value}
         autoFocus={autofocus}

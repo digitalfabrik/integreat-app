@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import Helmet from '../components/Helmet'
 
 const NotFoundPage = (): ReactElement => {

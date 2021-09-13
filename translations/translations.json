@@ -40,13 +40,17 @@
       "createPdf": "Kreiraj PDF",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
     },
+    "hu": {
+      "createPdf": "PDF létrehozása",
+      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
+    },
     "it": {
       "createPdf": "Crea PDF",
       "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
     },
     "ka": {
       "createPdf": "PDF. შექმნა",
-      "metaDescription": "‎{{აპპ სახელი}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
+      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
     },
     "kmr": {
       "createPdf": "Pêkanîna PDF'ê",
@@ -103,6 +107,10 @@
     "tr": {
       "createPdf": "PDF oluşturun",
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
+    },
+    "ur": {
+      "createPdf": "PDF بنائیں",
+      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
     },
     "zh-CN": {
       "createPdf": "创建 PDF",
@@ -169,6 +177,12 @@
       "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
       "loading": "Učitava se..."
+    },
+    "hu": {
+      "languageNotAvailable": "A nyelved sajnos nem elérhető.",
+      "chooseALanguage": "Válassz ki egy nyelvet.",
+      "lastUpdate": "Utolsó aktualizálás:",
+      "loading": "Betöltés..."
     },
     "it": {
       "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
@@ -266,6 +280,12 @@
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ..."
     },
+    "ur": {
+      "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
+      "chooseALanguage": "زبان منتخب کریں۔",
+      "lastUpdate": "آخری ترمیم:",
+      "loading": "لوڈ ہو رہا ہے ‎…"
+    },
     "zh-CN": {
       "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
       "chooseALanguage": "请选择一种语言。",
@@ -343,6 +363,13 @@
       "events": "Događanja",
       "news": "Vijesti",
       "newsAlternative": "Novosti"
+    },
+    "hu": {
+      "localInformation": "Helyi információk",
+      "offers": "Ajánlatok",
+      "events": "Események",
+      "news": "Hírek",
+      "newsAlternative": "Újdonságok"
     },
     "it": {
       "localInformation": "Informazioni locali",
@@ -456,12 +483,108 @@
       "news": "Mesajlar",
       "newsAlternative": "Yenilikler"
     },
+    "ur": {
+      "localInformation": "مقامی معلومات",
+      "offers": "پیش کشیں",
+      "events": "ایونٹس",
+      "news": "خبریں",
+      "newsAlternative": "خبریں"
+    },
     "zh-CN": {
       "localInformation": "本地信息",
       "offers": "提供项目",
       "events": "活动",
       "news": "新闻",
       "newsAlternative": "新消息"
+    }
+  },
+  "disclaimer": {
+    "de": {
+      "pageTitle": "Impressum und Kontakt"
+    },
+    "am": {
+      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
+    },
+    "ar": {
+      "pageTitle": "هيئة التحرير وجهة الاتصال"
+    },
+    "bg": {
+      "pageTitle": "Импресум и контакт"
+    },
+    "ckb": {
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
+    },
+    "el": {
+      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+    },
+    "en": {
+      "pageTitle": "Imprint and contacts"
+    },
+    "es": {
+      "pageTitle": "Aviso legal y contacto"
+    },
+    "fr": {
+      "pageTitle": "Mentions légales et contact"
+    },
+    "hr": {
+      "pageTitle": "Impresum i kontakt"
+    },
+    "hu": {
+      "pageTitle": "Impresszum és elérhetőség"
+    },
+    "it": {
+      "pageTitle": "Impressum e contatti"
+    },
+    "ka": {
+      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
+    },
+    "kmr": {
+      "pageTitle": "Lêzanînên Weşîner û Têkillî"
+    },
+    "mk": {
+      "pageTitle": "Импресум и контакт"
+    },
+    "pes": {
+      "pageTitle": "اطلاعات ناشر و تماس"
+    },
+    "pl": {
+      "pageTitle": "Nota prawna i kontakt"
+    },
+    "prs": {
+      "pageTitle": "معلومات ناشر و تماس"
+    },
+    "ps": {
+      "pageTitle": "خپروونکی او تماس"
+    },
+    "ro": {
+      "pageTitle": "Caseta tehnică și contact"
+    },
+    "ru": {
+      "pageTitle": "Выходные данные и контактная информация"
+    },
+    "so": {
+      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
+    },
+    "sq": {
+      "pageTitle": "Botuesi dhe kontakti"
+    },
+    "sr-Cyrl": {
+      "pageTitle": "Импресум и контакт"
+    },
+    "sr-Latn": {
+      "pageTitle": "Impresum i kontakt"
+    },
+    "ti": {
+      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
+    },
+    "tr": {
+      "pageTitle": "Künye ve iletişim"
+    },
+    "ur": {
+      "pageTitle": "چھاپ اور رابطہ"
+    },
+    "zh-CN": {
+      "pageTitle": "版本说明和联系方式"
     }
   },
   "error": {
@@ -805,6 +928,40 @@
       "generalError": "Došlo je do pogreške",
       "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
       "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
+    },
+    "hu": {
+      "notFound": {
+        "language": "A nyelved itt sajnos nem elérhető.",
+        "city": "Ez a város sajnos nem található.",
+        "category": "Ez az oldal sajnos nem található.",
+        "event": "Ez az esemény sajnos nem található.",
+        "offer": "Ez az ajánlat sajnos nem található.",
+        "poi": "Ez az érdekesség sajnos nem található.",
+        "localNews": "Ez az üzenet sajnos nem található.",
+        "tunews": "Ez a tünews sajnos nem található.",
+        "pageTitle": "Az oldal nem található"
+      },
+      "pageNotFound": "Ez az oldal sajnos nem található.",
+      "networkConnectionFailed": "Kapcsolódás a szerverhez sikertelen.",
+      "networkRequestFailed": "A kérése nem került feldolgozásra.",
+      "responseMappingFailed": "A szerver válasza nem volt feldolgozható.",
+      "unknownError": "Ismeretlen hiba lépett fel.",
+      "tryAgain": "Próbáld meg újra",
+      "loadingFailed": "Az oldal betöltése sikertelen.",
+      "chooseALanguage": "Válassz ki egy nyelvet:",
+      "goTo": {
+        "start": "A Kezdőoldalra",
+        "categories": "A Kategóriákhoz",
+        "events": "Az Eseményekhez",
+        "offers": "Az Ajánlatokhoz",
+        "pois": "Az Érdekességekhez",
+        "localNews": "A hírekhez",
+        "tunews": "A tünews-hoz"
+      },
+      "pageTitle": "Hiba",
+      "generalError": "Hiba lépett fel.",
+      "languageSwitchFailedTitle": "Sikertelen nyelvváltoztatás.",
+      "languageSwitchFailedMessage": "A kiválasztott nyelv offline nem elérhető. Aktív internetkapcsolat szükséges."
     },
     "it": {
       "notFound": {
@@ -1350,6 +1507,41 @@
       "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
       "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
     },
+    "ur": {
+      "notFound": {
+        "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
+        "city": "معذرت، یہ شہر نہیں ملا۔",
+        "category": "معذرت، یہ صفحہ نہیں ملا۔",
+        "event": "معذرت، یہ ایونٹ نہیں ملا۔",
+        "offer": "معذرت، یہ پیش کش نہیں ملی۔",
+        "poi": "معذرت، یہ دلچسپی کا مقام نہیں ملا۔",
+        "localNews": "معذرت، یہ خبر نہیں ملی۔",
+        "tunews": "معذرت، یہ tünews نہیں ملا۔",
+        "pageTitle": "صفحہ نہیں ملا"
+      },
+      "pageNotFound": "معذرت، یہ صفحہ نہیں ملا۔",
+      "networkConnectionFailed": "سرور سے رابطہ ناکام ہو گیا۔",
+      "networkRequestFailed": "درخواست پر عمل نہیں ہو سکا۔",
+      "responseMappingFailed": "سرور کے جواب پر عمل نہیں ہو سکا۔",
+      "unknownError": "نامعلوم خرابی پیش آئی ہے۔",
+      "tryAgain": "دوبارہ کوشش کریں",
+      "loadingFailed": "معذرت، یہ صفجہ لوڈ نہیں ہو سکا۔",
+      "chooseALanguage": "زبان منتخب کریں:",
+      "goTo": {
+        "start": "صفحہ اول پر",
+        "categories": "زمروں پر",
+        "events": "ایونٹس پر",
+        "offers": "پیش کشوں کے متعلق",
+        "pois": "دلچسپی کے مقامات پر",
+        "localNews": "خبروں پر",
+        "tunews": "Tünews پر"
+      },
+      "pageTitle": "خرابی",
+      "generalError": "ایک خرابی پیش آئی ہے",
+      "notSupportedByDevice": "یہ فنکشن اس ڈیوائس پر نہیں چل سکتا۔",
+      "languageSwitchFailedTitle": "معذرت، زبان کی تبدیلی ناکام رہی۔",
+      "languageSwitchFailedMessage": "منتخب کردہ زبان آف لائن دستیاب نہیں، فعال انٹرنیٹ کنکشن ضروری ہے۔"
+    },
     "zh-CN": {
       "notFound": {
         "language": "很抱歉，这里没有提供该语言。",
@@ -1455,6 +1647,13 @@
       "events": "Događanja",
       "currentlyNoEvents": "Trenutačno nema događanja.",
       "pageTitle": "Događanja"
+    },
+    "hu": {
+      "location": "Helyszín",
+      "date": "Dátum",
+      "events": "Események",
+      "currentlyNoEvents": "Jelenleg nincsenek események.",
+      "pageTitle": "Események"
     },
     "it": {
       "location": "Posizione",
@@ -1567,6 +1766,13 @@
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok.",
       "pageTitle": "Etkinlikler"
+    },
+    "ur": {
+      "location": "مقام",
+      "date": "تاریخ",
+      "events": "ایونٹس",
+      "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
+      "pageTitle": "ایونٹس"
     },
     "zh-CN": {
       "location": "位置",
@@ -1696,7 +1902,7 @@
       "informationNotFound": "Δεν βρήκατε το σωστό;",
       "wantedInformation": "Ποιες πληροφορίες λείπουν;",
       "feedbackSent": "Τα σχόλια στάλθηκαν",
-      "thanksMessage": "Ευχαριστούμε για τα σχόλιά σας, τα οποία θα μας βοηθήσουν να βελτιώσουμε το περιεχόμενό μας και την εφαρμογή {{}}. Ανυπομονούμε για περαιτέρω σχόλια.",
+      "thanksMessage": "Ευχαριστούμε για τα σχόλιά σας, τα οποία θα μας βοηθήσουν να βελτιώσουμε το περιεχόμενό μας και την εφαρμογή {{appName}}. Ανυπομονούμε για περαιτέρω σχόλια.",
       "close": "Κλείσιμο",
       "negativeRating": "Αυτή η σελίδα δεν είναι χρήσιμη",
       "positiveRating": "Αυτή η σελίδα είναι χρήσιμη",
@@ -1786,6 +1992,27 @@
       "positiveRating": "Ova stranica je korisna",
       "contactMailAddress": "E-pošta za povratna pitanja",
       "optionalInfo": "opcijski"
+    },
+    "hu": {
+      "disclaimer": "Elérhetőség és impresszum",
+      "send": "Küldés",
+      "failedSendingFeedback": "A visszajelzés elküldésekor hiba lépett fel.",
+      "feedback": "Visszajelzés",
+      "positiveComment": "Mi volt hasznos?",
+      "negativeComment": "Milyen téren tudunk fejlődni?",
+      "isThisSiteUseful": "Hasznos ez az oldal?",
+      "useful": "Hasznos",
+      "notUseful": "Nem hasznos",
+      "nothingFound": "Sajnos nem találtunk megfelelő eredményt.",
+      "informationNotFound": "Nem találtad meg a megfelelőt?",
+      "wantedInformation": "Mely információk hiányoznak itt?",
+      "feedbackSent": "A visszajelzést elküldtük",
+      "thanksMessage": "Köszönjük a visszajelzését. Ezzel segít nekünk javítani a tartalmainkat és a(z) {{appName}} alkalmazást. Örömmel fogadnánk a további visszajelzéseket.",
+      "close": "Bezárás",
+      "negativeRating": "Ez az oldal nem hasznos",
+      "positiveRating": "Ez az oldal hasznos",
+      "contactMailAddress": "E-mail visszajelzések számára",
+      "optionalInfo": "opcionális"
     },
     "it": {
       "disclaimer": "Contatti e impressum",
@@ -2121,6 +2348,27 @@
       "contactMailAddress": "Sorularınız için e-posta",
       "optionalInfo": "isteğe bağlı"
     },
+    "ur": {
+      "disclaimer": "رابطہ اور چھاپ",
+      "send": "بھیجیں",
+      "failedSendingFeedback": "رائے بھیجنے میں ایک خرابی پیش آئی۔",
+      "feedback": "رائے",
+      "positiveComment": "کیا اس سے مدد ملی؟",
+      "negativeComment": "ہم کیا کام بہتر کر سکتے ہیں؟",
+      "isThisSiteUseful": "کیا یہ صفحہ مددگار رہا؟",
+      "useful": "مددگار",
+      "notUseful": "غیر مددگار",
+      "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔",
+      "informationNotFound": "درست والا نہیں ملا؟",
+      "wantedInformation": "یہاں کون سی معلومات موجود نہیں؟",
+      "feedbackSent": "رائے بھیج دی گئی",
+      "thanksMessage": "آپ کی رائے کا شکریہ۔ اس سے ہمیں اپنا مواد اور ‎{{appName}}‎ ایپ بہتر بنانے میں مدد ملے گی۔ ہم مزید آراء کے منتظر ہیں۔",
+      "close": "بند کریں",
+      "negativeRating": "یہ صفحہ مددگار نہیں ہے",
+      "positiveRating": "یہ صفحہ مددگار ہے",
+      "contactMailAddress": "سوالات کے لئے ای میل",
+      "optionalInfo": "اختیاری"
+    },
     "zh-CN": {
       "disclaimer": "版本说明和联系方式",
       "send": "发送",
@@ -2283,8 +2531,8 @@
       "privacyPolicy": "ڕاگەیاندنی پاراستنی دێیتاکان"
     },
     "el": {
-      "appName": "{{}}",
-      "appDescription": "Το {{}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
+      "appName": "{{appName}}",
+      "appDescription": "Το {{appName}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
       "search": "Αναζήτηση",
       "searchDescription": "Βρείτε γρήγορα τις σωστές πληροφορίες χρησιμοποιώντας λέξεις-κλειδιά",
       "languageChange": "Αλλαγή γλώσσας",
@@ -2294,9 +2542,9 @@
       "offers": "Προσφορές",
       "offersDescription": "Αναζήτηση εργασίας, αναζήτηση πρακτικής και πολλά άλλα στην περιοχή",
       "inquiryTitle": "Ρυθμίσεις",
-      "inquiryIntro": "Κάνοντας κλικ στο \"{{}}\" επιτρέπω στην εφαρμογή {{}} να ...",
+      "inquiryIntro": "Κάνοντας κλικ στο \"{{accept}}\" επιτρέπω στην εφαρμογή {{appName}} να ...",
       "sentryTitle": "Σταθερότητα εφαρμογής",
-      "sentryCondition": "... για βελτίωση με την αυτόματη αποστολή αναφορών σφαλμάτων {{}}",
+      "sentryCondition": "... για βελτίωση με την αυτόματη αποστολή αναφορών σφαλμάτων {{appName}}",
       "pushNewsTitle": "Ειδοποιήσεις",
       "pushNewsCondition": "... στείλτε μου ειδοποιήσεις σχετικά με τα τελευταία τοπικά νέα",
       "proposeCitiesTitle": "Κοντινά μέρη",
@@ -2421,6 +2669,34 @@
       "decline": "Odbaci",
       "accept": "Prihvati",
       "privacyPolicy": "Izjava o zaštiti podataka"
+    },
+    "hu": {
+      "appName": "{{appName}}",
+      "appDescription": "{{appName}} az Ön digitális idegenvezetője Németországban.",
+      "search": "Keresés",
+      "searchDescription": "A megfelelő információ gyors megtalálása kulcsszavak segítségével",
+      "languageChange": "Nyelvváltás",
+      "languageChangeDescription": "Egyes oldalak nyelvének egyszerű átállítása",
+      "events": "Események",
+      "eventsDescription": "Aktuális események és időpontok a környéken",
+      "offers": "Ajánlatok",
+      "offersDescription": "Állásajánlatok, gyakornoki helyek és egyéb a környéken",
+      "inquiryTitle": "Beállítások",
+      "inquiryIntro": "Az \"{{accept}\" gombra kattintva engedélyezem a(z) {{appName}} alkalmazásnak",
+      "sentryTitle": "Alkalmazás stabilitása",
+      "sentryCondition": "...a hibajelentések automatikus küldésével javuljon {{appName}}",
+      "pushNewsTitle": "Push értesítések",
+      "pushNewsCondition": "...hogy push értesítéseket küldjön a legújabb helyi hírekkel kapcsolatban",
+      "proposeCitiesTitle": "Közeli helyek",
+      "proposeCitiesCondition": "...hogy közeli helyeket ajánljon nekem a GPS helymeghatározás segítségével",
+      "skip": "Átugrás",
+      "next": "Tovább",
+      "cancel": "Megszakítás",
+      "save": "Mentés",
+      "customize": "Igazítás",
+      "decline": "Elutasítás",
+      "accept": "Elfogadás",
+      "privacyPolicy": "Adatvédelmi nyilatkozat"
     },
     "it": {
       "appName": "{{appName}}",
@@ -2870,6 +3146,34 @@
       "accept": "Kabul et",
       "privacyPolicy": "Gizlilik politikası"
     },
+    "ur": {
+      "appName": "‎{{appName}}‎ کے متعلق",
+      "appDescription": "‎{{appName}}‎ جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے",
+      "search": "تلاش کریں",
+      "searchDescription": "کلیدی الفاظ استعمال کرتے ہوئے تیزی سے درست معلومات تلاش کریں",
+      "languageChange": "زبان کی تبدیلی",
+      "languageChangeDescription": "انفرادی صفحات کی زبان آسانی سے تبدیل کریں",
+      "events": "ایونٹس",
+      "eventsDescription": "علاقے میں حالیہ ایونٹس اور تاریخیں",
+      "offers": "پیش کشیں",
+      "offersDescription": "علاقے میں نوکری کی تلاش، انٹرن شپ کی تلاش اور مزید",
+      "inquiryTitle": "ترتیبات",
+      "inquiryIntro": "‎\"{{accept}}\"‎ پر کلک کر کے میں ‎{{appName}}‎ کو اجازت دوں گا/گی کہ، ...",
+      "sentryTitle": "ایپ کا استحکام",
+      "sentryCondition": "‎…‎ ایپ بند ہونے کی خود کار رپورٹس بھیج کر ‎{{appName}}‎ میں بہتری لائیں",
+      "pushNewsTitle": "پش نوٹیفیکیشنز",
+      "pushNewsCondition": "‎…‎ مجھے تازہ مقامی خبروں کے پش نوٹیفیکیشنز بھیجیں",
+      "proposeCitiesTitle": "قریبی مقامات",
+      "proposeCitiesCondition": "‎…‎ میرا GPS مقام استعمال کرتے ہوئے قریبی مقامات کی تجاویز دیں",
+      "skip": "رہنے دیں",
+      "next": "آگے",
+      "cancel": "منسوخ کریں",
+      "save": "محفوظ کریں",
+      "customize": "مرضی کے مطابق کریں",
+      "decline": "مسترد کریں",
+      "accept": "قبول کریں",
+      "privacyPolicy": "رازاداری کی پالیسی"
+    },
     "zh-CN": {
       "appName": "{{appName}}",
       "appDescription": "{{appName}}是您在德国生活的数字指南",
@@ -3039,6 +3343,20 @@
       "refresh": "Ažuriraj popis mjesta",
       "pageTitle": "Odabir mjesta",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
+    },
+    "hu": {
+      "searchCity": "Hely keresése",
+      "nearbyPlaces": "Helyek a közelben",
+      "noNearbyPlaces": "Nincsenek helyek a közelben.",
+      "alert": "Megjegyzés",
+      "locationError": "A közeli helyek megtekintéséhez engedélyezni kell a helymeghatározási szolgáltatásokat.",
+      "noPermission": "Helyhozzáférés szükséges",
+      "loading": "Meghatározott helyszín...",
+      "notAvailable": "Helymeghatározás deaktiválva",
+      "timeout": "Helymeghatározás sikertelen",
+      "refresh": "Helyek listájának aktualizálása",
+      "pageTitle": "Hely kiválasztása",
+      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
     },
     "it": {
       "searchCity": "Cerca luogo",
@@ -3264,6 +3582,20 @@
       "pageTitle": "Konum seçimi",
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
     },
+    "ur": {
+      "searchCity": "مقام تلاش کریں",
+      "nearbyPlaces": "قریبی مقامات",
+      "noNearbyPlaces": "کوئی قریبی مقامات نہیں ملے۔",
+      "alert": "نوٹ",
+      "locationError": "قریبی مقامات دیکھنے کے لئے ضروری ہے کہ مقام کی خدمات فعال ہوں۔",
+      "noPermission": "مقام تک رسائی درکار ہے",
+      "loading": "مقام کا تعین کریں ‎…",
+      "notAvailable": "مقام کی خدمات غیر فعال کر دی گئیں",
+      "timeout": "مقام کا تعین ناکام رہا",
+      "refresh": "مقامات کی فہرست کو تازہ کریں",
+      "pageTitle": "مقام کا انتخاب",
+      "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
+    },
     "zh-CN": {
       "searchCity": "搜索地点",
       "nearbyPlaces": "附近的地点",
@@ -3396,7 +3728,7 @@
       "settings": "Εφαρμογές",
       "share": "Κοινοποίηση",
       "cancel": "Διακοπή",
-      "shareMessage": "Μόλις βρέθηκε: {{}}",
+      "shareMessage": "Μόλις βρέθηκε: {{message}}",
       "shareFailDefaultMessage": "Δυστυχώς, η κοινοποίηση του περιεχομένου απέτυχε.",
       "disclaimer": "Στοιχεία έκδοσης"
     },
@@ -3479,6 +3811,26 @@
       "shareMessage": "Upravo pronađeno: {{message}}",
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
       "disclaimer": "Impresum"
+    },
+    "hu": {
+      "imprintAndContact": "Impresszum és elérhetőség",
+      "privacy": "Adatvédelem",
+      "offers": "Ajánlatok",
+      "localInformation": "Helyi információk",
+      "events": "Események",
+      "noEvents": "Nincs esemény",
+      "news": "Hírek",
+      "noLanguages": "Más nyelveken nem elérhető",
+      "noTranslation": "Nincs fordítás",
+      "search": "Keresés",
+      "changeLocation": "Hely változtatás",
+      "changeLanguage": "Nyelv változtatás",
+      "settings": "Beállítások",
+      "share": "Megosztás",
+      "cancel": "Megszakítás",
+      "shareMessage": "Ezt találtuk éppen: {{message}}",
+      "shareFailDefaultMessage": "Sikertelen tartalom megosztás.",
+      "disclaimer": "Impresszum"
     },
     "it": {
       "imprintAndContact": "Impressum e contatti",
@@ -3800,6 +4152,26 @@
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
       "disclaimer": "Künye"
     },
+    "ur": {
+      "imprintAndContact": "چھاپ اور رابطہ",
+      "privacy": "ڈیٹا کا تحفظ",
+      "offers": "پیش کشیں",
+      "localInformation": "مقامی معلومات",
+      "events": "ایونٹس",
+      "noEvents": "کوئی ایونٹس نہیں ہیں",
+      "news": "خبریں",
+      "noLanguages": "دیگر زبانوں میں دستیاب نہیں",
+      "noTranslation": "ترجمہ دستیاب نہیں",
+      "search": "تلاش کریں",
+      "changeLocation": "مقام تبدیل کریں",
+      "changeLanguage": "زبان تبدیل کریں",
+      "settings": "ترتیبات",
+      "share": "شیئر کریں",
+      "cancel": "منسوخ کریں",
+      "shareMessage": "ابھی ملا: {{message}}",
+      "shareFailDefaultMessage": "بدقسمتی سے مواد شیئر کرنے میں ناکام رہے۔",
+      "disclaimer": "چھاپ"
+    },
     "zh-CN": {
       "imprintAndContact": "版本说明和联系方式",
       "privacy": "数据保护",
@@ -3819,6 +4191,95 @@
       "shareMessage": "刚找到：{{message}}",
       "shareFailDefaultMessage": "很抱歉，共享内容时出错。",
       "disclaimer": "版本说明"
+    }
+  },
+  "mainDisclaimer": {
+    "de": {
+      "pageTitle": "Impressum und Kontakt - {{appName}}"
+    },
+    "am": {
+      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
+    },
+    "ar": {
+      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
+    },
+    "bg": {
+      "pageTitle": "Импресум и контакт - {{appName}}"
+    },
+    "ckb": {
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
+    },
+    "el": {
+      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+    },
+    "en": {
+      "pageTitle": "Imprint and contacts - {{appName}}"
+    },
+    "es": {
+      "pageTitle": "Aviso legal y contacto - {{appName}}"
+    },
+    "fr": {
+      "pageTitle": "Mentions légales et contact - {{appName}}"
+    },
+    "hr": {
+      "pageTitle": "Impresum i kontakt - {{appName}}"
+    },
+    "hu": {
+      "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+    },
+    "it": {
+      "pageTitle": "Impressum e contatti - {{appName}}"
+    },
+    "ka": {
+      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{აპპ სახელი}}"
+    },
+    "kmr": {
+      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
+    },
+    "mk": {
+      "pageTitle": "Импресум и контакт - {{appName}}"
+    },
+    "pes": {
+      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
+    },
+    "pl": {
+      "pageTitle": "Nota prawna i kontakt - {{appName}}"
+    },
+    "prs": {
+      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
+    },
+    "ps": {
+      "pageTitle": "خپروونکی او تماس - {{appName}}"
+    },
+    "ro": {
+      "pageTitle": "Caseta tehnică și contact - {{appName}}"
+    },
+    "ru": {
+      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+    },
+    "so": {
+      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
+    },
+    "sq": {
+      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
+    },
+    "sr-Cyrl": {
+      "pageTitle": "Импресум и контакт - {{appName}}"
+    },
+    "sr-Latn": {
+      "pageTitle": "Impresum i kontakt - {{appName}}"
+    },
+    "ti": {
+      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
+    },
+    "tr": {
+      "pageTitle": "Künye ve iletişim - {{appName}}"
+    },
+    "ur": {
+      "pageTitle": "چھاپ اور رابطہ - {{appName}}"
+    },
+    "zh-CN": {
+      "pageTitle": "版本说明和联系方式- {{appName}}"
     }
   },
   "native": {
@@ -3843,8 +4304,8 @@
       "NSLocationWhenInUseUsageDescription": "بۆ دۆزینەوەی شوێنە نزیکەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە شوێن هەیە."
     },
     "el": {
-      "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{}} στη συλλογή.",
-      "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{}} στην τοποθεσία."
+      "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{appName}} στη συλλογή.",
+      "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία."
     },
     "en": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
@@ -3861,6 +4322,10 @@
     "hr": {
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikaciji {{appName}} potreban je pristup lokaciji."
+    },
+    "hu": {
+      "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához.",
+      "NSLocationWhenInUseUsageDescription": "A közeli helyek megtalálásához az {{appName}} alkalmazásnak hozzáférésre van szüksége a helyhez."
     },
     "it": {
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
@@ -3925,6 +4390,10 @@
     "tr": {
       "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir.",
       "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
+    },
+    "ur": {
+      "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔",
+      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو مقام تک رسائی درکار ہے۔"
     },
     "zh-CN": {
       "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
@@ -4008,7 +4477,8 @@
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە.",
       "currentlyNoNewsAlternative": "لەئێستادا هیچ نوێترین هەواڵەکانی تێدا نییە.",
       "tuNews": {
-        "pageTitle": "هەواڵەکانی توبیگێن"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "el": {
@@ -4023,7 +4493,8 @@
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις.",
       "currentlyNoNewsAlternative": "Προς το παρόν δεν υπάρχουν νέα.",
       "tuNews": {
-        "pageTitle": "Νέα"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "en": {
@@ -4090,6 +4561,22 @@
         "pageTitle": "tünews INTERNATIONAL"
       }
     },
+    "hu": {
+      "news": "Hírek",
+      "newsAlternative": "Újdonságok",
+      "localNews": {
+        "localNews": "Helyi hírek",
+        "pageTitle": "Helyi hírek"
+      },
+      "local": "Helyi",
+      "readMore": "Továbbolvasás",
+      "currentlyNoNews": "Jelenleg nincsenek hírek.",
+      "currentlyNoNewsAlternative": "Jelenleg nincsenek újdonságok.",
+      "tuNews": {
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
+      }
+    },
     "it": {
       "news": "Messaggi",
       "newsAlternative": "Novità",
@@ -4118,7 +4605,8 @@
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები.",
       "currentlyNoNewsAlternative": "ამჟამად არ არსებობს არანაირი სიახლეები.",
       "tuNews": {
-        "pageTitle": "ტუნიუს ინფორმაციები"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "kmr": {
@@ -4197,7 +4685,8 @@
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎.",
       "currentlyNoNewsAlternative": "در حال حاضر هیچ جدیدترین خبری وجود ندارد‎.",
       "tuNews": {
-        "pageTitle": "اخبار توبینگن"
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
       }
     },
     "ps": {
@@ -4344,6 +4833,22 @@
         "pageTitle": "tünews INTERNATIONAL"
       }
     },
+    "ur": {
+      "news": "خبریں",
+      "newsAlternative": "خبریں",
+      "localNews": {
+        "localNews": "مقامی خبریں",
+        "pageTitle": "مقامی خبریں"
+      },
+      "local": "مقامی",
+      "readMore": "مطالعہ جاری رکھیں",
+      "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔",
+      "currentlyNoNewsAlternative": "فی الحال کوئی خبریں نہیں ہیں۔",
+      "tuNews": {
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
+      }
+    },
     "zh-CN": {
       "news": "新闻",
       "newsAlternative": "新消息",
@@ -4401,6 +4906,10 @@
     "hr": {
       "offers": "Ponude",
       "pageTitle": "Ponude"
+    },
+    "hu": {
+      "offers": "Ajánlatok",
+      "pageTitle": "Ajánlatok"
     },
     "it": {
       "offers": "Offerte",
@@ -4466,6 +4975,10 @@
       "offers": "Teklifler",
       "pageTitle": "Teklifler"
     },
+    "ur": {
+      "offers": "پیش کشیں",
+      "pageTitle": "پیش کشیں"
+    },
     "zh-CN": {
       "offers": "提供项目",
       "pageTitle": "提供项目"
@@ -4511,6 +5024,10 @@
     "hr": {
       "searchPlaceholder": "Pretraživanje",
       "pageTitle": "Pretraživanje"
+    },
+    "hu": {
+      "searchPlaceholder": "Keresés",
+      "pageTitle": "Keresés"
     },
     "it": {
       "searchPlaceholder": "Ricerca",
@@ -4575,6 +5092,10 @@
     "tr": {
       "searchPlaceholder": "Arama",
       "pageTitle": "Arama"
+    },
+    "ur": {
+      "searchPlaceholder": "تلاش کریں",
+      "pageTitle": "تلاش کریں"
     },
     "zh-CN": {
       "searchPlaceholder": "搜索",
@@ -4674,14 +5195,14 @@
     },
     "el": {
       "sentryTitle": "Σταθερότητα εφαρμογής",
-      "sentryDescription": "Αυτόματη αποστολή αναφορών σφαλμάτων για βελτίωση του {{}}",
+      "sentryDescription": "Αυτόματη αποστολή αναφορών σφαλμάτων για βελτίωση του {{appName}}",
       "pushNewsTitle": "Ειδοποιήσεις",
       "pushNewsDescription": "Ειδοποιήσεις για τα τελευταία τοπικά νέα",
       "proposeCitiesTitle": "Κοντινές τοποθεσίες",
       "proposeCitiesDescription": "Πρόταση κοντινών τοποθεσιών, χρησιμοποιώντας την τοποθεσία μου ",
-      "about": "Πληροφορίες για το {{}}",
+      "about": "Πληροφορίες για το {{appName}}",
       "privacyPolicy": "Προστασία δεδομένων",
-      "version": "Έκδοση: {{}}",
+      "version": "Έκδοση: {{version}}",
       "openSourceLicenses": "Άδειες",
       "tracking": "Αξιολόγηση J-PAL",
       "allowTracking": "Να επιτρέπεται ο εντοπισμός",
@@ -4761,6 +5282,24 @@
       "trackingDescription": "Integreat se dugoročno poboljšava slanjem podataka o praćenju.",
       "enabled": "aktivirano",
       "disabled": "deaktivirano"
+    },
+    "hu": {
+      "sentryTitle": "Alkalmazás stabilitása",
+      "sentryDescription": "A(z) {{appName}}-App javítása hibajelentések automatikus küldésével",
+      "pushNewsTitle": "Push értesítések",
+      "pushNewsDescription": "A legújabb helyi hírekkel kapcsolatos Push értesítések küldése ",
+      "proposeCitiesTitle": "Közeli helyek",
+      "proposeCitiesDescription": "Közeli helyekkel kapcsolatos javaslatok küldése GPS helymeghatározás segítségével",
+      "about": "A(z) {{appName}} alkalmazásról",
+      "privacyPolicy": "Adatvédelmi nyilatkozat",
+      "version": "Verzió: {{version}}",
+      "openSourceLicenses": "Open-Source-licencek",
+      "tracking": "J-PAL Evaluation",
+      "allowTracking": "Követés engedélyezése",
+      "trackingCode": "Tracking Code",
+      "trackingDescription": "Az Integreat hosszú távú javítása a követési adatok küldésével.",
+      "enabled": "aktiválva",
+      "disabled": "deaktiválva"
     },
     "it": {
       "sentryTitle": "Stabilità dell’app",
@@ -5050,6 +5589,24 @@
       "enabled": "etkin",
       "disabled": "devre dışı"
     },
+    "ur": {
+      "sentryTitle": "ایپ کا استحکام",
+      "sentryDescription": "خودکار طریقے سے ایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
+      "pushNewsTitle": "پش نوٹیفیکیشنز",
+      "pushNewsDescription": "تازہ مقامی خبروں کے لئے پش نوٹیفیکیشنز وصول کریں",
+      "proposeCitiesTitle": "قریبی مقامات",
+      "proposeCitiesDescription": "GPS مقام استعمال کرتے ہوئے قریبی مقامات کی تجاویز حاصل کریں",
+      "about": "‎{{appName}}‎ کے متعلق",
+      "privacyPolicy": "رازاداری کی پالیسی",
+      "version": "ورژن: {{version}}",
+      "openSourceLicenses": "اوپن سورس لائسنس",
+      "tracking": "J-PAL تجزیہ",
+      "allowTracking": "ٹریکنگ کی اجازت دیں",
+      "trackingCode": "ٹریکنگ کوڈ",
+      "trackingDescription": "ٹریکنگ ڈیٹا بھیج کر Integreat کو مستقبل کے لئے بہتر بنائیں۔",
+      "enabled": "فعال",
+      "disabled": "غیر فعال"
+    },
     "zh-CN": {
       "sentryTitle": "应用程序稳定性",
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
@@ -5093,6 +5650,9 @@
     },
     "hr": {
       "noOffersAvailable": "Nema dostupnih ponuda"
+    },
+    "hu": {
+      "noOffersAvailable": "Nincsenek ajánlatok"
     },
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"
@@ -5142,174 +5702,11 @@
     "tr": {
       "noOffersAvailable": "Teklif yok"
     },
+    "ur": {
+      "noOffersAvailable": "کوئی پیش کشیں دستیاب نہیں"
+    },
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
-    }
-  },
-  "disclaimer": {
-    "de": {
-      "pageTitle": "Impressum und Kontakt"
-    },
-    "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
-    },
-    "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
-    },
-    "bg": {
-      "pageTitle": "Импресум и контакт"
-    },
-    "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
-    },
-    "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
-    },
-    "en": {
-      "pageTitle": "Imprint and contacts"
-    },
-    "es": {
-      "pageTitle": "Aviso legal y contacto"
-    },
-    "fr": {
-      "pageTitle": "Mentions légales et contact"
-    },
-    "hr": {
-      "pageTitle": "Impresum i kontakt"
-    },
-    "it": {
-      "pageTitle": "Impressum e contatti"
-    },
-    "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
-    },
-    "kmr": {
-      "pageTitle": "Lêzanînên Weşîner û Têkillî"
-    },
-    "mk": {
-      "pageTitle": "Импресум и контакт"
-    },
-    "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس"
-    },
-    "pl": {
-      "pageTitle": "Nota prawna i kontakt"
-    },
-    "prs": {
-      "pageTitle": "معلومات ناشر و تماس"
-    },
-    "ps": {
-      "pageTitle": "خپروونکی او تماس"
-    },
-    "ro": {
-      "pageTitle": "Caseta tehnică și contact"
-    },
-    "ru": {
-      "pageTitle": "Выходные данные и контактная информация"
-    },
-    "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
-    },
-    "sq": {
-      "pageTitle": "Botuesi dhe kontakti"
-    },
-    "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт"
-    },
-    "sr-Latn": {
-      "pageTitle": "Impresum i kontakt"
-    },
-    "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
-    },
-    "tr": {
-      "pageTitle": "Künye ve iletişim"
-    },
-    "zh-CN": {
-      "pageTitle": "版本说明和联系方式"
-    }
-  },
-  "mainDisclaimer": {
-    "de": {
-      "pageTitle": "Impressum und Kontakt - {{appName}}"
-    },
-    "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
-    },
-    "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
-    },
-    "bg": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
-    },
-    "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
-    },
-    "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
-    },
-    "en": {
-      "pageTitle": "Imprint and contacts - {{appName}}"
-    },
-    "es": {
-      "pageTitle": "Aviso legal y contacto - {{appName}}"
-    },
-    "fr": {
-      "pageTitle": "Mentions légales et contact - {{appName}}"
-    },
-    "hr": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
-    },
-    "it": {
-      "pageTitle": "Impressum e contatti - {{appName}}"
-    },
-    "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{აპპ სახელი}}"
-    },
-    "kmr": {
-      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
-    },
-    "mk": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
-    },
-    "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
-    },
-    "pl": {
-      "pageTitle": "Nota prawna i kontakt - {{appName}}"
-    },
-    "prs": {
-      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
-    },
-    "ps": {
-      "pageTitle": "خپروونکی او تماس - {{appName}}"
-    },
-    "ro": {
-      "pageTitle": "Caseta tehnică și contact - {{appName}}"
-    },
-    "ru": {
-      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
-    },
-    "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
-    },
-    "sq": {
-      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
-    },
-    "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
-    },
-    "sr-Latn": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
-    },
-    "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
-    },
-    "tr": {
-      "pageTitle": "Künye ve iletişim - {{appName}}"
-    },
-    "zh-CN": {
-      "pageTitle": "版本说明和联系方式- {{appName}}"
     }
   },
   "pois": {

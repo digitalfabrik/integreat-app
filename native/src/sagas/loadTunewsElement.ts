@@ -1,5 +1,7 @@
-import { createTunewsElementEndpoint, TunewsModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { createTunewsElementEndpoint, TunewsModel } from 'api-client'
+
 import { tunewsApiUrl } from '../constants/endpoint'
 
 function* loadTunewsElement(id: number): SagaGenerator<TunewsModel[]> {

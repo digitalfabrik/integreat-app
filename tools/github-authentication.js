@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Octokit } = require('@octokit/rest')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { createAppAuth } = require('@octokit/auth-app')
 
 const authenticate = async ({ deliverinoPrivateKey, owner, repo }) => {

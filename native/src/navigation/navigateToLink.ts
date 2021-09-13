@@ -1,12 +1,14 @@
-import buildConfig from '../constants/buildConfig'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
-import openExternalUrl from '../utils/openExternalUrl'
 import Url from 'url-parse'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
+
 import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
+import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
+import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
+import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
+import openExternalUrl from '../utils/openExternalUrl'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
 

@@ -1,5 +1,7 @@
-import CategoryModel from '../CategoryModel'
 import moment from 'moment'
+
+import CategoryModel from '../CategoryModel'
+
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({
     root: true,

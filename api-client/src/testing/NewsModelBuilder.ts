@@ -1,4 +1,5 @@
 import moment from 'moment'
+
 import LocalNewsModel from '../models/LocalNewsModel'
 
 class LocalNewsModelBuilder {
@@ -29,7 +30,7 @@ class LocalNewsModelBuilder {
       {
         length: this._newsCount
       },
-      (x, index) => {
+      () => {
         return {
           path: null,
           newsItem: new LocalNewsModel({

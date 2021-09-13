@@ -1,5 +1,6 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
+
 import TileModel from '../../models/TileModel'
 import Tiles from '../Tiles'
 
@@ -7,14 +8,12 @@ const tiles = [
   new TileModel({
     path: '/augsburg/de/willkommen/willkommen-in-augsburg',
     title: 'Willkommen in Augsburg',
-    thumbnail: 'some-thumnail.jpg',
-    isExternalUrl: false
+    thumbnail: 'some-thumnail.jpg'
   }),
   new TileModel({
     path: '/augsburg/de/willkommen/erste-schritte',
     title: 'Erste Schritte',
-    thumbnail: 'some-other-thumbnail.jpg',
-    isExternalUrl: false
+    thumbnail: 'some-other-thumbnail.jpg'
   })
 ]
 

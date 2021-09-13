@@ -1,0 +1,8 @@
+issue_key: IGAPP-678
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: The app is now available in Hungarian.
+de: Die App ist jetzt in Ungarisch verfügbar.

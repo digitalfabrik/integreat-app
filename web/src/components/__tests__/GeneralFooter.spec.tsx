@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+
 import GeneralFooter from '../GeneralFooter'
 
 jest.mock('react-i18next')

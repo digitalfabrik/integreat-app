@@ -1,10 +1,11 @@
-import integreatPlatformBuildConfigs from '../integreat'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
+import integreatPlatformBuildConfigs from '../integreat'
+
 const integreatTestCms = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',

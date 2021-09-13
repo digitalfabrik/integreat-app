@@ -1,4 +1,5 @@
 import EndpointBuilder from '../EndpointBuilder'
+
 describe('EndpointBuilder', () => {
   it('should produce the correct endpoint', () => {
     const url = 'https://someurl'

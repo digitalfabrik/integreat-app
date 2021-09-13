@@ -1,12 +1,13 @@
-import React from 'react'
 import { fireEvent, render } from '@testing-library/react-native'
+import React from 'react'
 
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import buildConfig from '../../constants/buildConfig'
-import Header from '../Header'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { SEARCH_ROUTE } from 'api-client'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+
+import buildConfig from '../../constants/buildConfig'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
+import Header from '../Header'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))

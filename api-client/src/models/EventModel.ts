@@ -1,8 +1,9 @@
 import { Moment } from 'moment'
-import LocationModel from './LocationModel'
+
 import DateModel from './DateModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import FeaturedImageModel from './FeaturedImageModel'
+import LocationModel from './LocationModel'
 import PageModel from './PageModel'
 
 class EventModel extends ExtendedPageModel {

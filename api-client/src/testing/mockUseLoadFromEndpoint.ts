@@ -1,5 +1,6 @@
-import { useLoadFromEndpoint } from 'api-client'
 import { mocked } from 'ts-jest/utils'
+
+import { useLoadFromEndpoint } from 'api-client'
 
 const mockData = (data: unknown): typeof useLoadFromEndpoint => {
   return (() => ({
@@ -10,15 +11,15 @@ const mockData = (data: unknown): typeof useLoadFromEndpoint => {
   })) as typeof useLoadFromEndpoint
 }
 
-export function mockUseLoadFromEndpointWithData<T>(data: T): void {
+export const mockUseLoadFromEndpointWithData = <T>(data: T): void => {
   mocked(useLoadFromEndpoint).mockImplementation(mockData(data))
 }
 
-export function mockUseLoadFromEndpointOnceWithData<T>(data: T): void {
+export const mockUseLoadFromEndpointOnceWithData = <T>(data: T): void => {
   mocked(useLoadFromEndpoint).mockImplementationOnce(mockData(data))
 }
 
-export function mockUseLoadFromEndpointLoading({ data, error }: { data?: unknown; error?: string } = {}): void {
+export const mockUseLoadFromEndpointLoading = ({ data, error }: { data?: unknown; error?: string } = {}): void => {
   const useLoadFromEndpointMock = (() => ({
     data: data || null,
     loading: true,
@@ -28,7 +29,7 @@ export function mockUseLoadFromEndpointLoading({ data, error }: { data?: unknown
   mocked(useLoadFromEndpoint).mockImplementationOnce(useLoadFromEndpointMock)
 }
 
-export function mockUseLoadFromEndpointWithError(error: string): void {
+export const mockUseLoadFromEndpointWithError = (error: string): void => {
   const useLoadFromEndpointMock = (() => ({
     data: null,
     loading: false,
