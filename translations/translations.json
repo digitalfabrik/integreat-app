@@ -5712,7 +5712,8 @@
   "pois": {
     "de": {
       "location": "Standort",
-      "map": "Karte"
+      "map": "Karte",
+      "unit": "km"
     }
   }
 }

@@ -1,4 +1,5 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
+import distance from '@turf/distance'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { FAB } from 'react-native-elements'
@@ -57,6 +58,7 @@ const MapView = ({
 
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
+  const userLocationRef = React.useRef<MapboxGL.UserLocation | null>(null)
   const theme = useTheme()
 
   const bounds = {
@@ -109,12 +111,19 @@ const MapView = ({
         undefined,
         [featureLayerId]
       )
-      const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+      let feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
       if (feature) {
-        setSelectedFeature(feature)
         const {
           geometry: { coordinates }
         } = feature
+        // @ts-ignore interface does not provide state
+        const currentLocation: number[] = userLocationRef?.current?.state?.coordinates
+        if (currentLocation) {
+          const distanceValue: string = distance(currentLocation, coordinates).toFixed(1)
+          feature = { ...feature, properties: { ...feature.properties, distance: distanceValue } }
+        }
+        setSelectedFeature(feature)
+
         cameraRef.current.flyTo(coordinates)
       } else {
         setSelectedFeature(null)
@@ -126,7 +135,7 @@ const MapView = ({
   return (
     <MapContainer>
       <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={mapRef}>
-        <MapboxGL.UserLocation visible={locationPermissionGranted} />
+        <MapboxGL.UserLocation ref={userLocationRef} visible={locationPermissionGranted} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
