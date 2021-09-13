@@ -7,7 +7,7 @@ import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
+import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
 
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 import MapPopup from './MapPopup'
@@ -26,6 +26,9 @@ type MapViewPropsType = {
   featureCollection: FeatureCollection
   selectedFeature: Feature<Point> | null
   setSelectedFeature: (feature: Feature<Point> | null) => void
+  navigateTo: (arg0: RouteInformationType) => void
+  language: string
+  cityCode: string
 }
 
 const textOffsetY = 1.25
@@ -44,6 +47,7 @@ const layerProps: SymbolLayerProps = {
     textSize: 12
   }
 }
+// TODO add distance to all features to fix redirecting
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
@@ -51,7 +55,10 @@ const MapView = ({
   boundingBox,
   featureCollection,
   selectedFeature,
-  setSelectedFeature
+  setSelectedFeature,
+  navigateTo,
+  language,
+  cityCode
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
@@ -134,7 +141,13 @@ const MapView = ({
 
   return (
     <MapContainer>
-      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={mapRef}>
+      <StyledMap
+        styleJSON={mapConfig.styleJSON}
+        zoomEnabled
+        onPress={onPress}
+        ref={mapRef}
+        attributionEnabled={false}
+        logoEnabled={false}>
         <MapboxGL.UserLocation ref={userLocationRef} visible={locationPermissionGranted} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
@@ -147,7 +160,9 @@ const MapView = ({
           ref={cameraRef}
         />
       </StyledMap>
-      {selectedFeature && <MapPopup feature={selectedFeature} />}
+      {selectedFeature && (
+        <MapPopup feature={selectedFeature} navigateTo={navigateTo} language={language} cityCode={cityCode} />
+      )}
       <FAB
         placement='right'
         onPress={requestPermission}

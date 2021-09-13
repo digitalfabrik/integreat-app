@@ -66,7 +66,6 @@ const Pois = ({
     const featureLocations = pois
       .map(poi => poi.featureLocation)
       .filter((feature): feature is Feature<Point> => !!feature)
-
     const currentFeature: Feature<Point> | undefined = featureLocations.find(
       feature => feature.properties?.id === Number(route.params.selectedPoiId)
     )
@@ -181,6 +180,9 @@ const Pois = ({
               featureCollection={embedInCollection(featureLocations)}
               selectedFeature={selectedFeature}
               setSelectedFeature={setSelectedFeature}
+              navigateTo={navigateTo}
+              language={language}
+              cityCode={cityModel.code}
             />
           )}
           <List

@@ -3,8 +3,13 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
+import { POIS_ROUTE, RouteInformationType } from 'api-client/src'
+
 type MapPopupProps = {
   feature: Feature<Point>
+  navigateTo: (arg0: RouteInformationType) => void
+  language: string
+  cityCode: string
 }
 
 const Popup = styled.TouchableOpacity`
@@ -43,10 +48,23 @@ const InformationContainer = styled.View`
   justify-content: center;
 `
 
-const MapPopup: React.FC<MapPopupProps> = ({ feature }: MapPopupProps): ReactElement => {
+const MapPopup: React.FC<MapPopupProps> = ({
+  feature,
+  navigateTo,
+  cityCode,
+  language
+}: MapPopupProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (
-    <Popup onPress={() => console.log('test')} activeOpacity={1}>
+    <Popup
+      onPress={() =>
+        navigateTo({
+          route: POIS_ROUTE,
+          cityCode: cityCode,
+          languageCode: language,
+          cityContentPath: feature.properties?.path
+        })
+      }>
       {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
       <InformationContainer>
         {feature.properties?.title && <Title>{feature.properties.title}</Title>}

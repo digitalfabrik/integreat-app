@@ -12,6 +12,7 @@ class LocationModel {
   _latitude: string | null | undefined
   _longitude: string | null | undefined
   _thumbnail: string | null | undefined
+  _path: string | null | undefined
 
   constructor({
     id,
@@ -24,7 +25,8 @@ class LocationModel {
     country,
     latitude,
     longitude,
-    thumbnail
+    thumbnail,
+    path
   }: {
     id: number | null | undefined
     name: string | null | undefined
@@ -37,6 +39,7 @@ class LocationModel {
     latitude?: string | null | undefined
     longitude?: string | null | undefined
     thumbnail: string | null | undefined
+    path: string | null | undefined
   }) {
     this._id = id
     this._name = name
@@ -50,6 +53,7 @@ class LocationModel {
     this._longitude = longitude
     this._name = name
     this._thumbnail = thumbnail
+    this._path = path
   }
 
   get id(): number | null | undefined {
@@ -133,7 +137,8 @@ class LocationModel {
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
         symbol: '9',
-        thumbnail: this._thumbnail
+        thumbnail: this._thumbnail,
+        path: this._path
       }
     }
   }
