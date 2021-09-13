@@ -23,7 +23,8 @@ const StyledMap = styled(MapboxGL.MapView)`
 type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: FeatureCollection
-  currentFeature?: Feature<Point>
+  selectedFeature: Feature<Point> | null
+  setSelectedFeature: (feature: Feature<Point> | null) => void
 }
 
 const textOffsetY = 1.25
@@ -45,10 +46,14 @@ const layerProps: SymbolLayerProps = {
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
-const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
+const MapView = ({
+  boundingBox,
+  featureCollection,
+  selectedFeature,
+  setSelectedFeature
+}: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
-  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
 
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
@@ -69,7 +74,6 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
 
   const onLocationPermissionRequest = useCallback((locationPermission: PermissionStatus | undefined) => {
     const permissionGranted = locationPermission === RESULTS.GRANTED
-    setFollowUserLocation(permissionGranted)
     setLocationPermissionGranted(permissionGranted)
   }, [])
 
@@ -79,7 +83,8 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
 
   const requestPermission = useCallback(() => {
     requestLocationPermission().then(onLocationPermissionRequest)
-  }, [onLocationPermissionRequest])
+    locationPermissionGranted && setFollowUserLocation(!followUserLocation)
+  }, [followUserLocation, locationPermissionGranted, onLocationPermissionRequest])
 
   const onUserTrackingModeChange = (
     event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
@@ -94,26 +99,29 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
       ? 'location-searching'
       : 'location-disabled'
 
-  const onPress = useCallback(async (pressedLocation: Feature) => {
-    if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
-      return
-    }
-    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-      undefined,
-      [featureLayerId]
-    )
-    const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
-    if (feature) {
-      setSelectedFeature(feature)
-      const {
-        geometry: { coordinates }
-      } = feature
-      cameraRef.current.flyTo(coordinates)
-    } else {
-      setSelectedFeature(null)
-    }
-  }, [])
+  const onPress = useCallback(
+    async (pressedLocation: Feature) => {
+      if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
+        return
+      }
+      const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+        [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
+        undefined,
+        [featureLayerId]
+      )
+      const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+      if (feature) {
+        setSelectedFeature(feature)
+        const {
+          geometry: { coordinates }
+        } = feature
+        cameraRef.current.flyTo(coordinates)
+      } else {
+        setSelectedFeature(null)
+      }
+    },
+    [setSelectedFeature]
+  )
 
   return (
     <MapContainer>
