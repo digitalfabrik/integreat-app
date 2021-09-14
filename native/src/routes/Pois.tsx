@@ -78,7 +78,7 @@ const Pois = ({
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
   const [userLocation, setUserLocation] = useState<number[] | undefined>(undefined)
-  const [featureLocations, setFeatureLocations] = useState<Feature<Point>[] | null>(null)
+  const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
 
   useEffect(() => {
     const featureLocations = prepareFeatureLocations(pois, userLocation)
@@ -89,7 +89,7 @@ const Pois = ({
       )
       currentFeature && setSelectedFeature(currentFeature)
     }
-    setFeatureLocations(featureLocations)
+    userLocation && setFeatureLocations(featureLocations)
   }, [pois, route.params.selectedPoiId, userLocation])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
@@ -190,7 +190,7 @@ const Pois = ({
       <SpaceBetween>
         <View>
           <Caption title={t('poi')} theme={theme} />
-          {cityModel.boundingBox && featureLocations && (
+          {cityModel.boundingBox && (
             <MapView
               boundingBox={cityModel.boundingBox}
               featureCollection={embedInCollection(featureLocations)}
