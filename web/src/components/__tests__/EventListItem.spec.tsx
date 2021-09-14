@@ -38,7 +38,9 @@ describe('EventListItem', () => {
       latitude: null,
       state: 'state',
       region: 'region',
-      country: 'country'
+      country: 'country',
+      thumbnail: null,
+      path: null
     }),
     excerpt: 'very loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong excerpt',
     lastUpdate: moment('2016-01-07 10:36:24'),

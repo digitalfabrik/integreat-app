@@ -92,7 +92,9 @@ describe('convertToPoint', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9'
+      symbol: '9',
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi'
     }
   }
   it('should be transformed to GeoJson type', () => {
@@ -107,8 +109,8 @@ describe('convertToPoint', () => {
       latitude: '29.979848',
       longitude: '31.133859',
       country: 'DE',
-      thumbnail: null,
-      path: null
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi'
     })
     expect(location.convertToPoint()).toEqual(expectedGeoJsonMarkerFeature)
   })
@@ -124,8 +126,8 @@ describe('convertToPoint', () => {
       latitude: null,
       longitude: '31.133859',
       country: 'DE',
-      thumbnail: null,
-      path: null
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi'
     })
     expect(location.convertToPoint()).toBeNull()
   })
@@ -141,8 +143,8 @@ describe('convertToPoint', () => {
       latitude: '31.133859',
       longitude: null,
       country: 'DE',
-      thumbnail: null,
-      path: null
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi'
     })
     expect(location.convertToPoint()).toBeNull()
   })

@@ -7,10 +7,11 @@ import createPOIsEndpoint from '../createPOIsEndpoint'
 describe('pois', () => {
   const baseUrl = 'https://integreat-api-url.de'
   const pois = createPOIsEndpoint(baseUrl)
+  const path = '/augsburg/de/pois/asylpolitischer_fruehschoppen'
 
   const createPoi = (id: number) => ({
     id,
-    path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
+    path,
     title: 'Asylploitischer Frühschoppen',
     excerpt: 'Am Sonntag...',
     content: '<p>Am Sonntag...</p>',
@@ -32,7 +33,7 @@ describe('pois', () => {
 
   const createPoiModel = () =>
     new PoiModel({
-      path: '/augsburg/de/pois/asylpolitischer_fruehschoppen',
+      path,
       title: 'Asylploitischer Frühschoppen',
       excerpt: 'Am Sonntag...',
       content: '<p>Am Sonntag...</p>',
@@ -47,8 +48,8 @@ describe('pois', () => {
         postcode: '86353',
         region: 'Schwaben',
         country: 'DE',
-        thumbnail: null,
-        path: null
+        thumbnail: '',
+        path
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       hash: '91d435afbc7aa83496137e81fd2832e3'
