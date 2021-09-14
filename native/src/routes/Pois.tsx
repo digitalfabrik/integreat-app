@@ -81,16 +81,18 @@ const Pois = ({
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
 
   useEffect(() => {
-    const featureLocations = prepareFeatureLocations(pois, userLocation)
-    const selectedPoiId = Number(route.params.selectedPoiId)
-    if (selectedPoiId) {
-      const currentFeature: Feature<Point> | undefined = featureLocations.find(
-        feature => feature.properties?.id === Number(route.params.selectedPoiId)
-      )
-      currentFeature && setSelectedFeature(currentFeature)
+    if (!path) {
+      const featureLocations = prepareFeatureLocations(pois, userLocation)
+      const selectedPoiId = Number(route.params.selectedPoiId)
+      if (selectedPoiId) {
+        const currentFeature: Feature<Point> | undefined = featureLocations.find(
+          feature => feature.properties?.id === Number(route.params.selectedPoiId)
+        )
+        currentFeature && setSelectedFeature(currentFeature)
+      }
+      userLocation && setFeatureLocations(featureLocations)
     }
-    userLocation && setFeatureLocations(featureLocations)
-  }, [pois, route.params.selectedPoiId, userLocation])
+  }, [path, pois, route.params.selectedPoiId, userLocation])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
