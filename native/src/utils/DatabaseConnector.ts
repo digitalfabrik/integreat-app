@@ -15,6 +15,7 @@ import {
   LocationModel,
   PoiModel
 } from 'api-client'
+import normalizePath from 'api-client/src/normalizePath'
 
 import DatabaseContext from '../models/DatabaseContext'
 import {
@@ -432,7 +433,9 @@ class DatabaseConnector {
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
           postcode: jsonLocation.postcode,
-          town: jsonLocation.town
+          town: jsonLocation.town,
+          thumbnail: jsonObject.thumbnail,
+          path: normalizePath(jsonObject.path)
         }),
         lastUpdate: moment(jsonObject.lastUpdate, moment.ISO_8601),
         hash: jsonObject.hash
@@ -579,7 +582,9 @@ class DatabaseConnector {
           latitude: jsonLocation.latitude,
           longitude: jsonLocation.longitude,
           postcode: jsonLocation.postcode,
-          town: jsonLocation.town
+          town: jsonLocation.town,
+          thumbnail: jsonObject.thumbnail,
+          path: normalizePath(jsonObject.path)
         })
       })
     })

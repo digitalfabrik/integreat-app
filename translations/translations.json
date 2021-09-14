@@ -5713,7 +5713,8 @@
     "de": {
       "location": "Standort",
       "map": "Karte",
-      "unit": "km"
+      "unit": "km",
+      "distanceText": "entfernt"
     }
   }
 }

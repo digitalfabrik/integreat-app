@@ -1,5 +1,4 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import distance from '@turf/distance'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { FAB } from 'react-native-elements'
@@ -29,6 +28,8 @@ type MapViewPropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   language: string
   cityCode: string
+  setUserLocation: (coordinates: number[]) => void
+  userLocation: number[] | undefined
 }
 
 const textOffsetY = 1.25
@@ -47,7 +48,6 @@ const layerProps: SymbolLayerProps = {
     textSize: 12
   }
 }
-// TODO add distance to all features to fix redirecting
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
@@ -58,14 +58,15 @@ const MapView = ({
   setSelectedFeature,
   navigateTo,
   language,
-  cityCode
+  cityCode,
+  setUserLocation,
+  userLocation
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
 
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
-  const userLocationRef = React.useRef<MapboxGL.UserLocation | null>(null)
   const theme = useTheme()
 
   const bounds = {
@@ -108,6 +109,11 @@ const MapView = ({
       ? 'location-searching'
       : 'location-disabled'
 
+  // set the user location coordinate once to calculate distance for all pois
+  const onLocationUpdate = (location: MapboxGL.Location): void => {
+    !userLocation && setUserLocation([location.coords.longitude, location.coords.latitude])
+  }
+
   const onPress = useCallback(
     async (pressedLocation: Feature) => {
       if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
@@ -118,17 +124,11 @@ const MapView = ({
         undefined,
         [featureLayerId]
       )
-      let feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+      const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
       if (feature) {
         const {
           geometry: { coordinates }
         } = feature
-        // @ts-ignore interface does not provide state
-        const currentLocation: number[] = userLocationRef?.current?.state?.coordinates
-        if (currentLocation) {
-          const distanceValue: string = distance(currentLocation, coordinates).toFixed(1)
-          feature = { ...feature, properties: { ...feature.properties, distance: distanceValue } }
-        }
         setSelectedFeature(feature)
 
         cameraRef.current.flyTo(coordinates)
@@ -148,7 +148,7 @@ const MapView = ({
         ref={mapRef}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapboxGL.UserLocation ref={userLocationRef} visible={locationPermissionGranted} />
+        <MapboxGL.UserLocation visible={locationPermissionGranted} onUpdate={onLocationUpdate} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>

@@ -33,7 +33,9 @@ describe('geoJson', () => {
         region: 'Schwaben',
         latitude: '29.979848',
         longitude: '31.133859',
-        country: 'DE'
+        country: 'DE',
+        thumbnail: null,
+        path: null
       })
       expect(embedInCollection([location.convertToPoint()!])).toEqual(expectedGeoJsonFeatureCollection)
     })
