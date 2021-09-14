@@ -54,34 +54,36 @@ const linking: LinkingOptions = {
       }
     ]
   }),
-  subscribe: (listener: (url: string) => void) => {
-    const onReceiveURL = ({ url }: { url: string }) => listener(url)
+  subscribe: buildConfig().featureFlags.pushNotifications
+    ? (listener: (url: string) => void) => {
+        const onReceiveURL = ({ url }: { url: string }) => listener(url)
 
-    Linking.addEventListener('url', onReceiveURL)
+        Linking.addEventListener('url', onReceiveURL)
 
-    // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
-    const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
-      const appSettings = new AppSettings()
-      appSettings.loadSettings().then(settings => {
-        const { selectedCity, contentLanguage } = settings
-        if (selectedCity && contentLanguage) {
-          listener(
-            urlFromRouteInformation({
-              cityCode: selectedCity,
-              languageCode: contentLanguage,
-              route: NEWS_ROUTE,
-              newsType: LOCAL_NEWS_TYPE
-            })
-          )
+        // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
+        const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
+          const appSettings = new AppSettings()
+          appSettings.loadSettings().then(settings => {
+            const { selectedCity, contentLanguage } = settings
+            if (selectedCity && contentLanguage) {
+              listener(
+                urlFromRouteInformation({
+                  cityCode: selectedCity,
+                  languageCode: contentLanguage,
+                  route: NEWS_ROUTE,
+                  newsType: LOCAL_NEWS_TYPE
+                })
+              )
+            }
+          })
+        })
+
+        return () => {
+          Linking.removeEventListener('url', onReceiveURL)
+          unsubscribeNotification()
         }
-      })
-    })
-
-    return () => {
-      Linking.removeEventListener('url', onReceiveURL)
-      unsubscribeNotification()
-    }
-  }
+      }
+    : undefined
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
