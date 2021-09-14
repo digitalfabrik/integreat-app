@@ -40,7 +40,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
               latitude: poi.location.latitude,
               longitude: poi.location.longitude,
               thumbnail: poi.thumbnail,
-              path: poi.path
+              path: normalizePath(poi.path)
             }),
             lastUpdate: moment.tz(poi.modified_gmt, 'GMT'),
             hash: poi.hash

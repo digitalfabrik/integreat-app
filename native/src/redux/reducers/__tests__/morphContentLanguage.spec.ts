@@ -140,7 +140,9 @@ describe('morphContentLanguage', () => {
         region: 'region',
         country: 'country',
         longitude: null,
-        latitude: null
+        latitude: null,
+        thumbnail: null,
+        path
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24', moment.ISO_8601),
@@ -168,7 +170,9 @@ describe('morphContentLanguage', () => {
         postcode: 'postcode',
         latitude: '15',
         longitude: '15',
-        name: 'name'
+        name: 'name',
+        thumbnail: null,
+        path
       }),
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),
       hash: 'test'

@@ -14,7 +14,9 @@ describe('LocationModel', () => {
           state: null,
           address: null,
           town: null,
-          postcode: null
+          postcode: null,
+          thumbnail: null,
+          path: null
         }).location
       ).toBeNull()
     })
@@ -28,7 +30,9 @@ describe('LocationModel', () => {
           state: null,
           address: null,
           town: 'Augsburg',
-          postcode: '86161'
+          postcode: '86161',
+          thumbnail: null,
+          path: null
         }).location
       ).toBe('86161 Augsburg')
       expect(
@@ -40,7 +44,9 @@ describe('LocationModel', () => {
           state: null,
           address: null,
           town: 'Augsburg',
-          postcode: null
+          postcode: null,
+          thumbnail: null,
+          path: null
         }).location
       ).toBe('Augsburg')
     })
@@ -53,7 +59,9 @@ describe('LocationModel', () => {
         state: 'Bayern',
         postcode: '86353',
         region: 'Schwaben',
-        country: 'DE'
+        country: 'DE',
+        thumbnail: null,
+        path: null
       })
       expect(location.location).toEqual('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
     })
@@ -66,7 +74,9 @@ describe('LocationModel', () => {
         state: 'Bayern',
         postcode: '86353',
         region: 'Schwaben',
-        country: 'DE'
+        country: 'DE',
+        thumbnail: null,
+        path: null
       })
       expect(location.location).toEqual('Wertachstr. 29, 86353 Augsburg')
     })
@@ -96,7 +106,9 @@ describe('convertToPoint', () => {
       region: 'Schwaben',
       latitude: '29.979848',
       longitude: '31.133859',
-      country: 'DE'
+      country: 'DE',
+      thumbnail: null,
+      path: null
     })
     expect(location.convertToPoint()).toEqual(expectedGeoJsonMarkerFeature)
   })
@@ -111,7 +123,9 @@ describe('convertToPoint', () => {
       region: 'Schwaben',
       latitude: null,
       longitude: '31.133859',
-      country: 'DE'
+      country: 'DE',
+      thumbnail: null,
+      path: null
     })
     expect(location.convertToPoint()).toBeNull()
   })
@@ -126,7 +140,9 @@ describe('convertToPoint', () => {
       region: 'Schwaben',
       latitude: '31.133859',
       longitude: null,
-      country: 'DE'
+      country: 'DE',
+      thumbnail: null,
+      path: null
     })
     expect(location.convertToPoint()).toBeNull()
   })
