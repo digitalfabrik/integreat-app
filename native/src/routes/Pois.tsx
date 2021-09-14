@@ -1,8 +1,10 @@
+import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import distance from '@turf/distance'
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, View } from 'react-native'
+import { AppState, AppStateStatus, ScrollView, View } from 'react-native'
+import { RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
 
 import {
@@ -28,6 +30,7 @@ import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 
 export type PropsType = {
   path: string | null | undefined
@@ -76,9 +79,47 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const appState = useRef(AppState.currentState)
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
   const [userLocation, setUserLocation] = useState<number[] | undefined>(undefined)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
+
+  const onLocationPermission = useCallback(locationPermission => {
+    const permissionGranted = locationPermission === RESULTS.GRANTED
+    if (permissionGranted) {
+      Geolocation.getCurrentPosition(
+        (position: GeolocationResponse) => {
+          setUserLocation([position.coords.longitude, position.coords.latitude])
+          setLocationPermissionGranted(true)
+        },
+        (_error: GeolocationError) => setLocationPermissionGranted(false),
+        {
+          enableHighAccuracy: true,
+          timeout: 50000,
+          maximumAge: 3600000
+        }
+      )
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!path) {
+      const onChange = (nextAppState: AppStateStatus) => {
+        if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+          checkLocationPermission().then(onLocationPermission)
+        }
+        appState.current = nextAppState
+      }
+      AppState.addEventListener('change', onChange)
+      checkLocationPermission().then(onLocationPermission)
+      return () => AppState.removeEventListener('change', onChange)
+    }
+  }, [onLocationPermission, path])
+
+  const onRequestLocationPermission = useCallback(() => {
+    requestLocationPermission().then(onLocationPermission)
+  }, [onLocationPermission])
 
   useEffect(() => {
     const featureLocations = prepareFeatureLocations(pois, userLocation)
@@ -199,8 +240,9 @@ const Pois = ({
               navigateTo={navigateTo}
               language={language}
               cityCode={cityModel.code}
-              setUserLocation={setUserLocation}
               userLocation={userLocation}
+              locationPermissionGranted={locationPermissionGranted}
+              onRequestLocationPermission={onRequestLocationPermission}
             />
           )}
           <List

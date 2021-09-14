@@ -1,14 +1,12 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { FAB } from 'react-native-elements'
-import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
 
-import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
@@ -28,7 +26,8 @@ type MapViewPropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   language: string
   cityCode: string
-  setUserLocation: (coordinates: number[]) => void
+  locationPermissionGranted: boolean
+  onRequestLocationPermission: () => void
   userLocation: number[] | undefined
 }
 
@@ -59,12 +58,10 @@ const MapView = ({
   navigateTo,
   language,
   cityCode,
-  setUserLocation,
-  userLocation
+  onRequestLocationPermission,
+  locationPermissionGranted
 }: MapViewPropsType): ReactElement => {
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
-  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
-
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(locationPermissionGranted && !selectedFeature)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
@@ -82,37 +79,22 @@ const MapView = ({
     bounds: coordinates ? undefined : bounds
   }
 
-  const onLocationPermissionRequest = useCallback((locationPermission: PermissionStatus | undefined) => {
-    const permissionGranted = locationPermission === RESULTS.GRANTED
-    setLocationPermissionGranted(permissionGranted)
-  }, [])
-
-  useEffect(() => {
-    checkLocationPermission().then(onLocationPermissionRequest)
-  }, [onLocationPermissionRequest])
-
-  const requestPermission = useCallback(() => {
-    requestLocationPermission().then(onLocationPermissionRequest)
-    locationPermissionGranted && setFollowUserLocation(!followUserLocation)
-  }, [followUserLocation, locationPermissionGranted, onLocationPermissionRequest])
+  const onRequestLocation = useCallback(() => {
+    onRequestLocationPermission()
+    setFollowUserLocation(locationPermissionGranted)
+  }, [locationPermissionGranted, onRequestLocationPermission])
 
   const onUserTrackingModeChange = (
     event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
   ) => {
     setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
   }
-
   const locationPermissionIcon =
     locationPermissionGranted && followUserLocation
       ? 'my-location'
       : locationPermissionGranted
       ? 'location-searching'
       : 'location-disabled'
-
-  // set the user location coordinate once to calculate distance for all pois
-  const onLocationUpdate = (location: MapboxGL.Location): void => {
-    !userLocation && setUserLocation([location.coords.longitude, location.coords.latitude])
-  }
 
   const onPress = useCallback(
     async (pressedLocation: Feature) => {
@@ -148,7 +130,7 @@ const MapView = ({
         ref={mapRef}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapboxGL.UserLocation visible={locationPermissionGranted} onUpdate={onLocationUpdate} />
+        <MapboxGL.UserLocation visible={locationPermissionGranted} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
@@ -165,7 +147,7 @@ const MapView = ({
       )}
       <FAB
         placement='right'
-        onPress={requestPermission}
+        onPress={onRequestLocation}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
         style={selectedFeature && { top: 0 }}
