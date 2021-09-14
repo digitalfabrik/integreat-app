@@ -10,7 +10,7 @@ import CleanLink from './CleanLink'
 import LastUpdateInfo from './LastUpdateInfo'
 import { Description } from './ListItem'
 
-export const NUM_OF_WORDS_ALLOWED = 30
+export const NUM_OF_CHARS_ALLOWED = 220
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -63,7 +63,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
+          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
