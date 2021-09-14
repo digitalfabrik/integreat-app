@@ -8,6 +8,10 @@ class DashboardPage extends Page {
   get searchIcon() {
     return $('~Search')
   }
+
+  get headerOverflowButton() {
+    return $('~More options')
+  }
 }
 
 export default new DashboardPage()
