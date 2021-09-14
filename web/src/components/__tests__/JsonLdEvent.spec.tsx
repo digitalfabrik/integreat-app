@@ -23,7 +23,9 @@ describe('EventJsonLd', () => {
       state: 'Bayern',
       postcode: '86153',
       region: 'Schwaben',
-      country: 'DE'
+      country: 'DE',
+      thumbnail: null,
+      path: null
     })
     const eventModel = new EventModel({
       path: '/events/event0',

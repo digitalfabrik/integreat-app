@@ -14,7 +14,9 @@ describe('geoJson', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9'
+      symbol: '9',
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi'
     }
   }
   describe('embedInCollection', () => {
@@ -34,8 +36,8 @@ describe('geoJson', () => {
         latitude: '29.979848',
         longitude: '31.133859',
         country: 'DE',
-        thumbnail: null,
-        path: null
+        thumbnail: 'thumbnail',
+        path: '/augsburg/de/locations/erster_poi'
       })
       expect(embedInCollection([location.convertToPoint()!])).toEqual(expectedGeoJsonFeatureCollection)
     })
