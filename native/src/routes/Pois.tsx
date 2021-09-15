@@ -1,10 +1,11 @@
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import distance from '@turf/distance'
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AppState, AppStateStatus, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { RESULTS } from 'react-native-permissions'
+import SystemSetting from 'react-native-system-setting'
 import { useTheme } from 'styled-components'
 
 import {
@@ -79,7 +80,6 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const appState = useRef(AppState.currentState)
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
   const [userLocation, setUserLocation] = useState<number[] | undefined>(undefined)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
@@ -93,7 +93,9 @@ const Pois = ({
           setUserLocation([position.coords.longitude, position.coords.latitude])
           setLocationPermissionGranted(true)
         },
-        (_error: GeolocationError) => setLocationPermissionGranted(false),
+        (_error: GeolocationError) => {
+          setLocationPermissionGranted(false)
+        },
         {
           enableHighAccuracy: true,
           timeout: 50000,
@@ -105,15 +107,12 @@ const Pois = ({
 
   useEffect(() => {
     if (!path) {
-      const onChange = (nextAppState: AppStateStatus) => {
-        if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-          checkLocationPermission().then(onLocationPermission)
-        }
-        appState.current = nextAppState
-      }
-      AppState.addEventListener('change', onChange)
+      const onLocationChanged = (enabled: boolean) => setLocationPermissionGranted(enabled)
       checkLocationPermission().then(onLocationPermission)
-      return () => AppState.removeEventListener('change', onChange)
+      const listener = SystemSetting.addLocationListener(onLocationChanged)
+      return () => {
+        listener.then(listener => listener && SystemSetting.removeListener(listener))
+      }
     }
   }, [onLocationPermission, path])
 
