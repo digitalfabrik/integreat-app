@@ -11,7 +11,7 @@ import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import buildConfig from '../constants/buildConfig'
-import { LocationStateType, LocationType } from '../hooks/useLocation'
+import { LocationInformationType } from '../hooks/useLocation'
 import getNearbyPlaces from '../utils/getNearbyPlaces'
 import { normalizeSearchString } from '../utils/helpers'
 import CityEntry from './CityEntry'
@@ -41,9 +41,7 @@ type PropsType = {
   filterText: string
   navigateToDashboard: (city: CityModel) => void
   theme: ThemeType
-  location: LocationType | null
-  locationState: LocationStateType
-  retryDetermineLocation: null | (() => Promise<void>)
+  locationInformation: LocationInformationType
   t: TFunction<'landing'>
 }
 
@@ -102,16 +100,8 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations(): React.ReactNode {
-    const {
-      cities,
-      location,
-      locationState,
-      t,
-      theme,
-      navigateToDashboard,
-      filterText,
-      retryDetermineLocation
-    } = this.props
+    const { cities, t, theme, navigateToDashboard, filterText, locationInformation } = this.props
+    const { location, locationState, requestAndDetermineLocation } = locationInformation
 
     if (location !== null) {
       const nearbyCities = getNearbyPlaces(
@@ -154,12 +144,12 @@ class CitySelector extends React.PureComponent<PropsType> {
               {locationState.status !== 'ready' ? t(locationState.message) : ''}
             </NearbyMessage>
             <RetryButtonContainer>
-              {retryDetermineLocation && (
+              {locationState.status === 'unavailable' && locationState.message === 'loading' && (
                 <Button
                   icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                   title=''
                   type='clear'
-                  onPress={retryDetermineLocation}
+                  onPress={requestAndDetermineLocation}
                   accessibilityLabel={t('refresh')}
                   accessibilityRole='button'
                 />
