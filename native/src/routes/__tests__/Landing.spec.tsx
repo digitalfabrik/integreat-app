@@ -12,6 +12,7 @@ import buildConfig from '../../constants/buildConfig'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import Landing from '../Landing'
 
+jest.mock('react-native-system-setting', () => {})
 jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
   requestLocationPermission: jest.fn()
