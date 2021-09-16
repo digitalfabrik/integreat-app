@@ -26,9 +26,8 @@ type MapViewPropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   language: string
   cityCode: string
-  locationPermissionGranted: boolean
   onRequestLocationPermission: () => void
-  userLocation: number[] | undefined
+  locationPermissionGranted: boolean
 }
 
 const textOffsetY = 1.25

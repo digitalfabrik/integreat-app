@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -68,7 +67,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const ThemedTranslatedLanding = withTranslation('landing')(withTheme<LandingPropsType>(Landing))
+const ThemedLanding = withTheme<LandingPropsType>(Landing)
 
 const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerPropsType) => {
   const navigateToDashboard = (cityCode: string, languageCode: string) => {
@@ -94,7 +93,7 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
   }
 
   return (
-    <ThemedTranslatedLanding
+    <ThemedLanding
       cities={cities}
       language={language}
       navigateToDashboard={navigateToDashboard}

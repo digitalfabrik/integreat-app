@@ -1,4 +1,4 @@
-import { transform, groupBy } from 'lodash'
+import { groupBy, transform } from 'lodash'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
@@ -11,7 +11,7 @@ import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import buildConfig from '../constants/buildConfig'
-import { LocationType } from '../routes/Landing'
+import { LocationStateType, LocationType } from '../hooks/useLocation'
 import getNearbyPlaces from '../utils/getNearbyPlaces'
 import { normalizeSearchString } from '../utils/helpers'
 import CityEntry from './CityEntry'
@@ -41,9 +41,10 @@ type PropsType = {
   filterText: string
   navigateToDashboard: (city: CityModel) => void
   theme: ThemeType
-  location: LocationType
+  location: LocationType | null
+  locationState: LocationStateType
   retryDetermineLocation: null | (() => Promise<void>)
-  t: TFunction
+  t: TFunction<'landing'>
 }
 
 const checkAliases = (cityModel: CityModel, normalizedFilter: string): boolean => {
@@ -101,13 +102,22 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations(): React.ReactNode {
-    const { cities, location, t, theme, navigateToDashboard, filterText, retryDetermineLocation } = this.props
+    const {
+      cities,
+      location,
+      locationState,
+      t,
+      theme,
+      navigateToDashboard,
+      filterText,
+      retryDetermineLocation
+    } = this.props
 
-    if (location?.status === 'ready') {
+    if (location !== null) {
       const nearbyCities = getNearbyPlaces(
         cities.filter(city => city.live),
-        location.longitude,
-        location.latitude
+        location[0],
+        location[1]
       )
 
       if (nearbyCities.length > 0) {
@@ -140,7 +150,9 @@ class CitySelector extends React.PureComponent<PropsType> {
         <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
-            <NearbyMessage theme={theme}>{location ? t(location.message) : ''}</NearbyMessage>
+            <NearbyMessage theme={theme}>
+              {locationState.status !== 'ready' ? t(locationState.message) : ''}
+            </NearbyMessage>
             <RetryButtonContainer>
               {retryDetermineLocation && (
                 <Button
