@@ -29,7 +29,7 @@ export type PropsType = {
 
 const Landing = ({ cities, language, theme, navigateToDashboard, clearResourcesAndCache }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
-  const { location, locationState, requestAndDetermineLocation } = useLocation()
+  const locationInformation = useLocation()
 
   const navigateTo = useCallback(
     (cityModel: CityModel) => {
@@ -38,8 +38,6 @@ const Landing = ({ cities, language, theme, navigateToDashboard, clearResourcesA
     [language, navigateToDashboard]
   )
 
-  const retryDetermineLocation =
-    locationState.status === 'unavailable' && locationState.message === 'loading' ? null : requestAndDetermineLocation
   return (
     <Wrapper {...testID('Landing-Page')}>
       <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
@@ -47,9 +45,7 @@ const Landing = ({ cities, language, theme, navigateToDashboard, clearResourcesA
         theme={theme}
         cities={cities}
         t={t}
-        location={location}
-        locationState={locationState}
-        retryDetermineLocation={retryDetermineLocation}
+        locationInformation={locationInformation}
         navigateToDashboard={navigateTo}
       />
     </Wrapper>

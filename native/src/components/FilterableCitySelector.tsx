@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import { LocationStateType, LocationType } from '../hooks/useLocation'
+import { LocationInformationType } from '../hooks/useLocation'
 import CitySelector from './CitySelector'
 import SearchInput from './SearchInput'
 
@@ -21,9 +21,7 @@ type PropsType = {
   navigateToDashboard: (city: CityModel) => void
   t: TFunction<'landing'>
   theme: ThemeType
-  location: LocationType | null
-  locationState: LocationStateType
-  retryDetermineLocation: null | (() => Promise<void>)
+  locationInformation: LocationInformationType
 }
 type StateType = {
   filterText: string

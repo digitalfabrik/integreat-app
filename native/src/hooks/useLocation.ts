@@ -11,7 +11,7 @@ type UnavailableLocationState = {
   message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
 }
 
-export type LocationStateType = SuccessfulLocationState | UnavailableLocationState
+type LocationStateType = SuccessfulLocationState | UnavailableLocationState
 
 export type LocationType = [number, number]
 
@@ -34,7 +34,7 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
   }
 }
 
-type LocationInformationType = {
+export type LocationInformationType = {
   location: LocationType | null
   locationState: LocationStateType
   requestAndDetermineLocation: () => Promise<void>
