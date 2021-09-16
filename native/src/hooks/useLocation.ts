@@ -1,0 +1,141 @@
+import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
+import { useCallback, useEffect, useState } from 'react'
+import { openSettings, RESULTS } from 'react-native-permissions'
+import SystemSetting from 'react-native-system-setting'
+
+import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
+
+type SuccessfulLocationState = { status: 'ready' }
+type UnavailableLocationState = {
+  status: 'unavailable'
+  message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
+}
+
+export type LocationStateType = SuccessfulLocationState | UnavailableLocationState
+
+export type LocationType = [number, number]
+
+const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
+  if (error.code === 1) {
+    return {
+      status: 'unavailable',
+      message: 'noPermission'
+    }
+  } else if (error.code === 2) {
+    return {
+      status: 'unavailable',
+      message: 'notAvailable'
+    }
+  } else {
+    return {
+      status: 'unavailable',
+      message: 'timeout'
+    }
+  }
+}
+
+type LocationInformationType = {
+  location: LocationType | null
+  locationState: LocationStateType
+  requestAndDetermineLocation: () => Promise<void>
+}
+
+const useLocation = (useSettingsListener = false): LocationInformationType => {
+  const [locationState, setLocationState] = useState<LocationStateType>({
+    status: 'unavailable',
+    message: 'loading'
+  })
+  const [location, setLocation] = useState<LocationType | null>(null)
+
+  const determineLocation = useCallback(() => {
+    Geolocation.getCurrentPosition(
+      (position: GeolocationResponse) => {
+        setLocation([position.coords.longitude, position.coords.latitude])
+        setLocationState({ status: 'ready' })
+      },
+      (error: GeolocationError) => {
+        setLocationState(locationStateOnError(error))
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 50000,
+        maximumAge: 3600000
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    checkLocationPermission().then(locationPermissionStatus => {
+      if (locationPermissionStatus === RESULTS.GRANTED) {
+        setLocationState({
+          message: 'loading',
+          status: 'unavailable'
+        })
+        determineLocation()
+      } else {
+        setLocationState({
+          status: 'unavailable',
+          message: 'noPermission'
+        })
+      }
+    })
+  }, [determineLocation])
+
+  const requestAndDetermineLocation = useCallback(async () => {
+    setLocationState({
+      message: 'loading',
+      status: 'unavailable'
+    })
+    const locationPermissionStatus = await checkLocationPermission()
+
+    if (locationPermissionStatus === RESULTS.BLOCKED) {
+      await openSettings()
+      setLocationState({
+        message: 'noPermission',
+        status: 'unavailable'
+      })
+    } else if (locationPermissionStatus === RESULTS.GRANTED) {
+      determineLocation()
+    } else {
+      if ((await requestLocationPermission()) === RESULTS.GRANTED) {
+        determineLocation()
+      } else {
+        setLocationState({
+          message: 'noPermission',
+          status: 'unavailable'
+        })
+      }
+    }
+  }, [determineLocation])
+
+  useEffect(() => {
+    if (useSettingsListener) {
+      const onLocationChanged = (enabled: boolean) => {
+        if (enabled) {
+          requestAndDetermineLocation()
+        } else {
+          setLocation(null)
+          setLocationState({
+            status: 'unavailable',
+            message: 'notAvailable'
+          })
+        }
+      }
+      const listener = SystemSetting.addLocationListener(onLocationChanged)
+      return () => {
+        listener.then(listener => listener && SystemSetting.removeListener(listener))
+      }
+    }
+  })
+
+  const isReadyOrLoading =
+    locationState.status === 'ready' || (locationState.status === 'unavailable' && locationState.message === 'loading')
+
+  return {
+    locationState,
+    location: isReadyOrLoading ? location : null,
+    requestAndDetermineLocation
+  }
+}
+
+export default useLocation

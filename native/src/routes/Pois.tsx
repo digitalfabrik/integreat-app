@@ -1,11 +1,8 @@
-import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import distance from '@turf/distance'
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, View } from 'react-native'
-import { RESULTS } from 'react-native-permissions'
-import SystemSetting from 'react-native-system-setting'
 import { useTheme } from 'styled-components'
 
 import {
@@ -30,8 +27,8 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
+import useLocation, { LocationType } from '../hooks/useLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
-import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 
 export type PropsType = {
   path: string | null | undefined
@@ -47,18 +44,22 @@ export type PropsType = {
 }
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] => {
-  return pois
-    .map(poi => {
-      const featureLocation: Feature<Point> = poi.featureLocation as Feature<Point>
-      if (userLocation && featureLocation?.geometry?.coordinates) {
-        const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
-        return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
-      } else {
-        return poi.featureLocation
-      }
-    })
-    .filter((feature): feature is Feature<Point> => !!feature)
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] => {
+  if (userLocation) {
+    const currentPosition = [userLocation[0], userLocation[1]]
+    return pois
+      .map(poi => {
+        const featureLocation = poi.featureLocation as Feature<Point>
+        if (featureLocation?.geometry?.coordinates) {
+          const distanceValue: string = distance(currentPosition, featureLocation.geometry.coordinates).toFixed(1)
+          return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
+        } else {
+          return poi.featureLocation
+        }
+      })
+      .filter((feature): feature is Feature<Point> => !!feature)
+  }
+  return pois.map(poi => poi.featureLocation).filter((feature): feature is Feature<Point> => !!feature)
 }
 
 /**
@@ -81,47 +82,11 @@ const Pois = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
-  const [userLocation, setUserLocation] = useState<number[] | undefined>(undefined)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
-  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
-
-  const onLocationPermission = useCallback(locationPermission => {
-    const permissionGranted = locationPermission === RESULTS.GRANTED
-    if (permissionGranted) {
-      Geolocation.getCurrentPosition(
-        (position: GeolocationResponse) => {
-          setUserLocation([position.coords.longitude, position.coords.latitude])
-          setLocationPermissionGranted(true)
-        },
-        (_error: GeolocationError) => {
-          setLocationPermissionGranted(false)
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 50000,
-          maximumAge: 3600000
-        }
-      )
-    }
-  }, [])
+  const { location, requestAndDetermineLocation } = useLocation(path === null)
 
   useEffect(() => {
-    if (!path) {
-      const onLocationChanged = (enabled: boolean) => setLocationPermissionGranted(enabled)
-      checkLocationPermission().then(onLocationPermission)
-      const listener = SystemSetting.addLocationListener(onLocationChanged)
-      return () => {
-        listener.then(listener => listener && SystemSetting.removeListener(listener))
-      }
-    }
-  }, [onLocationPermission, path])
-
-  const onRequestLocationPermission = useCallback(() => {
-    requestLocationPermission().then(onLocationPermission)
-  }, [onLocationPermission])
-
-  useEffect(() => {
-    const featureLocations = prepareFeatureLocations(pois, userLocation)
+    const featureLocations = prepareFeatureLocations(pois, location)
     const selectedPoiId = Number(route.params.selectedPoiId)
     if (selectedPoiId) {
       const currentFeature: Feature<Point> | undefined = featureLocations.find(
@@ -129,8 +94,8 @@ const Pois = ({
       )
       currentFeature && setSelectedFeature(currentFeature)
     }
-    userLocation && setFeatureLocations(featureLocations)
-  }, [pois, route.params.selectedPoiId, userLocation])
+    location && setFeatureLocations(featureLocations)
+  }, [pois, route.params.selectedPoiId, location])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -239,9 +204,8 @@ const Pois = ({
               navigateTo={navigateTo}
               language={language}
               cityCode={cityModel.code}
-              userLocation={userLocation}
-              locationPermissionGranted={locationPermissionGranted}
-              onRequestLocationPermission={onRequestLocationPermission}
+              locationPermissionGranted={location !== null}
+              onRequestLocationPermission={requestAndDetermineLocation}
             />
           )}
           <List

@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import { LocationType } from '../routes/Landing'
+import { LocationStateType, LocationType } from '../hooks/useLocation'
 import CitySelector from './CitySelector'
 import SearchInput from './SearchInput'
 
@@ -19,9 +19,10 @@ const SearchBar = styled.View`
 type PropsType = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
-  t: TFunction
+  t: TFunction<'landing'>
   theme: ThemeType
-  location: LocationType
+  location: LocationType | null
+  locationState: LocationStateType
   retryDetermineLocation: null | (() => Promise<void>)
 }
 type StateType = {
