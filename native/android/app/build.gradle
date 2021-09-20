@@ -79,12 +79,12 @@ import com.android.build.OutputFile
 
 project.ext.react = [
         extraPackagerArgs: (System.getenv('EXTRA_PACKAGER_ARGS') ?: "").split("\\s+"),
-        enableHermes: true,  // clean and rebuild if changing
-        entryFile: "index.ts",
+        enableHermes     : true,  // clean and rebuild if changing
+        entryFile        : "index.ts",
 ]
 
 project.ext.vectoricons = [
-        iconFontNames: [ 'MaterialIcons.ttf', 'MaterialCommunityIcons.ttf' ] // Name of the font files you want to copy
+        iconFontNames: ['MaterialIcons.ttf', 'MaterialCommunityIcons.ttf'] // Name of the font files you want to copy
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
@@ -152,7 +152,7 @@ android {
             String type, String name, String value -> resValue(type, name, value)
         })
 
-        manifestPlaceholders = [*:determineTheme(buildConfig), *:determineIcon(buildConfig)]
+        manifestPlaceholders = [*: determineTheme(buildConfig), *: determineIcon(buildConfig)]
 
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -267,17 +267,22 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    // stick to browser 1.3.0 until we upgrade to SDK 31 https://stackoverflow.com/questions/69208613/getting-error-while-running-react-native-app
+    implementation("androidx.browser:browser:1.3.0") {
+        force = true
+    }
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.fbjni'
+        exclude group: 'com.facebook.fbjni'
     }
 
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
+        exclude group: 'com.facebook.flipper'
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
 
     if (enableHermes) {
