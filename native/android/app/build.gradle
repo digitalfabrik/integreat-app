@@ -267,11 +267,6 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
-    // stick to browser 1.3.0 until we upgrade to SDK 31 https://stackoverflow.com/questions/69208613/getting-error-while-running-react-native-app
-    implementation("androidx.browser:browser:1.3.0") {
-        force = true
-    }
-
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group: 'com.facebook.fbjni'
     }
