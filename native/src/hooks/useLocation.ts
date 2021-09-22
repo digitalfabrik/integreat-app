@@ -16,12 +16,12 @@ type LocationStateType = SuccessfulLocationState | UnavailableLocationState
 export type LocationType = [number, number]
 
 const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
-  if (error.code === 1) {
+  if (error.code === error.PERMISSION_DENIED) {
     return {
       status: 'unavailable',
       message: 'noPermission'
     }
-  } else if (error.code === 2) {
+  } else if (error.code === error.POSITION_UNAVAILABLE) {
     return {
       status: 'unavailable',
       message: 'notAvailable'
