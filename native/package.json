@@ -68,7 +68,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-highlight-words": "^1.0.1",
     "react-native-image-zoom-viewer": "^3.0.1",
-    "react-native-inappbrowser-reborn": "^3.5.1",
+    "react-native-inappbrowser-reborn": "^3.6.3",
     "react-native-localize": "^2.0.2",
     "react-native-pdf": "6.3.0",
     "react-native-permissions": "3.0.1",
