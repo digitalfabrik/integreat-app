@@ -443,7 +443,7 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNInAppBrowser (3.5.1):
+  - RNInAppBrowser (3.6.3):
     - React-Core
   - RNLocalize (2.0.2):
     - React-Core
@@ -785,7 +785,7 @@ SPEC CHECKSUMS:
   RNFBApp: 1624ffcfc328c00ec3049d2f1bbf09d3e78dcdb7
   RNFBMessaging: 43d7ae1f8b93d20ad3194cac3e31ca446d4e9828
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
+  RNInAppBrowser: 3ff3a3b8f458aaf25aaee879d057352862edf357
   RNLocalize: 43f6c30d8e19ad92282ae434d310fb463b31f419
   RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
   RNReanimated: ad24db8af24e3fe1b5c462785bc3db8d5baae2ee
