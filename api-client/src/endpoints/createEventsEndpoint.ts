@@ -49,9 +49,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
                 region: event.location.region,
                 country: event.location.country,
                 latitude: event.location.latitude,
-                longitude: event.location.longitude,
-                thumbnail: event.thumbnail,
-                path: normalizePath(event.path)
+                longitude: event.location.longitude
               }),
               excerpt: decodeHTML(event.excerpt),
               availableLanguages: mapAvailableLanguages(event.available_languages),

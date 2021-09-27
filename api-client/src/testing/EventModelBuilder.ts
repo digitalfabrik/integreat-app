@@ -107,9 +107,7 @@ class EventModelBuilder {
               region: null,
               country: null,
               latitude: null,
-              longitude: null,
-              thumbnail: null,
-              path: null
+              longitude: null
             }),
             excerpt: 'excerpt',
             lastUpdate,

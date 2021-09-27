@@ -43,11 +43,11 @@ export type PropsType = {
 }
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] => {
-  return pois
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] =>
+  pois
     .map(poi => {
-      const featureLocation: Feature<Point> = poi.featureLocation as Feature<Point>
-      if (userLocation && featureLocation?.geometry?.coordinates) {
+      const featureLocation = poi.featureLocation
+      if (userLocation && featureLocation?.geometry.coordinates) {
         const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
         return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
       } else {
@@ -55,7 +55,6 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[])
       }
     })
     .filter((feature): feature is Feature<Point> => !!feature)
-}
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -77,18 +76,18 @@ const Pois = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
-  const [userLocation, setUserLocation] = useState<number[] | undefined>(undefined)
+  const [userLocation, setUserLocation] = useState<number[] | null>(null)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
 
   useEffect(() => {
     if (!path) {
-      const featureLocations = prepareFeatureLocations(pois, userLocation)
+      const featureLocations = prepareFeatureLocations(pois, userLocation ?? undefined)
       const selectedPoiId = Number(route.params.selectedPoiId)
       if (selectedPoiId) {
         const currentFeature = featureLocations.find(
           feature => feature.properties?.id === Number(route.params.selectedPoiId)
         )
-        setSelectedFeature(currentFeature)
+        setSelectedFeature(currentFeature ?? null)
       }
       userLocation && setFeatureLocations(featureLocations)
     }

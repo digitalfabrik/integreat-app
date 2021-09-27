@@ -29,7 +29,7 @@ type MapViewPropsType = {
   language: string
   cityCode: string
   setUserLocation: (coordinates: number[]) => void
-  userLocation: number[] | undefined
+  userLocation: number[] | null
 }
 
 const textOffsetY = 1.25
@@ -91,11 +91,11 @@ const MapView = ({
     checkLocationPermission().then(onLocationPermissionRequest)
   }, [onLocationPermissionRequest])
 
+  // By clicking fab button the location permission gets requested, if it's granted the followUserLocation gets changed to opposite
   const requestPermission = useCallback(() => {
     requestLocationPermission().then(onLocationPermissionRequest)
     locationPermissionGranted && setFollowUserLocation(!followUserLocation)
   }, [followUserLocation, locationPermissionGranted, onLocationPermissionRequest])
-
   const onUserTrackingModeChange = (
     event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
   ) => {

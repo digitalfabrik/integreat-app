@@ -110,9 +110,7 @@ describe('events', () => {
         region: 'Schwaben',
         country: 'DE',
         longitude: null,
-        latitude: null,
-        thumbnail: '',
-        path: '/augsburg/de/events/asylpolitischer_fruehschoppen'
+        latitude: null
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       hash: '91d435afbc7aa83496137e81fd2832e3',
