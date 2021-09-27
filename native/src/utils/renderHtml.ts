@@ -78,9 +78,7 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
   window.addEventListener('load', adjustHeight);
   window.addEventListener('resize', adjustHeight);
   var details = document.querySelectorAll("details")
-  details.forEach((detail => {
-    detail.addEventListener("toggle", adjustHeight)
-  }))
+  details.forEach(detail => detail.addEventListener("toggle", adjustHeight))
 })();
 `
 
