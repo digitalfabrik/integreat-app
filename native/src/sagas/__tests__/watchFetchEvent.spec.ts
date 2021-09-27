@@ -147,7 +147,7 @@ describe('watchFetchEvent', () => {
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({

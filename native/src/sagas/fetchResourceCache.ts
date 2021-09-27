@@ -35,7 +35,7 @@ function* watchOnProgress() {
       const progressAction: ResourcesFetchProgressActionType = {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
-          progress: progress
+          progress
         }
       }
       yield* put(progressAction)

@@ -25,7 +25,7 @@ const toTileModels = (offer: Array<OfferModel>): Array<TileModel> =>
     const path = isInternalExtra ? offer.alias : offer.path
     return new TileModel({
       title: offer.title,
-      path: path,
+      path,
       thumbnail: offer.thumbnail,
       isExternalUrl: !isInternalExtra,
       postData: offer.postData

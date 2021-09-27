@@ -31,6 +31,7 @@ module.exports = {
     'no-else-return': ['error', { allowElseIf: false }],
     'no-loop-func': 'error',
     'no-use-before-define': 'off',
+    'object-shorthand': 'error',
     'prefer-const': 'error',
     'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',

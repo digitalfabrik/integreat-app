@@ -53,7 +53,7 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
         return new TileModel({
           title: offer.title,
           // the url stored in the sprungbrett offer is the url of the endpoint
-          path: path,
+          path,
           thumbnail: offer.thumbnail,
           postData: offer.postData
         })
