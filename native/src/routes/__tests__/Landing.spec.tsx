@@ -7,18 +7,17 @@ import waitForExpect from 'wait-for-expect'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
-import Landing from '../Landing'
 import buildConfig from '../../constants/buildConfig'
 import wrapWithTheme from '../../testing/wrapWithTheme'
+import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
+import Landing from '../Landing'
 
 jest.mock('react-i18next')
 jest.mock('styled-components', () => ({
   ...jest.requireActual('styled-components'),
   useTheme: () => buildConfig().lightTheme
 }))
-jest.mock('react-native-system-setting', () => {
-})
+jest.mock('react-native-system-setting', () => {})
 jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
   requestLocationPermission: jest.fn()
@@ -59,7 +58,8 @@ describe('Landing', () => {
         language={language}
         navigateToDashboard={navigateToDashboard}
         clearResourcesAndCache={clearResourcesAndCache}
-      />, { wrapper: wrapWithTheme }
+      />,
+      { wrapper: wrapWithTheme }
     )
   }
 

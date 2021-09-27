@@ -50,16 +50,16 @@ const layerProps: SymbolLayerProps = {
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({
-                   boundingBox,
-                   featureCollection,
-                   selectedFeature,
-                   setSelectedFeature,
-                   navigateTo,
-                   language,
-                   cityCode,
-                   onRequestLocationPermission,
-                   locationPermissionGranted
-                 }: MapViewPropsType): ReactElement => {
+  boundingBox,
+  featureCollection,
+  selectedFeature,
+  setSelectedFeature,
+  navigateTo,
+  language,
+  cityCode,
+  onRequestLocationPermission,
+  locationPermissionGranted
+}: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
@@ -80,8 +80,8 @@ const MapView = ({
 
   const onRequestLocation = useCallback(async () => {
     await onRequestLocationPermission()
-    setFollowUserLocation(locationPermissionGranted)
-  }, [locationPermissionGranted, onRequestLocationPermission])
+    setFollowUserLocation(true)
+  }, [onRequestLocationPermission])
 
   const onUserTrackingModeChange = (
     event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
@@ -136,7 +136,7 @@ const MapView = ({
         <MapboxGL.Camera
           defaultSettings={defaultSettings}
           followUserMode='normal'
-          followUserLocation={followUserLocation}
+          followUserLocation={followUserLocation && locationPermissionGranted}
           onUserTrackingModeChange={onUserTrackingModeChange}
           ref={cameraRef}
         />

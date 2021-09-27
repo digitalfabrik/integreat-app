@@ -88,22 +88,15 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
     })
     const locationPermissionStatus = await checkLocationPermission()
 
-    if (locationPermissionStatus === RESULTS.BLOCKED) {
-      await openSettings()
+    if (locationPermissionStatus === RESULTS.GRANTED || (await requestLocationPermission()) === RESULTS.GRANTED) {
+      determineLocation()
+    } else {
       setLocationState({
         message: 'noPermission',
         status: 'unavailable'
       })
-    } else if (locationPermissionStatus === RESULTS.GRANTED) {
-      determineLocation()
-    } else {
-      if ((await requestLocationPermission()) === RESULTS.GRANTED) {
-        determineLocation()
-      } else {
-        setLocationState({
-          message: 'noPermission',
-          status: 'unavailable'
-        })
+      if (locationPermissionStatus === RESULTS.BLOCKED) {
+        await openSettings()
       }
     }
   }, [determineLocation])
@@ -121,6 +114,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
           })
         }
       }
+      // updates the location state, whenever the user changes the location permission
       const listener = SystemSetting.addLocationListener(onLocationChanged)
       return () => {
         listener.then(listener => listener && SystemSetting.removeListener(listener))
