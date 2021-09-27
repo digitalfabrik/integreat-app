@@ -15,7 +15,7 @@ export const createPostSource = (
   body: string,
   contentType = 'application/x-www-form-urlencoded'
 ): WebViewSource => ({
-  uri: uri,
+  uri,
   method: 'POST',
   body,
   headers: Platform.select({
@@ -28,11 +28,11 @@ export const createPostSource = (
   })
 })
 export const createGetSource = (uri: string, body: string): WebViewSource => ({
-  uri: uri,
+  uri,
   method: 'GET',
   body
 })
 export const createHtmlSource = (html: string, baseUrl: string): WebViewSource => ({
-  baseUrl: baseUrl,
-  html: html
+  baseUrl,
+  html
 })

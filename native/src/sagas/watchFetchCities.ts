@@ -13,7 +13,7 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     const insert: PushCitiesActionType = {
       type: 'PUSH_CITIES',
       params: {
-        cities: cities
+        cities
       }
     }
     yield* put(insert)
