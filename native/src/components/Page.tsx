@@ -33,13 +33,12 @@ type PropsType = {
   lastUpdate: Moment
 }
 
-const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType => {
-  return mapValues(files, (file: PageResourceCacheEntryStateType) => {
-    return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType =>
+  mapValues(files, (file: PageResourceCacheEntryStateType) =>
+    file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
       ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
       : file.filePath
-  })
-}
+  )
 
 const Page = ({
   title,

@@ -7,8 +7,8 @@ type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
 
-const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackHeaderProps => {
-  return merge(
+const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackHeaderProps =>
+  merge(
     {
       mode: 'screen',
       layout: {
@@ -45,6 +45,5 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
     },
     props
   ) as StackHeaderProps
-}
 
 export default mockStackHeaderProps

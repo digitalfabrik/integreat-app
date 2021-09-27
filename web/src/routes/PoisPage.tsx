@@ -54,9 +54,10 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   // eslint-disable-next-line no-console
   console.log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
 
-  const requestPois = useCallback(async () => {
-    return createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestPois = useCallback(
+    async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
 
   const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)

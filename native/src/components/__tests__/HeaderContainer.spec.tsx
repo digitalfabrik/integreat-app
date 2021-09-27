@@ -40,85 +40,83 @@ describe('HeaderContainer', () => {
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
 
-  const prepareState = (): StateType => {
-    return {
-      resourceCacheUrl: 'http://localhost:8080',
-      cityContent: {
-        city: city.code,
-        languages: {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: {
-          routeKey1: {
-            routeType: CATEGORIES_ROUTE,
-            status: 'ready',
-            path: `${city.code}/${language.code}/abc`,
-            depth: 1,
-            language: language.code,
-            city: city.code,
-            allAvailableLanguages: new Map(),
-            models: {},
-            children: {}
-          },
-          routeKeyEvent1: {
-            routeType: EVENTS_ROUTE,
-            status: 'ready',
-            path: null,
-            language: language.code,
-            city: city.code,
-            models: [],
-            allAvailableLanguages: new Map()
-          },
-          routeKeyEvent2: {
-            routeType: EVENTS_ROUTE,
-            status: 'ready',
-            path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
-            language: language.code,
-            city: city.code,
-            models: [],
-            allAvailableLanguages: new Map()
-          },
-          routeKeyPois1: {
-            routeType: POIS_ROUTE,
-            status: 'ready',
-            path: null,
-            language: language.code,
-            city: city.code,
-            allAvailableLanguages: new Map(),
-            models: []
-          },
-          routeKeyNews1: {
-            routeType: NEWS_ROUTE,
-            status: 'ready',
-            models: [],
-            hasMoreNews: false,
-            page: 1,
-            newsId: null,
-            language: language.code,
-            city: city.code,
-            type: LOCAL_NEWS_TYPE,
-            allAvailableLanguages: new Map()
-          }
-        },
-        searchRoute: null,
-        resourceCache: {
-          status: 'ready',
-          progress: 0,
-          value: {
-            file: {}
-          }
-        },
-        switchingLanguage: false
-      },
-      contentLanguage: 'en',
-      cities: {
+  const prepareState = (): StateType => ({
+    resourceCacheUrl: 'http://localhost:8080',
+    cityContent: {
+      city: city.code,
+      languages: {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: {
+        routeKey1: {
+          routeType: CATEGORIES_ROUTE,
+          status: 'ready',
+          path: `${city.code}/${language.code}/abc`,
+          depth: 1,
+          language: language.code,
+          city: city.code,
+          allAvailableLanguages: new Map(),
+          models: {},
+          children: {}
+        },
+        routeKeyEvent1: {
+          routeType: EVENTS_ROUTE,
+          status: 'ready',
+          path: null,
+          language: language.code,
+          city: city.code,
+          models: [],
+          allAvailableLanguages: new Map()
+        },
+        routeKeyEvent2: {
+          routeType: EVENTS_ROUTE,
+          status: 'ready',
+          path: `${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`,
+          language: language.code,
+          city: city.code,
+          models: [],
+          allAvailableLanguages: new Map()
+        },
+        routeKeyPois1: {
+          routeType: POIS_ROUTE,
+          status: 'ready',
+          path: null,
+          language: language.code,
+          city: city.code,
+          allAvailableLanguages: new Map(),
+          models: []
+        },
+        routeKeyNews1: {
+          routeType: NEWS_ROUTE,
+          status: 'ready',
+          models: [],
+          hasMoreNews: false,
+          page: 1,
+          newsId: null,
+          language: language.code,
+          city: city.code,
+          type: LOCAL_NEWS_TYPE,
+          allAvailableLanguages: new Map()
+        }
+      },
+      searchRoute: null,
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {
+          file: {}
+        }
+      },
+      switchingLanguage: false
+    },
+    contentLanguage: 'en',
+    cities: {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   beforeEach(() => {
     jest.clearAllMocks()
