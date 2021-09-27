@@ -142,7 +142,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  const resourceCacheUrl = state.resourceCacheUrl
+  const { resourceCacheUrl } = state
 
   if (
     resourceCacheUrl === null ||

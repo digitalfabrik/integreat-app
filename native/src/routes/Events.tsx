@@ -94,7 +94,7 @@ const Events = ({
     const event: EventModel | null | undefined = events.find(_event => _event.path === path)
 
     if (event) {
-      const location = event.location.location
+      const { location } = event.location
       const files = resourceCache[event.path] || {}
       return (
         <Page

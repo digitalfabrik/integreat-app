@@ -55,7 +55,7 @@ const byNameAndAliases = (name: string) => (city: CityModel) =>
 class CitySelector extends React.PureComponent<PropsType> {
   _filter(): Array<CityModel> {
     const normalizedFilter = normalizeSearchString(this.props.filterText)
-    const cities = this.props.cities
+    const { cities } = this.props
 
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
