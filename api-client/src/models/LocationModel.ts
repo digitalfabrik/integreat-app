@@ -24,9 +24,7 @@ class LocationModel {
     region,
     country,
     latitude,
-    longitude,
-    thumbnail,
-    path
+    longitude
   }: {
     id: number | null | undefined
     name: string | null | undefined
@@ -38,8 +36,6 @@ class LocationModel {
     country: string | null | undefined
     latitude?: string | null | undefined
     longitude?: string | null | undefined
-    thumbnail: string | null | undefined
-    path: string | null | undefined
   }) {
     this._id = id
     this._name = name
@@ -52,8 +48,6 @@ class LocationModel {
     this._latitude = latitude
     this._longitude = longitude
     this._name = name
-    this._thumbnail = thumbnail
-    this._path = path
   }
 
   get id(): number | null | undefined {
@@ -121,7 +115,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(): Feature<Point> | null {
+  convertToPoint(path: string, thumbnail: string): Feature<Point> | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
@@ -137,8 +131,8 @@ class LocationModel {
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
         symbol: '9',
-        thumbnail: this._thumbnail,
-        path: this._path
+        thumbnail: thumbnail,
+        path: path
       }
     }
   }

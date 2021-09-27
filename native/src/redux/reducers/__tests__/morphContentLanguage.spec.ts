@@ -21,12 +21,12 @@ import pushEvent from '../pushEvent'
 
 describe('morphContentLanguage', () => {
   const createCategory = ({
-    root,
-    path,
-    order,
-    availableLanguages,
-    parentPath
-  }: {
+                            root,
+                            path,
+                            order,
+                            availableLanguages,
+                            parentPath
+                          }: {
     root: boolean
     path: string
     order: number
@@ -140,9 +140,7 @@ describe('morphContentLanguage', () => {
         region: 'region',
         country: 'country',
         longitude: null,
-        latitude: null,
-        thumbnail: null,
-        path
+        latitude: null
       }),
       excerpt: 'excerpt',
       lastUpdate: moment('2016-01-07 10:36:24', moment.ISO_8601),
@@ -170,9 +168,7 @@ describe('morphContentLanguage', () => {
         postcode: 'postcode',
         latitude: '15',
         longitude: '15',
-        name: 'name',
-        thumbnail: null,
-        path
+        name: 'name'
       }),
       lastUpdate: moment('2011-02-04T00:00:00.000Z'),
       hash: 'test'
