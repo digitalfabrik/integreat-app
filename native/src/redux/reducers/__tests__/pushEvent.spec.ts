@@ -154,7 +154,7 @@ describe('pushEvent', () => {
       })
     )
   })
-  it('should merge the resource cache if there\'s already one', () => {
+  it("should merge the resource cache if there's already one", () => {
     const prevState = prepareState({})
 
     if (prevState.resourceCache.status !== 'ready') {

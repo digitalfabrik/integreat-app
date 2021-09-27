@@ -21,12 +21,12 @@ import pushEvent from '../pushEvent'
 
 describe('morphContentLanguage', () => {
   const createCategory = ({
-                            root,
-                            path,
-                            order,
-                            availableLanguages,
-                            parentPath
-                          }: {
+    root,
+    path,
+    order,
+    availableLanguages,
+    parentPath
+  }: {
     root: boolean
     path: string
     order: number
