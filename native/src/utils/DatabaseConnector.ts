@@ -15,7 +15,7 @@ import {
   LocationModel,
   PoiModel
 } from 'api-client'
-import normalizePath from 'api-client/src/normalizePath'
+import normalizePath from 'api-client'
 
 import DatabaseContext from '../models/DatabaseContext'
 import {
