@@ -53,32 +53,29 @@ const MapPopup: React.FC<MapPopupProps> = ({
   navigateTo,
   cityCode,
   language
-}: MapPopupProps): ReactElement => {
+}: MapPopupProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   if (!feature.properties?.path) {
-    return
+    return null
   }
   return (
     <Popup
-      onPress={
-        feature.properties?.path
-          ? () =>
-              navigateTo({
-                route: POIS_ROUTE,
-                cityCode: cityCode,
-                languageCode: language,
-                cityContentPath: feature.properties?.path
-              })
-          : undefined
+      onPress={() =>
+        navigateTo({
+          route: POIS_ROUTE,
+          cityCode: cityCode,
+          languageCode: language,
+          cityContentPath: feature.properties?.path
+        })
       }
       activeOpacity={1}>
       {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
       <InformationContainer>
         {feature.properties?.title && <Title>{feature.properties.title}</Title>}
         {feature.properties?.distance && (
-          <Infos>
+          <DistanceInfo>
             {feature.properties.distance} {t('unit')} {t('distanceText')}
-          </Infos>
+          </DistanceInfo>
         )}
       </InformationContainer>
     </Popup>
