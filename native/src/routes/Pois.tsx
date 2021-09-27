@@ -1,8 +1,9 @@
 import type { Feature, Point } from 'geojson'
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, View } from 'react-native'
+import { Button, Linking, ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
+import styled from 'styled-components/native'
 
 import {
   CityModel,
@@ -27,6 +28,7 @@ import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
 export type PropsType = {
   path: string | null | undefined
@@ -40,6 +42,11 @@ export type PropsType = {
   navigateToLink: (url: string, language: string, shareUrl: string) => void
   route: RoutePropType<PoisRouteType>
 }
+
+const Spacer = styled.View`
+  width: 20px;
+  height: 20px;
+`
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -118,6 +125,7 @@ const Pois = ({
     if (poi) {
       const location = poi.location.location
       const files = resourceCache[poi.path] || {}
+      const navigationUrl = location && getNavigationDeepLinks(location)
       return (
         <Page
           content={poi.content}
@@ -131,14 +139,14 @@ const Pois = ({
           navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && (
-              <PageDetail
-                identifier={t('location')}
-                information={location}
-                theme={theme}
-                language={language}
-                linkLabel={poi?.featureLocation && t('map')}
-                onLinkClick={navigateToPois(cityModel.code, language, String(poi.location.id))}
-              />
+              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+            )}
+            {poi?.featureLocation && (
+              <>
+                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, String(poi.location.id))} />
+                <Spacer />
+                <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
+              </>
             )}
           </>
         </Page>
