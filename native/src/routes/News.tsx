@@ -95,15 +95,14 @@ const News = (props: PropsType): ReactElement => {
 
     if (selectedNewsItem) {
       return <NewsDetail newsItem={selectedNewsItem} language={language} navigateToLink={navigateToLink} />
-    } else {
-      const error = new NotFoundError({
-        type: selectedNewsType,
-        id: newsId,
-        city: cityModel.code,
-        language
-      })
-      return <Failure code={fromError(error)} />
     }
+    const error = new NotFoundError({
+      type: selectedNewsType,
+      id: newsId,
+      city: cityModel.code,
+      language
+    })
+    return <Failure code={fromError(error)} />
   }
 
   return (

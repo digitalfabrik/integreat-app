@@ -109,20 +109,19 @@ const Feedback = (props: PropsType): ReactElement => {
       )
     } else if (sendingStatus === 'sending') {
       return <ActivityIndicator size='large' color='#0000ff' />
-    } else {
-      // sendingStatus === 'successful') {
-      return (
-        <>
-          <HappyIconContainer source={HappyIcon} />
-          <Caption theme={theme} title={t('feedback:feedbackSent')} />
-          <ThemedText theme={theme}>
-            {t('feedback:thanksMessage', {
-              appName: buildConfig().appName
-            })}
-          </ThemedText>
-        </>
-      )
     }
+    // sendingStatus === 'successful'
+    return (
+      <>
+        <HappyIconContainer source={HappyIcon} />
+        <Caption theme={theme} title={t('feedback:feedbackSent')} />
+        <ThemedText theme={theme}>
+          {t('feedback:thanksMessage', {
+            appName: buildConfig().appName
+          })}
+        </ThemedText>
+      </>
+    )
   }
 
   const { theme } = props

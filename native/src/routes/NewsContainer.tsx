@@ -318,17 +318,16 @@ const NewsContainer = (props: ContainerPropsType) => {
         />
       </View>
     )
-  } else {
-    return (
-      <View
-        style={{
-          flex: 1
-        }}>
-        <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
-        <LoadingSpinner />
-      </View>
-    )
   }
+  return (
+    <View
+      style={{
+        flex: 1
+      }}>
+      <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
+      <LoadingSpinner />
+    </View>
+  )
 }
 
 export default connect(mapStateToProps)(
