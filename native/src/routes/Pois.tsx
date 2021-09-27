@@ -88,7 +88,7 @@ const Pois = ({
         const currentFeature = featureLocations.find(
           feature => feature.properties?.id === Number(route.params.selectedPoiId)
         )
-        currentFeature && setSelectedFeature(currentFeature)
+        setSelectedFeature(currentFeature)
       }
       userLocation && setFeatureLocations(featureLocations)
     }
