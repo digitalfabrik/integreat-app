@@ -53,10 +53,10 @@ const MapPopup: React.FC<MapPopupProps> = ({
   navigateTo,
   cityCode,
   language
-}: MapPopupProps): ReactElement | null => {
+}: MapPopupProps): ReactElement => {
   const { t } = useTranslation('pois')
   if (!feature.properties?.path) {
-    return null
+    return
   }
   return (
     <Popup
@@ -76,9 +76,9 @@ const MapPopup: React.FC<MapPopupProps> = ({
       <InformationContainer>
         {feature.properties?.title && <Title>{feature.properties.title}</Title>}
         {feature.properties?.distance && (
-          <DistanceInfo>
+          <Infos>
             {feature.properties.distance} {t('unit')} {t('distanceText')}
-          </DistanceInfo>
+          </Infos>
         )}
       </InformationContainer>
     </Popup>
