@@ -2,6 +2,7 @@ import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { CityModel } from 'api-client'
@@ -10,7 +11,6 @@ import FilterableCitySelector from '../components/FilterableCitySelector'
 import Heading from '../components/Heading'
 import useUserLocation from '../hooks/useUserLocation'
 import testID from '../testing/testID'
-import { useTheme } from 'styled-components'
 
 const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};

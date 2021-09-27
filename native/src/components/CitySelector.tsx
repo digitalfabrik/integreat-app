@@ -104,10 +104,11 @@ class CitySelector extends React.PureComponent<PropsType> {
     const { location, locationState, requestAndDetermineLocation } = locationInformation
 
     if (location !== null) {
+      const [longitude, latitude] = location
       const nearbyCities = getNearbyPlaces(
         cities.filter(city => city.live),
-        location[0],
-        location[1]
+        longitude,
+        latitude
       )
 
       if (nearbyCities.length > 0) {

@@ -21,9 +21,9 @@ type DispatchPropsType = {
 }
 type ContainerPropsType = OwnPropsType &
   DispatchPropsType & {
-  language: string
-  cities: Array<CityModel>
-}
+    language: string
+    cities: Array<CityModel>
+  }
 type StatePropsType = StatusPropsType<ContainerPropsType, Record<string, never>>
 
 const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreActionType>) => {
