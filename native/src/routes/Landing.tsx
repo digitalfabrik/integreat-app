@@ -9,7 +9,7 @@ import { ThemeType } from 'build-configs'
 
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import Heading from '../components/Heading'
-import useLocation from '../hooks/useLocation'
+import useUserLocation from '../hooks/useUserLocation'
 import testID from '../testing/testID'
 
 const Wrapper = styled(View)`
@@ -29,7 +29,7 @@ export type PropsType = {
 
 const Landing = ({ cities, language, theme, navigateToDashboard, clearResourcesAndCache }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
-  const locationInformation = useLocation()
+  const locationInformation = useUserLocation()
 
   const navigateTo = useCallback(
     (cityModel: CityModel) => {

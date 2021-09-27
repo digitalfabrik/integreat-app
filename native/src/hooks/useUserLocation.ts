@@ -40,7 +40,7 @@ export type LocationInformationType = {
   requestAndDetermineLocation: () => Promise<void>
 }
 
-const useLocation = (useSettingsListener = false): LocationInformationType => {
+const useUserLocation = (useSettingsListener = false): LocationInformationType => {
   const [locationState, setLocationState] = useState<LocationStateType>({
     status: 'unavailable',
     message: 'loading'
@@ -128,8 +128,7 @@ const useLocation = (useSettingsListener = false): LocationInformationType => {
     }
   })
 
-  const isReadyOrLoading =
-    locationState.status === 'ready' || (locationState.status === 'unavailable' && locationState.message === 'loading')
+  const isReadyOrLoading = locationState.status === 'ready' || locationState.message === 'loading'
 
   return {
     locationState,
@@ -138,4 +137,4 @@ const useLocation = (useSettingsListener = false): LocationInformationType => {
   }
 }
 
-export default useLocation
+export default useUserLocation
