@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { POIS_ROUTE, RouteInformationType } from 'api-client/src'
+import { POIS_ROUTE, RouteInformationType } from 'api-client'
 
 type MapPopupProps = {
   feature: Feature<Point>
