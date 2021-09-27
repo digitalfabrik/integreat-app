@@ -38,7 +38,7 @@ const Title = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
-const Infos = styled.Text`
+const DistanceInfo = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
