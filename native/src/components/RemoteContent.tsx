@@ -45,6 +45,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
     }
   }, [onLoad, webViewHeight])
 
+  // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (!event.nativeEvent) {
