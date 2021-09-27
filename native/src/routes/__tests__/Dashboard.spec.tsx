@@ -14,7 +14,7 @@ import Dashboard from '../Dashboard'
 
 jest.mock('react-i18next')
 jest.mock('../../components/NavigationTiles', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>NavigationTiles</Text>
 })
