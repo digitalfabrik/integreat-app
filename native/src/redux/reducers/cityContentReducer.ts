@@ -90,166 +90,165 @@ export default (
         }
       }
     }
-  } else {
-    if (state === null) {
+  }
+  if (state === null) {
+    return null
+  }
+
+  switch (action.type) {
+    case 'SWITCH_CONTENT_LANGUAGE':
+      return {
+        ...state,
+        switchingLanguage: true,
+        searchRoute: null,
+        resourceCache:
+          state.resourceCache.status !== 'error' ? { ...state.resourceCache, progress: 0 } : state.resourceCache
+      }
+
+    case 'SWITCH_CONTENT_LANGUAGE_FAILED':
+      return { ...state, switchingLanguage: false }
+
+    case 'PUSH_LANGUAGES':
+      return {
+        ...state,
+        languages: {
+          status: 'ready',
+          models: action.params.languages
+        }
+      }
+
+    case 'FETCH_LANGUAGES_FAILED':
+      return {
+        ...state,
+        languages: {
+          status: 'error',
+          ...action.params
+        }
+      }
+
+    case 'FETCH_RESOURCES_PROGRESS':
+      return {
+        ...state,
+        resourceCache:
+          state.resourceCache.status !== 'error'
+            ? { ...state.resourceCache, progress: action.params.progress }
+            : state.resourceCache
+      }
+
+    case 'PUSH_CATEGORY':
+      return pushCategory(state, action)
+
+    case 'PUSH_POI':
+      return pushPoi(state, action)
+
+    case 'PUSH_EVENT':
+      return pushEvent(state, action)
+
+    case 'PUSH_NEWS':
+      return pushNews(state, action)
+
+    case 'FETCH_NEWS_FAILED': {
+      const { message, key, allAvailableLanguages, newsId, type, ...rest } = action.params
+      return {
+        ...state,
+        routeMapping: {
+          ...state.routeMapping,
+          [key]: allAvailableLanguages
+            ? {
+                routeType: NEWS_ROUTE,
+                status: 'languageNotAvailable',
+                type,
+                newsId,
+                allAvailableLanguages,
+                ...rest
+              }
+            : {
+                routeType: NEWS_ROUTE,
+                status: 'error',
+                message,
+                newsId,
+                type,
+                ...rest
+              }
+        }
+      }
+    }
+
+    case 'CLEAR_ROUTE': {
+      const { key } = action.params
+      return { ...state, routeMapping: omit(state.routeMapping, [key]) }
+    }
+
+    case 'MORPH_CONTENT_LANGUAGE':
+      return morphContentLanguage(state, action)
+
+    case 'FETCH_EVENT_FAILED': {
+      const { message, key, allAvailableLanguages, path, ...rest } = action.params
+      return {
+        ...state,
+        routeMapping: {
+          ...state.routeMapping,
+          [key]: allAvailableLanguages
+            ? {
+                routeType: EVENTS_ROUTE,
+                status: 'languageNotAvailable',
+                allAvailableLanguages,
+                path,
+                ...rest
+              }
+            : {
+                routeType: EVENTS_ROUTE,
+                status: 'error',
+                message,
+                path,
+                ...rest
+              }
+        }
+      }
+    }
+
+    case 'FETCH_CATEGORY_FAILED': {
+      const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
+      return {
+        ...state,
+        routeMapping: {
+          ...state.routeMapping,
+          [key]: allAvailableLanguages
+            ? {
+                routeType: CATEGORIES_ROUTE,
+                status: 'languageNotAvailable',
+                allAvailableLanguages,
+                ...rest
+              }
+            : {
+                routeType: CATEGORIES_ROUTE,
+                status: 'error',
+                message,
+                code,
+                path,
+                ...rest
+              }
+        }
+      }
+    }
+
+    case 'CLEAR_CITY':
+    case 'CLEAR_RESOURCES_AND_CACHE':
       return null
+
+    case 'FETCH_RESOURCES_FAILED': {
+      const { message, code } = action.params
+      return {
+        ...state,
+        resourceCache: {
+          status: 'error',
+          message,
+          code
+        }
+      }
     }
 
-    switch (action.type) {
-      case 'SWITCH_CONTENT_LANGUAGE':
-        return {
-          ...state,
-          switchingLanguage: true,
-          searchRoute: null,
-          resourceCache:
-            state.resourceCache.status !== 'error' ? { ...state.resourceCache, progress: 0 } : state.resourceCache
-        }
-
-      case 'SWITCH_CONTENT_LANGUAGE_FAILED':
-        return { ...state, switchingLanguage: false }
-
-      case 'PUSH_LANGUAGES':
-        return {
-          ...state,
-          languages: {
-            status: 'ready',
-            models: action.params.languages
-          }
-        }
-
-      case 'FETCH_LANGUAGES_FAILED':
-        return {
-          ...state,
-          languages: {
-            status: 'error',
-            ...action.params
-          }
-        }
-
-      case 'FETCH_RESOURCES_PROGRESS':
-        return {
-          ...state,
-          resourceCache:
-            state.resourceCache.status !== 'error'
-              ? { ...state.resourceCache, progress: action.params.progress }
-              : state.resourceCache
-        }
-
-      case 'PUSH_CATEGORY':
-        return pushCategory(state, action)
-
-      case 'PUSH_POI':
-        return pushPoi(state, action)
-
-      case 'PUSH_EVENT':
-        return pushEvent(state, action)
-
-      case 'PUSH_NEWS':
-        return pushNews(state, action)
-
-      case 'FETCH_NEWS_FAILED': {
-        const { message, key, allAvailableLanguages, newsId, type, ...rest } = action.params
-        return {
-          ...state,
-          routeMapping: {
-            ...state.routeMapping,
-            [key]: allAvailableLanguages
-              ? {
-                  routeType: NEWS_ROUTE,
-                  status: 'languageNotAvailable',
-                  type,
-                  newsId,
-                  allAvailableLanguages,
-                  ...rest
-                }
-              : {
-                  routeType: NEWS_ROUTE,
-                  status: 'error',
-                  message,
-                  newsId,
-                  type,
-                  ...rest
-                }
-          }
-        }
-      }
-
-      case 'CLEAR_ROUTE': {
-        const { key } = action.params
-        return { ...state, routeMapping: omit(state.routeMapping, [key]) }
-      }
-
-      case 'MORPH_CONTENT_LANGUAGE':
-        return morphContentLanguage(state, action)
-
-      case 'FETCH_EVENT_FAILED': {
-        const { message, key, allAvailableLanguages, path, ...rest } = action.params
-        return {
-          ...state,
-          routeMapping: {
-            ...state.routeMapping,
-            [key]: allAvailableLanguages
-              ? {
-                  routeType: EVENTS_ROUTE,
-                  status: 'languageNotAvailable',
-                  allAvailableLanguages,
-                  path,
-                  ...rest
-                }
-              : {
-                  routeType: EVENTS_ROUTE,
-                  status: 'error',
-                  message,
-                  path,
-                  ...rest
-                }
-          }
-        }
-      }
-
-      case 'FETCH_CATEGORY_FAILED': {
-        const { message, code, key, allAvailableLanguages, path, ...rest } = action.params
-        return {
-          ...state,
-          routeMapping: {
-            ...state.routeMapping,
-            [key]: allAvailableLanguages
-              ? {
-                  routeType: CATEGORIES_ROUTE,
-                  status: 'languageNotAvailable',
-                  allAvailableLanguages,
-                  ...rest
-                }
-              : {
-                  routeType: CATEGORIES_ROUTE,
-                  status: 'error',
-                  message,
-                  code,
-                  path,
-                  ...rest
-                }
-          }
-        }
-      }
-
-      case 'CLEAR_CITY':
-      case 'CLEAR_RESOURCES_AND_CACHE':
-        return null
-
-      case 'FETCH_RESOURCES_FAILED': {
-        const { message, code } = action.params
-        return {
-          ...state,
-          resourceCache: {
-            status: 'error',
-            message,
-            code
-          }
-        }
-      }
-
-      default:
-        return state
-    }
+    default:
+      return state
   }
 }

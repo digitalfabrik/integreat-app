@@ -146,31 +146,29 @@ const withPayloadProvider = <
             <Component {...componentProps} />
           </LayoutedScrollView>
         )
-      } else {
-        // Full screen loading spinner
-        return (
-          <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
-            <ProgressContainer progress={props.progress} />
-          </LayoutedScrollView>
-        )
       }
-    } else {
-      const componentProps = { ...props.innerProps, dispatch: props.dispatch } as S
-      // props.status === 'success'
-      if (noScrollView) {
-        return (
-          <LayoutContainer>
-            <Component {...componentProps} />
-          </LayoutContainer>
-        )
-      }
-
+      // Full screen loading spinner
       return (
-        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-          <Component {...componentProps} />
+        <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
+          <ProgressContainer progress={props.progress} />
         </LayoutedScrollView>
       )
     }
+    const componentProps = { ...props.innerProps, dispatch: props.dispatch } as S
+    // props.status === 'success'
+    if (noScrollView) {
+      return (
+        <LayoutContainer>
+          <Component {...componentProps} />
+        </LayoutContainer>
+      )
+    }
+
+    return (
+      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
+        <Component {...componentProps} />
+      </LayoutedScrollView>
+    )
   }
 
   Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')

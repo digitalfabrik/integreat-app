@@ -100,14 +100,13 @@ const Selector = ({
             {item.name}
           </Element>
         )
-      } else {
-        return (
-          <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' $enabled={false} $selected={false}>
-            <BoldSpacer>{item.name}</BoldSpacer>
-            {item.name}
-          </Element>
-        )
       }
+      return (
+        <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' $enabled={false} $selected={false}>
+          <BoldSpacer>{item.name}</BoldSpacer>
+          {item.name}
+        </Element>
+      )
     })}
   </Wrapper>
 )
