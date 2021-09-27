@@ -24,9 +24,10 @@ module.exports = {
     '**/lib-dist/'
   ],
   rules: {
-    'no-console': ['error', { allow: ['error', 'warn'] }],
+    'arrow-body-style': 'error',
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
+    'no-console': ['error', { allow: ['error', 'warn'] }],
     'no-loop-func': 'error',
     'no-use-before-define': 'off',
     'prefer-const': 'error',

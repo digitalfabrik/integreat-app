@@ -15,20 +15,18 @@ describe('Feedback', () => {
   const onFeedbackContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
 
-  const buildProps = (isPositiveFeedback: boolean, isSearchFeedback: boolean, comment: string) => {
-    return {
-      comment,
-      isPositiveFeedback,
-      isSearchFeedback,
-      contactMail: 'test@example.com',
-      sendingStatus: 'idle' as const,
-      onCommentChanged,
-      onFeedbackContactMailChanged,
-      onSubmit,
-      theme: buildConfig().lightTheme,
-      t
-    }
-  }
+  const buildProps = (isPositiveFeedback: boolean, isSearchFeedback: boolean, comment: string) => ({
+    comment,
+    isPositiveFeedback,
+    isSearchFeedback,
+    contactMail: 'test@example.com',
+    sendingStatus: 'idle' as const,
+    onCommentChanged,
+    onFeedbackContactMailChanged,
+    onSubmit,
+    theme: buildConfig().lightTheme,
+    t
+  })
 
   it('button should be disabled for negative feedback and no input', async () => {
     const { getByText, queryByText, queryAllByText } = render(<Feedback {...buildProps(false, false, '')} />)

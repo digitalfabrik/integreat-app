@@ -29,22 +29,20 @@ describe('Header', () => {
     categoriesAvailable: boolean,
     mode: 'float' | 'screen',
     goToLanguageChange: () => void
-  ): React.ComponentProps<typeof Header> => {
-    return {
-      ...mockStackHeaderProps(),
-      t,
-      theme: buildConfig().lightTheme,
-      peeking,
-      categoriesAvailable,
-      goToLanguageChange,
-      routeCityModel: city,
-      language: 'de',
-      shareUrl: 'testUrl',
-      dispatch,
-      mode,
-      navigation
-    }
-  }
+  ): React.ComponentProps<typeof Header> => ({
+    ...mockStackHeaderProps(),
+    t,
+    theme: buildConfig().lightTheme,
+    peeking,
+    categoriesAvailable,
+    goToLanguageChange,
+    routeCityModel: city,
+    language: 'de',
+    shareUrl: 'testUrl',
+    dispatch,
+    mode,
+    navigation
+  })
 
   it('search header button should be enabled and visible after loading was finished', () => {
     const { getByLabelText } = render(<Header {...buildProps(false, true, 'screen', goToLanguageChange)} />)
