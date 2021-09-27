@@ -51,8 +51,8 @@ describe('Landing', () => {
     timestamp: 1234566789
   }
 
-  const renderLanding = (): RenderAPI => {
-    return render(
+  const renderLanding = (): RenderAPI =>
+    render(
       <Landing
         cities={cities}
         language={language}
@@ -61,7 +61,6 @@ describe('Landing', () => {
       />,
       { wrapper: wrapWithTheme }
     )
-  }
 
   it('should only show non-live cities', () => {
     mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
