@@ -7,7 +7,7 @@ import { POIS_ROUTE, RouteInformationType } from 'api-client'
 
 type MapPopupProps = {
   feature: Feature<Point>
-  navigateTo: (arg0: RouteInformationType) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
 }
