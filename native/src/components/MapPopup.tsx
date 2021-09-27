@@ -55,6 +55,9 @@ const MapPopup: React.FC<MapPopupProps> = ({
   language
 }: MapPopupProps): ReactElement => {
   const { t } = useTranslation('pois')
+  if (!feature.properties?.path) {
+    return
+  }
   return (
     <Popup
       onPress={
