@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import { LocationInformationType } from '../hooks/useLocation'
+import { LocationInformationType } from '../hooks/useUserLocation'
 import CitySelector from './CitySelector'
 import SearchInput from './SearchInput'
 

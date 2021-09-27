@@ -27,7 +27,7 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
-import useLocation, { LocationType } from '../hooks/useLocation'
+import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export type PropsType = {
@@ -83,7 +83,7 @@ const Pois = ({
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
-  const { location, requestAndDetermineLocation } = useLocation(path === null)
+  const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   useEffect(() => {
     const featureLocations = prepareFeatureLocations(pois, location)

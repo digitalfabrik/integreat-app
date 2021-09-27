@@ -26,7 +26,7 @@ type MapViewPropsType = {
   navigateTo: (arg0: RouteInformationType) => void
   language: string
   cityCode: string
-  onRequestLocationPermission: () => void
+  onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
 }
 
@@ -50,17 +50,17 @@ const layerProps: SymbolLayerProps = {
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
 const MapView = ({
-  boundingBox,
-  featureCollection,
-  selectedFeature,
-  setSelectedFeature,
-  navigateTo,
-  language,
-  cityCode,
-  onRequestLocationPermission,
-  locationPermissionGranted
-}: MapViewPropsType): ReactElement => {
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(locationPermissionGranted && !selectedFeature)
+                   boundingBox,
+                   featureCollection,
+                   selectedFeature,
+                   setSelectedFeature,
+                   navigateTo,
+                   language,
+                   cityCode,
+                   onRequestLocationPermission,
+                   locationPermissionGranted
+                 }: MapViewPropsType): ReactElement => {
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
@@ -78,8 +78,8 @@ const MapView = ({
     bounds: coordinates ? undefined : bounds
   }
 
-  const onRequestLocation = useCallback(() => {
-    onRequestLocationPermission()
+  const onRequestLocation = useCallback(async () => {
+    await onRequestLocationPermission()
     setFollowUserLocation(locationPermissionGranted)
   }, [locationPermissionGranted, onRequestLocationPermission])
 

@@ -11,7 +11,7 @@ import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import buildConfig from '../constants/buildConfig'
-import { LocationInformationType } from '../hooks/useLocation'
+import { LocationInformationType } from '../hooks/useUserLocation'
 import getNearbyPlaces from '../utils/getNearbyPlaces'
 import { normalizeSearchString } from '../utils/helpers'
 import CityEntry from './CityEntry'
@@ -144,7 +144,7 @@ class CitySelector extends React.PureComponent<PropsType> {
               {locationState.status !== 'ready' ? t(locationState.message) : ''}
             </NearbyMessage>
             <RetryButtonContainer>
-              {locationState.status === 'unavailable' && locationState.message === 'loading' && (
+              {locationState.status === 'unavailable' && ['loading', 'timeout'].includes(locationState.message) && (
                 <Button
                   icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                   title=''
