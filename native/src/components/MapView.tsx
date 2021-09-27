@@ -25,7 +25,7 @@ type MapViewPropsType = {
   featureCollection: FeatureCollection
   selectedFeature: Feature<Point> | null
   setSelectedFeature: (feature: Feature<Point> | null) => void
-  navigateTo: (arg0: RouteInformationType) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
   setUserLocation: (coordinates: number[]) => void
