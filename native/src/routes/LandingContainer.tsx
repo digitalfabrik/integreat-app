@@ -6,12 +6,11 @@ import { CityModel, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import withTheme from '../hocs/withTheme'
 import navigateToCategory from '../navigation/navigateToCategory'
 import { cityContentPath } from '../navigation/url'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
-import Landing, { PropsType as LandingPropsType } from './Landing'
+import Landing from './Landing'
 
 type OwnPropsType = {
   route: RoutePropType<LandingRouteType>
@@ -22,9 +21,9 @@ type DispatchPropsType = {
 }
 type ContainerPropsType = OwnPropsType &
   DispatchPropsType & {
-    language: string
-    cities: Array<CityModel>
-  }
+  language: string
+  cities: Array<CityModel>
+}
 type StatePropsType = StatusPropsType<ContainerPropsType, Record<string, never>>
 
 const refresh = (refreshProps: Record<string, never>, dispatch: Dispatch<StoreActionType>) => {
@@ -67,8 +66,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const ThemedLanding = withTheme<LandingPropsType>(Landing)
-
 const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerPropsType) => {
   const navigateToDashboard = (cityCode: string, languageCode: string) => {
     navigateToCategory({
@@ -93,7 +90,7 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
   }
 
   return (
-    <ThemedLanding
+    <Landing
       cities={cities}
       language={language}
       navigateToDashboard={navigateToDashboard}

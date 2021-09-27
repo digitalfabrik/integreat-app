@@ -5,12 +5,12 @@ import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CityModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import Heading from '../components/Heading'
 import useUserLocation from '../hooks/useUserLocation'
 import testID from '../testing/testID'
+import { useTheme } from 'styled-components'
 
 const Wrapper = styled(View)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -22,13 +22,13 @@ const Wrapper = styled(View)`
 export type PropsType = {
   cities: Array<CityModel>
   language: string
-  theme: ThemeType
   navigateToDashboard: (cityCode: string, language: string) => void
   clearResourcesAndCache: () => void
 }
 
-const Landing = ({ cities, language, theme, navigateToDashboard, clearResourcesAndCache }: PropsType): ReactElement => {
+const Landing = ({ cities, language, navigateToDashboard, clearResourcesAndCache }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
+  const theme = useTheme()
   const locationInformation = useUserLocation()
 
   const navigateTo = useCallback(
