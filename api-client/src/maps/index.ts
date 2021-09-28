@@ -11,6 +11,18 @@ export type MapViewViewport = {
   zoom: number
 }
 
+/**
+ * Override existing GeoJsonProperties from types/geojson to be more precise
+ */
+export type GeoJsonPoiProperties = {
+  id: number
+  title: string
+  path: string
+  symbol: string
+  distance?: string
+  thumbnail?: string
+}
+
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://integreat.github.io/integreat-osm-liberty/style.json',
   accessToken: 'test'

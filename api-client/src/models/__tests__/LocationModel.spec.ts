@@ -7,8 +7,8 @@ describe('LocationModel', () => {
     it('should return null if town, address and name is null', () => {
       expect(
         new LocationModel({
-          id: null,
-          name: null,
+          id: 1,
+          name: 'test',
           country: null,
           region: null,
           state: null,
@@ -21,8 +21,8 @@ describe('LocationModel', () => {
     it('should only return town (and postcode) if address is null', () => {
       expect(
         new LocationModel({
-          id: null,
-          name: null,
+          id: 1,
+          name: 'test',
           country: null,
           region: null,
           state: null,
@@ -33,8 +33,8 @@ describe('LocationModel', () => {
       ).toBe('86161 Augsburg')
       expect(
         new LocationModel({
-          id: null,
-          name: null,
+          id: 1,
+          name: 'test',
           country: null,
           region: null,
           state: null,
@@ -46,7 +46,7 @@ describe('LocationModel', () => {
     })
     it('should include the name if available', () => {
       const location = new LocationModel({
-        id: null,
+        id: 1,
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -59,8 +59,8 @@ describe('LocationModel', () => {
     })
     it('should exclude the name if unavailable', () => {
       const location = new LocationModel({
-        id: null,
-        name: null,
+        id: 1,
+        name: 'test',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
         state: 'Bayern',

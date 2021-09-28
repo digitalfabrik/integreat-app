@@ -3,10 +3,10 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { POIS_ROUTE, RouteInformationType } from 'api-client'
+import { GeoJsonPoiProperties, POIS_ROUTE, RouteInformationType } from 'api-client'
 
 type MapPopupProps = {
-  feature: Feature<Point>
+  feature: Feature<Point, GeoJsonPoiProperties>
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
@@ -71,7 +71,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
       activeOpacity={1}>
       {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
       <InformationContainer>
-        {feature.properties?.title && <Title>{feature.properties.title}</Title>}
+        {feature.properties.title && <Title>{feature.properties.title}</Title>}
         {feature.properties?.distance && (
           <DistanceInfo>
             {feature.properties.distance} {t('unit')} {t('distanceText')}

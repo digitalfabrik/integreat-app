@@ -1,8 +1,10 @@
 import { Feature, Point } from 'geojson'
 
+import { GeoJsonPoiProperties } from '../maps'
+
 class LocationModel {
-  _id: number | null | undefined
-  _name: string | null | undefined
+  _id: number
+  _name: string
   _address: string | null | undefined
   _town: string | null | undefined
   _state: string | null | undefined
@@ -11,8 +13,6 @@ class LocationModel {
   _country: string | null | undefined
   _latitude: string | null | undefined
   _longitude: string | null | undefined
-  _thumbnail: string | null | undefined
-  _path: string | null | undefined
 
   constructor({
     id,
@@ -26,8 +26,8 @@ class LocationModel {
     latitude,
     longitude
   }: {
-    id: number | null | undefined
-    name: string | null | undefined
+    id: number
+    name: string
     address: string | null | undefined
     town: string | null | undefined
     state: string | null | undefined
@@ -50,11 +50,11 @@ class LocationModel {
     this._name = name
   }
 
-  get id(): number | null | undefined {
+  get id(): number {
     return this._id
   }
 
-  get name(): string | null | undefined {
+  get name(): string {
     return this._name
   }
 
@@ -115,7 +115,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(path: string, thumbnail: string): Feature<Point> | null {
+  convertToPoint(path: string, thumbnail: string): Feature<Point, GeoJsonPoiProperties> | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
