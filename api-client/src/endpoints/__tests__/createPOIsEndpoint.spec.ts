@@ -47,9 +47,7 @@ describe('pois', () => {
         state: 'Bayern',
         postcode: '86353',
         region: 'Schwaben',
-        country: 'DE',
-        thumbnail: '',
-        path
+        country: 'DE'
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       hash: '91d435afbc7aa83496137e81fd2832e3'

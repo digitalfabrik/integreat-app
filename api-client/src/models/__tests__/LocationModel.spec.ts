@@ -14,9 +14,7 @@ describe('LocationModel', () => {
           state: null,
           address: null,
           town: null,
-          postcode: null,
-          thumbnail: null,
-          path: null
+          postcode: null
         }).location
       ).toBeNull()
     })
@@ -30,9 +28,7 @@ describe('LocationModel', () => {
           state: null,
           address: null,
           town: 'Augsburg',
-          postcode: '86161',
-          thumbnail: null,
-          path: null
+          postcode: '86161'
         }).location
       ).toBe('86161 Augsburg')
       expect(
@@ -44,9 +40,7 @@ describe('LocationModel', () => {
           state: null,
           address: null,
           town: 'Augsburg',
-          postcode: null,
-          thumbnail: null,
-          path: null
+          postcode: null
         }).location
       ).toBe('Augsburg')
     })
@@ -59,9 +53,7 @@ describe('LocationModel', () => {
         state: 'Bayern',
         postcode: '86353',
         region: 'Schwaben',
-        country: 'DE',
-        thumbnail: null,
-        path: null
+        country: 'DE'
       })
       expect(location.location).toEqual('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
     })
@@ -74,15 +66,15 @@ describe('LocationModel', () => {
         state: 'Bayern',
         postcode: '86353',
         region: 'Schwaben',
-        country: 'DE',
-        thumbnail: null,
-        path: null
+        country: 'DE'
       })
       expect(location.location).toEqual('Wertachstr. 29, 86353 Augsburg')
     })
   })
 })
 describe('convertToPoint', () => {
+  const thumbnail = 'thumbnail'
+  const path = '/augsburg/de/locations/erster_poi'
   const expectedGeoJsonMarkerFeature: Feature = {
     type: 'Feature',
     geometry: {
@@ -108,11 +100,9 @@ describe('convertToPoint', () => {
       region: 'Schwaben',
       latitude: '29.979848',
       longitude: '31.133859',
-      country: 'DE',
-      thumbnail: 'thumbnail',
-      path: '/augsburg/de/locations/erster_poi'
+      country: 'DE'
     })
-    expect(location.convertToPoint()).toEqual(expectedGeoJsonMarkerFeature)
+    expect(location.convertToPoint(path, thumbnail)).toEqual(expectedGeoJsonMarkerFeature)
   })
   it('should return null when latitude is null ', () => {
     const location = new LocationModel({
@@ -125,11 +115,9 @@ describe('convertToPoint', () => {
       region: 'Schwaben',
       latitude: null,
       longitude: '31.133859',
-      country: 'DE',
-      thumbnail: 'thumbnail',
-      path: '/augsburg/de/locations/erster_poi'
+      country: 'DE'
     })
-    expect(location.convertToPoint()).toBeNull()
+    expect(location.convertToPoint(path, thumbnail)).toBeNull()
   })
   it('should return null when longitude is null ', () => {
     const location = new LocationModel({
@@ -142,10 +130,8 @@ describe('convertToPoint', () => {
       region: 'Schwaben',
       latitude: '31.133859',
       longitude: null,
-      country: 'DE',
-      thumbnail: 'thumbnail',
-      path: '/augsburg/de/locations/erster_poi'
+      country: 'DE'
     })
-    expect(location.convertToPoint()).toBeNull()
+    expect(location.convertToPoint(path, thumbnail)).toBeNull()
   })
 })
