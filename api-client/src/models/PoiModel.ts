@@ -1,4 +1,4 @@
-import { Feature } from 'geojson'
+import { Feature, Point } from 'geojson'
 import { Moment } from 'moment'
 
 import ExtendedPageModel from './ExtendedPageModel'
@@ -34,8 +34,8 @@ class PoiModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  get featureLocation(): Feature | null {
-    return this._location.convertToPoint()
+  get featureLocation(): Feature<Point> | null {
+    return this._location.convertToPoint(this.path, this.thumbnail)
   }
 
   isEqual(other: PageModel): boolean {

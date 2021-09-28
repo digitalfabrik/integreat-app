@@ -44,23 +44,18 @@ export type PropsType = {
 }
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] => {
-  if (userLocation) {
-    const currentPosition = [userLocation[0], userLocation[1]]
-    return pois
-      .map(poi => {
-        const featureLocation = poi.featureLocation as Feature<Point>
-        if (featureLocation?.geometry?.coordinates) {
-          const distanceValue: string = distance(currentPosition, featureLocation.geometry.coordinates).toFixed(1)
-          return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
-        } else {
-          return poi.featureLocation
-        }
-      })
-      .filter((feature): feature is Feature<Point> => !!feature)
-  }
-  return pois.map(poi => poi.featureLocation).filter((feature): feature is Feature<Point> => !!feature)
-}
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] =>
+  pois
+    .map(poi => {
+      const featureLocation = poi.featureLocation
+      if (userLocation && featureLocation?.geometry.coordinates) {
+        const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
+        return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
+      } else {
+        return poi.featureLocation
+      }
+    })
+    .filter((feature): feature is Feature<Point> => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -90,10 +85,10 @@ const Pois = ({
       const featureLocations = prepareFeatureLocations(pois, location)
       const selectedPoiId = Number(route.params.selectedPoiId)
       if (selectedPoiId) {
-        const currentFeature: Feature<Point> | undefined = featureLocations.find(
+        const currentFeature = featureLocations.find(
           feature => feature.properties?.id === Number(route.params.selectedPoiId)
         )
-        currentFeature && setSelectedFeature(currentFeature)
+        setSelectedFeature(currentFeature ?? null)
       }
       location && setFeatureLocations(featureLocations)
     }

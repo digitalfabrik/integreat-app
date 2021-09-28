@@ -32,9 +32,7 @@ describe('pushEvent', () => {
       region: 'region',
       country: 'country',
       latitude: null,
-      longitude: null,
-      thumbnail: null,
-      path: null
+      longitude: null
     })
   })
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
@@ -195,9 +193,7 @@ describe('pushEvent', () => {
               region: 'region',
               country: 'country',
               longitude: null,
-              latitude: null,
-              thumbnail: null,
-              path: null
+              latitude: null
             }),
             date: new DateModel({
               startDate: moment('2000-01-05T10:10:00.000Z'),
