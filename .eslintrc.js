@@ -23,11 +23,12 @@ module.exports = {
     '**/ios/main.jsbundle',
     '**/stylelint.config.js',
     '**/dist/',
-    '**/lib-dist/'
+    '**/lib-dist/',
+    '.eslintrc.js'
   ],
   rules: {
+    // Overly strict rules (for now)
     'class-methods-use-this': 'off',
-    'consistent-return': ['error', { treatUndefinedAsUnspecified: true }],
     'default-case': 'off',
     'global-require': 'off',
     'import/extensions': 'off',
@@ -36,10 +37,14 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'lines-between-class-members': 'off',
     'no-shadow': 'off',
+    'no-nested-ternary': 'off',
     'no-underscore-dangle': 'off',
+    'no-use-before-define': 'off',
+    'react/display-name': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
+    'react/no-unescaped-entities': 'off',
 
     // Disabling since our class components are legacy anyway
     'react/sort-comp': 'off',
@@ -47,39 +52,30 @@ module.exports = {
     'react/static-property-placement': 'off',
 
     // TODO enable
-    'no-nested-ternary': 'off',
     'react/prefer-stateless-function': 'off',
     'react/destructuring-assignment': 'off',
 
-    'arrow-body-style': 'error',
-    'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
     'no-console': ['error', { allow: ['error', 'warn'] }],
-    'no-else-return': ['error', { allowElseIf: false }],
-    'no-loop-func': 'error',
-    'no-use-before-define': 'off',
-    'object-shorthand': 'error',
-    'prefer-const': 'error',
+    'no-magic-numbers': [
+      'error',
+      {
+        ignore: [-1, 0, 1, 2],
+        ignoreArrayIndexes: true
+      }
+    ],
     'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',
-    'prefer-template': 'error',
 
-    'react/display-name': 'off',
-    'react/no-access-state-in-setstate': 'error',
-    'react/no-did-mount-set-state': 'warn',
-    'react/no-did-update-set-state': 'warn',
-    'react/no-unescaped-entities': 'off',
+    'react/no-did-mount-set-state': 'error',
     'react/no-unused-prop-types': 'warn',
-    'react/no-typos': 'error',
-    'react/prefer-es6-class': ['error', 'always'],
-
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error',
 
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'warn',
+    '@typescript-eslint/no-unnecessary-condition': 'error',
+    '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -102,25 +98,14 @@ module.exports = {
 
     'prefer-arrow/prefer-arrow-functions': 'error'
   },
+  parserOptions: {
+    project: './tsconfig.json'
+  },
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
-      excludedFiles: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
+      files: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
-        'no-magic-numbers': [
-          'error',
-          {
-            ignore: [-1, 0, 1, 2],
-            ignoreArrayIndexes: true
-          }
-        ],
-        '@typescript-eslint/no-empty-function': 'off'
-      }
-    },
-    {
-      files: ['*.spec.{ts,tsx}'],
-      rules: {
-        '@typescript-eslint/no-empty-function': 'off',
+        'no-magic-numbers': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off'
