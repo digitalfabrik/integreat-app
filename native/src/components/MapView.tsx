@@ -6,7 +6,7 @@ import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig } from 'api-client'
+import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
 
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 import MapPopup from './MapPopup'
@@ -23,7 +23,13 @@ const StyledMap = styled(MapboxGL.MapView)`
 type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: FeatureCollection
-  currentFeature?: Feature<Point>
+  selectedFeature: Feature<Point> | null
+  setSelectedFeature: (feature: Feature<Point> | null) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
+  language: string
+  cityCode: string
+  setUserLocation: (coordinates: number[]) => void
+  userLocation: number[] | null
 }
 
 const textOffsetY = 1.25
@@ -45,10 +51,19 @@ const layerProps: SymbolLayerProps = {
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
-const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewPropsType): ReactElement => {
+const MapView = ({
+  boundingBox,
+  featureCollection,
+  selectedFeature,
+  setSelectedFeature,
+  navigateTo,
+  language,
+  cityCode,
+  setUserLocation,
+  userLocation
+}: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
-  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(currentFeature ?? null)
 
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
@@ -69,7 +84,6 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
 
   const onLocationPermissionRequest = useCallback((locationPermission: PermissionStatus | undefined) => {
     const permissionGranted = locationPermission === RESULTS.GRANTED
-    setFollowUserLocation(permissionGranted)
     setLocationPermissionGranted(permissionGranted)
   }, [])
 
@@ -77,10 +91,11 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
     checkLocationPermission().then(onLocationPermissionRequest)
   }, [onLocationPermissionRequest])
 
+  // By clicking fab button the location permission gets requested, if it's granted the followUserLocation gets changed to opposite
   const requestPermission = useCallback(() => {
     requestLocationPermission().then(onLocationPermissionRequest)
-  }, [onLocationPermissionRequest])
-
+    locationPermissionGranted && setFollowUserLocation(!followUserLocation)
+  }, [followUserLocation, locationPermissionGranted, onLocationPermissionRequest])
   const onUserTrackingModeChange = (
     event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
   ) => {
@@ -94,31 +109,46 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
       ? 'location-searching'
       : 'location-disabled'
 
-  const onPress = useCallback(async (pressedLocation: Feature) => {
-    if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
-      return
-    }
-    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-      undefined,
-      [featureLayerId]
-    )
-    const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
-    if (feature) {
-      setSelectedFeature(feature)
-      const {
-        geometry: { coordinates }
-      } = feature
-      cameraRef.current.flyTo(coordinates)
-    } else {
-      setSelectedFeature(null)
-    }
-  }, [])
+  // set the user location coordinate once to calculate distance for all pois
+  const onLocationUpdate = (location: MapboxGL.Location): void => {
+    !userLocation && setUserLocation([location.coords.longitude, location.coords.latitude])
+  }
+
+  const onPress = useCallback(
+    async (pressedLocation: Feature) => {
+      if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
+        return
+      }
+      const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+        [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
+        undefined,
+        [featureLayerId]
+      )
+      const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+      if (feature) {
+        const {
+          geometry: { coordinates }
+        } = feature
+        setSelectedFeature(feature)
+
+        cameraRef.current.flyTo(coordinates)
+      } else {
+        setSelectedFeature(null)
+      }
+    },
+    [setSelectedFeature]
+  )
 
   return (
     <MapContainer>
-      <StyledMap styleJSON={mapConfig.styleJSON} zoomEnabled onPress={onPress} ref={mapRef}>
-        <MapboxGL.UserLocation visible={locationPermissionGranted} />
+      <StyledMap
+        styleJSON={mapConfig.styleJSON}
+        zoomEnabled
+        onPress={onPress}
+        ref={mapRef}
+        attributionEnabled={false}
+        logoEnabled={false}>
+        <MapboxGL.UserLocation visible={locationPermissionGranted} onUpdate={onLocationUpdate} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
@@ -130,7 +160,9 @@ const MapView = ({ boundingBox, featureCollection, currentFeature }: MapViewProp
           ref={cameraRef}
         />
       </StyledMap>
-      {selectedFeature && <MapPopup feature={selectedFeature} />}
+      {selectedFeature && (
+        <MapPopup feature={selectedFeature} navigateTo={navigateTo} language={language} cityCode={cityCode} />
+      )}
       <FAB
         placement='right'
         onPress={requestPermission}
