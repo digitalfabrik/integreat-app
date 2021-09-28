@@ -131,7 +131,7 @@ describe('Landing', () => {
       await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
       await waitForExpect(() => expect(openSettings).toHaveBeenCalled())
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(2)
-      expect(mockRequestLocationPermission).not.toHaveBeenCalled()
+      expect(mockRequestLocationPermission).toHaveBeenCalled()
       expect(mockGetCurrentPosition).not.toHaveBeenCalled()
     })
 
