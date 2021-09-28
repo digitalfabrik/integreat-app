@@ -10,6 +10,7 @@ import {
   CityModel,
   embedInCollection,
   fromError,
+  GeoJsonPoiProperties,
   NotFoundError,
   PoiModel,
   POIS_ROUTE,
@@ -50,10 +51,13 @@ const Spacer = styled.View`
 `
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] =>
+const prepareFeatureLocations = (
+  pois: Array<PoiModel>,
+  userLocation?: number[]
+): Feature<Point, GeoJsonPoiProperties>[] =>
   pois
     .map(poi => {
-      const featureLocation = poi.featureLocation
+      const { featureLocation } = poi
       if (userLocation && featureLocation?.geometry.coordinates) {
         const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
         return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
@@ -61,7 +65,7 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[])
         return poi.featureLocation
       }
     })
-    .filter((feature): feature is Feature<Point> => !!feature)
+    .filter((feature): feature is Feature<Point, GeoJsonPoiProperties> => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -82,9 +86,11 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Point, GeoJsonPoiProperties> | null>(null)
   const [userLocation, setUserLocation] = useState<number[] | null>(null)
-  const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+  const [featureLocations, setFeatureLocations] = useState<Feature<Point, GeoJsonPoiProperties>[]>(
+    prepareFeatureLocations(pois)
+  )
 
   useEffect(() => {
     if (!path) {

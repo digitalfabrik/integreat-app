@@ -6,7 +6,7 @@ import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
+import { defaultViewportConfig, detailZoom, GeoJsonPoiProperties, mapConfig, RouteInformationType } from 'api-client'
 
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 import MapPopup from './MapPopup'
@@ -23,8 +23,8 @@ const StyledMap = styled(MapboxGL.MapView)`
 type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: FeatureCollection
-  selectedFeature: Feature<Point> | null
-  setSelectedFeature: (feature: Feature<Point> | null) => void
+  selectedFeature: Feature<Point, GeoJsonPoiProperties> | null
+  setSelectedFeature: (feature: Feature<Point, GeoJsonPoiProperties> | null) => void
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
@@ -124,7 +124,9 @@ const MapView = ({
         undefined,
         [featureLayerId]
       )
-      const feature = featureCollection?.features?.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+      const feature = featureCollection?.features?.find(
+        (it): it is Feature<Point, GeoJsonPoiProperties> => it.geometry.type === 'Point'
+      )
       if (feature) {
         const {
           geometry: { coordinates }

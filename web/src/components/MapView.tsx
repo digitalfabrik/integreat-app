@@ -5,7 +5,7 @@ import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } fro
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { detailZoom, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
+import { detailZoom, GeoJsonPoiProperties, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
 
 import MapPopup from './MapPopup'
 
@@ -38,14 +38,14 @@ const geolocateControlStyle: React.CSSProperties = {
 
 type MapViewProps = {
   bboxViewport: MapViewViewport
-  featureCollection: FeatureCollection<Point>
+  featureCollection: FeatureCollection<Point, GeoJsonPoiProperties>
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const { featureCollection, bboxViewport } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [showPopup, togglePopup] = React.useState<boolean>(false)
-  const [currentFeature, setCurrentFeature] = React.useState<Feature<Point> | null>(null)
+  const [currentFeature, setCurrentFeature] = React.useState<Feature<Point, GeoJsonPoiProperties> | null>(null)
   const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {

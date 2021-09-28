@@ -13,7 +13,8 @@ import {
   embedInCollection,
   mapQueryId,
   MapViewViewport,
-  defaultViewportConfig
+  defaultViewportConfig,
+  GeoJsonPoiProperties
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -144,7 +145,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
   const featureLocations = pois
     .map(poi => poi.featureLocation)
-    .filter((feature): feature is Feature<Point> => !!feature)
+    .filter((feature): feature is Feature<Point, GeoJsonPoiProperties> => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
