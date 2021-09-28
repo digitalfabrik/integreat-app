@@ -51,6 +51,7 @@
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
     "@sentry/react-native": "^2.3.0",
+    "@turf/distance": "^6.5.0",
     "api-client": "0.0.1",
     "build-configs": "0.0.1",
     "events": "^3.2.0",
