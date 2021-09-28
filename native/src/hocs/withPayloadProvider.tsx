@@ -119,26 +119,30 @@ const withPayloadProvider = <
 
     if (props.status === 'routeNotInitialized') {
       return <LayoutContainer />
-    } else if (props.status === 'error') {
+    }
+    if (props.status === 'error') {
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
           <Failure tryAgain={refreshIfPossible} code={props.code} />
         </LayoutedScrollView>
       )
-    } else if (props.status === 'languageNotAvailable') {
+    }
+    if (props.status === 'languageNotAvailable') {
       return (
         <LanguageNotAvailableContainer
           languages={props.availableLanguages}
           changeLanguage={changeUnavailableLanguage}
         />
       )
-    } else if (props.status === 'loading') {
+    }
+    if (props.status === 'loading') {
       const { innerProps, dispatch } = props
 
       if (!timeoutExpired) {
         // Prevent jumpy behaviour by showing nothing until the timeout finishes
         return <LayoutContainer />
-      } else if (!!innerProps && !!dispatch) {
+      }
+      if (!!innerProps && !!dispatch) {
         const componentProps = { ...innerProps, dispatch } as S
         // Display previous content if available
         return (

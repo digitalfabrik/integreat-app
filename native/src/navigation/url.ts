@@ -42,11 +42,13 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
   if (routeInformation.route === JPAL_TRACKING_ROUTE) {
     // https://integreat.app/jpal
     return constructUrl([routeInformation.route])
-  } else if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
+  }
+  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
     // https://integreat.app/augsburg/de/offers/sprungbrett
     return constructUrl([cityCode, languageCode, OFFERS_ROUTE, route])
-  } else if (
+  }
+  if (
     routeInformation.route === DASHBOARD_ROUTE ||
     routeInformation.route === CATEGORIES_ROUTE ||
     routeInformation.route === EVENTS_ROUTE ||
@@ -58,7 +60,8 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
     }
     // https://integreat.app/augsburg/de/events, https://integreat.app/augsburg/de/pois
     return constructUrl([routeInformation.cityCode, routeInformation.languageCode, routeInformation.route])
-  } else if (
+  }
+  if (
     routeInformation.route === DISCLAIMER_ROUTE ||
     routeInformation.route === OFFERS_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||

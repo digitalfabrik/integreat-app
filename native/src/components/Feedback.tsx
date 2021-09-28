@@ -107,7 +107,8 @@ const Feedback = (props: PropsType): ReactElement => {
           />
         </>
       )
-    } else if (sendingStatus === 'sending') {
+    }
+    if (sendingStatus === 'sending') {
       return <ActivityIndicator size='large' color='#0000ff' />
     }
     // sendingStatus === 'successful'

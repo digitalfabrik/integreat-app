@@ -119,21 +119,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       code: state.cities.code,
       refreshProps
     }
-  } else if (resourceCache.status === 'error') {
+  }
+  if (resourceCache.status === 'error') {
     return {
       status: 'error',
       message: resourceCache.message,
       code: resourceCache.code,
       refreshProps
     }
-  } else if (route.status === 'error') {
+  }
+  if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
     }
-  } else if (languages.status === 'error') {
+  }
+  if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,

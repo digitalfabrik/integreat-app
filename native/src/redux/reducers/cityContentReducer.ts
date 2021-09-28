@@ -27,7 +27,8 @@ export default (
         [key]: { ...oldContent, routeType: CATEGORIES_ROUTE, status: 'loading', language, depth, path, city }
       }
     }
-  } else if (action.type === 'FETCH_EVENT') {
+  }
+  if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
     const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === EVENTS_ROUTE
@@ -39,7 +40,8 @@ export default (
         [key]: { ...oldContent, routeType: EVENTS_ROUTE, status: 'loading', language, city, path }
       }
     }
-  } else if (action.type === 'FETCH_NEWS') {
+  }
+  if (action.type === 'FETCH_NEWS') {
     const { language, newsId, key, city, type } = action.params
     const initializedState = state || createCityContent(city)
     return {
@@ -56,7 +58,8 @@ export default (
         }
       }
     }
-  } else if (action.type === 'FETCH_MORE_NEWS') {
+  }
+  if (action.type === 'FETCH_MORE_NEWS') {
     const { language, newsId, key, city, type, previouslyFetchedNews } = action.params
     const initializedState = state || createCityContent(city)
     return {
@@ -74,7 +77,8 @@ export default (
         }
       }
     }
-  } else if (action.type === 'FETCH_POI') {
+  }
+  if (action.type === 'FETCH_POI') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
     return {

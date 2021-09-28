@@ -176,7 +176,8 @@ class InternalPathnameParser {
           route: OFFERS_ROUTE,
           ...params
         }
-      } else if (route === SPRUNGBRETT_OFFER_ROUTE) {
+      }
+      if (route === SPRUNGBRETT_OFFER_ROUTE) {
         return {
           route: SPRUNGBRETT_OFFER_ROUTE,
           ...params
