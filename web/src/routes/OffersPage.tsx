@@ -35,14 +35,15 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
-  const requestOffers = useCallback(async () => {
-    return createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestOffers = useCallback(
+    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: offers, loading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const toTileModels = useCallback(
-    (offers: Array<OfferModel>): Array<TileModel> => {
-      return offers.map(offer => {
+    (offers: Array<OfferModel>): Array<TileModel> =>
+      offers.map(offer => {
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
@@ -56,8 +57,7 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
           thumbnail: offer.thumbnail,
           postData: offer.postData
         })
-      })
-    },
+      }),
     [cityCode, languageCode]
   )
 

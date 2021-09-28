@@ -2,9 +2,9 @@ import React, { ReactElement, ReactNode } from 'react'
 import { Helmet } from 'react-helmet'
 import { BreadcrumbList, WithContext } from 'schema-dts'
 
-const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<BreadcrumbList> => {
+const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<BreadcrumbList> =>
   // https://developers.google.com/search/docs/data-types/breadcrumb
-  return {
+  ({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: breadcrumbs.map((breadcrumb, index) => ({
@@ -13,8 +13,7 @@ const createJsonLd = (breadcrumbs: Array<BreadcrumbModel>): WithContext<Breadcru
       name: breadcrumb.title,
       item: breadcrumb.link
     }))
-  }
-}
+  })
 
 export class BreadcrumbModel {
   _title: string
