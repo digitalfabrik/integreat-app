@@ -125,7 +125,12 @@ const Pois = ({
     if (poi) {
       const location = poi.location.location
       const files = resourceCache[poi.path] || {}
-      const navigationUrl = location && getNavigationDeepLinks(location)
+
+      let navigationUrl: string | undefined | null = null
+      if (location && poi.featureLocation?.geometry.coordinates) {
+        navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
+      }
+
       return (
         <Page
           content={poi.content}
@@ -141,7 +146,7 @@ const Pois = ({
             {location && (
               <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
             )}
-            {poi?.featureLocation && (
+            {navigationUrl && (
               <>
                 <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, String(poi.location.id))} />
                 <Spacer />
