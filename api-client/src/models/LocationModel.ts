@@ -11,6 +11,8 @@ class LocationModel {
   _country: string | null | undefined
   _latitude: string | null | undefined
   _longitude: string | null | undefined
+  _thumbnail: string | null | undefined
+  _path: string | null | undefined
 
   constructor({
     id,
@@ -113,7 +115,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(): Feature<Point> | null {
+  convertToPoint(path: string, thumbnail: string): Feature<Point> | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
@@ -128,7 +130,9 @@ class LocationModel {
         title: this.name,
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
-        symbol: '9'
+        symbol: '9',
+        thumbnail: thumbnail,
+        path: path
       }
     }
   }

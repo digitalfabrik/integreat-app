@@ -1,5 +1,6 @@
+import distance from '@turf/distance'
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Linking, ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -48,6 +49,20 @@ const Spacer = styled.View`
   height: 20px;
 `
 
+// Calculate distance for all Feature Locations
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] =>
+  pois
+    .map(poi => {
+      const featureLocation = poi.featureLocation
+      if (userLocation && featureLocation?.geometry.coordinates) {
+        const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
+        return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
+      } else {
+        return poi.featureLocation
+      }
+    })
+    .filter((feature): feature is Feature<Point> => !!feature)
+
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
@@ -67,6 +82,23 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
+  const [userLocation, setUserLocation] = useState<number[] | null>(null)
+  const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+
+  useEffect(() => {
+    if (!path) {
+      const featureLocations = prepareFeatureLocations(pois, userLocation ?? undefined)
+      const selectedPoiId = Number(route.params.selectedPoiId)
+      if (selectedPoiId) {
+        const currentFeature = featureLocations.find(
+          feature => feature.properties?.id === Number(route.params.selectedPoiId)
+        )
+        setSelectedFeature(currentFeature ?? null)
+      }
+      userLocation && setFeatureLocations(featureLocations)
+    }
+  }, [path, pois, route.params.selectedPoiId, userLocation])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -167,14 +199,6 @@ const Pois = ({
     return <Failure code={fromError(error)} />
   }
 
-  const featureLocations = pois
-    .map(poi => poi.featureLocation)
-    .filter((feature): feature is Feature<Point> => !!feature)
-
-  const currentFeature: Feature<Point> | undefined = featureLocations.find(
-    feature => feature.properties?.id === Number(route.params.selectedPoiId)
-  )
-
   return (
     <ScrollView>
       <SpaceBetween>
@@ -184,7 +208,13 @@ const Pois = ({
             <MapView
               boundingBox={cityModel.boundingBox}
               featureCollection={embedInCollection(featureLocations)}
-              currentFeature={currentFeature}
+              selectedFeature={selectedFeature}
+              setSelectedFeature={setSelectedFeature}
+              navigateTo={navigateTo}
+              language={language}
+              cityCode={cityModel.code}
+              setUserLocation={setUserLocation}
+              userLocation={userLocation}
             />
           )}
           <List

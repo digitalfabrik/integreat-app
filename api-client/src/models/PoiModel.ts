@@ -35,7 +35,7 @@ class PoiModel extends ExtendedPageModel {
   }
 
   get featureLocation(): Feature<Point> | null {
-    return this._location.convertToPoint()
+    return this._location.convertToPoint(this.path, this.thumbnail)
   }
 
   isEqual(other: PageModel): boolean {
