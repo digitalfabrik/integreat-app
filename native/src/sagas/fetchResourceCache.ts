@@ -17,13 +17,12 @@ export type FetchMapTargetType = {
 }
 export type FetchMapType = Record<string, Array<FetchMapTargetType>>
 
-const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(
+const createErrorMessage = (fetchResult: FetchResultType) =>
+  reduce(
     fetchResult,
     (message, result, path) => `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`,
     ''
   )
-}
 
 function* watchOnProgress() {
   const channel = new FetcherModule().createProgressChannel()

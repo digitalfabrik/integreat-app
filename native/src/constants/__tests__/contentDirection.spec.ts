@@ -3,13 +3,11 @@ describe('contentDirection', () => {
   describe('isContentDirectionReversalRequired', () => {
     it('should return true if supplied language has reverse direction of system language', () => {
       jest.isolateModules(() => {
-        jest.doMock('react-native', () => {
-          return {
-            I18nManager: {
-              isRTL: true
-            }
+        jest.doMock('react-native', () => ({
+          I18nManager: {
+            isRTL: true
           }
-        })
+        }))
 
         const contentDirection = require('../contentDirection')
 
@@ -18,13 +16,11 @@ describe('contentDirection', () => {
     })
     it('should return false if supplied language has same direction as system language', () => {
       jest.isolateModules(() => {
-        jest.doMock('react-native', () => {
-          return {
-            I18nManager: {
-              isRTL: false
-            }
+        jest.doMock('react-native', () => ({
+          I18nManager: {
+            isRTL: false
           }
-        })
+        }))
 
         const contentDirection = require('../contentDirection')
 
@@ -35,13 +31,11 @@ describe('contentDirection', () => {
   describe('contentDirection', () => {
     it('should return row-reverse if supplied language has reverse direction of system language', () => {
       jest.isolateModules(() => {
-        jest.doMock('react-native', () => {
-          return {
-            I18nManager: {
-              isRTL: true
-            }
+        jest.doMock('react-native', () => ({
+          I18nManager: {
+            isRTL: true
           }
-        })
+        }))
 
         const contentDirection = require('../contentDirection')
 
@@ -50,13 +44,11 @@ describe('contentDirection', () => {
     })
     it('should return row if supplied language has same direction as system language', () => {
       jest.isolateModules(() => {
-        jest.doMock('react-native', () => {
-          return {
-            I18nManager: {
-              isRTL: false
-            }
+        jest.doMock('react-native', () => ({
+          I18nManager: {
+            isRTL: false
           }
-        })
+        }))
 
         const contentDirection = require('../contentDirection')
 

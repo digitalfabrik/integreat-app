@@ -46,13 +46,11 @@ type PropsType = {
   t: TFunction
 }
 
-const checkAliases = (cityModel: CityModel, normalizedFilter: string): boolean => {
-  return Object.keys(cityModel.aliases || {}).some(key => normalizeSearchString(key).includes(normalizedFilter))
-}
+const checkAliases = (cityModel: CityModel, normalizedFilter: string): boolean =>
+  Object.keys(cityModel.aliases || {}).some(key => normalizeSearchString(key).includes(normalizedFilter))
 
-const byNameAndAliases = (name: string) => {
-  return (city: CityModel) => normalizeSearchString(city.name).includes(name) || checkAliases(city, name)
-}
+const byNameAndAliases = (name: string) => (city: CityModel) =>
+  normalizeSearchString(city.name).includes(name) || checkAliases(city, name)
 
 class CitySelector extends React.PureComponent<PropsType> {
   _filter(): Array<CityModel> {
