@@ -28,7 +28,7 @@ module.exports = {
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
     'no-console': ['error', { allow: ['error', 'warn'] }],
-    'no-else-return': 'error',
+    'no-else-return': ['error', { allowElseIf: false }],
     'no-loop-func': 'error',
     'no-use-before-define': 'off',
     'prefer-const': 'error',

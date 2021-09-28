@@ -59,7 +59,8 @@ class CitySelector extends React.PureComponent<PropsType> {
 
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
-    } else if (buildConfig().featureFlags.developerFriendly) {
+    }
+    if (buildConfig().featureFlags.developerFriendly) {
       return cities
     }
     return cities.filter(_city => _city.live).filter(byNameAndAliases(normalizedFilter))
