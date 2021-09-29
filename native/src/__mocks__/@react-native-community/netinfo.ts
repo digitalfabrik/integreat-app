@@ -2,16 +2,15 @@ import { NetInfoState, NetInfoSubscription } from '@react-native-community/netin
 import { isString } from 'lodash'
 
 export const fetch = jest.fn<Promise<NetInfoState>, []>(
-  async (): Promise<NetInfoState> => {
-    return {
+  async (): Promise<NetInfoState> =>
+    ({
       type: 'wifi',
       isConnected: true,
       isInternetReachable: true,
       details: {
         isConnectionExpensive: false
       }
-    } as NetInfoState
-  }
+    } as NetInfoState)
 )
 export const addEventListener = (
   listener: (arg0: NetInfoState) => unknown,

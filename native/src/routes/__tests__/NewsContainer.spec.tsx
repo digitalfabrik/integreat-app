@@ -82,38 +82,36 @@ describe('NewsContainer', () => {
       cities?: CitiesStateType
       languages?: LanguagesStateType
     } = {}
-  ): StateType => {
-    return {
-      resourceCacheUrl: 'http://localhost:8080',
-      cityContent: {
-        city: city.code,
-        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: routeState
-          ? {
-              'route-id-0': routeState
-            }
-          : {},
-        searchRoute: null,
-        resourceCache: {
-          status: 'ready',
-          progress: 0,
-          value: {
-            file: {}
-          }
-        }
-      },
-      contentLanguage: 'de',
-      cities: cities || {
+  ): StateType => ({
+    resourceCacheUrl: 'http://localhost:8080',
+    cityContent: {
+      city: city.code,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: routeState
+        ? {
+            'route-id-0': routeState
+          }
+        : {},
+      searchRoute: null,
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {
+          file: {}
+        }
+      }
+    },
+    contentLanguage: 'de',
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   const successfulRouteState: NewsRouteStateType = {
     routeType: NEWS_ROUTE,

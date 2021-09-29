@@ -7,12 +7,8 @@ import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 import { LocationLayout, ToolbarPropType } from '../LocationLayout'
 
-jest.mock('../LocationFooter', () => {
-  return () => <div>LocationFooter</div>
-})
-jest.mock('../LocationHeader', () => {
-  return () => <div>LocationHeader</div>
-})
+jest.mock('../LocationFooter', () => () => <div>LocationFooter</div>)
+jest.mock('../LocationHeader', () => () => <div>LocationHeader</div>)
 
 describe('LocationLayout', () => {
   const language = 'de'
