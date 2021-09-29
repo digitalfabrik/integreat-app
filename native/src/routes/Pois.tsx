@@ -28,6 +28,7 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
+import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
@@ -50,7 +51,7 @@ const Spacer = styled.View`
 `
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] =>
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] =>
   pois
     .map(poi => {
       const featureLocation = poi.featureLocation
@@ -82,12 +83,12 @@ const Pois = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
-  const [userLocation, setUserLocation] = useState<number[] | null>(null)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+  const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   useEffect(() => {
     if (!path) {
-      const featureLocations = prepareFeatureLocations(pois, userLocation ?? undefined)
+      const featureLocations = prepareFeatureLocations(pois, location)
       const selectedPoiId = Number(route.params.selectedPoiId)
       if (selectedPoiId) {
         const currentFeature = featureLocations.find(
@@ -95,9 +96,9 @@ const Pois = ({
         )
         setSelectedFeature(currentFeature ?? null)
       }
-      userLocation && setFeatureLocations(featureLocations)
+      location && setFeatureLocations(featureLocations)
     }
-  }, [path, pois, route.params.selectedPoiId, userLocation])
+  }, [path, pois, route.params.selectedPoiId, location])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -210,8 +211,8 @@ const Pois = ({
               navigateTo={navigateTo}
               language={language}
               cityCode={cityModel.code}
-              setUserLocation={setUserLocation}
-              userLocation={userLocation}
+              locationPermissionGranted={location !== null}
+              onRequestLocationPermission={requestAndDetermineLocation}
             />
           )}
           <List

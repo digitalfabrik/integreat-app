@@ -1,4 +1,4 @@
-import { transform, groupBy } from 'lodash'
+import { groupBy, transform } from 'lodash'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
@@ -11,7 +11,7 @@ import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import buildConfig from '../constants/buildConfig'
-import { LocationType } from '../routes/Landing'
+import { LocationInformationType } from '../hooks/useUserLocation'
 import getNearbyPlaces from '../utils/getNearbyPlaces'
 import { normalizeSearchString } from '../utils/helpers'
 import CityEntry from './CityEntry'
@@ -41,9 +41,8 @@ type PropsType = {
   filterText: string
   navigateToDashboard: (city: CityModel) => void
   theme: ThemeType
-  location: LocationType
-  retryDetermineLocation: null | (() => Promise<void>)
-  t: TFunction
+  locationInformation: LocationInformationType
+  t: TFunction<'landing'>
 }
 
 const checkAliases = (cityModel: CityModel, normalizedFilter: string): boolean =>
@@ -99,13 +98,15 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderNearbyLocations(): React.ReactNode {
-    const { cities, location, t, theme, navigateToDashboard, filterText, retryDetermineLocation } = this.props
+    const { cities, t, theme, navigateToDashboard, filterText, locationInformation } = this.props
+    const { location, locationState, requestAndDetermineLocation } = locationInformation
 
-    if (location?.status === 'ready') {
+    if (location !== null) {
+      const [longitude, latitude] = location
       const nearbyCities = getNearbyPlaces(
         cities.filter(city => city.live),
-        location.longitude,
-        location.latitude
+        longitude,
+        latitude
       )
 
       if (nearbyCities.length > 0) {
@@ -133,18 +134,21 @@ class CitySelector extends React.PureComponent<PropsType> {
         </CityGroupContainer>
       )
     }
+    const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
     return (
       <CityGroupContainer>
         <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
-          <NearbyMessage theme={theme}>{location ? t(location.message) : ''}</NearbyMessage>
+          <NearbyMessage theme={theme}>
+            {locationState.status === 'unavailable' ? t(locationState.message) : ''}
+          </NearbyMessage>
           <RetryButtonContainer>
-            {retryDetermineLocation && (
+            {shouldShowRetry && (
               <Button
                 icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                 title=''
                 type='clear'
-                onPress={retryDetermineLocation}
+                onPress={requestAndDetermineLocation}
                 accessibilityLabel={t('refresh')}
                 accessibilityRole='button'
               />
