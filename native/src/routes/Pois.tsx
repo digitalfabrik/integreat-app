@@ -17,6 +17,7 @@ import {
   RouteInformationType
 } from 'api-client'
 
+import BottomActionsSheet from '../components/BottomActionsSheet'
 import Caption from '../components/Caption'
 import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
@@ -215,14 +216,19 @@ const Pois = ({
               userLocation={userLocation}
             />
           )}
-          <List
-            noItemsMessage={t('currentlyNoPois')}
-            items={sortedPois}
-            renderItem={renderPoiListItem(cityModel.code, language)}
-            theme={theme}
+          <BottomActionsSheet
+            headerText={t('sheetHeaderText')}
+            content={
+              <List
+                noItemsMessage={t('currentlyNoPois')}
+                items={sortedPois}
+                renderItem={renderPoiListItem(cityModel.code, language)}
+                theme={theme}
+              />
+            }
           />
         </View>
-        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />
+        {/*<SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />*/}
       </SpaceBetween>
     </ScrollView>
   )

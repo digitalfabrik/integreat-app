@@ -14652,6 +14652,11 @@ react-map-gl@^6.1.16:
     resize-observer-polyfill "^1.5.1"
     viewport-mercator-project "^7.0.3"
 
+react-native-actions-sheet@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/react-native-actions-sheet/-/react-native-actions-sheet-0.5.4.tgz#e2aae80f4791772cb5f8426a2bfe2e1154eb62b9"
+  integrity sha512-7l+6+kRM5+HC6GlkEqfqvoSLcB29i1IQV40tbohRwe4GKhzlN1h0TmtPHwxw009LpH4b9TYXzM/7z/1t5JsilA==
+
 react-native-codegen@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.0.6.tgz#b3173faa879cf71bfade8d030f9c4698388f6909"
