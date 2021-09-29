@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { Button } from 'react-native'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
@@ -27,20 +26,16 @@ type PropsType = {
   information: string
   theme: ThemeType
   language: string
-  onLinkClick?: () => void
-  linkLabel?: string | null
 }
 
 const PageDetail: React.FC<PropsType> = (props: PropsType): ReactElement => {
-  const { identifier, information, theme, language, onLinkClick, linkLabel } = props
+  const { identifier, information, theme, language } = props
+
   return (
-    <>
-      <DetailContainer theme={theme} language={language}>
-        <Identifier theme={theme}>{identifier}: </Identifier>
-        {information}
-      </DetailContainer>
-      {linkLabel && onLinkClick && <Button title={linkLabel} onPress={() => onLinkClick()} />}
-    </>
+    <DetailContainer theme={theme} language={language}>
+      <Identifier theme={theme}>{identifier}: </Identifier>
+      {information}
+    </DetailContainer>
   )
 }
 
