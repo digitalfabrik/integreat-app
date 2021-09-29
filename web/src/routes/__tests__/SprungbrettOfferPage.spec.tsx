@@ -18,12 +18,10 @@ import { renderWithBrowserRouter } from '../../testing/render'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
 import { createPath, RoutePatterns } from '../index'
 
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 jest.mock('react-i18next')
 
 describe('SprungbrettOfferPage', () => {
@@ -65,8 +63,8 @@ describe('SprungbrettOfferPage', () => {
     })
   ]
 
-  const renderSprungbrett = (): RenderResult => {
-    return renderWithBrowserRouter(
+  const renderSprungbrett = (): RenderResult =>
+    renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
           path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
@@ -83,7 +81,6 @@ describe('SprungbrettOfferPage', () => {
       </ThemeProvider>,
       { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: cities[0].code, languageCode: languages[0].code }) }
     )
-  }
 
   it('should render page with title and content', () => {
     const useLoadFromEndpointMockOffers = (() => ({

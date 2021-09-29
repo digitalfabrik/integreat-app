@@ -5,6 +5,8 @@ import LocationModel from '../../models/LocationModel'
 import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {
+  const path = '/augsburg/de/locations/erster_poi'
+  const thumbnail = 'thumbnail'
   const expectedGeoJsonMarkerFeature: Feature<Point> = {
     type: 'Feature',
     geometry: {
@@ -14,7 +16,9 @@ describe('geoJson', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9'
+      symbol: '9',
+      thumbnail,
+      path
     }
   }
   describe('embedInCollection', () => {
@@ -35,7 +39,7 @@ describe('geoJson', () => {
         longitude: '31.133859',
         country: 'DE'
       })
-      expect(embedInCollection([location.convertToPoint()!])).toEqual(expectedGeoJsonFeatureCollection)
+      expect(embedInCollection([location.convertToPoint(path, thumbnail)!])).toEqual(expectedGeoJsonFeatureCollection)
     })
   })
 })

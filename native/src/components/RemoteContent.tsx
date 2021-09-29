@@ -14,13 +14,11 @@ export const renderWebviewError = (
   errorDomain: string | null | undefined,
   errorCode: number,
   errorDesc: string
-): React.ReactElement => {
-  return (
-    <Text>
-      ${errorDomain} ${errorCode} ${errorDesc}
-    </Text>
-  )
-}
+): React.ReactElement => (
+  <Text>
+    ${errorDomain} ${errorCode} ${errorDesc}
+  </Text>
+)
 
 type PropType = {
   content: string

@@ -10,8 +10,8 @@ import CategoryList from './CategoryList'
 import Page from './Page'
 import Tiles from './Tiles'
 
-const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
-  return categories.map(
+const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
+  categories.map(
     category =>
       new TileModel({
         title: category.title,
@@ -19,7 +19,6 @@ const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
         thumbnail: category.thumbnail
       })
   )
-}
 
 type PropsType = {
   categories: CategoriesMapModel

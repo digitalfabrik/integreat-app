@@ -471,24 +471,25 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-    return json.map((jsonObject: ContentCityJsonType) => {
-      return new CityModel({
-        name: jsonObject.name,
-        code: jsonObject.code,
-        live: jsonObject.live,
-        eventsEnabled: jsonObject.events_enabled,
-        pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
-        tunewsEnabled: jsonObject.tunewsEnabled,
-        offersEnabled: jsonObject.extras_enabled,
-        poisEnabled: jsonObject.pois_enabled,
-        sortingName: jsonObject.sorting_name,
-        prefix: jsonObject.prefix,
-        longitude: jsonObject.longitude,
-        latitude: jsonObject.latitude,
-        aliases: jsonObject.aliases,
-        boundingBox: jsonObject.bounding_box ?? null
-      })
-    })
+    return json.map(
+      (jsonObject: ContentCityJsonType) =>
+        new CityModel({
+          name: jsonObject.name,
+          code: jsonObject.code,
+          live: jsonObject.live,
+          eventsEnabled: jsonObject.events_enabled,
+          pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
+          tunewsEnabled: jsonObject.tunewsEnabled,
+          offersEnabled: jsonObject.extras_enabled,
+          poisEnabled: jsonObject.pois_enabled,
+          sortingName: jsonObject.sorting_name,
+          prefix: jsonObject.prefix,
+          longitude: jsonObject.longitude,
+          latitude: jsonObject.latitude,
+          aliases: jsonObject.aliases,
+          boundingBox: jsonObject.bounding_box ?? null
+        })
+    )
   }
 
   async storeEvents(events: Array<EventModel>, context: DatabaseContext): Promise<void> {

@@ -66,15 +66,17 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
     previousPathname.current = pathname
   }, [pathname])
 
-  const requestChildren = useCallback(async () => {
-    return createCategoryChildrenEndpoint(cmsApiBaseUrl).request({
-      city: cityCode,
-      language: languageCode,
-      // We show tiles for the root category so only first level children are needed
-      depth: categoryId ? 2 : 1,
-      cityContentPath: pathname
-    })
-  }, [cityCode, languageCode, pathname, categoryId])
+  const requestChildren = useCallback(
+    async () =>
+      createCategoryChildrenEndpoint(cmsApiBaseUrl).request({
+        city: cityCode,
+        language: languageCode,
+        // We show tiles for the root category so only first level children are needed
+        depth: categoryId ? 2 : 1,
+        cityContentPath: pathname
+      }),
+    [cityCode, languageCode, pathname, categoryId]
+  )
   const { data: categories, loading: categoriesLoading, error: categoriesError } = useLoadFromEndpoint(requestChildren)
 
   const requestParents = useCallback(async () => {
@@ -110,17 +112,15 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
 
   const category = categories?.find(it => it.path === pathname)
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => {
-    return (
-      <CategoriesToolbar
-        category={category}
-        cityCode={cityCode}
-        languageCode={languageCode}
-        openFeedbackModal={openFeedback}
-        viewportSmall={viewportSmall}
-      />
-    )
-  }
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CategoriesToolbar
+      category={category}
+      cityCode={cityCode}
+      languageCode={languageCode}
+      openFeedbackModal={openFeedback}
+      viewportSmall={viewportSmall}
+    />
+  )
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const rootPath = createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code })

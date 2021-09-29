@@ -80,36 +80,34 @@ describe('CategoriesContainer', () => {
       languages?: LanguagesStateType
       resourceCacheState?: ResourceCacheStateType
     } = {}
-  ): StateType => {
-    return {
-      resourceCacheUrl,
-      cityContent: {
-        city: city.code,
-        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: routeState
-          ? {
-              'route-id-0': routeState
-            }
-          : {},
-        resourceCache: resourceCacheState || {
-          status: 'ready',
-          progress: 0,
-          value: resourceCache
-        },
-        searchRoute: null
-      },
-      contentLanguage: 'de',
-      cities: cities || {
+  ): StateType => ({
+    resourceCacheUrl,
+    cityContent: {
+      city: city.code,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: routeState
+        ? {
+            'route-id-0': routeState
+          }
+        : {},
+      resourceCache: resourceCacheState || {
+        status: 'ready',
+        progress: 0,
+        value: resourceCache
+      },
+      searchRoute: null
+    },
+    contentLanguage: 'de',
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
 

@@ -2,14 +2,13 @@ import { mocked } from 'ts-jest/utils'
 
 import { useLoadFromEndpoint } from 'api-client'
 
-const mockData = (data: unknown): typeof useLoadFromEndpoint => {
-  return (() => ({
+const mockData = (data: unknown): typeof useLoadFromEndpoint =>
+  (() => ({
     data: data,
     loading: false,
     error: null,
     refresh: () => null
   })) as typeof useLoadFromEndpoint
-}
 
 export const mockUseLoadFromEndpointWithData = <T>(data: T): void => {
   mocked(useLoadFromEndpoint).mockImplementation(mockData(data))

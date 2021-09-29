@@ -32,9 +32,7 @@ jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
 const mockStore = configureMockStore()
 
-const MockNavigator: React.FC = () => {
-  return null
-}
+const MockNavigator: React.FC = () => null
 
 describe('NavigatorContainer', () => {
   let TestRenderer: typeof TestRendererType
