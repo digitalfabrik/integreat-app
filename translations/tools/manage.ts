@@ -27,9 +27,7 @@ type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj
 const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
   mapValues(obj, (val, key) => (!isString(val) ? mapStringValuesDeep(val, fn) : fn(val, key, obj)))
 
-const flattenModules = (modules: KeyValueType): Record<string, string> => {
-  return flat(modules)
-}
+const flattenModules = (modules: KeyValueType): Record<string, string> => flat(modules)
 
 type LanguagePair = [string, string]
 
@@ -58,9 +56,8 @@ const EMPTY_MODULE = {}
 type KeyModuleType = [string, Record<string, KeyValueType>]
 type ModuleType = [string, KeyValueType]
 
-const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] => {
-  return keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
-}
+const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] =>
+  keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
 
 /**
  * Create a a translation skeleton which has all keys set to an empty string
@@ -69,15 +66,14 @@ const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string)
  * @param moduleArray The array of modules (containing all languages) with its keys
  * @returns {*}
  */
-const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] => {
-  return getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
+const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] =>
+  getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
     if (module === EMPTY_MODULE) {
       throw new Error(`Module ${moduleKey} is missing in source language!`)
     }
 
     return [moduleKey, mapStringValuesDeep(module, _unusedTranslation => '')]
   })
-}
 
 const mergeByLanguageModule = (
   byLanguageModule: ModuleType[],
@@ -111,9 +107,9 @@ const writeCsvFromJson = (
       .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
   )
   const skeleton = createSkeleton(sourceLanguage, moduleArray)
-  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule => {
-    return mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
-  })
+  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule =>
+    mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
+  )
   const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
   const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
   Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>

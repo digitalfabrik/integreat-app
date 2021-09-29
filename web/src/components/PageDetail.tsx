@@ -13,18 +13,16 @@ type PropsType = {
 }
 
 // TODO refactor anchor with new clean link component IGAPP-749
-const PageDetail: React.FC<PropsType> = ({ identifier, information, link, linkLabel }: PropsType): ReactElement => {
-  return (
-    <div>
-      <Identifier>{identifier}: </Identifier>
-      <span>{information}</span>
-      {link && (
-        <p>
-          <a href={link}>{linkLabel}</a>
-        </p>
-      )}
-    </div>
-  )
-}
+const PageDetail: React.FC<PropsType> = ({ identifier, information, link, linkLabel }: PropsType): ReactElement => (
+  <div>
+    <Identifier>{identifier}: </Identifier>
+    <span>{information}</span>
+    {link && (
+      <p>
+        <a href={link}>{linkLabel}</a>
+      </p>
+    )}
+  </div>
+)
 
 export default PageDetail

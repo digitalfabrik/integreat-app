@@ -35,21 +35,13 @@ class InternalPathnameParser {
     this._fallbackLanguageCode = languageCode
   }
 
-  pathnameParts = (pathname: string): string[] => {
-    return pathname.split('/').filter(Boolean)
-  }
+  pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
 
-  isFixedCity = (): boolean => {
-    return !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
-  }
+  isFixedCity = (): boolean => !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
 
-  isCityContentFeatureRoute = (feature: string): boolean => {
-    return this._length > 2 && this._parts[2] === feature
-  }
+  isCityContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
 
-  languageCode = (): string => {
-    return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
-  }
+  languageCode = (): string => (this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode)
 
   jpalTracking = (): RouteInformationType => {
     if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
@@ -243,20 +235,17 @@ class InternalPathnameParser {
     return null
   }
 
-  route = (): RouteInformationType => {
-    return (
-      this.landing() ||
-      this.jpalTracking() ||
-      this.events() ||
-      this.pois() ||
-      this.offers() ||
-      this.disclaimer() ||
-      this.news() ||
-      this.search() ||
-      this.dashboard() ||
-      this.categories()
-    )
-  }
+  route = (): RouteInformationType =>
+    this.landing() ||
+    this.jpalTracking() ||
+    this.events() ||
+    this.pois() ||
+    this.offers() ||
+    this.disclaimer() ||
+    this.news() ||
+    this.search() ||
+    this.dashboard() ||
+    this.categories()
 }
 
 export default InternalPathnameParser

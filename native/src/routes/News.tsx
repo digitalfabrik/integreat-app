@@ -46,9 +46,7 @@ const News = (props: PropsType): ReactElement => {
   const { navigateTo, navigateToLink, cityModel } = props
   const { t } = useTranslation('news')
 
-  const renderNoItemsComponent = (): React.ReactElement => {
-    return <NoNews>{t('currentlyNoNews')}</NoNews>
-  }
+  const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
 
   const rendersNewsListItem = useCallback(
     (cityCode: string, language: string) => ({
