@@ -21,16 +21,16 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
       status: 'unavailable',
       message: 'noPermission'
     }
-  } else if (error.code === error.POSITION_UNAVAILABLE) {
+  }
+  if (error.code === error.POSITION_UNAVAILABLE) {
     return {
       status: 'unavailable',
       message: 'notAvailable'
     }
-  } else {
-    return {
-      status: 'unavailable',
-      message: 'timeout'
-    }
+  }
+  return {
+    status: 'unavailable',
+    message: 'timeout'
   }
 }
 
