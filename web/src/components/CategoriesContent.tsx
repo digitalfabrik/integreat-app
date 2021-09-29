@@ -48,7 +48,8 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         onInternalLinkClick={history.push}
       />
     )
-  } else if (categoryModel.isRoot()) {
+  }
+  if (categoryModel.isRoot()) {
     // first level, we want to display a table with all first order categories
     return <Tiles tiles={getTileModels(children)} title={t('localInformation')} />
   }
