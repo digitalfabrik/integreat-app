@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import dimensions from '..//constants/dimensions'
+import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import Tooltip from './Tooltip'
 
@@ -89,8 +89,8 @@ const HeaderActionItemDropDown = (props: PropsType): ReactElement => {
 
   return (
     <Container ref={wrapperRef}>
-      <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
-        <button aria-label={text} onClick={toggleDropDown}>
+      <Tooltip text={text} flow='down' mediumViewportFlow='left'>
+        <button type='button' aria-label={text} onClick={toggleDropDown}>
           <img alt='' src={iconSrc} />
         </button>
       </Tooltip>

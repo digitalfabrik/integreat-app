@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
 
-import dimensions from '..//constants/dimensions'
+import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
 
 const ItemWrapper = styled.View<{ selected: boolean }>`

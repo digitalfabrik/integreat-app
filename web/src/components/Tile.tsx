@@ -84,6 +84,8 @@ class Tile extends React.PureComponent<PropsType> {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
     }
     const inputs: ReactNode[] = []
+    // tile.postData is not an array so key is actually a string with the name of the post data field
+    // eslint-disable-next-line react/no-array-index-key
     tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
     return (
       <form method='POST' action={tile.path}>

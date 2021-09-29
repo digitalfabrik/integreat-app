@@ -4,9 +4,9 @@ type MockFilesType = Record<string, string>
 const mockFiles: MockFilesType = {}
 
 const deleteAllMockFiles = () => {
-  for (const path in mockFiles) {
+  Object.keys(mockFiles).forEach(path => {
     delete mockFiles[path]
-  }
+  })
 }
 
 const writeMockFile = (file: string, content: string, _unusedEncoding: string): Promise<void> => {

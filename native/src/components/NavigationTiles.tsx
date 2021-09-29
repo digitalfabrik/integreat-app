@@ -62,7 +62,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
     const contentSizeDiff = nativeEvent.contentSize.width - nativeEvent.layoutMeasurement.width
     this.setState({
       xPosition: nativeEvent.contentOffset.x,
-      contentSizeDiff: parseInt(contentSizeDiff.toFixed(0))
+      contentSizeDiff: parseInt(contentSizeDiff.toFixed(0), 10)
     })
   }
 

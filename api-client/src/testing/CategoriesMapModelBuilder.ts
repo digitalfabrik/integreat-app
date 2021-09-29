@@ -62,9 +62,9 @@ class CategoriesMapModelBuilder {
       return
     }
 
-    for (let i = 0; i < this._arity; i++) {
+    for (let i = 0; i < this._arity; i += 1) {
       const id = this._id
-      this._id++
+      this._id += 1
       const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
       const resourceUrl1 = `https://cms.integreat-app.de/title_${id}-300x300.png`

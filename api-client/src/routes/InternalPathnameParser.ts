@@ -1,4 +1,3 @@
-import normalizePath from '../normalizePath'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -15,7 +14,9 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
   TuNewsType
-} from './'
+} from '.'
+
+import normalizePath from '../normalizePath'
 import { RouteInformationType } from './RouteInformationTypes'
 
 const ENTITY_ID_INDEX = 3
