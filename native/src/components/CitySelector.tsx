@@ -137,13 +137,13 @@ class CitySelector extends React.PureComponent<PropsType> {
         )
       }
     } else {
-      const shouldShowRetry = !(locationState.status === 'unavailable' && locationState.message === 'loading')
+      const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
       return (
         <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>
-              {locationState.status !== 'ready' ? t(locationState.message) : ''}
+              {locationState.status === 'unavailable' ? t(locationState.message) : ''}
             </NearbyMessage>
             <RetryButtonContainer>
               {shouldShowRetry && (
