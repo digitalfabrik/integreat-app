@@ -1,0 +1,7 @@
+issue_key: IGAPP-663
+show_in_stores: true
+platforms: # relevant platforms, possible values: web, android and ios
+  - android
+  - ios
+en: The content height is now adjusted dynamically when expanding or collapsing details.
+de: Die Höhe von Inhalten wird nun dynamisch angepasst, wenn Details geöffnet oder geschlossen werden.
