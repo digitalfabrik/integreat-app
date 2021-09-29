@@ -74,8 +74,6 @@ module.exports = {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-empty-function': 'warn',
-    '@typescript-eslint/no-unnecessary-condition': 'error',
-    '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -97,9 +95,6 @@ module.exports = {
     'jest/valid-expect': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error'
-  },
-  parserOptions: {
-    project: './tsconfig.json'
   },
   overrides: [
     {
