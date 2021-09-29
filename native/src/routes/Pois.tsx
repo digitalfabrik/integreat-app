@@ -58,9 +58,8 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
       if (userLocation && featureLocation?.geometry.coordinates) {
         const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
         return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
-      } else {
-        return poi.featureLocation
       }
+      return poi.featureLocation
     })
     .filter((feature): feature is Feature<Point> => !!feature)
 
@@ -154,7 +153,7 @@ const Pois = ({
     const poi = sortedPois.find(_poi => _poi.path === path)
 
     if (poi) {
-      const location = poi.location.location
+      const { location } = poi.location
       const files = resourceCache[poi.path] || {}
 
       let navigationUrl: string | undefined | null = null

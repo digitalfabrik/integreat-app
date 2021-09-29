@@ -54,15 +54,15 @@ const byNameAndAliases = (name: string) => (city: CityModel) =>
 class CitySelector extends React.PureComponent<PropsType> {
   _filter(): Array<CityModel> {
     const normalizedFilter = normalizeSearchString(this.props.filterText)
-    const cities = this.props.cities
+    const { cities } = this.props
 
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
-    } else if (buildConfig().featureFlags.developerFriendly) {
-      return cities
-    } else {
-      return cities.filter(_city => _city.live).filter(byNameAndAliases(normalizedFilter))
     }
+    if (buildConfig().featureFlags.developerFriendly) {
+      return cities
+    }
+    return cities.filter(_city => _city.live).filter(byNameAndAliases(normalizedFilter))
   }
 
   // Landkreis should come before Stadt
@@ -124,41 +124,39 @@ class CitySelector extends React.PureComponent<PropsType> {
             ))}
           </CityGroupContainer>
         )
-      } else {
-        return (
-          <CityGroupContainer>
-            <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
-            <NearbyMessageContainer>
-              <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
-            </NearbyMessageContainer>
-          </CityGroupContainer>
-        )
       }
-    } else {
-      const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
       return (
         <CityGroupContainer>
           <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
-            <NearbyMessage theme={theme}>
-              {locationState.status === 'unavailable' ? t(locationState.message) : ''}
-            </NearbyMessage>
-            <RetryButtonContainer>
-              {shouldShowRetry && (
-                <Button
-                  icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
-                  title=''
-                  type='clear'
-                  onPress={requestAndDetermineLocation}
-                  accessibilityLabel={t('refresh')}
-                  accessibilityRole='button'
-                />
-              )}
-            </RetryButtonContainer>
+            <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
           </NearbyMessageContainer>
         </CityGroupContainer>
       )
     }
+    const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
+    return (
+      <CityGroupContainer>
+        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+        <NearbyMessageContainer>
+          <NearbyMessage theme={theme}>
+            {locationState.status === 'unavailable' ? t(locationState.message) : ''}
+          </NearbyMessage>
+          <RetryButtonContainer>
+            {shouldShowRetry && (
+              <Button
+                icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
+                title=''
+                type='clear'
+                onPress={requestAndDetermineLocation}
+                accessibilityLabel={t('refresh')}
+                accessibilityRole='button'
+              />
+            )}
+          </RetryButtonContainer>
+        </NearbyMessageContainer>
+      </CityGroupContainer>
+    )
   }
 
   render(): ReactNode {

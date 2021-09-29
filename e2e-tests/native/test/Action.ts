@@ -64,6 +64,7 @@ export const swipe = async (direction: SwipeDirection, repeat = 1, amount = 80):
         x: (width * anchorPercentage) / 100,
         y: (height * lowerPercentage) / 100
       }
+      break
   }
   await driver.touchPerform([].concat(...new Array(repeat).fill(swipeMove(startPoint, endPoint))))
 }

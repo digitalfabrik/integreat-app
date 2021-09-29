@@ -84,7 +84,7 @@ export default function* fetchResourceCache(
       reduce(
         fetchMapEntry,
         (acc: Record<string, PageResourceCacheEntryStateType>, fetchMapTarget: FetchMapTargetType) => {
-          const filePath = fetchMapTarget.filePath
+          const { filePath } = fetchMapTarget
           const downloadResult = successResults[filePath]
 
           if (downloadResult) {
