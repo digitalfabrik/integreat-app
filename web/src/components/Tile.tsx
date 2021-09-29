@@ -82,18 +82,17 @@ class Tile extends React.PureComponent<PropsType> {
     const tile = this.props.tile
     if (!tile.postData) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
-    } else {
-      const inputs: ReactNode[] = []
-      tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
-      return (
-        <form method='POST' action={tile.path}>
-          {inputs}
-          <button type='submit' role='link'>
-            {this.getTileContent()}
-          </button>
-        </form>
-      )
     }
+    const inputs: ReactNode[] = []
+    tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
+    return (
+      <form method='POST' action={tile.path}>
+        {inputs}
+        <button type='submit' role='link'>
+          {this.getTileContent()}
+        </button>
+      </form>
+    )
   }
 
   render(): ReactNode {

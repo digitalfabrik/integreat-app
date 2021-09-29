@@ -43,7 +43,7 @@ const navigateToDeepLink = async (
       deepLink: url
     })
   } else {
-    const pathname = new Url(url).pathname
+    const { pathname } = new Url(url)
     const routeParser = new InternalPathnameParser(pathname, language, fixedCity)
     const routeInformation = routeParser.route()
 

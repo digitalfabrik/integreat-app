@@ -17,7 +17,7 @@ type PropsType = {
 
 const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: PropsType): ReactElement => {
   const theme = useTheme()
-  const width = useWindowDimensions().width
+  const { width } = useWindowDimensions()
   const onLinkPress = useCallback(
     (_, url: string) => {
       const shareUrl = cacheDictionary

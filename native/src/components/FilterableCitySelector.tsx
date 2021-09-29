@@ -42,7 +42,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
 
   render(): ReactNode {
     const { t, theme } = this.props
-    const filterText = this.state.filterText
+    const { filterText } = this.state
     return (
       <View>
         <SearchBar>

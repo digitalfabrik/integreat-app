@@ -8,22 +8,22 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../routes/LandingContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Landing</Text>
 })
 jest.mock('../routes/DashboardContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Dashboard</Text>
 })
 jest.mock('../routes/IntroContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Intro</Text>
 })
 jest.mock('../components/HeaderContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Header</Text>
 })
