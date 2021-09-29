@@ -11,12 +11,12 @@ import Categories from '../Categories'
 import Page from '../Page'
 
 jest.mock('../Page', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Page</Text>
 })
 jest.mock('../PageDetail', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>PageDetail</Text>
 })
