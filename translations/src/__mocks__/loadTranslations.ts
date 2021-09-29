@@ -50,8 +50,6 @@ export const testOverrideTranslations: TranslationsType = {
   }
 }
 
-const loadTranslations = (): TransformedTranslationsType => {
-  return transformTranslations(testTranslations)
-}
+const loadTranslations = (): TransformedTranslationsType => transformTranslations(testTranslations)
 
 export default loadTranslations

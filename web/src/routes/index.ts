@@ -50,10 +50,7 @@ export type RouteProps<S extends RouteType> = RouteComponentProps<ExpectedParams
 export const createPath = <S extends RouteType>(
   route: S,
   params?: ExtractRouteParams<typeof RoutePatterns[S]>
-): string => {
-  return generatePath(RoutePatterns[route], params)
-}
+): string => generatePath(RoutePatterns[route], params)
 
-export const routeFromPattern = (pattern: string): RouteType | undefined => {
-  return (Object.keys(RoutePatterns) as Array<RouteType>).find(route => RoutePatterns[route] === pattern)
-}
+export const routeFromPattern = (pattern: string): RouteType | undefined =>
+  (Object.keys(RoutePatterns) as Array<RouteType>).find(route => RoutePatterns[route] === pattern)

@@ -7,28 +7,26 @@ export enum SwipeDirection {
 
 type SwipePoint = { x: number; y: number }
 
-const swipeMove = (startPoint: SwipePoint, endPoint: SwipePoint): Array<{ action: string; options: unknown }> => {
-  return [
-    {
-      action: 'press',
-      options: startPoint
-    },
-    {
-      action: 'wait',
-      options: {
-        ms: 200
-      }
-    },
-    {
-      action: 'moveTo',
-      options: endPoint
-    },
-    {
-      action: 'release',
-      options: {}
+const swipeMove = (startPoint: SwipePoint, endPoint: SwipePoint): Array<{ action: string; options: unknown }> => [
+  {
+    action: 'press',
+    options: startPoint
+  },
+  {
+    action: 'wait',
+    options: {
+      ms: 200
     }
-  ]
-}
+  },
+  {
+    action: 'moveTo',
+    options: endPoint
+  },
+  {
+    action: 'release',
+    options: {}
+  }
+]
 
 export const swipe = async (direction: SwipeDirection, repeat = 1, amount = 80): Promise<void> => {
   const { width, height } = await driver.getWindowSize()

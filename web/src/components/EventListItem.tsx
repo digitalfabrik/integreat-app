@@ -25,16 +25,14 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]
 }
 
-const EventListItem = ({ event, formatter }: PropsType): ReactElement => {
-  return (
-    <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
-      <div>
-        <div>{event.date.toFormattedString(formatter)}</div>
-        {event.location.location && <div>{event.location.location}</div>}
-      </div>
-      <div>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
-    </ListItem>
-  )
-}
+const EventListItem = ({ event, formatter }: PropsType): ReactElement => (
+  <ListItem thumbnail={event.thumbnail || getEventPlaceholder(event.path)} title={event.title} path={event.path}>
+    <div>
+      <div>{event.date.toFormattedString(formatter)}</div>
+      {event.location.location && <div>{event.location.location}</div>}
+    </div>
+    <div>{textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED)}</div>
+  </ListItem>
+)
 
 export default EventListItem

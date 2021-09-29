@@ -50,18 +50,16 @@ const Events = ({
 }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
 
-  const renderEventListItem = (event: EventModel) => {
-    return (
-      <EventListItem
-        key={event.path}
-        event={event}
-        cityCode={cityModel.code}
-        language={language}
-        theme={theme}
-        navigateTo={navigateTo}
-      />
-    )
-  }
+  const renderEventListItem = (event: EventModel) => (
+    <EventListItem
+      key={event.path}
+      event={event}
+      cityCode={cityModel.code}
+      language={language}
+      theme={theme}
+      navigateTo={navigateTo}
+    />
+  )
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({

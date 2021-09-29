@@ -86,9 +86,7 @@ const Header = (props: PropsType): ReactElement => {
     categoriesAvailable
   } = props
 
-  const canGoBackInStack = (): boolean => {
-    return !!props.previous
-  }
+  const canGoBackInStack = (): boolean => !!props.previous
 
   const goBackInStack = () => {
     navigation.goBack()

@@ -17,6 +17,5 @@ const getExtensionWithDot = (urlString: string) => {
  * @returns a non-empty URL-string which points to a file
  */
 
-export default (urlString: string, city: string, urlHash: string): string => {
-  return `${getResourceCacheFilesDirPath(city)}/${urlHash}${getExtensionWithDot(urlString)}`
-}
+export default (urlString: string, city: string, urlHash: string): string =>
+  `${getResourceCacheFilesDirPath(city)}/${urlHash}${getExtensionWithDot(urlString)}`
