@@ -25,7 +25,9 @@ describe('pois', () => {
       state: 'Bayern',
       postcode: '86353',
       region: 'Schwaben',
-      country: 'DE'
+      country: 'DE',
+      longitude: '10.89779',
+      latitude: '48.3705449'
     },
     modified_gmt: '2017-01-09 15:30:00',
     hash: '91d435afbc7aa83496137e81fd2832e3'
@@ -47,7 +49,9 @@ describe('pois', () => {
         state: 'Bayern',
         postcode: '86353',
         region: 'Schwaben',
-        country: 'DE'
+        country: 'DE',
+        longitude: '10.89779',
+        latitude: '48.3705449'
       }),
       lastUpdate: moment.tz('2017-01-09 15:30:00', 'GMT'),
       hash: '91d435afbc7aa83496137e81fd2832e3'
@@ -56,8 +60,8 @@ describe('pois', () => {
   const poi1 = createPoi(2730)
   const poi2 = createPoi(1889)
   const poi3 = createPoi(4768) // we get these from cms
-
   const poi4 = createPoi(4826)
+
   const poiModel1 = createPoiModel()
   const poiModel2 = createPoiModel()
   const poiModel3 = createPoiModel()
