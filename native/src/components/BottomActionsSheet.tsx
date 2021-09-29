@@ -1,7 +1,6 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
-import { ScrollView } from 'react-native'
-import { View } from 'react-native'
-import ActionSheet from 'react-native-actions-sheet'
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import React, { ReactElement, ReactNode, useMemo, useRef, useState } from 'react'
+import { ScrollView, Text, View } from 'react-native'
 import styled from 'styled-components/native'
 
 type BottomActionsSheetProps = {
@@ -42,8 +41,12 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   customIndicator,
   headerText
 }: BottomActionsSheetProps): ReactElement => {
-  const actionSheetRef = React.useRef<ActionSheet | null>(null)
   const [showButton, setShowButton] = useState<boolean>(true)
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null)
+
+  // variables
+  const snapPoints = useMemo(() => ['25%', '50%', '75'], [])
 
   const CustomHeader = (
     <View>
@@ -58,28 +61,9 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
 
   return (
     <View>
-      <ActionSheet
-        ref={actionSheetRef}
-        gestureEnabled={true}
-        closeOnTouchBackdrop={true}
-        closable={true}
-        initialOffsetFromBottom={10}
-        bottomOffset={10}
-        onOpen={() => setShowButton(false)}
-        onClose={() => setShowButton(true)}
-        CustomHeaderComponent={CustomHeader}
-        springOffset={100}>
-        <ScrollView
-          nestedScrollEnabled={true}
-          onMomentumScrollEnd={() => actionSheetRef.current?.handleChildScrollEnd()}>
-          {content}
-        </ScrollView>
-      </ActionSheet>
-      {showButton && (
-        <SheetButton onTouchMove={() => actionSheetRef.current?.show()}>
-          <Indicator />
-        </SheetButton>
-      )}
+      <BottomSheet ref={bottomSheetRef} index={1} snapPoints={snapPoints}>
+        <BottomSheetScrollView>{content}</BottomSheetScrollView>
+      </BottomSheet>
     </View>
   )
 }
