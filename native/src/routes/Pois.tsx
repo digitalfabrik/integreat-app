@@ -57,9 +57,8 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[])
       if (userLocation && featureLocation?.geometry.coordinates) {
         const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
         return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
-      } else {
-        return poi.featureLocation
       }
+      return poi.featureLocation
     })
     .filter((feature): feature is Feature<Point> => !!feature)
 

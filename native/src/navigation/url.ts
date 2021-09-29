@@ -42,11 +42,13 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
   if (routeInformation.route === JPAL_TRACKING_ROUTE) {
     // https://integreat.app/jpal
     return constructUrl([routeInformation.route])
-  } else if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
+  }
+  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
     // https://integreat.app/augsburg/de/offers/sprungbrett
     return constructUrl([cityCode, languageCode, OFFERS_ROUTE, route])
-  } else if (
+  }
+  if (
     routeInformation.route === DASHBOARD_ROUTE ||
     routeInformation.route === CATEGORIES_ROUTE ||
     routeInformation.route === EVENTS_ROUTE ||
@@ -55,11 +57,11 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
     if (routeInformation.cityContentPath) {
       // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/events/12345
       return constructUrl([routeInformation.cityContentPath])
-    } else {
-      // https://integreat.app/augsburg/de/events, https://integreat.app/augsburg/de/pois
-      return constructUrl([routeInformation.cityCode, routeInformation.languageCode, routeInformation.route])
     }
-  } else if (
+    // https://integreat.app/augsburg/de/events, https://integreat.app/augsburg/de/pois
+    return constructUrl([routeInformation.cityCode, routeInformation.languageCode, routeInformation.route])
+  }
+  if (
     routeInformation.route === DISCLAIMER_ROUTE ||
     routeInformation.route === OFFERS_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||
@@ -70,10 +72,9 @@ const constructUrlFromRouteInformation = (routeInformation: NonNullableRouteInfo
     const newsType = routeInformation.route === NEWS_ROUTE ? routeInformation.newsType : null
     const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.newsId : null
     return constructUrl([cityCode, languageCode, routeInformation.route, newsType, newsId])
-  } else {
-    // https://integreat.app
-    return constructUrl([])
   }
+  // https://integreat.app
+  return constructUrl([])
 }
 
 export const urlFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
