@@ -120,6 +120,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
         listener.then(listener => listener && SystemSetting.removeListener(listener))
       }
     }
+    return () => undefined
   })
 
   const isReadyOrLoading = locationState.status === 'ready' || locationState.message === 'loading'
