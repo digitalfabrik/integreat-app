@@ -150,7 +150,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  const resourceCacheUrl = state.resourceCacheUrl
+  const { resourceCacheUrl } = state
   const { models, children, allAvailableLanguages } = route
 
   if (

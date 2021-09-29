@@ -153,7 +153,7 @@ const Pois = ({
     const poi = sortedPois.find(_poi => _poi.path === path)
 
     if (poi) {
-      const location = poi.location.location
+      const { location } = poi.location
       const files = resourceCache[poi.path] || {}
 
       let navigationUrl: string | undefined | null = null

@@ -10,12 +10,12 @@ import buildConfig from '../../constants/buildConfig'
 import Events from '../Events'
 
 jest.mock('../../components/Page', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Page</Text>
 })
 jest.mock('../../components/PageDetail', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>PageDetail</Text>
 })

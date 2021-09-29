@@ -19,7 +19,7 @@ jest.mock('../../components/Page', () => {
   return () => <Text>Page</Text>
 })
 jest.mock('../../components/NavigationTiles', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>NavigationTiles</Text>
 })
