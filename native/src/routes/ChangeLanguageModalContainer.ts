@@ -26,10 +26,7 @@ type DispatchPropsType = {
 type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { currentLanguage } = ownProps.route.params
-  const { languages } = ownProps.route.params
-  const { availableLanguages } = ownProps.route.params
-  const { previousKey } = ownProps.route.params
+  const { currentLanguage, languages, availableLanguages, previousKey } = ownProps.route.params
   const newsRouteMapping = state.cityContent?.routeMapping
   const newsType =
     (previousKey &&
@@ -49,8 +46,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 type DispatchType = Dispatch<StoreActionType>
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): DispatchPropsType => {
-  const { cityCode } = ownProps.route.params
-  const { previousKey } = ownProps.route.params
+  const { cityCode, previousKey } = ownProps.route.params
   return {
     changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => {
       dispatch({
