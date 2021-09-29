@@ -4,6 +4,8 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow'],
   extends: [
     'standard',
+    'airbnb',
+    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
@@ -24,6 +26,31 @@ module.exports = {
     '**/lib-dist/'
   ],
   rules: {
+    'class-methods-use-this': 'off',
+    'consistent-return': ['error', { treatUndefinedAsUnspecified: true }],
+    'default-case': 'off',
+    'global-require': 'off',
+    'import/extensions': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off',
+    'lines-between-class-members': 'off',
+    'no-shadow': 'off',
+    'no-underscore-dangle': 'off',
+    'react/jsx-filename-extension': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+
+    // Disabling since our class components are legacy anyway
+    'react/sort-comp': 'off',
+    'react/state-in-constructor': 'off',
+    'react/static-property-placement': 'off',
+
+    // TODO enable
+    'no-nested-ternary': 'off',
+    'react/prefer-stateless-function': 'off',
+    'react/destructuring-assignment': 'off',
+
     'arrow-body-style': 'error',
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
@@ -94,7 +121,9 @@ module.exports = {
       files: ['*.spec.{ts,tsx}'],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
-        '@typescript-eslint/no-var-requires': 'off'
+        '@typescript-eslint/no-var-requires': 'off',
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/no-static-element-interactions': 'off'
       }
     }
   ],

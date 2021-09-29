@@ -90,7 +90,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
   return (
     <I18nextProvider i18n={i18nextInstance}>
       <div
-        data-testid={'direction'}
+        data-testid='direction'
         dir={config.isSupportedLanguage(language) ? (config.hasRTLScript(language) ? 'rtl' : 'ltr') : undefined}>
         <ReactHelmet>
           {additionalFont === 'noto-sans-arabic' && (

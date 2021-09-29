@@ -39,8 +39,9 @@ class EventModelBuilder {
 
   buildResources(): Record<string, PageResourceCacheStateType> {
     return this.buildAll().reduce<Record<string, PageResourceCacheStateType>>((result, { path, resources }) => {
-      result[path] = resources
-      return result
+      const newResult = result
+      newResult[path] = resources
+      return newResult
     }, {})
   }
 

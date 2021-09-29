@@ -34,7 +34,7 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
       const news = isLocalNews
         ? yield* call(loadLocalNews, city, language)
         : newsId // A better solution to prevent re-fetching news again from page 1
-        ? yield* call(loadTunewsElement, parseInt(newsId, 0))
+        ? yield* call(loadTunewsElement, parseInt(newsId, 10))
         : yield* call(loadTunews, city, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',

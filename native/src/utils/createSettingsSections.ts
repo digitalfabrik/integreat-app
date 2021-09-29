@@ -111,10 +111,8 @@ const createSettingsSections = ({
               const client = Sentry.getCurrentHub().getClient()
               if (newSettings.errorTracking && !client) {
                 initSentry()
-              } else {
-                if (client) {
-                  client.getOptions().enabled = !!newSettings.errorTracking
-                }
+              } else if (client) {
+                client.getOptions().enabled = !!newSettings.errorTracking
               }
             }
           )
@@ -141,7 +139,7 @@ const createSettingsSections = ({
           version: NativeConstants.appVersion
         }),
         onPress: () => {
-          volatileValues.versionTaps++
+          volatileValues.versionTaps += 1
 
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
             volatileValues.versionTaps = 0
