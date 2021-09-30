@@ -53,11 +53,13 @@ type PropsType = {
 
 class NewsHeader extends React.PureComponent<PropsType> {
   navigateToLocalNews = () => {
-    this.props.navigateToNews(LOCAL_NEWS_TYPE)
+    const { navigateToNews } = this.props
+    navigateToNews(LOCAL_NEWS_TYPE)
   }
 
   navigateToTunews = () => {
-    this.props.navigateToNews(TU_NEWS_TYPE)
+    const { navigateToNews } = this.props
+    navigateToNews(TU_NEWS_TYPE)
   }
 
   render() {

@@ -66,20 +66,21 @@ const TileContainer = styled(Col)`
  */
 class Tile extends React.PureComponent<PropsType> {
   getTileContent(): ReactNode {
+    const { tile } = this.props
     return (
       <>
         <ThumbnailSizer>
           <Thumbnail>
-            <img alt='' src={this.props.tile.thumbnail} />
+            <img alt='' src={tile.thumbnail} />
           </Thumbnail>
         </ThumbnailSizer>
-        <TileTitle>{this.props.tile.title}</TileTitle>
+        <TileTitle>{tile.title}</TileTitle>
       </>
     )
   }
 
   getTile(): ReactNode {
-    const tile = this.props.tile
+    const { tile } = this.props
     if (!tile.postData) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
     }

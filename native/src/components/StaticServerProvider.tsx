@@ -46,9 +46,10 @@ class StaticServerProvider extends React.Component<
   }
 
   async componentDidMount() {
+    const { setResourceCacheUrl } = this.props
     try {
       const url = await this.staticServer.start()
-      this.props.setResourceCacheUrl(url)
+      setResourceCacheUrl(url)
     } catch (e) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
@@ -62,11 +63,14 @@ class StaticServerProvider extends React.Component<
   }
 
   render(): ReactNode {
-    if (this.state.errorMessage !== null) {
-      return <Text>{this.state.errorMessage}</Text>
+    const { errorMessage } = this.state
+    const { children } = this.props
+
+    if (errorMessage !== null) {
+      return <Text>{errorMessage}</Text>
     }
 
-    return this.props.children
+    return children
   }
 }
 

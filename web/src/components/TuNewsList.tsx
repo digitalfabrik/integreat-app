@@ -32,7 +32,8 @@ type PropsType = {
 
 class TuNewsList extends React.PureComponent<PropsType> {
   loadItems = (page: number): void => {
-    this.props.fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
+    const { fetchMoreTunews } = this.props
+    fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
   }
 
   render(): ReactNode {

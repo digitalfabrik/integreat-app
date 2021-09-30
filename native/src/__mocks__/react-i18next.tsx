@@ -19,6 +19,6 @@ module.exports = {
   ...realModule,
   withTranslation,
   useTranslation,
-  I18nextProvider: (props: { children: React.ReactNode }) => <>{props.children}</>,
+  I18nextProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   reactI18nextModule: realModule.reactI18nextModule
 }
