@@ -14,11 +14,11 @@ export type PropsType = {
 }
 
 const ExternalOffer = (props: PropsType): ReactElement => {
-  const [canGoBack, setCanGoBack] = useState(false)
+  const [canGoBack, setCanGoBack] = useState<boolean>(false)
   const webviewRef = useRef<WebView>(null)
   useEffect(() => {
     const handleBackButton = (): boolean => {
-      if (webviewRef?.current && canGoBack) {
+      if (webviewRef.current && canGoBack) {
         webviewRef.current.goBack()
         return true
       }

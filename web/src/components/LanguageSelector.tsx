@@ -35,14 +35,12 @@ const LanguageSelector = (props: PropsType): ReactElement => {
   }
 
   return (
-    selectorItems && (
-      <Selector
-        verticalLayout
-        items={selectorItems}
-        activeItemCode={activeItemCode}
-        disabledItemTooltip={t('noTranslation')}
-      />
-    )
+    <Selector
+      verticalLayout
+      items={selectorItems}
+      activeItemCode={activeItemCode}
+      disabledItemTooltip={t('noTranslation')}
+    />
   )
 }
 

@@ -6,7 +6,7 @@ import { ThemeType } from 'build-configs'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
-import { NewsRouteStateType, StateType } from '../redux/StateType'
+import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import ChangeLanguageModal from './ChangeLanguageModal'
 
@@ -33,7 +33,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       newsRouteMapping &&
       newsRouteMapping[previousKey] &&
       newsRouteMapping[previousKey].routeType === NEWS_ROUTE &&
-      (newsRouteMapping[previousKey] as NewsRouteStateType).type) ||
+      newsRouteMapping[previousKey].type) ||
     undefined
   return {
     currentLanguage,
