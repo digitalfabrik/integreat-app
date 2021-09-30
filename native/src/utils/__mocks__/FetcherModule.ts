@@ -5,12 +5,11 @@ import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 
 class FetcherModule {
   static currentlyFetching = false
-  createProgressChannel = (): EventChannel<number> => {
-    return eventChannel<number>(emitter => {
+  createProgressChannel = (): EventChannel<number> =>
+    eventChannel<number>(emitter => {
       emitter(0.5)
       return () => {}
     })
-  }
 
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
     if (FetcherModule.currentlyFetching) {

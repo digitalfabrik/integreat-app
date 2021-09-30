@@ -14,7 +14,7 @@ const pois = [
     title: 'test',
     content: 'test',
     thumbnail: 'test',
-    availableLanguages: availableLanguages,
+    availableLanguages,
     excerpt: 'test',
     location: new LocationModel({
       id: 1,
@@ -36,7 +36,7 @@ const pois = [
     title: 'test title 2',
     content: 'test content 2',
     thumbnail: 'test thumbnail 2',
-    availableLanguages: availableLanguages,
+    availableLanguages,
     excerpt: 'test excerpt 2',
     location: new LocationModel({
       id: 1,

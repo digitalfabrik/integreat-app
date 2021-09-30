@@ -9,14 +9,12 @@ import buildConfig from '../../constants/buildConfig'
 import FeedbackModal from '../FeedbackModal'
 
 jest.mock('react-i18next')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: () => ({
-      request: () => {}
-    })
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  createFeedbackEndpoint: () => ({
+    request: () => {}
+  })
+}))
 
 describe('FeedbackModal', () => {
   const cityCode = 'augsburg'

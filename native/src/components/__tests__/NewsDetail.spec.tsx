@@ -41,13 +41,12 @@ describe('NewsDetail', () => {
   const language = 'de'
   const navigateToLink = jest.fn()
 
-  const renderNewsDetail = (news: LocalNewsModel | TunewsModel) => {
-    return render(
+  const renderNewsDetail = (news: LocalNewsModel | TunewsModel) =>
+    render(
       <ThemeProvider theme={theme}>
         <NewsDetail newsItem={news} language={language} navigateToLink={navigateToLink} />
       </ThemeProvider>
     )
-  }
 
   beforeEach(() => {
     jest.clearAllMocks()

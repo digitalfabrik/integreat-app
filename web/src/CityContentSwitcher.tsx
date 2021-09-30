@@ -64,9 +64,9 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   const { cityCode, languageCode } = match.params
   const cityModel = cities.find(it => it.code === cityCode)
 
-  const requestLanguages = useCallback(async () => {
-    return createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode })
-  }, [cityCode])
+  const requestLanguages = useCallback(async () => createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode }), [
+    cityCode
+  ])
   const { data: languages, loading, error: loadingError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
   const languageModel = languages?.find(it => it.code === languageCode)
 
