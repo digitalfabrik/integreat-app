@@ -19,7 +19,7 @@ describe('CategoriesToolbar', () => {
         category={categories[1]}
         cityCode={city}
         languageCode={language}
-        openFeedbackModal={() => {}}
+        openFeedbackModal={() => undefined}
       />
     )
 
@@ -33,7 +33,7 @@ describe('CategoriesToolbar', () => {
         category={categories[0]}
         cityCode={city}
         languageCode={language}
-        openFeedbackModal={() => {}}
+        openFeedbackModal={() => undefined}
       />
     )
 

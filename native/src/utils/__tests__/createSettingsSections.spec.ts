@@ -39,7 +39,7 @@ describe('createSettingsSections', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     changeSetting = settings => settings
-    changeAction = async () => {}
+    changeAction = async () => undefined
   })
 
   const setSetting = async (newChangeSetting: changeSettingFnType, newChangeAction: changeActionFnType) => {

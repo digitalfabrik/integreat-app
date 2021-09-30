@@ -23,7 +23,7 @@ jest.mock('api-client', () => {
       return new EndpointBuilder('languages-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/languages')
         .withResponseOverride(mockLanguages)
-        .withMapper(() => {})
+        .withMapper(() => undefined)
         .build()
     }
   }

@@ -8,7 +8,7 @@ class FetcherModule {
   createProgressChannel = (): EventChannel<number> =>
     eventChannel<number>(emitter => {
       emitter(0.5)
-      return () => {}
+      return () => undefined
     })
 
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {

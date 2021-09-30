@@ -45,10 +45,10 @@ describe('Categories', () => {
         cityModel={cityModel}
         language={language.code}
         stateView={stateView}
-        navigateTo={() => {}}
-        navigateToFeedback={() => {}}
+        navigateTo={() => undefined}
+        navigateToFeedback={() => undefined}
         resourceCacheUrl='http://localhost:8080'
-        navigateToLink={() => {}}
+        navigateToLink={() => undefined}
         resourceCache={{
           notAvailable: {}
         }}

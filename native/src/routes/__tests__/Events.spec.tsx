@@ -37,9 +37,9 @@ describe('Events', () => {
         }}
         theme={buildConfig().lightTheme}
         t={(key: string) => key}
-        navigateTo={() => {}}
-        navigateToLink={() => {}}
-        navigateToFeedback={() => {}}
+        navigateTo={() => undefined}
+        navigateToLink={() => undefined}
+        navigateToFeedback={() => undefined}
       />
     )
     const pageInstance = result.root.findByType(Page)

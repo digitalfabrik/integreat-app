@@ -12,7 +12,7 @@ jest.mock('react-i18next')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createFeedbackEndpoint: () => ({
-    request: () => {}
+    request: () => undefined
   })
 }))
 

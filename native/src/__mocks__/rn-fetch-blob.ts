@@ -51,10 +51,10 @@ const unlink = (file: string): Promise<void> => {
 }
 
 export default {
-  DocumentDir: (): void => {},
+  DocumentDir: (): void => undefined,
   ImageCache: {
     get: {
-      clear: (): void => {}
+      clear: (): void => undefined
     }
   },
   fs: {
