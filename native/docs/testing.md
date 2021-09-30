@@ -81,7 +81,7 @@ Apart from unit tests it can also be beneficial to test the integration between 
 
 ```js
 const t = (key: string) => key
-const tryAgain = () => {}
+const tryAgain = () => undefined
 
 const { asJSON: asJSONFailure } = render(<Failure theme={lightTheme} tryAgain={tryAgain} t={t} />)
 const { asJSON: asJSONFailureContainer } = render(<FailureContainer tryAgain={tryAgain} />)

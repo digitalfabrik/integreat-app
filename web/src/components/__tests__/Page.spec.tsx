@@ -23,7 +23,7 @@ describe('Page', () => {
           content={content}
           defaultThumbnailSrc={thumbnail}
           formatter={new DateFormatter('en')}
-          onInternalLinkClick={() => {}}
+          onInternalLinkClick={() => undefined}
         />
       )
     ).toMatchSnapshot()

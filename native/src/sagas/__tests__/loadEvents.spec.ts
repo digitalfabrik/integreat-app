@@ -25,7 +25,7 @@ jest.mock('api-client', () => {
       return new EndpointBuilder('events-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/events')
         .withResponseOverride(mockEvents)
-        .withMapper(() => {})
+        .withMapper(() => undefined)
         .build()
     }
   }

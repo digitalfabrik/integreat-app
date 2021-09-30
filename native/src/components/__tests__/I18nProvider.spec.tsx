@@ -83,7 +83,7 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    await waitFor(() => {})
+    await waitFor(() => undefined)
     expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
