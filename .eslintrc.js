@@ -41,7 +41,6 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
-    'react/no-unescaped-entities': 'off',
 
     // Disabling since better @typescript-eslint rules available
     'default-case': 'off',
