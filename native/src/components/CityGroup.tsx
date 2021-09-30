@@ -23,9 +23,9 @@ type PropsType = {
   children: string
 }
 
-const CityGroup = (props: PropsType): ReactElement => (
-  <BorderWrapper theme={props.theme}>
-    <GroupText theme={props.theme}>{props.children}</GroupText>
+const CityGroup = ({ theme, children }: PropsType): ReactElement => (
+  <BorderWrapper theme={theme}>
+    <GroupText theme={theme}>{children}</GroupText>
   </BorderWrapper>
 )
 
