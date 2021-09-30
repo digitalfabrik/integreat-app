@@ -642,7 +642,12 @@ class DatabaseConnector {
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages
       .filter(it => it.city !== city) // Sort last usages chronological, from oldest to newest
-      .sort((a, b) => (a.lastUsage.isBefore(b.lastUsage) ? -1 : a.lastUsage.isSame(b.lastUsage) ? 0 : 1)) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
+      .sort((a, b) => {
+        if (a.lastUsage.isBefore(b.lastUsage)) {
+          return -1
+        }
+        return a.lastUsage.isSame(b.lastUsage) ? 0 : 1
+      }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
     await Promise.all(
       cachesToDelete.map(cityLastUpdate => {
