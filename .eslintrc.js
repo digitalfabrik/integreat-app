@@ -27,9 +27,14 @@ module.exports = {
     '.eslintrc.js'
   ],
   rules: {
+    // TODO enable
+    'no-nested-ternary': 'off',
+    'react/prefer-stateless-function': 'off',
+    'react/destructuring-assignment': 'off',
+    '@typescript-eslint/switch-exhaustiveness-check': 'off',
+
     // Overly strict rules (for now)
     'class-methods-use-this': 'off',
-    'default-case': 'off',
     'global-require': 'off',
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
@@ -37,23 +42,21 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'lines-between-class-members': 'off',
     'no-shadow': 'off',
-    'no-nested-ternary': 'off',
     'no-underscore-dangle': 'off',
-    'no-use-before-define': 'off',
     'react/display-name': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
     'react/no-unescaped-entities': 'off',
 
+    // Disabling since better @typescript-eslint rules available
+    'default-case': 'off',
+    'no-use-before-define': 'off',
+
     // Disabling since our class components are legacy anyway
     'react/sort-comp': 'off',
     'react/state-in-constructor': 'off',
     'react/static-property-placement': 'off',
-
-    // TODO enable
-    'react/prefer-stateless-function': 'off',
-    'react/destructuring-assignment': 'off',
 
     curly: ['error', 'all'],
     'no-console': ['error', { allow: ['error', 'warn'] }],
@@ -82,7 +85,7 @@ module.exports = {
         ignoreRestSiblings: true
       }
     ],
-    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-use-before-define': 'error',
 
     'jest/consistent-test-it': 'error',
     'jest/no-disabled-tests': 'error',
