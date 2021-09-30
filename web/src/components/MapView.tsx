@@ -55,8 +55,8 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         const { geometry } = currentFeature
         setViewport(prevState => ({
           ...prevState,
-          longitude: geometry.coordinates[0],
-          latitude: geometry.coordinates[1],
+          longitude: geometry.coordinates[0]!,
+          latitude: geometry.coordinates[1]!,
           zoom: detailZoom
         }))
         setCurrentFeature(currentFeature)

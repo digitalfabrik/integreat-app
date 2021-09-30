@@ -33,7 +33,7 @@ describe('createCategoryContentEndpoint', () => {
   })
 
   it('should map json to category', () => {
-    const category = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()[1]
+    const category = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()[1]!
 
     mocked(mapCategoryJson).mockImplementationOnce(() => category)
 

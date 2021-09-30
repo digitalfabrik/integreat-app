@@ -37,9 +37,9 @@ type OwnPropsType = React.ComponentProps<typeof HeaderContainer>
 describe('HeaderContainer', () => {
   let store: Store<StateType, StoreActionType>
   let state: StateType
-  const [city] = new CityModelBuilder(1).build()
+  const city = new CityModelBuilder(1).build()[0]!
   const languages = new LanguageModelBuilder(1).build()
-  const language = languages[0]
+  const language = languages[0]!
 
   const prepareState = (): StateType => ({
     resourceCacheUrl: 'http://localhost:8080',
