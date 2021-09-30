@@ -28,11 +28,11 @@ describe('SearchModal', () => {
   const props = {
     categories: categoriesMapModel,
     navigateTo: dummy,
-    language: language,
-    cityCode: cityCode,
+    language,
+    cityCode,
     closeModal: dummy,
     navigateToLink: dummy,
-    t: t,
+    t,
     theme: buildConfig().lightTheme
   }
   it('should send tracking signal when closing search site', async () => {
