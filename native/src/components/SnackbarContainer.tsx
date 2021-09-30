@@ -63,7 +63,7 @@ const SnackbarContainer = (): ReactElement | null => {
   const outputRange: number[] = [0, height ?? MAX_HEIGHT]
   const interpolated = translate.interpolate({
     inputRange: [0, 1],
-    outputRange: outputRange
+    outputRange
   })
   return displayed ? (
     <AnimatedContainer

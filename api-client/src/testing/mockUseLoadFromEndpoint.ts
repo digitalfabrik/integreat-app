@@ -4,7 +4,7 @@ import { useLoadFromEndpoint } from 'api-client'
 
 const mockData = (data: unknown): typeof useLoadFromEndpoint =>
   (() => ({
-    data: data,
+    data,
     loading: false,
     error: null,
     refresh: () => null

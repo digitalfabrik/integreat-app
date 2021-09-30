@@ -188,7 +188,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityModel,
       language: route.language,
       stateView,
-      resourceCacheUrl: resourceCacheUrl,
+      resourceCacheUrl,
       resourceCache: resourceCache.value
     }
   }

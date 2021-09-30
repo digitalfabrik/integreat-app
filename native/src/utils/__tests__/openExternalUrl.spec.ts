@@ -63,7 +63,7 @@ describe('openExternalUrl', () => {
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_OS_LINK_SIGNAL_NAME,
-        url: url
+        url
       }
     })
   })
