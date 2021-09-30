@@ -12,7 +12,7 @@ jest.mock('../LocationHeader', () => () => <div>LocationHeader</div>)
 
 describe('LocationLayout', () => {
   const language = 'de'
-  const cityModel = new CityModelBuilder(1).build()[0]
+  const cityModel = new CityModelBuilder(1).build()[0]!
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },

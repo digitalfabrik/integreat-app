@@ -103,6 +103,7 @@ module.exports = {
       rules: {
         'no-magic-numbers': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off'
       }

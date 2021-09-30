@@ -17,7 +17,7 @@ const writeMockFile = (file: string, content: string, _unusedEncoding: string): 
 
 const readMockFile = (file: string, _unusedEncoding: string): Promise<string> => {
   const filePath = path.normalize(file)
-  return Promise.resolve(mockFiles[filePath])
+  return Promise.resolve(mockFiles[filePath]!)
 }
 
 const existsMock = (file: string): Promise<boolean> => {

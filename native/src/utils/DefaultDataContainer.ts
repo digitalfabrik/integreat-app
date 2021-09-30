@@ -121,11 +121,7 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
-    if (!resourceCache[language]) {
-      return {}
-    }
-
-    return resourceCache[language]
+    return resourceCache[language] ?? {}
   }
 
   getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
@@ -191,10 +187,11 @@ class DefaultDataContainer implements DataContainer {
     }
 
     const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
+    const previousLanguageResourceCache = previousResourceCache[language]
 
-    if (previousResourceCache[language]) {
+    if (previousLanguageResourceCache) {
       // Cleanup old resources
-      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
+      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousLanguageResourceCache)
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
 

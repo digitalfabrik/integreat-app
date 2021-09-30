@@ -63,7 +63,7 @@ describe('createSettingsSections', () => {
       setSetting,
       settings: defaultSettings,
       showSnackbar
-    })[0].data
+    })[0]!.data
 
   const mockBuildConfig = (pushNotifications: boolean) => {
     const previous = buildConfig()

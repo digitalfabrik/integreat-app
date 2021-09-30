@@ -27,10 +27,12 @@ describe('PoisPage', () => {
   const languages = new LanguageModelBuilder(2).build()
   const cities = new CityModelBuilder(2).build()
   const pois = new PoiModelBuilder(2).build()
+  const city = cities[0]!
+  const language = languages[0]!
+  const poi0 = pois[0]!
+  const poi1 = pois[1]!
 
   it('should render a list with all pois', () => {
-    const city = cities[0]
-    const language = languages[0]
     mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -44,13 +46,11 @@ describe('PoisPage', () => {
       { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code }) }
     )
 
-    expect(getByText(pois[0].title)).toBeTruthy()
-    expect(getByText(pois[1].title)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
+    expect(getByText(poi1.title)).toBeTruthy()
   })
 
   it('should render a page with poi information', () => {
-    const city = cities[0]
-    const language = languages[0]
     mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -64,14 +64,12 @@ describe('PoisPage', () => {
       { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code, poiId: 'test_path_2' }) }
     )
 
-    expect(getByText(pois[1].title)).toBeTruthy()
-    expect(getByText(pois[1].content)).toBeTruthy()
-    expect(getByText(pois[1].location.location!)).toBeTruthy()
+    expect(getByText(poi1.title)).toBeTruthy()
+    expect(getByText(poi1.content)).toBeTruthy()
+    expect(getByText(poi1.location.location!)).toBeTruthy()
   })
 
   it('should render a not found error', () => {
-    const city = cities[0]
-    const language = languages[0]
     mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -89,8 +87,6 @@ describe('PoisPage', () => {
   })
 
   it('should render an error', () => {
-    const city = cities[0]
-    const language = languages[0]
     mockUseLoadFromEndpointWithError('Something went wrong')
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>

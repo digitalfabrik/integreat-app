@@ -168,10 +168,11 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    if (viewableItems.length === 1) {
-      if (viewableItems[0].index !== null) {
+    const viewableItem = viewableItems[0]
+    if (viewableItem) {
+      if (viewableItem.index !== null) {
         this.setState({
-          currentSlide: viewableItems[0].index
+          currentSlide: viewableItem.index
         })
       }
     }

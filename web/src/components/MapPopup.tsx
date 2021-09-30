@@ -16,8 +16,8 @@ const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement =
   const { coordinates, properties } = props
   return (
     <StyledPopup
-      longitude={coordinates[0]}
-      latitude={coordinates[1]}
+      longitude={coordinates[0]!}
+      latitude={coordinates[1]!}
       closeButton={false}
       closeOnClick={false}
       anchor='bottom'>

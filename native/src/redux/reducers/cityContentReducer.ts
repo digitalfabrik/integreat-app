@@ -18,7 +18,7 @@ export default (
   if (action.type === 'FETCH_CATEGORY') {
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === CATEGORIES_ROUTE
+    const reuseOldContent = state?.routeMapping[key]?.routeType === CATEGORIES_ROUTE
     const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
     return {
       ...initializedState,
@@ -31,7 +31,7 @@ export default (
   if (action.type === 'FETCH_EVENT') {
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
-    const reuseOldContent = state && state.routeMapping[key] && state.routeMapping[key].routeType === EVENTS_ROUTE
+    const reuseOldContent = state?.routeMapping[key]?.routeType === EVENTS_ROUTE
     const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
     return {
       ...initializedState,

@@ -45,9 +45,9 @@ describe('createCategoriesEndpoint', () => {
     const categories = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 3)
 
     mocked(mapCategoryJson)
-      .mockImplementationOnce(() => categories[0])
-      .mockImplementationOnce(() => categories[1])
-      .mockImplementationOnce(() => categories[2])
+      .mockImplementationOnce(() => categories[0]!)
+      .mockImplementationOnce(() => categories[1]!)
+      .mockImplementationOnce(() => categories[2]!)
 
     categories.push(rootCategory)
     const mapModel = new CategoriesMapModel(categories)

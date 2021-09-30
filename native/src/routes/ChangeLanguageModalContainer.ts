@@ -28,13 +28,8 @@ type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const { currentLanguage, languages, availableLanguages, previousKey } = ownProps.route.params
   const newsRouteMapping = state.cityContent?.routeMapping
-  const newsType =
-    (previousKey &&
-      newsRouteMapping &&
-      newsRouteMapping[previousKey] &&
-      newsRouteMapping[previousKey].routeType === NEWS_ROUTE &&
-      newsRouteMapping[previousKey].type) ||
-    undefined
+  const route = newsRouteMapping && newsRouteMapping[previousKey]
+  const newsType = route?.routeType === NEWS_ROUTE ? route.type : undefined
   return {
     currentLanguage,
     languages,
