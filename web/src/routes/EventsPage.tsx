@@ -40,9 +40,10 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
 
-  const requestEvents = useCallback(async () => {
-    return createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestEvents = useCallback(
+    async () => createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: events, loading, error: eventsError } = useLoadFromEndpoint(requestEvents)
 
   const event = eventId && events?.find((event: EventModel) => event.path === pathname)

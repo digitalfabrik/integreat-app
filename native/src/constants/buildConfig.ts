@@ -52,7 +52,8 @@ export const buildConfigAssets = (): AssetsType => {
         search: integreatIntroSearchIcon
       }
     }
-  } else if (assetsName === MALTE_ASSETS) {
+  }
+  if (assetsName === MALTE_ASSETS) {
     return {
       appIcon: malteAppIcon,
       loadingImage: malteLoadingImage,
@@ -64,7 +65,8 @@ export const buildConfigAssets = (): AssetsType => {
         search: malteIntroSearchIcon
       }
     }
-  } else if (assetsName === ASCHAFFENBURG_ASSETS) {
+  }
+  if (assetsName === ASCHAFFENBURG_ASSETS) {
     return {
       appIcon: aschaffenburgAppIcon,
       loadingImage: aschaffenburgLoadingImage

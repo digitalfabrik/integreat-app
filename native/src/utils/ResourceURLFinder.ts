@@ -76,7 +76,7 @@ export default class ResourceURLFinder {
     return reduce<InputEntryType, FetchMapType>(
       inputs,
       (fetchMap, input: InputEntryType) => {
-        const path = input.path
+        const { path } = input
         this.findResourceUrls(input.content)
         const urlSet = this._foundUrls
 

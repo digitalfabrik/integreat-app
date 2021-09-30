@@ -2,12 +2,11 @@ import type Sentry from '@sentry/react'
 
 import buildConfig from '../constants/buildConfig'
 
-const loadSentry = async (): Promise<typeof Sentry> => {
-  return await import(
+const loadSentry = async (): Promise<typeof Sentry> =>
+  await import(
     /* webpackChunkName: "sentry" */
     '@sentry/react'
   )
-}
 
 const initSentry = async (): Promise<void> => {
   if (!buildConfig().featureFlags.sentry) {

@@ -41,13 +41,12 @@ const FeedbackSearch = ({ cityCode, languageCode, query, resultsFound }: PropsTy
         />
       </Container>
     )
-  } else {
-    return (
-      <Container>
-        <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
-      </Container>
-    )
   }
+  return (
+    <Container>
+      <TextButton onClick={handleFeedbackLinkClicked} text={t('informationNotFound')} />
+    </Container>
+  )
 }
 
 export default FeedbackSearch

@@ -10,11 +10,9 @@ type StatePropsType = {
   cityCode: string | null | undefined
 }
 
-const mapStateToProps = (state: StateType): StatePropsType => {
-  return {
-    languageCode: state.contentLanguage,
-    cityCode: state.cityContent?.city
-  }
-}
+const mapStateToProps = (state: StateType): StatePropsType => ({
+  languageCode: state.contentLanguage,
+  cityCode: state.cityContent?.city
+})
 
 export default connect(mapStateToProps)(withTheme<Omit<SettingsPropsType, 't'>>(withTranslation('settings')(Settings)))

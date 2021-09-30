@@ -10,6 +10,4 @@ export const subscribeNews = async (newCity: string, newLanguage: string): Promi
   // eslint-disable-next-line no-console
   console.debug(`Subscribed to ${newCity}-${newLanguage}-news topic!`)
 }
-export const checkPushNotificationPermission = async (): Promise<string> => {
-  return 'blocked'
-}
+export const checkPushNotificationPermission = async (): Promise<string> => 'blocked'

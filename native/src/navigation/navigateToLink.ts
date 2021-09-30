@@ -50,7 +50,7 @@ const navigateToLink = <T extends RoutesType>(
         url
       }
     })
-    const pathname = new Url(url).pathname
+    const { pathname } = new Url(url)
     const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
     navigateTo(routeParser.route())
   } else {

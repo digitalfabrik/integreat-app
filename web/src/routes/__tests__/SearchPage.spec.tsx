@@ -20,12 +20,10 @@ import SearchPage from '../SearchPage'
 import { createPath, RoutePatterns } from '../index'
 
 jest.mock('react-i18next')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
@@ -81,8 +79,8 @@ describe('SearchPage', () => {
   })
 
   it('should sort correctly', () => {
-    const buildCategoryModel = (title: string, content: string) => {
-      return new CategoryModel({
+    const buildCategoryModel = (title: string, content: string) =>
+      new CategoryModel({
         root: false,
         path: `/${title}`,
         title: `${title}-category`,
@@ -94,7 +92,6 @@ describe('SearchPage', () => {
         hash: title,
         lastUpdate: moment('2017-11-18T19:30:00.000Z')
       })
-    }
     const categoryModels = [
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
       buildCategoryModel('abc', ''),

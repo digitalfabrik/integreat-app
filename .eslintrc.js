@@ -24,12 +24,16 @@ module.exports = {
     '**/lib-dist/'
   ],
   rules: {
-    'no-console': ['error', { allow: ['error', 'warn'] }],
+    'arrow-body-style': 'error',
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'all'],
+    'no-console': ['error', { allow: ['error', 'warn'] }],
+    'no-else-return': ['error', { allowElseIf: false }],
     'no-loop-func': 'error',
     'no-use-before-define': 'off',
+    'object-shorthand': 'error',
     'prefer-const': 'error',
+    'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',
     'prefer-template': 'error',
 

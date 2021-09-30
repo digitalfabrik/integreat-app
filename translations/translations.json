@@ -5714,7 +5714,8 @@
       "location": "Standort",
       "map": "Karte",
       "unit": "km",
-      "distanceText": "entfernt"
+      "distanceText": "entfernt",
+      "navigation": "Navigation"
     }
   }
 }

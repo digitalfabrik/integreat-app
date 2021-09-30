@@ -7,8 +7,8 @@ import wrapDisplayName from './wrapDisplayName'
 
 const withTheme = <Props extends { theme: ThemeType }>(
   Component: React.ComponentType<Props>
-): React.ComponentType<Omit<Props, 'theme'>> => {
-  return class extends React.Component<Omit<Props, 'theme'>> {
+): React.ComponentType<Omit<Props, 'theme'>> =>
+  class extends React.Component<Omit<Props, 'theme'>> {
     static displayName = wrapDisplayName(Component, 'withTheme')
 
     render() {
@@ -16,6 +16,5 @@ const withTheme = <Props extends { theme: ThemeType }>(
       return <Component {...this.props} theme={buildConfig().lightTheme} />
     }
   }
-}
 
 export default withTheme

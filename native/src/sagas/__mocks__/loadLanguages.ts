@@ -14,9 +14,8 @@ export default function* (
   if (!languagesAvailable || forceRefresh) {
     if (city === 'augsburg') {
       return yield* call(dataContainer.getLanguages, city)
-    } else {
-      throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
     }
+    throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
   }
 
   return yield* call(dataContainer.getLanguages, city)

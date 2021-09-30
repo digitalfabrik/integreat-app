@@ -13,7 +13,7 @@ type SelectPropsType = {
  * @returns true if the fetch corresponds to a peek
  */
 const isPeekingRoute = (state: StateType, { routeCity }: SelectPropsType): boolean => {
-  const cityContent = state.cityContent
+  const { cityContent } = state
 
   if (!cityContent) {
     // cityContent is only available when navigating within a city
