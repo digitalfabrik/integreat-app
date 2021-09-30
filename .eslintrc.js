@@ -27,9 +27,6 @@ module.exports = {
     '.eslintrc.js'
   ],
   rules: {
-    // TODO enable
-    '@typescript-eslint/switch-exhaustiveness-check': 'off',
-
     // Overly strict rules (for now)
     'class-methods-use-this': 'off',
     'global-require': 'off',
@@ -83,6 +80,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-use-before-define': 'error',
+    '@typescript-eslint/switch-exhaustiveness-check': 'error',
 
     'jest/consistent-test-it': 'error',
     'jest/no-disabled-tests': 'error',
