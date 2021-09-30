@@ -96,6 +96,9 @@ module.exports = {
 
     'prefer-arrow/prefer-arrow-functions': 'error'
   },
+  parserOptions: {
+    project: './tsconfig.json'
+  },
   overrides: [
     {
       files: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
