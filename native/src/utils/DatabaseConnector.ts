@@ -212,7 +212,7 @@ class DatabaseConnector {
       throw Error("languageCode mustn't be empty")
     }
 
-    const metaData = (await this._loadMetaCities()) || {}
+    const metaData = await this._loadMetaCities()
 
     if (!metaData[cityCode]) {
       throw Error('cannot store last update for unused city')

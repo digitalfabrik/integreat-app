@@ -16,7 +16,7 @@ type PropsType = {
 const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
-  return selectorItems && selectorItems.length > 0 ? (
+  return selectorItems.length > 0 ? (
     <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
       {closeDropDown => (
         <Selector

@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { ErrorCode, NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE, CityModel } from 'api-client'
+import { CityModel, ErrorCode, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'api-client'
 
 import LoadingSpinner from '../components/LoadingSpinner'
 import NewsHeader from '../components/NewsHeader'
@@ -268,9 +268,7 @@ const NewsContainer = (props: ContainerPropsType) => {
         return
       }
 
-      const isTunews = selectedNewsType === TU_NEWS_TYPE
-
-      if (hasMoreNews && isTunews) {
+      if (selectedNewsType === TU_NEWS_TYPE) {
         const fetchNews: FetchMoreNewsActionType = {
           type: 'FETCH_MORE_NEWS',
           params: {

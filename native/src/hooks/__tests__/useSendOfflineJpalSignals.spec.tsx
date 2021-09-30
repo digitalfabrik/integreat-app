@@ -46,7 +46,7 @@ describe('useSendOfflineJpalSignals', () => {
 
   const mockUseNetInfo = (isInternetReachable: boolean) => {
     mockedUseNetInfo.mockImplementation(() => ({
-      type: NetInfoStateType?.other,
+      type: NetInfoStateType.other,
       isConnected: true,
       isInternetReachable,
       details: {

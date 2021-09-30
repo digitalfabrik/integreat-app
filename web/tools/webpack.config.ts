@@ -285,7 +285,7 @@ const createConfig = (
   }
 
   // Optimize the bundle in production mode
-  if (!devServer && optimize) {
+  if (!devServer) {
     config.plugins?.push(new optimize.AggressiveMergingPlugin())
   }
 

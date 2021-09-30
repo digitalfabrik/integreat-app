@@ -69,10 +69,10 @@ const MapPopup: React.FC<MapPopupProps> = ({
         })
       }
       activeOpacity={1}>
-      {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
+      {feature.properties.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
       <InformationContainer>
-        {feature.properties?.title && <Title>{feature.properties.title}</Title>}
-        {feature.properties?.distance && (
+        {feature.properties.title && <Title>{feature.properties.title}</Title>}
+        {feature.properties.distance && (
           <DistanceInfo>
             {feature.properties.distance} {t('unit')} {t('distanceText')}
           </DistanceInfo>
