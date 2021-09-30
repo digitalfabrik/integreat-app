@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
@@ -15,10 +15,6 @@ type PropsType = {
   theme: ThemeType
 }
 
-class Caption extends React.Component<PropsType> {
-  render(): ReactNode {
-    return <H1 theme={this.props.theme}>{this.props.title}</H1>
-  }
-}
+const Caption = ({ title, theme }: PropsType): ReactElement => <H1 theme={theme}>{title}</H1>
 
 export default Caption

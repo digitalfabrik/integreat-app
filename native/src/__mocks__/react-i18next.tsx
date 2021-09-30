@@ -6,12 +6,7 @@ const t = (key: string): string => key
 
 const withTranslation = <T extends unknown>(_unusedNamespace: string) => (
   Component: React.ComponentType<T>
-): React.ComponentType<T> =>
-  class extends React.Component<T> {
-    render() {
-      return <Component {...this.props} t={t} />
-    }
-  }
+): React.ComponentType<T> => (props: T) => <Component {...props} t={t} />
 
 const useTranslation = (_unusedNamespace: string | string[]) => ({
   t,
