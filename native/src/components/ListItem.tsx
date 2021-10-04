@@ -7,7 +7,7 @@ import { ThemeType } from 'build-configs'
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
 
-type ListItemViewPropsType = {
+export type ListItemViewPropsType = {
   language: string
   children: React.ReactNode
   theme: ThemeType
@@ -49,15 +49,16 @@ type PropsType = {
   children?: React.ReactNode
   navigateTo: () => void
   theme: ThemeType
+  customThumbnail?: React.ReactElement
 }
 
 class ListItem extends React.PureComponent<PropsType> {
   render(): ReactNode {
-    const { language, title, thumbnail, children, theme } = this.props
+    const { language, title, thumbnail, children, theme, customThumbnail } = this.props
     return (
       <StyledTouchableOpacity onPress={this.props.navigateTo} theme={theme}>
         <ListItemView language={language} theme={theme}>
-          {thumbnail && <Thumbnail source={thumbnail} />}
+          {thumbnail && (customThumbnail ?? <Thumbnail source={thumbnail} />)}
           <Description theme={theme}>
             <Title theme={theme}>{title}</Title>
             {children}

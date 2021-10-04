@@ -10,6 +10,9 @@ export type DimensionsType = {
    */
   fontScaling: number
   headerTextSize: number
+  bottomSheetHandler: {
+    height: number
+  }
 }
 const dimensions: DimensionsType = {
   headerHeight: 60,
@@ -19,6 +22,9 @@ const dimensions: DimensionsType = {
     margin: 10
   },
   fontScaling: 0.04,
-  headerTextSize: 20
+  headerTextSize: 20,
+  bottomSheetHandler: {
+    height: 36
+  }
 }
 export default dimensions

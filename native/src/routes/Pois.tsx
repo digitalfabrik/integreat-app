@@ -18,7 +18,6 @@ import {
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
-import Caption from '../components/Caption'
 import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -26,8 +25,6 @@ import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
@@ -48,6 +45,10 @@ export type PropsType = {
 const Spacer = styled.View`
   width: 20px;
   height: 20px;
+`
+
+const CustomSheetList = styled.View`
+  margin: 0 32px;
 `
 
 // Calculate distance for all Feature Locations
@@ -119,13 +120,13 @@ const Pois = ({
     })
   }
 
-  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => (
+  const renderPoiListItem = (cityCode: string, language: string) => (poi: Feature): ReactNode => (
     <PoiListItem
-      key={poi.path}
+      key={poi.id}
       poi={poi}
       language={language}
       theme={theme}
-      navigateToPoi={navigateToPoi(cityCode, language, poi.path)}
+      navigateToPoi={navigateToPoi(cityCode, language, poi.properties?.path)}
     />
   )
 
@@ -134,15 +135,6 @@ const Pois = ({
       routeType: POIS_ROUTE,
       language,
       path: poi.path,
-      cityCode: cityModel.code,
-      isPositiveFeedback
-    })
-  }
-
-  const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
-    navigateToFeedback({
-      routeType: POIS_ROUTE,
-      language,
       cityCode: cityModel.code,
       isPositiveFeedback
     })
@@ -200,36 +192,33 @@ const Pois = ({
 
   return (
     <ScrollView>
-      <SpaceBetween>
-        <View>
-          <Caption title={t('poi')} theme={theme} />
-          {cityModel.boundingBox && (
-            <MapView
-              boundingBox={cityModel.boundingBox}
-              featureCollection={embedInCollection(featureLocations)}
-              selectedFeature={selectedFeature}
-              setSelectedFeature={setSelectedFeature}
-              navigateTo={navigateTo}
-              language={language}
-              cityCode={cityModel.code}
-              setUserLocation={setUserLocation}
-              userLocation={userLocation}
-            />
-          )}
-          <BottomActionsSheet
-            headerText={t('sheetHeaderText')}
-            content={
-              <List
-                noItemsMessage={t('currentlyNoPois')}
-                items={sortedPois}
-                renderItem={renderPoiListItem(cityModel.code, language)}
-                theme={theme}
-              />
-            }
+      <View>
+        {cityModel.boundingBox && (
+          <MapView
+            boundingBox={cityModel.boundingBox}
+            featureCollection={embedInCollection(featureLocations)}
+            selectedFeature={selectedFeature}
+            setSelectedFeature={setSelectedFeature}
+            navigateTo={navigateTo}
+            language={language}
+            cityCode={cityModel.code}
+            setUserLocation={setUserLocation}
+            userLocation={userLocation}
           />
-        </View>
-        {/*<SiteHelpfulBox navigateToFeedback={navigateToFeedbackForPois} theme={theme} />*/}
-      </SpaceBetween>
+        )}
+        <BottomActionsSheet
+          headerText={t('sheetHeaderText')}
+          content={
+            <List
+              CustomListStyle={CustomSheetList}
+              noItemsMessage={t('currentlyNoPois')}
+              items={featureLocations}
+              renderItem={renderPoiListItem(cityModel.code, language)}
+              theme={theme}
+            />
+          }
+        />
+      </View>
     </ScrollView>
   )
 }

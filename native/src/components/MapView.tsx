@@ -1,6 +1,8 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
+import { useHeaderHeight } from '@react-navigation/stack'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
 import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
@@ -8,6 +10,7 @@ import styled from 'styled-components/native'
 
 import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
 
+import dimensions from '../constants/dimensions'
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 import MapPopup from './MapPopup'
 
@@ -15,9 +18,9 @@ const MapContainer = styled.View`
   flex-direction: row;
   justify-content: center;
 `
-const StyledMap = styled(MapboxGL.MapView)`
+const StyledMap = styled(MapboxGL.MapView)<{ calcHeight: number }>`
   width: 100%;
-  height: 500px;
+  height: ${props => props.calcHeight}px;
 `
 
 type MapViewPropsType = {
@@ -68,6 +71,8 @@ const MapView = ({
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
+  const { height } = useWindowDimensions()
+  const headerHeight = useHeaderHeight()
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -147,7 +152,8 @@ const MapView = ({
         onPress={onPress}
         ref={mapRef}
         attributionEnabled={false}
-        logoEnabled={false}>
+        logoEnabled={false}
+        calcHeight={height - headerHeight - dimensions.bottomSheetHandler.height}>
         <MapboxGL.UserLocation visible={locationPermissionGranted} onUpdate={onLocationUpdate} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
