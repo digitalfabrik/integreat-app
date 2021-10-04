@@ -19,7 +19,7 @@ const Thumbnail = styled(SimpleImage)`
   width: 100px;
   height: 100px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 5px;
 `
 
 const ListItemView = styled.View<ListItemViewPropsType>`

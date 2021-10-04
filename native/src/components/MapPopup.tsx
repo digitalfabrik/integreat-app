@@ -1,9 +1,12 @@
 import type { Feature, Point } from 'geojson'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Image } from 'react-native'
 import styled from 'styled-components/native'
 
 import { POIS_ROUTE, RouteInformationType } from 'api-client'
+
+import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 
 type MapPopupProps = {
   feature: Feature<Point>
@@ -17,9 +20,9 @@ const Popup = styled.TouchableOpacity`
   align-items: center;
   justify-content: flex-start;
   position: absolute;
-  bottom: 16px;
-  width: 90%;
-  height: 30%;
+  bottom: 32px;
+  width: 95%;
+  height: 150px;
   background-color: ${props => props.theme.colors.backgroundColor};
   z-index: 10;
   border-radius: 10px;
@@ -58,6 +61,8 @@ const MapPopup: React.FC<MapPopupProps> = ({
   if (!feature.properties?.path) {
     return null
   }
+  const thumbnail = feature.properties?.thumbnail ?? Image.resolveAssetSource(EventPlaceholder1).uri
+
   return (
     <Popup
       onPress={() =>
@@ -69,7 +74,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
         })
       }
       activeOpacity={1}>
-      {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
+      <Thumbnail source={{ uri: thumbnail }} />
       <InformationContainer>
         {feature.properties?.title && <Title>{feature.properties.title}</Title>}
         {feature.properties?.distance && (
