@@ -24,7 +24,7 @@ const dimensions: DimensionsType = {
   fontScaling: 0.04,
   headerTextSize: 20,
   bottomSheetHandler: {
-    height: 36
+    height: 32
   }
 }
 export default dimensions

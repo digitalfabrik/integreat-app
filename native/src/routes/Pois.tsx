@@ -122,7 +122,7 @@ const Pois = ({
 
   const renderPoiListItem = (cityCode: string, language: string) => (poi: Feature): ReactNode => (
     <PoiListItem
-      key={poi.id}
+      key={poi.properties?.id}
       poi={poi}
       language={language}
       theme={theme}
@@ -208,6 +208,7 @@ const Pois = ({
         )}
         <BottomActionsSheet
           headerText={t('sheetHeaderText')}
+          hide={!!selectedFeature}
           content={
             <List
               CustomListStyle={CustomSheetList}

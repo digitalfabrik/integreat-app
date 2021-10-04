@@ -7,18 +7,24 @@ import BottomSheetHandler from './BottomSheetHandler'
 type BottomActionsSheetProps = {
   content: ReactNode
   headerText?: string
+  hide?: boolean
 }
 
 const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   content,
-  headerText
-}: BottomActionsSheetProps): ReactElement => {
+  headerText,
+  hide = false
+}: BottomActionsSheetProps): ReactElement | null => {
   const bottomSheetRef = useRef<BottomSheet>(null)
 
-  // variables
-  const snapPoints = useMemo(() => [dimensions.bottomSheetHandler.height, '25%', '100%'], [])
+  // set points to snap
+  const snapPoints = useMemo(() => [dimensions.bottomSheetHandler.height, '25%', '95%'], [])
 
   const renderHandle = useCallback(props => <BottomSheetHandler headerText={headerText} {...props} />, [headerText])
+
+  if (hide) {
+    return null
+  }
 
   return (
     <BottomSheet

@@ -144,6 +144,10 @@ const MapView = ({
     [setSelectedFeature]
   )
 
+  const mapHeight = selectedFeature
+    ? height - headerHeight
+    : height - headerHeight - dimensions.bottomSheetHandler.height
+
   return (
     <MapContainer>
       <StyledMap
@@ -153,7 +157,7 @@ const MapView = ({
         ref={mapRef}
         attributionEnabled={false}
         logoEnabled={false}
-        calcHeight={height - headerHeight - dimensions.bottomSheetHandler.height}>
+        calcHeight={mapHeight}>
         <MapboxGL.UserLocation visible={locationPermissionGranted} onUpdate={onLocationUpdate} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
@@ -174,7 +178,7 @@ const MapView = ({
         onPress={requestPermission}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
-        style={selectedFeature && { top: 0 }}
+        style={{ alignItems: 'flex-start', top: 0 }}
       />
     </MapContainer>
   )
