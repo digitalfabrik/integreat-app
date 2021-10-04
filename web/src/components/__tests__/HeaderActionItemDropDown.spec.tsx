@@ -12,9 +12,9 @@ describe('HeaderActionItemDropDown', () => {
   const theme = buildConfig().lightTheme
 
   beforeEach(() => {
-    const InnerComponent = (props: { closeDropDown: () => void }) => {
-      return <span onClick={props.closeDropDown}>Do you see me?</span>
-    }
+    const InnerComponent = (props: { closeDropDown: () => void }) => (
+      <span onClick={props.closeDropDown}>Do you see me?</span>
+    )
 
     wrapperComponent = render(
       <ThemeProvider theme={theme}>

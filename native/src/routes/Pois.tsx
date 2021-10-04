@@ -1,8 +1,10 @@
+import distance from '@turf/distance'
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, View } from 'react-native'
+import { Button, Linking, ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
+import styled from 'styled-components/native'
 
 import {
   CityModel,
@@ -26,7 +28,9 @@ import PoiListItem from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
+import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
 export type PropsType = {
   path: string | null | undefined
@@ -40,6 +44,24 @@ export type PropsType = {
   navigateToLink: (url: string, language: string, shareUrl: string) => void
   route: RoutePropType<PoisRouteType>
 }
+
+const Spacer = styled.View`
+  width: 20px;
+  height: 20px;
+`
+
+// Calculate distance for all Feature Locations
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] =>
+  pois
+    .map(poi => {
+      const featureLocation = poi.featureLocation
+      if (userLocation && featureLocation?.geometry.coordinates) {
+        const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
+        return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
+      }
+      return poi.featureLocation
+    })
+    .filter((feature): feature is Feature<Point> => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -60,6 +82,23 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
+  const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+  const { location, requestAndDetermineLocation } = useUserLocation(path === null)
+
+  useEffect(() => {
+    if (!path) {
+      const featureLocations = prepareFeatureLocations(pois, location)
+      const selectedPoiId = Number(route.params.selectedPoiId)
+      if (selectedPoiId) {
+        const currentFeature = featureLocations.find(
+          feature => feature.properties?.id === Number(route.params.selectedPoiId)
+        )
+        setSelectedFeature(currentFeature ?? null)
+      }
+      location && setFeatureLocations(featureLocations)
+    }
+  }, [path, pois, route.params.selectedPoiId, location])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -79,17 +118,15 @@ const Pois = ({
     })
   }
 
-  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => {
-    return (
-      <PoiListItem
-        key={poi.path}
-        poi={poi}
-        language={language}
-        theme={theme}
-        navigateToPoi={navigateToPoi(cityCode, language, poi.path)}
-      />
-    )
-  }
+  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => (
+    <PoiListItem
+      key={poi.path}
+      poi={poi}
+      language={language}
+      theme={theme}
+      navigateToPoi={navigateToPoi(cityCode, language, poi.path)}
+    />
+  )
 
   const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
     navigateToFeedback({
@@ -116,8 +153,14 @@ const Pois = ({
     const poi = sortedPois.find(_poi => _poi.path === path)
 
     if (poi) {
-      const location = poi.location.location
+      const { location } = poi.location
       const files = resourceCache[poi.path] || {}
+
+      let navigationUrl: string | undefined | null = null
+      if (location && poi.featureLocation?.geometry.coordinates) {
+        navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
+      }
+
       return (
         <Page
           content={poi.content}
@@ -131,14 +174,14 @@ const Pois = ({
           navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && (
-              <PageDetail
-                identifier={t('location')}
-                information={location}
-                theme={theme}
-                language={language}
-                linkLabel={poi?.featureLocation && t('map')}
-                onLinkClick={navigateToPois(cityModel.code, language, String(poi.location.id))}
-              />
+              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+            )}
+            {navigationUrl && (
+              <>
+                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, String(poi.location.id))} />
+                <Spacer />
+                <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
+              </>
             )}
           </>
         </Page>
@@ -154,14 +197,6 @@ const Pois = ({
     return <Failure code={fromError(error)} />
   }
 
-  const featureLocations = pois
-    .map(poi => poi.featureLocation)
-    .filter((feature): feature is Feature<Point> => !!feature)
-
-  const currentFeature: Feature<Point> | undefined = featureLocations.find(
-    feature => feature.properties?.id === Number(route.params.selectedPoiId)
-  )
-
   return (
     <ScrollView>
       <SpaceBetween>
@@ -171,7 +206,13 @@ const Pois = ({
             <MapView
               boundingBox={cityModel.boundingBox}
               featureCollection={embedInCollection(featureLocations)}
-              currentFeature={currentFeature}
+              selectedFeature={selectedFeature}
+              setSelectedFeature={setSelectedFeature}
+              navigateTo={navigateTo}
+              language={language}
+              cityCode={cityModel.code}
+              locationPermissionGranted={location !== null}
+              onRequestLocationPermission={requestAndDetermineLocation}
             />
           )}
           <List

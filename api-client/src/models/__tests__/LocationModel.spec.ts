@@ -73,6 +73,8 @@ describe('LocationModel', () => {
   })
 })
 describe('convertToPoint', () => {
+  const thumbnail = 'thumbnail'
+  const path = '/augsburg/de/locations/erster_poi'
   const expectedGeoJsonMarkerFeature: Feature = {
     type: 'Feature',
     geometry: {
@@ -82,7 +84,9 @@ describe('convertToPoint', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9'
+      symbol: '9',
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi'
     }
   }
   it('should be transformed to GeoJson type', () => {
@@ -98,7 +102,7 @@ describe('convertToPoint', () => {
       longitude: '31.133859',
       country: 'DE'
     })
-    expect(location.convertToPoint()).toEqual(expectedGeoJsonMarkerFeature)
+    expect(location.convertToPoint(path, thumbnail)).toEqual(expectedGeoJsonMarkerFeature)
   })
   it('should return null when latitude is null ', () => {
     const location = new LocationModel({
@@ -113,7 +117,7 @@ describe('convertToPoint', () => {
       longitude: '31.133859',
       country: 'DE'
     })
-    expect(location.convertToPoint()).toBeNull()
+    expect(location.convertToPoint(path, thumbnail)).toBeNull()
   })
   it('should return null when longitude is null ', () => {
     const location = new LocationModel({
@@ -128,6 +132,6 @@ describe('convertToPoint', () => {
       longitude: null,
       country: 'DE'
     })
-    expect(location.convertToPoint()).toBeNull()
+    expect(location.convertToPoint(path, thumbnail)).toBeNull()
   })
 })

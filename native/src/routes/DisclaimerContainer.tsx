@@ -35,11 +35,9 @@ type StatePropsType = {
   resourceCacheUrl: string | null | undefined
 }
 
-const mapStateToProps = (state: StateType): StatePropsType => {
-  return {
-    resourceCacheUrl: state.resourceCacheUrl
-  }
-}
+const mapStateToProps = (state: StateType): StatePropsType => ({
+  resourceCacheUrl: state.resourceCacheUrl
+})
 
 type DisclaimerPropsType = OwnPropsType & {
   theme: ThemeType

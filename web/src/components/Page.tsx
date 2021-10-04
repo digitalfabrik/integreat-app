@@ -46,23 +46,21 @@ const Page = ({
   formatter,
   children,
   onInternalLinkClick
-}: PropsType): ReactElement => {
-  return (
-    <>
-      {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
-      <Caption title={title} />
-      {children}
-      <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
-      {lastUpdate && (
-        <LastUpdateInfo
-          lastUpdate={lastUpdate}
-          format={lastUpdateFormat}
-          formatter={formatter}
-          withText={showLastUpdateText}
-        />
-      )}
-    </>
-  )
-}
+}: PropsType): ReactElement => (
+  <>
+    {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
+    <Caption title={title} />
+    {children}
+    <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
+    {lastUpdate && (
+      <LastUpdateInfo
+        lastUpdate={lastUpdate}
+        format={lastUpdateFormat}
+        formatter={formatter}
+        withText={showLastUpdateText}
+      />
+    )}
+  </>
+)
 
 export default Page

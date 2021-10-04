@@ -182,7 +182,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
              See NATIVE-430 for reference. */}
         <View
           style={{
-            minHeight: minHeight
+            minHeight
           }}>
           <CategoryList
             categories={filteredCategories}

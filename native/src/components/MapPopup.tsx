@@ -1,12 +1,19 @@
 import type { Feature, Point } from 'geojson'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
+
+import { POIS_ROUTE, RouteInformationType } from 'api-client'
 
 type MapPopupProps = {
   feature: Feature<Point>
+  navigateTo: (routeInformation: RouteInformationType) => void
+  language: string
+  cityCode: string
 }
 
-const Popup = styled.View`
+const Popup = styled.TouchableOpacity`
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   position: absolute;
@@ -20,13 +27,59 @@ const Popup = styled.View`
   box-shadow: 0 0 5px #29000000;
 `
 
+const Thumbnail = styled.Image`
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+`
+
 const Title = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
-const MapPopup: React.FC<MapPopupProps> = ({ feature }: MapPopupProps): ReactElement => {
-  return <Popup>{feature.properties?.title && <Title>{feature.properties.title}</Title>}</Popup>
+const DistanceInfo = styled.Text`
+  color: ${props => props.theme.colors.textColor};
+`
+
+const InformationContainer = styled.View`
+  padding: 32px;
+  align-items: flex-start;
+  justify-content: center;
+`
+
+const MapPopup: React.FC<MapPopupProps> = ({
+  feature,
+  navigateTo,
+  cityCode,
+  language
+}: MapPopupProps): ReactElement | null => {
+  const { t } = useTranslation('pois')
+  if (!feature.properties?.path) {
+    return null
+  }
+  return (
+    <Popup
+      onPress={() =>
+        navigateTo({
+          route: POIS_ROUTE,
+          cityCode,
+          languageCode: language,
+          cityContentPath: feature.properties?.path
+        })
+      }
+      activeOpacity={1}>
+      {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
+      <InformationContainer>
+        {feature.properties?.title && <Title>{feature.properties.title}</Title>}
+        {feature.properties?.distance && (
+          <DistanceInfo>
+            {feature.properties.distance} {t('unit')} {t('distanceText')}
+          </DistanceInfo>
+        )}
+      </InformationContainer>
+    </Popup>
+  )
 }
 
 export default MapPopup

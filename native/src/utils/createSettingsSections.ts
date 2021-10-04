@@ -126,7 +126,7 @@ const createSettingsSections = ({
           appName: buildConfig().appName
         }),
         onPress: () => {
-          const aboutUrls = buildConfig().aboutUrls
+          const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
           openExternalUrl(aboutUrl)
         }

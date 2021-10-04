@@ -6,22 +6,19 @@ const t = (key: string): string => key
 
 const withTranslation = <T extends unknown>(_unusedNamespace: string) => (
   Component: React.ComponentType<T>
-): React.ComponentType<T> => {
-  return class extends React.Component<T> {
+): React.ComponentType<T> =>
+  class extends React.Component<T> {
     render() {
       return <Component {...this.props} t={t} />
     }
   }
-}
 
-const useTranslation = (_unusedNamespace: string | string[]) => {
-  return {
-    t,
-    i18n: {
-      language: 'en'
-    }
+const useTranslation = (_unusedNamespace: string | string[]) => ({
+  t,
+  i18n: {
+    language: 'en'
   }
-}
+})
 
 module.exports = {
   ...realModule,
