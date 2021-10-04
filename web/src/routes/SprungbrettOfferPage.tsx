@@ -42,9 +42,10 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
-  const requestOffers = useCallback(async () => {
-    return createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestOffers = useCallback(
+    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: offers, loading: offersLoading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const offer = offers?.find((offer: OfferModel) => offer.alias === 'sprungbrett')
@@ -64,13 +65,11 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
-    return {
-      path: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode: code }),
-      name,
-      code
-    }
-  })
+  const languageChangePaths = languages.map(({ code, name }) => ({
+    path: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode: code }),
+    name,
+    code
+  }))
 
   const locationLayoutParams = {
     cityModel,

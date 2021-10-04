@@ -139,15 +139,15 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 5-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 5-pods-{{ arch }}-
+                    - 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 6-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
-                key: 5-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                key: 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
@@ -518,7 +518,7 @@ jobs:
                 command: yarn lint
                 name: Lint
             - run:
-                command: yarn workspace build-configs ts:check
+                command: yarn workspaces run ts:check
                 name: TS check
             - unit_test:
                 directory: api-client

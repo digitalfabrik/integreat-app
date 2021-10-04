@@ -50,18 +50,16 @@ const Events = ({
 }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
 
-  const renderEventListItem = (event: EventModel) => {
-    return (
-      <EventListItem
-        key={event.path}
-        event={event}
-        cityCode={cityModel.code}
-        language={language}
-        theme={theme}
-        navigateTo={navigateTo}
-      />
-    )
-  }
+  const renderEventListItem = (event: EventModel) => (
+    <EventListItem
+      key={event.path}
+      event={event}
+      cityCode={cityModel.code}
+      language={language}
+      theme={theme}
+      navigateTo={navigateTo}
+    />
+  )
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
@@ -96,7 +94,7 @@ const Events = ({
     const event: EventModel | null | undefined = events.find(_event => _event.path === path)
 
     if (event) {
-      const location = event.location.location
+      const { location } = event.location
       const files = resourceCache[event.path] || {}
       return (
         <Page

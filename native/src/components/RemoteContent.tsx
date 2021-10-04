@@ -1,8 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { Text, LayoutChangeEvent } from 'react-native'
+import { Text, useWindowDimensions } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
-import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
 
@@ -11,21 +10,15 @@ import { createHtmlSource } from '../constants/webview'
 import renderHtml from '../utils/renderHtml'
 import { ParsedCacheDictionaryType } from './Page'
 
-const StyledView = styled.View`
-  overflow: hidden;
-  flex: 1;
-`
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
   errorCode: number,
   errorDesc: string
-): React.ReactElement => {
-  return (
-    <Text>
-      ${errorDomain} ${errorCode} ${errorDesc}
-    </Text>
-  )
-}
+): React.ReactElement => (
+  <Text>
+    ${errorDomain} ${errorCode} ${errorDesc}
+  </Text>
+)
 
 type PropType = {
   content: string
@@ -41,8 +34,8 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
+  const { width: webViewWidth } = useWindowDimensions()
   const [webViewHeight, setWebViewHeight] = useState(defaultWebviewHeight)
-  const [webViewWidth, setWebViewWidth] = useState(defaultWebviewHeight)
 
   useEffect(() => {
     if (webViewHeight !== defaultWebviewHeight) {
@@ -50,14 +43,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
     }
   }, [onLoad, webViewHeight])
 
-  const onLayout = useCallback(
-    (event: LayoutChangeEvent) => {
-      const { width } = event.nativeEvent.layout
-      setWebViewWidth(width)
-    },
-    [setWebViewWidth]
-  )
-
+  // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (!event.nativeEvent) {
@@ -94,26 +80,24 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   }
 
   return (
-    <StyledView onLayout={onLayout}>
-      <WebView
-        source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
-        originWhitelist={['*']} // Needed by iOS to load the initial html
-        javaScriptEnabled
-        dataDetectorTypes='none'
-        userAgent={userAgent}
-        domStorageEnabled={false}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false} // to disable scrolling in iOS
-        onMessage={onMessage}
-        renderError={renderWebviewError}
-        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        style={{
-          height: webViewHeight,
-          width: webViewWidth
-        }}
-      />
-    </StyledView>
+    <WebView
+      source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
+      originWhitelist={['*']} // Needed by iOS to load the initial html
+      javaScriptEnabled
+      dataDetectorTypes='none'
+      userAgent={userAgent}
+      domStorageEnabled={false}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      scrollEnabled={false} // to disable scrolling in iOS
+      onMessage={onMessage}
+      renderError={renderWebviewError}
+      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+      style={{
+        height: webViewHeight,
+        width: webViewWidth
+      }}
+    />
   )
 }
 
