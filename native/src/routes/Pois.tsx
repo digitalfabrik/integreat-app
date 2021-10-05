@@ -10,8 +10,8 @@ import {
   CityModel,
   embedInCollection,
   fromError,
-  GeoJsonPoiProperties,
   NotFoundError,
+  PoiFeature,
   PoiModel,
   POIS_ROUTE,
   PoisRouteType,
@@ -51,10 +51,7 @@ const Spacer = styled.View`
 `
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (
-  pois: Array<PoiModel>,
-  userLocation?: number[]
-): Feature<Point, GeoJsonPoiProperties>[] =>
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): PoiFeature[] =>
   pois
     .map(poi => {
       const { featureLocation } = poi
@@ -65,7 +62,7 @@ const prepareFeatureLocations = (
         return poi.featureLocation
       }
     })
-    .filter((feature): feature is Feature<Point, GeoJsonPoiProperties> => !!feature)
+    .filter((feature): feature is PoiFeature => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -86,11 +83,9 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const [selectedFeature, setSelectedFeature] = useState<Feature<Point, GeoJsonPoiProperties> | null>(null)
+  const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [userLocation, setUserLocation] = useState<number[] | null>(null)
-  const [featureLocations, setFeatureLocations] = useState<Feature<Point, GeoJsonPoiProperties>[]>(
-    prepareFeatureLocations(pois)
-  )
+  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
 
   useEffect(() => {
     if (!path) {
@@ -98,7 +93,7 @@ const Pois = ({
       const selectedPoiId = Number(route.params.selectedPoiId)
       if (selectedPoiId) {
         const currentFeature = featureLocations.find(
-          feature => feature.properties?.id === Number(route.params.selectedPoiId)
+          feature => feature.properties.id === Number(route.params.selectedPoiId)
         )
         setSelectedFeature(currentFeature ?? null)
       }

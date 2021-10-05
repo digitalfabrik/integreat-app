@@ -1,4 +1,4 @@
-import { BBox, Feature, Point } from 'geojson'
+import { BBox } from 'geojson'
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
@@ -14,7 +14,7 @@ import {
   mapQueryId,
   MapViewViewport,
   defaultViewportConfig,
-  GeoJsonPoiProperties
+  PoiFeature
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -143,9 +143,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
-  const featureLocations = pois
-    .map(poi => poi.featureLocation)
-    .filter((feature): feature is Feature<Point, GeoJsonPoiProperties> => !!feature)
+  const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is PoiFeature => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

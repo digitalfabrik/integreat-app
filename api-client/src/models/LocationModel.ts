@@ -1,6 +1,4 @@
-import { Feature, Point } from 'geojson'
-
-import { GeoJsonPoiProperties } from '../maps'
+import { PoiFeature } from '../maps'
 
 class LocationModel {
   _id: number
@@ -115,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(path: string, thumbnail: string): Feature<Point, GeoJsonPoiProperties> | null {
+  convertToPoint(path: string, thumbnail: string): PoiFeature | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
