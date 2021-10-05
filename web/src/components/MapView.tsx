@@ -43,8 +43,8 @@ type MapViewProps = {
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const { featureCollection, bboxViewport } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
-  const [showPopup, togglePopup] = React.useState<boolean>(false)
-  const [currentFeature, setCurrentFeature] = React.useState<PoiFeature | null>(null)
+  const [showPopup, togglePopup] = useState<boolean>(false)
+  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
   const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {
