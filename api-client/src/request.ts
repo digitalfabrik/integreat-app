@@ -9,6 +9,5 @@ export const setUserAgent = (userAgent: string): void => {
   }
 }
 
-export const request = (url: string, options: Partial<RequestInit>): Promise<Response> => {
-  return fetch(url, merge(defaultRequestOptions, options))
-}
+export const request = (url: string, options: Partial<RequestInit>): Promise<Response> =>
+  fetch(url, merge(defaultRequestOptions, options))

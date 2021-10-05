@@ -15,14 +15,12 @@ import FeedbackContainer from '../FeedbackContainer'
 const mockRequest = jest.fn(() => Promise.resolve())
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
-      request: mockRequest
-    })
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
+    request: mockRequest
+  })
+}))
 
 describe('FeedbackContainer', () => {
   beforeEach(() => {

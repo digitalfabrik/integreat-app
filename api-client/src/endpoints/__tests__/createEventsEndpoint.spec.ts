@@ -36,7 +36,7 @@ describe('events', () => {
       start_time: startTime,
       end_date: endDate,
       end_time: endTime,
-      timezone: timezone,
+      timezone,
       recurrence_id: null
     },
     location: {

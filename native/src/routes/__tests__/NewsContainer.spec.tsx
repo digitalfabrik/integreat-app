@@ -16,27 +16,27 @@ const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../../components/NewsList', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>NewsList</Text>
 })
 jest.mock('../../components/Failure', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('../../components/LanguageNotAvailableContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
 jest.mock('../../components/LoadingSpinner', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Loading</Text>
 })
@@ -82,38 +82,36 @@ describe('NewsContainer', () => {
       cities?: CitiesStateType
       languages?: LanguagesStateType
     } = {}
-  ): StateType => {
-    return {
-      resourceCacheUrl: 'http://localhost:8080',
-      cityContent: {
-        city: city.code,
-        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: routeState
-          ? {
-              'route-id-0': routeState
-            }
-          : {},
-        searchRoute: null,
-        resourceCache: {
-          status: 'ready',
-          progress: 0,
-          value: {
-            file: {}
-          }
-        }
-      },
-      contentLanguage: 'de',
-      cities: cities || {
+  ): StateType => ({
+    resourceCacheUrl: 'http://localhost:8080',
+    cityContent: {
+      city: city.code,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: routeState
+        ? {
+            'route-id-0': routeState
+          }
+        : {},
+      searchRoute: null,
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {
+          file: {}
+        }
+      }
+    },
+    contentLanguage: 'de',
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   const successfulRouteState: NewsRouteStateType = {
     routeType: NEWS_ROUTE,

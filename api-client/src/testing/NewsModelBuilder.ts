@@ -30,17 +30,15 @@ class LocalNewsModelBuilder {
       {
         length: this._newsCount
       },
-      () => {
-        return {
-          path: null,
-          newsItem: new LocalNewsModel({
-            id: 12,
-            title: 'first news item',
-            timestamp: moment('2017-11-18T19:30:00.000Z'),
-            message: 'This is a sample news'
-          })
-        }
-      }
+      () => ({
+        path: null,
+        newsItem: new LocalNewsModel({
+          id: 12,
+          title: 'first news item',
+          timestamp: moment('2017-11-18T19:30:00.000Z'),
+          message: 'This is a sample news'
+        })
+      })
     )
   }
 }

@@ -12,11 +12,11 @@ export const I18nManager = {
     return I18nManager
   },
   getConstants: () => ({
-    isRTL: isRTL,
-    doLeftAndRightSwapInRTL: doLeftAndRightSwapInRTL
+    isRTL,
+    doLeftAndRightSwapInRTL
   }),
   swapLeftAndRightInRTL: (_unusedSwapLeftAndRight: boolean) => {
     throw Error('Not yet implemented.')
   },
-  doLeftAndRightSwapInRTL: doLeftAndRightSwapInRTL
+  doLeftAndRightSwapInRTL
 } as I18nManagerType

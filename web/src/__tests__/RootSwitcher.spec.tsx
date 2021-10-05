@@ -42,7 +42,7 @@ describe('RootSwitcher', () => {
           }}
         />
       </ThemeProvider>,
-      { route: route }
+      { route }
     )
     return { ...rendered, location: testLocation }
   }

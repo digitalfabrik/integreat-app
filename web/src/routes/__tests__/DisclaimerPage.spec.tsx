@@ -11,12 +11,10 @@ import { renderWithBrowserRouter } from '../../testing/render'
 import DisclaimerPage from '../DisclaimerPage'
 import { createPath, RoutePatterns } from '../index'
 
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 jest.mock('react-i18next')
 
 describe('DisclaimerPage', () => {
