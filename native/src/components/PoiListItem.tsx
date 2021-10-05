@@ -24,7 +24,7 @@ class PoiListItem extends React.PureComponent<PropsType> {
     const { thumbnail } = poi
     return (
       <ListItem thumbnail={thumbnail} title={poi.title} language={language} navigateTo={navigateToPoi} theme={theme}>
-        {poi.location && <Description theme={theme}>{poi.location.location}</Description>}
+        {poi.location.location && <Description theme={theme}>{poi.location.location}</Description>}
       </ListItem>
     )
   }
