@@ -86,8 +86,9 @@ class Selector extends React.Component<PropsType> {
   }
 
   render(): ReactNode {
+    const { theme, verticalLayout } = this.props
     return (
-      <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
+      <Wrapper theme={theme} vertical={verticalLayout}>
         {this.getItems()}
       </Wrapper>
     )

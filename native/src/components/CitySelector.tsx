@@ -53,8 +53,8 @@ const byNameAndAliases = (name: string) => (city: CityModel) =>
 
 class CitySelector extends React.PureComponent<PropsType> {
   _filter(): Array<CityModel> {
-    const normalizedFilter = normalizeSearchString(this.props.filterText)
-    const { cities } = this.props
+    const { cities, filterText } = this.props
+    const normalizedFilter = normalizeSearchString(filterText)
 
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
@@ -73,6 +73,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
+    const { theme, filterText, navigateToDashboard } = this.props
     const sorted = this._sort(cities)
     const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
     return transform(
@@ -80,14 +81,14 @@ class CitySelector extends React.PureComponent<PropsType> {
       (result: React.ReactNode[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
-            <CityGroup theme={this.props.theme}>{key}</CityGroup>
+            <CityGroup theme={theme}>{key}</CityGroup>
             {cities.map(city => (
               <CityEntry
                 key={city.code}
                 city={city}
-                filterText={this.props.filterText}
-                navigateToDashboard={this.props.navigateToDashboard}
-                theme={this.props.theme}
+                filterText={filterText}
+                navigateToDashboard={navigateToDashboard}
+                theme={theme}
               />
             ))}
           </CityGroupContainer>

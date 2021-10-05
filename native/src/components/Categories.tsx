@@ -92,7 +92,8 @@ class Categories extends React.Component<PropsType> {
   }
 
   getCategoryResourceCache(category: CategoryModel): PageResourceCacheStateType {
-    return this.props.resourceCache[category.path] || {}
+    const { resourceCache } = this.props
+    return resourceCache[category.path] || {}
   }
 
   getListModel(category: CategoryModel): CategoryListModelType {

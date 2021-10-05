@@ -120,15 +120,18 @@ const Pois = ({
     })
   }
 
-  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => (
-    <PoiListItem
-      key={poi.path}
-      poi={poi}
-      language={language}
-      theme={theme}
-      navigateToPoi={navigateToPoi(cityCode, language, poi.path)}
-    />
-  )
+  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => {
+    const { path } = poi
+    return (
+      <PoiListItem
+        key={path}
+        poi={poi}
+        language={language}
+        theme={theme}
+        navigateToPoi={navigateToPoi(cityCode, language, path)}
+      />
+    )
+  }
 
   const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
     navigateToFeedback({

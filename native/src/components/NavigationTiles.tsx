@@ -68,7 +68,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
 
   render() {
     const { tiles, theme, navigationItemWidth, scrollViewWidth, language, isScrollable } = this.props
-    const { xPosition, contentSizeDiff } = this.state
+    const { xPosition, contentSizeDiff, _scrollView } = this.state
     return (
       <TilesRow theme={theme}>
         {isScrollable && (
@@ -76,7 +76,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
             name='keyboard-arrow-left'
             language={language}
             navigationItemWidth={navigationItemWidth}
-            _scrollView={this.state._scrollView}
+            _scrollView={_scrollView}
             xPosition={xPosition}
             contentSizeDiff={contentSizeDiff}
           />
@@ -108,7 +108,7 @@ class NavigationTiles extends React.PureComponent<PropsType, StateType> {
             name='keyboard-arrow-right'
             language={language}
             navigationItemWidth={navigationItemWidth}
-            _scrollView={this.state._scrollView}
+            _scrollView={_scrollView}
             xPosition={xPosition}
             contentSizeDiff={contentSizeDiff}
           />
@@ -123,13 +123,14 @@ const NavigationTilesWithScrollableView = (props: {
   theme: ThemeType
   language: string
 }): ReactElement => {
+  const { tiles } = props
   const { left, right } = useSafeAreaInsets()
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width
   const isWideScreen = layoutWidth >= widthBreakPoint
   const scrollviewWidth: number = layoutWidth - anchorWidth * 2
   const itemWidth = isWideScreen ? scrollviewWidth / wideScreenItemsCount : scrollviewWidth / smallScreenItemsCount
-  const allTilesWidth = props.tiles.length * itemWidth
+  const allTilesWidth = tiles.length * itemWidth
   const isScrollable = allTilesWidth > layoutWidth
   return (
     <NavigationTiles
