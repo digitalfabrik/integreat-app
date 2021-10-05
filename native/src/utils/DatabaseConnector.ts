@@ -203,8 +203,8 @@ class DatabaseConnector {
       throw Error('cannot set lastUsage to null')
     }
 
-    const cityCode = context.cityCode
-    const languageCode = context.languageCode
+    const { cityCode } = context
+    const { languageCode } = context
 
     if (!cityCode) {
       throw Error("cityCode mustn't be empty")
@@ -232,8 +232,8 @@ class DatabaseConnector {
   }
 
   async loadLastUpdate(context: DatabaseContext): Promise<Moment | null> {
-    const cityCode = context.cityCode
-    const languageCode = context.languageCode
+    const { cityCode } = context
+    const { languageCode } = context
 
     if (!cityCode) {
       throw new Error('City is not set in DatabaseContext!')
@@ -646,7 +646,7 @@ class DatabaseConnector {
       .slice(0, -(MAX_STORED_CITIES - 1))
     await Promise.all(
       cachesToDelete.map(cityLastUpdate => {
-        const city = cityLastUpdate.city
+        const { city } = cityLastUpdate
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])

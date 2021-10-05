@@ -99,7 +99,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
     }
   }
 
-  const locationMarker = buildConfigAssets().locationMarker
+  const { locationMarker } = buildConfigAssets()
 
   return (
     <>

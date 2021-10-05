@@ -57,7 +57,7 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL): Track
     const body = JSON.stringify(mappedSignal)
     const response = await fetch(url, {
       method: 'POST',
-      body: body,
+      body,
       headers: JSON_HEADERS
     }).catch((e: Error) => {
       throw new FetchError({
@@ -73,7 +73,7 @@ const createTrackingEndpoint = (url: string = JPAL_TRACKING_ENDPOINT_URL): Track
         url,
         requestOptions: {
           method: 'POST',
-          body: body
+          body
         }
       })
     }

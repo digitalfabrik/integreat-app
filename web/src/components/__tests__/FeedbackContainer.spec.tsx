@@ -80,7 +80,7 @@ describe('FeedbackContainer', () => {
     await waitFor(() => expect(button).toBeEnabled())
     expect(mockRequest).toBeCalledTimes(1)
     expect(mockRequest).toBeCalledWith({
-      feedbackType: feedbackType,
+      feedbackType,
       city: 'augsburg',
       language: 'de',
       comment: '    Kontaktadresse: Keine Angabe',

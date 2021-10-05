@@ -1,17 +1,15 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import { useHeaderHeight } from '@react-navigation/stack'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
-import { PermissionStatus, RESULTS } from 'react-native-permissions'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
 
 import dimensions from '../constants/dimensions'
-import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
@@ -36,8 +34,8 @@ type MapViewPropsType = {
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
-  setUserLocation: (coordinates: number[]) => void
-  userLocation: number[] | null
+  onRequestLocationPermission: () => Promise<void>
+  locationPermissionGranted: boolean
   fabPosition: string | number
 }
 
@@ -68,13 +66,11 @@ const MapView = ({
   navigateTo,
   language,
   cityCode,
-  setUserLocation,
-  userLocation,
-  fabPosition
+  fabPosition,
+  onRequestLocationPermission,
+  locationPermissionGranted
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
-  const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
-
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
@@ -103,37 +99,22 @@ const MapView = ({
     bounds: coordinates ? undefined : bounds
   }
 
-  const onLocationPermissionRequest = useCallback((locationPermission: PermissionStatus | undefined) => {
-    const permissionGranted = locationPermission === RESULTS.GRANTED
-    setLocationPermissionGranted(permissionGranted)
-  }, [])
+  const onRequestLocation = useCallback(async () => {
+    await onRequestLocationPermission()
+    setFollowUserLocation(true)
+  }, [onRequestLocationPermission])
 
-  useEffect(() => {
-    checkLocationPermission().then(onLocationPermissionRequest)
-  }, [onLocationPermissionRequest])
-
-  // By clicking fab button the location permission gets requested, if it's granted the followUserLocation gets changed to opposite
-  const requestPermission = useCallback(() => {
-    requestLocationPermission().then(onLocationPermissionRequest)
-    locationPermissionGranted && setFollowUserLocation(!followUserLocation)
-  }, [followUserLocation, locationPermissionGranted, onLocationPermissionRequest])
   const onUserTrackingModeChange = (
     event: MapboxGLEvent<'usertrackingmodechange', { followUserLocation: boolean }>
   ) => {
     setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
   }
-
   const locationPermissionIcon =
     locationPermissionGranted && followUserLocation
       ? 'my-location'
       : locationPermissionGranted
       ? 'location-searching'
       : 'location-disabled'
-
-  // set the user location coordinate once to calculate distance for all pois
-  const onLocationUpdate = (location: MapboxGL.Location): void => {
-    !userLocation && setUserLocation([location.coords.longitude, location.coords.latitude])
-  }
 
   const onPress = useCallback(
     async (pressedLocation: Feature) => {
@@ -170,14 +151,14 @@ const MapView = ({
         attributionEnabled={false}
         logoEnabled={false}
         calcHeight={mapHeight}>
-        <MapboxGL.UserLocation visible={locationPermissionGranted} onUpdate={onLocationUpdate} />
+        <MapboxGL.UserLocation visible={locationPermissionGranted} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
         </MapboxGL.ShapeSource>
         <MapboxGL.Camera
           defaultSettings={defaultSettings}
           followUserMode='normal'
-          followUserLocation={followUserLocation}
+          followUserLocation={followUserLocation && locationPermissionGranted}
           onUserTrackingModeChange={onUserTrackingModeChange}
           ref={cameraRef}
         />
@@ -193,7 +174,7 @@ const MapView = ({
       )}
       <StyledFAB
         placement='right'
-        onPress={requestPermission}
+        onPress={onRequestLocation}
         buttonStyle={{ borderRadius: 50 }}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
