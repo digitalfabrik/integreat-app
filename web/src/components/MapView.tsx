@@ -1,11 +1,10 @@
-import { FeatureCollection, Feature, Point } from 'geojson'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useEffect, useState } from 'react'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { detailZoom, GeoJsonPoiProperties, mapConfig, mapQueryId, MapViewViewport } from 'api-client'
+import { detailZoom, mapConfig, mapQueryId, MapViewViewport, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 import MapPopup from './MapPopup'
 
@@ -38,19 +37,19 @@ const geolocateControlStyle: React.CSSProperties = {
 
 type MapViewProps = {
   bboxViewport: MapViewViewport
-  featureCollection: FeatureCollection<Point, GeoJsonPoiProperties>
+  featureCollection: PoiFeatureCollection
 }
 
 const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
   const { featureCollection, bboxViewport } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [showPopup, togglePopup] = React.useState<boolean>(false)
-  const [currentFeature, setCurrentFeature] = React.useState<Feature<Point, GeoJsonPoiProperties> | null>(null)
+  const [currentFeature, setCurrentFeature] = React.useState<PoiFeature | null>(null)
   const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
 
   useEffect(() => {
     if (queryId) {
-      const currentFeature = featureCollection.features.find(feature => feature.properties?.id === queryId)
+      const currentFeature = featureCollection.features.find(feature => feature.properties.id === queryId)
       if (currentFeature?.geometry.coordinates) {
         const { geometry } = currentFeature
         setViewport(prevState => ({

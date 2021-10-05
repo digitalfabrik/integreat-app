@@ -1,3 +1,5 @@
+import { Feature, FeatureCollection, Point } from 'geojson'
+
 type MapConfigProps = {
   styleJSON: string
   accessToken: string
@@ -22,6 +24,10 @@ export type GeoJsonPoiProperties = {
   distance?: string
   thumbnail?: string
 }
+
+// aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
+export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
+export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://integreat.github.io/integreat-osm-liberty/style.json',
