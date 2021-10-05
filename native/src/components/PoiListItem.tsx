@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -56,28 +56,24 @@ type PoiListItemProps = {
   theme: ThemeType
 }
 
-const PoiListItem: React.FC<PoiListItemProps> = ({
-  poi,
-  navigateToPoi,
-  language,
-  theme
-}: PoiListItemProps): ReactElement => {
-  const { t } = useTranslation('pois')
-  const thumbnail = poi.properties?.thumbnail ?? EventPlaceholder1
-  return (
-    <StyledTouchableOpacity onPress={navigateToPoi} theme={theme}>
-      <ListItemView language={language} theme={theme}>
-        <Thumbnail source={thumbnail} />
-        <Description theme={theme}>
-          <Title theme={theme}>{poi.properties?.title}</Title>
-          {poi.properties?.distance && (
-            <Distance theme={theme}>
-              {poi.properties.distance} {t('unit')} {t('distanceText')}
-            </Distance>
-          )}
-        </Description>
-      </ListItemView>
-    </StyledTouchableOpacity>
-  )
-}
-export default PoiListItem
+export const PoiListItem: React.FC<PoiListItemProps> = memo(
+  ({ poi, navigateToPoi, language, theme }: PoiListItemProps): ReactElement => {
+    const { t } = useTranslation('pois')
+    const thumbnail = poi.properties?.thumbnail ?? EventPlaceholder1
+    return (
+      <StyledTouchableOpacity onPress={navigateToPoi} theme={theme}>
+        <ListItemView language={language} theme={theme}>
+          <Thumbnail source={thumbnail} />
+          <Description theme={theme}>
+            <Title theme={theme}>{poi.properties?.title}</Title>
+            {poi.properties?.distance && (
+              <Distance theme={theme}>
+                {poi.properties.distance} {t('unit')} {t('distanceText')}
+              </Distance>
+            )}
+          </Description>
+        </ListItemView>
+      </StyledTouchableOpacity>
+    )
+  }
+)

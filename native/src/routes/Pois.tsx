@@ -1,6 +1,6 @@
 import distance from '@turf/distance'
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Linking, ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -24,8 +24,9 @@ import List from '../components/List'
 import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import PoiListItem from '../components/PoiListItem'
+import { PoiListItem } from '../components/PoiListItem'
 import { RoutePropType } from '../constants/NavigationTypes'
+import dimensions from '../constants/dimensions'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
@@ -86,7 +87,11 @@ const Pois = ({
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
   const [userLocation, setUserLocation] = useState<number[] | null>(null)
+  const [sheetIndex, setSheetIndex] = useState<number>(0)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+
+  // set points to snap for bottom sheet
+  const snapPoints = useMemo(() => [dimensions.bottomSheetHandler.height, '25%', '95%'], [])
 
   useEffect(() => {
     if (!path) {
@@ -138,6 +143,10 @@ const Pois = ({
       cityCode: cityModel.code,
       isPositiveFeedback
     })
+  }
+
+  const onChangeBottomSheet = (index: number) => {
+    setSheetIndex(index)
   }
 
   const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
@@ -204,14 +213,17 @@ const Pois = ({
             cityCode={cityModel.code}
             setUserLocation={setUserLocation}
             userLocation={userLocation}
+            fabPosition={sheetIndex < snapPoints.length - 1 ? snapPoints[sheetIndex] : 0}
           />
         )}
         <BottomActionsSheet
           headerText={t('sheetHeaderText')}
+          onChange={onChangeBottomSheet}
           hide={!!selectedFeature}
+          snapPoints={snapPoints}
           content={
             <List
-              CustomListStyle={CustomSheetList}
+              CustomStyledList={CustomSheetList}
               noItemsMessage={t('currentlyNoPois')}
               items={featureLocations}
               renderItem={renderPoiListItem(cityModel.code, language)}
