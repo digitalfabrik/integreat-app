@@ -1,8 +1,8 @@
+import { Feature } from 'geojson'
 import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { Feature } from 'api-client/node_modules/@types/geojson'
 import { ThemeType } from 'build-configs'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'

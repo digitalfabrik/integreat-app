@@ -19,7 +19,7 @@ type PropsType<T> = {
   noItemsMessage: string
   renderItem: (arg0: T) => React.ReactNode
   theme: ThemeType
-  CustomStyledList: React.FC
+  CustomStyledList?: React.FC
 }
 
 class List<T> extends React.PureComponent<PropsType<T>> {
@@ -30,13 +30,11 @@ class List<T> extends React.PureComponent<PropsType<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return (
-      <>
-        {<CustomStyledList>{items.map(item => renderItem(item))}</CustomStyledList> ?? (
-          <StyledView theme={theme}>{items.map(item => renderItem(item))}</StyledView>
-        )}
-      </>
-    )
+    if (CustomStyledList) {
+      return <CustomStyledList>{items.map(item => renderItem(item))}</CustomStyledList>
+    }
+
+    return <StyledView theme={theme}>{items.map(item => renderItem(item))}</StyledView>
   }
 }
 
