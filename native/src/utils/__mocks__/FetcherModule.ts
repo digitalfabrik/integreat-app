@@ -29,7 +29,7 @@ class FetcherModule {
     const sortedPaths = sortBy(fetchResultPairs, ([, result]) => result.url).map(([path]) => path)
     const pseudoRandomPath = sortedPaths[Math.floor(0.7 * sortedPaths.length)]
     fetchResult[pseudoRandomPath].errorMessage =
-      'This result is invalid because it is the first result produced by ' + 'the FetcherModule.js mock.'
+      'This result is invalid because it is the first result produced by the FetcherModule.js mock.'
     return Promise.resolve(fetchResult)
   }
 }

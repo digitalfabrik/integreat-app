@@ -34,7 +34,8 @@ type PropsType = {
 
 class SubCategoryListItem extends React.PureComponent<PropsType> {
   onSubCategoryPress = (): void => {
-    this.props.onItemPress(this.props.subCategory)
+    const { onItemPress, subCategory } = this.props
+    onItemPress(subCategory)
   }
 
   render(): ReactNode {

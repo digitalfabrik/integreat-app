@@ -94,7 +94,7 @@ const Selector = ({
             as={Link}
             to={item.href}
             onClick={closeDropDown}
-            $enabled={true}
+            $enabled
             $selected={item.code === activeItemCode}>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}

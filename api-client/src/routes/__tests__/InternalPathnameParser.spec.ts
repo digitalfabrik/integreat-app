@@ -12,7 +12,8 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
-} from '../'
+} from '..'
+
 import InternalPathnameParser from '../InternalPathnameParser'
 
 const cityCode = 'bochum'

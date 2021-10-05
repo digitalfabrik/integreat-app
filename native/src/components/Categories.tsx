@@ -7,9 +7,9 @@ import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import { ThemeType } from 'build-configs'
 
-import TileModel from '..//models/TileModel'
 import { URL_PREFIX } from '../constants/webview'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
+import TileModel from '../models/TileModel'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
 import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
 import { FeedbackInformationType } from './FeedbackContainer'
@@ -92,7 +92,8 @@ class Categories extends React.Component<PropsType> {
   }
 
   getCategoryResourceCache(category: CategoryModel): PageResourceCacheStateType {
-    return this.props.resourceCache[category.path] || {}
+    const { resourceCache } = this.props
+    return resourceCache[category.path] || {}
   }
 
   getListModel(category: CategoryModel): CategoryListModelType {

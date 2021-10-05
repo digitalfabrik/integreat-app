@@ -102,9 +102,9 @@ describe('SprungbrettOfferPage', () => {
     const { getByText } = renderSprungbrett()
 
     expect(getByText(sprungbrettOffer[0].title)).toBeTruthy()
-    for (const sprungbrettJob of sprungbrettJobs) {
+    sprungbrettJobs.forEach(sprungbrettJob => {
       expect(getByText(sprungbrettJob.title)).toBeTruthy()
-    }
+    })
   })
 
   it('should render error when offers cannot be fetched', () => {
