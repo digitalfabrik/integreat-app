@@ -50,6 +50,7 @@ class StaticServerProvider extends React.Component<
       const url = await this.staticServer.start()
       this.props.setResourceCacheUrl(url)
     } catch (e) {
+      // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
         errorMessage: e.message
       })

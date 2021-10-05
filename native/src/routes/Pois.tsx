@@ -96,7 +96,9 @@ const Pois = ({
         )
         setSelectedFeature(currentFeature ?? null)
       }
-      location && setFeatureLocations(featureLocations)
+      if (location) {
+        setFeatureLocations(featureLocations)
+      }
     }
   }, [path, pois, route.params.selectedPoiId, location])
 

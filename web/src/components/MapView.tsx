@@ -84,7 +84,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
+          trackUserLocation
         />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />

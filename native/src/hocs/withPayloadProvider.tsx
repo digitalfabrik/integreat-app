@@ -89,11 +89,14 @@ const withPayloadProvider = <
       }, LOADING_TIMEOUT)
       return () => clearTimeout(timer)
     }, [])
-    useEffect(() => {
-      if (onRouteClose) {
-        return () => onRouteClose(props.route.key, props.dispatch)
-      }
-    }, [props.route.key, props.dispatch])
+    useEffect(
+      () => () => {
+        if (onRouteClose) {
+          onRouteClose(props.route.key, props.dispatch)
+        }
+      },
+      [props.route.key, props.dispatch]
+    )
 
     const refreshIfPossible = () => {
       if (

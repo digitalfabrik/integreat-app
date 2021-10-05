@@ -10,6 +10,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
     <button
       aria-label="changeLanguage"
       onClick={[Function]}
+      type="button"
     >
       <img
         alt=""

@@ -15,4 +15,4 @@ export const normalizeSearchString = (str: string): string => normalizeStrings(s
  * @param path: a slash-prefixed path
  * @returns {string} the url of the current host and the specified path
  */
-export const urlFromPath = (path: string): string => `${location.origin}${path}`
+export const urlFromPath = (path: string): string => `${window.location.origin}${path}`

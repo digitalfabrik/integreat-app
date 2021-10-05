@@ -35,7 +35,8 @@ jest.mock('../../components/Header', () => {
 type OwnPropsType = React.ComponentProps<typeof HeaderContainer>
 
 describe('HeaderContainer', () => {
-  let store: Store<StateType, StoreActionType>, state: StateType
+  let store: Store<StateType, StoreActionType>
+  let state: StateType
   const [city] = new CityModelBuilder(1).build()
   const languages = new LanguageModelBuilder(1).build()
   const language = languages[0]
