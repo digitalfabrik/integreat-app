@@ -81,8 +81,8 @@ describe('OffersPage', () => {
       error: null,
       refresh: () => {}
     })
-    for (const offer of offers) {
+    offers.forEach(offer => {
       expect(getByText(offer.title)).toBeTruthy()
-    }
+    })
   })
 })

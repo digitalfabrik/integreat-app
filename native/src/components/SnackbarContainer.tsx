@@ -25,6 +25,7 @@ const SnackbarContainer = (): ReactElement | null => {
   const snackbarState = useSelector<StateType, Array<SnackbarType>>((state: StateType) => state.snackbar)
   const dispatch = useDispatch()
   const { t } = useTranslation('error')
+
   const show = useCallback(() => {
     Animated.timing(translate, {
       toValue: 0,
@@ -32,6 +33,7 @@ const SnackbarContainer = (): ReactElement | null => {
       useNativeDriver: true
     }).start()
   }, [])
+
   const hide = useCallback(() => {
     Animated.timing(translate, {
       toValue: 1,
@@ -39,6 +41,7 @@ const SnackbarContainer = (): ReactElement | null => {
       useNativeDriver: true
     }).start(() => setDisplayed(null))
   }, [])
+
   useEffect(() => {
     if (!displayed && snackbarState.length > 0) {
       const newSnackbar = snackbarState[0]
@@ -48,14 +51,14 @@ const SnackbarContainer = (): ReactElement | null => {
       })
     }
   }, [snackbarState, displayed, dispatch])
+
   useEffect(() => {
     if (displayed) {
       show()
-      const timeout = setTimeout(() => {
-        hide()
-      }, SHOW_DURATION)
+      const timeout = setTimeout(hide, SHOW_DURATION)
       return () => clearTimeout(timeout)
     }
+    return () => undefined
   }, [displayed, hide, show])
 
   const onLayout = (event: LayoutChangeEvent) => setHeight(event.nativeEvent.layout.height)

@@ -9,6 +9,7 @@ const withTheme = <Props extends { theme: ThemeType }>(
   Component: React.ComponentType<Props>
 ): React.ComponentType<Omit<Props, 'theme'>> =>
   class extends React.Component<Omit<Props, 'theme'>> {
+    // eslint-disable-next-line react/static-property-placement
     static displayName = wrapDisplayName(Component, 'withTheme')
 
     render() {
