@@ -127,11 +127,11 @@ const Pois = ({
 
   const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiFeature): ReactNode => (
     <PoiListItem
-      key={poi.properties?.id}
+      key={poi.properties.id}
       poi={poi}
       language={language}
       theme={theme}
-      navigateToPoi={navigateToPoi(cityCode, language, poi.properties?.path)}
+      navigateToPoi={navigateToPoi(cityCode, language, poi.properties.path)}
     />
   )
 
