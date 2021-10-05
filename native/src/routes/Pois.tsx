@@ -219,7 +219,7 @@ const Pois = ({
         <BottomActionsSheet
           headerText={t('sheetHeaderText')}
           onChange={onChangeBottomSheet}
-          hide={!!selectedFeature}
+          visible={!selectedFeature}
           snapPoints={snapPoints}
           content={
             <List
