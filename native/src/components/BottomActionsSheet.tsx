@@ -7,14 +7,14 @@ type BottomActionsSheetProps = {
   content: ReactNode
   snapPoints: (string | number)[]
   headerText?: string
-  hide?: boolean
+  visible?: boolean
   onChange?: (index: number) => void
 }
 
 const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
   content,
   headerText,
-  hide = false,
+  visible = true,
   onChange,
   snapPoints
 }: BottomActionsSheetProps): ReactElement | null => {
@@ -22,7 +22,7 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
 
   const renderHandle = useCallback(props => <BottomSheetHandler headerText={headerText} {...props} />, [headerText])
 
-  if (hide) {
+  if (!visible) {
     return null
   }
 
