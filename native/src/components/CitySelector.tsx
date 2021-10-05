@@ -67,9 +67,23 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   // Landkreis should come before Stadt
   _sort(cities: Array<CityModel>): Array<CityModel> {
-    return cities.sort(
-      (a, b) => a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
-    )
+    return cities.sort((a, b) => {
+      // There is currently a bug in hermes crashing the app if using localeCompare on empty string
+      // Therefore the following does not work if there are two cities with the same sortingName of which one has no prefix set:
+      // return a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
+      // https://github.com/facebook/hermes/issues/602
+      const sortingNameCompare = a.sortingName.localeCompare(b.sortingName)
+      if (sortingNameCompare !== 0) {
+        return sortingNameCompare
+      }
+      if (!b.prefix) {
+        return 1
+      }
+      if (!a.prefix) {
+        return -1
+      }
+      return a.prefix.localeCompare(b.prefix)
+    })
   }
 
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
