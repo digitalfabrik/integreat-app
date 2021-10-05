@@ -99,8 +99,8 @@ class EventModelBuilder {
               allDay: false
             }),
             location: new LocationModel({
-              id: null,
-              name: null,
+              id: 1,
+              name: 'test',
               address: 'address',
               town: 'town',
               state: null,
