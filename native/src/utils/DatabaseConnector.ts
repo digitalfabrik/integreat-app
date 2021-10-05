@@ -48,7 +48,7 @@ type ContentCategoryJsonType = {
   hash: string
 }
 type LocationJsonType = {
-  id: number | null | undefined
+  id: number
   address: string | null | undefined
   town: string | null | undefined
   postcode: string | null | undefined
@@ -57,7 +57,7 @@ type LocationJsonType = {
   country: string | null | undefined
   region: string | null | undefined
   state: string | null | undefined
-  name: string | null | undefined
+  name: string
 }
 type FeaturedImageInstanceJsonType = {
   url: string
