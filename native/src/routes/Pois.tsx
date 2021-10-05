@@ -125,7 +125,7 @@ const Pois = ({
     })
   }
 
-  const renderPoiListItem = (cityCode: string, language: string) => (poi: Feature): ReactNode => (
+  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiFeature): ReactNode => (
     <PoiListItem
       key={poi.properties?.id}
       poi={poi}
