@@ -3,6 +3,7 @@ import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
+import { PoiFeature } from 'api-client/src'
 import { ThemeType } from 'build-configs'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
@@ -50,7 +51,7 @@ const Title = styled.Text`
 `
 
 type PoiListItemProps = {
-  poi: Feature
+  poi: PoiFeature
   language: string
   navigateToPoi: () => void
   theme: ThemeType
@@ -65,7 +66,7 @@ export const PoiListItem: React.FC<PoiListItemProps> = memo(
         <ListItemView language={language} theme={theme}>
           <Thumbnail source={thumbnail} />
           <Description theme={theme}>
-            <Title theme={theme}>{poi.properties?.title}</Title>
+            <Title theme={theme}>{poi.properties.title}</Title>
             {poi.properties?.distance && (
               <Distance theme={theme}>
                 {poi.properties.distance} {t('unit')} {t('distanceText')}
