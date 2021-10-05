@@ -26,22 +26,22 @@ const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../../components/Categories', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Categories</Text>
 })
 jest.mock('../../components/Failure', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('../../components/LanguageNotAvailableContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
@@ -80,36 +80,34 @@ describe('CategoriesContainer', () => {
       languages?: LanguagesStateType
       resourceCacheState?: ResourceCacheStateType
     } = {}
-  ): StateType => {
-    return {
-      resourceCacheUrl,
-      cityContent: {
-        city: city.code,
-        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: routeState
-          ? {
-              'route-id-0': routeState
-            }
-          : {},
-        resourceCache: resourceCacheState || {
-          status: 'ready',
-          progress: 0,
-          value: resourceCache
-        },
-        searchRoute: null
-      },
-      contentLanguage: 'de',
-      cities: cities || {
+  ): StateType => ({
+    resourceCacheUrl,
+    cityContent: {
+      city: city.code,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: routeState
+        ? {
+            'route-id-0': routeState
+          }
+        : {},
+      resourceCache: resourceCacheState || {
+        status: 'ready',
+        progress: 0,
+        value: resourceCache
+      },
+      searchRoute: null
+    },
+    contentLanguage: 'de',
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
 

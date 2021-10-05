@@ -113,7 +113,7 @@ class Categories extends React.Component<PropsType> {
       ? {
           content: category.content,
           files: this.getCategoryResourceCache(category),
-          resourceCacheUrl: resourceCacheUrl,
+          resourceCacheUrl,
           lastUpdate: category?.lastUpdate
         }
       : undefined
@@ -147,7 +147,8 @@ class Categories extends React.Component<PropsType> {
           resourceCacheUrl={resourceCacheUrl}
         />
       )
-    } else if (category.isRoot()) {
+    }
+    if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return (
         <SpaceBetween>

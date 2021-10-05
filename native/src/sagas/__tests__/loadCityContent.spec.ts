@@ -374,19 +374,17 @@ describe('loadCityContent', () => {
   it('should not fetch resources if connection type is cellular', async () => {
     const previous = mocked(NetInfo.fetch).getMockImplementation()
     // @ts-ignore cannot import enum because it is mocked
-    mocked(NetInfo.fetch).mockImplementation(async () => {
-      return {
-        type: 'cellular',
-        isConnected: true,
-        isInternetReachable: true,
-        details: {
-          isConnectionExpensive: false,
-          cellularGeneration: null,
-          carrier: null
-        },
-        isWifiEnabled: false
-      }
-    })
+    mocked(NetInfo.fetch).mockImplementation(async () => ({
+      type: 'cellular',
+      isConnected: true,
+      isInternetReachable: true,
+      details: {
+        isConnectionExpensive: false,
+        cellularGeneration: null,
+        carrier: null
+      },
+      isWifiEnabled: false
+    }))
     const dataContainer = new DefaultDataContainer()
     const { fetchMap } = await prepareDataContainer(dataContainer, city, language)
     await dataContainer.storeLastUsage(city, false)

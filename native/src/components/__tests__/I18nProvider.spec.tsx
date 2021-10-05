@@ -37,34 +37,32 @@ const prepareState = ({
   switchingLanguage?: boolean
   cities?: CitiesStateType
   languages?: LanguagesStateType
-} = {}): StateType => {
-  return {
-    resourceCacheUrl: 'http://localhost:8080',
-    cityContent: {
-      city: city.code,
-      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-      languages: languages || {
-        status: 'ready',
-        models: [language]
-      },
-      routeMapping: {},
-      searchRoute: null,
-      resourceCache: {
-        status: 'ready',
-        progress: 0,
-        value: {
-          file: {}
-        }
-      }
-    },
-    contentLanguage,
-    cities: cities || {
+} = {}): StateType => ({
+  resourceCacheUrl: 'http://localhost:8080',
+  cityContent: {
+    city: city.code,
+    switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+    languages: languages || {
       status: 'ready',
-      models: [city]
+      models: [language]
     },
-    snackbar: []
-  }
-}
+    routeMapping: {},
+    searchRoute: null,
+    resourceCache: {
+      status: 'ready',
+      progress: 0,
+      value: {
+        file: {}
+      }
+    }
+  },
+  contentLanguage,
+  cities: cities || {
+    status: 'ready',
+    models: [city]
+  },
+  snackbar: []
+})
 
 const mockStore = configureMockStore()
 const mockDetect = mocked(NativeLanguageDetector.detect)

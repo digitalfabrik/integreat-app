@@ -129,8 +129,8 @@ class LocationModel {
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
         symbol: '9',
-        thumbnail: thumbnail,
-        path: path
+        thumbnail,
+        path
       }
     }
   }

@@ -62,7 +62,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
       onPress={() =>
         navigateTo({
           route: POIS_ROUTE,
-          cityCode: cityCode,
+          cityCode,
           languageCode: language,
           cityContentPath: feature.properties.path
         })
