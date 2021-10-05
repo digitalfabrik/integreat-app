@@ -1,6 +1,6 @@
-import { Feature, FeatureCollection, Point } from 'geojson'
+import { PoiFeature, PoiFeatureCollection } from '../maps'
 
-export const embedInCollection = (features: Feature<Point>[]): FeatureCollection<Point> => ({
+export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection => ({
   type: 'FeatureCollection',
   features
 })
