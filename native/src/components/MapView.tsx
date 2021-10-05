@@ -1,7 +1,7 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import { useHeaderHeight } from '@react-navigation/stack'
 import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
 import { PermissionStatus, RESULTS } from 'react-native-permissions'
@@ -23,6 +23,11 @@ const StyledMap = styled(MapboxGL.MapView)<{ calcHeight: number }>`
   height: ${props => props.calcHeight}px;
 `
 
+const StyledFAB = styled(FAB)<{ position: number | string }>`
+  align-items: flex-end;
+  bottom: ${props => props.position}${props => typeof props.position === 'number' && 'px'};
+`
+
 type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: FeatureCollection
@@ -33,6 +38,7 @@ type MapViewPropsType = {
   cityCode: string
   setUserLocation: (coordinates: number[]) => void
   userLocation: number[] | null
+  fabPosition: string | number
 }
 
 const textOffsetY = 1.25
@@ -63,7 +69,8 @@ const MapView = ({
   language,
   cityCode,
   setUserLocation,
-  userLocation
+  userLocation,
+  fabPosition
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const [locationPermissionGranted, setLocationPermissionGranted] = useState<boolean>(false)
@@ -73,6 +80,15 @@ const MapView = ({
   const theme = useTheme()
   const { height } = useWindowDimensions()
   const headerHeight = useHeaderHeight()
+
+  // calculates the map height regarding to navigation and bottom sheet
+  const mapHeight = useMemo(
+    () => (selectedFeature ? height - headerHeight : height - headerHeight - dimensions.bottomSheetHandler.height),
+    [headerHeight, height, selectedFeature]
+  )
+
+  const popUpHeight = 150
+  const fabMargin = 32
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -144,10 +160,6 @@ const MapView = ({
     [setSelectedFeature]
   )
 
-  const mapHeight = selectedFeature
-    ? height - headerHeight
-    : height - headerHeight - dimensions.bottomSheetHandler.height
-
   return (
     <MapContainer>
       <StyledMap
@@ -171,14 +183,21 @@ const MapView = ({
         />
       </StyledMap>
       {selectedFeature && (
-        <MapPopup feature={selectedFeature} navigateTo={navigateTo} language={language} cityCode={cityCode} />
+        <MapPopup
+          feature={selectedFeature}
+          navigateTo={navigateTo}
+          language={language}
+          cityCode={cityCode}
+          height={popUpHeight}
+        />
       )}
-      <FAB
+      <StyledFAB
         placement='right'
         onPress={requestPermission}
+        buttonStyle={{ borderRadius: 50 }}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
-        style={{ alignItems: 'flex-start', top: 0 }}
+        position={selectedFeature ? popUpHeight + fabMargin : fabPosition}
       />
     </MapContainer>
   )

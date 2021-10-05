@@ -1,7 +1,7 @@
 import type { Feature, Point } from 'geojson'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Image } from 'react-native'
+import { Animated, Image } from 'react-native'
 import styled from 'styled-components/native'
 
 import { POIS_ROUTE, RouteInformationType } from 'api-client'
@@ -13,16 +13,19 @@ type MapPopupProps = {
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
+  height: number
 }
 
 const Popup = styled.TouchableOpacity`
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+`
+
+const StyledAnimatedView = styled(Animated.View)<{ height: number }>`
+  justify-content: center;
   position: absolute;
   bottom: 32px;
   width: 95%;
-  height: 150px;
+  height: ${props => props.height}px;
   background-color: ${props => props.theme.colors.backgroundColor};
   z-index: 10;
   border-radius: 10px;
@@ -55,35 +58,49 @@ const MapPopup: React.FC<MapPopupProps> = ({
   feature,
   navigateTo,
   cityCode,
-  language
+  language,
+  height
 }: MapPopupProps): ReactElement | null => {
   const { t } = useTranslation('pois')
+  const fadeAnim = useRef<Animated.Value>(new Animated.Value(0)).current
+
+  // animation for fading in the popup
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true
+    }).start()
+  }, [fadeAnim])
+
   if (!feature.properties?.path) {
     return null
   }
   const thumbnail = feature.properties?.thumbnail ?? Image.resolveAssetSource(EventPlaceholder1).uri
 
   return (
-    <Popup
-      onPress={() =>
-        navigateTo({
-          route: POIS_ROUTE,
-          cityCode: cityCode,
-          languageCode: language,
-          cityContentPath: feature.properties?.path
-        })
-      }
-      activeOpacity={1}>
-      <Thumbnail source={{ uri: thumbnail }} />
-      <InformationContainer>
-        {feature.properties?.title && <Title>{feature.properties.title}</Title>}
-        {feature.properties?.distance && (
-          <DistanceInfo>
-            {feature.properties.distance} {t('unit')} {t('distanceText')}
-          </DistanceInfo>
-        )}
-      </InformationContainer>
-    </Popup>
+    <StyledAnimatedView style={{ opacity: fadeAnim }} height={height}>
+      <Popup
+        onPress={() =>
+          navigateTo({
+            route: POIS_ROUTE,
+            cityCode: cityCode,
+            languageCode: language,
+            cityContentPath: feature.properties?.path
+          })
+        }
+        activeOpacity={1}>
+        <Thumbnail source={{ uri: thumbnail }} />
+        <InformationContainer>
+          {feature.properties?.title && <Title>{feature.properties.title}</Title>}
+          {feature.properties?.distance && (
+            <DistanceInfo>
+              {feature.properties.distance} {t('unit')} {t('distanceText')}
+            </DistanceInfo>
+          )}
+        </InformationContainer>
+      </Popup>
+    </StyledAnimatedView>
   )
 }
 
