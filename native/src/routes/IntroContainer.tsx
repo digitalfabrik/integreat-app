@@ -161,9 +161,11 @@ class Intro extends React.Component<PropsType, StateType> {
     })
   }
 
-  renderSlide = ({ item }: { item: SlideContentType }) => (
-    <SlideContent item={item} theme={this.props.theme} width={this.state.width} />
-  )
+  renderSlide = ({ item }: { item: SlideContentType }) => {
+    const { theme } = this.props
+    const { width } = this.state
+    return <SlideContent item={item} theme={theme} width={width} />
+  }
 
   onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     if (viewableItems.length === 1) {

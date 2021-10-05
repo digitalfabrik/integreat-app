@@ -28,9 +28,6 @@ module.exports = {
   ],
   rules: {
     // TODO enable
-    'no-nested-ternary': 'off',
-    'react/prefer-stateless-function': 'off',
-    'react/destructuring-assignment': 'off',
     '@typescript-eslint/switch-exhaustiveness-check': 'off',
 
     // Overly strict rules (for now)

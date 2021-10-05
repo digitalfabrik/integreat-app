@@ -61,7 +61,10 @@ type PropsType = {
 }
 
 class SiteHelpfulBox extends React.Component<PropsType> {
-  navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
+  navigateToFeedback = (positive: boolean) => () => {
+    const { navigateToFeedback } = this.props
+    navigateToFeedback(positive)
+  }
 
   render(): ReactNode {
     const { theme, t } = this.props

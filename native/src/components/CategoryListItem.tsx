@@ -68,7 +68,8 @@ type PropsType = {
 class CategoryListItem extends React.Component<PropsType> {
   contentMatcher = new ContentMatcher()
   onCategoryPress = (): void => {
-    this.props.onItemPress(this.props.category)
+    const { onItemPress, category } = this.props
+    onItemPress(category)
   }
 
   renderSubCategories(): Array<React.ReactNode> {
@@ -134,7 +135,7 @@ class CategoryListItem extends React.Component<PropsType> {
     const { language, category, theme } = this.props
     return (
       <>
-        <FlexStyledLink onPress={this.onCategoryPress} underlayColor={this.props.theme.colors.backgroundAccentColor}>
+        <FlexStyledLink onPress={this.onCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
           <DirectionContainer theme={theme} language={language}>
             <CategoryThumbnail source={category.thumbnail || iconPlaceholder} theme={theme} />
             {this.renderTitle()}
