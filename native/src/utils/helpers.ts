@@ -66,7 +66,7 @@ export const getExtension = (urlString: string): string => {
     throw new Error('Invalid URL! Missing protocol.')
   }
 
-  const pathname = url.pathname
+  const { pathname } = url
   const lastPath = last(pathname.split('/'))
 
   if (lastPath === undefined) {

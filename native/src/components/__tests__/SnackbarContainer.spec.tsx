@@ -8,7 +8,7 @@ import SnackbarContainer from '../SnackbarContainer'
 jest.useFakeTimers()
 
 jest.mock('../../components/Snackbar', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ message }: { message: string }) => <Text>{message}</Text>
 })

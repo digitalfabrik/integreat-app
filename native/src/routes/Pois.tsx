@@ -27,6 +27,7 @@ import PageDetail from '../components/PageDetail'
 import { PoiListItem } from '../components/PoiListItem'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
@@ -53,16 +54,15 @@ const CustomSheetList = styled.View`
 `
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: number[]): Feature<Point>[] =>
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] =>
   pois
     .map(poi => {
       const featureLocation = poi.featureLocation
       if (userLocation && featureLocation?.geometry.coordinates) {
         const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
         return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
-      } else {
-        return poi.featureLocation
       }
+      return poi.featureLocation
     })
     .filter((feature): feature is Feature<Point> => !!feature)
 
@@ -86,16 +86,16 @@ const Pois = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
-  const [userLocation, setUserLocation] = useState<number[] | null>(null)
   const [sheetIndex, setSheetIndex] = useState<number>(0)
   const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+  const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   // set points to snap for bottom sheet
   const snapPoints = useMemo(() => [dimensions.bottomSheetHandler.height, '25%', '95%'], [])
 
   useEffect(() => {
     if (!path) {
-      const featureLocations = prepareFeatureLocations(pois, userLocation ?? undefined)
+      const featureLocations = prepareFeatureLocations(pois, location)
       const selectedPoiId = Number(route.params.selectedPoiId)
       if (selectedPoiId) {
         const currentFeature = featureLocations.find(
@@ -103,9 +103,9 @@ const Pois = ({
         )
         setSelectedFeature(currentFeature ?? null)
       }
-      userLocation && setFeatureLocations(featureLocations)
+      location && setFeatureLocations(featureLocations)
     }
-  }, [path, pois, route.params.selectedPoiId, userLocation])
+  }, [path, pois, route.params.selectedPoiId, location])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -155,7 +155,7 @@ const Pois = ({
     const poi = sortedPois.find(_poi => _poi.path === path)
 
     if (poi) {
-      const location = poi.location.location
+      const { location } = poi.location
       const files = resourceCache[poi.path] || {}
 
       let navigationUrl: string | undefined | null = null
@@ -211,8 +211,8 @@ const Pois = ({
             navigateTo={navigateTo}
             language={language}
             cityCode={cityModel.code}
-            setUserLocation={setUserLocation}
-            userLocation={userLocation}
+            locationPermissionGranted={location !== null}
+            onRequestLocationPermission={requestAndDetermineLocation}
             fabPosition={sheetIndex < snapPoints.length - 1 ? snapPoints[sheetIndex] : 0}
           />
         )}

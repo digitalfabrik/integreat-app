@@ -52,7 +52,8 @@ const createNavigate = <T extends RoutesType>(
         navigation
       })
       return
-    } else if (routeInformation.route === JPAL_TRACKING_ROUTE) {
+    }
+    if (routeInformation.route === JPAL_TRACKING_ROUTE) {
       if (buildConfig().featureFlags.jpalTracking) {
         navigateToJpalTracking({
           dispatch,

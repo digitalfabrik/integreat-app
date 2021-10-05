@@ -214,17 +214,16 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
 
   if (checker.check(element.getBoundingClientRect(), dimensions)) {
     return preferredFlow
-  } else {
-    const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
-      const fallbackChecker = spaceCheckers[fallbackFlow]
-      if (!fallbackChecker) {
-        throw new Error('Fallback not found')
-      }
-      return fallbackChecker.check(element.getBoundingClientRect(), dimensions)
-    })
-
-    return fallback ?? preferredFlow
   }
+  const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
+    const fallbackChecker = spaceCheckers[fallbackFlow]
+    if (!fallbackChecker) {
+      throw new Error('Fallback not found')
+    }
+    return fallbackChecker.check(element.getBoundingClientRect(), dimensions)
+  })
+
+  return fallback ?? preferredFlow
 }
 
 export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: PropsType): ReactElement => {

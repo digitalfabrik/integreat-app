@@ -80,7 +80,7 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
         return PAGE_FEEDBACK_TYPE
 
       case POIS_ROUTE:
-        // TODO IGAPP-438 Handle pois list feedback correctly instead of returning categories feedback type
+        // TODO IGAPP-404 Handle pois list feedback correctly instead of returning categories feedback type
         return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
 
       case CATEGORIES_ROUTE:

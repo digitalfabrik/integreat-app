@@ -12,7 +12,7 @@ const getImageSource = (uri: string | number): ImageSourcePropType =>
   typeof uri === 'number'
     ? uri
     : {
-        uri: uri,
+        uri,
         cache: 'reload'
       }
 

@@ -77,7 +77,7 @@ describe('watchFetchCategory', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({
@@ -116,7 +116,7 @@ describe('watchFetchCategory', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({
@@ -240,7 +240,7 @@ describe('watchFetchCategory', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put.like({
@@ -279,7 +279,7 @@ describe('watchFetchCategory', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put.like({

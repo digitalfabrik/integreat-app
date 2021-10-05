@@ -27,7 +27,7 @@ const mockStore = configureMockStore<StateType, StoreActionType>()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../../components/Header', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return (props: Record<string, unknown>) => <Text {...props}>Header</Text>
 })

@@ -37,7 +37,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               date: new DateModel({
                 startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
                 endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
-                allDay: allDay
+                allDay
               }),
               location: new LocationModel({
                 id: event.location.id,

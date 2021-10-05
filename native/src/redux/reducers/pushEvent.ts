@@ -38,11 +38,10 @@ const getEventRouteState = (
         status: 'loading',
         ...eventRouteState
       }
-    } else {
-      return {
-        status: 'ready',
-        ...eventRouteState
-      }
+    }
+    return {
+      status: 'ready',
+      ...eventRouteState
     }
   }
 
@@ -76,12 +75,11 @@ const getEventRouteState = (
       status: 'loading',
       ...eventRouteState
     }
-  } else {
-    return {
-      routeType: EVENTS_ROUTE,
-      status: 'ready',
-      ...eventRouteState
-    }
+  }
+  return {
+    routeType: EVENTS_ROUTE,
+    status: 'ready',
+    ...eventRouteState
   }
 }
 

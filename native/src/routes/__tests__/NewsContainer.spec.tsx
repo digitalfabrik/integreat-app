@@ -16,27 +16,27 @@ const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../../components/NewsList', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>NewsList</Text>
 })
 jest.mock('../../components/Failure', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('../../components/LanguageNotAvailableContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
 jest.mock('../../components/LoadingSpinner', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Loading</Text>
 })

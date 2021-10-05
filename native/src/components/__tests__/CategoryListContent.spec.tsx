@@ -9,13 +9,13 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))
 }))
 jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return <Text>lastUpdate {lastUpdate.toISOString()}</Text>
 })
 
 jest.mock('../NativeHtml', () => ({ content }: { content: string }) => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
   return <Text>{content}</Text>
 })
 
