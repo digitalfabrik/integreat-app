@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { Popup } from 'react-map-gl'
 import styled from 'styled-components'
 
-import { GeoJsonPoiProperties } from 'api-client/src'
+import { GeoJsonPoiProperties } from 'api-client'
 
 const StyledPopup = styled(Popup)`
   width: 250px;
