@@ -44,16 +44,18 @@ export type PropsType = StackHeaderProps & {
 
 class SettingsHeader extends React.PureComponent<PropsType> {
   goBack = (): void => {
-    this.props.navigation.goBack()
+    const { navigation } = this.props
+    navigation.goBack()
   }
 
   render(): ReactNode {
+    const { t, theme } = this.props
     return (
-      <BoxShadow theme={this.props.theme}>
+      <BoxShadow theme={theme}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} labelVisible={false} />
-            <HeaderText theme={this.props.theme}>{this.props.t('settings')}</HeaderText>
+            <HeaderText theme={theme}>{t('settings')}</HeaderText>
           </HorizontalLeft>
         </Horizontal>
       </BoxShadow>

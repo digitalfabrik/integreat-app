@@ -38,7 +38,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   handleStickyTopChanged = (asideStickyTop: number): void => this.setState({ asideStickyTop })
 
   renderFeedbackModal = (): React.ReactNode => {
-    if (!this.state.feedbackModalRating) {
+    const { feedbackModalRating } = this.state
+    if (!feedbackModalRating) {
       return null
     }
 
@@ -48,7 +49,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
         cityCode={cityModel.code}
         language={languageCode}
         routeType={route}
-        feedbackRating={this.state.feedbackModalRating}
+        feedbackRating={feedbackModalRating}
         closeModal={this.closeFeedbackModal}
         {...feedbackTargetInformation}
       />
@@ -70,10 +71,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   render(): ReactNode {
     const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route } = this.props
     const { pathname, cityModel } = this.props
+    const { asideStickyTop } = this.state
 
     return (
       <Layout
-        asideStickyTop={this.state.asideStickyTop}
+        asideStickyTop={asideStickyTop}
         header={
           <LocationHeader
             cityModel={cityModel}

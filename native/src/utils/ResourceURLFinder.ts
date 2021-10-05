@@ -84,7 +84,8 @@ export default class ResourceURLFinder {
           urlSet.add(input.thumbnail)
         }
 
-        fetchMap[path] = Array.from(urlSet).map(url => {
+        const newFetchMap = fetchMap
+        newFetchMap[path] = Array.from(urlSet).map(url => {
           const urlHash = hashUrl(url)
           const filePath = buildFilePath(url, urlHash)
           return {
@@ -93,7 +94,7 @@ export default class ResourceURLFinder {
             filePath
           }
         })
-        return fetchMap
+        return newFetchMap
       },
       {}
     )

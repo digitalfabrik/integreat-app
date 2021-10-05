@@ -1,12 +1,11 @@
-import type { Feature, Point } from 'geojson'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { POIS_ROUTE, RouteInformationType } from 'api-client'
+import { PoiFeature, POIS_ROUTE, RouteInformationType } from 'api-client'
 
 type MapPopupProps = {
-  feature: Feature<Point>
+  feature: PoiFeature
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
@@ -55,7 +54,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
   language
 }: MapPopupProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  if (!feature.properties?.path) {
+  if (!feature.properties.path) {
     return null
   }
   return (
@@ -65,14 +64,14 @@ const MapPopup: React.FC<MapPopupProps> = ({
           route: POIS_ROUTE,
           cityCode,
           languageCode: language,
-          cityContentPath: feature.properties?.path
+          cityContentPath: feature.properties.path
         })
       }
       activeOpacity={1}>
-      {feature.properties?.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
+      {feature.properties.thumbnail && <Thumbnail source={{ uri: feature.properties.thumbnail }} />}
       <InformationContainer>
-        {feature.properties?.title && <Title>{feature.properties.title}</Title>}
-        {feature.properties?.distance && (
+        {feature.properties.title && <Title>{feature.properties.title}</Title>}
+        {feature.properties.distance && (
           <DistanceInfo>
             {feature.properties.distance} {t('unit')} {t('distanceText')}
           </DistanceInfo>

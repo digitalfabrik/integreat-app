@@ -12,7 +12,7 @@ import {
   SearchRouteType,
   SprungbrettOfferRouteType,
   TuNewsType
-} from './'
+} from '.'
 
 type ParamsType = {
   cityCode: string

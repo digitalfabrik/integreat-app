@@ -45,7 +45,10 @@ class SearchInput extends React.Component<PropsType> {
     spaceSearch: false
   }
 
-  onFilterTextChange = (text: string): void => this.props.onFilterTextChange(text)
+  onFilterTextChange = (text: string): void => {
+    const { onFilterTextChange } = this.props
+    onFilterTextChange(text)
+  }
 
   render(): ReactNode {
     const { filterText, placeholderText, theme, spaceSearch } = this.props

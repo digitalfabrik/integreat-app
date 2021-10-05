@@ -41,7 +41,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
     direction="rtl"
   >
     <Breadcrumb
-      key="0"
+      key="Home"
     >
       <a
         href="/"
@@ -50,7 +50,7 @@ exports[`Breadcrumbs should render and match snapshot 1`] = `
       </a>
     </Breadcrumb>
     <Breadcrumb
-      key="1"
+      key="Subcategory"
     >
       <a
         href="/sub"
