@@ -1,15 +1,14 @@
-import type { Feature, Point } from 'geojson'
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, Image } from 'react-native'
 import styled from 'styled-components/native'
 
-import { POIS_ROUTE, RouteInformationType } from 'api-client'
+import { PoiFeature, POIS_ROUTE, RouteInformationType } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 
 type MapPopupProps = {
-  feature: Feature<Point>
+  feature: PoiFeature
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
@@ -73,7 +72,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
     }).start()
   }, [fadeAnim])
 
-  if (!feature.properties?.path) {
+  if (!feature.properties.path) {
     return null
   }
   const thumbnail = feature.properties?.thumbnail ?? Image.resolveAssetSource(EventPlaceholder1).uri
@@ -86,13 +85,13 @@ const MapPopup: React.FC<MapPopupProps> = ({
             route: POIS_ROUTE,
             cityCode,
             languageCode: language,
-            cityContentPath: feature.properties?.path
+            cityContentPath: feature.properties.path
           })
         }
         activeOpacity={1}>
         <Thumbnail source={{ uri: thumbnail }} />
         <InformationContainer>
-          {feature.properties?.title && <Title>{feature.properties.title}</Title>}
+          <Title>{feature.properties.title}</Title>
           {feature.properties?.distance && (
             <DistanceInfo>
               {feature.properties.distance} {t('unit')} {t('distanceText')}

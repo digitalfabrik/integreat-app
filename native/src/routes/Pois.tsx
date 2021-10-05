@@ -1,5 +1,4 @@
 import distance from '@turf/distance'
-import type { Feature, Point } from 'geojson'
 import React, { ReactElement, ReactNode, useEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button, Linking, ScrollView, View } from 'react-native'
@@ -11,6 +10,7 @@ import {
   embedInCollection,
   fromError,
   NotFoundError,
+  PoiFeature,
   PoiModel,
   POIS_ROUTE,
   PoisRouteType,
@@ -54,17 +54,17 @@ const CustomSheetList = styled.View`
 `
 
 // Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): Feature<Point>[] =>
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): PoiFeature[] =>
   pois
     .map(poi => {
-      const featureLocation = poi.featureLocation
+      const { featureLocation } = poi
       if (userLocation && featureLocation?.geometry.coordinates) {
         const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
         return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
       }
       return poi.featureLocation
     })
-    .filter((feature): feature is Feature<Point> => !!feature)
+    .filter((feature): feature is PoiFeature => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -85,9 +85,9 @@ const Pois = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const [selectedFeature, setSelectedFeature] = useState<Feature<Point> | null>(null)
+  const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [sheetIndex, setSheetIndex] = useState<number>(0)
-  const [featureLocations, setFeatureLocations] = useState<Feature<Point>[]>(prepareFeatureLocations(pois))
+  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
   const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   // set points to snap for bottom sheet
@@ -99,7 +99,7 @@ const Pois = ({
       const selectedPoiId = Number(route.params.selectedPoiId)
       if (selectedPoiId) {
         const currentFeature = featureLocations.find(
-          feature => feature.properties?.id === Number(route.params.selectedPoiId)
+          feature => feature.properties.id === Number(route.params.selectedPoiId)
         )
         setSelectedFeature(currentFeature ?? null)
       }
