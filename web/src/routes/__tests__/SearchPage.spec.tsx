@@ -133,8 +133,8 @@ describe('SearchPage', () => {
 
     const searchResults = getAllByLabelText('category', { exact: false })
 
-    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(category0.title)
-    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(category1.title)
+    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[0]!.title)
+    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[1]!.title)
     expect(searchResults[2]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[2]!.title)
     expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3]!.title)
   })
