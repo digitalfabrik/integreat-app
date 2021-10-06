@@ -43,8 +43,8 @@ const SnackbarContainer = (): ReactElement | null => {
   }, [])
 
   useEffect(() => {
-    if (!displayed && snackbarState.length > 0) {
-      const newSnackbar = snackbarState[0]
+    const newSnackbar = snackbarState[0]
+    if (!displayed && newSnackbar) {
       setDisplayed(newSnackbar)
       dispatch({
         type: 'DEQUEUE_SNACKBAR'

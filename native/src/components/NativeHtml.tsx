@@ -30,7 +30,7 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
 
   const onElement = useCallback(
     (element: Element) => {
-      if (element.attribs && cacheDictionary) {
+      if (cacheDictionary) {
         try {
           const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
           const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]

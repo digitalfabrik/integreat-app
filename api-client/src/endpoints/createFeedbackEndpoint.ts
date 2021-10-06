@@ -68,5 +68,5 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
         return formData
       }
     )
-    .withMapper(() => {})
+    .withMapper(() => undefined)
     .build()

@@ -42,11 +42,11 @@ class InternalPathnameParser {
 
   isCityContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
 
-  languageCode = (): string => (this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode)
+  languageCode = (): string => this._parts[1] ?? this._fallbackLanguageCode
 
   jpalTracking = (): RouteInformationType => {
     if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
-      const trackingCode = this._length === 2 ? this._parts[1] : null
+      const trackingCode = this._parts[1] ?? null
       return {
         route: JPAL_TRACKING_ROUTE,
         trackingCode
@@ -88,11 +88,12 @@ class InternalPathnameParser {
         }
       }
     } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
+      const cityCode = this._parts[0]!
       // '/ansbach/de', '/ansbach'
-      const cityContentPath = `/${this._parts[0]}/${this.languageCode()}`
+      const cityContentPath = `/${cityCode}/${this.languageCode()}`
       return {
         route: DASHBOARD_ROUTE,
-        cityCode: this._parts[0],
+        cityCode,
         languageCode: this.languageCode(),
         cityContentPath
       }
@@ -113,8 +114,8 @@ class InternalPathnameParser {
 
     // '/augsburg/de/<feature>' or '/augsburg/de/<feature>/id'
     return {
-      cityCode: this._parts[0],
-      languageCode: this._parts[1]
+      cityCode: this._parts[0]!,
+      languageCode: this._parts[1]!
     }
   }
 
@@ -160,8 +161,8 @@ class InternalPathnameParser {
     const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return {
       route: NEWS_ROUTE,
-      cityCode: this._parts[0],
-      languageCode: this._parts[1],
+      cityCode: this._parts[0]!,
+      languageCode: this._parts[1]!,
       newsType,
       newsId
     }
@@ -223,13 +224,13 @@ class InternalPathnameParser {
     if (
       this._length > 2 &&
       !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE] as string[]).includes(
-        this._parts[2]
+        this._parts[2]!
       )
     ) {
       return {
         route: CATEGORIES_ROUTE,
-        cityCode: this._parts[0],
-        languageCode: this._parts[1],
+        cityCode: this._parts[0]!,
+        languageCode: this._parts[1]!,
         cityContentPath: this._pathname
       }
     }

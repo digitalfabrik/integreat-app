@@ -24,7 +24,7 @@ const createJsonLd = (event: EventModel, formatter: DateFormatter): WithContext<
     description: event.excerpt,
     location: {
       '@type': 'Place',
-      name: event.location.name ?? 'Unknown Event',
+      name: event.location.name,
       address: {
         '@type': 'PostalAddress',
         streetAddress: event.location.address ?? 'Unknown',

@@ -10,7 +10,7 @@ import FailureSwitcher from '../FailureSwitcher'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/sentry', () => ({
-  reportError: jest.fn(async () => {})
+  reportError: jest.fn(async () => undefined)
 }))
 
 describe('FailureSwitcher', () => {
