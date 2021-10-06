@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { RenderHTML, Element } from 'react-native-render-html'
+import { Element, RenderHTML } from 'react-native-render-html'
 import { useTheme } from 'styled-components'
 
 import { config } from 'translations'
@@ -31,15 +31,23 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
   const onElement = useCallback(
     (element: Element) => {
       if (cacheDictionary) {
-        const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
-        const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
-        if (newHref || newSrc) {
-          // eslint-disable-next-line no-param-reassign
-          element.attribs = {
-            ...element.attribs,
-            ...(newHref && { href: newHref }),
-            ...(newSrc && { src: newSrc })
+        try {
+          const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
+          const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
+          if (newHref || newSrc) {
+            // eslint-disable-next-line no-param-reassign
+            element.attribs = {
+              ...element.attribs,
+              ...(newHref && { href: newHref }),
+              ...(newSrc && { src: newSrc })
+            }
           }
+        } catch (e) {
+          console.error(
+            `${e.message} occurred while decoding and looking for ${
+              element.attribs.href || element.attribs.src
+            } in the dictionary`
+          )
         }
       }
     },
