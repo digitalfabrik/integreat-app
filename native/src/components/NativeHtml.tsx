@@ -34,6 +34,7 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
         const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
         const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
         if (newHref || newSrc) {
+          // eslint-disable-next-line no-param-reassign
           element.attribs = {
             ...element.attribs,
             ...(newHref && { href: newHref }),

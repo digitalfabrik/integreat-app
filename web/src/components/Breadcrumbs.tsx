@@ -56,8 +56,8 @@ class Breadcrumbs extends React.PureComponent<PropsType> {
       <Wrapper direction={direction}>
         <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
         <OrderedList direction={direction}>
-          {ancestorBreadcrumbs.map((breadcrumb, key) => (
-            <Breadcrumb key={key}>{breadcrumb.node}</Breadcrumb>
+          {ancestorBreadcrumbs.map(breadcrumb => (
+            <Breadcrumb key={breadcrumb.title}>{breadcrumb.node}</Breadcrumb>
           ))}
         </OrderedList>
       </Wrapper>

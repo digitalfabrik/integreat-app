@@ -37,7 +37,8 @@ type RouteParams = { [key: string]: string } | null
 
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBackInStack = (): void => {
-    this.props.navigation.goBack()
+    const { navigation } = this.props
+    navigation.goBack()
   }
 
   onShare = async (): Promise<void> => {

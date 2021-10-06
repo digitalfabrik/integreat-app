@@ -64,7 +64,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
   const viewportSmall = false
 
   const requestTuNews = useCallback(
-    async () => createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId) }),
+    async () => createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId, 10) }),
     [newsId]
   )
   const { data: newsModel, loading, error: newsError } = useLoadFromEndpoint(requestTuNews)
