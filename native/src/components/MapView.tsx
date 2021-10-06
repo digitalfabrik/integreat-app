@@ -73,7 +73,7 @@ const MapView = ({
   // calculates the map height regarding to navigation and bottom sheet
   const mapHeight = useMemo(() => height - headerHeight - getStatusBarHeight(), [headerHeight, height])
   const popUpHeight = 150
-  const fabMargin = 32
+  const fabMargin = 8
 
   const layerProps: SymbolLayerProps = {
     id: featureLayerId,
