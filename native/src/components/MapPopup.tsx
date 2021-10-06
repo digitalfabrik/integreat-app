@@ -75,7 +75,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
   if (!feature.properties.path) {
     return null
   }
-  const thumbnail = feature.properties?.thumbnail ?? Image.resolveAssetSource(EventPlaceholder1).uri
+  const thumbnail = feature.properties.thumbnail ?? Image.resolveAssetSource(EventPlaceholder1).uri
 
   return (
     <StyledAnimatedView style={{ opacity: fadeAnim }} height={height}>
@@ -92,7 +92,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
         <Thumbnail source={{ uri: thumbnail }} />
         <InformationContainer>
           <Title>{feature.properties.title}</Title>
-          {feature.properties?.distance && (
+          {feature.properties.distance && (
             <DistanceInfo>
               {feature.properties.distance} {t('unit')} {t('distanceText')}
             </DistanceInfo>
