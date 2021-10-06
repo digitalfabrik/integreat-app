@@ -59,7 +59,7 @@ type PoiListItemProps = {
 export const PoiListItem: React.FC<PoiListItemProps> = memo(
   ({ poi, navigateToPoi, language, theme }: PoiListItemProps): ReactElement => {
     const { t } = useTranslation('pois')
-    const thumbnail = poi.properties?.thumbnail ?? EventPlaceholder1
+    const thumbnail = poi.properties.thumbnail ?? EventPlaceholder1
     return (
       <StyledTouchableOpacity onPress={navigateToPoi} theme={theme} activeOpacity={1}>
         <ListItemView language={language} theme={theme}>
