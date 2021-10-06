@@ -66,6 +66,7 @@ class StaticServerProvider extends React.Component<
     const { errorMessage } = this.state
     const { children } = this.props
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (errorMessage !== null) {
       return <Text>{errorMessage}</Text>
     }

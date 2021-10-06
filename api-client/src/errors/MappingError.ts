@@ -5,9 +5,7 @@ class MappingError extends Error {
   constructor(endpointName: string, message: string) {
     super()
 
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, MappingError)
-    }
+    Error.captureStackTrace(this, MappingError)
 
     this.message = this.getMessage(endpointName, message)
   }

@@ -27,9 +27,6 @@ module.exports = {
     '.eslintrc.js'
   ],
   rules: {
-    // TODO enable
-    '@typescript-eslint/switch-exhaustiveness-check': 'off',
-
     // Overly strict rules (for now)
     'class-methods-use-this': 'off',
     'global-require': 'off',
@@ -44,7 +41,6 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
-    'react/no-unescaped-entities': 'off',
 
     // Disabling since better @typescript-eslint rules available
     'default-case': 'off',
@@ -73,7 +69,8 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-module-boundary-types': 'error',
-    '@typescript-eslint/no-empty-function': 'warn',
+    '@typescript-eslint/no-empty-function': 'error',
+    '@typescript-eslint/no-unnecessary-condition': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -83,6 +80,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-use-before-define': 'error',
+    '@typescript-eslint/switch-exhaustiveness-check': 'error',
 
     'jest/consistent-test-it': 'error',
     'jest/no-disabled-tests': 'error',
@@ -96,12 +94,16 @@ module.exports = {
 
     'prefer-arrow/prefer-arrow-functions': 'error'
   },
+  parserOptions: {
+    project: './tsconfig.json'
+  },
   overrides: [
     {
       files: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
         'no-magic-numbers': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off'
       }

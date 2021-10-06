@@ -60,7 +60,7 @@ describe('TuNewsList', () => {
         items={tunews}
         renderItem={renderItem(language)}
         city={city}
-        fetchMoreTunews={() => {}}
+        fetchMoreTunews={() => undefined}
         hasMore
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}
@@ -80,7 +80,7 @@ describe('TuNewsList', () => {
         items={[]}
         renderItem={renderItem(language)}
         city={city}
-        fetchMoreTunews={() => {}}
+        fetchMoreTunews={() => undefined}
         hasMore={false}
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}

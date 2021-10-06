@@ -51,9 +51,9 @@ const route = {
   name: CATEGORIES_ROUTE
 }
 describe('CategoriesContainer', () => {
-  const [city] = new CityModelBuilder(1).build()
+  const city = new CityModelBuilder(1).build()[0]!
   const languages = new LanguageModelBuilder(2).build()
-  const language = languages[0]
+  const language = languages[0]!
   // a categoriesMap of depth 2
   const categoriesMap = new CategoriesMapModelBuilder(city.code, language.code, 3, 2).build()
   const resourceCache: LanguageResourceCacheStateType = {

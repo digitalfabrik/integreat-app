@@ -6,9 +6,7 @@ class FetchError extends Error {
   constructor(params: { endpointName: string; innerError: Error }) {
     super()
 
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, FetchError)
-    }
+    Error.captureStackTrace(this, FetchError)
 
     this.message = this.getMessage(params.endpointName, params.innerError)
     this.innerError = params.innerError

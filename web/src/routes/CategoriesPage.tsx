@@ -170,7 +170,7 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, cityModel.name))
 
   const metaDescription = t('metaDescription', { appName: buildConfig().appName })
-  const pageTitle = `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
+  const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

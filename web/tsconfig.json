@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -22,7 +22,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*", "./jest.setup.ts"],
+  "include": ["src/**/*", "tools/*", "./jest.setup.ts", "jest.config.ts", "www/warn-ie.js"],
   "references": [
     {
       "path": "../translations"

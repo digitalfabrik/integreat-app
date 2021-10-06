@@ -242,7 +242,7 @@ describe('DatabaseConnector', () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents(testEvents, context)
       const events = await databaseConnector.loadEvents(context)
-      expect(events.every((event, i) => event.isEqual(testEvents[i]))).toBeTruthy()
+      expect(events.every((event, i) => event.isEqual(testEvents[i]!))).toBeTruthy()
     })
   })
   describe('storeResourceCache', () => {

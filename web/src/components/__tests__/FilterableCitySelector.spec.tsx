@@ -10,6 +10,7 @@ import FilterableCitySelector from '../FilterableCitySelector'
 
 describe('FilterableCitySelector', () => {
   const cities = new CityModelBuilder(5).build()
+  const city = cities[0]!
 
   it('should show only live cities', () => {
     const { queryByLabelText } = renderWithRouter(
@@ -31,12 +32,12 @@ describe('FilterableCitySelector', () => {
 
     fireEvent.change(getByPlaceholderText('searchCity'), {
       target: {
-        value: cities[0].name.slice(2, 5)
+        value: city.name.slice(2, 5)
       }
     })
 
-    expect(getByText(cities[0].name.slice(2, 5))).toBeTruthy()
-    expect(queryByLabelText(cities[0].name)).toBeTruthy()
+    expect(getByText(city.name.slice(2, 5))).toBeTruthy()
+    expect(queryByLabelText(city.name)).toBeTruthy()
     cities.slice(1).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
   })
 })

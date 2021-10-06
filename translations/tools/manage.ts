@@ -150,7 +150,11 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
     const byLanguageModules = fromPairs(
       csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')])
     )
-    const sourceModules = loadModules(csvs[0], 'source_language')
+    const sourceLanguageCsv = csvs[0]
+    if (!sourceLanguageCsv) {
+      throw new Error('Need at least one csv!')
+    }
+    const sourceModules = loadModules(sourceLanguageCsv, 'source_language')
     // Show which source languages differ
     csvs.forEach((csv, index) => {
       if (!isEqual(loadModules(csv, 'source_language'), sourceModules)) {
@@ -176,7 +180,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       moduleKeys.map(moduleKey => [
         moduleKey,
         fromPairs(
-          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey][moduleKey]])
+          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]])
         )
       ])
     )

@@ -19,7 +19,7 @@ import { createPath, RouteProps } from './index'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
-const noop = () => {}
+const noop = () => undefined
 
 type PropsType = CityRouteProps & RouteProps<typeof SEARCH_ROUTE>
 

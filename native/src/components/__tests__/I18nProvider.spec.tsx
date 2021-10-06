@@ -23,9 +23,9 @@ jest.mock('translations/src/loadTranslations')
 jest.mock('../../utils/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
-const city = cities[0]
+const city = cities[0]!
 const languages = new LanguageModelBuilder(1).build()
-const language = languages[0]
+const language = languages[0]!
 
 const prepareState = ({
   contentLanguage = 'de',
@@ -83,7 +83,7 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    await waitFor(() => {})
+    await waitFor(() => undefined)
     expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
