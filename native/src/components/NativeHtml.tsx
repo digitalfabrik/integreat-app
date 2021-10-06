@@ -44,7 +44,7 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
           }
         } catch (e) {
           console.error(
-            `${e.message}occurred while decoding and looking for ${
+            `${e.message} occurred while decoding and looking for ${
               element.attribs.href || element.attribs.src
             } in the dictionary`
           )
