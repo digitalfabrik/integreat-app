@@ -20,7 +20,7 @@ module.exports = {
   ignorePatterns: [
     '**/reports/',
     '**/node_modules/',
-    '**/ios/main.jsbundle',
+    '**/ios/',
     '**/stylelint.config.js',
     '**/dist/',
     '**/lib-dist/',
