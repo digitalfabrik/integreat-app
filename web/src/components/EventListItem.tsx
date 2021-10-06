@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { EventModel, DateFormatter } from 'api-client'
+import { DateFormatter, EventModel } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
@@ -22,7 +22,7 @@ type PropsType = {
 const getEventPlaceholder = (path: string): string => {
   const pseudoId = path.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-  return placeholders[pseudoId % placeholders.length]
+  return placeholders[pseudoId % placeholders.length]!
 }
 
 const EventListItem = ({ event, formatter }: PropsType): ReactElement => (

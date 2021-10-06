@@ -25,7 +25,7 @@ jest.mock('api-client', () => {
       return new EndpointBuilder('categories-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/augsburg/de')
         .withResponseOverride(mockCategories)
-        .withMapper(() => {})
+        .withMapper(() => undefined)
         .build()
     }
   }

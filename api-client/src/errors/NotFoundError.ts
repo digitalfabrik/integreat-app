@@ -13,9 +13,7 @@ class NotFoundError extends Error {
   constructor(params: { type: NotFoundType; id: string; city: string; language: string }) {
     super(getMessage(params.type, params.id))
 
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, NotFoundError)
-    }
+    Error.captureStackTrace(this, NotFoundError)
 
     this.name = 'NotFoundError'
     this._type = params.type

@@ -93,7 +93,7 @@ describe('navigateToCategory', () => {
         key: expect.stringMatching(/^.{6,}$/) // at least 6 chars but no newline
       })
     )
-    const { key } = mocked(navigation.navigate).mock.calls[0][0]
+    const { key } = mocked(navigation.navigate).mock.calls[0]![0]
     expect(dispatch).toHaveBeenCalledWith({
       type: 'FETCH_CATEGORY',
       params: expect.objectContaining({

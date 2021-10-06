@@ -27,7 +27,7 @@ describe('CategoryListContent', () => {
     const { getByText } = render(
       <CategoryListContent
         content={content}
-        navigateToLink={() => {}}
+        navigateToLink={() => undefined}
         cacheDictionary={{}}
         language='de'
         lastUpdate={lastUpdate}
