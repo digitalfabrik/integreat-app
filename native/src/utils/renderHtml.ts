@@ -46,17 +46,25 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
 
     for (var i = 0; i < hrefs.length; i++) {
       var item = hrefs[i]
-      var newResource = cacheDictionary[decodeURI(item.href)]
-      if (newResource) {
-        item.href = newResource
+      try {
+        var newResource = cacheDictionary[decodeURI(item.href)]
+        if (newResource) {
+          item.href = newResource
+        }
+      } catch (e) {
+        window.onerror(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary')
       }
     }
 
     for (var i = 0; i < srcs.length; i++) {
       var item = srcs[i]
-      var newResource = cacheDictionary[decodeURI(item.src)]
-      if (newResource) {
-        item.src = newResource
+      try {
+        var newResource = cacheDictionary[decodeURI(item.src)]
+        if (newResource) {
+          item.src = newResource
+        }
+      } catch (e) {
+        window.onerror(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary')
       }
     }
   })();
