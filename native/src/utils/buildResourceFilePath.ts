@@ -1,5 +1,7 @@
-import { getResourceCacheFilesDirPath } from '../constants/webview'
+import { RESOURCE_CACHE_DIR_PATH } from './DatabaseConnector'
 import { getExtension } from './helpers'
+
+const getResourceCacheFilesDirPath = (city: string): string => `${RESOURCE_CACHE_DIR_PATH}/${city}/files`
 
 const getExtensionWithDot = (urlString: string) => {
   const extension = getExtension(urlString)

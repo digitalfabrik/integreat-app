@@ -1,12 +1,11 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text, useWindowDimensions } from 'react-native'
-import { WebView, WebViewMessageEvent } from 'react-native-webview'
+import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 
 import { ThemeType } from 'build-configs'
 
 import { userAgent } from '../constants/endpoint'
-import { createHtmlSource } from '../constants/webview'
 import renderHtml from '../utils/renderHtml'
 import { ParsedCacheDictionaryType } from './Page'
 
@@ -81,7 +80,10 @@ const RemoteContent = (props: PropType): ReactElement | null => {
 
   return (
     <WebView
-      source={createHtmlSource(renderHtml(content, cacheDirectory, theme, language), resourceCacheUrl)}
+      source={{
+        baseUrl: resourceCacheUrl,
+        html: renderHtml(content, cacheDirectory, theme, language)
+      }}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled
       dataDetectorTypes='none'
