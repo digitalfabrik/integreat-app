@@ -43,7 +43,7 @@ const NewsHeadLine = styled.Text`
 type PropsType = {
   language: string
   newsItem: TunewsModel | LocalNewsModel
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
 }
 
 const NewsDetail = ({ newsItem, language, navigateToLink }: PropsType): ReactElement => {

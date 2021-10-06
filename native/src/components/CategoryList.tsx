@@ -38,7 +38,7 @@ type PropsType = {
   query?: string
   theme: ThemeType
   onItemPress: (tile: CategoryListModelType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   language: string
   thumbnail?: string
 }

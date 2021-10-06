@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
 
-import Categories, { PropsType as CategoriesPropsType } from '../components/Categories'
+import Categories from '../components/Categories'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import withTheme from '../hocs/withTheme'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -196,7 +195,7 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
+const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { cityCode, language, path, navigation, route } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
   navigateTo(
@@ -211,26 +210,23 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
+const CategoriesContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
+  const navigateToLinkProp = useCallback(
+    async (url: string, language: string, shareUrl: string) => {
+      const navigateTo = createNavigate(dispatch, navigation)
+      navigateToLink(url, navigation, language, navigateTo, shareUrl)
+    },
+    [dispatch, navigation]
+  )
 
-class CategoriesContainer extends React.Component<ContainerPropsType> {
-  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const { dispatch, navigation } = this.props
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }
-
-  render() {
-    const { dispatch, navigation, route, ...rest } = this.props
-    return (
-      <ThemedCategories
-        {...rest}
-        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-        navigateTo={createNavigate(dispatch, navigation)}
-        navigateToLink={this.navigateToLinkProp}
-      />
-    )
-  }
+  return (
+    <Categories
+      {...rest}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToLink={navigateToLinkProp}
+    />
+  )
 }
 
 export default connect(

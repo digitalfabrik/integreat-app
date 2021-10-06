@@ -8,6 +8,7 @@ import { ErrorCode, EVENTS_ROUTE, EventsRouteType, CityModel, EventModel } from 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import withTheme from '../hocs/withTheme'
+import useSnackbar from '../hooks/useSnackbar'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLink from '../navigation/navigateToLink'
@@ -202,9 +203,10 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 const ThemedTranslatedEvents = withTranslation('events')(withTheme<EventsPropsType>(Events))
 
 const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  const showSnackbar = useSnackbar()
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
+    navigateToLink(url, navigation, language, navigateTo, shareUrl).catch(showSnackbar)
   }
 
   return (

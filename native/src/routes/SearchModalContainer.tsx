@@ -6,6 +6,7 @@ import { ThemeContext } from 'styled-components'
 import { SearchRouteType, CategoriesMapModel } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import useSnackbar from '../hooks/useSnackbar'
 import createNavigate from '../navigation/createNavigate'
 import navigateToLink from '../navigation/navigateToLink'
 import { StateType } from '../redux/StateType'
@@ -17,6 +18,7 @@ export type PropsType = {
 }
 
 const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null => {
+  const showSnackbar = useSnackbar()
   const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
   const language = useSelector<StateType, string>(state => state.contentLanguage)
   const categories = useSelector<StateType, CategoriesMapModel | null>(
@@ -28,9 +30,9 @@ const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null =>
   const navigateToLinkProp = useCallback(
     (url: string, language: string, shareUrl: string) => {
       const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
+      navigateToLink(url, navigation, language, navigateTo, shareUrl).catch(showSnackbar)
     },
-    [dispatch, navigation]
+    [showSnackbar, dispatch, navigation]
   )
 
   const closeModal = () => {
