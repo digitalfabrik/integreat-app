@@ -228,7 +228,7 @@ const Pois = ({
             cityCode={cityModel.code}
             locationPermissionGranted={location !== null}
             onRequestLocationPermission={requestAndDetermineLocation}
-            fabPosition={sheetIndex < snapPoints.length - 1 ? snapPoints[sheetIndex] : 0}
+            fabPosition={sheetIndex < snapPoints.length - 1 ? snapPoints[sheetIndex]! : 0}
           />
         )}
         <BottomActionsSheet
