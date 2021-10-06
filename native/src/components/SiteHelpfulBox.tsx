@@ -13,10 +13,10 @@ import SimpleImage from './SimpleImage'
 const FeedbackBoxContainer = styled.View`
   margin-top: auto;
 `
-const FeedbackBox = styled.View`
+const FeedbackBox = styled.View<{ customBackground?: string }>`
   margin-top: 25px;
   padding: 15px 5px;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.customBackground ?? props.theme.colors.backgroundAccentColor};
 `
 const FeedbackButtons = styled.View`
   flex-direction: row;
@@ -58,6 +58,7 @@ type PropsType = {
   navigateToFeedback: (positive: boolean) => void
   theme: ThemeType
   t: TFunction
+  customBackground?: string
 }
 
 class SiteHelpfulBox extends React.Component<PropsType> {
@@ -67,10 +68,10 @@ class SiteHelpfulBox extends React.Component<PropsType> {
   }
 
   render(): ReactNode {
-    const { theme, t } = this.props
+    const { theme, t, customBackground } = this.props
     return (
       <FeedbackBoxContainer>
-        <FeedbackBox theme={theme}>
+        <FeedbackBox theme={theme} customBackground={customBackground}>
           <HelpfulText theme={theme}>{t('isThisSiteUseful')}</HelpfulText>
           <FeedbackButtons>
             <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>

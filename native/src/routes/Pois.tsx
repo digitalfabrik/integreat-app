@@ -25,6 +25,7 @@ import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import { PoiListItem } from '../components/PoiListItem'
+import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useUserLocation, { LocationType } from '../hooks/useUserLocation'
@@ -150,6 +151,15 @@ const Pois = ({
     })
   }
 
+  const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
+    navigateToFeedback({
+      routeType: POIS_ROUTE,
+      language,
+      cityCode: cityModel.code,
+      isPositiveFeedback
+    })
+  }
+
   const onChangeBottomSheet = (index: number) => {
     setSheetIndex(index)
   }
@@ -227,13 +237,20 @@ const Pois = ({
           visible={!selectedFeature}
           snapPoints={snapPoints}
           content={
-            <List
-              CustomStyledList={CustomSheetList}
-              noItemsMessage={t('currentlyNoPois')}
-              items={featureLocations}
-              renderItem={renderPoiListItem(cityModel.code, language)}
-              theme={theme}
-            />
+            <>
+              <List
+                CustomStyledList={CustomSheetList}
+                noItemsMessage={t('currentlyNoPois')}
+                items={featureLocations}
+                renderItem={renderPoiListItem(cityModel.code, language)}
+                theme={theme}
+              />
+              <SiteHelpfulBox
+                customBackground={theme.colors.backgroundColor}
+                navigateToFeedback={navigateToFeedbackForPois}
+                theme={theme}
+              />
+            </>
           }
         />
       </View>
