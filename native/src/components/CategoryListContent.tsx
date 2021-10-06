@@ -16,7 +16,7 @@ const LastUpdateContainer = styled.View`
 `
 type ContentPropsType = {
   content: string
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   cacheDictionary: Record<string, string>
   language: string
   lastUpdate?: Moment

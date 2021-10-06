@@ -7,25 +7,27 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
+import useSnackbar from '../hooks/useSnackbar'
 
 type PropsType = {
   language: string
   content: string
   cacheDictionary?: Record<string, string>
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
 }
 
 const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: PropsType): ReactElement => {
   const theme = useTheme()
+  const showSnackbar = useSnackbar()
   const width = useWindowDimensions().width
   const onLinkPress = useCallback(
     (_, url: string) => {
       const shareUrl = cacheDictionary
         ? Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
         : undefined
-      navigateToLink(url, language, shareUrl || url)
+      navigateToLink(url, language, shareUrl || url).catch(showSnackbar)
     },
-    [cacheDictionary, navigateToLink, language]
+    [showSnackbar, cacheDictionary, navigateToLink, language]
   )
 
   const onElement = useCallback(

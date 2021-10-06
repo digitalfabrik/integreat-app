@@ -34,7 +34,8 @@ const openExternalUrl = async (url: string): Promise<void> => {
         })
         await Linking.openURL(url)
       } else {
-        console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+        // eslint-disable-next-line prefer-promise-reject-errors
+        return Promise.reject('This is not a supported route. Skipping.')
       }
     }
   } catch (error) {

@@ -20,6 +20,7 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import showSnackbar from '../utils/showSnackbar'
 import navigateToCategory from './navigateToCategory'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
@@ -35,7 +36,7 @@ import { urlFromRouteInformation } from './url'
 const createNavigate = <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
-) => (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
+) => async (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): Promise<void> => {
   if (routeInformation) {
     const url = urlFromRouteInformation(routeInformation)
     sendTrackingSignal({
@@ -132,7 +133,7 @@ const createNavigate = <T extends RoutesType>(
         return
     }
   }
-  console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+  showSnackbar(dispatch, 'This is not a supported route. Skipping.')
 }
 
 export default createNavigate

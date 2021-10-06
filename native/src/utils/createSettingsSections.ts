@@ -1,9 +1,9 @@
 import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'react-i18next'
-import { SectionListData, AccessibilityRole } from 'react-native'
+import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
+import { JPAL_TRACKING_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationPropType } from '../constants/NavigationTypes'
@@ -22,7 +22,7 @@ export type SetSettingFunctionType = (
 export type SettingsSectionType = {
   title: string
   description?: string
-  onPress: () => void
+  onPress: () => Promise<void>
   bigTitle?: boolean
   accessibilityRole?: AccessibilityRole
   hasSwitch?: boolean
@@ -43,7 +43,7 @@ type CreateSettingsSectionsPropsType = {
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (arg0: string) => void
+  showSnackbar: (message: string) => void
 }
 
 const createSettingsSections = ({
@@ -52,7 +52,8 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
-  settings
+  settings,
+  showSnackbar
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
@@ -65,7 +66,7 @@ const createSettingsSections = ({
               description: t('pushNewsDescription'),
               hasSwitch: true,
               getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-              onPress: () => {
+              onPress: async () => {
                 setSetting(
                   settings => ({
                     allowPushNotifications: !settings.allowPushNotifications
@@ -102,7 +103,7 @@ const createSettingsSections = ({
         }),
         hasSwitch: true,
         getSettingValue: (settings: SettingsType) => settings.errorTracking,
-        onPress: () => {
+        onPress: async () => {
           setSetting(
             settings => ({
               errorTracking: !settings.errorTracking
@@ -125,22 +126,22 @@ const createSettingsSections = ({
         title: t('about', {
           appName: buildConfig().appName
         }),
-        onPress: () => {
+        onPress: async () => {
           const aboutUrls = buildConfig().aboutUrls
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl)
+          openExternalUrl(aboutUrl).catch(showSnackbar)
         }
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode)
+        onPress: () => openPrivacyPolicy(languageCode).catch(showSnackbar)
       },
       {
         title: t('version', {
           version: NativeConstants.appVersion
         }),
-        onPress: () => {
+        onPress: async () => {
           volatileValues.versionTaps++
 
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
@@ -157,7 +158,7 @@ const createSettingsSections = ({
               description: t('trackingDescription'),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
-              onPress: () => {
+              onPress: async () => {
                 navigation.navigate(JPAL_TRACKING_ROUTE, {
                   trackingCode: settings.jpalTrackingCode
                 })
