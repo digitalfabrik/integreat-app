@@ -64,7 +64,7 @@ export default ({ children }: PropsType): ReactElement | null => {
         debug: buildConfig().featureFlags.developerFriendly
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
-      const matchedLanguage = i18nextInstance.languages[0]
+      const matchedLanguage = i18nextInstance.languages[0]!
       await setContentLanguage(matchedLanguage).catch(e => {
         console.error(e)
       })

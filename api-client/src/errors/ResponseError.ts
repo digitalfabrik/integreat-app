@@ -23,9 +23,7 @@ class ResponseError extends Error {
   constructor(params: ResponseErrorParamsType) {
     super()
 
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, ResponseError)
-    }
+    Error.captureStackTrace(this, ResponseError)
 
     const { endpointName, response, url, requestOptions } = params
     this._message = this.createMessage(params)

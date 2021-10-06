@@ -334,7 +334,7 @@ describe('morphContentLanguage', () => {
     const previous = prepareState()
     const route = previous.routeMapping['route-0']
 
-    if (route.status !== 'ready') {
+    if (route?.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
 

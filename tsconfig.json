@@ -6,6 +6,7 @@
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "strict": true,
     "target": "ESNext"

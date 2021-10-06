@@ -46,6 +46,7 @@ describe('useSendOfflineJpalSignals', () => {
 
   const mockUseNetInfo = (isInternetReachable: boolean) => {
     mockedUseNetInfo.mockImplementation(() => ({
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       type: NetInfoStateType?.other,
       isConnected: true,
       isInternetReachable,

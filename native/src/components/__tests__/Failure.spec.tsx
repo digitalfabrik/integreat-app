@@ -13,7 +13,7 @@ describe('Failure', () => {
     render(<Failure code={code} tryAgain={tryAgain} />, { wrapper: wrapWithTheme })
 
   it('should render a retry button if tryAgain is passed', () => {
-    const { getByTestId } = renderFailure(() => {})
+    const { getByTestId } = renderFailure(() => undefined)
     expect(getByTestId('button-tryAgain')).toBeTruthy()
   })
   it('should not render a retry button if tryAgain is not passed', () => {

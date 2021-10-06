@@ -3,16 +3,17 @@ import { Testrunner } from '@wdio/types/build/Options'
 import capabilities from './capabilities'
 
 const getCapability = () => {
-  const capability = process.env.E2E_CONFIG
-  if (!capability) {
+  const capabilityName = process.env.E2E_CONFIG
+  if (!capabilityName) {
     throw new Error(`E2E_CONFIG name is not set! It should be one of ${Object.keys(capabilities)}`)
   }
+  const capability = capabilities[capabilityName]
 
-  if (!capabilities[capability]) {
+  if (!capability) {
     throw new Error(`Value of E2E_CONFIG is invalid! It should be one of ${Object.keys(capabilities)}`)
   }
 
-  return capabilities[capability]
+  return capability
 }
 
 export const config: Testrunner = {

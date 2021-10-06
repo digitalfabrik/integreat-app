@@ -51,8 +51,8 @@ describe('createCategoryParentsEndpoint', () => {
     const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
 
     mocked(mapCategoryJson)
-      .mockImplementationOnce(() => parents[0])
-      .mockImplementationOnce(() => parents[1])
+      .mockImplementationOnce(() => parents[0]!)
+      .mockImplementationOnce(() => parents[1]!)
 
     parents.push(rootCategory)
     expect(endpoint.mapResponse(json, params)).toEqual(parents)

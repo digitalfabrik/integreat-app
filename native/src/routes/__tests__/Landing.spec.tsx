@@ -17,7 +17,7 @@ jest.mock('styled-components', () => ({
   ...jest.requireActual('styled-components'),
   useTheme: () => buildConfig().lightTheme
 }))
-jest.mock('react-native-system-setting', () => {})
+jest.mock('react-native-system-setting', () => undefined)
 jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
   requestLocationPermission: jest.fn()

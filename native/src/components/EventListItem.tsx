@@ -29,7 +29,7 @@ const Description = styled.Text`
  */
 const getEventPlaceholder = (id: number): number => {
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-  return placeholders[id % placeholders.length]
+  return placeholders[id % placeholders.length]!
 }
 
 const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType): ReactElement => {

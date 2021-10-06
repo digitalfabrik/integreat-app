@@ -8,7 +8,7 @@ import openExternalUrl from '../openExternalUrl'
 import sendTrackingSignal from '../sendTrackingSignal'
 
 jest.mock('@sentry/react-native', () => ({
-  captureException: () => {}
+  captureException: () => undefined
 }))
 jest.mock('react-native-inappbrowser-reborn', () => ({
   open: jest.fn(),
