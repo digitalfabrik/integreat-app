@@ -22,7 +22,7 @@ const Popup = styled.TouchableOpacity`
 const StyledAnimatedView = styled(Animated.View)<{ height: number }>`
   justify-content: center;
   position: absolute;
-  bottom: 32px;
+  bottom: 12px;
   width: 95%;
   height: ${props => props.height}px;
   background-color: ${props => props.theme.colors.backgroundColor};
