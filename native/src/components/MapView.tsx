@@ -116,12 +116,9 @@ const MapView = ({
   ) => {
     setFollowUserLocation(event.nativeEvent.payload.followUserLocation)
   }
-  const locationPermissionIcon =
-    locationPermissionGranted && followUserLocation
-      ? 'my-location'
-      : locationPermissionGranted
-      ? 'location-searching'
-      : 'location-disabled'
+
+  const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
+  const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
 
   const onPress = useCallback(
     async (pressedLocation: Feature) => {

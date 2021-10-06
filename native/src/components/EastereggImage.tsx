@@ -97,6 +97,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
         </>
       )
     }
+    return null
   }
 
   const { locationMarker } = buildConfigAssets()

@@ -28,9 +28,10 @@ export class ScrollingSearchBox extends React.Component<PropsType, StateType> {
   }
 
   setReference = (node: HTMLElement | null): void => {
+    const { initialized } = this.state
     if (node) {
       this._node = node
-      if (!this.state.initialized) {
+      if (!initialized) {
         this.setState(prevState => ({ ...prevState, initialized: true }))
       }
     }

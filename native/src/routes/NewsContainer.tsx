@@ -294,6 +294,7 @@ const NewsContainer = (props: ContainerPropsType) => {
     [selectedNewsType, language, cityModel, newsId, dispatch, route]
   )
 
+  // eslint-disable-next-line react/destructuring-assignment
   if (props.status === 'ready') {
     const { news, page, hasMoreNews, isFetchingMore } = props
     return (

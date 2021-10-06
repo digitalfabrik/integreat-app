@@ -52,18 +52,19 @@ class CategoriesMapModel {
    */
   getAncestors(category: CategoryModel): Array<CategoryModel> {
     const parents: Array<CategoryModel> = []
+    let currentCategory = category
 
-    while (!category.isRoot()) {
-      const temp = this.findCategoryByPath(category.parentPath)
+    while (!currentCategory.isRoot()) {
+      const temp = this.findCategoryByPath(currentCategory.parentPath)
 
       if (!temp) {
         throw new Error(
-          `The category ${category.parentPath} does not exist but should be the parent of ${category.path}`
+          `The category ${currentCategory.parentPath} does not exist but should be the parent of ${currentCategory.path}`
         )
       }
 
-      category = temp
-      parents.unshift(category)
+      currentCategory = temp
+      parents.unshift(currentCategory)
     }
 
     return parents

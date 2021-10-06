@@ -53,8 +53,8 @@ const byNameAndAliases = (name: string) => (city: CityModel) =>
 
 class CitySelector extends React.PureComponent<PropsType> {
   _filter(): Array<CityModel> {
-    const normalizedFilter = normalizeSearchString(this.props.filterText)
-    const { cities } = this.props
+    const { cities, filterText } = this.props
+    const normalizedFilter = normalizeSearchString(filterText)
 
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
@@ -67,12 +67,27 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   // Landkreis should come before Stadt
   _sort(cities: Array<CityModel>): Array<CityModel> {
-    return cities.sort(
-      (a, b) => a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
-    )
+    return cities.sort((a, b) => {
+      // There is currently a bug in hermes crashing the app if using localeCompare on empty string
+      // Therefore the following does not work if there are two cities with the same sortingName of which one has no prefix set:
+      // return a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
+      // https://github.com/facebook/hermes/issues/602
+      const sortingNameCompare = a.sortingName.localeCompare(b.sortingName)
+      if (sortingNameCompare !== 0) {
+        return sortingNameCompare
+      }
+      if (!b.prefix) {
+        return 1
+      }
+      if (!a.prefix) {
+        return -1
+      }
+      return a.prefix.localeCompare(b.prefix)
+    })
   }
 
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
+    const { theme, filterText, navigateToDashboard } = this.props
     const sorted = this._sort(cities)
     const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
     return transform(
@@ -80,14 +95,14 @@ class CitySelector extends React.PureComponent<PropsType> {
       (result: React.ReactNode[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
-            <CityGroup theme={this.props.theme}>{key}</CityGroup>
+            <CityGroup theme={theme}>{key}</CityGroup>
             {cities.map(city => (
               <CityEntry
                 key={city.code}
                 city={city}
-                filterText={this.props.filterText}
-                navigateToDashboard={this.props.navigateToDashboard}
-                theme={this.props.theme}
+                filterText={filterText}
+                navigateToDashboard={navigateToDashboard}
+                theme={theme}
               />
             ))}
           </CityGroupContainer>

@@ -137,7 +137,7 @@ describe('I18nProvider', () => {
 
   it('should choose rtl with ar as language', async () => {
     act(() => {
-      render(<I18nProvider contentLanguage={'ar'}>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
