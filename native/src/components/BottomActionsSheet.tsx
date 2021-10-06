@@ -31,7 +31,7 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
       ref={bottomSheetRef}
       index={1}
       snapPoints={snapPoints}
-      animateOnMount={true}
+      animateOnMount
       handleComponent={renderHandle}
       onChange={onChange}>
       <BottomSheetScrollView>{content}</BottomSheetScrollView>
