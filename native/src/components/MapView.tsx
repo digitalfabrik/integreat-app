@@ -4,6 +4,7 @@ import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useMemo, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { FAB } from 'react-native-elements'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -16,7 +17,6 @@ import {
   RouteInformationType
 } from 'api-client'
 
-import dimensions from '../constants/dimensions'
 import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
@@ -48,20 +48,6 @@ type MapViewPropsType = {
 
 const textOffsetY = 1.25
 const featureLayerId = 'point'
-const layerProps: SymbolLayerProps = {
-  id: featureLayerId,
-  style: {
-    symbolPlacement: 'point',
-    iconAllowOverlap: true,
-    iconIgnorePlacement: true,
-    iconImage: ['get', 'symbol'],
-    textField: ['get', 'title'],
-    textFont: ['Roboto Regular'],
-    textOffset: [0, textOffsetY],
-    textAnchor: 'top',
-    textSize: 12
-  }
-}
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
@@ -85,13 +71,24 @@ const MapView = ({
   const headerHeight = useHeaderHeight()
 
   // calculates the map height regarding to navigation and bottom sheet
-  const mapHeight = useMemo(
-    () => (selectedFeature ? height - headerHeight : height - headerHeight - dimensions.bottomSheetHandler.height),
-    [headerHeight, height, selectedFeature]
-  )
-
+  const mapHeight = useMemo(() => height - headerHeight - getStatusBarHeight(), [headerHeight, height])
   const popUpHeight = 150
   const fabMargin = 32
+
+  const layerProps: SymbolLayerProps = {
+    id: featureLayerId,
+    style: {
+      symbolPlacement: 'point',
+      iconAllowOverlap: true,
+      iconIgnorePlacement: true,
+      iconImage: ['case', ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1], '6', ['get', 'symbol']],
+      textField: ['get', 'title'],
+      textFont: ['Roboto Regular'],
+      textOffset: [0, textOffsetY],
+      textAnchor: 'top',
+      textSize: 12
+    }
+  }
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
