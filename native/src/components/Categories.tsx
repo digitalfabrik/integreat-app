@@ -115,7 +115,7 @@ class Categories extends React.Component<PropsType> {
           content: category.content,
           files: this.getCategoryResourceCache(category),
           resourceCacheUrl,
-          lastUpdate: category?.lastUpdate
+          lastUpdate: category.lastUpdate
         }
       : undefined
   }

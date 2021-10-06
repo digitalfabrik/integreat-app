@@ -96,7 +96,7 @@ const MapView = ({
   }
 
   // if there is a current feature use the coordinates if not use bounding box
-  const coordinates = selectedFeature?.geometry?.coordinates
+  const coordinates = selectedFeature?.geometry.coordinates
   const defaultSettings: CameraSettings = {
     zoomLevel: coordinates ? detailZoom : defaultViewportConfig.zoom,
     centerCoordinate: coordinates,
@@ -119,7 +119,7 @@ const MapView = ({
 
   const onPress = useCallback(
     async (pressedLocation: Feature) => {
-      if (!mapRef?.current || !cameraRef?.current || !pressedLocation.properties) {
+      if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
         return
       }
       const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
@@ -127,7 +127,7 @@ const MapView = ({
         undefined,
         [featureLayerId]
       )
-      const feature = featureCollection?.features?.find((it): it is PoiFeature => it.geometry.type === 'Point')
+      const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
       if (feature) {
         const {
           geometry: { coordinates }

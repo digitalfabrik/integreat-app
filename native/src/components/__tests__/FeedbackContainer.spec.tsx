@@ -77,8 +77,8 @@ describe('FeedbackContainer', () => {
       />
     )
     const [commentField, emailField] = getAllByDisplayValue('')
-    fireEvent.changeText(commentField, comment)
-    fireEvent.changeText(emailField, contactMail)
+    fireEvent.changeText(commentField!, comment)
+    fireEvent.changeText(emailField!, contactMail)
     const button = getByText('send')
     fireEvent.press(button)
     expect(await findByText('feedback:feedbackSent')).toBeDefined()

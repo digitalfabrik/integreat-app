@@ -203,8 +203,7 @@ class DatabaseConnector {
       throw Error('cannot set lastUsage to null')
     }
 
-    const { cityCode } = context
-    const { languageCode } = context
+    const { cityCode, languageCode } = context
 
     if (!cityCode) {
       throw Error("cityCode mustn't be empty")
@@ -212,13 +211,13 @@ class DatabaseConnector {
       throw Error("languageCode mustn't be empty")
     }
 
-    const metaData = (await this._loadMetaCities()) || {}
+    const metaData = await this._loadMetaCities()
 
     if (!metaData[cityCode]) {
       throw Error('cannot store last update for unused city')
     }
 
-    metaData[cityCode].languages[languageCode] = {
+    metaData[cityCode]!.languages[languageCode] = {
       lastUpdate
     }
 

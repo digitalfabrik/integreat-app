@@ -68,8 +68,8 @@ describe('NewsContainer', () => {
     boundingBox: null
   })
   const languages = new LanguageModelBuilder(1).build()
-  const language = languages[0]
-  const news = new LocalNewsModelBuilder('NewsList-Component', 1, city.code, languages[0].code).build()
+  const language = languages[0]!
+  const news = new LocalNewsModelBuilder('NewsList-Component', 1, city.code, language.code).build()
 
   const prepareState = (
     routeState: NewsRouteStateType | null | undefined,

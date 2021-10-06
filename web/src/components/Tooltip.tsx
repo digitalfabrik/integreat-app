@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -208,6 +208,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
   }
 
   const checker = spaceCheckers[preferredFlow]
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!checker) {
     throw new Error('Fallback not found')
   }
@@ -217,6 +218,7 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
   }
   const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
     const fallbackChecker = spaceCheckers[fallbackFlow]
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!fallbackChecker) {
       throw new Error('Fallback not found')
     }

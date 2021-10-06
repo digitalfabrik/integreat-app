@@ -50,7 +50,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         // eslint-disable-next-line no-console
         console.log(i18nextInstance.languages)
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
-        const matchedLanguage = i18nextInstance.languages[0]
+        const matchedLanguage = i18nextInstance.languages[0]!
         setLanguage(matchedLanguage)
       })
     }
