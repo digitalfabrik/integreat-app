@@ -114,6 +114,9 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
         } else {
           const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
           const previousMapping = state.routeMapping[key]
+          if (!previousMapping) {
+            throw Error('Previous mapping not found')
+          }
 
           if (previousMapping.routeType !== CATEGORIES_ROUTE) {
             throw Error('Previous mapping was not a category')

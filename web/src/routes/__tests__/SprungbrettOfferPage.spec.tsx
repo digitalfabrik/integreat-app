@@ -35,6 +35,8 @@ describe('SprungbrettOfferPage', () => {
 
   const languages = new LanguageModelBuilder(2).build()
   const cities = new CityModelBuilder(2).build()
+  const city = cities[0]!
+  const language = languages[0]!
   const sprungbrettOffer = new OffersModelBuilder(1).build()
   const sprungbrettJobs = [
     new SprungbrettJobModel({
@@ -71,15 +73,15 @@ describe('SprungbrettOfferPage', () => {
           render={props => (
             <SprungbrettOfferPage
               cities={cities}
-              cityModel={cities[0]}
+              cityModel={city}
               languages={languages}
-              languageModel={languages[0]}
+              languageModel={language}
               {...props}
             />
           )}
         />
       </ThemeProvider>,
-      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: cities[0].code, languageCode: languages[0].code }) }
+      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
     )
 
   it('should render page with title and content', () => {
@@ -101,7 +103,7 @@ describe('SprungbrettOfferPage', () => {
 
     const { getByText } = renderSprungbrett()
 
-    expect(getByText(sprungbrettOffer[0].title)).toBeTruthy()
+    expect(getByText(sprungbrettOffer[0]!.title)).toBeTruthy()
     sprungbrettJobs.forEach(sprungbrettJob => {
       expect(getByText(sprungbrettJob.title)).toBeTruthy()
     })

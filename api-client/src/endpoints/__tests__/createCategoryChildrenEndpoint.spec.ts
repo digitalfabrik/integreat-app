@@ -37,8 +37,8 @@ describe('createCategoryChildrenEndpoint', () => {
     const children = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()
 
     mocked(mapCategoryJson)
-      .mockImplementationOnce(() => children[0])
-      .mockImplementationOnce(() => children[1])
+      .mockImplementationOnce(() => children[0]!)
+      .mockImplementationOnce(() => children[1]!)
 
     expect(endpoint.mapResponse(json, params)).toEqual(children.slice(0, 2))
     expect(mapCategoryJson).toHaveBeenCalledTimes(2)

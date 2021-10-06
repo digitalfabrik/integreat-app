@@ -1,7 +1,7 @@
 export default {
   type: 'languageDetector',
   async: false,
-  init: (): void => {},
+  init: (): void => undefined,
   detect: jest.fn<string, []>(() => 'en'),
-  cacheUserLanguage: (): void => {}
+  cacheUserLanguage: (): void => undefined
 }

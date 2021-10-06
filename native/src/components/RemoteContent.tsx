@@ -46,10 +46,6 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
-      if (!event.nativeEvent) {
-        return
-      }
-
       const message = JSON.parse(event.nativeEvent.data)
       if (message.type === 'error') {
         throw Error(`An error occurred in the webview:\n${message.message}`)

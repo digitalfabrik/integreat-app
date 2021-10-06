@@ -23,8 +23,8 @@ describe('OffersPage', () => {
 
   const cities = new CityModelBuilder(2).build()
   const languages = new LanguageModelBuilder(2).build()
-  const city = cities[0]
-  const language = languages[0]
+  const city = cities[0]!
+  const language = languages[0]!
   const sprungbrettOffer = new OfferModel({
     alias: 'sprungbrett',
     path: 'path to fetch jobs from',
@@ -79,7 +79,7 @@ describe('OffersPage', () => {
       data: offers,
       loading: false,
       error: null,
-      refresh: () => {}
+      refresh: () => undefined
     })
     offers.forEach(offer => {
       expect(getByText(offer.title)).toBeTruthy()

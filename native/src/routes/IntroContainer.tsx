@@ -140,7 +140,7 @@ class Intro extends React.Component<PropsType, StateType> {
       const { dispatch, route, navigation, language } = this.props
       await this._appSettings.setIntroShown()
 
-      if (route.params?.deepLink) {
+      if (route.params.deepLink) {
         navigateToDeepLink(dispatch, navigation, route.params.deepLink, language)
       } else {
         navigation.replace(LANDING_ROUTE)
@@ -168,10 +168,11 @@ class Intro extends React.Component<PropsType, StateType> {
   }
 
   onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
-    if (viewableItems.length === 1) {
-      if (viewableItems[0].index !== null) {
+    const viewableItem = viewableItems[0]
+    if (viewableItem) {
+      if (viewableItem.index !== null) {
         this.setState({
-          currentSlide: viewableItems[0].index
+          currentSlide: viewableItem.index
         })
       }
     }

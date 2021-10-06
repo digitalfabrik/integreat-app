@@ -146,7 +146,7 @@ const withPayloadProvider = <
         // Prevent jumpy behaviour by showing nothing until the timeout finishes
         return <LayoutContainer />
       }
-      if (!!innerProps && !!dispatch) {
+      if (innerProps) {
         const componentProps = { ...innerProps, dispatch } as S
         // Display previous content if available
         return (
