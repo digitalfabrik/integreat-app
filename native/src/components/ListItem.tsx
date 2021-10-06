@@ -7,7 +7,7 @@ import { ThemeType } from 'build-configs'
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
 
-export type ListItemViewPropsType = {
+type ListItemViewPropsType = {
   language: string
   children: React.ReactNode
   theme: ThemeType
