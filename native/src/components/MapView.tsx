@@ -1,11 +1,18 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import type { BBox, Feature, FeatureCollection, Point } from 'geojson'
+import type { BBox, Feature } from 'geojson'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig, RouteInformationType } from 'api-client'
+import {
+  defaultViewportConfig,
+  detailZoom,
+  mapConfig,
+  PoiFeature,
+  PoiFeatureCollection,
+  RouteInformationType
+} from 'api-client'
 
 import MapPopup from './MapPopup'
 
@@ -20,9 +27,9 @@ const StyledMap = styled(MapboxGL.MapView)`
 
 type MapViewPropsType = {
   boundingBox: BBox
-  featureCollection: FeatureCollection
-  selectedFeature: Feature<Point> | null
-  setSelectedFeature: (feature: Feature<Point> | null) => void
+  featureCollection: PoiFeatureCollection
+  selectedFeature: PoiFeature | null
+  setSelectedFeature: (feature: PoiFeature | null) => void
   navigateTo: (routeInformation: RouteInformationType) => void
   language: string
   cityCode: string
@@ -102,7 +109,7 @@ const MapView = ({
         undefined,
         [featureLayerId]
       )
-      const feature = featureCollection?.features.find((it): it is Feature<Point> => it.geometry.type === 'Point')
+      const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
       if (feature) {
         const {
           geometry: { coordinates }
