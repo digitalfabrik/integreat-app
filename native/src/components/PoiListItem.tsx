@@ -7,7 +7,6 @@ import { ThemeType } from 'build-configs'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import { contentDirection } from '../constants/contentDirection'
-import { ListItemViewPropsType } from './ListItem'
 import SimpleImage from './SimpleImage'
 
 const Distance = styled.Text`
@@ -22,7 +21,7 @@ const Thumbnail = styled(SimpleImage)`
   border-radius: 5px;
 `
 
-const ListItemView = styled.View<ListItemViewPropsType>`
+const ListItemView = styled.View<{ language: string }>`
   flex: 1;
   flex-direction: ${props => contentDirection(props.language)};
   padding: 24px 0;
@@ -31,7 +30,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   flex: 1;
   flex-direction: column;
   border-bottom-width: 1px;
-  border-bottom-color: #585858;
+  border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 const Description = styled.View`
