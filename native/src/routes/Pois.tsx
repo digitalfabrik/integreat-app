@@ -1,9 +1,8 @@
 import distance from '@turf/distance'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Linking, ScrollView, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
 
 import {
   CityModel,
@@ -22,15 +21,13 @@ import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import MapView from '../components/MapView'
-import Page from '../components/Page'
-import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
+import PoiPage from '../components/PoiPage'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import { RoutePropType } from '../constants/NavigationTypes'
 import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
 export type PropsType = {
   path: string | null | undefined
@@ -43,11 +40,6 @@ export type PropsType = {
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   route: RoutePropType<PoisRouteType>
 }
-
-const Spacer = styled.View`
-  width: 20px;
-  height: 20px;
-`
 
 // Calculate distance for all Feature Locations
 const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): PoiFeature[] =>
@@ -109,15 +101,6 @@ const Pois = ({
     })
   }
 
-  const navigateToPois = (cityCode: string, language: string, selectedPoiId: string) => (): void => {
-    navigateTo({
-      route: POIS_ROUTE,
-      cityCode,
-      languageCode: language,
-      selectedPoiId
-    })
-  }
-
   const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => {
     const { path } = poi
     return (
@@ -129,16 +112,6 @@ const Pois = ({
         navigateToPoi={navigateToPoi(cityCode, language, path)}
       />
     )
-  }
-
-  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
-    navigateToFeedback({
-      routeType: POIS_ROUTE,
-      language,
-      path: poi.path,
-      cityCode: cityModel.code,
-      isPositiveFeedback
-    })
   }
 
   const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
@@ -154,42 +127,21 @@ const Pois = ({
 
   if (path) {
     const poi = sortedPois.find(_poi => _poi.path === path)
-
     if (poi) {
-      const { location } = poi.location
-      const files = resourceCache[poi.path] || {}
-
-      let navigationUrl: string | undefined | null = null
-      if (location && poi.featureLocation?.geometry.coordinates) {
-        navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      }
-
       return (
-        <Page
-          content={poi.content}
-          title={poi.title}
-          lastUpdate={poi.lastUpdate}
-          language={language}
-          files={files}
-          theme={theme}
+        <PoiPage
+          poi={poi}
+          resourceCache={resourceCache}
           resourceCacheUrl={resourceCacheUrl}
-          navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
-          <>
-            {location && (
-              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
-            )}
-            {navigationUrl && (
-              <>
-                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, String(poi.location.id))} />
-                <Spacer />
-                <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
-              </>
-            )}
-          </>
-        </Page>
+          language={language}
+          cityModel={cityModel}
+          navigateTo={navigateTo}
+          navigateToFeedback={navigateToFeedback}
+          theme={theme}
+          t={t}
+        />
       )
     }
-
     const error = new NotFoundError({
       type: 'poi',
       id: path,

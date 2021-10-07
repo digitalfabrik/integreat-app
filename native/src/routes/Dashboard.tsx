@@ -34,7 +34,6 @@ const Spacing = styled.View`
 `
 type PropsType = {
   navigateTo: (arg0: RouteInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   language: string
   cityModel: CityModel

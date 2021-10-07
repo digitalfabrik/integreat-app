@@ -37,13 +37,12 @@ export type PropsType = {
   isFetchingMore: boolean
   fetchMoreNews: () => void
   navigateTo: (arg0: RouteInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   routeKey: string
 }
 
 const News = (props: PropsType): ReactElement => {
   const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, routeKey } = props
-  const { navigateTo, navigateToLink, cityModel } = props
+  const { navigateTo, cityModel } = props
   const { t } = useTranslation('news')
 
   const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
@@ -94,7 +93,7 @@ const News = (props: PropsType): ReactElement => {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
 
     if (selectedNewsItem) {
-      return <NewsDetail newsItem={selectedNewsItem} language={language} navigateToLink={navigateToLink} />
+      return <NewsDetail newsItem={selectedNewsItem} language={language} />
     }
     const error = new NotFoundError({
       type: selectedNewsType,

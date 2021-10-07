@@ -6,10 +6,17 @@ import navigateToLink from '../../navigation/navigateToLink'
 import CategoryListContent from '../CategoryListContent'
 import NativeHtml from '../NativeHtml'
 
-jest.mock('../../navigation/navigateToLink')
+const navigation = jest.fn()
+jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))
+}))
+jest.mock('react-redux', () => ({
+  useDispatch: jest.fn()
+}))
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => navigation
 }))
 
 jest.mock('styled-components', () => ({
@@ -61,11 +68,9 @@ describe('NativeHtml', () => {
       <CategoryListContent content={htmlContent} cacheDictionary={cacheDictionary} language='de' />
     )
     fireEvent.press(getByText(text1))
-    expect(navigateToLink).toHaveBeenCalledTimes(1)
-    expect(navigateToLink).toHaveBeenCalledWith(url1, 'de', url1)
+    expect(navigateToLink).toHaveBeenNthCalledWith(1, url1, navigation, 'de', expect.anything(), url1)
     fireEvent.press(getByText(text2))
-    expect(navigateToLink).toHaveBeenCalledTimes(2)
-    expect(navigateToLink).toHaveBeenCalledWith(dictUrl, 'de', url2)
+    expect(navigateToLink).toHaveBeenNthCalledWith(2, dictUrl, navigation, 'de', expect.anything(), url2)
   })
 
   it('should not replace links', () => {
@@ -75,6 +80,6 @@ describe('NativeHtml', () => {
     const { getByText } = render(<NativeHtml content={htmlContent} language='de' />)
     fireEvent.press(getByText(text1))
     expect(navigateToLink).toHaveBeenCalledTimes(1)
-    expect(navigateToLink).toHaveBeenCalledWith(url1, 'de', url1)
+    expect(navigateToLink).toHaveBeenCalledWith(url1, navigation, 'de', expect.anything(), url1)
   })
 })

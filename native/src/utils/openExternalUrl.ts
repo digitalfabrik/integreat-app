@@ -5,6 +5,7 @@ import URL from 'url-parse'
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
+import { SnackbarError } from '../hooks/useSnackbar'
 import sendTrackingSignal from './sendTrackingSignal'
 
 const openExternalUrl = async (url: string): Promise<void> => {
@@ -35,11 +36,14 @@ const openExternalUrl = async (url: string): Promise<void> => {
         await Linking.openURL(url)
       } else {
         // eslint-disable-next-line prefer-promise-reject-errors
-        return Promise.reject('This is not a supported route. Skipping.')
+        throw new SnackbarError('This is not a supported route. Skipping.')
       }
     }
   } catch (error) {
     console.error(error)
+    if (error instanceof SnackbarError) {
+      throw error
+    }
   }
 }
 

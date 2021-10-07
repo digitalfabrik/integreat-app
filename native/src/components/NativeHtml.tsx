@@ -8,7 +8,6 @@ import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigateToLink from '../hooks/useNavigateToLink'
-import useSnackbar from '../hooks/useSnackbar'
 
 type PropsType = {
   language: string
@@ -20,15 +19,14 @@ const NativeHtml = ({ content, cacheDictionary, language }: PropsType): ReactEle
   const theme = useTheme()
   const { width } = useWindowDimensions()
   const navigateToLink = useNavigateToLink()
-  const showSnackbar = useSnackbar()
   const onLinkPress = useCallback(
     (_, url: string) => {
       const shareUrl = cacheDictionary
         ? Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
         : undefined
-      navigateToLink(url, language, shareUrl || url).catch(showSnackbar)
+      navigateToLink(url, language, shareUrl || url)
     },
-    [cacheDictionary, language, navigateToLink, showSnackbar]
+    [cacheDictionary, language, navigateToLink]
   )
 
   const onElement = useCallback(

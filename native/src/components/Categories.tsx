@@ -84,9 +84,7 @@ const Categories = ({
   )
 
   const getCategoryResourceCache = useCallback(
-    (category: CategoryModel): PageResourceCacheStateType => {
-      return resourceCache[category.path] || {}
-    },
+    (category: CategoryModel): PageResourceCacheStateType => resourceCache[category.path] || {},
     [resourceCache]
   )
 
@@ -106,8 +104,8 @@ const Categories = ({
   )
 
   const getTileModels = useCallback(
-    (categories: Array<CategoryModel>): Array<TileModel> => {
-      return categories.map(
+    (categories: Array<CategoryModel>): Array<TileModel> =>
+      categories.map(
         category =>
           new TileModel({
             title: category.title,
@@ -115,40 +113,35 @@ const Categories = ({
             thumbnail: getCachedThumbnail(category) || category.thumbnail,
             isExternalUrl: false
           })
-      )
-    },
+      ),
     [getCachedThumbnail]
   )
 
   const getListModel = useCallback(
-    (category: CategoryModel): CategoryListModelType => {
-      return {
-        title: category.title,
-        path: category.path,
-        thumbnail: getCachedThumbnail(category) || category.thumbnail
-      }
-    },
+    (category: CategoryModel): CategoryListModelType => ({
+      title: category.title,
+      path: category.path,
+      thumbnail: getCachedThumbnail(category) || category.thumbnail
+    }),
     [getCachedThumbnail]
   )
 
   const getListModels = useCallback(
-    (categories: Array<CategoryModel>): Array<CategoryListModelType> => {
-      return categories.map(category => getListModel(category))
-    },
+    (categories: Array<CategoryModel>): Array<CategoryListModelType> =>
+      categories.map(category => getListModel(category)),
     [getListModel]
   )
 
   const getListContentModel = useCallback(
-    (category: CategoryModel): ListContentModelType | null | undefined => {
-      return category.content
+    (category: CategoryModel): ListContentModelType | null | undefined =>
+      category.content
         ? {
             content: category.content,
             files: getCategoryResourceCache(category),
             resourceCacheUrl,
             lastUpdate: category.lastUpdate
           }
-        : undefined
-    },
+        : undefined,
     [getCategoryResourceCache, resourceCacheUrl]
   )
 
@@ -176,7 +169,7 @@ const Categories = ({
       />
     )
   }
-    if (category.isRoot()) {
+  if (category.isRoot()) {
     // first level, we want to display a table with all first order categories
     return (
       <SpaceBetween>
