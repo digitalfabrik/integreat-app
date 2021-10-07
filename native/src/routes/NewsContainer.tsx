@@ -3,14 +3,14 @@ import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { ErrorCode, NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE, CityModel } from 'api-client'
+import { CityModel, ErrorCode, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'api-client'
 
 import LoadingSpinner from '../components/LoadingSpinner'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 import createNavigate from '../navigation/createNavigate'
-import navigateToLink from '../navigation/navigateToLink'
 import { NewsModelsType, StateType } from '../redux/StateType'
 import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
 import News from './News'
@@ -225,13 +225,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
+  const navigateToLink = useNavigateToLink(dispatch, navigation)
+
   const fetchNews = useCallback(
     (newsType: NewsType) => {
       dispatch({
@@ -314,7 +309,7 @@ const NewsContainer = (props: ContainerPropsType) => {
           cityModel={cityModel}
           language={language}
           navigateTo={createNavigate(dispatch, navigation)}
-          navigateToLink={navigateToLinkProp}
+          navigateToLink={navigateToLink}
         />
       </View>
     )

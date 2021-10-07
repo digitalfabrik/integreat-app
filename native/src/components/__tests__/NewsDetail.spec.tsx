@@ -9,7 +9,7 @@ import buildConfig from '../../constants/buildConfig'
 import NewsDetail from '../NewsDetail'
 
 jest.mock('react-i18next')
-
+jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))
 }))
@@ -39,7 +39,7 @@ const localNews = new LocalNewsModel({
 describe('NewsDetail', () => {
   const theme = buildConfig().lightTheme
   const language = 'de'
-  const navigateToLink = jest.fn()
+  const navigateToLink = jest.fn(() => Promise.resolve())
 
   const renderNewsDetail = (news: LocalNewsModel | TunewsModel) => {
     return render(

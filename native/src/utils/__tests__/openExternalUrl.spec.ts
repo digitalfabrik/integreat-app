@@ -70,7 +70,7 @@ describe('openExternalUrl', () => {
   it('should show snackbar if opening url is not supported', async () => {
     const url = 'mor:erando.mstu.ff'
     mocked(Linking.canOpenURL).mockImplementation(async () => false)
-    await openExternalUrl(url)
+    await expect(openExternalUrl(url)).rejects.toBe('This is not a supported route. Skipping.')
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(InAppBrowser.open).not.toHaveBeenCalled() // TODO IGAPP-521 assert snackbar is shown
   })

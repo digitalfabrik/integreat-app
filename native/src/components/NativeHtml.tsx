@@ -1,23 +1,24 @@
 import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { RenderHTML, Element } from 'react-native-render-html'
+import { Element, RenderHTML } from 'react-native-render-html'
 import { useTheme } from 'styled-components'
 
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 import useSnackbar from '../hooks/useSnackbar'
 
 type PropsType = {
   language: string
   content: string
   cacheDictionary?: Record<string, string>
-  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
 }
 
-const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: PropsType): ReactElement => {
+const NativeHtml = ({ content, cacheDictionary, language }: PropsType): ReactElement => {
   const theme = useTheme()
+  const navigateToLink = useNavigateToLink()
   const showSnackbar = useSnackbar()
   const width = useWindowDimensions().width
   const onLinkPress = useCallback(
@@ -27,7 +28,7 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
         : undefined
       navigateToLink(url, language, shareUrl || url).catch(showSnackbar)
     },
-    [showSnackbar, cacheDictionary, navigateToLink, language]
+    [cacheDictionary, language, navigateToLink, showSnackbar]
   )
 
   const onElement = useCallback(

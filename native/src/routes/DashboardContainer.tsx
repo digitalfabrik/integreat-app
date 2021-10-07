@@ -1,16 +1,15 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { DASHBOARD_ROUTE, DashboardRouteType, CATEGORIES_ROUTE, CityModel, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useSnackbar from '../hooks/useSnackbar'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import Dashboard from './Dashboard'
@@ -203,20 +202,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 })
 
 const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, route, ...rest } = props
-  const showSnackbar = useSnackbar()
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl).catch(showSnackbar)
-    },
-    [showSnackbar, dispatch, navigation]
-  )
+  const { dispatch, navigation, ...rest } = props
+  const navigateToLink = useNavigateToLink(dispatch, navigation)
+
   return (
     <Dashboard
       {...rest}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLinkProp}
+      navigateToLink={navigateToLink}
       navigateTo={createNavigate(dispatch, navigation)}
     />
   )
