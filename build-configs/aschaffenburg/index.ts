@@ -34,8 +34,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     fixedCity: 'abapp'
   },
   aboutUrls: {
-    // TODO
-    default: 'https://www.aschaffenburg.de/aschaffenburgapp'
+    default: 'https://www.aschaffenburg.de/halloaschaffenburg'
   },
   privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
