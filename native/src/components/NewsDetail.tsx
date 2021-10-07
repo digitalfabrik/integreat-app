@@ -70,7 +70,7 @@ const NewsDetail = ({ newsItem, language }: PropsType): ReactElement => {
           <NativeHtml language={language} content={content} />
           {newsItem instanceof LocalNewsModel && (
             <TimeStampContent language={language}>
-              <TimeStamp formatter={formatter} lastUpdate={newsItem.timestamp} showText={false} format={'LLL'} />
+              <TimeStamp formatter={formatter} lastUpdate={newsItem.timestamp} showText={false} format='LLL' />
             </TimeStampContent>
           )}
         </Container>

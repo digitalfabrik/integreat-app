@@ -46,9 +46,7 @@ const News = (props: PropsType): ReactElement => {
   const { navigateTo, navigateToLink, cityModel } = props
   const { t } = useTranslation('news')
 
-  const renderNoItemsComponent = (): React.ReactElement => {
-    return <NoNews>{t('currentlyNoNews')}</NoNews>
-  }
+  const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
 
   const rendersNewsListItem = useCallback(
     (cityCode: string, language: string) => ({
@@ -97,15 +95,14 @@ const News = (props: PropsType): ReactElement => {
 
     if (selectedNewsItem) {
       return <NewsDetail newsItem={selectedNewsItem} language={language} navigateToLink={navigateToLink} />
-    } else {
-      const error = new NotFoundError({
-        type: selectedNewsType,
-        id: newsId,
-        city: cityModel.code,
-        language
-      })
-      return <Failure code={fromError(error)} />
     }
+    const error = new NotFoundError({
+      type: selectedNewsType,
+      id: newsId,
+      city: cityModel.code,
+      language
+    })
+    return <Failure code={fromError(error)} />
   }
 
   return (

@@ -7,9 +7,9 @@ import { CategoryModel, CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 
-import TileModel from '..//models/TileModel'
 import { URL_PREFIX } from '../constants/webview'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
+import TileModel from '../models/TileModel'
 import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
 import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
 import { FeedbackInformationType } from './FeedbackContainer'
@@ -144,8 +144,8 @@ const Categories = ({
         ? {
             content: category.content,
             files: getCategoryResourceCache(category),
-            resourceCacheUrl: resourceCacheUrl,
-            lastUpdate: category?.lastUpdate
+            resourceCacheUrl,
+            lastUpdate: category.lastUpdate
           }
         : undefined
     },
@@ -175,7 +175,8 @@ const Categories = ({
         resourceCacheUrl={resourceCacheUrl}
       />
     )
-  } else if (category.isRoot()) {
+  }
+    if (category.isRoot()) {
     // first level, we want to display a table with all first order categories
     return (
       <SpaceBetween>

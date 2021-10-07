@@ -1,12 +1,11 @@
 import { URL } from 'url'
 
-import { defaultCity, filter, language, Routes } from '../../../shared/constants'
+import { defaultCity, filter, Routes } from '../../../shared/constants'
 import LandingPage from '../pageobjects/landing.page'
 
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {
     const dashboardPath = Routes.dashboard
-    LandingPage.language = language
     await LandingPage.open()
 
     const cities = await LandingPage.cities

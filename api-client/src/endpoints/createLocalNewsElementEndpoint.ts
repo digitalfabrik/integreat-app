@@ -22,18 +22,18 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
     )
     .withMapper(
       (localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
-        const count = localNews.length
+        const localNewsModel = localNews[0]
 
-        if (count === 0) {
+        if (!localNewsModel) {
           throw new NotFoundError({ ...params, type: LOCAL_NEWS_TYPE })
-        } else if (count > 1) {
+        } else if (localNews.length > 1) {
           throw new MappingError(
             LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
-            `Expected count of local news to be one. Received ${count} instead`
+            `Expected count of local news to be one. Received ${localNews.length} instead`
           )
         }
 
-        const { id, timestamp, title, message } = localNews[0]
+        const { id, timestamp, title, message } = localNewsModel
         return new LocalNewsModel({
           id,
           timestamp: moment.tz(timestamp, 'GMT'),

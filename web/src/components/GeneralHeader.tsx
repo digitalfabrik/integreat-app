@@ -1,5 +1,5 @@
 import React from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import { TFunction, withTranslation } from 'react-i18next'
 
 import { LANDING_ROUTE } from 'api-client'
 
@@ -21,7 +21,7 @@ const GeneralHeader = ({ languageCode, viewportSmall, t }: PropsType) => {
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]
     : []
 
-  const onStickyTopChanged = () => {}
+  const onStickyTopChanged = () => undefined
 
   return (
     <Header

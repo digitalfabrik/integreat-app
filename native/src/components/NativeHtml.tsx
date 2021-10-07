@@ -18,9 +18,9 @@ type PropsType = {
 
 const NativeHtml = ({ content, cacheDictionary, language }: PropsType): ReactElement => {
   const theme = useTheme()
+  const { width } = useWindowDimensions()
   const navigateToLink = useNavigateToLink()
   const showSnackbar = useSnackbar()
-  const width = useWindowDimensions().width
   const onLinkPress = useCallback(
     (_, url: string) => {
       const shareUrl = cacheDictionary
@@ -33,15 +33,24 @@ const NativeHtml = ({ content, cacheDictionary, language }: PropsType): ReactEle
 
   const onElement = useCallback(
     (element: Element) => {
-      if (element.attribs && cacheDictionary) {
-        const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
-        const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
-        if (newHref || newSrc) {
-          element.attribs = {
-            ...element.attribs,
-            ...(newHref && { href: newHref }),
-            ...(newSrc && { src: newSrc })
+      if (cacheDictionary) {
+        try {
+          const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
+          const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
+          if (newHref || newSrc) {
+            // eslint-disable-next-line no-param-reassign
+            element.attribs = {
+              ...element.attribs,
+              ...(newHref && { href: newHref }),
+              ...(newSrc && { src: newSrc })
+            }
           }
+        } catch (e) {
+          console.error(
+            `${e.message} occurred while decoding and looking for ${
+              element.attribs.href || element.attribs.src
+            } in the dictionary`
+          )
         }
       }
     },

@@ -48,7 +48,7 @@ type ContentCategoryJsonType = {
   hash: string
 }
 type LocationJsonType = {
-  id: number | null | undefined
+  id: number
   address: string | null | undefined
   town: string | null | undefined
   postcode: string | null | undefined
@@ -57,7 +57,7 @@ type LocationJsonType = {
   country: string | null | undefined
   region: string | null | undefined
   state: string | null | undefined
-  name: string | null | undefined
+  name: string
 }
 type FeaturedImageInstanceJsonType = {
   url: string
@@ -203,8 +203,7 @@ class DatabaseConnector {
       throw Error('cannot set lastUsage to null')
     }
 
-    const cityCode = context.cityCode
-    const languageCode = context.languageCode
+    const { cityCode, languageCode } = context
 
     if (!cityCode) {
       throw Error("cityCode mustn't be empty")
@@ -212,13 +211,13 @@ class DatabaseConnector {
       throw Error("languageCode mustn't be empty")
     }
 
-    const metaData = (await this._loadMetaCities()) || {}
+    const metaData = await this._loadMetaCities()
 
     if (!metaData[cityCode]) {
       throw Error('cannot store last update for unused city')
     }
 
-    metaData[cityCode].languages[languageCode] = {
+    metaData[cityCode]!.languages[languageCode] = {
       lastUpdate
     }
 
@@ -232,8 +231,8 @@ class DatabaseConnector {
   }
 
   async loadLastUpdate(context: DatabaseContext): Promise<Moment | null> {
-    const cityCode = context.cityCode
-    const languageCode = context.languageCode
+    const { cityCode } = context
+    const { languageCode } = context
 
     if (!cityCode) {
       throw new Error('City is not set in DatabaseContext!')
@@ -471,24 +470,25 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-    return json.map((jsonObject: ContentCityJsonType) => {
-      return new CityModel({
-        name: jsonObject.name,
-        code: jsonObject.code,
-        live: jsonObject.live,
-        eventsEnabled: jsonObject.events_enabled,
-        pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
-        tunewsEnabled: jsonObject.tunewsEnabled,
-        offersEnabled: jsonObject.extras_enabled,
-        poisEnabled: jsonObject.pois_enabled,
-        sortingName: jsonObject.sorting_name,
-        prefix: jsonObject.prefix,
-        longitude: jsonObject.longitude,
-        latitude: jsonObject.latitude,
-        aliases: jsonObject.aliases,
-        boundingBox: jsonObject.bounding_box ?? null
-      })
-    })
+    return json.map(
+      (jsonObject: ContentCityJsonType) =>
+        new CityModel({
+          name: jsonObject.name,
+          code: jsonObject.code,
+          live: jsonObject.live,
+          eventsEnabled: jsonObject.events_enabled,
+          pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
+          tunewsEnabled: jsonObject.tunewsEnabled,
+          offersEnabled: jsonObject.extras_enabled,
+          poisEnabled: jsonObject.pois_enabled,
+          sortingName: jsonObject.sorting_name,
+          prefix: jsonObject.prefix,
+          longitude: jsonObject.longitude,
+          latitude: jsonObject.latitude,
+          aliases: jsonObject.aliases,
+          boundingBox: jsonObject.bounding_box ?? null
+        })
+    )
   }
 
   async storeEvents(events: Array<EventModel>, context: DatabaseContext): Promise<void> {
@@ -641,11 +641,16 @@ class DatabaseConnector {
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages
       .filter(it => it.city !== city) // Sort last usages chronological, from oldest to newest
-      .sort((a, b) => (a.lastUsage.isBefore(b.lastUsage) ? -1 : a.lastUsage.isSame(b.lastUsage) ? 0 : 1)) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
+      .sort((a, b) => {
+        if (a.lastUsage.isBefore(b.lastUsage)) {
+          return -1
+        }
+        return a.lastUsage.isSame(b.lastUsage) ? 0 : 1
+      }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
     await Promise.all(
       cachesToDelete.map(cityLastUpdate => {
-        const city = cityLastUpdate.city
+        const { city } = cityLastUpdate
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])

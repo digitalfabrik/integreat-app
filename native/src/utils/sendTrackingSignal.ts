@@ -6,7 +6,7 @@ import { createTrackingEndpoint, ErrorCode, fromError, SpecificSignalType, Signa
 import buildConfig from '../constants/buildConfig'
 import AppSettings from './AppSettings'
 
-let systemLanguage: string
+let systemLanguage: string | null = null
 export const setSystemLanguage = (language: string): void => {
   systemLanguage = language
 }

@@ -55,11 +55,11 @@ const CategoryThumbnail = styled(SimpleImage)`
 class CategoryList extends React.Component<PropsType> {
   getListContent(listContent: ListContentModelType): React.ReactNode {
     const { language } = this.props
-    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
-      return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
+      file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
         : file.filePath
-    })
+    )
     return (
       <CategoryListContent
         content={listContent.content}

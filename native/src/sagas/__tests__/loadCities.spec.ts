@@ -22,7 +22,7 @@ jest.mock('api-client', () => {
       return new EndpointBuilder('cities-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
         .withResponseOverride(mockCities)
-        .withMapper(() => {})
+        .withMapper(() => undefined)
         .build()
     }
   }

@@ -24,14 +24,12 @@ import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
 jest.mock('react-i18next')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: () => ({
-      request: mockRequest
-    })
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  createFeedbackEndpoint: () => ({
+    request: mockRequest
+  })
+}))
 
 describe('FeedbackContainer', () => {
   const cityCode = 'augsburg'
@@ -46,16 +44,14 @@ describe('FeedbackContainer', () => {
     routeType: RouteType,
     isPositiveFeedback: boolean,
     isSearchFeedback: boolean
-  ): ComponentProps<typeof FeedbackContainer> => {
-    return {
-      routeType,
-      cityCode,
-      language,
-      closeModal,
-      isPositiveFeedback,
-      isSearchFeedback
-    }
-  }
+  ): ComponentProps<typeof FeedbackContainer> => ({
+    routeType,
+    cityCode,
+    language,
+    closeModal,
+    isPositiveFeedback,
+    isSearchFeedback
+  })
 
   it.each`
     route               | inputProps                             | feedbackType
@@ -84,7 +80,7 @@ describe('FeedbackContainer', () => {
     await waitFor(() => expect(button).toBeEnabled())
     expect(mockRequest).toBeCalledTimes(1)
     expect(mockRequest).toBeCalledWith({
-      feedbackType: feedbackType,
+      feedbackType,
       city: 'augsburg',
       language: 'de',
       comment: '    Kontaktadresse: Keine Angabe',

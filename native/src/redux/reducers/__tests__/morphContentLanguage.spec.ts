@@ -152,11 +152,11 @@ describe('morphContentLanguage', () => {
 
   const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
     new PoiModel({
-      path: path,
+      path,
       title: 'test',
       content: 'test',
       thumbnail: 'test',
-      availableLanguages: availableLanguages,
+      availableLanguages,
       excerpt: 'test',
       location: new LocationModel({
         id: 1,
@@ -334,7 +334,7 @@ describe('morphContentLanguage', () => {
     const previous = prepareState()
     const route = previous.routeMapping['route-0']
 
-    if (route.status !== 'ready') {
+    if (route?.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
 

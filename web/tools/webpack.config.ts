@@ -21,9 +21,9 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.64 * Math.pow(2, 20)
+const MAX_BUNDLE_SIZE = 1.64 * 2 ** 20
 // eslint-disable-next-line no-magic-numbers
-const MAX_ASSET_SIZE = 2.1 * Math.pow(2, 20)
+const MAX_ASSET_SIZE = 2.1 * 2 ** 20
 
 const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8'))
 
@@ -180,9 +180,7 @@ const createConfig = (
           {
             from: manifestPreset,
             to: distDirectory,
-            transform: (content: Buffer) => {
-              return generateManifest(content, buildConfigName)
-            }
+            transform: (content: Buffer) => generateManifest(content, buildConfigName)
           }
         ]
       }),
@@ -287,6 +285,7 @@ const createConfig = (
   }
 
   // Optimize the bundle in production mode
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!devServer && optimize) {
     config.plugins?.push(new optimize.AggressiveMergingPlugin())
   }

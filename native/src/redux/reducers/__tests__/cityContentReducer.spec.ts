@@ -128,12 +128,12 @@ describe('cityContentReducer', () => {
     fetchLanguagesFailed
   ]
 
-  for (const action of softUnsupportedActionsOnUnitializedState) {
+  softUnsupportedActionsOnUnitializedState.forEach(action => {
     // eslint-disable-next-line no-loop-func
     it(`should return null on ${action.type} if state is unitialized`, () => {
       expect(cityContentReducer(null, action)).toBeNull()
     })
-  }
+  })
 
   let prevState: CityContentStateType
   beforeEach(() => {

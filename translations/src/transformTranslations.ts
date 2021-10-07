@@ -12,13 +12,14 @@ export default (translations: TranslationsType): TransformedTranslationsType =>
   reduce<TranslationsType, TransformedTranslationsType>(
     translations,
     (transformedTranslations, namespace, namespaceName) => {
+      const newTransformedTranslations = transformedTranslations
       forEach(namespace, (language, languageTag) => {
-        transformedTranslations[languageTag] = {
-          ...transformedTranslations[languageTag],
+        newTransformedTranslations[languageTag] = {
+          ...newTransformedTranslations[languageTag],
           [namespaceName]: language as Record<string, string>
         }
       })
-      return transformedTranslations
+      return newTransformedTranslations
     },
     {}
   )

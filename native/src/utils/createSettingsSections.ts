@@ -112,10 +112,8 @@ const createSettingsSections = ({
               const client = Sentry.getCurrentHub().getClient()
               if (newSettings.errorTracking && !client) {
                 initSentry()
-              } else {
-                if (client) {
-                  client.getOptions().enabled = !!newSettings.errorTracking
-                }
+              } else if (client) {
+                client.getOptions().enabled = !!newSettings.errorTracking
               }
             }
           )
@@ -127,7 +125,7 @@ const createSettingsSections = ({
           appName: buildConfig().appName
         }),
         onPress: async () => {
-          const aboutUrls = buildConfig().aboutUrls
+          const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
           openExternalUrl(aboutUrl).catch(showSnackbar)
         }
@@ -142,7 +140,7 @@ const createSettingsSections = ({
           version: NativeConstants.appVersion
         }),
         onPress: async () => {
-          volatileValues.versionTaps++
+          volatileValues.versionTaps += 1
 
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
             volatileValues.versionTaps = 0

@@ -22,7 +22,7 @@ export default class Cache<T> {
       this.evict()
     }
 
-    const value = this.value
+    const { value } = this
 
     if (!value) {
       const newValue: T = await this.load(this.databaseConnector, context)

@@ -154,14 +154,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       code: state.cities.code,
       refreshProps
     }
-  } else if (route.status === 'error') {
+  }
+  if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
     }
-  } else if (languages.status === 'error') {
+  }
+  if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
@@ -261,9 +263,7 @@ const NewsContainer = (props: ContainerPropsType) => {
         return
       }
 
-      const isTunews = selectedNewsType === TU_NEWS_TYPE
-
-      if (hasMoreNews && isTunews) {
+      if (selectedNewsType === TU_NEWS_TYPE) {
         const fetchNews: FetchMoreNewsActionType = {
           type: 'FETCH_MORE_NEWS',
           params: {
@@ -287,6 +287,7 @@ const NewsContainer = (props: ContainerPropsType) => {
     [selectedNewsType, language, cityModel, newsId, dispatch, route]
   )
 
+  // eslint-disable-next-line react/destructuring-assignment
   if (props.status === 'ready') {
     const { news, page, hasMoreNews, isFetchingMore } = props
     return (
@@ -313,17 +314,16 @@ const NewsContainer = (props: ContainerPropsType) => {
         />
       </View>
     )
-  } else {
-    return (
-      <View
-        style={{
-          flex: 1
-        }}>
-        <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
-        <LoadingSpinner />
-      </View>
-    )
   }
+  return (
+    <View
+      style={{
+        flex: 1
+      }}>
+      <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
+      <LoadingSpinner />
+    </View>
+  )
 }
 
 export default connect(mapStateToProps)(

@@ -66,34 +66,36 @@ const TileContainer = styled(Col)`
  */
 class Tile extends React.PureComponent<PropsType> {
   getTileContent(): ReactNode {
+    const { tile } = this.props
     return (
       <>
         <ThumbnailSizer>
           <Thumbnail>
-            <img alt='' src={this.props.tile.thumbnail} />
+            <img alt='' src={tile.thumbnail} />
           </Thumbnail>
         </ThumbnailSizer>
-        <TileTitle>{this.props.tile.title}</TileTitle>
+        <TileTitle>{tile.title}</TileTitle>
       </>
     )
   }
 
   getTile(): ReactNode {
-    const tile = this.props.tile
+    const { tile } = this.props
     if (!tile.postData) {
       return <CleanLink to={tile.path}>{this.getTileContent()}</CleanLink>
-    } else {
-      const inputs: ReactNode[] = []
-      tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
-      return (
-        <form method='POST' action={tile.path}>
-          {inputs}
-          <button type='submit' role='link'>
-            {this.getTileContent()}
-          </button>
-        </form>
-      )
     }
+    const inputs: ReactNode[] = []
+    // tile.postData is not an array so key is actually a string with the name of the post data field
+    // eslint-disable-next-line react/no-array-index-key
+    tile.postData.forEach((value, key) => inputs.unshift(<input type='hidden' value={value} key={key} name={key} />))
+    return (
+      <form method='POST' action={tile.path}>
+        {inputs}
+        <button type='submit' role='link'>
+          {this.getTileContent()}
+        </button>
+      </form>
+    )
   }
 
   render(): ReactNode {

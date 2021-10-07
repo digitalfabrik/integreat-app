@@ -158,19 +158,18 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
         />
       </>
     )
-  } else {
-    return (
-      <IconTextContainer>
-        <FontAwesomeIcon icon={faSmile} size='4x' />
-        <Text>
-          {t('thanksMessage', {
-            appName: buildConfig().appName
-          })}
-        </Text>
-        {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}
-      </IconTextContainer>
-    )
   }
+  return (
+    <IconTextContainer>
+      <FontAwesomeIcon icon={faSmile} size='4x' />
+      <Text>
+        {t('thanksMessage', {
+          appName: buildConfig().appName
+        })}
+      </Text>
+      {!!closeModal && !isSearchFeedback && <TextButton onClick={closeModal} text={t('close')} />}
+    </IconTextContainer>
+  )
 }
 
 export default FeedbackContainer

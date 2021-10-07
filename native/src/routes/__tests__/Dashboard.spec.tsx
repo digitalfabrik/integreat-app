@@ -1,21 +1,28 @@
-import * as React from 'react'
-import TestRenderer from 'react-test-renderer'
-import { ThemeProvider } from 'styled-components'
-import { mocked } from 'ts-jest/utils'
+import * as React from 'react';
+import TestRenderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
+import { mocked } from 'ts-jest/utils';
 
-import { CityModel } from 'api-client'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import { CityModel } from 'api-client';
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder';
 
-import NavigationTiles from '../../components/NavigationTiles'
-import buildConfig from '../../constants/buildConfig'
-import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
-import TileModel from '../../models/TileModel'
-import Dashboard from '../Dashboard'
+
+
+import NavigationTiles from '../../components/NavigationTiles';
+import buildConfig from '../../constants/buildConfig';
+import CategoriesRouteStateView from '../../models/CategoriesRouteStateView';
+import TileModel from '../../models/TileModel';
+import Dashboard from '../Dashboard';
+
 
 jest.mock('react-i18next')
-jest.mock('../../hooks/useSnackbar')
+jest.mock('../../components/Page', () => {
+  const { Text } = require('react-native')
+
+  return () => <Text>Page</Text>
+})
 jest.mock('../../components/NavigationTiles', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>NavigationTiles</Text>
 })
