@@ -1,11 +1,12 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Animated, Image } from 'react-native'
+import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
 import { PoiFeature, POIS_ROUTE, RouteInformationType } from 'api-client'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import SimpleImage from './SimpleImage'
 
 type MapPopupProps = {
   feature: PoiFeature
@@ -32,7 +33,7 @@ const StyledAnimatedView = styled(Animated.View)<{ height: number }>`
   box-shadow: 0 0 5px #29000000;
 `
 
-const Thumbnail = styled.Image`
+const Thumbnail = styled(SimpleImage)`
   border-radius: 5px;
   width: 100px;
   height: 100px;
@@ -61,24 +62,24 @@ const MapPopup: React.FC<MapPopupProps> = ({
   height
 }: MapPopupProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  const fadeAnim = useRef<Animated.Value>(new Animated.Value(0)).current
+  const fadeAnimation = useRef<Animated.Value>(new Animated.Value(0)).current
 
   // animation for fading in the popup
   useEffect(() => {
-    Animated.timing(fadeAnim, {
+    Animated.timing(fadeAnimation, {
       toValue: 1,
       duration: 500,
       useNativeDriver: true
     }).start()
-  }, [fadeAnim])
+  }, [fadeAnimation])
 
   if (!feature.properties.path) {
     return null
   }
-  const thumbnail = feature.properties.thumbnail ?? Image.resolveAssetSource(EventPlaceholder1).uri
+  const thumbnail = feature.properties.thumbnail ?? EventPlaceholder1
 
   return (
-    <StyledAnimatedView style={{ opacity: fadeAnim }} height={height}>
+    <StyledAnimatedView style={{ opacity: fadeAnimation }} height={height}>
       <Popup
         onPress={() =>
           navigateTo({
@@ -89,7 +90,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
           })
         }
         activeOpacity={1}>
-        <Thumbnail source={{ uri: thumbnail }} />
+        <Thumbnail source={thumbnail} />
         <InformationContainer>
           <Title>{feature.properties.title}</Title>
           {feature.properties.distance && (

@@ -1,10 +1,7 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
-import { useHeaderHeight } from '@react-navigation/stack'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useMemo, useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { FAB } from 'react-native-elements'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -17,20 +14,21 @@ import {
   RouteInformationType
 } from 'api-client'
 
+import dimensions from '../constants/dimensions'
 import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
+  flex: 1;
   flex-direction: row;
   justify-content: center;
 `
-const StyledMap = styled(MapboxGL.MapView)<{ calcHeight: number }>`
+const StyledMap = styled(MapboxGL.MapView)`
   width: 100%;
-  height: ${props => props.calcHeight}px;
 `
 
 const StyledFAB = styled(FAB)<{ position: number | string }>`
   align-items: flex-end;
-  bottom: ${props => props.position}${props => typeof props.position === 'number' && 'px'};
+  bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
 `
 
 type MapViewPropsType = {
@@ -67,13 +65,9 @@ const MapView = ({
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
-  const { height } = useWindowDimensions()
-  const headerHeight = useHeaderHeight()
 
-  // calculates the map height regarding to navigation and bottom sheet
-  const mapHeight = useMemo(() => height - headerHeight - getStatusBarHeight(), [headerHeight, height])
+  // gonna be removed when popup will be removed
   const popUpHeight = 150
-  const fabMargin = 8
 
   const layerProps: SymbolLayerProps = {
     id: featureLayerId,
@@ -150,8 +144,7 @@ const MapView = ({
         onPress={onPress}
         ref={mapRef}
         attributionEnabled={false}
-        logoEnabled={false}
-        calcHeight={mapHeight}>
+        logoEnabled={false}>
         <MapboxGL.UserLocation visible={locationPermissionGranted} />
         <MapboxGL.ShapeSource id='location-pois' shape={featureCollection}>
           <MapboxGL.SymbolLayer {...layerProps} />
@@ -179,7 +172,7 @@ const MapView = ({
         buttonStyle={{ borderRadius: 50 }}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
-        position={selectedFeature ? popUpHeight + fabMargin : fabPosition}
+        position={selectedFeature ? popUpHeight + dimensions.locationFab.margin : fabPosition}
       />
     </MapContainer>
   )

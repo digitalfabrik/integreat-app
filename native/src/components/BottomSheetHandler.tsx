@@ -7,7 +7,7 @@ const SheetHeader = styled.View`
   flex-direction: row;
   margin-bottom: 20px;
 `
-const HeaderText = styled.Text`
+const Title = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 18px;
@@ -22,17 +22,15 @@ const Indicator = styled.View`
 `
 
 type BottomSheetHandlerProps = {
-  headerText?: string
+  title?: string
 }
 
-const BottomSheetHandler: React.FC<BottomSheetHandlerProps> = ({
-  headerText
-}: BottomSheetHandlerProps): ReactElement => (
+const BottomSheetHandler: React.FC<BottomSheetHandlerProps> = ({ title }: BottomSheetHandlerProps): ReactElement => (
   <View>
     <Indicator />
-    {headerText && (
+    {title && (
       <SheetHeader>
-        <HeaderText>{headerText}</HeaderText>
+        <Title>{title}</Title>
       </SheetHeader>
     )}
   </View>

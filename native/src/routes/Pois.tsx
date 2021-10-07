@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
-import React, { ReactElement, ReactNode, useEffect, useState, useMemo } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Linking, ScrollView, View } from 'react-native'
+import { Button, Linking, ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -87,12 +87,12 @@ const Pois = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
-  const [sheetIndex, setSheetIndex] = useState<number>(0)
+  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(0)
   const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
   const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   // set points to snap for bottom sheet
-  const snapPoints = useMemo(() => [dimensions.bottomSheetHandler.height, '25%', '95%'], [])
+  const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '95%']
 
   useEffect(() => {
     if (!path) {
@@ -160,10 +160,6 @@ const Pois = ({
     })
   }
 
-  const onChangeBottomSheet = (index: number) => {
-    setSheetIndex(index)
-  }
-
   const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
 
   if (path) {
@@ -215,45 +211,40 @@ const Pois = ({
   }
 
   return (
-    <ScrollView>
-      <View>
-        {cityModel.boundingBox && (
-          <MapView
-            boundingBox={cityModel.boundingBox}
-            featureCollection={embedInCollection(featureLocations)}
-            selectedFeature={selectedFeature}
-            setSelectedFeature={setSelectedFeature}
-            navigateTo={navigateTo}
-            language={language}
-            cityCode={cityModel.code}
-            locationPermissionGranted={location !== null}
-            onRequestLocationPermission={requestAndDetermineLocation}
-            fabPosition={sheetIndex < snapPoints.length - 1 ? snapPoints[sheetIndex]! : 0}
-          />
-        )}
-        <BottomActionsSheet
-          headerText={t('sheetHeaderText')}
-          onChange={onChangeBottomSheet}
-          visible={!selectedFeature}
-          snapPoints={snapPoints}
-          content={
-            <>
-              <List
-                CustomStyledList={CustomSheetList}
-                noItemsMessage={t('currentlyNoPois')}
-                items={featureLocations}
-                renderItem={renderPoiListItem(cityModel.code, language)}
-                theme={theme}
-              />
-              <SiteHelpfulBox
-                customBackground={theme.colors.backgroundColor}
-                navigateToFeedback={navigateToFeedbackForPois}
-                theme={theme}
-              />
-            </>
-          }
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
+      {cityModel.boundingBox && (
+        <MapView
+          boundingBox={cityModel.boundingBox}
+          featureCollection={embedInCollection(featureLocations)}
+          selectedFeature={selectedFeature}
+          setSelectedFeature={setSelectedFeature}
+          navigateTo={navigateTo}
+          language={language}
+          cityCode={cityModel.code}
+          locationPermissionGranted={location !== null}
+          onRequestLocationPermission={requestAndDetermineLocation}
+          fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
         />
-      </View>
+      )}
+      <BottomActionsSheet
+        title={t('sheetHeaderText')}
+        onChange={setSheetSnapPointIndex}
+        visible={!selectedFeature}
+        initialIndex={1}
+        snapPoints={snapPoints}>
+        <List
+          CustomStyledList={CustomSheetList}
+          noItemsMessage={t('currentlyNoPois')}
+          items={featureLocations}
+          renderItem={renderPoiListItem(cityModel.code, language)}
+          theme={theme}
+        />
+        <SiteHelpfulBox
+          backgroundColor={theme.colors.backgroundColor}
+          navigateToFeedback={navigateToFeedbackForPois}
+          theme={theme}
+        />
+      </BottomActionsSheet>
     </ScrollView>
   )
 }

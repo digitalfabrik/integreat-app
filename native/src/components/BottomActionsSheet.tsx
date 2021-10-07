@@ -1,26 +1,26 @@
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import React, { ReactElement, ReactNode, useCallback, useRef } from 'react'
+import React, { ReactElement, ReactNode, useCallback } from 'react'
 
 import BottomSheetHandler from './BottomSheetHandler'
 
 type BottomActionsSheetProps = {
-  content: ReactNode
+  children: ReactNode
   snapPoints: (string | number)[]
-  headerText?: string
+  title?: string
   visible?: boolean
   onChange?: (index: number) => void
+  initialIndex: number
 }
 
 const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
-  content,
-  headerText,
+  children,
+  title,
   visible = true,
   onChange,
-  snapPoints
+  snapPoints,
+  initialIndex = 0
 }: BottomActionsSheetProps): ReactElement | null => {
-  const bottomSheetRef = useRef<BottomSheet>(null)
-
-  const renderHandle = useCallback(props => <BottomSheetHandler headerText={headerText} {...props} />, [headerText])
+  const renderHandle = useCallback(props => <BottomSheetHandler title={title} {...props} />, [title])
 
   if (!visible) {
     return null
@@ -28,13 +28,12 @@ const BottomActionsSheet: React.FC<BottomActionsSheetProps> = ({
 
   return (
     <BottomSheet
-      ref={bottomSheetRef}
-      index={1}
+      index={initialIndex}
       snapPoints={snapPoints}
       animateOnMount
       handleComponent={renderHandle}
       onChange={onChange}>
-      <BottomSheetScrollView>{content}</BottomSheetScrollView>
+      <BottomSheetScrollView>{children}</BottomSheetScrollView>
     </BottomSheet>
   )
 }
