@@ -21,16 +21,13 @@ const Thumbnail = styled(SimpleImage)`
   border-radius: 5px;
 `
 
-const ListItemView = styled.View<{ language: string }>`
-  flex: 1;
-  flex-direction: ${props => contentDirection(props.language)};
-  padding: 24px 0;
-`
-const StyledTouchableOpacity = styled.TouchableOpacity`
+const StyledTouchableOpacity = styled.TouchableOpacity<{ language: string }>`
   flex: 1;
   flex-direction: column;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+  flex-direction: ${props => contentDirection(props.language)};
+  padding: 24px 0;
 `
 
 const Description = styled.View`
@@ -60,18 +57,16 @@ export const PoiListItem: React.FC<PoiListItemProps> = memo(
     const { t } = useTranslation('pois')
     const thumbnail = poi.properties.thumbnail ?? EventPlaceholder1
     return (
-      <StyledTouchableOpacity onPress={navigateToPoi} theme={theme} activeOpacity={1}>
-        <ListItemView language={language} theme={theme}>
-          <Thumbnail source={thumbnail} />
-          <Description theme={theme}>
-            <Title theme={theme}>{poi.properties.title}</Title>
-            {poi.properties.distance && (
-              <Distance theme={theme}>
-                {poi.properties.distance} {t('unit')} {t('distanceText')}
-              </Distance>
-            )}
-          </Description>
-        </ListItemView>
+      <StyledTouchableOpacity onPress={navigateToPoi} theme={theme} activeOpacity={1} language={language}>
+        <Thumbnail source={thumbnail} />
+        <Description theme={theme}>
+          <Title theme={theme}>{poi.properties.title}</Title>
+          {poi.properties.distance && (
+            <Distance theme={theme}>
+              {poi.properties.distance} {t('unit')} {t('distanceText')}
+            </Distance>
+          )}
+        </Description>
       </StyledTouchableOpacity>
     )
   }

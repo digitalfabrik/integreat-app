@@ -13,6 +13,9 @@ export type DimensionsType = {
   bottomSheetHandler: {
     height: number
   }
+  locationFab: {
+    margin: number
+  }
 }
 const dimensions: DimensionsType = {
   headerHeight: 60,
@@ -25,6 +28,9 @@ const dimensions: DimensionsType = {
   headerTextSize: 20,
   bottomSheetHandler: {
     height: 40
+  },
+  locationFab: {
+    margin: 8
   }
 }
 export default dimensions
