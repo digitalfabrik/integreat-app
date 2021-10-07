@@ -9,7 +9,6 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useNavigateToLink from '../hooks/useNavigateToLink'
 import createNavigate from '../navigation/createNavigate'
 import { NewsModelsType, StateType } from '../redux/StateType'
 import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
@@ -227,7 +226,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
-  const navigateToLink = useNavigateToLink(dispatch, navigation)
 
   const fetchNews = useCallback(
     (newsType: NewsType) => {
@@ -310,7 +308,6 @@ const NewsContainer = (props: ContainerPropsType) => {
           cityModel={cityModel}
           language={language}
           navigateTo={createNavigate(dispatch, navigation)}
-          navigateToLink={navigateToLink}
         />
       </View>
     )

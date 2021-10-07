@@ -8,7 +8,6 @@ import { ThemeType } from 'build-configs'
 
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
-import useSnackbar from '../hooks/useSnackbar'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
@@ -54,15 +53,14 @@ const Page = ({
 }: PropsType): ReactElement => {
   const [loading, setLoading] = useState<boolean>(true)
   const navigateToLink = useNavigateToLink()
-  const showSnackbar = useSnackbar()
   const formatter = useContext(DateFormatterContext)
   const cacheDict = cacheDictionary(files, resourceCacheUrl)
   const onLinkPress = useCallback(
     (url: string) => {
       const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
-      navigateToLink(url, language, shareUrl || url).catch(showSnackbar)
+      navigateToLink(url, language, shareUrl || url)
     },
-    [cacheDict, language, navigateToLink, showSnackbar]
+    [cacheDict, language, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
   return (

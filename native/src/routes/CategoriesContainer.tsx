@@ -212,15 +212,13 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
   )
 }
 
-const CategoriesContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
-  return (
-    <Categories
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateTo={createNavigate(dispatch, navigation)}
-    />
-  )
-}
+const CategoriesContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
+  <Categories
+    {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    navigateTo={createNavigate(dispatch, navigation)}
+  />
+)
 
 export default connect(
   mapStateToProps,

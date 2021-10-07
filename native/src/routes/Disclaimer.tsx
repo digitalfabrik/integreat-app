@@ -6,7 +6,6 @@ import { ThemeType } from 'build-configs'
 import Page from '../components/Page'
 
 type PropsType = {
-  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   disclaimer: PageModel
   language: string
   theme: ThemeType

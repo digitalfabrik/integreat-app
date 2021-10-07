@@ -199,15 +199,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const EventsContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
-  return (
-    <Events
-      {...rest}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    />
-  )
-}
+const EventsContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
+  <Events
+    {...rest}
+    navigateTo={createNavigate(dispatch, navigation)}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+  />
+)
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps

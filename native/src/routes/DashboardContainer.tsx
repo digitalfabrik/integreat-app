@@ -6,7 +6,6 @@ import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, Error
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useNavigateToLink from '../hooks/useNavigateToLink'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -204,19 +203,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, ...rest } = props
-  const navigateToLink = useNavigateToLink(dispatch, navigation)
-
-  return (
-    <Dashboard
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLink}
-      navigateTo={createNavigate(dispatch, navigation)}
-    />
-  )
-}
+const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
+  <Dashboard
+    {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    navigateTo={createNavigate(dispatch, navigation)}
+  />
+)
 
 export default connect(
   mapStateToProps,
