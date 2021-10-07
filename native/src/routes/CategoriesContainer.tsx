@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -10,7 +10,6 @@ import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvide
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 
@@ -211,20 +210,11 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
 }
 
 const CategoriesContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
-  const navigateToLinkProp = useCallback(
-    async (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
-
   return (
     <Categories
       {...rest}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
       navigateTo={createNavigate(dispatch, navigation)}
-      navigateToLink={navigateToLinkProp}
     />
   )
 }

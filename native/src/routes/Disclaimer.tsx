@@ -6,7 +6,7 @@ import { ThemeType } from 'build-configs'
 import Page from '../components/Page'
 
 type PropsType = {
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   disclaimer: PageModel
   language: string
   theme: ThemeType
@@ -15,14 +15,13 @@ type PropsType = {
 
 class Disclaimer extends React.Component<PropsType> {
   render(): ReactNode {
-    const { disclaimer, theme, language, resourceCacheUrl, navigateToLink } = this.props
+    const { disclaimer, theme, language, resourceCacheUrl } = this.props
     const { title, content, lastUpdate } = disclaimer
     return (
       <Page
         title={title}
         content={content}
         theme={theme}
-        navigateToLink={navigateToLink}
         files={{}}
         language={language}
         resourceCacheUrl={resourceCacheUrl}

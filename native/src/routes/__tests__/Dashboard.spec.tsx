@@ -13,6 +13,7 @@ import TileModel from '../../models/TileModel'
 import Dashboard from '../Dashboard'
 
 jest.mock('react-i18next')
+jest.mock('../../hooks/useSnackbar')
 jest.mock('../../components/NavigationTiles', () => {
   const Text = require('react-native').Text
 

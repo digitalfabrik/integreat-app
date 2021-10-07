@@ -37,7 +37,6 @@ export type PropsType = {
   resourceCacheUrl: string
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   route: RoutePropType<PoisRouteType>
 }
 
@@ -55,7 +54,6 @@ const Pois = ({
   resourceCacheUrl,
   navigateTo,
   navigateToFeedback,
-  navigateToLink,
   route
 }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
@@ -127,7 +125,6 @@ const Pois = ({
           files={files}
           theme={theme}
           resourceCacheUrl={resourceCacheUrl}
-          navigateToLink={navigateToLink}
           navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
           <>
             {location && (

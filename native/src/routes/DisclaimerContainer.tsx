@@ -18,10 +18,9 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 import useReportError from '../hooks/useReportError'
-import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import { determineApiUrl } from '../utils/helpers'
@@ -49,6 +48,8 @@ type DisclaimerPropsType = OwnPropsType & {
 
 const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispatch }: DisclaimerPropsType) => {
   const { cityCode, languageCode } = route.params
+  const navigateToLink = useNavigateToLink(dispatch, navigation)
+
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
     return await createDisclaimerEndpoint(apiUrl).request({
@@ -58,11 +59,6 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
   }, [cityCode, languageCode])
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
   useReportError(error)
-
-  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -89,7 +85,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
           resourceCacheUrl={resourceCacheUrl}
           disclaimer={disclaimer}
           theme={theme}
-          navigateToLink={navigateToLinkProp}
+          navigateToLink={navigateToLink}
           language={languageCode}
         />
       )}

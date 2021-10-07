@@ -5,7 +5,6 @@ import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModel
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
-import buildConfig from '../../constants/buildConfig'
 import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
 import Categories from '../Categories'
 import Page from '../Page'
@@ -48,11 +47,9 @@ describe('Categories', () => {
         navigateTo={() => {}}
         navigateToFeedback={() => {}}
         resourceCacheUrl='http://localhost:8080'
-        navigateToLink={() => {}}
         resourceCache={{
           notAvailable: {}
         }}
-        theme={buildConfig().lightTheme}
       />
     )
     const pageInstance = result.root.findByType(Page)

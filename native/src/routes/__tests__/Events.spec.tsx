@@ -6,7 +6,6 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
 import Page from '../../components/Page'
-import buildConfig from '../../constants/buildConfig'
 import Events from '../Events'
 
 jest.mock('../../components/Page', () => {
@@ -35,10 +34,7 @@ describe('Events', () => {
         resourceCache={{
           notAvailable: {}
         }}
-        theme={buildConfig().lightTheme}
-        t={(key: string) => key}
         navigateTo={() => {}}
-        navigateToLink={() => {}}
         navigateToFeedback={() => {}}
       />
     )

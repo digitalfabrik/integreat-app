@@ -37,7 +37,7 @@ export type PropsType = {
   isFetchingMore: boolean
   fetchMoreNews: () => void
   navigateTo: (arg0: RouteInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   routeKey: string
 }
 

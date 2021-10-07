@@ -24,7 +24,6 @@ export type PropsType = {
   stateView: CategoriesRouteStateView
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => Promise<void>
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
 }
@@ -39,7 +38,6 @@ const Categories = ({
   navigateTo,
   navigateToFeedback,
   stateView,
-  navigateToLink,
   resourceCache,
   resourceCacheUrl
 }: PropsType): ReactElement => {
@@ -174,7 +172,6 @@ const Categories = ({
         files={files}
         language={language}
         navigateToFeedback={navigateToFeedbackForCategory}
-        navigateToLink={navigateToLink}
         resourceCacheUrl={resourceCacheUrl}
       />
     )
@@ -203,7 +200,6 @@ const Categories = ({
               subCategories: getListModels(children)
             }
           })}
-          navigateToLink={navigateToLink}
           thumbnail={getCachedThumbnail(category) || category.thumbnail}
           title={category.title}
           listContent={getListContentModel(category)}
