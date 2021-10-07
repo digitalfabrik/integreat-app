@@ -90,6 +90,7 @@ const Selector = ({
       if (item.href) {
         return (
           <Element
+            data-testid={item.code}
             key={item.code}
             as={Link}
             to={item.href}
