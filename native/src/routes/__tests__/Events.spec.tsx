@@ -9,20 +9,20 @@ import Page from '../../components/Page'
 import Events from '../Events'
 
 jest.mock('../../components/Page', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Page</Text>
 })
 jest.mock('../../components/PageDetail', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>PageDetail</Text>
 })
 describe('Events', () => {
-  const [cityModel] = new CityModelBuilder(1).build()
-  const [language] = new LanguageModelBuilder(1).build()
+  const cityModel = new CityModelBuilder(1).build()[0]!
+  const language = new LanguageModelBuilder(1).build()[0]!
   const events = new EventModelBuilder('Events-component', 1, cityModel.code, language.code).build()
-  const event = events[0]
+  const event = events[0]!
   it('should pass an empty object to Page if the resource cache doesnt contain an appropriate entry', () => {
     const result = TestRenderer.create(
       <Events
@@ -34,8 +34,8 @@ describe('Events', () => {
         resourceCache={{
           notAvailable: {}
         }}
-        navigateTo={() => {}}
-        navigateToFeedback={() => {}}
+        navigateTo={() => undefined}
+        navigateToFeedback={() => undefined}
       />
     )
     const pageInstance = result.root.findByType(Page)

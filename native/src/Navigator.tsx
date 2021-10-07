@@ -171,7 +171,8 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
-  } else if (waitingForSettings) {
+  }
+  if (waitingForSettings) {
     return null
   }
 

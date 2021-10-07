@@ -32,7 +32,8 @@ const TileContainer = styled.View`
  */
 class Tile extends React.Component<PropsType> {
   onTilePress = (): void => {
-    this.props.onTilePress(this.props.tile)
+    const { onTilePress, tile } = this.props
+    onTilePress(tile)
   }
 
   render(): ReactNode {

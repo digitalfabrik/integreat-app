@@ -34,11 +34,9 @@ type StatePropsType = {
   resourceCacheUrl: string | null | undefined
 }
 
-const mapStateToProps = (state: StateType): StatePropsType => {
-  return {
-    resourceCacheUrl: state.resourceCacheUrl
-  }
-}
+const mapStateToProps = (state: StateType): StatePropsType => ({
+  resourceCacheUrl: state.resourceCacheUrl
+})
 
 type DisclaimerPropsType = OwnPropsType & {
   theme: ThemeType
@@ -52,7 +50,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
 
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
-    return await createDisclaimerEndpoint(apiUrl).request({
+    return createDisclaimerEndpoint(apiUrl).request({
       city: cityCode,
       language: languageCode
     })

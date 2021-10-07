@@ -47,7 +47,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   )
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
-    return await createOffersEndpoint(apiUrl).request({
+    return createOffersEndpoint(apiUrl).request({
       city: cityCode,
       language: languageCode
     })
@@ -73,14 +73,12 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
         })
       } else if (isExternalUrl) {
         openExternalUrl(path).catch(showSnackbar)
-      } else {
-        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
-          const params = {
-            cityCode,
-            languageCode
-          }
-          navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+      } else if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+        const params = {
+          cityCode,
+          languageCode
         }
+        navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
       }
     },
     [showSnackbar, offers, cityCode, languageCode, navigation]

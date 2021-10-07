@@ -25,7 +25,7 @@ const localStorageAvailable = () => {
 const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
 const languageDetector: LanguageDetectorModule = {
   type: 'languageDetector',
-  init: () => {},
+  init: () => undefined,
   // Returns array of ISO-639-2 or ISO-639-3 language codes
   detect: () => {
     const bcp47Tags: string[] = []
@@ -43,8 +43,8 @@ const languageDetector: LanguageDetectorModule = {
     if (typeof navigator !== 'undefined') {
       if (navigator.languages) {
         // chrome only; not an array, so can't use .push.apply instead of iterating
-        for (let i = 0; i < navigator.languages.length; i++) {
-          bcp47Tags.push(navigator.languages[i])
+        for (let i = 0; i < navigator.languages.length; i += 1) {
+          bcp47Tags.push(navigator.languages[i]!)
         }
       }
 

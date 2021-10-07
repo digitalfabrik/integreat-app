@@ -10,7 +10,7 @@ describe('RemoteContent', () => {
     const content = 'Test html'
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
       </ThemeProvider>
     )
     expect(getByText(content)).toBeTruthy()
@@ -60,7 +60,7 @@ describe('RemoteContent', () => {
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
     const { getByText } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => {}} />
+        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
       </ThemeProvider>
     )
 

@@ -45,7 +45,6 @@ const Circle = styled(View)`
   border-radius: ${ICON_SIZE}px;
   height: ${ICON_SIZE}px;
   width: ${ICON_SIZE}px;
-  background-color: ${props => props.theme.colors.backgroundColor};
   align-items: center;
   justify-content: center;
 `
@@ -62,7 +61,10 @@ type PropsType = {
 }
 
 class SiteHelpfulBox extends React.Component<PropsType> {
-  navigateToFeedback = (positive: boolean) => () => this.props.navigateToFeedback(positive)
+  navigateToFeedback = (positive: boolean) => () => {
+    const { navigateToFeedback } = this.props
+    navigateToFeedback(positive)
+  }
 
   render(): ReactNode {
     const { theme, t } = this.props

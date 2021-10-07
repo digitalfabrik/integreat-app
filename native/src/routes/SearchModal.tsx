@@ -145,6 +145,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
 
   onClose = (): void => {
     const { query } = this.state
+    const { closeModal } = this.props
     sendTrackingSignal({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
@@ -152,7 +153,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         url: null
       }
     })
-    this.props.closeModal(query)
+    closeModal(query)
   }
 
   onSearchChanged = (query: string): void => {
@@ -181,7 +182,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
              See NATIVE-430 for reference. */}
         <View
           style={{
-            minHeight: minHeight
+            minHeight
           }}>
           <CategoryList
             categories={filteredCategories}

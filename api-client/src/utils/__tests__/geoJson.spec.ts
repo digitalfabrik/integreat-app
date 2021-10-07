@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Feature, FeatureCollection, Point } from 'geojson'
-
+import { PoiFeature, PoiFeatureCollection } from '../../maps'
 import LocationModel from '../../models/LocationModel'
 import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {
-  const expectedGeoJsonMarkerFeature: Feature<Point> = {
+  const path = '/augsburg/de/locations/erster_poi'
+  const thumbnail = 'thumbnail'
+  const expectedGeoJsonMarkerFeature: PoiFeature = {
     type: 'Feature',
     geometry: {
       type: 'Point',
@@ -14,11 +15,13 @@ describe('geoJson', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9'
+      symbol: '9',
+      thumbnail,
+      path
     }
   }
   describe('embedInCollection', () => {
-    const expectedGeoJsonFeatureCollection: FeatureCollection<Point> = {
+    const expectedGeoJsonFeatureCollection: PoiFeatureCollection = {
       features: [expectedGeoJsonMarkerFeature],
       type: 'FeatureCollection'
     }
@@ -35,7 +38,7 @@ describe('geoJson', () => {
         longitude: '31.133859',
         country: 'DE'
       })
-      expect(embedInCollection([location.convertToPoint()!])).toEqual(expectedGeoJsonFeatureCollection)
+      expect(embedInCollection([location.convertToPoint(path, thumbnail)!])).toEqual(expectedGeoJsonFeatureCollection)
     })
   })
 })

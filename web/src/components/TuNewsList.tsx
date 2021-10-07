@@ -16,7 +16,6 @@ const StyledList = styled.div`
   position: relative;
   margin-bottom: 40px;
   padding-top: 1px;
-  background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 50%, rgba(168, 168, 168, 0.2));
 `
 
 type PropsType = {
@@ -32,7 +31,8 @@ type PropsType = {
 
 class TuNewsList extends React.PureComponent<PropsType> {
   loadItems = (page: number): void => {
-    this.props.fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
+    const { fetchMoreTunews } = this.props
+    fetchMoreTunews(page + 1, TUNEWS_PAGE_COUNT)
   }
 
   render(): ReactNode {

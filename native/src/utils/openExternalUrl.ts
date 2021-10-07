@@ -8,7 +8,7 @@ import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
 
 const openExternalUrl = async (url: string): Promise<void> => {
-  const protocol = new URL(url).protocol
+  const { protocol } = new URL(url)
 
   try {
     // Custom tabs are not available in all browsers and support only http and https
