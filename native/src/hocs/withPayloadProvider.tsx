@@ -77,7 +77,6 @@ const withPayloadProvider = <
   T extends RoutesType
 >(
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
-  onRouteClose?: (routeKey: string, dispatch: Dispatch<StoreActionType>) => void,
   noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => (
   Component: React.ComponentType<S>
@@ -90,14 +89,6 @@ const withPayloadProvider = <
       }, LOADING_TIMEOUT)
       return () => clearTimeout(timer)
     }, [])
-    useEffect(
-      () => () => {
-        if (onRouteClose) {
-          onRouteClose(props.route.key, props.dispatch)
-        }
-      },
-      [props.route.key, props.dispatch]
-    )
 
     const refreshIfPossible = () => {
       if (
