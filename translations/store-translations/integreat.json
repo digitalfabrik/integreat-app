@@ -1,0 +1,40 @@
+{
+  "common": {
+    "de": {
+      "name": "Integreat" ,
+      "description": "In Integreat finden Sie lokale Informationen, Veranstaltungen und Beratungsstellen. Wir helfen Ihnen den Überblick zu behalten. Die Informationen werden von Behörden und Organisationen selbst erstellt und laufend aktualisiert.\nKOSTENLOSE HILFE\nIntegreat können Sie kostenlos und ohne Werbung nutzen. Entwickelt wurde es von der gemeinnützigen Organisation \"Tür an Tür\" in Zusammenarbeit mit vielen Städten, Behörden und weiteren gemeinwohlorientierten Organisationen.\nVIELE FUNKTIONEN\nIntegreat ist Ihr digitaler Guide für Ihre Stadt und bietet einzigartige Funktionen:\n- Sie finden lokale Informationen, Veranstaltungen und weitere Angebote in einer App\n- Die lokalen Informationen werden von Ihrer Stadt selbst erstellt und aktualisiert\n- Über die Suchfunktion können Sie Informationen noch schneller finden\n- Im Bereich „Angebote“ finden Sie Arbeitsplätze und Ausbildungsplätze in Ihrer Nähe\n- Integreat zeigt Ihnen interessante Veranstaltungen in Ihrer Stadt an\n- Integreat hat eine integrierte Karte, auf der Sie wichtige Orte und Beratungsstellen leicht finden können\n- Über Push-Nachrichten benachrichtigt Sie Ihre Stadt über wichtige Neuigkeiten\n- Sie können die Informationen und Veranstaltungen mit Ihren Bekannten teilen\n- Helfen Sie mit Integreat zu verbessern, indem Sie Feedback zur App und den lokalen Informationen geben\nKEIN DATENSAMMELN\nIntegreat sammelt keine Daten über Sie und Ihre Nutzung. Es wird nur gezählt, wie oft die lokalen Inhalte in einer Sprache geöffnet wurden, ohne dass wir Daten über Sie sammeln oder speichern.\nIntegreat benötigt von Ihnen wenige Berechtigungen, damit Sie Integreat bestmöglich nutzen können:\nSpeicher: Die lokalen Informationen über Ihre Stadt werden auf Ihrem Gerät gespeichert, damit Sie auch ohne Internetverbindung darauf zugreifen können\nStandort: Für die Nutzung der Karte in Integreat und die Auswahl der passenden Stadt hilft es, wenn Sie Ihren aktuellen Standort sehen können. Es werden keine Standortdaten ausgewertet.\nWLAN: Integreat lädt speicherintensive Inhalte nur herunter, wenn eine WLAN-Verbindung existiert. Dafür müssen wir prüfen können, ob eine WLAN-Verbindung existiert."
+    },
+    "en": {
+      "name": "Integreat",
+      "description": "In Integreat you will find local information, events and counseling centers. We help you keep track of everything. The information is created and continuously updated by authorities and organizations themselves.\nFREE HELP\nYou can use Integreat free of charge and without advertising. It was developed by the non-profit organization \" Tür an Tür\" in cooperation with many cities, authorities and other community-oriented organizations.\nLOTS OF FUNCTIONS\nIntegreat is your digital guide to your new city/town and offers a range of unique functions:\n- You will find local information, events and other offers all in one app\n- The local information comes directly from the city or town itself, and is frequently updated\n- Find information even more quickly by using the search function\n- The “Offers” area lists job and internship vacancies near you\n- Integreat shows you interesting events in your town or city\n- Integreat features a map that you can use to find important locations and advice centres easily- Push notifications give you important updates about your city or town\n- Share information and events with your friends\n- Help us improve Integreat by giving us feedback on the app and local information\nWE DON’T COLLECT YOUR DATA\nIntegreat does not collect any data about you or your use of the app. All it does is count how often local content is opened in a given language, but we do not collect or store any data about you.\nIntegreat requires a few permissions from you in order for you to be able to use the app to its full potential:\nStorage: Local information about your city/town will be stored on your device so that you can access it even without an Internet connection\nLocation: When using the Integreat map and selecting the right city/town, it is helpful for you to be able to see your current location. The app does not analyse any location data.\nWLAN (wireless Internet): Integreat only downloads memory-intensive content when it is connected to the Internet through WLAN. In order to do this, we need to be able to check whether there is a WLAN connection."
+    }
+  },
+  "apple": {
+    "de": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen",
+      "promotional_text": "",
+      "subtitle": ""
+    },
+    "en": {
+      "keywords": "Germany,Help,Learn German,Rules,German course,News,Counselling,Integration,Information,Find a Job",
+      "promotional_text": "",
+      "subtitle": ""
+    }
+  },
+  "google": {
+    "de": {
+      "short_description": "Integreat hilft Ihnen, sich schnell in Ihrer neuen Stadt zurechtzufinden."
+    },
+    "en": {
+      "short_description": "Integreat will help you settle in to your new city or town."
+    }
+  },
+  "screenshots": {
+    "de": {
+      "placeholder_key": "Placeholder text"
+    },
+    "en": {
+      "placeholder_key": "Placeholder text"
+    }
+  }
+}
