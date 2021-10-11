@@ -113,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(path: string, thumbnail: string): PoiFeature | null {
+  convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
@@ -130,7 +130,8 @@ class LocationModel {
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
         symbol: '9',
         thumbnail,
-        path
+        path,
+        urlSlug
       }
     }
   }

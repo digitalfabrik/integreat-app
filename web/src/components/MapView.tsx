@@ -4,7 +4,7 @@ import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } fro
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { detailZoom, mapConfig, mapQueryId, MapViewViewport, PoiFeature, PoiFeatureCollection } from 'api-client'
+import { detailZoom, mapConfig, locationName, MapViewViewport, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 import MapPopup from './MapPopup'
 
@@ -45,11 +45,11 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const [showPopup, togglePopup] = useState<boolean>(false)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
-  const queryId = Number(new URLSearchParams(useLocation().search).get(mapQueryId))
+  const queryLocation = new URLSearchParams(useLocation().search).get(locationName)
 
   useEffect(() => {
-    if (queryId) {
-      const currentFeature = featureCollection.features.find(feature => feature.properties.id === queryId)
+    if (queryLocation) {
+      const currentFeature = featureCollection.features.find(feature => feature.properties.urlSlug === queryLocation)
       if (currentFeature?.geometry.coordinates) {
         const { geometry } = currentFeature
         setViewport(prevState => ({
@@ -62,7 +62,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         togglePopup(true)
       }
     }
-  }, [featureCollection, queryId])
+  }, [featureCollection, queryLocation])
 
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
