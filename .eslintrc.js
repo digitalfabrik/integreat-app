@@ -24,7 +24,8 @@ module.exports = {
     '**/stylelint.config.js',
     '**/dist/',
     '**/lib-dist/',
-    '.eslintrc.js'
+    '.eslintrc.js',
+    '**/babel.config.js'
   ],
   rules: {
     // Overly strict rules (for now)
