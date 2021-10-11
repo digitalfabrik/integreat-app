@@ -5716,7 +5716,7 @@
       "unit": "km",
       "distanceText": "entfernt",
       "navigation": "Navigation",
-      "sheetHeaderText": "Entdecke deine Stadt"
+      "sheetTitle": "Entdecke deine Stadt"
     }
   }
 }

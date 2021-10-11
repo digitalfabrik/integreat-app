@@ -87,7 +87,7 @@ const Pois = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
-  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(0)
+  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
   const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
@@ -227,10 +227,10 @@ const Pois = ({
         />
       )}
       <BottomActionsSheet
-        title={t('sheetHeaderText')}
+        title={t('sheetTitle')}
         onChange={setSheetSnapPointIndex}
         visible={!selectedFeature}
-        initialIndex={1}
+        initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
         <List
           CustomStyledList={CustomSheetList}
