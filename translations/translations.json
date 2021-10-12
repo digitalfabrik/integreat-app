@@ -5715,7 +5715,8 @@
       "map": "Karte",
       "unit": "km",
       "distanceText": "entfernt",
-      "navigation": "Navigation"
+      "navigation": "Navigation",
+      "sheetTitle": "Entdecke deine Stadt"
     }
   }
 }
