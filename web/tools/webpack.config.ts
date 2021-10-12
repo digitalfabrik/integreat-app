@@ -139,13 +139,13 @@ const createConfig = (
     },
     devtool: 'source-map',
     devServer: {
-      static: { directory: distDirectory},
+      static: { directory: distDirectory },
       compress: true,
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
       http2: false,
-      historyApiFallback: true,
+      historyApiFallback: true
     },
     // What information should be printed to the console
     stats: 'minimal',
