@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react-native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text, useWindowDimensions } from 'react-native'
 import WebView, { WebViewMessageEvent } from 'react-native-webview'
@@ -48,15 +49,19 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   // messages are triggered in renderHtml.ts
   const onMessage = useCallback((event: WebViewMessageEvent) => {
     const message = JSON.parse(event.nativeEvent.data)
+    if (message.type === 'height' && typeof message.height === 'number') {
+      setWebViewHeight(message.height)
+      return
+    }
+
+    const error = new Error(message)
+    Sentry.captureException(error)
+
     if (message.type === 'error') {
       console.error(message.message)
-      setError(`An error occurred in the webview:\n${message.message}`)
+      setError(message.message)
     } else if (message.type === 'warn') {
-      console.warn(`Warning in the webview:\n${message.message}`)
-    } else if (message.type === 'height' && typeof message.height === 'number') {
-      setWebViewHeight(message.height)
-    } else {
-      throw Error('Got an unknown message from the webview.')
+      console.warn(message.message)
     }
   }, [])
 
