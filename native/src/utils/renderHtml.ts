@@ -6,22 +6,22 @@ import { getFontFaceSource } from '../constants/webview'
 
 // language=JavaScript
 const renderJS = (cacheDictionary: Record<string, string>) => `
-  // Catching occurring errors
-  (function() {
-    function reportError (message) {
-      if (!window.ReactNativeWebView) {
-        return window.setTimeout(function() { reportError(message) }, 100)
-      }
-
-      window.ReactNativeWebView.postMessage(JSON.stringify({ type: "error", message: message }))
+  function reportError (message, type) {
+    if (!window.ReactNativeWebView) {
+      return window.setTimeout(function() { reportError(message, type) }, 100)
     }
 
+    window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
+  }
+  
+  // Catching occurring errors
+  (function() {
     window.onerror = function(msg, url, lineNo, columnNo, error) {
       // from https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror
       var string = msg.toLowerCase()
       var substring = "script error"
       if (string.indexOf(substring) > -1) {
-        reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error))
+        reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error), 'error')
       } else {
         var message = [
           'Message: ' + msg,
@@ -30,7 +30,7 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
           'Column: ' + columnNo,
           'Error object: ' + JSON.stringify(error)
         ].join(' - ')
-        reportError(message)
+        reportError(message, 'error')
       }
       return false
     };
@@ -64,7 +64,7 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
           item.src = newResource
         }
       } catch (e) {
-        window.onerror(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary')
+        reportError(e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary', 'warn')
       }
     }
   })();
