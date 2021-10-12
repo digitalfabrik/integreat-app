@@ -18,14 +18,30 @@ const appleMetadataPath = (appName: string, languageCode: string) =>
 const googleMetadataPath = (appName: string, languageCode: string) =>
   `../native/android/fastlane/${appName}/metadata/${languageCode}`
 
+// Empty array means no translation in the store
 const appleLanguageMap: Record<string, string[]> = {
+  am: [],
+  ar: ['ar-SA'],
+  bg: [],
+  de: ['de-DE'],
   en: ['en-US', 'en-GB'],
-  de: ['de-DE']
+  es: ['es-ES'],
+  fa: [],
+  fr: ['fr-FR']
 }
 
 const googleLanguageMap: Record<string, string[]> = {
+  de: ['de-DE'],
+  el: ['el-GR'],
   en: ['en-US', 'en-GB'],
-  de: ['de-DE']
+  es: ['es-ES'],
+  pes: ['fa'],
+  fr: ['fr-FR'],
+  hu: ['hu-HU'],
+  it: ['it-IT'],
+  pl: ['pl-PL'],
+  ru: ['ru-RU'],
+  tr: ['tr-TR']
 }
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
