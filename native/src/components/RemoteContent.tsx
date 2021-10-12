@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react-native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text, useWindowDimensions } from 'react-native'
 import WebView, { WebViewMessageEvent } from 'react-native-webview'
@@ -8,6 +7,7 @@ import { ErrorCode } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import { userAgent } from '../constants/endpoint'
+import { reportError } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import Failure from './Failure'
 import { ParsedCacheDictionaryType } from './Page'
@@ -55,7 +55,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
     }
 
     const error = new Error(message)
-    Sentry.captureException(error)
+    reportError(error)
 
     if (message.type === 'error') {
       console.error(message.message)
