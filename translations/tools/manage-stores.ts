@@ -25,7 +25,7 @@ const appleLanguageMap: Record<string, string[]> = {
   ar: ['ar-SA'],
   bg: [],
   de: ['de-DE'],
-  en: ['en-US', 'en-GB'],
+  en: ['en-US'],
   es: ['es-ES'],
   pes: [],
   fr: ['fr-FR']
