@@ -57,7 +57,7 @@ steps:
                 exit 1
             fi
 
-            STATUS=$(curl -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
                 --data \
                 "{
                   \"channel\": \"<< parameters.channel >>\",
