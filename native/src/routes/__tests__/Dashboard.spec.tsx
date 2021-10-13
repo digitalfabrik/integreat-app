@@ -1,19 +1,16 @@
-import * as React from 'react';
-import TestRenderer from 'react-test-renderer';
-import { ThemeProvider } from 'styled-components';
-import { mocked } from 'ts-jest/utils';
+import * as React from 'react'
+import TestRenderer from 'react-test-renderer'
+import { ThemeProvider } from 'styled-components'
+import { mocked } from 'ts-jest/utils'
 
-import { CityModel } from 'api-client';
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder';
+import { CityModel } from 'api-client'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
-
-
-import NavigationTiles from '../../components/NavigationTiles';
-import buildConfig from '../../constants/buildConfig';
-import CategoriesRouteStateView from '../../models/CategoriesRouteStateView';
-import TileModel from '../../models/TileModel';
-import Dashboard from '../Dashboard';
-
+import NavigationTiles from '../../components/NavigationTiles'
+import buildConfig from '../../constants/buildConfig'
+import CategoriesRouteStateView from '../../models/CategoriesRouteStateView'
+import TileModel from '../../models/TileModel'
+import Dashboard from '../Dashboard'
 
 jest.mock('react-i18next')
 jest.mock('../../components/Page', () => {
@@ -32,7 +29,6 @@ describe('Dashboard', () => {
   const categoryLeaf = categoriesMapModel.toArray().find(category => categoriesMapModel.isLeaf(category))
   const language = 'de'
   const navigateTo = jest.fn()
-  const navigateToLink = jest.fn()
   const navigateToFeedback = jest.fn()
   const theme = buildConfig().lightTheme
 
@@ -87,7 +83,6 @@ describe('Dashboard', () => {
     TestRenderer.create(
       <ThemeProvider theme={theme}>
         <Dashboard
-          navigateToLink={navigateToLink}
           navigateToFeedback={navigateToFeedback}
           navigateTo={navigateTo}
           language={language}
