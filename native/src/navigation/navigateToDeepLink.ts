@@ -6,6 +6,7 @@ import {
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
+  NotFoundError,
   OPEN_DEEP_LINK_SIGNAL_NAME
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
@@ -81,7 +82,8 @@ const navigateToDeepLink = async <T extends RoutesType>(
     }
 
     if (!routeInformation) {
-      showSnackbar(dispatch, 'This is not a supported route. Skipping.')
+      const error = new NotFoundError({ type: 'route', id: url, city: selectedCityCode || '', language })
+      showSnackbar(dispatch, error.message)
       return
     }
 
