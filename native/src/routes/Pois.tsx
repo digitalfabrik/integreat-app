@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Linking, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -23,14 +23,13 @@ import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import MapView from '../components/MapView'
 import Page from '../components/Page'
-import PageDetail from '../components/PageDetail'
+import PoiDetails from '../components/PoiDetails'
 import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
 export type PropsType = {
   path: string | null | undefined
@@ -44,11 +43,6 @@ export type PropsType = {
   navigateToLink: (url: string, language: string, shareUrl: string) => void
   route: RoutePropType<PoisRouteType>
 }
-
-const Spacer = styled.View`
-  width: 20px;
-  height: 20px;
-`
 
 const CustomSheetList = styled.View`
   margin: 0 32px;
@@ -92,7 +86,7 @@ const Pois = ({
   const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   // set points to snap for bottom sheet
-  const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '95%']
+  const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '40%', '95%']
 
   useEffect(() => {
     if (!path) {
@@ -162,15 +156,10 @@ const Pois = ({
 
   if (path) {
     const poi = sortedPois.find(_poi => _poi.path === path)
+    const feature = featureLocations.find(_feature => _feature.properties.path === path)
 
-    if (poi) {
-      const { location } = poi.location
+    if (poi && feature) {
       const files = resourceCache[poi.path] || {}
-
-      let navigationUrl: string | undefined | null = null
-      if (location && poi.featureLocation?.geometry.coordinates) {
-        navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      }
 
       return (
         <Page
@@ -183,18 +172,13 @@ const Pois = ({
           resourceCacheUrl={resourceCacheUrl}
           navigateToLink={navigateToLink}
           navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
-          <>
-            {location && (
-              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
-            )}
-            {navigationUrl && (
-              <>
-                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, poi.urlSlug)} />
-                <Spacer />
-                <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
-              </>
-            )}
-          </>
+          <PoiDetails
+            language={language}
+            poi={poi}
+            feature={feature}
+            detailView
+            navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+          />
         </Page>
       )
     }
@@ -208,6 +192,8 @@ const Pois = ({
     return <Failure code={fromError(error)} />
   }
 
+  const poi = sortedPois.find(_poi => _poi.path === selectedFeature?.properties.path)
+
   return (
     <ScrollView contentContainerStyle={{ flex: 1 }}>
       {cityModel.boundingBox && (
@@ -216,27 +202,36 @@ const Pois = ({
           featureCollection={embedInCollection(featureLocations)}
           selectedFeature={selectedFeature}
           setSelectedFeature={setSelectedFeature}
-          navigateTo={navigateTo}
-          language={language}
-          cityCode={cityModel.code}
+          setSheetSnapPointIndex={setSheetSnapPointIndex}
           locationPermissionGranted={location !== null}
           onRequestLocationPermission={requestAndDetermineLocation}
           fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
         />
       )}
       <BottomActionsSheet
-        title={t('sheetTitle')}
+        title={selectedFeature ? selectedFeature.properties.title : t('sheetTitle')}
         onChange={setSheetSnapPointIndex}
-        visible={!selectedFeature}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
-        <List
-          CustomStyledList={CustomSheetList}
-          noItemsMessage={t('currentlyNoPois')}
-          items={featureLocations}
-          renderItem={renderPoiListItem(cityModel.code, language)}
-          theme={theme}
-        />
+        {!selectedFeature ? (
+          <List
+            CustomStyledList={CustomSheetList}
+            noItemsMessage={t('currentlyNoPois')}
+            items={featureLocations}
+            renderItem={renderPoiListItem(cityModel.code, language)}
+            theme={theme}
+          />
+        ) : (
+          poi && (
+            <PoiDetails
+              language={language}
+              poi={poi}
+              feature={selectedFeature}
+              detailView={false}
+              navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+            />
+          )
+        )}
         <SiteHelpfulBox
           backgroundColor={theme.colors.backgroundColor}
           navigateToFeedback={navigateToFeedbackForPois}
