@@ -5,17 +5,9 @@ import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import {
-  defaultViewportConfig,
-  detailZoom,
-  mapConfig,
-  PoiFeature,
-  PoiFeatureCollection,
-  RouteInformationType
-} from 'api-client'
+import { defaultViewportConfig, detailZoom, mapConfig, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 import dimensions from '../constants/dimensions'
-import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
   flex: 1;
@@ -36,12 +28,10 @@ type MapViewPropsType = {
   featureCollection: PoiFeatureCollection
   selectedFeature: PoiFeature | null
   setSelectedFeature: (feature: PoiFeature | null) => void
-  navigateTo: (routeInformation: RouteInformationType) => void
-  language: string
-  cityCode: string
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
+  setSheetSnapPointIndex: (index: number) => void
 }
 
 const textOffsetY = 1.25
@@ -54,12 +44,10 @@ const MapView = ({
   featureCollection,
   selectedFeature,
   setSelectedFeature,
-  navigateTo,
-  language,
-  cityCode,
   fabPosition,
   onRequestLocationPermission,
-  locationPermissionGranted
+  locationPermissionGranted,
+  setSheetSnapPointIndex
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
@@ -127,6 +115,7 @@ const MapView = ({
           geometry: { coordinates }
         } = feature
         setSelectedFeature(feature)
+        setSheetSnapPointIndex(2)
 
         cameraRef.current.flyTo(coordinates)
       } else {
@@ -157,15 +146,6 @@ const MapView = ({
           ref={cameraRef}
         />
       </StyledMap>
-      {selectedFeature && (
-        <MapPopup
-          feature={selectedFeature}
-          navigateTo={navigateTo}
-          language={language}
-          cityCode={cityCode}
-          height={popUpHeight}
-        />
-      )}
       <StyledFAB
         placement='right'
         onPress={onRequestLocation}
