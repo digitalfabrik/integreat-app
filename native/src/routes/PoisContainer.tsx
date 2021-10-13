@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { memo, ReactElement } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -6,6 +7,7 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLink from '../navigation/navigateToLink'
@@ -35,15 +37,6 @@ type RefreshPropsType = NavigationPropsType & {
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {
   dispatch: Dispatch<StoreActionType>
-}
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
 }
 
 const createChangeUnavailableLanguage = (city: string) => (
@@ -190,35 +183,23 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-class PoisContainer extends React.Component<ContainerPropsType> {
-  // Workaround to fix rerender cycle with null path in Poi Detail page
-  // TODO IGAPP-758
-  shouldComponentUpdate(nextProps: ContainerPropsType) {
-    const { path } = this.props
-    if (path === nextProps.path) {
-      return false
-    }
-    return true
-  }
+const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType): ReactElement => {
+  useClearRouteOnClose(route, dispatch)
 
-  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const { dispatch, navigation } = this.props
+  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
-  render() {
-    const { dispatch, navigation, route, ...rest } = this.props
-    return (
-      <Pois
-        {...rest}
-        route={route}
-        navigateTo={createNavigate(dispatch, navigation)}
-        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-        navigateToLink={this.navigateToLinkProp}
-      />
-    )
-  }
+  return (
+    <Pois
+      {...rest}
+      route={route}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateToLink={navigateToLinkProp}
+    />
+  )
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
@@ -236,8 +217,15 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
+// Workaround to fix rerender cycle with null path in Poi Detail page
+// TODO IGAPP-758
+const PurePoisContainer = memo(
+  PoisContainer,
+  (prevProps: ContainerPropsType, nextProps: ContainerPropsType) => prevProps.path !== nextProps.path
+)
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose, true)(PoisContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true)(PurePoisContainer))

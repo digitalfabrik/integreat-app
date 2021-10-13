@@ -20,6 +20,7 @@ exports[`Selector should be vertical and match snapshot 1`] = `
         "render": [Function],
       }
     }
+    data-testid="en"
     key="en"
     onClick={[Function]}
     to="/augsburg/en/"
@@ -45,6 +46,7 @@ exports[`Selector should be vertical and match snapshot 1`] = `
         "render": [Function],
       }
     }
+    data-testid="de"
     key="de"
     onClick={[Function]}
     to="/augsburg/de/"
@@ -90,6 +92,7 @@ exports[`Selector should match snapshot 1`] = `
         "render": [Function],
       }
     }
+    data-testid="en"
     key="en"
     onClick={[Function]}
     to="/augsburg/en/"
@@ -115,6 +118,7 @@ exports[`Selector should match snapshot 1`] = `
         "render": [Function],
       }
     }
+    data-testid="de"
     key="de"
     onClick={[Function]}
     to="/augsburg/de/"
