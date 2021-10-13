@@ -97,18 +97,16 @@ const Pois = ({
   useEffect(() => {
     if (!path) {
       const featureLocations = prepareFeatureLocations(pois, location)
-      const selectedPoiId = Number(route.params.selectedPoiId)
-      if (selectedPoiId) {
-        const currentFeature = featureLocations.find(
-          feature => feature.properties.id === Number(route.params.selectedPoiId)
-        )
+      const urlSlug = route.params.urlSlug
+      if (urlSlug) {
+        const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
         setSelectedFeature(currentFeature ?? null)
       }
       if (location) {
         setFeatureLocations(featureLocations)
       }
     }
-  }, [path, pois, route.params.selectedPoiId, location])
+  }, [path, pois, route.params.urlSlug, location])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -119,12 +117,12 @@ const Pois = ({
     })
   }
 
-  const navigateToPois = (cityCode: string, language: string, selectedPoiId: string) => (): void => {
+  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      selectedPoiId
+      urlSlug
     })
   }
 
@@ -191,7 +189,7 @@ const Pois = ({
             )}
             {navigationUrl && (
               <>
-                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, String(poi.location.id))} />
+                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, poi.urlSlug)} />
                 <Spacer />
                 <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
               </>

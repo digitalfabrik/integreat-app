@@ -20,6 +20,7 @@ export type GeoJsonPoiProperties = {
   id: number
   title: string
   path: string
+  urlSlug: string
   symbol: string
   distance?: string
   thumbnail?: string
@@ -43,4 +44,4 @@ export const defaultViewportConfig: MapViewViewport = {
 }
 
 export const detailZoom = 15
-export const mapQueryId = 'id'
+export const locationName = 'name'
