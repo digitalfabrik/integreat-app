@@ -1,11 +1,12 @@
-import React, { ReactNode } from 'react'
-import styled from 'styled-components/native'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
-import { TFunction } from 'react-i18next'
-import FailureIcon from '../assets/FailureIcon.svg'
 import { Button } from 'react-native-elements'
+import styled, { useTheme } from 'styled-components/native'
+
 import { ErrorCode } from 'api-client'
-import { ThemeType } from 'build-configs'
+
+import FailureIcon from '../assets/FailureIcon.svg'
 
 const ViewContainer = styled.View`
   flex: 1;
@@ -19,34 +20,31 @@ const IconContainer = styled.Image`
 export type PropsType = {
   code: ErrorCode
   tryAgain?: () => void
-  t: TFunction
-  theme: ThemeType
 }
 
-class Failure extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { t, code, tryAgain, theme } = this.props
-    return (
-      <ViewContainer>
-        <IconContainer source={FailureIcon} />
-        <Text>{t(code)}</Text>
-        {tryAgain && (
-          <Button
-            testID='button-tryAgain'
-            titleStyle={{
-              color: theme.colors.textColor
-            }}
-            buttonStyle={{
-              backgroundColor: theme.colors.themeColor,
-              marginTop: 20
-            }}
-            onPress={tryAgain}
-            title={t('tryAgain')}
-          />
-        )}
-      </ViewContainer>
-    )
-  }
+const Failure = ({ code, tryAgain }: PropsType): ReactElement => {
+  const { t } = useTranslation('error')
+  const theme = useTheme()
+  return (
+    <ViewContainer>
+      <IconContainer source={FailureIcon} />
+      <Text>{t(code)}</Text>
+      {tryAgain && (
+        <Button
+          testID='button-tryAgain'
+          titleStyle={{
+            color: theme.colors.textColor
+          }}
+          buttonStyle={{
+            backgroundColor: theme.colors.themeColor,
+            marginTop: 20
+          }}
+          onPress={tryAgain}
+          title={t('tryAgain')}
+        />
+      )}
+    </ViewContainer>
+  )
 }
 
 export default Failure

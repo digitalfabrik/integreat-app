@@ -1,4 +1,5 @@
 import { CityModel } from 'api-client'
+
 const NUMBER_OF_CLOSEST_CITIES = 3
 const MAXIMAL_DISTANCE = 90
 
@@ -50,11 +51,10 @@ const compareDistance = (cityModelA: CityModel, cityModelB: CityModel, longitude
   return d0 - d1
 }
 
-const getNearbyPlaces = (cities: Array<CityModel>, longitude: number, latitude: number): Array<CityModel> => {
-  return cities
+const getNearbyPlaces = (cities: Array<CityModel>, longitude: number, latitude: number): Array<CityModel> =>
+  cities
     .sort((a: CityModel, b: CityModel) => compareDistance(a, b, longitude, latitude))
     .slice(0, NUMBER_OF_CLOSEST_CITIES)
     .filter(_city => currentDistance(_city, longitude, latitude) < MAXIMAL_DISTANCE)
-}
 
 export default getNearbyPlaces

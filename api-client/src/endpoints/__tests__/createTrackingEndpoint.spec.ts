@@ -1,7 +1,8 @@
-import createTrackingEndpoint, { JPAL_TRACKING_ENDPOINT_URL } from '../createTrackingEndpoint'
-import { OPEN_PAGE_SIGNAL_NAME } from '../../tracking'
-import { DASHBOARD_ROUTE } from '../../routes'
 import { FetchMock } from 'jest-fetch-mock'
+
+import { DASHBOARD_ROUTE } from '../../routes'
+import { OPEN_PAGE_SIGNAL_NAME } from '../../tracking'
+import createTrackingEndpoint, { JPAL_TRACKING_ENDPOINT_URL } from '../createTrackingEndpoint'
 
 describe('createTrackingEndpoint', () => {
   beforeEach(() => {

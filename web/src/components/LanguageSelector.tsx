@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
-import SelectorItemModel from '../models/SelectorItemModel'
-import Selector from '../components/Selector'
 import { useTranslation } from 'react-i18next'
+
+import Selector from '../components/Selector'
+import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
 type PropsType = {
@@ -34,14 +35,12 @@ const LanguageSelector = (props: PropsType): ReactElement => {
   }
 
   return (
-    selectorItems && (
-      <Selector
-        verticalLayout
-        items={selectorItems}
-        activeItemCode={activeItemCode}
-        disabledItemTooltip={t('noTranslation')}
-      />
-    )
+    <Selector
+      verticalLayout
+      items={selectorItems}
+      activeItemCode={activeItemCode}
+      disabledItemTooltip={t('noTranslation')}
+    />
   )
 }
 

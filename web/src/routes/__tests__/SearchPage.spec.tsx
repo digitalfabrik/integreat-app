@@ -1,4 +1,9 @@
 import { fireEvent } from '@testing-library/react'
+import moment from 'moment'
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+
 import {
   CategoriesMapModel,
   CategoriesMapModelBuilder,
@@ -7,35 +12,32 @@ import {
   LanguageModelBuilder,
   SEARCH_ROUTE
 } from 'api-client'
-import moment from 'moment'
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
+import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
-import { createPath, RoutePatterns } from '../index'
 import SearchPage from '../SearchPage'
-import { mockUseLoadFromEndpointWitData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { createPath, RoutePatterns } from '../index'
 
 jest.mock('react-i18next')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
-  const cityModel = cities[0]
+  const cityModel = cities[0]!
   const languages = new LanguageModelBuilder(2).build()
-  const languageModel = languages[0]
+  const languageModel = languages[0]!
 
   const categoriesMap = new CategoriesMapModelBuilder('augsburg', 'en').build()
   const categoryModels = categoriesMap.toArray()
+  const category0 = categoryModels[0]!
+  const category1 = categoryModels[1]!
 
   it('should filter correctly', () => {
-    mockUseLoadFromEndpointWitData(categoriesMap)
+    mockUseLoadFromEndpointWithData(categoriesMap)
 
     const { getByText, queryByText, getByPlaceholderText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -56,8 +58,8 @@ describe('SearchPage', () => {
     )
 
     // the root category should not be returned
-    expect(queryByText(categoryModels[0].title)).toBeFalsy()
-    expect(getByText(categoryModels[1].title)).toBeTruthy()
+    expect(queryByText(category0.title)).toBeFalsy()
+    expect(getByText(category1.title)).toBeTruthy()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -65,22 +67,22 @@ describe('SearchPage', () => {
       }
     })
 
-    expect(queryByText(categoryModels[0].title)).toBeFalsy()
-    expect(queryByText(categoryModels[1].title)).toBeFalsy()
+    expect(queryByText(category0.title)).toBeFalsy()
+    expect(queryByText(category1.title)).toBeFalsy()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
-        value: categoryModels[1].title
+        value: category1.title
       }
     })
 
-    expect(queryByText(categoryModels[0].title)).toBeFalsy()
-    expect(getByText(categoryModels[1].title)).toBeTruthy()
+    expect(queryByText(category0.title)).toBeFalsy()
+    expect(getByText(category1.title)).toBeTruthy()
   })
 
   it('should sort correctly', () => {
-    const buildCategoryModel = (title: string, content: string) => {
-      return new CategoryModel({
+    const buildCategoryModel = (title: string, content: string) =>
+      new CategoryModel({
         root: false,
         path: `/${title}`,
         title: `${title}-category`,
@@ -92,7 +94,6 @@ describe('SearchPage', () => {
         hash: title,
         lastUpdate: moment('2017-11-18T19:30:00.000Z')
       })
-    }
     const categoryModels = [
       // should be 1st because 'abc' is in the title and it is lexicographically smaller than category 2
       buildCategoryModel('abc', ''),
@@ -104,7 +105,7 @@ describe('SearchPage', () => {
       buildCategoryModel('ghi', 'abc')
     ]
     const categoriesMap = new CategoriesMapModel(categoryModels)
-    mockUseLoadFromEndpointWitData(categoriesMap)
+    mockUseLoadFromEndpointWithData(categoriesMap)
 
     const { getByPlaceholderText, getAllByLabelText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -132,14 +133,14 @@ describe('SearchPage', () => {
 
     const searchResults = getAllByLabelText('category', { exact: false })
 
-    expect(searchResults[0].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[0].title)
-    expect(searchResults[1].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[1].title)
-    expect(searchResults[2].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[2].title)
-    expect(searchResults[3].attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3].title)
+    expect(searchResults[0]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[0]!.title)
+    expect(searchResults[1]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[1]!.title)
+    expect(searchResults[2]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[2]!.title)
+    expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3]!.title)
   })
 
   describe('url query', () => {
-    mockUseLoadFromEndpointWitData(categoriesMap)
+    mockUseLoadFromEndpointWithData(categoriesMap)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
       const path = createPath(SEARCH_ROUTE, { cityCode: cityModel.code, languageCode: languageModel.code })

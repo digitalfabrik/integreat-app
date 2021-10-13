@@ -1,6 +1,8 @@
+import moment from 'moment'
+
 import CategoriesMapModel from '../CategoriesMapModel'
 import CategoryModel from '../CategoryModel'
-import moment from 'moment'
+
 describe('CategoriesMapModel', () => {
   const farsiCategory = new CategoryModel({
     root: false,
@@ -95,6 +97,7 @@ describe('CategoriesMapModel', () => {
   it('should return all (mediate) parents in right order', () => {
     expect(categoriesMapModel.getAncestors(category4)[0]).toEqual(category1)
     expect(categoriesMapModel.getAncestors(category4)[1]).toEqual(category3)
+    expect(categoriesMapModel.getAncestors(category4)).toHaveLength(2)
   })
   it('should return all immediate children in the right order', () => {
     expect(categoriesMapModel.getChildren(category1)[0]).toEqual(category2)

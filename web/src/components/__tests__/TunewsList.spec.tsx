@@ -1,9 +1,11 @@
-import React from 'react'
-import { DateFormatter, TU_NEWS_TYPE, TunewsModel } from 'api-client'
-import moment from 'moment'
 import { shallow } from 'enzyme'
-import TuNewsList from '../TuNewsList'
+import moment from 'moment'
+import React from 'react'
+
+import { DateFormatter, TU_NEWS_TYPE, TunewsModel } from 'api-client'
+
 import NewsListItem from '../NewsListItem'
+import TuNewsList from '../TuNewsList'
 
 describe('TuNewsList', () => {
   const language = 'en'
@@ -58,7 +60,7 @@ describe('TuNewsList', () => {
         items={tunews}
         renderItem={renderItem(language)}
         city={city}
-        fetchMoreTunews={() => {}}
+        fetchMoreTunews={() => undefined}
         hasMore
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}
@@ -78,7 +80,7 @@ describe('TuNewsList', () => {
         items={[]}
         renderItem={renderItem(language)}
         city={city}
-        fetchMoreTunews={() => {}}
+        fetchMoreTunews={() => undefined}
         hasMore={false}
         isFetching={false}
         noItemsMessage={t('currentlyNoTunews')}

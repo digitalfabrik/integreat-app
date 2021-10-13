@@ -1,12 +1,17 @@
-import buildConfig from '../constants/buildConfig'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
-import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
-import openExternalUrl from '../utils/openExternalUrl'
 import Url from 'url-parse'
-import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
-import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
+
 import { OPEN_INTERNAL_LINK_SIGNAL_NAME, OPEN_MEDIA_SIGNAL_NAME } from 'api-client'
+import { IMAGE_VIEW_MODAL_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'api-client/src/routes'
+import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
+import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
+
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
+import openExternalUrl from '../utils/openExternalUrl'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
+
+const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
+
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
 const navigateToLink = <T extends RoutesType>(
@@ -27,7 +32,7 @@ const navigateToLink = <T extends RoutesType>(
       url,
       shareUrl
     })
-  } else if (url.includes('.png') || url.includes('.jpg')) {
+  } else if (SUPPORTED_IMAGE_FILE_TYPES.some(it => url.includes(it))) {
     sendTrackingSignal({
       signal: {
         name: OPEN_MEDIA_SIGNAL_NAME,
@@ -45,7 +50,7 @@ const navigateToLink = <T extends RoutesType>(
         url
       }
     })
-    const pathname = new Url(url).pathname
+    const { pathname } = new Url(url)
     const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
     navigateTo(routeParser.route())
   } else {

@@ -1,9 +1,9 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
+
 import {
-  CityModel,
   createLocalNewsEndpoint,
-  LanguageModel,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
   normalizePath,
@@ -11,25 +11,21 @@ import {
   replaceLinks,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { useTranslation } from 'react-i18next'
-import NewsListItem from '../components/NewsListItem'
-import { createPath, LOCAL_NEWS_ROUTE } from './index'
-import NewsTabs from '../components/NewsTabs'
-import LocalNewsList from '../components/LocalNewsList'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Page from '../components/Page'
-import Helmet from '../components/Helmet'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId?: string }>
+import { CityRouteProps } from '../CityContentSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
+import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocalNewsList from '../components/LocalNewsList'
+import LocationLayout from '../components/LocationLayout'
+import NewsListItem from '../components/NewsListItem'
+import NewsTabs from '../components/NewsTabs'
+import Page from '../components/Page'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import { createPath, LOCAL_NEWS_ROUTE, RouteProps } from './index'
+
+type PropsType = CityRouteProps & RouteProps<typeof LOCAL_NEWS_ROUTE>
 
 const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
   const { cityCode, languageCode, newsId } = match.params
@@ -39,9 +35,10 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
   const { t } = useTranslation('news')
   const viewportSmall = false
 
-  const requestLocalNews = useCallback(async () => {
-    return createLocalNewsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestLocalNews = useCallback(
+    async () => createLocalNewsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: localNews, loading, error: newsError } = useLoadFromEndpoint(requestLocalNews)
 
   const newsModel = newsId && localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId)

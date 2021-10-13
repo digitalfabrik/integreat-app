@@ -1,7 +1,8 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 import styled from 'styled-components'
+
+import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import dimensions from '..//constants/dimensions'
 import Tooltip from './Tooltip'
 
 export const Container = styled.div`
@@ -88,12 +89,13 @@ const HeaderActionItemDropDown = (props: PropsType): ReactElement => {
 
   return (
     <Container ref={wrapperRef}>
-      <Tooltip text={text} flow={'down'} mediumViewportFlow={'left'}>
-        <button aria-label={text} onClick={toggleDropDown}>
+      <Tooltip text={text} flow='down' mediumViewportFlow='left'>
+        <button type='button' aria-label={text} onClick={toggleDropDown}>
           <img alt='' src={iconSrc} />
         </button>
       </Tooltip>
       <DropDownContainer
+        data-testid='headerActionItemDropDown'
         active={dropDownActive}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>

@@ -1,32 +1,33 @@
 import path from 'path'
+
 type MockFilesType = Record<string, string>
 const mockFiles: MockFilesType = {}
 
-function deleteAllMockFiles() {
-  for (const path in mockFiles) {
+const deleteAllMockFiles = () => {
+  Object.keys(mockFiles).forEach(path => {
     delete mockFiles[path]
-  }
+  })
 }
 
-function writeMockFile(file: string, content: string, _unusedEncoding: string): Promise<void> {
+const writeMockFile = (file: string, content: string, _unusedEncoding: string): Promise<void> => {
   const filePath = path.normalize(file)
   mockFiles[filePath] = content
   return Promise.resolve()
 }
 
-function readMockFile(file: string, _unusedEncoding: string): Promise<string> {
+const readMockFile = (file: string, _unusedEncoding: string): Promise<string> => {
   const filePath = path.normalize(file)
-  return Promise.resolve(mockFiles[filePath])
+  return Promise.resolve(mockFiles[filePath]!)
 }
 
-function existsMock(file: string): Promise<boolean> {
+const existsMock = (file: string): Promise<boolean> => {
   const filePath = path.normalize(file)
   const exists = filePath in mockFiles
   const isParentOfExisting = Object.keys(mockFiles).some(filePath => filePath.startsWith(file))
   return Promise.resolve(exists || isParentOfExisting)
 }
 
-function lsMock(path: string): Promise<Array<string>> {
+const lsMock = (path: string): Promise<Array<string>> => {
   const filesInPath = Object.keys(mockFiles).filter(filePath => filePath.startsWith(path))
   return Promise.resolve(filesInPath)
 }
@@ -36,7 +37,7 @@ function lsMock(path: string): Promise<Array<string>> {
  * @param file
  * @return {Promise<void>}
  */
-function unlink(file: string): Promise<void> {
+const unlink = (file: string): Promise<void> => {
   const filePath = path.normalize(file)
   Object.keys(mockFiles).forEach(path => {
     const slicedPath = path.slice(0, filePath.length)
@@ -50,10 +51,10 @@ function unlink(file: string): Promise<void> {
 }
 
 export default {
-  DocumentDir: (): void => {},
+  DocumentDir: (): void => undefined,
   ImageCache: {
     get: {
-      clear: (): void => {}
+      clear: (): void => undefined
     }
   },
   fs: {

@@ -1,7 +1,7 @@
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ChangeEvent, ReactNode } from 'react'
 import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 
 const searchLogoWidth = '25px'
 
@@ -51,15 +51,16 @@ type PropsType = {
 export class SearchInput extends React.PureComponent<PropsType> {
   static defaultProps = { spaceSearch: false }
   handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { onFilterTextChange } = this.props
     if (typeof event.target.value === 'string') {
-      this.props.onFilterTextChange(event.target.value)
+      onFilterTextChange(event.target.value)
     }
   }
 
   render(): ReactNode {
-    const { onClickInput, filterText, placeholderText } = this.props
+    const { onClickInput, filterText, placeholderText, spaceSearch } = this.props
     return (
-      <Spacer space={this.props.spaceSearch}>
+      <Spacer space={spaceSearch}>
         <Wrapper>
           <SearchIcon />
           <TextInput

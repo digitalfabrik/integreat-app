@@ -1,24 +1,25 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+
 import {
-  CityModel,
   createTunewsElementEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   TU_NEWS_TYPE,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { TU_NEWS_DETAIL_ROUTE } from './index'
-import { tunewsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Page from '../components/Page'
-import styled from 'styled-components'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
+import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import Page from '../components/Page'
+import { tunewsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import { RouteProps, TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -53,12 +54,7 @@ const StyledTitle = styled.div`
   font-weight: 700;
 `
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; newsId: string }>
+type PropsType = CityRouteProps & RouteProps<typeof TU_NEWS_DETAIL_ROUTE>
 
 const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
   const { cityCode, languageCode, newsId } = match.params
@@ -67,9 +63,10 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
   const formatter = useContext(DateFormatterContext)
   const viewportSmall = false
 
-  const requestTuNews = useCallback(async () => {
-    return createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId) })
-  }, [newsId])
+  const requestTuNews = useCallback(
+    async () => createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId, 10) }),
+    [newsId]
+  )
   const { data: newsModel, loading, error: newsError } = useLoadFromEndpoint(requestTuNews)
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages

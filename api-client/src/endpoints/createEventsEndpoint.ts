@@ -1,14 +1,16 @@
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonEventType } from '../types'
-import EventModel from '../models/EventModel'
-import normalizePath from '../normalizePath'
 import { decodeHTML } from 'entities'
-import mapAvailableLanguages from '../mapAvailableLanguages'
 import moment from 'moment-timezone'
-import DateModel from '../models/DateModel'
-import LocationModel from '../models/LocationModel'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import mapAvailableLanguages from '../mapAvailableLanguages'
+import DateModel from '../models/DateModel'
+import EventModel from '../models/EventModel'
 import FeaturedImageModel from '../models/FeaturedImageModel'
+import LocationModel from '../models/LocationModel'
+import normalizePath from '../normalizePath'
+import { JsonEventType } from '../types'
+
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
   city: string
@@ -35,9 +37,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               date: new DateModel({
                 startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
                 endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
-                allDay: allDay
+                allDay
               }),
               location: new LocationModel({
+                id: event.location.id,
                 name: event.location.name,
                 address: event.location.address,
                 town: event.location.town,
@@ -55,10 +58,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               featuredImage: event.featured_image
                 ? new FeaturedImageModel({
                     description: event.featured_image.description,
-                    thumbnail: event.featured_image.thumbnail[0],
-                    medium: event.featured_image.medium[0],
-                    large: event.featured_image.large[0],
-                    full: event.featured_image.full[0]
+                    thumbnail: event.featured_image.thumbnail[0]!,
+                    medium: event.featured_image.medium[0]!,
+                    large: event.featured_image.large[0]!,
+                    full: event.featured_image.full[0]!
                   })
                 : null
             })

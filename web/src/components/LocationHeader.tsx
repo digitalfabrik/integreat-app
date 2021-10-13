@@ -1,10 +1,6 @@
 import React, { ReactNode, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import LanguageSelector from './LanguageSelector'
-import searchIcon from '../assets/magnifier.svg'
-import landingIcon from '../assets/location-icon.svg'
-import Header from './Header'
-import HeaderNavigationItem from '../components/HeaderNavigationItem'
+
 import {
   CATEGORIES_ROUTE,
   CityModel,
@@ -15,14 +11,20 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
-import offersIcon from '../assets/offers.svg'
-import localInformationIcon from '../assets/local_information.svg'
+
 import eventsIcon from '../assets/events.svg'
+import localInformationIcon from '../assets/local_information.svg'
+import landingIcon from '../assets/location-icon.svg'
+import searchIcon from '../assets/magnifier.svg'
 import newsIcon from '../assets/news.svg'
+import offersIcon from '../assets/offers.svg'
 import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
+import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import buildConfig from '../constants/buildConfig'
 import { createPath, LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
+import Header from './Header'
+import LanguageSelector from './LanguageSelector'
 
 type PropsType = {
   cityModel: CityModel
@@ -49,28 +51,19 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const { t } = useTranslation('layout')
 
-  const getActionItems = (): Array<ReactNode> => {
-    return [
-      <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
-      ...(!buildConfig().featureFlags.fixedCity
-        ? [
-            <HeaderActionBarItemLink
-              key='location'
-              href={landingPath}
-              text={t('changeLocation')}
-              iconSrc={landingIcon}
-            />
-          ]
-        : []),
-      <LanguageSelector
-        key='language'
-        languageChangePaths={languageChangePaths}
-        isHeaderActionItem
-        pathname={pathname}
-        languageCode={languageCode}
-      />
-    ]
-  }
+  const getActionItems = (): Array<ReactNode> => [
+    <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
+    ...(!buildConfig().featureFlags.fixedCity
+      ? [<HeaderActionBarItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />]
+      : []),
+    <LanguageSelector
+      key='language'
+      languageChangePaths={languageChangePaths}
+      isHeaderActionItem
+      pathname={pathname}
+      languageCode={languageCode}
+    />
+  ]
 
   const getNavigationItems = (): Array<ReactNode> => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)

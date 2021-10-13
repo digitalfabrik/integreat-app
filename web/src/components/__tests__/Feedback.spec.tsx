@@ -1,9 +1,10 @@
-import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
-import Feedback from '../Feedback'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
-import { SendingState } from '../FeedbackContainer'
+
 import buildConfig from '../../constants/buildConfig'
+import Feedback from '../Feedback'
+import { SendingState } from '../FeedbackContainer'
 
 jest.mock('react-i18next')
 
@@ -25,20 +26,18 @@ describe('Feedback', () => {
     isSearchFeedback = false,
     sendingStatus = SendingState.IDLE,
     onContactMailChanged = onContactMailChangedDummy
-  ) => {
-    return {
-      comment,
-      isPositiveFeedback,
-      isSearchFeedback,
-      contactMail: 'test@example.com',
-      sendingStatus,
-      onCommentChanged,
-      onContactMailChanged,
-      onSubmit,
-      t,
-      closeFeedbackModal
-    }
-  }
+  ) => ({
+    comment,
+    isPositiveFeedback,
+    isSearchFeedback,
+    contactMail: 'test@example.com',
+    sendingStatus,
+    onCommentChanged,
+    onContactMailChanged,
+    onSubmit,
+    t,
+    closeFeedbackModal
+  })
 
   it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(

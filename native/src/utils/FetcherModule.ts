@@ -1,6 +1,7 @@
-import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 import { isEmpty } from 'lodash'
 import { EventChannel, eventChannel } from 'redux-saga'
+
+import NativeFetcherModule, { NativeFetcherModuleEmitter } from './NativeFetcherModule'
 
 export type TargetFilePathsType = Record<string, string>
 export type FetchResultType = Record<
@@ -15,8 +16,8 @@ export type FetchResultType = Record<
 class FetcherModule {
   // TODO IGAPP-217: Correctly handle already fetching
   static currentlyFetching = false
-  createProgressChannel = (): EventChannel<number> => {
-    return eventChannel<number>(emitter => {
+  createProgressChannel = (): EventChannel<number> =>
+    eventChannel<number>(emitter => {
       let prevStep = 0
       const stepWidthDivider = 20
       const subscription = NativeFetcherModuleEmitter.addListener('progress', (progress: number) => {
@@ -31,7 +32,6 @@ class FetcherModule {
       })
       return () => subscription.remove()
     })
-  }
 
   async fetchAsync(targetFilePaths: TargetFilePathsType): Promise<FetchResultType> {
     if (isEmpty(targetFilePaths)) {

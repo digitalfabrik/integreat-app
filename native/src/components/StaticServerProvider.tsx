@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { Dispatch } from 'redux'
-import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
-import { connect } from 'react-redux'
-import StaticServer from 'react-native-static-server'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import { Text } from 'react-native'
+import StaticServer from 'react-native-static-server'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
+import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 
 type OwnPropsType = {
   children: React.ReactNode
@@ -45,10 +46,12 @@ class StaticServerProvider extends React.Component<
   }
 
   async componentDidMount() {
+    const { setResourceCacheUrl } = this.props
     try {
       const url = await this.staticServer.start()
-      this.props.setResourceCacheUrl(url)
+      setResourceCacheUrl(url)
     } catch (e) {
+      // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
         errorMessage: e.message
       })
@@ -60,11 +63,15 @@ class StaticServerProvider extends React.Component<
   }
 
   render(): ReactNode {
-    if (this.state.errorMessage !== null) {
-      return <Text>{this.state.errorMessage}</Text>
+    const { errorMessage } = this.state
+    const { children } = this.props
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (errorMessage !== null) {
+      return <Text>{errorMessage}</Text>
     }
 
-    return this.props.children
+    return children
   }
 }
 

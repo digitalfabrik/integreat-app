@@ -1,29 +1,31 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { render, waitFor } from '@testing-library/react-native'
+import moment from 'moment'
 import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
-import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { render, waitFor } from '@testing-library/react-native'
-import I18nProvider from '../I18nProvider'
-import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/StateType'
+import { mocked } from 'ts-jest/utils'
+
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import AppSettings from '../../utils/AppSettings'
-import AsyncStorage from '@react-native-community/async-storage'
+
 import DateFormatterContext from '../../contexts/DateFormatterContext'
-import moment from 'moment'
+import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/StateType'
+import AppSettings from '../../utils/AppSettings'
+import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
-import { mocked } from 'ts-jest/utils'
+import I18nProvider from '../I18nProvider'
 
 jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 jest.mock('../../utils/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
-const city = cities[0]
+const city = cities[0]!
 const languages = new LanguageModelBuilder(1).build()
-const language = languages[0]
+const language = languages[0]!
 
 const prepareState = ({
   contentLanguage = 'de',
@@ -35,34 +37,32 @@ const prepareState = ({
   switchingLanguage?: boolean
   cities?: CitiesStateType
   languages?: LanguagesStateType
-} = {}): StateType => {
-  return {
-    resourceCacheUrl: 'http://localhost:8080',
-    cityContent: {
-      city: city.code,
-      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-      languages: languages || {
-        status: 'ready',
-        models: [language]
-      },
-      routeMapping: {},
-      searchRoute: null,
-      resourceCache: {
-        status: 'ready',
-        progress: 0,
-        value: {
-          file: {}
-        }
-      }
-    },
-    contentLanguage,
-    cities: cities || {
+} = {}): StateType => ({
+  resourceCacheUrl: 'http://localhost:8080',
+  cityContent: {
+    city: city.code,
+    switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+    languages: languages || {
       status: 'ready',
-      models: [city]
+      models: [language]
     },
-    snackbar: []
-  }
-}
+    routeMapping: {},
+    searchRoute: null,
+    resourceCache: {
+      status: 'ready',
+      progress: 0,
+      value: {
+        file: {}
+      }
+    }
+  },
+  contentLanguage,
+  cities: cities || {
+    status: 'ready',
+    models: [city]
+  },
+  snackbar: []
+})
 
 const mockStore = configureMockStore()
 const mockDetect = mocked(NativeLanguageDetector.detect)
@@ -74,7 +74,7 @@ describe('I18nProvider', () => {
   })
 
   it('should set content language if not yet set', async () => {
-    mockDetect.mockReturnValue(['kmr'])
+    mockDetect.mockReturnValue('kmr')
     const store = mockStore(prepareState())
     render(
       <Provider store={store}>
@@ -83,7 +83,7 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    await waitFor(() => {})
+    await waitFor(() => undefined)
     expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
@@ -107,7 +107,7 @@ describe('I18nProvider', () => {
   })
 
   it('should use fallbacks for ui translations', async () => {
-    mockDetect.mockReturnValue(['ku'])
+    mockDetect.mockReturnValue('ku')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -120,7 +120,7 @@ describe('I18nProvider', () => {
   })
 
   it('should choose the default fallback for ui translations', async () => {
-    mockDetect.mockReturnValue(['en'])
+    mockDetect.mockReturnValue('en')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -206,7 +206,7 @@ describe('I18nProvider', () => {
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
-    mockDetect.mockReturnValue(['zh-CN'])
+    mockDetect.mockReturnValue('zh-CN')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -220,7 +220,7 @@ describe('I18nProvider', () => {
   })
 
   it('should support language tags with dashes', async () => {
-    mockDetect.mockReturnValue(['zh-hans'])
+    mockDetect.mockReturnValue('zh-CN')
     const store = mockStore(prepareState())
     const { getByText } = render(
       <Provider store={store}>
@@ -234,7 +234,7 @@ describe('I18nProvider', () => {
   })
 
   it('should support de-DE and select de', async () => {
-    mockDetect.mockReturnValue(['de-DE'])
+    mockDetect.mockReturnValue('de-DE')
     const store = mockStore(prepareState())
     const { getByText, queryByText } = render(
       <Provider store={store}>

@@ -1,7 +1,9 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import Helmet from '../Helmet'
+import React from 'react'
+
 import { CityModel } from 'api-client'
+
+import Helmet from '../Helmet'
 
 describe('Helmet', () => {
   const liveCity = new CityModel({
@@ -17,7 +19,8 @@ describe('Helmet', () => {
     prefix: 'Stadt',
     latitude: null,
     longitude: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   })
   const hiddenCity = new CityModel({
     name: 'Testinstanz',
@@ -32,7 +35,8 @@ describe('Helmet', () => {
     prefix: 'Stadt',
     latitude: null,
     longitude: null,
-    aliases: null
+    aliases: null,
+    boundingBox: null
   })
 
   const languageChangePaths = [

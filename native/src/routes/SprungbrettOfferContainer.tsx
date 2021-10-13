@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { RefreshControl } from 'react-native'
 import { TFunction, withTranslation } from 'react-i18next'
-import SprungbrettOffer from './SprungbrettOffer'
+import { RefreshControl } from 'react-native'
+import { useSelector } from 'react-redux'
+
 import {
   CityModel,
   createOffersEndpoint,
@@ -12,17 +12,20 @@ import {
   OFFERS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
-  useLoadFromEndpoint,
-  SprungbrettOfferRouteType
+  SprungbrettOfferRouteType,
+  useLoadFromEndpoint
 } from 'api-client'
-import withTheme from '../hocs/withTheme'
 import { ThemeType } from 'build-configs'
-import FailureContainer from '../components/FailureContainer'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+
+import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
+import useReportError from '../hooks/useReportError'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
+import SprungbrettOffer from './SprungbrettOffer'
 
 type OwnPropsType = {
   route: RoutePropType<SprungbrettOfferRouteType>
@@ -70,6 +73,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   const { data: jobs, error: jobsError, loading, refresh } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(
     requestJobs
   )
+  useReportError(jobsError)
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
@@ -94,7 +98,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
       })
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-        <FailureContainer code={fromError(error)} tryAgain={refresh} />
+        <Failure code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }

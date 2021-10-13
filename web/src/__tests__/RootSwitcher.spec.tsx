@@ -1,16 +1,18 @@
-import React from 'react'
-import { renderWithBrowserRouter } from '../testing/render'
-import RootSwitcher from '../RootSwitcher'
-import { Route } from 'react-router-dom'
+import { RenderResult, waitFor } from '@testing-library/react'
 import { Location } from 'history'
-import { CityModelBuilder } from 'api-client'
-import buildConfig from '../constants/buildConfig'
+import React from 'react'
+import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { RenderResult } from '@testing-library/react'
+
+import { CityModelBuilder } from 'api-client'
 import {
-  mockUseLoadFromEndpointOnceWitData,
-  mockUseLoadFromEndpointWitData
+  mockUseLoadFromEndpointOnceWithData,
+  mockUseLoadFromEndpointWithData
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+
+import RootSwitcher from '../RootSwitcher'
+import buildConfig from '../constants/buildConfig'
+import { renderWithBrowserRouter } from '../testing/render'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -40,7 +42,7 @@ describe('RootSwitcher', () => {
           }}
         />
       </ThemeProvider>,
-      { route: route }
+      { route }
     )
     return { ...rendered, location: testLocation }
   }
@@ -49,13 +51,13 @@ describe('RootSwitcher', () => {
     jest.clearAllMocks()
   })
 
-  it('should render the landing page', () => {
-    mockUseLoadFromEndpointOnceWitData(cities)
+  it('should render the landing page', async () => {
+    mockUseLoadFromEndpointOnceWithData(cities)
 
     const { getByText, location } = renderRootSwitcherWithLocation('/landing/de')
 
     expect(location?.pathname).toBe('/landing/de')
-    expect(getByText(cities[0].name)).toBeTruthy()
+    await waitFor(() => expect(getByText(cities[0]!.name)).toBeTruthy(), { timeout: 5000 })
   })
 
   it.each`
@@ -65,7 +67,7 @@ describe('RootSwitcher', () => {
     ${'/augsburg'}    | ${'/augsburg/de'}
     ${'/augsburg/de'} | ${'/augsburg/de'}
   `('should redirect from $from to $to', ({ from, to }) => {
-    mockUseLoadFromEndpointWitData(cities)
+    mockUseLoadFromEndpointWithData(cities)
 
     const { location } = renderRootSwitcherWithLocation(from)
 
@@ -93,7 +95,7 @@ describe('RootSwitcher', () => {
       ${'/oldtown'}     | ${'/augsburg/de'}
       ${'/oldtown/de'}  | ${'/oldtown/de'}
     `('should redirect from $from to $to for fixedCity', ({ from, to }) => {
-      mockUseLoadFromEndpointWitData(cities)
+      mockUseLoadFromEndpointWithData(cities)
 
       const { location } = renderRootSwitcherWithLocation(from)
 

@@ -1,8 +1,10 @@
-import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
-import Page from '../Page'
+import React from 'react'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import Page from '../Page'
 
 jest.mock('react-i18next')
 
@@ -21,7 +23,7 @@ describe('Page', () => {
           content={content}
           defaultThumbnailSrc={thumbnail}
           formatter={new DateFormatter('en')}
-          onInternalLinkClick={() => {}}
+          onInternalLinkClick={() => undefined}
         />
       )
     ).toMatchSnapshot()

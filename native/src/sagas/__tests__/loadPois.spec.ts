@@ -1,11 +1,13 @@
 import { runSaga } from 'redux-saga'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DatabaseConnector from '../../utils/DatabaseConnector'
-import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
-import loadPois from '../loadPois'
-import DatabaseContext from '../../models/DatabaseContext'
+
 import { PoiModel } from 'api-client'
+import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import DatabaseContext from '../../models/DatabaseContext'
+import DatabaseConnector from '../../utils/DatabaseConnector'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
+import loadPois from '../loadPois'
 
 let mockPois: PoiModel[]
 jest.mock('api-client', () => {
@@ -21,7 +23,7 @@ jest.mock('api-client', () => {
       return new EndpointBuilder('pois-mock')
         .withParamsToUrlMapper(() => 'https://cms.integreat-app.de/sites')
         .withResponseOverride(mockPois)
-        .withMapper(() => {})
+        .withMapper(() => undefined)
         .build()
     }
   }

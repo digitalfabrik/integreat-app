@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
-import RemoteContent from './RemoteContent'
+import styled from 'styled-components'
+
+import { CategoryModel, DateFormatter } from 'api-client'
+
+import { helpers } from '../constants/theme'
 import Caption from './Caption'
 import CategoryEntry from './CategoryEntry'
-import { CategoryModel, DateFormatter } from 'api-client'
-import styled from 'styled-components'
-import { helpers } from '../constants/theme'
 import LastUpdateInfo from './LastUpdateInfo'
+import RemoteContent from './RemoteContent'
 
 const List = styled.div`
   & a {
@@ -49,7 +51,7 @@ class CategoryList extends React.PureComponent<PropsType> {
         )}
         {category?.title && <Caption title={category.title} />}
         {category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
-        {category?.content && category.lastUpdate && formatter && (
+        {category?.content && formatter && (
           <LastUpdateInfo lastUpdate={category.lastUpdate} formatter={formatter} withText />
         )}
         <List>

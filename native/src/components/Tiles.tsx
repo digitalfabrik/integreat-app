@@ -1,11 +1,12 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
+import { contentDirection } from '../constants/contentDirection'
+import TileModel from '../models/TileModel'
 import Caption from './Caption'
 import Tile from './Tile'
-import styled from 'styled-components/native'
-import TileModel from '../models/TileModel'
-import { contentDirection } from '../constants/contentDirection'
-import { ThemeType } from 'build-configs'
 
 type PropsType = {
   title?: string
@@ -31,20 +32,15 @@ const TilesRow = styled.View<TilesRowPropsType>`
  * Displays a table of Tiles
  */
 
-class Tiles extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { title, language, tiles, onTilePress, theme } = this.props
-    return (
-      <>
-        {title && <Caption title={title} theme={theme} />}
-        <TilesRow language={language} theme={theme}>
-          {tiles.map(tile => (
-            <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />
-          ))}
-        </TilesRow>
-      </>
-    )
-  }
-}
+const Tiles = ({ title, language, tiles, onTilePress, theme }: PropsType): ReactElement => (
+  <>
+    {title && <Caption title={title} theme={theme} />}
+    <TilesRow language={language} theme={theme}>
+      {tiles.map(tile => (
+        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} theme={theme} />
+      ))}
+    </TilesRow>
+  </>
+)
 
 export default Tiles

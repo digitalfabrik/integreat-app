@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import styled from 'styled-components/native'
+import React, { ReactElement } from 'react'
 import { ScrollView } from 'react-native'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 const Container = styled.View<{ width: number }>`
@@ -42,28 +42,23 @@ type PropsType = {
   width: number
 }
 
-class SlideContent extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { width, theme, item } = this.props
-    return (
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}>
-        <Container theme={theme} width={width}>
-          <TextContainer>
-            <Heading theme={theme}>{item.title}</Heading>
-          </TextContainer>
-          <ContentContainer description={item.description !== undefined}>{item.renderContent()}</ContentContainer>
-          {item.description && (
-            <TextContainer>
-              <Description theme={theme}>{item.description}</Description>
-            </TextContainer>
-          )}
-        </Container>
-      </ScrollView>
-    )
-  }
-}
+const SlideContent = ({ item, theme, width }: PropsType): ReactElement => (
+  <ScrollView
+    contentContainerStyle={{
+      flexGrow: 1
+    }}>
+    <Container theme={theme} width={width}>
+      <TextContainer>
+        <Heading theme={theme}>{item.title}</Heading>
+      </TextContainer>
+      <ContentContainer description={item.description !== undefined}>{item.renderContent()}</ContentContainer>
+      {item.description && (
+        <TextContainer>
+          <Description theme={theme}>{item.description}</Description>
+        </TextContainer>
+      )}
+    </Container>
+  </ScrollView>
+)
 
 export default SlideContent

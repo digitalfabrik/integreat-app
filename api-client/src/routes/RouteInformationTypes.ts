@@ -12,7 +12,7 @@ import {
   SearchRouteType,
   SprungbrettOfferRouteType,
   TuNewsType
-} from './'
+} from '.'
 
 type ParamsType = {
   cityCode: string
@@ -44,6 +44,7 @@ export type EventsPoisRouteInformationType = ParamsType & {
   // Routes with customizable ids, e.g. '/augsburg/de/pois/1234/
   route: EventsRouteType | PoisRouteType
   cityContentPath?: string
+  urlSlug?: string
 }
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType

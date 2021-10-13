@@ -1,17 +1,14 @@
-import React from 'react'
 import { render } from '@testing-library/react-native'
-import SnackbarContainer from '../SnackbarContainer'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { mocked } from 'ts-jest/utils'
 
+import SnackbarContainer from '../SnackbarContainer'
+
 jest.useFakeTimers()
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (text: string) => text
-  })
-}))
+
 jest.mock('../../components/Snackbar', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ message }: { message: string }) => <Text>{message}</Text>
 })

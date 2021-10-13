@@ -1,10 +1,11 @@
-import React from 'react'
 import { act, render, screen, waitFor } from '@testing-library/react'
-import I18nProvider from '../I18nProvider'
-import { Translation } from 'react-i18next'
+import React from 'react'
 import Helmet from 'react-helmet'
-import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
+import { Translation } from 'react-i18next'
 import { mocked } from 'ts-jest/utils'
+
+import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
+import I18nProvider from '../I18nProvider'
 
 jest.mock('../../utils/BrowserLanguageDetector')
 jest.mock('translations/src/loadTranslations')
@@ -51,7 +52,7 @@ describe('I18nProvider', () => {
     expect(screen.getByText('ar').parentElement?.dir).toBe('rtl')
   })
 
-  it('should set link for additional font lateef', async () => {
+  it('should set link for additional font noto sans arabic', async () => {
     mockDetect.mockReturnValue(['ar'])
     act(() => {
       render(
@@ -60,7 +61,9 @@ describe('I18nProvider', () => {
         </I18nProvider>
       )
     })
-    await waitFor(() => expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/lateef/lateef.css'))
+    await waitFor(() =>
+      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-arabic/noto-sans-arabic.css')
+    )
   })
 
   it('should set link for additional font noto-sans-sc', async () => {
@@ -134,7 +137,7 @@ describe('I18nProvider', () => {
 
   it('should choose rtl with ar as language', async () => {
     act(() => {
-      render(<I18nProvider contentLanguage={'ar'}>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
@@ -163,7 +166,7 @@ describe('I18nProvider', () => {
     await waitFor(() => screen.getByTestId('direction'))
     // Checking for side-effect
     const helmet = Helmet.peek()
-    expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/lateef/lateef.css')
+    expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
   })
 
   it('should use no additional font for english', async () => {
@@ -173,7 +176,7 @@ describe('I18nProvider', () => {
     await waitFor(() => screen.getByTestId('direction'))
     // Checking for side-effect
     const helmet = Helmet.peek()
-    expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/lateef/lateef.css')
+    expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
   })
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
@@ -221,5 +224,5 @@ describe('I18nProvider', () => {
   // We can not switch the language right now because it is bound to redux-first-router, we would need to trigger a
   // state update through the router which is very difficult.
   // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should remember the language over sessions', async () => {})
+  it.skip('should remember the language over sessions', async () => undefined)
 })

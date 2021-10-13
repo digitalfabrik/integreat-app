@@ -1,10 +1,14 @@
 import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
-import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
-import { DataContainer } from '../utils/DataContainer'
-import loadCityContent from './loadCityContent'
+
+import { ErrorCode, EVENTS_ROUTE, fromError } from 'api-client'
+
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
+import { cityContentPath } from '../navigation/url'
+import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
-import { ErrorCode, fromError } from 'api-client'
+import { DataContainer } from '../utils/DataContainer'
+import { reportError } from '../utils/helpers'
+import loadCityContent from './loadCityContent'
 
 export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): SagaGenerator<void> {
   const { city, language, path, key, criterion } = action.params
@@ -41,7 +45,16 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
       }
       yield* put(insert)
     } else {
-      const allAvailableLanguages = path === null ? new Map(cityLanguages.map(lng => [lng.code, null])) : null
+      const allAvailableLanguages = new Map(
+        cityLanguages.map(lng => [
+          lng.code,
+          cityContentPath({
+            route: EVENTS_ROUTE,
+            cityCode: city,
+            languageCode: lng.code
+          })
+        ])
+      )
       const failed: FetchEventFailedActionType = {
         type: 'FETCH_EVENT_FAILED',
         params: {
@@ -58,6 +71,7 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
     }
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: FetchEventFailedActionType = {
       type: 'FETCH_EVENT_FAILED',
       params: {

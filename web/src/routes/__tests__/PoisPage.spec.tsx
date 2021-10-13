@@ -1,22 +1,22 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+
 import { CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
-  mockUseLoadFromEndpointOnceWitData,
+  mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
-import { renderWithBrowserRouter } from '../../testing/render'
-import { Route } from 'react-router-dom'
-import { createPath, RoutePatterns } from '../index'
-import buildConfig from '../../constants/buildConfig'
-import { ThemeProvider } from 'styled-components'
-import PoisPage from '../PoisPage'
 
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+import buildConfig from '../../constants/buildConfig'
+import { renderWithBrowserRouter } from '../../testing/render'
+import PoisPage from '../PoisPage'
+import { createPath, RoutePatterns } from '../index'
+
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 jest.mock('react-i18next')
 
 describe('PoisPage', () => {
@@ -27,11 +27,13 @@ describe('PoisPage', () => {
   const languages = new LanguageModelBuilder(2).build()
   const cities = new CityModelBuilder(2).build()
   const pois = new PoiModelBuilder(2).build()
+  const city = cities[0]!
+  const language = languages[0]!
+  const poi0 = pois[0]!
+  const poi1 = pois[1]!
 
   it('should render a list with all pois', () => {
-    const city = cities[0]
-    const language = languages[0]
-    mockUseLoadFromEndpointOnceWitData(pois)
+    mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -44,14 +46,12 @@ describe('PoisPage', () => {
       { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code }) }
     )
 
-    expect(getByText(pois[0].title)).toBeTruthy()
-    expect(getByText(pois[1].title)).toBeTruthy()
+    expect(getByText(poi0.title)).toBeTruthy()
+    expect(getByText(poi1.title)).toBeTruthy()
   })
 
   it('should render a page with poi information', () => {
-    const city = cities[0]
-    const language = languages[0]
-    mockUseLoadFromEndpointOnceWitData(pois)
+    mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -64,15 +64,13 @@ describe('PoisPage', () => {
       { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code, poiId: 'test_path_2' }) }
     )
 
-    expect(getByText(pois[1].title)).toBeTruthy()
-    expect(getByText(pois[1].content)).toBeTruthy()
-    expect(getByText(pois[1].location.location!)).toBeTruthy()
+    expect(getByText(poi1.title)).toBeTruthy()
+    expect(getByText(poi1.content)).toBeTruthy()
+    expect(getByText(poi1.location.location!)).toBeTruthy()
   })
 
   it('should render a not found error', () => {
-    const city = cities[0]
-    const language = languages[0]
-    mockUseLoadFromEndpointOnceWitData(pois)
+    mockUseLoadFromEndpointOnceWithData(pois)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
@@ -89,8 +87,6 @@ describe('PoisPage', () => {
   })
 
   it('should render an error', () => {
-    const city = cities[0]
-    const language = languages[0]
     mockUseLoadFromEndpointWithError('Something went wrong')
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>

@@ -1,17 +1,23 @@
+import { render } from '@testing-library/react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType, CityModel, ErrorCode } from 'api-client'
-import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
-import { render } from '@testing-library/react-native'
 import configureMockStore from 'redux-mock-store'
+
+import { CityModel, ErrorCode, SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferRouteType } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import {
-  mockUseLoadFromEndpointOnceWitData,
-  mockUseLoadFromEndpointWithError,
-  mockUseLoadFromEndpointLoading
-} from '../../../../api-client/src/testing/mockUseLoadFromEndpoint'
+  mockUseLoadFromEndpointLoading,
+  mockUseLoadFromEndpointOnceWithData,
+  mockUseLoadFromEndpointWithError
+} from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import { reportError } from '../../utils/helpers'
+import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
+
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
@@ -19,17 +25,17 @@ jest.mock('api-client', () => ({
   useLoadFromEndpoint: jest.fn()
 }))
 jest.mock('../SprungbrettOffer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>SprungbrettOffer</Text>
 })
-jest.mock('../../components/FailureContainer', () => {
-  const Text = require('react-native').Text
+jest.mock('../../components/Failure', () => {
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
@@ -62,7 +68,7 @@ describe('SprungbrettOfferContainer', () => {
   })
 
   it('should display offers without a Loading spinner', () => {
-    mockUseLoadFromEndpointOnceWitData([])
+    mockUseLoadFromEndpointOnceWithData([])
     const { queryByText, getByText } = render(
       <Provider store={store}>
         <SprungbrettOfferContainer navigation={navigation} route={route} />
@@ -96,6 +102,7 @@ describe('SprungbrettOfferContainer', () => {
     expect(getByText(errorText)).toBeTruthy()
     expect(queryByText('SprungbrettOffer')).toBeFalsy()
     expect(queryByText('loading')).toBeFalsy()
+    expect(reportError).toHaveBeenCalledTimes(1)
   })
 
   it('should display a loading spinner', () => {
@@ -141,7 +148,8 @@ describe('SprungbrettOfferContainer', () => {
           latitude: 48.267499,
           longitude: 10.889586
         }
-      }
+      },
+      boundingBox: null
     })
     const store = mockStore({
       cities: {
@@ -149,7 +157,7 @@ describe('SprungbrettOfferContainer', () => {
         models: [disabledOffersCity]
       }
     })
-    mockUseLoadFromEndpointOnceWitData(null)
+    mockUseLoadFromEndpointOnceWithData(null)
 
     const { queryByText, getByText } = render(
       <Provider store={store}>

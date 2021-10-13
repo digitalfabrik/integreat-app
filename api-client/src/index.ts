@@ -2,9 +2,9 @@ import { MapParamsToBodyType as ImportedMapParamsToBodyType } from './MapParamsT
 import { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType as ImportedMapResponseType } from './MapResponseType'
 import {
-  ParamsType as ImportedFeedbackParamsType,
+  FeedbackCategoryType as ImportedFeedbackCategoryType,
   FeedbackType as ImportedFeedbackType,
-  FeedbackCategoryType as ImportedFeedbackCategoryType
+  ParamsType as ImportedFeedbackParamsType
 } from './endpoints/createFeedbackEndpoint'
 
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
@@ -25,7 +25,6 @@ export { default as Payload } from './Payload'
 export { default as FetchError } from './errors/FetchError'
 export { default as ResponseError } from './errors/ResponseError'
 export { default as MappingError } from './errors/MappingError'
-export { default as ParamMissingError } from './errors/ParamMissingError'
 export { default as NotFoundError } from './errors/NotFoundError'
 export { default as createCategoriesEndpoint, CATEGORIES_ENDPOINT_NAME } from './endpoints/createCategoriesEndpoint'
 export {
@@ -85,6 +84,7 @@ export {
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { parseHTMLEntities } from './utils/helpers'
+export { embedInCollection } from './utils/geoJson'
 
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'

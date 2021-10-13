@@ -1,110 +1,116 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigationContainer } from '@react-navigation/native'
+import { act, render } from '@testing-library/react-native'
 import * as React from 'react'
-import { render, act } from '@testing-library/react-native'
-import AsyncStorage from '@react-native-community/async-storage'
+import waitForExpect from 'wait-for-expect'
+
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+
 import Navigator from '../Navigator'
 import AppSettings from '../utils/AppSettings'
 import { generateRouteKey } from '../utils/helpers'
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
-import waitForExpect from 'wait-for-expect'
-import { NavigationContainer } from '@react-navigation/native'
 
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
+jest.mock('@react-navigation/native/lib/commonjs/useLinking', () => () => ({
+  getInitialState: async () => undefined
+}))
 jest.mock('react-i18next')
 jest.mock('../utils/helpers', () => ({
   ...jest.requireActual('../utils/helpers'),
   initSentry: jest.fn()
 }))
 jest.mock('../routes/IntroContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Intro</Text>
 })
 jest.mock('../routes/LandingContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Landing</Text>
 })
 jest.mock('../routes/DashboardContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Dashboard</Text>
 })
 jest.mock('../routes/SettingsContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Settings</Text>
 })
 jest.mock('../routes/CategoriesContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Categories</Text>
 })
 jest.mock('../routes/EventsContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Events</Text>
 })
 jest.mock('../routes/PoisContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Pois</Text>
 })
 jest.mock('../routes/NewsContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>News</Text>
 })
 jest.mock('../routes/ChangeLanguageModalContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>ChangeLanguage</Text>
 })
 jest.mock('../routes/FeedbackModalContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Feedback</Text>
 })
 jest.mock('../routes/OffersContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Offers</Text>
 })
 jest.mock('../routes/SprungbrettOfferContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>SprungbrettOffer</Text>
 })
 jest.mock('../routes/ExternalOfferContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>ExternalOffer</Text>
 })
 jest.mock('../routes/SearchModalContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Search</Text>
 })
 jest.mock('../routes/PDFViewModal', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>PdfView</Text>
 })
 jest.mock('../routes/ImageViewModal', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>ImageView</Text>
 })
 jest.mock('../components/SettingsHeaderContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>SettingsHeader</Text>
 })
 jest.mock('../components/HeaderContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Header</Text>
 })
 jest.mock('../components/TransparentHeaderContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>TransparentHeader</Text>
 })

@@ -1,11 +1,14 @@
 import { flatten, isEmpty, mapValues, pickBy, reduce, values } from 'lodash'
-import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
-import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
-import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
-import { DataContainer } from '../utils/DataContainer'
 import moment from 'moment'
-import { PageResourceCacheEntryStateType } from '../redux/StateType'
+import { call, cancel, fork, put, SagaGenerator, take } from 'typed-redux-saga'
+
 import { fromError } from 'api-client'
+
+import { PageResourceCacheEntryStateType } from '../redux/StateType'
+import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
+import { DataContainer } from '../utils/DataContainer'
+import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
+import { reportError } from '../utils/helpers'
 
 export type FetchMapTargetType = {
   url: string
@@ -14,13 +17,12 @@ export type FetchMapTargetType = {
 }
 export type FetchMapType = Record<string, Array<FetchMapTargetType>>
 
-const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(
+const createErrorMessage = (fetchResult: FetchResultType) =>
+  reduce(
     fetchResult,
     (message, result, path) => `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`,
     ''
   )
-}
 
 function* watchOnProgress() {
   const channel = new FetcherModule().createProgressChannel()
@@ -33,7 +35,7 @@ function* watchOnProgress() {
       const progressAction: ResourcesFetchProgressActionType = {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
-          progress: progress
+          progress
         }
       }
       yield* put(progressAction)
@@ -82,7 +84,7 @@ export default function* fetchResourceCache(
       reduce(
         fetchMapEntry,
         (acc: Record<string, PageResourceCacheEntryStateType>, fetchMapTarget: FetchMapTargetType) => {
-          const filePath = fetchMapTarget.filePath
+          const { filePath } = fetchMapTarget
           const downloadResult = successResults[filePath]
 
           if (downloadResult) {
@@ -101,6 +103,7 @@ export default function* fetchResourceCache(
     yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
     console.error(e)
+    reportError(e)
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',
       params: {

@@ -1,6 +1,7 @@
-import React, { ReactElement, ReactNode } from 'react'
 import { isEmpty } from 'lodash'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
+
 import { LocalNewsModel } from 'api-client'
 
 const NoItemsMessage = styled.div`
@@ -11,7 +12,6 @@ const NoItemsMessage = styled.div`
 const StyledList = styled.div`
   position: relative;
   padding-top: 1px;
-  background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.backgroundColor};

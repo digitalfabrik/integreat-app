@@ -1,7 +1,8 @@
-import { CitiesStateType } from '../../StateType'
-import citiesReducer from '../citiesReducer'
 import { CityModel, ErrorCode } from 'api-client'
+
+import { CitiesStateType } from '../../StateType'
 import { StoreActionType } from '../../StoreActionType'
+import citiesReducer from '../citiesReducer'
 
 describe('citiesReducer', () => {
   it('should set status to loading on FETCH_CITIES', () => {
@@ -37,7 +38,8 @@ describe('citiesReducer', () => {
         prefix: 'Stadt',
         aliases: null,
         latitude: null,
-        longitude: null
+        longitude: null,
+        boundingBox: null
       })
     ]
     expect(

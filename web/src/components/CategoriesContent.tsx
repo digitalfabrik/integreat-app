@@ -1,24 +1,24 @@
+import { TFunction } from 'i18next'
 import * as React from 'react'
+import { ReactElement } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { CategoriesMapModel, CategoryModel, DateFormatter } from 'api-client'
+
+import TileModel from '../models/TileModel'
+import CategoryList from './CategoryList'
 import Page from './Page'
 import Tiles from './Tiles'
-import CategoryList from './CategoryList'
-import TileModel from '../models/TileModel'
-import { TFunction } from 'i18next'
-import { useHistory } from 'react-router-dom'
-import { ReactElement } from 'react'
 
-const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> => {
-  return categories.map(
+const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
+  categories.map(
     category =>
       new TileModel({
         title: category.title,
         path: category.path,
-        thumbnail: category.thumbnail,
-        isExternalUrl: false
+        thumbnail: category.thumbnail
       })
   )
-}
 
 type PropsType = {
   categories: CategoriesMapModel
@@ -48,7 +48,8 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         onInternalLinkClick={history.push}
       />
     )
-  } else if (categoryModel.isRoot()) {
+  }
+  if (categoryModel.isRoot()) {
     // first level, we want to display a table with all first order categories
     return <Tiles tiles={getTileModels(children)} title={t('localInformation')} />
   }

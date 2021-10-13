@@ -1,10 +1,12 @@
+import { Moment } from 'moment'
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
-import RemoteContent from './RemoteContent'
-import Caption from './Caption'
-import { Moment } from 'moment'
-import LastUpdateInfo from './LastUpdateInfo'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import Caption from './Caption'
+import LastUpdateInfo from './LastUpdateInfo'
+import RemoteContent from './RemoteContent'
 
 export const THUMBNAIL_WIDTH = 300
 
@@ -44,23 +46,21 @@ const Page = ({
   formatter,
   children,
   onInternalLinkClick
-}: PropsType): ReactElement => {
-  return (
-    <>
-      {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
-      <Caption title={title} />
-      {children}
-      <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
-      {lastUpdate && (
-        <LastUpdateInfo
-          lastUpdate={lastUpdate}
-          format={lastUpdateFormat}
-          formatter={formatter}
-          withText={showLastUpdateText}
-        />
-      )}
-    </>
-  )
-}
+}: PropsType): ReactElement => (
+  <>
+    {defaultThumbnailSrc && <Thumbnail alt='' src={defaultThumbnailSrc} srcSet={thumbnailSrcSet} />}
+    <Caption title={title} />
+    {children}
+    <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
+    {lastUpdate && (
+      <LastUpdateInfo
+        lastUpdate={lastUpdate}
+        format={lastUpdateFormat}
+        formatter={formatter}
+        withText={showLastUpdateText}
+      />
+    )}
+  </>
+)
 
 export default Page

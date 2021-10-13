@@ -1,7 +1,8 @@
-import OfferModel from '../models/OfferModel'
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonOfferPostType, JsonOfferType } from '../types'
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+import OfferModel from '../models/OfferModel'
+import { JsonOfferPostType, JsonOfferType } from '../types'
+
 export const OFFERS_ENDPOINT_NAME = 'offers'
 
 const createPostMap = (jsonPost: JsonOfferPostType): Map<string, string> => {
@@ -16,9 +17,7 @@ type ParamsType = {
 }
 export default (baseUrl: string): Endpoint<ParamsType, Array<OfferModel>> =>
   new EndpointBuilder<ParamsType, Array<OfferModel>>(OFFERS_ENDPOINT_NAME)
-    .withParamsToUrlMapper(params => {
-      return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`
-    })
+    .withParamsToUrlMapper(params => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/extras`)
     .withMapper((json: Array<JsonOfferType>) =>
       json.map(
         offer =>

@@ -13,8 +13,7 @@ export class Selector {
   public build(): string {
     if (driver.isAndroid) {
       return `android=new UiSelector()${this.queries.join('')}`
-    } else {
-      return `-ios predicate string:${this.queries.join(' AND ')}`
     }
+    return `-ios predicate string:${this.queries.join(' AND ')}`
   }
 }

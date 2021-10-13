@@ -1,11 +1,12 @@
 import { Moment } from 'moment'
 import moment from 'moment-timezone'
-import EventModel from '../../models/EventModel'
+
 import DateModel from '../../models/DateModel'
-import LocationModel from '../../models/LocationModel'
-import createEventsEndpoint from '../createEventsEndpoint'
-import { JsonEventType } from '../../types'
+import EventModel from '../../models/EventModel'
 import FeaturedImageModel from '../../models/FeaturedImageModel'
+import LocationModel from '../../models/LocationModel'
+import { JsonEventType } from '../../types'
+import createEventsEndpoint from '../createEventsEndpoint'
 
 describe('events', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -35,7 +36,7 @@ describe('events', () => {
       start_time: startTime,
       end_date: endDate,
       end_time: endTime,
-      timezone: timezone,
+      timezone,
       recurrence_id: null
     },
     location: {
@@ -100,6 +101,7 @@ describe('events', () => {
         endDate
       }),
       location: new LocationModel({
+        id: 1234,
         name: 'Senkelfabrik',
         address: 'Wertachstr. 29',
         town: 'Augsburg',

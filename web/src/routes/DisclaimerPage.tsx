@@ -1,30 +1,21 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
-import {
-  CityModel,
-  createDisclaimerEndpoint,
-  DISCLAIMER_ROUTE,
-  LanguageModel,
-  normalizePath,
-  useLoadFromEndpoint
-} from 'api-client'
+import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
+
+import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, normalizePath, useLoadFromEndpoint } from 'api-client'
+
+import { CityRouteProps } from '../CityContentSwitcher'
+import FailureSwitcher from '../components/FailureSwitcher'
+import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
-import { createPath } from './index'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Helmet from '../components/Helmet'
-import { useTranslation } from 'react-i18next'
+import { createPath, RouteProps } from './index'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof DISCLAIMER_ROUTE>
 
 const DisclaimerPage = (props: PropsType): ReactElement => {
   const { match, cityModel, languages, location } = props
@@ -35,12 +26,14 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const history = useHistory()
   const { t } = useTranslation('disclaimer')
 
-  const requestDisclaimer = useCallback(async () => {
-    return createDisclaimerEndpoint(cmsApiBaseUrl).request({
-      city: cityCode,
-      language: languageCode
-    })
-  }, [cityCode, languageCode])
+  const requestDisclaimer = useCallback(
+    async () =>
+      createDisclaimerEndpoint(cmsApiBaseUrl).request({
+        city: cityCode,
+        language: languageCode
+      }),
+    [cityCode, languageCode]
+  )
 
   const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
 

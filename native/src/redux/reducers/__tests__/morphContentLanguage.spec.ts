@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
@@ -9,13 +11,13 @@ import {
   LocationModel,
   PoiModel
 } from 'api-client'
-import moment from 'moment'
-import morphContentLanguage from '../morphContentLanguage'
-import pushCategory from '../pushCategory'
+
 import { CityContentStateType } from '../../StateType'
 import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
-import pushEvent from '../pushEvent'
 import createCityContent from '../createCityContent'
+import morphContentLanguage from '../morphContentLanguage'
+import pushCategory from '../pushCategory'
+import pushEvent from '../pushEvent'
 
 describe('morphContentLanguage', () => {
   const createCategory = ({
@@ -129,6 +131,7 @@ describe('morphContentLanguage', () => {
         allDay: true
       }),
       location: new LocationModel({
+        id: 1,
         name: 'name',
         address: 'address',
         town: 'town',
@@ -149,13 +152,14 @@ describe('morphContentLanguage', () => {
 
   const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
     new PoiModel({
-      path: path,
+      path,
       title: 'test',
       content: 'test',
       thumbnail: 'test',
-      availableLanguages: availableLanguages,
+      availableLanguages,
       excerpt: 'test',
       location: new LocationModel({
+        id: 1,
         country: 'country',
         region: 'region',
         state: 'state',
@@ -330,7 +334,7 @@ describe('morphContentLanguage', () => {
     const previous = prepareState()
     const route = previous.routeMapping['route-0']
 
-    if (route.status !== 'ready') {
+    if (route?.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
 

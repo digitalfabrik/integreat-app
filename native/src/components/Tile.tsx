@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
-import { ThemeType } from 'build-configs'
 
 type PropsType = {
   tile: TileModel
@@ -30,7 +32,8 @@ const TileContainer = styled.View`
  */
 class Tile extends React.Component<PropsType> {
   onTilePress = (): void => {
-    this.props.onTilePress(this.props.tile)
+    const { onTilePress, tile } = this.props
+    onTilePress(tile)
   }
 
   render(): ReactNode {

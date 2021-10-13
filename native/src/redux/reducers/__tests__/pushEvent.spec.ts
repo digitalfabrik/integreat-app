@@ -1,8 +1,10 @@
-import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
 import moment from 'moment'
+
+import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel } from 'api-client'
+
 import { CityContentStateType } from '../../StateType'
-import cityContentReducer from '../cityContentReducer'
 import { PushEventActionType } from '../../StoreActionType'
+import cityContentReducer from '../cityContentReducer'
 
 describe('pushEvent', () => {
   const event1 = new EventModel({
@@ -21,6 +23,7 @@ describe('pushEvent', () => {
     }),
     hash: '123456',
     location: new LocationModel({
+      id: 1,
       name: 'name',
       address: 'address',
       town: 'town',
@@ -181,6 +184,7 @@ describe('pushEvent', () => {
             thumbnail: '',
             featuredImage: null,
             location: new LocationModel({
+              id: 1,
               name: 'name',
               address: 'address',
               town: 'town',

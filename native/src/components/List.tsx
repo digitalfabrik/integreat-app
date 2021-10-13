@@ -1,7 +1,8 @@
+import { isEmpty } from 'lodash'
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { isEmpty } from 'lodash'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 const StyledView = styled.View`
@@ -18,14 +19,19 @@ type PropsType<T> = {
   noItemsMessage: string
   renderItem: (arg0: T) => React.ReactNode
   theme: ThemeType
+  CustomStyledList?: React.FC
 }
 
 class List<T> extends React.PureComponent<PropsType<T>> {
   render(): ReactNode {
-    const { items, renderItem, noItemsMessage, theme } = this.props
+    const { items, renderItem, noItemsMessage, theme, CustomStyledList } = this.props
 
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
+    }
+
+    if (CustomStyledList) {
+      return <CustomStyledList>{items.map(item => renderItem(item))}</CustomStyledList>
     }
 
     return <StyledView theme={theme}>{items.map(item => renderItem(item))}</StyledView>

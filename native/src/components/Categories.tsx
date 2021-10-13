@@ -1,20 +1,22 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { View } from 'react-native'
-import Page from './Page'
-import Tiles from './Tiles'
-import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
-import TileModel from '..//models/TileModel'
+
 import { CategoryModel, CityModel } from 'api-client'
-import { URL_PREFIX } from '../constants/webview'
-import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
-import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
-import SpaceBetween from './SpaceBetween'
-import SiteHelpfulBox from './SiteHelpfulBox'
-import { FeedbackInformationType } from './FeedbackContainer'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
 import { RouteInformationType } from 'api-client/src/routes/RouteInformationTypes'
 import { ThemeType } from 'build-configs'
+
+import { URL_PREFIX } from '../constants/webview'
+import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
+import TileModel from '../models/TileModel'
+import { LanguageResourceCacheStateType, PageResourceCacheStateType } from '../redux/StateType'
+import CategoryList, { CategoryListModelType, ListContentModelType } from './CategoryList'
+import { FeedbackInformationType } from './FeedbackContainer'
+import Page from './Page'
+import SiteHelpfulBox from './SiteHelpfulBox'
+import SpaceBetween from './SpaceBetween'
+import Tiles from './Tiles'
 
 export type PropsType = {
   cityModel: CityModel
@@ -90,7 +92,8 @@ class Categories extends React.Component<PropsType> {
   }
 
   getCategoryResourceCache(category: CategoryModel): PageResourceCacheStateType {
-    return this.props.resourceCache[category.path] || {}
+    const { resourceCache } = this.props
+    return resourceCache[category.path] || {}
   }
 
   getListModel(category: CategoryModel): CategoryListModelType {
@@ -111,8 +114,8 @@ class Categories extends React.Component<PropsType> {
       ? {
           content: category.content,
           files: this.getCategoryResourceCache(category),
-          resourceCacheUrl: resourceCacheUrl,
-          lastUpdate: category?.lastUpdate
+          resourceCacheUrl,
+          lastUpdate: category.lastUpdate
         }
       : undefined
   }
@@ -145,7 +148,8 @@ class Categories extends React.Component<PropsType> {
           resourceCacheUrl={resourceCacheUrl}
         />
       )
-    } else if (category.isRoot()) {
+    }
+    if (category.isRoot()) {
       // first level, we want to display a table with all first order categories
       return (
         <SpaceBetween>

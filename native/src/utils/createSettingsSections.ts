@@ -1,16 +1,18 @@
-import { SectionListData, AccessibilityRole } from 'react-native'
-import { TFunction } from 'react-i18next'
-import NativeConstants from '../constants/NativeConstants'
-import { SettingsType } from './AppSettings'
-import openPrivacyPolicy from './openPrivacyPolicy'
-import buildConfig from '../constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
+import { TFunction } from 'react-i18next'
+import { SectionListData, AccessibilityRole } from 'react-native'
+import { openSettings } from 'react-native-permissions'
+
+import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
+
+import NativeConstants from '../constants/NativeConstants'
+import { NavigationPropType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
+import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
 import { initSentry } from './helpers'
 import openExternalUrl from './openExternalUrl'
-import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
-import { NavigationPropType } from '../constants/NavigationTypes'
-import { openSettings } from 'react-native-permissions'
+import openPrivacyPolicy from './openPrivacyPolicy'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
@@ -109,10 +111,8 @@ const createSettingsSections = ({
               const client = Sentry.getCurrentHub().getClient()
               if (newSettings.errorTracking && !client) {
                 initSentry()
-              } else {
-                if (client) {
-                  client.getOptions().enabled = !!newSettings.errorTracking
-                }
+              } else if (client) {
+                client.getOptions().enabled = !!newSettings.errorTracking
               }
             }
           )
@@ -124,7 +124,7 @@ const createSettingsSections = ({
           appName: buildConfig().appName
         }),
         onPress: () => {
-          const aboutUrls = buildConfig().aboutUrls
+          const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
           openExternalUrl(aboutUrl)
         }
@@ -139,7 +139,7 @@ const createSettingsSections = ({
           version: NativeConstants.appVersion
         }),
         onPress: () => {
-          volatileValues.versionTaps++
+          volatileValues.versionTaps += 1
 
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
             volatileValues.versionTaps = 0

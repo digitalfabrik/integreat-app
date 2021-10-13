@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import SelectorItemModel from '../models/SelectorItemModel'
-import styled from 'styled-components/native'
-import { css } from 'styled-components'
 import { TouchableHighlight } from 'react-native'
-import dimensions from '..//constants/dimensions'
+import { css } from 'styled-components'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
+import dimensions from '../constants/dimensions'
+import SelectorItemModel from '../models/SelectorItemModel'
 
 const ItemWrapper = styled.View<{ selected: boolean }>`
   justify-content: center;
@@ -84,8 +86,9 @@ class Selector extends React.Component<PropsType> {
   }
 
   render(): ReactNode {
+    const { theme, verticalLayout } = this.props
     return (
-      <Wrapper theme={this.props.theme} vertical={this.props.verticalLayout}>
+      <Wrapper theme={theme} vertical={verticalLayout}>
         {this.getItems()}
       </Wrapper>
     )

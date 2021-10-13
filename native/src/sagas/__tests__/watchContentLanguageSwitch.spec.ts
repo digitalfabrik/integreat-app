@@ -1,18 +1,25 @@
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { expectSaga, testSaga } from 'redux-saga-test-plan'
-import loadCityContent from '../loadCityContent'
+
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
-import AsyncStorage from '@react-native-community/async-storage'
-import AppSettings from '../../utils/AppSettings'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
+import AppSettings from '../../utils/AppSettings'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
+import { reportError } from '../../utils/helpers'
+import loadCityContent from '../loadCityContent'
+import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
+
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../../utils/PushNotificationsManager')
 jest.mock('../loadCityContent')
+
 describe('watchContentLanguageSwitch', () => {
   beforeEach(async () => {
     RNFetchBlob.fs._reset()
@@ -21,6 +28,7 @@ describe('watchContentLanguageSwitch', () => {
   })
   const city = 'augsburg'
   const newLanguage = 'ar'
+
   describe('fetchCategory', () => {
     it('should put an action when switching language', async () => {
       const languages = new LanguageModelBuilder(2).build()
@@ -57,8 +65,10 @@ describe('watchContentLanguageSwitch', () => {
         })
         .run()
       expect(await new AppSettings().loadContentLanguage()).toBe(newLanguage)
+      expect(reportError).not.toHaveBeenCalled()
     })
-    it('should put an error action', () => {
+
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
       const action: SwitchContentLanguageActionType = {
         type: 'SWITCH_CONTENT_LANGUAGE',
@@ -67,11 +77,12 @@ describe('watchContentLanguageSwitch', () => {
           city
         }
       }
-      return expectSaga(switchContentLanguage, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(switchContentLanguage, dataContainer, action)
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -84,8 +95,11 @@ describe('watchContentLanguageSwitch', () => {
           }
         })
         .run()
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
+
   it('should correctly call switchContentLanguage when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     return testSaga(watchContentLanguageSwitch, dataContainer)

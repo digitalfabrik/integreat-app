@@ -1,28 +1,31 @@
 import React, { useCallback } from 'react'
+import { RefreshControl } from 'react-native'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
 import {
   createDisclaimerEndpoint,
   DISCLAIMER_ROUTE,
+  DisclaimerRouteType,
   fromError,
   PageModel,
-  DisclaimerRouteType,
   useLoadFromEndpoint
 } from 'api-client'
 import { ThemeType } from 'build-configs'
-import { StateType } from '../redux/StateType'
-import withTheme from '../hocs/withTheme'
-import Disclaimer from './Disclaimer'
-import FailureContainer from '../components/FailureContainer'
-import { Dispatch } from 'redux'
-import { StoreActionType } from '../redux/StoreActionType'
-import { RefreshControl } from 'react-native'
-import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+
+import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import navigateToLink from '../navigation/navigateToLink'
+import SiteHelpfulBox from '../components/SiteHelpfulBox'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
+import useReportError from '../hooks/useReportError'
 import createNavigate from '../navigation/createNavigate'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { StateType } from '../redux/StateType'
+import { StoreActionType } from '../redux/StoreActionType'
 import { determineApiUrl } from '../utils/helpers'
+import Disclaimer from './Disclaimer'
 
 type OwnPropsType = {
   route: RoutePropType<DisclaimerRouteType>
@@ -32,11 +35,9 @@ type StatePropsType = {
   resourceCacheUrl: string | null | undefined
 }
 
-const mapStateToProps = (state: StateType): StatePropsType => {
-  return {
-    resourceCacheUrl: state.resourceCacheUrl
-  }
-}
+const mapStateToProps = (state: StateType): StatePropsType => ({
+  resourceCacheUrl: state.resourceCacheUrl
+})
 
 type DisclaimerPropsType = OwnPropsType & {
   theme: ThemeType
@@ -48,12 +49,13 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
   const { cityCode, languageCode } = route.params
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
-    return await createDisclaimerEndpoint(apiUrl).request({
+    return createDisclaimerEndpoint(apiUrl).request({
       city: cityCode,
       language: languageCode
     })
   }, [cityCode, languageCode])
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
+  useReportError(error)
 
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
@@ -73,7 +75,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
   if (error) {
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-        <FailureContainer code={fromError(error)} tryAgain={refresh} />
+        <Failure code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }

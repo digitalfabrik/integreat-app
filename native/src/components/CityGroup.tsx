@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 const GroupText = styled.Text`
@@ -23,14 +23,10 @@ type PropsType = {
   children: string
 }
 
-class CityGroup extends React.Component<PropsType> {
-  render(): ReactNode {
-    return (
-      <BorderWrapper theme={this.props.theme}>
-        <GroupText theme={this.props.theme}>{this.props.children}</GroupText>
-      </BorderWrapper>
-    )
-  }
-}
+const CityGroup = ({ theme, children }: PropsType): ReactElement => (
+  <BorderWrapper theme={theme}>
+    <GroupText theme={theme}>{children}</GroupText>
+  </BorderWrapper>
+)
 
 export default CityGroup

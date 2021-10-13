@@ -1,17 +1,20 @@
-import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
-import { connect } from 'react-redux'
-import Events, { PropsType as EventsPropsType } from './Events'
+import * as React from 'react'
 import { withTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
+
+import { ErrorCode, EVENTS_ROUTE, EventsRouteType, CityModel, EventModel } from 'api-client'
+
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import withTheme from '../hocs/withTheme'
-import * as React from 'react'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import navigateToLink from '../navigation/navigateToLink'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { ErrorCode, EVENTS_ROUTE, EventsRouteType, CityModel, EventModel } from 'api-client'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import navigateToLink from '../navigation/navigateToLink'
+import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
+import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
+import Events, { PropsType as EventsPropsType } from './Events'
 
 type NavigationPropsType = {
   route: RoutePropType<EventsRouteType>
@@ -36,15 +39,6 @@ type RefreshPropsType = NavigationPropsType & {
   path: string | null | undefined
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
-}
 
 const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
@@ -117,21 +111,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       code: state.cities.code,
       refreshProps
     }
-  } else if (resourceCache.status === 'error') {
+  }
+  if (resourceCache.status === 'error') {
     return {
       status: 'error',
       message: resourceCache.message,
       code: resourceCache.code,
       refreshProps
     }
-  } else if (route.status === 'error') {
+  }
+  if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
     }
-  } else if (languages.status === 'error') {
+  }
+  if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
@@ -140,7 +137,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  const resourceCacheUrl = state.resourceCacheUrl
+  const { resourceCacheUrl } = state
 
   if (
     resourceCacheUrl === null ||
@@ -200,6 +197,8 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 const ThemedTranslatedEvents = withTranslation('events')(withTheme<EventsPropsType>(Events))
 
 const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  useClearRouteOnClose(route, dispatch)
+
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
@@ -234,4 +233,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(EventsContainer))

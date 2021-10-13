@@ -1,4 +1,5 @@
 import { Platform } from 'react-native'
+
 import NativeConstants from './NativeConstants'
 import buildConfig from './buildConfig'
 

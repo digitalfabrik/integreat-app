@@ -1,7 +1,8 @@
-import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
+import { mocked } from 'ts-jest/utils'
+
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
-import { mocked } from 'ts-jest/utils'
+import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
 
 jest.mock('../../mapping/mapCategoryJson')
 
@@ -36,8 +37,8 @@ describe('createCategoryChildrenEndpoint', () => {
     const children = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()
 
     mocked(mapCategoryJson)
-      .mockImplementationOnce(() => children[0])
-      .mockImplementationOnce(() => children[1])
+      .mockImplementationOnce(() => children[0]!)
+      .mockImplementationOnce(() => children[1]!)
 
     expect(endpoint.mapResponse(json, params)).toEqual(children.slice(0, 2))
     expect(mapCategoryJson).toHaveBeenCalledTimes(2)

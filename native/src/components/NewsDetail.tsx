@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { ReactElement, useCallback, useContext } from 'react'
-import { ScrollView, useWindowDimensions, View } from 'react-native'
-import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
-import { ThemeType } from 'build-configs'
-import { contentAlignment } from '../constants/contentDirection'
-import headerImage from '../assets/tu-news-header-details-icon.svg'
+import { ReactElement, useContext } from 'react'
+import { ScrollView, View } from 'react-native'
 import styled from 'styled-components/native'
-import Html from 'react-native-render-html'
-import TimeStamp from './TimeStamp'
+
+import { LocalNewsModel, replaceLinks, TunewsModel } from 'api-client'
+
+import headerImage from '../assets/tu-news-header-details-icon.svg'
+import { contentAlignment } from '../constants/contentDirection'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import NativeHtml from './NativeHtml'
+import TimeStamp from './TimeStamp'
 
 const Container = styled.View`
   align-items: center;
@@ -40,22 +41,14 @@ const NewsHeadLine = styled.Text`
   margin-bottom: 15px;
 `
 type PropsType = {
-  theme: ThemeType
   language: string
   newsItem: TunewsModel | LocalNewsModel
   navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
-const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): ReactElement => {
+const NewsDetail = ({ newsItem, language, navigateToLink }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
-  const width = useWindowDimensions().width
   const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
-  const onLinkPress = useCallback(
-    (_, url: string) => {
-      navigateToLink(url, language, url)
-    },
-    [navigateToLink, language]
-  )
   return (
     <View
       style={{
@@ -74,36 +67,11 @@ const NewsDetail = ({ theme, newsItem, language, navigateToLink }: PropsType): R
           </HeaderImageWrapper>
         )}
         <Container>
-          <NewsHeadLine theme={theme}>{newsItem.title}</NewsHeadLine>
-          <Html
-            source={{
-              html: content
-            }}
-            contentWidth={width}
-            onLinkPress={onLinkPress}
-            baseFontStyle={{
-              fontFamily: theme.fonts.native.decorativeFontRegular,
-              fontSize: 16,
-              letterSpacing: 0.5,
-              lineHeight: 24,
-              textAlign: contentAlignment(language),
-              color: theme.colors.textColor
-            }}
-            defaultTextProps={{
-              selectable: true,
-              allowFontScaling: true
-            }}
-          />
+          <NewsHeadLine>{newsItem.title}</NewsHeadLine>
+          <NativeHtml language={language} content={content} navigateToLink={navigateToLink} />
           {newsItem instanceof LocalNewsModel && (
-            <TimeStampContent language={language} theme={theme}>
-              <TimeStamp
-                formatter={formatter}
-                lastUpdate={newsItem.timestamp}
-                showText={false}
-                format={'LLL'}
-                language={language}
-                theme={theme}
-              />
+            <TimeStampContent language={language}>
+              <TimeStamp formatter={formatter} lastUpdate={newsItem.timestamp} showText={false} format='LLL' />
             </TimeStampContent>
           )}
         </Container>

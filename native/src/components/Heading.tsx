@@ -1,8 +1,9 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import EastereggImage from './EastereggImage'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
+import EastereggImage from './EastereggImage'
 
 type PropsType = {
   clearResourcesAndCache: () => void
@@ -14,15 +15,10 @@ const Wrapper = styled.View`
   align-items: center;
 `
 
-class Heading extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { clearResourcesAndCache, theme } = this.props
-    return (
-      <Wrapper>
-        <EastereggImage clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-      </Wrapper>
-    )
-  }
-}
+const Heading = ({ clearResourcesAndCache, theme }: PropsType): ReactElement => (
+  <Wrapper>
+    <EastereggImage clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
+  </Wrapper>
+)
 
 export default Heading

@@ -1,9 +1,10 @@
-import React, { ReactElement } from 'react'
-import styled from 'styled-components'
-import dimensions from '../constants/dimensions'
 import moment from 'moment'
-import buildConfig from '../constants/buildConfig'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import buildConfig from '../constants/buildConfig'
+import dimensions from '../constants/dimensions'
 
 type PropsType = {
   link: string

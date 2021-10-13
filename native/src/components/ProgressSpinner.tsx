@@ -1,11 +1,12 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, G, Image } from 'react-native-svg'
 import styled from 'styled-components/native'
-import { buildConfigAssets } from '../constants/buildConfig'
+
 import { ThemeType } from 'build-configs'
+
+import { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.View`
   width: 100%;
@@ -37,29 +38,24 @@ export type PropsType = {
   t: TFunction
 }
 
-class ProgressSpinner extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { t, progress, theme } = this.props
-    return (
-      <Container>
-        <Svg width={svgSize} height={svgSize} testID='loading-image'>
-          <G transform={`translate(${logoXY}, ${logoXY})`}>
-            <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
-          </G>
-          <Circle
-            stroke={theme.colors.themeColor}
-            strokeDasharray={circumference}
-            strokeDashoffset={circumference - progress * circumference}
-            strokeWidth={svgSize * STROKE_WIDTH_FRACTION}
-            cx={svgSize / 2}
-            cy={svgSize / 2}
-            r={radius}
-          />
-        </Svg>
-        <Text>{t('loading')}</Text>
-      </Container>
-    )
-  }
-}
+const ProgressSpinner = ({ t, progress, theme }: PropsType): ReactElement => (
+  <Container>
+    <Svg width={svgSize} height={svgSize} testID='loading-image'>
+      <G transform={`translate(${logoXY}, ${logoXY})`}>
+        <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
+      </G>
+      <Circle
+        stroke={theme.colors.themeColor}
+        strokeDasharray={circumference}
+        strokeDashoffset={circumference - progress * circumference}
+        strokeWidth={svgSize * STROKE_WIDTH_FRACTION}
+        cx={svgSize / 2}
+        cy={svgSize / 2}
+        r={radius}
+      />
+    </Svg>
+    <Text>{t('loading')}</Text>
+  </Container>
+)
 
 export default ProgressSpinner

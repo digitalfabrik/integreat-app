@@ -1,6 +1,8 @@
-import { DataContainer } from '../../utils/DataContainer'
-import { CategoriesMapModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { CategoriesMapModel } from 'api-client'
+
+import { DataContainer } from '../../utils/DataContainer'
 
 export default function* loadCategories(
   city: string,
@@ -13,9 +15,8 @@ export default function* loadCategories(
   if (!categoriesAvailable || forceRefresh) {
     if (city === 'augsburg' && language === 'en') {
       return yield* call(dataContainer.getCategoriesMap, city, language)
-    } else {
-      throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
     }
+    throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
   }
 
   return yield* call(dataContainer.getCategoriesMap, city, language)

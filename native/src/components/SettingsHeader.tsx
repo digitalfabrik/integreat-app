@@ -1,10 +1,12 @@
+import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
 import { TFunction } from 'react-i18next'
-import dimensions from '../constants/dimensions'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
+import dimensions from '../constants/dimensions'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -42,16 +44,18 @@ export type PropsType = StackHeaderProps & {
 
 class SettingsHeader extends React.PureComponent<PropsType> {
   goBack = (): void => {
-    this.props.navigation.goBack()
+    const { navigation } = this.props
+    navigation.goBack()
   }
 
   render(): ReactNode {
+    const { t, theme } = this.props
     return (
-      <BoxShadow theme={this.props.theme}>
+      <BoxShadow theme={theme}>
         <Horizontal>
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBack} labelVisible={false} />
-            <HeaderText theme={this.props.theme}>{this.props.t('settings')}</HeaderText>
+            <HeaderText theme={theme}>{t('settings')}</HeaderText>
           </HorizontalLeft>
         </Horizontal>
       </BoxShadow>

@@ -1,11 +1,13 @@
 import i18next, { i18n } from 'i18next'
 import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react'
-import { I18nextProvider } from 'react-i18next'
 import { Helmet as ReactHelmet } from 'react-helmet'
-import { config, loadTranslations } from 'translations'
+import { I18nextProvider } from 'react-i18next'
+
 import { DateFormatter } from 'api-client'
-import DateFormatterContext from '../contexts/DateFormatterContext'
+import { config, loadTranslations } from 'translations'
+
 import buildConfig from '../constants/buildConfig'
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
 
 type PropsType = {
@@ -48,7 +50,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         // eslint-disable-next-line no-console
         console.log(i18nextInstance.languages)
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
-        const matchedLanguage = i18nextInstance.languages[0]
+        const matchedLanguage = i18nextInstance.languages[0]!
         setLanguage(matchedLanguage)
       })
     }
@@ -85,13 +87,15 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
 
   const additionalFont = config.getAdditionalFont(language)
 
+  const dir = config.isSupportedLanguage(language) ? config.getScriptDirection(language) : undefined
+
   return (
     <I18nextProvider i18n={i18nextInstance}>
-      <div
-        data-testid={'direction'}
-        dir={config.isSupportedLanguage(language) ? (config.hasRTLScript(language) ? 'rtl' : 'ltr') : undefined}>
+      <div data-testid='direction' dir={dir}>
         <ReactHelmet>
-          {additionalFont === 'lateef' && <link href='/fonts/lateef/lateef.css' rel='stylesheet' />}
+          {additionalFont === 'noto-sans-arabic' && (
+            <link href='/fonts/noto-sans-arabic/noto-sans-arabic.css' rel='stylesheet' />
+          )}
           {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
           {additionalFont === 'noto-sans-georgian' && (
             <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />

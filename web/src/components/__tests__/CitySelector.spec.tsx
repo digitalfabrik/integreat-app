@@ -1,12 +1,15 @@
 import React from 'react'
-import CitySelector from '../CitySelector'
-import { CityModelBuilder } from 'api-client'
-import buildConfig from '../../constants/buildConfig'
 import { ThemeProvider } from 'styled-components'
+
+import { CityModelBuilder } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import CitySelector from '../CitySelector'
 
 describe('CitySelector', () => {
   const cities = new CityModelBuilder(5).build()
+  const city = cities[0]!
 
   it('should show only live cities', () => {
     const { queryByLabelText } = renderWithRouter(
@@ -22,11 +25,11 @@ describe('CitySelector', () => {
   it('should show live cities matching filter text', () => {
     const { queryByLabelText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <CitySelector filterText={cities[0].name.slice(5, 9)} language='de' cities={cities} />
+        <CitySelector filterText={city.name.slice(5, 9)} language='de' cities={cities} />
       </ThemeProvider>
     )
 
-    expect(queryByLabelText(cities[0].name)).toBeTruthy()
+    expect(queryByLabelText(city.name)).toBeTruthy()
     cities.slice(1).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
   })
 

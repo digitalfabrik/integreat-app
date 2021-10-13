@@ -5,5 +5,12 @@
   "arrowParens": "avoid",
   "printWidth": 120,
   "jsxBracketSameLine": true,
-  "jsxSingleQuote": true
+  "jsxSingleQuote": true,
+  "endOfLine": "auto",
+  "importOrder": [
+    "^(?!(api-client|build-configs|translations|\\.)).*",
+    "^(api-client|build-configs|translations)",
+    "^(\\.)+(\\/)+"
+  ],
+  "importOrderSeparation": true
 }

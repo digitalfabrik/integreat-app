@@ -1,7 +1,8 @@
-import React, { ReactElement, useEffect, useCallback } from 'react'
-import styled, { css } from 'styled-components'
-import buildConfig from '../constants/buildConfig'
 import Dompurify from 'dompurify'
+import React, { ReactElement, useCallback, useEffect } from 'react'
+import styled, { css } from 'styled-components'
+
+import buildConfig from '../constants/buildConfig'
 
 const SandBox = styled.div<{ centered: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -72,7 +73,7 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsTyp
 
   const handleClick = useCallback(
     (event: MouseEvent): void => {
-      event.preventDefault ? event.preventDefault() : (event.returnValue = false)
+      event.preventDefault()
       const target = event.currentTarget
 
       if (target instanceof HTMLAnchorElement) {

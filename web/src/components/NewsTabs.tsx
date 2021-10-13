@@ -1,14 +1,17 @@
 import React, { ReactNode, ReactElement } from 'react'
-import styled from 'styled-components'
 import { TFunction } from 'react-i18next'
-import NewsTab from './NewsTab'
+import styled from 'styled-components'
+
 import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
+
 import { createPath, LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
+import Caption from './Caption'
+import NewsTab from './NewsTab'
 
 const StyledTabs = styled.div`
   display: flex;
-  padding-top: 45px;
   padding-bottom: 40px;
+  justify-content: center;
 `
 
 type PropsType = {
@@ -27,12 +30,13 @@ const NewsTabs = ({ children, language, city, localNewsEnabled, tunewsEnabled, t
 
   return (
     <>
-      <StyledTabs>
-        {localNewsEnabled && (
+      <Caption title={t('news')} />
+      {localNewsEnabled && tunewsEnabled && (
+        <StyledTabs>
           <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />
-        )}
-        {tunewsEnabled && <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />}
-      </StyledTabs>
+          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />
+        </StyledTabs>
+      )}
       {children}
     </>
   )

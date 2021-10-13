@@ -1,6 +1,7 @@
 import moment from 'moment'
-import PoiModel from '../models/PoiModel'
+
 import LocationModel from '../models/LocationModel'
+import PoiModel from '../models/PoiModel'
 
 const availableLanguages = new Map([
   ['de', '/de/test'],
@@ -13,9 +14,10 @@ const pois = [
     title: 'test',
     content: 'test',
     thumbnail: 'test',
-    availableLanguages: availableLanguages,
+    availableLanguages,
     excerpt: 'test',
     location: new LocationModel({
+      id: 1,
       country: 'country',
       region: 'region',
       state: 'state',
@@ -34,9 +36,10 @@ const pois = [
     title: 'test title 2',
     content: 'test content 2',
     thumbnail: 'test thumbnail 2',
-    availableLanguages: availableLanguages,
+    availableLanguages,
     excerpt: 'test excerpt 2',
     location: new LocationModel({
+      id: 1,
       country: 'test country 2',
       region: 'test region 2',
       state: 'test state 2',

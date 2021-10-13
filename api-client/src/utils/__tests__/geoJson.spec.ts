@@ -1,26 +1,35 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { PoiFeature, PoiFeatureCollection } from '../../maps'
 import LocationModel from '../../models/LocationModel'
-import { Feature, FeatureCollection } from 'geojson'
 import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {
-  const expectedGeoJsonMarkerFeature: Feature = {
+  const path = '/augsburg/de/locations/erster_poi'
+  const thumbnail = 'thumbnail'
+  const urlSlug = 'erster_poi'
+  const expectedGeoJsonMarkerFeature: PoiFeature = {
     type: 'Feature',
     geometry: {
       type: 'Point',
       coordinates: [31.133859, 29.979848]
     },
     properties: {
-      name: 'Test'
+      id: 1,
+      title: 'Test',
+      symbol: '9',
+      thumbnail,
+      path,
+      urlSlug
     }
   }
   describe('embedInCollection', () => {
-    const expectedGeoJsonFeatureCollection: FeatureCollection = {
+    const expectedGeoJsonFeatureCollection: PoiFeatureCollection = {
       features: [expectedGeoJsonMarkerFeature],
       type: 'FeatureCollection'
     }
     it('should embed feature to GeoJson', () => {
       const location = new LocationModel({
+        id: 1,
         name: 'Test',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -31,7 +40,9 @@ describe('geoJson', () => {
         longitude: '31.133859',
         country: 'DE'
       })
-      expect(embedInCollection([location.convertToPoint()!])).toEqual(expectedGeoJsonFeatureCollection)
+      expect(embedInCollection([location.convertToPoint(path, thumbnail, urlSlug)!])).toEqual(
+        expectedGeoJsonFeatureCollection
+      )
     })
   })
 })

@@ -1,9 +1,11 @@
-import React, { ReactNode, ReactElement } from 'react'
 import { transform, groupBy } from 'lodash'
-import { CityModel } from 'api-client'
-import CityEntry from './CityEntry'
+import React, { ReactNode, ReactElement } from 'react'
 import styled from 'styled-components'
+
+import { CityModel } from 'api-client'
+
 import { normalizeSearchString } from '../utils/stringUtils'
+import CityEntry from './CityEntry'
 
 const CityListParent = styled.div<{ stickyTop: number }>`
   position: sticky;
@@ -29,17 +31,16 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
 
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
-    } else {
-      return cities
-        .filter(_city => _city.live)
-        .filter(_city => {
-          const isCityName = normalizeSearchString(_city.name).includes(normalizedFilter)
-          const isAlias =
-            _city._aliases &&
-            Object.keys(_city._aliases).some(alias => normalizeSearchString(alias).includes(normalizedFilter))
-          return isCityName || isAlias
-        })
     }
+    return cities
+      .filter(_city => _city.live)
+      .filter(_city => {
+        const isCityName = normalizeSearchString(_city.name).includes(normalizedFilter)
+        const isAlias =
+          _city._aliases &&
+          Object.keys(_city._aliases).some(alias => normalizeSearchString(alias).includes(normalizedFilter))
+        return isCityName || isAlias
+      })
   }
 
   // Landkreis should come before Stadt

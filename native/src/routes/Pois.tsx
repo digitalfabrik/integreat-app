@@ -1,43 +1,115 @@
-import * as React from 'react'
-import { View } from 'react-native'
-import { TFunction } from 'react-i18next'
-import { fromError, PoiModel, NotFoundError, POIS_ROUTE, RouteInformationType } from 'api-client'
+import distance from '@turf/distance'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button, Linking, ScrollView } from 'react-native'
+import { useTheme } from 'styled-components'
+import styled from 'styled-components/native'
+
+import {
+  CityModel,
+  embedInCollection,
+  fromError,
+  NotFoundError,
+  PoiFeature,
+  PoiModel,
+  POIS_ROUTE,
+  PoisRouteType,
+  RouteInformationType
+} from 'api-client'
+
+import BottomActionsSheet from '../components/BottomActionsSheet'
+import Failure from '../components/Failure'
+import { FeedbackInformationType } from '../components/FeedbackContainer'
+import List from '../components/List'
+import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import List from '../components/List'
-import Caption from '../components/Caption'
-import Failure from '../components/Failure'
-import { ThemeType } from 'build-configs'
-import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import SpaceBetween from '../components/SpaceBetween'
-import PoiListItem from '../components/PoiListItem'
-import { FeedbackInformationType } from '../components/FeedbackContainer'
-import { ReactNode } from 'react'
-import MapView from '../components/MapView'
+import { RoutePropType } from '../constants/NavigationTypes'
+import dimensions from '../constants/dimensions'
+import useUserLocation, { LocationType } from '../hooks/useUserLocation'
+import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
 export type PropsType = {
   path: string | null | undefined
   pois: Array<PoiModel>
-  cityCode: string
+  cityModel: CityModel
   language: string
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
-  theme: ThemeType
-  t: TFunction
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   navigateToLink: (url: string, language: string, shareUrl: string) => void
+  route: RoutePropType<PoisRouteType>
 }
+
+const Spacer = styled.View`
+  width: 20px;
+  height: 20px;
+`
+
+const CustomSheetList = styled.View`
+  margin: 0 32px;
+`
+
+// Calculate distance for all Feature Locations
+const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): PoiFeature[] =>
+  pois
+    .map(poi => {
+      const { featureLocation } = poi
+      if (userLocation && featureLocation?.geometry.coordinates) {
+        const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
+        return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
+      }
+      return poi.featureLocation
+    })
+    .filter((feature): feature is PoiFeature => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 
-class Pois extends React.Component<PropsType> {
-  navigateToPois = (cityCode: string, language: string, path: string) => (): void => {
-    this.props.navigateTo({
+const Pois = ({
+  pois,
+  language,
+  path,
+  cityModel,
+  resourceCache,
+  resourceCacheUrl,
+  navigateTo,
+  navigateToFeedback,
+  navigateToLink,
+  route
+}: PropsType): ReactElement => {
+  const { t } = useTranslation('pois')
+  const theme = useTheme()
+  const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
+  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
+  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
+  const { location, requestAndDetermineLocation } = useUserLocation(path === null)
+
+  // set points to snap for bottom sheet
+  const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '95%']
+
+  useEffect(() => {
+    if (!path) {
+      const featureLocations = prepareFeatureLocations(pois, location)
+      const urlSlug = route.params.urlSlug
+      if (urlSlug) {
+        const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
+        setSelectedFeature(currentFeature ?? null)
+      }
+      if (location) {
+        setFeatureLocations(featureLocations)
+      }
+    }
+  }, [path, pois, route.params.urlSlug, location])
+
+  const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
+    navigateTo({
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
@@ -45,95 +117,134 @@ class Pois extends React.Component<PropsType> {
     })
   }
 
-  renderPoiListItem = (cityCode: string, language: string) => (poi: PoiModel): ReactNode => {
-    const { theme } = this.props
+  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
+    navigateTo({
+      route: POIS_ROUTE,
+      cityCode,
+      languageCode: language,
+      urlSlug
+    })
+  }
+
+  const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiFeature): ReactNode => {
+    const { properties } = poi
     return (
       <PoiListItem
-        key={poi.path}
+        key={properties.id}
         poi={poi}
         language={language}
         theme={theme}
-        navigateToPois={this.navigateToPois(cityCode, language, poi.path)}
+        navigateToPoi={navigateToPoi(cityCode, language, properties.path)}
       />
     )
   }
 
-  createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
-    const { navigateToFeedback, cityCode, language } = this.props
+  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
     navigateToFeedback({
       routeType: POIS_ROUTE,
       language,
       path: poi.path,
-      cityCode,
+      cityCode: cityModel.code,
       isPositiveFeedback
     })
   }
 
-  navigateToFeedbackForPois = (isPositiveFeedback: boolean): void => {
-    const { navigateToFeedback, cityCode, language } = this.props
+  const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: POIS_ROUTE,
       language,
-      cityCode,
+      cityCode: cityModel.code,
       isPositiveFeedback
     })
   }
 
-  render(): ReactNode {
-    const { pois, path, cityCode, language, resourceCache, resourceCacheUrl, theme, navigateToLink, t } = this.props
-    const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
+  const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
 
-    if (path) {
-      const poi: PoiModel | null | undefined = sortedPois.find(_poi => _poi.path === path)
+  if (path) {
+    const poi = sortedPois.find(_poi => _poi.path === path)
 
-      if (poi) {
-        const location = poi.location.location
-        const files = resourceCache[poi.path] || {}
-        return (
-          <Page
-            content={poi.content}
-            title={poi.title}
-            lastUpdate={poi.lastUpdate}
-            language={language}
-            files={files}
-            theme={theme}
-            resourceCacheUrl={resourceCacheUrl}
-            navigateToLink={navigateToLink}
-            navigateToFeedback={this.createNavigateToFeedbackForPoi(poi)}>
-            <>
-              {location && (
-                <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
-              )}
-            </>
-          </Page>
-        )
+    if (poi) {
+      const { location } = poi.location
+      const files = resourceCache[poi.path] || {}
+
+      let navigationUrl: string | undefined | null = null
+      if (location && poi.featureLocation?.geometry.coordinates) {
+        navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
       }
 
-      const error = new NotFoundError({
-        type: 'poi',
-        id: path,
-        city: cityCode,
-        language
-      })
-      return <Failure code={fromError(error)} t={t} theme={theme} />
+      return (
+        <Page
+          content={poi.content}
+          title={poi.title}
+          lastUpdate={poi.lastUpdate}
+          language={language}
+          files={files}
+          theme={theme}
+          resourceCacheUrl={resourceCacheUrl}
+          navigateToLink={navigateToLink}
+          navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
+          <>
+            {location && (
+              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+            )}
+            {navigationUrl && (
+              <>
+                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, poi.urlSlug)} />
+                <Spacer />
+                <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
+              </>
+            )}
+          </>
+        </Page>
+      )
     }
 
-    return (
-      <SpaceBetween>
-        <View>
-          <Caption title={t('poi')} theme={theme} />
-          <MapView />
-          <List
-            noItemsMessage={t('currentlyNoPois')}
-            items={sortedPois}
-            renderItem={this.renderPoiListItem(cityCode, language)}
-            theme={theme}
-          />
-        </View>
-        <SiteHelpfulBox navigateToFeedback={this.navigateToFeedbackForPois} theme={theme} />
-      </SpaceBetween>
-    )
+    const error = new NotFoundError({
+      type: 'poi',
+      id: path,
+      city: cityModel.code,
+      language
+    })
+    return <Failure code={fromError(error)} />
   }
+
+  return (
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
+      {cityModel.boundingBox && (
+        <MapView
+          boundingBox={cityModel.boundingBox}
+          featureCollection={embedInCollection(featureLocations)}
+          selectedFeature={selectedFeature}
+          setSelectedFeature={setSelectedFeature}
+          navigateTo={navigateTo}
+          language={language}
+          cityCode={cityModel.code}
+          locationPermissionGranted={location !== null}
+          onRequestLocationPermission={requestAndDetermineLocation}
+          fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
+        />
+      )}
+      <BottomActionsSheet
+        title={t('sheetTitle')}
+        onChange={setSheetSnapPointIndex}
+        visible={!selectedFeature}
+        initialIndex={sheetSnapPointIndex}
+        snapPoints={snapPoints}>
+        <List
+          CustomStyledList={CustomSheetList}
+          noItemsMessage={t('currentlyNoPois')}
+          items={featureLocations}
+          renderItem={renderPoiListItem(cityModel.code, language)}
+          theme={theme}
+        />
+        <SiteHelpfulBox
+          backgroundColor={theme.colors.backgroundColor}
+          navigateToFeedback={navigateToFeedbackForPois}
+          theme={theme}
+        />
+      </BottomActionsSheet>
+    </ScrollView>
+  )
 }
 
 export default Pois

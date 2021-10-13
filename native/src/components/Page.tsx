@@ -1,17 +1,19 @@
+import { mapValues } from 'lodash'
+import { Moment } from 'moment'
 import * as React from 'react'
 import { ReactElement, useCallback, useContext, useState } from 'react'
 import styled from 'styled-components/native'
-import Caption from './Caption'
-import TimeStamp from './TimeStamp'
-import { Moment } from 'moment'
+
+import { ThemeType } from 'build-configs'
+
+import DateFormatterContext from '../contexts/DateFormatterContext'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+import Caption from './Caption'
 import RemoteContent from './RemoteContent'
 import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
-import { mapValues } from 'lodash'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { ThemeType } from 'build-configs'
+import TimeStamp from './TimeStamp'
 
 const HORIZONTAL_MARGIN = 8
 const Container = styled.View`
@@ -31,13 +33,12 @@ type PropsType = {
   lastUpdate: Moment
 }
 
-const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType => {
-  return mapValues(files, (file: PageResourceCacheEntryStateType) => {
-    return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+const cacheDictionary = (files: PageResourceCacheStateType, resourceCacheUrl: string): ParsedCacheDictionaryType =>
+  mapValues(files, (file: PageResourceCacheEntryStateType) =>
+    file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
       ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
       : file.filePath
-  })
-}
+  )
 
 const Page = ({
   title,
@@ -76,7 +77,7 @@ const Page = ({
           language={language}
           resourceCacheUrl={resourceCacheUrl}
         />
-        {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} language={language} theme={theme} />}
+        {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
       </Container>
       {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />}
     </SpaceBetween>

@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
 
 type WrapperPropsType = {
@@ -17,10 +17,6 @@ type AppPropsType = {
   theme: ThemeType
 }
 
-class Layout extends React.Component<AppPropsType> {
-  render(): ReactNode {
-    return <Wrapper theme={this.props.theme}>{this.props.children}</Wrapper>
-  }
-}
+const Layout = ({ children, theme }: AppPropsType): ReactElement => <Wrapper theme={theme}>{children}</Wrapper>
 
 export default Layout

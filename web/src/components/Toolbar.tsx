@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
+import { TFunction, withTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { withTranslation, TFunction } from 'react-i18next'
+
 import dimensions from '../constants/dimensions'
 
 const ToolbarContainer = styled.div`
@@ -42,16 +43,11 @@ type PropsType = {
   t: TFunction
 }
 
-class Toolbar extends React.PureComponent<PropsType> {
-  render() {
-    const { viewportSmall, t } = this.props
-    return (
-      <ToolbarContainer className={this.props.className}>
-        {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
-        {this.props.children}
-      </ToolbarContainer>
-    )
-  }
-}
+const Toolbar = ({ children, className, t, viewportSmall }: PropsType): ReactElement => (
+  <ToolbarContainer className={className}>
+    {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
+    {children}
+  </ToolbarContainer>
+)
 
 export default withTranslation('feedback')(Toolbar)

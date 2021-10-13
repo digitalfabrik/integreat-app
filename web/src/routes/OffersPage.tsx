@@ -1,34 +1,29 @@
 import React, { ReactElement, useCallback } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout from '../components/LocationLayout'
+import { useTranslation } from 'react-i18next'
+
 import {
-  CityModel,
   createOffersEndpoint,
-  LanguageModel,
   OfferModel,
   OFFERS_ROUTE,
   SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationToolbar from '../components/LocationToolbar'
-import TileModel from '../models/TileModel'
-import { createPath } from './index'
-import { cmsApiBaseUrl } from '../constants/urls'
 import normalizePath from 'api-client/src/normalizePath'
-import { useTranslation } from 'react-i18next'
-import LoadingSpinner from '../components/LoadingSpinner'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
-import Tiles from '../components/Tiles'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
+import Tiles from '../components/Tiles'
+import { cmsApiBaseUrl } from '../constants/urls'
+import TileModel from '../models/TileModel'
+import { createPath, RouteProps } from './index'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof OFFERS_ROUTE>
 
 const OffersPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { languageCode, cityCode } = match.params
@@ -40,14 +35,15 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
-  const requestOffers = useCallback(async () => {
-    return createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestOffers = useCallback(
+    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: offers, loading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const toTileModels = useCallback(
-    (offers: Array<OfferModel>): Array<TileModel> => {
-      return offers.map(offer => {
+    (offers: Array<OfferModel>): Array<TileModel> =>
+      offers.map(offer => {
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
@@ -57,14 +53,11 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
         return new TileModel({
           title: offer.title,
           // the url stored in the sprungbrett offer is the url of the endpoint
-          path: path,
+          path,
           thumbnail: offer.thumbnail,
-          // every offer except from the sprungbrett offer is just a link to an external site
-          isExternalUrl: path === offer.path,
           postData: offer.postData
         })
-      })
-    },
+      }),
     [cityCode, languageCode]
   )
 

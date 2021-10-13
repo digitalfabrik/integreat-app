@@ -1,5 +1,6 @@
 import transformTranslations from '../transformTranslations'
 import { TransformedTranslationsType, TranslationsType } from '../types'
+
 export const testTranslations: TranslationsType = {
   app: {
     de: {
@@ -49,8 +50,6 @@ export const testOverrideTranslations: TranslationsType = {
   }
 }
 
-const loadTranslations = (): TransformedTranslationsType => {
-  return transformTranslations(testTranslations)
-}
+const loadTranslations = (): TransformedTranslationsType => transformTranslations(testTranslations)
 
 export default loadTranslations

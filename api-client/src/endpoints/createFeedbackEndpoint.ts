@@ -1,5 +1,6 @@
-import EndpointBuilder from '../EndpointBuilder'
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
+
 export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 export const POSITIVE_RATING = 'up'
 export const NEGATIVE_RATING = 'down'
@@ -67,5 +68,5 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
         return formData
       }
     )
-    .withMapper(() => {})
+    .withMapper(() => undefined)
     .build()

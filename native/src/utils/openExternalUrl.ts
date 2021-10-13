@@ -1,12 +1,14 @@
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
-import buildConfig from '../constants/buildConfig'
 import URL from 'url-parse'
-import sendTrackingSignal from './sendTrackingSignal'
+
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
+import buildConfig from '../constants/buildConfig'
+import sendTrackingSignal from './sendTrackingSignal'
+
 const openExternalUrl = async (url: string): Promise<void> => {
-  const protocol = new URL(url).protocol
+  const { protocol } = new URL(url)
 
   try {
     // Custom tabs are not available in all browsers and support only http and https

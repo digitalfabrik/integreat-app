@@ -1,10 +1,13 @@
-import { getExtension } from './helpers'
 import { Parser } from 'htmlparser2'
-import { FetchMapType } from '../sagas/fetchResourceCache'
 import { reduce } from 'lodash'
-import { hashUrl } from 'api-client'
 import Url from 'url-parse'
-interface InputEntryType {
+
+import { hashUrl } from 'api-client'
+
+import { FetchMapType } from '../sagas/fetchResourceCache'
+import { getExtension } from './helpers'
+
+type InputEntryType = {
   path: string
   content: string
   thumbnail: string
@@ -73,7 +76,7 @@ export default class ResourceURLFinder {
     return reduce<InputEntryType, FetchMapType>(
       inputs,
       (fetchMap, input: InputEntryType) => {
-        const path = input.path
+        const { path } = input
         this.findResourceUrls(input.content)
         const urlSet = this._foundUrls
 
@@ -81,7 +84,8 @@ export default class ResourceURLFinder {
           urlSet.add(input.thumbnail)
         }
 
-        fetchMap[path] = Array.from(urlSet).map(url => {
+        const newFetchMap = fetchMap
+        newFetchMap[path] = Array.from(urlSet).map(url => {
           const urlHash = hashUrl(url)
           const filePath = buildFilePath(url, urlHash)
           return {
@@ -90,7 +94,7 @@ export default class ResourceURLFinder {
             filePath
           }
         })
-        return fetchMap
+        return newFetchMap
       },
       {}
     )

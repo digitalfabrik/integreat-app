@@ -1,13 +1,15 @@
-import SearchModal from './SearchModal'
-import { useTranslation } from 'react-i18next'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import navigateToLink from '../navigation/navigateToLink'
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { SearchRouteType, CategoriesMapModel } from 'api-client'
-import createNavigate from '../navigation/createNavigate'
-import { ThemeContext } from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
+import { ThemeContext } from 'styled-components'
+
+import { SearchRouteType, CategoriesMapModel } from 'api-client'
+
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import createNavigate from '../navigation/createNavigate'
+import navigateToLink from '../navigation/navigateToLink'
 import { StateType } from '../redux/StateType'
+import SearchModal from './SearchModal'
 
 export type PropsType = {
   route: RoutePropType<SearchRouteType>
@@ -18,7 +20,7 @@ const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null =>
   const cityCode = useSelector<StateType, string | undefined>(state => state.cityContent?.city)
   const language = useSelector<StateType, string>(state => state.contentLanguage)
   const categories = useSelector<StateType, CategoriesMapModel | null>(
-    state => state?.cityContent?.searchRoute?.categoriesMap ?? null
+    state => state.cityContent?.searchRoute?.categoriesMap ?? null
   )
   const dispatch = useDispatch()
   const theme = useContext(ThemeContext)

@@ -1,12 +1,14 @@
 import React, { ReactNode } from 'react'
-import CitySelector from './CitySelector'
 import { TFunction } from 'react-i18next'
-import SearchInput from './SearchInput'
-import { CityModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
-import { LocationType } from '../routes/Landing'
+
+import { CityModel } from 'api-client'
+import { ThemeType } from 'build-configs'
+
+import { LocationInformationType } from '../hooks/useUserLocation'
+import CitySelector from './CitySelector'
+import SearchInput from './SearchInput'
 
 const SearchBar = styled.View`
   flex-direction: row;
@@ -17,10 +19,9 @@ const SearchBar = styled.View`
 type PropsType = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
-  t: TFunction
+  t: TFunction<'landing'>
   theme: ThemeType
-  location: LocationType
-  retryDetermineLocation: null | (() => Promise<void>)
+  locationInformation: LocationInformationType
 }
 type StateType = {
   filterText: string
@@ -41,7 +42,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
 
   render(): ReactNode {
     const { t, theme } = this.props
-    const filterText = this.state.filterText
+    const { filterText } = this.state
     return (
       <View>
         <SearchBar>

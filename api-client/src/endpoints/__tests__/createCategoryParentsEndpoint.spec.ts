@@ -1,9 +1,10 @@
-import createCategoryParentsEndpoint from '../createCategoryParentsEndpoint'
-import mapCategoryJson from '../../mapping/mapCategoryJson'
-import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
-import CategoryModel from '../../models/CategoryModel'
 import moment from 'moment-timezone'
 import { mocked } from 'ts-jest/utils'
+
+import mapCategoryJson from '../../mapping/mapCategoryJson'
+import CategoryModel from '../../models/CategoryModel'
+import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'
+import createCategoryParentsEndpoint from '../createCategoryParentsEndpoint'
 
 jest.mock('../../mapping/mapCategoryJson')
 
@@ -50,8 +51,8 @@ describe('createCategoryParentsEndpoint', () => {
     const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
 
     mocked(mapCategoryJson)
-      .mockImplementationOnce(() => parents[0])
-      .mockImplementationOnce(() => parents[1])
+      .mockImplementationOnce(() => parents[0]!)
+      .mockImplementationOnce(() => parents[1]!)
 
     parents.push(rootCategory)
     expect(endpoint.mapResponse(json, params)).toEqual(parents)

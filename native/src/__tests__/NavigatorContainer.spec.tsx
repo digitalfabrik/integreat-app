@@ -1,27 +1,29 @@
-import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 import * as React from 'react'
 import type { Provider as ProviderType } from 'react-redux'
 import type * as TestRendererType from 'react-test-renderer'
 import configureMockStore from 'redux-mock-store'
+
+import { DASHBOARD_ROUTE } from 'api-client/src/routes'
+
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../routes/LandingContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Landing</Text>
 })
 jest.mock('../routes/DashboardContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Dashboard</Text>
 })
 jest.mock('../routes/IntroContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Intro</Text>
 })
 jest.mock('../components/HeaderContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Header</Text>
 })
@@ -30,9 +32,7 @@ jest.mock('../constants/NativeConstants')
 jest.mock('react-native-share')
 const mockStore = configureMockStore()
 
-const MockNavigator: React.FC = () => {
-  return null
-}
+const MockNavigator: React.FC = () => null
 
 describe('NavigatorContainer', () => {
   let TestRenderer: typeof TestRendererType

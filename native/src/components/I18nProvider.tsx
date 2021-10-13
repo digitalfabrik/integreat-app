@@ -1,16 +1,18 @@
+import i18next from 'i18next'
 import * as React from 'react'
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { Text } from 'react-native'
-import buildConfig from '../constants/buildConfig'
-import { config, loadTranslations } from 'translations'
-import i18next from 'i18next'
 import { useDispatch } from 'react-redux'
-import { SetContentLanguageActionType } from '../redux/StoreActionType'
-import NativeLanguageDetector from '../utils/NativeLanguageDetector'
-import AppSettings from '../utils/AppSettings'
+
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+import { config, loadTranslations } from 'translations'
+
+import buildConfig from '../constants/buildConfig'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import { SetContentLanguageActionType } from '../redux/StoreActionType'
+import AppSettings from '../utils/AppSettings'
+import NativeLanguageDetector from '../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
 
 type PropsType = {
@@ -62,7 +64,7 @@ export default ({ children }: PropsType): ReactElement | null => {
         debug: buildConfig().featureFlags.developerFriendly
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
-      const matchedLanguage = i18nextInstance.languages[0]
+      const matchedLanguage = i18nextInstance.languages[0]!
       await setContentLanguage(matchedLanguage).catch(e => {
         console.error(e)
       })

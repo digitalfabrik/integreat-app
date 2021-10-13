@@ -1,4 +1,5 @@
 import { Payload } from 'api-client'
+
 import { loadFromEndpoint } from '../useLoadFromEndpoint'
 
 describe('loadFromEndpoint', () => {

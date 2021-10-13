@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
-import SelectorItemModel from '../models/SelectorItemModel'
-import styled, { css } from 'styled-components'
-import { helpers } from '../constants/theme'
-import dimensions from '../constants/dimensions'
-import Tooltip from './Tooltip'
 import { Link } from 'react-router-dom'
+import styled, { css } from 'styled-components'
+
+import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
+import SelectorItemModel from '../models/SelectorItemModel'
+import Tooltip from './Tooltip'
 
 const Element = styled.span<{ $selected: boolean; $enabled: boolean }>`
   ${helpers.removeLinkHighlighting};
@@ -83,40 +84,32 @@ const Selector = ({
   verticalLayout,
   closeDropDown,
   disabledItemTooltip
-}: PropsType): ReactElement => {
-  return (
-    <Wrapper vertical={verticalLayout}>
-      {items.map(item => {
-        if (item.href) {
-          return (
-            <Element
-              key={item.code}
-              as={Link}
-              to={item.href}
-              onClick={closeDropDown}
-              $enabled={true}
-              $selected={item.code === activeItemCode}>
-              <BoldSpacer>{item.name}</BoldSpacer>
-              {item.name}
-            </Element>
-          )
-        } else {
-          return (
-            <Element
-              as={Tooltip}
-              key={item.code}
-              text={disabledItemTooltip}
-              flow='up'
-              $enabled={false}
-              $selected={false}>
-              <BoldSpacer>{item.name}</BoldSpacer>
-              {item.name}
-            </Element>
-          )
-        }
-      })}
-    </Wrapper>
-  )
-}
+}: PropsType): ReactElement => (
+  <Wrapper vertical={verticalLayout}>
+    {items.map(item => {
+      if (item.href) {
+        return (
+          <Element
+            data-testid={item.code}
+            key={item.code}
+            as={Link}
+            to={item.href}
+            onClick={closeDropDown}
+            $enabled
+            $selected={item.code === activeItemCode}>
+            <BoldSpacer>{item.name}</BoldSpacer>
+            {item.name}
+          </Element>
+        )
+      }
+      return (
+        <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' $enabled={false} $selected={false}>
+          <BoldSpacer>{item.name}</BoldSpacer>
+          {item.name}
+        </Element>
+      )
+    })}
+  </Wrapper>
+)
 
 export default Selector

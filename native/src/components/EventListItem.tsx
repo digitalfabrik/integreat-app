@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { ReactElement, useCallback, useContext } from 'react'
-import ListItem from './ListItem'
+import styled from 'styled-components/native'
+
+import { EventModel, EVENTS_ROUTE, RouteInformationType } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../assets/EventPlaceholder3.jpg'
-import styled from 'styled-components/native'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { EventModel, EVENTS_ROUTE, RouteInformationType } from 'api-client'
-import { ThemeType } from 'build-configs'
+import ListItem from './ListItem'
 
 type PropsType = {
   cityCode: string
@@ -27,7 +29,7 @@ const Description = styled.Text`
  */
 const getEventPlaceholder = (id: number): number => {
   const placeholders = [EventPlaceholder1, EventPlaceholder2, EventPlaceholder3]
-  return placeholders[id % placeholders.length]
+  return placeholders[id % placeholders.length]!
 }
 
 const EventListItem = ({ event, cityCode, language, navigateTo, theme }: PropsType): ReactElement => {

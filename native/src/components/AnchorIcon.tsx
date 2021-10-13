@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { ScrollView } from 'react-native'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import styled from 'styled-components/native'
+
 import { isRTL } from '../constants/contentDirection'
 
 const anchorWidth = 30
@@ -22,7 +23,7 @@ type PropsType = {
 class AnchorIcon extends React.Component<PropsType> {
   onAnchorPress = (): void => {
     const { navigationItemWidth, _scrollView, xPosition, contentSizeDiff } = this.props
-    const didReachLastItem = parseInt(xPosition.toFixed(0)) + widthThreshold > contentSizeDiff
+    const didReachLastItem = parseInt(xPosition.toFixed(0), 10) + widthThreshold > contentSizeDiff
 
     // when everything is at starting point and xPosition is zero
     if (_scrollView) {

@@ -1,14 +1,16 @@
-import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 import { Moment } from 'moment'
+import React, { ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
+import styled from 'styled-components'
+
+import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
+
+import { textTruncator } from '../utils/stringUtils'
 import CleanLink from './CleanLink'
 import LastUpdateInfo from './LastUpdateInfo'
 import { Description } from './ListItem'
-import { TFunction } from 'react-i18next'
-import { textTruncator } from '../utils/stringUtils'
-import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
 
-export const NUM_OF_WORDS_ALLOWED = 30
+export const NUM_OF_CHARS_ALLOWED = 220
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -16,7 +18,6 @@ const Link = styled(CleanLink)`
 `
 const ReadMore = styled.div<{ $type: NewsType }>`
   align-self: flex-end;
-  color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
   color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
   font-weight: 600;
 `
@@ -34,7 +35,6 @@ const Body = styled.p`
 
 const StyledNewsListItem = styled.div`
   padding-bottom: 2px;
-  background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
 `
 
 const StyledContainer = styled.div`
@@ -61,7 +61,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_WORDS_ALLOWED)}</Body>
+          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>

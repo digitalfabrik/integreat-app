@@ -1,11 +1,13 @@
-import EndpointBuilder from '../EndpointBuilder'
-import { JsonLocalNewsType } from '../types'
-import LocalNewsModel from '../models/LocalNewsModel'
 import moment from 'moment-timezone'
+
 import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
 import MappingError from '../errors/MappingError'
 import NotFoundError from '../errors/NotFoundError'
+import LocalNewsModel from '../models/LocalNewsModel'
 import { LOCAL_NEWS_TYPE } from '../routes'
+import { JsonLocalNewsType } from '../types'
+
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 type ParamsType = {
   city: string
@@ -20,18 +22,18 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
     )
     .withMapper(
       (localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
-        const count = localNews.length
+        const localNewsModel = localNews[0]
 
-        if (count === 0) {
+        if (!localNewsModel) {
           throw new NotFoundError({ ...params, type: LOCAL_NEWS_TYPE })
-        } else if (count > 1) {
+        } else if (localNews.length > 1) {
           throw new MappingError(
             LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
-            `Expected count of local news to be one. Received ${count} instead`
+            `Expected count of local news to be one. Received ${localNews.length} instead`
           )
         }
 
-        const { id, timestamp, title, message } = localNews[0]
+        const { id, timestamp, title, message } = localNewsModel
         return new LocalNewsModel({
           id,
           timestamp: moment.tz(timestamp, 'GMT'),

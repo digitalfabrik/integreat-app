@@ -1,5 +1,5 @@
-import DatabaseConnector from '../utils/DatabaseConnector'
 import DatabaseContext from '../models/DatabaseContext'
+import DatabaseConnector from '../utils/DatabaseConnector'
 
 type LoadFunctionType<T> = (databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<T>
 type StoreFunctionType<T> = (value: T, databaseConnector: DatabaseConnector, context: DatabaseContext) => Promise<void>
@@ -22,7 +22,7 @@ export default class Cache<T> {
       this.evict()
     }
 
-    const value = this.value
+    const { value } = this
 
     if (!value) {
       const newValue: T = await this.load(this.databaseConnector, context)

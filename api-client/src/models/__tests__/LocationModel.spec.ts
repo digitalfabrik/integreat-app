@@ -1,12 +1,13 @@
-import { Feature } from 'geojson'
+import { PoiFeature } from '../../maps'
 import LocationModel from '../LocationModel'
 
 describe('LocationModel', () => {
   describe('location', () => {
-    it('should return null if town, address and name is null', () => {
+    it('should return name if town, address and name is null', () => {
       expect(
         new LocationModel({
-          name: null,
+          id: 1,
+          name: 'test',
           country: null,
           region: null,
           state: null,
@@ -14,12 +15,13 @@ describe('LocationModel', () => {
           town: null,
           postcode: null
         }).location
-      ).toBeNull()
+      ).toBe('test')
     })
-    it('should only return town (and postcode) if address is null', () => {
+    it('should only return name, town (and postcode) if address is null', () => {
       expect(
         new LocationModel({
-          name: null,
+          id: 1,
+          name: 'test',
           country: null,
           region: null,
           state: null,
@@ -27,10 +29,11 @@ describe('LocationModel', () => {
           town: 'Augsburg',
           postcode: '86161'
         }).location
-      ).toBe('86161 Augsburg')
+      ).toBe('test, 86161 Augsburg')
       expect(
         new LocationModel({
-          name: null,
+          id: 1,
+          name: 'test',
           country: null,
           region: null,
           state: null,
@@ -38,10 +41,11 @@ describe('LocationModel', () => {
           town: 'Augsburg',
           postcode: null
         }).location
-      ).toBe('Augsburg')
+      ).toBe('test, Augsburg')
     })
     it('should include the name if available', () => {
       const location = new LocationModel({
+        id: 1,
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -52,33 +56,30 @@ describe('LocationModel', () => {
       })
       expect(location.location).toEqual('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
     })
-    it('should exclude the name if unavailable', () => {
-      const location = new LocationModel({
-        name: null,
-        address: 'Wertachstr. 29',
-        town: 'Augsburg',
-        state: 'Bayern',
-        postcode: '86353',
-        region: 'Schwaben',
-        country: 'DE'
-      })
-      expect(location.location).toEqual('Wertachstr. 29, 86353 Augsburg')
-    })
   })
 })
 describe('convertToPoint', () => {
-  const expectedGeoJsonMarkerFeature: Feature = {
+  const thumbnail = 'thumbnail'
+  const path = '/augsburg/de/locations/erster_poi'
+  const urlSlug = 'erster_poi'
+  const expectedGeoJsonMarkerFeature: PoiFeature = {
     type: 'Feature',
     geometry: {
       type: 'Point',
       coordinates: [31.133859, 29.979848]
     },
     properties: {
-      name: 'Test'
+      id: 1,
+      title: 'Test',
+      symbol: '9',
+      thumbnail: 'thumbnail',
+      path: '/augsburg/de/locations/erster_poi',
+      urlSlug
     }
   }
   it('should be transformed to GeoJson type', () => {
     const location = new LocationModel({
+      id: 1,
       name: 'Test',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -89,10 +90,11 @@ describe('convertToPoint', () => {
       longitude: '31.133859',
       country: 'DE'
     })
-    expect(location.convertToPoint()).toEqual(expectedGeoJsonMarkerFeature)
+    expect(location.convertToPoint(path, thumbnail, urlSlug)).toEqual(expectedGeoJsonMarkerFeature)
   })
   it('should return null when latitude is null ', () => {
     const location = new LocationModel({
+      id: 1,
       name: 'Test',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -103,10 +105,11 @@ describe('convertToPoint', () => {
       longitude: '31.133859',
       country: 'DE'
     })
-    expect(location.convertToPoint()).toBeNull()
+    expect(location.convertToPoint(path, thumbnail, urlSlug)).toBeNull()
   })
   it('should return null when longitude is null ', () => {
     const location = new LocationModel({
+      id: 1,
       name: 'Test',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -117,6 +120,6 @@ describe('convertToPoint', () => {
       longitude: null,
       country: 'DE'
     })
-    expect(location.convertToPoint()).toBeNull()
+    expect(location.convertToPoint(path, thumbnail, urlSlug)).toBeNull()
   })
 })

@@ -139,15 +139,15 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 4-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
-                    - 4-pods-{{ arch }}-
+                    - 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                    - 6-pods-{{ arch }}-
                 name: Restore CocoaPods Cache
             - run:
                 command: bundle exec pod install
                 name: '[CP] Install CocoaPods'
                 working_directory: native/ios
             - save_cache:
-                key: 4-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
+                key: 6-pods-{{ arch }}-{{ checksum "native/ios/Podfile.lock" }}
                 name: Save CocoaPods Cache
                 paths:
                     - ~/Library/Caches/CocoaPods/
@@ -199,13 +199,13 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
                 name: Yarn
             - save_cache:
-                key: 7-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
@@ -418,7 +418,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         environment:
             TOTAL_CPUS: 1
         parameters:
@@ -457,7 +457,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         parameters:
             delivery:
                 default: none
@@ -500,7 +500,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -515,10 +515,10 @@ jobs:
                 command: yarn prettier:check
                 name: Prettier
             - run:
-                command: yarn workspaces run lint
+                command: yarn lint
                 name: Lint
             - run:
-                command: yarn workspace build-configs ts:check
+                command: yarn workspaces run ts:check
                 name: TS check
             - unit_test:
                 directory: api-client
@@ -636,7 +636,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         parameters:
             production_delivery:
                 description: Whether to deliver to production or to webnext.
@@ -734,7 +734,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: circleci/node:14.9.0-browsers
+            - image: circleci/node:14.18.0-browsers
             - image: selenium/standalone-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -753,7 +753,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         resource_class: small
         steps:
             - skip_job
@@ -767,7 +767,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -794,7 +794,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -821,7 +821,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: circleci/node:14.9.0
+            - image: circleci/node:14.18.0
         resource_class: small
         steps:
             - skip_job

@@ -1,21 +1,24 @@
 import * as React from 'react'
 import { ReactElement } from 'react'
-import styled from 'styled-components/native'
-import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
-import { ThemeType } from 'build-configs/ThemeType'
 import { TFunction } from 'react-i18next'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { ActivityIndicator, ScrollView, Text, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs/ThemeType'
+
+import HappyIcon from '../assets/smile-happy.svg'
+import buildConfig from '../constants/buildConfig'
 import Caption from './Caption'
 import { SendingStatusType } from './FeedbackContainer'
-import buildConfig from '../constants/buildConfig'
-import HappyIcon from '../assets/smile-happy.svg'
 
 const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
   border-color: ${props => props.theme.colors.themeColor};
   text-align-vertical: top;
+  color: ${props => props.theme.colors.textColor};
 `
 const MailInput = styled(Input)`
   height: 50px;
@@ -104,22 +107,22 @@ const Feedback = (props: PropsType): ReactElement => {
           />
         </>
       )
-    } else if (sendingStatus === 'sending') {
-      return <ActivityIndicator size='large' color='#0000ff' />
-    } else {
-      // sendingStatus === 'successful') {
-      return (
-        <>
-          <HappyIconContainer source={HappyIcon} />
-          <Caption theme={theme} title={t('feedback:feedbackSent')} />
-          <ThemedText theme={theme}>
-            {t('feedback:thanksMessage', {
-              appName: buildConfig().appName
-            })}
-          </ThemedText>
-        </>
-      )
     }
+    if (sendingStatus === 'sending') {
+      return <ActivityIndicator size='large' color='#0000ff' />
+    }
+    // sendingStatus === 'successful'
+    return (
+      <>
+        <HappyIconContainer source={HappyIcon} />
+        <Caption theme={theme} title={t('feedback:feedbackSent')} />
+        <ThemedText theme={theme}>
+          {t('feedback:thanksMessage', {
+            appName: buildConfig().appName
+          })}
+        </ThemedText>
+      </>
+    )
   }
 
   const { theme } = props

@@ -1,15 +1,17 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import CategoryListItem from './CategoryListItem'
-import styled from 'styled-components/native'
-import SimpleImage from './SimpleImage'
-import CategoryListCaption from './CategoryListCaption'
-import CategoryListContent from './CategoryListContent'
-import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
+import * as React from 'react'
+import { ReactNode } from 'react'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
+import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
+import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+import CategoryListCaption from './CategoryListCaption'
+import CategoryListContent from './CategoryListContent'
+import CategoryListItem from './CategoryListItem'
+import SimpleImage from './SimpleImage'
 
 export type CategoryListModelType = {
   title: string
@@ -53,12 +55,12 @@ const CategoryThumbnail = styled(SimpleImage)`
 
 class CategoryList extends React.Component<PropsType> {
   getListContent(listContent: ListContentModelType): React.ReactNode {
-    const { theme, language, navigateToLink } = this.props
-    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
-      return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+    const { language, navigateToLink } = this.props
+    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
+      file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
         : file.filePath
-    })
+    )
     return (
       <CategoryListContent
         content={listContent.content}
@@ -66,7 +68,6 @@ class CategoryList extends React.Component<PropsType> {
         navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         lastUpdate={listContent.lastUpdate}
-        theme={theme}
       />
     )
   }

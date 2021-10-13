@@ -1,31 +1,27 @@
-import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
-import FeedbackContainer from '../FeedbackContainer'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import React from 'react'
+
 import {
   CATEGORIES_FEEDBACK_TYPE,
   CATEGORIES_ROUTE,
   CONTENT_FEEDBACK_CATEGORY,
   SEND_FEEDBACK_SIGNAL_NAME
 } from 'api-client'
+
 import buildConfig from '../../constants/buildConfig'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn(() => Promise.resolve())
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
-      request: mockRequest
-    })
-  }
-})
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (text: string) => text
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
+    request: mockRequest
   })
 }))
+
 describe('FeedbackContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -81,8 +77,8 @@ describe('FeedbackContainer', () => {
       />
     )
     const [commentField, emailField] = getAllByDisplayValue('')
-    fireEvent.changeText(commentField, comment)
-    fireEvent.changeText(emailField, contactMail)
+    fireEvent.changeText(commentField!, comment)
+    fireEvent.changeText(emailField!, contactMail)
     const button = getByText('send')
     fireEvent.press(button)
     expect(await findByText('feedback:feedbackSent')).toBeDefined()

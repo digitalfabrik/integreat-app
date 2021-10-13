@@ -1,11 +1,6 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { FunctionComponent, ReactElement, ReactNode, Suspense, useCallback } from 'react'
 import { Route, RouteComponentProps, Switch } from 'react-router-dom'
-import OffersPage from './routes/OffersPage'
-import EventsPage from './routes/EventsPage'
-import CategoriesPage from './routes/CategoriesPage'
-import PoisPage from './routes/PoisPage'
-import SearchPage from './routes/SearchPage'
-import DisclaimerPage from './routes/DisclaimerPage'
+
 import {
   CATEGORIES_ROUTE,
   CityModel,
@@ -13,39 +8,65 @@ import {
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LanguageModel,
+  normalizePath,
+  NotFoundError,
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
-import { cmsApiBaseUrl } from './constants/urls'
-import Layout from './components/Layout'
+
 import FailureSwitcher from './components/FailureSwitcher'
-import LanguageFailure from './components/LanguageFailure'
-import useWindowDimensions from './hooks/useWindowDimensions'
-import GeneralHeader from './components/GeneralHeader'
 import GeneralFooter from './components/GeneralFooter'
+import GeneralHeader from './components/GeneralHeader'
+import LanguageFailure from './components/LanguageFailure'
+import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
-import LocalNewsPage from './routes/LocalNewsPage'
-import TuNewsPage from './routes/TuNewsPage'
-import SprungbrettOfferPage from './routes/SprungbrettOfferPage'
-import { createPath, LOCAL_NEWS_ROUTE, RoutePatterns, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import LocationLayout from './components/LocationLayout'
 import buildConfig from './constants/buildConfig'
-import TuNewsDetailPage from './routes/TuNewsDetailPage'
+import { cmsApiBaseUrl } from './constants/urls'
+import useWindowDimensions from './hooks/useWindowDimensions'
+import {
+  createPath,
+  LOCAL_NEWS_ROUTE,
+  RoutePatterns,
+  RouteProps,
+  RouteType,
+  TU_NEWS_DETAIL_ROUTE,
+  TU_NEWS_ROUTE
+} from './routes'
+
+const TuNewsDetailPage = React.lazy(() => import('./routes/TuNewsDetailPage'))
+const TuNewsPage = React.lazy(() => import('./routes/TuNewsPage'))
+const OffersPage = React.lazy(() => import('./routes/OffersPage'))
+const EventsPage = React.lazy(() => import('./routes/EventsPage'))
+const CategoriesPage = React.lazy(() => import('./routes/CategoriesPage'))
+const LocalNewsPage = React.lazy(() => import('./routes/LocalNewsPage'))
+const SprungbrettOfferPage = React.lazy(() => import('./routes/SprungbrettOfferPage'))
+const PoisPage = React.lazy(() => import('./routes/PoisPage'))
+const SearchPage = React.lazy(() => import('./routes/SearchPage'))
+const DisclaimerPage = React.lazy(() => import('./routes/DisclaimerPage'))
 
 type PropsType = {
   cities: CityModel[]
 } & RouteComponentProps<{ cityCode: string; languageCode: string }>
+
+export type CityRouteProps = {
+  cities: Array<CityModel>
+  cityModel: CityModel
+  languages: Array<LanguageModel>
+  languageModel: LanguageModel
+}
 
 const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { cityCode, languageCode } = match.params
   const cityModel = cities.find(it => it.code === cityCode)
 
-  const requestLanguages = useCallback(async () => {
-    return createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode })
-  }, [cityCode])
+  const requestLanguages = useCallback(async () => createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode }), [
+    cityCode
+  ])
   const { data: languages, loading, error: loadingError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
   const languageModel = languages?.find(it => it.code === languageCode)
 
@@ -59,7 +80,9 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     }
 
     if (loadingError || !cityModel || !languages) {
-      const cityError = !cityModel ? new Error('notFound.category') : null
+      const cityError = !cityModel
+        ? new NotFoundError({ type: 'category', id: cityCode, city: cityCode, language: languageCode })
+        : null
       const error = cityError || loadingError || new Error('Languages should not be null!')
 
       return (
@@ -90,52 +113,97 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     )
   }
 
-  const params = { cities, languages, cityModel, languageModel }
+  const cityRouteProps: CityRouteProps = { cities, languages, cityModel, languageModel }
   const { eventsEnabled, offersEnabled } = cityModel
   const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.pushNotificationsEnabled
   const tuNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.tunewsEnabled
   const poisEnabled = buildConfig().featureFlags.pois && cityModel.poisEnabled
 
-  return (
-    <Switch>
-      {eventsEnabled && (
-        <Route exact path={RoutePatterns[EVENTS_ROUTE]} render={props => <EventsPage {...params} {...props} />} />
-      )}
-      {offersEnabled && (
-        <Route
-          exact
-          path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
-          render={props => <SprungbrettOfferPage {...params} {...props} />}
-        />
-      )}
-      {offersEnabled && (
-        <Route exact path={RoutePatterns[OFFERS_ROUTE]} render={props => <OffersPage {...params} {...props} />} />
-      )}
-      {poisEnabled && (
-        <Route exact path={RoutePatterns[POIS_ROUTE]} render={props => <PoisPage {...params} {...props} />} />
-      )}
-      {localNewsEnabled && (
-        <Route
-          exact
-          path={RoutePatterns[LOCAL_NEWS_ROUTE]}
-          render={props => <LocalNewsPage {...params} {...props} />}
-        />
-      )}
-      {tuNewsEnabled && (
-        <Route exact path={RoutePatterns[TU_NEWS_ROUTE]} render={props => <TuNewsPage {...params} {...props} />} />
-      )}
-      {tuNewsEnabled && (
-        <Route
-          exact
-          path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]}
-          render={props => <TuNewsDetailPage {...params} {...props} />}
-        />
-      )}
-      <Route exact path={RoutePatterns[SEARCH_ROUTE]} render={props => <SearchPage {...params} {...props} />} />
-      <Route exact path={RoutePatterns[DISCLAIMER_ROUTE]} render={props => <DisclaimerPage {...params} {...props} />} />
-      <Route path={RoutePatterns[CATEGORIES_ROUTE]} render={props => <CategoriesPage {...params} {...props} />} />
-    </Switch>
+  const suspenseLayoutProps = {
+    cityModel,
+    viewportSmall,
+    feedbackTargetInformation: null,
+    languageChangePaths: null,
+    languageCode,
+    pathname: normalizePath(location.pathname),
+    isLoading: true
+  }
+
+  const render = <S extends RouteType>(
+    route: S,
+    Component: FunctionComponent<CityRouteProps & RouteProps<S>>
+  ): ((p: RouteProps<S>) => ReactNode) => (props: RouteProps<S>): ReactNode => (
+    <Suspense
+      fallback={
+        <LocationLayout {...suspenseLayoutProps} route={route}>
+          <LoadingSpinner />
+        </LocationLayout>
+      }>
+      <Component {...cityRouteProps} {...props} />
+    </Suspense>
   )
+
+  const routes: ReactElement[] = []
+  if (eventsEnabled) {
+    routes.push(
+      <Route key={EVENTS_ROUTE} render={render(EVENTS_ROUTE, EventsPage)} path={RoutePatterns[EVENTS_ROUTE]} exact />
+    )
+  }
+  if (offersEnabled) {
+    routes.push(
+      <Route
+        key={SPRUNGBRETT_OFFER_ROUTE}
+        render={render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
+        path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
+        exact
+      />,
+      <Route key={OFFERS_ROUTE} render={render(OFFERS_ROUTE, OffersPage)} path={RoutePatterns[OFFERS_ROUTE]} exact />
+    )
+  }
+  if (poisEnabled) {
+    routes.push(<Route key={POIS_ROUTE} render={render(POIS_ROUTE, PoisPage)} path={RoutePatterns[POIS_ROUTE]} exact />)
+  }
+  if (localNewsEnabled) {
+    routes.push(
+      <Route
+        key={LOCAL_NEWS_ROUTE}
+        render={render(LOCAL_NEWS_ROUTE, LocalNewsPage)}
+        path={RoutePatterns[LOCAL_NEWS_ROUTE]}
+        exact
+      />
+    )
+  }
+  if (tuNewsEnabled) {
+    routes.push(
+      <Route
+        key={TU_NEWS_ROUTE}
+        render={render(TU_NEWS_ROUTE, TuNewsPage)}
+        path={RoutePatterns[TU_NEWS_ROUTE]}
+        exact
+      />,
+      <Route
+        key={TU_NEWS_DETAIL_ROUTE}
+        render={render(TU_NEWS_DETAIL_ROUTE, TuNewsDetailPage)}
+        path={RoutePatterns[TU_NEWS_DETAIL_ROUTE]}
+        exact
+      />
+    )
+  }
+  routes.push(
+    <Route key={SEARCH_ROUTE} render={render(SEARCH_ROUTE, SearchPage)} path={RoutePatterns[SEARCH_ROUTE]} exact />,
+    <Route
+      key={DISCLAIMER_ROUTE}
+      render={render(DISCLAIMER_ROUTE, DisclaimerPage)}
+      path={RoutePatterns[DISCLAIMER_ROUTE]}
+      exact
+    />,
+    <Route
+      key={CATEGORIES_ROUTE}
+      render={render(CATEGORIES_ROUTE, CategoriesPage)}
+      path={RoutePatterns[CATEGORIES_ROUTE]}
+    />
+  )
+  return <Switch>{routes}</Switch>
 }
 
 export default CityContentSwitcher

@@ -1,40 +1,42 @@
-import * as React from 'react'
-import configureMockStore from 'redux-mock-store'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
-import { NewsRouteStateType, StateType, LanguagesStateType, CitiesStateType } from '../../redux/StateType'
-import { Provider } from 'react-redux'
 import { render } from '@testing-library/react-native'
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, CityModel, ErrorCode } from 'api-client'
-import NewsContainer from '../NewsContainer'
+import * as React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+
+import { CityModel, ErrorCode, LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'api-client'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
+
 import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
+import { CitiesStateType, LanguagesStateType, NewsRouteStateType, StateType } from '../../redux/StateType'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import NewsContainer from '../NewsContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../../components/NewsList', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>NewsList</Text>
 })
-jest.mock('../../components/FailureContainer', () => {
-  const Text = require('react-native').Text
+jest.mock('../../components/Failure', () => {
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('../../components/LanguageNotAvailableContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
 jest.mock('../../components/LoadingSpinner', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Loading</Text>
 })
@@ -62,11 +64,12 @@ describe('NewsContainer', () => {
         latitude: 48.267499,
         longitude: 10.889586
       }
-    }
+    },
+    boundingBox: null
   })
   const languages = new LanguageModelBuilder(1).build()
-  const language = languages[0]
-  const news = new LocalNewsModelBuilder('NewsList-Component', 1, city.code, languages[0].code).build()
+  const language = languages[0]!
+  const news = new LocalNewsModelBuilder('NewsList-Component', 1, city.code, language.code).build()
 
   const prepareState = (
     routeState: NewsRouteStateType | null | undefined,
@@ -79,38 +82,36 @@ describe('NewsContainer', () => {
       cities?: CitiesStateType
       languages?: LanguagesStateType
     } = {}
-  ): StateType => {
-    return {
-      resourceCacheUrl: 'http://localhost:8080',
-      cityContent: {
-        city: city.code,
-        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: routeState
-          ? {
-              'route-id-0': routeState
-            }
-          : {},
-        searchRoute: null,
-        resourceCache: {
-          status: 'ready',
-          progress: 0,
-          value: {
-            file: {}
-          }
-        }
-      },
-      contentLanguage: 'de',
-      cities: cities || {
+  ): StateType => ({
+    resourceCacheUrl: 'http://localhost:8080',
+    cityContent: {
+      city: city.code,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: routeState
+        ? {
+            'route-id-0': routeState
+          }
+        : {},
+      searchRoute: null,
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {
+          file: {}
+        }
+      }
+    },
+    contentLanguage: 'de',
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   const successfulRouteState: NewsRouteStateType = {
     routeType: NEWS_ROUTE,

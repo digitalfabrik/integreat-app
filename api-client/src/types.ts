@@ -8,8 +8,8 @@ export type JsonAvailableLanguagesType = Record<
   }
 >
 export type JsonLocationType = {
-  id: number | null | undefined
-  name: string | null | undefined
+  id: number
+  name: string
   address: string | null | undefined
   town: string | null | undefined
   state: string | null | undefined
@@ -177,11 +177,6 @@ export type JsonCityType = {
   prefix: string | null | undefined
   latitude: number | null
   longitude: number | null
-  aliases: Record<
-    string,
-    {
-      longitude: number
-      latitude: number
-    }
-  > | null
+  aliases: Record<string, { longitude: number; latitude: number }> | null
+  bounding_box: number[][] | null
 }

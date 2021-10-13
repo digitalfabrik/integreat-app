@@ -1,10 +1,12 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import { Helmet } from 'react-helmet'
-import JsonLdEvent from '../JsonLdEvent'
 import moment from 'moment'
+import React from 'react'
+import { Helmet } from 'react-helmet'
+
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'api-client'
 import DateFormatter from 'api-client/src/i18n/DateFormatter'
+
+import JsonLdEvent from '../JsonLdEvent'
 
 describe('EventJsonLd', () => {
   it('should output valid json-ld', () => {
@@ -14,6 +16,7 @@ describe('EventJsonLd', () => {
       allDay: false
     })
     const locationModel = new LocationModel({
+      id: 1,
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',

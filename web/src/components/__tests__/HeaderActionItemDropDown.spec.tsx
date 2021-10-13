@@ -1,8 +1,9 @@
+import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
-import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
-import { fireEvent, render, cleanup, RenderResult } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
+
 import buildConfig from '../../constants/buildConfig'
+import HeaderActionItemDropDown from '../HeaderActionItemDropDown'
 
 describe('HeaderActionItemDropDown', () => {
   let wrapperComponent: RenderResult
@@ -11,9 +12,9 @@ describe('HeaderActionItemDropDown', () => {
   const theme = buildConfig().lightTheme
 
   beforeEach(() => {
-    const InnerComponent = (props: { closeDropDown: () => void }) => {
-      return <span onClick={props.closeDropDown}>Do you see me?</span>
-    }
+    const InnerComponent = ({ closeDropDown }: { closeDropDown: () => void }) => (
+      <span onClick={closeDropDown}>Do you see me?</span>
+    )
 
     wrapperComponent = render(
       <ThemeProvider theme={theme}>

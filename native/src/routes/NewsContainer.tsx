@@ -1,17 +1,20 @@
-import { NewsModelsType, StateType } from '../redux/StateType'
-import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
+import React, { useCallback } from 'react'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import React, { useCallback } from 'react'
-import News from './News'
-import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import NewsHeader from '../components/NewsHeader'
-import { View } from 'react-native'
+
+import { CityModel, ErrorCode, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'api-client'
+
 import LoadingSpinner from '../components/LoadingSpinner'
+import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { ErrorCode, NewsRouteType, NewsType, NEWS_ROUTE, TU_NEWS_TYPE, CityModel } from 'api-client'
+import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import navigateToLink from '../navigation/navigateToLink'
+import { NewsModelsType, StateType } from '../redux/StateType'
+import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
+import News from './News'
 
 type NavigationPropsType = {
   route: RoutePropType<NewsRouteType>
@@ -53,15 +56,6 @@ type RefreshPropsType = NavigationPropsType & {
   selectedNewsType: NewsType
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
-}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, newsId, selectedNewsType } = refreshProps
@@ -152,14 +146,16 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       code: state.cities.code,
       refreshProps
     }
-  } else if (route.status === 'error') {
+  }
+  if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
     }
-  } else if (languages.status === 'error') {
+  }
+  if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
@@ -223,6 +219,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
+
+  useClearRouteOnClose(route, dispatch)
   const navigateToLinkProp = useCallback(
     (url: string, language: string, shareUrl: string) => {
       const navigateTo = createNavigate(dispatch, navigation)
@@ -264,9 +262,7 @@ const NewsContainer = (props: ContainerPropsType) => {
         return
       }
 
-      const isTunews = selectedNewsType === TU_NEWS_TYPE
-
-      if (hasMoreNews && isTunews) {
+      if (selectedNewsType === TU_NEWS_TYPE) {
         const fetchNews: FetchMoreNewsActionType = {
           type: 'FETCH_MORE_NEWS',
           params: {
@@ -290,6 +286,7 @@ const NewsContainer = (props: ContainerPropsType) => {
     [selectedNewsType, language, cityModel, newsId, dispatch, route]
   )
 
+  // eslint-disable-next-line react/destructuring-assignment
   if (props.status === 'ready') {
     const { news, page, hasMoreNews, isFetchingMore } = props
     return (
@@ -316,20 +313,19 @@ const NewsContainer = (props: ContainerPropsType) => {
         />
       </View>
     )
-  } else {
-    return (
-      <View
-        style={{
-          flex: 1
-        }}>
-        <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
-        <LoadingSpinner />
-      </View>
-    )
   }
+  return (
+    <View
+      style={{
+        flex: 1
+      }}>
+      <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={fetchNews} />
+      <LoadingSpinner />
+    </View>
+  )
 }
 
 export default connect(mapStateToProps)(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, onRouteClose, true)(NewsContainer)
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true)(NewsContainer)
 )

@@ -1,15 +1,21 @@
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
-import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { FetchCategoryActionType } from '../../redux/StoreActionType'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
-import { expectSaga, testSaga } from 'redux-saga-test-plan'
-import loadCityContent from '../loadCityContent'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import moment from 'moment'
-import mockDate from '../../testing/mockDate'
-import { ErrorCode } from 'api-client'
+import { expectSaga, testSaga } from 'redux-saga-test-plan'
 
+import { ErrorCode } from 'api-client'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
+import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import { FetchCategoryActionType } from '../../redux/StoreActionType'
+import mockDate from '../../testing/mockDate'
+import DefaultDataContainer from '../../utils/DefaultDataContainer'
+import { reportError } from '../../utils/helpers'
+import loadCityContent from '../loadCityContent'
+import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
+
+jest.mock('../../utils/helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('../loadCityContent')
 
 const languages = new LanguageModelBuilder(2).build()
@@ -32,7 +38,7 @@ const createDataContainer = async (city: string, language: string) => {
   }
 }
 
-describe('watchFetchCategories', () => {
+describe('watchFetchCategory', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
 
@@ -41,6 +47,7 @@ describe('watchFetchCategories', () => {
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate
+    jest.clearAllMocks()
   })
 
   afterEach(async () => {
@@ -70,7 +77,7 @@ describe('watchFetchCategories', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({
@@ -109,7 +116,7 @@ describe('watchFetchCategories', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({
@@ -209,8 +216,8 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put error action if language is not available for root model', async () => {
-      const { dataContainer, languages } = await createDataContainer(city, language)
+    it('should put error action if language is not available', async () => {
+      const { dataContainer } = await createDataContainer(city, language)
       const invalidLanguage = '??'
       const action: FetchCategoryActionType = {
         type: 'FETCH_CATEGORY',
@@ -226,10 +233,14 @@ describe('watchFetchCategories', () => {
           }
         }
       }
+      const allAvailableLanguages = new Map([
+        ['en', '/augsburg/en'],
+        ['de', '/augsburg/de']
+      ])
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put.like({
@@ -240,7 +251,7 @@ describe('watchFetchCategories', () => {
               language: '??',
               depth: 2,
               path: '/augsburg/??',
-              allAvailableLanguages: new Map(languages.map(lng => [lng.code, `/${city}/${lng.code}`])),
+              allAvailableLanguages,
               key: 'categories-key'
             }
           }
@@ -268,7 +279,7 @@ describe('watchFetchCategories', () => {
       return expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put.like({
@@ -332,7 +343,7 @@ describe('watchFetchCategories', () => {
         .run()
     })
 
-    it('should put an error action', () => {
+    it('should put an error action', async () => {
       const dataContainer = new DefaultDataContainer()
       const action: FetchCategoryActionType = {
         type: 'FETCH_CATEGORY',
@@ -348,7 +359,8 @@ describe('watchFetchCategories', () => {
           }
         }
       }
-      return expectSaga(fetchCategory, dataContainer, action)
+      const error = new Error('Jemand hat keine 4 Issues geschafft!')
+      await expectSaga(fetchCategory, dataContainer, action)
         .withState({
           cityContent: {
             city
@@ -357,7 +369,7 @@ describe('watchFetchCategories', () => {
         .provide({
           call: (effect, next) => {
             if (effect.fn === loadCityContent) {
-              throw new Error('Jemand hat keine 4 Issues geschafft!')
+              throw error
             }
 
             return next()
@@ -377,11 +389,13 @@ describe('watchFetchCategories', () => {
           }
         })
         .run()
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetchCategory when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
-    return testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
+    await testSaga(watchFetchCategory, dataContainer).next().takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
   })
 })

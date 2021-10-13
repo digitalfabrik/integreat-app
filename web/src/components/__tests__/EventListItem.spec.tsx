@@ -1,14 +1,16 @@
-import React from 'react'
-import { DateFormatter, DateModel, EventModel, LocationModel } from 'api-client'
 import moment from 'moment'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import { DateFormatter, DateModel, EventModel, LocationModel } from 'api-client'
+
 import EventPlaceholder1 from '../../assets/EventPlaceholder1.jpg'
 import EventPlaceholder2 from '../../assets/EventPlaceholder2.jpg'
 import EventPlaceholder3 from '../../assets/EventPlaceholder3.jpg'
-import EventListItem, { NUM_OF_WORDS_ALLOWED } from '../EventListItem'
-import { textTruncator } from '../../utils/stringUtils'
-import { ThemeProvider } from 'styled-components'
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import { textTruncator } from '../../utils/stringUtils'
+import EventListItem, { NUM_OF_CHARS_ALLOWED } from '../EventListItem'
 
 describe('EventListItem', () => {
   const language = 'de'
@@ -27,6 +29,7 @@ describe('EventListItem', () => {
       allDay: true
     }),
     location: new LocationModel({
+      id: 1,
       name: 'name',
       address: 'address',
       town: 'town',
@@ -57,7 +60,7 @@ describe('EventListItem', () => {
     expect(getByText(event.date.toFormattedString(formatter))).toBeTruthy()
     expect(getByText(String(event.location.location))).toBeTruthy()
     expect(getByRole('img')).toHaveProperty('src', event.thumbnail)
-    expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+    expect(getByText(textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
   })
 
   it('should show event list item with placeholder thumbnail and no location', () => {
@@ -74,6 +77,6 @@ describe('EventListItem', () => {
     expect(getByText(String(event.location.location))).toBeTruthy()
     const src = (getByRole('img') as HTMLMediaElement).src
     expect([EventPlaceholder1, EventPlaceholder2, EventPlaceholder3].some(img => src.endsWith(img))).toBeTruthy()
-    expect(getByText(textTruncator(event.excerpt, NUM_OF_WORDS_ALLOWED))).toBeTruthy()
+    expect(getByText(textTruncator(event.excerpt, NUM_OF_CHARS_ALLOWED))).toBeTruthy()
   })
 })

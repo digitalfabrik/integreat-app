@@ -1,5 +1,7 @@
 import { I18nManager } from 'react-native'
+
 import { config } from 'translations'
+
 export const isContentDirectionReversalRequired = (contentLanguage: string): boolean =>
   config.hasRTLScript(contentLanguage) !== I18nManager.isRTL
 export const isRTL = (): boolean => I18nManager.isRTL

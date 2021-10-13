@@ -1,21 +1,24 @@
 import * as React from 'react'
 
-type I18nType = typeof import('i18next').default
 const realModule = jest.requireActual('react-i18next')
 
-const withTranslation = (_unusedNamespace: string) => (
-  Component: React.ComponentType<any>
-): React.ComponentType<any> => {
-  return class extends React.Component<any> {
-    render() {
-      return <Component {...this.props} t={(key: string) => key} />
-    }
+const t = (key: string): string => key
+
+const withTranslation = <T extends unknown>(_unusedNamespace: string) => (
+  Component: React.ComponentType<T>
+): React.ComponentType<T> => (props: T) => <Component {...props} t={t} />
+
+const useTranslation = (_unusedNamespace: string | string[]) => ({
+  t,
+  i18n: {
+    language: 'en'
   }
-}
+})
 
 module.exports = {
   ...realModule,
   withTranslation,
-  I18nextProvider: (props: { i18n: I18nType; children: React.ReactNode }) => <>{props.children}</>,
+  useTranslation,
+  I18nextProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   reactI18nextModule: realModule.reactI18nextModule
 }

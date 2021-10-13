@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
-import { LanguageModel } from 'api-client'
-import Selector from './Selector'
-import SelectorItemModel from '../models/SelectorItemModel'
-import { Text } from 'react-native'
-import Caption from './Caption'
 import { TFunction } from 'react-i18next'
+import { Text } from 'react-native'
+import styled from 'styled-components/native'
+
+import { LanguageModel } from 'api-client'
 import { ThemeType } from 'build-configs'
+
+import SelectorItemModel from '../models/SelectorItemModel'
+import Caption from './Caption'
+import Selector from './Selector'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -27,7 +29,8 @@ export type PropsType = {
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel): void => {
-    this.props.changeLanguage(model.code)
+    const { changeLanguage } = this.props
+    changeLanguage(model.code)
   }
 
   render(): ReactNode {

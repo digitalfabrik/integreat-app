@@ -1,3 +1,16 @@
+import { render } from '@testing-library/react-native'
+import { reduce } from 'lodash'
+import moment from 'moment'
+import React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+
+import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
+import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
+import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
+import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
+
+import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 import {
   CategoryRouteStateType,
   CitiesStateType,
@@ -6,40 +19,29 @@ import {
   ResourceCacheStateType,
   StateType
 } from '../../redux/StateType'
-import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
-import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
-import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
-import { reduce } from 'lodash'
-import configureMockStore from 'redux-mock-store'
-import React from 'react'
-import { Provider } from 'react-redux'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { render } from '@testing-library/react-native'
-import moment from 'moment'
 import DashboardContainer from '../DashboardContainer'
-import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
-import { LOADING_TIMEOUT } from '../../hocs/withPayloadProvider'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
 jest.useFakeTimers()
 jest.mock('../Dashboard', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../../components/FailureContainer', () => {
-  const Text = require('react-native').Text
+jest.mock('../../components/Failure', () => {
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('../../components/LanguageNotAvailableContainer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })
@@ -49,9 +51,9 @@ const route = {
   name: DASHBOARD_ROUTE
 }
 describe('DashboardContainer', () => {
-  const [city] = new CityModelBuilder(1).build()
+  const city = new CityModelBuilder(1).build()[0]!
   const languages = new LanguageModelBuilder(2).build()
-  const language = languages[0]
+  const language = languages[0]!
   // a categoriesMap of depth 2
   const categoriesMap = new CategoriesMapModelBuilder(city.code, language.code, 3, 2).build()
   const resourceCache: LanguageResourceCacheStateType = {
@@ -78,36 +80,34 @@ describe('DashboardContainer', () => {
       languages?: LanguagesStateType
       resourceCacheState?: ResourceCacheStateType
     } = {}
-  ): StateType => {
-    return {
-      resourceCacheUrl,
-      cityContent: {
-        city: city.code,
-        switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-        languages: languages || {
-          status: 'ready',
-          models: [language]
-        },
-        routeMapping: routeState
-          ? {
-              'route-id-0': routeState
-            }
-          : {},
-        resourceCache: resourceCacheState || {
-          status: 'ready',
-          progress: 0,
-          value: resourceCache
-        },
-        searchRoute: null
-      },
-      contentLanguage: 'de',
-      cities: cities || {
+  ): StateType => ({
+    resourceCacheUrl,
+    cityContent: {
+      city: city.code,
+      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+      languages: languages || {
         status: 'ready',
-        models: [city]
+        models: [language]
       },
-      snackbar: []
-    }
-  }
+      routeMapping: routeState
+        ? {
+            'route-id-0': routeState
+          }
+        : {},
+      resourceCache: resourceCacheState || {
+        status: 'ready',
+        progress: 0,
+        value: resourceCache
+      },
+      searchRoute: null
+    },
+    contentLanguage: 'de',
+    cities: cities || {
+      status: 'ready',
+      models: [city]
+    },
+    snackbar: []
+  })
 
   const rootCategory = categoriesMap.findCategoryByPath(`/${city.code}/${language.code}`)
 

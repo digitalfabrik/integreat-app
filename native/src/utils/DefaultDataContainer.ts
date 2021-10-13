@@ -1,16 +1,18 @@
+import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
+import { Moment } from 'moment'
+import RNFetchBlob from 'rn-fetch-blob'
+
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
+
+import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import DatabaseConnector from './DatabaseConnector'
 import { DataContainer } from './DataContainer'
-import { Moment } from 'moment'
-import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
-import RNFetchBlob from 'rn-fetch-blob'
-import Cache from '../models/Cache'
+import DatabaseConnector from './DatabaseConnector'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>
@@ -119,11 +121,7 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
-    if (!resourceCache[language]) {
-      return {}
-    }
-
-    return resourceCache[language]
+    return resourceCache[language] ?? {}
   }
 
   getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
@@ -189,10 +187,11 @@ class DefaultDataContainer implements DataContainer {
     }
 
     const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
+    const previousLanguageResourceCache = previousResourceCache[language]
 
-    if (previousResourceCache[language]) {
+    if (previousLanguageResourceCache) {
       // Cleanup old resources
-      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
+      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousLanguageResourceCache)
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
 
@@ -247,11 +246,10 @@ class DefaultDataContainer implements DataContainer {
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
 
-  cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
-    return (
-      this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) && this.languagesAvailable(city)
-    )
-  }
+  cityContentAvailable = async (city: string, language: string): Promise<boolean> =>
+    (await this.categoriesAvailable(city, language)) &&
+    (await this.eventsAvailable(city, language)) &&
+    this.languagesAvailable(city)
 
   storeLastUsage = async (city: string, peeking: boolean): Promise<void> => {
     await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)

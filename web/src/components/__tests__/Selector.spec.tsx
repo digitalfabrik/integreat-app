@@ -1,7 +1,8 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import Selector from '../Selector'
+import React from 'react'
+
 import SelectorItemModel from '../../models/SelectorItemModel'
+import Selector from '../Selector'
 
 const selectorItems = [
   new SelectorItemModel({
@@ -26,7 +27,7 @@ describe('Selector', () => {
     const wrapper = shallow(
       <Selector
         verticalLayout={false}
-        closeDropDown={() => {}}
+        closeDropDown={() => undefined}
         items={selectorItems}
         activeItemCode='de'
         disabledItemTooltip='random tooltip'
@@ -39,7 +40,7 @@ describe('Selector', () => {
     const wrapper = shallow(
       <Selector
         verticalLayout
-        closeDropDown={() => {}}
+        closeDropDown={() => undefined}
         items={selectorItems}
         activeItemCode='de'
         disabledItemTooltip='random tooltip'

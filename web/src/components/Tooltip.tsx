@@ -1,5 +1,6 @@
-import React, { ReactNode, ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
+
 import dimensions from '../constants/dimensions'
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
@@ -207,23 +208,24 @@ const fixFlow = (element: Element | null, preferredFlow: FlowType, dimensions: V
   }
 
   const checker = spaceCheckers[preferredFlow]
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!checker) {
     throw new Error('Fallback not found')
   }
 
   if (checker.check(element.getBoundingClientRect(), dimensions)) {
     return preferredFlow
-  } else {
-    const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
-      const fallbackChecker = spaceCheckers[fallbackFlow]
-      if (!fallbackChecker) {
-        throw new Error('Fallback not found')
-      }
-      return fallbackChecker.check(element.getBoundingClientRect(), dimensions)
-    })
-
-    return fallback ?? preferredFlow
   }
+  const fallback = checker.fallbacks.find((fallbackFlow: FlowType) => {
+    const fallbackChecker = spaceCheckers[fallbackFlow]
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!fallbackChecker) {
+      throw new Error('Fallback not found')
+    }
+    return fallbackChecker.check(element.getBoundingClientRect(), dimensions)
+  })
+
+  return fallback ?? preferredFlow
 }
 
 export default ({ children, text, flow, mediumViewportFlow, smallViewportFlow, ...props }: PropsType): ReactElement => {

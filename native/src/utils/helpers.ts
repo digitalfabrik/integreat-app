@@ -1,10 +1,13 @@
-import RNFetchBlob from 'rn-fetch-blob'
-import AppSettings from './AppSettings'
-import buildConfig from '../constants/buildConfig'
 import * as Sentry from '@sentry/react-native'
-import normalizeStrings from 'normalize-strings'
 import { last } from 'lodash'
+import normalizeStrings from 'normalize-strings'
+import RNFetchBlob from 'rn-fetch-blob'
 import Url from 'url-parse'
+
+import { FetchError, NotFoundError } from 'api-client/src'
+
+import buildConfig from '../constants/buildConfig'
+import AppSettings from './AppSettings'
 
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
@@ -51,7 +54,8 @@ export const forEachTreeNode = <T>(
 const uniqueBaseId = `route-id-${Date.now()}`
 let uuidCount = 0
 export const generateRouteKey = (): string => {
-  return `${uniqueBaseId}-${uuidCount++}`
+  uuidCount += 1
+  return `${uniqueBaseId}-${uuidCount}`
 }
 
 /**
@@ -65,7 +69,7 @@ export const getExtension = (urlString: string): string => {
     throw new Error('Invalid URL! Missing protocol.')
   }
 
-  const pathname = url.pathname
+  const { pathname } = url
   const lastPath = last(pathname.split('/'))
 
   if (lastPath === undefined) {
@@ -95,13 +99,16 @@ export const initSentry = (): void => {
 }
 
 export const reportError = (err: Error): void => {
-  if (!buildConfig().featureFlags.sentry) {
-    // eslint-disable-next-line no-console
-    console.log('Tried to report error via sentry, but it is disabled via the build config.')
-    return
-  }
+  // Do not report errors if a user navigates to an unknown site or has no internet connection
+  if (!(err instanceof NotFoundError) && !(err instanceof FetchError)) {
+    if (!buildConfig().featureFlags.sentry) {
+      // eslint-disable-next-line no-console
+      console.log('Tried to report error via sentry, but it is disabled via the build config.')
+      return
+    }
 
-  Sentry.captureException(err)
+    Sentry.captureException(err)
+  }
 }
 
 export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase()

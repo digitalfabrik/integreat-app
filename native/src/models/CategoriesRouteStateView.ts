@@ -1,5 +1,4 @@
 import { CategoryModel } from 'api-client'
-import { has } from 'lodash'
 
 class CategoriesRouteStateView {
   readonly rawPath: string
@@ -17,11 +16,12 @@ class CategoriesRouteStateView {
   }
 
   root(): CategoryModel {
-    if (!has(this.rawModels, this.rawPath)) {
+    const root = this.rawModels[this.rawPath]
+    if (!root) {
       throw new Error(`CategoriesRouteStateView doesn't have the root model for '${this.rawPath}'!`)
     }
 
-    return this.rawModels[this.rawPath]
+    return root
   }
 
   children(): Array<CategoryModel> {
@@ -31,7 +31,7 @@ class CategoriesRouteStateView {
       throw new Error(`Could not find children for category '${this.rawPath}'!`)
     }
 
-    return childrenPaths.map(childPath => this.rawModels[childPath])
+    return childrenPaths.map(childPath => this.rawModels[childPath]).filter((it): it is CategoryModel => !!it)
   }
 
   stepInto(path: string): CategoriesRouteStateView {

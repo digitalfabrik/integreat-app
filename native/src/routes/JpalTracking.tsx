@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { ThemeType } from 'build-configs'
-import { Switch, Text, TextInput, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import AppSettings, { defaultSettings } from '../utils/AppSettings'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import { JpalTrackingRouteType } from 'api-client'
+import { Switch, Text, TextInput, View } from 'react-native'
 import styled from 'styled-components/native'
-import LayoutContainer from '../components/LayoutContainer'
-import withTheme from '../hocs/withTheme'
+
+import { JpalTrackingRouteType } from 'api-client'
+import { ThemeType } from 'build-configs'
+
 import Caption from '../components/Caption'
+import LayoutContainer from '../components/LayoutContainer'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
+import AppSettings from '../utils/AppSettings'
 
 const ThemedText = styled.Text`
   display: flex;
@@ -32,70 +34,66 @@ const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
   border-color: ${props => (props.editable ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor)};
+  color: ${props => props.theme.colors.textColor};
   text-align-vertical: top;
   height: 50px;
 `
+
 export type PropsType = {
   theme: ThemeType
   route: RoutePropType<JpalTrackingRouteType>
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
-const errorDisplayTime = 5000
+
 const appSettings = new AppSettings()
 
-const JpalTracking = (props: PropsType) => {
-  const [settings, setSettings] = useState(defaultSettings)
+const JpalTracking = ({ route, theme }: PropsType) => {
+  const [trackingCode, setTrackingCode] = useState<string | null>(null)
+  const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
-  const [error, setError] = useState(false)
-  const routeTrackingCode = props.route.params.trackingCode
+  const [error, setError] = useState<boolean>(false)
   const { t } = useTranslation(['settings', 'error'])
-  const loadSettings = useCallback(async () => {
-    try {
-      const loadedSettings = await appSettings.loadSettings().catch()
-      setSettingsLoaded(true)
-      setSettings(loadedSettings)
-      const timeout = setTimeout(() => setError(false), errorDisplayTime)
-      return () => clearTimeout(timeout)
-    } catch (e) {
-      setError(true)
-    }
-  }, [])
-  useEffect(() => {
-    if (routeTrackingCode) {
-      appSettings
-        .setJpalTrackingCode(routeTrackingCode)
-        .then(() => loadSettings())
-        .catch(() => {
-          setError(true)
-          loadSettings()
-        })
-    }
-  }, [routeTrackingCode, loadSettings])
-  useEffect(() => {
-    loadSettings()
-  }, [loadSettings])
+  const routeTrackingCode = route.params.trackingCode
 
-  const toggleTrackingEnabled = () => {
-    setSettings({ ...settings, jpalTrackingEnabled: !settings.jpalTrackingEnabled })
-    appSettings.setJpalTrackingEnabled(!settings.jpalTrackingEnabled).catch(() => {
-      setError(true)
-      loadSettings()
-    })
+  const updateTrackingCode = (value: string) => {
+    setTrackingCode(value)
+    appSettings
+      .setJpalTrackingCode(value)
+      .then(() => setError(false))
+      .catch(() => setError(true))
   }
 
-  const setTrackingCode = (value: string) => {
-    setSettings({ ...settings, jpalTrackingCode: value })
-    appSettings.setJpalTrackingCode(value).catch(() => {
-      setError(true)
-      loadSettings()
-    })
+  useEffect(() => {
+    if (routeTrackingCode) {
+      updateTrackingCode(routeTrackingCode)
+    }
+  }, [routeTrackingCode])
+
+  useEffect(() => {
+    appSettings
+      .loadSettings()
+      .then(settings => {
+        // Do not override previous set tracking code (e.g. from route params)
+        setTrackingCode(previous => previous ?? settings.jpalTrackingCode)
+        setTrackingEnabled(settings.jpalTrackingEnabled)
+        setSettingsLoaded(true)
+      })
+      .catch(() => setError(true))
+  }, [])
+
+  const toggleTrackingEnabled = () => {
+    const newTrackingEnabled = !trackingEnabled
+    setTrackingEnabled(newTrackingEnabled)
+    appSettings
+      .setJpalTrackingEnabled(newTrackingEnabled)
+      .then(() => setError(false))
+      .catch(() => setError(true))
   }
 
   if (!settingsLoaded) {
     return <LayoutContainer />
   }
 
-  const { theme } = props
   return (
     <LayoutContainer>
       <View
@@ -108,25 +106,25 @@ const JpalTracking = (props: PropsType) => {
         {error && <ErrorText>{t('error:generalError')}</ErrorText>}
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
-          <ThemedText theme={props.theme}>{t('allowTracking')}</ThemedText>
+          <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
           <Switch
-            thumbColor={props.theme.colors.themeColor}
+            thumbColor={theme.colors.themeColor}
             trackColor={{
-              true: props.theme.colors.themeColor,
-              false: props.theme.colors.backgroundAccentColor
+              true: theme.colors.themeColor,
+              false: theme.colors.backgroundAccentColor
             }}
-            value={!!settings.jpalTrackingEnabled}
+            value={!!trackingEnabled}
             onValueChange={toggleTrackingEnabled}
             testID='switch'
           />
         </DescriptionContainer>
 
-        <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
+        <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
         <Input
-          value={settings.jpalTrackingCode ?? undefined}
-          onChangeText={setTrackingCode}
+          value={trackingCode ?? ''}
+          onChangeText={updateTrackingCode}
           theme={theme}
-          editable={settings.jpalTrackingEnabled ?? undefined}
+          editable={!!trackingEnabled}
           testID='input'
         />
       </View>

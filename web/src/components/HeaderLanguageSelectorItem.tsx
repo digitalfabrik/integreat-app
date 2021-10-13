@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
+import { TFunction } from 'react-i18next'
+
+import languageIcon from '../assets/language-icon.svg'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
-import Selector from './Selector'
-import { TFunction } from 'react-i18next'
-import languageIcon from '../assets/language-icon.svg'
 import HeaderActionBarItemLink from './HeaderActionItemLink'
+import Selector from './Selector'
 
 type PropsType = {
   selectorItems: Array<SelectorItemModel>
@@ -15,7 +16,7 @@ type PropsType = {
 const HeaderLanguageSelectorItem = ({ selectorItems, activeItemCode, t }: PropsType): ReactElement => {
   const noLanguagesHint = t('noLanguages')
 
-  return selectorItems && selectorItems.length > 0 ? (
+  return selectorItems.length > 0 ? (
     <HeaderActionItemDropDown iconSrc={languageIcon} text={t('changeLanguage')}>
       {closeDropDown => (
         <Selector

@@ -1,15 +1,25 @@
-import fs from 'fs'
+/* eslint-disable no-console */
 import program from 'commander'
-import path from 'path'
-import flat from 'flat'
-import stringify from 'csv-stringify'
 import parse from 'csv-parse/lib/sync'
-import config from '../src/config'
+import stringify from 'csv-stringify'
+import flat from 'flat'
+import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
-import { KeyValueType } from '../src/types'
+import path from 'path'
+
 import { TranslationsType } from '../src'
+import config from '../src/config'
+import { KeyValueType } from '../src/types'
 
 const { unflatten } = flat
+
+const XCODE_LANGUAGES_MAP: Record<string, string> = {
+  'sr-Cyrl': 'sr',
+  pes: 'fa',
+  prs: 'fa-AF',
+  kmr: 'ku',
+  'zh-CN': 'zh-HANS'
+} as const
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
 
@@ -17,9 +27,7 @@ type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj
 const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
   mapValues(obj, (val, key) => (!isString(val) ? mapStringValuesDeep(val, fn) : fn(val, key, obj)))
 
-const flattenModules = (modules: KeyValueType): Record<string, string> => {
-  return flat(modules)
-}
+const flattenModules = (modules: KeyValueType): Record<string, string> => flat(modules)
 
 type LanguagePair = [string, string]
 
@@ -33,7 +41,12 @@ const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: 
   })
   const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
   const withSourceLanguagePairs = zippedLanguagePairs.map(
-    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => [key, sourceTranslation, translation]
+    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => {
+      if (!translation) {
+        console.log('Missing translation:', key, '[', name, ']')
+      }
+      return [key, sourceTranslation, translation]
+    }
   )
   stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
 }
@@ -43,9 +56,8 @@ const EMPTY_MODULE = {}
 type KeyModuleType = [string, Record<string, KeyValueType>]
 type ModuleType = [string, KeyValueType]
 
-const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] => {
-  return keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
-}
+const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] =>
+  keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
 
 /**
  * Create a a translation skeleton which has all keys set to an empty string
@@ -54,15 +66,14 @@ const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string)
  * @param moduleArray The array of modules (containing all languages) with its keys
  * @returns {*}
  */
-const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] => {
-  return getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
+const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] =>
+  getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
     if (module === EMPTY_MODULE) {
       throw new Error(`Module ${moduleKey} is missing in source language!`)
     }
 
     return [moduleKey, mapStringValuesDeep(module, _unusedTranslation => '')]
   })
-}
 
 const mergeByLanguageModule = (
   byLanguageModule: ModuleType[],
@@ -96,9 +107,9 @@ const writeCsvFromJson = (
       .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
   )
   const skeleton = createSkeleton(sourceLanguage, moduleArray)
-  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule => {
-    return mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
-  })
+  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule =>
+    mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
+  )
   const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
   const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
   Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>
@@ -139,7 +150,11 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
     const byLanguageModules = fromPairs(
       csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')])
     )
-    const sourceModules = loadModules(csvs[0], 'source_language')
+    const sourceLanguageCsv = csvs[0]
+    if (!sourceLanguageCsv) {
+      throw new Error('Need at least one csv!')
+    }
+    const sourceModules = loadModules(sourceLanguageCsv, 'source_language')
     // Show which source languages differ
     csvs.forEach((csv, index) => {
       if (!isEqual(loadModules(csv, 'source_language'), sourceModules)) {
@@ -165,7 +180,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       moduleKeys.map(moduleKey => [
         moduleKey,
         fromPairs(
-          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey][moduleKey]])
+          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]])
         )
       ])
     )
@@ -179,7 +194,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
 
 program
   .command('convert <translations_file> <toPath> <format>')
-  .action(function (fromPath: string, toPath: string, targetFormat: string) {
+  .action((fromPath: string, toPath: string, targetFormat: string) => {
     const { supportedLanguages, sourceLanguage } = config
     const sourceFormat = path.extname(fromPath).replace('.', '') || 'csv'
     const converter: Record<string, () => void> = {
@@ -217,6 +232,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
   languageCodes.forEach(language => {
     const translations = nativeTranslations[language]
     const keys = Object.keys(translations)
+
     const content = keys
       .map(key => {
         const regex = /{{appName}}/gi
@@ -224,7 +240,11 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
         return `${key} = "${value}";`
       })
       .join('\n')
-    const path = `${destination}/${language}.lproj/`
+
+    // XCode uses different tags for some languages
+    const languageKey = XCODE_LANGUAGES_MAP[language] ?? language
+    const path = `${destination}/${languageKey}.lproj/`
+
     fs.mkdirSync(path, {
       recursive: true
     })

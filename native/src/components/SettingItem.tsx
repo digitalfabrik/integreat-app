@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { ReactElement } from 'react'
-import styled from 'styled-components/native'
-import { ThemeType } from 'build-configs'
-import Touchable from './Touchable'
-import { Badge, Icon } from 'react-native-elements'
-import { Switch, Text, View, AccessibilityRole } from 'react-native'
 import { TFunction } from 'react-i18next'
+import { Switch, Text, View, AccessibilityRole } from 'react-native'
+import { Badge, Icon } from 'react-native-elements'
+import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
+import Touchable from './Touchable'
 
 type PropType = {
   title: string

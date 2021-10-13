@@ -1,6 +1,7 @@
+import { ErrorCode, EventModel, EVENTS_ROUTE } from 'api-client'
+
 import { CityContentStateType, EventRouteStateType } from '../StateType'
 import { PushEventActionType } from '../StoreActionType'
-import { ErrorCode, EventModel, EVENTS_ROUTE } from 'api-client'
 
 const getEventRouteState = (
   currentPath: string | null | undefined,
@@ -37,11 +38,10 @@ const getEventRouteState = (
         status: 'loading',
         ...eventRouteState
       }
-    } else {
-      return {
-        status: 'ready',
-        ...eventRouteState
-      }
+    }
+    return {
+      status: 'ready',
+      ...eventRouteState
     }
   }
 
@@ -75,12 +75,11 @@ const getEventRouteState = (
       status: 'loading',
       ...eventRouteState
     }
-  } else {
-    return {
-      routeType: EVENTS_ROUTE,
-      status: 'ready',
-      ...eventRouteState
-    }
+  }
+  return {
+    routeType: EVENTS_ROUTE,
+    status: 'ready',
+    ...eventRouteState
   }
 }
 

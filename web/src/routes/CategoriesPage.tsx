@@ -1,37 +1,38 @@
+import moment from 'moment'
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
-import { Link, RouteComponentProps } from 'react-router-dom'
-import LocationLayout from '../components/LocationLayout'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+
 import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   Payload,
   ResponseError,
   useLoadFromEndpoint
 } from 'api-client'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
-import { useTranslation } from 'react-i18next'
-import BreadcrumbModel from '../models/BreadcrumbModel'
-import { urlFromPath } from '../utils/stringUtils'
-import FailureSwitcher from '../components/FailureSwitcher'
+import { config } from 'translations'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import CategoriesToolbar from '../components/CategoriesToolbar'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import moment from 'moment'
-import { config } from 'translations'
-import { createPath } from './index'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
 import buildConfig from '../constants/buildConfig'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import BreadcrumbModel from '../models/BreadcrumbModel'
+import { urlFromPath } from '../utils/stringUtils'
+import { createPath, RouteProps } from './index'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
@@ -48,12 +49,7 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   })
 }
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; categoryId?: string }>
+type PropsType = CityRouteProps & RouteProps<typeof CATEGORIES_ROUTE>
 
 const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const previousPathname = useRef<string | null | undefined>(null)
@@ -70,15 +66,17 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
     previousPathname.current = pathname
   }, [pathname])
 
-  const requestChildren = useCallback(async () => {
-    return createCategoryChildrenEndpoint(cmsApiBaseUrl).request({
-      city: cityCode,
-      language: languageCode,
-      // We show tiles for the root category so only first level children are needed
-      depth: categoryId ? 2 : 1,
-      cityContentPath: pathname
-    })
-  }, [cityCode, languageCode, pathname, categoryId])
+  const requestChildren = useCallback(
+    async () =>
+      createCategoryChildrenEndpoint(cmsApiBaseUrl).request({
+        city: cityCode,
+        language: languageCode,
+        // We show tiles for the root category so only first level children are needed
+        depth: categoryId ? 2 : 1,
+        cityContentPath: pathname
+      }),
+    [cityCode, languageCode, pathname, categoryId]
+  )
   const { data: categories, loading: categoriesLoading, error: categoriesError } = useLoadFromEndpoint(requestChildren)
 
   const requestParents = useCallback(async () => {
@@ -114,17 +112,15 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
 
   const category = categories?.find(it => it.path === pathname)
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => {
-    return (
-      <CategoriesToolbar
-        category={category}
-        cityCode={cityCode}
-        languageCode={languageCode}
-        openFeedbackModal={openFeedback}
-        viewportSmall={viewportSmall}
-      />
-    )
-  }
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <CategoriesToolbar
+      category={category}
+      cityCode={cityCode}
+      languageCode={languageCode}
+      openFeedbackModal={openFeedback}
+      viewportSmall={viewportSmall}
+    />
+  )
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const rootPath = createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code })
@@ -174,7 +170,7 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, cityModel.name))
 
   const metaDescription = t('metaDescription', { appName: buildConfig().appName })
-  const pageTitle = `${category && !category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
+  const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

@@ -1,14 +1,16 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import styled from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import styled from 'styled-components/native'
+
 import { ThemeType } from 'build-configs'
+
 import testID from '../testing/testID'
 
 export const Input = styled.TextInput.attrs((props: { theme: ThemeType }) => ({
   multiline: false,
-  textColor: props.theme.colors.textSecondaryColor,
-  placeholderTextColor: props.theme.colors.textSecondaryColor
+  placeholderTextColor: props.theme.colors.textSecondaryColor,
+  color: props.theme.colors.textColor
 }))`
   margin: 0 5px;
   flex-grow: 1;
@@ -43,7 +45,10 @@ class SearchInput extends React.Component<PropsType> {
     spaceSearch: false
   }
 
-  onFilterTextChange = (text: string): void => this.props.onFilterTextChange(text)
+  onFilterTextChange = (text: string): void => {
+    const { onFilterTextChange } = this.props
+    onFilterTextChange(text)
+  }
 
   render(): ReactNode {
     const { filterText, placeholderText, theme, spaceSearch } = this.props

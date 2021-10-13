@@ -1,13 +1,14 @@
 import { StackHeaderProps } from '@react-navigation/stack'
 import { merge } from 'lodash'
+
 import createNavigationMock from './createNavigationPropMock'
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
 
-const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackHeaderProps => {
-  return merge(
+const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackHeaderProps =>
+  merge(
     {
       mode: 'screen',
       layout: {
@@ -32,7 +33,11 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
         },
         progress: {
           current: {
-            interpolate: jest.fn()
+            interpolate: jest.fn(),
+            addListener: jest.fn(),
+            removeListener: jest.fn(),
+            removeAllListeners: jest.fn(),
+            hasListeners: jest.fn()
           }
         }
       },
@@ -40,6 +45,5 @@ const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackH
     },
     props
   ) as StackHeaderProps
-}
 
 export default mockStackHeaderProps

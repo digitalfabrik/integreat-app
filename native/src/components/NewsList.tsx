@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native'
+
 import { LocalNewsModel, NEWS_ROUTE, NewsType, RouteInformationType, TunewsModel } from 'api-client'
+
 import { NewsModelsType } from '../redux/StateType'
 import LoadingSpinner from './LoadingSpinner'
 
@@ -23,7 +25,7 @@ type PropType = {
 const NewsList = (props: PropType): ReactElement => {
   const { items, renderItem, isFetchingMore, fetchMoreItems, renderNoItemsComponent } = props
 
-  function onRefresh() {
+  const onRefresh = () => {
     const { routeKey, navigateTo, cityCode, language, newsId, selectedNewsType } = props
     navigateTo(
       {

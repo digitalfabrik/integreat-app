@@ -1,13 +1,10 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import { RouteComponentProps } from 'react-router-dom'
-import LocationLayout from '../components/LocationLayout'
+
 import {
-  CityModel,
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   Payload,
@@ -16,30 +13,28 @@ import {
   useLoadFromEndpoint,
   OfferModel
 } from 'api-client'
-import LocationToolbar from '../components/LocationToolbar'
+
+import { CityRouteProps } from '../CityContentSwitcher'
+import Caption from '../components/Caption'
+import CleanLink from '../components/CleanLink'
+import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
+import Helmet from '../components/Helmet'
+import List from '../components/List'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath } from './index'
-import LoadingSpinner from '../components/LoadingSpinner'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Caption from '../components/Caption'
-import List from '../components/List'
-import CleanAnchor from '../components/CleanAnchor'
-import Helmet from '../components/Helmet'
+import { createPath, RouteProps } from './index'
 
 const Image = styled.img`
   display: block;
   margin: 0 auto;
 `
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string }>
+type PropsType = CityRouteProps & RouteProps<typeof SPRUNGBRETT_OFFER_ROUTE>
 
 const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { cityCode, languageCode } = match.params
@@ -47,9 +42,10 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
-  const requestOffers = useCallback(async () => {
-    return createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestOffers = useCallback(
+    async () => createOffersEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: offers, loading: offersLoading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const offer = offers?.find((offer: OfferModel) => offer.alias === 'sprungbrett')
@@ -69,13 +65,11 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
-  const languageChangePaths = languages.map(({ code, name }) => {
-    return {
-      path: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode: code }),
-      name,
-      code
-    }
-  })
+  const languageChangePaths = languages.map(({ code, name }) => ({
+    path: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode: code }),
+    name,
+    code
+  }))
 
   const locationLayoutParams = {
     cityModel,
@@ -125,9 +119,9 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
-      <CleanAnchor href='https://www.sprungbrett-intowork.de'>
+      <CleanLink to='https://www.sprungbrett-intowork.de'>
         <Image src={offer.thumbnail} />
-      </CleanAnchor>
+      </CleanLink>
     </LocationLayout>
   )
 }

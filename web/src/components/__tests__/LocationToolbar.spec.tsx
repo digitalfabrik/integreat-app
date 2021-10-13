@@ -1,5 +1,6 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
+
 import LocationToolbar from '../LocationToolbar'
 
 jest.mock('react-i18next')
@@ -7,7 +8,7 @@ jest.mock('react-i18next')
 describe('LocationToolbar', () => {
   it('should match snapshot', () => {
     const component = shallow(
-      <LocationToolbar openFeedbackModal={() => {}} viewportSmall>
+      <LocationToolbar openFeedbackModal={() => undefined} viewportSmall>
         <div>MockNode</div>
       </LocationToolbar>
     )

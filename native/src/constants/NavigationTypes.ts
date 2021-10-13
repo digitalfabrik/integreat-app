@@ -1,5 +1,6 @@
-import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+
 import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
@@ -41,6 +42,7 @@ import {
   IMAGE_VIEW_MODAL_ROUTE,
   FEEDBACK_MODAL_ROUTE
 } from 'api-client'
+
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 
 export type RoutesType =
@@ -70,6 +72,7 @@ type CityContentParamsType = {
   cityCode: string
   languageCode: string
 }
+
 export type RoutesParamsType = {
   [REDIRECT_ROUTE]: {
     url: string
@@ -80,7 +83,9 @@ export type RoutesParamsType = {
   [LANDING_ROUTE]: undefined
   [DASHBOARD_ROUTE]: undefined
   [CATEGORIES_ROUTE]: undefined
-  [POIS_ROUTE]: undefined
+  [POIS_ROUTE]: {
+    urlSlug?: string
+  }
   [EVENTS_ROUTE]: undefined
   [NEWS_ROUTE]: undefined
   [DISCLAIMER_ROUTE]: CityContentParamsType

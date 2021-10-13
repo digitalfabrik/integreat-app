@@ -1,7 +1,8 @@
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, ErrorCode, LanguageModel } from 'api-client'
+
+import { forEachTreeNode } from '../../utils/helpers'
 import { CategoryRouteStateType, CityContentStateType, PathType } from '../StateType'
 import { PushCategoryActionType } from '../StoreActionType'
-import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, ErrorCode, LanguageModel } from 'api-client'
-import { forEachTreeNode } from '../../utils/helpers'
 
 const getAllAvailableLanguages = (
   category: CategoryModel,
@@ -57,8 +58,8 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   if (!root) {
     const route: CategoryRouteStateType = {
       routeType: CATEGORIES_ROUTE,
-      path: path,
-      depth: depth,
+      path,
+      depth,
       language,
       city,
       status: 'error',
@@ -105,14 +106,17 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
             status: 'error',
             message: `Could not find a category with path '${path}'.`,
             code: ErrorCode.PageNotFound,
-            path: path,
-            depth: depth,
+            path,
+            depth,
             language,
             city
           }
         } else {
           const { resultModels, resultChildren } = extractResultModelsAndChildren(root, categoriesMap, depth)
           const previousMapping = state.routeMapping[key]
+          if (!previousMapping) {
+            throw Error('Previous mapping not found')
+          }
 
           if (previousMapping.routeType !== CATEGORIES_ROUTE) {
             throw Error('Previous mapping was not a category')
@@ -143,7 +147,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
     path: root.path,
     models: resultModels,
     children: resultChildren,
-    depth: depth,
+    depth,
     allAvailableLanguages: getAllAvailableLanguages(root, city, language, cityLanguages),
     language,
     city

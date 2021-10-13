@@ -1,15 +1,14 @@
-import { lightTheme } from 'build-configs/integreat/theme'
-import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
+import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
+import { lightTheme } from 'build-configs/integreat/theme'
+
 export const buildConfigIconSet = (): {
   appLogo: string
   locationMarker: string
 } => {
   throw new Error('Mock not yet implemented!')
 }
-export const buildConfigAssets = (): Record<string, never> => {
-  return {}
-}
+export const buildConfigAssets = (): Record<string, never> => ({})
 
 const buildConfig = jest.fn<CommonBuildConfigType, []>(
   (): CommonBuildConfigType => ({

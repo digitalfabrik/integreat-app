@@ -1,10 +1,12 @@
-import React from 'react'
-import { PoiModel, LocationModel } from 'api-client'
 import moment from 'moment'
-import PoiListItem from '../PoiListItem'
-import buildConfig from '../../constants/buildConfig'
+import React from 'react'
 import { ThemeProvider } from 'styled-components'
+
+import { PoiModel, LocationModel } from 'api-client'
+
+import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
+import PoiListItem from '../PoiListItem'
 
 describe('PoiListItem', () => {
   const poi = new PoiModel({
@@ -16,6 +18,7 @@ describe('PoiListItem', () => {
       ['ar', '/augsburg/ar/locations/erster_poi']
     ]),
     location: new LocationModel({
+      id: 1,
       name: 'name',
       address: 'address',
       town: 'town',

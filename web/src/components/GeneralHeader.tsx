@@ -1,11 +1,13 @@
 import React from 'react'
+import { TFunction, withTranslation } from 'react-i18next'
+
+import { LANDING_ROUTE } from 'api-client'
+
 import landingIcon from '../assets/location-icon.svg'
+import buildConfig from '../constants/buildConfig'
+import { createPath } from '../routes'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
-import { withTranslation, TFunction } from 'react-i18next'
-import buildConfig from '../constants/buildConfig'
-import { LANDING_ROUTE } from 'api-client'
-import { createPath } from '../routes'
 
 type PropsType = {
   languageCode: string
@@ -19,7 +21,7 @@ const GeneralHeader = ({ languageCode, viewportSmall, t }: PropsType) => {
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]
     : []
 
-  const onStickyTopChanged = () => {}
+  const onStickyTopChanged = () => undefined
 
   return (
     <Header

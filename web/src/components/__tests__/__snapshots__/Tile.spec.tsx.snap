@@ -6,7 +6,7 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
   sm={4}
   xs={6}
 >
-  <Styled(Link)
+  <CleanLink
     to="/augsburg/de/willkommen"
   >
     <styled.div>
@@ -20,7 +20,7 @@ exports[`Tile should render a Link if path is not an external url 1`] = `
     <styled.div>
       Willkommen
     </styled.div>
-  </Styled(Link)>
+  </CleanLink>
 </Styled(Col)>
 `;
 
@@ -30,8 +30,8 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
   sm={4}
   xs={6}
 >
-  <CleanAnchor
-    href="https://example.com"
+  <CleanLink
+    to="https://example.com"
   >
     <styled.div>
       <styled.div>
@@ -44,7 +44,7 @@ exports[`Tile should render a a-Tag if path is not an external url 1`] = `
     <styled.div>
       Example
     </styled.div>
-  </CleanAnchor>
+  </CleanLink>
 </Styled(Col)>
 `;
 

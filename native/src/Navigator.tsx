@@ -1,30 +1,7 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import AppSettings from './utils/AppSettings'
-import { Platform, Text } from 'react-native'
-import { initSentry } from './utils/helpers'
-import { ASYNC_STORAGE_VERSION } from './constants/settings'
-import buildConfig from './constants/buildConfig'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
-import IntroContainer from './routes/IntroContainer'
-import LandingContainer from './routes/LandingContainer'
-import DashboardContainer from './routes/DashboardContainer'
-import TransparentHeaderContainer from './components/TransparentHeaderContainer'
-import SettingsHeaderContainer from './components/SettingsHeaderContainer'
-import HeaderContainer from './components/HeaderContainer'
-import OffersContainer from './routes/OffersContainer'
-import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import ExternalOfferContainer from './routes/ExternalOfferContainer'
-import PoisContainer from './routes/PoisContainer'
-import EventsContainer from './routes/EventsContainer'
-import NewsContainer from './routes/NewsContainer'
-import PDFViewModal from './routes/PDFViewModal'
-import ChangeLanguageModalContainer from './routes/ChangeLanguageModalContainer'
-import SearchModalContainer from './routes/SearchModalContainer'
-import ImageViewModal from './routes/ImageViewModal'
-import FeedbackModalContainer from './routes/FeedbackModalContainer'
-import SettingsContainer from './routes/SettingsContainer'
-import DisclaimerContainer from './routes/DisclaimerContainer'
-import CategoriesContainer from './routes/CategoriesContainer'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import { Platform, Text } from 'react-native'
+
 import {
   CATEGORIES_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -49,9 +26,34 @@ import {
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client/src/routes'
-import { RoutesParamsType } from './constants/NavigationTypes'
+
+import HeaderContainer from './components/HeaderContainer'
 import RedirectContainer from './components/RedirectContainer'
+import SettingsHeaderContainer from './components/SettingsHeaderContainer'
+import TransparentHeaderContainer from './components/TransparentHeaderContainer'
+import { RoutesParamsType } from './constants/NavigationTypes'
+import buildConfig from './constants/buildConfig'
+import { ASYNC_STORAGE_VERSION } from './constants/settings'
+import CategoriesContainer from './routes/CategoriesContainer'
+import ChangeLanguageModalContainer from './routes/ChangeLanguageModalContainer'
+import DashboardContainer from './routes/DashboardContainer'
+import DisclaimerContainer from './routes/DisclaimerContainer'
+import EventsContainer from './routes/EventsContainer'
+import ExternalOfferContainer from './routes/ExternalOfferContainer'
+import FeedbackModalContainer from './routes/FeedbackModalContainer'
+import ImageViewModal from './routes/ImageViewModal'
+import IntroContainer from './routes/IntroContainer'
 import JpalTracking from './routes/JpalTracking'
+import LandingContainer from './routes/LandingContainer'
+import NewsContainer from './routes/NewsContainer'
+import OffersContainer from './routes/OffersContainer'
+import PDFViewModal from './routes/PDFViewModal'
+import PoisContainer from './routes/PoisContainer'
+import SearchModalContainer from './routes/SearchModalContainer'
+import SettingsContainer from './routes/SettingsContainer'
+import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
+import AppSettings from './utils/AppSettings'
+import { initSentry } from './utils/helpers'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 
@@ -169,7 +171,8 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
   if (errorMessage) {
     return <Text>{errorMessage}</Text>
-  } else if (waitingForSettings) {
+  }
+  if (waitingForSettings) {
     return null
   }
 

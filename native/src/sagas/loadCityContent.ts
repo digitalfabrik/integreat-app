@@ -1,21 +1,24 @@
-import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
-import { DataContainer } from '../utils/DataContainer'
-import loadCategories from './loadCategories'
-import loadEvents from './loadEvents'
-import fetchResourceCache from './fetchResourceCache'
+import NetInfo from '@react-native-community/netinfo'
 import moment from 'moment'
+import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
+
+import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
+
+import buildConfig from '../constants/buildConfig'
+import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../redux/StoreActionType'
-import loadLanguages from './loadLanguages'
+import AppSettings from '../utils/AppSettings'
+import { DataContainer } from '../utils/DataContainer'
+import * as NotificationsManager from '../utils/PushNotificationsManager'
 import ResourceURLFinder from '../utils/ResourceURLFinder'
 import buildResourceFilePath from '../utils/buildResourceFilePath'
-import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import AppSettings from '../utils/AppSettings'
-import NetInfo from '@react-native-community/netinfo'
+import { reportError } from '../utils/helpers'
+import fetchResourceCache from './fetchResourceCache'
+import loadCategories from './loadCategories'
 import loadCities from './loadCities'
-import * as NotificationsManager from '../utils/PushNotificationsManager'
-import buildConfig from '../constants/buildConfig'
+import loadEvents from './loadEvents'
+import loadLanguages from './loadLanguages'
 import loadPois from './loadPois'
-import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
 
 /**
  * Subscribes to the push notification topic of the new city and language
@@ -107,10 +110,11 @@ function* prepareLanguages(
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
     console.error(e)
+    reportError(e)
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',
       params: {
-        message: `Error in fetchCategoryhttps://en.wikipedia.org/wiki/Serbian_language: ${e.message}`,
+        message: `Error while fetching languages: ${e.message}`,
         code: fromError(e)
       }
     }

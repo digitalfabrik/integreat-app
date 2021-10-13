@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
-import Layout from '../components/Layout'
-import LocationHeader from './LocationHeader'
-import LocationFooter from '../components/LocationFooter'
+
 import { CityModel, SEARCH_ROUTE } from 'api-client'
-import FeedbackModal from './FeedbackModal'
+
+import Layout from '../components/Layout'
+import LocationFooter from '../components/LocationFooter'
 import { RouteType } from '../routes'
+import FeedbackModal from './FeedbackModal'
 import { FeedbackRatingType } from './FeedbackToolbarItem'
+import LocationHeader from './LocationHeader'
 
 export type ToolbarPropType = (openFeedbackModal: (rating: FeedbackRatingType) => void) => ReactNode
 
@@ -36,7 +38,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   handleStickyTopChanged = (asideStickyTop: number): void => this.setState({ asideStickyTop })
 
   renderFeedbackModal = (): React.ReactNode => {
-    if (!this.state.feedbackModalRating) {
+    const { feedbackModalRating } = this.state
+    if (!feedbackModalRating) {
       return null
     }
 
@@ -46,7 +49,7 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
         cityCode={cityModel.code}
         language={languageCode}
         routeType={route}
-        feedbackRating={this.state.feedbackModalRating}
+        feedbackRating={feedbackModalRating}
         closeModal={this.closeFeedbackModal}
         {...feedbackTargetInformation}
       />
@@ -58,8 +61,8 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   closeFeedbackModal = (): void => this.setState({ feedbackModalRating: null })
 
   renderToolbar = (): ReactNode => {
-    const { toolbar } = this.props
-    if (toolbar) {
+    const { toolbar, isLoading } = this.props
+    if (toolbar && !isLoading) {
       return toolbar(this.openFeedbackModal)
     }
     return null
@@ -68,10 +71,11 @@ export class LocationLayout extends React.Component<PropsType, LocalStateType> {
   render(): ReactNode {
     const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route } = this.props
     const { pathname, cityModel } = this.props
+    const { asideStickyTop } = this.state
 
     return (
       <Layout
-        asideStickyTop={this.state.asideStickyTop}
+        asideStickyTop={asideStickyTop}
         header={
           <LocationHeader
             cityModel={cityModel}

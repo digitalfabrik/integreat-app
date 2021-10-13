@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
-import { WebView, WebViewNavigation } from 'react-native-webview'
-import { stringify } from 'query-string'
 import { fromPairs } from 'lodash'
-import { createGetSource, createPostSource } from '../constants/webview'
-import { renderWebviewError } from '../components/RemoteContent'
+import { stringify } from 'query-string'
+import React, { useState, useRef, useEffect, useCallback, ReactElement } from 'react'
 import { BackHandler } from 'react-native'
+import { WebView, WebViewNavigation } from 'react-native-webview'
+
+import { renderWebviewError } from '../components/RemoteContent'
 import { userAgent } from '../constants/endpoint'
+import { createGetSource, createPostSource } from '../constants/webview'
 
 export type PropsType = {
   url: string
@@ -13,11 +14,11 @@ export type PropsType = {
 }
 
 const ExternalOffer = (props: PropsType): ReactElement => {
-  const [canGoBack, setCanGoBack] = useState(false)
+  const [canGoBack, setCanGoBack] = useState<boolean>(false)
   const webviewRef = useRef<WebView>(null)
   useEffect(() => {
     const handleBackButton = (): boolean => {
-      if (webviewRef?.current && canGoBack) {
+      if (webviewRef.current && canGoBack) {
         webviewRef.current.goBack()
         return true
       }

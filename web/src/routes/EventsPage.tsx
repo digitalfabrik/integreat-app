@@ -1,40 +1,36 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
-import LocationLayout from '../components/LocationLayout'
+import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
+
 import {
-  CityModel,
   createEventsEndpoint,
   EventModel,
   EVENTS_ROUTE,
-  LanguageModel,
   normalizePath,
   NotFoundError,
   useLoadFromEndpoint
 } from 'api-client'
-import LocationToolbar from '../components/LocationToolbar'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { cmsApiBaseUrl } from '../constants/urls'
-import LoadingSpinner from '../components/LoadingSpinner'
-import { createPath } from './index'
-import FailureSwitcher from '../components/FailureSwitcher'
-import Page, { THUMBNAIL_WIDTH } from '../components/Page'
-import PageDetail from '../components/PageDetail'
-import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-import { useTranslation } from 'react-i18next'
-import List from '../components/List'
+
+import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
-import JsonLdEvent from '../components/JsonLdEvent'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import FailureSwitcher from '../components/FailureSwitcher'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
+import JsonLdEvent from '../components/JsonLdEvent'
+import List from '../components/List'
+import LoadingSpinner from '../components/LoadingSpinner'
+import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
+import Page, { THUMBNAIL_WIDTH } from '../components/Page'
+import PageDetail from '../components/PageDetail'
+import { cmsApiBaseUrl } from '../constants/urls'
+import DateFormatterContext from '../contexts/DateFormatterContext'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+import { createPath, RouteProps } from './index'
 
-type PropsType = {
-  cities: Array<CityModel>
-  cityModel: CityModel
-  languages: Array<LanguageModel>
-  languageModel: LanguageModel
-} & RouteComponentProps<{ cityCode: string; languageCode: string; eventId?: string }>
+type PropsType = CityRouteProps & RouteProps<typeof EVENTS_ROUTE>
 
 const EventsPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
   const { cityCode, languageCode, eventId } = match.params
@@ -44,9 +40,10 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
 
-  const requestEvents = useCallback(async () => {
-    return createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestEvents = useCallback(
+    async () => createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: events, loading, error: eventsError } = useLoadFromEndpoint(requestEvents)
 
   const event = eventId && events?.find((event: EventModel) => event.path === pathname)

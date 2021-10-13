@@ -1,30 +1,33 @@
 import React, { useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import { RefreshControl } from 'react-native'
-import Offers from './Offers'
 import { TFunction, withTranslation } from 'react-i18next'
+import { RefreshControl } from 'react-native'
+import { useSelector } from 'react-redux'
+
 import {
   CityModel,
   createOffersEndpoint,
+  EXTERNAL_OFFER_ROUTE,
   fromError,
   NotFoundError,
   OfferModel,
   OFFERS_ROUTE,
-  useLoadFromEndpoint,
   OffersRouteType,
-  EXTERNAL_OFFER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  useLoadFromEndpoint
 } from 'api-client'
 import { ThemeType } from 'build-configs'
-import withTheme from '../hocs/withTheme'
-import FailureContainer from '../components/FailureContainer'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+
+import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import openExternalUrl from '../utils/openExternalUrl'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import withTheme from '../hocs/withTheme'
+import useReportError from '../hooks/useReportError'
 import TileModel from '../models/TileModel'
+import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
+import openExternalUrl from '../utils/openExternalUrl'
+import Offers from './Offers'
 
 type OwnPropsType = {
   route: RoutePropType<OffersRouteType>
@@ -42,12 +45,14 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   )
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
-    return await createOffersEndpoint(apiUrl).request({
+    return createOffersEndpoint(apiUrl).request({
       city: cityCode,
       language: languageCode
     })
   }, [cityCode, languageCode])
   const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
+  useReportError(offersError)
+
   const navigateToOffer = useCallback(
     (tile: TileModel) => {
       const { title, path, isExternalUrl, postData } = tile
@@ -66,14 +71,12 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
         })
       } else if (isExternalUrl) {
         openExternalUrl(path)
-      } else {
-        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
-          const params = {
-            cityCode,
-            languageCode
-          }
-          navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+      } else if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+        const params = {
+          cityCode,
+          languageCode
         }
+        navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
       }
     },
     [offers, cityCode, languageCode, navigation]
@@ -102,7 +105,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
       })
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
-        <FailureContainer code={fromError(error)} tryAgain={refresh} />
+        <Failure code={fromError(error)} tryAgain={refresh} />
       </LayoutedScrollView>
     )
   }

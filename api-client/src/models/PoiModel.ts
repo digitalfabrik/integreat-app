@@ -1,6 +1,8 @@
 import { Moment } from 'moment'
-import LocationModel from './LocationModel'
+
+import { PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
+import LocationModel from './LocationModel'
 import PageModel from './PageModel'
 
 class PoiModel extends ExtendedPageModel {
@@ -30,6 +32,14 @@ class PoiModel extends ExtendedPageModel {
 
   get excerpt(): string {
     return this._excerpt
+  }
+
+  get urlSlug(): string {
+    return this._path.split('/').pop() ?? ''
+  }
+
+  get featureLocation(): PoiFeature | null {
+    return this._location.convertToPoint(this.path, this.thumbnail, this.urlSlug)
   }
 
   isEqual(other: PageModel): boolean {

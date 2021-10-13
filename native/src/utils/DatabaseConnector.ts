@@ -1,4 +1,9 @@
 /* eslint-disable camelcase */
+import { BBox } from 'geojson'
+import { map, mapValues } from 'lodash'
+import moment, { Moment } from 'moment'
+import RNFetchBlob from 'rn-fetch-blob'
+
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -10,16 +15,14 @@ import {
   LocationModel,
   PoiModel
 } from 'api-client'
-import RNFetchBlob from 'rn-fetch-blob'
-import moment, { Moment } from 'moment'
+
+import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import DatabaseContext from '../models/DatabaseContext'
-import { map, mapValues } from 'lodash'
 import { deleteIfExists } from './helpers'
 
 export const CONTENT_VERSION = 'v1'
@@ -45,6 +48,7 @@ type ContentCategoryJsonType = {
   hash: string
 }
 type LocationJsonType = {
+  id: number
   address: string | null | undefined
   town: string | null | undefined
   postcode: string | null | undefined
@@ -53,7 +57,7 @@ type LocationJsonType = {
   country: string | null | undefined
   region: string | null | undefined
   state: string | null | undefined
-  name: string | null | undefined
+  name: string
 }
 type FeaturedImageInstanceJsonType = {
   url: string
@@ -95,15 +99,10 @@ type ContentCityJsonType = {
   sorting_name: string
   longitude: number | null
   latitude: number | null
-  aliases: Record<
-    string,
-    {
-      longitude: number
-      latitude: number
-    }
-  > | null
+  aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
+  bounding_box: BBox | null
 }
 type ContentPoiJsonType = {
   path: string
@@ -204,8 +203,7 @@ class DatabaseConnector {
       throw Error('cannot set lastUsage to null')
     }
 
-    const cityCode = context.cityCode
-    const languageCode = context.languageCode
+    const { cityCode, languageCode } = context
 
     if (!cityCode) {
       throw Error("cityCode mustn't be empty")
@@ -213,13 +211,13 @@ class DatabaseConnector {
       throw Error("languageCode mustn't be empty")
     }
 
-    const metaData = (await this._loadMetaCities()) || {}
+    const metaData = await this._loadMetaCities()
 
     if (!metaData[cityCode]) {
       throw Error('cannot store last update for unused city')
     }
 
-    metaData[cityCode].languages[languageCode] = {
+    metaData[cityCode]!.languages[languageCode] = {
       lastUpdate
     }
 
@@ -233,8 +231,8 @@ class DatabaseConnector {
   }
 
   async loadLastUpdate(context: DatabaseContext): Promise<Moment | null> {
-    const cityCode = context.cityCode
-    const languageCode = context.languageCode
+    const { cityCode } = context
+    const { languageCode } = context
 
     if (!cityCode) {
       throw new Error('City is not set in DatabaseContext!')
@@ -386,6 +384,7 @@ class DatabaseConnector {
         availableLanguages: mapToObject(poi.availableLanguages),
         excerpt: poi.excerpt,
         location: {
+          id: poi.location.id,
           address: poi.location.address,
           town: poi.location.town,
           postcode: poi.location.postcode,
@@ -423,6 +422,7 @@ class DatabaseConnector {
         availableLanguages,
         excerpt: jsonObject.excerpt,
         location: new LocationModel({
+          id: jsonLocation.id,
           name: jsonLocation.name,
           region: jsonLocation.region,
           state: jsonLocation.state,
@@ -454,7 +454,8 @@ class DatabaseConnector {
         sorting_name: city.sortingName,
         longitude: city.longitude,
         latitude: city.latitude,
-        aliases: city.aliases
+        aliases: city.aliases,
+        bounding_box: city.boundingBox
       })
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -469,23 +470,25 @@ class DatabaseConnector {
     }
 
     const json = JSON.parse(await this.readFile(path))
-    return json.map((jsonObject: ContentCityJsonType) => {
-      return new CityModel({
-        name: jsonObject.name,
-        code: jsonObject.code,
-        live: jsonObject.live,
-        eventsEnabled: jsonObject.events_enabled,
-        pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
-        tunewsEnabled: jsonObject.tunewsEnabled,
-        offersEnabled: jsonObject.extras_enabled,
-        poisEnabled: jsonObject.pois_enabled,
-        sortingName: jsonObject.sorting_name,
-        prefix: jsonObject.prefix,
-        longitude: jsonObject.longitude,
-        latitude: jsonObject.latitude,
-        aliases: jsonObject.aliases
-      })
-    })
+    return json.map(
+      (jsonObject: ContentCityJsonType) =>
+        new CityModel({
+          name: jsonObject.name,
+          code: jsonObject.code,
+          live: jsonObject.live,
+          eventsEnabled: jsonObject.events_enabled,
+          pushNotificationsEnabled: jsonObject.pushNotificationsEnabled,
+          tunewsEnabled: jsonObject.tunewsEnabled,
+          offersEnabled: jsonObject.extras_enabled,
+          poisEnabled: jsonObject.pois_enabled,
+          sortingName: jsonObject.sorting_name,
+          prefix: jsonObject.prefix,
+          longitude: jsonObject.longitude,
+          latitude: jsonObject.latitude,
+          aliases: jsonObject.aliases,
+          boundingBox: jsonObject.bounding_box ?? null
+        })
+    )
   }
 
   async storeEvents(events: Array<EventModel>, context: DatabaseContext): Promise<void> {
@@ -505,6 +508,7 @@ class DatabaseConnector {
           all_day: event.date.allDay
         },
         location: {
+          id: event.location.id,
           address: event.location.address,
           town: event.location.town,
           postcode: event.location.postcode,
@@ -566,6 +570,7 @@ class DatabaseConnector {
           allDay: jsonDate.all_day
         }),
         location: new LocationModel({
+          id: jsonObject.location.id,
           name: jsonObject.location.name,
           region: jsonObject.location.region,
           state: jsonObject.location.state,
@@ -636,11 +641,16 @@ class DatabaseConnector {
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages
       .filter(it => it.city !== city) // Sort last usages chronological, from oldest to newest
-      .sort((a, b) => (a.lastUsage.isBefore(b.lastUsage) ? -1 : a.lastUsage.isSame(b.lastUsage) ? 0 : 1)) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
+      .sort((a, b) => {
+        if (a.lastUsage.isBefore(b.lastUsage)) {
+          return -1
+        }
+        return a.lastUsage.isSame(b.lastUsage) ? 0 : 1
+      }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
       .slice(0, -(MAX_STORED_CITIES - 1))
     await Promise.all(
       cachesToDelete.map(cityLastUpdate => {
-        const city = cityLastUpdate.city
+        const { city } = cityLastUpdate
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])

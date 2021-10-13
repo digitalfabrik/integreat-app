@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
 import { hot } from 'react-hot-loader'
+
+import App from './App'
 import buildConfig from './constants/buildConfig'
 
 const HMRApp = hot(module)(App)
@@ -24,8 +25,8 @@ if (buildConfig().splashScreen) {
 // Currently we do not have service workers. Unregister all previous ones:
 if (navigator.serviceWorker) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
-    for (const registration of registrations) {
+    registrations.forEach(registration => {
       registration.unregister()
-    }
+    })
   })
 }

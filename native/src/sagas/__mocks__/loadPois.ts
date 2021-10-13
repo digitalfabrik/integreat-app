@@ -1,6 +1,8 @@
-import { DataContainer } from '../../utils/DataContainer'
-import { PoiModel } from 'api-client'
 import { call, SagaGenerator } from 'typed-redux-saga'
+
+import { PoiModel } from 'api-client'
+
+import { DataContainer } from '../../utils/DataContainer'
 
 export default function* loadPois(
   city: string,
@@ -14,9 +16,8 @@ export default function* loadPois(
   if (!poisAvailable || forceRefresh) {
     if (city === 'augsburg' && language === 'en') {
       return yield* call(dataContainer.getPois, city, language)
-    } else {
-      throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
     }
+    throw new Error('When using this mock you should prepare the DataContainer with "augsburg" and language "en"!')
   }
 
   return yield* call(dataContainer.getPois, city, language)

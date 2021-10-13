@@ -1,7 +1,9 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import CategoriesToolbar from '../CategoriesToolbar'
+import React from 'react'
+
 import { CategoriesMapModelBuilder } from 'api-client'
+
+import CategoriesToolbar from '../CategoriesToolbar'
 
 jest.mock('react-i18next')
 
@@ -17,7 +19,7 @@ describe('CategoriesToolbar', () => {
         category={categories[1]}
         cityCode={city}
         languageCode={language}
-        openFeedbackModal={() => {}}
+        openFeedbackModal={() => undefined}
       />
     )
 
@@ -31,7 +33,7 @@ describe('CategoriesToolbar', () => {
         category={categories[0]}
         cityCode={city}
         languageCode={language}
-        openFeedbackModal={() => {}}
+        openFeedbackModal={() => undefined}
       />
     )
 

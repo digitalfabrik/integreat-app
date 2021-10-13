@@ -1,10 +1,11 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Animated, View, LayoutChangeEvent } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
-import { SnackbarType, StateType } from '../redux/StateType'
+
 import Snackbar from '../components/Snackbar'
+import { SnackbarType, StateType } from '../redux/StateType'
 
 const Container = styled(View)`
   position: absolute;
@@ -24,6 +25,7 @@ const SnackbarContainer = (): ReactElement | null => {
   const snackbarState = useSelector<StateType, Array<SnackbarType>>((state: StateType) => state.snackbar)
   const dispatch = useDispatch()
   const { t } = useTranslation('error')
+
   const show = useCallback(() => {
     Animated.timing(translate, {
       toValue: 0,
@@ -31,6 +33,7 @@ const SnackbarContainer = (): ReactElement | null => {
       useNativeDriver: true
     }).start()
   }, [])
+
   const hide = useCallback(() => {
     Animated.timing(translate, {
       toValue: 1,
@@ -38,23 +41,24 @@ const SnackbarContainer = (): ReactElement | null => {
       useNativeDriver: true
     }).start(() => setDisplayed(null))
   }, [])
+
   useEffect(() => {
-    if (!displayed && snackbarState.length > 0) {
-      const newSnackbar = snackbarState[0]
+    const newSnackbar = snackbarState[0]
+    if (!displayed && newSnackbar) {
       setDisplayed(newSnackbar)
       dispatch({
         type: 'DEQUEUE_SNACKBAR'
       })
     }
   }, [snackbarState, displayed, dispatch])
+
   useEffect(() => {
     if (displayed) {
       show()
-      const timeout = setTimeout(() => {
-        hide()
-      }, SHOW_DURATION)
+      const timeout = setTimeout(hide, SHOW_DURATION)
       return () => clearTimeout(timeout)
     }
+    return () => undefined
   }, [displayed, hide, show])
 
   const onLayout = (event: LayoutChangeEvent) => setHeight(event.nativeEvent.layout.height)
@@ -62,7 +66,7 @@ const SnackbarContainer = (): ReactElement | null => {
   const outputRange: number[] = [0, height ?? MAX_HEIGHT]
   const interpolated = translate.interpolate({
     inputRange: [0, 1],
-    outputRange: outputRange
+    outputRange
   })
   return displayed ? (
     <AnimatedContainer

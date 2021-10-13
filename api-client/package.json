@@ -10,10 +10,13 @@
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
     "test:update": "yarn run test -u",
-    "lint": "yarn run eslint",
+    "lint": "yarn run eslint .",
     "lint:fix": "yarn run eslint --fix",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml",
     "ts:check": "tsc --build"
+  },
+  "peerDependencies": {
+    "react": "17.0.2"
   },
   "dependencies": {
     "entities": "^2.0.0",
@@ -22,15 +25,14 @@
     "lodash": "^4.17.19",
     "moment": "2.29.1",
     "moment-timezone": "^0.5",
-    "normalize-path": "^3.0.0",
-    "react": "16.13.1"
+    "normalize-path": "^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/js-md5": "^0.4.2",
     "@types/lodash": "^4.14.168",
     "@types/normalize-path": "^3.0.0",
-    "@types/react": "16.14.0",
+    "@types/react": "^17.0.15",
     "@types/seedrandom": "^3.0.0",
     "@types/geojson": "^7946.0.8",
     "jest": "^26.6.3",

@@ -1,9 +1,10 @@
+import md5 from 'js-md5'
 import moment, { Moment } from 'moment'
 import seedrandom from 'seedrandom'
-import md5 from 'js-md5'
-import CategoryModel from '../models/CategoryModel'
-import CategoriesMapModel from '../models/CategoriesMapModel'
+
 import hashUrl from '../hashUrl'
+import CategoriesMapModel from '../models/CategoriesMapModel'
+import CategoryModel from '../models/CategoryModel'
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string
@@ -61,9 +62,9 @@ class CategoriesMapModelBuilder {
       return
     }
 
-    for (let i = 0; i < this._arity; i++) {
+    for (let i = 0; i < this._arity; i += 1) {
       const id = this._id
-      this._id++
+      this._id += 1
       const path = `${category.path}/category_${i}`
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
       const resourceUrl1 = `https://cms.integreat-app.de/title_${id}-300x300.png`

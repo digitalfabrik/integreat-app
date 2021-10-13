@@ -1,6 +1,7 @@
 import { runSaga } from 'redux-saga'
-import { clearCity } from '../watchClearCity'
+
 import AppSettings from '../../utils/AppSettings'
+import { clearCity } from '../watchClearCity'
 
 jest.mock('../../utils/PushNotificationsManager')
 
@@ -10,7 +11,7 @@ describe('watchClearCity', () => {
     await appSettings.setSelectedCity('augsburg')
     await runSaga(
       {
-        dispatch: () => {}
+        dispatch: () => undefined
       },
       clearCity
     ).toPromise()

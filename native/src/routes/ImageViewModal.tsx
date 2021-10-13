@@ -10,10 +10,10 @@ import PinchableBox from '../components/PinchableBox'
 type PropsType = {
   route: RoutePropType<ImageViewModalRouteType>
   navigation: NavigationPropType<ImageViewModalRouteType>
-  theme: ThemeType
 }
-const ImageViewModal = (props: PropsType): ReactElement => {
+const ImageViewModal = ({ route }: PropsType): ReactElement => {
   const [isError, setError] = useState(false)
+  const theme = useContext(ThemeContext)
 
   if (isError) {
     return <Text>Error</Text>
@@ -30,4 +30,4 @@ const ImageViewModal = (props: PropsType): ReactElement => {
   )
 }
 
-export default withTheme(ImageViewModal)
+export default ImageViewModal

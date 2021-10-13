@@ -1,9 +1,11 @@
 import React, { ReactNode } from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
-import LanguageSelector from './LanguageSelector'
-import { CityModel } from 'api-client'
-import Caption from './Caption'
+import { TFunction, withTranslation } from 'react-i18next'
 import styled from 'styled-components'
+
+import { CityModel } from 'api-client'
+
+import Caption from './Caption'
+import LanguageSelector from './LanguageSelector'
 
 const ChooseLanguage = styled.p`
   margin: 25px 0;
@@ -22,7 +24,7 @@ type PropsType = {
 export class LanguageFailure extends React.PureComponent<PropsType> {
   render(): ReactNode {
     const { t, cities, languageChangePaths, cityCode, pathname, languageCode } = this.props
-    const title = cities && CityModel.findCityName(cities, cityCode)
+    const title = CityModel.findCityName(cities, cityCode)
     return (
       <>
         {title && <Caption title={title} />}

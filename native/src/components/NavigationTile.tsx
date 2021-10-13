@@ -2,9 +2,11 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
+
+import { ThemeType } from 'build-configs'
+
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
-import { ThemeType } from 'build-configs'
 
 const NEWS_DOT_RADIUS = 20
 const ICON_SIZE = 50
@@ -67,13 +69,15 @@ const NewsDot = styled.Text`
 
 class NavigationTile extends React.Component<PropsType> {
   getNewsDot(): ReactNode {
-    const notifications = this.props.tile.notifications
+    const {
+      tile: { notifications },
+      theme
+    } = this.props
 
     if (notifications && notifications > 0) {
-      return <NewsDot theme={this.props.theme}>{notifications}</NewsDot>
-    } else {
-      return null
+      return <NewsDot theme={theme}>{notifications}</NewsDot>
     }
+    return null
   }
 
   getTileContent(): ReactNode {
