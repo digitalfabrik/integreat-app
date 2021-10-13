@@ -89,16 +89,16 @@ const Pois = ({
   useEffect(() => {
     if (!path) {
       const featureLocations = prepareFeatureLocations(pois, location)
-      const selectedPoiName = route.params.selectedPoiName
-      if (selectedPoiName) {
-        const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === selectedPoiName)
+      const urlSlug = route.params.urlSlug
+      if (urlSlug) {
+        const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
         setSelectedFeature(currentFeature ?? null)
       }
       if (location) {
         setFeatureLocations(featureLocations)
       }
     }
-  }, [path, pois, route.params.selectedPoiName, location])
+  }, [path, pois, route.params.urlSlug, location])
 
   const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
     navigateTo({
@@ -109,12 +109,12 @@ const Pois = ({
     })
   }
 
-  const navigateToPois = (cityCode: string, language: string, selectedPoiName: string) => (): void => {
+  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      selectedPoiName
+      urlSlug
     })
   }
 
