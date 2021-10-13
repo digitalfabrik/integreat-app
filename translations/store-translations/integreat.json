@@ -4,10 +4,10 @@
       "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
     },
     "am": {
-      "keywords": "ጀርመን እርዳታ ጀርመንኛ ይማሩ ሕጎች የጀርመንኛ ትምህርት ዜናዎች ማማከር ቅንጅት መረጃ ጥገኝነት ስራ ለመፈለግ ጤና ትምህርት ትምህርት"
+      "keywords": "ጀርመን,እርዳታ,ጀርመንኛ ይማሩ,ሕጎች,የጀርመንኛ ትምህርት,ዜናዎች,ማማከር,ቅንጅት,መረጃ"
     },
     "ar": {
-      "keywords": "ألمانيا المساعدة تعلم اللغة الألمانية القواعد دورة اللغة الألمانية الأخبار المشورة الاندماج"
+      "keywords": "ألمانيا,المساعدة,تعلم اللغة الألمانية,القواعد,دورة اللغة الألمانية,الأخبار,المشورة,الاندماج"
     },
     "bg": {
       "keywords": "Германия,Помощ,Научете немски,регул.,Курс по немски,Новини,Консултация,интеграция,Информация,Стаж"
@@ -21,9 +21,6 @@
     "es": {
       "keywords": "Alemania,Ayuda,Aprender alemán,Normas,Curso de alemán,Noticias,Asesoramiento,Integración,Información"
     },
-    "pes": {
-      "keywords": "آلمان,کمک,آموزش زبان آلمانی,قوانین,کلاس آلمانی,خبرها,مشاوره,ادغام,ادغام,اطلاعات,کارآموزی,کارورزی"
-    },
     "fr": {
       "keywords": "Allemagne,aide,apprendre l'allemand,Règles,Cours d'allemand,Nouvelles,Conseil,Intégration"
     },
@@ -35,6 +32,9 @@
     },
     "it": {
       "keywords": "Germania,Aiuto,Imparare il tedesco,Regole,Corso di tedesco,Notizie,Consulenza,Integrazione"
+    },
+    "pes": {
+      "keywords": "آلمان,کمک,آموزش زبان آلمانی,قوانین,کلاس آلمانی,خبرها,مشاوره,ادغام,اطلاعات"
     },
     "pl": {
       "keywords": "Niemcy,Pomoc,Nauka języka niemieckiego,Zasady,Kurs języka niemieckiego,Wiadomości,Doradztwo"
@@ -78,10 +78,6 @@
       "name": "Integreat",
       "description": "En Integreat encontrará información local, eventos y centros de asesoramiento que le ayudarán a iniciarse en Alemania. La propia ciudad proporciona la información y la actualiza constantemente.\nAYUDA GRATUITA\nLa propia ciudad proporciona la información y la actualiza constantemente. En Integreat encontrará información local, eventos y centros de asesoramiento que le ayudarán a iniciarse en Alemania. \nMUCHAS FUNCIONES\nIntegreat es su guía digital para su ciudad y ofrece características únicas:\n- Puede encontrar información local, eventos y otras ofertas en una aplicación\n- La propia ciudad crea y actualiza la información local\n- La función de búsqueda le permite encontrar información aún más rápido\n- En la sección «Ofertas» encontrará puestos de trabajo y de prácticas en su zona.\n- Integreat le muestra eventos interesantes en su ciudad\n- Las notificaciones push le informa sobre noticias importantes de su ciudad\n- Puede compartir la información y eventos con conocidos\n- Ayude a mejorar Integreat aportando comentarios sobre la aplicación y la información local\nSIN RECOGIDA DE DATOS\nIntegreat no recopila ninguna información sobre usted o su uso. Solo se registra la frecuencia con la que se abre el contenido local en un idioma sin que nosotros recopilemos o almacenemos ninguna información sobre usted.\nIntegreat necesita unos pocos permisos de su parte para que pueda usar Integreat de la mejor manera posible:\nMemoria: la información local sobre su ciudad se almacena en su dispositivo para que pueda acceder a ella sin necesidad de una conexión a Internet\nUbicación: para usar el mapa en Integreat y seleccionar la ciudad apropiada, es útil que pueda ver su ubicación actual. No se analizará ningún dato de ubicación.\nWi-Fi: Integreat solo descarga contenidos que ocupen mucha memoria si existe una conexión Wi-Fi. Para ello, debemos poder comprobar si existe una conexión Wi-Fi."
     },
-    "pes": {
-      "name": "Integreat",
-      "description": "در Integreat اطلاعات محلی، رویدادها و مراکز مشاوره را پیدا خواهید کرد. ما به شما کمک می کنیم تا یک نمای کلی به دست آورید. این اطلاعات توسط خود ادارات  و سازمان ها ایجاد و به طور مداوم به روز می شوند.\nکمک رایگان\nشما می توانید از Integreat به صورت رایگان و بدون تبلیغات استفاده کنید. Integreat توسط سازمان غیرانتفاعی \"در به در\" با همکاری بسیاری از شهرها، ادارات و سایر سازمان‌های غیر انتفاعی توسعه یافته است.\nعملکردهای بسیار\nIntegreat‏ راهنمای دیجیتالی شما در مورد شهرتان است و عملکردهای منحصر به فردی ارائه می کند:\n- شما اطلاعات محلی، رویدادها و سایر پیشنهادات را در یک اپلیکیشن می یابید\n- اطلاعات محلی توسط شهر خودتان تهیه و به روز رسانی می شوند\n- از طریق عملکرد جستجو می توانید اطلاعات را به مراتب سریع تر بیابید\n- در بخش \"پیشنهادات\" فرصت های شغلی و کارآموزی در نزدیکی خود را می یابید.\n- Integreat‏ رویدادهای جالب در شهرتان را به شما نشان می دهد\n- شهر شما از طریق اخبار لحظه ای در مورد اخبار مهم به شما اطلاع رسانی می کند\n- شما می توانید اطلاعات و رویدادها را با اشنایان خود اشتراک گذاری کنید\n- با ارائه اظهار نظر در مورد اپلیکیشن و اطلاعات محلی به ‏Integreat‏ در جهت بهبود آن کمک کنید\nعدم جمع آوری داده ها\nIntegreat‏ هیچ گونه داده ای را در مورد شما و استفاده شما از آن جمع آوری نمی کند. این اپلیکیشن صرفا تعداد دفعاتی که محتواهای محلی به یک زبان باز شده اند، بدون آن که داده هایی در مورد شما جمع آوری یا ذخیره شود، شمارش می کند.\nبرای آن که بتوانید از ‏Integreat‏ به بهترین نحو ممکن استفاده کنید، این اپلیکیشن به چند مجوز از شما نیاز دارد:\nحافظه: اطلاعات محلی در مورد شهرتان در دستگاه شما ذخیره می شوند تا شما بتوانید حتی بدون اتصال به اینترنت به آن دسترسی داشته باشید\nمکان: در صورتی که شما بتوانید مکان فعلی خود را مشاهده کنید، این مساله برای استفاده از نقشه در ‏Integreat‏ و انتخاب شهر مناسب سودمند می باشد. داده های مکان ارزیابی نمی شوند.\nشبکه محلی بی سیم ‏(WLAN)‏: ‏Integreat‏ محتواهایی که نیاز به ذخیره سازی دارند، تنها در صورتی بارگیری (دانلود) می کند که اتصال شبکه محلی بی سیم وجود داشته باشد. به این منظور ما باید وجود اتصال شبکه محلی بی سیم را بررسی کنیم."
-    },
     "fr": {
       "name": "Integreat",
       "description": "Vous y trouverez des informations locales, des manifestations et des services de conseil. Les informations sont élaborées et mises à jour par les autorités et les organisations elles-mêmes.\nAIDE GRATUITE\nVous pouvez utiliser l’Integreat gratuitement et sans publicité. Il a été développé par l’organisation à but non lucratif \"porte à porte\" en collaboration avec de nombreuses villes, administrations et autres organisations à but non lucratif.\nNOMBREUSES FONCTIONS\nIntegreat est votre guide numérique local et offre des fonctionnalités uniques :\n- Vous pouvez trouver des informations locales, des événements et d'autres offres dans une seule application\n- Les informations locales sont générées et mises à jour par votre ville\n- La fonction de recherche vous permet de trouver des informations encore plus rapidement\n- Dans la rubrique « Offres », vous trouverez des emplois et des places d'apprentissage dans votre région.\n- Integreat vous montre des événements intéressants dans votre ville\n- Votre ville vous informe sur les actualités importantes grâce à des notifications push\n- Vous pouvez partager les informations et les événements avec vos connaissances\n- Contribuez à l'amélioration d'Integreat en laissant des commentaires sur l'application et les informations locales\nAUCUNE COLLECTE DE DONNÉES\nIntegreat ne recueille aucune information sur vous ou sur l'utilisation que vous en faites. Seule la fréquence à laquelle le contenu local est ouvert dans une langue est comptée, sans que nous ne recueillions ou ne stockions aucune information vous concernant.\nIntegreat a besoin de quelques autorisations de votre part afin que vous puissiez utiliser l'application de la meilleure façon possible :\nMémoire : les informations locales sur votre ville sont stockées sur votre appareil afin que vous puissiez y accéder sans connexion Internet\nLocalisation : pour l'utilisation de la carte dans Integreat et la sélection de la ville appropriée, il est utile que vous puissiez voir votre position actuelle. Aucune donnée de localisation n'est analysée.\nWi-Fi : Integreat ne télécharge des contenus gourmands en mémoire que s'il existe une connexion Wi-Fi. Pour cela, nous devons pouvoir vérifier s'il y a une connexion Wi-Fi."
@@ -97,6 +93,10 @@
     "it": {
       "name": "Integreat",
       "description": "Su Integreat troverai informazioni locali, eventi e centri di consulenza. Con il nostro aiuto avrai tutto sotto mano. Le informazioni sono prodotte dalle autorità e dalle organizzazioni stesse e sono costantemente aggiornate.\nSUPPORTO GRATUITO\nPuoi usare Integreat gratuitamente e senza pubblicità. È stata sviluppata dall'organizzazione non profit \"Tür an Tür\" (porta a porta) in collaborazione con molte città, autorità e altre organizzazioni senza scopo di lucro.\nMOLTE FUNZIONI\nIntegreat è la tua guida digitale della tua città e offre funzioni uniche:\n- Puoi trovare informazioni locali, eventi e altre offerte in un'unica app\n- Le informazioni locali vengono prodotte e aggiornate dalla città stessa.\n- Con la funzione di ricerca puoi trovare le informazioni ancora più velocemente\n- Nell'area \"Offerte\" puoi trovare offerte di lavoro e di formazione nei tuoi paraggi.\n- Integreat ti fa conoscere eventi interessanti della tua città \n- Con le notifiche push la tua città ti avvisa delle novità importanti\n- Puoi condividere le informazioni e gli eventi con altre persone\n- Aiutaci a migliorare Integreat fornendoci il tuo feedback sull'app e sulle informazioni locali\nNON VENGONO RACCOLTI DATI\nIntegreat non raccoglie dati su di te e sul tuo utilizzo. Conta solo quante volte sono stati aperti i contenuti locali in una lingua, \nsenza raccogliere o memorizzare alcun dato su di te.\nIntegreat richiede solo alcune autorizzazioni da parte tua per poter utilizzare al meglio Integreat:\nMemorizzazione: le informazioni locali sulla tua città sono memorizzate sul tuo dispositivo in modo da potervi accedere anche senza connessione Internet.\nPosizione: Per usare la cartina di Integreat e selezionare la città appropriata è utile vedere la tua posizione attuale. Non vengono analizzati i dati di localizzazione.\nWi-Fi: Integreat scarica contenuti che richiedono molto spazio nella memoria solo se esiste una connessione Wi-Fi. Per fare questo, dobbiamo essere in grado di controllare se esiste una connessione Wi-Fi."
+    },
+    "pes": {
+      "name": "Integreat",
+      "description": "در Integreat اطلاعات محلی، رویدادها و مراکز مشاوره را پیدا خواهید کرد. ما به شما کمک می کنیم تا یک نمای کلی به دست آورید. این اطلاعات توسط خود ادارات  و سازمان ها ایجاد و به طور مداوم به روز می شوند.\nکمک رایگان\nشما می توانید از Integreat به صورت رایگان و بدون تبلیغات استفاده کنید. Integreat توسط سازمان غیرانتفاعی \"در به در\" با همکاری بسیاری از شهرها، ادارات و سایر سازمان‌های غیر انتفاعی توسعه یافته است.\nعملکردهای بسیار\nIntegreat‏ راهنمای دیجیتالی شما در مورد شهرتان است و عملکردهای منحصر به فردی ارائه می کند:\n- شما اطلاعات محلی، رویدادها و سایر پیشنهادات را در یک اپلیکیشن می یابید\n- اطلاعات محلی توسط شهر خودتان تهیه و به روز رسانی می شوند\n- از طریق عملکرد جستجو می توانید اطلاعات را به مراتب سریع تر بیابید\n- در بخش \"پیشنهادات\" فرصت های شغلی و کارآموزی در نزدیکی خود را می یابید.\n- Integreat‏ رویدادهای جالب در شهرتان را به شما نشان می دهد\n- شهر شما از طریق اخبار لحظه ای در مورد اخبار مهم به شما اطلاع رسانی می کند\n- شما می توانید اطلاعات و رویدادها را با اشنایان خود اشتراک گذاری کنید\n- با ارائه اظهار نظر در مورد اپلیکیشن و اطلاعات محلی به ‏Integreat‏ در جهت بهبود آن کمک کنید\nعدم جمع آوری داده ها\nIntegreat‏ هیچ گونه داده ای را در مورد شما و استفاده شما از آن جمع آوری نمی کند. این اپلیکیشن صرفا تعداد دفعاتی که محتواهای محلی به یک زبان باز شده اند، بدون آن که داده هایی در مورد شما جمع آوری یا ذخیره شود، شمارش می کند.\nبرای آن که بتوانید از ‏Integreat‏ به بهترین نحو ممکن استفاده کنید، این اپلیکیشن به چند مجوز از شما نیاز دارد:\nحافظه: اطلاعات محلی در مورد شهرتان در دستگاه شما ذخیره می شوند تا شما بتوانید حتی بدون اتصال به اینترنت به آن دسترسی داشته باشید\nمکان: در صورتی که شما بتوانید مکان فعلی خود را مشاهده کنید، این مساله برای استفاده از نقشه در ‏Integreat‏ و انتخاب شهر مناسب سودمند می باشد. داده های مکان ارزیابی نمی شوند.\nشبکه محلی بی سیم ‏(WLAN)‏: ‏Integreat‏ محتواهایی که نیاز به ذخیره سازی دارند، تنها در صورتی بارگیری (دانلود) می کند که اتصال شبکه محلی بی سیم وجود داشته باشد. به این منظور ما باید وجود اتصال شبکه محلی بی سیم را بررسی کنیم."
     },
     "pl": {
       "name": "Integreat",
@@ -137,9 +137,6 @@
     "es": {
       "short_description": "Integreat le ayuda a orientarse rápidamente en su nueva ciudad."
     },
-    "pes": {
-      "short_description": "Integreat‏ به شما کمک می کند به سرعت با شهر جدید خودتان آشنا شوید."
-    },
     "fr": {
       "short_description": "Integreat vous aide à vous y retrouver rapidement dans votre nouvelle ville."
     },
@@ -151,6 +148,9 @@
     },
     "it": {
       "short_description": "Integreat ti aiuta ad orientarti rapidamente nella tua nuova città."
+    },
+    "pes": {
+      "short_description": "Integreat‏ به شما کمک می کند به سرعت با شهر جدید خودتان آشنا شوید."
     },
     "pl": {
       "short_description": "Dzięki aplikacji Integreat szybko zorientujesz się w Twoim nowym mieście."
@@ -187,9 +187,6 @@
     "es": {
       "placeholder_key": "Integreat es su guía digital gratuita"
     },
-    "pes": {
-      "placeholder_key": "Integreat‏ راهنمای دیجیتالی رایگان شما است."
-    },
     "fr": {
       "placeholder_key": "Integreat est votre guide numérique gratuit"
     },
@@ -201,6 +198,9 @@
     },
     "it": {
       "placeholder_key": "Integreat è la tua guida digitale gratuita"
+    },
+    "pes": {
+      "placeholder_key": "Integreat‏ راهنمای دیجیتالی رایگان شما است."
     },
     "pl": {
       "placeholder_key": "Integreat to bezpłatny e-przewodnik"
