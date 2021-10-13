@@ -70,80 +70,60 @@ const Categories = ({
     [cityModel.code, language, navigateTo]
   )
 
-  const navigateToFeedbackForCategory = useCallback(
-    (isPositiveFeedback: boolean) => {
-      navigateToFeedback({
-        routeType: CATEGORIES_ROUTE,
-        language,
-        cityCode: cityModel.code,
-        path: !category.isRoot() ? category.path : undefined,
-        isPositiveFeedback
-      })
-    },
-    [category, cityModel.code, language, navigateToFeedback]
-  )
+  const navigateToFeedbackForCategory = (isPositiveFeedback: boolean) => {
+    navigateToFeedback({
+      routeType: CATEGORIES_ROUTE,
+      language,
+      cityCode: cityModel.code,
+      path: !category.isRoot() ? category.path : undefined,
+      isPositiveFeedback
+    })
+  }
 
-  const getCategoryResourceCache = useCallback(
-    (category: CategoryModel): PageResourceCacheStateType => resourceCache[category.path] || {},
-    [resourceCache]
-  )
+  const getCategoryResourceCache = (category: CategoryModel): PageResourceCacheStateType =>
+    resourceCache[category.path] || {}
 
-  const getCachedThumbnail = useCallback(
-    (category: CategoryModel): string | null | undefined => {
-      if (category.thumbnail) {
-        const resource = getCategoryResourceCache(category)[category.thumbnail]
+  const getCachedThumbnail = (category: CategoryModel): string | null | undefined => {
+    if (category.thumbnail) {
+      const resource = getCategoryResourceCache(category)[category.thumbnail]
 
-        if (resource) {
-          return URL_PREFIX + resource.filePath
-        }
+      if (resource) {
+        return URL_PREFIX + resource.filePath
       }
+    }
 
-      return null
-    },
-    [getCategoryResourceCache]
-  )
+    return null
+  }
 
-  const getTileModels = useCallback(
-    (categories: Array<CategoryModel>): Array<TileModel> =>
-      categories.map(
-        category =>
-          new TileModel({
-            title: category.title,
-            path: category.path,
-            thumbnail: getCachedThumbnail(category) || category.thumbnail,
-            isExternalUrl: false
-          })
-      ),
-    [getCachedThumbnail]
-  )
+  const getTileModels = (categories: Array<CategoryModel>): Array<TileModel> =>
+    categories.map(
+      category =>
+        new TileModel({
+          title: category.title,
+          path: category.path,
+          thumbnail: getCachedThumbnail(category) || category.thumbnail,
+          isExternalUrl: false
+        })
+    )
 
-  const getListModel = useCallback(
-    (category: CategoryModel): CategoryListModelType => ({
-      title: category.title,
-      path: category.path,
-      thumbnail: getCachedThumbnail(category) || category.thumbnail
-    }),
-    [getCachedThumbnail]
-  )
+  const getListModel = (category: CategoryModel): CategoryListModelType => ({
+    title: category.title,
+    path: category.path,
+    thumbnail: getCachedThumbnail(category) || category.thumbnail
+  })
 
-  const getListModels = useCallback(
-    (categories: Array<CategoryModel>): Array<CategoryListModelType> =>
-      categories.map(category => getListModel(category)),
-    [getListModel]
-  )
+  const getListModels = (categories: Array<CategoryModel>): Array<CategoryListModelType> =>
+    categories.map(category => getListModel(category))
 
-  const getListContentModel = useCallback(
-    (category: CategoryModel): ListContentModelType | null | undefined =>
-      category.content
-        ? {
-            content: category.content,
-            files: getCategoryResourceCache(category),
-            resourceCacheUrl,
-            lastUpdate: category.lastUpdate
-          }
-        : undefined,
-    [getCategoryResourceCache, resourceCacheUrl]
-  )
+  const getListContentModel = (category: CategoryModel): ListContentModelType | null | undefined =>
+    category.content
+      ? {
+          content: category.content,
+          files: getCategoryResourceCache(category),
+          resourceCacheUrl,
+          lastUpdate: category.lastUpdate
+        }
+      : undefined
 
   /**
    * Returns the content to be displayed, based on the current category, which is
