@@ -5,6 +5,7 @@ import { View, Image, Text } from 'react-native'
 import { ImageViewModalRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
+import PinchableBox from '../components/PinchableBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 
@@ -26,14 +27,7 @@ const ImageViewModal = (props: PropsType): ReactElement => {
         flex: 1,
         backgroundColor: props.theme.colors.backgroundAccentColor
       }}>
-      <Image
-        style={{ flex: 1 }}
-        resizeMode='center'
-        source={{ uri: props.route.params.url }}
-        onError={() => {
-          setError(true)
-        }}
-      />
+      <PinchableBox />
     </View>
   )
 }
