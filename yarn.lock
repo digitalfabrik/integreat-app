@@ -15053,18 +15053,6 @@ react-native-highlight-words@^1.0.1:
     highlight-words-core "^1.0.3"
     prop-types "^15.5.7"
 
-react-native-image-pan-zoom@^2.1.12:
-  version "2.1.12"
-  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
-  integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
-
-react-native-image-zoom-viewer@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-image-zoom-viewer/-/react-native-image-zoom-viewer-3.0.1.tgz#a2bd5fb3bda15e0686ce88fcde8576726495d7fb"
-  integrity sha512-la6s5DNSuq4GCRLsi5CZ29FPjgTpdCuGIRdO5T9rUrAtxrlpBPhhSnHrbmPVxsdtOUvxHacTh2Gfa9+RraMZQA==
-  dependencies:
-    react-native-image-pan-zoom "^2.1.12"
-
 react-native-inappbrowser-reborn@^3.6.3:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/react-native-inappbrowser-reborn/-/react-native-inappbrowser-reborn-3.6.3.tgz#12938733e5337a9f328973557da0cfd13085bfbd"
@@ -15160,11 +15148,6 @@ react-native-static-server@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-native-static-server/-/react-native-static-server-0.5.0.tgz#4b396082bfe7dfdbba6fe7d7de894de5ba4ebadb"
   integrity sha512-RGteckPoBZq48p9Y8V67bjZGPxLHKkEOAffLSUJiGC7hkx+H+zuekqCR+04F30NuWB7y+nb8N7Qld2RGjX5DNg==
-
-react-native-status-bar-height@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.6.0.tgz#b6afd25b6e3d533c43d0fcdcfd5cafd775592cea"
-  integrity sha512-z3SGLF0mHT+OlJDq7B7h/jXPjWcdBT3V14Le5L2PjntjjWM3+EJzq2BcXDwV+v67KFNJic5pgA26cCmseYek6w==
 
 react-native-svg-asset-plugin@^0.5.0:
   version "0.5.0"
