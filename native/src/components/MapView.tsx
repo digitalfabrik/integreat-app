@@ -14,15 +14,21 @@ import {
   RouteInformationType
 } from 'api-client'
 
+import dimensions from '../constants/dimensions'
 import MapPopup from './MapPopup'
 
 const MapContainer = styled.View`
+  flex: 1;
   flex-direction: row;
   justify-content: center;
 `
 const StyledMap = styled(MapboxGL.MapView)`
   width: 100%;
-  height: 500px;
+`
+
+const StyledFAB = styled(FAB)<{ position: number | string }>`
+  align-items: flex-end;
+  bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
 `
 
 type MapViewPropsType = {
@@ -35,24 +41,11 @@ type MapViewPropsType = {
   cityCode: string
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
+  fabPosition: string | number
 }
 
 const textOffsetY = 1.25
 const featureLayerId = 'point'
-const layerProps: SymbolLayerProps = {
-  id: featureLayerId,
-  style: {
-    symbolPlacement: 'point',
-    iconAllowOverlap: true,
-    iconIgnorePlacement: true,
-    iconImage: ['get', 'symbol'],
-    textField: ['get', 'title'],
-    textFont: ['Roboto Regular'],
-    textOffset: [0, textOffsetY],
-    textAnchor: 'top',
-    textSize: 12
-  }
-}
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
@@ -64,6 +57,7 @@ const MapView = ({
   navigateTo,
   language,
   cityCode,
+  fabPosition,
   onRequestLocationPermission,
   locationPermissionGranted
 }: MapViewPropsType): ReactElement => {
@@ -71,6 +65,24 @@ const MapView = ({
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
+
+  // gonna be removed when popup will be removed
+  const popUpHeight = 150
+
+  const layerProps: SymbolLayerProps = {
+    id: featureLayerId,
+    style: {
+      symbolPlacement: 'point',
+      iconAllowOverlap: true,
+      iconIgnorePlacement: true,
+      iconImage: ['case', ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1], '6', ['get', 'symbol']],
+      textField: ['get', 'title'],
+      textFont: ['Roboto Regular'],
+      textOffset: [0, textOffsetY],
+      textAnchor: 'top',
+      textSize: 12
+    }
+  }
 
   const bounds = {
     ne: [boundingBox[2], boundingBox[3]],
@@ -146,14 +158,21 @@ const MapView = ({
         />
       </StyledMap>
       {selectedFeature && (
-        <MapPopup feature={selectedFeature} navigateTo={navigateTo} language={language} cityCode={cityCode} />
+        <MapPopup
+          feature={selectedFeature}
+          navigateTo={navigateTo}
+          language={language}
+          cityCode={cityCode}
+          height={popUpHeight}
+        />
       )}
-      <FAB
+      <StyledFAB
         placement='right'
         onPress={onRequestLocation}
+        buttonStyle={{ borderRadius: 50 }}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
-        style={selectedFeature && { top: 0 }}
+        position={selectedFeature ? popUpHeight + dimensions.locationFab.margin : fabPosition}
       />
     </MapContainer>
   )
