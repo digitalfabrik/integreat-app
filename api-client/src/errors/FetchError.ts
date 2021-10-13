@@ -6,7 +6,13 @@ class FetchError extends Error {
   constructor(params: { endpointName: string; innerError: Error }) {
     super()
 
-    Error.captureStackTrace(this, FetchError)
+    // captureStackTrace is not always defined on mobile
+    // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/263/
+    // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/265/
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, FetchError)
+    }
 
     this.message = this.getMessage(params.endpointName, params.innerError)
     this.innerError = params.innerError
