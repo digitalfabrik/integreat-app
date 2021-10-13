@@ -54,7 +54,7 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       return
     }
 
-    const error = new Error(message)
+    const error = new Error(message.message ?? 'Unknown message received from webview')
     reportError(error)
 
     if (message.type === 'error') {
