@@ -8,6 +8,7 @@ import Categories, { PropsType as CategoriesPropsType } from '../components/Cate
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import withTheme from '../hocs/withTheme'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -37,15 +38,6 @@ type RefreshPropsType = NavigationPropsType & {
   path: string
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
-}
 
 const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
@@ -216,24 +208,22 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 
 const ThemedCategories = withTheme<CategoriesPropsType>(Categories)
 
-class CategoriesContainer extends React.Component<ContainerPropsType> {
-  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const { dispatch, navigation } = this.props
+const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  useClearRouteOnClose(route, dispatch)
+
+  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)
     navigateToLink(url, navigation, language, navigateTo, shareUrl)
   }
 
-  render() {
-    const { dispatch, navigation, route, ...rest } = this.props
-    return (
-      <ThemedCategories
-        {...rest}
-        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-        navigateTo={createNavigate(dispatch, navigation)}
-        navigateToLink={this.navigateToLinkProp}
-      />
-    )
-  }
+  return (
+    <ThemedCategories
+      {...rest}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToLink={navigateToLinkProp}
+    />
+  )
 }
 
 export default connect(
@@ -241,8 +231,5 @@ export default connect(
   mapDispatchToProps
 )(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(
-    refresh,
-    onRouteClose
-  )(CategoriesContainer)
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh)(CategoriesContainer)
 )
