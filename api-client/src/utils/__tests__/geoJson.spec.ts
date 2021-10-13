@@ -6,6 +6,7 @@ import { embedInCollection } from '../geoJson'
 describe('geoJson', () => {
   const path = '/augsburg/de/locations/erster_poi'
   const thumbnail = 'thumbnail'
+  const urlSlug = 'erster_poi'
   const expectedGeoJsonMarkerFeature: PoiFeature = {
     type: 'Feature',
     geometry: {
@@ -17,7 +18,8 @@ describe('geoJson', () => {
       title: 'Test',
       symbol: '9',
       thumbnail,
-      path
+      path,
+      urlSlug
     }
   }
   describe('embedInCollection', () => {
@@ -38,7 +40,9 @@ describe('geoJson', () => {
         longitude: '31.133859',
         country: 'DE'
       })
-      expect(embedInCollection([location.convertToPoint(path, thumbnail)!])).toEqual(expectedGeoJsonFeatureCollection)
+      expect(embedInCollection([location.convertToPoint(path, thumbnail, urlSlug)!])).toEqual(
+        expectedGeoJsonFeatureCollection
+      )
     })
   })
 })
