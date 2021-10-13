@@ -2,10 +2,9 @@ import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import URL from 'url-parse'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import { SnackbarError } from '../hooks/useSnackbar'
 import sendTrackingSignal from './sendTrackingSignal'
 
 const openExternalUrl = async (url: string): Promise<void> => {
@@ -35,13 +34,12 @@ const openExternalUrl = async (url: string): Promise<void> => {
         })
         await Linking.openURL(url)
       } else {
-        // eslint-disable-next-line prefer-promise-reject-errors
-        throw new SnackbarError('This is not a supported route. Skipping.')
+        throw new NotFoundError({ type: 'route', id: url, city: '', language: '' })
       }
     }
   } catch (error) {
     console.error(error)
-    if (error instanceof SnackbarError) {
+    if (error instanceof NotFoundError) {
       throw error
     }
   }

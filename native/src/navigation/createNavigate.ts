@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { NotFoundError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -36,7 +36,7 @@ import { urlFromRouteInformation } from './url'
 const createNavigate = <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
   navigation: NavigationPropType<T>
-) => async (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): Promise<void> => {
+) => (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
   if (routeInformation) {
     const url = urlFromRouteInformation(routeInformation)
     sendTrackingSignal({
@@ -134,7 +134,13 @@ const createNavigate = <T extends RoutesType>(
         return
     }
   }
-  showSnackbar(dispatch, 'This is not a supported route. Skipping.')
+  const error = new NotFoundError({
+    type: 'route',
+    id: routeInformation?.route ?? '',
+    language: routeInformation?.languageCode ?? 'en',
+    city: routeInformation?.cityCode ?? ''
+  })
+  showSnackbar(dispatch, error.message)
 }
 
 export default createNavigate
