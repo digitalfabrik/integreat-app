@@ -121,7 +121,7 @@ const createNavigate = <T extends RoutesType>(
         }
         navigateToPois({
           ...params,
-          selectedPoiName: routeInformation.selectedPoiName,
+          urlSlug: routeInformation.urlSlug,
           cityContentPath: routeInformation.cityContentPath,
           key,
           forceRefresh
