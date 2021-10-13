@@ -34,8 +34,12 @@ class PoiModel extends ExtendedPageModel {
     return this._excerpt
   }
 
+  get urlSlug(): string {
+    return this._path.split('/').pop() ?? ''
+  }
+
   get featureLocation(): PoiFeature | null {
-    return this._location.convertToPoint(this.path, this.thumbnail)
+    return this._location.convertToPoint(this.path, this.thumbnail, this.urlSlug)
   }
 
   isEqual(other: PageModel): boolean {
