@@ -22,7 +22,6 @@ import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import MapView from '../components/MapView'
-import Page from '../components/Page'
 import PoiDetails from '../components/PoiDetails'
 import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
@@ -66,18 +65,7 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 
-const Pois = ({
-  pois,
-  language,
-  path,
-  cityModel,
-  resourceCache,
-  resourceCacheUrl,
-  navigateTo,
-  navigateToFeedback,
-  navigateToLink,
-  route
-}: PropsType): ReactElement => {
+const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
@@ -89,16 +77,14 @@ const Pois = ({
   const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '40%', '95%']
 
   useEffect(() => {
-    if (!path) {
-      const featureLocations = prepareFeatureLocations(pois, location)
-      const urlSlug = route.params.urlSlug
-      if (urlSlug) {
-        const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
-        setSelectedFeature(currentFeature ?? null)
-      }
-      if (location) {
-        setFeatureLocations(featureLocations)
-      }
+    const featureLocations = prepareFeatureLocations(pois, location)
+    const urlSlug = route.params.urlSlug
+    if (urlSlug) {
+      const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
+      setSelectedFeature(currentFeature ?? null)
+    }
+    if (location) {
+      setFeatureLocations(featureLocations)
     }
   }, [path, pois, route.params.urlSlug, location])
 
@@ -133,16 +119,6 @@ const Pois = ({
     )
   }
 
-  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
-    navigateToFeedback({
-      routeType: POIS_ROUTE,
-      language,
-      path: poi.path,
-      cityCode: cityModel.code,
-      isPositiveFeedback
-    })
-  }
-
   const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: POIS_ROUTE,
@@ -159,19 +135,8 @@ const Pois = ({
     const feature = featureLocations.find(_feature => _feature.properties.path === path)
 
     if (poi && feature) {
-      const files = resourceCache[poi.path] || {}
-
       return (
-        <Page
-          content={poi.content}
-          title={poi.title}
-          lastUpdate={poi.lastUpdate}
-          language={language}
-          files={files}
-          theme={theme}
-          resourceCacheUrl={resourceCacheUrl}
-          navigateToLink={navigateToLink}
-          navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
+        <ScrollView>
           <PoiDetails
             language={language}
             poi={poi}
@@ -179,7 +144,7 @@ const Pois = ({
             detailView
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
           />
-        </Page>
+        </ScrollView>
       )
     }
 

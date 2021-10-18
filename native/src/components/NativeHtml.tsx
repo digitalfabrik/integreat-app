@@ -12,7 +12,7 @@ type PropsType = {
   language: string
   content: string
   cacheDictionary?: Record<string, string>
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
+  navigateToLink?: (url: string, language: string, shareUrl: string) => void
 }
 
 const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: PropsType): ReactElement => {
@@ -23,7 +23,9 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
       const shareUrl = cacheDictionary
         ? Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
         : undefined
-      navigateToLink(url, language, shareUrl || url)
+      if (navigateToLink) {
+        navigateToLink(url, language, shareUrl || url)
+      }
     },
     [cacheDictionary, navigateToLink, language]
   )
