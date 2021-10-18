@@ -283,6 +283,12 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
 
+  // TODO IGAPP-742 remove
+  if (appName !== 'integreat') {
+    console.warn('Only integreat is currently supported for automated store translations, aborting!')
+    return
+  }
+
   const storeTranslations = JSON.parse(fs.readFileSync(`../translations/store-translations/${appName}.json`, 'utf-8'))
 
   Object.keys(storeTranslations[storeName]).forEach(language => {
