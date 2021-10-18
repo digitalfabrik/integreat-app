@@ -10,10 +10,10 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Create github release
-      command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(tools/parse-release-notes parse --web --language en)"
+      command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --pwd tools manage-metadata parse-release-notes --web --language en)"
   - run:
       name: Create release notes
-      command: echo "export RELEASE_NOTES=$(tools/parse-release-notes parse --web --language en)" >> ${BASH_ENV}
+      command: echo "export RELEASE_NOTES=$(yarn --pwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
   - notify:
       success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
       channel: integreat-releases
