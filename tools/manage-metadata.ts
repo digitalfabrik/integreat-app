@@ -212,23 +212,35 @@ const appleLanguageMap: Record<string, string[]> = {
   ar: ['ar-SA'],
   bg: [],
   de: ['de-DE'],
+  el: ['el'],
   en: ['en-US'],
   es: ['es-ES'],
+  fr: ['fr-FR'],
+  hr: ['hr'],
+  hu: ['hu'],
+  it: ['it'],
   pes: [],
-  fr: ['fr-FR']
+  pl: ['pl'],
+  ro: ['ro'],
+  ru: ['ru'],
+  tr: ['tr']
 }
 
 // Maps our translation keys to the right key used by the google play store
 const googleLanguageMap: Record<string, string[]> = {
+  am: ['am'],
+  bg: ['bg'],
   de: ['de-DE'],
   el: ['el-GR'],
   en: ['en-US', 'en-GB'],
   es: ['es-ES'],
-  pes: ['fa'],
   fr: ['fr-FR'],
+  hr: ['hr'],
   hu: ['hu-HU'],
   it: ['it-IT'],
+  pes: ['fa'],
   pl: ['pl-PL'],
+  ro: ['ro'],
   ru: ['ru-RU'],
   tr: ['tr-TR']
 }
