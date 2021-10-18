@@ -53,7 +53,7 @@ program
   .requiredOption(
     '--source <source>',
     'the directory of the release notes to parse',
-    `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
+    `../${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
   )
   .requiredOption('--language <language>', 'the language of the release notes to parse', DEFAULT_NOTES_LANGUAGE)
 
