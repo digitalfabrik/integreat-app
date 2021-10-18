@@ -18,7 +18,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-google-play
-  #  - promote_android: # TODO IGAPP 567 Uncomment
+  #  - promote_android: # TODO IGAPP-567 Uncomment
   #      name: promote_aschaffenburg_android
   #      build_config_name: aschaffenburg
   #      context:
@@ -37,7 +37,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
-#  - promote_ios: # TODO IGAPP 567 Uncomment
+#  - promote_ios: # TODO IGAPP-567 Uncomment
 #      name: promote_aschaffenburg_android
 #      name: promote_aschaffenburg_ios
 #      build_config_name: aschaffenburg
