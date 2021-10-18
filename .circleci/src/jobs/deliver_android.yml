@@ -25,7 +25,7 @@ steps:
       directory: native
   - run:
       name: Prepare Play Store metadata
-      command: yarn workspace translations manage-stores prepare-metadata << parameters.build_config_name >> google
+      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> google
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane android browserstack_upload_live apk_path:attached_workspace/<< parameters.build_config_name >>.apk
