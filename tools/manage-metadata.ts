@@ -180,11 +180,12 @@ const parseNotesProgram = (program: ParseProgramType) => {
 }
 
 program
-  .command('parse')
+  .command('parse-release-notes')
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
   )
-  .action(parseNotesProgram)
+  // @ts-ignore
+  .action(() => parseNotesProgram({ ...program }))
 
 // General store metadata
 type StoreName = 'apple' | 'google'
