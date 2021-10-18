@@ -41,22 +41,6 @@ const DEFAULT_NOTES = {
     'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es soll. Wenn Sie bemerken, dass etwas nicht funktioniert, lassen Sie es uns wissen!\n'
 }
 
-program
-  .option('--ios', 'include release notes for ios')
-  .option('--android', 'include release notes for android')
-  .option('--web', 'include release notes for web.')
-  .option(
-    '--production',
-    'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms.'
-  )
-  .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
-  .requiredOption(
-    '--source <source>',
-    'the directory of the release notes to parse',
-    `../${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
-  )
-  .requiredOption('--language <language>', 'the language of the release notes to parse', DEFAULT_NOTES_LANGUAGE)
-
 const formatNotes = (params: { notes: NoteType[]; language: string; production: boolean; platformName?: string }) => {
   const { notes, language, production, platformName } = params
   const noteLanguage = language === 'de' || language === 'en' ? language : DEFAULT_NOTES_LANGUAGE
@@ -184,6 +168,20 @@ const parseNotesProgram = (program: ParseProgramType) => {
 }
 
 program
+  .option('--ios', 'include release notes for ios')
+  .option('--android', 'include release notes for android')
+  .option('--web', 'include release notes for web.')
+  .option(
+    '--production',
+    'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms.'
+  )
+  .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
+  .requiredOption(
+    '--source <source>',
+    'the directory of the release notes to parse',
+    `../${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
+  )
+  .requiredOption('--language <language>', 'the language of the release notes to parse', DEFAULT_NOTES_LANGUAGE)
   .command('parse-release-notes')
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
@@ -303,7 +301,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
 
       // Prepare release notes
       const platforms = { ios: storeName === 'apple', android: storeName === 'google', web: false }
-      const source = `${RELEASE_NOTES_DIR}/${overrideVersionName ?? UNRELEASED_DIR}`
+      const source = `../${RELEASE_NOTES_DIR}/${overrideVersionName ?? UNRELEASED_DIR}`
       const releaseNotesPath = `${metadataPath(appName, storeName, targetLanguage)}${
         storeName === 'google' ? '/changelogs' : ''
       }`
@@ -317,17 +315,16 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
   })
 }
 
-program.option(
-  '--override-version-name',
-  'if specified the release notes will be generated from the specified version name instead of the unreleased notes'
-)
-
 program
+  .option(
+    '--override-version-name <override-version-name>',
+    'if specified the release notes will be generated from the specified version name instead of the unreleased notes'
+  )
   .command('prepare-metadata <appName> <storeName>')
   .description('prepare metadata for store')
-  .action((appName: string, storeName: string, overrideVersionName?: string) => {
+  .action((appName: string, storeName: string) => {
     try {
-      writeMetadata(appName, storeName, overrideVersionName)
+      writeMetadata(appName, storeName, program.overrideVersionName)
     } catch (e) {
       console.error(e)
       process.exit(1)
