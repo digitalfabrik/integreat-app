@@ -166,6 +166,8 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language }: 
 
 const parseNotesProgram = (program: ParseProgramType) => {
   try {
+    console.warn(program.source)
+    console.warn(__dirname)
     const notes = parseReleaseNotes({ ...program })
 
     if (program.destination) {
@@ -278,7 +280,7 @@ const metadataFromTranslations = (
 const languageMap = (storeName: StoreName): Record<string, string[]> =>
   storeName === 'apple' ? appleLanguageMap : googleLanguageMap
 
-const writeMetadata = (appName: string, storeName: string) => {
+const writeMetadata = (appName: string, storeName: string, overrideVersionName?: string) => {
   if (storeName !== 'apple' && storeName !== 'google') {
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
@@ -301,7 +303,7 @@ const writeMetadata = (appName: string, storeName: string) => {
 
       // Prepare release notes
       const platforms = { ios: storeName === 'apple', android: storeName === 'google', web: false }
-      const source = `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
+      const source = `${RELEASE_NOTES_DIR}/${overrideVersionName ?? UNRELEASED_DIR}`
       const releaseNotesPath = `${metadataPath(appName, storeName, targetLanguage)}${
         storeName === 'google' ? '/changelogs' : ''
       }`
@@ -315,12 +317,17 @@ const writeMetadata = (appName: string, storeName: string) => {
   })
 }
 
+program.option(
+  '--override-version-name',
+  'if specified the release notes will be generated from the specified version name instead of the unreleased notes'
+)
+
 program
   .command('prepare-metadata <appName> <storeName>')
   .description('prepare metadata for store')
-  .action((appName: string, storeName: string) => {
+  .action((appName: string, storeName: string, overrideVersionName?: string) => {
     try {
-      writeMetadata(appName, storeName)
+      writeMetadata(appName, storeName, overrideVersionName)
     } catch (e) {
       console.error(e)
       process.exit(1)
