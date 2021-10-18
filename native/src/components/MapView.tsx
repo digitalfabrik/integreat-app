@@ -7,8 +7,6 @@ import styled from 'styled-components/native'
 
 import { defaultViewportConfig, detailZoom, mapConfig, PoiFeature, PoiFeatureCollection } from 'api-client'
 
-import dimensions from '../constants/dimensions'
-
 const MapContainer = styled.View`
   flex: 1;
   flex-direction: row;
@@ -53,9 +51,6 @@ const MapView = ({
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
-
-  // gonna be removed when popup will be removed
-  const popUpHeight = 150
 
   const layerProps: SymbolLayerProps = {
     id: featureLayerId,
@@ -152,7 +147,7 @@ const MapView = ({
         buttonStyle={{ borderRadius: 50 }}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
-        position={selectedFeature ? popUpHeight + dimensions.locationFab.margin : fabPosition}
+        position={fabPosition}
       />
     </MapContainer>
   )
