@@ -2,6 +2,7 @@
 import program from 'commander'
 import fs from 'fs'
 import yaml from 'js-yaml'
+import path from 'path'
 
 import {
   GITKEEP_FILE,
@@ -168,6 +169,7 @@ const parseNotesProgram = (program: ParseProgramType) => {
     const notes = parseReleaseNotes({ ...program })
 
     if (program.destination) {
+      fs.mkdirSync(path.dirname(program.destination), { recursive: true })
       fs.writeFileSync(program.destination, notes)
     }
 
