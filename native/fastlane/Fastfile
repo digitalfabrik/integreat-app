@@ -161,7 +161,7 @@ platform :ios do
     ensure_env_vars(
         env_vars: ["APP_STORE_CONNECT_API_KEY_ID", "APP_STORE_CONNECT_API_ISSUER_ID", "APP_STORE_CONNECT_API_KEY_CONTENT"]
     )
-    
+
     app_store_connect_api_key(
       key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
       issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
@@ -349,8 +349,8 @@ platform :ios do
       raise "'nil' passed as parameter! Aborting..."
     end
 
-    `../../tools/parse-release-notes parse --ios --destination ../ios/fastlane/#{build_config_name}/metadata/de-DE/release_notes.txt --language de --source ../../release-notes/#{version_name} --production`
-    `../../tools/parse-release-notes parse --ios --destination ../ios/fastlane/#{build_config_name}/metadata/en-US/release_notes.txt --language en --source ../../release-notes/#{version_name} --production`
+    `cd ../../tools && yarn manage-metadata parse-release-notes --ios --destination ../ios/fastlane/#{build_config_name}/metadata/de-DE/release_notes.txt --language de --source ../../release-notes/#{version_name} --production`
+    `cd ../../tools && yarn manage-metadata parse-release-notes --ios --destination ../ios/fastlane/#{build_config_name}/metadata/en-US/release_notes.txt --language en --source ../../release-notes/#{version_name} --production`
   end
 
 end

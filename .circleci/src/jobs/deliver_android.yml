@@ -24,14 +24,6 @@ steps:
   - restore_ruby_cache:
       directory: native
   - run:
-      name: Parse german android release notes
-      command: tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/de-DE/changelogs/default.txt --language de --production
-  - run:
-      name: Parse english android release notes
-      command:
-        tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-GB/changelogs/default.txt --language en --production
-        && tools/parse-release-notes parse --android --destination native/android/fastlane/<< parameters.build_config_name >>/metadata/en-US/changelogs/default.txt --language en --production
-  - run:
       name: Prepare Play Store metadata
       command: yarn workspace translations manage-stores prepare-metadata << parameters.build_config_name >> google
   - run:
