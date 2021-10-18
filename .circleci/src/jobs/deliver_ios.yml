@@ -24,7 +24,7 @@ steps:
       directory: native
   - run:
       name: Prepare App Store metadata
-      command: yarn workspace translations manage-stores prepare-metadata << parameters.build_config_name >> apple
+      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> apple
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
