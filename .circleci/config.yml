@@ -602,9 +602,6 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> apple
-                name: Prepare App Store metadata
-            - run:
                 command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
@@ -881,6 +878,9 @@ jobs:
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
+            - run:
+                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> apple
+                name: Prepare App Store metadata
             - run:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] App Store Connect Promotion'
