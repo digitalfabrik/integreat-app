@@ -349,8 +349,8 @@ platform :ios do
       raise "'nil' passed as parameter! Aborting..."
     end
 
-    `cd ../../tools && yarn manage-metadata parse-release-notes --ios --destination ../ios/fastlane/#{build_config_name}/metadata/de-DE/release_notes.txt --language de --source ../../release-notes/#{version_name} --production`
-    `cd ../../tools && yarn manage-metadata parse-release-notes --ios --destination ../ios/fastlane/#{build_config_name}/metadata/en-US/release_notes.txt --language en --source ../../release-notes/#{version_name} --production`
+    `yarn --cwd ../../tools manage-metadata parse-release-notes --ios --destination ../ios/fastlane/#{build_config_name}/metadata/de-DE/release_notes.txt --language de --source release-notes/#{version_name} --production`
+    `yarn --cwd ../../tools manage-metadata parse-release-notes --ios --destination ../ios/fastlane/#{build_config_name}/metadata/en-US/release_notes.txt --language en --source release-notes/#{version_name} --production`
   end
 
 end
