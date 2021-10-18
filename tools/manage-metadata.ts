@@ -163,7 +163,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language }: 
   return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
 }
 
-const parseProgram = (_: [], program: ParseProgramType) => {
+const parseNotesProgram = (program: ParseProgramType) => {
   try {
     const notes = parseReleaseNotes({ ...program })
 
@@ -184,9 +184,7 @@ program
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
   )
-  .action(parseProgram)
-
-program.parse(process.argv)
+  .action(parseNotesProgram)
 
 // General store metadata
 type StoreName = 'apple' | 'google'
@@ -282,7 +280,7 @@ const writeMetadata = (appName: string, storeName: string) => {
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
 
-  const storeTranslations = JSON.parse(fs.readFileSync(`store-translations/${appName}.json`, 'utf-8'))
+  const storeTranslations = JSON.parse(fs.readFileSync(`../translations/store-translations/${appName}.json`, 'utf-8'))
 
   Object.keys(storeTranslations[storeName]).forEach(language => {
     const metadata = metadataFromTranslations(storeName, language, storeTranslations)
@@ -297,6 +295,18 @@ const writeMetadata = (appName: string, storeName: string) => {
       Object.keys(metadata).forEach(metadataKey => {
         fs.writeFileSync(`${path}/${metadataKey}.txt`, metadata[metadataKey]!)
       })
+
+      // Prepare release notes
+      const platforms = { ios: storeName === 'apple', android: storeName === 'google', web: false }
+      const source = `${RELEASE_NOTES_DIR}/${UNRELEASED_DIR}`
+      const releaseNotesPath = `${metadataPath(appName, storeName, targetLanguage)}${
+        storeName === 'google' ? '/changelogs' : ''
+      }`
+      fs.mkdirSync(releaseNotesPath, { recursive: true })
+
+      const destination = `${releaseNotesPath}/${storeName === 'apple' ? 'release_notes.txt' : 'default.txt'}`
+      parseNotesProgram({ ...platforms, production: true, language, destination, source })
+
       console.warn(`${storeName} metadata for ${appName} successfully written in language ${targetLanguage}.`)
     })
   })
