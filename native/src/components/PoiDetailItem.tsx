@@ -34,6 +34,8 @@ const StyledIcon = styled(Icon)`
   align-self: center;
 `
 
+const ICON_SIZE = 25
+
 const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
   onPress,
   onLongPress,
@@ -41,7 +43,7 @@ const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
   icon,
   border = true,
   language,
-  iconSize = 25
+  iconSize = ICON_SIZE
 }: PoiDetailItemProps): ReactElement => {
   const theme = useTheme()
 
