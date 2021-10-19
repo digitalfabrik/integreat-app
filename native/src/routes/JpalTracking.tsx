@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Switch, Text, TextInput, View } from 'react-native'
+import { Alert, Switch, Text, TextInput, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
@@ -31,10 +31,11 @@ const DescriptionContainer = styled.TouchableOpacity`
   justify-content: space-between;
   padding: 15px 0 5px;
 `
-const Input = styled(TextInput)`
+const Input = styled(TextInput)<{ editable: boolean; error: boolean }>`
   padding: 15px;
   border-width: 1px;
   border-color: ${props => (props.editable ? props.theme.colors.themeColor : props.theme.colors.textDisabledColor)};
+  ${props => (props.error ? 'border-color: red;' : '')};
   color: ${props => props.theme.colors.textColor};
   text-align-vertical: top;
   height: 50px;
@@ -46,28 +47,77 @@ export type PropsType = {
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
 
-const JpalTracking = ({ route, theme }: PropsType) => {
+const TRACKING_CODE_LENGTH = 7
+
+const JpalTracking = ({ navigation, route, theme }: PropsType) => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
-  const [error, setError] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
   const { t } = useTranslation(['settings', 'error'])
   const routeTrackingCode = route.params.trackingCode
 
-  const updateTrackingCode = (value: string) => {
+  const updateTrackingEnabled = useCallback((trackingEnabled: boolean) => {
+    setTrackingEnabled(trackingEnabled)
+    appSettings
+      .setJpalTrackingEnabled(trackingEnabled)
+      .then(() => setError(null))
+      .catch(() => setError('generalError'))
+  }, [])
+
+  const toggleTrackingEnabled = () => {
+    updateTrackingEnabled(!trackingEnabled)
+  }
+
+  const updateTrackingCode = useCallback((value: string) => {
     setTrackingCode(value)
     appSettings
       .setJpalTrackingCode(value)
-      .then(() => setError(false))
-      .catch(() => setError(true))
-  }
+      .then(() => setError(null))
+      .catch(() => setError('generalError'))
+  }, [])
 
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        if (trackingCode?.length === TRACKING_CODE_LENGTH && trackingEnabled) {
+          // Tracking enabled and (hopefully) valid code entered, so we are good to leave the screen
+          return
+        }
+
+        e.preventDefault()
+
+        Alert.alert(
+          'Discard changes?',
+          'You have unsaved changes. Are you sure to discard them and leave the screen?',
+          [
+            {
+              text: t('decline'),
+              style: 'destructive',
+              onPress: () => {
+                updateTrackingEnabled(false)
+                navigation.dispatch(e.data.action)
+              }
+            },
+            {
+              text: t('allowTracking'),
+              style: 'default',
+              onPress: () => setError('trackingCodeInvalid')
+            }
+          ]
+        )
+      }),
+    [navigation, trackingCode, trackingEnabled, updateTrackingEnabled, t]
+  )
+
+  // Save tracking code passed with route params
   useEffect(() => {
     if (routeTrackingCode) {
       updateTrackingCode(routeTrackingCode)
     }
-  }, [routeTrackingCode])
+  }, [routeTrackingCode, updateTrackingCode])
 
+  // Load previously set tracking enabled and code
   useEffect(() => {
     appSettings
       .loadSettings()
@@ -77,17 +127,8 @@ const JpalTracking = ({ route, theme }: PropsType) => {
         setTrackingEnabled(settings.jpalTrackingEnabled)
         setSettingsLoaded(true)
       })
-      .catch(() => setError(true))
+      .catch(() => setError('generalError'))
   }, [])
-
-  const toggleTrackingEnabled = () => {
-    const newTrackingEnabled = !trackingEnabled
-    setTrackingEnabled(newTrackingEnabled)
-    appSettings
-      .setJpalTrackingEnabled(newTrackingEnabled)
-      .then(() => setError(false))
-      .catch(() => setError(true))
-  }
 
   if (!settingsLoaded) {
     return <LayoutContainer />
@@ -102,12 +143,10 @@ const JpalTracking = ({ route, theme }: PropsType) => {
         <Caption title={t('tracking')} theme={theme} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
-        {error && <ErrorText>{t('error:generalError')}</ErrorText>}
-
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
           <Switch
-            thumbColor={theme.colors.themeColor}
+            thumbColor={error && !trackingEnabled ? 'red' : theme.colors.themeColor}
             trackColor={{
               true: theme.colors.themeColor,
               false: theme.colors.backgroundAccentColor
@@ -120,12 +159,15 @@ const JpalTracking = ({ route, theme }: PropsType) => {
 
         <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
         <Input
+          error={!!error && trackingCode?.length !== TRACKING_CODE_LENGTH}
           value={trackingCode ?? ''}
           onChangeText={updateTrackingCode}
           theme={theme}
           editable={!!trackingEnabled}
           testID='input'
         />
+
+        {error && <ErrorText>{t(error)}</ErrorText>}
       </View>
     </LayoutContainer>
   )

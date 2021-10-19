@@ -5035,8 +5035,11 @@
       "trackingCode": "Tracking Code",
       "trackingDescription": "{{appName}} bittet um die Erlaubnis, Ihre Nutzung innerhalb der App zu verfolgen. Ihre Daten werden anonymisiert und nur zu Forschungszwecken und zur Verbesserung der App verwendet. Die Tracking-Daten werden nicht geteilt oder für Werbung oder andere kommerzielle Zwecke verarbeitet.",
       "trackingCodeInvalid": "Bitte geben Sie den 7-stelligen Code ein und aktivieren Sie den Tracking-Button",
+      "trackingLeaveAlertTitle": "",
+      "trackingLeaveAlertDescription": "",
       "enabled": "aktiviert",
-      "disabled": "deaktiviert"
+      "disabled": "deaktiviert",
+      "decline": "Ablehnen"
     },
     "am": {
       "sentryTitle": "የመተግበሪያ መረጋጋት",
@@ -5053,7 +5056,8 @@
       "allowTracking": "ክትትሉን ይፍቀዱ",
       "trackingCode": "የመከታተያ ኮድ",
       "enabled": "ሰርቷል",
-      "disabled": "አይሰራም"
+      "disabled": "አይሰራም",
+      "decline": "አትቀበል"
     },
     "ar": {
       "sentryTitle": "استقرار التطبيق",
@@ -5072,7 +5076,8 @@
       "trackingDescription": "يريد {{appName}} إنتجريت  إذنًا لتتبع استخدامك للتطبيق. ستكون بياناتك مجهولة المصدر وستستخدم فقط لأغراض البحث ولتحسين التطبيق. لن تتم مشاركة بيانات التتبع أو معالجتها للإعلانات أو لأي أغراض تجارية أخرى",
       "trackingCodeInvalid": "الرجاء إدخال الرمز المكون من 7 أرقام وتفعيل زر التتبع",
       "enabled": "مفعل",
-      "disabled": "غير مفعل"
+      "disabled": "غير مفعل",
+      "decline": "رفض"
     },
     "bg": {
       "sentryTitle": "Стабилност на приложението",
@@ -5089,7 +5094,8 @@
       "allowTracking": "Разрешаване на проследяване",
       "trackingCode": "Код за проследяване",
       "enabled": "активирано",
-      "disabled": "деактивирано"
+      "disabled": "деактивирано",
+      "decline": "Отказване"
     },
     "ckb": {
       "sentryTitle": "جێگیریی ئەپڵیکەیشن",
@@ -5106,7 +5112,8 @@
       "allowTracking": "مۆڵەتی بەدواداچوون",
       "trackingCode": "کۆدی بەدواداچوون",
       "enabled": "چالاک کراوە",
-      "disabled": "ناچالاک کراوە"
+      "disabled": "ناچالاک کراوە",
+      "decline": "ڕەتکردنەوە"
     },
     "el": {
       "sentryTitle": "Σταθερότητα εφαρμογής",
@@ -5123,7 +5130,8 @@
       "allowTracking": "Να επιτρέπεται ο εντοπισμός",
       "trackingCode": "Κωδικός εντοπισμού",
       "enabled": "ενεργοποιήθηκε",
-      "disabled": "απενεργοποιήθηκε"
+      "disabled": "απενεργοποιήθηκε",
+      "decline": "Απόρριψη"
     },
     "en": {
       "sentryTitle": "App stability",
@@ -5142,7 +5150,8 @@
       "trackingDescription": "{{appName}} would like permission to track your usage within the app. Your data will be anonymised and only used for research purposes and to improve the app. The tracking data will not be shared or processed for advertising or other commercial purposes.",
       "trackingCodeInvalid": "Please enter the 7-digit code and activate the tracking button",
       "enabled": "activated",
-      "disabled": "deactivated"
+      "disabled": "deactivated",
+      "decline": "Refuse"
     },
     "es": {
       "sentryTitle": "Estabilidad de la app",
@@ -5161,7 +5170,8 @@
       "trackingDescription": "{{appName}} pide permiso para rastrear su uso dentro de la aplicación. Sus datos serán anónimos y se utilizarán únicamente con fines de investigación y para mejorar la aplicación. Los datos de seguimiento no se compartirán ni se procesarán con fines publicitarios u otros fines comerciales.",
       "trackingCodeInvalid": "Por favor, introduzca el código de 7 dígitos y active el botón de seguimiento",
       "enabled": "activado",
-      "disabled": "desactivado"
+      "disabled": "desactivado",
+      "decline": "Rechazar"
     },
     "fr": {
       "sentryTitle": "Stabilité de l'application",
@@ -5180,7 +5190,8 @@
       "trackingDescription": "{{appName}} souhaiterait avoir votre accord pour suivre vos données d’utilisation de l'application. Vos données seront anonymisées et utilisées uniquement à des fins de recherche et pour améliorer le fonctionnement de l'application. Les données de suivi ne seront en aucun cas partagées ou traitées pour des activités publicitaires ou commerciales.",
       "trackingCodeInvalid": "Veuillez entrer le code à 7 chiffres et activer le bouton de suivi",
       "enabled": "activé",
-      "disabled": "désactivé"
+      "disabled": "désactivé",
+      "decline": "Refuser"
     },
     "hr": {
       "sentryTitle": "Stabilnost aplikacije",
@@ -5197,7 +5208,8 @@
       "allowTracking": "Dopusti praćenje",
       "trackingCode": "Kôd za praćenje",
       "enabled": "aktivirano",
-      "disabled": "deaktivirano"
+      "disabled": "deaktivirano",
+      "decline": "Odbaci"
     },
     "hu": {
       "sentryTitle": "Alkalmazás stabilitása",
@@ -5214,7 +5226,8 @@
       "allowTracking": "Követés engedélyezése",
       "trackingCode": "Tracking Code",
       "enabled": "aktiválva",
-      "disabled": "deaktiválva"
+      "disabled": "deaktiválva",
+      "decline": "Elutasítás"
     },
     "it": {
       "sentryTitle": "Stabilità dell’app",
@@ -5231,7 +5244,8 @@
       "allowTracking": "Consenti il tracciamento",
       "trackingCode": "Codice di tracciamento",
       "enabled": "attivato",
-      "disabled": "disattivato"
+      "disabled": "disattivato",
+      "decline": "Rifiuta"
     },
     "ka": {
       "sentryTitle": "აპპ-სტაბილურობა",
@@ -5248,7 +5262,8 @@
       "allowTracking": "თვალთვალის ჩართვა",
       "trackingCode": "თვალთვალის კოდი",
       "enabled": "აქტივირებული",
-      "disabled": "დეაქტივირებული"
+      "disabled": "დეაქტივირებული",
+      "decline": "უარყოფა"
     },
     "kmr": {
       "sentryTitle": "Mayîndetiya App'ê",
@@ -5267,7 +5282,8 @@
       "trackingDescription": "{{appName}} ji bo şopandina bikaranîna we ya di nav appê de destûrê dixwaze. Daneyên we dê anonîm bibin û tenê ji bo armancên lêkolînê û ji bo baştirkirina karanîna bikar bînin. Daneyên şopandinê wê ji bo reklaman an jî armancên din ên bazirganî neyê parvekirin û neyê kirin.",
       "trackingCodeInvalid": "Ji kerema xwe kodê 7-reqemî têkevin û bişkoja şopandinê çalak bikin",
       "enabled": "Çalakbûyî",
-      "disabled": "Neçalakbûyî"
+      "disabled": "Neçalakbûyî",
+      "decline": "Nepejirandin"
     },
     "mk": {
       "sentryTitle": "Стабилност на апликацијата",
@@ -5284,7 +5300,8 @@
       "allowTracking": "Дозволено следење",
       "trackingCode": "Код за следење",
       "enabled": "активирано",
-      "disabled": "деактивирано"
+      "disabled": "деактивирано",
+      "decline": "Отфрли"
     },
     "pes": {
       "sentryTitle": "پایداری اپلیکیشن",
@@ -5303,7 +5320,8 @@
       "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
       "trackingCodeInvalid": "لطفاً کد 7 رقمی را وارد کرده و دکمه ردیابی را فعال کنید",
       "enabled": "فعال شده",
-      "disabled": "غیرفعال شده"
+      "disabled": "غیرفعال شده",
+      "decline": "رد کردن"
     },
     "pl": {
       "sentryTitle": "Stabilność aplikacji",
@@ -5320,7 +5338,8 @@
       "allowTracking": "Zezwalaj na śledzenie",
       "trackingCode": "Kod śledzenia",
       "enabled": "włączone",
-      "disabled": "niewłączone"
+      "disabled": "niewłączone",
+      "decline": "Odrzuć"
     },
     "prs": {
       "sentryTitle": "پایداری اپلیکیشن",
@@ -5337,7 +5356,8 @@
       "allowTracking": "اجازه رهگیری",
       "trackingCode": "کود رهگیری",
       "enabled": "فعال شده",
-      "disabled": "غیرفعال شده"
+      "disabled": "غیرفعال شده",
+      "decline": "رد نمودن"
     },
     "ps": {
       "sentryTitle": "د ایپ ثبات",
@@ -5354,7 +5374,8 @@
       "allowTracking": "د تعقیبولو اجازه",
       "trackingCode": "د تعقیب کوډ",
       "enabled": "فعال شوی",
-      "disabled": "غیرفعال شوی"
+      "disabled": "غیرفعال شوی",
+      "decline": "رد کول"
     },
     "ro": {
       "sentryTitle": "Stabilitate app",
@@ -5371,7 +5392,8 @@
       "allowTracking": "Permitere tracking",
       "trackingCode": "Cod de tracking",
       "enabled": "activat",
-      "disabled": "dezactivat"
+      "disabled": "dezactivat",
+      "decline": "Refuzați"
     },
     "ru": {
       "sentryTitle": "Стабильность приложения",
@@ -5390,7 +5412,8 @@
       "trackingDescription": "{{appName}} просит разрешения отслеживать использование вами данного приложения. Собранные данные будут анонимизированы и использованы только в научных целях и для улучшения работы приложения. Данные не будут передаваться или обрабатываться для рекламы или других коммерческих целей.",
       "trackingCodeInvalid": "Пожалуйста, введите 7-значный код и активируйте отслеживание. ",
       "enabled": "активировано",
-      "disabled": "деактивировано"
+      "disabled": "деактивировано",
+      "decline": "Отклонить"
     },
     "so": {
       "sentryTitle": "Deganaanshaha Aaladda",
@@ -5407,7 +5430,8 @@
       "allowTracking": "U ogolow raadraaca",
       "trackingCode": "Koodhka raadraaca",
       "enabled": "Shaqeynayo",
-      "disabled": "Aan shaqeyneynin"
+      "disabled": "Aan shaqeyneynin",
+      "decline": "Diid"
     },
     "sq": {
       "sentryTitle": "Stabiliteti i aplikacionit",
@@ -5424,7 +5448,8 @@
       "allowTracking": "Lejo gjurmuesin",
       "trackingCode": "Kodi i gjurmuesit",
       "enabled": "aktivizuar",
-      "disabled": "çaktivizuar"
+      "disabled": "çaktivizuar",
+      "decline": "Refuzo"
     },
     "sr-Cyrl": {
       "sentryTitle": "Стабилност апликације",
@@ -5441,7 +5466,8 @@
       "allowTracking": "Дозвољено праћење",
       "trackingCode": "Код за праћење",
       "enabled": "активирано",
-      "disabled": "деактивирано"
+      "disabled": "деактивирано",
+      "decline": "Одбиј"
     },
     "sr-Latn": {
       "sentryTitle": "Stabilnost aplikacije",
@@ -5458,7 +5484,8 @@
       "allowTracking": "Dozvoljeno praćenje",
       "trackingCode": "Kod za praćenje",
       "enabled": "aktivirano",
-      "disabled": "deaktivirano"
+      "disabled": "deaktivirano",
+      "decline": "Odbij"
     },
     "ti": {
       "sentryTitle": "ናይ ኣፕ ርጉእነት",
@@ -5475,7 +5502,8 @@
       "allowTracking": "ክትትል ኣፍቅድ",
       "trackingCode": "ኮድ ናይ ክትትል",
       "enabled": "ከምዝነጥፍ ተገይሩ",
-      "disabled": "ከምዘይነጥፍ ተገይሩ"
+      "disabled": "ከምዘይነጥፍ ተገይሩ",
+      "decline": "ንጸግ"
     },
     "tr": {
       "sentryTitle": "Uygulama stabilitesi",
@@ -5494,7 +5522,8 @@
       "trackingDescription": "{{appName}}, uygulama içi kullanımınızı takip izni istiyor. Verileriniz anonim hale getirilecek ve yalnızca araştırma amacıyla ve uygulamayı iyileştirmek için kullanılacaktır. Takip verileri, reklam veya diğer ticari amaçlarla paylaşılmayacak ve işlenmeyecektir.",
       "trackingCodeInvalid": "Lütfen 7 haneli kodu girin ve takip butonunu etkinleştirin",
       "enabled": "etkin",
-      "disabled": "devre dışı"
+      "disabled": "devre dışı",
+      "decline": "Sil"
     },
     "ur": {
       "sentryTitle": "ایپ کا استحکام",
@@ -5511,7 +5540,8 @@
       "allowTracking": "ٹریکنگ کی اجازت دیں",
       "trackingCode": "ٹریکنگ کوڈ",
       "enabled": "فعال",
-      "disabled": "غیر فعال"
+      "disabled": "غیر فعال",
+      "decline": "مسترد کریں"
     },
     "zh-CN": {
       "sentryTitle": "应用程序稳定性",
@@ -5523,7 +5553,8 @@
       "about": "关于{{appName}}",
       "privacyPolicy": "数据保护政策",
       "version": "版本：{{version}}",
-      "openSourceLicenses": "开源许可证"
+      "openSourceLicenses": "开源许可证",
+      "decline": "拒绝"
     }
   },
   "sprungbrett": {
