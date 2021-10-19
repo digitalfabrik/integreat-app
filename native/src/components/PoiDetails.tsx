@@ -1,15 +1,16 @@
+import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Linking, Text } from 'react-native'
-import { useTheme } from 'styled-components'
+import { Linking, Text } from 'react-native'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
-import { PoiFeature, PoiModel } from 'api-client/src'
+import { PoiFeature, PoiModel } from 'api-client'
 
 import { mockContent } from '../__mocks__/poiCMSContent'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
-import Caption from './Caption'
+import CollapsibleItem from './CollapsibleItem'
 import NativeHtml from './NativeHtml'
 import PoiDetailItem from './PoiDetailItem'
 import SimpleImage from './SimpleImage'
@@ -23,25 +24,33 @@ type PoiDetailsProps = {
 }
 
 const Thumbnail = styled(SimpleImage)`
-  width: 100%;
+  flex: 1;
   height: 180px;
-`
-
-const PageContainer = styled.View`
-  margin: 8px 32px;
-  align-self: center;
 `
 
 const Title = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 20px;
-  padding: 32px 48px 16px 48px;
+  padding: 32px 48px;
+  flex: 1;
 `
 
-const InformationContainer = styled.View<{ language: string }>`
+const TitleContainer = styled.View`
+  flex-direction: row;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textDisabledColor};
+  border-bottom-width: 1px;
+`
+
+const InformationContainer = styled.View<{ detailView: boolean }>`
   align-items: flex-start;
   justify-content: center;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textDisabledColor};
+  border-bottom-width: 1px;
+  border-top-width: ${props => (props.detailView ? 0 : '1px')};
+  margin-top: ${props => (props.detailView ? 0 : '32px')};
 `
 
 const PoiDetailsContainer = styled.View`
@@ -56,44 +65,62 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   language
 }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
+  const dispatch = useDispatch()
 
+  // TODO this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? EventPlaceholder1
+  const { location } = poi.location
 
   const onNavigate = () => {
     let navigationUrl: string | undefined | null = null
-    if (poi.location.location && poi.featureLocation?.geometry.coordinates) {
-      navigationUrl = getNavigationDeepLinks(poi.location.location, poi.featureLocation.geometry.coordinates)
+    if (location && poi.featureLocation?.geometry.coordinates) {
+      navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
     }
     if (navigationUrl) {
       Linking.openURL(navigationUrl)
     }
   }
-  // TODO change content direction according to language
+
+  const copyToClipboard = (text: string) => (): void => {
+    Clipboard.setString(text)
+    dispatch({
+      type: 'ENQUEUE_SNACKBAR',
+      params: {
+        text: t('detailAddressClipboardMessage')
+      }
+    })
+  }
+
   return (
     <PoiDetailsContainer>
       <Thumbnail source={thumbnail} resizeMode='cover' />
-      <InformationContainer language={language}>
-        {detailView && <Title>{feature.properties.title}</Title>}
+      <InformationContainer detailView={detailView}>
+        {detailView && (
+          <TitleContainer>
+            <Title>{feature.properties.title}</Title>
+          </TitleContainer>
+        )}
         {feature.properties.distance && (
-          <PoiDetailItem icon='place'>
+          <PoiDetailItem icon='place' language={language} onPress={detailView ? navigateToPois : undefined}>
             <Text>
               {feature.properties.distance} {t('unit')} {t('distanceText')}
             </Text>
           </PoiDetailItem>
         )}
-        <PoiDetailItem onPress={onNavigate} icon='map'>
+        <PoiDetailItem
+          onPress={onNavigate}
+          icon='map'
+          onLongPress={location ? copyToClipboard(location) : undefined}
+          language={language}>
           <Text>{poi.location.address}</Text>
           <Text>
             {poi.location.postcode} {poi.location.town}
           </Text>
         </PoiDetailItem>
-        <PageContainer>
-          <Caption title='Informationen' theme={theme} />
+        <CollapsibleItem initExpanded headerText={t('detailInformationHeader')} language={language}>
           <NativeHtml content={mockContent} language={language} />
-        </PageContainer>
+        </CollapsibleItem>
       </InformationContainer>
-      {detailView && <Button title={t('map')} onPress={navigateToPois} />}
     </PoiDetailsContainer>
   )
 }

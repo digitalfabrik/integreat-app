@@ -74,7 +74,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
   const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   // set points to snap for bottom sheet
-  const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '40%', '95%']
+  const snapPoints = [dimensions.bottomSheetHandler.height, '35%', '95%']
 
   useEffect(() => {
     const featureLocations = prepareFeatureLocations(pois, location)

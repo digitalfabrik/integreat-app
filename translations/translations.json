@@ -5716,7 +5716,9 @@
       "unit": "km",
       "distanceText": "entfernt",
       "navigation": "Navigation",
-      "sheetTitle": "Entdecke deine Stadt"
+      "sheetTitle": "Entdecke deine Stadt",
+      "detailInformationHeader": "Information",
+      "detailAddressClipboardMessage": "Adresse wurde in die Zwischenablage kopiert"
     }
   }
 }
