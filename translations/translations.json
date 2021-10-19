@@ -5033,7 +5033,7 @@
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Tracking zulassen",
       "trackingCode": "Tracking Code",
-      "trackingDescription": "Integreat bittet um die Erlaubnis, Ihre Nutzung innerhalb der App zu verfolgen. Ihre Daten werden anonymisiert und nur zu Forschungszwecken und zur Verbesserung der App verwendet. Die Tracking-Daten werden nicht geteilt oder für Werbung oder andere kommerzielle Zwecke verarbeitet.",
+      "trackingDescription": "{{appName}} bittet um die Erlaubnis, Ihre Nutzung innerhalb der App zu verfolgen. Ihre Daten werden anonymisiert und nur zu Forschungszwecken und zur Verbesserung der App verwendet. Die Tracking-Daten werden nicht geteilt oder für Werbung oder andere kommerzielle Zwecke verarbeitet.",
       "enabled": "aktiviert",
       "disabled": "deaktiviert"
     },
@@ -5068,7 +5068,7 @@
       "tracking": "تقييم J-PAL",
       "allowTracking": "السماح بالتتبع",
       "trackingCode": "كود التتبع",
-      "trackingDescription": "يريد Integreat إنتجريت  إذنًا لتتبع استخدامك للتطبيق. ستكون بياناتك مجهولة المصدر وستستخدم فقط لأغراض البحث ولتحسين التطبيق. لن تتم مشاركة بيانات التتبع أو معالجتها للإعلانات أو لأي أغراض تجارية أخرى",
+      "trackingDescription": "يريد {{appName}} إنتجريت  إذنًا لتتبع استخدامك للتطبيق. ستكون بياناتك مجهولة المصدر وستستخدم فقط لأغراض البحث ولتحسين التطبيق. لن تتم مشاركة بيانات التتبع أو معالجتها للإعلانات أو لأي أغراض تجارية أخرى",
       "enabled": "مفعل",
       "disabled": "غير مفعل"
     },
@@ -5137,7 +5137,7 @@
       "tracking": "J-PAL evaluation",
       "allowTracking": "Allow tracking",
       "trackingCode": "Tracking code",
-      "trackingDescription": "Integreat would like permission to track your usage within the app. Your data will be anonymised and only used for research purposes and to improve the app. The tracking data will not be shared or processed for advertising or other commercial purposes.",
+      "trackingDescription": "{{appName}} would like permission to track your usage within the app. Your data will be anonymised and only used for research purposes and to improve the app. The tracking data will not be shared or processed for advertising or other commercial purposes.",
       "enabled": "activated",
       "disabled": "deactivated"
     },
@@ -5155,7 +5155,7 @@
       "tracking": "Evaluación J-PAL",
       "allowTracking": "Permitir seguimiento",
       "trackingCode": "Código de seguimiento",
-      "trackingDescription": "Integreat pide permiso para rastrear su uso dentro de la aplicación. Sus datos serán anónimos y se utilizarán únicamente con fines de investigación y para mejorar la aplicación. Los datos de seguimiento no se compartirán ni se procesarán con fines publicitarios u otros fines comerciales.",
+      "trackingDescription": "{{appName}} pide permiso para rastrear su uso dentro de la aplicación. Sus datos serán anónimos y se utilizarán únicamente con fines de investigación y para mejorar la aplicación. Los datos de seguimiento no se compartirán ni se procesarán con fines publicitarios u otros fines comerciales.",
       "enabled": "activado",
       "disabled": "desactivado"
     },
@@ -5173,7 +5173,7 @@
       "tracking": "Evaluation J-PAL",
       "allowTracking": "Autoriser le suivi",
       "trackingCode": "Code de suivi",
-      "trackingDescription": "Integreat souhaiterait avoir votre accord pour suivre vos données d’utilisation de l'application. Vos données seront anonymisées et utilisées uniquement à des fins de recherche et pour améliorer le fonctionnement de l'application. Les données de suivi ne seront en aucun cas partagées ou traitées pour des activités publicitaires ou commerciales.",
+      "trackingDescription": "{{appName}} souhaiterait avoir votre accord pour suivre vos données d’utilisation de l'application. Vos données seront anonymisées et utilisées uniquement à des fins de recherche et pour améliorer le fonctionnement de l'application. Les données de suivi ne seront en aucun cas partagées ou traitées pour des activités publicitaires ou commerciales.",
       "enabled": "activé",
       "disabled": "désactivé"
     },
@@ -5259,7 +5259,7 @@
       "tracking": "Nirxandina J-PAL",
       "allowTracking": "Şopandinê rêpêdayî bike",
       "trackingCode": "Kodeya Şopandinê",
-      "trackingDescription": "Integreat ji bo şopandina bikaranîna we ya di nav appê de destûrê dixwaze. Daneyên we dê anonîm bibin û tenê ji bo armancên lêkolînê û ji bo baştirkirina karanîna bikar bînin. Daneyên şopandinê wê ji bo reklaman an jî armancên din ên bazirganî neyê parvekirin û neyê kirin.",
+      "trackingDescription": "{{appName}} ji bo şopandina bikaranîna we ya di nav appê de destûrê dixwaze. Daneyên we dê anonîm bibin û tenê ji bo armancên lêkolînê û ji bo baştirkirina karanîna bikar bînin. Daneyên şopandinê wê ji bo reklaman an jî armancên din ên bazirganî neyê parvekirin û neyê kirin.",
       "enabled": "Çalakbûyî",
       "disabled": "Neçalakbûyî"
     },
@@ -5380,7 +5380,7 @@
       "tracking": "Оценивание J-PAL",
       "allowTracking": "Разрешить отслеживание",
       "trackingCode": "Код отслеживания",
-      "trackingDescription": "Integreat просит разрешения отслеживать использование вами данного приложения. Собранные данные будут анонимизированы и использованы только в научных целях и для улучшения работы приложения. Данные не будут передаваться или обрабатываться для рекламы или других коммерческих целей.",
+      "trackingDescription": "{{appName}} просит разрешения отслеживать использование вами данного приложения. Собранные данные будут анонимизированы и использованы только в научных целях и для улучшения работы приложения. Данные не будут передаваться или обрабатываться для рекламы или других коммерческих целей.",
       "enabled": "активировано",
       "disabled": "деактивировано"
     },
@@ -5483,7 +5483,7 @@
       "tracking": "J-PAL değerlendirmesi",
       "allowTracking": "İzlemeye izin ver",
       "trackingCode": "İzleme kodu",
-      "trackingDescription": "Integreat, uygulama içi kullanımınızı takip izni istiyor. Verileriniz anonim hale getirilecek ve yalnızca araştırma amacıyla ve uygulamayı iyileştirmek için kullanılacaktır. Takip verileri, reklam veya diğer ticari amaçlarla paylaşılmayacak ve işlenmeyecektir.",
+      "trackingDescription": "{{appName}}, uygulama içi kullanımınızı takip izni istiyor. Verileriniz anonim hale getirilecek ve yalnızca araştırma amacıyla ve uygulamayı iyileştirmek için kullanılacaktır. Takip verileri, reklam veya diğer ticari amaçlarla paylaşılmayacak ve işlenmeyecektir.",
       "enabled": "etkin",
       "disabled": "devre dışı"
     },
