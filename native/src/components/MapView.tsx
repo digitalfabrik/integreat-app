@@ -110,7 +110,7 @@ const MapView = ({
           geometry: { coordinates }
         } = feature
         setSelectedFeature(feature)
-        setSheetSnapPointIndex(2)
+        setSheetSnapPointIndex(1)
 
         cameraRef.current.flyTo(coordinates)
       } else {
