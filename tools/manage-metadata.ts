@@ -230,6 +230,7 @@ const appleLanguageMap: Record<string, string[]> = {
 // Maps our translation keys to the right key used by the google play store
 const googleLanguageMap: Record<string, string[]> = {
   am: ['am'],
+  ar: ['ar'],
   bg: ['bg'],
   de: ['de-DE'],
   el: ['el-GR'],
