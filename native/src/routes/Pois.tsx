@@ -144,6 +144,11 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             detailView
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
           />
+          <SiteHelpfulBox
+            backgroundColor={theme.colors.backgroundColor}
+            navigateToFeedback={navigateToFeedbackForPois}
+            theme={theme}
+          />
         </ScrollView>
       )
     }
