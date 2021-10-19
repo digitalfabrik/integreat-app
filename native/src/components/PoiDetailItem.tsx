@@ -6,12 +6,16 @@ import styled, { useTheme } from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 
 type PoiDetailItemProps = {
+  /** language to offer rtl support */
   language: string
   onPress?: () => void | undefined
   onLongPress?: () => void | undefined
+  /** name of the materialIcon */
   icon: string
   children: ReactNode
+  /** define whether item should have border bottom */
   border?: boolean
+  /** set iconSize for the item icon */
   iconSize?: number
 }
 
@@ -34,7 +38,7 @@ const StyledIcon = styled(Icon)`
   align-self: center;
 `
 
-const ICON_SIZE = 25
+const DEFAULT_ICON_SIZE = 25
 
 const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
   onPress,
@@ -43,7 +47,7 @@ const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
   icon,
   border = true,
   language,
-  iconSize = ICON_SIZE
+  iconSize = DEFAULT_ICON_SIZE
 }: PoiDetailItemProps): ReactElement => {
   const theme = useTheme()
 
