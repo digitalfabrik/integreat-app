@@ -148,7 +148,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel}/>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('pois')} />
       {cityModel.boundingBox && (
         <MapView

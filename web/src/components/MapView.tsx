@@ -4,14 +4,7 @@ import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } fro
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import {
-  detailZoom,
-  mapConfig,
-  locationName,
-  MapViewViewport,
-  PoiFeature,
-  PoiFeatureCollection
-} from 'api-client'
+import { detailZoom, mapConfig, locationName, MapViewViewport, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 import MapPopup from './MapPopup'
 
@@ -74,8 +67,8 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
       setCurrentFeature(e.features[0])
-      console.log(typeof featureCollection.features[0]?.properties.location) //is object as expected
-      console.log(typeof e.features[0].properties.location) //is string (why?)
+      console.log(typeof featureCollection.features[0]?.properties.location) // is object as expected
+      console.log(typeof e.features[0].properties.location) // is string (why?)
       togglePopup(true)
     } else {
       togglePopup(false)

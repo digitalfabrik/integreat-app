@@ -1,4 +1,5 @@
 import { Feature, FeatureCollection, Point } from 'geojson'
+
 import { LocationModel } from '../index'
 
 type MapConfigProps = {
