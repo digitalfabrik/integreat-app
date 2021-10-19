@@ -10,8 +10,8 @@ const Popup = styled.div`
   justify-content: space-evenly;
   align-items: center;
   bottom: 0px;
-  margin: 0 10% 5% 10%;
-  width: 80%;
+  margin: 0 5% 5% 5%;
+  width: 90%;
   border-radius: 8px;
   background-color: white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -19,7 +19,7 @@ const Popup = styled.div`
 `
 
 const TextContainer = styled.div`
-  padding: 10px;
+  padding: 5px;
 `
 
 const PopupTitle = styled.h2`
@@ -32,7 +32,6 @@ const PopupText = styled.p`
 
 const PopupThumbnail = styled.img`
   height: 10vh;
-  margin: 10px;
   border-radius: 8px;
 `
 
@@ -43,19 +42,16 @@ type MapPopupProps = {
 
 const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement => {
   const {
-    properties: { distance, location, thumbnail, title }
+    properties: { distance, address, thumbnail, title }
   } = props
-
-  const address = location ? JSON.parse(location)._address : ''
-  console.log(typeof location)
 
   return (
     <Popup>
       {thumbnail !== 'null' && <PopupThumbnail src={thumbnail} />}
       <TextContainer>
         <PopupTitle>{title}</PopupTitle>
-        <PopupText>Adresse: {address}</PopupText>
-        {distance && <PopupText>Distance: {distance}</PopupText>}
+        <PopupText>{address}</PopupText>
+        <PopupText>{distance}</PopupText>
       </TextContainer>
     </Popup>
   )
