@@ -1,13 +1,40 @@
 import { Position } from 'geojson'
-import React, { ReactElement } from 'react'
-import { Popup } from 'react-map-gl'
+import React, { ReactElement, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { GeoJsonPoiProperties } from 'api-client'
+import { GeoJsonPoiProperties, PoiModel } from 'api-client'
 
-const StyledPopup = styled(Popup)`
-  width: 250px;
+const Popup = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  bottom: 0px;
+  margin: 0 10% 5% 10%;
+  width: 80%;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 `
+
+const TextContainer= styled.div`
+  padding: 10px;
+`
+
+const PopupTitle = styled.h2`
+  font-size: ${props => props.theme.fonts.decorativeFontSize}
+`
+
+const PopupText = styled.p`
+  font-size: ${props => props.theme.fonts.contentFontSize}
+`
+
+const PopupThumbnail = styled.img`
+  height: 10vh;
+  margin: 10px;
+`
+
 
 type MapPopupProps = {
   coordinates: Position
@@ -15,18 +42,20 @@ type MapPopupProps = {
 }
 
 const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement => {
-  const { coordinates, properties } = props
+  const { properties: { distance, location, thumbnail, title } } = props
+
+  const address = location ? JSON.parse(location)._address : ''
+  console.log(typeof location)
+
   return (
-    <StyledPopup
-      longitude={coordinates[0]!}
-      latitude={coordinates[1]!}
-      closeButton={false}
-      closeOnClick={false}
-      anchor='bottom'>
-      <div>
-        <strong>{properties.title}</strong>
-      </div>
-    </StyledPopup>
+    <Popup>
+      {thumbnail !== 'null' && <PopupThumbnail src={thumbnail}/>}
+        <TextContainer>
+          <PopupTitle>{title}</PopupTitle>
+          <PopupText>Adresse: {address}</PopupText>
+          {distance && <PopupText>Distance: {distance}</PopupText>}
+        </TextContainer>
+    </Popup>
   )
 }
 

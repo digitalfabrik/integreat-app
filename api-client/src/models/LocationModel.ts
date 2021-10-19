@@ -113,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
+  convertToPoint(path: string, thumbnail: string, urlSlug: string, location: LocationModel): PoiFeature | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
@@ -131,7 +131,8 @@ class LocationModel {
         symbol: '9',
         thumbnail,
         path,
-        urlSlug
+        urlSlug,
+        location
       }
     }
   }

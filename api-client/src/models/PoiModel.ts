@@ -39,7 +39,7 @@ class PoiModel extends ExtendedPageModel {
   }
 
   get featureLocation(): PoiFeature | null {
-    return this._location.convertToPoint(this.path, this.thumbnail, this.urlSlug)
+    return this._location.convertToPoint(this.path, this.thumbnail, this.urlSlug, this.location)
   }
 
   isEqual(other: PageModel): boolean {
