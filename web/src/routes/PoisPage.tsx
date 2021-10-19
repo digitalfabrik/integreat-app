@@ -11,10 +11,10 @@ import {
   useLoadFromEndpoint,
   POIS_ROUTE,
   embedInCollection,
-  mapQueryId,
   MapViewViewport,
   defaultViewportConfig,
-  PoiFeature
+  PoiFeature,
+  locationName
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -113,10 +113,10 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }
 
   if (poi) {
-    const { thumbnail, lastUpdate, content, title, location, featureLocation } = poi
+    const { thumbnail, lastUpdate, content, title, location, featureLocation, urlSlug } = poi
     const pageTitle = `${title} - ${cityModel.name}`
 
-    const mapUrlParams = new URLSearchParams({ [mapQueryId]: String(location.id) })
+    const mapUrlParams = new URLSearchParams({ [locationName]: urlSlug })
     const mapLink = `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapUrlParams}`
 
     return (

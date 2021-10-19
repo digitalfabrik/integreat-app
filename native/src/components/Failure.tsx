@@ -12,6 +12,7 @@ const ViewContainer = styled.View`
   flex: 1;
   align-items: center;
   margin-top: 15%;
+  margin-bottom: 15%;
 `
 const IconContainer = styled.Image`
   margin-bottom: 10px;
