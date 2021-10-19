@@ -153,7 +153,7 @@ const createSettingsSections = ({
         : [
             {
               title: t('tracking'),
-              description: t('trackingDescription'),
+              description: t('trackingDescription', { appName: buildConfig().appName }),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {

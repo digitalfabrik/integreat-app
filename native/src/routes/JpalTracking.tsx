@@ -9,6 +9,7 @@ import { ThemeType } from 'build-configs'
 import Caption from '../components/Caption'
 import LayoutContainer from '../components/LayoutContainer'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import withTheme from '../hocs/withTheme'
 import appSettings from '../utils/AppSettings'
 
@@ -99,7 +100,7 @@ const JpalTracking = ({ route, theme }: PropsType) => {
           padding: 40
         }}>
         <Caption title={t('tracking')} theme={theme} />
-        <Text>{t('trackingDescription')}</Text>
+        <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
         {error && <ErrorText>{t('error:generalError')}</ErrorText>}
 
