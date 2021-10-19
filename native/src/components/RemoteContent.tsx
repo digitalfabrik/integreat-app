@@ -3,10 +3,14 @@ import { Text, useWindowDimensions } from 'react-native'
 import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 
+import { ErrorCode } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import { userAgent } from '../constants/endpoint'
+import { ERROR_MESSAGE_TYPE, HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
+import { reportError } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
+import Failure from './Failure'
 import { ParsedCacheDictionaryType } from './Page'
 
 export const renderWebviewError = (
@@ -34,7 +38,8 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
   const { width: webViewWidth } = useWindowDimensions()
-  const [webViewHeight, setWebViewHeight] = useState(defaultWebviewHeight)
+  const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (webViewHeight !== defaultWebviewHeight) {
@@ -43,19 +48,23 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   }, [onLoad, webViewHeight])
 
   // messages are triggered in renderHtml.ts
-  const onMessage = useCallback(
-    (event: WebViewMessageEvent) => {
-      const message = JSON.parse(event.nativeEvent.data)
-      if (message.type === 'error') {
-        throw Error(`An error occurred in the webview:\n${message.message}`)
-      } else if (message.type === 'height' && typeof message.height === 'number') {
-        setWebViewHeight(message.height)
-      } else {
-        throw Error('Got an unknown message from the webview.')
-      }
-    },
-    [setWebViewHeight]
-  )
+  const onMessage = useCallback((event: WebViewMessageEvent) => {
+    const message = JSON.parse(event.nativeEvent.data)
+    if (message.type === HEIGHT_MESSAGE_TYPE && typeof message.height === 'number') {
+      setWebViewHeight(message.height)
+      return
+    }
+
+    const error = new Error(message.message ?? 'Unknown message received from webview')
+    reportError(error)
+
+    if (message.type === ERROR_MESSAGE_TYPE) {
+      console.error(message.message)
+      setError(message.message)
+    } else if (message.type === WARNING_MESSAGE_TYPE) {
+      console.warn(message.message)
+    }
+  }, [])
 
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
@@ -72,6 +81,9 @@ const RemoteContent = (props: PropType): ReactElement | null => {
 
   if (content.length === 0) {
     return null
+  }
+  if (error) {
+    return <Failure code={ErrorCode.UnknownError} />
   }
 
   return (
