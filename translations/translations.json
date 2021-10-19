@@ -5033,7 +5033,7 @@
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Tracking zulassen",
       "trackingCode": "Tracking Code",
-      "trackingDescription": "Durch das Senden von Tracking-Daten Integreat langfristig verbessern.",
+      "trackingDescription": "Integreat bittet um die Erlaubnis, Ihre Nutzung innerhalb der App zu verfolgen. Ihre Daten werden anonymisiert und nur zu Forschungszwecken und zur Verbesserung der App verwendet. Die Tracking-Daten werden nicht geteilt oder für Werbung oder andere kommerzielle Zwecke verarbeitet.",
       "enabled": "aktiviert",
       "disabled": "deaktiviert"
     },
@@ -5051,7 +5051,6 @@
       "tracking": "የJ-PAL ግምገማ",
       "allowTracking": "ክትትሉን ይፍቀዱ",
       "trackingCode": "የመከታተያ ኮድ",
-      "trackingDescription": "ለወደፊት Integreat ን የመከታተያ ዳታ በመላክ ያሻሽሉ።",
       "enabled": "ሰርቷል",
       "disabled": "አይሰራም"
     },
@@ -5069,7 +5068,7 @@
       "tracking": "تقييم J-PAL",
       "allowTracking": "السماح بالتتبع",
       "trackingCode": "كود التتبع",
-      "trackingDescription": "من خلال إرسال بيانات التتبع، يتم تحسين تطبيق Integreat على المدى الطويل.",
+      "trackingDescription": "يريد Integreat إنتجريت  إذنًا لتتبع استخدامك للتطبيق. ستكون بياناتك مجهولة المصدر وستستخدم فقط لأغراض البحث ولتحسين التطبيق. لن تتم مشاركة بيانات التتبع أو معالجتها للإعلانات أو لأي أغراض تجارية أخرى",
       "enabled": "مفعل",
       "disabled": "غير مفعل"
     },
@@ -5087,7 +5086,6 @@
       "tracking": "Оценка на J-PAL",
       "allowTracking": "Разрешаване на проследяване",
       "trackingCode": "Код за проследяване",
-      "trackingDescription": "Чрез изпращане на данни за проследяване, Integreat ще се подобри в дългосрочен план.",
       "enabled": "активирано",
       "disabled": "деактивирано"
     },
@@ -5105,7 +5103,6 @@
       "tracking": "هەڵسەنگاندنی J-PAL",
       "allowTracking": "مۆڵەتی بەدواداچوون",
       "trackingCode": "کۆدی بەدواداچوون",
-      "trackingDescription": "لەرێگەی ناردنی دێیتاکانی بەدواداچوونی Integreat لە درێژخایەندا باشتر بکە.",
       "enabled": "چالاک کراوە",
       "disabled": "ناچالاک کراوە"
     },
@@ -5123,7 +5120,6 @@
       "tracking": "Αξιολόγηση J-PAL",
       "allowTracking": "Να επιτρέπεται ο εντοπισμός",
       "trackingCode": "Κωδικός εντοπισμού",
-      "trackingDescription": "Με την αποστολή δεδομένων εντοπισμού, μακροπρόθεσμη βελτίωση του Integreat.",
       "enabled": "ενεργοποιήθηκε",
       "disabled": "απενεργοποιήθηκε"
     },
@@ -5141,7 +5137,7 @@
       "tracking": "J-PAL evaluation",
       "allowTracking": "Allow tracking",
       "trackingCode": "Tracking code",
-      "trackingDescription": "Improve Integreat long-term by sending tracking data.",
+      "trackingDescription": "Integreat would like permission to track your usage within the app. Your data will be anonymised and only used for research purposes and to improve the app. The tracking data will not be shared or processed for advertising or other commercial purposes.",
       "enabled": "activated",
       "disabled": "deactivated"
     },
@@ -5159,7 +5155,7 @@
       "tracking": "Evaluación J-PAL",
       "allowTracking": "Permitir seguimiento",
       "trackingCode": "Código de seguimiento",
-      "trackingDescription": "Mejorar Integreat a largo plazo mediante el envío de datos de seguimiento.",
+      "trackingDescription": "Integreat pide permiso para rastrear su uso dentro de la aplicación. Sus datos serán anónimos y se utilizarán únicamente con fines de investigación y para mejorar la aplicación. Los datos de seguimiento no se compartirán ni se procesarán con fines publicitarios u otros fines comerciales.",
       "enabled": "activado",
       "disabled": "desactivado"
     },
@@ -5177,7 +5173,7 @@
       "tracking": "Evaluation J-PAL",
       "allowTracking": "Autoriser le suivi",
       "trackingCode": "Code de suivi",
-      "trackingDescription": "Améliorer durablement Integreat grâce à l'envoi de données de suivi.",
+      "trackingDescription": "Integreat souhaiterait avoir votre accord pour suivre vos données d’utilisation de l'application. Vos données seront anonymisées et utilisées uniquement à des fins de recherche et pour améliorer le fonctionnement de l'application. Les données de suivi ne seront en aucun cas partagées ou traitées pour des activités publicitaires ou commerciales.",
       "enabled": "activé",
       "disabled": "désactivé"
     },
@@ -5195,7 +5191,6 @@
       "tracking": "Procjena J-PAL",
       "allowTracking": "Dopusti praćenje",
       "trackingCode": "Kôd za praćenje",
-      "trackingDescription": "Integreat se dugoročno poboljšava slanjem podataka o praćenju.",
       "enabled": "aktivirano",
       "disabled": "deaktivirano"
     },
@@ -5213,7 +5208,6 @@
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Követés engedélyezése",
       "trackingCode": "Tracking Code",
-      "trackingDescription": "Az Integreat hosszú távú javítása a követési adatok küldésével.",
       "enabled": "aktiválva",
       "disabled": "deaktiválva"
     },
@@ -5231,7 +5225,6 @@
       "tracking": "Valutazione J-PAL ",
       "allowTracking": "Consenti il tracciamento",
       "trackingCode": "Codice di tracciamento",
-      "trackingDescription": "Inviando dati di tracciamento migliora costantemente la qualità di Integreat.",
       "enabled": "attivato",
       "disabled": "disattivato"
     },
@@ -5249,7 +5242,6 @@
       "tracking": "J-PAL ევალუაცია",
       "allowTracking": "თვალთვალის ჩართვა",
       "trackingCode": "თვალთვალის კოდი",
-      "trackingDescription": "თვალთვალის მონაცემების გაგზავნით ინტეგრატი აუმჯობესებს აპპს.",
       "enabled": "აქტივირებული",
       "disabled": "დეაქტივირებული"
     },
@@ -5267,7 +5259,7 @@
       "tracking": "Nirxandina J-PAL",
       "allowTracking": "Şopandinê rêpêdayî bike",
       "trackingCode": "Kodeya Şopandinê",
-      "trackingDescription": "Bi şandina daneyên şopandinê, Integreat di demdirêj da baştir dibe.",
+      "trackingDescription": "Integreat ji bo şopandina bikaranîna we ya di nav appê de destûrê dixwaze. Daneyên we dê anonîm bibin û tenê ji bo armancên lêkolînê û ji bo baştirkirina karanîna bikar bînin. Daneyên şopandinê wê ji bo reklaman an jî armancên din ên bazirganî neyê parvekirin û neyê kirin.",
       "enabled": "Çalakbûyî",
       "disabled": "Neçalakbûyî"
     },
@@ -5285,7 +5277,6 @@
       "tracking": "J-PAL евалуација",
       "allowTracking": "Дозволено следење",
       "trackingCode": "Код за следење",
-      "trackingDescription": "Со испраќање податоци за следење, Integreat ќе се подобри долгорочно.",
       "enabled": "активирано",
       "disabled": "деактивирано"
     },
@@ -5303,7 +5294,7 @@
       "tracking": "ارزیابی J-PAL",
       "allowTracking": "اجازه رهگیری",
       "trackingCode": "کد رهگیری",
-      "trackingDescription": "با ارسال داده های رهگیری Integreat را در بلند مدت بهبود دهید.",
+      "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده"
     },
@@ -5321,7 +5312,6 @@
       "tracking": "Ocena J-PAL",
       "allowTracking": "Zezwalaj na śledzenie",
       "trackingCode": "Kod śledzenia",
-      "trackingDescription": "Przesyłanie danych śledzenia wpływa na poprawę aplikacji Integreat w dłuższej perspektywie.",
       "enabled": "włączone",
       "disabled": "niewłączone"
     },
@@ -5339,7 +5329,6 @@
       "tracking": "ارزیابی ‎ J-PAL",
       "allowTracking": "اجازه رهگیری",
       "trackingCode": "کود رهگیری",
-      "trackingDescription": "با ارسال داده های رهگیری Integreat را در دراز مدت بهبود بخشید‎.",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده"
     },
@@ -5357,7 +5346,6 @@
       "tracking": "د J-PAL ارزونه",
       "allowTracking": "د تعقیبولو اجازه",
       "trackingCode": "د تعقیب کوډ",
-      "trackingDescription": "د تعقیب ډیټا په لیږلو سره Integreat په اوږدمهال کې ښه کړئ. ",
       "enabled": "فعال شوی",
       "disabled": "غیرفعال شوی"
     },
@@ -5375,7 +5363,6 @@
       "tracking": "Evaluare J-PAL",
       "allowTracking": "Permitere tracking",
       "trackingCode": "Cod de tracking",
-      "trackingDescription": "Îmbunătăți pe termen lung aplicația Integrat prin trimiterea datelor de tracking.",
       "enabled": "activat",
       "disabled": "dezactivat"
     },
@@ -5393,7 +5380,7 @@
       "tracking": "Оценивание J-PAL",
       "allowTracking": "Разрешить отслеживание",
       "trackingCode": "Код отслеживания",
-      "trackingDescription": "Отправка данных для отслеживания позволяет улучшить приложение Integreat в долгосрочной перспективе.",
+      "trackingDescription": "Integreat просит разрешения отслеживать использование вами данного приложения. Собранные данные будут анонимизированы и использованы только в научных целях и для улучшения работы приложения. Данные не будут передаваться или обрабатываться для рекламы или других коммерческих целей.",
       "enabled": "активировано",
       "disabled": "деактивировано"
     },
@@ -5411,7 +5398,6 @@
       "tracking": "qiimeynta J-PAL",
       "allowTracking": "U ogolow raadraaca",
       "trackingCode": "Koodhka raadraaca",
-      "trackingDescription": "Adiga oo soo dirayo xogta raadraaca, Integreat ayaa hormareyso muddada dheer.",
       "enabled": "Shaqeynayo",
       "disabled": "Aan shaqeyneynin"
     },
@@ -5429,7 +5415,6 @@
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Lejo gjurmuesin",
       "trackingCode": "Kodi i gjurmuesit",
-      "trackingDescription": "Duke dërguar të dhëna gjurmimi, pörmiröso Integreat në planin afatgjatë.",
       "enabled": "aktivizuar",
       "disabled": "çaktivizuar"
     },
@@ -5447,7 +5432,6 @@
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Дозвољено праћење",
       "trackingCode": "Код за праћење",
-      "trackingDescription": "Слањем података о праћењу дугорочно побољшавате Integreat услуге.",
       "enabled": "активирано",
       "disabled": "деактивирано"
     },
@@ -5465,7 +5449,6 @@
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Dozvoljeno praćenje",
       "trackingCode": "Kod za praćenje",
-      "trackingDescription": "Slanjem podataka o praćenju dugoročno poboljšavate Integreat usluge.",
       "enabled": "aktivirano",
       "disabled": "deaktivirano"
     },
@@ -5483,7 +5466,6 @@
       "tracking": "ግምገማ J-PAL",
       "allowTracking": "ክትትል ኣፍቅድ",
       "trackingCode": "ኮድ ናይ ክትትል",
-      "trackingDescription": "ናይ ክትትል ሓበሬታ ብምስዳድ፡ Integreat ኣብ ነዊሕ እዋን ክምሓየሽ እዩ።",
       "enabled": "ከምዝነጥፍ ተገይሩ",
       "disabled": "ከምዘይነጥፍ ተገይሩ"
     },
@@ -5501,7 +5483,7 @@
       "tracking": "J-PAL değerlendirmesi",
       "allowTracking": "İzlemeye izin ver",
       "trackingCode": "İzleme kodu",
-      "trackingDescription": "İzleme verilerinin gönderilmesi sayesinde Integreat uzun vadede daha da gelişecektir.",
+      "trackingDescription": "Integreat, uygulama içi kullanımınızı takip izni istiyor. Verileriniz anonim hale getirilecek ve yalnızca araştırma amacıyla ve uygulamayı iyileştirmek için kullanılacaktır. Takip verileri, reklam veya diğer ticari amaçlarla paylaşılmayacak ve işlenmeyecektir.",
       "enabled": "etkin",
       "disabled": "devre dışı"
     },
@@ -5519,7 +5501,6 @@
       "tracking": "J-PAL تجزیہ",
       "allowTracking": "ٹریکنگ کی اجازت دیں",
       "trackingCode": "ٹریکنگ کوڈ",
-      "trackingDescription": "ٹریکنگ ڈیٹا بھیج کر Integreat کو مستقبل کے لئے بہتر بنائیں۔",
       "enabled": "فعال",
       "disabled": "غیر فعال"
     },
