@@ -1,8 +1,8 @@
 import { Position } from 'geojson'
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-import { GeoJsonPoiProperties, PoiModel } from 'api-client'
+import { GeoJsonPoiProperties } from 'api-client'
 
 const Popup = styled.div`
   position: absolute;
@@ -18,23 +18,23 @@ const Popup = styled.div`
   overflow: hidden;
 `
 
-const TextContainer= styled.div`
+const TextContainer = styled.div`
   padding: 10px;
 `
 
 const PopupTitle = styled.h2`
-  font-size: ${props => props.theme.fonts.decorativeFontSize}
+  font-size: ${props => props.theme.fonts.decorativeFontSize};
 `
 
 const PopupText = styled.p`
-  font-size: ${props => props.theme.fonts.contentFontSize}
+  font-size: ${props => props.theme.fonts.contentFontSize};
 `
 
 const PopupThumbnail = styled.img`
   height: 10vh;
   margin: 10px;
+  border-radius: 8px;
 `
-
 
 type MapPopupProps = {
   coordinates: Position
@@ -42,19 +42,21 @@ type MapPopupProps = {
 }
 
 const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement => {
-  const { properties: { distance, location, thumbnail, title } } = props
+  const {
+    properties: { distance, location, thumbnail, title }
+  } = props
 
   const address = location ? JSON.parse(location)._address : ''
   console.log(typeof location)
 
   return (
     <Popup>
-      {thumbnail !== 'null' && <PopupThumbnail src={thumbnail}/>}
-        <TextContainer>
-          <PopupTitle>{title}</PopupTitle>
-          <PopupText>Adresse: {address}</PopupText>
-          {distance && <PopupText>Distance: {distance}</PopupText>}
-        </TextContainer>
+      {thumbnail !== 'null' && <PopupThumbnail src={thumbnail} />}
+      <TextContainer>
+        <PopupTitle>{title}</PopupTitle>
+        <PopupText>Adresse: {address}</PopupText>
+        {distance && <PopupText>Distance: {distance}</PopupText>}
+      </TextContainer>
     </Popup>
   )
 }
