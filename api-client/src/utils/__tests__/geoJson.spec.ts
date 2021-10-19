@@ -19,7 +19,8 @@ describe('geoJson', () => {
       symbol: '9',
       thumbnail,
       path,
-      urlSlug
+      urlSlug,
+      address: 'Wertachstr. 29'
     }
   }
   describe('embedInCollection', () => {
