@@ -7,14 +7,18 @@ import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 
 type CollapsibleItemProps = {
+  /** set initial state for collapse */
   initExpanded: boolean
+  /** set iconSize for the collapseHeader */
   iconSize?: number
+  /** set text for the collapseHeader */
   headerText: string
   children: ReactNode
+  /** language to offer rtl support */
   language: string
 }
 
-type CollapsibleHeaderIcon = 'expand-less' | 'expand-more'
+type CollapsibleHeaderIconProps = 'expand-less' | 'expand-more'
 
 const PageContainer = styled.View`
   padding: 16px 48px;
@@ -40,17 +44,17 @@ const StyledIcon = styled(Icon)`
   align-self: center;
 `
 
-const ICON_SIZE = 30
+const DEFAULT_ICON_SIZE = 30
 
 const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
   initExpanded,
-  iconSize = ICON_SIZE,
+  iconSize = DEFAULT_ICON_SIZE,
   children,
   headerText,
   language
 }: CollapsibleItemProps): ReactElement => {
   const [isExpanded, setIsExpanded] = useState<boolean>(initExpanded)
-  const iconName: CollapsibleHeaderIcon = isExpanded ? 'expand-less' : 'expand-more'
+  const iconName: CollapsibleHeaderIconProps = isExpanded ? 'expand-less' : 'expand-more'
   return (
     <PageContainer>
       <Collapse isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)}>

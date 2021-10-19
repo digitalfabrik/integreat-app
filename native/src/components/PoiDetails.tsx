@@ -18,8 +18,10 @@ import SimpleImage from './SimpleImage'
 type PoiDetailsProps = {
   poi: PoiModel
   feature: PoiFeature
-  detailView: boolean
+  /** define whether content will be displayed on separate detail page */
+  detailPage: boolean
   navigateToPois: () => void
+  /** language to offer rtl support */
   language: string
 }
 
@@ -43,14 +45,14 @@ const TitleContainer = styled.View`
   border-bottom-width: 1px;
 `
 
-const InformationContainer = styled.View<{ detailView: boolean }>`
+const InformationContainer = styled.View<{ detailPage: boolean }>`
   align-items: flex-start;
   justify-content: center;
   border-style: solid;
   border-color: ${props => props.theme.colors.textDisabledColor};
   border-bottom-width: 1px;
-  border-top-width: ${props => (props.detailView ? 0 : '1px')};
-  margin-top: ${props => (props.detailView ? 0 : '32px')};
+  border-top-width: ${props => (props.detailPage ? 0 : '1px')};
+  margin-top: ${props => (props.detailPage ? 0 : '32px')};
 `
 
 const PoiDetailsContainer = styled.View`
@@ -60,7 +62,7 @@ const PoiDetailsContainer = styled.View`
 const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   feature,
-  detailView,
+  detailPage,
   navigateToPois,
   language
 }: PoiDetailsProps): ReactElement => {
@@ -69,7 +71,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
 
   // TODO this has to be removed when we get proper images from CMS
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? EventPlaceholder1
-  const { location } = poi.location
+  const { location, address, postcode, town } = poi.location
+  const { distance, title } = feature.properties
 
   const onNavigate = () => {
     let navigationUrl: string | undefined | null = null
@@ -94,16 +97,16 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   return (
     <PoiDetailsContainer>
       <Thumbnail source={thumbnail} resizeMode='cover' />
-      <InformationContainer detailView={detailView}>
-        {detailView && (
+      <InformationContainer detailPage={detailPage}>
+        {detailPage && (
           <TitleContainer>
-            <Title>{feature.properties.title}</Title>
+            <Title>{title}</Title>
           </TitleContainer>
         )}
-        {feature.properties.distance && (
-          <PoiDetailItem icon='place' language={language} onPress={detailView ? navigateToPois : undefined}>
+        {distance && (
+          <PoiDetailItem icon='place' language={language} onPress={detailPage ? navigateToPois : undefined}>
             <Text>
-              {feature.properties.distance} {t('unit')} {t('distanceText')}
+              {distance} {t('unit')} {t('distanceText')}
             </Text>
           </PoiDetailItem>
         )}
@@ -112,9 +115,9 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           icon='map'
           onLongPress={location ? copyToClipboard(location) : undefined}
           language={language}>
-          <Text>{poi.location.address}</Text>
+          <Text>{address}</Text>
           <Text>
-            {poi.location.postcode} {poi.location.town}
+            {postcode} {town}
           </Text>
         </PoiDetailItem>
         <CollapsibleItem initExpanded headerText={t('detailInformationHeader')} language={language}>

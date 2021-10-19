@@ -141,7 +141,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             language={language}
             poi={poi}
             feature={feature}
-            detailView
+            detailPage
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
           />
           <SiteHelpfulBox
@@ -183,7 +183,15 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
-        {!selectedFeature ? (
+        {selectedFeature && poi ? (
+          <PoiDetails
+            language={language}
+            poi={poi}
+            feature={selectedFeature}
+            detailPage={false}
+            navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+          />
+        ) : (
           <List
             CustomStyledList={CustomSheetList}
             noItemsMessage={t('currentlyNoPois')}
@@ -191,16 +199,6 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             renderItem={renderPoiListItem(cityModel.code, language)}
             theme={theme}
           />
-        ) : (
-          poi && (
-            <PoiDetails
-              language={language}
-              poi={poi}
-              feature={selectedFeature}
-              detailView={false}
-              navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
-            />
-          )
         )}
         <SiteHelpfulBox
           backgroundColor={theme.colors.backgroundColor}
