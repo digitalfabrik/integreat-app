@@ -1,7 +1,5 @@
 import { Feature, FeatureCollection, Point } from 'geojson'
 
-import { LocationModel } from '../index'
-
 type MapConfigProps = {
   styleJSON: string
   accessToken: string
@@ -24,7 +22,7 @@ export type GeoJsonPoiProperties = {
   path: string
   urlSlug: string
   symbol: string
-  location?: LocationModel
+  address?: string
   distance?: string
   thumbnail?: string
 }
