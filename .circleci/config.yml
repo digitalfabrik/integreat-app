@@ -558,7 +558,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> google
+                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
             - run:
                 command: bundle exec fastlane android browserstack_upload_live apk_path:attached_workspace/<< parameters.build_config_name >>.apk
@@ -602,7 +602,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> apple
+                command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
                 name: Prepare App Store metadata
             - run:
                 command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa

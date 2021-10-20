@@ -349,7 +349,7 @@ platform :ios do
       raise "'nil' passed as parameter! Aborting..."
     end
 
-    `yarn --cwd ../../tools manage-metadata prepare-metadata #{build_config_name} apple --override-version-name #{version_name}`
+    `yarn --cwd ../../tools manage-metadata prepare-metadata #{build_config_name} appstore --override-version-name #{version_name}`
   end
 
 end
