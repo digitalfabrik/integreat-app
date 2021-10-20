@@ -291,8 +291,8 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
 
-  // TODO IGAPP-742 remove
-  if (appName !== 'integreat') {
+  // TODO IGAPP-803 remove
+  if (appName !== 'integreat' && appName !== 'malte') {
     console.warn('Only integreat is currently supported for automated store translations, aborting!')
     return
   }
