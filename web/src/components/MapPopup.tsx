@@ -3,17 +3,19 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { GeoJsonPoiProperties } from 'api-client'
+import CleanLink from './CleanLink'
 
 const Popup = styled.div`
   position: absolute;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
   bottom: 0px;
   margin: 0 5% 5% 5%;
   width: 90%;
+  height: 12vh;
   border-radius: 8px;
-  background-color: white;
+  background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 `
@@ -33,6 +35,7 @@ const PopupText = styled.p`
 const PopupThumbnail = styled.img`
   height: 10vh;
   border-radius: 8px;
+  padding: 0 5px;
 `
 
 type MapPopupProps = {
@@ -42,10 +45,13 @@ type MapPopupProps = {
 
 const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement => {
   const {
-    properties: { distance, address, thumbnail, title }
+    properties: { distance, address, thumbnail, title, path }
   } = props
 
+
+
   return (
+    <CleanLink to={path}>
     <Popup>
       {thumbnail !== 'null' && <PopupThumbnail src={thumbnail} />}
       <TextContainer>
@@ -54,6 +60,7 @@ const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement =
         <PopupText>{distance}</PopupText>
       </TextContainer>
     </Popup>
+    </CleanLink>
   )
 }
 
