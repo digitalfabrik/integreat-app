@@ -1,7 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled, { useTheme } from 'styled-components/native'
+
+import { config } from 'translations/src'
 
 import { contentDirection } from '../constants/contentDirection'
 
@@ -38,6 +40,12 @@ const StyledIcon = styled(Icon)`
   align-self: center;
 `
 
+const ArrowContainer = styled(View)<{ language: string }>`
+  flex: 1;
+  flex-direction: ${props => contentDirection(props.language)};
+  justify-content: flex-end;
+`
+
 const DEFAULT_ICON_SIZE = 25
 
 const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
@@ -60,6 +68,20 @@ const PoiDetailItem: React.FC<PoiDetailItemProps> = ({
       language={language}>
       <StyledIcon name={icon} size={iconSize} color={theme.colors.textSecondaryColor} />
       <InformationTextContainer>{children}</InformationTextContainer>
+      <ArrowContainer language={language}>
+        <StyledIcon
+          name='chevron-right'
+          size={iconSize}
+          color={theme.colors.textSecondaryColor}
+          style={{
+            transform: [
+              {
+                scaleX: config.hasRTLScript(language) ? -1 : 1
+              }
+            ]
+          }}
+        />
+      </ArrowContainer>
     </LocationContainer>
   )
 }
