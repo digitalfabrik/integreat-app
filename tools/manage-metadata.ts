@@ -242,11 +242,16 @@ const playstoreLanguageMap: Record<string, string[]> = {
   hr: ['hr'],
   hu: ['hu-HU'],
   it: ['it-IT'],
+  ka: ['ka-GE'],
+  mk: ['mk-MK'],
   pes: ['fa'],
+  prs: ['fa-AF'],
   pl: ['pl-PL'],
   ro: ['ro'],
   ru: ['ru-RU'],
-  tr: ['tr-TR']
+  sq: ['sq'],
+  tr: ['tr-TR'],
+  ur: ['ur']
 }
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
