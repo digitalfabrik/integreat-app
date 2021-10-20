@@ -28,6 +28,7 @@ type PoiDetailsProps = {
 const Thumbnail = styled(SimpleImage)`
   flex: 1;
   height: 180px;
+  width: 100%;
 `
 
 const Title = styled.Text`
