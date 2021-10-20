@@ -208,6 +208,7 @@ const metadataPath = (appName: string, storeName: StoreName, languageCode: strin
 
 // Maps our translation keys to the right key used by the appstore
 // Empty array means no translation in the store
+// https://docs.fastlane.tools/actions/deliver/#available-language-codes
 const appstoreLanguageMap: Record<string, string[]> = {
   am: [],
   ar: ['ar-SA'],
@@ -228,6 +229,7 @@ const appstoreLanguageMap: Record<string, string[]> = {
 }
 
 // Maps our translation keys to the right key used by the play store
+// https://support.google.com/googleplay/android-developer/answer/9844778?hl=en#zippy=%2Cview-list-of-available-languages%2Cif-you-dont-add-or-purchase-translations
 const playstoreLanguageMap: Record<string, string[]> = {
   am: ['am'],
   ar: ['ar'],
