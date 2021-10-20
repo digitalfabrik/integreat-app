@@ -32,6 +32,8 @@ export class PinchableBox extends React.Component {
   private lastOffset: { x: number; y: number }
   private readonly translateX: Animated.AnimatedValue
   private readonly translateY: Animated.AnimatedValue
+  private readonly scaledTranslateY: Animated.AnimatedDivision
+  private readonly scaledTranslateX: Animated.AnimatedDivision
   private readonly onPanGestureEvent: (event: PanGestureHandlerGestureEvent) => void
 
   private readonly baseScale: Animated.Value
@@ -43,9 +45,10 @@ export class PinchableBox extends React.Component {
   constructor(props: Props) {
     super(props)
 
-    /* Panning */
+    // Panning
     this.translateX = new Animated.Value(0)
     this.translateY = new Animated.Value(0)
+
     this.lastOffset = { x: 0, y: 0 }
     this.onPanGestureEvent = Animated.event(
       [
@@ -59,7 +62,7 @@ export class PinchableBox extends React.Component {
       { useNativeDriver: USE_NATIVE_DRIVER }
     )
 
-    /* Pinching */
+    // Pinching
     this.baseScale = new Animated.Value(1)
     this.pinchScale = new Animated.Value(1)
     this.scale = Animated.multiply(this.baseScale, this.pinchScale)
@@ -67,6 +70,9 @@ export class PinchableBox extends React.Component {
     this.onPinchGestureEvent = Animated.event([{ nativeEvent: { scale: this.pinchScale } }], {
       useNativeDriver: USE_NATIVE_DRIVER
     })
+
+    this.scaledTranslateX = Animated.divide(this.translateX, this.scale)
+    this.scaledTranslateY = Animated.divide(this.translateY, this.scale)
   }
 
   private onPinchHandlerStateChange = (event: PinchGestureHandlerStateChangeEvent) => {
@@ -89,21 +95,31 @@ export class PinchableBox extends React.Component {
   }
 
   render(): ReactElement {
+    const pinchHandler = React.createRef()
+    const panHandler = React.createRef()
+
     return (
-      <PinchGestureHandler
-        onGestureEvent={this.onPinchGestureEvent}
-        onHandlerStateChange={this.onPinchHandlerStateChange}>
+      <PanGestureHandler
+        ref={panHandler}
+        simultaneousHandlers={pinchHandler}
+        onGestureEvent={this.onPanGestureEvent}
+        onHandlerStateChange={this.onHandlerStateChange}
+        minDist={10}>
         <Animated.View style={styles.container} collapsable={false}>
-          <PanGestureHandler
-            onGestureEvent={this.onPanGestureEvent}
-            onHandlerStateChange={this.onHandlerStateChange}
-            minPointers={2}
-            minDist={10}>
+          <PinchGestureHandler
+            ref={pinchHandler}
+            simultaneousHandlers={panHandler}
+            onGestureEvent={this.onPinchGestureEvent}
+            onHandlerStateChange={this.onPinchHandlerStateChange}>
             <Animated.Image
               style={[
                 styles.pinchableImage,
                 {
-                  transform: [{ scale: this.scale }, { translateX: this.translateX }, { translateY: this.translateY }]
+                  transform: [
+                    { scale: this.scale },
+                    { translateX: this.scaledTranslateX },
+                    { translateY: this.scaledTranslateY }
+                  ]
                 }
               ]}
               resizeMode='center'
@@ -112,9 +128,9 @@ export class PinchableBox extends React.Component {
                 uri: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
               }}
             />
-          </PanGestureHandler>
+          </PinchGestureHandler>
         </Animated.View>
-      </PinchGestureHandler>
+      </PanGestureHandler>
     )
   }
 }
