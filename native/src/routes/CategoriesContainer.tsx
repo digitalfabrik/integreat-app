@@ -7,6 +7,7 @@ import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api
 import Categories from '../components/Categories'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import withTheme from '../hocs/withTheme'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -35,15 +36,6 @@ type RefreshPropsType = NavigationPropsType & {
   path: string
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
-}
 
 const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
@@ -225,8 +217,5 @@ export default connect(
   mapDispatchToProps
 )(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(
-    refresh,
-    onRouteClose
-  )(CategoriesContainer)
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh)(CategoriesContainer)
 )

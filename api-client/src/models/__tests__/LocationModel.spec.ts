@@ -1,5 +1,4 @@
-import { Feature } from 'geojson'
-
+import { PoiFeature } from '../../maps'
 import LocationModel from '../LocationModel'
 
 describe('LocationModel', () => {
@@ -62,7 +61,8 @@ describe('LocationModel', () => {
 describe('convertToPoint', () => {
   const thumbnail = 'thumbnail'
   const path = '/augsburg/de/locations/erster_poi'
-  const expectedGeoJsonMarkerFeature: Feature = {
+  const urlSlug = 'erster_poi'
+  const expectedGeoJsonMarkerFeature: PoiFeature = {
     type: 'Feature',
     geometry: {
       type: 'Point',
@@ -73,7 +73,8 @@ describe('convertToPoint', () => {
       title: 'Test',
       symbol: '9',
       thumbnail: 'thumbnail',
-      path: '/augsburg/de/locations/erster_poi'
+      path: '/augsburg/de/locations/erster_poi',
+      urlSlug
     }
   }
   it('should be transformed to GeoJson type', () => {
@@ -89,7 +90,7 @@ describe('convertToPoint', () => {
       longitude: '31.133859',
       country: 'DE'
     })
-    expect(location.convertToPoint(path, thumbnail)).toEqual(expectedGeoJsonMarkerFeature)
+    expect(location.convertToPoint(path, thumbnail, urlSlug)).toEqual(expectedGeoJsonMarkerFeature)
   })
   it('should return null when latitude is null ', () => {
     const location = new LocationModel({
@@ -104,7 +105,7 @@ describe('convertToPoint', () => {
       longitude: '31.133859',
       country: 'DE'
     })
-    expect(location.convertToPoint(path, thumbnail)).toBeNull()
+    expect(location.convertToPoint(path, thumbnail, urlSlug)).toBeNull()
   })
   it('should return null when longitude is null ', () => {
     const location = new LocationModel({
@@ -119,6 +120,6 @@ describe('convertToPoint', () => {
       longitude: null,
       country: 'DE'
     })
-    expect(location.convertToPoint(path, thumbnail)).toBeNull()
+    expect(location.convertToPoint(path, thumbnail, urlSlug)).toBeNull()
   })
 })

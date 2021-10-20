@@ -11,7 +11,7 @@ import LanguageNotAvailableContainer from '../components/LanguageNotAvailableCon
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressContainer from '../components/ProgressContainer'
-import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import { StoreActionType } from '../redux/StoreActionType'
 
@@ -66,18 +66,14 @@ export type PropsType<
 > = StatusPropsType<S, R> & {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
-  route: RoutePropType<T>
 }
 
 const withPayloadProvider = <
-  S extends {
-    dispatch: Dispatch<StoreActionType>
-  },
+  S extends { dispatch: Dispatch<StoreActionType> },
   R extends Record<string, unknown>,
   T extends RoutesType
 >(
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
-  onRouteClose?: (routeKey: string, dispatch: Dispatch<StoreActionType>) => void,
   noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => (
   Component: React.ComponentType<S>
@@ -90,14 +86,6 @@ const withPayloadProvider = <
       }, LOADING_TIMEOUT)
       return () => clearTimeout(timer)
     }, [])
-    useEffect(
-      () => () => {
-        if (onRouteClose) {
-          onRouteClose(props.route.key, props.dispatch)
-        }
-      },
-      [props.route.key, props.dispatch]
-    )
 
     const refreshIfPossible = () => {
       if (

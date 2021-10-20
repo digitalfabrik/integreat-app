@@ -418,7 +418,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         environment:
             TOTAL_CPUS: 1
         parameters:
@@ -457,7 +457,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         parameters:
             delivery:
                 default: none
@@ -636,7 +636,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         parameters:
             production_delivery:
                 description: Whether to deliver to production or to webnext.
@@ -734,7 +734,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: circleci/node:14.17.5-browsers
+            - image: circleci/node:14.18.0-browsers
             - image: selenium/standalone-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -753,7 +753,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         resource_class: small
         steps:
             - skip_job
@@ -767,7 +767,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -794,7 +794,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -821,7 +821,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: circleci/node:14.17.5
+            - image: circleci/node:14.18.0
         resource_class: small
         steps:
             - skip_job

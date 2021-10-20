@@ -51,12 +51,12 @@ const PoiPage = ({
     })
   }
 
-  const navigateToPois = (cityCode: string, language: string, selectedPoiId: string) => (): void => {
+  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
       cityCode,
       languageCode: language,
-      selectedPoiId
+      urlSlug
     })
   }
   const showSnackbar = useSnackbar()
@@ -89,7 +89,7 @@ const PoiPage = ({
         {location && <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />}
         {navigationUrl && (
           <>
-            <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, String(poi.location.id))} />
+            <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, poi.urlSlug)} />
             <Spacer />
             <Button title={t('navigation')} onPress={() => navigationUrl && openNavigationUrl(navigationUrl)} />
           </>

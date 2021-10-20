@@ -36,15 +36,6 @@ type RefreshPropsType = NavigationPropsType & {
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
-}
-
 const createChangeUnavailableLanguage = (city: string) => (
   dispatch: Dispatch<StoreActionType>,
   newLanguage: string
@@ -226,4 +217,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, onRouteClose)(EventsContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(EventsContainer))
