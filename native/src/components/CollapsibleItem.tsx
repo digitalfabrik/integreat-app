@@ -2,6 +2,7 @@
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
@@ -53,6 +54,7 @@ const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
   headerText,
   language
 }: CollapsibleItemProps): ReactElement => {
+  const theme = useTheme()
   const [isExpanded, setIsExpanded] = useState<boolean>(initExpanded)
   const iconName: CollapsibleHeaderIconProps = isExpanded ? 'expand-less' : 'expand-more'
   return (
@@ -61,7 +63,7 @@ const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
         <CollapseHeader style={{ flexDirection: 'row' }}>
           <CollapseHeaderWrapper language={language}>
             <CollapseHeaderText>{headerText}</CollapseHeaderText>
-            <StyledIcon name={iconName} size={iconSize} />
+            <StyledIcon name={iconName} size={iconSize} color={theme.colors.textSecondaryColor} />
           </CollapseHeaderWrapper>
         </CollapseHeader>
         <CollapseBody>{children}</CollapseBody>
