@@ -190,25 +190,25 @@ program
   .action(() => parseNotesProgram({ ...program }))
 
 // General store metadata
-type StoreName = 'apple' | 'google'
+type StoreName = 'appstore' | 'playstore'
 
-const APPLE_NAME_LENGTH = 30
-const APPLE_SUBTITLE_LENGTH = 30
-const APPLE_RELEASE_NOTE_LENGTH = 4000
-const APPLE_PROMOTIONAL_TEXT_LENGTH = 170
-const APPLE_DESCRIPTION_LENGTH = 4000
-const APPLE_KEYWORDS_LENGTH = 60
+const APPSTORE_NAME_LENGTH = 30
+const APPSTORE_SUBTITLE_LENGTH = 30
+const APPSTORE_RELEASE_NOTE_LENGTH = 4000
+const APPSTORE_PROMOTIONAL_TEXT_LENGTH = 170
+const APPSTORE_DESCRIPTION_LENGTH = 4000
+const APPSTORE_KEYWORDS_LENGTH = 60
 
-const GOOGLE_NAME_LENGTH = 50
-const GOOGLE_SHORT_DESCRIPTION_LENGTH = 80
-const GOOGLE_FULL_DESCRIPTION_LENGTH = 4000
+const PLAYSTORE_NAME_LENGTH = 50
+const PLAYSTORE_SHORT_DESCRIPTION_LENGTH = 80
+const PLAYSTORE_FULL_DESCRIPTION_LENGTH = 4000
 
 const metadataPath = (appName: string, storeName: StoreName, languageCode: string) =>
-  `../native/${storeName === 'apple' ? 'ios' : 'android'}/fastlane/${appName}/metadata/${languageCode}`
+  `../native/${storeName === 'appstore' ? 'ios' : 'android'}/fastlane/${appName}/metadata/${languageCode}`
 
-// Maps our translation keys to the right key used by the apple app store
+// Maps our translation keys to the right key used by the appstore
 // Empty array means no translation in the store
-const appleLanguageMap: Record<string, string[]> = {
+const appstoreLanguageMap: Record<string, string[]> = {
   am: [],
   ar: ['ar-SA'],
   bg: [],
@@ -227,8 +227,8 @@ const appleLanguageMap: Record<string, string[]> = {
   tr: ['tr']
 }
 
-// Maps our translation keys to the right key used by the google play store
-const googleLanguageMap: Record<string, string[]> = {
+// Maps our translation keys to the right key used by the play store
+const playstoreLanguageMap: Record<string, string[]> = {
   am: ['am'],
   ar: ['ar'],
   bg: ['bg'],
@@ -263,7 +263,7 @@ const metadataFromTranslations = (
   const description = commonTranslation.description!
   const storeTranslation = translations[storeName]![language]!
 
-  return storeName === 'apple'
+  return storeName === 'appstore'
     ? {
         name,
         description,
@@ -277,10 +277,10 @@ const metadataFromTranslations = (
 }
 
 const languageMap = (storeName: StoreName): Record<string, string[]> =>
-  storeName === 'apple' ? appleLanguageMap : googleLanguageMap
+  storeName === 'appstore' ? appstoreLanguageMap : playstoreLanguageMap
 
 const writeMetadata = (appName: string, storeName: string, overrideVersionName?: string) => {
-  if (storeName !== 'apple' && storeName !== 'google') {
+  if (storeName !== 'appstore' && storeName !== 'playstore') {
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
 
@@ -307,14 +307,14 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
       })
 
       // Prepare release notes
-      const platforms = { ios: storeName === 'apple', android: storeName === 'google', web: false }
+      const platforms = { ios: storeName === 'appstore', android: storeName === 'playstore', web: false }
       const source = `../${RELEASE_NOTES_DIR}/${overrideVersionName ?? UNRELEASED_DIR}`
       const releaseNotesPath = `${metadataPath(appName, storeName, targetLanguage)}${
-        storeName === 'google' ? '/changelogs' : ''
+        storeName === 'playstore' ? '/changelogs' : ''
       }`
       fs.mkdirSync(releaseNotesPath, { recursive: true })
 
-      const destination = `${releaseNotesPath}/${storeName === 'apple' ? 'release_notes.txt' : 'default.txt'}`
+      const destination = `${releaseNotesPath}/${storeName === 'appstore' ? 'release_notes.txt' : 'default.txt'}`
       parseNotesProgram({ ...platforms, production: true, language, destination, source })
 
       console.warn(`${storeName} metadata for ${appName} successfully written in language ${targetLanguage}.`)
