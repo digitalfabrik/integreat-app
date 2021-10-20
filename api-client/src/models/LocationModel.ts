@@ -132,7 +132,7 @@ class LocationModel {
         thumbnail,
         path,
         urlSlug,
-        address: this.address ?? ''
+        address: this.address ?? undefined
       }
     }
   }
