@@ -1,13 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import * as Sentry from '@sentry/react-native'
 import { mocked } from 'ts-jest/utils'
 
 import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import AppSettings from '../AppSettings'
+import { reportError } from '../helpers'
 import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
 
+jest.mock('../helpers', () => ({
+  reportError: jest.fn()
+}))
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createTrackingEndpoint: jest.fn(() => ({
@@ -158,8 +161,8 @@ describe('sendTrackingSignal', () => {
       await sendRequest(signal)
       const offlineSignals = await appSettings.clearJpalSignals()
       expect(offlineSignals).toEqual([])
-      expect(Sentry.captureException).toHaveBeenCalledTimes(1)
-      expect(Sentry.captureException).toHaveBeenCalledWith(error)
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 

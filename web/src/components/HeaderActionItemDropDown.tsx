@@ -95,6 +95,7 @@ const HeaderActionItemDropDown = (props: PropsType): ReactElement => {
         </button>
       </Tooltip>
       <DropDownContainer
+        data-testid='headerActionItemDropDown'
         active={dropDownActive}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>

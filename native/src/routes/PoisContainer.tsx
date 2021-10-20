@@ -7,6 +7,7 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
@@ -35,15 +36,6 @@ type RefreshPropsType = NavigationPropsType & {
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {
   dispatch: Dispatch<StoreActionType>
-}
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
 }
 
 const createChangeUnavailableLanguage = (city: string) => (
@@ -224,11 +216,5 @@ const PurePoisContainer = memo(
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(
-    refresh,
-    onRouteClose,
-    true
-  )(PurePoisContainer)
-)
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true)(PurePoisContainer))
