@@ -89,7 +89,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
     dispatch({
       type: 'ENQUEUE_SNACKBAR',
       params: {
-        text: t('detailAddressClipboardMessage')
+        text: 'pois:detailAddressClipboardMessage'
       }
     })
   }
