@@ -43,7 +43,7 @@ const prepareDefaultReleaseNote = (language: string, production: boolean, appNam
     return ''
   }
   if (!appName) {
-    throw new Error('No app name supplied while preparing note for production!')
+    throw new Error('No app name supplied while preparing notes for production!')
   }
   const common = loadStoreTranslations(appName).common
   return common[language]?.defaultReleaseNote ?? common[DEFAULT_NOTES_LANGUAGE].defaultReleaseNote
@@ -298,7 +298,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
 
   // TODO IGAPP-803 remove
   if (appName !== 'integreat' && appName !== 'malte') {
-    console.warn('Only integreat is currently supported for automated store translations, aborting!')
+    console.warn('Only integreat and malte are currently supported for automated store translations, aborting!')
     return
   }
 
