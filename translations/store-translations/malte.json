@@ -1,5 +1,5 @@
 {
-  "apple": {
+  "appstore": {
     "de": {
       "keywords": "Malteser,Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Informationen,Asyl"
     },
@@ -94,7 +94,7 @@
       "description": "Malte پر ہم آپ کو کبھی بھی، کہیں بھی اپنے ادارے سے تازہ ترین معلومات حاصل کرنے کی ڈیجیٹل پیش کش کرتے ہیں!\nMalte درج ذیل کاموں میں آپ کی مدد کر سکتی ہے:\n - ڈاکٹرز سے اپائنٹمنٹ لینا\n  - عوامی دفاتر کے اوقات کار\n - عوامی ذرائع نقل و حمل کے شیڈول\n - مشاورتی خدمات\n - جرمن کورسز، جرمنی میں زندگی، ادارے میں زندگی وغیرہ کے متعلق معلومات، …\nاور بہت کچھ!\nMalte کے ساتھ ہمیشہ آگاہ رہیں!\nیہ ایپ موبائل انٹرنیٹ کے بغیر آف لائن بھی چلتی ہے"
     }
   },
-  "google": {
+  "playstore": {
     "de": {
       "short_description": "Malte ist die Orientierungs-App für Flüchtlingseinrichtungen der Malteser Werke"
     },
