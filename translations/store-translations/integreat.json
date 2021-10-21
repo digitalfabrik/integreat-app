@@ -1,5 +1,5 @@
 {
-  "apple": {
+  "appstore": {
     "de": {
       "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
     },
@@ -115,7 +115,7 @@
       "description": "Integreat, Almanya'daki yeni hayatınıza başlarken size yardımcı olacak yerel bilgiler, etkinlikler ve danışmanlık merkezleri bulabilirsiniz. Bilgiler bizzat şehrinizin tarafından derlenir ve sürekli güncellenir.\nÜCRETSİZ YARDIM\nIntegreat uygulamasını ücretsiz ve reklamsız kullanabilirsiniz. Integreat, 1992'den beri göçmenlerin haklarını ve fırsatlarını savunan, kamu yararına çalışan \"Tür an Tür\" organizasyonunun bir hizmetidir.\nÇOK SAYIDA İŞLEV\nIntegreat, şehrinizdeki dijital rehberinizdir ve eşsiz işlevler sunar:\n- Yerel bilgileri, etkinlikleri ve diğer teklifleri tek bir uygulamada bulursunuz\n- Yerel bilgiler bizzat şehrinizin tarafından derlenir ve güncellenir\n- Arama işlevi sayesinde bilgileri daha da hızlı bulabilirsiniz\n- \"Teklifler\" bölümünde yakınlarınızdaki iş ve meslek eğitimi yerlerini bulabilirsiniz\n- Integreat size şehrinizdeki ilgi çekici etkinlikleri gösterir\n- Anında bildirimlerle şehrinizden önemli haberleri alın\n- Bilgi ve etkinlikleri tanıdıklarınızla paylaşabilirsiniz\n- Uygulama ve yerel bilgiler hakkında geri bildirimde bulunarak Integreat'ın iyileştirilmesine katkıda bulunabilirsiniz\nVERİ TOPLANMAZ\nIntegreat siz ve kullanım alışkanlıklarınız hakkında veri toplamaz. Sadece hakkınızdaki veriler toplanmadan veya saklanmadan bir dildeki yerel içerikleri ne sıklıkla açtığınız sayılır.\nIntegreat, uygulamadan en iyi şekilde yararlanabilmeniz için bazı izinlerinize ihtiyaç duyar:\nSaklama: Şehrinizle ilgili yerel bilgiler İnternet bağlantısı olmadan da erişebilmeniz için cihazınızda saklanır.\nKonum: Mevcut konumunuzu göstermeniz Integreat haritasını kullanmanıza ve uygun şehri seçmenize yardımcı olur. Konum verileri değerlendirmeye tabi tutulmaz.\nKablosuz ağ: Integreat, yüksek miktarda veri içeren içerikleri kablosuz ağa bağlıysanız indirir. Bunun için kablosuz ağa bağlı olup olmadığınızı kontrol edebilmemiz gerekir."
     }
   },
-  "google": {
+  "playstore": {
     "de": {
       "short_description": "Integreat hilft Ihnen, sich schnell in Ihrer neuen Stadt zurechtzufinden."
     },
