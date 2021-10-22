@@ -88,8 +88,7 @@ const isNoteCommon = ({ note, platforms }: { note: NoteType; platforms: string[]
 // Format the release notes for development purposes with all available information
 const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; platforms: string[] }) => {
   const { notes, language, platforms } = params
-  const production = false
-  const emptyNodesMap = {
+  const emptyNotesMap = {
     common: [] as NoteType[],
     android: [] as NoteType[],
     ios: [] as NoteType[],
@@ -107,12 +106,17 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
       notesMap.web.push(note)
     }
     return notesMap
-  }, emptyNodesMap)
+  }, emptyNotesMap)
 
-  const commonNotes = formatNotes({ notes: notesMap.common, language, production })
-  const androidNotes = formatNotes({ notes: notesMap.android, language, production, platformName: PLATFORM_ANDROID })
-  const iosNotes = formatNotes({ notes: notesMap.ios, language, production, platformName: PLATFORM_IOS })
-  const webNotes = formatNotes({ notes: notesMap.web, language, production, platformName: PLATFORM_WEB })
+  const commonNotes = formatNotes({ notes: notesMap.common, language, production: false })
+  const androidNotes = formatNotes({
+    notes: notesMap.android,
+    language,
+    production: false,
+    platformName: PLATFORM_ANDROID
+  })
+  const iosNotes = formatNotes({ notes: notesMap.ios, language, production: false, platformName: PLATFORM_IOS })
+  const webNotes = formatNotes({ notes: notesMap.web, language, production: false, platformName: PLATFORM_WEB })
 
   const releaseNotes = `${commonNotes}${androidNotes}${iosNotes}${webNotes}`
   return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
