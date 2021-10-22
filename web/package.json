@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=6.9",
+    "node": ">=10.13.0",
     "npm": ">=3.8"
   },
   "scripts": {
@@ -93,7 +93,7 @@
     "@types/styled-components": "^5.1.9",
     "@types/testing-library__jest-dom": "^5.9.5",
     "@types/webpack-bundle-analyzer": "^4.4.1",
-    "@types/webpack-dev-server": "^4.3.0",
+    "@types/webpack-dev-server": "^4.3.1",
     "assets-webpack-plugin": "^7.1.1",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^9.0.1",
@@ -105,9 +105,9 @@
     "es-check": "^5.2.0",
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
-    "html-webpack-plugin": "^5.3.2",
+    "html-webpack-plugin": "^5.4.0",
     "htmlparser2": "^6.0.0",
-    "img-loader": "^3.0.1",
+    "img-loader": "^4.0.0",
     "jest": "^26.6.3",
     "jest-fetch-mock": "^3.0.1",
     "jest-junit": "^12.0.0",
@@ -125,11 +125,11 @@
     "ts-jest": "^26.5.6",
     "ts-loader": "^9.2.6",
     "ts-node": "^9.1.1",
-    "tsconfig-paths": "^3.9.0",
+    "tsconfig-paths": "^3.11.0",
     "url-loader": "^4.1.1",
-    "webpack": "5.58.0",
-    "webpack-bundle-analyzer": "^4.4.2",
-    "webpack-cli": "^4.9.0",
+    "webpack": "5.59.1",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.3.1"
   }
 }
