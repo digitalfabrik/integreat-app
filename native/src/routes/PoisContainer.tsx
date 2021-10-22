@@ -182,14 +182,17 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
-  <Pois
-    {...rest}
-    route={route}
-    navigateTo={createNavigate(dispatch, navigation)}
-    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-  />
-)
+const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  useClearRouteOnClose(route, dispatch)
+  return (
+    <Pois
+      {...rest}
+      route={route}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    />
+  )
+}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
