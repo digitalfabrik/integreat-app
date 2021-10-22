@@ -218,6 +218,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
+  useClearRouteOnClose(route, dispatch)
 
   const fetchNews = useCallback(
     (newsType: NewsType) => {
