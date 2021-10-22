@@ -18,7 +18,7 @@ steps:
   - restore_environment_variables
   - run:
       name: << parameters.build_config_name >> build
-      command: yarn workspace web build:<< parameters.build_config_name >> --env.commit_sha=${CIRCLE_SHA1} --env.version_name=${NEW_VERSION_NAME}
+      command: yarn workspace web build:<< parameters.build_config_name >> --env commit_sha=${CIRCLE_SHA1} --env version_name=${NEW_VERSION_NAME}
   - store_artifacts:
       name: Store output of bundle analyzer
       path: web/reports/bundle

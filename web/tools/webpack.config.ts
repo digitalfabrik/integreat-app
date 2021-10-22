@@ -129,7 +129,7 @@ const createConfig = (
     output: {
       path: distDirectory,
       publicPath: '/',
-      filename: devServer ? '[name].js?[hash]' : '[name].[hash].js',
+      filename: devServer ? '[name].js?[contenthash]' : '[name].[contenthash].js',
       chunkFilename: devServer ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
       sourcePrefix: '  '
     },
@@ -139,14 +139,13 @@ const createConfig = (
     },
     devtool: 'source-map',
     devServer: {
-      contentBase: distDirectory,
+      static: { directory: distDirectory },
       compress: true,
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
       http2: false,
-      historyApiFallback: true,
-      stats: 'minimal'
+      historyApiFallback: true
     },
     // What information should be printed to the console
     stats: 'minimal',
@@ -242,10 +241,11 @@ const createConfig = (
         {
           test: /\.css$/,
           include: /node_modules/,
-          loaders: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+          use: ['style-loader', 'css-loader']
         },
         {
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+          type: 'javascript/auto',
           use: [
             {
               loader: 'url-loader',
@@ -278,7 +278,7 @@ const createConfig = (
         },
         {
           test: /\.(eot|ttf|wav|mp3)$/,
-          loader: 'file-loader'
+          type: 'assets/resource'
         }
       ]
     }
