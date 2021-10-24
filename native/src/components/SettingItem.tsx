@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
-import { Switch, Text, View, AccessibilityRole } from 'react-native'
+import { Text, View, AccessibilityRole } from 'react-native'
 import { Badge, Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
 
+import SettingsSwitch from './SettingsSwitch'
 import Touchable from './Touchable'
 
 type PropType = {
@@ -65,15 +66,16 @@ const SettingItem = (props: PropType): ReactElement => {
         </ContentContainer>
         <RightContentContainer>
           {hasSwitch && (
-            <Switch
-              thumbColor={theme.colors.themeColor}
-              trackColor={{
-                true: theme.colors.themeColor,
-                false: theme.colors.textSecondaryColor
-              }}
-              value={value}
-              onValueChange={onPress}
-            />
+            // <Switch
+            //   thumbColor={theme.colors.themeColor}
+            //   trackColor={{
+            //     true: theme.colors.themeColor,
+            //     false: theme.colors.textSecondaryColor
+            //   }}
+            //   value={value}
+            //   onValueChange={onPress}
+            // />
+            <SettingsSwitch theme={theme} value={value} onPress={onPress} />
           )}
           {hasBadge && (
             <View
