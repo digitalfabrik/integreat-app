@@ -1,5 +1,7 @@
+import MapboxGL from '@react-native-mapbox-gl/maps'
 import distance from '@turf/distance'
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
+import { Feature } from 'geojson'
+import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -146,6 +148,33 @@ const Pois = ({
       isPositiveFeedback
     })
   }
+  const onPoiPress = async (
+    pressedLocation: Feature,
+    featureLayerId: string,
+    mapRef: RefObject<MapboxGL.MapView | null>,
+    cameraRef: RefObject<MapboxGL.Camera | null>
+  ) => {
+    if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
+      return
+    }
+    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
+      undefined,
+      [featureLayerId]
+    )
+    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
+    if (feature) {
+      const {
+        geometry: { coordinates }
+      } = feature
+      setSelectedFeature(feature)
+      setSheetSnapPointIndex(1)
+
+      cameraRef.current.flyTo(coordinates)
+    } else {
+      setSelectedFeature(null)
+    }
+  }
 
   const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
 
@@ -188,11 +217,10 @@ const Pois = ({
     <ScrollView contentContainerStyle={{ flex: 1 }}>
       {cityModel.boundingBox && (
         <MapView
+          onPoiPress={onPoiPress}
           boundingBox={cityModel.boundingBox}
           featureCollection={embedInCollection(featureLocations)}
           selectedFeature={selectedFeature}
-          setSelectedFeature={setSelectedFeature}
-          setSheetSnapPointIndex={setSheetSnapPointIndex}
           locationPermissionGranted={location !== null}
           onRequestLocationPermission={requestAndDetermineLocation}
           fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
