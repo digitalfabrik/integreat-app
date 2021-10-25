@@ -23,6 +23,7 @@ type PoiDetailsProps = {
   navigateToPois: () => void
   /** language to offer rtl support */
   language: string
+  navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
 const Thumbnail = styled(SimpleImage)`
@@ -65,22 +66,21 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   feature,
   detailPage,
   navigateToPois,
-  language
+  language,
+  navigateToLink
 }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const dispatch = useDispatch()
 
-  // TODO this has to be removed when we get proper images from CMS
+  // TODO this has to be removed when we get proper images from CMS IGAPP-805
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? EventPlaceholder1
   const { location, address, postcode, town } = poi.location
   const { distance, title } = feature.properties
 
+  // TODO refactor to use a get coordinates method IGAPP-806
   const onNavigate = () => {
-    let navigationUrl: string | undefined | null = null
     if (location && poi.featureLocation?.geometry.coordinates) {
-      navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-    }
-    if (navigationUrl) {
+      const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
       Linking.openURL(navigationUrl)
     }
   }
@@ -122,7 +122,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </Text>
         </PoiDetailItem>
         <CollapsibleItem initExpanded headerText={t('detailInformationHeader')} language={language}>
-          <NativeHtml content={mockContent} language={language} />
+          <NativeHtml content={mockContent} language={language} navigateToLink={navigateToLink} />
         </CollapsibleItem>
       </InformationContainer>
     </PoiDetailsContainer>

@@ -1,3 +1,4 @@
+// TODO IGAPP-805 receive POI content from cms
 export const mockContent = `<div id='cc-m-7871392056' class='j-module n j-text '><p>
     <span style='font-size: 14px; color: #000000;'>Das Konzept, mit dem Sie, ohne Geld zu spenden, helfen können: Sicher haben Sie einiges zu Hause, was Sie nicht mehr brauchen. Geben Sie es
     uns!</span>
