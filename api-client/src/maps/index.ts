@@ -22,6 +22,7 @@ export type GeoJsonPoiProperties = {
   path: string
   urlSlug: string
   symbol: string
+  address?: string
   distance?: string
   thumbnail?: string
 }
