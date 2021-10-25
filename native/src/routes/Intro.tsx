@@ -61,9 +61,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
     ? [
         {
           key: 'integreat',
-          title: t('appName', {
-            appName: buildConfig().appName
-          }),
+          title: buildConfig().appName,
           description: t('appDescription', {
             appName: buildConfig().appName
           }),
@@ -97,9 +95,7 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
     : [
         {
           key: 'integreat',
-          title: t('appName', {
-            appName: buildConfig().appName
-          }),
+          title: buildConfig().appName,
           description: t('appDescription', {
             appName: buildConfig().appName
           }),
