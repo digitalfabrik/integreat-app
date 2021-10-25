@@ -1,0 +1,7 @@
+issue_key: IGAPP-802
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fixed an issue with truncated content.
+de: Ein Problem mit abgeschnittenen Inhalten wurde behoben.
