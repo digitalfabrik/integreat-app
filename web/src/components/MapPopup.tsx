@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { GeoJsonPoiProperties } from 'api-client'
+
 import CleanLink from './CleanLink'
 
 const Popup = styled.div`
@@ -43,7 +44,7 @@ const Placeholder = styled.div`
   width: 10vh;
   border-radius: 8px;
   margin: 0 5px;
-  background-color: ${props => props.theme.colors.textDisabledColor}
+  background-color: ${props => props.theme.colors.textDisabledColor};
 `
 
 type MapPopupProps = {
@@ -58,14 +59,14 @@ const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement =
 
   return (
     <CleanLink to={path}>
-    <Popup>
-      {thumbnail !== 'null' ? <PopupThumbnail src={thumbnail} /> : <Placeholder />}
-      <TextContainer>
-        <PopupTitle>{title}</PopupTitle>
-        <PopupText>{address}</PopupText>
-        <PopupText>{distance}</PopupText>
-      </TextContainer>
-    </Popup>
+      <Popup>
+        {thumbnail !== 'null' ? <PopupThumbnail src={thumbnail} /> : <Placeholder />}
+        <TextContainer>
+          <PopupTitle>{title}</PopupTitle>
+          <PopupText>{address}</PopupText>
+          <PopupText>{distance}</PopupText>
+        </TextContainer>
+      </Popup>
     </CleanLink>
   )
 }
