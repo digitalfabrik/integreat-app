@@ -1,6 +1,6 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, RefObject, useCallback, useState } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -25,11 +25,15 @@ type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: PoiFeatureCollection
   selectedFeature: PoiFeature | null
-  setSelectedFeature: (feature: PoiFeature | null) => void
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
-  setSheetSnapPointIndex: (index: number) => void
+  onPoiPress: (
+    pressedLocation: Feature,
+    layer: string,
+    mapRef: RefObject<MapboxGL.MapView | null>,
+    camRef: RefObject<MapboxGL.Camera | null>
+  ) => void
 }
 
 const textOffsetY = 1.25
@@ -41,11 +45,10 @@ const MapView = ({
   boundingBox,
   featureCollection,
   selectedFeature,
-  setSelectedFeature,
   fabPosition,
   onRequestLocationPermission,
   locationPermissionGranted,
-  setSheetSnapPointIndex
+  onPoiPress
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
@@ -94,38 +97,12 @@ const MapView = ({
   const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
 
-  const onPress = useCallback(
-    async (pressedLocation: Feature) => {
-      if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
-        return
-      }
-      const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-        [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-        undefined,
-        [featureLayerId]
-      )
-      const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
-      if (feature) {
-        const {
-          geometry: { coordinates }
-        } = feature
-        setSelectedFeature(feature)
-        setSheetSnapPointIndex(1)
-
-        cameraRef.current.flyTo(coordinates)
-      } else {
-        setSelectedFeature(null)
-      }
-    },
-    [setSelectedFeature]
-  )
-
   return (
     <MapContainer>
       <StyledMap
         styleJSON={mapConfig.styleJSON}
         zoomEnabled
-        onPress={onPress}
+        onPress={pressedLocation => onPoiPress(pressedLocation, featureLayerId, mapRef, cameraRef)}
         ref={mapRef}
         attributionEnabled={false}
         logoEnabled={false}>
