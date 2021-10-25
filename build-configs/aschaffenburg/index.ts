@@ -13,12 +13,12 @@ import { lightTheme } from './theme'
 const APPLE_APP_ID = '1551810291'
 
 const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
-  appName: 'Aschaffenburg App',
+  appName: 'hallo aschaffenburg',
   appIcon: 'app_icon_aschaffenburg',
   lightTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
-  hostName: 'aschaffenburg.app',
+  hostName: 'halloaschaffenburg.de',
   allowedHostNames: ['cms.integreat-app.de'],
   translationsOverride: aschaffenburgOverrideTranslations,
   internalLinksHijackPattern:
@@ -34,7 +34,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     fixedCity: 'abapp'
   },
   aboutUrls: {
-    default: 'https://www.aschaffenburg.de/aschaffenburgapp'
+    default: 'https://www.aschaffenburg.de/halloaschaffenburg'
   },
   privacyUrls: {
     default: 'https://integreat-app.de/datenschutz/',
