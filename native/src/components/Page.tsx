@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
 
+import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
@@ -15,9 +16,8 @@ import SiteHelpfulBox from './SiteHelpfulBox'
 import SpaceBetween from './SpaceBetween'
 import TimeStamp from './TimeStamp'
 
-const HORIZONTAL_MARGIN = 8
 const Container = styled.View`
-  margin: 0 ${HORIZONTAL_MARGIN}px 8px;
+  margin: 0 ${dimensions.page.horizontalMargin}px 8px;
 `
 export type ParsedCacheDictionaryType = Record<string, string>
 type PropsType = {
