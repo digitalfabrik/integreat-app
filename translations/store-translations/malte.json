@@ -1,0 +1,187 @@
+{
+  "appstore": {
+    "de": {
+      "keywords": "Malteser,Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Informationen,Asyl"
+    },
+    "ar": {
+      "keywords": "ألمانيا,Malteser,المساعدة,تعلم اللغة الألمانية,القواعد,دورة اللغة الألمانية,الأخبار,المشورة,الاندماج"
+    },
+    "en": {
+      "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
+    },
+    "es": {
+      "keywords": "Alemania,Malteser,Ayuda,Aprender alemán,Normas,Curso de alemán,Noticias,Asesoramiento,Información"
+    },
+    "fr": {
+      "keywords": "Allemagne,Malteser,aide,apprendre l'allemand,Règles,Cours d'allemand,Nouvelles,Conseil,Intégration"
+    },
+    "ka": {
+      "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
+    },
+    "mk": {
+      "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
+    },
+    "pes": {
+      "keywords": "آلمان,کمک,Malteser,آموزش زبان آلمانی,قوانین,کلاس آلمانی,خبرها,مشاوره,ادغام,اطلاعات "
+    },
+    "prs": {
+      "keywords": "آلمان,کمک,Malteser,آموزش زبان آلمانی,قوانین,کلاس آلمانی,خبرها,مشاوره,ادغام,اطلاعات "
+    },
+    "ru": {
+      "keywords": "Германия,Malteser,Помощь,Изучение немецкого языка,Правила,Курс немецкого языка,Новости,Интеграция"
+    },
+    "sq": {
+      "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
+    },
+    "tr": {
+      "keywords": "Almanya,Malteser,Yardım,Almanca öğrenmek,Kurallar,Almanca kursu,Haberler,Danışmanlık,Entegrasyon"
+    },
+    "ur": {
+      "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
+    }
+  },
+  "common": {
+    "de": {
+      "name": "Malte",
+      "description": "Mit Malte machen wir Ihnen ein digitales Angebot, um immer und überall die neuesten Informationen aus Ihrer Einrichtung zu erhalten! \nMalte liefert Ihnen Hilfe bei: \n - Der Terminvereinbarung bei Ärzten\n - Den Öffnungszeiten der Ämter\n - Nahverkehrsplänen\n - Beratungsangeboten\n - Informationen über Deutschkurse, das Leben in Deutschland, das Leben in der Einrichtung, …\nUnd vieles mehr! \nSei immer informiert, mit Malte! \nDie App funktioniert auch offline ohne mobiles Internet",
+      "defaultReleaseNote": "Wir haben die App weiter für Sie verbessert und einige Fehler entfernt."
+    },
+    "ar": {
+      "name": "Malte",
+      "description": "نُقدِّم لك من خلال تطبيق مالته (Malte) عرضًا رقميًا، كي تتلَّقى أحدث المعلومات من منشأتك دائمًا وحيثما كنتَ! \nيُقدِّم مالته (Malte) المساعدة لك فيما يخص:\n - تحديد موعد لدى الأطباء\n - مواعيد عمل المؤسسات الحكومية\n - جداول مواعيد المواصلات المحلية\n - عروض الاستشارات\n - معلومات حول دورات اللغة الألمانية، والحياة في ألمانيا، والحياة في المنشأة، ...\nوغير ذلك الكثير! \nكنْ دائمًا على اطلاع، مع مالته! \nيعمل التطبيق كذلك دون اتصال الهاتف بالإنترنت",
+      "defaultReleaseNote": "لقد قمنا بتحسين التطبيق وإزالة بعض الأخطاء من أجلك."
+    },
+    "en": {
+      "name": "Malte",
+      "description": "With Malte, you can get all the newest information from your hostel anywhere, at any time, digitally! \nMalte helps you: \n - To arrange a doctor’s appointment\n - To find out the opening hours of the authorities/public offices\n - To find out the local bus/tram/train times\n - To find out about counselling services\n - To find out about German language courses, life in Germany, life in the hostel,...\nAnd much more! \nBe informed, with Malte! \nThe app also works offline without a mobile internet connection",
+      "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. "
+    },
+    "es": {
+      "name": "Malte",
+      "description": "Malte es la app que ayuda a orientarse en los centros para refugiados de Malteser Werke\nMalte es una oferta digital que le permite acceder a la última información de su centro, en cualquier momento y desde cualquier lugar.\nMalte le ayuda a:\n - Pedir cita en el médico\n - Conocer los horarios de apertura de las oficinas públicas\n - Consultar los planes de transporte público\n - Acceder a los servicios de asesoramiento\n - Informarse sobre cursos de alemán, la vida en Alemania, la vida en el centro, etc.\n¡Y mucho más!\n¡Mantente siempre informado con Malte! \nLa app también funciona offline sin Internet móvil",
+      "defaultReleaseNote": "Hemos mejorado aún más la aplicación y eliminado algunos errores. "
+    },
+    "fr": {
+      "name": "Malte",
+      "description": "Avec Malte, nous vous offrons un service numérique vous permettant d’obtenir en permanence et partout les informations les plus récentes de votre établissement ! \nMalte vous fournit une assistance pour :\n - la prise de rendez-vous auprès de médecins\n - les horaires d’ouverture des administrations\n - les plans de desserte locale\n - les offres de conseil\n - les informations sur des cours d’allemand, la vie en Allemagne, la vie dans votre établissement, etc.\nEt bien plus encore ! \nSoyez toujours informé(e) avec Malte ! \nL’appli fonctionne aussi hors connexion sans Internet mobile",
+      "defaultReleaseNote": "Nous avons encore amélioré l'application et supprimé quelques bugs. "
+    },
+    "ka": {
+      "name": "Malte",
+      "description": "მალტეთ გთავაზობთ რომ ყველგან და ყოველთვის გაიგოთ თქვენი დაწესებულების სიახლეების შესახებ! \nმალტე გეხმარებათ:\n ‎ - ექიმებთან ვიზიტის დანიშვნაში\n ‎ - დაწესებულებების მიღების საათების გაგებაში\n ‎ - შიდა ტრანსპორტის გეგმის გაგებაში\n ‎ - გთავაზობთ რჩევებს\n ‎ - გაწვდით ინფორმაციებს გერმანულის კურსებზე, გერმანიაში ცხოვრებაზე, დაწესებულებაში ცხოვრებაზე...\n‎ და ბევრი სხვა \nიყავი მუდამ ინფორმირებული, მალტესთან ერთად! \nაპლიკაცია ფუნქციონირებს აგრეთვე ინტერნეტის გარეშე"
+    },
+    "mk": {
+      "name": "Malte",
+      "description": "Со Malte Ви нудиме дигитална понуда за секогаш и насекаде да ги добивате најновите информации од Вашата установа! \nMalte Ви помага при:\n - Договарањето за термин кај лекари\n - Работните времиња на институциите\n - Планови за локален сообраќај\n - Понуди за советување\n - Информации за курсеви по германски, животот во Германија, животот во установата, …\nИ многу повеќе! \nБиди секогаш информиран, биди Malte! \nАпликацијата функционира и офлајн без мобилен интернет"
+    },
+    "pes": {
+      "name": "Malte",
+      "description": "با Malte ما یک ابزار دیجیتال ارائه می‌کنیم تا همیشه و در همه جا، آخرین اطلاعات مربوط به اقامتگاه خود را دریافت کنید! \nMalte در موارد زیر به شما کمک می‌کند:\n - گرفتن وقت معاینه پزشکی\n - ساعات کار ادارات رسمی\n - نقشه‌های وسایل نقلیه عمومی محلی\n - برنامه‌های مشاوره\n - اطلاعات مربوط به کلاس‌های آلمانی، زندگی در آلمان‏، زندگی در اقامتگاه، ...\nو بسیاری موارد دیگر! \nبا Malte، همیشه مطلع باشید! \nاین اپلیکیشن، به صورت آفلاین و بدون اینترنت تلفن همراه هم کار می‌کند",
+      "defaultReleaseNote": "ما این اپلیکیشن را برای شما باز هم ارتقاء داده ایم و برخی اشکالات را برطرف کرده ایم."
+    },
+    "prs": {
+      "name": "Malte",
+      "description": "با Malte ما یک پیشنهاد دیجیتل برای دریافت آخرین معلومات از مرکز خدماتی خود در هر زمان و هر مکان است! \nMalte می​تواند مساعدت کند تا شما:\n - با داکتران قرار ملاقات بگذارید\n - ساعت کاری ادارات عامه را بدانید\n - پلان​های ترانسپورت محلی را بدانید\n - خدمات مشوره را بدانید\n - معلومات درباره کورس​های جرمنی، زندگی در جرمنی، زندگی در جرمنی، زندگی در مرکز خدماتی، ... را بدانید\nو موارد بسیار بیشتر! \nبا Malte همیشه باخبر باشید! \nاین اپ بدون انترنیت موبایل و آفلاین هم کار می​کند"
+    },
+    "ru": {
+      "name": "Malte",
+      "description": "Malte — это приложение с ознакомительной информацией для учреждений по адаптации беженцев Malteser Werke.\nС помощью Malte вы, находясь в своем учреждении, сможете получать от нас самую свежую информацию в любое время и в любом месте! \nMalte поможет вам:\n - записаться на прием к врачу;\n - узнать часы работы официальных учреждений;\n - узнать расписание общественного транспорта;\n - получить консультацию;\n - получить информацию о курсах немецкого языка, о жизни в Германии, о распорядке в вашем учреждении…\nИ многое другое! \nС Malte вы всегда будете знать всё! \nПриложение может работать в автономном режиме, без мобильного Интернета",
+      "defaultReleaseNote": "Мы оптимизировали это приложение для вас и исправили некоторые ошибки. "
+    },
+    "sq": {
+      "name": "Malte",
+      "description": "Me Malte, ne po ju bëjmë një ofertë dixhitale për të marrë informacionin më të fundit nga godina juaj në çdo kohë dhe kudo!   \nMalte ju vjen në ndihmë me:  \n - Lënia e takimeve me mjekët  \n - Oraret e hapjes së zyrave  \n - Planet lokale të transportit  \n - Oferta për konsulencë  \n - Informacione në lidhje me kurset e gjuhës gjermane, jetën në Gjermani, jetën në godinë, ...  \nDhe shumë më tepër!   \nInformohu gjithmonë, me Malte!   \nAplikacioni gjithashtu funksionon edhe jashtë linje pa internet celular  "
+    },
+    "tr": {
+      "name": "Malte",
+      "description": "Malte ile tesisinizden en son bilgileri her zaman, her yerde alabilmeniz için size dijital bir teklif sunuyoruz! \nMalte size şu konularda yardımcı olur:\n - Doktorlardan randevu alınması\n - Büroların çalışma saatleri\n - Yerel ulaşım planları\n - Danışmanlık teklifleri\n - Almanca kursları, Almanya'da yaşam ve tesiste yaşamla ilgili bilgiler, ...\nVe çok daha fazlası! \nMalte ile her zaman haberdar olun! \nUygulama mobil İnternet olmadan, çevrimdışı da çalışır",
+      "defaultReleaseNote": "Uygulamayı sizin için daha da iyileştirdik ve bazı hataları giderdik. "
+    },
+    "ur": {
+      "name": "Malte",
+      "description": "Malte پر ہم آپ کو کبھی بھی، کہیں بھی اپنے ادارے سے تازہ ترین معلومات حاصل کرنے کی ڈیجیٹل پیش کش کرتے ہیں!\nMalte درج ذیل کاموں میں آپ کی مدد کر سکتی ہے:\n - ڈاکٹرز سے اپائنٹمنٹ لینا\n  - عوامی دفاتر کے اوقات کار\n - عوامی ذرائع نقل و حمل کے شیڈول\n - مشاورتی خدمات\n - جرمن کورسز، جرمنی میں زندگی، ادارے میں زندگی وغیرہ کے متعلق معلومات، …\nاور بہت کچھ!\nMalte کے ساتھ ہمیشہ آگاہ رہیں!\nیہ ایپ موبائل انٹرنیٹ کے بغیر آف لائن بھی چلتی ہے"
+    }
+  },
+  "playstore": {
+    "de": {
+      "short_description": "Malte ist die Orientierungs-App für Flüchtlingseinrichtungen der Malteser Werke"
+    },
+    "ar": {
+      "short_description": "مالته (Malte) هو التطبيق التوجيهيّ لمنشآت اللاجئين التابعة لجمعيات مالتيزر "
+    },
+    "en": {
+      "short_description": "Malte is the orientation app for refugee hostels run by the Malteser Werke"
+    },
+    "es": {
+      "short_description": "Malte es la app que ayuda a orientarse en los centros para refugiados"
+    },
+    "fr": {
+      "short_description": "Malte est l’appli d’orientation des établissements pour réfugiés du Malteser"
+    },
+    "ka": {
+      "short_description": "მალტე ლტოლვილთა თავშესაფრების საორიენტაციო აპლიკაციაა მალტეზერებისაგან"
+    },
+    "mk": {
+      "short_description": "Malte е апликацијата за ориентирање за установи за прифаќање на бегалците на"
+    },
+    "pes": {
+      "short_description": "Malte اپلیکیشن آشنایی برای مراکز اقامت پناهندگان Malteser Werke است"
+    },
+    "prs": {
+      "short_description": "Malte یک اپ معرفی برای خدمات پناهنده گان Malteser Werke است"
+    },
+    "ru": {
+      "short_description": "Malte доставляет местную информацию прямо к вашему дому"
+    },
+    "sq": {
+      "short_description": "Malte është aplikacioni orientues për godinat e refugjatëve të Malteser Werke  "
+    },
+    "tr": {
+      "short_description": "Malte, Malteser Werke'nin mülteci tesisleri için oryantasyon uygulamasıdır"
+    },
+    "ur": {
+      "short_description": "Malte‏، Malteser Werke کے ہجرت کے اداروں کی واقفیت کی ایپ ہے"
+    }
+  },
+  "screenshots": {
+    "de": {
+      "placeholder_key": "Malte bietet Ihnen lokale Informationen zu Ihrem Standort"
+    },
+    "ar": {
+      "placeholder_key": "يُقدِّم لك تطبيق مالته (Malte) معلوماتٍ محلية حول موقعك"
+    },
+    "en": {
+      "placeholder_key": "Malte offers you local information about your location"
+    },
+    "es": {
+      "placeholder_key": "Malte le ofrece información local de su centro"
+    },
+    "fr": {
+      "placeholder_key": "Malte vous fournit des informations locales concernant votre localité"
+    },
+    "ka": {
+      "placeholder_key": "მალტე გთავაზობთ ინფორმაციებს თქვენს ადგილსამყოფელთან დაკავშირებით"
+    },
+    "mk": {
+      "placeholder_key": "Malte Ви нуди локални информации за Вашата локација"
+    },
+    "pes": {
+      "placeholder_key": "Malte برای شما اطلاعات محلی مربوط به محل سکونت‌تان را ارائه می‌کند"
+    },
+    "prs": {
+      "placeholder_key": "Malte به شما از محلتان معلومات محلی می​دهد"
+    },
+    "ru": {
+      "placeholder_key": "Malte доставляет местную информацию прямо к вашему дому"
+    },
+    "sq": {
+      "placeholder_key": "Malte ju ofron informacione lokale në lidhje me vendndodhjen tuaj  "
+    },
+    "tr": {
+      "placeholder_key": "Malte size konumunuzla ilgili yerel bilgiler sunar"
+    },
+    "ur": {
+      "placeholder_key": "Malte آپ کے مقام کے متعلق مقامی معلومات فراہم کرتی ہے"
+    }
+  }
+}
