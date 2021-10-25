@@ -59,7 +59,10 @@ const CollapsibleItem: React.FC<CollapsibleItemProps> = ({
   const iconName: CollapsibleHeaderIconProps = isExpanded ? 'expand-less' : 'expand-more'
   return (
     <PageContainer>
-      <Collapse isExpanded={isExpanded} onToggle={() => setIsExpanded(!isExpanded)}>
+      <Collapse
+        isExpanded={isExpanded}
+        onToggle={() => setIsExpanded(!isExpanded)}
+        touchableOpacityProps={{ activeOpacity: 1 }}>
         <CollapseHeader style={{ flexDirection: 'row' }}>
           <CollapseHeaderWrapper language={language}>
             <CollapseHeaderText>{headerText}</CollapseHeaderText>
