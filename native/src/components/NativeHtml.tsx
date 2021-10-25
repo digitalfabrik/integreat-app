@@ -12,7 +12,7 @@ type PropsType = {
   language: string
   content: string
   cacheDictionary?: Record<string, string>
-  navigateToLink?: (url: string, language: string, shareUrl: string) => void
+  navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
 const NativeHtml = React.memo(
@@ -24,9 +24,7 @@ const NativeHtml = React.memo(
         const shareUrl = cacheDictionary
           ? Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
           : undefined
-        if (navigateToLink) {
-          navigateToLink(url, language, shareUrl || url)
-        }
+        navigateToLink(url, language, shareUrl || url)
       },
       [cacheDictionary, navigateToLink, language]
     )

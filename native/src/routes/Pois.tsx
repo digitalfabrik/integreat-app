@@ -65,7 +65,16 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 
-const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
+const Pois = ({
+  pois,
+  language,
+  path,
+  cityModel,
+  navigateTo,
+  navigateToFeedback,
+  route,
+  navigateToLink
+}: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
@@ -119,6 +128,16 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
     )
   }
 
+  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
+    navigateToFeedback({
+      routeType: POIS_ROUTE,
+      language,
+      path: poi.path,
+      cityCode: cityModel.code,
+      isPositiveFeedback
+    })
+  }
+
   const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: POIS_ROUTE,
@@ -143,10 +162,11 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             feature={feature}
             detailPage
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+            navigateToLink={navigateToLink}
           />
           <SiteHelpfulBox
             backgroundColor={theme.colors.backgroundColor}
-            navigateToFeedback={navigateToFeedbackForPois}
+            navigateToFeedback={createNavigateToFeedbackForPoi(poi)}
             theme={theme}
           />
         </ScrollView>
@@ -190,6 +210,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             feature={selectedFeature}
             detailPage={false}
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+            navigateToLink={navigateToLink}
           />
         ) : (
           <List
