@@ -74,9 +74,16 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     this.scaledTranslateY = Animated.divide(this.translateY, this.scale)
 
     const { uri } = props
-    Image.getSize(uri, (width, height) => {
-      this.setState({ imageDimensions: { width, height } })
-    })
+    Image.getSize(
+      uri,
+      (width, height) => {
+        this.setState({ imageDimensions: { width, height } })
+      },
+      (error: any) => {
+        const { onError } = this.props
+        onError(error)
+      }
+    )
   }
 
   private onPinchHandlerStateChange = (event: PinchGestureHandlerStateChangeEvent) => {
