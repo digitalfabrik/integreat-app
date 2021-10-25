@@ -17,7 +17,7 @@ import SpaceBetween from './SpaceBetween'
 import TimeStamp from './TimeStamp'
 
 const Container = styled.View`
-  padding: 0 ${dimensions.page.horizontalMargin}px 8px;
+  margin: 0 ${dimensions.page.horizontalMargin}px 8px;
 `
 export type ParsedCacheDictionaryType = Record<string, string>
 type PropsType = {
