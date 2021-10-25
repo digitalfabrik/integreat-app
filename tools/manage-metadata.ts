@@ -61,7 +61,7 @@ const formatNotes = (params: {
 
   const formattedNotes = notes
     .map(note => {
-      const localizedNote = note.de ?? note.en
+      const localizedNote = language === 'en' || !note.de ? note.en : note.de
       // Double quotes make mattermost status alerts fail
       const escapedNote = localizedNote.replace(/"/g, "'")
       return production ? `* ${escapedNote}` : `* [ ${note.issue_key} ] ${escapedNote}`
