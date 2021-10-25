@@ -3,7 +3,7 @@ import distance from '@turf/distance'
 import { Feature } from 'geojson'
 import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
