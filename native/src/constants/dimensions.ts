@@ -16,6 +16,9 @@ export type DimensionsType = {
   locationFab: {
     margin: number
   }
+  page: {
+    horizontalMargin: number
+  }
 }
 const dimensions: DimensionsType = {
   headerHeight: 60,
@@ -31,6 +34,9 @@ const dimensions: DimensionsType = {
   },
   locationFab: {
     margin: 8
+  },
+  page: {
+    horizontalMargin: 8
   }
 }
 export default dimensions
