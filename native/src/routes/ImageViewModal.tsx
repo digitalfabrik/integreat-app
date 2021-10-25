@@ -16,7 +16,7 @@ type PropsType = {
 const ImageViewModal = ({ route }: PropsType): ReactElement => {
   const [isError, setError] = useState(false)
   const theme = useContext(ThemeContext)
-  const { t } = useTranslation('dashboard')
+  const { t } = useTranslation('error')
 
   if (isError) {
     return <Text>{t('imageLoadingFailed')}</Text>
