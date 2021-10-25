@@ -74,7 +74,8 @@ describe('convertToPoint', () => {
       symbol: '9',
       thumbnail: 'thumbnail',
       path: '/augsburg/de/locations/erster_poi',
-      urlSlug
+      urlSlug,
+      address: 'Wertachstr. 29'
     }
   }
   it('should be transformed to GeoJson type', () => {

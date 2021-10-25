@@ -1,12 +1,50 @@
 import { Position } from 'geojson'
 import React, { ReactElement } from 'react'
-import { Popup } from 'react-map-gl'
 import styled from 'styled-components'
 
 import { GeoJsonPoiProperties } from 'api-client'
 
-const StyledPopup = styled(Popup)`
-  width: 250px;
+import CleanLink from './CleanLink'
+
+const Popup = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  bottom: 0px;
+  margin: 0 5% 5% 5%;
+  width: 90%;
+  height: 12vh;
+  border-radius: 8px;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+`
+
+const TextContainer = styled.div`
+  padding: 5px;
+`
+
+const PopupTitle = styled.h2`
+  font-size: ${props => props.theme.fonts.decorativeFontSize};
+`
+
+const PopupText = styled.p`
+  font-size: ${props => props.theme.fonts.contentFontSize};
+`
+
+const PopupThumbnail = styled.img`
+  height: 10vh;
+  border-radius: 8px;
+  padding: 0 5px;
+`
+
+const Placeholder = styled.div`
+  height: 10vh;
+  width: 10vh;
+  border-radius: 8px;
+  margin: 0 5px;
+  background-color: ${props => props.theme.colors.textDisabledColor};
 `
 
 type MapPopupProps = {
@@ -15,18 +53,21 @@ type MapPopupProps = {
 }
 
 const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement => {
-  const { coordinates, properties } = props
+  const {
+    properties: { distance, address, thumbnail, title, path }
+  } = props
+
   return (
-    <StyledPopup
-      longitude={coordinates[0]!}
-      latitude={coordinates[1]!}
-      closeButton={false}
-      closeOnClick={false}
-      anchor='bottom'>
-      <div>
-        <strong>{properties.title}</strong>
-      </div>
-    </StyledPopup>
+    <CleanLink to={path}>
+      <Popup>
+        {thumbnail !== 'null' ? <PopupThumbnail src={thumbnail} /> : <Placeholder />}
+        <TextContainer>
+          <PopupTitle>{title}</PopupTitle>
+          <PopupText>{address}</PopupText>
+          <PopupText>{distance}</PopupText>
+        </TextContainer>
+      </Popup>
+    </CleanLink>
   )
 }
 
