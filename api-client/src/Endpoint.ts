@@ -59,6 +59,15 @@ class Endpoint<P, T> {
         }
 
     const response = await fetch(url, requestOptions).catch((e: Error) => {
+      // TODO IGAPP-809: Remove again
+      // eslint-disable-next-line no-console
+      console.debug('An error occurred while fetching from ', url, ' with method ', requestOptions.method)
+      if (requestOptions.method === 'POST') {
+        // TODO IGAPP-809: Remove again
+        // eslint-disable-next-line no-console
+        console.debug(' and body ', requestOptions.body)
+      }
+
       throw new FetchError({
         endpointName: this.stateName,
         innerError: e
@@ -75,6 +84,15 @@ class Endpoint<P, T> {
     }
 
     const json = await response.json().catch(e => {
+      // TODO IGAPP-809: Remove again
+      // eslint-disable-next-line no-console
+      console.debug('An error occurred while fetching from ', url, ' with method ', requestOptions.method)
+      if (requestOptions.method === 'POST') {
+        // TODO IGAPP-809: Remove again
+        // eslint-disable-next-line no-console
+        console.debug(' and body ', requestOptions.body)
+      }
+
       throw new FetchError({
         endpointName: this.stateName,
         innerError: e
