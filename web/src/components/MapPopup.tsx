@@ -38,6 +38,14 @@ const PopupThumbnail = styled.img`
   padding: 0 5px;
 `
 
+const Placeholder = styled.div`
+  height: 10vh;
+  width: 10vh;
+  border-radius: 8px;
+  margin: 0 5px;
+  background-color: ${props => props.theme.colors.textDisabledColor}
+`
+
 type MapPopupProps = {
   coordinates: Position
   properties: GeoJsonPoiProperties
@@ -48,12 +56,10 @@ const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement =
     properties: { distance, address, thumbnail, title, path }
   } = props
 
-
-
   return (
     <CleanLink to={path}>
     <Popup>
-      {thumbnail !== 'null' && <PopupThumbnail src={thumbnail} />}
+      {thumbnail !== 'null' ? <PopupThumbnail src={thumbnail} /> : <Placeholder />}
       <TextContainer>
         <PopupTitle>{title}</PopupTitle>
         <PopupText>{address}</PopupText>
