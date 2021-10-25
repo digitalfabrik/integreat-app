@@ -622,7 +622,8 @@
       "generalError": "Ein Fehler ist aufgetreten",
       "notSupportedByDevice": "Diese Funktion wird auf diesem Gerät nicht unterstützt.",
       "languageSwitchFailedTitle": "Leider ist der Sprachwechsel fehlgeschlagen.",
-      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig."
+      "languageSwitchFailedMessage": "Die ausgewählte Sprache ist nicht offline verfügbar. Eine aktive Internetverbinding ist notwendig.",
+      "imageLoadingFailed": "Leider ist das Laden des Bildes fehlgeschlagen."
     },
     "am": {
       "notFound": {
@@ -826,7 +827,8 @@
       "pageTitle": "Error",
       "generalError": "An error occurred",
       "languageSwitchFailedTitle": "Unfortunately, changing the language failed.",
-      "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required."
+      "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required.",
+      "imageLoadingFailed": "Unfortunately, an error occurred while loading this image."
     },
     "es": {
       "notFound": {
