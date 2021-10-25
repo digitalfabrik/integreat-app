@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Animated, Dimensions, Image, View } from 'react-native'
+import { Animated, Dimensions, Image, ImageErrorEventData, NativeSyntheticEvent, View } from 'react-native'
 import {
   PanGestureHandler,
   PinchGestureHandler,
@@ -14,6 +14,10 @@ const USE_NATIVE_DRIVER = true
 
 type PropsType = {
   uri: string
+  /**
+   * @param error Error returned by react native of type any
+   */
+  onError: (error: any) => void
 }
 
 type StateType = {
@@ -92,6 +96,10 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
         })
       }
     }
+  }
+
+  private onImageLoadError = (error: NativeSyntheticEvent<ImageErrorEventData>) => {
+    this.props.onError(error.nativeEvent.error)
   }
 
   private onPanHandlerStateChange = (
@@ -227,8 +235,8 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
                     ]
                   }
                 ]}
+                onError={this.onImageLoadError}
                 resizeMode='stretch'
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 source={{
                   uri
                 }}
