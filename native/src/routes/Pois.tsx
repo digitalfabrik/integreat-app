@@ -3,7 +3,7 @@ import distance from '@turf/distance'
 import { Feature } from 'geojson'
 import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -184,7 +184,7 @@ const Pois = ({
 
     if (poi && feature) {
       return (
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <PoiDetails
             language={language}
             poi={poi}
@@ -214,7 +214,7 @@ const Pois = ({
   const poi = sortedPois.find(_poi => _poi.path === selectedFeature?.properties.path)
 
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       {cityModel.boundingBox && (
         <MapView
           onPoiPress={onPoiPress}
