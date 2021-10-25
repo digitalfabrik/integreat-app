@@ -4,5 +4,5 @@ platforms: # relevant platforms, possible values: web, android and ios
   - <platform1>
   - <platform2>
 en: <your note> # english version of the note
-# optional: the note in other languages:
+# de is required for notes with show_in_stores set to true
 de: <your german note> # german version of the note
