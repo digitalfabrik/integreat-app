@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { ReactElement, useState } from 'react'
-import { View, Image, Text } from 'react-native'
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withTheme from '../hocs/withTheme'
-import { ThemeType } from 'build-configs'
+import { ReactElement, useContext, useState } from 'react'
+import { View, Text } from 'react-native'
+import { ThemeContext } from 'styled-components'
+
 import { ImageViewModalRouteType } from 'api-client'
+
 import PinchableBox from '../components/PinchableBox'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 
 type PropsType = {
   route: RoutePropType<ImageViewModalRouteType>
@@ -23,9 +24,10 @@ const ImageViewModal = ({ route }: PropsType): ReactElement => {
     <View
       style={{
         flex: 1,
-        backgroundColor: props.theme.colors.backgroundAccentColor
+        justifyContent: 'center',
+        backgroundColor: theme.colors.backgroundAccentColor
       }}>
-      <PinchableBox />
+      <PinchableBox uri='https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Emperor-call_hg.jpg/180px-Emperor-call_hg.jpg' />
     </View>
   )
 }
