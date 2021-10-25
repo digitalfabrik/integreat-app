@@ -34,7 +34,7 @@ _Make sure that `sourceMap` is set to true in the `tsconfig.json`_
 
 #### Run the App in production mode
 
-- Create a release build with `yarn build ----env.dev_server`
+- Create a release build with `yarn build --env dev_server`
 - Launch http-server in /web/dist/integreat by running `python3 -m http.server`
 - See results on [localhost:8000](http://localhost:8000)
 - Note: Steps for other build configs differ accordingly
