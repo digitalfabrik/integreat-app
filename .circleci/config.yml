@@ -905,90 +905,30 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                delivery: none
-            - check:
-                context:
-                    - mattermost
-            - e2e_web:
-                context:
-                    - mattermost
-                requires:
-                    - bump_version
-                    - check
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-                    - check
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-                    - check
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-                    - check
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_web
-                    - build_ig_test_cms_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-            - build_android:
-                build_config_name: integreat-e2e
+            - promote_android:
+                build_config_name: integreat
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
-                name: build_e2e_android
-                requires:
-                    - bump_version
-                    - check
-            - e2e_android:
+                name: promote_integreat_android
+            - promote_android:
+                build_config_name: malte
                 context:
                     - mattermost
-                    - browserstack
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
+                    - tuerantuer-google-play
+                name: promote_malte_android
+            - promote_ios:
+                build_config_name: integreat
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-                    - check
-            - e2e_ios:
+                name: promote_integreat_ios
+            - promote_ios:
+                build_config_name: malte
                 context:
                     - mattermost
-                    - browserstack
-                requires:
-                    - build_e2e_ios
+                    - tuerantuer-apple
+                name: promote_malte_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_delivery:
         jobs:
