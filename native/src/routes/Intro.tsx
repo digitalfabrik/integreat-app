@@ -118,14 +118,11 @@ const Intro = ({ route, navigation }: PropsType): ReactElement => {
     }
   }, [dispatch, language, navigation, deepLink])
 
-  const goToSlide = useCallback(
-    (index: number) => {
-      flatListRef.current?.scrollToIndex({
-        index
-      })
-    },
-    [flatListRef]
-  )
+  const goToSlide = useCallback((index: number) => {
+    flatListRef.current?.scrollToIndex({
+      index
+    })
+  }, [])
 
   const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} theme={theme} width={width} />
 
