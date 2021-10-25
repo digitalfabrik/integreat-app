@@ -1,9 +1,7 @@
-import MapboxGL from '@react-native-mapbox-gl/maps'
 import distance from '@turf/distance'
-import { Feature } from 'geojson'
-import React, { ReactElement, ReactNode, RefObject, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -148,29 +146,10 @@ const Pois = ({
       isPositiveFeedback
     })
   }
-  const onPoiPress = async (
-    pressedLocation: Feature,
-    featureLayerId: string,
-    mapRef: RefObject<MapboxGL.MapView | null>,
-    cameraRef: RefObject<MapboxGL.Camera | null>
-  ) => {
-    if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
-      return
-    }
-    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-      undefined,
-      [featureLayerId]
-    )
-    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
+  const selectPoiFeature = (feature: PoiFeature | null) => {
     if (feature) {
-      const {
-        geometry: { coordinates }
-      } = feature
       setSelectedFeature(feature)
       setSheetSnapPointIndex(1)
-
-      cameraRef.current.flyTo(coordinates)
     } else {
       setSelectedFeature(null)
     }
@@ -217,7 +196,7 @@ const Pois = ({
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       {cityModel.boundingBox && (
         <MapView
-          onPoiPress={onPoiPress}
+          selectPoiFeature={selectPoiFeature}
           boundingBox={cityModel.boundingBox}
           featureCollection={embedInCollection(featureLocations)}
           selectedFeature={selectedFeature}

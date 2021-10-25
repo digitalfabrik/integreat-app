@@ -1,6 +1,6 @@
 import MapboxGL, { CameraSettings, MapboxGLEvent, SymbolLayerProps } from '@react-native-mapbox-gl/maps'
 import type { BBox, Feature } from 'geojson'
-import React, { ReactElement, RefObject, useCallback, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -28,12 +28,7 @@ type MapViewPropsType = {
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
-  onPoiPress: (
-    pressedLocation: Feature,
-    layer: string,
-    mapRef: RefObject<MapboxGL.MapView | null>,
-    camRef: RefObject<MapboxGL.Camera | null>
-  ) => void
+  selectPoiFeature: (feature: PoiFeature | null) => void
 }
 
 const textOffsetY = 1.25
@@ -48,7 +43,7 @@ const MapView = ({
   fabPosition,
   onRequestLocationPermission,
   locationPermissionGranted,
-  onPoiPress
+  selectPoiFeature
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
@@ -97,12 +92,34 @@ const MapView = ({
   const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
 
+  const onPress = async (pressedLocation: Feature) => {
+    if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
+      return
+    }
+    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
+      undefined,
+      [featureLayerId]
+    )
+    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
+
+    if (feature) {
+      const {
+        geometry: { coordinates }
+      } = feature
+      selectPoiFeature(feature)
+      cameraRef.current.flyTo(coordinates)
+    } else {
+      selectPoiFeature(null)
+    }
+  }
+
   return (
     <MapContainer>
       <StyledMap
         styleJSON={mapConfig.styleJSON}
         zoomEnabled
-        onPress={pressedLocation => onPoiPress(pressedLocation, featureLayerId, mapRef, cameraRef)}
+        onPress={onPress}
         ref={mapRef}
         attributionEnabled={false}
         logoEnabled={false}>
