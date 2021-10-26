@@ -8,6 +8,9 @@
     <% if (config.manifestUrl) { %>
         <link rel="manifest" href="<%= config.manifestUrl %>">
     <% } %>
+    <!-- Prevent index.html to be cached at all for code splitting issues -->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= config.appName %>">
