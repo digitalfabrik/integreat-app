@@ -131,7 +131,8 @@ class LocationModel {
         symbol: '9',
         thumbnail,
         path,
-        urlSlug
+        urlSlug,
+        address: this.address ?? undefined
       }
     }
   }
