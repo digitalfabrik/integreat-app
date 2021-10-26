@@ -65,18 +65,7 @@ const SettingItem = (props: PropType): ReactElement => {
           )}
         </ContentContainer>
         <RightContentContainer>
-          {hasSwitch && (
-            // <Switch
-            //   thumbColor={theme.colors.themeColor}
-            //   trackColor={{
-            //     true: theme.colors.themeColor,
-            //     false: theme.colors.textSecondaryColor
-            //   }}
-            //   value={value}
-            //   onValueChange={onPress}
-            // />
-            <SettingsSwitch theme={theme} value={value} onPress={onPress} />
-          )}
+          {hasSwitch && <SettingsSwitch theme={theme} value={value} onPress={onPress} />}
           {hasBadge && (
             <View
               style={{
