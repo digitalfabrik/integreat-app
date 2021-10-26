@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { createPOIsEndpoint, PoiModel } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log, logError } from '../utils/helpers'
+import { determineApiUrl, log, reportError } from '../utils/helpers'
 
 function* loadPois(
   city: string,
@@ -20,7 +20,7 @@ function* loadPois(
       return yield* call(dataContainer.getPois, city, language)
     } catch (e) {
       log('An error occurred while loading pois from JSON', 'error')
-      logError(e)
+      reportError(e)
     }
   }
 

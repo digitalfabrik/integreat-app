@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { createEventsEndpoint, EventModel } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log, logError } from '../utils/helpers'
+import { determineApiUrl, log, reportError } from '../utils/helpers'
 
 function* loadEvents(
   city: string,
@@ -20,7 +20,7 @@ function* loadEvents(
       return yield* call(dataContainer.getEvents, city, language)
     } catch (e) {
       log('An error occurred while loading events from JSON', 'error')
-      logError(e)
+      reportError(e)
     }
   }
 

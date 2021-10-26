@@ -11,7 +11,7 @@ import {
   PushNewsActionType
 } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
-import { logError } from '../utils/helpers'
+import { reportError } from '../utils/helpers'
 import loadLanguages from './loadLanguages'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
@@ -72,7 +72,7 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
       yield* put(failed)
     }
   } catch (e) {
-    logError(e)
+    reportError(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
       params: {
@@ -117,7 +117,7 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
     }
     yield* put(insert)
   } catch (e) {
-    logError(e)
+    reportError(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
       params: {

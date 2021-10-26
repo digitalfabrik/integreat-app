@@ -1,7 +1,7 @@
 import messaging from '@react-native-firebase/messaging'
 
 import buildConfig from '../constants/buildConfig'
-import { log, logError } from './helpers'
+import { log, reportError } from './helpers'
 
 const pushNotificationsDisabled = (): boolean => !buildConfig().featureFlags.pushNotifications
 
@@ -30,7 +30,7 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   try {
     await messaging().unsubscribeFromTopic(topic)
   } catch (e) {
-    logError(e)
+    reportError(e)
   }
   log(`Unsubscribed from ${topic} topic!`)
 }
@@ -45,7 +45,7 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   try {
     await messaging().subscribeToTopic(topic)
   } catch (e) {
-    logError(e)
+    reportError(e)
   }
   log(`Subscribed to ${topic} topic!`)
 }

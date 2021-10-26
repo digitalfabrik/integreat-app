@@ -23,7 +23,7 @@ import {
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import { deleteIfExists, log, logError } from './helpers'
+import { deleteIfExists, log, reportError } from './helpers'
 
 export const CONTENT_VERSION = 'v1'
 export const RESOURCE_CACHE_VERSION = 'v1'
@@ -261,7 +261,7 @@ class DatabaseConnector {
         }))
       } catch (e) {
         log('An error occurred while loading cities from JSON', 'warning')
-        logError(e)
+        reportError(e)
       }
     }
 

@@ -7,7 +7,7 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { createFetchMap } from '../../testing/builder/util'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import FetcherModule from '../../utils/FetcherModule'
-import { log, logError } from '../../utils/helpers'
+import { log, reportError } from '../../utils/helpers'
 import fetchResourceCache from '../fetchResourceCache'
 
 jest.mock('../../utils/helpers')
@@ -48,7 +48,7 @@ describe('fetchResourceCache', () => {
                                          FetcherModule mock produced an error for it */
     )
     expect(log).toHaveBeenCalledWith(expect.stringContaining('Failed to download'))
-    expect(logError).not.toHaveBeenCalled()
+    expect(reportError).not.toHaveBeenCalled()
   })
 
   it('should put error if fetching fails', async () => {
@@ -65,6 +65,6 @@ describe('fetchResourceCache', () => {
         }
       })
       .run()
-    expect(logError).toHaveBeenCalledTimes(1)
+    expect(reportError).toHaveBeenCalledTimes(1)
   })
 })

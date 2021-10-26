@@ -11,7 +11,7 @@ import {
 } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
-import { logError } from '../utils/helpers'
+import { reportError } from '../utils/helpers'
 import loadCityContent from './loadCityContent'
 
 /**
@@ -86,7 +86,7 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
       yield* put(failedAction)
     }
   } catch (e) {
-    logError(e)
+    reportError(e)
     const failed: FetchCategoryFailedActionType = {
       type: 'FETCH_CATEGORY_FAILED',
       params: {

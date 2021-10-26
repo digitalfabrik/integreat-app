@@ -60,7 +60,7 @@ export const log = (message: string, level = 'debug'): void => {
   }
 }
 
-export const logError = (err: Error): void => {
+export const reportError = (err: Error): void => {
   if (!(err instanceof NotFoundError) && !(err instanceof FetchError) && sentryEnabled()) {
     // Report important errors if sentry is enabled (and skip e.g. errors because of no invalid internet connection)
     Sentry.captureException(err)

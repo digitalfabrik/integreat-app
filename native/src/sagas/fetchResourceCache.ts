@@ -8,7 +8,7 @@ import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
 import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
-import { log, logError } from '../utils/helpers'
+import { log, reportError } from '../utils/helpers'
 
 export type FetchMapTargetType = {
   url: string
@@ -101,7 +101,7 @@ export default function* fetchResourceCache(
     )
     yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
-    logError(e)
+    reportError(e)
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',
       params: {

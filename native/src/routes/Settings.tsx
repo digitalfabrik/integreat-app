@@ -15,7 +15,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
-import { logError } from '../utils/helpers'
+import { reportError } from '../utils/helpers'
 
 export type PropsType = {
   theme: ThemeType
@@ -51,7 +51,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
       appSettings
         .loadSettings()
         .then(settings => setSettings(settings))
-        .catch(e => logError(e))
+        .catch(e => reportError(e))
     }, [])
   )
 
@@ -74,7 +74,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
       await appSettings.setSettings(newSettings)
     } catch (e) {
-      logError(e)
+      reportError(e)
       setSettings(oldSettings)
     }
   }

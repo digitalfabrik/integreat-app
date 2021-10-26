@@ -5,7 +5,7 @@ import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_N
 
 import buildConfig from '../../constants/buildConfig'
 import AppSettings from '../AppSettings'
-import { logError } from '../helpers'
+import { reportError } from '../helpers'
 import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
 
 jest.mock('../helpers')
@@ -159,8 +159,8 @@ describe('sendTrackingSignal', () => {
       await sendRequest(signal)
       const offlineSignals = await appSettings.clearJpalSignals()
       expect(offlineSignals).toEqual([])
-      expect(logError).toHaveBeenCalledTimes(1)
-      expect(logError).toHaveBeenCalledWith(error)
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 

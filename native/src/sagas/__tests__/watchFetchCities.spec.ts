@@ -6,7 +6,7 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchCitiesActionType } from '../../redux/StoreActionType'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { logError } from '../../utils/helpers'
+import { reportError } from '../../utils/helpers'
 import loadCities from '../loadCities'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
 
@@ -39,7 +39,7 @@ describe('watchFetchCities', () => {
           }
         })
         .run()
-      expect(logError).not.toHaveBeenCalled()
+      expect(reportError).not.toHaveBeenCalled()
     })
 
     it('should put an error action', async () => {
@@ -70,14 +70,14 @@ describe('watchFetchCities', () => {
           }
         })
         .run()
-      expect(logError).toHaveBeenCalledTimes(1)
-      expect(logError).toHaveBeenCalledWith(error)
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetchCities when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     await testSaga(watchFetchCities, dataContainer).next().takeLatest('FETCH_CITIES', fetchCities, dataContainer)
-    expect(logError).not.toHaveBeenCalled()
+    expect(reportError).not.toHaveBeenCalled()
   })
 })

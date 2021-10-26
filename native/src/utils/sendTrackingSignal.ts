@@ -4,7 +4,7 @@ import { createTrackingEndpoint, ErrorCode, fromError, SpecificSignalType, Signa
 
 import buildConfig from '../constants/buildConfig'
 import AppSettings from './AppSettings'
-import { logError } from './helpers'
+import { reportError } from './helpers'
 
 let systemLanguage: string | null = null
 export const setSystemLanguage = (language: string): void => {
@@ -24,7 +24,7 @@ export const sendRequest = async (signal: SignalType): Promise<void> => {
       // Offline usage, save signal to be sent later
       await appSettings.pushJpalSignal({ ...signal, offline: true })
     } else {
-      logError(e)
+      reportError(e)
     }
   }
 }
@@ -58,7 +58,7 @@ const sendTrackingSignal = async ({
       await sendRequest(signal)
     }
   } catch (e) {
-    logError(e)
+    reportError(e)
   }
 }
 

@@ -13,7 +13,7 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import { SetContentLanguageActionType } from '../redux/StoreActionType'
 import AppSettings from '../utils/AppSettings'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
-import { logError } from '../utils/helpers'
+import { reportError } from '../utils/helpers'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
 
 type PropsType = {
@@ -66,14 +66,14 @@ export default ({ children }: PropsType): ReactElement | null => {
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
       const matchedLanguage = i18nextInstance.languages[0]!
-      await setContentLanguage(matchedLanguage).catch(e => logError(e))
+      await setContentLanguage(matchedLanguage).catch(e => reportError(e))
       setSystemLanguage(matchedLanguage)
       setI18nextInstance(i18nextInstance)
     }
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      logError(e)
+      reportError(e)
     })
   }, [setContentLanguage])
 
