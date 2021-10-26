@@ -13,6 +13,9 @@ import {
   UNRELEASED_DIR // @ts-ignore
 } from './constants'
 
+const loadStoreTranslations = (appName: string) =>
+  JSON.parse(fs.readFileSync(`../translations/store-translations/${appName}.json`, 'utf-8'))
+
 // Release notes
 type Platform = 'ios' | 'android' | 'web'
 type NoteType = {
@@ -30,33 +33,41 @@ type ParseProgramType = {
   web: boolean
   language: string
   production: boolean
+  appName?: string
 }
 const MAX_RELEASE_NOTES_LENGTH = 500
 const DEFAULT_NOTES_LANGUAGE = 'de'
 
-const DEFAULT_NOTES = {
-  en:
-    'We’ve been working hard behind the scenes to make sure everything is working as it should. If you notice anything that does not work, let us know!\n',
-  de:
-    'Wir haben hinter den Kulissen hart gearbeitet, um sicherzustellen, dass alles so funktioniert, wie es soll. Wenn Sie bemerken, dass etwas nicht funktioniert, lassen Sie es uns wissen!\n'
+const prepareDefaultReleaseNote = (language: string, production: boolean, appName?: string): string => {
+  if (!production) {
+    return ''
+  }
+  if (!appName) {
+    throw new Error('No app name supplied while preparing notes for production!')
+  }
+  const common = loadStoreTranslations(appName).common
+  return common[language]?.defaultReleaseNote ?? common[DEFAULT_NOTES_LANGUAGE].defaultReleaseNote
 }
 
-const formatNotes = (params: { notes: NoteType[]; language: string; production: boolean; platformName?: string }) => {
-  const { notes, language, production, platformName } = params
-  const noteLanguage = language === 'de' || language === 'en' ? language : DEFAULT_NOTES_LANGUAGE
-  const defaultNote = production ? DEFAULT_NOTES[noteLanguage] : ''
-  if (notes.length === 0) {
-    return defaultNote
-  }
+const formatNotes = (params: {
+  notes: NoteType[]
+  language: string
+  production: boolean
+  platformName?: string
+  appName?: string
+}) => {
+  const { notes, language, production, platformName, appName } = params
+  const defaultReleaseNote = prepareDefaultReleaseNote(language, production, appName)
 
   const formattedNotes = notes
     .map(note => {
-      const localizedNote = note[noteLanguage] ?? note.en
+      const localizedNote = note.de ?? note.en
       // Double quotes make mattermost status alerts fail
       const escapedNote = localizedNote.replace(/"/g, "'")
       return production ? `* ${escapedNote}` : `* [ ${note.issue_key} ] ${escapedNote}`
     })
     .reduce((text, note) => {
+      // Make sure release notes don't get longer than the maximal allowed length
       if (production && text.length + note.length > MAX_RELEASE_NOTES_LENGTH) {
         return text
       }
@@ -64,14 +75,9 @@ const formatNotes = (params: { notes: NoteType[]; language: string; production: 
         return note
       }
       return `${text}\n${note}`
-    }, '')
+    }, defaultReleaseNote)
 
-  const notesWithDefault =
-    production && defaultNote.length + formattedNotes.length > MAX_RELEASE_NOTES_LENGTH
-      ? formattedNotes
-      : `${defaultNote}${formattedNotes}`
-
-  return platformName ? `\n${platformName}:\n${notesWithDefault}` : `${notesWithDefault}`
+  return platformName && formattedNotes ? `\n${platformName}:\n${formattedNotes}` : formattedNotes
 }
 
 const isNoteRelevant = ({ note, platforms }: { note: NoteType; platforms: string[] }) =>
@@ -79,17 +85,49 @@ const isNoteRelevant = ({ note, platforms }: { note: NoteType; platforms: string
 const isNoteCommon = ({ note, platforms }: { note: NoteType; platforms: string[] }) =>
   platforms.every(platform => note.platforms.includes(platform))
 
-const parseReleaseNotes = ({ source, ios, android, web, production, language }: ParseProgramType): string => {
-  const platforms: string[] = []
-  if (android) {
-    platforms.push(PLATFORM_ANDROID)
+// Format the release notes for development purposes with all available information
+const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; platforms: string[] }) => {
+  const { notes, language, platforms } = params
+  const emptyNotesMap = {
+    common: [] as NoteType[],
+    android: [] as NoteType[],
+    ios: [] as NoteType[],
+    web: [] as NoteType[]
   }
-  if (ios) {
-    platforms.push(PLATFORM_IOS)
-  }
-  if (web) {
-    platforms.push(PLATFORM_WEB)
-  }
+  // Group notes by platform
+  const notesMap = notes.reduce((notesMap, note) => {
+    if (isNoteCommon({ note, platforms })) {
+      notesMap.common.push(note)
+    } else if (isNoteRelevant({ note, platforms: [PLATFORM_ANDROID] })) {
+      notesMap.android.push(note)
+    } else if (isNoteRelevant({ note, platforms: [PLATFORM_IOS] })) {
+      notesMap.ios.push(note)
+    } else if (isNoteRelevant({ note, platforms: [PLATFORM_WEB] })) {
+      notesMap.web.push(note)
+    }
+    return notesMap
+  }, emptyNotesMap)
+
+  const commonNotes = formatNotes({ notes: notesMap.common, language, production: false })
+  const androidNotes = formatNotes({
+    notes: notesMap.android,
+    language,
+    production: false,
+    platformName: PLATFORM_ANDROID
+  })
+  const iosNotes = formatNotes({ notes: notesMap.ios, language, production: false, platformName: PLATFORM_IOS })
+  const webNotes = formatNotes({ notes: notesMap.web, language, production: false, platformName: PLATFORM_WEB })
+
+  const releaseNotes = `${commonNotes}${androidNotes}${iosNotes}${webNotes}`
+  return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
+}
+
+const parseReleaseNotes = ({ source, ios, android, web, production, language, appName }: ParseProgramType): string => {
+  const platforms: string[] = [
+    android ? PLATFORM_ANDROID : undefined,
+    ios ? PLATFORM_IOS : undefined,
+    web ? PLATFORM_WEB : undefined
+  ].filter(Boolean)
 
   if (platforms.length === 0) {
     throw new Error('No platforms selected! Use --ios, --android and --web flags.')
@@ -99,9 +137,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language }: 
   }
 
   if (!fs.existsSync(source)) {
-    console.warn('Source not found. Nothing to do...')
-    const noteLanguage = language === 'de' || language === 'en' ? language : DEFAULT_NOTES_LANGUAGE
-    return DEFAULT_NOTES[noteLanguage]
+    throw new Error(`Source ${source} not found.`)
   }
 
   const fileNames = fs.readdirSync(source)
@@ -116,42 +152,14 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language }: 
   // If the production flag is set, hide information that is irrelevant for users
   if (production) {
     const productionNotes = relevantNotes.filter(note => note.show_in_stores)
-    return formatNotes({ notes: productionNotes, language, production })
+    return formatNotes({ notes: productionNotes, language, production, appName })
   }
 
-  // Group notes by platform
-  const emptyNodesMap = {
-    common: [] as NoteType[],
-    android: [] as NoteType[],
-    ios: [] as NoteType[],
-    web: [] as NoteType[]
-  }
-  const notesMap = relevantNotes.reduce((notesMap, note) => {
-    if (isNoteCommon({ note, platforms })) {
-      notesMap.common.push(note)
-    } else if (isNoteRelevant({ note, platforms: [PLATFORM_ANDROID] })) {
-      notesMap.android.push(note)
-    } else if (isNoteRelevant({ note, platforms: [PLATFORM_IOS] })) {
-      notesMap.ios.push(note)
-    } else if (isNoteRelevant({ note, platforms: [PLATFORM_WEB] })) {
-      notesMap.web.push(note)
-    }
-    return notesMap
-  }, emptyNodesMap)
-
-  const commonNotes = formatNotes({ notes: notesMap.common, language, production })
-  const androidNotes = formatNotes({ notes: notesMap.android, language, production, platformName: PLATFORM_ANDROID })
-  const iosNotes = formatNotes({ notes: notesMap.ios, language, production, platformName: PLATFORM_IOS })
-  const webNotes = formatNotes({ notes: notesMap.web, language, production, platformName: PLATFORM_WEB })
-
-  const releaseNotes = `${commonNotes}${androidNotes}${iosNotes}${webNotes}`
-  return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
+  return formatDevelopmentNotes({ notes: relevantNotes, language, platforms })
 }
 
 const parseNotesProgram = (program: ParseProgramType) => {
   try {
-    console.warn(program.source)
-    console.warn(__dirname)
     const notes = parseReleaseNotes({ ...program })
 
     if (program.destination) {
@@ -173,8 +181,9 @@ program
   .option('--web', 'include release notes for web.')
   .option(
     '--production',
-    'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms.'
+    'whether to hide extra information, e.g. issue keys, hidden notes and platforms and prepare the notes for a store. may not be used with multiple platforms. If set to true, make sure to pass the app name as well.'
   )
+  .option('--app-name <app-name>', 'the name of the app to prepare the notes for. Only used if production flag is set.')
   .option('--destination <destination>', 'if specified the parsed notes are saved to the directory')
   .requiredOption(
     '--source <source>',
@@ -242,11 +251,16 @@ const playstoreLanguageMap: Record<string, string[]> = {
   hr: ['hr'],
   hu: ['hu-HU'],
   it: ['it-IT'],
+  ka: ['ka-GE'],
+  mk: ['mk-MK'],
   pes: ['fa'],
+  prs: ['fa-AF'],
   pl: ['pl-PL'],
   ro: ['ro'],
   ru: ['ru-RU'],
-  tr: ['tr-TR']
+  sq: ['sq'],
+  tr: ['tr-TR'],
+  ur: ['ur']
 }
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
@@ -286,13 +300,13 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
 
-  // TODO IGAPP-742 remove
-  if (appName !== 'integreat') {
-    console.warn('Only integreat is currently supported for automated store translations, aborting!')
+  // TODO IGAPP-803 remove
+  if (appName !== 'integreat' && appName !== 'malte') {
+    console.warn('Only integreat and malte are currently supported for automated store translations, aborting!')
     return
   }
 
-  const storeTranslations = JSON.parse(fs.readFileSync(`../translations/store-translations/${appName}.json`, 'utf-8'))
+  const storeTranslations = loadStoreTranslations(appName)
 
   Object.keys(storeTranslations[storeName]).forEach(language => {
     const metadata = metadataFromTranslations(storeName, language, storeTranslations)
@@ -317,7 +331,7 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
       fs.mkdirSync(releaseNotesPath, { recursive: true })
 
       const destination = `${releaseNotesPath}/${storeName === 'appstore' ? 'release_notes.txt' : 'default.txt'}`
-      parseNotesProgram({ ...platforms, production: true, language, destination, source })
+      parseNotesProgram({ ...platforms, production: true, language, destination, source, appName })
 
       console.warn(`${storeName} metadata for ${appName} successfully written in language ${targetLanguage}.`)
     })
