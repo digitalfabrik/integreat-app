@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { createEventsEndpoint, EventModel } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl } from '../utils/helpers'
+import { determineApiUrl, log } from '../utils/helpers'
 
 function* loadEvents(
   city: string,
@@ -16,8 +16,7 @@ function* loadEvents(
 
   if (eventsAvailable && !forceRefresh) {
     try {
-      // eslint-disable-next-line no-console
-      console.debug('Using cached events')
+      log('Using cached events')
       return yield* call(dataContainer.getEvents, city, language)
     } catch (e) {
       console.warn('An error occurred while loading events from JSON', e)
@@ -25,13 +24,11 @@ function* loadEvents(
   }
 
   if (!eventsEnabled) {
-    // eslint-disable-next-line no-console
-    console.debug('Events disabled')
+    log('Events disabled')
     yield* call(dataContainer.setEvents, city, language, [])
     return []
   }
-  // eslint-disable-next-line no-console
-  console.debug('Fetching events')
+  log('Fetching events')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>
     createEventsEndpoint(apiUrl).request({

@@ -9,7 +9,7 @@ import { ThemeType } from 'build-configs'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import AppSettings from '../utils/AppSettings'
-import { logError } from '../utils/helpers'
+import { log, logError } from '../utils/helpers'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -59,8 +59,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
       setClickStart(null)
 
       clearResourcesAndCache()
-      // eslint-disable-next-line no-console
-      console.debug(`Switching to new API-Url: ${newApiUrl}`)
+      log(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()
       const newClickCount = clickedInTimeInterval ? prevClickCount + 1 : 1

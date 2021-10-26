@@ -1,20 +1,18 @@
 import messaging from '@react-native-firebase/messaging'
 
 import buildConfig from '../constants/buildConfig'
-import { logError } from './helpers'
+import { log, logError } from './helpers'
 
 const pushNotificationsDisabled = (): boolean => !buildConfig().featureFlags.pushNotifications
 
 export const requestPushNotificationPermission = async (): Promise<boolean> => {
   if (pushNotificationsDisabled()) {
-    // eslint-disable-next-line no-console
-    console.debug('Push notifications disabled, no permissions requested.')
+    log('Push notifications disabled, no permissions requested.')
     return false
   }
 
   const authStatus = await messaging().requestPermission()
-  // eslint-disable-next-line no-console
-  console.debug('Authorization status:', authStatus)
+  log(`Authorization status: ${authStatus}`)
   // Firebase returns either 1 or 2 for granted or 0 for rejected permissions
   return authStatus !== 0
 }
@@ -23,8 +21,7 @@ const newsTopic = (city: string, language: string): string => `${city}-${languag
 
 export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
   if (pushNotificationsDisabled()) {
-    // eslint-disable-next-line no-console
-    console.debug('Push notifications disabled, unsubscription skipped.')
+    log('Push notifications disabled, unsubscription skipped.')
     return
   }
 
@@ -35,13 +32,11 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   } catch (e) {
     logError(e)
   }
-  // eslint-disable-next-line no-console
-  console.debug(`Unsubscribed from ${topic} topic!`)
+  log(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
   if (pushNotificationsDisabled()) {
-    // eslint-disable-next-line no-console
-    console.debug('Push notifications disabled, subscription skipped.')
+    log('Push notifications disabled, subscription skipped.')
     return
   }
 
@@ -52,6 +47,5 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   } catch (e) {
     logError(e)
   }
-  // eslint-disable-next-line no-console
-  console.debug(`Subscribed to ${topic} topic!`)
+  log(`Subscribed to ${topic} topic!`)
 }

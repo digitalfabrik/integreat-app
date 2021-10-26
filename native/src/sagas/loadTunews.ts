@@ -3,10 +3,10 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { createTunewsEndpoint, TunewsModel } from 'api-client'
 
 import { tunewsApiUrl } from '../constants/endpoint'
+import { log } from '../utils/helpers'
 
 function* loadTunews(city: string, language: string, page: number, count: number): SagaGenerator<Array<TunewsModel>> {
-  // eslint-disable-next-line no-console
-  console.debug('Fetching tunews')
+  log('Fetching tunews')
   const payload = yield* call(() =>
     createTunewsEndpoint(tunewsApiUrl).request({
       city,

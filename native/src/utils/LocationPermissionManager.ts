@@ -3,6 +3,7 @@ import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 import type { PermissionStatus } from 'react-native-permissions'
 
 import buildConfig from '../constants/buildConfig'
+import { log } from './helpers'
 
 export const checkLocationPermission = async (): Promise<PermissionStatus> => {
   if (buildConfig().featureFlags.fixedCity) {
@@ -13,8 +14,7 @@ export const checkLocationPermission = async (): Promise<PermissionStatus> => {
 }
 export const requestLocationPermission = async (): Promise<PermissionStatus> => {
   if (buildConfig().featureFlags.fixedCity) {
-    // eslint-disable-next-line no-console
-    console.debug('Location permission disabled, no permissions requested.')
+    log('Location permission disabled, no permissions requested.')
     return 'unavailable'
   }
 

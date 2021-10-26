@@ -101,12 +101,48 @@ export const initSentry = (): void => {
 const sentryEnabled = (): boolean => buildConfig().featureFlags.sentry
 const developerFriendly = (): boolean => buildConfig().featureFlags.developerFriendly
 
+export const log = (message: string, level = 'debug'): void => {
+  if (sentryEnabled()) {
+    Sentry.addBreadcrumb({
+      message,
+      level: Sentry.Severity.fromString(level)
+    })
+  }
+  if (developerFriendly()) {
+    switch (level) {
+      case Sentry.Severity.Fatal:
+      case Sentry.Severity.Critical:
+      case Sentry.Severity.Error:
+        // eslint-disable-next-line no-console
+        console.error(message)
+        break
+      case Sentry.Severity.Warning:
+        // eslint-disable-next-line no-console
+        console.warn(message)
+        break
+      case Sentry.Severity.Log:
+        // eslint-disable-next-line no-console
+        console.log(message)
+        break
+      case Sentry.Severity.Info:
+        // eslint-disable-next-line no-console
+        console.info(message)
+        break
+      case Sentry.Severity.Debug:
+        // eslint-disable-next-line no-console
+        console.debug(message)
+        break
+    }
+  }
+}
+
 export const logError = (err: Error): void => {
   if (!(err instanceof NotFoundError) && !(err instanceof FetchError) && sentryEnabled()) {
     // Report important errors if sentry is enabled (and skip e.g. errors because of no invalid internet connection)
     Sentry.captureException(err)
   }
   if (developerFriendly()) {
+    // eslint-disable-next-line no-console
     console.error(err)
   }
 }
