@@ -1,6 +1,6 @@
 export const initSentry = jest.fn()
 export const log = jest.fn()
-export const logError = jest.fn()
+export const reportError = jest.fn()
 export const deleteIfExists = jest.fn()
 export const determineApiUrl = jest.fn(() => 'https://example.com')
 export const forEachTreeNode = jest.fn()

@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
-import { log, logError } from '../utils/helpers'
+import { log, reportError } from '../utils/helpers'
 
 type PropsType = {
   language: string
@@ -50,7 +50,7 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
             } in the dictionary`,
             'error'
           )
-          logError(e)
+          reportError(e)
         }
       }
     },

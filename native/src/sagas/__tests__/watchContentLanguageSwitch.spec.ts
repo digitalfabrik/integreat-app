@@ -10,7 +10,7 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
 import AppSettings from '../../utils/AppSettings'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { logError } from '../../utils/helpers'
+import { reportError } from '../../utils/helpers'
 import loadCityContent from '../loadCityContent'
 import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
 
@@ -63,7 +63,7 @@ describe('watchContentLanguageSwitch', () => {
         })
         .run()
       expect(await new AppSettings().loadContentLanguage()).toBe(newLanguage)
-      expect(logError).not.toHaveBeenCalled()
+      expect(reportError).not.toHaveBeenCalled()
     })
 
     it('should put an error action', async () => {
@@ -93,8 +93,8 @@ describe('watchContentLanguageSwitch', () => {
           }
         })
         .run()
-      expect(logError).toHaveBeenCalledTimes(1)
-      expect(logError).toHaveBeenCalledWith(error)
+      expect(reportError).toHaveBeenCalledTimes(1)
+      expect(reportError).toHaveBeenCalledWith(error)
     })
   })
 

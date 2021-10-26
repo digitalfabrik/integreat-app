@@ -28,7 +28,7 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 
-import { determineApiUrl, logError } from '../utils/helpers'
+import { determineApiUrl, reportError } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import Feedback from './Feedback'
 
@@ -136,7 +136,7 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
       }
     })
     request().catch(err => {
-      logError(err)
+      reportError(err)
 
       setSendingStatus('failed')
     })

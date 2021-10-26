@@ -3,32 +3,32 @@ import React from 'react'
 
 import { MappingError } from 'api-client'
 
-import { logError } from '../../utils/helpers'
-import useLogError from '../useLogError'
+import { reportError } from '../../utils/helpers'
+import useReportError from '../useReportError'
 
 jest.mock('../../utils/helpers')
 
-describe('useLogError', () => {
+describe('useReportError', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   const MockComponent = ({ error }: { error: Error | null }) => {
-    useLogError(error)
+    useReportError(error)
     return null
   }
 
   it('should report error', async () => {
     const { rerender } = render(<MockComponent error={null} />)
-    expect(logError).not.toHaveBeenCalled()
+    expect(reportError).not.toHaveBeenCalled()
 
     const error = new MappingError('cities', 'some error')
     rerender(<MockComponent error={error} />)
 
-    expect(logError).toHaveBeenCalledTimes(1)
-    expect(logError).toHaveBeenCalledWith(error)
+    expect(reportError).toHaveBeenCalledTimes(1)
+    expect(reportError).toHaveBeenCalledWith(error)
 
     rerender(<MockComponent error={null} />)
-    expect(logError).toHaveBeenCalledTimes(1)
+    expect(reportError).toHaveBeenCalledTimes(1)
   })
 })

@@ -9,7 +9,7 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
-import { logError } from '../utils/helpers'
+import { reportError } from '../utils/helpers'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
@@ -64,7 +64,7 @@ class TransparentHeader extends React.PureComponent<PropsType> {
       })
     } catch (e) {
       // TODO Show snackbar
-      logError(e)
+      reportError(e)
     }
   }
 

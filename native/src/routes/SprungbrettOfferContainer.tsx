@@ -21,7 +21,7 @@ import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
-import useLogError from '../hooks/useLogError'
+import useReportError from '../hooks/useReportError'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
@@ -73,7 +73,7 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   const { data: jobs, error: jobsError, loading, refresh } = useLoadFromEndpoint<Array<SprungbrettJobModel>>(
     requestJobs
   )
-  useLogError(jobsError)
+  useReportError(jobsError)
 
   const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({

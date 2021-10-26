@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { createLanguagesEndpoint, LanguageModel } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log, logError } from '../utils/helpers'
+import { determineApiUrl, log, reportError } from '../utils/helpers'
 
 export default function* loadLanguages(
   city: string,
@@ -18,7 +18,7 @@ export default function* loadLanguages(
       return yield* call(dataContainer.getLanguages, city)
     } catch (e) {
       log('An error occurred while loading languages from JSON', 'error')
-      logError(e)
+      reportError(e)
     }
   }
   log('Fetching languages')

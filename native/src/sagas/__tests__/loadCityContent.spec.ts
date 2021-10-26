@@ -18,7 +18,7 @@ import AppSettings from '../../utils/AppSettings'
 import { DataContainer } from '../../utils/DataContainer'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { logError } from '../../utils/helpers'
+import { reportError } from '../../utils/helpers'
 import fetchResourceCache from '../fetchResourceCache'
 import loadCategories from '../loadCategories'
 import loadCities from '../loadCities'
@@ -30,7 +30,7 @@ import loadPois from '../loadPois'
 jest.mock('../../utils/helpers', () => ({
   ...jest.requireActual('../../utils/helpers'),
   log: jest.fn(),
-  logError: jest.fn()
+  reportError: jest.fn()
 }))
 jest.mock('@react-native-community/netinfo')
 jest.mock('../fetchResourceCache')
@@ -345,8 +345,8 @@ describe('loadCityContent', () => {
       })
       .run()
 
-    expect(logError).toHaveBeenCalledTimes(1)
-    expect(logError).toHaveBeenCalledWith(error)
+    expect(reportError).toHaveBeenCalledTimes(1)
+    expect(reportError).toHaveBeenCalledWith(error)
   })
 
   it('should not fetch resources when not requested and connection type is not cellular', async () => {

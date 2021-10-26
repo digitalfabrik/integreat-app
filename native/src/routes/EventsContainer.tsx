@@ -14,7 +14,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import navigateToLink from '../navigation/navigateToLink'
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import { logError } from '../utils/helpers'
+import { reportError } from '../utils/helpers'
 import Events, { PropsType as EventsPropsType } from './Events'
 
 type NavigationPropsType = {
@@ -79,7 +79,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
   if (route.status === 'languageNotAvailable' && !switchingLanguage) {
     if (languages.status === 'error' || languages.status === 'loading') {
-      logError(new Error('languageNotAvailable status impossible if languages not ready'))
+      reportError(new Error('languageNotAvailable status impossible if languages not ready'))
       return {
         status: 'error',
         refreshProps: null,
