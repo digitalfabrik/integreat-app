@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import program from 'commander'
 import decamelize from 'decamelize'
 import flat from 'flat'
@@ -50,7 +51,6 @@ program
   .action((buildConfigName, platform) => {
     try {
       const properties = loadBuildConfigAsKeyValue(buildConfigName, platform)
-      // eslint-disable-next-line no-console
       console.log(properties)
     } catch (e) {
       console.error(e)
