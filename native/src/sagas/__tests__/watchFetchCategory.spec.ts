@@ -13,9 +13,7 @@ import { logError } from '../../utils/helpers'
 import loadCityContent from '../loadCityContent'
 import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 jest.mock('../loadCityContent')
 
 const languages = new LanguageModelBuilder(2).build()

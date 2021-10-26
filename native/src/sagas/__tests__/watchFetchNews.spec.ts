@@ -11,9 +11,7 @@ import { logError } from '../../utils/helpers'
 import loadLocalNews from '../loadLocalNews'
 import watchFetchNews, { fetchNews } from '../watchFetchNews'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 jest.mock('../loadCityContent')
 jest.mock('../loadLanguages')
 jest.mock('../loadLocalNews')

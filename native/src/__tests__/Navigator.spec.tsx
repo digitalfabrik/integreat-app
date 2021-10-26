@@ -15,10 +15,7 @@ jest.mock('@react-navigation/native/lib/commonjs/useLinking', () => () => ({
   getInitialState: async () => undefined
 }))
 jest.mock('react-i18next')
-jest.mock('../utils/helpers', () => ({
-  ...jest.requireActual('../utils/helpers'),
-  initSentry: jest.fn()
-}))
+jest.mock('../utils/helpers')
 jest.mock('../routes/IntroContainer', () => {
   const { Text } = require('react-native')
 

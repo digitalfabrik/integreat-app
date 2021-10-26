@@ -15,9 +15,7 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import { logError } from '../../utils/helpers'
 import OffersContainer from '../OffersContainer'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
