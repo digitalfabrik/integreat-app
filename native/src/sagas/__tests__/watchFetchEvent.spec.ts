@@ -13,9 +13,7 @@ import { logError } from '../../utils/helpers'
 import loadCityContent from '../loadCityContent'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 jest.mock('../loadCityContent')
 
 describe('watchFetchEvent', () => {

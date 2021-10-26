@@ -23,7 +23,7 @@ import {
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import { deleteIfExists } from './helpers'
+import { deleteIfExists, log, logError } from './helpers'
 
 export const CONTENT_VERSION = 'v1'
 export const RESOURCE_CACHE_VERSION = 'v1'
@@ -248,19 +248,24 @@ class DatabaseConnector {
     const path = this.getMetaCitiesPath()
     const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
-    if (!fileExists) {
-      throw Error(`File ${path} does not exist`)
+    if (fileExists) {
+      try {
+        const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
+        return mapValues(citiesMetaJson, cityMeta => ({
+          languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {
+            lastUpdate: Moment
+          } => ({
+            lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
+          })),
+          lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
+        }))
+      } catch (e) {
+        log('An error occurred while loading cities from JSON', 'warning')
+        logError(e)
+      }
     }
 
-    const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-    return mapValues(citiesMetaJson, cityMeta => ({
-      languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {
-        lastUpdate: Moment
-      } => ({
-        lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
-      })),
-      lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
-    }))
+    return {}
   }
 
   async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {

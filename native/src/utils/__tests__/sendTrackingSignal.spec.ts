@@ -8,9 +8,7 @@ import AppSettings from '../AppSettings'
 import { logError } from '../helpers'
 import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
 
-jest.mock('../helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../helpers')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createTrackingEndpoint: jest.fn(() => ({

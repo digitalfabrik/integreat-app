@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { mocked } from 'ts-jest/utils'
 
 import {
   CATEGORIES_ROUTE,
@@ -12,6 +13,7 @@ import {
   PoiModel
 } from 'api-client'
 
+import { log } from '../../../utils/helpers'
 import { CityContentStateType } from '../../StateType'
 import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
 import createCityContent from '../createCityContent'
@@ -19,7 +21,15 @@ import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import pushEvent from '../pushEvent'
 
+jest.mock('../../../utils/helpers', () => ({
+  forEachTreeNode: jest.requireActual('../../../utils/helpers').forEachTreeNode,
+  log: jest.fn()
+}))
+
 describe('morphContentLanguage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   const createCategory = ({
     root,
     path,
@@ -320,7 +330,6 @@ describe('morphContentLanguage', () => {
     expect(newState).toEqual(previous)
   })
   it('should warn if category models are invalid', () => {
-    const spy = jest.spyOn(console, 'warn')
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
@@ -339,8 +348,8 @@ describe('morphContentLanguage', () => {
     }
 
     morphContentLanguage(previous, action)
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
+    expect(mocked(log)).toHaveBeenCalledTimes(1)
+    expect(mocked(log)).toHaveBeenCalledWith(expect.anything(), 'warning')
   })
   it('should translate route', () => {
     const action: MorphContentLanguageActionType = {

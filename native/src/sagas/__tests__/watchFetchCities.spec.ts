@@ -10,9 +10,7 @@ import { logError } from '../../utils/helpers'
 import loadCities from '../loadCities'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 jest.mock('../loadCities')
 
 describe('watchFetchCities', () => {

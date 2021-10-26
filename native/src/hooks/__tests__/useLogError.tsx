@@ -6,9 +6,7 @@ import { MappingError } from 'api-client'
 import { logError } from '../../utils/helpers'
 import useLogError from '../useLogError'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 
 describe('useLogError', () => {
   beforeEach(() => {

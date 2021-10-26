@@ -14,9 +14,7 @@ import { logError } from '../../utils/helpers'
 import loadCityContent from '../loadCityContent'
 import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/helpers')
 jest.mock('../../utils/PushNotificationsManager')
 jest.mock('../loadCityContent')
 
