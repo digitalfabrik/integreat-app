@@ -7,6 +7,7 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
+import { logError } from '../utils/helpers'
 
 type PropsType = {
   language: string
@@ -48,6 +49,7 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
               element.attribs.href || element.attribs.src
             } in the dictionary`
           )
+          logError(e)
         }
       }
     },

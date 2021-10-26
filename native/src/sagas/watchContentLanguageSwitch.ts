@@ -13,7 +13,7 @@ import {
 import AppSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
-import { reportError } from '../utils/helpers'
+import { logError } from '../utils/helpers'
 import loadCityContent from './loadCityContent'
 
 export function* switchContentLanguage(
@@ -79,8 +79,7 @@ export function* switchContentLanguage(
       }
     }
     yield* put(enqueueSnackbar)
-    console.error(e)
-    reportError(e)
+    logError(e)
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
       params: {

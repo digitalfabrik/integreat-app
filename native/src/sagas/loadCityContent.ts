@@ -12,7 +12,7 @@ import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 import ResourceURLFinder from '../utils/ResourceURLFinder'
 import buildResourceFilePath from '../utils/buildResourceFilePath'
-import { reportError } from '../utils/helpers'
+import { logError } from '../utils/helpers'
 import fetchResourceCache from './fetchResourceCache'
 import loadCategories from './loadCategories'
 import loadCities from './loadCities'
@@ -109,8 +109,7 @@ function* prepareLanguages(
     yield* put(pushLanguages)
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
-    console.error(e)
-    reportError(e)
+    logError(e)
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',
       params: {

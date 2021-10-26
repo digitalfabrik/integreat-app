@@ -12,7 +12,7 @@ import {
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { reportError } from '../../utils/helpers'
+import { logError } from '../../utils/helpers'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 
 jest.mock('../../utils/helpers', () => ({
@@ -102,7 +102,7 @@ describe('SprungbrettOfferContainer', () => {
     expect(getByText(errorText)).toBeTruthy()
     expect(queryByText('SprungbrettOffer')).toBeFalsy()
     expect(queryByText('loading')).toBeFalsy()
-    expect(reportError).toHaveBeenCalledTimes(1)
+    expect(logError).toHaveBeenCalledTimes(1)
   })
 
   it('should display a loading spinner', () => {

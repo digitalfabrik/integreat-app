@@ -7,7 +7,7 @@ import LocalNewsModelBuilder from 'api-client/src/testing/NewsModelBuilder'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchNewsActionType } from '../../redux/StoreActionType'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { logError } from '../../utils/helpers'
 import loadLocalNews from '../loadLocalNews'
 import watchFetchNews, { fetchNews } from '../watchFetchNews'
 
@@ -71,7 +71,7 @@ describe('watchFetchNews', () => {
         })
         .run()
 
-      expect(reportError).not.toHaveBeenCalled()
+      expect(logError).not.toHaveBeenCalled()
     })
 
     it('should put an error action', async () => {
@@ -116,14 +116,14 @@ describe('watchFetchNews', () => {
         })
         .run()
 
-      expect(reportError).toHaveBeenCalledTimes(1)
-      expect(reportError).toHaveBeenCalledWith(error)
+      expect(logError).toHaveBeenCalledTimes(1)
+      expect(logError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetch news when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     await testSaga(watchFetchNews, dataContainer).next().takeLatest('FETCH_NEWS', fetchNews, dataContainer)
-    expect(reportError).not.toHaveBeenCalled()
+    expect(logError).not.toHaveBeenCalled()
   })
 })
