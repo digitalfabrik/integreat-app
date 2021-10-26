@@ -21,7 +21,7 @@ import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
-import useReportError from '../hooks/useReportError'
+import useLogError from '../hooks/useLogError'
 import TileModel from '../models/TileModel'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
@@ -51,7 +51,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
     })
   }, [cityCode, languageCode])
   const { data: offers, error: offersError, loading, refresh } = useLoadFromEndpoint<Array<OfferModel>>(request)
-  useReportError(offersError)
+  useLogError(offersError)
 
   const navigateToOffer = useCallback(
     (tile: TileModel) => {

@@ -18,7 +18,7 @@ import AppSettings from '../../utils/AppSettings'
 import { DataContainer } from '../../utils/DataContainer'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { logError } from '../../utils/helpers'
 import fetchResourceCache from '../fetchResourceCache'
 import loadCategories from '../loadCategories'
 import loadCities from '../loadCities'
@@ -344,8 +344,8 @@ describe('loadCityContent', () => {
       })
       .run()
 
-    expect(reportError).toHaveBeenCalledTimes(1)
-    expect(reportError).toHaveBeenCalledWith(error)
+    expect(logError).toHaveBeenCalledTimes(1)
+    expect(logError).toHaveBeenCalledWith(error)
   })
 
   it('should not fetch resources when not requested and connection type is not cellular', async () => {

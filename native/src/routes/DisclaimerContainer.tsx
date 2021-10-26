@@ -18,7 +18,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
-import useReportError from '../hooks/useReportError'
+import useLogError from '../hooks/useLogError'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLink from '../navigation/navigateToLink'
@@ -55,7 +55,7 @@ const DisclaimerContainer = ({ theme, resourceCacheUrl, navigation, route, dispa
     })
   }, [cityCode, languageCode])
   const { data: disclaimer, error, loading, refresh } = useLoadFromEndpoint<PageModel>(request)
-  useReportError(error)
+  useLogError(error)
 
   const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
     const navigateTo = createNavigate(dispatch, navigation)

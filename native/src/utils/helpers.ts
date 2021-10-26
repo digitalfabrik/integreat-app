@@ -98,16 +98,16 @@ export const initSentry = (): void => {
   })
 }
 
-export const reportError = (err: Error): void => {
-  // Do not report errors if a user navigates to an unknown site or has no internet connection
-  if (!(err instanceof NotFoundError) && !(err instanceof FetchError)) {
-    if (!buildConfig().featureFlags.sentry) {
-      // eslint-disable-next-line no-console
-      console.log('Tried to report error via sentry, but it is disabled via the build config.')
-      return
-    }
+const sentryEnabled = (): boolean => buildConfig().featureFlags.sentry
+const developerFriendly = (): boolean => buildConfig().featureFlags.developerFriendly
 
+export const logError = (err: Error): void => {
+  if (!(err instanceof NotFoundError) && !(err instanceof FetchError) && sentryEnabled()) {
+    // Report important errors if sentry is enabled (and skip e.g. errors because of no invalid internet connection)
     Sentry.captureException(err)
+  }
+  if (developerFriendly()) {
+    console.error(err)
   }
 }
 

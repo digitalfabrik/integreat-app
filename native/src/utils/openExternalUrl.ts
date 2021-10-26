@@ -5,6 +5,7 @@ import URL from 'url-parse'
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
+import { logError } from './helpers'
 import sendTrackingSignal from './sendTrackingSignal'
 
 const openExternalUrl = async (url: string): Promise<void> => {
@@ -38,7 +39,7 @@ const openExternalUrl = async (url: string): Promise<void> => {
       }
     }
   } catch (error) {
-    console.error(error)
+    logError(error)
   }
 }
 

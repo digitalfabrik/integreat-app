@@ -13,6 +13,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
+import { logError } from '../utils/helpers'
 import Pois from './Pois'
 
 type NavigationPropsType = {
@@ -79,8 +80,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       throw new Error('language not available route status not handled!')
     }
     if (languages.status === 'error' || languages.status === 'loading') {
-      // eslint-disable-next-line no-console
-      console.error('languageNotAvailable status impossible if languages not ready')
+      logError(new Error('languageNotAvailable status impossible if languages not ready'))
       return {
         status: 'error',
         refreshProps: null,

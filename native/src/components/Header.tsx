@@ -15,6 +15,7 @@ import dimensions from '../constants/dimensions'
 import navigateToLanding from '../navigation/navigateToLanding'
 import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
+import { logError } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
@@ -129,7 +130,7 @@ const Header = (props: PropsType): ReactElement => {
         title: buildConfig().appName
       })
     } catch (e) {
-      console.error(e.message)
+      logError(e)
     }
   }
 

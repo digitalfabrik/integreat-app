@@ -9,7 +9,7 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchEventActionType } from '../../redux/StoreActionType'
 import mockDate from '../../testing/mockDate'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { logError } from '../../utils/helpers'
 import loadCityContent from '../loadCityContent'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 
@@ -206,14 +206,14 @@ describe('watchFetchEvent', () => {
         })
         .run()
 
-      expect(reportError).toHaveBeenCalledTimes(1)
-      expect(reportError).toHaveBeenCalledWith(error)
+      expect(logError).toHaveBeenCalledTimes(1)
+      expect(logError).toHaveBeenCalledWith(error)
     })
   })
 
   it('should correctly call fetchEvent when triggered', async () => {
     const dataContainer = new DefaultDataContainer()
     await testSaga(watchFetchEvent, dataContainer).next().takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
-    expect(reportError).not.toHaveBeenCalled()
+    expect(logError).not.toHaveBeenCalled()
   })
 })

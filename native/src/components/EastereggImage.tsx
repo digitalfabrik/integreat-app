@@ -9,6 +9,7 @@ import { ThemeType } from 'build-configs'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import AppSettings from '../utils/AppSettings'
+import { logError } from '../utils/helpers'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -36,10 +37,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
     appSettings
       .loadApiUrlOverride()
       .then(setApiUrlOverride)
-      .catch(e => {
-        // eslint-disable-next-line no-console
-        console.error(e)
-      })
+      .catch(e => logError(e))
   }, [])
 
   const onImagePress = useCallback(async () => {

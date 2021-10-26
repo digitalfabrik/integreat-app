@@ -15,6 +15,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
+import { logError } from '../utils/helpers'
 
 export type PropsType = {
   theme: ThemeType
@@ -50,8 +51,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
       appSettings
         .loadSettings()
         .then(settings => setSettings(settings))
-        // eslint-disable-next-line no-console
-        .catch(e => console.error('Failed to load settings.', e))
+        .catch(e => logError(e))
     }, [])
   )
 
@@ -74,10 +74,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
       await appSettings.setSettings(newSettings)
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e)
-      // eslint-disable-next-line no-console
-      console.error('Failed to persist settings.')
+      logError(e)
       setSettings(oldSettings)
     }
   }
