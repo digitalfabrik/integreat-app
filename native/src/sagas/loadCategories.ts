@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { CategoriesMapModel, createCategoriesEndpoint } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log } from '../utils/helpers'
+import { determineApiUrl, log, logError } from '../utils/helpers'
 
 function* loadCategories(
   city: string,
@@ -18,7 +18,8 @@ function* loadCategories(
       log('Using cached categories')
       return yield* call(dataContainer.getCategoriesMap, city, language)
     } catch (e) {
-      console.warn('An error occurred while loading categories from JSON', e)
+      log('An error occurred while loading categories from JSON', 'error')
+      logError(e)
     }
   }
   log('Fetching categories')

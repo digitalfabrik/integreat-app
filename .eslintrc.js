@@ -53,7 +53,7 @@ module.exports = {
     'react/static-property-placement': 'off',
 
     curly: ['error', 'all'],
-    'no-console': ['error', { allow: ['warn'] }],
+    'no-console': 'error',
     'no-magic-numbers': [
       'error',
       {

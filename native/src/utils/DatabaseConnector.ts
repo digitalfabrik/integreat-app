@@ -248,23 +248,19 @@ class DatabaseConnector {
     const path = this.getMetaCitiesPath()
     const fileExists: boolean = await RNFetchBlob.fs.exists(path)
 
-    if (fileExists) {
-      try {
-        const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-        return mapValues(citiesMetaJson, cityMeta => ({
-          languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {
-            lastUpdate: Moment
-          } => ({
-            lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
-          })),
-          lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
-        }))
-      } catch (e) {
-        console.warn('An error occurred while loading cities from JSON', e)
-      }
+    if (!fileExists) {
+      throw Error(`File ${path} does not exist`)
     }
 
-    return {}
+    const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
+    return mapValues(citiesMetaJson, cityMeta => ({
+      languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {
+        lastUpdate: Moment
+      } => ({
+        lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
+      })),
+      lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
+    }))
   }
 
   async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {

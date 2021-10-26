@@ -10,7 +10,7 @@ import {
   CategoryModel
 } from 'api-client'
 
-import { forEachTreeNode } from '../../utils/helpers'
+import { forEachTreeNode, log } from '../../utils/helpers'
 import {
   CategoryRouteStateType,
   CityContentStateType,
@@ -26,8 +26,7 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
   route: CategoryRouteStateType
 ): CategoryRouteStateType => {
   if (route.status !== 'ready' && route.status !== 'languageNotAvailable') {
-    // eslint-disable-next-line no-console
-    console.warn('Route was not ready when translating. Will not translate this route.')
+    log('Route was not ready when translating. Will not translate this route.', 'warning')
     return route
   }
 
@@ -49,9 +48,11 @@ const categoryRouteTranslator = (newCategoriesMap: CategoriesMapModel, city: str
   const rootModel = newCategoriesMap.findCategoryByPath(translatedPath)
 
   if (!rootModel) {
-    // eslint-disable-next-line no-console
-    console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                      but is referenced as translation for ${newLanguage}.`)
+    log(
+      `Inconsistent data detected: ${translatedPath} does not exist,
+                      but is referenced as translation for ${newLanguage}.`,
+      'warning'
+    )
     return route
   }
 
@@ -86,8 +87,7 @@ const eventRouteTranslator = (newEvents: ReadonlyArray<EventModel>, newLanguage:
   route: EventRouteStateType
 ): EventRouteStateType => {
   if (route.status !== 'ready') {
-    // eslint-disable-next-line no-console
-    console.warn('Route was not ready when translating. Will not translate this route.')
+    log('Route was not ready when translating. Will not translate this route.', 'warning')
     return route
   }
 
@@ -122,9 +122,11 @@ const eventRouteTranslator = (newEvents: ReadonlyArray<EventModel>, newLanguage:
   const translatedEvent = newEvents.find(newEvent => translatedPath === newEvent.path)
 
   if (!translatedEvent) {
-    // eslint-disable-next-line no-console
-    console.warn(`Inconsistent data detected: ${translatedPath} does not exist,
-                    but is referenced as translation for ${newLanguage}.`)
+    log(
+      `Inconsistent data detected: ${translatedPath} does not exist,
+                    but is referenced as translation for ${newLanguage}.`,
+      'warning'
+    )
     return route
   }
 
@@ -143,8 +145,7 @@ const poiRouteTranslator = (newPois: ReadonlyArray<PoiModel>, newLanguage: strin
   route: PoiRouteStateType
 ): PoiRouteStateType => {
   if (route.status !== 'ready') {
-    // eslint-disable-next-line no-console
-    console.warn('Route was not ready when translating. Will not translate this route.')
+    log('Route was not ready when translating. Will not translate this route.', 'warning')
     return route
   }
 
@@ -179,9 +180,11 @@ const poiRouteTranslator = (newPois: ReadonlyArray<PoiModel>, newLanguage: strin
   const translatedPoi = newPois.find(newPoi => translatedPath === newPoi.path)
 
   if (!translatedPoi) {
-    // eslint-disable-next-line no-console
-    console.warn(`Inconsistent data detected: ${translatedPath} does not exist, 
-      but is referenced as translation for ${newLanguage}.`)
+    log(
+      `Inconsistent data detected: ${translatedPath} does not exist, 
+      but is referenced as translation for ${newLanguage}.`,
+      'warning'
+    )
     return route
   }
 

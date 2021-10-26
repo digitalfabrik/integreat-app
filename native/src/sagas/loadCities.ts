@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { CityModel, createCitiesEndpoint } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log } from '../utils/helpers'
+import { determineApiUrl, log, logError } from '../utils/helpers'
 
 function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaGenerator<Array<CityModel>> {
   const citiesAvailable = yield* call(dataContainer.citiesAvailable)
@@ -13,7 +13,8 @@ function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaG
       log('Using cached cities')
       return yield* call(dataContainer.getCities)
     } catch (e) {
-      console.warn('An error occurred while loading cities from JSON', e)
+      log('An error occurred while loading cities from JSON', 'error')
+      logError(e)
     }
   }
   log('Fetching cities')
