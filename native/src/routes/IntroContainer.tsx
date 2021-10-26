@@ -17,6 +17,7 @@ import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import { StateType as ReduxStateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings from '../utils/AppSettings'
+import { logError } from '../utils/helpers'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;
@@ -146,8 +147,7 @@ class Intro extends React.Component<PropsType, StateType> {
         navigation.replace(LANDING_ROUTE)
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn(e)
+      logError(e)
     }
   }
 

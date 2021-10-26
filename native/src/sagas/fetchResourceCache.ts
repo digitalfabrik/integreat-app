@@ -8,7 +8,7 @@ import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
 import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
-import { logError } from '../utils/helpers'
+import { log, logError } from '../utils/helpers'
 
 export type FetchMapTargetType = {
   url: string
@@ -76,8 +76,7 @@ export default function* fetchResourceCache(
       // TODO: we might remember which files have failed to retry later
       // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
-      // eslint-disable-next-line no-console
-      console.log(message)
+      log(message)
     }
 
     const resourceCache = mapValues(fetchMap, fetchMapEntry =>
