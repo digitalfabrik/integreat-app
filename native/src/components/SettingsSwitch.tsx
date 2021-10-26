@@ -16,6 +16,7 @@ const SettingsSwitch = ({ value, theme, onPress }: PropsType): ReactElement => (
     trackColor={{
       // TODO somehow change colors and refer to a constant
       true: theme.colors.themeColorLight,
+      // true: theme.colors.themeColorLight,
       false: theme.colors.textSecondaryColor
     }}
     value={value}
@@ -23,8 +24,4 @@ const SettingsSwitch = ({ value, theme, onPress }: PropsType): ReactElement => (
   />
 )
 
-const styledSettingsSwitch = styled(SettingsSwitch)`
-  color: ;
-`
-
-export default styledSettingsSwitch
+export default SettingsSwitch
