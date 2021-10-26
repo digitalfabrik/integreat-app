@@ -26,6 +26,7 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
 
   useEffect(() => {
     if (!(error instanceof NotFoundError) && !(error instanceof FetchError)) {
+      // eslint-disable-next-line no-console
       reportError(error).catch(e => console.error(e))
     }
   }, [error])
