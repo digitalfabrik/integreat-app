@@ -1,5 +1,4 @@
 import moment from 'moment'
-import { mocked } from 'ts-jest/utils'
 
 import {
   CATEGORIES_ROUTE,
@@ -348,8 +347,8 @@ describe('morphContentLanguage', () => {
     }
 
     morphContentLanguage(previous, action)
-    expect(mocked(log)).toHaveBeenCalledTimes(1)
-    expect(mocked(log)).toHaveBeenCalledWith(expect.anything(), 'warning')
+    expect(log).toHaveBeenCalledTimes(1)
+    expect(log).toHaveBeenCalledWith(expect.anything(), 'warning')
   })
   it('should translate route', () => {
     const action: MorphContentLanguageActionType = {
