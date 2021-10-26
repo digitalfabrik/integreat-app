@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
-import { logError } from '../utils/helpers'
+import { log, logError } from '../utils/helpers'
 
 type PropsType = {
   language: string
@@ -44,10 +44,11 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
             }
           }
         } catch (e) {
-          console.error(
+          log(
             `${e.message} occurred while decoding and looking for ${
               element.attribs.href || element.attribs.src
-            } in the dictionary`
+            } in the dictionary`,
+            'error'
           )
           logError(e)
         }

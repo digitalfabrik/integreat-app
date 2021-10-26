@@ -13,6 +13,7 @@ import {
 } from '../redux/StateType'
 import { DataContainer } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
+import { log } from './helpers'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>
@@ -204,10 +205,8 @@ class DefaultDataContainer implements DataContainer {
           this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
-        // eslint-disable-next-line no-console
-        console.debug('Cleaning up the following resources:')
-        // eslint-disable-next-line no-console
-        console.debug(pathsToClean)
+        log('Cleaning up the following resources:')
+        log(pathsToClean.join(', '))
         await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
       }
     }

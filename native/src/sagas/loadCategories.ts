@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { CategoriesMapModel, createCategoriesEndpoint } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl } from '../utils/helpers'
+import { determineApiUrl, log } from '../utils/helpers'
 
 function* loadCategories(
   city: string,
@@ -15,15 +15,13 @@ function* loadCategories(
 
   if (categoriesAvailable && !forceRefresh) {
     try {
-      // eslint-disable-next-line no-console
-      console.debug('Using cached categories')
+      log('Using cached categories')
       return yield* call(dataContainer.getCategoriesMap, city, language)
     } catch (e) {
       console.warn('An error occurred while loading categories from JSON', e)
     }
   }
-  // eslint-disable-next-line no-console
-  console.debug('Fetching categories')
+  log('Fetching categories')
   const apiUrl = yield* call(determineApiUrl)
   const categoriesPayload = yield* call(() =>
     createCategoriesEndpoint(apiUrl).request({
