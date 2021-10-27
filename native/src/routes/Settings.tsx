@@ -13,7 +13,7 @@ import LayoutContainer from '../components/LayoutContainer'
 import SettingItem from '../components/SettingItem'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
-import AppSettings, { SettingsType } from '../utils/AppSettings'
+import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 
 export type PropsType = {
@@ -38,8 +38,6 @@ const SectionHeader = styled.Text`
   padding: 20px;
   color: ${props => props.theme.colors.textColor};
 `
-
-const appSettings = new AppSettings()
 
 const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)

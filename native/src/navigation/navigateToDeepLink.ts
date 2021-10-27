@@ -13,7 +13,7 @@ import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser
 import { NavigationPropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
-import AppSettings, { SettingsType } from '../utils/AppSettings'
+import appSettings, { SettingsType } from '../utils/AppSettings'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import createNavigate from './createNavigate'
 import navigateToCategory from './navigateToCategory'
@@ -25,7 +25,6 @@ const navigateToDeepLink = async (
   url: string,
   language: string
 ): Promise<void> => {
-  const appSettings = new AppSettings()
   const settings: SettingsType = await appSettings.loadSettings()
   const { introShown, selectedCity } = settings
   const { introSlides, fixedCity } = buildConfig().featureFlags
