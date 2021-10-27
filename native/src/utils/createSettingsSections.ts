@@ -22,7 +22,7 @@ export type SetSettingFunctionType = (
 export type SettingsSectionType = {
   title: string
   description?: string
-  onPress: () => Promise<void>
+  onPress: () => void
   bigTitle?: boolean
   accessibilityRole?: AccessibilityRole
   hasSwitch?: boolean
@@ -66,7 +66,7 @@ const createSettingsSections = ({
               description: t('pushNewsDescription'),
               hasSwitch: true,
               getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-              onPress: async () => {
+              onPress: () => {
                 setSetting(
                   settings => ({
                     allowPushNotifications: !settings.allowPushNotifications
@@ -103,7 +103,7 @@ const createSettingsSections = ({
         }),
         hasSwitch: true,
         getSettingValue: (settings: SettingsType) => settings.errorTracking,
-        onPress: async () => {
+        onPress: () => {
           setSetting(
             settings => ({
               errorTracking: !settings.errorTracking
@@ -124,7 +124,7 @@ const createSettingsSections = ({
         title: t('about', {
           appName: buildConfig().appName
         }),
-        onPress: async () => {
+        onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
           openExternalUrl(aboutUrl).catch(showSnackbar)
@@ -139,7 +139,7 @@ const createSettingsSections = ({
         title: t('version', {
           version: NativeConstants.appVersion
         }),
-        onPress: async () => {
+        onPress: () => {
           volatileValues.versionTaps += 1
 
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
@@ -156,7 +156,7 @@ const createSettingsSections = ({
               description: t('trackingDescription'),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
-              onPress: async () => {
+              onPress: () => {
                 navigation.navigate(JPAL_TRACKING_ROUTE, {
                   trackingCode: settings.jpalTrackingCode
                 })
