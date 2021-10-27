@@ -41,9 +41,10 @@ const ListItemWrapper = styled.View`
 const StyledTouchableOpacity = styled.TouchableOpacity`
   flex-direction: column;
 `
+
 const Divider = styled.View<{ firstItem: boolean }>`
   border-top-width: 0.5px;
-  border-top-color: rgba(168, 168, 168, 0.7);
+  border-top-color: ${props => props.theme.colors.newsListSeparatorColor};
   width: 80%;
   margin-top: ${props => (props.firstItem ? '0px' : '12px')};
   margin-bottom: 12px;

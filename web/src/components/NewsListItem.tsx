@@ -35,7 +35,7 @@ const Body = styled.p`
 
 const StyledNewsListItem = styled.div`
   padding-bottom: 2px;
-  border-bottom: 1px solid rgba(168, 168, 168, 0.7);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.newsListSeparatorColor};
 `
 
 const StyledContainer = styled.div`
