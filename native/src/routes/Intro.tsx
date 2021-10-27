@@ -22,7 +22,6 @@ const Container = styled.View<{ width: number }>`
   justify-content: space-between;
 `
 const AppIcon = styled.Image`
-  justify-content: center;
   align-self: center;
   flex: 1;
   height: 40%;
@@ -30,7 +29,6 @@ const AppIcon = styled.Image`
   resize-mode: contain;
 `
 const ImageContent = styled.Image`
-  justify-content: center;
   align-self: center;
   flex: 1;
   height: 100%;
