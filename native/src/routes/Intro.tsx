@@ -42,7 +42,7 @@ type PropsType = {
 }
 
 const Intro = ({ route, navigation }: PropsType): ReactElement => {
-  const [currentSlide, setCurrentSlide] = useState<number>(0)
+  const [currentSlide, setCurrentSlide] = useState(0)
   const language = useSelector<StateType, string>((state: StateType) => state.contentLanguage)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
