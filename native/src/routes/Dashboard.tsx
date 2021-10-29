@@ -34,7 +34,6 @@ const Spacing = styled.View`
 `
 type PropsType = {
   navigateTo: (arg0: RouteInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
   language: string
   cityModel: CityModel
@@ -50,7 +49,6 @@ const Dashboard = ({
   resourceCache,
   resourceCacheUrl,
   navigateTo,
-  navigateToLink,
   navigateToFeedback
 }: PropsType): ReactElement => {
   const { t } = useTranslation('dashboard')
@@ -152,10 +150,8 @@ const Dashboard = ({
         resourceCacheUrl={resourceCacheUrl}
         language={language}
         cityModel={cityModel}
-        theme={theme}
         navigateTo={navigateTo}
         navigateToFeedback={navigateToFeedback}
-        navigateToLink={navigateToLink}
       />
     </SpaceBetween>
   )
