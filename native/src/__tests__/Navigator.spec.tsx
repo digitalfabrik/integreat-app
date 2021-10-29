@@ -19,7 +19,7 @@ jest.mock('../utils/helpers', () => ({
   ...jest.requireActual('../utils/helpers'),
   initSentry: jest.fn()
 }))
-jest.mock('../routes/IntroContainer', () => {
+jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Intro</Text>
