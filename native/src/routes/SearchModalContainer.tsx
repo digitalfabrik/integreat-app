@@ -1,13 +1,12 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ThemeContext } from 'styled-components'
 
-import { SearchRouteType, CategoriesMapModel } from 'api-client'
+import { CategoriesMapModel, SearchRouteType } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import createNavigate from '../navigation/createNavigate'
-import navigateToLink from '../navigation/navigateToLink'
 import { StateType } from '../redux/StateType'
 import SearchModal from './SearchModal'
 
@@ -25,13 +24,6 @@ const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null =>
   const dispatch = useDispatch()
   const theme = useContext(ThemeContext)
   const { t } = useTranslation('search')
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
 
   const closeModal = () => {
     navigation.goBack()
@@ -40,7 +32,6 @@ const SearchModalContainer = ({ navigation }: PropsType): ReactElement | null =>
   return cityCode ? (
     <SearchModal
       cityCode={cityCode}
-      navigateToLink={navigateToLinkProp}
       navigateTo={createNavigate(dispatch, navigation)}
       closeModal={closeModal}
       categories={categories}
