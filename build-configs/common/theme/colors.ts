@@ -8,6 +8,7 @@ export type ColorsType = {
   backgroundColor: string
   tunewsThemeColor: string
   tunewsThemeColorLight: string
+  newsListSeparatorColor: string
 }
 export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
@@ -17,5 +18,6 @@ export const commonLightColors = {
   textDisabledColor: '#d0d0d0',
   backgroundColor: '#ffffff',
   tunewsThemeColor: '#007aa8',
-  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)'
+  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)',
+  newsListSeparatorColor: 'rgba(168, 168, 168, 0.7)'
 }
