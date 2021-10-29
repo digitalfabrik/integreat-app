@@ -9,6 +9,7 @@ import { textTruncator } from '../utils/stringUtils'
 import CleanLink from './CleanLink'
 import LastUpdateInfo from './LastUpdateInfo'
 import { Description } from './ListItem'
+import RemoteContent from './RemoteContent'
 
 export const NUM_OF_CHARS_ALLOWED = 220
 
@@ -28,11 +29,6 @@ const Title = styled.h3`
   font-size: 18px;
   font-weight: 700;
 `
-const Body = styled.p`
-  font-size: 16px;
-  line-height: 1.38;
-`
-
 const StyledNewsListItem = styled.div`
   padding-bottom: 2px;
 `
@@ -61,7 +57,12 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED)}</Body>
+          <RemoteContent
+            html={textTruncator(content, NUM_OF_CHARS_ALLOWED, true)}
+            // we don't need onInternalLinkClick here
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            onInternalLinkClick={(_s: string) => {}}
+          />
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
