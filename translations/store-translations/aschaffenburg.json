@@ -6,9 +6,6 @@
     "ar": {
       "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
     },
-    "cmn": {
-      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
-    },
     "en": {
       "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
     },
@@ -32,6 +29,9 @@
     },
     "tr": {
       "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "zh-CN": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
     }
   },
   "common": {
@@ -44,11 +44,6 @@
       "name": "hallo aschaffenburg",
       "description": "لجميع زوار مدينة Aschaffenburg: تطبيق \"hallo aschaffenburg\" هو التطبيق الرسمي لمدينة Aschaffenburg. حيث تتوفر به النصائح الحالية والعروض وبيانات الاتصال الخاصة بالمكاتب والمنظمات والمبادرات المحلية بلغات مختلفة. سواء أكان حول وقت الفراغ، أو ارتياد المدرسة",
       "defaultReleaseNote": "لقد قمنا بتحسين التطبيق وإصلاح بعض الأخطاء من أجلك. ساعدنا في تحسين تطبيق hallo aschaffenburg من خلال تزويدنا بتعليقات التطبيق والمعلومات المحلية"
-    },
-    "cmn": {
-      "name": "hallo aschaffenburg",
-      "description": "面向所有阿沙芬堡人和游客：“hallo aschaffenburg” App 是阿沙芬堡市的一个官方 App。最新的提示、优惠和当地办事处、组织和倡议的详细联系信息都以各种语言提供。无论是休闲、上学、文化、教育还是健康：该 App 提供的所有信息一目了然，甚至在离线和没有移动互联网的情况下也可以使用。",
-      "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. Help us improve hallo aschaffenburg by giving us feedback on the app and local information."
     },
     "en": {
       "name": "hallo aschaffenburg",
@@ -89,6 +84,11 @@
       "name": "hallo aschaffenburg",
       "description": "Kadın ve erkek tüm Aschaffenburglular ve ziyaretçiler için. \"hallo aschaffenburg\" uygulamasu Aschaffenburg Şehri'nin resmi uygulamasıdır. Yerel birimler, kuruluşlar ve girişimler hakkında farklı dillerde güncel ipuçları, teklifler ve iletişim bilgileri su",
       "defaultReleaseNote": "Uygulamayı sizin için daha da iyileştirdik ve bazı hataları giderdik. Uygulama ve yerel bilgiler hakkında geri bildirimde bulunarak hallo aschaffenburg'ın iyileştirilmesine katkıda bulunabilirsiniz. "
+    },
+    "zh-CN": {
+      "name": "hallo aschaffenburg",
+      "description": "面向所有阿沙芬堡人和游客：“hallo aschaffenburg” App 是阿沙芬堡市的一个官方 App。最新的提示、优惠和当地办事处、组织和倡议的详细联系信息都以各种语言提供。无论是休闲、上学、文化、教育还是健康：该 App 提供的所有信息一目了然，甚至在离线和没有移动互联网的情况下也可以使用。",
+      "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. Help us improve hallo aschaffenburg by giving us feedback on the app and local information."
     }
   },
   "playstore": {
@@ -97,9 +97,6 @@
     },
     "ar": {
       "short_description": "رفيق رقمي لك في مدينة Aschaffenburg"
-    },
-    "cmn": {
-      "short_description": "阿沙芬堡市的数字伴侣"
     },
     "en": {
       "short_description": "A digital companion for the City of Aschaffenburg"
@@ -124,6 +121,9 @@
     },
     "tr": {
       "short_description": "Aschaffenburg Şehri için dijital refakatçi."
+    },
+    "zh-CN": {
+      "short_description": "阿沙芬堡市的数字伴侣"
     }
   },
   "screenshots": {
@@ -132,9 +132,6 @@
     },
     "ar": {
       "placeholder_key": "مُرافقك الرقمي في مدينة Aschaffenburg"
-    },
-    "cmn": {
-      "placeholder_key": "你在阿沙芬堡市的数字伴侣"
     },
     "en": {
       "placeholder_key": "Your digital companion for the City of Aschaffenburg"
@@ -159,6 +156,9 @@
     },
     "tr": {
       "placeholder_key": "Aschaffenburg Şehri için dijital refakatçiniz"
+    },
+    "zh-CN": {
+      "placeholder_key": "你在阿沙芬堡市的数字伴侣"
     }
   }
 }
