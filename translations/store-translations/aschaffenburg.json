@@ -1,4 +1,39 @@
 {
+  "appstore": {
+    "de": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "ar": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "cmn": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "en": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "es": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "fr": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "it": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "pl": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "ro": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "ru": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    },
+    "tr": {
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+    }
+  },
   "common": {
     "de": {
       "name": "hallo aschaffenburg",
@@ -56,7 +91,7 @@
       "defaultReleaseNote": "Uygulamayı sizin için daha da iyileştirdik ve bazı hataları giderdik. Uygulama ve yerel bilgiler hakkında geri bildirimde bulunarak hallo aschaffenburg'ın iyileştirilmesine katkıda bulunabilirsiniz. "
     }
   },
-  "google": {
+  "playstore": {
     "de": {
       "short_description": "Ein digitaler Begleiter für die Stadt Aschaffenburg "
     },
