@@ -301,12 +301,6 @@ const writeMetadata = (appName: string, storeName: string, overrideVersionName?:
     throw new Error(`Invalid store name ${storeName} passed!`)
   }
 
-  // TODO IGAPP-803 remove
-  if (appName !== 'integreat' && appName !== 'malte') {
-    console.warn('Only integreat and malte are currently supported for automated store translations, aborting!')
-    return
-  }
-
   const storeTranslations = loadStoreTranslations(appName)
 
   Object.keys(storeTranslations[storeName]).forEach(language => {
