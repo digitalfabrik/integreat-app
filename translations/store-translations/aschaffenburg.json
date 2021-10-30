@@ -1,0 +1,129 @@
+{
+  "common": {
+    "de": {
+      "name": "hallo aschaffenburg",
+      "description": "Für alle Aschaffenburger*innen und Besucher*innen: Die App „hallo aschaffenburg“ ist eine offizielle App der Stadt Aschaffenburg. In verschiedenen Sprachen stehen Ihnen aktuelle Tipps, Angebote und Kontaktdaten von lokalen Stellen, Organisationen und Initiativen zur Ver-fügung. Ob Freizeit, Schulbesuch, Kultur, Bildung oder Gesundheit: In der App gibt es alle Informationen auf einen Blick, auch offline und ohne mobiles Internet.",
+      "defaultReleaseNote": "Wir haben die App weiter für Sie verbessert und einige Fehler entfernt. Helfen Sie mit hallo aschaffenburg zu verbessern, indem Sie Feedback zur App und den lokalen Informationen geben. "
+    },
+    "ar": {
+      "name": "hallo aschaffenburg",
+      "description": "لجميع زوار مدينة Aschaffenburg: تطبيق \"hallo aschaffenburg\" هو التطبيق الرسمي لمدينة Aschaffenburg. حيث تتوفر به النصائح الحالية والعروض وبيانات الاتصال الخاصة بالمكاتب والمنظمات والمبادرات المحلية بلغات مختلفة. سواء أكان حول وقت الفراغ، أو ارتياد المدرسة",
+      "defaultReleaseNote": "لقد قمنا بتحسين التطبيق وإصلاح بعض الأخطاء من أجلك. ساعدنا في تحسين تطبيق hallo aschaffenburg من خلال تزويدنا بتعليقات التطبيق والمعلومات المحلية"
+    },
+    "cmn": {
+      "name": "hallo aschaffenburg",
+      "description": "面向所有阿沙芬堡人和游客：“hallo aschaffenburg” App 是阿沙芬堡市的一个官方 App。最新的提示、优惠和当地办事处、组织和倡议的详细联系信息都以各种语言提供。无论是休闲、上学、文化、教育还是健康：该 App 提供的所有信息一目了然，甚至在离线和没有移动互联网的情况下也可以使用。",
+      "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. Help us improve hallo aschaffenburg by giving us feedback on the app and local information."
+    },
+    "en": {
+      "name": "hallo aschaffenburg",
+      "description": "For all Aschaffenburgers and visitors: The app \"hallo aschaffenburg\" is an official app of the City of Aschaffenburg. Current tips, offers and contact details of local offices, organisations and initiatives are available in various languages. Whether leis",
+      "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. Help us improve hallo aschaffenburg by giving us feedback on the app and local information."
+    },
+    "es": {
+      "name": "hallo aschaffenburg",
+      "description": "Para todos los y las habitantes y visitantes de Aschaffenburg: La aplicación «hallo aschaffenburg» es una aplicación oficial de la ciudad de Aschaffenburg. Se ofrecen consejos actuales, ofertas y datos de contacto de las oficinas, organizaciones e iniciat",
+      "defaultReleaseNote": "Hemos mejorado aún más la aplicación y eliminado algunos errores. Ayude a mejorar hallo aschaffenburg aportando comentarios sobre la aplicación y la información local."
+    },
+    "fr": {
+      "name": "hallo aschaffenburg",
+      "description": "Pour tous les habitants d'Aschaffenburg et les visiteurs : L'application « hallo aschaffenburg » est une application officielle de la ville d'Aschaffenburg. Les conseils actuels, les offres et les coordonnées des bureaux, organisations et initiatives loca",
+      "defaultReleaseNote": "Nous avons encore amélioré l'application et supprimé quelques bugs. Contribuez à l'amélioration d'hallo aschaffenburg en laissant des commentaires sur l'application et les informations locales."
+    },
+    "it": {
+      "name": "hallo aschaffenburg",
+      "description": "Per tutti gli abitanti e le abitanti, i visitatori e le visitatrici di Aschaffenburg: l’app “hallo aschaffenburg” è un’app ufficiale della città di Aschaffenburg. Consigli, offerte e dettagli di contatto di uffici locali, organizzazioni e iniziative sono ",
+      "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. Help us improve hallo aschaffenburg by giving us feedback on the app and local information."
+    },
+    "pl": {
+      "name": "hallo aschaffenburg",
+      "description": "Dla wszystkich mieszkańców Aschaffenburga i gości: Aplikacja „hallo aschaffenburg” jest oficjalną aplikacją miasta Aschaffenburg. Oferuje aktualne wskazówki, oferty i dane kontaktowe lokalnych placówek, organizacji oraz inicjatyw w różnych językach. Nieza",
+      "defaultReleaseNote": "Nadal doskonalimy i poprawiamy aplikację Integreat. Pomóż nam doskonalić serwis hallo aschaffenburg przysyłając swoją opinię o aplikacji oraz informacje o najnowszych wydarzeniach."
+    },
+    "ro": {
+      "name": "hallo aschaffenburg",
+      "description": "Pentru toți locuitorii și vizitatorii din Aschaffenburg: Aplicația „hallo aschaffenburg” este o aplicație oficială a orașului Aschaffenburg. Sfaturi actuale, oferte și date de contact ale birourilor, organizațiilor și inițiativelor locale sunt disponibile",
+      "defaultReleaseNote": "Am perfecționat aplicația pentru dvs. și am eliminat câteva erori. Contribuiți la îmbunătățirea hallo aschaffenburg prin feedbackul dvs. cu privire la această aplicație și prin furnizarea de informații locale. "
+    },
+    "ru": {
+      "name": "hallo aschaffenburg",
+      "description": "Для всех жителей и гостей Ашаффенбурга: приложение «hallo aschaffenburg» является официальным приложением города Ашаффенбург. Актуальные советы, предложения и контактные данные местных инстанций, организаций и инициатив доступны на разных языках. Будь то ",
+      "defaultReleaseNote": "Мы оптимизировали это приложение для вас и исправили некоторые ошибки. Помогите улучшить приложение hallo aschaffenburg, предоставив обратную связь и местную информацию. "
+    },
+    "tr": {
+      "name": "hallo aschaffenburg",
+      "description": "Kadın ve erkek tüm Aschaffenburglular ve ziyaretçiler için. \"hallo aschaffenburg\" uygulamasu Aschaffenburg Şehri'nin resmi uygulamasıdır. Yerel birimler, kuruluşlar ve girişimler hakkında farklı dillerde güncel ipuçları, teklifler ve iletişim bilgileri su",
+      "defaultReleaseNote": "Uygulamayı sizin için daha da iyileştirdik ve bazı hataları giderdik. Uygulama ve yerel bilgiler hakkında geri bildirimde bulunarak hallo aschaffenburg'ın iyileştirilmesine katkıda bulunabilirsiniz. "
+    }
+  },
+  "google": {
+    "de": {
+      "short_description": "Ein digitaler Begleiter für die Stadt Aschaffenburg "
+    },
+    "ar": {
+      "short_description": "رفيق رقمي لك في مدينة Aschaffenburg"
+    },
+    "cmn": {
+      "short_description": "阿沙芬堡市的数字伴侣"
+    },
+    "en": {
+      "short_description": "A digital companion for the City of Aschaffenburg"
+    },
+    "es": {
+      "short_description": "Un compañero digital para la ciudad de Aschaffenburg"
+    },
+    "fr": {
+      "short_description": "Un guide numérique pour la ville d'Aschaffenburg"
+    },
+    "it": {
+      "short_description": "Un compagno digitale per la città di Aschaffenburg"
+    },
+    "pl": {
+      "short_description": "Cyfrowy przewodnik dla miasta Aschaffenburg"
+    },
+    "ro": {
+      "short_description": "Un companion digital pentru orașul Aschaffenburg"
+    },
+    "ru": {
+      "short_description": "Цифровой путеводитель по городу Ашаффенбург"
+    },
+    "tr": {
+      "short_description": "Aschaffenburg Şehri için dijital refakatçi."
+    }
+  },
+  "screenshots": {
+    "de": {
+      "placeholder_key": "Ihr digitaler Begleiter für die Stadt Aschaffenburg"
+    },
+    "ar": {
+      "placeholder_key": "مُرافقك الرقمي في مدينة Aschaffenburg"
+    },
+    "cmn": {
+      "placeholder_key": "你在阿沙芬堡市的数字伴侣"
+    },
+    "en": {
+      "placeholder_key": "Your digital companion for the City of Aschaffenburg"
+    },
+    "es": {
+      "placeholder_key": "Su compañero digital para la ciudad de Aschaffenburg"
+    },
+    "fr": {
+      "placeholder_key": "Votre guide numérique pour la ville d'Aschaffenburg"
+    },
+    "it": {
+      "placeholder_key": "Un compagno digitale per la città di Aschaffenburg"
+    },
+    "pl": {
+      "placeholder_key": "Wasz cyfrowy przewodnik dla miasta Aschaffenburg"
+    },
+    "ro": {
+      "placeholder_key": "Companionul dvs. digital pentru orașul Aschaffenburg"
+    },
+    "ru": {
+      "placeholder_key": "Ваш цифровой путеводитель по городу Ашаффенбург"
+    },
+    "tr": {
+      "placeholder_key": "Aschaffenburg Şehri için dijital refakatçiniz"
+    }
+  }
+}
