@@ -4200,93 +4200,119 @@
   "native": {
     "de": {
       "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
-      "NSLocationWhenInUseUsageDescription": "Um dir deinen Standort und nahegelegene Orte anzuzeigen, benötigt {{appName}} Zugriff auf den Standort."
+      "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort."
     },
     "am": {
-      "NSPhotoLibraryAddUsageDescription": "ምስሎችን ሴቭ ለማድረግ የ{{appName}} የምስል ማስቀመጫን ያግኙ።"
+      "NSPhotoLibraryAddUsageDescription": "ምስሎችን ሴቭ ለማድረግ የ{{appName}} የምስል ማስቀመጫን ያግኙ።",
+      "NSLocationWhenInUseUsageDescription": "የቅርብ ቦታዎችን ለመፈለግ የ{{appName}} ቦታን ያግኙ።"
     },
     "ar": {
-      "NSPhotoLibraryAddUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى المعرض لحفظ الصورة."
+      "NSPhotoLibraryAddUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى المعرض لحفظ الصورة.",
+      "NSLocationWhenInUseUsageDescription": "يحتاج تطبيق {{appName}} إذن بالوصول إلى الموقع للعثور على الأماكن القريبة."
     },
     "bg": {
-      "NSPhotoLibraryAddUsageDescription": "За запазване на изображения, {{appName}} се нуждае от достъп до галерията."
+      "NSPhotoLibraryAddUsageDescription": "За запазване на изображения, {{appName}} се нуждае от достъп до галерията.",
+      "NSLocationWhenInUseUsageDescription": "За да намери местоположения наблизо, {{appName}} се нуждае от достъп до местоположението."
     },
     "ckb": {
-      "NSPhotoLibraryAddUsageDescription": "بۆ پاشەکەوتی وێنەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە گەلەری هەیە."
+      "NSPhotoLibraryAddUsageDescription": "بۆ پاشەکەوتی وێنەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە گەلەری هەیە.",
+      "NSLocationWhenInUseUsageDescription": "بۆ دۆزینەوەی شوێنە نزیکەکان، {{appName}} پێویستی بە دەستڕاگەیشتن بە شوێن هەیە."
     },
     "el": {
-      "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{appName}} στη συλλογή."
+      "NSPhotoLibraryAddUsageDescription": "Για την αποθήκευση εικόνων, είναι απαραίτητη η πρόσβαση του {{appName}} στη συλλογή.",
+      "NSLocationWhenInUseUsageDescription": "Για την εύρεση κοντινών τοποθεσιών, είναι απαραίτητη η πρόσβαση του {{appName}} στην τοποθεσία."
     },
     "en": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
-      "NSLocationWhenInUseUsageDescription": "To show you your location and nearby places, {{appName}} needs access to the location."
+      "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities."
     },
     "es": {
-      "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería."
+      "NSPhotoLibraryAddUsageDescription": "Para guardar imágenes, {{appName}} necesita un acceso a la galería.",
+      "NSLocationWhenInUseUsageDescription": "Para encontrar ubicaciones cercanas, {{appName}} necesita acceder a la ubicación."
     },
     "fr": {
-      "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des photos, {{appName}} doit accéder à la galerie."
+      "NSPhotoLibraryAddUsageDescription": "Pour enregistrer des photos, {{appName}} doit accéder à la galerie.",
+      "NSLocationWhenInUseUsageDescription": "Pour trouver des lieux situés à proximité,  {{appName}} a besoin d’un accès au site."
     },
     "hr": {
-      "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji."
+      "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
+      "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikaciji {{appName}} potreban je pristup lokaciji."
     },
     "hu": {
-      "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához."
+      "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához.",
+      "NSLocationWhenInUseUsageDescription": "A közeli helyek megtalálásához az {{appName}} alkalmazásnak hozzáférésre van szüksége a helyhez."
     },
     "it": {
-      "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria."
+      "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
+      "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
     },
     "ka": {
       "NSPhotoLibraryAddUsageDescription": "სურათების შესანახავად საჭიროა {{აპპ სახელი}} წვდომა გალერეაზე.",
       "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{აპპ სახელი}} წვდომა ქონდეს მდებარეობის ადგილზე"
     },
     "kmr": {
-      "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye."
+      "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
+      "NSLocationWhenInUseUsageDescription": "Ji bo ku hûn deverên nêzîk bibînin, {{appName}} hewcetî bi destgihiştina mekanê heye."
     },
     "mk": {
-      "NSPhotoLibraryAddUsageDescription": "За да зачувате слики, потребно е да влезете во {{appName}} во галеријата."
+      "NSPhotoLibraryAddUsageDescription": "За да зачувате слики, потребно е да влезете во {{appName}} во галеријата.",
+      "NSLocationWhenInUseUsageDescription": "За да пронајдете локации во близина, потребно е да влезете во {{appName}} во локацијата."
     },
     "pes": {
-      "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد."
+      "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} نیاز به دسترسی به گالری دارد.",
+      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های مجاور، {{appName} نیاز به دسترسی به موقعیت مکانی دارد."
     },
     "pl": {
-      "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii."
+      "NSPhotoLibraryAddUsageDescription": "Aby zapisać obrazy, {{appName}} potrzebuje dostępu do galerii.",
+      "NSLocationWhenInUseUsageDescription": "Aby znaleźć lokalizacje w pobliżu, {{appName}} wymaga dostępu do placówki."
     },
     "prs": {
-      "NSPhotoLibraryAddUsageDescription": "برای ذخیره عکس ها، {{appName}} به دسترسی گالری ضرورت دارد."
+      "NSPhotoLibraryAddUsageDescription": "برای ذخیره عکس ها، {{appName}} به دسترسی گالری ضرورت دارد.",
+      "NSLocationWhenInUseUsageDescription": "برای یافتن مکان های نزدیک، {{appName}} به دسترسی مکان ضرورت دارد."
     },
     "ps": {
-      "NSPhotoLibraryAddUsageDescription": "د انځورونو خوندي کولو لپاره {{appName}} انځورتون ته لاسرسي ته اړتیا لري."
+      "NSPhotoLibraryAddUsageDescription": "د انځورونو خوندي کولو لپاره {{appName}} انځورتون ته لاسرسي ته اړتیا لري.",
+      "NSLocationWhenInUseUsageDescription": "د نږدې ځایونو پیدا کولو لپاره {{appName}} موقعیت ته لاسرسي ته اړتیا لري."
     },
     "ro": {
-      "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie."
+      "NSPhotoLibraryAddUsageDescription": "Pentru a stoca imagini, {{appName}} are nevoie de acces la galerie.",
+      "NSLocationWhenInUseUsageDescription": "Pentru a putea găsi locații aflate în apropiere, {{appName}} are nevoie de acces la locația dvs."
     },
     "ru": {
-      "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению {{appName}} требуется доступ к галерее изображений."
+      "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению {{appName}} требуется доступ к галерее изображений.",
+      "NSLocationWhenInUseUsageDescription": "Чтобы найти близлежащие населенные пункты, приложению {{appName}} требуется доступ к данным о вашем местоположении."
     },
     "so": {
-      "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada."
+      "NSPhotoLibraryAddUsageDescription": "Si loo keydiyo sawirada, {{appName}} waxay u baahan tahay inay marin u hesho keydka sawirada.",
+      "NSLocationWhenInUseUsageDescription": "Si loo helo meelaha kuugu dhow, {{appName}} wuxuu u baahan yahay inuu marin u helo goobta."
     },
     "sq": {
-      "NSPhotoLibraryAddUsageDescription": "Për të ruajtur fotografi, {{appName}} ka nevojë për qasje në galeri."
+      "NSPhotoLibraryAddUsageDescription": "Për të ruajtur fotografi, {{appName}} ka nevojë për qasje në galeri.",
+      "NSLocationWhenInUseUsageDescription": "Për të gjetur vende në afërsi, {{appName}} ka nevojë për qasje në vendndodhje."
     },
     "sr-Cyrl": {
-      "NSPhotoLibraryAddUsageDescription": "Да би се сачувале слике, {{appName}} захтева приступ галерији."
+      "NSPhotoLibraryAddUsageDescription": "Да би се сачувале слике, {{appName}} захтева приступ галерији.",
+      "NSLocationWhenInUseUsageDescription": "Ради проналажења оближњих места, {{appName}} захтева приступ локацији."
     },
     "sr-Latn": {
-      "NSPhotoLibraryAddUsageDescription": "Da bi se sačuvale slike, {{appName}} zahteva pristup galeriji."
+      "NSPhotoLibraryAddUsageDescription": "Da bi se sačuvale slike, {{appName}} zahteva pristup galeriji.",
+      "NSLocationWhenInUseUsageDescription": "Radi pronalaženja obližnjih mesta, {{appName}} zahteva pristup lokaciji."
     },
     "ti": {
-      "NSPhotoLibraryAddUsageDescription": "ስእልታት ንምዕቃብ፡ {{appName}} ናብቲ ጋለሪ/መኽዘን ስእሊ ናይ ምእታው ፍቓድ የድልዮ።"
+      "NSPhotoLibraryAddUsageDescription": "ስእልታት ንምዕቃብ፡ {{appName}} ናብቲ ጋለሪ/መኽዘን ስእሊ ናይ ምእታው ፍቓድ የድልዮ።",
+      "NSLocationWhenInUseUsageDescription": "ኣብ ጥቓኹም ዘለዉ ቦታታት ንምርካብ፡ {{appName}} ናብቲ ቦታ ናይ ምእታው ዕድል ክውሃቦ ይደሊ።"
     },
     "tr": {
-      "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir."
+      "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir.",
+      "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
     },
     "ur": {
-      "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔"
+      "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔",
+      "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو مقام تک رسائی درکار ہے۔"
     },
     "zh-CN": {
-      "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。"
+      "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
+      "NSLocationWhenInUseUsageDescription": "要查找附近的位置，{{appName}}需要位置访问权限。"
     }
   },
   "news": {
