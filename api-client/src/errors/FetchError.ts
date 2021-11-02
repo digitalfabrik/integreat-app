@@ -40,7 +40,7 @@ class FetchError extends Error {
       stringifiedFormData = ` and the formData ${JSON.stringify(requestOptions.body)}`
     }
 
-    return `ResponseError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
+    return `FetchError: Failed to ${requestOptions.method} the request for the ${endpointName} endpoint with the url
      ${url}${stringifiedFormData}. ${innerError.message}`
   }
 
