@@ -14,7 +14,7 @@ import Dashboard from '../Dashboard'
 
 jest.mock('react-i18next')
 jest.mock('../../components/Page', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>Page</Text>
 })
@@ -29,7 +29,6 @@ describe('Dashboard', () => {
   const categoryLeaf = categoriesMapModel.toArray().find(category => categoriesMapModel.isLeaf(category))
   const language = 'de'
   const navigateTo = jest.fn()
-  const navigateToLink = jest.fn()
   const navigateToFeedback = jest.fn()
   const theme = buildConfig().lightTheme
 
@@ -84,7 +83,6 @@ describe('Dashboard', () => {
     TestRenderer.create(
       <ThemeProvider theme={theme}>
         <Dashboard
-          navigateToLink={navigateToLink}
           navigateToFeedback={navigateToFeedback}
           navigateTo={navigateTo}
           language={language}

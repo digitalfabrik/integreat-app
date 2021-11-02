@@ -61,7 +61,7 @@ const formatNotes = (params: {
 
   const formattedNotes = notes
     .map(note => {
-      const localizedNote = note.de ?? note.en
+      const localizedNote = language === 'en' || !note.de ? note.en : note.de
       // Double quotes make mattermost status alerts fail
       const escapedNote = localizedNote.replace(/"/g, "'")
       return production ? `* ${escapedNote}` : `* [ ${note.issue_key} ] ${escapedNote}`
@@ -136,11 +136,10 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
     throw new Error('Usage of multiple platforms in production mode is not supported.')
   }
 
-  if (!fs.existsSync(source)) {
-    throw new Error(`Source ${source} not found.`)
+  const fileNames = fs.existsSync(source) ? fs.readdirSync(source) : []
+  if (fileNames.length === 0) {
+    console.warn(`No release notes found in source ${source}. Using default notes.`)
   }
-
-  const fileNames = fs.readdirSync(source)
 
   // Load all notes not belonging to a release
   const relevantNotes = fileNames
