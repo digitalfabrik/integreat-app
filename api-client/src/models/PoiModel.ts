@@ -1,6 +1,6 @@
-import { Feature } from 'geojson'
 import { Moment } from 'moment'
 
+import { PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import PageModel from './PageModel'
@@ -34,8 +34,12 @@ class PoiModel extends ExtendedPageModel {
     return this._excerpt
   }
 
-  get featureLocation(): Feature | null {
-    return this._location.convertToPoint()
+  get urlSlug(): string {
+    return this._path.split('/').pop() ?? ''
+  }
+
+  get featureLocation(): PoiFeature | null {
+    return this._location.convertToPoint(this.path, this.thumbnail, this.urlSlug)
   }
 
   isEqual(other: PageModel): boolean {

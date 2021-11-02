@@ -54,7 +54,8 @@ export const forEachTreeNode = <T>(
 const uniqueBaseId = `route-id-${Date.now()}`
 let uuidCount = 0
 export const generateRouteKey = (): string => {
-  return `${uniqueBaseId}-${uuidCount++}`
+  uuidCount += 1
+  return `${uniqueBaseId}-${uuidCount}`
 }
 
 /**
@@ -68,7 +69,7 @@ export const getExtension = (urlString: string): string => {
     throw new Error('Invalid URL! Missing protocol.')
   }
 
-  const pathname = url.pathname
+  const { pathname } = url
   const lastPath = last(pathname.split('/'))
 
   if (lastPath === undefined) {

@@ -45,16 +45,15 @@ describe('useSendOfflineJpalSignals', () => {
   const mockedUseNetInfo = mocked(useNetInfo)
 
   const mockUseNetInfo = (isInternetReachable: boolean) => {
-    mockedUseNetInfo.mockImplementation(() => {
-      return {
-        type: NetInfoStateType?.other,
-        isConnected: true,
-        isInternetReachable,
-        details: {
-          isConnectionExpensive: false
-        }
+    mockedUseNetInfo.mockImplementation(() => ({
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      type: NetInfoStateType?.other,
+      isConnected: true,
+      isInternetReachable,
+      details: {
+        isConnectionExpensive: false
       }
-    })
+    }))
   }
 
   it('should resend signals if internet is reachable again', async () => {

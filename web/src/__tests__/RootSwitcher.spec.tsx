@@ -42,7 +42,7 @@ describe('RootSwitcher', () => {
           }}
         />
       </ThemeProvider>,
-      { route: route }
+      { route }
     )
     return { ...rendered, location: testLocation }
   }
@@ -57,7 +57,7 @@ describe('RootSwitcher', () => {
     const { getByText, location } = renderRootSwitcherWithLocation('/landing/de')
 
     expect(location?.pathname).toBe('/landing/de')
-    await waitFor(() => expect(getByText(cities[0].name)).toBeTruthy(), { timeout: 5000 })
+    await waitFor(() => expect(getByText(cities[0]!.name)).toBeTruthy(), { timeout: 5000 })
   })
 
   it.each`

@@ -51,28 +51,19 @@ const LocationHeader = (props: PropsType): ReactElement => {
 
   const { t } = useTranslation('layout')
 
-  const getActionItems = (): Array<ReactNode> => {
-    return [
-      <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
-      ...(!buildConfig().featureFlags.fixedCity
-        ? [
-            <HeaderActionBarItemLink
-              key='location'
-              href={landingPath}
-              text={t('changeLocation')}
-              iconSrc={landingIcon}
-            />
-          ]
-        : []),
-      <LanguageSelector
-        key='language'
-        languageChangePaths={languageChangePaths}
-        isHeaderActionItem
-        pathname={pathname}
-        languageCode={languageCode}
-      />
-    ]
-  }
+  const getActionItems = (): Array<ReactNode> => [
+    <HeaderActionBarItemLink key='search' href={searchPath} text={t('search')} iconSrc={searchIcon} />,
+    ...(!buildConfig().featureFlags.fixedCity
+      ? [<HeaderActionBarItemLink key='location' href={landingPath} text={t('changeLocation')} iconSrc={landingIcon} />]
+      : []),
+    <LanguageSelector
+      key='language'
+      languageChangePaths={languageChangePaths}
+      isHeaderActionItem
+      pathname={pathname}
+      languageCode={languageCode}
+    />
+  ]
 
   const getNavigationItems = (): Array<ReactNode> => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)

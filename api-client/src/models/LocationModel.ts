@@ -1,8 +1,8 @@
-import { Feature, Point } from 'geojson'
+import { PoiFeature } from '../maps'
 
 class LocationModel {
-  _id: number | null | undefined
-  _name: string | null | undefined
+  _id: number
+  _name: string
   _address: string | null | undefined
   _town: string | null | undefined
   _state: string | null | undefined
@@ -24,8 +24,8 @@ class LocationModel {
     latitude,
     longitude
   }: {
-    id: number | null | undefined
-    name: string | null | undefined
+    id: number
+    name: string
     address: string | null | undefined
     town: string | null | undefined
     state: string | null | undefined
@@ -48,11 +48,11 @@ class LocationModel {
     this._name = name
   }
 
-  get id(): number | null | undefined {
+  get id(): number {
     return this._id
   }
 
-  get name(): string | null | undefined {
+  get name(): string {
     return this._name
   }
 
@@ -113,7 +113,7 @@ class LocationModel {
     )
   }
 
-  convertToPoint(): Feature<Point> | null {
+  convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
     if (this.longitude == null || this.latitude == null) {
       return null
     }
@@ -128,7 +128,11 @@ class LocationModel {
         title: this.name,
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
-        symbol: '9'
+        symbol: '9',
+        thumbnail,
+        path,
+        urlSlug,
+        address: this.address ?? undefined
       }
     }
   }

@@ -15,7 +15,7 @@ jest.mock('react-native-reanimated', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const Reanimated = require('react-native-reanimated/mock')
 
-  Reanimated.default.call = () => {}
+  Reanimated.default.call = () => undefined
 
   return Reanimated
 })
@@ -25,7 +25,11 @@ const walkDir = (dir: string, callback: (filePath: string) => void): void => {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
     const isDirectory = fs.statSync(filePath).isDirectory()
-    isDirectory ? walkDir(filePath, callback) : callback(filePath)
+    if (isDirectory) {
+      walkDir(filePath, callback)
+    } else {
+      callback(filePath)
+    }
   })
 }
 

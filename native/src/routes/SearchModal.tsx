@@ -55,7 +55,6 @@ export type PropsType = {
   language: string
   cityCode: string
   closeModal: (query: string) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   t: TFunction<'search'>
 }
 type SearchStateType = {
@@ -146,6 +145,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
 
   onClose = (): void => {
     const { query } = this.state
+    const { closeModal } = this.props
     sendTrackingSignal({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
@@ -153,7 +153,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         url: null
       }
     })
-    this.props.closeModal(query)
+    closeModal(query)
   }
 
   onSearchChanged = (query: string): void => {
@@ -163,7 +163,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
   }
 
   renderContent = (): ReactNode => {
-    const { language, cityCode, theme, categories, navigateToLink, t } = this.props
+    const { language, cityCode, theme, categories, t } = this.props
     const { query } = this.state
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
 
@@ -182,11 +182,10 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
              See NATIVE-430 for reference. */}
         <View
           style={{
-            minHeight: minHeight
+            minHeight
           }}>
           <CategoryList
             categories={filteredCategories}
-            navigateToLink={navigateToLink}
             query={query}
             onItemPress={this.onItemPress}
             theme={theme}

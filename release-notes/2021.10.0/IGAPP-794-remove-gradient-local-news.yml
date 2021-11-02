@@ -1,0 +1,5 @@
+issue_key: IGAPP-794
+show_in_stores: true
+platforms:
+  - web
+en: Removed weird color gradient from news.

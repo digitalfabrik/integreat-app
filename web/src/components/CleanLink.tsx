@@ -20,20 +20,18 @@ type CleanLinkProps = {
   className?: string
 }
 
-const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className }: CleanLinkProps) => {
-  return (
-    <>
-      {isExternalUrl(to) ? (
-        <StyledCleanAnchor href={to} aria-label={ariaLabel} className={className} data-testid={'externalLink'}>
-          {children}
-        </StyledCleanAnchor>
-      ) : (
-        <StyledCleanLink to={to} data-testid={'internalLink'}>
-          {children}
-        </StyledCleanLink>
-      )}
-    </>
-  )
-}
+const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className }: CleanLinkProps) => (
+  <>
+    {isExternalUrl(to) ? (
+      <StyledCleanAnchor href={to} aria-label={ariaLabel} className={className} data-testid='externalLink'>
+        {children}
+      </StyledCleanAnchor>
+    ) : (
+      <StyledCleanLink to={to} data-testid='internalLink'>
+        {children}
+      </StyledCleanLink>
+    )}
+  </>
+)
 
 export default CleanLink

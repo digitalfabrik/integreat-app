@@ -137,7 +137,7 @@ describe('I18nProvider', () => {
 
   it('should choose rtl with ar as language', async () => {
     act(() => {
-      render(<I18nProvider contentLanguage={'ar'}>Hello</I18nProvider>)
+      render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
     expect(screen.getByTestId('direction')).toHaveAttribute('dir', 'rtl')
@@ -224,5 +224,5 @@ describe('I18nProvider', () => {
   // We can not switch the language right now because it is bound to redux-first-router, we would need to trigger a
   // state update through the router which is very difficult.
   // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('should remember the language over sessions', async () => {})
+  it.skip('should remember the language over sessions', async () => undefined)
 })

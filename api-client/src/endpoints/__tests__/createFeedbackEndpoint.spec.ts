@@ -48,7 +48,7 @@ describe('feedback', () => {
     }
 
     expect(
-      feedback.mapParamsToBody?.({
+      feedback.mapParamsToBody({
         city: 'augsburg',
         language: 'de',
         permalink: '/augsburg/de/familie',

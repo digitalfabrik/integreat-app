@@ -81,11 +81,10 @@ platform :android do
     end
 
     build_config = read_build_config(build_config_name, 'android')
-    skip_metadata = build_config_name != "integreat"
+    skip_images = build_config_name != "integreat"
     track = production_delivery === true ? "production" : "beta"
 
     puts("delivering #{build_config_name} v#{version_name} to track #{track}")
-    puts("skip_metadata: #{skip_metadata}")
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
@@ -95,9 +94,9 @@ platform :android do
         metadata_path: "./android/fastlane/#{build_config_name}/metadata",
         track: track,
         skip_upload_changelogs: false,
-        skip_upload_images: skip_metadata,
-        skip_upload_screenshots: skip_metadata,
-        skip_upload_metadata: skip_metadata,
+        skip_upload_images: skip_images,
+        skip_upload_screenshots: skip_images,
+        skip_upload_metadata: false,
         release_status: "completed",
         apk: "#{ENV['HOME']}/#{apk_path}",
         json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
@@ -161,7 +160,7 @@ platform :ios do
     ensure_env_vars(
         env_vars: ["APP_STORE_CONNECT_API_KEY_ID", "APP_STORE_CONNECT_API_ISSUER_ID", "APP_STORE_CONNECT_API_KEY_CONTENT"]
     )
-    
+
     app_store_connect_api_key(
       key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
       issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
@@ -315,7 +314,7 @@ platform :ios do
     puts("promoting #{build_config_name} v#{testflight_version} - #{testflight_build_number} to app store connect")
     puts("skip_screenshots: #{skip_screenshots}")
 
-    prepare_release_notes(version_name: testflight_version, build_config_name: build_config_name)
+    prepare_metadata(version_name: testflight_version, build_config_name: build_config_name)
 
     # https://docs.fastlane.tools/actions/deliver/#submit-build
     deliver(
@@ -340,8 +339,8 @@ platform :ios do
   # The following parameters have to be passed:
   # build_config_name: The name of the build config
   # version_name: The version name of the release notes to prepare
-  desc "Prepare release notes"
-  lane :prepare_release_notes do |options|
+  desc "Prepare metadata"
+  lane :prepare_metadata do |options|
     build_config_name = options[:build_config_name]
     version_name = options[:version_name]
 
@@ -349,8 +348,7 @@ platform :ios do
       raise "'nil' passed as parameter! Aborting..."
     end
 
-    `../../tools/parse-release-notes parse --ios --destination ../ios/fastlane/#{build_config_name}/metadata/de-DE/release_notes.txt --language de --source ../../release-notes/#{version_name} --production`
-    `../../tools/parse-release-notes parse --ios --destination ../ios/fastlane/#{build_config_name}/metadata/en-US/release_notes.txt --language en --source ../../release-notes/#{version_name} --production`
+    `yarn --cwd ../../tools manage-metadata prepare-metadata #{build_config_name} appstore --override-version-name #{version_name}`
   end
 
 end

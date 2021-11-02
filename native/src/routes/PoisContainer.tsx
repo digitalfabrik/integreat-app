@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { memo } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -6,9 +7,9 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import Pois from './Pois'
@@ -35,15 +36,6 @@ type RefreshPropsType = NavigationPropsType & {
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 type DispatchPropsType = {
   dispatch: Dispatch<StoreActionType>
-}
-
-const onRouteClose = (routeKey: string, dispatch: Dispatch<StoreActionType>) => {
-  dispatch({
-    type: 'CLEAR_ROUTE',
-    params: {
-      key: routeKey
-    }
-  })
 }
 
 const createChangeUnavailableLanguage = (city: string) => (
@@ -119,21 +111,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       code: state.cities.code,
       refreshProps
     }
-  } else if (resourceCache.status === 'error') {
+  }
+  if (resourceCache.status === 'error') {
     return {
       status: 'error',
       message: resourceCache.message,
       code: resourceCache.code,
       refreshProps
     }
-  } else if (route.status === 'error') {
+  }
+  if (route.status === 'error') {
     return {
       status: 'error',
       message: route.message,
       code: route.code,
       refreshProps
     }
-  } else if (languages.status === 'error') {
+  }
+  if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
@@ -142,7 +137,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  const resourceCacheUrl = state.resourceCacheUrl
+  const { resourceCacheUrl } = state
 
   if (
     resourceCacheUrl === null ||
@@ -187,34 +182,16 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-class PoisContainer extends React.Component<ContainerPropsType> {
-  // Workaround to fix rerender cycle with null path in Poi Detail page
-  // TODO IGAPP-758
-  shouldComponentUpdate(nextProps: ContainerPropsType) {
-    if (this.props.path === nextProps.path) {
-      return false
-    }
-    return true
-  }
-
-  navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const { dispatch, navigation } = this.props
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }
-
-  render() {
-    const { dispatch, navigation, route, ...rest } = this.props
-    return (
-      <Pois
-        {...rest}
-        route={route}
-        navigateTo={createNavigate(dispatch, navigation)}
-        navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-        navigateToLink={this.navigateToLinkProp}
-      />
-    )
-  }
+const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  useClearRouteOnClose(route, dispatch)
+  return (
+    <Pois
+      {...rest}
+      route={route}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    />
+  )
 }
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
@@ -232,8 +209,15 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
+// Workaround to fix rerender cycle with null path in Poi Detail page
+// TODO IGAPP-758
+const PurePoisContainer = memo(
+  PoisContainer,
+  (prevProps: ContainerPropsType, nextProps: ContainerPropsType) => prevProps.path !== nextProps.path
+)
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, onRouteClose, true)(PoisContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true)(PurePoisContainer))

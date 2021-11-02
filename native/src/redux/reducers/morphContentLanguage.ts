@@ -205,14 +205,15 @@ const translateRoutes = (state: CityContentStateType, action: MorphContentLangua
   return mapValues(routeMapping, (route: RouteStateType) => {
     if (route.routeType === CATEGORIES_ROUTE) {
       return categoryTranslator(route)
-    } else if (route.routeType === EVENTS_ROUTE) {
-      return eventTranslator(route)
-    } else if (route.routeType === POIS_ROUTE) {
-      return poiTranslator(route)
-    } else {
-      // We currently don't support language change for news
-      return route
     }
+    if (route.routeType === EVENTS_ROUTE) {
+      return eventTranslator(route)
+    }
+    if (route.routeType === POIS_ROUTE) {
+      return poiTranslator(route)
+    }
+    // We currently don't support language change for news
+    return route
   })
 }
 

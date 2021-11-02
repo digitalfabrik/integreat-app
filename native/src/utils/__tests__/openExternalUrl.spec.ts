@@ -2,13 +2,13 @@ import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import { mocked } from 'ts-jest/utils'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 import openExternalUrl from '../openExternalUrl'
 import sendTrackingSignal from '../sendTrackingSignal'
 
 jest.mock('@sentry/react-native', () => ({
-  captureException: () => {}
+  captureException: () => undefined
 }))
 jest.mock('react-native-inappbrowser-reborn', () => ({
   open: jest.fn(),
@@ -63,15 +63,23 @@ describe('openExternalUrl', () => {
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_OS_LINK_SIGNAL_NAME,
-        url: url
+        url
       }
     })
   })
+
   it('should show snackbar if opening url is not supported', async () => {
     const url = 'mor:erando.mstu.ff'
     mocked(Linking.canOpenURL).mockImplementation(async () => false)
-    await openExternalUrl(url)
+    await expect(openExternalUrl(url)).rejects.toThrowError(
+      new NotFoundError({
+        type: 'route',
+        id: url,
+        city: '',
+        language: ''
+      })
+    )
     expect(Linking.openURL).not.toHaveBeenCalled()
-    expect(InAppBrowser.open).not.toHaveBeenCalled() // TODO IGAPP-521 assert snackbar is shown
+    expect(InAppBrowser.open).not.toHaveBeenCalled()
   })
 })

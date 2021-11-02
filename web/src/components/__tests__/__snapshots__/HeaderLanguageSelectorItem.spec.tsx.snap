@@ -10,6 +10,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
     <button
       aria-label="changeLanguage"
       onClick={[Function]}
+      type="button"
     >
       <img
         alt=""
@@ -19,6 +20,7 @@ exports[`HeaderLanguageSelectorItem should render a HeaderDropDown with a Select
   </Component>
   <styled.div
     active={false}
+    data-testid="headerActionItemDropDown"
     style={
       Object {
         "visibility": "hidden",

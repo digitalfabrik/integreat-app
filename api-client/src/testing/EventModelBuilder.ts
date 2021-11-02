@@ -39,8 +39,9 @@ class EventModelBuilder {
 
   buildResources(): Record<string, PageResourceCacheStateType> {
     return this.buildAll().reduce<Record<string, PageResourceCacheStateType>>((result, { path, resources }) => {
-      result[path] = resources
-      return result
+      const newResult = result
+      newResult[path] = resources
+      return newResult
     }, {})
   }
 
@@ -98,8 +99,8 @@ class EventModelBuilder {
               allDay: false
             }),
             location: new LocationModel({
-              id: null,
-              name: null,
+              id: 1,
+              name: 'test',
               address: 'address',
               town: 'town',
               state: null,

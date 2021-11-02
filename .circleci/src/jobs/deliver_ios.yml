@@ -23,11 +23,8 @@ steps:
   - restore_ruby_cache:
       directory: native
   - run:
-      name: Parse german ios release notes
-      command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/de-DE/release_notes.txt --language de --production
-  - run:
-      name: Parse english ios release notes
-      command: tools/parse-release-notes parse --ios --destination native/ios/fastlane/<< parameters.build_config_name >>/metadata/en-US/release_notes.txt --language en --production
+      name: Prepare App Store metadata
+      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane ios browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa

@@ -21,9 +21,9 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.64 * Math.pow(2, 20)
+const MAX_BUNDLE_SIZE = 1.64 * 2 ** 20
 // eslint-disable-next-line no-magic-numbers
-const MAX_ASSET_SIZE = 2.1 * Math.pow(2, 20)
+const MAX_ASSET_SIZE = 2.1 * 2 ** 20
 
 const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8'))
 
@@ -129,7 +129,7 @@ const createConfig = (
     output: {
       path: distDirectory,
       publicPath: '/',
-      filename: devServer ? '[name].js?[hash]' : '[name].[hash].js',
+      filename: devServer ? '[name].js?[contenthash]' : '[name].[contenthash].js',
       chunkFilename: devServer ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
       sourcePrefix: '  '
     },
@@ -139,14 +139,13 @@ const createConfig = (
     },
     devtool: 'source-map',
     devServer: {
-      contentBase: distDirectory,
+      static: { directory: distDirectory },
       compress: true,
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
       http2: false,
-      historyApiFallback: true,
-      stats: 'minimal'
+      historyApiFallback: true
     },
     // What information should be printed to the console
     stats: 'minimal',
@@ -180,9 +179,7 @@ const createConfig = (
           {
             from: manifestPreset,
             to: distDirectory,
-            transform: (content: Buffer) => {
-              return generateManifest(content, buildConfigName)
-            }
+            transform: (content: Buffer) => generateManifest(content, buildConfigName)
           }
         ]
       }),
@@ -244,10 +241,11 @@ const createConfig = (
         {
           test: /\.css$/,
           include: /node_modules/,
-          loaders: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+          use: ['style-loader', 'css-loader']
         },
         {
           test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+          type: 'javascript/auto',
           use: [
             {
               loader: 'url-loader',
@@ -280,13 +278,14 @@ const createConfig = (
         },
         {
           test: /\.(eot|ttf|wav|mp3)$/,
-          loader: 'file-loader'
+          type: 'assets/resource'
         }
       ]
     }
   }
 
   // Optimize the bundle in production mode
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!devServer && optimize) {
     config.plugins?.push(new optimize.AggressiveMergingPlugin())
   }
