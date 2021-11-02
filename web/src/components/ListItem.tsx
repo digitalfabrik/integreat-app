@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 import CleanLink from './CleanLink'
 
-const Link = styled(CleanLink)`
-  display: flex;
+const ListItemContainer = styled.div`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+  display: flex;
 `
 
 const Thumbnail = styled.img`
@@ -42,13 +42,15 @@ type PropsType = {
 }
 
 const ListItem: React.FC<PropsType> = ({ path, title, thumbnail, children }: PropsType): ReactElement => (
-  <Link to={path}>
-    {thumbnail && <Thumbnail alt='' src={thumbnail} />}
-    <Description>
-      <Title>{title}</Title>
-      {children}
-    </Description>
-  </Link>
+  <ListItemContainer>
+    <CleanLink to={path}>
+      {thumbnail && <Thumbnail alt='' src={thumbnail} />}
+      <Description>
+        <Title>{title}</Title>
+        {children}
+      </Description>
+    </CleanLink>
+  </ListItemContainer>
 )
 
 export default ListItem
