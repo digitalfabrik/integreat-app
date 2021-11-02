@@ -54,6 +54,7 @@ const MapView = ({
     id: featureLayerId,
     style: {
       symbolPlacement: 'point',
+      symbolZOrder: 'source',
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
       iconImage: ['case', ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1], '6', ['get', 'symbol']],
@@ -101,6 +102,7 @@ const MapView = ({
       undefined,
       [featureLayerId]
     )
+
     const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
 
     if (feature) {
