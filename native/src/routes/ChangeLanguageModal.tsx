@@ -34,7 +34,8 @@ class ChangeLanguageModal extends React.Component<PropsType> {
   }
 
   closeModal = (): void => {
-    this.props.navigation.goBack()
+    const { navigation } = this.props
+    navigation.goBack()
   }
 
   render(): ReactNode {

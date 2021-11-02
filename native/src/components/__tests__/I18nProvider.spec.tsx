@@ -23,9 +23,9 @@ jest.mock('translations/src/loadTranslations')
 jest.mock('../../utils/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
-const city = cities[0]
+const city = cities[0]!
 const languages = new LanguageModelBuilder(1).build()
-const language = languages[0]
+const language = languages[0]!
 
 const prepareState = ({
   contentLanguage = 'de',
@@ -37,34 +37,32 @@ const prepareState = ({
   switchingLanguage?: boolean
   cities?: CitiesStateType
   languages?: LanguagesStateType
-} = {}): StateType => {
-  return {
-    resourceCacheUrl: 'http://localhost:8080',
-    cityContent: {
-      city: city.code,
-      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-      languages: languages || {
-        status: 'ready',
-        models: [language]
-      },
-      routeMapping: {},
-      searchRoute: null,
-      resourceCache: {
-        status: 'ready',
-        progress: 0,
-        value: {
-          file: {}
-        }
-      }
-    },
-    contentLanguage,
-    cities: cities || {
+} = {}): StateType => ({
+  resourceCacheUrl: 'http://localhost:8080',
+  cityContent: {
+    city: city.code,
+    switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+    languages: languages || {
       status: 'ready',
-      models: [city]
+      models: [language]
     },
-    snackbar: []
-  }
-}
+    routeMapping: {},
+    searchRoute: null,
+    resourceCache: {
+      status: 'ready',
+      progress: 0,
+      value: {
+        file: {}
+      }
+    }
+  },
+  contentLanguage,
+  cities: cities || {
+    status: 'ready',
+    models: [city]
+  },
+  snackbar: []
+})
 
 const mockStore = configureMockStore()
 const mockDetect = mocked(NativeLanguageDetector.detect)
@@ -85,7 +83,7 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    await waitFor(() => {})
+    await waitFor(() => undefined)
     expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')

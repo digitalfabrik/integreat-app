@@ -15,11 +15,14 @@ export enum ErrorCode {
 export const fromError = (error: Error): ErrorCode => {
   if (error instanceof ResponseError) {
     return ErrorCode.NetworkRequestFailed
-  } else if (error instanceof MappingError) {
+  }
+  if (error instanceof MappingError) {
     return ErrorCode.ResponseMappingFailed
-  } else if (error instanceof FetchError) {
+  }
+  if (error instanceof FetchError) {
     return ErrorCode.NetworkConnectionFailed
-  } else if (error instanceof NotFoundError) {
+  }
+  if (error instanceof NotFoundError) {
     return ErrorCode.PageNotFound
   }
 

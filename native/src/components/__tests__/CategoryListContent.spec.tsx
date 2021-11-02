@@ -9,13 +9,13 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
   default: jest.fn(() => ({ width: 1234 }))
 }))
 jest.mock('../TimeStamp', () => ({ lastUpdate }: { lastUpdate: Moment }) => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return <Text>lastUpdate {lastUpdate.toISOString()}</Text>
 })
 
 jest.mock('../NativeHtml', () => ({ content }: { content: string }) => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
   return <Text>{content}</Text>
 })
 
@@ -25,13 +25,7 @@ describe('CategoryListContent', () => {
     const iso = '2011-05-04T00:00:00.000Z'
     const lastUpdate = moment(iso)
     const { getByText } = render(
-      <CategoryListContent
-        content={content}
-        navigateToLink={() => {}}
-        cacheDictionary={{}}
-        language='de'
-        lastUpdate={lastUpdate}
-      />
+      <CategoryListContent content={content} cacheDictionary={{}} language='de' lastUpdate={lastUpdate} />
     )
     expect(getByText(content)).toBeTruthy()
     expect(getByText(`lastUpdate ${iso}`)).toBeTruthy()

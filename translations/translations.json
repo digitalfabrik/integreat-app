@@ -2391,7 +2391,6 @@
   },
   "intro": {
     "de": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland",
       "search": "Suche",
       "searchDescription": "Anhand von Schlagwörtern schnell die richtige Information finden",
@@ -2417,7 +2416,6 @@
       "privacyPolicy": "Datenschutzerklärung"
     },
     "am": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ለጀርመን የእርስዎ የዲጂታል መሪ ነው",
       "search": "ፍለጋ",
       "searchDescription": "ትክክለኛውን መረጃ ቁልፍ ቃላትን በመጠቀም በፍጥነት ፈልገው ያግኙ",
@@ -2443,7 +2441,6 @@
       "privacyPolicy": "የግላዊነት ፖሊሲ"
     },
     "ar": {
-      "appName": "{{appName}}",
       "appDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا",
       "search": "البحث",
       "searchDescription": "استخدام الكلمات الرئيسية للعثور بسرعة على المعلومات الصحيحة",
@@ -2469,7 +2466,6 @@
       "privacyPolicy": "بيان الخصوصية"
     },
     "bg": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} е Вашето дигитално ръководство за Германия",
       "search": "Търсене",
       "searchDescription": "Намерете бързо правилната информация, като използвате ключови думи",
@@ -2495,7 +2491,6 @@
       "privacyPolicy": "Декларация за поверителност"
     },
     "ckb": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەڵمانیایە",
       "search": "گەڕان",
       "searchDescription": "لەڕێگەی کلیل وشەکان خێرا زانیارییە ڕاستەکان بدۆزەوە",
@@ -2521,7 +2516,6 @@
       "privacyPolicy": "ڕاگەیاندنی پاراستنی دێیتاکان"
     },
     "el": {
-      "appName": "{{appName}}",
       "appDescription": "Το {{appName}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
       "search": "Αναζήτηση",
       "searchDescription": "Βρείτε γρήγορα τις σωστές πληροφορίες χρησιμοποιώντας λέξεις-κλειδιά",
@@ -2547,7 +2541,6 @@
       "privacyPolicy": "Προστασία δεδομένων"
     },
     "en": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} is your digital guide to life in Germany",
       "search": "Search",
       "searchDescription": "Find the right information based on keywords",
@@ -2573,7 +2566,6 @@
       "privacyPolicy": "Data protection policy"
     },
     "es": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} es su guía digital para Alemania",
       "search": "Búsqueda",
       "searchDescription": "Encuentre rápidamente la información correcta utilizando palabras clave",
@@ -2599,7 +2591,6 @@
       "privacyPolicy": "Declaración de privacidad"
     },
     "fr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} est votre guide numérique pour l'Allemagne",
       "search": "Recherche",
       "searchDescription": "Trouvez rapidement la bonne information à l'aide de mots-clés",
@@ -2625,7 +2616,6 @@
       "privacyPolicy": "Déclaration de confidentialité"
     },
     "hr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Njemačku",
       "search": "Pretraživanje",
       "searchDescription": "Na temelju ključnih riječi brzo ćete pronaći odgovarajuću informaciju",
@@ -2651,7 +2641,6 @@
       "privacyPolicy": "Izjava o zaštiti podataka"
     },
     "hu": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} az Ön digitális idegenvezetője Németországban.",
       "search": "Keresés",
       "searchDescription": "A megfelelő információ gyors megtalálása kulcsszavak segítségével",
@@ -2677,7 +2666,6 @@
       "privacyPolicy": "Adatvédelmi nyilatkozat"
     },
     "it": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} è la tua guida digitale per la Germania",
       "search": "Ricerca",
       "searchDescription": "Trova rapidamente le informazioni corrette utilizzando le parole chiave",
@@ -2729,7 +2717,6 @@
       "privacyPolicy": "ახსნა-განმარტება მონაცემთა დაცვის შესახებ "
     },
     "kmr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} rêbera te ya dîcîtal derbarê Almanyayê ye",
       "search": "Lêgerîn",
       "searchDescription": "Bi bikaranîna Peyvên Kilîtî, lêzanînên esseh û durust bilez peyde bike",
@@ -2755,7 +2742,6 @@
       "privacyPolicy": "Daxuyaniya Parastina Daneyan"
     },
     "mk": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} е вашиот дигитален водич за Германија",
       "search": "Пребарај",
       "searchDescription": "Брзо пронајдете ги точните информации со помош на клучни зборови",
@@ -2781,7 +2767,6 @@
       "privacyPolicy": "Изјава за заштита на лични податоци"
     },
     "pes": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
       "searchDescription": "با استفاده از کلمات کلیدی، اطلاعات صحیح را به سرعت پیدا کنید",
@@ -2807,7 +2792,6 @@
       "privacyPolicy": "بیانیه حفاظت از داده ها"
     },
     "pl": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} to e-przewodnik po Niemczech",
       "search": "Wyszukiwarka",
       "searchDescription": "Szybko znajdź odpowiednią informację za pomocą haseł",
@@ -2833,7 +2817,6 @@
       "privacyPolicy": "Oświadczenie o ochronie danych"
     },
     "prs": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است",
       "search": "جستجو",
       "searchDescription": "با استفاده از کلمات کلیدی به سرعت معلومات صحیح را پیدا نمایید",
@@ -2859,7 +2842,6 @@
       "privacyPolicy": "بیانیه حفاظت از داده ها"
     },
     "ps": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی.",
       "search": "لټون",
       "searchDescription": "د کلیدي ټکو په مرسته زر صحیح معلومات موندل",
@@ -2885,7 +2867,6 @@
       "privacyPolicy": "د ډاټا د حفاظت بیانیه"
     },
     "ro": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} constituie ghidul dvs. digital pentru Germania",
       "search": "Căutare",
       "searchDescription": "Folosind cuvinte cheie, găsiți rapid informațiile importante",
@@ -2911,7 +2892,6 @@
       "privacyPolicy": "Declarație privind confidențialitatea"
     },
     "ru": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} – это ваш цифровой гид по Германии",
       "search": "Поиск",
       "searchDescription": "Быстрый поиск необходимой информации по ключевым словам",
@@ -2937,7 +2917,6 @@
       "privacyPolicy": "Политика конфиденциальности"
     },
     "so": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} waa tilmaamahaaga dhijitaalka ah ee Jarmalka",
       "search": "Raadin",
       "searchDescription": "U hel macluumaadka saxda ah si dhakhso leh adoo isticmaalaya ereyada furaha ah",
@@ -2963,7 +2942,6 @@
       "privacyPolicy": "Ilaalinta xogta"
     },
     "sq": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} është guida juaj dixhitale për Gjermani",
       "search": "Kërkim",
       "searchDescription": "Gjeni informacionin e duhur shpejt duke përdorur fjalë kyçe",
@@ -2989,7 +2967,6 @@
       "privacyPolicy": "Politika e privatësisë"
     },
     "sr-Cyrl": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} је ваш дигитални водич за Немачку",
       "search": "Претраживање",
       "searchDescription": "Брзо проналажење тачних информација на основу кључних речи",
@@ -3015,7 +2992,6 @@
       "privacyPolicy": "Изјава о заштити података"
     },
     "sr-Latn": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
       "search": "Pretraživanje",
       "searchDescription": "Brzo pronalaženje tačnih informacija na osnovu ključnih reči",
@@ -3041,7 +3017,6 @@
       "privacyPolicy": "Izjava o zaštiti podataka"
     },
     "ti": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ናብ ጅርመን እትትኸድሉ መምርሒ እዩ።",
       "search": "ፈትሽ",
       "searchDescription": "ቁልፊ-ቃላት ብምጥቃም ነቲ ቅኑዕ ሓበሬታ ብቕልጡፍ ርኸብ",
@@ -3067,7 +3042,6 @@
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ"
     },
     "tr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}}, Almanya'daki dijital rehberinizdir",
       "search": "Arama",
       "searchDescription": "Anahtar kelimeler kullanarak doğru bilgileri hızlıca bulun",
@@ -3119,7 +3093,6 @@
       "privacyPolicy": "رازاداری کی پالیسی"
     },
     "zh-CN": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}}是您在德国生活的数字指南",
       "search": "搜索",
       "searchDescription": "使用关键词快速查找正确的信息",
@@ -5628,7 +5601,11 @@
   "pois": {
     "de": {
       "location": "Standort",
-      "map": "Karte"
+      "map": "Karte",
+      "unit": "km",
+      "distanceText": "entfernt",
+      "navigation": "Navigation",
+      "sheetTitle": "Entdecke deine Stadt"
     }
   }
 }

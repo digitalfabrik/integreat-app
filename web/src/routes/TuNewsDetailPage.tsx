@@ -63,9 +63,10 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
   const formatter = useContext(DateFormatterContext)
   const viewportSmall = false
 
-  const requestTuNews = useCallback(async () => {
-    return createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId) })
-  }, [newsId])
+  const requestTuNews = useCallback(
+    async () => createTunewsElementEndpoint(tunewsApiBaseUrl).request({ id: parseInt(newsId, 10) }),
+    [newsId]
+  )
   const { data: newsModel, loading, error: newsError } = useLoadFromEndpoint(requestTuNews)
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages

@@ -1,9 +1,9 @@
 import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'react-i18next'
-import { SectionListData, AccessibilityRole } from 'react-native'
+import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
+import { JPAL_TRACKING_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationPropType } from '../constants/NavigationTypes'
@@ -43,7 +43,7 @@ type CreateSettingsSectionsPropsType = {
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (arg0: string) => void
+  showSnackbar: (error: Error) => void
 }
 
 const createSettingsSections = ({
@@ -52,7 +52,8 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
-  settings
+  settings,
+  showSnackbar
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
@@ -111,10 +112,8 @@ const createSettingsSections = ({
               const client = Sentry.getCurrentHub().getClient()
               if (newSettings.errorTracking && !client) {
                 initSentry()
-              } else {
-                if (client) {
-                  client.getOptions().enabled = !!newSettings.errorTracking
-                }
+              } else if (client) {
+                client.getOptions().enabled = !!newSettings.errorTracking
               }
             }
           )
@@ -126,22 +125,22 @@ const createSettingsSections = ({
           appName: buildConfig().appName
         }),
         onPress: () => {
-          const aboutUrls = buildConfig().aboutUrls
+          const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl)
+          openExternalUrl(aboutUrl).catch(showSnackbar)
         }
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode)
+        onPress: () => openPrivacyPolicy(languageCode).catch(showSnackbar)
       },
       {
         title: t('version', {
           version: NativeConstants.appVersion
         }),
         onPress: () => {
-          volatileValues.versionTaps++
+          volatileValues.versionTaps += 1
 
           if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
             volatileValues.versionTaps = 0

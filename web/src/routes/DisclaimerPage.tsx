@@ -26,12 +26,14 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const history = useHistory()
   const { t } = useTranslation('disclaimer')
 
-  const requestDisclaimer = useCallback(async () => {
-    return createDisclaimerEndpoint(cmsApiBaseUrl).request({
-      city: cityCode,
-      language: languageCode
-    })
-  }, [cityCode, languageCode])
+  const requestDisclaimer = useCallback(
+    async () =>
+      createDisclaimerEndpoint(cmsApiBaseUrl).request({
+        city: cityCode,
+        language: languageCode
+      }),
+    [cityCode, languageCode]
+  )
 
   const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
 

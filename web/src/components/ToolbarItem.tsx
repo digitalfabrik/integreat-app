@@ -13,15 +13,13 @@ type PropsType = {
   viewportSmall: boolean
 }
 
-const ToolbarItem = ({ href, text, icon, viewportSmall }: PropsType): ReactElement => {
-  return (
-    <Tooltip text={viewportSmall ? null : text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
-      <StyledToolbarItem href={href} ariaLabel={text}>
-        <FontAwesomeIcon icon={icon} />
-        {viewportSmall && <StyledSmallViewTip>{text}</StyledSmallViewTip>}
-      </StyledToolbarItem>
-    </Tooltip>
-  )
-}
+const ToolbarItem = ({ href, text, icon, viewportSmall }: PropsType): ReactElement => (
+  <Tooltip text={viewportSmall ? null : text} flow='up' mediumViewportFlow='right' smallViewportFlow='down'>
+    <StyledToolbarItem href={href} ariaLabel={text}>
+      <FontAwesomeIcon icon={icon} />
+      {viewportSmall && <StyledSmallViewTip>{text}</StyledSmallViewTip>}
+    </StyledToolbarItem>
+  </Tooltip>
+)
 
 export default ToolbarItem

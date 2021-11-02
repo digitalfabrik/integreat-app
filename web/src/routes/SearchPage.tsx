@@ -19,7 +19,7 @@ import { createPath, RouteProps } from './index'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
-const noop = () => {}
+const noop = () => undefined
 
 type PropsType = CityRouteProps & RouteProps<typeof SEARCH_ROUTE>
 
@@ -30,12 +30,14 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('search')
 
-  const requestCategories = useCallback(async () => {
-    return createCategoriesEndpoint(cmsApiBaseUrl).request({
-      city: cityCode,
-      language: languageCode
-    })
-  }, [cityCode, languageCode])
+  const requestCategories = useCallback(
+    async () =>
+      createCategoriesEndpoint(cmsApiBaseUrl).request({
+        city: cityCode,
+        language: languageCode
+      }),
+    [cityCode, languageCode]
+  )
   const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
 
   const languageChangePaths = languages.map(({ code, name }) => ({

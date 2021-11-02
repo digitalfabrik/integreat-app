@@ -5,12 +5,11 @@ import { FetchResultType, TargetFilePathsType } from '../FetcherModule'
 
 class FetcherModule {
   static currentlyFetching = false
-  createProgressChannel = (): EventChannel<number> => {
-    return eventChannel<number>(emitter => {
+  createProgressChannel = (): EventChannel<number> =>
+    eventChannel<number>(emitter => {
       emitter(0.5)
-      return () => {}
+      return () => undefined
     })
-  }
 
   fetchAsync = (targetFilePaths: TargetFilePathsType): Promise<FetchResultType> => {
     if (FetcherModule.currentlyFetching) {
@@ -28,9 +27,9 @@ class FetcherModule {
     }))
     const fetchResultPairs = toPairs(fetchResult)
     const sortedPaths = sortBy(fetchResultPairs, ([, result]) => result.url).map(([path]) => path)
-    const pseudoRandomPath = sortedPaths[Math.floor(0.7 * sortedPaths.length)]
-    fetchResult[pseudoRandomPath].errorMessage =
-      'This result is invalid because it is the first result produced by ' + 'the FetcherModule.js mock.'
+    const pseudoRandomPath = sortedPaths[Math.floor(0.7 * sortedPaths.length)]!
+    fetchResult[pseudoRandomPath]!.errorMessage =
+      'This result is invalid because it is the first result produced by the FetcherModule.js mock.'
     return Promise.resolve(fetchResult)
   }
 }

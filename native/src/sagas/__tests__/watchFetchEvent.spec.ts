@@ -61,7 +61,7 @@ describe('watchFetchEvent', () => {
         params: {
           city,
           language,
-          path: events[0].path,
+          path: events[0]!.path,
           key: 'events-key',
           criterion: {
             forceUpdate: true,
@@ -80,7 +80,7 @@ describe('watchFetchEvent', () => {
           params: {
             events,
             resourceCache: resources,
-            path: events[0].path,
+            path: events[0]!.path,
             cityLanguages: languages,
             key: 'events-key',
             language,
@@ -98,7 +98,7 @@ describe('watchFetchEvent', () => {
         params: {
           city,
           language,
-          path: events[0].path,
+          path: events[0]!.path,
           key: 'events-key',
           criterion: {
             forceUpdate: false,
@@ -117,7 +117,7 @@ describe('watchFetchEvent', () => {
           params: {
             events,
             resourceCache: resources,
-            path: events[0].path,
+            path: events[0]!.path,
             cityLanguages: languages,
             key: 'events-key',
             language,
@@ -147,7 +147,7 @@ describe('watchFetchEvent', () => {
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({

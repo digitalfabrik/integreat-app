@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
@@ -19,14 +18,10 @@ type PropsType = {
   withThumbnail: boolean
 }
 
-class CategoryListCaption extends React.Component<PropsType> {
-  render(): ReactNode {
-    return (
-      <H1 withThumbnail={this.props.withThumbnail} theme={this.props.theme}>
-        {this.props.title}
-      </H1>
-    )
-  }
-}
+const CategoryListCaption = ({ title, theme, withThumbnail }: PropsType): ReactElement => (
+  <H1 withThumbnail={withThumbnail} theme={theme}>
+    {title}
+  </H1>
+)
 
 export default CategoryListCaption

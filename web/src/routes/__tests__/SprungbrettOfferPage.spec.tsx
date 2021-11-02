@@ -18,12 +18,10 @@ import { renderWithBrowserRouter } from '../../testing/render'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
 import { createPath, RoutePatterns } from '../index'
 
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 jest.mock('react-i18next')
 
 describe('SprungbrettOfferPage', () => {
@@ -37,6 +35,8 @@ describe('SprungbrettOfferPage', () => {
 
   const languages = new LanguageModelBuilder(2).build()
   const cities = new CityModelBuilder(2).build()
+  const city = cities[0]!
+  const language = languages[0]!
   const sprungbrettOffer = new OffersModelBuilder(1).build()
   const sprungbrettJobs = [
     new SprungbrettJobModel({
@@ -65,25 +65,24 @@ describe('SprungbrettOfferPage', () => {
     })
   ]
 
-  const renderSprungbrett = (): RenderResult => {
-    return renderWithBrowserRouter(
+  const renderSprungbrett = (): RenderResult =>
+    renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Route
           path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
           render={props => (
             <SprungbrettOfferPage
               cities={cities}
-              cityModel={cities[0]}
+              cityModel={city}
               languages={languages}
-              languageModel={languages[0]}
+              languageModel={language}
               {...props}
             />
           )}
         />
       </ThemeProvider>,
-      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: cities[0].code, languageCode: languages[0].code }) }
+      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
     )
-  }
 
   it('should render page with title and content', () => {
     const useLoadFromEndpointMockOffers = (() => ({
@@ -104,10 +103,10 @@ describe('SprungbrettOfferPage', () => {
 
     const { getByText } = renderSprungbrett()
 
-    expect(getByText(sprungbrettOffer[0].title)).toBeTruthy()
-    for (const sprungbrettJob of sprungbrettJobs) {
+    expect(getByText(sprungbrettOffer[0]!.title)).toBeTruthy()
+    sprungbrettJobs.forEach(sprungbrettJob => {
       expect(getByText(sprungbrettJob.title)).toBeTruthy()
-    }
+    })
   })
 
   it('should render error when offers cannot be fetched', () => {

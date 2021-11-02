@@ -8,9 +8,7 @@ export const buildConfigIconSet = (): {
 } => {
   throw new Error('Mock not yet implemented!')
 }
-export const buildConfigAssets = (): Record<string, never> => {
-  return {}
-}
+export const buildConfigAssets = (): Record<string, never> => ({})
 
 const buildConfig = jest.fn<CommonBuildConfigType, []>(
   (): CommonBuildConfigType => ({

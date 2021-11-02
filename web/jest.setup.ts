@@ -17,7 +17,11 @@ const walkDir = (dir: string, callback: (dir: string) => void) => {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)
     const isDirectory = fs.statSync(filePath).isDirectory()
-    isDirectory ? walkDir(filePath, callback) : callback(filePath)
+    if (isDirectory) {
+      walkDir(filePath, callback)
+    } else {
+      callback(filePath)
+    }
   })
 }
 

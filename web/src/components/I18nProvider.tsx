@@ -50,7 +50,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
         // eslint-disable-next-line no-console
         console.log(i18nextInstance.languages)
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
-        const matchedLanguage = i18nextInstance.languages[0]
+        const matchedLanguage = i18nextInstance.languages[0]!
         setLanguage(matchedLanguage)
       })
     }
@@ -87,11 +87,11 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
 
   const additionalFont = config.getAdditionalFont(language)
 
+  const dir = config.isSupportedLanguage(language) ? config.getScriptDirection(language) : undefined
+
   return (
     <I18nextProvider i18n={i18nextInstance}>
-      <div
-        data-testid={'direction'}
-        dir={config.isSupportedLanguage(language) ? (config.hasRTLScript(language) ? 'rtl' : 'ltr') : undefined}>
+      <div data-testid='direction' dir={dir}>
         <ReactHelmet>
           {additionalFont === 'noto-sans-arabic' && (
             <link href='/fonts/noto-sans-arabic/noto-sans-arabic.css' rel='stylesheet' />

@@ -1,15 +1,14 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { DASHBOARD_ROUTE, DashboardRouteType, CATEGORIES_ROUTE, CityModel, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import Dashboard from './Dashboard'
@@ -127,21 +126,24 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       message: state.cities.message,
       code: state.cities.code
     }
-  } else if (resourceCache.status === 'error') {
+  }
+  if (resourceCache.status === 'error') {
     return {
       status: 'error',
       refreshProps,
       message: resourceCache.message,
       code: resourceCache.code
     }
-  } else if (route.status === 'error') {
+  }
+  if (route.status === 'error') {
     return {
       status: 'error',
       refreshProps,
       message: route.message,
       code: route.code
     }
-  } else if (languages.status === 'error') {
+  }
+  if (languages.status === 'error') {
     return {
       status: 'error',
       message: languages.message,
@@ -150,7 +152,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  const resourceCacheUrl = state.resourceCacheUrl
+  const { resourceCacheUrl } = state
   const { models, children, allAvailableLanguages } = route
 
   if (
@@ -185,7 +187,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       cityModel,
       language: route.language,
       stateView,
-      resourceCacheUrl: resourceCacheUrl,
+      resourceCacheUrl,
       resourceCache: resourceCache.value
     }
   }
@@ -201,24 +203,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, route, ...rest } = props
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
-  return (
-    <Dashboard
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLinkProp}
-      navigateTo={createNavigate(dispatch, navigation)}
-    />
-  )
-}
+const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
+  <Dashboard
+    {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    navigateTo={createNavigate(dispatch, navigation)}
+  />
+)
 
 export default connect(
   mapStateToProps,

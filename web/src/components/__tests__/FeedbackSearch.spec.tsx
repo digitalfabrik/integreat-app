@@ -14,7 +14,7 @@ describe('FeedbackSearch', () => {
   it('should open FeedbackSection on button click', () => {
     const { queryByText, getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackSearch cityCode={cityCode} languageCode={languageCode} query={'ab'} resultsFound />
+        <FeedbackSearch cityCode={cityCode} languageCode={languageCode} query='ab' resultsFound />
       </ThemeProvider>
     )
     const button = getByRole('button', { name: 'feedback:informationNotFound' })

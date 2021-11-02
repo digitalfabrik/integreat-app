@@ -47,13 +47,13 @@ export type PropsType = {
 
 const appSettings = new AppSettings()
 
-const JpalTracking = (props: PropsType) => {
+const JpalTracking = ({ route, theme }: PropsType) => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
   const [error, setError] = useState<boolean>(false)
   const { t } = useTranslation(['settings', 'error'])
-  const routeTrackingCode = props.route.params.trackingCode
+  const routeTrackingCode = route.params.trackingCode
 
   const updateTrackingCode = (value: string) => {
     setTrackingCode(value)
@@ -94,7 +94,6 @@ const JpalTracking = (props: PropsType) => {
     return <LayoutContainer />
   }
 
-  const { theme } = props
   return (
     <LayoutContainer>
       <View
@@ -107,12 +106,12 @@ const JpalTracking = (props: PropsType) => {
         {error && <ErrorText>{t('error:generalError')}</ErrorText>}
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
-          <ThemedText theme={props.theme}>{t('allowTracking')}</ThemedText>
+          <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
           <Switch
-            thumbColor={props.theme.colors.themeColor}
+            thumbColor={theme.colors.themeColor}
             trackColor={{
-              true: props.theme.colors.themeColor,
-              false: props.theme.colors.backgroundAccentColor
+              true: theme.colors.themeColor,
+              false: theme.colors.backgroundAccentColor
             }}
             value={!!trackingEnabled}
             onValueChange={toggleTrackingEnabled}
@@ -120,7 +119,7 @@ const JpalTracking = (props: PropsType) => {
           />
         </DescriptionContainer>
 
-        <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
+        <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
         <Input
           value={trackingCode ?? ''}
           onChangeText={updateTrackingCode}

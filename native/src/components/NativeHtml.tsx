@@ -1,23 +1,24 @@
 import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
-import { RenderHTML, Element } from 'react-native-render-html'
+import { Element, RenderHTML } from 'react-native-render-html'
 import { useTheme } from 'styled-components'
 
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 
 type PropsType = {
   language: string
   content: string
   cacheDictionary?: Record<string, string>
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
-const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: PropsType): ReactElement => {
+const NativeHtml = ({ content, cacheDictionary, language }: PropsType): ReactElement => {
   const theme = useTheme()
-  const width = useWindowDimensions().width
+  const { width } = useWindowDimensions()
+  const navigateToLink = useNavigateToLink()
   const onLinkPress = useCallback(
     (_, url: string) => {
       const shareUrl = cacheDictionary
@@ -25,20 +26,29 @@ const NativeHtml = ({ content, navigateToLink, cacheDictionary, language }: Prop
         : undefined
       navigateToLink(url, language, shareUrl || url)
     },
-    [cacheDictionary, navigateToLink, language]
+    [cacheDictionary, language, navigateToLink]
   )
 
   const onElement = useCallback(
     (element: Element) => {
-      if (element.attribs && cacheDictionary) {
-        const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
-        const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
-        if (newHref || newSrc) {
-          element.attribs = {
-            ...element.attribs,
-            ...(newHref && { href: newHref }),
-            ...(newSrc && { src: newSrc })
+      if (cacheDictionary) {
+        try {
+          const newHref = element.attribs.href && cacheDictionary[decodeURI(element.attribs.href)]
+          const newSrc = element.attribs.src && cacheDictionary[decodeURI(element.attribs.src)]
+          if (newHref || newSrc) {
+            // eslint-disable-next-line no-param-reassign
+            element.attribs = {
+              ...element.attribs,
+              ...(newHref && { href: newHref }),
+              ...(newSrc && { src: newSrc })
+            }
           }
+        } catch (e) {
+          console.error(
+            `${e.message} occurred while decoding and looking for ${
+              element.attribs.href || element.attribs.src
+            } in the dictionary`
+          )
         }
       }
     },

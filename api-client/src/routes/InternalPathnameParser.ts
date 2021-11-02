@@ -1,4 +1,3 @@
-import normalizePath from '../normalizePath'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -15,7 +14,9 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE,
   TuNewsType
-} from './'
+} from '.'
+
+import normalizePath from '../normalizePath'
 import { RouteInformationType } from './RouteInformationTypes'
 
 const ENTITY_ID_INDEX = 3
@@ -35,25 +36,17 @@ class InternalPathnameParser {
     this._fallbackLanguageCode = languageCode
   }
 
-  pathnameParts = (pathname: string): string[] => {
-    return pathname.split('/').filter(Boolean)
-  }
+  pathnameParts = (pathname: string): string[] => pathname.split('/').filter(Boolean)
 
-  isFixedCity = (): boolean => {
-    return !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
-  }
+  isFixedCity = (): boolean => !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
 
-  isCityContentFeatureRoute = (feature: string): boolean => {
-    return this._length > 2 && this._parts[2] === feature
-  }
+  isCityContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
 
-  languageCode = (): string => {
-    return this._length >= 2 ? this._parts[1] : this._fallbackLanguageCode
-  }
+  languageCode = (): string => this._parts[1] ?? this._fallbackLanguageCode
 
   jpalTracking = (): RouteInformationType => {
     if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
-      const trackingCode = this._length === 2 ? this._parts[1] : null
+      const trackingCode = this._parts[1] ?? null
       return {
         route: JPAL_TRACKING_ROUTE,
         trackingCode
@@ -95,11 +88,12 @@ class InternalPathnameParser {
         }
       }
     } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
+      const cityCode = this._parts[0]!
       // '/ansbach/de', '/ansbach'
-      const cityContentPath = `/${this._parts[0]}/${this.languageCode()}`
+      const cityContentPath = `/${cityCode}/${this.languageCode()}`
       return {
         route: DASHBOARD_ROUTE,
-        cityCode: this._parts[0],
+        cityCode,
         languageCode: this.languageCode(),
         cityContentPath
       }
@@ -120,8 +114,8 @@ class InternalPathnameParser {
 
     // '/augsburg/de/<feature>' or '/augsburg/de/<feature>/id'
     return {
-      cityCode: this._parts[0],
-      languageCode: this._parts[1]
+      cityCode: this._parts[0]!,
+      languageCode: this._parts[1]!
     }
   }
 
@@ -167,8 +161,8 @@ class InternalPathnameParser {
     const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return {
       route: NEWS_ROUTE,
-      cityCode: this._parts[0],
-      languageCode: this._parts[1],
+      cityCode: this._parts[0]!,
+      languageCode: this._parts[1]!,
       newsType,
       newsId
     }
@@ -184,7 +178,8 @@ class InternalPathnameParser {
           route: OFFERS_ROUTE,
           ...params
         }
-      } else if (route === SPRUNGBRETT_OFFER_ROUTE) {
+      }
+      if (route === SPRUNGBRETT_OFFER_ROUTE) {
         return {
           route: SPRUNGBRETT_OFFER_ROUTE,
           ...params
@@ -229,13 +224,13 @@ class InternalPathnameParser {
     if (
       this._length > 2 &&
       !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, OFFERS_ROUTE, NEWS_ROUTE] as string[]).includes(
-        this._parts[2]
+        this._parts[2]!
       )
     ) {
       return {
         route: CATEGORIES_ROUTE,
-        cityCode: this._parts[0],
-        languageCode: this._parts[1],
+        cityCode: this._parts[0]!,
+        languageCode: this._parts[1]!,
         cityContentPath: this._pathname
       }
     }
@@ -243,20 +238,17 @@ class InternalPathnameParser {
     return null
   }
 
-  route = (): RouteInformationType => {
-    return (
-      this.landing() ||
-      this.jpalTracking() ||
-      this.events() ||
-      this.pois() ||
-      this.offers() ||
-      this.disclaimer() ||
-      this.news() ||
-      this.search() ||
-      this.dashboard() ||
-      this.categories()
-    )
-  }
+  route = (): RouteInformationType =>
+    this.landing() ||
+    this.jpalTracking() ||
+    this.events() ||
+    this.pois() ||
+    this.offers() ||
+    this.disclaimer() ||
+    this.news() ||
+    this.search() ||
+    this.dashboard() ||
+    this.categories()
 }
 
 export default InternalPathnameParser

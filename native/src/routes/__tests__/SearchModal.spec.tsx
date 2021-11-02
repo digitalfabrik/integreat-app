@@ -28,11 +28,11 @@ describe('SearchModal', () => {
   const props = {
     categories: categoriesMapModel,
     navigateTo: dummy,
-    language: language,
-    cityCode: cityCode,
+    language,
+    cityCode,
     closeModal: dummy,
     navigateToLink: dummy,
-    t: t,
+    t,
     theme: buildConfig().lightTheme
   }
   it('should send tracking signal when closing search site', async () => {
@@ -41,7 +41,7 @@ describe('SearchModal', () => {
         <SearchModal {...props} />
       </ThemeProvider>
     )
-    const button = getAllByRole('button')[0]
+    const button = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
     await fireEvent.press(button)
@@ -61,7 +61,7 @@ describe('SearchModal', () => {
         <SearchModal {...props} />
       </ThemeProvider>
     )
-    const button = getAllByRole('button')[0]
+    const button = getAllByRole('button')[0]!
     const categoryListItem = getByText('Category with id 1')
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
@@ -70,7 +70,7 @@ describe('SearchModal', () => {
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
-      cityContentPath: categoriesMapModel.toArray()[2].path,
+      cityContentPath: categoriesMapModel.toArray()[2]!.path,
       cityCode,
       languageCode: language
     }

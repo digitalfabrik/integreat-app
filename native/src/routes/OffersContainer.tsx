@@ -22,6 +22,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 import useReportError from '../hooks/useReportError'
+import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
@@ -39,13 +40,14 @@ type OffersPropsType = OwnPropsType & {
 }
 
 const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
+  const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = route.params
   const cities = useSelector<StateType, Readonly<Array<CityModel>> | null>((state: StateType) =>
     state.cities.status === 'ready' ? state.cities.models : null
   )
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
-    return await createOffersEndpoint(apiUrl).request({
+    return createOffersEndpoint(apiUrl).request({
       city: cityCode,
       language: languageCode
     })
@@ -70,18 +72,16 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
           postData
         })
       } else if (isExternalUrl) {
-        openExternalUrl(path)
-      } else {
-        if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
-          const params = {
-            cityCode,
-            languageCode
-          }
-          navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
+        openExternalUrl(path).catch(showSnackbar)
+      } else if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+        const params = {
+          cityCode,
+          languageCode
         }
+        navigation.push(SPRUNGBRETT_OFFER_ROUTE, params)
       }
     },
-    [offers, cityCode, languageCode, navigation]
+    [showSnackbar, offers, cityCode, languageCode, navigation]
   )
   const navigateToFeedback = useCallback(
     (isPositiveFeedback: boolean) => {

@@ -7,9 +7,7 @@ export const TUNEWS_LANGUAGES_ENDPOINT_NAME = 'tunewsLanguages'
 
 export default (baseUrl: string): Endpoint<void, Array<LanguageModel>> =>
   new EndpointBuilder<void, Array<LanguageModel>>(TUNEWS_LANGUAGES_ENDPOINT_NAME)
-    .withParamsToUrlMapper(() => {
-      return `${baseUrl}/v1/news/languages`
-    })
+    .withParamsToUrlMapper(() => `${baseUrl}/v1/news/languages`)
     .withMapper((json: Array<JsonTunewsLanguageType>) =>
       json
         .map((language: JsonTunewsLanguageType) => new LanguageModel(language.code, language.name))

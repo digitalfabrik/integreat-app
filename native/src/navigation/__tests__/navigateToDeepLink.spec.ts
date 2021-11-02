@@ -23,9 +23,7 @@ import navigateToDeepLink from '../navigateToDeepLink'
 
 const navigateTo = jest.fn()
 
-jest.mock('../createNavigate', () => {
-  return jest.fn(() => navigateTo)
-})
+jest.mock('../createNavigate', () => jest.fn(() => navigateTo))
 jest.mock('../navigateToCategory')
 jest.mock('../../utils/sendTrackingSignal')
 
