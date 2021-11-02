@@ -1,16 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Switch, Text, TextInput, View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Caption from '../components/Caption'
 import LayoutContainer from '../components/LayoutContainer'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import withTheme from '../hocs/withTheme'
 import appSettings from '../utils/AppSettings'
 
 const ThemedText = styled.Text`
@@ -42,19 +40,19 @@ const Input = styled(TextInput)<{ editable: boolean; error: boolean }>`
 `
 
 export type PropsType = {
-  theme: ThemeType
   route: RoutePropType<JpalTrackingRouteType>
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
 
 const TRACKING_CODE_LENGTH = 7
 
-const JpalTracking = ({ navigation, route, theme }: PropsType) => {
+const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { t } = useTranslation(['settings', 'error'])
+  const theme = useTheme()
   const routeTrackingCode = route.params.trackingCode
 
   const updateTrackingEnabled = useCallback((trackingEnabled: boolean) => {
@@ -87,25 +85,21 @@ const JpalTracking = ({ navigation, route, theme }: PropsType) => {
 
         e.preventDefault()
 
-        Alert.alert(
-          'Discard changes?',
-          'You have unsaved changes. Are you sure to discard them and leave the screen?',
-          [
-            {
-              text: t('decline'),
-              style: 'destructive',
-              onPress: () => {
-                updateTrackingEnabled(false)
-                navigation.dispatch(e.data.action)
-              }
-            },
-            {
-              text: t('allowTracking'),
-              style: 'default',
-              onPress: () => setError('trackingCodeInvalid')
+        Alert.alert(t('trackingLeaveAlertTitle'), t('trackingLeaveAlertDescription'), [
+          {
+            text: t('decline'),
+            style: 'destructive',
+            onPress: () => {
+              updateTrackingEnabled(false)
+              navigation.dispatch(e.data.action)
             }
-          ]
-        )
+          },
+          {
+            text: t('allowTracking'),
+            style: 'default',
+            onPress: () => setError('trackingCodeInvalid')
+          }
+        ])
       }),
     [navigation, trackingCode, trackingEnabled, updateTrackingEnabled, t]
   )
@@ -142,6 +136,7 @@ const JpalTracking = ({ navigation, route, theme }: PropsType) => {
         }}>
         <Caption title={t('tracking')} theme={theme} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
+        <Text>{t('trackingParticipation', { appName: buildConfig().appName })}</Text>
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
@@ -173,4 +168,4 @@ const JpalTracking = ({ navigation, route, theme }: PropsType) => {
   )
 }
 
-export default withTheme<PropsType>(JpalTracking)
+export default JpalTracking
