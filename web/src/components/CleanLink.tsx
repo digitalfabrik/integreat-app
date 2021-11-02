@@ -9,11 +9,6 @@ const StyledCleanLink = styled(Link)`
   text-decoration: none;
   display: flex;
 `
-const StyledCleanAnchor = styled.a`
-  color: inherit;
-  text-decoration: none;
-  display: flex;
-`
 
 type CleanLinkProps = {
   to: string
@@ -25,9 +20,9 @@ type CleanLinkProps = {
 const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className }: CleanLinkProps) => (
   <>
     {isExternalUrl(to) ? (
-      <StyledCleanAnchor href={to} aria-label={ariaLabel} className={className} data-testid='externalLink'>
+      <StyledCleanLink href={to} aria-label={ariaLabel} className={className} data-testid='externalLink' as='a'>
         {children}
-      </StyledCleanAnchor>
+      </StyledCleanLink>
     ) : (
       <StyledCleanLink to={to} data-testid='internalLink'>
         {children}
