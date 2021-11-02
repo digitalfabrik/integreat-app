@@ -44,7 +44,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
 
 const Divider = styled.View<{ firstItem: boolean }>`
   border-top-width: 0.5px;
-  border-top-color: ${props => props.theme.colors.newsListSeparatorColor};
+  border-top-color: ${props => props.theme.colors.textSecondaryColor};
   width: 80%;
   margin-top: ${props => (props.firstItem ? '0px' : '12px')};
   margin-bottom: 12px;
