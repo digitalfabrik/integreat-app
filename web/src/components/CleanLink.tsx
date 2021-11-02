@@ -7,10 +7,12 @@ import { isExternalUrl } from '../utils/UrlCheck'
 const StyledCleanLink = styled(Link)`
   color: inherit;
   text-decoration: none;
+  display: flex;
 `
 const StyledCleanAnchor = styled.a`
   color: inherit;
   text-decoration: none;
+  display: flex;
 `
 
 type CleanLinkProps = {
