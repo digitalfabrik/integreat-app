@@ -18,6 +18,7 @@ import {
 import buildConfig from '../../constants/buildConfig'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import showSnackbar from '../../utils/showSnackbar'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
 import navigateToDisclaimer from '../navigateToDisclaimer'
@@ -39,6 +40,7 @@ jest.mock('../navigateToNews', () => jest.fn())
 jest.mock('../navigateToCategory', () => jest.fn())
 jest.mock('../navigateToJpalTracking', () => jest.fn())
 jest.mock('../../utils/sendTrackingSignal', () => jest.fn())
+jest.mock('../../utils/showSnackbar', () => jest.fn())
 jest.mock('../url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com')
 }))
@@ -97,9 +99,10 @@ describe('createNavigate', () => {
     })
   }
 
-  it('should do nothing if empty route information is passed', () => {
+  it('should show snackbar if empty route information is passed', () => {
     navigateTo(null)
     assertNotCalled(allMocks)
+    expect(showSnackbar).toHaveBeenCalled()
   })
 
   it('should call navigateToLanding', () => {

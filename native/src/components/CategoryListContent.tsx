@@ -16,29 +16,17 @@ const LastUpdateContainer = styled.View`
 `
 type ContentPropsType = {
   content: string
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   cacheDictionary: Record<string, string>
   language: string
   lastUpdate?: Moment
 }
 
-const CategoryListContent = ({
-  content,
-  navigateToLink,
-  cacheDictionary,
-  language,
-  lastUpdate
-}: ContentPropsType): ReactElement => {
+const CategoryListContent = ({ content, cacheDictionary, language, lastUpdate }: ContentPropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   return (
     <SpaceBetween>
       <Container>
-        <NativeHtml
-          language={language}
-          content={content}
-          navigateToLink={navigateToLink}
-          cacheDictionary={cacheDictionary}
-        />
+        <NativeHtml language={language} content={content} cacheDictionary={cacheDictionary} />
         {lastUpdate && (
           <LastUpdateContainer>
             <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />
