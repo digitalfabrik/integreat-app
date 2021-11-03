@@ -79,7 +79,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const onNavigate = () => {
     if (location && poi.featureLocation?.geometry.coordinates) {
       const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      Linking.openURL(navigationUrl)
+            Linking.openURL(navigationUrl).catch(() => showSnackbar(dispatch, 'No navigation application found.'))
     }
   }
 
