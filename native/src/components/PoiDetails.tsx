@@ -122,7 +122,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
           </Text>
         </PoiDetailItem>
         <CollapsibleItem initExpanded headerText={t('detailInformationHeader')} language={language}>
-          <NativeHtml content={mockContent} language={language} navigateToLink={navigateToLink} />
+          <NativeHtml content={mockContent} language={language} />
         </CollapsibleItem>
       </InformationContainer>
     </PoiDetailsContainer>
