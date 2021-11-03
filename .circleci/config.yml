@@ -1264,6 +1264,12 @@ workflows:
                     - mattermost
                     - tuerantuer-google-play
                 name: promote_malte_android
+            - promote_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                name: promote_aschaffenburg_android
             - promote_ios:
                 build_config_name: integreat
                 context:
@@ -1276,6 +1282,12 @@ workflows:
                     - mattermost
                     - tuerantuer-apple
                 name: promote_malte_ios
+            - promote_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                name: promote_aschaffenburg_ios
         triggers:
             - schedule:
                 cron: 1 3 * * 4

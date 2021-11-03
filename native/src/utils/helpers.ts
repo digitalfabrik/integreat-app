@@ -7,7 +7,7 @@ import Url from 'url-parse'
 import { FetchError, NotFoundError } from 'api-client/src'
 
 import buildConfig from '../constants/buildConfig'
-import AppSettings from './AppSettings'
+import appSettings from './AppSettings'
 
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
@@ -20,7 +20,6 @@ export const deleteIfExists = async (path: string): Promise<void> => {
 }
 
 export const determineApiUrl = async (): Promise<string> => {
-  const appSettings = new AppSettings()
   const apiUrlOverride = await appSettings.loadApiUrlOverride()
   return apiUrlOverride || buildConfig().cmsUrl
 }
