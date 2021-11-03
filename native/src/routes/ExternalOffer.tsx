@@ -30,7 +30,6 @@ const ExternalOffer = (props: PropsType): ReactElement => {
     return () => backHandler.remove()
   }, [canGoBack])
   const { url, postData } = props
-  const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
   const onNavigationStateChange = useCallback(
     (navState: WebViewNavigation) => {
       setCanGoBack(navState.canGoBack)
@@ -39,7 +38,7 @@ const ExternalOffer = (props: PropsType): ReactElement => {
   )
   return (
     <WebView
-      source={postData ? createPostSource(url, body) : createGetSource(url, body)}
+      source={postData ? createPostSource(url, stringify(fromPairs([...postData.entries()]))) : createGetSource(url)}
       javaScriptEnabled
       dataDetectorTypes='none'
       domStorageEnabled={false}

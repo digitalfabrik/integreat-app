@@ -28,8 +28,7 @@ export const createPostSource = (
         In this case Android figures the out which content type to use */
   })
 })
-export const createGetSource = (uri: string, body: string): WebViewSource => ({
+export const createGetSource = (uri: string): WebViewSource => ({
   uri,
-  method: 'GET',
-  body
+  method: 'GET'
 })
