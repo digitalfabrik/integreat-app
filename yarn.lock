@@ -14590,10 +14590,10 @@ react-native-static-server@^0.5.0:
   resolved "https://registry.yarnpkg.com/react-native-static-server/-/react-native-static-server-0.5.0.tgz#4b396082bfe7dfdbba6fe7d7de894de5ba4ebadb"
   integrity sha512-RGteckPoBZq48p9Y8V67bjZGPxLHKkEOAffLSUJiGC7hkx+H+zuekqCR+04F30NuWB7y+nb8N7Qld2RGjX5DNg==
 
-react-native-svg-asset-plugin@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.5.0.tgz#c94f3e8a3dddc875caf042c2076fb9dfc02a58a7"
-  integrity sha512-Kwr1Vjso83t1/4H3xxmx5AxEqiOCnaLidlWm8CmglWT8khGVA1/wLS/AcV7cKTv2FqszQxaF/VB6b1tHA/gCAg==
+react-native-svg-asset-plugin@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-svg-asset-plugin/-/react-native-svg-asset-plugin-0.4.0.tgz#d2e24fc4f467876b62734ebef117543c509e57ca"
+  integrity sha512-hOH9SSkZncu82vuTzmY0Jcm4DhyafPmFYyNgSSuGIdK4yfBpyFQ2uZb4tFhrczKNQ+YVrdJwI5Yz2m/UR5akbA==
   dependencies:
     fs-extra ">=3.0.0"
     sharp ">=0.14.0"
