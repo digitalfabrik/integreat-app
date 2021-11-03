@@ -23,7 +23,6 @@ type PoiDetailsProps = {
   navigateToPois: () => void
   /** language to offer rtl support */
   language: string
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
 const Thumbnail = styled(SimpleImage)`
@@ -66,8 +65,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   feature,
   detailPage,
   navigateToPois,
-  language,
-  navigateToLink
+  language
 }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const dispatch = useDispatch()
