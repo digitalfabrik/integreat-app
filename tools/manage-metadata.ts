@@ -233,7 +233,8 @@ const appstoreLanguageMap: Record<string, string[]> = {
   pl: ['pl'],
   ro: ['ro'],
   ru: ['ru'],
-  tr: ['tr']
+  tr: ['tr'],
+  'zh-CN': ['zh-Hans']
 }
 
 // Maps our translation keys to the right key used by the play store
@@ -259,7 +260,8 @@ const playstoreLanguageMap: Record<string, string[]> = {
   ru: ['ru-RU'],
   sq: ['sq'],
   tr: ['tr-TR'],
-  ur: ['ur']
+  ur: ['ur'],
+  'zh-CN': ['zh-CN']
 }
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
@@ -297,12 +299,6 @@ const languageMap = (storeName: StoreName): Record<string, string[]> =>
 const writeMetadata = (appName: string, storeName: string, overrideVersionName?: string) => {
   if (storeName !== 'appstore' && storeName !== 'playstore') {
     throw new Error(`Invalid store name ${storeName} passed!`)
-  }
-
-  // TODO IGAPP-803 remove
-  if (appName !== 'integreat' && appName !== 'malte') {
-    console.warn('Only integreat and malte are currently supported for automated store translations, aborting!')
-    return
   }
 
   const storeTranslations = loadStoreTranslations(appName)
