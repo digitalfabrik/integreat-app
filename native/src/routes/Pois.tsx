@@ -24,10 +24,10 @@ import List from '../components/List'
 import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import { PoiListItem } from '../components/PoiListItem'
-import PoiPage from '../components/PoiPage'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
@@ -65,18 +65,10 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 
-const Pois = ({
-  pois,
-  language,
-  path,
-  cityModel,
-  navigateTo,
-  navigateToFeedback,
-  route,
-  navigateToLink
-}: PropsType): ReactElement => {
+const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const navigateToLink = useNavigateToLink()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
@@ -106,6 +98,15 @@ const Pois = ({
     })
   }
 
+  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
+    navigateTo({
+      route: POIS_ROUTE,
+      cityCode,
+      languageCode: language,
+      urlSlug
+    })
+  }
+
   const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiFeature): ReactNode => {
     const { properties } = poi
     return (
@@ -117,6 +118,16 @@ const Pois = ({
         navigateToPoi={navigateToPoi(cityCode, language, properties.path)}
       />
     )
+  }
+
+  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
+    navigateToFeedback({
+      routeType: POIS_ROUTE,
+      language,
+      path: poi.path,
+      cityCode: cityModel.code,
+      isPositiveFeedback
+    })
   }
 
   const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
