@@ -109,7 +109,12 @@ const JpalTracking = (props: PropsType) => {
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={props.theme}>{t('allowTracking')}</ThemedText>
-          <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} testID='switch' />
+          <SettingsSwitch
+            theme={theme}
+            value={!!trackingEnabled}
+            onPress={toggleTrackingEnabled}
+            accessibilityLabel='switch'
+          />
         </DescriptionContainer>
 
         <ThemedText theme={props.theme}>{t('trackingCode')}</ThemedText>
