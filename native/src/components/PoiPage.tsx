@@ -62,7 +62,7 @@ const PoiPage = ({
   const showSnackbar = useSnackbar()
   const openNavigationUrl = useCallback(
     (url: string) => {
-      openExternalUrl(url).catch(showSnackbar)
+      openExternalUrl(url).catch((error: Error) => showSnackbar(error.message))
     },
     [showSnackbar]
   )

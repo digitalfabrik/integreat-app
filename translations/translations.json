@@ -601,6 +601,7 @@
         "pageTitle": "Seite nicht gefunden"
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
+      "navigationApplication": "Keine Navigationsapplikation gefunden.",
       "networkConnectionFailed": "Die Verbindung zum Server ist fehlgeschlagen.",
       "networkRequestFailed": "Die Anfrage konnte nicht bearbeitet werden.",
       "responseMappingFailed": "Die Antwort des Servers konnte nicht verarbeitet werden.",
