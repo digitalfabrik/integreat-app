@@ -27,7 +27,6 @@ import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import useNavigateToLink from '../hooks/useNavigateToLink'
 import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
@@ -68,7 +67,6 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
 const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const navigateToLink = useNavigateToLink()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
   const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
@@ -162,7 +160,6 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             feature={feature}
             detailPage
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
-            navigateToLink={navigateToLink}
           />
           <SiteHelpfulBox
             backgroundColor={theme.colors.backgroundColor}
@@ -208,7 +205,6 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             feature={selectedFeature}
             detailPage={false}
             navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
-            navigateToLink={navigateToLink}
           />
         ) : (
           <List
