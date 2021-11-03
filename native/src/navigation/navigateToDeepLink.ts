@@ -10,18 +10,19 @@ import {
 } from 'api-client'
 import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
 
-import { NavigationPropType } from '../constants/NavigationTypes'
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings, { SettingsType } from '../utils/AppSettings'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import showSnackbar from '../utils/showSnackbar'
 import createNavigate from './createNavigate'
 import navigateToCategory from './navigateToCategory'
 import { cityContentPath as createCityContentPath } from './url'
 
-const navigateToDeepLink = async (
+const navigateToDeepLink = async <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<any>,
+  navigation: NavigationPropType<T>,
   url: string,
   language: string
 ): Promise<void> => {
@@ -80,7 +81,7 @@ const navigateToDeepLink = async (
     }
 
     if (!routeInformation) {
-      console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+      showSnackbar(dispatch, 'notFound.category')
       return
     }
 

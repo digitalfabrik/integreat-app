@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { NotFoundError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -20,6 +20,7 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import showSnackbar from '../utils/showSnackbar'
 import navigateToCategory from './navigateToCategory'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
@@ -133,7 +134,13 @@ const createNavigate = <T extends RoutesType>(
         return
     }
   }
-  console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+  const error = new NotFoundError({
+    type: 'route',
+    id: routeInformation?.route ?? '',
+    language: routeInformation?.languageCode ?? 'en',
+    city: routeInformation?.cityCode ?? ''
+  })
+  showSnackbar(dispatch, error.message)
 }
 
 export default createNavigate

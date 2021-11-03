@@ -42,7 +42,7 @@ import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
-import IntroContainer from './routes/IntroContainer'
+import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
 import LandingContainer from './routes/LandingContainer'
 import NewsContainer from './routes/NewsContainer'
@@ -193,7 +193,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       />
       <Stack.Screen
         name={INTRO_ROUTE}
-        component={IntroContainer}
+        component={Intro}
         options={{
           header: () => null
         }}

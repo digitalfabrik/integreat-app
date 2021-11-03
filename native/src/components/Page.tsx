@@ -8,6 +8,7 @@ import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import useNavigateToLink from '../hooks/useNavigateToLink'
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
@@ -24,7 +25,6 @@ type PropsType = {
   title: string
   content: string
   theme: ThemeType
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   navigateToFeedback?: (positive: boolean) => void
   files: PageResourceCacheStateType
   children?: React.ReactNode
@@ -49,10 +49,10 @@ const Page = ({
   resourceCacheUrl,
   lastUpdate,
   navigateToFeedback,
-  navigateToLink,
   files
 }: PropsType): ReactElement => {
   const [loading, setLoading] = useState<boolean>(true)
+  const navigateToLink = useNavigateToLink()
   const formatter = useContext(DateFormatterContext)
   const cacheDict = cacheDictionary(files, resourceCacheUrl)
   const onLinkPress = useCallback(
@@ -60,7 +60,7 @@ const Page = ({
       const shareUrl = Object.keys(cacheDict).find(remoteUrl => cacheDict[remoteUrl] === url)
       navigateToLink(url, language, shareUrl || url)
     },
-    [navigateToLink, cacheDict, language]
+    [cacheDict, language, navigateToLink]
   )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
   return (

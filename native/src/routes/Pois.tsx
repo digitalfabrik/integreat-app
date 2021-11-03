@@ -24,6 +24,7 @@ import List from '../components/List'
 import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import { PoiListItem } from '../components/PoiListItem'
+import PoiPage from '../components/PoiPage'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
@@ -39,7 +40,6 @@ export type PropsType = {
   resourceCacheUrl: string
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   route: RoutePropType<PoisRouteType>
 }
 
@@ -106,15 +106,6 @@ const Pois = ({
     })
   }
 
-  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
-    navigateTo({
-      route: POIS_ROUTE,
-      cityCode,
-      languageCode: language,
-      urlSlug
-    })
-  }
-
   const renderPoiListItem = (cityCode: string, language: string) => (poi: PoiFeature): ReactNode => {
     const { properties } = poi
     return (
@@ -126,16 +117,6 @@ const Pois = ({
         navigateToPoi={navigateToPoi(cityCode, language, properties.path)}
       />
     )
-  }
-
-  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
-    navigateToFeedback({
-      routeType: POIS_ROUTE,
-      language,
-      path: poi.path,
-      cityCode: cityModel.code,
-      isPositiveFeedback
-    })
   }
 
   const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
@@ -180,7 +161,6 @@ const Pois = ({
         </ScrollView>
       )
     }
-
     const error = new NotFoundError({
       type: 'poi',
       id: path,
