@@ -11,7 +11,6 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
-import navigateToLink from '../navigation/navigateToLink'
 import { NewsModelsType, StateType } from '../redux/StateType'
 import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
 import News from './News'
@@ -219,15 +218,8 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
-
   useClearRouteOnClose(route, dispatch)
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
+
   const fetchNews = useCallback(
     (newsType: NewsType) => {
       dispatch({
@@ -309,7 +301,6 @@ const NewsContainer = (props: ContainerPropsType) => {
           cityModel={cityModel}
           language={language}
           navigateTo={createNavigate(dispatch, navigation)}
-          navigateToLink={navigateToLinkProp}
         />
       </View>
     )
