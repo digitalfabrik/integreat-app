@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { memo, ReactElement } from 'react'
+import { memo } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -10,7 +10,6 @@ import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvide
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import Pois from './Pois'
@@ -183,21 +182,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType): ReactElement => {
+const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
   useClearRouteOnClose(route, dispatch)
-
-  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }
-
   return (
     <Pois
       {...rest}
       route={route}
       navigateTo={createNavigate(dispatch, navigation)}
       navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLinkProp}
     />
   )
 }

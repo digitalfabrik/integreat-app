@@ -8,6 +8,7 @@ import Caption from '../components/Caption'
 import List from '../components/List'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SprungbrettListItem from '../components/SprungbrettListItem'
+import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 
 type PropsType = {
@@ -20,11 +21,12 @@ type PropsType = {
 }
 
 const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language }: PropsType): ReactElement => {
+  const showSnackbar = useSnackbar()
   const openJob = useCallback(
     (url: string) => () => {
-      openExternalUrl(url)
+      openExternalUrl(url).catch(showSnackbar)
     },
-    []
+    [showSnackbar]
   )
   const renderListItem = useCallback(
     (job: SprungbrettJobModel): React.ReactNode => (
