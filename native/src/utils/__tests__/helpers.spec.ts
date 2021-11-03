@@ -1,7 +1,7 @@
 import { times } from 'lodash'
 
 import buildConfig from '../../constants/buildConfig'
-import AppSettings from '../AppSettings'
+import appSettings from '../AppSettings'
 import { generateRouteKey, getExtension, determineApiUrl } from '../helpers'
 
 describe('generateRouteKey', () => {
@@ -44,7 +44,7 @@ describe('determineApiUrl', () => {
     expect(apiUrl).toEqual(buildConfig().cmsUrl)
   })
   it('should return the overrideApiUrl if it is set', async () => {
-    new AppSettings().setApiUrlOverride('https://super-cool-override-cms.url.com')
+    appSettings.setApiUrlOverride('https://super-cool-override-cms.url.com')
     const apiUrl = await determineApiUrl()
     expect(apiUrl).toEqual('https://super-cool-override-cms.url.com')
   })

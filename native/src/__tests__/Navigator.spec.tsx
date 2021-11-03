@@ -7,7 +7,7 @@ import waitForExpect from 'wait-for-expect'
 import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 
 import Navigator from '../Navigator'
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
@@ -138,7 +138,6 @@ describe('Navigator', () => {
 
   it('should fetch cities on mount', async () => {
     await act(async () => {
-      const appSettings = new AppSettings()
       await appSettings.setContentLanguage(languageCode)
       render(
         <NavigationContainer>
@@ -156,7 +155,6 @@ describe('Navigator', () => {
   })
 
   it('should display dashboard if a city is selected and the intro was shown', async () => {
-    const appSettings = new AppSettings()
     await appSettings.setSelectedCity(cityCode)
     await appSettings.setContentLanguage(languageCode)
     await appSettings.setIntroShown()
@@ -173,7 +171,6 @@ describe('Navigator', () => {
   })
 
   it('should display Landing if no city is selected in settings and intro was shown', async () => {
-    const appSettings = new AppSettings()
     await appSettings.clearSelectedCity()
     await appSettings.setContentLanguage(languageCode)
     await appSettings.setIntroShown()
@@ -190,7 +187,6 @@ describe('Navigator', () => {
   })
 
   it('should display Intro if intro was not shown yet', async () => {
-    const appSettings = new AppSettings()
     await appSettings.setContentLanguage(languageCode)
     const { findByText } = render(
       <NavigationContainer>
@@ -206,7 +202,6 @@ describe('Navigator', () => {
 
   it('should call fetch category if the dashboard route is the initial route', async () => {
     await act(async () => {
-      const appSettings = new AppSettings()
       const routeKey = generateRouteKey()
       await appSettings.setSelectedCity(cityCode)
       await appSettings.setContentLanguage(languageCode)
