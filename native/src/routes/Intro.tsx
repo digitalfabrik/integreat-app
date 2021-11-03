@@ -13,7 +13,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import { StateType } from '../redux/StateType'
-import { appSettings } from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;
