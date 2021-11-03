@@ -2,13 +2,13 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
 import { PoiFeature, PoiModel } from 'api-client'
 
 import { mockContent } from '../__mocks__/poiCMSContent'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import useSnackbar from '../hooks/useSnackbar'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import CollapsibleItem from './CollapsibleItem'
 import NativeHtml from './NativeHtml'
@@ -67,8 +67,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   navigateToPois,
   language
 }: PoiDetailsProps): ReactElement => {
-  const { t } = useTranslation('pois')
-  const dispatch = useDispatch()
+  const { t } = useTranslation<['pois', 'error']>(['pois', 'error'])
+  const showSnackbar = useSnackbar()
 
   // TODO this has to be removed when we get proper images from CMS IGAPP-805
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? EventPlaceholder1
@@ -79,18 +79,13 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const onNavigate = () => {
     if (location && poi.featureLocation?.geometry.coordinates) {
       const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-            Linking.openURL(navigationUrl).catch(() => showSnackbar(dispatch, 'No navigation application found.'))
+      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('navigationApplication')))
     }
   }
 
   const copyToClipboard = (text: string) => (): void => {
     Clipboard.setString(text)
-    dispatch({
-      type: 'ENQUEUE_SNACKBAR',
-      params: {
-        text: 'pois:detailAddressClipboardMessage'
-      }
-    })
+    showSnackbar(t('detailAddressClipboardMessage'))
   }
 
   return (
