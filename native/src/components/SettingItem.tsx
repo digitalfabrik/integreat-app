@@ -13,7 +13,7 @@ import Touchable from './Touchable'
 type PropType = {
   title: string
   description?: string
-  onPress?: () => void
+  onPress: () => void
   theme: ThemeType
   t: TFunction
   bigTitle?: boolean

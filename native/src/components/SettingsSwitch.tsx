@@ -5,12 +5,13 @@ import { ThemeType } from 'build-configs/ThemeType'
 
 type PropsType = {
   theme: ThemeType
-  onPress?: () => void
+  onPress: () => void
   value: boolean
+  testID?: string
 }
 
 // should be used for switches on the settings page
-const SettingsSwitch = ({ value, theme, onPress }: PropsType): ReactElement => (
+const SettingsSwitch = ({ value, theme, onPress, testID }: PropsType): ReactElement => (
   <Switch
     thumbColor={theme.colors.themeColor}
     trackColor={{
@@ -19,6 +20,7 @@ const SettingsSwitch = ({ value, theme, onPress }: PropsType): ReactElement => (
     }}
     value={value}
     onValueChange={onPress}
+    testID={testID}
   />
 )
 
