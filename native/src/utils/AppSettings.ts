@@ -168,4 +168,6 @@ class AppSettings {
   }
 }
 
+export const appSettings = new AppSettings()
+
 export default AppSettings
