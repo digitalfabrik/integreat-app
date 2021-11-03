@@ -26,7 +26,7 @@ import urlFromRouteInformation from './navigation/url'
 import { StateType } from './redux/StateType'
 import { StoreActionType } from './redux/StoreActionType'
 import createReduxStore from './redux/createReduxStore'
-import AppSettings from './utils/AppSettings'
+import appSettings from './utils/AppSettings'
 import { DataContainer } from './utils/DataContainer'
 import DefaultDataContainer from './utils/DefaultDataContainer'
 import sendTrackingSignal from './utils/sendTrackingSignal'
@@ -62,7 +62,6 @@ const linking: LinkingOptions = {
 
         // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
         const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
-          const appSettings = new AppSettings()
           appSettings.loadSettings().then(settings => {
             const { selectedCity, contentLanguage } = settings
             if (selectedCity && contentLanguage) {

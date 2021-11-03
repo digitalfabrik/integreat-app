@@ -10,7 +10,7 @@ import Caption from '../components/Caption'
 import LayoutContainer from '../components/LayoutContainer'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 
 const ThemedText = styled.Text`
   display: flex;
@@ -44,8 +44,6 @@ export type PropsType = {
   route: RoutePropType<JpalTrackingRouteType>
   navigation: NavigationPropType<JpalTrackingRouteType>
 }
-
-const appSettings = new AppSettings()
 
 const JpalTracking = ({ route, theme }: PropsType) => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)

@@ -25,8 +25,12 @@ steps:
   - run:
       name: Check build
       command: yarn workspace web check:build
+  - run:
+      name: Create tarball
+      command: tar -czf << parameters.build_config_name >>.tar.gz ./<< parameters.build_config_name >>
+      working_directory: web/dist
   - store_artifacts:
-      path: web/dist
+      path: web/dist/<< parameters.build_config_name >>.tar.gz
   - persist_to_workspace:
       root: web
       paths:

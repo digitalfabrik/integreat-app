@@ -52,7 +52,7 @@ import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import SettingsContainer from './routes/SettingsContainer'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import AppSettings from './utils/AppSettings'
+import appSettings from './utils/AppSettings'
 import { initSentry } from './utils/helpers'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
@@ -89,7 +89,9 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
   useEffect(() => {
     fetchCities(false)
+  }, [fetchCities])
 
+  useEffect(() => {
     const initialize = async () => {
       const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
@@ -98,7 +100,6 @@ const Navigator = (props: PropsType): ReactElement | null => {
         console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 
-      const appSettings = new AppSettings()
       const {
         introShown,
         selectedCity,
@@ -151,7 +152,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
     }
 
     initialize().catch(error => setErrorMessage(error.message))
-  }, [fetchCities, setInitialRoute, setErrorMessage])
+  }, [setInitialRoute, setErrorMessage])
 
   // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {

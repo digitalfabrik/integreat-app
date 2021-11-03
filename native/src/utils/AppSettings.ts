@@ -168,6 +168,6 @@ class AppSettings {
   }
 }
 
-export const appSettings = new AppSettings()
+const appSettings = new AppSettings()
 
-export default AppSettings
+export default appSettings
