@@ -1,8 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { TFunction } from 'react-i18next'
-import { SectionList, StyleSheet, SectionListData } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { SectionList, SectionListData, StyleSheet } from 'react-native'
 import { Dispatch } from 'redux'
 import styled from 'styled-components/native'
 
@@ -12,6 +11,7 @@ import { ThemeType } from 'build-configs'
 import LayoutContainer from '../components/LayoutContainer'
 import SettingItem from '../components/SettingItem'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import useSnackbar from '../hooks/useSnackbar'
 import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
@@ -41,7 +41,7 @@ const SectionHeader = styled.Text`
 
 const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
-  const dispatch = useDispatch()
+  const showSnackbar = useSnackbar()
 
   useFocusEffect(
     useCallback(() => {
@@ -98,31 +98,25 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
   const ThemedItemSeparator = () => <ItemSeparator theme={theme} />
 
-  const showSnackbar = (key: string) =>
-    dispatch({
-      type: 'ENQUEUE_SNACKBAR',
-      params: {
-        text: key
-      }
-    })
-
   if (!settings) {
     return <LayoutContainer />
   }
+
+  const sections = createSettingsSections({
+    setSetting,
+    t,
+    languageCode,
+    cityCode,
+    navigation,
+    settings,
+    showSnackbar
+  })
 
   return (
     <LayoutContainer>
       <SectionList
         keyExtractor={keyExtractor}
-        sections={createSettingsSections({
-          setSetting,
-          t,
-          languageCode,
-          cityCode,
-          navigation,
-          settings,
-          showSnackbar
-        })}
+        sections={sections}
         extraData={settings}
         renderItem={renderItem}
         renderSectionHeader={renderSectionHeader}
