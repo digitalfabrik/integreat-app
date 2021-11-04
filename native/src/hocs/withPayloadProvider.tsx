@@ -78,7 +78,7 @@ const withPayloadProvider = <
   T extends RoutesType
 >(
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
-  clearRouteOnClose?: boolean,
+  clearRouteOnClose: boolean,
   noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => (
   Component: React.ComponentType<S>
