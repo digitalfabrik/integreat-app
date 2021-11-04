@@ -221,4 +221,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(EventsContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true)(EventsContainer))
