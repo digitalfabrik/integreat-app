@@ -7,7 +7,6 @@ import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api
 import Categories from '../components/Categories'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -204,16 +203,13 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
   )
 }
 
-const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  useClearRouteOnClose(route, dispatch)
-  return (
-    <Categories
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateTo={createNavigate(dispatch, navigation)}
-    />
-  )
-}
+const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
+  <Categories
+    {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    navigateTo={createNavigate(dispatch, navigation)}
+  />
+)
 
 export default connect(
   mapStateToProps,

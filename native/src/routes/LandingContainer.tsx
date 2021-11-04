@@ -101,5 +101,5 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
 
 export default connect(mapStateToProps)(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh)(LandingContainer)
+  withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
 )

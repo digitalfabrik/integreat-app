@@ -7,7 +7,7 @@ import { StoreActionType } from '../redux/StoreActionType'
 const useClearRouteOnClose = (
   route: RoutePropType<RoutesType>,
   dispatch: Dispatch<StoreActionType>,
-  clearRouteOnClose = false
+  clearRouteOnClose: boolean
 ): void => {
   useEffect(
     () => () => {
