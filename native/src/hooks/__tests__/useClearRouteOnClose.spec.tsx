@@ -29,6 +29,12 @@ describe('useClearRouteOnClose', () => {
     unmount()
 
     await waitFor(() => expect(dispatch).toHaveBeenCalledTimes(1))
+    expect(dispatch).toHaveBeenCalledWith({
+      type: 'CLEAR_ROUTE',
+      params: {
+        key: route.key
+      }
+    })
   })
 
   it('should not clear route on close', async () => {
