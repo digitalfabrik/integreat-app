@@ -220,5 +220,5 @@ export default connect(
   mapDispatchToProps
 )(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh)(CategoriesContainer)
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh, true)(CategoriesContainer)
 )

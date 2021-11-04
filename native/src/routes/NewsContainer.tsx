@@ -318,5 +318,5 @@ const NewsContainer = (props: ContainerPropsType) => {
 
 export default connect(mapStateToProps)(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true)(NewsContainer)
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true, true)(NewsContainer)
 )
