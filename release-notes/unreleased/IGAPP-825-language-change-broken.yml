@@ -1,0 +1,7 @@
+issue_key: IGAPP-825
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed blank screen after language change.
+de: Problem mit leeren Seiten nach dem Sprachwechsel behoben.

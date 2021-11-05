@@ -6,7 +6,6 @@ import { CityModel, ErrorCode, EventModel, EVENTS_ROUTE, EventsRouteType } from 
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
@@ -191,16 +190,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  useClearRouteOnClose(route, dispatch)
-  return (
-    <Events
-      {...rest}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    />
-  )
-}
+const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
+  <Events
+    {...rest}
+    navigateTo={createNavigate(dispatch, navigation)}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+  />
+)
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
@@ -221,4 +217,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(EventsContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true)(EventsContainer))
