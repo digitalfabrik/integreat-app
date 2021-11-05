@@ -9,7 +9,6 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import { NewsModelsType, StateType } from '../redux/StateType'
 import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
@@ -218,7 +217,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
 
 const NewsContainer = (props: ContainerPropsType) => {
   const { cityModel, dispatch, selectedNewsType, route, language, newsId, navigation } = props
-  useClearRouteOnClose(route, dispatch)
 
   const fetchNews = useCallback(
     (newsType: NewsType) => {
@@ -318,5 +316,5 @@ const NewsContainer = (props: ContainerPropsType) => {
 
 export default connect(mapStateToProps)(
   // @ts-ignore
-  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true)(NewsContainer)
+  withPayloadProvider<ContainerPropsType, RefreshPropsType, NewsRouteType>(refresh, true, true)(NewsContainer)
 )
