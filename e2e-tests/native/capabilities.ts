@@ -18,7 +18,7 @@ const browserstackCaps = (
       projectName: 'integreat-app-native',
       debug: true,
       realMobile: isCi,
-      appiumVersion: '1.21.0',
+      appiumVersion: '1.22.0',
       idleTimeout: 10000
     },
     ...config,

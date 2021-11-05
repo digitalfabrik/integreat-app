@@ -1,4 +1,4 @@
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import { Page } from './page'
 
 class LandingPage extends Page {

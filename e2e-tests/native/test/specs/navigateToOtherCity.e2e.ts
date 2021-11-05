@@ -1,5 +1,5 @@
 import { augsburgCity } from '../../../shared/constants'
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import DashboardPage from '../pageobjects/dashboard.page'
 import LandingPage from '../pageobjects/landing.page'
 import { navigateToDashboard } from '../utils/navigationUtils'

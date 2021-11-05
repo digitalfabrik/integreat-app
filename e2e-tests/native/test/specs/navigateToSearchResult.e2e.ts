@@ -1,5 +1,5 @@
 import { contentSearch } from '../../../shared/constants'
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import DashboardPage from '../pageobjects/dashboard.page'
 import SearchPage from '../pageobjects/search.page'
 import { navigateToDashboard } from '../utils/navigationUtils'

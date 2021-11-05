@@ -1,5 +1,6 @@
 import { defaultCity, filter } from '../../../shared/constants'
-import { hideKeyboard, swipe, SwipeDirection } from '../Action'
+import Keyboard from '../helpers/Keyboard'
+import Gestures from '../helpers/Gestures'
 import DashboardPage from '../pageobjects/dashboard.page'
 import LandingPage from '../pageobjects/landing.page'
 
@@ -14,8 +15,8 @@ describe('navigate to dashboard', () => {
     await search.click()
     await search.addValue(filter)
 
-    await hideKeyboard()
-    await swipe(SwipeDirection.Down)
+    await Keyboard.hide()
+    await Gestures.checkIfDisplayedWithSwipeUp(await LandingPage.city(defaultCity), 3)
 
     const filteredCity = await LandingPage.city(defaultCity)
 
