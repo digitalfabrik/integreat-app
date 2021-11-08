@@ -448,8 +448,12 @@ jobs:
             - run:
                 command: yarn workspace web check:build
                 name: Check build
+            - run:
+                command: tar -czf << parameters.build_config_name >>.tar.gz ./<< parameters.build_config_name >>
+                name: Create tarball
+                working_directory: web/dist
             - store_artifacts:
-                path: web/dist
+                path: web/dist/<< parameters.build_config_name >>.tar.gz
             - persist_to_workspace:
                 paths:
                     - dist
@@ -517,6 +521,9 @@ jobs:
             - run:
                 command: yarn lint
                 name: Lint
+            - run:
+                command: yarn workspace web stylelint
+                name: Stylelint
             - run:
                 command: yarn workspaces run ts:check
                 name: TS check

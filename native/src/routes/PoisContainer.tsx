@@ -7,7 +7,6 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
@@ -182,17 +181,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  useClearRouteOnClose(route, dispatch)
-  return (
-    <Pois
-      {...rest}
-      route={route}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    />
-  )
-}
+const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
+  <Pois
+    {...rest}
+    route={route}
+    navigateTo={createNavigate(dispatch, navigation)}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+  />
+)
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
@@ -220,4 +216,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true)(PurePoisContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true, true)(PurePoisContainer))

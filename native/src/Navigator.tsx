@@ -89,7 +89,9 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
   useEffect(() => {
     fetchCities(false)
+  }, [fetchCities])
 
+  useEffect(() => {
     const initialize = async () => {
       const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
@@ -150,7 +152,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
     }
 
     initialize().catch(error => setErrorMessage(error.message))
-  }, [fetchCities, setInitialRoute, setErrorMessage])
+  }, [setInitialRoute, setErrorMessage])
 
   // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {

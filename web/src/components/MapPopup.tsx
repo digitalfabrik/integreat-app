@@ -11,8 +11,8 @@ const Popup = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  bottom: 0px;
-  margin: 0 5% 5% 5%;
+  bottom: 0;
+  margin: 0 5% 5%;
   width: 90%;
   height: 12vh;
   border-radius: 8px;
