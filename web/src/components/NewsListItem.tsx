@@ -19,7 +19,6 @@ const Link = styled(CleanLink)`
 const ReadMore = styled.div<{ $type: NewsType }>`
   align-self: flex-end;
   color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
-  color: ${({ theme, $type }) => ($type === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor)};
   font-weight: 600;
 `
 
@@ -36,7 +35,7 @@ const Body = styled.p`
 
 const StyledNewsListItem = styled.div`
   padding-bottom: 2px;
-  background: linear-gradient(to left, rgba(168, 168, 168, 0.2), #bebebe 51%, rgba(168, 168, 168, 0.2));
+  border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `
 
 const StyledContainer = styled.div`

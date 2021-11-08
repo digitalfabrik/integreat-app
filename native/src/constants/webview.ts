@@ -1,10 +1,11 @@
 import { Platform } from 'react-native'
 import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
 
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+export const ERROR_MESSAGE_TYPE = 'error'
+export const WARNING_MESSAGE_TYPE = 'warning'
+export const HEIGHT_MESSAGE_TYPE = 'height'
 
 export const URL_PREFIX = 'file://'
-export const getResourceCacheFilesDirPath = (city: string): string => `${RESOURCE_CACHE_DIR_PATH}/${city}/files`
 export const getFontFaceSource = (fontName: string): string | undefined =>
   Platform.select({
     ios: `local('${fontName}') url('${fontName}.ttf') format('truetype')`,
@@ -15,7 +16,7 @@ export const createPostSource = (
   body: string,
   contentType = 'application/x-www-form-urlencoded'
 ): WebViewSource => ({
-  uri: uri,
+  uri,
   method: 'POST',
   body,
   headers: Platform.select({
@@ -27,12 +28,7 @@ export const createPostSource = (
         In this case Android figures the out which content type to use */
   })
 })
-export const createGetSource = (uri: string, body: string): WebViewSource => ({
-  uri: uri,
-  method: 'GET',
-  body
-})
-export const createHtmlSource = (html: string, baseUrl: string): WebViewSource => ({
-  baseUrl: baseUrl,
-  html: html
+export const createGetSource = (uri: string): WebViewSource => ({
+  uri,
+  method: 'GET'
 })

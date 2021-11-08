@@ -3,12 +3,13 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import { Share } from 'react-native'
-import { Item } from 'react-navigation-header-buttons'
+import { HiddenItem } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
+import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
@@ -37,7 +38,8 @@ type RouteParams = { [key: string]: string } | null
 
 class TransparentHeader extends React.PureComponent<PropsType> {
   goBackInStack = (): void => {
-    this.props.navigation.goBack()
+    const { navigation } = this.props
+    navigation.goBack()
   }
 
   onShare = async (): Promise<void> => {
@@ -61,9 +63,8 @@ class TransparentHeader extends React.PureComponent<PropsType> {
         message
       })
     } catch (e) {
-      const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
       // TODO Show snackbar
-      console.error(errorMessage)
+      reportError(e)
     }
   }
 
@@ -76,9 +77,12 @@ class TransparentHeader extends React.PureComponent<PropsType> {
           <HorizontalLeft>
             <HeaderBackButton onPress={this.goBackInStack} labelVisible={false} />
           </HorizontalLeft>
-          <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme}>
-            {shareUrl && <Item title={t('share')} show='never' onPress={this.onShare} />}
-          </MaterialHeaderButtons>
+          <MaterialHeaderButtons
+            cancelLabel={t('cancel')}
+            theme={theme}
+            items={[]}
+            overflowItems={shareUrl ? [<HiddenItem key='share' title={t('share')} onPress={this.onShare} />] : []}
+          />
         </Horizontal>
       </BoxShadow>
     )

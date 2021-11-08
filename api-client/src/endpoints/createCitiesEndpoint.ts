@@ -6,15 +6,16 @@ import CityModel from '../models/CityModel'
 import { JsonCityType } from '../types'
 
 const stripSlashes = (path: string): string => {
-  if (path.startsWith('/')) {
-    path = path.substr(1)
+  let code = path
+  if (code.startsWith('/')) {
+    code = code.substr(1)
   }
 
-  if (path.endsWith('/')) {
-    path = path.substr(0, path.length - 1)
+  if (code.endsWith('/')) {
+    code = code.substr(0, code.length - 1)
   }
 
-  return path
+  return code
 }
 
 export const CITIES_ENDPOINT_NAME = 'cities'
@@ -40,7 +41,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               latitude: city.latitude,
               aliases: city.aliases,
               boundingBox: Array.isArray(city.bounding_box)
-                ? ([...city.bounding_box[0], ...city.bounding_box[1]] as BBox)
+                ? ([...city.bounding_box[0]!, ...city.bounding_box[1]!] as BBox)
                 : null
             })
         )

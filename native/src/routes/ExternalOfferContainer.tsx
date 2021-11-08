@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 
 import { ExternalOfferRouteType } from 'api-client'
 
@@ -9,9 +9,10 @@ type PropsType = {
   route: RoutePropType<ExternalOfferRouteType>
   navigation: NavigationPropType<ExternalOfferRouteType>
 }
-export default class ExternalOfferContainer extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { url, postData } = this.props.route.params
-    return <ExternalOffer url={url} postData={postData} />
-  }
+
+const ExternalOfferContainer = ({ route }: PropsType): ReactElement => {
+  const { url, postData } = route.params
+  return <ExternalOffer url={url} postData={postData} />
 }
+
+export default ExternalOfferContainer

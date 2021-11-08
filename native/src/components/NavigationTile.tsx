@@ -69,13 +69,15 @@ const NewsDot = styled.Text`
 
 class NavigationTile extends React.Component<PropsType> {
   getNewsDot(): ReactNode {
-    const notifications = this.props.tile.notifications
+    const {
+      tile: { notifications },
+      theme
+    } = this.props
 
     if (notifications && notifications > 0) {
-      return <NewsDot theme={this.props.theme}>{notifications}</NewsDot>
-    } else {
-      return null
+      return <NewsDot theme={theme}>{notifications}</NewsDot>
     }
+    return null
   }
 
   getTileContent(): ReactNode {

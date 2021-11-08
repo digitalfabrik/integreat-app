@@ -12,6 +12,7 @@ import {
   PoiModel
 } from 'api-client'
 
+import { log } from '../../../utils/sentry'
 import { CityContentStateType } from '../../StateType'
 import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
 import createCityContent from '../createCityContent'
@@ -19,7 +20,12 @@ import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import pushEvent from '../pushEvent'
 
+jest.mock('../../../utils/sentry')
+
 describe('morphContentLanguage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   const createCategory = ({
     root,
     path,
@@ -152,11 +158,11 @@ describe('morphContentLanguage', () => {
 
   const createPoi = ({ path, availableLanguages }: { path: string; availableLanguages: Map<string, string> }) =>
     new PoiModel({
-      path: path,
+      path,
       title: 'test',
       content: 'test',
       thumbnail: 'test',
-      availableLanguages: availableLanguages,
+      availableLanguages,
       excerpt: 'test',
       location: new LocationModel({
         id: 1,
@@ -320,7 +326,6 @@ describe('morphContentLanguage', () => {
     expect(newState).toEqual(previous)
   })
   it('should warn if category models are invalid', () => {
-    const spy = jest.spyOn(console, 'warn')
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
@@ -334,13 +339,13 @@ describe('morphContentLanguage', () => {
     const previous = prepareState()
     const route = previous.routeMapping['route-0']
 
-    if (route.status !== 'ready') {
+    if (route?.status !== 'ready') {
       throw Error('Preparation of state failed')
     }
 
     morphContentLanguage(previous, action)
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
+    expect(log).toHaveBeenCalledTimes(1)
+    expect(log).toHaveBeenCalledWith(expect.anything(), 'warning')
   })
   it('should translate route', () => {
     const action: MorphContentLanguageActionType = {

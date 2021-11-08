@@ -1,6 +1,6 @@
 import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 
-import { ErrorCode, fromError, LanguageModel } from 'api-client'
+import { ErrorCode, fromError, LanguageModel, LocalNewsModel, TunewsModel } from 'api-client'
 import { LOCAL_NEWS_TYPE } from 'api-client/src/routes'
 
 import { NewsModelsType } from '../redux/StateType'
@@ -11,7 +11,7 @@ import {
   PushNewsActionType
 } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import loadLanguages from './loadLanguages'
 import loadLocalNews from './loadLocalNews'
 import loadTunews from './loadTunews'
@@ -31,11 +31,14 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
     const validLanguage = availableNewsLanguages.find(languageModel => languageModel.code === language)
 
     if (validLanguage) {
-      const news = isLocalNews
-        ? yield* call(loadLocalNews, city, language)
-        : newsId // A better solution to prevent re-fetching news again from page 1
-        ? yield* call(loadTunewsElement, parseInt(newsId, 0))
-        : yield* call(loadTunews, city, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
+      let news: LocalNewsModel[] | TunewsModel[]
+      if (isLocalNews) {
+        news = yield* call(loadLocalNews, city, language)
+      } else if (newsId) {
+        news = yield* call(loadTunewsElement, parseInt(newsId, 10))
+      } else {
+        news = yield* call(loadTunews, city, language, FIRST_PAGE_INDEX, TUNEWS_FETCH_COUNT_LIMIT)
+      }
       const insert: PushNewsActionType = {
         type: 'PUSH_NEWS',
         params: {
@@ -69,7 +72,6 @@ export function* fetchNews(dataContainer: DataContainer, action: FetchNewsAction
       yield* put(failed)
     }
   } catch (e) {
-    console.error(e)
     reportError(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',
@@ -115,7 +117,6 @@ export function* fetchMoreNews(dataContainer: DataContainer, action: FetchMoreNe
     }
     yield* put(insert)
   } catch (e) {
-    console.error(e)
     reportError(e)
     const failed: FetchNewsFailedActionType = {
       type: 'FETCH_NEWS_FAILED',

@@ -3,6 +3,7 @@ import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 import type { PermissionStatus } from 'react-native-permissions'
 
 import buildConfig from '../constants/buildConfig'
+import { log } from './sentry'
 
 export const checkLocationPermission = async (): Promise<PermissionStatus> => {
   if (buildConfig().featureFlags.fixedCity) {
@@ -11,14 +12,13 @@ export const checkLocationPermission = async (): Promise<PermissionStatus> => {
 
   return check(Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
 }
-export const requestLocationPermission = async (): Promise<PermissionStatus | undefined> => {
+export const requestLocationPermission = async (): Promise<PermissionStatus> => {
   if (buildConfig().featureFlags.fixedCity) {
-    // eslint-disable-next-line no-console
-    console.debug('Location permission disabled, no permissions requested.')
-    return
+    log('Location permission disabled, no permissions requested.')
+    return 'unavailable'
   }
 
-  return await request(
+  return request(
     Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
   )
 }

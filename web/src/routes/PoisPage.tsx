@@ -1,4 +1,4 @@
-import { BBox, Feature, Point } from 'geojson'
+import { BBox } from 'geojson'
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
@@ -11,9 +11,10 @@ import {
   useLoadFromEndpoint,
   POIS_ROUTE,
   embedInCollection,
-  mapQueryId,
   MapViewViewport,
-  defaultViewportConfig
+  defaultViewportConfig,
+  PoiFeature,
+  locationName
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -54,9 +55,10 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   // eslint-disable-next-line no-console
   console.log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
 
-  const requestPois = useCallback(async () => {
-    return createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
-  }, [cityCode, languageCode])
+  const requestPois = useCallback(
+    async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
+    [cityCode, languageCode]
+  )
   const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
 
   const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)
@@ -111,10 +113,10 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   }
 
   if (poi) {
-    const { thumbnail, lastUpdate, content, title, location, featureLocation } = poi
+    const { thumbnail, lastUpdate, content, title, location, featureLocation, urlSlug } = poi
     const pageTitle = `${title} - ${cityModel.name}`
 
-    const mapUrlParams = new URLSearchParams({ [mapQueryId]: String(location.id) })
+    const mapUrlParams = new URLSearchParams({ [locationName]: urlSlug })
     const mapLink = `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapUrlParams}`
 
     return (
@@ -142,9 +144,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
   const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
-  const featureLocations = pois
-    .map(poi => poi.featureLocation)
-    .filter((feature): feature is Feature<Point> => !!feature)
+  const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is PoiFeature => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>

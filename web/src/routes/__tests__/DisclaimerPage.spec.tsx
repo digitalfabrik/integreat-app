@@ -3,7 +3,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
-import { DISCLAIMER_ROUTE, PageModel, CityModelBuilder, LanguageModelBuilder } from 'api-client'
+import { CityModelBuilder, DISCLAIMER_ROUTE, LanguageModelBuilder, PageModel } from 'api-client'
 import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import buildConfig from '../../constants/buildConfig'
@@ -11,12 +11,10 @@ import { renderWithBrowserRouter } from '../../testing/render'
 import DisclaimerPage from '../DisclaimerPage'
 import { createPath, RoutePatterns } from '../index'
 
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    useLoadFromEndpoint: jest.fn()
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  useLoadFromEndpoint: jest.fn()
+}))
 jest.mock('react-i18next')
 
 describe('DisclaimerPage', () => {
@@ -35,8 +33,8 @@ describe('DisclaimerPage', () => {
   })
 
   it('should render page with title and content', () => {
-    const city = cities[0]
-    const language = languages[0]
+    const city = cities[0]!
+    const language = languages[0]!
 
     mockUseLoadFromEndpointOnceWithData(disclaimer)
     const { getByText } = renderWithBrowserRouter(

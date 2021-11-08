@@ -1,18 +1,16 @@
-import * as Sentry from '@sentry/react-native'
 import moment from 'moment'
 
 import { createTrackingEndpoint, ErrorCode, fromError, SpecificSignalType, SignalType } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import AppSettings from './AppSettings'
+import appSettings from './AppSettings'
+import { reportError } from './sentry'
 
-let systemLanguage: string
+let systemLanguage: string | null = null
 export const setSystemLanguage = (language: string): void => {
   systemLanguage = language
 }
 export const sendRequest = async (signal: SignalType): Promise<void> => {
-  const appSettings = new AppSettings()
-
   try {
     const { jpalTrackingCode, jpalTrackingEnabled } = await appSettings.loadSettings()
 
@@ -24,8 +22,7 @@ export const sendRequest = async (signal: SignalType): Promise<void> => {
       // Offline usage, save signal to be sent later
       await appSettings.pushJpalSignal({ ...signal, offline: true })
     } else {
-      console.error(e)
-      Sentry.captureException(e)
+      reportError(e)
     }
   }
 }
@@ -37,8 +34,6 @@ const sendTrackingSignal = async ({
   signal: SpecificSignalType
   offline?: boolean
 }): Promise<void> => {
-  const appSettings = new AppSettings()
-
   try {
     const settings = await appSettings.loadSettings()
     const { selectedCity, contentLanguage, allowPushNotifications, errorTracking, jpalTrackingCode } = settings
@@ -59,7 +54,7 @@ const sendTrackingSignal = async ({
       await sendRequest(signal)
     }
   } catch (e) {
-    console.error(e)
+    reportError(e)
   }
 }
 

@@ -20,29 +20,32 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
     )
     .withMapper(
       (json: Array<JsonPoiType>): Array<PoiModel> =>
-        json.map(poi => {
-          return new PoiModel({
-            path: normalizePath(poi.path),
-            title: poi.title,
-            content: poi.content,
-            thumbnail: poi.thumbnail,
-            availableLanguages: mapAvailableLanguages(poi.available_languages),
-            excerpt: poi.excerpt,
-            location: new LocationModel({
-              id: poi.location.id,
-              name: poi.location.name,
-              address: poi.location.address,
-              town: poi.location.town,
-              state: poi.location.state,
-              postcode: poi.location.postcode,
-              region: poi.location.region,
-              country: poi.location.country,
-              latitude: poi.location.latitude,
-              longitude: poi.location.longitude
-            }),
-            lastUpdate: moment.tz(poi.modified_gmt, 'GMT'),
-            hash: poi.hash
-          })
-        })
+        json
+          .filter(poi => poi.location.id && poi.location.name && poi.location.latitude && poi.location.longitude)
+          .map(
+            poi =>
+              new PoiModel({
+                path: normalizePath(poi.path),
+                title: poi.title,
+                content: poi.content,
+                thumbnail: poi.thumbnail,
+                availableLanguages: mapAvailableLanguages(poi.available_languages),
+                excerpt: poi.excerpt,
+                location: new LocationModel({
+                  id: poi.location.id,
+                  name: poi.location.name,
+                  address: poi.location.address,
+                  town: poi.location.town,
+                  state: poi.location.state,
+                  postcode: poi.location.postcode,
+                  region: poi.location.region,
+                  country: poi.location.country,
+                  latitude: poi.location.latitude,
+                  longitude: poi.location.longitude
+                }),
+                lastUpdate: moment.tz(poi.modified_gmt, 'GMT'),
+                hash: poi.hash
+              })
+          )
     )
     .build()

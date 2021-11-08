@@ -1,0 +1,7 @@
+issue_key: IGAPP-663
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Prevent crashes caused by bad content.
+de: Abstürze durch fehlerhafte Inhalte werden nun verhindert.

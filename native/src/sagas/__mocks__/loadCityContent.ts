@@ -12,7 +12,7 @@ const loadCityContent = function* loadCityContent(
   const languagesAvailable = yield* call(() => dataContainer.languagesAvailable(newCity))
 
   if (!languagesAvailable) {
-    console.error('You have to prepare the data container properly in order to use the loadCityContent.js mock!')
+    throw new Error('You have to prepare the data container properly in order to use the loadCityContent.js mock!')
   }
 
   if (criterion.shouldLoadLanguages()) {

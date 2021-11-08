@@ -14,11 +14,11 @@ export type PropsType = {
 }
 
 const ExternalOffer = (props: PropsType): ReactElement => {
-  const [canGoBack, setCanGoBack] = useState(false)
+  const [canGoBack, setCanGoBack] = useState<boolean>(false)
   const webviewRef = useRef<WebView>(null)
   useEffect(() => {
     const handleBackButton = (): boolean => {
-      if (webviewRef?.current && canGoBack) {
+      if (webviewRef.current && canGoBack) {
         webviewRef.current.goBack()
         return true
       }
@@ -30,7 +30,6 @@ const ExternalOffer = (props: PropsType): ReactElement => {
     return () => backHandler.remove()
   }, [canGoBack])
   const { url, postData } = props
-  const body = !postData ? '' : stringify(fromPairs([...postData.entries()]))
   const onNavigationStateChange = useCallback(
     (navState: WebViewNavigation) => {
       setCanGoBack(navState.canGoBack)
@@ -39,7 +38,7 @@ const ExternalOffer = (props: PropsType): ReactElement => {
   )
   return (
     <WebView
-      source={postData ? createPostSource(url, body) : createGetSource(url, body)}
+      source={postData ? createPostSource(url, stringify(fromPairs([...postData.entries()]))) : createGetSource(url)}
       javaScriptEnabled
       dataDetectorTypes='none'
       domStorageEnabled={false}

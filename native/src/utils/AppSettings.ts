@@ -168,4 +168,6 @@ class AppSettings {
   }
 }
 
-export default AppSettings
+const appSettings = new AppSettings()
+
+export default appSettings

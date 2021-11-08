@@ -25,11 +25,8 @@ const NativeLanguageDetector: LanguageDetectorModule = {
     // Return the first supported languageTag or our fallback
     return supportedKeys.find(it => it !== undefined) ?? config.defaultFallback
   },
-  init: (): void => {},
-  cacheUserLanguage: (newLanguage: string): void => {
-    // eslint-disable-next-line no-console
-    console.log('Skipping caching of new language ', newLanguage)
-  }
+  init: (): void => undefined,
+  cacheUserLanguage: (): void => undefined
 }
 
 export default NativeLanguageDetector

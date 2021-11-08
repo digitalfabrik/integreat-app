@@ -10,7 +10,7 @@ import FailureSwitcher from '../FailureSwitcher'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/sentry', () => ({
-  reportError: jest.fn(async () => {})
+  reportError: jest.fn(async () => undefined)
 }))
 
 describe('FailureSwitcher', () => {
@@ -39,7 +39,12 @@ describe('FailureSwitcher', () => {
   })
 
   it('should not report fetch errors to sentry', async () => {
-    const error = new FetchError({ endpointName: 'cities', innerError: new Error('asdf') })
+    const error = new FetchError({
+      endpointName: 'cities',
+      innerError: new Error('asdf'),
+      url: 'url',
+      requestOptions: { method: 'GET' }
+    })
     const { getByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()

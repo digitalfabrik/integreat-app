@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { ReactElement, useContext } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
+import { useTheme } from 'styled-components'
 
 import { CityModel, EventModel, EVENTS_ROUTE, fromError, NotFoundError, RouteInformationType } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
@@ -25,11 +25,8 @@ export type PropsType = {
   language: string
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
-  theme: ThemeType
-  t: TFunction
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
 /**
@@ -38,30 +35,27 @@ export type PropsType = {
 const Events = ({
   cityModel,
   language,
-  theme,
   navigateTo,
   events,
   path,
   resourceCache,
   resourceCacheUrl,
-  t,
-  navigateToLink,
   navigateToFeedback
 }: PropsType): ReactElement => {
+  const { t } = useTranslation('events')
+  const theme = useTheme()
   const formatter = useContext(DateFormatterContext)
 
-  const renderEventListItem = (event: EventModel) => {
-    return (
-      <EventListItem
-        key={event.path}
-        event={event}
-        cityCode={cityModel.code}
-        language={language}
-        theme={theme}
-        navigateTo={navigateTo}
-      />
-    )
-  }
+  const renderEventListItem = (event: EventModel) => (
+    <EventListItem
+      key={event.path}
+      event={event}
+      cityCode={cityModel.code}
+      language={language}
+      theme={theme}
+      navigateTo={navigateTo}
+    />
+  )
 
   const createNavigateToFeedbackForEvent = (event: EventModel) => (isPositiveFeedback: boolean) => {
     navigateToFeedback({
@@ -96,7 +90,7 @@ const Events = ({
     const event: EventModel | null | undefined = events.find(_event => _event.path === path)
 
     if (event) {
-      const location = event.location.location
+      const { location } = event.location
       const files = resourceCache[event.path] || {}
       return (
         <Page
@@ -107,7 +101,6 @@ const Events = ({
           files={files}
           theme={theme}
           resourceCacheUrl={resourceCacheUrl}
-          navigateToLink={navigateToLink}
           navigateToFeedback={createNavigateToFeedbackForEvent(event)}>
           <>
             <PageDetail

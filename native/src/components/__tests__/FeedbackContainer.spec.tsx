@@ -15,14 +15,12 @@ import FeedbackContainer from '../FeedbackContainer'
 const mockRequest = jest.fn(() => Promise.resolve())
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('api-client', () => {
-  return {
-    ...jest.requireActual('api-client'),
-    createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
-      request: mockRequest
-    })
-  }
-})
+jest.mock('api-client', () => ({
+  ...jest.requireActual('api-client'),
+  createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
+    request: mockRequest
+  })
+}))
 
 describe('FeedbackContainer', () => {
   beforeEach(() => {
@@ -79,8 +77,8 @@ describe('FeedbackContainer', () => {
       />
     )
     const [commentField, emailField] = getAllByDisplayValue('')
-    fireEvent.changeText(commentField, comment)
-    fireEvent.changeText(emailField, contactMail)
+    fireEvent.changeText(commentField!, comment)
+    fireEvent.changeText(emailField!, contactMail)
     const button = getByText('send')
     fireEvent.press(button)
     expect(await findByText('feedback:feedbackSent')).toBeDefined()

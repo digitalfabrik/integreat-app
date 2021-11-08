@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import program from 'commander'
 import parse from 'csv-parse/lib/sync'
 import stringify from 'csv-stringify'
@@ -27,9 +26,7 @@ type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj
 const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
   mapValues(obj, (val, key) => (!isString(val) ? mapStringValuesDeep(val, fn) : fn(val, key, obj)))
 
-const flattenModules = (modules: KeyValueType): Record<string, string> => {
-  return flat(modules)
-}
+const flattenModules = (modules: KeyValueType): Record<string, string> => flat(modules)
 
 type LanguagePair = [string, string]
 
@@ -58,9 +55,8 @@ const EMPTY_MODULE = {}
 type KeyModuleType = [string, Record<string, KeyValueType>]
 type ModuleType = [string, KeyValueType]
 
-const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] => {
-  return keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
-}
+const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] =>
+  keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
 
 /**
  * Create a a translation skeleton which has all keys set to an empty string
@@ -69,15 +65,14 @@ const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string)
  * @param moduleArray The array of modules (containing all languages) with its keys
  * @returns {*}
  */
-const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] => {
-  return getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
+const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] =>
+  getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
     if (module === EMPTY_MODULE) {
       throw new Error(`Module ${moduleKey} is missing in source language!`)
     }
 
     return [moduleKey, mapStringValuesDeep(module, _unusedTranslation => '')]
   })
-}
 
 const mergeByLanguageModule = (
   byLanguageModule: ModuleType[],
@@ -111,9 +106,9 @@ const writeCsvFromJson = (
       .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)])
   )
   const skeleton = createSkeleton(sourceLanguage, moduleArray)
-  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule => {
-    return mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
-  })
+  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule =>
+    mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage)
+  )
   const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
   const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
   Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>
@@ -154,16 +149,23 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
     const byLanguageModules = fromPairs(
       csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')])
     )
-    const sourceModules = loadModules(csvs[0], 'source_language')
+    const sourceLanguageCsv = csvs[0]
+    if (!sourceLanguageCsv) {
+      throw new Error('Need at least one csv!')
+    }
+    const sourceModules = loadModules(sourceLanguageCsv, 'source_language')
+    const flatSourceModules: Record<string, string> = flat(sourceModules)
     // Show which source languages differ
-    csvs.forEach((csv, index) => {
-      if (!isEqual(loadModules(csv, 'source_language'), sourceModules)) {
-        console.log('source language 1', sourceModules)
+    csvs.forEach(csv => {
+      const csvModule = loadModules(csv, 'source_language')
+      const flatCsv: Record<string, string> = flat(csvModule)
+      const differingKey = Object.keys(flatCsv).find(key => flatSourceModules[key] !== flatCsv[key])
+
+      if (differingKey) {
+        console.log('differing key: ', differingKey)
+        console.log(csvs[0], ': ', flatSourceModules[differingKey])
+        console.log(csv, ': ', flatCsv[differingKey])
         console.log()
-        console.log()
-        console.log()
-        console.log('index', index)
-        console.log('source language 2', loadModules(csv, 'source_language'))
       }
     })
 
@@ -180,7 +182,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       moduleKeys.map(moduleKey => [
         moduleKey,
         fromPairs(
-          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey][moduleKey]])
+          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]![moduleKey]])
         )
       ])
     )

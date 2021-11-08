@@ -7,7 +7,7 @@ import { cityContentPath } from '../navigation/url'
 import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
 export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionType): SagaGenerator<void> {
@@ -68,7 +68,6 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
       yield* put(failed)
     }
   } catch (e) {
-    console.error(e)
     reportError(e)
     const failed: FetchPoiFailedActionType = {
       type: 'FETCH_POI_FAILED',

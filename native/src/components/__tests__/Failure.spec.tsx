@@ -9,12 +9,11 @@ import Failure from '../Failure'
 jest.mock('react-i18next')
 
 describe('Failure', () => {
-  const renderFailure = (tryAgain?: () => void, code: ErrorCode = ErrorCode.UnknownError): RenderAPI => {
-    return render(<Failure code={code} tryAgain={tryAgain} />, { wrapper: wrapWithTheme })
-  }
+  const renderFailure = (tryAgain?: () => void, code: ErrorCode = ErrorCode.UnknownError): RenderAPI =>
+    render(<Failure code={code} tryAgain={tryAgain} />, { wrapper: wrapWithTheme })
 
   it('should render a retry button if tryAgain is passed', () => {
-    const { getByTestId } = renderFailure(() => {})
+    const { getByTestId } = renderFailure(() => undefined)
     expect(getByTestId('button-tryAgain')).toBeTruthy()
   })
   it('should not render a retry button if tryAgain is not passed', () => {

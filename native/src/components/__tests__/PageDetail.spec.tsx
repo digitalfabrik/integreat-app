@@ -6,7 +6,6 @@ import buildConfig from '../../constants/buildConfig'
 import PageDetail from '../PageDetail'
 
 describe('PageDetail', () => {
-  const onLinkClick = jest.fn()
   it('should display the given identifier followed by a colon', () => {
     const { queryAllByText, queryByText } = render(
       <PageDetail
@@ -14,7 +13,6 @@ describe('PageDetail', () => {
         information='Some important information'
         theme={buildConfig().lightTheme}
         language='de'
-        onLinkClick={onLinkClick}
       />
     )
     expect(queryAllByText(/Test Identifier/)).toBeTruthy()
@@ -29,7 +27,6 @@ describe('PageDetail', () => {
           information='Some important information'
           theme={buildConfig().lightTheme}
           language='de'
-          onLinkClick={onLinkClick}
         />
       )
       queryAllByText(/Some important information/).forEach(element => {
@@ -43,7 +40,6 @@ describe('PageDetail', () => {
           information='Some important information'
           theme={buildConfig().lightTheme}
           language='ar'
-          onLinkClick={onLinkClick}
         />
       )
       queryAllByTextReverse(/Some important information/).forEach(element => {
@@ -60,7 +56,6 @@ describe('PageDetail', () => {
           information='Some important information'
           theme={buildConfig().lightTheme}
           language='de'
-          onLinkClick={onLinkClick}
         />
       )
       queryAllByTextReverse(/Some important information/).forEach(element => {
@@ -74,7 +69,6 @@ describe('PageDetail', () => {
           information='Some important information'
           theme={buildConfig().lightTheme}
           language='ar'
-          onLinkClick={onLinkClick}
         />
       )
       queryAllByText(/Some important information/).forEach(element => {

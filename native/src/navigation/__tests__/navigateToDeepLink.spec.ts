@@ -15,7 +15,7 @@ import { FixedCityType } from 'build-configs/BuildConfigType'
 
 import buildConfig from '../../constants/buildConfig'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
@@ -23,9 +23,7 @@ import navigateToDeepLink from '../navigateToDeepLink'
 
 const navigateTo = jest.fn()
 
-jest.mock('../createNavigate', () => {
-  return jest.fn(() => navigateTo)
-})
+jest.mock('../createNavigate', () => jest.fn(() => navigateTo))
 jest.mock('../navigateToCategory')
 jest.mock('../../utils/sendTrackingSignal')
 
@@ -33,7 +31,6 @@ describe('navigateToDeepLink', () => {
   const dispatch = jest.fn()
   const navigation = createNavigationPropMock()
   const language = 'kmr'
-  const appSettings = new AppSettings()
   const mockedBuildConfig = mocked(buildConfig)
 
   const mockBuildConfig = (featureFlags: FixedCityType) => {

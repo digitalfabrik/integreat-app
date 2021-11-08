@@ -3,9 +3,7 @@ import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType } from './MapResponseType'
 import Payload from './Payload'
 import FetchError from './errors/FetchError'
-import MappingError from './errors/MappingError'
-import NotFoundError from './errors/NotFoundError'
-import ResponseError, { RequestOptionsType } from './errors/ResponseError'
+import ResponseError from './errors/ResponseError'
 import { request as fetch } from './request'
 
 /**
@@ -40,15 +38,6 @@ class Endpoint<P, T> {
     return this._stateName
   }
 
-  async fetchOrThrow(url: string, requestOptions: Partial<RequestInit>): Promise<Response> {
-    return fetch(url, requestOptions).catch((e: Error) => {
-      throw new FetchError({
-        endpointName: this.stateName,
-        innerError: e
-      })
-    })
-  }
-
   async request(params: P, overrideUrl?: string): Promise<Payload<T>> {
     if (this.errorOverride) {
       throw this.errorOverride
@@ -60,7 +49,7 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const requestOptions: RequestOptionsType = this.mapParamsToBody
+    const requestOptions = this.mapParamsToBody
       ? {
           method: 'POST',
           body: this.mapParamsToBody(params)
@@ -68,7 +57,15 @@ class Endpoint<P, T> {
       : {
           method: 'GET'
         }
-    const response = await this.fetchOrThrow(url, requestOptions)
+
+    const response = await fetch(url, requestOptions).catch((e: Error) => {
+      throw new FetchError({
+        endpointName: this.stateName,
+        innerError: e,
+        url,
+        requestOptions
+      })
+    })
 
     if (!response.ok) {
       throw new ResponseError({
@@ -79,14 +76,17 @@ class Endpoint<P, T> {
       })
     }
 
-    try {
-      const json = await response.json()
-      const fetchedData = this.mapResponse(json, params)
-      return new Payload(false, url, fetchedData, null)
-    } catch (e) {
-      console.error(e)
-      throw e instanceof MappingError || e instanceof NotFoundError ? e : new MappingError(this.stateName, e.message)
-    }
+    const json = await response.json().catch(e => {
+      throw new FetchError({
+        endpointName: this.stateName,
+        innerError: e,
+        url,
+        requestOptions
+      })
+    })
+
+    const fetchedData = this.mapResponse(json, params)
+    return new Payload(false, url, fetchedData, null)
   }
 }
 
