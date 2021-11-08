@@ -58,7 +58,6 @@ describe('createSettingsSections', () => {
       cityCode,
       navigation,
       setSetting,
-      settings: defaultSettings,
       showSnackbar
     })[0]!.data
 
