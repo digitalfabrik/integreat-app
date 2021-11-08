@@ -4,6 +4,7 @@ import { createLanguagesEndpoint, LanguageModel } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
 import { determineApiUrl } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 export default function* loadLanguages(
   city: string,
@@ -14,15 +15,14 @@ export default function* loadLanguages(
 
   if (languagesAvailable && !forceRefresh) {
     try {
-      // eslint-disable-next-line no-console
-      console.debug('Using cached languages')
+      log('Using cached languages')
       return yield* call(dataContainer.getLanguages, city)
     } catch (e) {
-      console.warn('An error occurred while loading languages from JSON', e)
+      log('An error occurred while loading languages from JSON', 'error')
+      reportError(e)
     }
   }
-  // eslint-disable-next-line no-console
-  console.debug('Fetching languages')
+  log('Fetching languages')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>
     createLanguagesEndpoint(apiUrl).request({

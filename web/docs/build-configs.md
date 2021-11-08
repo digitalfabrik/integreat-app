@@ -2,7 +2,7 @@
 
 ## What are build configs and which build configs are available?
 
-See the [general information on build configs](../../docs/build-configs.md).
+See the [general information on build configs](../../build-configs/README.md).
 
 ## Using a Build Config
 

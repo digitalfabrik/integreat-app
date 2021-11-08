@@ -20,7 +20,7 @@ module.exports = {
       {
         get: (target, name) => {
           if (name === 'build-config-name') {
-            const buildConfigName = process.env.BUILD_CONFIG_NAME
+            const buildConfigName = process.env.BUILD_CONFIG_NAME || 'integreat-test-cms'
             // Proxy the (non-existing) module 'build-config-name' to the name of the right build config.
             // Passing environment variables is not possible without either babel or post processing otherwise.
             return path.resolve(__dirname, '../build-configs', buildConfigName, 'build-config-name/index.ts')

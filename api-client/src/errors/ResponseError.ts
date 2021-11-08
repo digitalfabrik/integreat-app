@@ -1,23 +1,15 @@
-export type RequestOptionsType =
-  | {
-      method: 'GET'
-    }
-  | {
-      method: 'POST'
-      body: FormData | string
-    }
 type ResponseErrorParamsType = {
   endpointName: string
   response: Response
   url: string
-  requestOptions: RequestOptionsType
+  requestOptions: Partial<RequestInit>
 }
 
 class ResponseError extends Error {
   _endpointName: string
   _response: Response
   _url: string
-  _requestOptions: RequestOptionsType
+  _requestOptions: Partial<RequestInit>
   _message: string
 
   constructor(params: ResponseErrorParamsType) {
@@ -72,7 +64,7 @@ class ResponseError extends Error {
     return this._url
   }
 
-  get requestOptions(): RequestOptionsType {
+  get requestOptions(): Partial<RequestInit> {
     return this._requestOptions
   }
 }

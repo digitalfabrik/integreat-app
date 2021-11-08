@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import program from 'commander'
 import parse from 'csv-parse/lib/sync'
 import stringify from 'csv-stringify'
@@ -155,15 +154,18 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       throw new Error('Need at least one csv!')
     }
     const sourceModules = loadModules(sourceLanguageCsv, 'source_language')
+    const flatSourceModules: Record<string, string> = flat(sourceModules)
     // Show which source languages differ
-    csvs.forEach((csv, index) => {
-      if (!isEqual(loadModules(csv, 'source_language'), sourceModules)) {
-        console.log('source language 1', sourceModules)
+    csvs.forEach(csv => {
+      const csvModule = loadModules(csv, 'source_language')
+      const flatCsv: Record<string, string> = flat(csvModule)
+      const differingKey = Object.keys(flatCsv).find(key => flatSourceModules[key] !== flatCsv[key])
+
+      if (differingKey) {
+        console.log('differing key: ', differingKey)
+        console.log(csvs[0], ': ', flatSourceModules[differingKey])
+        console.log(csv, ': ', flatCsv[differingKey])
         console.log()
-        console.log()
-        console.log()
-        console.log('index', index)
-        console.log('source language 2', loadModules(csv, 'source_language'))
       }
     })
 
