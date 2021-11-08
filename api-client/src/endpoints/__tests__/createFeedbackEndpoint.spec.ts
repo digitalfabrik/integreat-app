@@ -28,9 +28,9 @@ describe('feedback', () => {
         feedbackType: PAGE_FEEDBACK_TYPE,
         feedbackCategory: CONTENT_FEEDBACK_CATEGORY,
         isPositiveRating: true,
-        permalink: `/augsburg/de`
+        permalink: `/augsburg/de/willkommen`
       })
-    ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback/categories')
+    ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
   it('should map the params to the body', () => {
     const formData = new FormData()
