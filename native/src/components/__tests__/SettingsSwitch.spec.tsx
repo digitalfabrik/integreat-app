@@ -7,10 +7,8 @@ import SettingsSwitch from '../SettingsSwitch'
 describe('SettingsSwitch', () => {
   const lightTheme = buildConfig().lightTheme
   const createTestSwitch = (onPressMock: jest.Mock<any, any>) => {
-    const { getByA11yLabel } = render(
-      <SettingsSwitch theme={lightTheme} value={false} onPress={onPressMock} accessibilityLabel={'switch'} />
-    )
-    return getByA11yLabel('switch')
+    const { getByA11yRole } = render(<SettingsSwitch theme={lightTheme} value={false} onPress={onPressMock} />)
+    return getByA11yRole('switch')
   }
 
   it('should execute onPress when toggled', () => {
