@@ -76,7 +76,7 @@ export default class ResourceURLFinder {
     return reduce<InputEntryType, FetchMapType>(
       inputs,
       (fetchMap, input: InputEntryType) => {
-        const path = input.path
+        const { path } = input
         this.findResourceUrls(input.content)
         const urlSet = this._foundUrls
 
@@ -84,7 +84,8 @@ export default class ResourceURLFinder {
           urlSet.add(input.thumbnail)
         }
 
-        fetchMap[path] = Array.from(urlSet).map(url => {
+        const newFetchMap = fetchMap
+        newFetchMap[path] = Array.from(urlSet).map(url => {
           const urlHash = hashUrl(url)
           const filePath = buildFilePath(url, urlHash)
           return {
@@ -93,7 +94,7 @@ export default class ResourceURLFinder {
             filePath
           }
         })
-        return fetchMap
+        return newFetchMap
       },
       {}
     )

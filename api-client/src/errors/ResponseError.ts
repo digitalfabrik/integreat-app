@@ -1,28 +1,24 @@
-export type RequestOptionsType =
-  | {
-      method: 'GET'
-    }
-  | {
-      method: 'POST'
-      body: FormData | string
-    }
 type ResponseErrorParamsType = {
   endpointName: string
   response: Response
   url: string
-  requestOptions: RequestOptionsType
+  requestOptions: Partial<RequestInit>
 }
 
 class ResponseError extends Error {
   _endpointName: string
   _response: Response
   _url: string
-  _requestOptions: RequestOptionsType
+  _requestOptions: Partial<RequestInit>
   _message: string
 
   constructor(params: ResponseErrorParamsType) {
     super()
 
+    // captureStackTrace is not always defined on mobile
+    // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/263/
+    // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/265/
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ResponseError)
     }
@@ -68,7 +64,7 @@ class ResponseError extends Error {
     return this._url
   }
 
-  get requestOptions(): RequestOptionsType {
+  get requestOptions(): Partial<RequestInit> {
     return this._requestOptions
   }
 }

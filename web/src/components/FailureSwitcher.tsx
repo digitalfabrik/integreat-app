@@ -26,6 +26,7 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
 
   useEffect(() => {
     if (!(error instanceof NotFoundError) && !(error instanceof FetchError)) {
+      // eslint-disable-next-line no-console
       reportError(error).catch(e => console.error(e))
     }
   }, [error])
@@ -37,6 +38,8 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
 
       switch (error.type) {
         case 'category':
+        case 'disclaimer':
+        case 'route':
           return {
             goToPath: createPath(CATEGORIES_ROUTE, params),
             goToMessage: 'goTo.categories',

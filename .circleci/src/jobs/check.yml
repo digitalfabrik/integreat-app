@@ -1,6 +1,6 @@
 # Run checks and tests.
 docker:
-  - image: circleci/node:14.9.0
+  - image: circleci/node:14.17.5
 resource_class: small
 environment:
   TOTAL_CPUS: 1 # For resource_class small
@@ -18,8 +18,11 @@ steps:
       name: Lint
       command: yarn lint
   - run:
+      name: Stylelint
+      command: yarn workspace web stylelint
+  - run:
       name: TS check
-      command: yarn workspace build-configs ts:check
+      command: yarn workspaces run ts:check
   - unit_test:
       directory: api-client
   - unit_test:

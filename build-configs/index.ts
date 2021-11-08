@@ -1,6 +1,6 @@
 import {
-  CommonBuildConfigType,
   AndroidBuildConfigType,
+  CommonBuildConfigType,
   iOSBuildConfigType,
   WebBuildConfigType
 } from './BuildConfigType'
@@ -55,8 +55,8 @@ const loadBuildConfig = <T extends PlatformType>(
     throw Error(`Invalid BUILD_CONFIG_NAME supplied: ${buildConfigName}`)
   }
 
-  if (!platform || !PLATFORMS.includes(platform)) {
-    throw Error(`Invalid platform supplied: ${platform || 'undefined'}`)
+  if (!PLATFORMS.includes(platform)) {
+    throw Error(`Invalid platform supplied: ${platform}`)
   }
 
   return buildConfig[platform]

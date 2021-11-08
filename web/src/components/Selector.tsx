@@ -84,40 +84,32 @@ const Selector = ({
   verticalLayout,
   closeDropDown,
   disabledItemTooltip
-}: PropsType): ReactElement => {
-  return (
-    <Wrapper vertical={verticalLayout}>
-      {items.map(item => {
-        if (item.href) {
-          return (
-            <Element
-              key={item.code}
-              as={Link}
-              to={item.href}
-              onClick={closeDropDown}
-              $enabled={true}
-              $selected={item.code === activeItemCode}>
-              <BoldSpacer>{item.name}</BoldSpacer>
-              {item.name}
-            </Element>
-          )
-        } else {
-          return (
-            <Element
-              as={Tooltip}
-              key={item.code}
-              text={disabledItemTooltip}
-              flow='up'
-              $enabled={false}
-              $selected={false}>
-              <BoldSpacer>{item.name}</BoldSpacer>
-              {item.name}
-            </Element>
-          )
-        }
-      })}
-    </Wrapper>
-  )
-}
+}: PropsType): ReactElement => (
+  <Wrapper vertical={verticalLayout}>
+    {items.map(item => {
+      if (item.href) {
+        return (
+          <Element
+            data-testid={item.code}
+            key={item.code}
+            as={Link}
+            to={item.href}
+            onClick={closeDropDown}
+            $enabled
+            $selected={item.code === activeItemCode}>
+            <BoldSpacer>{item.name}</BoldSpacer>
+            {item.name}
+          </Element>
+        )
+      }
+      return (
+        <Element as={Tooltip} key={item.code} text={disabledItemTooltip} flow='up' $enabled={false} $selected={false}>
+          <BoldSpacer>{item.name}</BoldSpacer>
+          {item.name}
+        </Element>
+      )
+    })}
+  </Wrapper>
+)
 
 export default Selector

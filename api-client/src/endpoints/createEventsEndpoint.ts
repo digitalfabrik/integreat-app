@@ -37,7 +37,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               date: new DateModel({
                 startDate: moment.tz(`${eventData.start_date} ${startTime}`, eventData.timezone),
                 endDate: moment.tz(`${eventData.end_date} ${endTime}`, eventData.timezone),
-                allDay: allDay
+                allDay
               }),
               location: new LocationModel({
                 id: event.location.id,
@@ -58,10 +58,10 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
               featuredImage: event.featured_image
                 ? new FeaturedImageModel({
                     description: event.featured_image.description,
-                    thumbnail: event.featured_image.thumbnail[0],
-                    medium: event.featured_image.medium[0],
-                    large: event.featured_image.large[0],
-                    full: event.featured_image.full[0]
+                    thumbnail: event.featured_image.thumbnail[0]!,
+                    medium: event.featured_image.medium[0]!,
+                    large: event.featured_image.large[0]!,
+                    full: event.featured_image.full[0]!
                   })
                 : null
             })

@@ -19,35 +19,32 @@ type PropsType = {
   language: string
 }
 
-const toTileModels = (offer: Array<OfferModel>): Array<TileModel> => {
-  return offer.map(offer => {
+const toTileModels = (offer: Array<OfferModel>): Array<TileModel> =>
+  offer.map(offer => {
     const isInternalExtra = [SPRUNGBRETT_OFFER_ROUTE as string].includes(offer.alias)
     const path = isInternalExtra ? offer.alias : offer.path
     return new TileModel({
       title: offer.title,
-      path: path,
+      path,
       thumbnail: offer.thumbnail,
       isExternalUrl: !isInternalExtra,
       postData: offer.postData
     })
   })
-}
 
-const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType): ReactElement => {
-  return (
-    <SpaceBetween>
-      <View>
-        <Tiles
-          title={t('offers')}
-          tiles={toTileModels(offers)}
-          onTilePress={navigateToOffer}
-          theme={theme}
-          language={language}
-        />
-      </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
-    </SpaceBetween>
-  )
-}
+const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType): ReactElement => (
+  <SpaceBetween>
+    <View>
+      <Tiles
+        title={t('offers')}
+        tiles={toTileModels(offers)}
+        onTilePress={navigateToOffer}
+        theme={theme}
+        language={language}
+      />
+    </View>
+    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+  </SpaceBetween>
+)
 
 export default Offers

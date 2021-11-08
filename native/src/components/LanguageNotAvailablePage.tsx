@@ -29,7 +29,8 @@ export type PropsType = {
 
 class LanguageNotAvailablePage extends React.Component<PropsType> {
   onPress = (model: LanguageModel): void => {
-    this.props.changeLanguage(model.code)
+    const { changeLanguage } = this.props
+    changeLanguage(model.code)
   }
 
   render(): ReactNode {

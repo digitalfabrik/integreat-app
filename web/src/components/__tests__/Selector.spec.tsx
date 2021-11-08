@@ -27,7 +27,7 @@ describe('Selector', () => {
     const wrapper = shallow(
       <Selector
         verticalLayout={false}
-        closeDropDown={() => {}}
+        closeDropDown={() => undefined}
         items={selectorItems}
         activeItemCode='de'
         disabledItemTooltip='random tooltip'
@@ -40,7 +40,7 @@ describe('Selector', () => {
     const wrapper = shallow(
       <Selector
         verticalLayout
-        closeDropDown={() => {}}
+        closeDropDown={() => undefined}
         items={selectorItems}
         activeItemCode='de'
         disabledItemTooltip='random tooltip'

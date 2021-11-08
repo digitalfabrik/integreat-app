@@ -2,12 +2,11 @@ import type Sentry from '@sentry/react'
 
 import buildConfig from '../constants/buildConfig'
 
-const loadSentry = async (): Promise<typeof Sentry> => {
-  return await import(
+const loadSentry = async (): Promise<typeof Sentry> =>
+  import(
     /* webpackChunkName: "sentry" */
     '@sentry/react'
   )
-}
 
 const initSentry = async (): Promise<void> => {
   if (!buildConfig().featureFlags.sentry) {
@@ -45,7 +44,9 @@ export const reportError = async (err: Error): Promise<void> => {
 
     Sentry.captureException(err)
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
+    // eslint-disable-next-line no-console
     console.error('Failed to load sentry entry point!')
   }
 }

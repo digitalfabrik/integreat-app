@@ -6,7 +6,7 @@ import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
 
 import { RoutePropType } from '../../constants/NavigationTypes'
 import createNavigationMock from '../../testing/createNavigationPropMock'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import JpalTracking from '../JpalTracking'
 
 jest.mock('react-i18next')
@@ -27,7 +27,6 @@ describe('JpalTracking', () => {
   }
 
   it('Textfield should get editable, when tracking is enabled', async () => {
-    const appSettings = new AppSettings()
     await appSettings.setJpalTrackingEnabled(true)
     const { findByTestId, getByA11yRole } = render(<JpalTracking route={route} navigation={navigation} />)
     let inputElem = await findByTestId('input')

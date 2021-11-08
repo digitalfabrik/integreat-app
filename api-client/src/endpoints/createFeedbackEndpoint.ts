@@ -35,7 +35,7 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
       const feedbackType = permalink === `/${city}/${language}` ? CATEGORIES_FEEDBACK_TYPE : params.feedbackType
 
       if (feedbackType !== params.feedbackType) {
-        console.warn('Wrong feedback type set! The feedback type for the root category must be `categories`.')
+        throw new Error('Wrong feedback type set! The feedback type for the root category must be `categories`.')
       }
 
       return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/feedback${feedbackType ? `/${feedbackType}` : ''}`
@@ -68,5 +68,5 @@ export default (baseUrl: string): Endpoint<ParamsType, void> =>
         return formData
       }
     )
-    .withMapper(() => {})
+    .withMapper(() => undefined)
     .build()

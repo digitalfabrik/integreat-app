@@ -1,31 +1,27 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { Image, View, ImageSourcePropType, StyleProp, ImageStyle } from 'react-native'
+import React, { ReactElement } from 'react'
+import { Image, View, ImageSourcePropType, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
 
 export type ImageSourceType = string | number | null
 type PropsType = {
   source: ImageSourceType
   style?: StyleProp<ImageStyle>
+  resizeMode?: ImageResizeMode
 }
 
 const getImageSource = (uri: string | number): ImageSourcePropType =>
   typeof uri === 'number'
     ? uri
     : {
-        uri: uri,
+        uri,
         cache: 'reload'
       }
 
-class SimpleImage extends React.Component<PropsType> {
-  render(): ReactNode {
-    const { source, style } = this.props
-
-    if (source === null) {
-      return <View style={style} />
-    }
-
-    return <Image source={getImageSource(source)} resizeMode='contain' style={style} />
+const SimpleImage = ({ source, style, resizeMode = 'contain' }: PropsType): ReactElement => {
+  if (source === null) {
+    return <View style={style} />
   }
+
+  return <Image source={getImageSource(source)} resizeMode={resizeMode} style={style} />
 }
 
 export default SimpleImage

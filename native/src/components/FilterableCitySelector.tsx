@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { CityModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import { LocationType } from '../routes/Landing'
+import { LocationInformationType } from '../hooks/useUserLocation'
 import CitySelector from './CitySelector'
 import SearchInput from './SearchInput'
 
@@ -19,10 +19,9 @@ const SearchBar = styled.View`
 type PropsType = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
-  t: TFunction
+  t: TFunction<'landing'>
   theme: ThemeType
-  location: LocationType
-  retryDetermineLocation: null | (() => Promise<void>)
+  locationInformation: LocationInformationType
 }
 type StateType = {
   filterText: string
@@ -43,7 +42,7 @@ class FilterableCitySelector extends React.Component<PropsType, StateType> {
 
   render(): ReactNode {
     const { t, theme } = this.props
-    const filterText = this.state.filterText
+    const { filterText } = this.state
     return (
       <View>
         <SearchBar>

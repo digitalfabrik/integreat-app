@@ -16,6 +16,7 @@ import navigateToLanding from '../navigation/navigateToLanding'
 import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
@@ -86,9 +87,7 @@ const Header = (props: PropsType): ReactElement => {
     categoriesAvailable
   } = props
 
-  const canGoBackInStack = (): boolean => {
-    return !!props.previous
-  }
+  const canGoBackInStack = (): boolean => !!props.previous
 
   const goBackInStack = () => {
     navigation.goBack()
@@ -131,7 +130,7 @@ const Header = (props: PropsType): ReactElement => {
         title: buildConfig().appName
       })
     } catch (e) {
-      console.error(e.message)
+      reportError(e)
     }
   }
 
@@ -171,7 +170,7 @@ const Header = (props: PropsType): ReactElement => {
       disabled={!visible}
       title={t(title)}
       iconName={iconName}
-      onPress={visible ? onPress : () => {}}
+      onPress={visible ? onPress : () => undefined}
       style={{ opacity: visible ? 1 : 0 }}
       // @ts-ignore accessibilityLabel missing in props
       accessibilityLabel={t(title)}

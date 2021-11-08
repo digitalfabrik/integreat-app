@@ -14,13 +14,13 @@ const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-const navigateToLink = <T extends RoutesType>(
+const navigateToLink = async <T extends RoutesType>(
   url: string,
   navigation: NavigationPropType<T>,
   language: string,
   navigateTo: (arg0: RouteInformationType) => void,
   shareUrl: string
-): void => {
+): Promise<void> => {
   if (url.includes('.pdf')) {
     sendTrackingSignal({
       signal: {
@@ -50,7 +50,7 @@ const navigateToLink = <T extends RoutesType>(
         url
       }
     })
-    const pathname = new Url(url).pathname
+    const { pathname } = new Url(url)
     const routeParser = new InternalPathnameParser(pathname, language, buildConfig().featureFlags.fixedCity)
     navigateTo(routeParser.route())
   } else {

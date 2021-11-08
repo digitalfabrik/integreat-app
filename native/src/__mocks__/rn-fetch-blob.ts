@@ -4,9 +4,9 @@ type MockFilesType = Record<string, string>
 const mockFiles: MockFilesType = {}
 
 const deleteAllMockFiles = () => {
-  for (const path in mockFiles) {
+  Object.keys(mockFiles).forEach(path => {
     delete mockFiles[path]
-  }
+  })
 }
 
 const writeMockFile = (file: string, content: string, _unusedEncoding: string): Promise<void> => {
@@ -17,7 +17,7 @@ const writeMockFile = (file: string, content: string, _unusedEncoding: string): 
 
 const readMockFile = (file: string, _unusedEncoding: string): Promise<string> => {
   const filePath = path.normalize(file)
-  return Promise.resolve(mockFiles[filePath])
+  return Promise.resolve(mockFiles[filePath]!)
 }
 
 const existsMock = (file: string): Promise<boolean> => {
@@ -51,10 +51,10 @@ const unlink = (file: string): Promise<void> => {
 }
 
 export default {
-  DocumentDir: (): void => {},
+  DocumentDir: (): void => undefined,
   ImageCache: {
     get: {
-      clear: (): void => {}
+      clear: (): void => undefined
     }
   },
   fs: {

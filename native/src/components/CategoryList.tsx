@@ -38,7 +38,6 @@ type PropsType = {
   query?: string
   theme: ThemeType
   onItemPress: (tile: CategoryListModelType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   language: string
   thumbnail?: string
 }
@@ -55,17 +54,16 @@ const CategoryThumbnail = styled(SimpleImage)`
 
 class CategoryList extends React.Component<PropsType> {
   getListContent(listContent: ListContentModelType): React.ReactNode {
-    const { language, navigateToLink } = this.props
-    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) => {
-      return file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
+    const { language } = this.props
+    const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
+      file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
         : file.filePath
-    })
+    )
     return (
       <CategoryListContent
         content={listContent.content}
         language={language}
-        navigateToLink={navigateToLink}
         cacheDictionary={cacheDictionary}
         lastUpdate={listContent.lastUpdate}
       />

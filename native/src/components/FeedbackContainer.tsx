@@ -28,8 +28,9 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 
-import { determineApiUrl, reportError } from '../utils/helpers'
+import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -80,7 +81,7 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
         return PAGE_FEEDBACK_TYPE
 
       case POIS_ROUTE:
-        // TODO IGAPP-438 Handle pois list feedback correctly instead of returning categories feedback type
+        // TODO IGAPP-404 Handle pois list feedback correctly instead of returning categories feedback type
         return path ? PAGE_FEEDBACK_TYPE : CATEGORIES_FEEDBACK_TYPE
 
       case CATEGORIES_ROUTE:
@@ -136,9 +137,7 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
       }
     })
     request().catch(err => {
-      console.error(err)
       reportError(err)
-
       setSendingStatus('failed')
     })
   }

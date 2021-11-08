@@ -9,13 +9,11 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchEventActionType } from '../../redux/StoreActionType'
 import mockDate from '../../testing/mockDate'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../loadCityContent')
 
 describe('watchFetchEvent', () => {
@@ -61,7 +59,7 @@ describe('watchFetchEvent', () => {
         params: {
           city,
           language,
-          path: events[0].path,
+          path: events[0]!.path,
           key: 'events-key',
           criterion: {
             forceUpdate: true,
@@ -80,7 +78,7 @@ describe('watchFetchEvent', () => {
           params: {
             events,
             resourceCache: resources,
-            path: events[0].path,
+            path: events[0]!.path,
             cityLanguages: languages,
             key: 'events-key',
             language,
@@ -98,7 +96,7 @@ describe('watchFetchEvent', () => {
         params: {
           city,
           language,
-          path: events[0].path,
+          path: events[0]!.path,
           key: 'events-key',
           criterion: {
             forceUpdate: false,
@@ -117,7 +115,7 @@ describe('watchFetchEvent', () => {
           params: {
             events,
             resourceCache: resources,
-            path: events[0].path,
+            path: events[0]!.path,
             cityLanguages: languages,
             key: 'events-key',
             language,
@@ -147,7 +145,7 @@ describe('watchFetchEvent', () => {
       return expectSaga(fetchEvent, dataContainer, action)
         .withState({
           cityContent: {
-            city: city
+            city
           }
         })
         .put({

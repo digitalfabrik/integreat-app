@@ -8,7 +8,7 @@ import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
 import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
-import { reportError } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 export type FetchMapTargetType = {
   url: string
@@ -17,13 +17,12 @@ export type FetchMapTargetType = {
 }
 export type FetchMapType = Record<string, Array<FetchMapTargetType>>
 
-const createErrorMessage = (fetchResult: FetchResultType) => {
-  return reduce(
+const createErrorMessage = (fetchResult: FetchResultType) =>
+  reduce(
     fetchResult,
     (message, result, path) => `${message}'Failed to download ${result.url} to ${path}': ${result.errorMessage}\n`,
     ''
   )
-}
 
 function* watchOnProgress() {
   const channel = new FetcherModule().createProgressChannel()
@@ -36,7 +35,7 @@ function* watchOnProgress() {
       const progressAction: ResourcesFetchProgressActionType = {
         type: 'FETCH_RESOURCES_PROGRESS',
         params: {
-          progress: progress
+          progress
         }
       }
       yield* put(progressAction)
@@ -77,15 +76,14 @@ export default function* fetchResourceCache(
       // TODO: we might remember which files have failed to retry later
       // (internet connection of client could have failed)
       const message = createErrorMessage(failureResults)
-      // eslint-disable-next-line no-console
-      console.log(message)
+      log(message)
     }
 
     const resourceCache = mapValues(fetchMap, fetchMapEntry =>
       reduce(
         fetchMapEntry,
         (acc: Record<string, PageResourceCacheEntryStateType>, fetchMapTarget: FetchMapTargetType) => {
-          const filePath = fetchMapTarget.filePath
+          const { filePath } = fetchMapTarget
           const downloadResult = successResults[filePath]
 
           if (downloadResult) {
@@ -103,7 +101,6 @@ export default function* fetchResourceCache(
     )
     yield* call(dataContainer.setResourceCache, city, language, resourceCache)
   } catch (e) {
-    console.error(e)
     reportError(e)
     const failed: ResourcesFetchFailedActionType = {
       type: 'FETCH_RESOURCES_FAILED',

@@ -58,7 +58,8 @@ class CityEntry extends React.PureComponent<PropType> {
   }
 
   navigateToDashboard = (): void => {
-    this.props.navigateToDashboard(this.props.city)
+    const { navigateToDashboard, city } = this.props
+    navigateToDashboard(city)
   }
 
   render(): ReactNode {

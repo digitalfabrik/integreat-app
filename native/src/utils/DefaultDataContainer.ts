@@ -13,6 +13,7 @@ import {
 } from '../redux/StateType'
 import { DataContainer } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
+import { log } from './sentry'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>
@@ -121,11 +122,7 @@ class DefaultDataContainer implements DataContainer {
     const cache: Cache<CityResourceCacheStateType> = this.caches.resourceCache
     const resourceCache = await cache.get(context)
 
-    if (!resourceCache[language]) {
-      return {}
-    }
-
-    return resourceCache[language]
+    return resourceCache[language] ?? {}
   }
 
   getLastUpdate = (city: string, language: string): Promise<Moment | null> => {
@@ -191,10 +188,11 @@ class DefaultDataContainer implements DataContainer {
     }
 
     const newResourceCache = { ...previousResourceCache, [language]: resourceCache }
+    const previousLanguageResourceCache = previousResourceCache[language]
 
-    if (previousResourceCache[language]) {
+    if (previousLanguageResourceCache) {
       // Cleanup old resources
-      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousResourceCache[language])
+      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousLanguageResourceCache)
       const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
 
@@ -207,10 +205,8 @@ class DefaultDataContainer implements DataContainer {
           this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
-        // eslint-disable-next-line no-console
-        console.debug('Cleaning up the following resources:')
-        // eslint-disable-next-line no-console
-        console.debug(pathsToClean)
+        log('Cleaning up the following resources:')
+        log(pathsToClean.join(', '))
         await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
       }
     }
@@ -249,11 +245,10 @@ class DefaultDataContainer implements DataContainer {
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
 
-  cityContentAvailable = async (city: string, language: string): Promise<boolean> => {
-    return (
-      this.categoriesAvailable(city, language) && this.eventsAvailable(city, language) && this.languagesAvailable(city)
-    )
-  }
+  cityContentAvailable = async (city: string, language: string): Promise<boolean> =>
+    (await this.categoriesAvailable(city, language)) &&
+    (await this.eventsAvailable(city, language)) &&
+    this.languagesAvailable(city)
 
   storeLastUsage = async (city: string, peeking: boolean): Promise<void> => {
     await this._databaseConnector.storeLastUsage(new DatabaseContext(city), peeking)

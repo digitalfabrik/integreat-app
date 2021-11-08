@@ -13,7 +13,7 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
 import DateFormatterContext from '../../contexts/DateFormatterContext'
 import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/StateType'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
 import I18nProvider from '../I18nProvider'
@@ -23,9 +23,9 @@ jest.mock('translations/src/loadTranslations')
 jest.mock('../../utils/sendTrackingSignal')
 
 const cities = new CityModelBuilder(1).build()
-const city = cities[0]
+const city = cities[0]!
 const languages = new LanguageModelBuilder(1).build()
-const language = languages[0]
+const language = languages[0]!
 
 const prepareState = ({
   contentLanguage = 'de',
@@ -37,34 +37,32 @@ const prepareState = ({
   switchingLanguage?: boolean
   cities?: CitiesStateType
   languages?: LanguagesStateType
-} = {}): StateType => {
-  return {
-    resourceCacheUrl: 'http://localhost:8080',
-    cityContent: {
-      city: city.code,
-      switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
-      languages: languages || {
-        status: 'ready',
-        models: [language]
-      },
-      routeMapping: {},
-      searchRoute: null,
-      resourceCache: {
-        status: 'ready',
-        progress: 0,
-        value: {
-          file: {}
-        }
-      }
-    },
-    contentLanguage,
-    cities: cities || {
+} = {}): StateType => ({
+  resourceCacheUrl: 'http://localhost:8080',
+  cityContent: {
+    city: city.code,
+    switchingLanguage: switchingLanguage !== undefined ? switchingLanguage : false,
+    languages: languages || {
       status: 'ready',
-      models: [city]
+      models: [language]
     },
-    snackbar: []
-  }
-}
+    routeMapping: {},
+    searchRoute: null,
+    resourceCache: {
+      status: 'ready',
+      progress: 0,
+      value: {
+        file: {}
+      }
+    }
+  },
+  contentLanguage,
+  cities: cities || {
+    status: 'ready',
+    models: [city]
+  },
+  snackbar: []
+})
 
 const mockStore = configureMockStore()
 const mockDetect = mocked(NativeLanguageDetector.detect)
@@ -85,8 +83,8 @@ describe('I18nProvider', () => {
         </I18nProvider>
       </Provider>
     )
-    await waitFor(() => {})
-    expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
+    await waitFor(() => undefined)
+    expect(await appSettings.loadContentLanguage()).toEqual('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
@@ -136,7 +134,7 @@ describe('I18nProvider', () => {
   })
 
   it('should dispatch content language', async () => {
-    await new AppSettings().setContentLanguage('ar')
+    await appSettings.setContentLanguage('ar')
     const store = mockStore(prepareState())
     render(
       <Provider store={store}>
@@ -178,7 +176,7 @@ describe('I18nProvider', () => {
   })
 
   it('should have content language set when rendering children', async () => {
-    await new AppSettings().setContentLanguage('kmr')
+    await appSettings.setContentLanguage('kmr')
     const store = mockStore(
       prepareState({
         contentLanguage: undefined

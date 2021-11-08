@@ -12,12 +12,10 @@ import {
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import SprungbrettOfferContainer from '../SprungbrettOfferContainer'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({
@@ -25,17 +23,17 @@ jest.mock('api-client', () => ({
   useLoadFromEndpoint: jest.fn()
 }))
 jest.mock('../SprungbrettOffer', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return () => <Text>SprungbrettOffer</Text>
 })
 jest.mock('../../components/Failure', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
 jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () => {
-  const Text = require('react-native').Text
+  const { Text } = require('react-native')
 
   return ({ refreshing }: { refreshing: boolean }) => (refreshing ? <Text>loading</Text> : null)
 })

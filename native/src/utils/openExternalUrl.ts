@@ -2,13 +2,14 @@ import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import URL from 'url-parse'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
+import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
+import { reportError } from './sentry'
 
 const openExternalUrl = async (url: string): Promise<void> => {
-  const protocol = new URL(url).protocol
+  const { protocol } = new URL(url)
 
   try {
     // Custom tabs are not available in all browsers and support only http and https
@@ -34,11 +35,14 @@ const openExternalUrl = async (url: string): Promise<void> => {
         })
         await Linking.openURL(url)
       } else {
-        console.warn('This is not a supported route. Skipping.') // TODO IGAPP-521 show snackbar route not found
+        throw new NotFoundError({ type: 'route', id: url, city: '', language: '' })
       }
     }
   } catch (error) {
-    console.error(error)
+    reportError(error)
+    if (error instanceof NotFoundError) {
+      throw error
+    }
   }
 }
 

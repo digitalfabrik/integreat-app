@@ -26,20 +26,18 @@ describe('Feedback', () => {
     isSearchFeedback = false,
     sendingStatus = SendingState.IDLE,
     onContactMailChanged = onContactMailChangedDummy
-  ) => {
-    return {
-      comment,
-      isPositiveFeedback,
-      isSearchFeedback,
-      contactMail: 'test@example.com',
-      sendingStatus,
-      onCommentChanged,
-      onContactMailChanged,
-      onSubmit,
-      t,
-      closeFeedbackModal
-    }
-  }
+  ) => ({
+    comment,
+    isPositiveFeedback,
+    isSearchFeedback,
+    contactMail: 'test@example.com',
+    sendingStatus,
+    onCommentChanged,
+    onContactMailChanged,
+    onSubmit,
+    t,
+    closeFeedbackModal
+  })
 
   it('button should be disabled for negative Feedback and no input', () => {
     const { getByText } = render(

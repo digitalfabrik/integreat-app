@@ -5,7 +5,7 @@ import { mocked } from 'ts-jest/utils'
 
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import { sendRequest } from '../../utils/sendTrackingSignal'
 import useSendOfflineJpalSignals from '../useSendOfflineJpalSignals'
 
@@ -45,20 +45,18 @@ describe('useSendOfflineJpalSignals', () => {
   const mockedUseNetInfo = mocked(useNetInfo)
 
   const mockUseNetInfo = (isInternetReachable: boolean) => {
-    mockedUseNetInfo.mockImplementation(() => {
-      return {
-        type: NetInfoStateType?.other,
-        isConnected: true,
-        isInternetReachable,
-        details: {
-          isConnectionExpensive: false
-        }
+    mockedUseNetInfo.mockImplementation(() => ({
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      type: NetInfoStateType?.other,
+      isConnected: true,
+      isInternetReachable,
+      details: {
+        isConnectionExpensive: false
       }
-    })
+    }))
   }
 
   it('should resend signals if internet is reachable again', async () => {
-    const appSettings = new AppSettings()
     await appSettings.pushJpalSignal(signal1)
     await appSettings.pushJpalSignal(signal2)
 
@@ -77,7 +75,6 @@ describe('useSendOfflineJpalSignals', () => {
   })
 
   it('should not try to send anything if internet reachability does not change', async () => {
-    const appSettings = new AppSettings()
     await appSettings.pushJpalSignal(signal1)
     await appSettings.pushJpalSignal(signal2)
 
