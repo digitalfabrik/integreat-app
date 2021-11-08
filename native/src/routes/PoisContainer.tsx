@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { memo, ReactElement } from 'react'
+import { memo } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -7,10 +7,8 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
@@ -183,24 +181,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType): ReactElement => {
-  useClearRouteOnClose(route, dispatch)
-
-  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }
-
-  return (
-    <Pois
-      {...rest}
-      route={route}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLinkProp}
-    />
-  )
-}
+const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
+  <Pois
+    {...rest}
+    route={route}
+    navigateTo={createNavigate(dispatch, navigation)}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+  />
+)
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
@@ -228,4 +216,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true)(PurePoisContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true, true)(PurePoisContainer))

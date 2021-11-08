@@ -134,7 +134,7 @@ describe('Endpoint', () => {
     mockedFetch.mockRejectedValue(error)
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     await expect(endpoint.request(params)).rejects.toThrowError(
-      new FetchError({ endpointName: 'endpoint', innerError: error })
+      new FetchError({ endpointName: 'endpoint', innerError: error, url, requestOptions: { method: 'GET' } })
     )
   })
 
@@ -157,7 +157,7 @@ describe('Endpoint', () => {
     mockedFetch.mockImplementation(async () => responseFailingJson)
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     await expect(endpoint.request(params)).rejects.toThrowError(
-      new FetchError({ endpointName: 'endpoint', innerError: error })
+      new FetchError({ endpointName: 'endpoint', innerError: error, url, requestOptions: { method: 'GET' } })
     )
   })
 })

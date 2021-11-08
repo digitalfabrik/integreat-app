@@ -32,9 +32,9 @@ Open Settings:
 `File > Preferences > Settings (Ctrl+,)`
 
 Local workspace:
-[../web/.vscode/settings.json]()  
+[../web/.vscode/settings.json](../web/.vscode/settings.json)
 Global settings (Windows):
-[%appdata%/Code/User/settings.json]()
+[%appdata%/Code/User/settings.json](%appdata%/Code/User/settings.json)
 
 Adjust the following settings corresponding to your preferences:
 

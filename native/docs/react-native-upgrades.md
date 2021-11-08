@@ -33,7 +33,6 @@ The AppleTV project is still not included. It's probably easier to keep it remov
 
 Upgrades which were skipped without proper upgrading:
 
-- https://github.com/Integreat/integreat-react-native-app/blame/develop/package.json#L43
 - https://github.com/Integreat/integreat-react-native-app/blame/7cd9b03f25a0c6425730eb6479ab347a5ab94105/package.json#L36
 - https://github.com/Integreat/integreat-react-native-app/blame/69793e1bc794dee89ace2889b89840d476f46603/package.json#L34
 - https://github.com/Integreat/integreat-react-native-app/blame/a1a665270772345af0ded47f164aef74c5d1d37e/package.json#L24

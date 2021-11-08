@@ -42,7 +42,7 @@ import EventsContainer from './routes/EventsContainer'
 import ExternalOfferContainer from './routes/ExternalOfferContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
-import IntroContainer from './routes/IntroContainer'
+import Intro from './routes/Intro'
 import JpalTracking from './routes/JpalTracking'
 import LandingContainer from './routes/LandingContainer'
 import NewsContainer from './routes/NewsContainer'
@@ -52,7 +52,7 @@ import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import SettingsContainer from './routes/SettingsContainer'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
-import AppSettings from './utils/AppSettings'
+import appSettings from './utils/AppSettings'
 import { initSentry, log } from './utils/sentry'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
@@ -89,7 +89,9 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
   useEffect(() => {
     fetchCities(false)
+  }, [fetchCities])
 
+  useEffect(() => {
     const initialize = async () => {
       const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
@@ -97,7 +99,6 @@ const Navigator = (props: PropsType): ReactElement | null => {
         log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 
-      const appSettings = new AppSettings()
       const {
         introShown,
         selectedCity,
@@ -150,7 +151,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
     }
 
     initialize().catch(error => setErrorMessage(error.message))
-  }, [fetchCities, setInitialRoute, setErrorMessage])
+  }, [setInitialRoute, setErrorMessage])
 
   // The following is used to have correct mapping from categories route mapping in redux state to the actual routes
   useEffect(() => {
@@ -192,7 +193,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       />
       <Stack.Screen
         name={INTRO_ROUTE}
-        component={IntroContainer}
+        component={Intro}
         options={{
           header: () => null
         }}

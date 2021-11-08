@@ -39,6 +39,7 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
       switch (error.type) {
         case 'category':
         case 'disclaimer':
+        case 'route':
           return {
             goToPath: createPath(CATEGORIES_ROUTE, params),
             goToMessage: 'goTo.categories',

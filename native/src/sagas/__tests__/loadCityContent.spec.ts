@@ -14,7 +14,7 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
 import { createFetchMap } from '../../testing/builder/util'
 import mockDate from '../../testing/mockDate'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import { DataContainer } from '../../utils/DataContainer'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
@@ -85,7 +85,7 @@ describe('loadCityContent', () => {
   it('should set selected city when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
-    await new AppSettings().setSelectedCity('nuernberg')
+    await appSettings.setSelectedCity('nuernberg')
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
     await expectSaga(
@@ -101,14 +101,14 @@ describe('loadCityContent', () => {
         false
       )
     ).run()
-    expect(await new AppSettings().loadSelectedCity()).toBe('augsburg')
+    expect(await appSettings.loadSelectedCity()).toBe('augsburg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should not set selected city when peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
-    await new AppSettings().setSelectedCity('nuernberg')
+    await appSettings.setSelectedCity('nuernberg')
     await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
     await expectSaga(
@@ -124,7 +124,7 @@ describe('loadCityContent', () => {
         true
       )
     ).run()
-    expect(await new AppSettings().loadSelectedCity()).toBe('nuernberg')
+    expect(await appSettings.loadSelectedCity()).toBe('nuernberg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 

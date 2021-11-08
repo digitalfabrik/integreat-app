@@ -33,11 +33,11 @@ See the corresponding sections for [native](../native/docs/build-configs.md#usin
 
 ## Structure and Available Options
 
-See the [build config types](./BuildConfigType.js) for more information on structure, available options and their functionality.
+See the [build config types](./BuildConfigType.ts) for more information on structure, available options and their functionality.
 
 ## Technical Information
 
-Each build config is a set of javascript files (possibly including common files) that can be found in the [corresponding directory](../build-configs/configs).
+Each build config is a set of javascript files (possibly including common files) that can be found in the [corresponding directory]().
 See the corresponding sections for [native](../native/docs/build-configs.md#technical-information) and [web](../web/docs/build-configs.md#technical-information).
 
 ## Whitelabelling

@@ -1,21 +1,17 @@
 import * as React from 'react'
-import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { ErrorCode, EVENTS_ROUTE, EventsRouteType, CityModel, EventModel } from 'api-client'
+import { CityModel, ErrorCode, EventModel, EVENTS_ROUTE, EventsRouteType } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import withTheme from '../hocs/withTheme'
-import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
-import Events, { PropsType as EventsPropsType } from './Events'
+import Events from './Events'
 
 type NavigationPropsType = {
   route: RoutePropType<EventsRouteType>
@@ -194,25 +190,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const ThemedTranslatedEvents = withTranslation('events')(withTheme<EventsPropsType>(Events))
-
-const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  useClearRouteOnClose(route, dispatch)
-
-  const navigateToLinkProp = (url: string, language: string, shareUrl: string) => {
-    const navigateTo = createNavigate(dispatch, navigation)
-    navigateToLink(url, navigation, language, navigateTo, shareUrl)
-  }
-
-  return (
-    <ThemedTranslatedEvents
-      {...rest}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLinkProp}
-    />
-  )
-}
+const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
+  <Events
+    {...rest}
+    navigateTo={createNavigate(dispatch, navigation)}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+  />
+)
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
@@ -233,4 +217,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh)(EventsContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true)(EventsContainer))

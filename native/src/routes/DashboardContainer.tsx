@@ -1,15 +1,14 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { DASHBOARD_ROUTE, DashboardRouteType, CATEGORIES_ROUTE, CityModel, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, ErrorCode } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
@@ -204,27 +203,16 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const DashboardContainer = (props: ContainerPropsType) => {
-  const { dispatch, navigation, route, ...rest } = props
-  const navigateToLinkProp = useCallback(
-    (url: string, language: string, shareUrl: string) => {
-      const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLink(url, navigation, language, navigateTo, shareUrl)
-    },
-    [dispatch, navigation]
-  )
-  return (
-    <Dashboard
-      {...rest}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-      navigateToLink={navigateToLinkProp}
-      navigateTo={createNavigate(dispatch, navigation)}
-    />
-  )
-}
+const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
+  <Dashboard
+    {...rest}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    navigateTo={createNavigate(dispatch, navigation)}
+  />
+)
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-ignore
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh)(DashboardContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, false)(DashboardContainer))
