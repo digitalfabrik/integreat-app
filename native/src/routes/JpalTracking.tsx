@@ -49,7 +49,8 @@ const TRACKING_CODE_LENGTH = 7
 const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
-  const [settingsLoaded, setSettingsLoaded] = useState(false)
+  const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
+  const [invalid, setInvalid] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const { t } = useTranslation(['settings', 'error'])
   const theme = useTheme()
@@ -85,7 +86,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
         e.preventDefault()
 
-        Alert.alert(t('trackingLeaveAlertTitle'), t('trackingLeaveAlertDescription'), [
+        Alert.alert(t('trackingLeaveTitle'), t('trackingLeaveDescription', { appName: buildConfig().appName }), [
           {
             text: t('decline'),
             style: 'destructive',
@@ -97,7 +98,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
           {
             text: t('allowTracking'),
             style: 'default',
-            onPress: () => setError('trackingCodeInvalid')
+            onPress: () => setInvalid(true)
           }
         ])
       }),
@@ -141,7 +142,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
           <Switch
-            thumbColor={error && !trackingEnabled ? 'red' : theme.colors.themeColor}
+            thumbColor={invalid && !trackingEnabled ? 'red' : theme.colors.themeColor}
             trackColor={{
               true: theme.colors.themeColor,
               false: theme.colors.backgroundAccentColor
@@ -154,7 +155,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
         <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
         <Input
-          error={!!error && trackingCode?.length !== TRACKING_CODE_LENGTH}
+          error={invalid && trackingCode?.length !== TRACKING_CODE_LENGTH}
           value={trackingCode ?? ''}
           onChangeText={updateTrackingCode}
           theme={theme}
