@@ -6,8 +6,8 @@ import { Platform } from 'react-native'
  * @param address{string}: location address
  * @param coordinates{number[]}: latitude,longitude
  */
-export const getNavigationDeepLinks = (address: string, coordinates: Position): string | undefined =>
+export const getNavigationDeepLinks = (address: string, coordinates: Position): string =>
   Platform.select({
     ios: `maps:${coordinates[1]},${coordinates[0]}?q=${address}`,
     android: `geo:${coordinates[1]},${coordinates[0]}?q=${address}`
-  })
+  })!

@@ -5,17 +5,7 @@ import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import {
-  defaultViewportConfig,
-  detailZoom,
-  mapConfig,
-  PoiFeature,
-  PoiFeatureCollection,
-  RouteInformationType
-} from 'api-client'
-
-import dimensions from '../constants/dimensions'
-import MapPopup from './MapPopup'
+import { defaultViewportConfig, detailZoom, mapConfig, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 const MapContainer = styled.View`
   flex: 1;
@@ -35,13 +25,10 @@ type MapViewPropsType = {
   boundingBox: BBox
   featureCollection: PoiFeatureCollection
   selectedFeature: PoiFeature | null
-  setSelectedFeature: (feature: PoiFeature | null) => void
-  navigateTo: (routeInformation: RouteInformationType) => void
-  language: string
-  cityCode: string
   onRequestLocationPermission: () => Promise<void>
   locationPermissionGranted: boolean
   fabPosition: string | number
+  selectPoiFeature: (feature: PoiFeature | null) => void
 }
 
 const textOffsetY = 1.25
@@ -53,26 +40,21 @@ const MapView = ({
   boundingBox,
   featureCollection,
   selectedFeature,
-  setSelectedFeature,
-  navigateTo,
-  language,
-  cityCode,
   fabPosition,
   onRequestLocationPermission,
-  locationPermissionGranted
+  locationPermissionGranted,
+  selectPoiFeature
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
   const cameraRef = React.useRef<MapboxGL.Camera | null>(null)
   const theme = useTheme()
 
-  // gonna be removed when popup will be removed
-  const popUpHeight = 150
-
   const layerProps: SymbolLayerProps = {
     id: featureLayerId,
     style: {
       symbolPlacement: 'point',
+      symbolZOrder: 'source',
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
       iconImage: ['case', ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1], '6', ['get', 'symbol']],
@@ -111,30 +93,28 @@ const MapView = ({
   const locationPermissionGrantedIcon = followUserLocation ? 'my-location' : 'location-searching'
   const locationPermissionIcon = locationPermissionGranted ? locationPermissionGrantedIcon : 'location-disabled'
 
-  const onPress = useCallback(
-    async (pressedLocation: Feature) => {
-      if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
-        return
-      }
-      const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
-        [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
-        undefined,
-        [featureLayerId]
-      )
-      const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
-      if (feature) {
-        const {
-          geometry: { coordinates }
-        } = feature
-        setSelectedFeature(feature)
+  const onPress = async (pressedLocation: Feature) => {
+    if (!mapRef.current || !cameraRef.current || !pressedLocation.properties) {
+      return
+    }
+    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(
+      [pressedLocation.properties.screenPointX, pressedLocation.properties.screenPointY],
+      undefined,
+      [featureLayerId]
+    )
 
-        cameraRef.current.flyTo(coordinates)
-      } else {
-        setSelectedFeature(null)
-      }
-    },
-    [setSelectedFeature]
-  )
+    const feature = featureCollection?.features.find((it): it is PoiFeature => it.geometry.type === 'Point')
+
+    if (feature) {
+      const {
+        geometry: { coordinates }
+      } = feature
+      selectPoiFeature(feature)
+      cameraRef.current.flyTo(coordinates)
+    } else {
+      selectPoiFeature(null)
+    }
+  }
 
   return (
     <MapContainer>
@@ -157,22 +137,13 @@ const MapView = ({
           ref={cameraRef}
         />
       </StyledMap>
-      {selectedFeature && (
-        <MapPopup
-          feature={selectedFeature}
-          navigateTo={navigateTo}
-          language={language}
-          cityCode={cityCode}
-          height={popUpHeight}
-        />
-      )}
       <StyledFAB
         placement='right'
         onPress={onRequestLocation}
         buttonStyle={{ borderRadius: 50 }}
         icon={{ name: locationPermissionIcon }}
         color={theme.colors.themeColor}
-        position={selectedFeature ? popUpHeight + dimensions.locationFab.margin : fabPosition}
+        position={fabPosition}
       />
     </MapContainer>
   )
