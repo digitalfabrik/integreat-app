@@ -10,11 +10,11 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
 import AppSettings from '../../utils/AppSettings'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
 
-jest.mock('../../utils/helpers')
+jest.mock('../../utils/sentry')
 jest.mock('../../utils/PushNotificationsManager')
 jest.mock('../loadCityContent')
 

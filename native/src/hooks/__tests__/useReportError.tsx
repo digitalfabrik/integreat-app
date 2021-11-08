@@ -3,10 +3,10 @@ import React from 'react'
 
 import { MappingError } from 'api-client'
 
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import useReportError from '../useReportError'
 
-jest.mock('../../utils/helpers')
+jest.mock('../../utils/sentry')
 
 describe('useReportError', () => {
   beforeEach(() => {

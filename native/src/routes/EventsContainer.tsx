@@ -14,7 +14,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import navigateToLink from '../navigation/navigateToLink'
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import Events, { PropsType as EventsPropsType } from './Events'
 
 type NavigationPropsType = {

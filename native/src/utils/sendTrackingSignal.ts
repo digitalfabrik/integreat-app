@@ -4,7 +4,7 @@ import { createTrackingEndpoint, ErrorCode, fromError, SpecificSignalType, Signa
 
 import buildConfig from '../constants/buildConfig'
 import AppSettings from './AppSettings'
-import { reportError } from './helpers'
+import { reportError } from './sentry'
 
 let systemLanguage: string | null = null
 export const setSystemLanguage = (language: string): void => {

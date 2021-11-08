@@ -3,7 +3,8 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { CategoriesMapModel, createCategoriesEndpoint } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log, reportError } from '../utils/helpers'
+import { determineApiUrl } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 function* loadCategories(
   city: string,

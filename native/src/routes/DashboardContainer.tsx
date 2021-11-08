@@ -12,7 +12,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import Dashboard from './Dashboard'
 
 type NavigationPropsType = {

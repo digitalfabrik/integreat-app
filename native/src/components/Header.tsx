@@ -15,8 +15,8 @@ import dimensions from '../constants/dimensions'
 import navigateToLanding from '../navigation/navigateToLanding'
 import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
-import { reportError } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`

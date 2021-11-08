@@ -28,8 +28,9 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs/ThemeType'
 
-import { determineApiUrl, reportError } from '../utils/helpers'
+import { determineApiUrl } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -137,7 +138,6 @@ const FeedbackContainer = (props: PropsType): ReactElement => {
     })
     request().catch(err => {
       reportError(err)
-
       setSendingStatus('failed')
     })
   }

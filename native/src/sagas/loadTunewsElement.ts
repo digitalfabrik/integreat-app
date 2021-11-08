@@ -3,7 +3,7 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { createTunewsElementEndpoint, TunewsModel } from 'api-client'
 
 import { tunewsApiUrl } from '../constants/endpoint'
-import { log } from '../utils/helpers'
+import { log } from '../utils/sentry'
 
 function* loadTunewsElement(id: number): SagaGenerator<TunewsModel[]> {
   log('Fetching tunews element')

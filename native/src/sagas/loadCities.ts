@@ -3,7 +3,8 @@ import { call, SagaGenerator } from 'typed-redux-saga'
 import { CityModel, createCitiesEndpoint } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
-import { determineApiUrl, log, reportError } from '../utils/helpers'
+import { determineApiUrl } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 function* loadCities(dataContainer: DataContainer, forceRefresh: boolean): SagaGenerator<Array<CityModel>> {
   const citiesAvailable = yield* call(dataContainer.citiesAvailable)

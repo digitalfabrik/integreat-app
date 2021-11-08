@@ -13,7 +13,7 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import navigateToLink from '../navigation/navigateToLink'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import Pois from './Pois'
 
 type NavigationPropsType = {

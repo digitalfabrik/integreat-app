@@ -15,7 +15,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
-import { log, reportError } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 export type PropsType = {
   theme: ThemeType
