@@ -34,10 +34,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
 
   useEffect(() => {
     const appSettings = new AppSettings()
-    appSettings
-      .loadApiUrlOverride()
-      .then(setApiUrlOverride)
-      .catch(e => reportError(e))
+    appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
   }, [])
 
   const onImagePress = useCallback(async () => {
