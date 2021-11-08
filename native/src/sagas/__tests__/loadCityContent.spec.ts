@@ -29,7 +29,6 @@ import loadPois from '../loadPois'
 
 jest.mock('../../utils/helpers', () => ({
   ...jest.requireActual('../../utils/helpers'),
-  log: jest.fn(),
   reportError: jest.fn()
 }))
 jest.mock('@react-native-community/netinfo')
