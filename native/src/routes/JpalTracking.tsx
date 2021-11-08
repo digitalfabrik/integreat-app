@@ -79,6 +79,10 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
+        if (!routeTrackingCode) {
+          // User probably just opened the settings out of interest, don't annoy em by opening an alert
+          return
+        }
         if (trackingCode?.length === TRACKING_CODE_LENGTH && trackingEnabled) {
           // Tracking enabled and (hopefully) valid code entered, so we are good to leave the screen
           return
@@ -102,7 +106,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
           }
         ])
       }),
-    [navigation, trackingCode, trackingEnabled, updateTrackingEnabled, t]
+    [navigation, trackingCode, trackingEnabled, updateTrackingEnabled, t, routeTrackingCode]
   )
 
   // Save tracking code passed with route params

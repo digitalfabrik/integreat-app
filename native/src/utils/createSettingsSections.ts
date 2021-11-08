@@ -42,7 +42,6 @@ type CreateSettingsSectionsPropsType = {
   languageCode: string
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
-  settings: SettingsType
   showSnackbar: (message: string) => void
 }
 
@@ -52,7 +51,6 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
-  settings,
   showSnackbar
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
@@ -158,7 +156,7 @@ const createSettingsSections = ({
               hasBadge: true,
               onPress: () => {
                 navigation.navigate(JPAL_TRACKING_ROUTE, {
-                  trackingCode: settings.jpalTrackingCode
+                  trackingCode: null
                 })
               }
             }
