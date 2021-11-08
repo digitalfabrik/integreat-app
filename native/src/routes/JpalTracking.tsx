@@ -113,7 +113,6 @@ const JpalTracking = (props: PropsType) => {
             theme={theme}
             value={!!trackingEnabled}
             onPress={toggleTrackingEnabled}
-            accessibilityLabel='switch'
           />
         </DescriptionContainer>
 
