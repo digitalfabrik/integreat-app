@@ -10,7 +10,7 @@ jest.mock('@sentry/react-native', () => ({
   ...jest.requireActual('@sentry/react-native'),
   captureException: jest.fn(),
   addBreadcrumb: jest.fn(),
-  initSentry: jest.fn()
+  init: jest.fn()
 }))
 
 beforeEach(() => {
@@ -55,7 +55,12 @@ describe('reportError', () => {
   it('should not report fetch and not found errors to sentry', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     mockBuildConfig(true, false)
-    const error = new FetchError({ endpointName: 'my endpoint', innerError: new Error() })
+    const error = new FetchError({
+      endpointName: 'my endpoint',
+      innerError: new Error(),
+      url: 'https://example.com',
+      requestOptions: { method: 'GET' }
+    })
     reportError(error)
     expect(Sentry.captureException).not.toHaveBeenCalled()
     expect(spy).not.toHaveBeenCalled()
