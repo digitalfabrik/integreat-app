@@ -95,6 +95,7 @@
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.0",
     "@testing-library/jest-native": "^4.0.2",
     "@testing-library/react-native": "^7.2.0",
     "@types/geojson": "^7946.0.8",
