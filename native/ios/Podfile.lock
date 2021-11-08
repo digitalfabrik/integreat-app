@@ -151,6 +151,8 @@ PODS:
     - fmt (~> 6.2.1)
     - glog
   - RCTRequired (0.65.1)
+  - RCTSystemSetting (1.7.6):
+    - React
   - RCTTypeSafety (0.65.1):
     - FBLazyVector (= 0.65.1)
     - RCT-Folly (= 2021.04.26.00)
@@ -432,6 +434,8 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.15.5):
     - React-Core
+  - RNCClipboard (1.9.0):
+    - React-Core
   - RNCMaskedView (0.1.10):
     - React
   - RNFBApp (11.0.0):
@@ -525,6 +529,7 @@ DEPENDENCIES:
   - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
+  - RCTSystemSetting (from `../node_modules/react-native-system-setting`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
@@ -560,6 +565,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
@@ -621,6 +627,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
+  RCTSystemSetting:
+    :path: "../node_modules/react-native-system-setting"
   RCTTypeSafety:
     :path: "../node_modules/react-native/Libraries/TypeSafety"
   React:
@@ -687,6 +695,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
   RNFBApp:
@@ -717,7 +727,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
+  DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: 33c82491102f20ecddb6c6a2c273696ace3191e0
   FBReactNativeSpec: df8f81d2a7541ee6755a047b398a5cb5a72acd0e
   Firebase: cd2ab85eec8170dc260186159f21072ecb679ad5
@@ -737,7 +747,7 @@ SPEC CHECKSUMS:
   FlipperKit: aec2d931adeee48a07bab1ea8bcc8a6bb87dfce4
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
-  glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
+  glog: 5337263514dd6f09803962437687240c5dc39aa4
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
@@ -748,6 +758,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RCT-Folly: 0dd9e1eb86348ecab5ba76f910b56f4b5fef3c46
   RCTRequired: 6cf071ab2adfd769014b3d94373744ee6e789530
+  RCTSystemSetting: 5107b7350d63b3f7b42a1277d07e4e5d9df879be
   RCTTypeSafety: b829c59453478bb5b02487b8de3336386ab93ab1
   React: 29d8a785041b96a2754c25cc16ddea57b7a618ce
   React-callinvoker: 2857b61132bd7878b736e282581f4b42fd93002b
@@ -781,6 +792,7 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: 56a3355a10b5d660c48c6e37325ac85ebfd09885
+  RNCClipboard: 99fc8ad669a376b756fbc8098ae2fd05c0ed0668
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNFBApp: 1624ffcfc328c00ec3049d2f1bbf09d3e78dcdb7
   RNFBMessaging: 43d7ae1f8b93d20ad3194cac3e31ca446d4e9828
