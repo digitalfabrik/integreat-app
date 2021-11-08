@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 
 const useReportError = (error: Error | null): void => {
   useEffect(() => {

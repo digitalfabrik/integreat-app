@@ -17,7 +17,7 @@ import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import { StateType as ReduxStateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import AppSettings from '../utils/AppSettings'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;

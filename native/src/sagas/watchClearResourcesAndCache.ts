@@ -2,7 +2,7 @@ import { call, put, SagaGenerator, takeLatest } from 'typed-redux-saga'
 
 import { ClearResourcesAndCacheActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
-import { log } from '../utils/helpers'
+import { log } from '../utils/sentry'
 
 export function* clearResourcesAndCache(
   dataContainer: DataContainer,

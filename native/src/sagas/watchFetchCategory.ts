@@ -11,7 +11,7 @@ import {
 } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
 /**

@@ -13,7 +13,7 @@ import {
 import AppSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
 export function* switchContentLanguage(

@@ -13,7 +13,7 @@ import {
 } from '../redux/StateType'
 import { DataContainer } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
-import { log } from './helpers'
+import { log } from './sentry'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>

@@ -3,7 +3,7 @@ import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 import type { PermissionStatus } from 'react-native-permissions'
 
 import buildConfig from '../constants/buildConfig'
-import { log } from './helpers'
+import { log } from './sentry'
 
 export const checkLocationPermission = async (): Promise<PermissionStatus> => {
   if (buildConfig().featureFlags.fixedCity) {

@@ -23,7 +23,8 @@ import {
   PageResourceCacheEntryStateType,
   PageResourceCacheStateType
 } from '../redux/StateType'
-import { deleteIfExists, log, reportError } from './helpers'
+import { deleteIfExists } from './helpers'
+import { log, reportError } from './sentry'
 
 export const CONTENT_VERSION = 'v1'
 export const RESOURCE_CACHE_VERSION = 'v1'

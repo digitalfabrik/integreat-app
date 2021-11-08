@@ -9,11 +9,11 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchEventActionType } from '../../redux/StoreActionType'
 import mockDate from '../../testing/mockDate'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 
-jest.mock('../../utils/helpers')
+jest.mock('../../utils/sentry')
 jest.mock('../loadCityContent')
 
 describe('watchFetchEvent', () => {

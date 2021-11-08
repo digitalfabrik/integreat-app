@@ -14,7 +14,7 @@ import createNavigate from '../navigation/createNavigate'
 import navigateToLink from '../navigation/navigateToLink'
 import { NewsModelsType, StateType } from '../redux/StateType'
 import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import News from './News'
 
 type NavigationPropsType = {

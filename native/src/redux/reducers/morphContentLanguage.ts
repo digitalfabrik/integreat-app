@@ -10,7 +10,8 @@ import {
   CategoryModel
 } from 'api-client'
 
-import { forEachTreeNode, log } from '../../utils/helpers'
+import { forEachTreeNode } from '../../utils/helpers'
+import { log } from '../../utils/sentry'
 import {
   CategoryRouteStateType,
   CityContentStateType,

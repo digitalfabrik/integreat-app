@@ -13,8 +13,8 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import { SetContentLanguageActionType } from '../redux/StoreActionType'
 import AppSettings from '../utils/AppSettings'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
-import { reportError } from '../utils/helpers'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 
 type PropsType = {
   children: React.ReactNode

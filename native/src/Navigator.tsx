@@ -53,7 +53,7 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import SettingsContainer from './routes/SettingsContainer'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import AppSettings from './utils/AppSettings'
-import { initSentry, log } from './utils/helpers'
+import { initSentry, log } from './utils/sentry'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 

@@ -12,7 +12,7 @@ import {
   PoiModel
 } from 'api-client'
 
-import { log } from '../../../utils/helpers'
+import { log } from '../../../utils/sentry'
 import { CityContentStateType } from '../../StateType'
 import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
 import createCityContent from '../createCityContent'
@@ -20,10 +20,7 @@ import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import pushEvent from '../pushEvent'
 
-jest.mock('../../../utils/helpers', () => ({
-  forEachTreeNode: jest.requireActual('../../../utils/helpers').forEachTreeNode,
-  log: jest.fn()
-}))
+jest.mock('../../../utils/sentry')
 
 describe('morphContentLanguage', () => {
   beforeEach(() => {

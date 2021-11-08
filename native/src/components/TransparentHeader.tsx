@@ -9,7 +9,7 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`

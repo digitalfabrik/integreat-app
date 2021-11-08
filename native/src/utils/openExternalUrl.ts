@@ -5,8 +5,8 @@ import URL from 'url-parse'
 import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import { reportError } from './helpers'
 import sendTrackingSignal from './sendTrackingSignal'
+import { reportError } from './sentry'
 
 const openExternalUrl = async (url: string): Promise<void> => {
   const { protocol } = new URL(url)

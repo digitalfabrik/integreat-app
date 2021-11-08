@@ -9,11 +9,11 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchCategoryActionType } from '../../redux/StoreActionType'
 import mockDate from '../../testing/mockDate'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 
-jest.mock('../../utils/helpers')
+jest.mock('../../utils/sentry')
 jest.mock('../loadCityContent')
 
 const languages = new LanguageModelBuilder(2).build()

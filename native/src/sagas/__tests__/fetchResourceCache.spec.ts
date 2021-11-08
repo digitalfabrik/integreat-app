@@ -7,10 +7,10 @@ import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { createFetchMap } from '../../testing/builder/util'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import FetcherModule from '../../utils/FetcherModule'
-import { log, reportError } from '../../utils/helpers'
+import { log, reportError } from '../../utils/sentry'
 import fetchResourceCache from '../fetchResourceCache'
 
-jest.mock('../../utils/helpers')
+jest.mock('../../utils/sentry')
 jest.mock('../../utils/FetcherModule')
 
 describe('fetchResourceCache', () => {

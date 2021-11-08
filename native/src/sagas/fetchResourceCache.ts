@@ -8,7 +8,7 @@ import { PageResourceCacheEntryStateType } from '../redux/StateType'
 import { ResourcesFetchFailedActionType, ResourcesFetchProgressActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
 import FetcherModule, { FetchResultType, TargetFilePathsType } from '../utils/FetcherModule'
-import { log, reportError } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 export type FetchMapTargetType = {
   url: string

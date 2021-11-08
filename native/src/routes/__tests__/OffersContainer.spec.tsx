@@ -12,10 +12,10 @@ import {
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import OffersContainer from '../OffersContainer'
 
-jest.mock('../../utils/helpers')
+jest.mock('../../utils/sentry')
 jest.mock('react-i18next')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('api-client', () => ({

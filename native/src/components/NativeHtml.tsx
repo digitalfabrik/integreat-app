@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
-import { log, reportError } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 type PropsType = {
   language: string

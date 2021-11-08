@@ -18,7 +18,7 @@ import AppSettings from '../../utils/AppSettings'
 import { DataContainer } from '../../utils/DataContainer'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import fetchResourceCache from '../fetchResourceCache'
 import loadCategories from '../loadCategories'
 import loadCities from '../loadCities'
@@ -27,10 +27,7 @@ import loadEvents from '../loadEvents'
 import loadLanguages from '../loadLanguages'
 import loadPois from '../loadPois'
 
-jest.mock('../../utils/helpers', () => ({
-  ...jest.requireActual('../../utils/helpers'),
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('@react-native-community/netinfo')
 jest.mock('../fetchResourceCache')
 jest.mock('../loadCategories')

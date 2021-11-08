@@ -2,8 +2,8 @@ import { useNetInfo } from '@react-native-community/netinfo'
 import { useRef } from 'react'
 
 import AppSettings from '../utils/AppSettings'
-import { reportError } from '../utils/helpers'
 import { sendRequest } from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 
 const appSettings = new AppSettings()
 
