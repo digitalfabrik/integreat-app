@@ -15,7 +15,7 @@
 The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflows _triggered_native_development_delivery_ and _triggered_production_delivery_:
 
 - Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
-- Trigger a delivery using the tool [trigger-pipeline](.circleci/trigger-pipeline).
+- Trigger a delivery using the tool [trigger-pipeline](../.circleci/trigger-pipeline).
   - If no branch is specified, main is used as default. This should normally not be changed.
   - Per default a development delivery is made.
   - For more information on how to use it, execute it without parameters to see usage information.
@@ -118,8 +118,8 @@ _Hint: You can run `export FASTLANE_SKIP_UPDATE_CHECK=true` to skip the changelo
 
 ### Lanes
 
-Lanes for Android live in [./native/android/fastlane](./native/android/fastlane) and for iOS in [./native/ios/fastlane](./native/ios/fastlane).
-Shared lanes are in [./native/fastlane](./native/ios/fastlane).
+Lanes for Android live in [../native/android/fastlane](../native/android/fastlane) and for iOS in [../native/ios/fastlane](../native/ios/fastlane).
+Shared lanes are in [../native/fastlane](../native/ios/fastlane).
 
 An overview about FL lanes is available in several documents:
 
@@ -135,7 +135,7 @@ Therefore, you can follow the documentation for Manual Builds to set up [certifi
 ## Determining the Next Version
 
 The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version) can be used.
-More information on the version naming schema used can be found [here](docs/conventions.md#versioning).
+More information on the version naming schema used can be found [here](conventions.md#versioning).
 
 ## Environment Variables and Dependencies
 
