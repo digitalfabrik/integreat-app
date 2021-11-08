@@ -72,7 +72,7 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
           postData
         })
       } else if (isExternalUrl) {
-        openExternalUrl(path).catch(showSnackbar)
+        openExternalUrl(path).catch((error: Error) => showSnackbar(error.message))
       } else if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
         const params = {
           cityCode,

@@ -43,7 +43,7 @@ type CreateSettingsSectionsPropsType = {
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (error: Error) => void
+  showSnackbar: (message: string) => void
 }
 
 const createSettingsSections = ({
@@ -127,13 +127,13 @@ const createSettingsSections = ({
         onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl).catch(showSnackbar)
+          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar(error.message))
         }
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode).catch(showSnackbar)
+        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message))
       },
       {
         title: t('version', {
