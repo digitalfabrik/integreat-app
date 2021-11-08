@@ -1,4 +1,4 @@
-/* eslint-disable no-console,camelcase */
+/* eslint-disable camelcase */
 import program from 'commander'
 import fs from 'fs'
 import yaml from 'js-yaml'

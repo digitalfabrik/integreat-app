@@ -53,7 +53,7 @@ module.exports = {
     'react/static-property-placement': 'off',
 
     curly: ['error', 'all'],
-    'no-console': ['error', { allow: ['error', 'warn'] }],
+    'no-console': 'error',
     'no-magic-numbers': [
       'error',
       {
@@ -102,11 +102,18 @@ module.exports = {
     {
       files: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
+        'no-console': 'off',
         'no-magic-numbers': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off'
+      }
+    },
+    {
+      files: ['**/tools/**'],
+      rules: {
+        'no-console': 'off'
       }
     }
   ],

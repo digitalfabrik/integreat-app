@@ -6,6 +6,7 @@ import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME
 
 import buildConfig from '../constants/buildConfig'
 import sendTrackingSignal from './sendTrackingSignal'
+import { reportError } from './sentry'
 
 const openExternalUrl = async (url: string): Promise<void> => {
   const { protocol } = new URL(url)
@@ -38,7 +39,7 @@ const openExternalUrl = async (url: string): Promise<void> => {
       }
     }
   } catch (error) {
-    console.error(error)
+    reportError(error)
     if (error instanceof NotFoundError) {
       throw error
     }

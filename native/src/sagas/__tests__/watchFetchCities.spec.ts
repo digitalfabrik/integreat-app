@@ -6,13 +6,11 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { FetchCitiesActionType } from '../../redux/StoreActionType'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCities from '../loadCities'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../loadCities')
 
 describe('watchFetchCities', () => {

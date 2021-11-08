@@ -10,9 +10,9 @@ import { NavigationPropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
-import { initSentry } from './helpers'
 import openExternalUrl from './openExternalUrl'
 import openPrivacyPolicy from './openPrivacyPolicy'
+import { initSentry } from './sentry'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
