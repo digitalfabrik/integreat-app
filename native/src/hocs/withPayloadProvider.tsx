@@ -11,8 +11,9 @@ import LanguageNotAvailableContainer from '../components/LanguageNotAvailableCon
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressContainer from '../components/ProgressContainer'
-import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import wrapDisplayName from '../hocs/wrapDisplayName'
+import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
 import { StoreActionType } from '../redux/StoreActionType'
 
 // A waiting time of >=1s feels like an interruption
@@ -66,20 +67,28 @@ export type PropsType<
 > = StatusPropsType<S, R> & {
   dispatch: Dispatch<StoreActionType>
   navigation: NavigationPropType<T>
+  route: RoutePropType<T>
 }
 
 const withPayloadProvider = <
-  S extends { dispatch: Dispatch<StoreActionType> },
+  S extends {
+    dispatch: Dispatch<StoreActionType>
+  },
   R extends Record<string, unknown>,
   T extends RoutesType
 >(
   refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
+  clearRouteOnClose: boolean,
   noScrollView?: boolean
 ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => (
   Component: React.ComponentType<S>
 ): React.ComponentType<PropsType<S, R, T>> => {
-  const Wrapper = (props: PropsType<S, R, T>) => {
+  const Wrapper = ({ route, dispatch, ...props }: PropsType<S, R, T>) => {
     const [timeoutExpired, setTimeoutExpired] = useState(false)
+    // The hook must be used here and not in the route containers since the containers are unmounted on language change
+    // Otherwise the routes are cleared on language change and just a blank screen is displayed
+    useClearRouteOnClose(route, dispatch, clearRouteOnClose)
+
     useEffect(() => {
       const timer = setTimeout(() => {
         setTimeoutExpired(true)
@@ -97,7 +106,7 @@ const withPayloadProvider = <
       }
 
       if (props.refreshProps) {
-        refresh(props.refreshProps, props.dispatch)
+        refresh(props.refreshProps, dispatch)
       }
     }
 
@@ -106,7 +115,7 @@ const withPayloadProvider = <
         throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
       }
 
-      props.changeUnavailableLanguage(props.dispatch, newLanguage)
+      props.changeUnavailableLanguage(dispatch, newLanguage)
     }
 
     if (props.status === 'routeNotInitialized') {
@@ -128,7 +137,7 @@ const withPayloadProvider = <
       )
     }
     if (props.status === 'loading') {
-      const { innerProps, dispatch } = props
+      const { innerProps } = props
 
       if (!timeoutExpired) {
         // Prevent jumpy behaviour by showing nothing until the timeout finishes
@@ -150,7 +159,7 @@ const withPayloadProvider = <
         </LayoutedScrollView>
       )
     }
-    const componentProps = { ...props.innerProps, dispatch: props.dispatch } as S
+    const componentProps = { ...props.innerProps, dispatch } as S
     // props.status === 'success'
     if (noScrollView) {
       return (

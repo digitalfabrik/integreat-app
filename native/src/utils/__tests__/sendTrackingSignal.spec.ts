@@ -131,7 +131,9 @@ describe('sendTrackingSignal', () => {
       })
       const error = new FetchError({
         endpointName: 'endpoint',
-        innerError: new Error('Internet kaputt')
+        innerError: new Error('Internet kaputt'),
+        url: 'url',
+        requestOptions: { method: 'POST' }
       })
       mockRequest.mockRejectedValueOnce(error)
       await sendRequest(signal)
