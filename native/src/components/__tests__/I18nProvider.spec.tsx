@@ -13,7 +13,7 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
 import DateFormatterContext from '../../contexts/DateFormatterContext'
 import { CitiesStateType, LanguagesStateType, StateType } from '../../redux/StateType'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
 import I18nProvider from '../I18nProvider'
@@ -84,7 +84,7 @@ describe('I18nProvider', () => {
       </Provider>
     )
     await waitFor(() => undefined)
-    expect(await new AppSettings().loadContentLanguage()).toEqual('kmr')
+    expect(await appSettings.loadContentLanguage()).toEqual('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })
@@ -134,7 +134,7 @@ describe('I18nProvider', () => {
   })
 
   it('should dispatch content language', async () => {
-    await new AppSettings().setContentLanguage('ar')
+    await appSettings.setContentLanguage('ar')
     const store = mockStore(prepareState())
     render(
       <Provider store={store}>
@@ -176,7 +176,7 @@ describe('I18nProvider', () => {
   })
 
   it('should have content language set when rendering children', async () => {
-    await new AppSettings().setContentLanguage('kmr')
+    await appSettings.setContentLanguage('kmr')
     const store = mockStore(
       prepareState({
         contentLanguage: undefined

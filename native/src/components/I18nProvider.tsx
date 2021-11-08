@@ -11,9 +11,10 @@ import { config, loadTranslations } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { SetContentLanguageActionType } from '../redux/StoreActionType'
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 
 type PropsType = {
   children: React.ReactNode
@@ -26,7 +27,6 @@ export default ({ children }: PropsType): ReactElement | null => {
 
   const setContentLanguage = useCallback(
     async (uiLanguage: string) => {
-      const appSettings = new AppSettings()
       const contentLanguage = await appSettings.loadContentLanguage()
 
       if (!contentLanguage) {
@@ -65,16 +65,14 @@ export default ({ children }: PropsType): ReactElement | null => {
       })
       // A language mentioned in the supportedLanguages array of the config.js in the translations package
       const matchedLanguage = i18nextInstance.languages[0]!
-      await setContentLanguage(matchedLanguage).catch(e => {
-        console.error(e)
-      })
+      await setContentLanguage(matchedLanguage).catch(e => reportError(e))
       setSystemLanguage(matchedLanguage)
       setI18nextInstance(i18nextInstance)
     }
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      console.error(e)
+      reportError(e)
     })
   }, [setContentLanguage])
 

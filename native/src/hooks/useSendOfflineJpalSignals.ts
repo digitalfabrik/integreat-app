@@ -1,10 +1,9 @@
 import { useNetInfo } from '@react-native-community/netinfo'
 import { useRef } from 'react'
 
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 import { sendRequest } from '../utils/sendTrackingSignal'
-
-const appSettings = new AppSettings()
+import { reportError } from '../utils/sentry'
 
 const useSendOfflineJpalSignals = (): void => {
   const { isInternetReachable } = useNetInfo()
@@ -19,7 +18,7 @@ const useSendOfflineJpalSignals = (): void => {
     previousIsInternetReachable.current = !!isInternetReachable
 
     if (isInternetReachable) {
-      sendOfflineSignals().catch(e => console.error(e))
+      sendOfflineSignals().catch(reportError)
     }
   }
 }

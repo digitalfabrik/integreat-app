@@ -448,8 +448,12 @@ jobs:
             - run:
                 command: yarn workspace web check:build
                 name: Check build
+            - run:
+                command: tar -czf << parameters.build_config_name >>.tar.gz ./<< parameters.build_config_name >>
+                name: Create tarball
+                working_directory: web/dist
             - store_artifacts:
-                path: web/dist
+                path: web/dist/<< parameters.build_config_name >>.tar.gz
             - persist_to_workspace:
                 paths:
                     - dist
@@ -517,6 +521,9 @@ jobs:
             - run:
                 command: yarn lint
                 name: Lint
+            - run:
+                command: yarn workspace web stylelint
+                name: Stylelint
             - run:
                 command: yarn workspaces run ts:check
                 name: TS check
@@ -1260,6 +1267,12 @@ workflows:
                     - mattermost
                     - tuerantuer-google-play
                 name: promote_malte_android
+            - promote_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                name: promote_aschaffenburg_android
             - promote_ios:
                 build_config_name: integreat
                 context:
@@ -1272,6 +1285,12 @@ workflows:
                     - mattermost
                     - tuerantuer-apple
                 name: promote_malte_ios
+            - promote_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                name: promote_aschaffenburg_ios
         triggers:
             - schedule:
                 cron: 1 3 * * 4
@@ -1614,7 +1633,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: deliver_aschaffenburg_android
-                production_delivery: false
+                production_delivery: true
                 requires:
                     - check
                     - e2e_android
@@ -1707,7 +1726,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: deliver_aschaffenburg_ios
-                production_delivery: false
+                production_delivery: true
                 requires:
                     - check
                     - e2e_ios
