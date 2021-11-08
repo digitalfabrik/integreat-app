@@ -20,7 +20,7 @@ const useSendOfflineJpalSignals = (): void => {
     previousIsInternetReachable.current = !!isInternetReachable
 
     if (isInternetReachable) {
-      sendOfflineSignals().catch(e => reportError(e))
+      sendOfflineSignals().catch(reportError)
     }
   }
 }
