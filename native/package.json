@@ -92,7 +92,7 @@
     "rn-fetch-blob": "^0.12.0",
     "styled-components": "^5.2.1",
     "translations": "0.0.1",
-    "url-parse": "^1.4.7"
+    "url-parse": "^1.5.2"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.16.0",
