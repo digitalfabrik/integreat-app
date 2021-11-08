@@ -2,9 +2,9 @@ import { useDispatch } from 'react-redux'
 
 import showSnackbar from '../utils/showSnackbar'
 
-const useSnackbar = (): ((error: Error) => void) => {
+const useSnackbar = (): ((message: string) => void) => {
   const dispatch = useDispatch()
-  return (error: Error) => showSnackbar(dispatch, error.message)
+  return (message: string) => showSnackbar(dispatch, message)
 }
 
 export default useSnackbar

@@ -24,7 +24,7 @@ const SprungbrettOffer = ({ jobs, title, navigateToFeedback, theme, t, language 
   const showSnackbar = useSnackbar()
   const openJob = useCallback(
     (url: string) => () => {
-      openExternalUrl(url).catch(showSnackbar)
+      openExternalUrl(url).catch((error: Error) => showSnackbar(error.message))
     },
     [showSnackbar]
   )
