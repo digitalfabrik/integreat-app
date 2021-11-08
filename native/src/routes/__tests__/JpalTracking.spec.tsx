@@ -28,10 +28,10 @@ describe('JpalTracking', () => {
 
   it('Textfield should get editable, when tracking is enabled', async () => {
     await appSettings.setJpalTrackingEnabled(true)
-    const { findByTestId } = render(<JpalTracking route={route} navigation={navigation} />)
+    const { findByTestId, getByA11yRole } = render(<JpalTracking route={route} navigation={navigation} />)
     let inputElem = await findByTestId('input')
     expect(inputElem.props.editable).toBeTruthy()
-    const switchElem = await findByTestId('switch')
+    const switchElem = getByA11yRole('switch')
     await fireEvent(switchElem, 'onValueChange')
     inputElem = await findByTestId('input')
     expect(Object.prototype.hasOwnProperty.call(inputElem, 'editable')).toBeFalsy()

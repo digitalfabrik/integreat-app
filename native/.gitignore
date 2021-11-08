@@ -143,6 +143,9 @@ proguard/
 # Android Studio captures folder
 captures/
 
+# VSCode
+.vscode/settings.json
+
 # IntelliJ
 .idea/workspace.xml
 .idea/tasks.xml
