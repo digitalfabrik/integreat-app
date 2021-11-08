@@ -7,9 +7,12 @@ import { JpalTrackingRouteType } from 'api-client'
 
 import Caption from '../components/Caption'
 import LayoutContainer from '../components/LayoutContainer'
+import Link from '../components/Link'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
+
+const moreInformationUrl = 'https://integrationevaluation.wordpress.com'
 
 const ThemedText = styled.Text`
   display: flex;
@@ -168,6 +171,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
         />
 
         {error && <ErrorText>{t(error)}</ErrorText>}
+        <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
       </View>
     </LayoutContainer>
   )
