@@ -1633,7 +1633,7 @@ workflows:
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: deliver_aschaffenburg_android
-                production_delivery: false
+                production_delivery: true
                 requires:
                     - check
                     - e2e_android
@@ -1726,7 +1726,7 @@ workflows:
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: deliver_aschaffenburg_ios
-                production_delivery: false
+                production_delivery: true
                 requires:
                     - check
                     - e2e_ios
