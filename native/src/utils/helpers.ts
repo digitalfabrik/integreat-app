@@ -1,13 +1,11 @@
-import * as Sentry from '@sentry/react-native'
 import { last } from 'lodash'
 import normalizeStrings from 'normalize-strings'
 import RNFetchBlob from 'rn-fetch-blob'
 import Url from 'url-parse'
 
-import { FetchError, NotFoundError } from 'api-client/src'
-
 import buildConfig from '../constants/buildConfig'
 import appSettings from './AppSettings'
+import { log } from './sentry'
 
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
@@ -15,7 +13,7 @@ export const deleteIfExists = async (path: string): Promise<void> => {
   if (await RNFetchBlob.fs.exists(path)) {
     await RNFetchBlob.fs.unlink(path)
   } else {
-    console.warn(`File or directory ${path} does not exist and was therefore not deleted.`)
+    log(`File or directory ${path} does not exist and was therefore not deleted.`, 'warning')
   }
 }
 
@@ -82,32 +80,6 @@ export const getExtension = (urlString: string): string => {
   }
 
   return lastPath.substring(index + 1)
-}
-
-export const initSentry = (): void => {
-  if (!buildConfig().featureFlags.sentry) {
-    // Native crashes do not get reported when the app is not a release build. Therefore we can disable sentry when
-    // we recognize a dev build. This also adds consistency with the reporting of JS crashes.
-    // This way we only report JS crashes exactly when native crashes get reported.
-    return
-  }
-
-  Sentry.init({
-    dsn: 'https://3dfd3051678042b2b04cb5a6c2d869a4@sentry.tuerantuer.org/2'
-  })
-}
-
-export const reportError = (err: Error): void => {
-  // Do not report errors if a user navigates to an unknown site or has no internet connection
-  if (!(err instanceof NotFoundError) && !(err instanceof FetchError)) {
-    if (!buildConfig().featureFlags.sentry) {
-      // eslint-disable-next-line no-console
-      console.log('Tried to report error via sentry, but it is disabled via the build config.')
-      return
-    }
-
-    Sentry.captureException(err)
-  }
 }
 
 export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase()

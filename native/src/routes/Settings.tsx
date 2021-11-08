@@ -15,6 +15,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
+import { log, reportError } from '../utils/sentry'
 
 export type PropsType = {
   theme: ThemeType
@@ -48,8 +49,10 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
       appSettings
         .loadSettings()
         .then(settings => setSettings(settings))
-        // eslint-disable-next-line no-console
-        .catch(e => console.error('Failed to load settings.', e))
+        .catch(e => {
+          log('Failed to load settings.', 'error')
+          reportError(e)
+        })
     }, [])
   )
 
@@ -72,10 +75,8 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
       await appSettings.setSettings(newSettings)
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e)
-      // eslint-disable-next-line no-console
-      console.error('Failed to persist settings.')
+      log('Failed to persist settings.', 'error')
+      reportError(e)
       setSettings(oldSettings)
     }
   }
