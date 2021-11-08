@@ -21,7 +21,7 @@ type PropsType = {
   goToSlide: (index: number) => void
   onDone: () => Promise<void>
   theme: ThemeType
-  t: TFunction
+  t: TFunction<['intro', 'settings']>
 }
 
 const SlideFooter = ({ onDone, theme, slideCount, goToSlide, currentSlide, t }: PropsType): ReactElement => {

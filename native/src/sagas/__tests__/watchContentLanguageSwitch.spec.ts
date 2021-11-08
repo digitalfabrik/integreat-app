@@ -8,7 +8,7 @@ import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
 import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
 import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
@@ -62,7 +62,7 @@ describe('watchContentLanguageSwitch', () => {
           }
         })
         .run()
-      expect(await new AppSettings().loadContentLanguage()).toBe(newLanguage)
+      expect(await appSettings.loadContentLanguage()).toBe(newLanguage)
       expect(reportError).not.toHaveBeenCalled()
     })
 

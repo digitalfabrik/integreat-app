@@ -61,7 +61,7 @@ const formatNotes = (params: {
 
   const formattedNotes = notes
     .map(note => {
-      const localizedNote = note.de ?? note.en
+      const localizedNote = language === 'en' || !note.de ? note.en : note.de
       // Double quotes make mattermost status alerts fail
       const escapedNote = localizedNote.replace(/"/g, "'")
       return production ? `* ${escapedNote}` : `* [ ${note.issue_key} ] ${escapedNote}`
@@ -136,11 +136,10 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
     throw new Error('Usage of multiple platforms in production mode is not supported.')
   }
 
-  if (!fs.existsSync(source)) {
-    throw new Error(`Source ${source} not found.`)
+  const fileNames = fs.existsSync(source) ? fs.readdirSync(source) : []
+  if (fileNames.length === 0) {
+    console.warn(`No release notes found in source ${source}. Using default notes.`)
   }
-
-  const fileNames = fs.readdirSync(source)
 
   // Load all notes not belonging to a release
   const relevantNotes = fileNames
@@ -230,11 +229,17 @@ const appstoreLanguageMap: Record<string, string[]> = {
   hr: ['hr'],
   hu: ['hu'],
   it: ['it'],
+  ka: [],
+  mk: [],
   pes: [],
   pl: ['pl'],
+  prs: [],
   ro: ['ro'],
   ru: ['ru'],
-  tr: ['tr']
+  sq: [],
+  tr: ['tr'],
+  ur: [],
+  'zh-CN': ['zh-Hans']
 }
 
 // Maps our translation keys to the right key used by the play store
@@ -260,7 +265,8 @@ const playstoreLanguageMap: Record<string, string[]> = {
   ru: ['ru-RU'],
   sq: ['sq'],
   tr: ['tr-TR'],
-  ur: ['ur']
+  ur: ['ur'],
+  'zh-CN': ['zh-CN']
 }
 
 program.version('0.1.0').option('-d, --debug', 'enable extreme logging')
@@ -298,12 +304,6 @@ const languageMap = (storeName: StoreName): Record<string, string[]> =>
 const writeMetadata = (appName: string, storeName: string, overrideVersionName?: string) => {
   if (storeName !== 'appstore' && storeName !== 'playstore') {
     throw new Error(`Invalid store name ${storeName} passed!`)
-  }
-
-  // TODO IGAPP-803 remove
-  if (appName !== 'integreat' && appName !== 'malte') {
-    console.warn('Only integreat and malte are currently supported for automated store translations, aborting!')
-    return
   }
 
   const storeTranslations = loadStoreTranslations(appName)

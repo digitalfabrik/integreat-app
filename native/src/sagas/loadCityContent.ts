@@ -7,7 +7,7 @@ import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-cl
 import buildConfig from '../constants/buildConfig'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../redux/StoreActionType'
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 import ResourceURLFinder from '../utils/ResourceURLFinder'
@@ -26,7 +26,6 @@ import loadPois from './loadPois'
  * @param newLanguage
  */
 function* subscribePushNotifications(newCity: string, newLanguage: string): SagaGenerator<void> {
-  const appSettings = new AppSettings()
   const settings = yield* call(appSettings.loadSettings)
 
   if (settings.allowPushNotifications) {
@@ -49,7 +48,6 @@ function* subscribePushNotifications(newCity: string, newLanguage: string): Saga
  * @param newLanguage
  */
 function* selectCity(newCity: string, newLanguage: string): SagaGenerator<void> {
-  const appSettings = new AppSettings()
   yield* call(appSettings.setSelectedCity, newCity)
   yield* spawn(subscribePushNotifications, newCity, newLanguage)
 }

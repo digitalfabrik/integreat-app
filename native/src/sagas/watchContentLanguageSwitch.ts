@@ -10,7 +10,7 @@ import {
   SwitchContentLanguageActionType,
   SwitchContentLanguageFailedActionType
 } from '../redux/StoreActionType'
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
@@ -43,7 +43,6 @@ export function* switchContentLanguage(
       events: call(dataContainer.getEvents, city, newLanguage),
       pois: call(dataContainer.getPois, city, newLanguage)
     })
-    const appSettings = new AppSettings()
     const { selectedCity, contentLanguage, allowPushNotifications } = yield* call(appSettings.loadSettings)
 
     // Unsubscribe from prev. city notifications
