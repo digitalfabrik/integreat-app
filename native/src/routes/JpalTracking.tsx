@@ -33,7 +33,7 @@ const Input = styled(TextInput)`
   padding: 15px;
   border-width: 1px;
   border-color: ${props => props.theme.colors.textDisabledColor};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.colors.textSecondaryColor};
   text-align-vertical: top;
   height: 50px;
 `
@@ -47,7 +47,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [highlightTrackingSwitch, setHighlightTrackingSwitch] = useState<boolean>(false)
-  const { t } = useTranslation(['settings', 'error'])
+  const { t } = useTranslation('settings')
   const theme = useTheme()
   const routeTrackingCode = route.params.trackingCode
 
