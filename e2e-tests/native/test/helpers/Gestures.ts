@@ -1,3 +1,4 @@
+// For reference https://github.com/webdriverio/appium-boilerplate/blob/main/tests/helpers/Gestures.ts
 import { RectReturn } from '@wdio/protocols/build/types'
 import { ChainablePromiseElement } from 'webdriverio'
 
