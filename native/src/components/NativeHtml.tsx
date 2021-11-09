@@ -8,6 +8,7 @@ import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigateToLink from '../hooks/useNavigateToLink'
+import { log, reportError } from '../utils/sentry'
 
 type PropsType = {
   language: string
@@ -45,11 +46,13 @@ const NativeHtml = React.memo(
               }
             }
           } catch (e) {
-            console.error(
+            log(
               `${e.message} occurred while decoding and looking for ${
                 element.attribs.href || element.attribs.src
-              } in the dictionary`
+              } in the dictionary`,
+              'error'
             )
+            reportError(e)
           }
         }
       },

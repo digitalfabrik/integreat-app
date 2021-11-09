@@ -12,6 +12,7 @@ import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvide
 import createNavigate from '../navigation/createNavigate'
 import { NewsModelsType, StateType } from '../redux/StateType'
 import { FetchMoreNewsActionType, StoreActionType } from '../redux/StoreActionType'
+import { reportError } from '../utils/sentry'
 import News from './News'
 
 type NavigationPropsType = {
@@ -110,8 +111,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       throw new Error('language not available route status not handled!')
     }
     if (languages.status === 'error' || languages.status === 'loading') {
-      // eslint-disable-next-line no-console
-      console.error('languageNotAvailable status impossible if languages not ready')
+      reportError(new Error('languageNotAvailable status impossible if languages not ready'))
       return {
         status: 'error',
         refreshProps: null,

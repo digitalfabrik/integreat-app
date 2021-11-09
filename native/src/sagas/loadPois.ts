@@ -4,6 +4,7 @@ import { createPOIsEndpoint, PoiModel } from 'api-client'
 
 import { DataContainer } from '../utils/DataContainer'
 import { determineApiUrl } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 
 function* loadPois(
   city: string,
@@ -16,22 +17,20 @@ function* loadPois(
 
   if (poisAvailable && !forceRefresh) {
     try {
-      // eslint-disable-next-line no-console
-      console.debug('Using cached pois')
+      log('Using cached pois')
       return yield* call(dataContainer.getPois, city, language)
     } catch (e) {
-      console.warn('An error occurred while loading pois from JSON', e)
+      log('An error occurred while loading pois from JSON', 'error')
+      reportError(e)
     }
   }
 
   if (!poisEnabled) {
-    // eslint-disable-next-line no-console
-    console.debug('Pois disabled')
+    log('Pois disabled')
     yield* call(dataContainer.setPois, city, language, [])
     return []
   }
-  // eslint-disable-next-line no-console
-  console.debug('Fetching pois')
+  log('Fetching pois')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>
     createPOIsEndpoint(apiUrl).request({
