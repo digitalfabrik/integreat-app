@@ -42,6 +42,7 @@ type CreateSettingsSectionsPropsType = {
   languageCode: string
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
+  settings: SettingsType
   showSnackbar: (message: string) => void
 }
 
@@ -51,6 +52,7 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
+  settings,
   showSnackbar
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
@@ -146,9 +148,9 @@ const createSettingsSections = ({
           }
         }
       },
-      ...(!buildConfig().featureFlags.jpalTracking
-        ? []
-        : [
+      // Only show the jpal tracking setting for users that opened it via deep link before
+      ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
+        ? [
             {
               title: t('tracking'),
               description: t('trackingShortDescription', { appName: buildConfig().appName }),
@@ -160,7 +162,8 @@ const createSettingsSections = ({
                 })
               }
             }
-          ])
+          ]
+        : [])
     ]
   }
 ]
