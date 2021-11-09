@@ -7,15 +7,13 @@ type PropsType = {
   theme: ThemeType
   onPress: () => void
   value: boolean
-  thumbColor?: string
 }
 
-// should be used for switches on the settings page
-const SettingsSwitch = ({ value, theme, onPress, thumbColor }: PropsType): ReactElement => (
+const SettingsSwitch = ({ value, theme, onPress }: PropsType): ReactElement => (
   <Switch
-    thumbColor={thumbColor ?? theme.colors.themeColor}
+    thumbColor={theme.colors.themeColor}
     trackColor={{
-      true: theme.colors.themeColorLight,
+      true: theme.colors.themeColor,
       false: theme.colors.textSecondaryColor
     }}
     value={value}

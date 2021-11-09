@@ -47,7 +47,6 @@ export type PropsType = {
 const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
-  const [highlightTrackingSwitch, setHighlightTrackingSwitch] = useState<boolean>(false)
   const { t } = useTranslation('settings')
   const theme = useTheme()
   const routeTrackingCode = route.params.trackingCode
@@ -114,7 +113,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
             {
               text: t('allowTracking'),
               style: 'default',
-              onPress: () => setHighlightTrackingSwitch(true)
+              onPress: () => updateTrackingEnabled(true)
             }
           ])
         }
@@ -142,12 +141,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
-          <SettingsSwitch
-            theme={theme}
-            value={!!trackingEnabled}
-            onPress={toggleTrackingEnabled}
-            thumbColor={highlightTrackingSwitch && !trackingEnabled ? 'red' : theme.colors.themeColor}
-          />
+          <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>
 
         <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
