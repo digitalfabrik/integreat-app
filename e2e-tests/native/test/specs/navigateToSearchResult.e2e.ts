@@ -4,7 +4,7 @@ import DashboardPage from '../pageobjects/dashboard.page'
 import SearchPage from '../pageobjects/search.page'
 import { navigateToDashboard } from '../utils/navigationUtils'
 
-describe('navigateToSearchResult', () => {
+describe('navigate to search result', () => {
   it('should open and search content', async () => {
     await navigateToDashboard()
     DashboardPage.searchIcon.click()

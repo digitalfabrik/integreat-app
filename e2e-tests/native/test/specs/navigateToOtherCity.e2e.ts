@@ -4,7 +4,7 @@ import DashboardPage from '../pageobjects/dashboard.page'
 import LandingPage from '../pageobjects/landing.page'
 import { navigateToDashboard } from '../utils/navigationUtils'
 
-describe('navigateToOtherCity', () => {
+describe('navigate to other city', () => {
   it('should open a new city on location change', async () => {
     await navigateToDashboard()
 
