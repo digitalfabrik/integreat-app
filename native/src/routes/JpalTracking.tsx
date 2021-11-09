@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Switch, Text, TextInput, View } from 'react-native'
+import { Alert, Text, TextInput, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
@@ -9,6 +9,7 @@ import Caption from '../components/Caption'
 import LayoutContainer from '../components/LayoutContainer'
 import Link from '../components/Link'
 import LoadingSpinner from '../components/LoadingSpinner'
+import SettingsSwitch from '../components/SettingsSwitch'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import appSettings from '../utils/AppSettings'
@@ -141,16 +142,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
-          <Switch
-            thumbColor={highlightTrackingSwitch && !trackingEnabled ? 'red' : theme.colors.themeColor}
-            trackColor={{
-              true: theme.colors.themeColor,
-              false: theme.colors.backgroundAccentColor
-            }}
-            value={!!trackingEnabled}
-            onValueChange={toggleTrackingEnabled}
-            testID='switch'
-          />
+          <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>
 
         <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>

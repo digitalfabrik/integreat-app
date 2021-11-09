@@ -1,8 +1,8 @@
 import normalizeStrings from 'normalize-strings'
 
-export const textTruncator = (text: string, numOfCharsAllowed: number): string => {
+export const textTruncator = (text: string, numOfCharsAllowed: number, replaceLineBreaks = true): string => {
   const ellipsis = '...'
-  const cleanText = text.replace(/\n/g, ' ')
+  const cleanText = replaceLineBreaks ? text.replace(/\n/g, ' ') : text
   if (cleanText.length < numOfCharsAllowed) {
     return cleanText
   }
