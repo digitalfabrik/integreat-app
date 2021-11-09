@@ -1,7 +1,7 @@
 import { Selector } from '../helpers/Selector'
 import { navigateToDashboard } from '../utils/navigationUtils'
 
-describe('navigateToLeafCategory', () => {
+describe('navigate to leaf category', () => {
   it('should open leaf category', async () => {
     await navigateToDashboard()
 
