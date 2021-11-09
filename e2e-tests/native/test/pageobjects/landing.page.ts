@@ -14,7 +14,7 @@ class LandingPage extends Page {
     return $('~Search-Input')
   }
 
-  async city(name: string) {
+  city(name: string) {
     return $(new Selector().ByText(name).build())
   }
 }
