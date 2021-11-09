@@ -109,6 +109,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
     languageCode,
     cityCode,
     navigation,
+    settings,
     showSnackbar
   })
 
