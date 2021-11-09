@@ -8,18 +8,16 @@ describe('navigateToOtherCity', () => {
   it('should open a new city on location change', async () => {
     await navigateToDashboard()
 
-    const headerOverflowButton = await DashboardPage.headerOverflowButton
-    await headerOverflowButton.click()
-    const changeLocationItem = await $(new Selector().ByText('Change location').build())
-    await changeLocationItem.click()
-    await expect(await LandingPage.exists()).toBeTruthy()
+    await DashboardPage.headerOverflowButton.click()
+    await $(new Selector().ByText('Change location').build()).click()
+    await expect(LandingPage.get()).toExist()
 
     const newCity = await LandingPage.city(augsburgCity)
-    expect(newCity).toBeDefined()
-    newCity.click()
-    expect(await DashboardPage.exists()).toBeTruthy()
+    expect(newCity).toExist()
+    await newCity.click()
+    await expect(DashboardPage.get()).toExist()
 
-    const heading = await $(new Selector().ByText('Augsburg (Stadt)').build())
-    expect(heading).toBeDefined()
+    const heading = $(new Selector().ByText('Augsburg (Stadt)').build())
+    await expect(heading).toExist()
   })
 })
