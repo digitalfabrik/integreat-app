@@ -18,7 +18,7 @@ const getCapability = () => {
 
 export const config: Testrunner = {
   runner: 'local',
-  specs: ['./native/test/specs/**/navigateToLeafCategory.e2e.ts'],
+  specs: ['./native/test/specs/**/*.ts'],
   exclude: [],
 
   maxInstances: 1,
