@@ -5,7 +5,7 @@ import openExternalUrl from '../utils/openExternalUrl'
 import Touchable from './Touchable'
 
 const LinkText = styled.Text`
-  padding: 50px 0;
+  padding: 30px 0;
   align-self: center;
   text-decoration: underline;
 `

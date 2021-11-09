@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, Text, TextInput, View } from 'react-native'
+import { Alert, Text, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
@@ -30,14 +30,6 @@ const DescriptionContainer = styled.TouchableOpacity`
   justify-content: space-between;
   padding: 15px 0 5px;
 `
-const Input = styled(TextInput)`
-  padding: 15px;
-  border-width: 1px;
-  border-color: ${props => props.theme.colors.textDisabledColor};
-  color: ${props => props.theme.colors.textSecondaryColor};
-  text-align-vertical: top;
-  height: 50px;
-`
 
 export type PropsType = {
   route: RoutePropType<JpalTrackingRouteType>
@@ -45,8 +37,8 @@ export type PropsType = {
 }
 
 const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
-  const [trackingCode, setTrackingCode] = useState<string | null>(null)
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
+  const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
   const { t } = useTranslation('settings')
   const theme = useTheme()
   const routeTrackingCode = route.params.trackingCode
@@ -64,29 +56,24 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
     updateTrackingEnabled(!trackingEnabled)
   }
 
-  const updateTrackingCode = useCallback((value: string) => {
-    setTrackingCode(value)
-    appSettings.setJpalTrackingCode(value).catch(e => {
-      log('Something went wrong while persisting jpal tracking code')
-      reportError(e)
-    })
-  }, [])
-
-  // Save tracking code passed with route params
   useEffect(() => {
+    // Save tracking code passed with route params
     if (routeTrackingCode) {
-      updateTrackingCode(routeTrackingCode)
+      appSettings.setJpalTrackingCode(routeTrackingCode).catch(e => {
+        log('Something went wrong while persisting jpal tracking code')
+        reportError(e)
+      })
     }
-  }, [routeTrackingCode, updateTrackingCode])
+  }, [routeTrackingCode])
 
-  // Load previously set tracking enabled and code
   useEffect(() => {
+    // Load previously set tracking enabled
     appSettings
       .loadSettings()
       .then(settings => {
-        // Do not override previous set tracking code (e.g. from route params)
-        setTrackingCode(previous => previous ?? settings.jpalTrackingCode)
+        setSettingsLoaded(true)
         setTrackingEnabled(settings.jpalTrackingEnabled)
+        log(`Using jpal tracking code ${settings.jpalTrackingCode}`)
       })
       .catch(e => {
         log('Something went wrong while loading settings')
@@ -121,7 +108,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
     [navigation, trackingEnabled, updateTrackingEnabled, t]
   )
 
-  if (!trackingCode) {
+  if (!settingsLoaded) {
     return (
       <LayoutContainer>
         <LoadingSpinner />
@@ -143,9 +130,6 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
           <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>
-
-        <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
-        <Input value={trackingCode} theme={theme} editable={false} testID='input' />
 
         <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
       </View>
