@@ -28,14 +28,15 @@ const Title = styled.h3`
   font-size: 18px;
   font-weight: 700;
 `
-const StyledNewsListItem = styled.div`
-  padding-bottom: 2px;
-`
-
 const Body = styled.p`
   font-size: 16px;
   line-height: 1.38;
   white-space: pre-line;
+`
+
+const StyledNewsListItem = styled.div`
+  padding-bottom: 2px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `
 
 const StyledContainer = styled.div`

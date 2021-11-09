@@ -601,6 +601,7 @@
         "pageTitle": "Seite nicht gefunden"
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
+      "navigationApplication": "Keine Navigationsapplikation gefunden.",
       "networkConnectionFailed": "Die Verbindung zum Server ist fehlgeschlagen.",
       "networkRequestFailed": "Die Anfrage konnte nicht bearbeitet werden.",
       "responseMappingFailed": "Die Antwort des Servers konnte nicht verarbeitet werden.",
@@ -2391,7 +2392,6 @@
   },
   "intro": {
     "de": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland",
       "search": "Suche",
       "searchDescription": "Anhand von Schlagwörtern schnell die richtige Information finden",
@@ -2407,8 +2407,6 @@
       "sentryCondition": "... mit dem automatischen Senden von Absturzberichten {{appName}} zu verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
       "pushNewsCondition": "... mir Push-Benachrichtigungen zu den neuesten lokalen Nachrichten zu senden",
-      "proposeCitiesTitle": "Nahegelegene Orte",
-      "proposeCitiesCondition": "... mir mithilfe meines GPS-Standortes nahegelegene Orte vorzuschlagen",
       "skip": "Überspringen",
       "next": "Weiter",
       "cancel": "Abbrechen",
@@ -2419,7 +2417,6 @@
       "privacyPolicy": "Datenschutzerklärung"
     },
     "am": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ለጀርመን የእርስዎ የዲጂታል መሪ ነው",
       "search": "ፍለጋ",
       "searchDescription": "ትክክለኛውን መረጃ ቁልፍ ቃላትን በመጠቀም በፍጥነት ፈልገው ያግኙ",
@@ -2435,8 +2432,6 @@
       "sentryCondition": "... {{appName}} ን ፈጣን የመስበሪያ ሪፖርቶች በመላክ እንዲያሻሽልልኝ",
       "pushNewsTitle": "የመግፊያ ማሳወቂያዎች",
       "pushNewsCondition": "... ስለ ቅርብ አካባቢያዊ ዜናዎች የተመለከቱ የመግፊያ ማሳወቂያዎች እንዲልክልኝ",
-      "proposeCitiesTitle": "በቅርበት የሚገኙ ቦታዎች",
-      "proposeCitiesCondition": "... የGPS ቦታዬን በመጠቀም በቅርበት የሚገኙ ቦታዎችን እንዲጠቁመኝ",
       "skip": "ይለፉ",
       "next": "ቀጣይ",
       "cancel": "ሰርዝ",
@@ -2447,7 +2442,6 @@
       "privacyPolicy": "የግላዊነት ፖሊሲ"
     },
     "ar": {
-      "appName": "{{appName}}",
       "appDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا",
       "search": "البحث",
       "searchDescription": "استخدام الكلمات الرئيسية للعثور بسرعة على المعلومات الصحيحة",
@@ -2463,8 +2457,6 @@
       "sentryCondition": "... بتحسين تطبيق {{appName}} من خلال الإرسال التلقائي لتقارير الأعطال",
       "pushNewsTitle": "الإخطارات اللحظية",
       "pushNewsCondition": "... إرسال الإخطارات اللحظية الخاصة بأحدث الأخبار المحلية لي",
-      "proposeCitiesTitle": "الأماكن القريبة",
-      "proposeCitiesCondition": "... اقتراح الأماكن القريبة عليّ باستخدام موقعي عبر تقنية الـGPS",
       "skip": "تخطي",
       "next": "استمرار",
       "cancel": "إلغاء",
@@ -2475,7 +2467,6 @@
       "privacyPolicy": "بيان الخصوصية"
     },
     "bg": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} е Вашето дигитално ръководство за Германия",
       "search": "Търсене",
       "searchDescription": "Намерете бързо правилната информация, като използвате ключови думи",
@@ -2491,8 +2482,6 @@
       "sentryCondition": "... за подобряване с автоматично изпращане на отчети за сривове {{appName}}",
       "pushNewsTitle": "Изскачащи известия",
       "pushNewsCondition": "... изпращайте ми изскачащи известия за последните местни новини",
-      "proposeCitiesTitle": "Места наблизо",
-      "proposeCitiesCondition": "... да предлагам близки места, използвайки моето GPS местоположение",
       "skip": "Пропусни",
       "next": "Напред",
       "cancel": "Прекъсване",
@@ -2503,7 +2492,6 @@
       "privacyPolicy": "Декларация за поверителност"
     },
     "ckb": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەڵمانیایە",
       "search": "گەڕان",
       "searchDescription": "لەڕێگەی کلیل وشەکان خێرا زانیارییە ڕاستەکان بدۆزەوە",
@@ -2519,8 +2507,6 @@
       "sentryCondition": "... لەڕێگەی ناردنی ئۆتۆماتیکی ڕاپۆرتەکانی خرابوون، ئەپڵیکەیشنی {{appName}} باشتر بکە",
       "pushNewsTitle": "ڕاگەیاندنەکان",
       "pushNewsCondition": "... دوایین ئاگادارکردنەوەکانی هەواڵە خۆجێیەکانم بۆ بنێرە",
-      "proposeCitiesTitle": "شوێنە نزیکەکان",
-      "proposeCitiesCondition": "... لەڕێگەی شوێندۆزەرەوە GPS شوێنە نزیکەکانم پێ پێشنیار بکە",
       "skip": "بازدان",
       "next": "بەردەوامی",
       "cancel": "پچراندن",
@@ -2531,7 +2517,6 @@
       "privacyPolicy": "ڕاگەیاندنی پاراستنی دێیتاکان"
     },
     "el": {
-      "appName": "{{appName}}",
       "appDescription": "Το {{appName}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
       "search": "Αναζήτηση",
       "searchDescription": "Βρείτε γρήγορα τις σωστές πληροφορίες χρησιμοποιώντας λέξεις-κλειδιά",
@@ -2547,8 +2532,6 @@
       "sentryCondition": "... για βελτίωση με την αυτόματη αποστολή αναφορών σφαλμάτων {{appName}}",
       "pushNewsTitle": "Ειδοποιήσεις",
       "pushNewsCondition": "... στείλτε μου ειδοποιήσεις σχετικά με τα τελευταία τοπικά νέα",
-      "proposeCitiesTitle": "Κοντινά μέρη",
-      "proposeCitiesCondition": "... να μου προτείνετε κοντινές τοποθεσίες, χρησιμοποιώντας την τοποθεσία μου",
       "skip": "Παραλείπω",
       "next": "Συνέχεια",
       "cancel": "Διακοπή",
@@ -2559,7 +2542,6 @@
       "privacyPolicy": "Προστασία δεδομένων"
     },
     "en": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} is your digital guide to life in Germany",
       "search": "Search",
       "searchDescription": "Find the right information based on keywords",
@@ -2575,8 +2557,6 @@
       "sentryCondition": "...improving {{appName}} by automatically sending crash reports",
       "pushNewsTitle": "Push notifications",
       "pushNewsCondition": "...send me push notifications on the latest local news",
-      "proposeCitiesTitle": "Nearby locations",
-      "proposeCitiesCondition": "...suggest nearby locations to me with the help of my GPS location",
       "skip": "Skip",
       "next": "Continue",
       "cancel": "Abort",
@@ -2587,7 +2567,6 @@
       "privacyPolicy": "Data protection policy"
     },
     "es": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} es su guía digital para Alemania",
       "search": "Búsqueda",
       "searchDescription": "Encuentre rápidamente la información correcta utilizando palabras clave",
@@ -2603,8 +2582,6 @@
       "sentryCondition": "...mejore {{appName}} mediante el envío automático de informes de interrupciones del servicio",
       "pushNewsTitle": "Notificaciones push",
       "pushNewsCondition": "...me envíe notificaciones push con las últimas noticias locales",
-      "proposeCitiesTitle": "Ubicaciones cercanas",
-      "proposeCitiesCondition": "...me recomiende ubicaciones cercanas empleando la ubicación GPS",
       "skip": "Saltar",
       "next": "Seguir",
       "cancel": "Cancelar",
@@ -2615,7 +2592,6 @@
       "privacyPolicy": "Declaración de privacidad"
     },
     "fr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} est votre guide numérique pour l'Allemagne",
       "search": "Recherche",
       "searchDescription": "Trouvez rapidement la bonne information à l'aide de mots-clés",
@@ -2631,8 +2607,6 @@
       "sentryCondition": "...à améliorer {{appName}} grâce à l'envoi automatique de rapports d'erreurs",
       "pushNewsTitle": "Notifications push",
       "pushNewsCondition": "...à envoyer des notifications push sur l'actualité locale",
-      "proposeCitiesTitle": "Lieux proches",
-      "proposeCitiesCondition": "...à me proposer des lieux proches grâce à ma géolocalisation",
       "skip": "Passer",
       "next": "Suite",
       "cancel": "Annuler",
@@ -2643,7 +2617,6 @@
       "privacyPolicy": "Déclaration de confidentialité"
     },
     "hr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Njemačku",
       "search": "Pretraživanje",
       "searchDescription": "Na temelju ključnih riječi brzo ćete pronaći odgovarajuću informaciju",
@@ -2659,8 +2632,6 @@
       "sentryCondition": "... automatskim slanjem izvještaja o padu sustava poboljšava {{appName}}",
       "pushNewsTitle": "Push obavijesti",
       "pushNewsCondition": "... mi šalje push obavijesti o najnovijim lokalni vijestima",
-      "proposeCitiesTitle": "Mjesta u blizini",
-      "proposeCitiesCondition": "... mi pomoću moje GPS lokacije predlaže mjesta u blizini",
       "skip": "Preskoči",
       "next": "Dalje",
       "cancel": "Prekid",
@@ -2671,7 +2642,6 @@
       "privacyPolicy": "Izjava o zaštiti podataka"
     },
     "hu": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} az Ön digitális idegenvezetője Németországban.",
       "search": "Keresés",
       "searchDescription": "A megfelelő információ gyors megtalálása kulcsszavak segítségével",
@@ -2687,8 +2657,6 @@
       "sentryCondition": "...a hibajelentések automatikus küldésével javuljon {{appName}}",
       "pushNewsTitle": "Push értesítések",
       "pushNewsCondition": "...hogy push értesítéseket küldjön a legújabb helyi hírekkel kapcsolatban",
-      "proposeCitiesTitle": "Közeli helyek",
-      "proposeCitiesCondition": "...hogy közeli helyeket ajánljon nekem a GPS helymeghatározás segítségével",
       "skip": "Átugrás",
       "next": "Tovább",
       "cancel": "Megszakítás",
@@ -2699,7 +2667,6 @@
       "privacyPolicy": "Adatvédelmi nyilatkozat"
     },
     "it": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} è la tua guida digitale per la Germania",
       "search": "Ricerca",
       "searchDescription": "Trova rapidamente le informazioni corrette utilizzando le parole chiave",
@@ -2715,8 +2682,6 @@
       "sentryCondition": "... migliorare {{appName}} con l’invio automatico di rapporti sugli arresti anomali",
       "pushNewsTitle": "Notifiche push",
       "pushNewsCondition": "... inviarmi notifiche push per le ultime notizie locali",
-      "proposeCitiesTitle": "Luoghi vicini",
-      "proposeCitiesCondition": "... suggerirmi luoghi vicini utilizzando la mia posizione GPS",
       "skip": "Salta",
       "next": "Avanti",
       "cancel": "Annulla",
@@ -2743,8 +2708,6 @@
       "sentryCondition": "‎... სისტემის გაჭედვის  შესახებ მოხსენებათა ავტომატური გადამისამართებით {{აპპ სახელი}} გაუმჯობესება",
       "pushNewsTitle": "ინფორმაციის მაუწყებელი",
       "pushNewsCondition": "‎… ინფორმაციის მაუწყებლით უახლესი ადგილობრივ ამბების გზავნა",
-      "proposeCitiesTitle": "ახლომდებარე ადგილები",
-      "proposeCitiesCondition": "ჯიპიეს ადგილმდებარეობის დახმარებით ახლომდებარე ადგილების შემოთავაზება",
       "skip": "გამოტოვება",
       "next": "გაგრძელება",
       "cancel": "გაწყვეტა",
@@ -2755,7 +2718,6 @@
       "privacyPolicy": "ახსნა-განმარტება მონაცემთა დაცვის შესახებ "
     },
     "kmr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} rêbera te ya dîcîtal derbarê Almanyayê ye",
       "search": "Lêgerîn",
       "searchDescription": "Bi bikaranîna Peyvên Kilîtî, lêzanînên esseh û durust bilez peyde bike",
@@ -2771,8 +2733,6 @@
       "sentryCondition": "... bi şandina xwebixwe ya rapora xerabûnê, {{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
       "pushNewsCondition": "... peyamên bilez ên têkildarî nûçeyên xwecihî yên nû, sa min ra bê şandin",
-      "proposeCitiesTitle": "Cihên Nêzik",
-      "proposeCitiesCondition": ".... bi alîkariya Mekanbîna 'GPS'ê ya min, mekanên nêzikî min bo min bê pêşniyarkirin",
       "skip": "Nepejirandin",
       "next": "Berdewam",
       "cancel": "Qutbûn",
@@ -2783,7 +2743,6 @@
       "privacyPolicy": "Daxuyaniya Parastina Daneyan"
     },
     "mk": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} е вашиот дигитален водич за Германија",
       "search": "Пребарај",
       "searchDescription": "Брзо пронајдете ги точните информации со помош на клучни зборови",
@@ -2799,8 +2758,6 @@
       "sentryCondition": "... со автоматското испраќање на извештаи за паѓање да се подобри {{appName}}",
       "pushNewsTitle": "Push известувања",
       "pushNewsCondition": "... да ми се испраќаат Push известувања за најновите локални вести",
-      "proposeCitiesTitle": "Локации во близина",
-      "proposeCitiesCondition": "... да ми се испраќаат предлози за локации во близина со помош на мојот GPS",
       "skip": "Прескокни",
       "next": "Понатаму",
       "cancel": "Поништи",
@@ -2811,7 +2768,6 @@
       "privacyPolicy": "Изјава за заштита на лични податоци"
     },
     "pes": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
       "search": "جستجو",
       "searchDescription": "با استفاده از کلمات کلیدی، اطلاعات صحیح را به سرعت پیدا کنید",
@@ -2827,8 +2783,6 @@
       "sentryCondition": "... با ارسال خودکار گزارش خرابی، {{appName}} را بهبود یابد",
       "pushNewsTitle": "پیام های فوری",
       "pushNewsCondition": "... پیام های فوری مربوط به اخبار محلی جدید، برای من ارسال شود",
-      "proposeCitiesTitle": "مکان های نزدیک",
-      "proposeCitiesCondition": "... با کمک مکان یاب GPS من، مکان های نزدیک به من پیشنهاد شود",
       "skip": "رد شدن",
       "next": "ادامه",
       "cancel": "قطع",
@@ -2839,7 +2793,6 @@
       "privacyPolicy": "بیانیه حفاظت از داده ها"
     },
     "pl": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} to e-przewodnik po Niemczech",
       "search": "Wyszukiwarka",
       "searchDescription": "Szybko znajdź odpowiednią informację za pomocą haseł",
@@ -2855,8 +2808,6 @@
       "sentryCondition": "... na ulepszanie {{appName}} dzięki automatycznemu przesyłaniu raportów o awariach",
       "pushNewsTitle": "Powiadomienia typu push",
       "pushNewsCondition": "...na wysyłanie powiadomień push o aktualnościach lokalnych",
-      "proposeCitiesTitle": "Lokalizacje w pobliżu",
-      "proposeCitiesCondition": "... na sugerowanie lokalizacje w pobliżu przy użyciu mojej lokalizacji GPS",
       "skip": "Pomiń",
       "next": "Dalej",
       "cancel": "Przerwij",
@@ -2867,7 +2818,6 @@
       "privacyPolicy": "Oświadczenie o ochronie danych"
     },
     "prs": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است",
       "search": "جستجو",
       "searchDescription": "با استفاده از کلمات کلیدی به سرعت معلومات صحیح را پیدا نمایید",
@@ -2883,8 +2833,6 @@
       "sentryCondition": "... با ارسال اتومات راپور های خرابی، اپلیکیشن {{appName}} را بهبود بخشد",
       "pushNewsTitle": "اعلان ها",
       "pushNewsCondition": "... آخرین اعلان ها اخبار محلی را برای من ارسال کند",
-      "proposeCitiesTitle": "مکان های نزدیک",
-      "proposeCitiesCondition": "... با استفاده از مکان یاب‎ GPS ‎مکان های نزدیک را به من پیشنهاد دهد",
       "skip": "پرش",
       "next": "ادامه",
       "cancel": "قطع نمودن",
@@ -2895,7 +2843,6 @@
       "privacyPolicy": "بیانیه حفاظت از داده ها"
     },
     "ps": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی.",
       "search": "لټون",
       "searchDescription": "د کلیدي ټکو په مرسته زر صحیح معلومات موندل",
@@ -2911,8 +2858,6 @@
       "sentryCondition": "... په اتومات ډول د {{appName}} د خرابېدو د پېغامونو لېږل بهتر کړي",
       "pushNewsTitle": "فشاري خبرتیاوې",
       "pushNewsCondition": "... په فشاري خبرتیاو سره تر ټولو تازه سیمه ییز خبرونه ولېږي",
-      "proposeCitiesTitle": "نږدې ځایونه",
-      "proposeCitiesCondition": "... ماته زما د جي پي ایس-استاندارد ځایونو په مرسته نږدې ځایونه وړاندیز کړي",
       "skip": "اووښتل",
       "next": "مخته",
       "cancel": "ختمول",
@@ -2923,7 +2868,6 @@
       "privacyPolicy": "د ډاټا د حفاظت بیانیه"
     },
     "ro": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} constituie ghidul dvs. digital pentru Germania",
       "search": "Căutare",
       "searchDescription": "Folosind cuvinte cheie, găsiți rapid informațiile importante",
@@ -2939,8 +2883,6 @@
       "sentryCondition": "... să îmbunătățească {{appName}} prin transmiterea automată a rapoartelor de blocare",
       "pushNewsTitle": "Notificări push",
       "pushNewsCondition": "... să-mi transmiteți notificări push referitoare la cele mai recente noutăți locale",
-      "proposeCitiesTitle": "Locații aflate în apropiere",
-      "proposeCitiesCondition": "... să-mi propuneți locații aflate în apropiere pe baza locației mele GPS",
       "skip": "Treceți peste",
       "next": "Mai departe",
       "cancel": "Întrerupeți",
@@ -2951,7 +2893,6 @@
       "privacyPolicy": "Declarație privind confidențialitatea"
     },
     "ru": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} – это ваш цифровой гид по Германии",
       "search": "Поиск",
       "searchDescription": "Быстрый поиск необходимой информации по ключевым словам",
@@ -2967,8 +2908,6 @@
       "sentryCondition": "... улучшать приложение {{appName}} при помощи автоматической отправки сообщений о сбоях",
       "pushNewsTitle": "Push-уведомления",
       "pushNewsCondition": "... отправлять мне актуальные местные новости при помощи push-уведомлений",
-      "proposeCitiesTitle": "Близлежащие населенные пункты",
-      "proposeCitiesCondition": "... предлагать близлежащие населенные пункты на основе моих GPS-координат",
       "skip": "Пропустить",
       "next": "Далее",
       "cancel": "Отменить",
@@ -2979,7 +2918,6 @@
       "privacyPolicy": "Политика конфиденциальности"
     },
     "so": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} waa tilmaamahaaga dhijitaalka ah ee Jarmalka",
       "search": "Raadin",
       "searchDescription": "U hel macluumaadka saxda ah si dhakhso leh adoo isticmaalaya ereyada furaha ah",
@@ -2995,8 +2933,6 @@
       "sentryCondition": "... si looga hagaajiyo {{appName}} dhanka diritaanka otomatigga ah ee warbixinnada ciladeynta",
       "pushNewsTitle": "Ogaysiisyada",
       "pushNewsCondition": "... ii soo dirto ogeysiisyada saabsan wararkii ugu dambeeyay ee deegaanka",
-      "proposeCitiesTitle": "Meelaha dhaw",
-      "proposeCitiesCondition": "... soo jeediso meelaha kuugu dhow adoo adeegsanaya “goobtayda GPS-ka”",
       "skip": "Ka bood",
       "next": "Dheeraad ah",
       "cancel": "Jooji",
@@ -3007,7 +2943,6 @@
       "privacyPolicy": "Ilaalinta xogta"
     },
     "sq": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} është guida juaj dixhitale për Gjermani",
       "search": "Kërkim",
       "searchDescription": "Gjeni informacionin e duhur shpejt duke përdorur fjalë kyçe",
@@ -3023,8 +2958,6 @@
       "sentryCondition": "... për të përmirësuar {{appName}} me dërgimin automatik të raporteve të havarive",
       "pushNewsTitle": "Push-njoftimet",
       "pushNewsCondition": "... të më dërgojë push-njoftime për lajmet e fundit lokale",
-      "proposeCitiesTitle": "Vendet afër",
-      "proposeCitiesCondition": "... të sugjerojë vendet në afërsi duke përdorur vendndodhjen time përmes GPS",
       "skip": "Kapërce",
       "next": "Vazhdo",
       "cancel": "Anulo",
@@ -3035,7 +2968,6 @@
       "privacyPolicy": "Politika e privatësisë"
     },
     "sr-Cyrl": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} је ваш дигитални водич за Немачку",
       "search": "Претраживање",
       "searchDescription": "Брзо проналажење тачних информација на основу кључних речи",
@@ -3051,8 +2983,6 @@
       "sentryCondition": "... аутоматским слањем извештаја о прекиду рада побољша {{appName}}",
       "pushNewsTitle": "Искачућа обавештења",
       "pushNewsCondition": "... у искачућим обавештењима шаље најновије локалне вести",
-      "proposeCitiesTitle": "Оближња места",
-      "proposeCitiesCondition": "... на основу моје GPS локације предлаже оближња места",
       "skip": "Прескочи",
       "next": "Даље",
       "cancel": "Прекид",
@@ -3063,7 +2993,6 @@
       "privacyPolicy": "Изјава о заштити података"
     },
     "sr-Latn": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
       "search": "Pretraživanje",
       "searchDescription": "Brzo pronalaženje tačnih informacija na osnovu ključnih reči",
@@ -3079,8 +3008,6 @@
       "sentryCondition": "... automatskim slanjem izveštaja o prekidu rada poboljša {{appName}}",
       "pushNewsTitle": "Iskačuća obaveštenja",
       "pushNewsCondition": "... u iskačućim obaveštenjima šalje najnovije lokalne vesti",
-      "proposeCitiesTitle": "Obližnja mesta",
-      "proposeCitiesCondition": "... na osnovu moje GPS lokacije predlaže obližnja mesta",
       "skip": "Preskoči",
       "next": "Dalje",
       "cancel": "Prekid",
@@ -3091,7 +3018,6 @@
       "privacyPolicy": "Izjava o zaštiti podataka"
     },
     "ti": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}} ናብ ጅርመን እትትኸድሉ መምርሒ እዩ።",
       "search": "ፈትሽ",
       "searchDescription": "ቁልፊ-ቃላት ብምጥቃም ነቲ ቅኑዕ ሓበሬታ ብቕልጡፍ ርኸብ",
@@ -3107,8 +3033,6 @@
       "sentryCondition": "... ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ን{{appName}} ምምሕያሽ",
       "pushNewsTitle": "ምልክታታት መልእኽቲ",
       "pushNewsCondition": "...ብዛዕባ እቲ ሓድሽ ዜና ምልክታታት መልእኽቲ ክሰደለይ",
-      "proposeCitiesTitle": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
-      "proposeCitiesCondition": "... ናተይ ናይ GPS (ጂፒኤስ) ቦታ ብምጥቃም ብዛዕባ ኣብ ጥቓይ ዘለዉ ቦታታት ሓሳብ ምሃብ",
       "skip": "ስገር",
       "next": "ተወሳኺ",
       "cancel": "ደው ኣብል",
@@ -3119,7 +3043,6 @@
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ"
     },
     "tr": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}}, Almanya'daki dijital rehberinizdir",
       "search": "Arama",
       "searchDescription": "Anahtar kelimeler kullanarak doğru bilgileri hızlıca bulun",
@@ -3135,8 +3058,6 @@
       "sentryCondition": "... hata raporlarının otomatik olarak gönderilmesiyle, {{appName}}'in geliştirilmesine izin veriyorum",
       "pushNewsTitle": "Push bildirimleri",
       "pushNewsCondition": "... bana en son yerel haberler hakkında Push bildirimleri göndermesine izin veriyorum",
-      "proposeCitiesTitle": "Yakındaki konumlar",
-      "proposeCitiesCondition": "... GPS konumumu kullanarak yakındaki yerleri bulmak için bana önerilerde bulunmasına izin veriyorum",
       "skip": "Atla",
       "next": "Devam",
       "cancel": "İptal",
@@ -3163,8 +3084,6 @@
       "sentryCondition": "‎…‎ ایپ بند ہونے کی خود کار رپورٹس بھیج کر ‎{{appName}}‎ میں بہتری لائیں",
       "pushNewsTitle": "پش نوٹیفیکیشنز",
       "pushNewsCondition": "‎…‎ مجھے تازہ مقامی خبروں کے پش نوٹیفیکیشنز بھیجیں",
-      "proposeCitiesTitle": "قریبی مقامات",
-      "proposeCitiesCondition": "‎…‎ میرا GPS مقام استعمال کرتے ہوئے قریبی مقامات کی تجاویز دیں",
       "skip": "رہنے دیں",
       "next": "آگے",
       "cancel": "منسوخ کریں",
@@ -3175,7 +3094,6 @@
       "privacyPolicy": "رازاداری کی پالیسی"
     },
     "zh-CN": {
-      "appName": "{{appName}}",
       "appDescription": "{{appName}}是您在德国生活的数字指南",
       "search": "搜索",
       "searchDescription": "使用关键词快速查找正确的信息",
@@ -3191,8 +3109,6 @@
       "sentryCondition": "…通过自动发送崩溃报告来改进{{appName}}",
       "pushNewsTitle": "推送通知",
       "pushNewsCondition": "...向我发送有关最新本地新闻的推送通知",
-      "proposeCitiesTitle": "附近地点",
-      "proposeCitiesCondition": "…通过我的GPS定位向我建议附近的地点",
       "skip": "跳过",
       "next": "继续",
       "cancel": "取消",
@@ -5716,7 +5632,9 @@
       "unit": "km",
       "distanceText": "entfernt",
       "navigation": "Navigation",
-      "sheetTitle": "Entdecke deine Stadt"
+      "sheetTitle": "Entdecke deine Stadt",
+      "detailInformationHeader": "Information",
+      "detailAddressClipboardMessage": "Adresse wurde in die Zwischenablage kopiert"
     }
   }
 }

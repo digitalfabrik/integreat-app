@@ -141,7 +141,7 @@ jobs:
         - browserstack
         - tuerantuer-google-play
         - tuerantuer-android
-      production_delivery: false # TODO IGAPP-567 Enable production delivery
+      production_delivery: true
       requires:
         - check
         - e2e_android
@@ -239,7 +239,7 @@ jobs:
         - browserstack
         - tuerantuer-apple
         - tuerantuer-ios
-      production_delivery: false # TODO IGAPP-567 Enable production delivery
+      production_delivery: true
       requires:
         - check
         - e2e_ios

@@ -3,7 +3,7 @@ import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType } from './MapResponseType'
 import Payload from './Payload'
 import FetchError from './errors/FetchError'
-import ResponseError, { RequestOptionsType } from './errors/ResponseError'
+import ResponseError from './errors/ResponseError'
 import { request as fetch } from './request'
 
 /**
@@ -49,7 +49,7 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const requestOptions: RequestOptionsType = this.mapParamsToBody
+    const requestOptions = this.mapParamsToBody
       ? {
           method: 'POST',
           body: this.mapParamsToBody(params)
@@ -61,7 +61,9 @@ class Endpoint<P, T> {
     const response = await fetch(url, requestOptions).catch((e: Error) => {
       throw new FetchError({
         endpointName: this.stateName,
-        innerError: e
+        innerError: e,
+        url,
+        requestOptions
       })
     })
 
@@ -77,7 +79,9 @@ class Endpoint<P, T> {
     const json = await response.json().catch(e => {
       throw new FetchError({
         endpointName: this.stateName,
-        innerError: e
+        innerError: e,
+        url,
+        requestOptions
       })
     })
 

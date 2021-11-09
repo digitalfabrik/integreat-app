@@ -1,0 +1,6 @@
+issue_key: IGAPP-259
+show_in_stores: true
+platforms:
+  - native
+en: Better contrast for switches on the settings page
+de: Verbesserter Kontrast für Switches in den Einstellungen

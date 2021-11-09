@@ -85,7 +85,6 @@ platform :android do
     track = production_delivery === true ? "production" : "beta"
 
     puts("delivering #{build_config_name} v#{version_name} to track #{track}")
-    puts("skip_metadata: #{skip_metadata}")
 
     # https://docs.fastlane.tools/actions/supply/
     upload_to_play_store(
