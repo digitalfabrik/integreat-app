@@ -50,7 +50,6 @@ program
   .action((buildConfigName, platform) => {
     try {
       const properties = loadBuildConfigAsKeyValue(buildConfigName, platform)
-      // eslint-disable-next-line no-console
       console.log(properties)
     } catch (e) {
       console.error(e)
@@ -62,7 +61,6 @@ program
   .description('outputs the specified build config as key-value pairs which can be executed by bash')
   .action((buildConfigName, platform) => {
     const buildConfig = loadBuildConfigAsKeyValue(buildConfigName, platform, false, true)
-    // eslint-disable-next-line no-console
     console.log(buildConfig)
   })
 program
@@ -70,7 +68,6 @@ program
   .description('outputs the specified build config as JSON')
   .action((buildConfigName, platform) => {
     const buildConfig = loadBuildConfig(buildConfigName, platform)
-    // eslint-disable-next-line no-console
     console.log(JSON.stringify(buildConfig))
   })
 program.parse(process.argv)

@@ -12,7 +12,7 @@ import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 import ResourceURLFinder from '../utils/ResourceURLFinder'
 import buildResourceFilePath from '../utils/buildResourceFilePath'
-import { reportError } from '../utils/helpers'
+import { log, reportError } from '../utils/sentry'
 import fetchResourceCache from './fetchResourceCache'
 import loadCategories from './loadCategories'
 import loadCities from './loadCities'
@@ -107,7 +107,6 @@ function* prepareLanguages(
     yield* put(pushLanguages)
     return languages.map(language => language.code).includes(newLanguage)
   } catch (e) {
-    console.error(e)
     reportError(e)
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',
@@ -143,12 +142,10 @@ export default function* loadCityContent(
   }
 
   const lastUpdate = yield* call(dataContainer.getLastUpdate, newCity, newLanguage)
-  // eslint-disable-next-line no-console
-  console.debug('Last city content update: ', lastUpdate ? lastUpdate.toISOString() : 'never')
+  log(`Last city content update: ${lastUpdate ? lastUpdate.toISOString() : 'never'}`)
   const netInfo = yield* call(NetInfo.fetch)
   const shouldUpdate = criterion.shouldUpdate(lastUpdate)
-  // eslint-disable-next-line no-console
-  console.debug('City content should be refreshed: ', shouldUpdate)
+  log(`City content should be refreshed: ${shouldUpdate}`)
   // Temporarily set lastUpdate to "now" to hinder other threads from trying to update content and
   // resources at the same time. This kind of serves as a lock.
   yield* call(dataContainer.setLastUpdate, newCity, newLanguage, moment())

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import program from 'commander'
 import parse from 'csv-parse/lib/sync'
 import stringify from 'csv-stringify'

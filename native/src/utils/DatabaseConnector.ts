@@ -24,6 +24,7 @@ import {
   PageResourceCacheStateType
 } from '../redux/StateType'
 import { deleteIfExists } from './helpers'
+import { log, reportError } from './sentry'
 
 export const CONTENT_VERSION = 'v1'
 export const RESOURCE_CACHE_VERSION = 'v1'
@@ -260,7 +261,8 @@ class DatabaseConnector {
           lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
         }))
       } catch (e) {
-        console.warn('An error occurred while loading cities from JSON', e)
+        log('An error occurred while loading cities from JSON', 'warning')
+        reportError(e)
       }
     }
 

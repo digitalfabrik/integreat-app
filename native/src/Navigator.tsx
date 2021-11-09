@@ -53,7 +53,7 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import SettingsContainer from './routes/SettingsContainer'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
-import { initSentry } from './utils/helpers'
+import { initSentry, log } from './utils/sentry'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
 
@@ -96,8 +96,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
       if (usingHermes) {
-        // eslint-disable-next-line no-console
-        console.log('App is using Hermes: https://reactnative.dev/docs/hermes')
+        log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 
       const {
