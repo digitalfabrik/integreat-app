@@ -142,7 +142,12 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
-          <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
+          <SettingsSwitch
+            theme={theme}
+            value={!!trackingEnabled}
+            onPress={toggleTrackingEnabled}
+            thumbColor={highlightTrackingSwitch && !trackingEnabled ? 'red' : theme.colors.themeColor}
+          />
         </DescriptionContainer>
 
         <ThemedText theme={theme}>{t('trackingCode')}</ThemedText>
