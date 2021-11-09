@@ -8,7 +8,8 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
-import AppSettings from '../utils/AppSettings'
+import appSettings from '../utils/AppSettings'
+import { log, reportError } from '../utils/sentry'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -32,14 +33,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
   const [clickStart, setClickStart] = useState<null | Moment>(null)
 
   useEffect(() => {
-    const appSettings = new AppSettings()
-    appSettings
-      .loadApiUrlOverride()
-      .then(setApiUrlOverride)
-      .catch(e => {
-        // eslint-disable-next-line no-console
-        console.error(e)
-      })
+    appSettings.loadApiUrlOverride().then(setApiUrlOverride).catch(reportError)
   }, [])
 
   const onImagePress = useCallback(async () => {
@@ -53,7 +47,6 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
     const clickedInTimeInterval = clickStart && clickStart.isAfter(moment().subtract(CLICK_TIMEOUT, 's'))
 
     if (prevClickCount + 1 >= API_URL_OVERRIDE_MIN_CLICKS && clickedInTimeInterval) {
-      const appSettings = new AppSettings()
       const apiUrlOverride = await appSettings.loadApiUrlOverride()
       const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
       await appSettings.setApiUrlOverride(newApiUrl)
@@ -61,8 +54,7 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
       setClickStart(null)
 
       clearResourcesAndCache()
-      // eslint-disable-next-line no-console
-      console.debug(`Switching to new API-Url: ${newApiUrl}`)
+      log(`Switching to new API-Url: ${newApiUrl}`)
     } else {
       const newClickStart = clickedInTimeInterval ? clickStart : moment()
       const newClickCount = clickedInTimeInterval ? prevClickCount + 1 : 1
@@ -72,7 +64,6 @@ const EastereggImage = ({ clearResourcesAndCache, theme }: PropsType): ReactElem
   }, [clearResourcesAndCache, clickCount, clickStart])
 
   const resetApiUrl = useCallback(async () => {
-    const appSettings = new AppSettings()
     await appSettings.setApiUrlOverride(buildConfig().cmsUrl)
     setClickCount(0)
     clearResourcesAndCache()

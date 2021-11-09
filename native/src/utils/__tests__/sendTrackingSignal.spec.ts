@@ -4,13 +4,11 @@ import { mocked } from 'ts-jest/utils'
 import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
-import AppSettings from '../AppSettings'
-import { reportError } from '../helpers'
+import appSettings from '../AppSettings'
 import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
+import { reportError } from '../sentry'
 
-jest.mock('../helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../sentry')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createTrackingEndpoint: jest.fn(() => ({
@@ -64,7 +62,6 @@ describe('sendTrackingSignal', () => {
 
     it('should request the tracking endpoint if tracking enabled and tracking code set', async () => {
       mockBuildConfig(true)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
         jpalTrackingCode: 'abcdef123456',
@@ -81,7 +78,6 @@ describe('sendTrackingSignal', () => {
 
     it('should not send a signal if disabled in build config', async () => {
       mockBuildConfig(false)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
         jpalTrackingCode: 'abcdef123456',
@@ -95,7 +91,6 @@ describe('sendTrackingSignal', () => {
     })
     it('should not send a signal if disabled in app settings', async () => {
       mockBuildConfig(true)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: false,
         jpalTrackingCode: 'abcdef123456',
@@ -110,7 +105,6 @@ describe('sendTrackingSignal', () => {
 
     it('should not send a signal if no tracking code set', async () => {
       mockBuildConfig(true)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
         jpalTrackingCode: null,
@@ -125,7 +119,6 @@ describe('sendTrackingSignal', () => {
 
     it('should push signal to app settings if user is offline', async () => {
       mockBuildConfig(true)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
         jpalTrackingCode: 'abcdef123456',
@@ -136,7 +129,9 @@ describe('sendTrackingSignal', () => {
       })
       const error = new FetchError({
         endpointName: 'endpoint',
-        innerError: new Error('Internet kaputt')
+        innerError: new Error('Internet kaputt'),
+        url: 'url',
+        requestOptions: { method: 'POST' }
       })
       mockRequest.mockRejectedValueOnce(error)
       await sendRequest(signal)
@@ -146,7 +141,6 @@ describe('sendTrackingSignal', () => {
 
     it('should report error to sentry if an error occurs', async () => {
       mockBuildConfig(true)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
         jpalTrackingCode: 'abcdef123456',
@@ -169,7 +163,6 @@ describe('sendTrackingSignal', () => {
   describe('sendTrackingSignal', () => {
     it('should send correct signal', async () => {
       mockBuildConfig(true)
-      const appSettings = new AppSettings()
       await appSettings.setSettings({
         jpalTrackingEnabled: true,
         jpalTrackingCode: 'abcdef123456',

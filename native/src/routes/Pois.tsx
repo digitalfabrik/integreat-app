@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Linking, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
@@ -22,15 +22,13 @@ import Failure from '../components/Failure'
 import { FeedbackInformationType } from '../components/FeedbackContainer'
 import List from '../components/List'
 import MapView from '../components/MapView'
-import Page from '../components/Page'
-import PageDetail from '../components/PageDetail'
+import PoiDetails from '../components/PoiDetails'
 import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useUserLocation, { LocationType } from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
-import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 
 export type PropsType = {
   path: string | null | undefined
@@ -41,14 +39,8 @@ export type PropsType = {
   resourceCacheUrl: string
   navigateTo: (arg0: RouteInformationType) => void
   navigateToFeedback: (arg0: FeedbackInformationType) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   route: RoutePropType<PoisRouteType>
 }
-
-const Spacer = styled.View`
-  width: 20px;
-  height: 20px;
-`
 
 const CustomSheetList = styled.View`
   margin: 0 32px;
@@ -72,18 +64,7 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
  * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
  */
 
-const Pois = ({
-  pois,
-  language,
-  path,
-  cityModel,
-  resourceCache,
-  resourceCacheUrl,
-  navigateTo,
-  navigateToFeedback,
-  navigateToLink,
-  route
-}: PropsType): ReactElement => {
+const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
@@ -92,19 +73,17 @@ const Pois = ({
   const { location, requestAndDetermineLocation } = useUserLocation(path === null)
 
   // set points to snap for bottom sheet
-  const snapPoints = [dimensions.bottomSheetHandler.height, '25%', '95%']
+  const snapPoints = [dimensions.bottomSheetHandler.height, '35%', '95%']
 
   useEffect(() => {
-    if (!path) {
-      const featureLocations = prepareFeatureLocations(pois, location)
-      const urlSlug = route.params.urlSlug
-      if (urlSlug) {
-        const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
-        setSelectedFeature(currentFeature ?? null)
-      }
-      if (location) {
-        setFeatureLocations(featureLocations)
-      }
+    const featureLocations = prepareFeatureLocations(pois, location)
+    const urlSlug = route.params.urlSlug
+    if (urlSlug) {
+      const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
+      setSelectedFeature(currentFeature ?? null)
+    }
+    if (location) {
+      setFeatureLocations(featureLocations)
     }
   }, [path, pois, route.params.urlSlug, location])
 
@@ -157,48 +136,39 @@ const Pois = ({
       isPositiveFeedback
     })
   }
+  const selectPoiFeature = (feature: PoiFeature | null) => {
+    if (feature) {
+      setSelectedFeature(feature)
+      setSheetSnapPointIndex(1)
+    } else {
+      setSelectedFeature(null)
+    }
+  }
 
   const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
 
   if (path) {
     const poi = sortedPois.find(_poi => _poi.path === path)
+    const feature = featureLocations.find(_feature => _feature.properties.path === path)
 
-    if (poi) {
-      const { location } = poi.location
-      const files = resourceCache[poi.path] || {}
-
-      let navigationUrl: string | undefined | null = null
-      if (location && poi.featureLocation?.geometry.coordinates) {
-        navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      }
-
+    if (poi && feature) {
       return (
-        <Page
-          content={poi.content}
-          title={poi.title}
-          lastUpdate={poi.lastUpdate}
-          language={language}
-          files={files}
-          theme={theme}
-          resourceCacheUrl={resourceCacheUrl}
-          navigateToLink={navigateToLink}
-          navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
-          <>
-            {location && (
-              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
-            )}
-            {navigationUrl && (
-              <>
-                <Button title={t('map')} onPress={navigateToPois(cityModel.code, language, poi.urlSlug)} />
-                <Spacer />
-                <Button title={t('navigation')} onPress={() => navigationUrl && Linking.openURL(navigationUrl)} />
-              </>
-            )}
-          </>
-        </Page>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <PoiDetails
+            language={language}
+            poi={poi}
+            feature={feature}
+            detailPage
+            navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+          />
+          <SiteHelpfulBox
+            backgroundColor={theme.colors.backgroundColor}
+            navigateToFeedback={createNavigateToFeedbackForPoi(poi)}
+            theme={theme}
+          />
+        </ScrollView>
       )
     }
-
     const error = new NotFoundError({
       type: 'poi',
       id: path,
@@ -208,35 +178,43 @@ const Pois = ({
     return <Failure code={fromError(error)} />
   }
 
+  const poi = sortedPois.find(_poi => _poi.path === selectedFeature?.properties.path)
+
   return (
-    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       {cityModel.boundingBox && (
         <MapView
+          selectPoiFeature={selectPoiFeature}
           boundingBox={cityModel.boundingBox}
           featureCollection={embedInCollection(featureLocations)}
           selectedFeature={selectedFeature}
-          setSelectedFeature={setSelectedFeature}
-          navigateTo={navigateTo}
-          language={language}
-          cityCode={cityModel.code}
           locationPermissionGranted={location !== null}
           onRequestLocationPermission={requestAndDetermineLocation}
           fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
         />
       )}
       <BottomActionsSheet
-        title={t('sheetTitle')}
+        title={selectedFeature ? selectedFeature.properties.title : t('sheetTitle')}
         onChange={setSheetSnapPointIndex}
-        visible={!selectedFeature}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
-        <List
-          CustomStyledList={CustomSheetList}
-          noItemsMessage={t('currentlyNoPois')}
-          items={featureLocations}
-          renderItem={renderPoiListItem(cityModel.code, language)}
-          theme={theme}
-        />
+        {selectedFeature && poi ? (
+          <PoiDetails
+            language={language}
+            poi={poi}
+            feature={selectedFeature}
+            detailPage={false}
+            navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
+          />
+        ) : (
+          <List
+            CustomStyledList={CustomSheetList}
+            noItemsMessage={t('currentlyNoPois')}
+            items={featureLocations}
+            renderItem={renderPoiListItem(cityModel.code, language)}
+            theme={theme}
+          />
+        )}
         <SiteHelpfulBox
           backgroundColor={theme.colors.backgroundColor}
           navigateToFeedback={navigateToFeedbackForPois}

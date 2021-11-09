@@ -30,11 +30,7 @@ describe('createTrackingEndpoint', () => {
     expect.assertions(1)
     return createTrackingEndpoint()
       .request(signal)
-      .catch(e =>
-        expect(e.message).toContain(
-          'FetchError: Failed to load the request for the tracking endpoint. Das Internet ist kaputt!!!1!!!11elf!'
-        )
-      )
+      .catch(e => expect(e.message).toContain('FetchError: Failed to POST the request for the tracking endpoint'))
   })
   it('should throw response error if response is not ok', async () => {
     ;((fetch as unknown) as FetchMock).mockResponseOnce('Invalid endpoint', {

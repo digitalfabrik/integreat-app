@@ -8,9 +8,9 @@ import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
 import { userAgent } from '../constants/endpoint'
-import { ERROR_MESSAGE_TYPE, HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
-import { reportError } from '../utils/helpers'
+import { HEIGHT_MESSAGE_TYPE, WARNING_MESSAGE_TYPE } from '../constants/webview'
 import renderHtml from '../utils/renderHtml'
+import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
 import { ParsedCacheDictionaryType } from './Page'
 
@@ -57,14 +57,12 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       return
     }
 
-    const error = new Error(message.message ?? 'Unknown message received from webview')
-    reportError(error)
-
-    if (message.type === ERROR_MESSAGE_TYPE) {
-      console.error(message.message)
-      setError(message.message)
-    } else if (message.type === WARNING_MESSAGE_TYPE) {
-      console.warn(message.message)
+    if (message.type === WARNING_MESSAGE_TYPE) {
+      log(message.message, 'warning')
+    } else {
+      const error = new Error(message.message ?? 'Unknown message received from webview')
+      reportError(error)
+      setError(error.message)
     }
   }, [])
 
