@@ -32,9 +32,9 @@
     "react": "17.0.2"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "@trivago/prettier-plugin-sort-imports": "^3.1.1",
     "@types/eslint": "^7.28.2",
-    "@types/node": "^15.0.2",
+    "@types/node": "^15.14.9",
     "@types/prettier": "^2.4.1",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
