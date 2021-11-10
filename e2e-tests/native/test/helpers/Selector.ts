@@ -10,7 +10,7 @@ export class Selector {
     return this
   }
 
-  public ByPartialText(text: string): Selector {
+  public ByContainedText(text: string): Selector {
     if (driver.isAndroid) {
       this.queries.push(`.textContains("${text}")`)
     } else {

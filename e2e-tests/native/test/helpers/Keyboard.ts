@@ -1,9 +1,9 @@
 class Keyboard {
-  static hide = async (iosSendKeys = '\n'): Promise<void> => {
+  static hide = async (iosSendKey = '\n'): Promise<void> => {
     if (driver.isAndroid) {
       await driver.hideKeyboard()
     } else {
-      await driver.sendKeys([iosSendKeys])
+      await driver.sendKeys([iosSendKey])
     }
   }
 }

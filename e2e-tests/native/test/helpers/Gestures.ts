@@ -2,7 +2,7 @@
 import { RectReturn } from '@wdio/protocols/build/types'
 import { ChainablePromiseElement } from 'webdriverio'
 
-/**
+/*
  * To make a Gesture methods more robust for multiple devices and also
  * multiple screen sizes the advice is to work with percentages instead of
  * actual coordinates. The percentages will calculate the position on the
@@ -10,13 +10,12 @@ import { ChainablePromiseElement } from 'webdriverio'
  * multiple times.
  */
 
-let SCREEN_SIZE: RectReturn | null
 type XY = {
   x: number
   y: number
 }
 
-/**
+/*
  * The values in the below object are percentages of the screen
  */
 const SWIPE_DIRECTION = {
@@ -42,10 +41,12 @@ const SWIPE_PERCENTAGE = 0.85
 const WAIT_FOR_SWIPE_FINISHED = 1000
 
 class Gestures {
-  /**
+  /*
    * Check if an element is visible and if not wipe up a portion of the screen to
    * check if it visible after x amount of scrolls
    */
+  static SCREEN_SIZE: RectReturn | null
+
   static async checkIfDisplayedWithSwipeUp(
     element: ChainablePromiseElement<Promise<WebdriverIO.Element>>,
     maxScrolls: number,
@@ -64,7 +65,7 @@ class Gestures {
     // The element was found, proceed with the next action
   }
 
-  /**
+  /*
    * Swipe down based on a percentage
    */
   static async swipeDown(percentage = 1): Promise<void> {
@@ -74,7 +75,7 @@ class Gestures {
     )
   }
 
-  /**
+  /*
    * Swipe Up based on a percentage
    */
   static async swipeUp(percentage = 1): Promise<void> {
@@ -84,7 +85,7 @@ class Gestures {
     )
   }
 
-  /**
+  /*
    * Swipe left based on a percentage
    */
   static async swipeLeft(percentage = 1): Promise<void> {
@@ -104,27 +105,30 @@ class Gestures {
     )
   }
 
-  /**
-   * Swipe from coordinates (from) to the new coordinates (to). The given coordinates are
-   * percentages of the screen.
+  /*
+   * Swipe from coordinates (from) to the new coordinates (to).
+   * @param from - Coordinates of the screen in percentage.
+   * @param to   - Coordinates of the screen in percentage.
    */
   static async swipeOnPercentage(from: XY, to: XY): Promise<void> {
     // Get the screen size and store it so it can be re-used.
     // This will save a lot of webdriver calls if this methods is used multiple times.
-    if (!SCREEN_SIZE) {
-      SCREEN_SIZE = await driver.getWindowRect()
+    if (!Gestures.SCREEN_SIZE) {
+      Gestures.SCREEN_SIZE = await driver.getWindowRect()
     }
 
     // Get the start position on the screen for the swipe
-    const pressOptions = this.getDeviceScreenCoordinates(SCREEN_SIZE, from)
+    const pressOptions = this.getDeviceScreenCoordinates(Gestures.SCREEN_SIZE, from)
     // Get the move to position on the screen for the swipe
-    const moveToScreenCoordinates = this.getDeviceScreenCoordinates(SCREEN_SIZE, to)
+    const moveToScreenCoordinates = this.getDeviceScreenCoordinates(Gestures.SCREEN_SIZE, to)
 
     await this.swipe(pressOptions, moveToScreenCoordinates)
   }
 
-  /**
-   * Swipe from coordinates (from) to the new coordinates (to). The given coordinates are in pixels.
+  /*
+   * Swipe from coordinates (from) to the new coordinates (to).
+   * @param {XY} from - Coordinates of the screen in pixel.
+   * @param {XY} to   - Coordinates of the screen in pixel.
    */
   static async swipe(from: XY, to: XY): Promise<void> {
     await driver.performActions([
@@ -154,18 +158,18 @@ class Gestures {
     await driver.pause(WAIT_FOR_SWIPE_FINISHED)
   }
 
-  /**
+  /*
    * Get the screen coordinates based on a device his screen size
    */
   private static getDeviceScreenCoordinates(screenSize: RectReturn, coordinates: XY): XY {
-    const hundredPercent = 100
+    const HUNDRED_PERCENT = 100
     return {
-      x: Math.round(screenSize.width * (coordinates.x / hundredPercent)),
-      y: Math.round(screenSize.height * (coordinates.y / hundredPercent))
+      x: Math.round(screenSize.width * (coordinates.x / HUNDRED_PERCENT)),
+      y: Math.round(screenSize.height * (coordinates.y / HUNDRED_PERCENT))
     }
   }
 
-  /**
+  /*
    * Calculate the x y coordinates based on a percentage
    */
   private static calculateXY({ x, y }: XY, percentage: number): XY {

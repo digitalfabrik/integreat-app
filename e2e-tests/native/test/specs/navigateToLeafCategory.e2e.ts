@@ -17,7 +17,7 @@ describe('navigate to leaf category', () => {
     await expect(leafCategory).toExist()
     await leafCategory.click()
 
-    const leafCategoryContent = $(new Selector().ByPartialText('you will learn German').build())
+    const leafCategoryContent = $(new Selector().ByContainedText('you will learn German').build())
     await expect(leafCategoryContent).toExist()
   })
 })
