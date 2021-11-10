@@ -1,4 +1,4 @@
-import program from 'commander'
+import { program } from 'commander'
 import parse from 'csv-parse/lib/sync'
 import stringify from 'csv-stringify'
 import flat from 'flat'
