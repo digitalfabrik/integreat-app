@@ -4,9 +4,12 @@ const realModule = jest.requireActual('react-i18next')
 
 const t = (key: string): string => key
 
-const withTranslation = <T extends unknown>(_unusedNamespace: string) => (
-  Component: React.ComponentType<T>
-): React.ComponentType<T> => (props: T) => <Component {...props} t={t} />
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+const withTranslation =
+  <T extends unknown>(_unusedNamespace: string) =>
+  (Component: React.ComponentType<T>): React.ComponentType<T> =>
+  (props: T) =>
+    <Component {...props} t={t} />
 
 const useTranslation = (_unusedNamespace: string | string[]) => ({
   t,

@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.8",
-    "@types/jest": "^26.0.23",
     "@types/js-md5": "^0.4.3",
     "@types/lodash": "^4.14.176",
     "@types/normalize-path": "^3.0.0",
