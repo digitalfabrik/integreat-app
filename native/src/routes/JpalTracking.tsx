@@ -124,7 +124,6 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
         }}>
         <Caption title={t('tracking')} theme={theme} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
-        <Text>{t('trackingParticipation', { appName: buildConfig().appName })}</Text>
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
           <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
