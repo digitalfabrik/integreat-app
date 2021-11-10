@@ -47,7 +47,7 @@
     "dompurify": "^2.3.3",
     "focus-trap-react": "8.8.2",
     "htmlparser2": "^7.1.2",
-    "i18next": "20.3.0",
+    "i18next": "^21.4.2",
     "lodash": "^4.17.21",
     "maplibre-gl": "^1.15.2",
     "moment": "2.29.1",
