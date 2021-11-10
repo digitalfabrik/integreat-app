@@ -10,12 +10,10 @@ import appSettings from '../../utils/AppSettings'
 import JpalTracking from '../JpalTracking'
 
 jest.mock('react-i18next')
-jest.mock('react-native', () => ({
-  ...jest.requireActual('react-native'),
-  Alert: {
-    alert: jest.fn()
-  }
-}))
+jest.mock('../../components/SettingsSwitch', () => {
+  const { Text } = require('react-native')
+  return () => <Text>SettingsSwitch</Text>
+})
 
 describe('JpalTracking', () => {
   beforeEach(() => {
