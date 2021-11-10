@@ -7,7 +7,7 @@ import { cityContentPath } from '../navigation/url'
 import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
-import { reportError } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
 export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActionType): SagaGenerator<void> {
@@ -70,7 +70,6 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
       yield* put(failed)
     }
   } catch (e) {
-    console.error(e)
     reportError(e)
     const failed: FetchEventFailedActionType = {
       type: 'FETCH_EVENT_FAILED',

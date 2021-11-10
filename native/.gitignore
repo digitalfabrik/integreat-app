@@ -31,6 +31,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .png-cache
+.hprof
 
 # CocoaPods
 /ios/Pods/
@@ -142,6 +143,9 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+# VSCode
+.vscode/settings.json
 
 # IntelliJ
 .idea/workspace.xml

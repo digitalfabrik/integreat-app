@@ -31,10 +31,12 @@ const Title = styled.h3`
 const Body = styled.p`
   font-size: 16px;
   line-height: 1.38;
+  white-space: pre-line;
 `
 
 const StyledNewsListItem = styled.div`
   padding-bottom: 2px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `
 
 const StyledContainer = styled.div`
@@ -61,7 +63,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED)}</Body>
+          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED, false)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>

@@ -5,12 +5,10 @@ import { createTrackingEndpoint, DASHBOARD_ROUTE, FetchError, OPEN_PAGE_SIGNAL_N
 
 import buildConfig from '../../constants/buildConfig'
 import appSettings from '../AppSettings'
-import { reportError } from '../helpers'
 import sendTrackingSignal, { sendRequest, setSystemLanguage } from '../sendTrackingSignal'
+import { reportError } from '../sentry'
 
-jest.mock('../helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../sentry')
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   createTrackingEndpoint: jest.fn(() => ({

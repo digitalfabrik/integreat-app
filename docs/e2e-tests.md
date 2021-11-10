@@ -73,7 +73,7 @@ However, during native development most of the common selectors are not availabl
 Therefore, you should use the accessibility identifier for this.
 Add the accessibility-id to a React component using `testID('Example-Component')`. You can query this component with `$('~Example-Component')` in your test.
 
-For more complex queries you should add/use a custom [Selector]('../e2e/native/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
+For more complex queries you should add/use a custom [Selector](../e2e-tests/native/test/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
 
 ## Troubleshooting
 
