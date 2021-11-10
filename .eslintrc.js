@@ -111,6 +111,13 @@ module.exports = {
       }
     },
     {
+      files: ['**/native/**'],
+      rules: {
+        // This rule does not make sense in react native as we don't have normal anchor tags
+        'jsx-a11y/anchor-is-valid': 'off'
+      }
+    },
+    {
       files: ['**/tools/**'],
       rules: {
         'no-console': 'off'
