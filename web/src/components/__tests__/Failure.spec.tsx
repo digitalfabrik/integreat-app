@@ -1,7 +1,6 @@
-import { render } from '@testing-library/react'
 import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
 
+import { renderWithRouter } from '../../testing/render'
 import Failure from '../Failure'
 
 describe('Failure', () => {
@@ -9,7 +8,7 @@ describe('Failure', () => {
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
-    const { getByText } = render(<Failure errorMessage={errorMessage} t={mockTranslate} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<Failure errorMessage={errorMessage} t={mockTranslate} />)
 
     const link = getByText('goTo.start')
     expect(link.closest('a')).toHaveAttribute('href', '/')
@@ -22,7 +21,7 @@ describe('Failure', () => {
       goToPath: '/goTo.offers',
       goToMessage: 'goTo.offers'
     }
-    const { getByText } = render(<Failure {...error} t={mockTranslate} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<Failure {...error} t={mockTranslate} />)
 
     const link = getByText(error.goToMessage)
     expect(link.closest('a')).toHaveAttribute('href', error.goToPath)
