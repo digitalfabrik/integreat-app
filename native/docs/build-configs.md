@@ -44,13 +44,13 @@ Not doing this will lead to [this error](troubleshooting.md#no-build_config_name
 ## Technical Information
 
 The concept and technical implementation of build configs is inspired by the library [react-native-config](https://github.com/luggit/react-native-config).
-All conversions are done with the [manage.ts script](../build-configs/tools/manage.ts).
+All conversions are done with the [manage.ts script](../../build-configs/tools/manage.ts).
 
 ### Javascript
 
 To make the selected build config available in the javascript code, we map the non-existing module `build-config-name`
-to the right name constant in the corresponding build config directory in the [build-configs workspace](../build-configs),
-e.g. [this file](../build-configs/integreat/build-config-name/index.ts) for Integreat.
+to the right name constant in the corresponding build config directory in the [build-configs workspace](../../build-configs),
+e.g. [this file](../../build-configs/integreat/build-config-name/index.ts) for Integreat.
 This is done with a proxy in the [metro config](../metro.config.js) in the `extraNodeModules` prop.
 
 To access the values of the build config use [this method](../src/constants/buildConfig.ts).

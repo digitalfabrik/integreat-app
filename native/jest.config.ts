@@ -36,8 +36,7 @@ export default {
   moduleDirectories: ['node_modules'],
   coverageDirectory: '<rootDir>/../reports/coverage',
   transform: {
-    ...tsjPreset.transform,
-    '\\.js$': '<rootDir>/../node_modules/react-native/jest/preprocessor.js'
+    ...tsjPreset.transform
   },
   reporters: [
     'default',

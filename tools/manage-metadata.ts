@@ -1,4 +1,4 @@
-/* eslint-disable no-console,camelcase */
+/* eslint-disable camelcase */
 import program from 'commander'
 import fs from 'fs'
 import yaml from 'js-yaml'
@@ -229,11 +229,16 @@ const appstoreLanguageMap: Record<string, string[]> = {
   hr: ['hr'],
   hu: ['hu'],
   it: ['it'],
+  ka: [],
+  mk: [],
   pes: [],
   pl: ['pl'],
+  prs: [],
   ro: ['ro'],
   ru: ['ru'],
+  sq: [],
   tr: ['tr'],
+  ur: [],
   'zh-CN': ['zh-Hans']
 }
 

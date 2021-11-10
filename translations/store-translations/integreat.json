@@ -1,52 +1,100 @@
 {
   "appstore": {
     "de": {
-      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen"
+      "keywords": "Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Integration,Informationen",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "am": {
-      "keywords": "ጀርመን,እርዳታ,ጀርመንኛ ይማሩ,ሕጎች,የጀርመንኛ ትምህርት,ዜናዎች,ማማከር,ቅንጅት,መረጃ"
+      "keywords": "ጀርመን,እርዳታ,ጀርመንኛ ይማሩ,ሕጎች,የጀርመንኛ ትምህርት,ዜናዎች,ማማከር,ቅንጅት,መረጃ",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "ar": {
-      "keywords": "ألمانيا,المساعدة,تعلم اللغة الألمانية,القواعد,دورة اللغة الألمانية,الأخبار,المشورة,الاندماج"
+      "keywords": "ألمانيا,المساعدة,تعلم اللغة الألمانية,القواعد,دورة اللغة الألمانية,الأخبار,المشورة,الاندماج",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "bg": {
-      "keywords": "Германия,Помощ,Научете немски,регул.,Курс по немски,Новини,Консултация,интеграция,Информация,Стаж"
+      "keywords": "Германия,Помощ,Научете немски,регул.,Курс по немски,Новини,Консултация,интеграция,Информация,Стаж",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "el": {
-      "keywords": "Γερμανία,Βοήθεια,Μάθε Γερμανικά,Κανόνες,Τμήματα γερμανικών,Ειδήσεις,Διαβούλευση,Ένταξη,Πληροφορίες"
+      "keywords": "Γερμανία,Βοήθεια,Μάθε Γερμανικά,Κανόνες,Τμήματα γερμανικών,Ειδήσεις,Διαβούλευση,Ένταξη,Πληροφορίες",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "en": {
-      "keywords": "Germany,Help,Learn German,Rules,German course,News,Counselling,Integration,Information,Find a Job"
+      "keywords": "Germany,Help,Learn German,Rules,German course,News,Counselling,Integration,Information,Find a Job",
+      "marketing_url": "https://integreat-app.de/en",
+      "privacy_url": "https://integreat-app.de/en/privacy/",
+      "support_url": "https://integreat-app.de/en"
     },
     "es": {
-      "keywords": "Alemania,Ayuda,Aprender alemán,Normas,Curso de alemán,Noticias,Asesoramiento,Integración,Información"
+      "keywords": "Alemania,Ayuda,Aprender alemán,Normas,Curso de alemán,Noticias,Asesoramiento,Integración,Información",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "fr": {
-      "keywords": "Allemagne,aide,apprendre l'allemand,Règles,Cours d'allemand,Nouvelles,Conseil,Intégration"
+      "keywords": "Allemagne,aide,apprendre l'allemand,Règles,Cours d'allemand,Nouvelles,Conseil,Intégration",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "hr": {
-      "keywords": "Njemačka,Pomoć,Učenje njemačkog jezika,Pravila,Tečaj njemačkog jezika,Vijesti,Savjetovanje"
+      "keywords": "Njemačka,Pomoć,Učenje njemačkog jezika,Pravila,Tečaj njemačkog jezika,Vijesti,Savjetovanje",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "hu": {
-      "keywords": "Németország,Súgó,Német tanulás,Szabályok,Német tanfolyam,Hírek,Tanácsadás,Integráció,Információk"
+      "keywords": "Németország,Súgó,Német tanulás,Szabályok,Német tanfolyam,Hírek,Tanácsadás,Integráció,Információk",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "it": {
-      "keywords": "Germania,Aiuto,Imparare il tedesco,Regole,Corso di tedesco,Notizie,Consulenza,Integrazione"
+      "keywords": "Germania,Aiuto,Imparare il tedesco,Regole,Corso di tedesco,Notizie,Consulenza,Integrazione",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "pes": {
-      "keywords": "آلمان,کمک,آموزش زبان آلمانی,قوانین,کلاس آلمانی,خبرها,مشاوره,ادغام,اطلاعات"
+      "keywords": "آلمان,کمک,آموزش زبان آلمانی,قوانین,کلاس آلمانی,خبرها,مشاوره,ادغام,اطلاعات",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "pl": {
-      "keywords": "Niemcy,Pomoc,Nauka języka niemieckiego,Zasady,Kurs języka niemieckiego,Wiadomości,Doradztwo"
+      "keywords": "Niemcy,Pomoc,Nauka języka niemieckiego,Zasady,Kurs języka niemieckiego,Wiadomości,Doradztwo",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "ro": {
-      "keywords": "Germania,Ajutor,Învățarea limbii germane,Reguli,Curs de limba germană,Știri,Consiliere,Integrare"
+      "keywords": "Germania,Ajutor,Învățarea limbii germane,Reguli,Curs de limba germană,Știri,Consiliere,Integrare",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "ru": {
-      "keywords": "Германия,Помощь,Изучение немецкого языка,Правила,Курс немецкого языка,Новости,Интеграция,Информация"
+      "keywords": "Германия,Помощь,Изучение немецкого языка,Правила,Курс немецкого языка,Новости,Интеграция,Информация",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     },
     "tr": {
-      "keywords": "Almanya,Yardım,Almanca öğrenmek,Kurallar,Almanca kursu,Haberler,Danışmanlık,Entegrasyon,Bilgiler"
+      "keywords": "Almanya,Yardım,Almanca öğrenmek,Kurallar,Almanca kursu,Haberler,Danışmanlık,Entegrasyon,Bilgiler",
+      "marketing_url": "https://integreat-app.de",
+      "privacy_url": "https://integreat-app.de/datenschutz",
+      "support_url": "https://integreat-app.de"
     }
   },
   "common": {

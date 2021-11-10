@@ -3,6 +3,7 @@ import { useRef } from 'react'
 
 import appSettings from '../utils/AppSettings'
 import { sendRequest } from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 
 const useSendOfflineJpalSignals = (): void => {
   const { isInternetReachable } = useNetInfo()
@@ -17,7 +18,7 @@ const useSendOfflineJpalSignals = (): void => {
     previousIsInternetReachable.current = !!isInternetReachable
 
     if (isInternetReachable) {
-      sendOfflineSignals().catch(e => console.error(e))
+      sendOfflineSignals().catch(reportError)
     }
   }
 }

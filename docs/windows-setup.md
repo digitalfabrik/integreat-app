@@ -39,8 +39,8 @@ Reboot after the installation.
 
 ## Android Emulator
 
-To use an Android Emulator instead or beside of your mobile to develop the native app you can use [Android Studio](https://developer.android.com/studio/run/emulator) (recommended by Google) or install only the emulator via PowerShell: [./native/android-emulator-windows.md](./native/android-emulator-windows.md)
+To use an Android Emulator instead or beside of your mobile to develop the native app you can use [Android Studio](https://developer.android.com/studio/run/emulator) (recommended by Google) or install only the emulator via PowerShell: [../native/docs/android-emulator-windows.md](../native/docs/android-emulator-windows.md)
 
 ## Troubleshooting
 
-Have a look at our [trouble shooting guide](docs/troubleshooting.md) as well for information on how to fix some common windows issues.
+Have a look at our [trouble shooting guide](../native/docs/troubleshooting.md) as well for information on how to fix some common windows issues.

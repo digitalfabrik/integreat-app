@@ -14,7 +14,9 @@ const useNavigateToLink = (): ((url: string, language: string, shareUrl: string)
   return useCallback(
     (url: string, language: string, shareUrl: string) => {
       const navigateTo = createNavigate(dispatch, navigation)
-      navigateToLinkFn(url, navigation, language, navigateTo, shareUrl).catch(showSnackbar)
+      navigateToLinkFn(url, navigation, language, navigateTo, shareUrl).catch((error: Error) =>
+        showSnackbar(error.message)
+      )
     },
     [dispatch, navigation, showSnackbar]
   )
