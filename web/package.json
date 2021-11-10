@@ -71,7 +71,7 @@
     "@fortawesome/fontawesome-common-types": "^0.2.36",
     "@jest/types": "26.6.2",
     "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "11.2.5",
+    "@testing-library/react": "12.1.2",
     "@types/assets-webpack-plugin": "^6.1.2",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/dompurify": "^2.3.1",

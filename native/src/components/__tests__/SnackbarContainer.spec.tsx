@@ -5,7 +5,7 @@ import { mocked } from 'ts-jest/utils'
 
 import SnackbarContainer from '../SnackbarContainer'
 
-jest.useFakeTimers()
+jest.useFakeTimers('modern')
 
 jest.mock('../../components/Snackbar', () => {
   const { Text } = require('react-native')

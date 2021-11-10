@@ -24,7 +24,7 @@ import DashboardContainer from '../DashboardContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
-jest.useFakeTimers()
+jest.useFakeTimers('modern')
 jest.mock('../Dashboard', () => {
   const { Text } = require('react-native')
 
