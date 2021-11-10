@@ -5032,7 +5032,6 @@
       "openSourceLicenses": "Open-Source-Lizenzen",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Tracking zulassen",
-      "trackingCode": "Tracking Code",
       "trackingShortDescription": "Nehmen Sie an der J-PAL Evaluierungsstudie teil, um {{appName}} zu verbessern.",
       "trackingParticipation": "Wenn Sie an der Evaluierungsstudie teilnehmen, geben Sie bitte den 7-stelligen Code ein und aktivieren Sie den Tracking-Button.",
       "trackingMoreInformation": "Weitere Informationen über die J-Pal Evaluierungsstudie und die Forschungsziele",
@@ -5056,7 +5055,6 @@
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
       "tracking": "የJ-PAL ግምገማ",
       "allowTracking": "ክትትሉን ይፍቀዱ",
-      "trackingCode": "የመከታተያ ኮድ",
       "enabled": "ሰርቷል",
       "disabled": "አይሰራም",
       "decline": "አትቀበል"
@@ -5074,7 +5072,6 @@
       "openSourceLicenses": "تراخيص مفتوحة المصدر",
       "tracking": "تقييم J-PAL",
       "allowTracking": "السماح بالتتبع",
-      "trackingCode": "كود التتبع",
       "trackingShortDescription": "شارك في تقييم J-PAL لتحسين تطبيق {{appName}}.",
       "trackingParticipation": "إذا شاركت في التقييم الرجاء إدخال الرمز المكون من 7 أرقام وتفعيل زر التتبع",
       "trackingMoreInformation": "مزيد من المعلومات حول تقييم J-PAL واغراض البحث.",
@@ -5098,7 +5095,6 @@
       "openSourceLicenses": "Лицензи с отворен код",
       "tracking": "Оценка на J-PAL",
       "allowTracking": "Разрешаване на проследяване",
-      "trackingCode": "Код за проследяване",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отказване"
@@ -5116,7 +5112,6 @@
       "openSourceLicenses": "مۆڵەتەکانی سەرچاوەی ئازاد",
       "tracking": "هەڵسەنگاندنی J-PAL",
       "allowTracking": "مۆڵەتی بەدواداچوون",
-      "trackingCode": "کۆدی بەدواداچوون",
       "enabled": "چالاک کراوە",
       "disabled": "ناچالاک کراوە",
       "decline": "ڕەتکردنەوە"
@@ -5134,7 +5129,6 @@
       "openSourceLicenses": "Άδειες",
       "tracking": "Αξιολόγηση J-PAL",
       "allowTracking": "Να επιτρέπεται ο εντοπισμός",
-      "trackingCode": "Κωδικός εντοπισμού",
       "enabled": "ενεργοποιήθηκε",
       "disabled": "απενεργοποιήθηκε",
       "decline": "Απόρριψη"
@@ -5152,7 +5146,6 @@
       "openSourceLicenses": "Open source licences",
       "tracking": "J-PAL evaluation",
       "allowTracking": "Allow tracking",
-      "trackingCode": "Tracking code",
       "trackingShortDescription": "Participate in the J-PAL evaluation to improve {{appName}}.",
       "trackingParticipation": "If you participate in the evaluation, please, enter the 7-digit code and activate the tracking button.",
       "trackingMoreInformation": "More information on the J-Pal evaluation and the research purposes",
@@ -5176,7 +5169,6 @@
       "openSourceLicenses": "Licencias de fuente abierta",
       "tracking": "Evaluación J-PAL",
       "allowTracking": "Permitir seguimiento",
-      "trackingCode": "Código de seguimiento",
       "enabled": "activado",
       "disabled": "desactivado",
       "decline": "Rechazar"
@@ -5194,7 +5186,6 @@
       "openSourceLicenses": "Licences en open source",
       "tracking": "Evaluation J-PAL",
       "allowTracking": "Autoriser le suivi",
-      "trackingCode": "Code de suivi",
       "trackingShortDescription": "Participez à l'évaluation de J-PAL pour améliorer l'application {{appName}}.",
       "trackingParticipation": "Si vous participez à l'évaluation, veuillez entrer le code à 7 chiffres et activer le bouton de suivi",
       "trackingMoreInformation": "Plus d'informations sur l'évaluation J-Pal et les objectifs de la recherche.",
@@ -5218,7 +5209,6 @@
       "openSourceLicenses": "Licencije otvorenog koda",
       "tracking": "Procjena J-PAL",
       "allowTracking": "Dopusti praćenje",
-      "trackingCode": "Kôd za praćenje",
       "enabled": "aktivirano",
       "disabled": "deaktivirano",
       "decline": "Odbaci"
@@ -5236,7 +5226,6 @@
       "openSourceLicenses": "Open-Source-licencek",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Követés engedélyezése",
-      "trackingCode": "Tracking Code",
       "enabled": "aktiválva",
       "disabled": "deaktiválva",
       "decline": "Elutasítás"
@@ -5254,7 +5243,6 @@
       "openSourceLicenses": "Licenze open source",
       "tracking": "Valutazione J-PAL ",
       "allowTracking": "Consenti il tracciamento",
-      "trackingCode": "Codice di tracciamento",
       "enabled": "attivato",
       "disabled": "disattivato",
       "decline": "Rifiuta"
@@ -5272,7 +5260,6 @@
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
       "tracking": "J-PAL ევალუაცია",
       "allowTracking": "თვალთვალის ჩართვა",
-      "trackingCode": "თვალთვალის კოდი",
       "enabled": "აქტივირებული",
       "disabled": "დეაქტივირებული",
       "decline": "უარყოფა"
@@ -5290,7 +5277,6 @@
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî",
       "tracking": "Nirxandina J-PAL",
       "allowTracking": "Şopandinê rêpêdayî bike",
-      "trackingCode": "Kodeya Şopandinê",
       "enabled": "Çalakbûyî",
       "disabled": "Neçalakbûyî",
       "decline": "Nepejirandin"
@@ -5308,7 +5294,6 @@
       "openSourceLicenses": "Лиценца за отворени содржини",
       "tracking": "J-PAL евалуација",
       "allowTracking": "Дозволено следење",
-      "trackingCode": "Код за следење",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отфрли"
@@ -5326,7 +5311,6 @@
       "openSourceLicenses": "لیسانس منبع باز",
       "tracking": "ارزیابی J-PAL",
       "allowTracking": "اجازه رهگیری",
-      "trackingCode": "کد رهگیری",
       "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingParticipation": "لطفاً کد 7 رقمی را وارد کرده و دکمه ردیابی را فعال کنید",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
@@ -5349,7 +5333,6 @@
       "openSourceLicenses": "Licencje open source",
       "tracking": "Ocena J-PAL",
       "allowTracking": "Zezwalaj na śledzenie",
-      "trackingCode": "Kod śledzenia",
       "enabled": "włączone",
       "disabled": "niewłączone",
       "decline": "Odrzuć"
@@ -5367,7 +5350,6 @@
       "openSourceLicenses": "جوازهای منبع آزاد",
       "tracking": "ارزیابی ‎ J-PAL",
       "allowTracking": "اجازه رهگیری",
-      "trackingCode": "کود رهگیری",
       "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingParticipation": "لطفاً کد 7 رقمی را وارد کرده و دکمه ردیابی را فعال کنید",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
@@ -5390,7 +5372,6 @@
       "openSourceLicenses": "د آزادې-سرچینې لیسنس",
       "tracking": "د J-PAL ارزونه",
       "allowTracking": "د تعقیبولو اجازه",
-      "trackingCode": "د تعقیب کوډ",
       "trackingShortDescription": "د {{appName}} ایپ ښه کولو لپاره د J-PAL ارزونې کې برخه واخلئ.",
       "trackingParticipation": "مهرباني وکړئ 7 عددي کوډ دننه کړئ او د تعقیب تڼۍ فعاله کړئ",
       "trackingMoreInformation": "د جې پال د ارزونې او څېړنې د اهدافو په اړه نور معلومات ترلاسه کول.",
@@ -5413,7 +5394,6 @@
       "openSourceLicenses": "Licențe open source",
       "tracking": "Evaluare J-PAL",
       "allowTracking": "Permitere tracking",
-      "trackingCode": "Cod de tracking",
       "enabled": "activat",
       "disabled": "dezactivat",
       "decline": "Refuzați"
@@ -5431,7 +5411,6 @@
       "openSourceLicenses": "Лицензии на ПО с открытым исходным кодом",
       "tracking": "Оценивание J-PAL",
       "allowTracking": "Разрешить отслеживание",
-      "trackingCode": "Код отслеживания",
       "trackingShortDescription": "Примите участие в исследовании J-PAL, чтобы  улучшить приложение {{appName}}",
       "trackingParticipation": "Если вы участвуете в исследовании, пожалуйста, введите 7-значный код и активируйте отслеживание.",
       "trackingMoreInformation": "Подробнее об исследовании J-Pal и научных целях",
@@ -5455,7 +5434,6 @@
       "openSourceLicenses": "Ruqsadaha-il-furan",
       "tracking": "qiimeynta J-PAL",
       "allowTracking": "U ogolow raadraaca",
-      "trackingCode": "Koodhka raadraaca",
       "enabled": "Shaqeynayo",
       "disabled": "Aan shaqeyneynin",
       "decline": "Diid"
@@ -5473,7 +5451,6 @@
       "openSourceLicenses": "Licencat me burim të hapur",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Lejo gjurmuesin",
-      "trackingCode": "Kodi i gjurmuesit",
       "trackingShortDescription": "Merrni pjesë në vlerësimin e J-PAL për të përmirësuar aplikacionin {{appName}}-App.",
       "trackingParticipation": "Nëse merrni pjesë në vlerësim, ju lutemi, futni kodin 7-shifror dhe aktivizoni butonin e monitorimit.",
       "trackingMoreInformation": "Më shumë informacion lidhur me vlerësimin e J-Pal dhe qëllimet e kërkimit.",
@@ -5497,7 +5474,6 @@
       "openSourceLicenses": "Лиценце отвореног кода",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Дозвољено праћење",
-      "trackingCode": "Код за праћење",
       "trackingShortDescription": "Учествујте у Ј-PAL истраживању ради побољшања {{appName}} апликације.",
       "trackingParticipation": "Ако учествујете у истраживању, унесите 7-цифрени код и активирајте дугме за праћење.",
       "trackingMoreInformation": "Више информација о J-Pal истраживању и сврси итраживања.",
@@ -5521,7 +5497,6 @@
       "openSourceLicenses": "Licence otvorenog koda",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Dozvoljeno praćenje",
-      "trackingCode": "Kod za praćenje",
       "trackingShortDescription": "Učestvujte u J-PAL istraživanju radi poboljšanja {{appName}} aplikacije.",
       "trackingParticipation": "Ako učestvujete u istraživanju, unesite 7-cifreni kod i aktivirajte dugme za praćenje.",
       "trackingMoreInformation": "Više informacija o J-Pal istraživanju i svrsi istraživanja.",
@@ -5545,7 +5520,6 @@
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
       "tracking": "ግምገማ J-PAL",
       "allowTracking": "ክትትል ኣፍቅድ",
-      "trackingCode": "ኮድ ናይ ክትትል",
       "enabled": "ከምዝነጥፍ ተገይሩ",
       "disabled": "ከምዘይነጥፍ ተገይሩ",
       "decline": "ንጸግ"
@@ -5563,7 +5537,6 @@
       "openSourceLicenses": "Açık kaynak lisansları",
       "tracking": "J-PAL değerlendirmesi",
       "allowTracking": "İzlemeye izin ver",
-      "trackingCode": "İzleme kodu",
       "trackingShortDescription": "İntegreat uygulamasını geliştirmek için J-PAL değerlendirme anketine katılın.",
       "trackingParticipation": "Eğer değerlendirme anketine katılıyorsanız, lütfen 7 haneli kodu girin ve takip butonunu etkinleştirin",
       "trackingMoreInformation": "J-Pal değerlendirme anketi ve araştırma amaçları hakkında daha fazla bilgi.",
@@ -5587,7 +5560,6 @@
       "openSourceLicenses": "اوپن سورس لائسنس",
       "tracking": "J-PAL تجزیہ",
       "allowTracking": "ٹریکنگ کی اجازت دیں",
-      "trackingCode": "ٹریکنگ کوڈ",
       "enabled": "فعال",
       "disabled": "غیر فعال",
       "decline": "مسترد کریں"
