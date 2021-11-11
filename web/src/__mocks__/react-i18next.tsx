@@ -4,14 +4,16 @@ import React, { ComponentType, ReactNode } from 'react'
 import wrapDisplayName from '../utils/wrapDisplayName'
 
 // this mock makes sure any components using the translate HoC receive the t function as a prop
-const withTranslation = (namespace: string) => (Component: ComponentType): ComponentType => {
-  const i18n = i18next.createInstance()
+const withTranslation =
+  (namespace: string) =>
+  (Component: ComponentType): ComponentType => {
+    const i18n = i18next.createInstance()
 
-  const Translated = (props: any) => <Component t={(key: string) => `${namespace}:${key}`} i18n={i18n} {...props} />
+    const Translated = (props: any) => <Component t={(key: string) => `${namespace}:${key}`} i18n={i18n} {...props} />
 
-  Translated.displayName = wrapDisplayName(Component, 'Translate')
-  return Translated
-}
+    Translated.displayName = wrapDisplayName(Component, 'Translate')
+    return Translated
+  }
 
 const useTranslation = (
   namespace: string
