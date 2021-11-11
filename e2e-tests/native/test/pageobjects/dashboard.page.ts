@@ -12,6 +12,10 @@ class DashboardPage extends Page {
   get headerOverflowButton() {
     return $('~More options')
   }
+
+  get languageIcon() {
+    return $('~Change language')
+  }
 }
 
 export default new DashboardPage()
