@@ -33,114 +33,113 @@ import navigateToSearch from './navigateToSearch'
 import navigateToSprungbrettOffer from './navigateToSprungbrettOffer'
 import { urlFromRouteInformation } from './url'
 
-const createNavigate = <T extends RoutesType>(
-  dispatch: Dispatch<StoreActionType>,
-  navigation: NavigationPropType<T>
-) => (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
-  if (routeInformation) {
-    const url = urlFromRouteInformation(routeInformation)
-    sendTrackingSignal({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: routeInformation.route,
-        url
-      }
-    })
-
-    if (routeInformation.route === LANDING_ROUTE) {
-      navigateToLanding({
-        dispatch,
-        navigation
+const createNavigate =
+  <T extends RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) =>
+  (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
+    if (routeInformation) {
+      const url = urlFromRouteInformation(routeInformation)
+      sendTrackingSignal({
+        signal: {
+          name: OPEN_PAGE_SIGNAL_NAME,
+          pageType: routeInformation.route,
+          url
+        }
       })
-      return
-    }
-    if (routeInformation.route === JPAL_TRACKING_ROUTE) {
-      if (buildConfig().featureFlags.jpalTracking) {
-        navigateToJpalTracking({
+
+      if (routeInformation.route === LANDING_ROUTE) {
+        navigateToLanding({
           dispatch,
-          navigation,
-          trackingCode: routeInformation.trackingCode
+          navigation
         })
+        return
+      }
+      if (routeInformation.route === JPAL_TRACKING_ROUTE) {
+        if (buildConfig().featureFlags.jpalTracking) {
+          navigateToJpalTracking({
+            dispatch,
+            navigation,
+            trackingCode: routeInformation.trackingCode
+          })
+        }
+
+        return
       }
 
-      return
+      const { route, cityCode, languageCode } = routeInformation
+      const params = {
+        dispatch,
+        navigation,
+        cityCode,
+        languageCode
+      }
+
+      switch (routeInformation.route) {
+        case CATEGORIES_ROUTE:
+        case DASHBOARD_ROUTE:
+          navigateToCategory({
+            ...params,
+            routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
+            cityContentPath: routeInformation.cityContentPath,
+            key,
+            forceRefresh
+          })
+          return
+
+        case DISCLAIMER_ROUTE:
+          navigateToDisclaimer(params)
+          return
+
+        case EVENTS_ROUTE:
+          navigateToEvents({ ...params, cityContentPath: routeInformation.cityContentPath, key, forceRefresh })
+          return
+
+        case NEWS_ROUTE:
+          if (!buildConfig().featureFlags.newsStream) {
+            break
+          }
+
+          navigateToNews({
+            ...params,
+            type: routeInformation.newsType,
+            newsId: routeInformation.newsId,
+            key,
+            forceRefresh
+          })
+          return
+
+        case OFFERS_ROUTE:
+          navigateToOffers(params)
+          return
+
+        case SPRUNGBRETT_OFFER_ROUTE:
+          navigateToSprungbrettOffer(params)
+          return
+
+        case POIS_ROUTE:
+          if (!buildConfig().featureFlags.pois) {
+            break
+          }
+          navigateToPois({
+            ...params,
+            urlSlug: routeInformation.urlSlug,
+            cityContentPath: routeInformation.cityContentPath,
+            key,
+            forceRefresh
+          })
+          return
+
+        case SEARCH_ROUTE:
+          navigateToSearch(params)
+          return
+      }
     }
-
-    const { route, cityCode, languageCode } = routeInformation
-    const params = {
-      dispatch,
-      navigation,
-      cityCode,
-      languageCode
-    }
-
-    switch (routeInformation.route) {
-      case CATEGORIES_ROUTE:
-      case DASHBOARD_ROUTE:
-        navigateToCategory({
-          ...params,
-          routeName: route === CATEGORIES_ROUTE ? CATEGORIES_ROUTE : DASHBOARD_ROUTE,
-          cityContentPath: routeInformation.cityContentPath,
-          key,
-          forceRefresh
-        })
-        return
-
-      case DISCLAIMER_ROUTE:
-        navigateToDisclaimer(params)
-        return
-
-      case EVENTS_ROUTE:
-        navigateToEvents({ ...params, cityContentPath: routeInformation.cityContentPath, key, forceRefresh })
-        return
-
-      case NEWS_ROUTE:
-        if (!buildConfig().featureFlags.newsStream) {
-          break
-        }
-
-        navigateToNews({
-          ...params,
-          type: routeInformation.newsType,
-          newsId: routeInformation.newsId,
-          key,
-          forceRefresh
-        })
-        return
-
-      case OFFERS_ROUTE:
-        navigateToOffers(params)
-        return
-
-      case SPRUNGBRETT_OFFER_ROUTE:
-        navigateToSprungbrettOffer(params)
-        return
-
-      case POIS_ROUTE:
-        if (!buildConfig().featureFlags.pois) {
-          break
-        }
-        navigateToPois({
-          ...params,
-          urlSlug: routeInformation.urlSlug,
-          cityContentPath: routeInformation.cityContentPath,
-          key,
-          forceRefresh
-        })
-        return
-
-      case SEARCH_ROUTE:
-        navigateToSearch(params)
-        return
-    }
+    const error = new NotFoundError({
+      type: 'route',
+      id: routeInformation?.route ?? '',
+      language: routeInformation?.languageCode ?? 'en',
+      city: routeInformation?.cityCode ?? ''
+    })
+    showSnackbar(dispatch, error.message)
   }
-  const error = new NotFoundError({
-    type: 'route',
-    id: routeInformation?.route ?? '',
-    language: routeInformation?.languageCode ?? 'en',
-    city: routeInformation?.cityCode ?? ''
-  })
-  showSnackbar(dispatch, error.message)
-}
 
 export default createNavigate

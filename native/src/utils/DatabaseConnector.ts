@@ -253,11 +253,16 @@ class DatabaseConnector {
       try {
         const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
         return mapValues(citiesMetaJson, cityMeta => ({
-          languages: mapValues(cityMeta.languages, ({ last_update: jsonLastUpdate }): {
-            lastUpdate: Moment
-          } => ({
-            lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
-          })),
+          languages: mapValues(
+            cityMeta.languages,
+            ({
+              last_update: jsonLastUpdate
+            }): {
+              lastUpdate: Moment
+            } => ({
+              lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
+            })
+          ),
           lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
         }))
       } catch (e) {
@@ -272,11 +277,16 @@ class DatabaseConnector {
   async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {
     const path = this.getMetaCitiesPath()
     const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
-      languages: mapValues(cityMeta.languages, ({ lastUpdate }): {
-        last_update: string
-      } => ({
-        last_update: lastUpdate.toISOString()
-      })),
+      languages: mapValues(
+        cityMeta.languages,
+        ({
+          lastUpdate
+        }): {
+          last_update: string
+        } => ({
+          last_update: lastUpdate.toISOString()
+        })
+      ),
       last_usage: cityMeta.lastUsage.toISOString()
     }))
     await this.writeFile(path, JSON.stringify(citiesMetaJson))
