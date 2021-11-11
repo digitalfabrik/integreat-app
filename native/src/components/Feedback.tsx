@@ -131,8 +131,7 @@ const Feedback = (props: PropsType): ReactElement => {
       keyboardShouldPersistTaps='handled'
       style={{
         backgroundColor: theme.colors.backgroundColor
-      }}
-    >
+      }}>
       <Wrapper theme={theme}>{renderBox()}</Wrapper>
     </ScrollView>
   )

@@ -45,8 +45,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
       <View
         style={{
           flex: 1
-        }}
-      >
+        }}>
         <Pdf
           singlePage={false}
           style={{

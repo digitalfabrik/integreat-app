@@ -20,10 +20,8 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
       const query = basePath === cityContentPath ? '' : `&url=${params.cityContentPath}`
       return `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/children?depth=${depth}${query}`
     })
-    .withMapper(
-      (json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
-        const basePath = `/${params.city}/${params.language}`
-        return json.map(category => mapCategoryJson(category, basePath))
-      }
-    )
+    .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
+      const basePath = `/${params.city}/${params.language}`
+      return json.map(category => mapCategoryJson(category, basePath))
+    })
     .build()
