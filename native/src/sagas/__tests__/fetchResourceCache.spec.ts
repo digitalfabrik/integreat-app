@@ -3,7 +3,7 @@ import { expectSaga } from 'redux-saga-test-plan'
 import { ErrorCode } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { createFetchMap } from '../../testing/builder/util'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import FetcherModule from '../../utils/FetcherModule'
@@ -15,7 +15,7 @@ jest.mock('../../utils/FetcherModule')
 
 describe('fetchResourceCache', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
     jest.clearAllMocks()
   })
   const city = 'augsburg'
