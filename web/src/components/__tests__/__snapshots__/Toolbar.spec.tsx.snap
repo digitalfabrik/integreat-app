@@ -8,6 +8,7 @@ exports[`Toolbar should render 1`] = `
       "language": undefined,
       "languages": undefined,
       "options": Object {},
+      "resolvedLanguage": undefined,
       "store": undefined,
     }
   }
