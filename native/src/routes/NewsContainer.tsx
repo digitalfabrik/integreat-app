@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
+import { useDispatch } from 'react-redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType } from 'api-client'
 
@@ -21,10 +21,9 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null)
   const route = useStateRoute(key, NEWS_ROUTE)
   const cities = useCities()
+  const dispatch = useDispatch()
 
   const cityModel = route && cities?.find(model => model.code === route.city)
-
-  // TODO language change/unavailable languages
 
   // TODO handle back navigation
 
@@ -43,22 +42,28 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
     setSelectedNewsType(newsType)
   }
 
+  const changeUnavailableLanguage = (newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        newLanguage,
+        city: cityModel.code
+      }
+    })
+  }
+
   return (
     <LayoutContainer>
       <NewsHeader selectedNewsType={newsType} cityModel={cityModel} navigateToNews={navigateToNews} />
       {isLocalNews ? (
-        <LocalNews
-          newsId={newsId}
-          selectNews={setSelectedNewsId}
-          cityModel={cityModel}
-          language={language}
-        />
+        <LocalNews newsId={newsId} selectNews={setSelectedNewsId} cityModel={cityModel} language={language} />
       ) : (
         <TuNews
           newsId={newsId}
           selectNews={setSelectedNewsId}
           cityModel={cityModel}
           language={language}
+          changeUnavailableLanguage={changeUnavailableLanguage}
         />
       )}
     </LayoutContainer>
