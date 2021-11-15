@@ -82,7 +82,7 @@ export {
   SPRUNGBRETT_JOBS_ENDPOINT_NAME
 } from './endpoints/createSprungbrettJobsEndpoint'
 export { SPRUNGBRETT_OFFER } from './endpoints/createSprungbrettJobsEndpoint'
-export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
+export { default as useLoadFromEndpoint, loadFromEndpoint, ReturnType } from './endpoints/hooks/useLoadFromEndpoint'
 export { parseHTMLEntities } from './utils/helpers'
 export { embedInCollection } from './utils/geoJson'
 
