@@ -27,7 +27,13 @@ const navigateToNews = <T extends RoutesType>({
 }): void => {
   navigation.navigate({
     name: NEWS_ROUTE,
-    key
+    key,
+    params: {
+      cityCode,
+      languageCode,
+      newsId: newsId ?? null,
+      newsType: type
+    }
   })
   const fetchNews: FetchNewsActionType = {
     type: 'FETCH_NEWS',

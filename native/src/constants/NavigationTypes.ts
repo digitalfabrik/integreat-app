@@ -14,6 +14,7 @@ import {
   JpalTrackingRouteType,
   LandingRouteType,
   NewsRouteType,
+  NewsType,
   OffersRouteType,
   PdfViewModalRouteType,
   PoisRouteType,
@@ -65,6 +66,7 @@ export type RoutesType =
   | PdfViewModalRouteType
   | ImageViewModalRouteType
   | FeedbackModalRouteType
+
 type ShareUrlType = {
   shareUrl: string
 }
@@ -87,7 +89,10 @@ export type RoutesParamsType = {
     urlSlug?: string
   }
   [EVENTS_ROUTE]: undefined
-  [NEWS_ROUTE]: undefined
+  [NEWS_ROUTE]: CityContentParamsType & {
+    newsId: string | null
+    newsType: NewsType
+  }
   [DISCLAIMER_ROUTE]: CityContentParamsType
   [OFFERS_ROUTE]: CityContentParamsType
   [JPAL_TRACKING_ROUTE]: {
