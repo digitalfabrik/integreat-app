@@ -13,17 +13,15 @@ export type PropsType = {
 }
 
 const LocalNews = ({ language, cityModel, newsId, selectNews }: PropsType): ReactElement => {
-  const { data, refresh } = useLoadLocalNews({ city: cityModel.code, language })
+  const response = useLoadLocalNews({ city: cityModel.code, language })
   return (
     <News
       newsId={newsId}
-      news={data}
       cityModel={cityModel}
       language={language}
       selectedNewsType={LOCAL_NEWS_TYPE}
-      isFetchingMore={false}
-      refresh={refresh}
       selectNews={selectNews}
+      {...response}
     />
   )
 }
