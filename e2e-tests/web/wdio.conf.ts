@@ -20,7 +20,7 @@ export const config: Testrunner = {
   reporters: ['junit'],
 
   jasmineOpts: {
-    defaultTimeoutInterval: 50000
+    defaultTimeoutInterval: 300000
   },
 
   onPrepare: async (): Promise<void> => {
