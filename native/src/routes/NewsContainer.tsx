@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType } from 'api-client'
@@ -16,7 +16,7 @@ type NavigationPropsType = {
   navigation: NavigationPropType<NewsRouteType>
 }
 
-const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement => {
+const NewsContainer = ({ route: { key }, navigation }: NavigationPropsType): ReactElement => {
   const [selectedNewsType, setSelectedNewsType] = useState<NewsType | null>(null)
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null)
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null)
@@ -25,8 +25,16 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
   const dispatch = useDispatch()
 
   const cityModel = route && cities?.find(model => model.code === route.city)
-
-  // TODO handle back navigation
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        if (selectedNewsId) {
+          e.preventDefault()
+          setSelectedNewsId(null)
+        }
+      }),
+    [navigation, selectedNewsId]
+  )
 
   if (!cityModel || !route) {
     return <LayoutContainer />
