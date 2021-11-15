@@ -77,7 +77,7 @@ const News = (props: PropsType): ReactElement => {
     return <Failure code={fromError(errorToShow)} />
   }
 
-  if (!data) {
+  if (!data || loading) {
     return <LoadingSpinner />
   }
 
