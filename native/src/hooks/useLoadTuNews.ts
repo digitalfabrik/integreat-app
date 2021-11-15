@@ -4,6 +4,7 @@ import {
   createTunewsElementEndpoint,
   createTunewsEndpoint,
   createTunewsLanguagesEndpoint,
+  LanguageModel,
   loadFromEndpoint,
   ReturnType,
   TunewsModel
@@ -20,13 +21,15 @@ type ParamsType = {
   newsId: string | null | undefined
 }
 
-type TuNewsReturnType = ReturnType<TunewsModel []> & {
+type TuNewsReturnType = ReturnType<TunewsModel[]> & {
   loadMore: () => void
+  availableLanguages: LanguageModel[] | null
 }
 
 const useLoadTuNews = ({ city, language, newsId }: ParamsType): TuNewsReturnType => {
   const [page, setPage] = useState<number>(FIRST_PAGE_INDEX)
   const [data, setData] = useState<TunewsModel[] | null>(null)
+  const [availableLanguages, setAvailableLanguages] = useState<LanguageModel[] | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -50,20 +53,20 @@ const useLoadTuNews = ({ city, language, newsId }: ParamsType): TuNewsReturnType
   const load = useCallback(() => {
     const request = async () => {
       const tuNewsLanguages = await createTunewsLanguagesEndpoint(tunewsApiUrl).request(undefined)
+      setAvailableLanguages(tuNewsLanguages.data ?? null)
 
       if (!tuNewsLanguages.data?.find(languageModel => languageModel.code === language)) {
-        // TODO
-        throw new Error('Language not available')
+        throw new Error('language not available!')
       }
 
       return newsId
         ? createTunewsElementEndpoint(tunewsApiUrl).request({ id: parseInt(newsId, 10) })
         : createTunewsEndpoint(tunewsApiUrl).request({
-          city,
-          language,
-          page,
-          count: TUNEWS_FETCH_COUNT_LIMIT
-        })
+            city,
+            language,
+            page,
+            count: TUNEWS_FETCH_COUNT_LIMIT
+          })
     }
     loadFromEndpoint<TunewsModel[] | TunewsModel>(request, updateData, setError, setLoading).catch(e => setError(e))
   }, [language, city, page, newsId, updateData])
@@ -89,7 +92,8 @@ const useLoadTuNews = ({ city, language, newsId }: ParamsType): TuNewsReturnType
     error,
     loading,
     refresh: reset,
-    loadMore
+    loadMore,
+    availableLanguages
   }
 }
 
