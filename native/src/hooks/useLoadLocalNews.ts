@@ -1,10 +1,6 @@
 import { useCallback } from 'react'
-import {
-  createLocalNewsEndpoint,
-  LocalNewsModel,
-  ReturnType,
-  useLoadFromEndpoint
-} from 'api-client'
+
+import { createLocalNewsEndpoint, LocalNewsModel, ReturnType, useLoadFromEndpoint } from 'api-client'
 
 import { determineApiUrl } from '../utils/helpers'
 
