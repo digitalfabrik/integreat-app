@@ -46,7 +46,7 @@ const HeaderContainer = styled.View`
 type PropsType = {
   cityModel: CityModel
   selectedNewsType: NewsType
-  navigateToNews: (arg0: NewsType) => void
+  navigateToNews: (newsType: NewsType) => void
   theme: ThemeType
   t: TFunction
 }
