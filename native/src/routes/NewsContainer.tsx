@@ -19,6 +19,7 @@ type NavigationPropsType = {
 const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement => {
   const [selectedNewsType, setSelectedNewsType] = useState<NewsType | null>(null)
   const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null)
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null)
   const route = useStateRoute(key, NEWS_ROUTE)
   const cities = useCities()
   const dispatch = useDispatch()
@@ -31,8 +32,9 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
     return <LayoutContainer />
   }
 
-  const { language, type: routeNewsType, newsId: routeNewsId } = route
+  const { language: routeLanguage, type: routeNewsType, newsId: routeNewsId } = route
 
+  const language = selectedLanguage ?? routeLanguage
   const newsId = selectedNewsId ?? routeNewsId
   const newsType = selectedNewsType ?? routeNewsType
   const isLocalNews = newsType === LOCAL_NEWS_TYPE
@@ -43,6 +45,7 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
   }
 
   const changeUnavailableLanguage = (newLanguage: string) => {
+    setSelectedLanguage(newLanguage)
     dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
       params: {
