@@ -11,15 +11,16 @@ import {
   NotFoundError,
   TunewsModel,
   TU_NEWS_TYPE,
-  NewsType, ReturnType
+  NewsType,
+  ReturnType
 } from 'api-client'
 
 import Failure from '../components/Failure'
+import LoadingSpinner from '../components/LoadingSpinner'
 import NewsDetail from '../components/NewsDetail'
 import NewsList from '../components/NewsList'
 import NewsListItem from '../components/NewsListItem'
 import { NewsModelsType } from '../redux/StateType'
-import LoadingSpinner from '../components/LoadingSpinner'
 
 const NoNews = styled.Text`
   color: ${props => props.theme.colors.textColor};
@@ -66,15 +67,16 @@ const News = (props: PropsType): ReactElement => {
     [selectedNewsType, selectNews]
   )
 
-  const isDisabled = selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled
+  const isDisabled =
+    selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled
   const errorToShow = isDisabled
     ? new NotFoundError({
-      type: 'category',
-      id: selectedNewsType,
-      city: cityModel.code,
-      language
-    })
-  : error
+        type: 'category',
+        id: selectedNewsType,
+        city: cityModel.code,
+        language
+      })
+    : error
 
   if (errorToShow) {
     return <Failure code={fromError(errorToShow)} />
