@@ -33,15 +33,15 @@ const useLoadTuNews = ({ city, language, newsId }: ParamsType): TuNewsReturnType
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
-  // Appends data for list or replaces data for detail endpoint
   const updateData = useCallback((data: TunewsModel[] | TunewsModel | null) => {
     if (data === null) {
       setData(null)
-      return
+    } else if (!Array.isArray(data)) {
+      // TuNews details endpoint returns a single model but we expect an array
+      setData([data])
+    } else {
+      setData(previousData => [...(previousData ?? []), ...data])
     }
-    // TuNews details endpoint returns a single model but we expect an array
-    const newData = Array.isArray(data) ? data : [data]
-    setData(previousData => [...(previousData ?? []), ...newData])
   }, [])
 
   const reset = useCallback(() => {
@@ -68,6 +68,7 @@ const useLoadTuNews = ({ city, language, newsId }: ParamsType): TuNewsReturnType
             count: TUNEWS_FETCH_COUNT_LIMIT
           })
     }
+
     loadFromEndpoint<TunewsModel[] | TunewsModel>(request, updateData, setError, setLoading).catch(e => setError(e))
   }, [language, city, page, newsId, updateData])
 
