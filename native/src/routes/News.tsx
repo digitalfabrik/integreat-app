@@ -8,11 +8,11 @@ import {
   fromError,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
-  NotFoundError,
-  TunewsModel,
-  TU_NEWS_TYPE,
   NewsType,
-  ReturnType
+  NotFoundError,
+  ReturnType,
+  TU_NEWS_TYPE,
+  TunewsModel
 } from 'api-client'
 
 import Failure from '../components/Failure'
@@ -44,13 +44,8 @@ const News = (props: PropsType): ReactElement => {
   const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
 
   const rendersNewsListItem = useCallback(
-    (cityCode: string, language: string) => ({
-      item,
-      index
-    }: {
-      item: LocalNewsModel | TunewsModel
-      index: number
-    }) => {
+    (params: { item: LocalNewsModel | TunewsModel; index: number }) => {
+      const { item, index } = params
       const navigateToNews = () => selectNews(item.id.toString())
 
       return (
@@ -64,7 +59,7 @@ const News = (props: PropsType): ReactElement => {
         />
       )
     },
-    [selectedNewsType, selectNews]
+    [selectedNewsType, selectNews, language]
   )
 
   const isDisabled =
@@ -111,7 +106,7 @@ const News = (props: PropsType): ReactElement => {
         items={data}
         isFetchingMore={loading}
         fetchMoreItems={loadMore}
-        renderItem={rendersNewsListItem(cityModel.code, language)}
+        renderItem={rendersNewsListItem}
         refresh={refresh}
       />
     </View>
