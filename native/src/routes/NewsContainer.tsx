@@ -3,6 +3,7 @@ import { View } from 'react-native'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType } from 'api-client'
 
+import LayoutContainer from '../components/LayoutContainer'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
@@ -28,7 +29,7 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
   // TODO handle back navigation
 
   if (!cityModel || !route) {
-    return <></>
+    return <LayoutContainer />
   }
 
   const { language, type: routeNewsType, newsId: routeNewsId } = route
@@ -43,10 +44,7 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
   }
 
   return (
-    <View
-      style={{
-        flex: 1
-      }}>
+    <LayoutContainer>
       <NewsHeader selectedNewsType={newsType} cityModel={cityModel} navigateToNews={navigateToNews} />
       {isLocalNews ? (
         <LocalNews
@@ -63,7 +61,7 @@ const NewsContainer = ({ route: { key } }: NavigationPropsType): ReactElement =>
           language={language}
         />
       )}
-    </View>
+    </LayoutContainer>
   )
 }
 
