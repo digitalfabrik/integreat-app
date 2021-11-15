@@ -1,4 +1,4 @@
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import dashboardPage from '../pageobjects/dashboard.page'
 import { navigateToDashboard } from '../utils/navigationUtils'
 

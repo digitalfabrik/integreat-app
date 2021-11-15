@@ -1,11 +1,14 @@
 import { defaultCity, filter } from '../../../shared/constants'
-import { hideKeyboard, swipe, SwipeDirection } from '../Action'
+import Gestures from '../helpers/Gestures'
+import Keyboard from '../helpers/Keyboard'
 import DashboardPage from '../pageobjects/dashboard.page'
 import LandingPage from '../pageobjects/landing.page'
 
+const MAX_SCROLLS = 4
+
 describe('navigate to dashboard', () => {
   it('filter and navigate to City', async () => {
-    expect(await LandingPage.exists()).toBeTruthy()
+    await expect(LandingPage.get()).toExist()
 
     const cities = await LandingPage.cities
     const search = await LandingPage.search
@@ -14,16 +17,16 @@ describe('navigate to dashboard', () => {
     await search.click()
     await search.addValue(filter)
 
-    await hideKeyboard()
-    await swipe(SwipeDirection.Down)
+    await Keyboard.hide()
+    await Gestures.checkIfDisplayedWithSwipeUp(LandingPage.city(defaultCity), MAX_SCROLLS)
 
     const filteredCity = await LandingPage.city(defaultCity)
 
-    expect(filteredCity).toBeDefined()
+    expect(filteredCity).toExist()
 
     // navigate to dashboard
     await filteredCity.click()
 
-    expect(await DashboardPage.exists()).toBeTruthy()
+    await expect(DashboardPage.get()).toExist()
   })
 })
