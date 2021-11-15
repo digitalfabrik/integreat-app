@@ -11,7 +11,7 @@ import {
   NotFoundError,
   TunewsModel,
   TU_NEWS_TYPE,
-  NewsType
+  NewsType, ReturnType
 } from 'api-client'
 
 import Failure from '../components/Failure'
@@ -19,6 +19,7 @@ import NewsDetail from '../components/NewsDetail'
 import NewsList from '../components/NewsList'
 import NewsListItem from '../components/NewsListItem'
 import { NewsModelsType } from '../redux/StateType'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const NoNews = styled.Text`
   color: ${props => props.theme.colors.textColor};
@@ -26,21 +27,17 @@ const NoNews = styled.Text`
   align-self: center;
   margin-top: 20px;
 `
-export type PropsType = {
+export type PropsType = ReturnType<NewsModelsType> & {
   selectNews: (newsId: string | null) => void
   newsId: string | null | undefined
-  news: NewsModelsType | null
   cityModel: CityModel
   language: string
   selectedNewsType: NewsType
-  isFetchingMore: boolean
-  fetchMoreNews?: () => void
-  refresh: () => void
+  loadMore?: () => void
 }
 
 const News = (props: PropsType): ReactElement => {
-  const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, refresh, selectNews } = props
-  const { cityModel } = props
+  const { data, loading, loadMore, error, newsId, language, selectedNewsType, refresh, selectNews, cityModel } = props
   const { t } = useTranslation('news')
 
   const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
@@ -69,22 +66,26 @@ const News = (props: PropsType): ReactElement => {
     [selectedNewsType, selectNews]
   )
 
-  if (selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled) {
-    const error = new NotFoundError({
+  const isDisabled = selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled
+  const errorToShow = isDisabled
+    ? new NotFoundError({
       type: 'category',
       id: selectedNewsType,
       city: cityModel.code,
       language
     })
-    return <Failure code={fromError(error)} />
+  : error
+
+  if (errorToShow) {
+    return <Failure code={fromError(errorToShow)} />
   }
 
-  if (!news) {
-    return <></>
+  if (!data) {
+    return <LoadingSpinner />
   }
 
   if (newsId) {
-    const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
+    const selectedNewsItem = data.find(_newsItem => _newsItem.id.toString() === newsId)
 
     if (selectedNewsItem) {
       return <NewsDetail newsItem={selectedNewsItem} language={language} />
@@ -105,9 +106,9 @@ const News = (props: PropsType): ReactElement => {
       }}>
       <NewsList
         renderNoItemsComponent={renderNoItemsComponent}
-        items={news}
-        isFetchingMore={isFetchingMore}
-        fetchMoreItems={fetchMoreNews}
+        items={data}
+        isFetchingMore={loading}
+        fetchMoreItems={loadMore}
         renderItem={rendersNewsListItem(cityModel.code, language)}
         refresh={refresh}
       />

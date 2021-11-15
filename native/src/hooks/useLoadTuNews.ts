@@ -20,7 +20,7 @@ type ParamsType = {
   newsId: string | null | undefined
 }
 
-export type TuNewsReturnType = ReturnType<TunewsModel []> & {
+type TuNewsReturnType = ReturnType<TunewsModel []> & {
   loadMore: () => void
 }
 
