@@ -1,11 +1,11 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 
 import {
   CityModel,
   TU_NEWS_TYPE
 } from 'api-client'
 
-import useLoadTuNews, { FIRST_PAGE_INDEX } from '../hooks/useLoadTuNews'
+import useLoadTuNews from '../hooks/useLoadTuNews'
 import News from './News'
 
 export type PropsType = {
@@ -16,10 +16,7 @@ export type PropsType = {
 }
 
 const TuNewsNews = ({ language, cityModel, selectNews, newsId }: PropsType): ReactElement => {
-  const [page, setPage] = useState<number>(FIRST_PAGE_INDEX)
-  const { data, refresh, loading } = useLoadTuNews({ city: cityModel.code, language, page, newsId })
-
-  const fetchMore = () => setPage(previousPage => previousPage + 1)
+  const { data, refresh, loading, loadMore } = useLoadTuNews({ city: cityModel.code, language, newsId })
 
   return (
     <News
@@ -28,7 +25,7 @@ const TuNewsNews = ({ language, cityModel, selectNews, newsId }: PropsType): Rea
       cityModel={cityModel}
       language={language}
       selectedNewsType={TU_NEWS_TYPE}
-      fetchMoreNews={fetchMore}
+      fetchMoreNews={loadMore}
       isFetchingMore={loading}
       refresh={refresh}
       selectNews={selectNews}
