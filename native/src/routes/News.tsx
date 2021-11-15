@@ -20,7 +20,8 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import NewsDetail from '../components/NewsDetail'
 import NewsList from '../components/NewsList'
 import NewsListItem from '../components/NewsListItem'
-import { NewsModelsType } from '../redux/StateType'
+
+type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
 const NoNews = styled.Text`
   color: ${props => props.theme.colors.textColor};

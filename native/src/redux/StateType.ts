@@ -7,12 +7,9 @@ import {
   ErrorCode,
   EventModel,
   LanguageModel,
-  LocalNewsModel,
   PoiModel,
-  TunewsModel,
   CategoriesRouteType,
   EventsRouteType,
-  NewsRouteType,
   NewsType,
   PoisRouteType
 } from 'api-client'
@@ -124,36 +121,6 @@ export type NewsRouteConfigType = {
   readonly city: string
   readonly type: NewsType
 }
-export type NewsModelsType = ReadonlyArray<LocalNewsModel | TunewsModel>
-export type NewsRouteStateType =
-  | (NewsRouteConfigType & {
-      readonly routeType: NewsRouteType
-      readonly status: 'ready'
-      readonly models: NewsModelsType
-      readonly hasMoreNews: boolean
-      readonly page: number
-      readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined>
-    })
-  | (NewsRouteConfigType & {
-      readonly routeType: NewsRouteType
-      readonly status: 'languageNotAvailable'
-      readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined>
-    })
-  | (NewsRouteConfigType & {
-      readonly routeType: NewsRouteType
-      readonly status: 'loading'
-    })
-  | (NewsRouteConfigType & {
-      readonly routeType: NewsRouteType
-      readonly status: 'loadingMore'
-      readonly models: NewsModelsType
-    })
-  | (NewsRouteConfigType & {
-      readonly routeType: NewsRouteType
-      readonly status: 'error'
-      readonly code: ErrorCode
-      readonly message: string | null | undefined
-    })
 export type PageResourceCacheEntryStateType = {
   readonly filePath: string
   readonly lastUpdate: moment.Moment
@@ -208,7 +175,7 @@ export const defaultContentLanguageState = config.defaultFallback
 export type SearchRouteType = {
   readonly categoriesMap: CategoriesMapModel
 }
-export type RouteStateType = CategoryRouteStateType | NewsRouteStateType | EventRouteStateType | PoiRouteStateType
+export type RouteStateType = CategoryRouteStateType | EventRouteStateType | PoiRouteStateType
 export type RouteMappingType = Readonly<Record<string, RouteStateType>>
 export type CityContentStateType = {
   readonly city: string

@@ -3,10 +3,11 @@ import { FlatList, ListRenderItem, RefreshControl } from 'react-native'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
 
-import { NewsModelsType } from '../redux/StateType'
 import LoadingSpinner from './LoadingSpinner'
 
 const keyExtractor = (item: unknown, index: number) => `${index}`
+
+type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
 type PropType = {
   items: NewsModelsType

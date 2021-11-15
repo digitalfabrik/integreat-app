@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { LanguageModel, NEWS_ROUTE, ChangeLanguageModalRouteType, NewsType } from 'api-client'
+import { LanguageModel, ChangeLanguageModalRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
@@ -18,32 +18,27 @@ type StatePropsType = {
   currentLanguage: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
-  newsType: NewsType | undefined
 }
 type DispatchPropsType = {
-  changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => void
+  changeLanguage: (newLanguage: string) => void
 }
 type PropsType = OwnPropsType & StatePropsType & DispatchPropsType
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const { currentLanguage, languages, availableLanguages, previousKey } = ownProps.route.params
-  const newsRouteMapping = state.cityContent?.routeMapping
-  const route = newsRouteMapping && newsRouteMapping[previousKey]
-  const newsType = route?.routeType === NEWS_ROUTE ? route.type : undefined
+  const { currentLanguage, languages, availableLanguages } = ownProps.route.params
   return {
     currentLanguage,
     languages,
-    availableLanguages,
-    newsType
+    availableLanguages
   }
 }
 
 type DispatchType = Dispatch<StoreActionType>
 
 const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): DispatchPropsType => {
-  const { cityCode, previousKey } = ownProps.route.params
+  const { cityCode } = ownProps.route.params
   return {
-    changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => {
+    changeLanguage: (newLanguage: string) => {
       dispatch({
         type: 'SWITCH_CONTENT_LANGUAGE',
         params: {
@@ -51,23 +46,6 @@ const mapDispatchToProps = (dispatch: DispatchType, ownProps: OwnPropsType): Dis
           city: cityCode
         }
       })
-
-      if (newsType) {
-        dispatch({
-          type: 'FETCH_NEWS',
-          params: {
-            city: cityCode,
-            language: newLanguage,
-            newsId: null,
-            type: newsType,
-            key: previousKey,
-            criterion: {
-              forceUpdate: false,
-              shouldRefreshResources: false
-            }
-          }
-        })
-      }
     }
   }
 }
