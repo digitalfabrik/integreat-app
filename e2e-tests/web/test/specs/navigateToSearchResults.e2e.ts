@@ -17,14 +17,14 @@ describe('navigateToSearchResult', () => {
     expect(parsedSearchUrl.pathname).toBe(`/${searchPath}`)
 
     const searchBar = await SearchPage.search
-    expect(searchBar).toBeDefined()
+    expect(searchBar).toExist()
     await browser.keys(contentSearch)
 
     const firstResult = await $('=Language')
     const secondResult = await $('=Language courses')
 
-    expect(firstResult).toBeDefined()
-    expect(secondResult).toBeDefined()
+    expect(firstResult).toExist()
+    expect(secondResult).toExist()
 
     await firstResult.click()
     const resultUrl = await browser.getUrl()
