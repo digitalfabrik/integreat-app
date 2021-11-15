@@ -148,21 +148,22 @@ const createSettingsSections = ({
           }
         }
       },
-      ...(!buildConfig().featureFlags.jpalTracking
-        ? []
-        : [
+      // Only show the jpal tracking setting for users that opened it via deep link before
+      ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
+        ? [
             {
               title: t('tracking'),
-              description: t('trackingDescription'),
+              description: t('trackingShortDescription', { appName: buildConfig().appName }),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {
                 navigation.navigate(JPAL_TRACKING_ROUTE, {
-                  trackingCode: settings.jpalTrackingCode
+                  trackingCode: null
                 })
               }
             }
-          ])
+          ]
+        : [])
     ]
   }
 ]

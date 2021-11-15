@@ -5,9 +5,9 @@ parameters:
     default: integreat
 docker:
   - image: circleci/node:14.18.0
-resource_class: small
+resource_class: medium
 environment:
-  TOTAL_CPUS: 1 # For resource_class small
+  TOTAL_CPUS: 2 # For resource_class medium
 shell: /bin/bash -eo pipefail
 steps:
   - skip_job:
