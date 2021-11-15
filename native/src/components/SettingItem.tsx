@@ -33,6 +33,7 @@ const RightContentContainer = styled.View`
   flex: 0.4;
   justify-content: center;
   align-items: flex-end;
+  padding: 0 5px;
 `
 const ContentContainer = styled.View`
   flex: 1;

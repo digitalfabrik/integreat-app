@@ -420,7 +420,7 @@ jobs:
         docker:
             - image: circleci/node:14.18.0
         environment:
-            TOTAL_CPUS: 1
+            TOTAL_CPUS: 2
         parameters:
             build_config_name:
                 default: integreat
@@ -430,7 +430,7 @@ jobs:
                     - integreat-test-cms
                     - aschaffenburg
                 type: enum
-        resource_class: small
+        resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
             - skip_job:

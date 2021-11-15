@@ -1,7 +1,7 @@
 import Page from './page'
 
 export class CategoriesPage extends Page {
-  private findCategory(category: string): Promise<WebdriverIO.Element> {
+  private findCategory(category: string) {
     return $(`*=${category}`)
   }
 
