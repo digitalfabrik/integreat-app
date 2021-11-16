@@ -47,7 +47,6 @@ describe('Header', () => {
     goToLanguageChange,
     routeCityModel: city,
     language: 'de',
-    shareUrl: 'testUrl',
     dispatch
   })
 
