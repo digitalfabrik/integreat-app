@@ -53,6 +53,7 @@ const TuNewsNews = ({
         refresh: tuNewsElementRefresh,
         error: tuNewsElementError,
         data: tuNewsElementData ? [tuNewsElementData] : null,
+        // Prevent flickering (if newsId is freshly set it takes one rerender for loading to be set to true)
         loading: tuNewsElementLoading || (!tuNewsElementError && !tuNewsElementData)
       }
     : tuNewsResponse
