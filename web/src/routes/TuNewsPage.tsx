@@ -38,7 +38,7 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
       setLoading(true)
       setPage(page + 1)
       const endpoint = createTunewsEndpoint(tunewsApiBaseUrl)
-      const request = () => endpoint.request({ city: cityCode, language: languageCode, page, count: DEFAULT_COUNT })
+      const request = () => endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
       const addTuNews = (data: TunewsModel[] | null) => {
         if (data !== null) {
           setTuNews(tuNews.concat(data))
@@ -50,7 +50,7 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
       }
       await loadFromEndpoint(request, addTuNews, setError, setLoading)
     }
-  }, [page, cityCode, languageCode, tuNews, setTuNews, setError, setLoading, hasMore])
+  }, [page, languageCode, tuNews, setTuNews, setError, setLoading, hasMore])
 
   useEffect(() => {
     // Reset on language change
