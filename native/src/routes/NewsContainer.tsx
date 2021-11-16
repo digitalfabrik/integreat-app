@@ -64,7 +64,12 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
     <LayoutContainer>
       <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={navigateToNews} />
       {isLocalNews ? (
-        <LocalNews newsId={newsId} selectNews={setSelectedNewsId} cityModel={cityModel} language={selectedLanguage} />
+        <LocalNews
+          newsId={selectedNewsId}
+          selectNews={setSelectedNewsId}
+          cityModel={cityModel}
+          language={selectedLanguage}
+        />
       ) : (
         <TuNews
           newsId={selectedNewsId}
