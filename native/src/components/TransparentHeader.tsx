@@ -1,13 +1,11 @@
 import { HeaderBackButton } from '@react-navigation/elements'
 import { StackHeaderProps } from '@react-navigation/stack'
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { TFunction } from 'react-i18next'
+import React, { ReactElement, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
 import { reportError } from '../utils/sentry'
@@ -30,23 +28,13 @@ const BoxShadow = styled.View`
 }
 `
 
-export type PropsType = StackHeaderProps & {
-  theme: ThemeType
-  t: TFunction<'layout'>
-}
+const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  const theme = useTheme()
 
-type RouteParams = { [key: string]: string } | null
+  const shareUrl = (route.params as { shareUrl?: string } | undefined)?.shareUrl
 
-class TransparentHeader extends React.PureComponent<PropsType> {
-  goBackInStack = (): void => {
-    const { navigation } = this.props
-    navigation.goBack()
-  }
-
-  onShare = async (): Promise<void> => {
-    const { scene, t } = this.props
-    const shareUrl = (scene.route.params as RouteParams)?.shareUrl
-
+  const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
       return
@@ -67,27 +55,23 @@ class TransparentHeader extends React.PureComponent<PropsType> {
       // TODO Show snackbar
       reportError(e)
     }
-  }
+  }, [shareUrl, t])
 
-  render(): ReactNode {
-    const { theme, scene, t } = this.props
-    const shareUrl = (scene.route.params as RouteParams)?.shareUrl
-    return (
-      <BoxShadow theme={theme}>
-        <Horizontal>
-          <HorizontalLeft>
-            <HeaderBackButton onPress={this.goBackInStack} labelVisible={false} />
-          </HorizontalLeft>
-          <MaterialHeaderButtons
-            cancelLabel={t('cancel')}
-            theme={theme}
-            items={[]}
-            overflowItems={shareUrl ? [<HiddenItem key='share' title={t('share')} onPress={this.onShare} />] : []}
-          />
-        </Horizontal>
-      </BoxShadow>
-    )
-  }
+  return (
+    <BoxShadow theme={theme}>
+      <Horizontal>
+        <HorizontalLeft>
+          <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
+        </HorizontalLeft>
+        <MaterialHeaderButtons
+          cancelLabel={t('cancel')}
+          theme={theme}
+          items={[]}
+          overflowItems={shareUrl ? [<HiddenItem key='share' title={t('share')} onPress={onShare} />] : []}
+        />
+      </Horizontal>
+    </BoxShadow>
+  )
 }
 
 export default TransparentHeader

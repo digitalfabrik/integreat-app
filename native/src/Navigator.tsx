@@ -30,7 +30,7 @@ import {
 import HeaderContainer from './components/HeaderContainer'
 import RedirectContainer from './components/RedirectContainer'
 import SettingsHeaderContainer from './components/SettingsHeaderContainer'
-import TransparentHeaderContainer from './components/TransparentHeaderContainer'
+import TransparentHeader from './components/TransparentHeader'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
@@ -55,7 +55,7 @@ import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
 import { initSentry, log } from './utils/sentry'
 
-const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeaderContainer {...headerProps} />
+const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...headerProps} />
 
 const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeaderContainer {...headerProps} />
 
