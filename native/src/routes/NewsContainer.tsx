@@ -22,7 +22,7 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
   const [selectedLanguage, setSelectedLanguage] = useState<string>(languageCode)
   const cities = useCities()
   const dispatch = useDispatch()
-  const isLocalNews = newsType === LOCAL_NEWS_TYPE
+  const isLocalNews = selectedNewsType === LOCAL_NEWS_TYPE
 
   const cityModel = cities?.find(model => model.code === cityCode)
 

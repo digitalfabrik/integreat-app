@@ -1,8 +1,16 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 
-import { CityModel, TU_NEWS_TYPE } from 'api-client'
+import {
+  CityModel,
+  createTunewsElementEndpoint,
+  Payload,
+  TU_NEWS_TYPE,
+  TunewsModel,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
+import { tunewsApiUrl } from '../constants/endpoint'
 import useLoadTuNews from '../hooks/useLoadTuNews'
 import News from './News'
 
@@ -21,11 +29,33 @@ const TuNewsNews = ({
   newsId,
   changeUnavailableLanguage
 }: PropsType): ReactElement => {
-  const { availableLanguages, ...response } = useLoadTuNews({ city: cityModel.code, language, newsId })
+  const { availableLanguages, ...tuNewsResponse } = useLoadTuNews({ language })
+
+  const requestTuNewsElement = useCallback(async () => {
+    if (newsId) {
+      return createTunewsElementEndpoint(tunewsApiUrl).request({ id: parseInt(newsId, 10) })
+    }
+    return new Payload<TunewsModel>(false)
+  }, [newsId])
+  const {
+    data: tuNewsElementData,
+    loading: tuNewsElementLoading,
+    error: tuNewsElementError,
+    refresh: tuNewsElementRefresh
+  } = useLoadFromEndpoint(requestTuNewsElement)
 
   if (availableLanguages && !availableLanguages.find(model => model.code === language)) {
     return <LanguageNotAvailableContainer languages={availableLanguages} changeLanguage={changeUnavailableLanguage} />
   }
+
+  const response = newsId
+    ? {
+        refresh: tuNewsElementRefresh,
+        error: tuNewsElementError,
+        data: tuNewsElementData ? [tuNewsElementData] : null,
+        loading: tuNewsElementLoading || (!tuNewsElementError && !tuNewsElementData)
+      }
+    : tuNewsResponse
 
   return (
     <News
