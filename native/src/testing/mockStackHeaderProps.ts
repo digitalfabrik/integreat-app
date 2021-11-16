@@ -7,10 +7,10 @@ type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
 
-const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}): StackHeaderProps =>
+const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}, routeIndex = 0): StackHeaderProps =>
   merge(
     {
-      navigation: createNavigationMock(),
+      navigation: createNavigationMock(routeIndex),
       route: {
         key: 'key-0'
       },
