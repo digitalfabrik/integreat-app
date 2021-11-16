@@ -1,5 +1,4 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import { StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
@@ -7,6 +6,7 @@ import { HiddenItem } from 'react-navigation-header-buttons'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
@@ -28,11 +28,16 @@ const BoxShadow = styled.View`
 }
 `
 
-const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElement => {
+type PropsType = {
+  route: RoutePropType<RoutesType>
+  navigation: NavigationPropType<RoutesType>
+}
+
+const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
 
-  const shareUrl = (route.params as { shareUrl?: string } | undefined)?.shareUrl
+  const shareUrl = route.params?.shareUrl
 
   const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
