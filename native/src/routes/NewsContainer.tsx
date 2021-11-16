@@ -1,12 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { LOCAL_NEWS_TYPE, NewsRouteType, NewsType } from 'api-client'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType } from 'api-client'
 
 import LayoutContainer from '../components/LayoutContainer'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import LocalNews from './LocalNews'
 import TuNews from './TuNews'
 
@@ -16,26 +17,34 @@ type NavigationPropsType = {
 }
 
 const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): ReactElement => {
-  const { cityCode, languageCode, newsType, newsId } = params
-  const [selectedNewsType, setSelectedNewsType] = useState<NewsType>(newsType)
-  const [selectedNewsId, setSelectedNewsId] = useState<string | null>(newsId)
+  const { cityCode, languageCode, newsType: routeNewsType, newsId: routeNewsId } = params
+  const [newsType, setNewsType] = useState<NewsType>(routeNewsType)
+  const [newsId, setNewsId] = useState<string | null>(routeNewsId)
   const [selectedLanguage, setSelectedLanguage] = useState<string>(languageCode)
   const cities = useCities()
   const dispatch = useDispatch()
-  const isLocalNews = selectedNewsType === LOCAL_NEWS_TYPE
+  const isLocalNews = newsType === LOCAL_NEWS_TYPE
 
   const cityModel = cities?.find(model => model.code === cityCode)
+
+  useSetShareUrl(navigation, {
+    route: NEWS_ROUTE,
+    cityCode,
+    languageCode: selectedLanguage,
+    newsType,
+    newsId: newsId ?? undefined
+  })
 
   useEffect(
     // Handle back navigation: If we are at a news detail screen navigate back to overview instead of closing the route
     () =>
       navigation.addListener('beforeRemove', e => {
-        if (selectedNewsId) {
+        if (newsId) {
           e.preventDefault()
-          setSelectedNewsId(null)
+          setNewsId(null)
         }
       }),
-    [navigation, selectedNewsId]
+    [navigation, newsId]
   )
 
   if (!cityModel) {
@@ -43,13 +52,13 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
   }
 
   const navigateToNews = (newsType: NewsType) => {
-    setSelectedNewsId(null)
-    setSelectedNewsType(newsType)
+    setNewsId(null)
+    setNewsType(newsType)
   }
 
   const changeUnavailableLanguage = (newLanguage: string) => {
     // We don't support language change between single news as we don't now whether they are translated and with what id
-    setSelectedNewsId(null)
+    setNewsId(null)
     setSelectedLanguage(newLanguage)
     dispatch({
       type: 'SWITCH_CONTENT_LANGUAGE',
@@ -62,18 +71,13 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
 
   return (
     <LayoutContainer>
-      <NewsHeader selectedNewsType={selectedNewsType} cityModel={cityModel} navigateToNews={navigateToNews} />
+      <NewsHeader selectedNewsType={newsType} cityModel={cityModel} navigateToNews={navigateToNews} />
       {isLocalNews ? (
-        <LocalNews
-          newsId={selectedNewsId}
-          selectNews={setSelectedNewsId}
-          cityModel={cityModel}
-          language={selectedLanguage}
-        />
+        <LocalNews newsId={newsId} selectNews={setNewsId} cityModel={cityModel} language={selectedLanguage} />
       ) : (
         <TuNews
-          newsId={selectedNewsId}
-          selectNews={setSelectedNewsId}
+          newsId={newsId}
+          selectNews={setNewsId}
           cityModel={cityModel}
           language={selectedLanguage}
           changeUnavailableLanguage={changeUnavailableLanguage}

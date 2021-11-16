@@ -4,6 +4,7 @@ import { RefreshControl } from 'react-native'
 
 import {
   createOffersEndpoint,
+  DISCLAIMER_ROUTE,
   EXTERNAL_OFFER_ROUTE,
   fromError,
   NotFoundError,
@@ -21,6 +22,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -41,6 +43,9 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = route.params
   const cities = useCities()
+
+  useSetShareUrl(navigation, { route: OFFERS_ROUTE, languageCode, cityCode })
+
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
     return createOffersEndpoint(apiUrl).request({
