@@ -93,7 +93,7 @@ jest.mock('../routes/ImageViewModal', () => {
 
   return () => <Text>ImageView</Text>
 })
-jest.mock('../components/SettingsHeaderContainer', () => {
+jest.mock('../components/SettingsHeader', () => {
   const { Text } = require('react-native')
 
   return () => <Text>SettingsHeader</Text>
