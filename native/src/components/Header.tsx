@@ -74,17 +74,8 @@ enum HeaderButtonTitle {
 const Header = (props: PropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
-  const {
-    route,
-    navigation,
-    dispatch,
-    shareUrl,
-    language,
-    routeCityModel,
-    goToLanguageChange,
-    peeking,
-    categoriesAvailable
-  } = props
+  const { navigation, dispatch, shareUrl, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } =
+    props
 
   const goToLanding = () => {
     navigateToLanding({
@@ -178,12 +169,13 @@ const Header = (props: PropsType): ReactElement => {
   const showShare = !!shareUrl
   const showChangeLocation = !buildConfig().featureFlags.fixedCity
   const showItems = !peeking && !!goToLanguageChange && categoriesAvailable
+  const canGoBack = navigation.getState().index > 0
 
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {Object.keys(route).length > 1 ? (
+          {canGoBack ? (
             <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
           ) : (
             <Icon source={buildConfigAssets().appIcon} />
