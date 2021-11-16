@@ -1,4 +1,5 @@
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
+import { HeaderBackButton } from '@react-navigation/elements'
+import { StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
