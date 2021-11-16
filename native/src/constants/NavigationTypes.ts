@@ -67,6 +67,10 @@ export type RoutesType =
   | ImageViewModalRouteType
   | FeedbackModalRouteType
 
+type ShareUrlType = {
+  shareUrl: string
+}
+
 type CityContentParamsType = {
   cityCode: string
   languageCode: string
@@ -113,10 +117,10 @@ export type RoutesParamsType = {
     languages: Array<LanguageModel>
     availableLanguages: Array<string>
   }
-  [PDF_VIEW_MODAL_ROUTE]: BasicParams & {
+  [PDF_VIEW_MODAL_ROUTE]: ShareUrlType & {
     url: string
   }
-  [IMAGE_VIEW_MODAL_ROUTE]: BasicParams & {
+  [IMAGE_VIEW_MODAL_ROUTE]: ShareUrlType & {
     url: string
   }
   [FEEDBACK_MODAL_ROUTE]: BasicParams & FeedbackInformationType
