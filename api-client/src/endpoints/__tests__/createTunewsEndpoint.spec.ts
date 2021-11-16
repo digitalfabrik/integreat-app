@@ -38,7 +38,6 @@ describe('tunews', () => {
   const itemModel2 = createNewsItemModel(2, moment.tz('2020-01-24 10:05:22+00:00', 'GMT'))
   const itemModel3 = createNewsItemModel(3, moment.tz('2020-01-22 11:06:22+00:00', 'GMT'))
   const params = {
-    city: 'augsburg',
     language: 'de',
     page: 1,
     count: 1

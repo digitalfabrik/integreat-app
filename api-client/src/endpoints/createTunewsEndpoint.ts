@@ -8,7 +8,6 @@ import { parseHTMLEntities } from '../utils/helpers'
 
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {
-  city: string
   language: string
   page: number
   count: number
