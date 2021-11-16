@@ -4,18 +4,8 @@ import { CityContentStateType, NewsRouteStateType } from '../StateType'
 import { PushNewsActionType } from '../StoreActionType'
 
 const pushNews = (state: CityContentStateType, action: PushNewsActionType): CityContentStateType => {
-  const {
-    news,
-    newsId,
-    key,
-    language,
-    availableLanguages,
-    city,
-    type,
-    page,
-    previouslyFetchedNews,
-    hasMoreNews
-  } = action.params
+  const { news, newsId, key, language, availableLanguages, city, type, page, previouslyFetchedNews, hasMoreNews } =
+    action.params
 
   if (!key) {
     throw new Error('You need to specify a key!')

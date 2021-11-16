@@ -41,15 +41,17 @@ const PoiPage = ({
   theme,
   t
 }: PropsType): ReactElement => {
-  const createNavigateToFeedbackForPoi = (poi: PoiModel) => (isPositiveFeedback: boolean): void => {
-    navigateToFeedback({
-      routeType: POIS_ROUTE,
-      language,
-      path: poi.path,
-      cityCode: cityModel.code,
-      isPositiveFeedback
-    })
-  }
+  const createNavigateToFeedbackForPoi =
+    (poi: PoiModel) =>
+    (isPositiveFeedback: boolean): void => {
+      navigateToFeedback({
+        routeType: POIS_ROUTE,
+        language,
+        path: poi.path,
+        cityCode: cityModel.code,
+        isPositiveFeedback
+      })
+    }
 
   const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
     navigateTo({

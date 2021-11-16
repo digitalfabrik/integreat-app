@@ -93,7 +93,6 @@ OR:
 
 ```js
 import FailureContainer from '../FailureContainer'
-
 const tryAgain = jest.fn()
 const { getByTestId } = render(<FailureContainer tryAgain={tryAgain} />)
 fireEvent.press(getByTestId('button-tryAgain'))

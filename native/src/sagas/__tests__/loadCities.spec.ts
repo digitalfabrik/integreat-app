@@ -3,7 +3,7 @@ import { runSaga } from 'redux-saga'
 import { CityModel } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import loadCities from '../loadCities'
@@ -29,7 +29,7 @@ jest.mock('api-client', () => {
 })
 describe('loadCities', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
   })
   const otherCities = new CityModelBuilder(2).build()
   it('should fetch and set cities if cities are not available', async () => {
@@ -51,7 +51,7 @@ describe('loadCities', () => {
   })
   it('should fetch cities if the stored JSON is malformatted', async () => {
     const path = new DatabaseConnector().getCitiesPath()
-    await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
+    await BlobUtil.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
     const cities = await runSaga({}, loadCities, dataContainer, false).toPromise()
     expect(cities).toBe(mockCities)
