@@ -178,7 +178,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   })
 
   return (
-    <Stack.Navigator initialRouteName={initialRoute.name} headerMode='screen' screenOptions={transitionPreset}>
+    <Stack.Navigator initialRouteName={initialRoute.name} screenOptions={{ ...transitionPreset, headerMode: 'screen' }}>
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
