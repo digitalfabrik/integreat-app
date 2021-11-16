@@ -25,6 +25,7 @@
     "appium": "^1.22.0",
     "eslint-plugin-jasmine": "^4.1.2",
     "eslint-plugin-wdio": "^7.4.2",
+    "expect-webdriverio": "^3.1.4",
     "webdriverio": "^7.16.6"
   },
   "workspaces": {

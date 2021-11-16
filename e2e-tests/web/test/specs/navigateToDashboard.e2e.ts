@@ -18,7 +18,7 @@ describe('navigate to dashboard', () => {
 
     expect(cities.length).toBeGreaterThan(0)
     expect(filteredCities.length).toBeLessThan(cities.length)
-    expect(filteredCity).toBeDefined()
+    expect(filteredCity).toExist()
 
     // navigate to dashboard
     await filteredCity.click()
