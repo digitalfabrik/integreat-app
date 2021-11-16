@@ -10,7 +10,6 @@ import {
   PoiModel,
   CategoriesRouteType,
   EventsRouteType,
-  NewsType,
   PoisRouteType
 } from 'api-client'
 import { config } from 'translations'
@@ -114,13 +113,6 @@ export type EventRouteStateType =
       readonly code: ErrorCode
       readonly message: string | null | undefined
     })
-export type NewsRouteConfigType = {
-  readonly newsId: string | null | undefined
-  // Path is null for the news list
-  readonly language: string
-  readonly city: string
-  readonly type: NewsType
-}
 export type PageResourceCacheEntryStateType = {
   readonly filePath: string
   readonly lastUpdate: moment.Moment
