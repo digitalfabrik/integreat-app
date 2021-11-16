@@ -1,4 +1,4 @@
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import { Page } from './page'
 
 class LandingPage extends Page {
@@ -14,7 +14,7 @@ class LandingPage extends Page {
     return $('~Search-Input')
   }
 
-  async city(name: string) {
+  city(name: string) {
     return $(new Selector().ByText(name).build())
   }
 }

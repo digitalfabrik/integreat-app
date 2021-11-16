@@ -1,16 +1,19 @@
 import { defaultCity, filter } from '../../../shared/constants'
-import { hideKeyboard, swipe, SwipeDirection } from '../Action'
+import Gestures from '../helpers/Gestures'
+import Keyboard from '../helpers/Keyboard'
 import DashboardPage from '../pageobjects/dashboard.page'
 import LandingPage from '../pageobjects/landing.page'
 
+const MAX_SCROLLS = 4
+
 export const navigateToDashboard = async (): Promise<void> => {
-  expect(await LandingPage.exists()).toBeTruthy()
+  await expect(LandingPage.get()).toExist()
   const search = await LandingPage.search
   await search.click()
   await search.addValue(filter)
-  await hideKeyboard()
-  await swipe(SwipeDirection.Down)
+  await Keyboard.hide()
+  await Gestures.checkIfDisplayedWithSwipeUp(LandingPage.city(defaultCity), MAX_SCROLLS)
   const filteredCity = await LandingPage.city(defaultCity)
   await filteredCity.click()
-  expect(await DashboardPage.exists()).toBeTruthy()
+  await expect(await DashboardPage.get()).toExist()
 }
