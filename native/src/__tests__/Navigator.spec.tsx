@@ -12,9 +12,6 @@ import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
-jest.mock('@react-navigation/native/lib/commonjs/useLinking', () => () => ({
-  getInitialState: async () => undefined
-}))
 jest.mock('react-i18next')
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
