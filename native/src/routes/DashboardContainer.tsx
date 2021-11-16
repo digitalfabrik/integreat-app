@@ -6,9 +6,11 @@ import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, Error
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
+import { cityContentPath } from '../navigation/url'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
@@ -201,13 +203,26 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
-  <Dashboard
-    {...rest}
-    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    navigateTo={createNavigate(dispatch, navigation)}
-  />
-)
+const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
+  const {
+    cityModel: { code: cityCode },
+    language: languageCode
+  } = rest
+  useSetShareUrl(navigation, {
+    route: DASHBOARD_ROUTE,
+    languageCode,
+    cityCode,
+    cityContentPath: cityContentPath({ cityCode, languageCode })
+  })
+
+  return (
+    <Dashboard
+      {...rest}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateTo={createNavigate(dispatch, navigation)}
+    />
+  )
+}
 
 export default connect(
   mapStateToProps,

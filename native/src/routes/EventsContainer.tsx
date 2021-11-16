@@ -6,6 +6,7 @@ import { CityModel, ErrorCode, EventModel, EVENTS_ROUTE, EventsRouteType } from 
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { EventRouteStateType, LanguageResourceCacheStateType, StateType } from '../redux/StateType'
@@ -188,13 +189,22 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
-  <Events
-    {...rest}
-    navigateTo={createNavigate(dispatch, navigation)}
-    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-  />
-)
+const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  useSetShareUrl(navigation, {
+    route: EVENTS_ROUTE,
+    languageCode: rest.language,
+    cityCode: rest.cityModel.code,
+    cityContentPath: rest.path ?? undefined
+  })
+
+  return (
+    <Events
+      {...rest}
+      navigateTo={createNavigate(dispatch, navigation)}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+    />
+  )
+}
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { route, navigation, cityCode, language, path } = refreshProps
