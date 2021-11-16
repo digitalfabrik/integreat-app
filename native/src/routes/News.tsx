@@ -36,10 +36,12 @@ export type PropsType = ReturnType<NewsModelsType> & {
   language: string
   selectedNewsType: NewsType
   loadMore?: () => void
+  loadingMore?: boolean
 }
 
 const News = (props: PropsType): ReactElement => {
   const { data, loading, loadMore, error, newsId, language, selectedNewsType, refresh, selectNews, cityModel } = props
+  const { loadingMore } = props
   const { t } = useTranslation('news')
 
   const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
@@ -78,12 +80,14 @@ const News = (props: PropsType): ReactElement => {
     return <Failure code={fromError(errorToShow)} />
   }
 
-  if (!data || loading) {
+  if (loading) {
     return <LoadingSpinner />
   }
 
+  const news = data ?? []
+
   if (newsId) {
-    const selectedNewsItem = data.find(_newsItem => _newsItem.id.toString() === newsId)
+    const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
 
     if (selectedNewsItem) {
       return <NewsDetail newsItem={selectedNewsItem} language={language} />
@@ -104,8 +108,8 @@ const News = (props: PropsType): ReactElement => {
       }}>
       <NewsList
         renderNoItemsComponent={renderNoItemsComponent}
-        items={data}
-        isFetchingMore={loading}
+        items={news}
+        isFetchingMore={loadingMore ?? false}
         fetchMoreItems={loadMore}
         renderItem={rendersNewsListItem}
         refresh={refresh}
