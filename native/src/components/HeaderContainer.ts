@@ -1,5 +1,4 @@
 import { StackHeaderProps } from '@react-navigation/stack'
-import { TFunction, withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 
 import {
@@ -11,16 +10,12 @@ import {
   NEWS_ROUTE
 } from 'api-client'
 
-import Header, { PropsType as HeaderPropsType } from '../components/Header'
-import withTheme from '../hocs/withTheme'
+import Header from '../components/Header'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import { urlFromRouteInformation } from '../navigation/url'
 import { StateType } from '../redux/StateType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 
-type OwnPropsType = StackHeaderProps & {
-  t: TFunction
-}
 type StatePropsType = {
   language: string
   goToLanguageChange?: () => void
@@ -30,15 +25,15 @@ type StatePropsType = {
   shareUrl: string | null | undefined
 }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const routeKey = ownProps.scene.route.key
+const mapStateToProps = (state: StateType, ownProps: StackHeaderProps): StatePropsType => {
+  const routeKey = ownProps.route.key
   // @ts-ignore
-  const cityCode = ownProps.scene.route.params?.cityCode || state.cityContent?.city
+  const cityCode = ownProps.route.params?.cityCode || state.cityContent?.city
   // @ts-ignore
-  const languageCode = ownProps.scene.route.params?.languageCode || state.contentLanguage
+  const languageCode = ownProps.route.params?.languageCode || state.contentLanguage
   const route = state.cityContent?.routeMapping[routeKey]
   const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
-  const routeName = ownProps.scene.route.name
+  const routeName = ownProps.route.name
   const simpleRouteShareUrl =
     typeof cityCode === 'string' && typeof languageCode === 'string' && (simpleRoutes as string[]).includes(routeName)
       ? urlFromRouteInformation({
@@ -48,15 +43,15 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
         })
       : null
   const newsRouteShareUrl =
-    ownProps.scene.route.name === NEWS_ROUTE
+    ownProps.route.name === NEWS_ROUTE
       ? urlFromRouteInformation({
           cityCode,
           languageCode,
           route: NEWS_ROUTE,
           // @ts-ignore
-          newsType: ownProps.scene.route.params.newsType,
+          newsType: ownProps.route.params.newsType,
           // @ts-ignore
-          newsId: ownProps.scene.route.params.newsId
+          newsId: ownProps.route.params.newsId
         })
       : null
   const languages = state.cityContent?.languages
@@ -121,4 +116,4 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-export default withTranslation('layout')(connect(mapStateToProps)(withTheme<HeaderPropsType>(Header)))
+export default connect(mapStateToProps)(Header)
