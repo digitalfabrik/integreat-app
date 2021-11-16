@@ -179,140 +179,36 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
   return (
     <Stack.Navigator initialRouteName={initialRoute.name} headerMode='screen' screenOptions={transitionPreset}>
-      <Stack.Screen
-        name={REDIRECT_ROUTE}
-        component={RedirectContainer}
-        options={{
-          header: () => null
-        }}
-      />
-      <Stack.Screen
-        name={INTRO_ROUTE}
-        component={Intro}
-        options={{
-          header: () => null
-        }}
-        initialParams={{}}
-      />
-      <Stack.Screen
-        name={LANDING_ROUTE}
-        component={LandingContainer}
-        options={{
-          header: () => null
-        }}
-      />
-      <Stack.Screen
-        name={DASHBOARD_ROUTE}
-        component={DashboardContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={CATEGORIES_ROUTE}
-        component={CategoriesContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={OFFERS_ROUTE}
-        component={OffersContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={SPRUNGBRETT_OFFER_ROUTE}
-        component={SprungbrettOfferContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={EXTERNAL_OFFER_ROUTE}
-        component={ExternalOfferContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={POIS_ROUTE}
-        component={PoisContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={EVENTS_ROUTE}
-        component={EventsContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={NEWS_ROUTE}
-        component={NewsContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={DISCLAIMER_ROUTE}
-        component={DisclaimerContainer}
-        options={{
-          header: defaultHeader
-        }}
-      />
-      <Stack.Screen
-        name={SEARCH_ROUTE}
-        component={SearchModalContainer}
-        options={{
-          header: () => null
-        }}
-      />
-      <Stack.Screen
-        name={PDF_VIEW_MODAL_ROUTE}
-        component={PDFViewModal}
-        options={{
-          header: transparentHeader
-        }}
-      />
-      <Stack.Screen
-        name={CHANGE_LANGUAGE_MODAL_ROUTE}
-        component={ChangeLanguageModalContainer}
-        options={{
-          header: transparentHeader
-        }}
-      />
-      <Stack.Screen
-        name={IMAGE_VIEW_MODAL_ROUTE}
-        component={ImageViewModal}
-        options={{
-          header: transparentHeader
-        }}
-      />
-      <Stack.Screen
-        name={FEEDBACK_MODAL_ROUTE}
-        component={FeedbackModalContainer}
-        options={{
-          header: transparentHeader
-        }}
-      />
-      <Stack.Screen
-        name={SETTINGS_ROUTE}
-        component={SettingsContainer}
-        options={{
-          header: settingsHeader
-        }}
-      />
-      <Stack.Screen
-        name={JPAL_TRACKING_ROUTE}
-        component={JpalTracking}
-        options={{
-          header: transparentHeader
-        }}
-      />
+      <Stack.Group screenOptions={{ header: () => null }}>
+        <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} />
+        <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
+        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} />
+        <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
+      </Stack.Group>
+
+      <Stack.Group screenOptions={{ header: defaultHeader }}>
+        <Stack.Screen name={DASHBOARD_ROUTE} component={DashboardContainer} />
+        <Stack.Screen name={CATEGORIES_ROUTE} component={CategoriesContainer} />
+        <Stack.Screen name={OFFERS_ROUTE} component={OffersContainer} />
+        <Stack.Screen name={SPRUNGBRETT_OFFER_ROUTE} component={SprungbrettOfferContainer} />
+        <Stack.Screen name={EXTERNAL_OFFER_ROUTE} component={ExternalOfferContainer} />
+        <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
+        <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
+        <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
+        <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+      </Stack.Group>
+
+      <Stack.Group screenOptions={{ header: transparentHeader }}>
+        <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
+        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} />
+        <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
+        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
+        <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
+      </Stack.Group>
+
+      <Stack.Group screenOptions={{ header: settingsHeader }}>
+        <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} />
+      </Stack.Group>
     </Stack.Navigator>
   )
 }
