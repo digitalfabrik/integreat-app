@@ -25,7 +25,9 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
   const isLocalNews = newsType === LOCAL_NEWS_TYPE
 
   const cityModel = cities?.find(model => model.code === cityCode)
+
   useEffect(
+    // Handle back navigation: If we are at a news detail screen navigate back to overview instead of closing the route
     () =>
       navigation.addListener('beforeRemove', e => {
         if (selectedNewsId) {
@@ -46,6 +48,7 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
   }
 
   const changeUnavailableLanguage = (newLanguage: string) => {
+    // We don't support language change between single news as we don't now whether they are translated and with what id
     setSelectedNewsId(null)
     setSelectedLanguage(newLanguage)
     dispatch({
