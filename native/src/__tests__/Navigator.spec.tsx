@@ -103,7 +103,7 @@ jest.mock('../components/HeaderContainer', () => {
 
   return () => <Text>Header</Text>
 })
-jest.mock('../components/TransparentHeaderContainer', () => {
+jest.mock('../components/TransparentHeader', () => {
   const { Text } = require('react-native')
 
   return () => <Text>TransparentHeader</Text>
