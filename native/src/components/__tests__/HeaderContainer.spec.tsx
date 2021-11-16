@@ -125,10 +125,8 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for categories route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          key: 'routeKey1'
-        }
+      route: {
+        key: 'routeKey1'
       }
     })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/abc`
@@ -139,11 +137,9 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for events overview route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: EVENTS_ROUTE,
-          key: 'routeKeyEvent1'
-        }
+      route: {
+        name: EVENTS_ROUTE,
+        key: 'routeKeyEvent1'
       }
     })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}`
@@ -154,11 +150,9 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for specific event route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: EVENTS_ROUTE,
-          key: 'routeKeyEvent2'
-        }
+      route: {
+        name: EVENTS_ROUTE,
+        key: 'routeKeyEvent2'
       }
     })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${EVENTS_ROUTE}/specific-event`
@@ -169,15 +163,13 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for local news route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: NEWS_ROUTE,
-          key: 'routeKeyNews1',
-          params: {
-            cityCode: city.code,
-            languageCode: language.code,
-            newsType: LOCAL_NEWS_TYPE
-          }
+      route: {
+        name: NEWS_ROUTE,
+        key: 'routeKeyNews1',
+        params: {
+          cityCode: city.code,
+          languageCode: language.code,
+          newsType: LOCAL_NEWS_TYPE
         }
       }
     })
@@ -189,16 +181,14 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for local news details route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: NEWS_ROUTE,
-          key: 'routeKeyNews1',
-          params: {
-            cityCode: city.code,
-            languageCode: language.code,
-            newsType: LOCAL_NEWS_TYPE,
-            newsId: '12345'
-          }
+      route: {
+        name: NEWS_ROUTE,
+        key: 'routeKeyNews1',
+        params: {
+          cityCode: city.code,
+          languageCode: language.code,
+          newsType: LOCAL_NEWS_TYPE,
+          newsId: '12345'
         }
       }
     })
@@ -211,15 +201,13 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for tunews route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: NEWS_ROUTE,
-          key: 'routeKeyNews1',
-          params: {
-            cityCode: city.code,
-            languageCode: language.code,
-            newsType: TU_NEWS_TYPE
-          }
+      route: {
+        name: NEWS_ROUTE,
+        key: 'routeKeyNews1',
+        params: {
+          cityCode: city.code,
+          languageCode: language.code,
+          newsType: TU_NEWS_TYPE
         }
       }
     })
@@ -231,16 +219,14 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for tunews details route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: NEWS_ROUTE,
-          key: 'routeKeyNews1',
-          params: {
-            cityCode: city.code,
-            languageCode: language.code,
-            newsType: TU_NEWS_TYPE,
-            newsId: '12345'
-          }
+      route: {
+        name: NEWS_ROUTE,
+        key: 'routeKeyNews1',
+        params: {
+          cityCode: city.code,
+          languageCode: language.code,
+          newsType: TU_NEWS_TYPE,
+          newsId: '12345'
         }
       }
     })
@@ -253,10 +239,8 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for offers route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: OFFERS_ROUTE
-        }
+      route: {
+        name: OFFERS_ROUTE
       }
     })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}`
@@ -267,10 +251,8 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for sprungbrett offer route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: SPRUNGBRETT_OFFER_ROUTE
-        }
+      route: {
+        name: SPRUNGBRETT_OFFER_ROUTE
       }
     })
     const shareUrl = `https://integreat.app/${city.code}/${language.code}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`
@@ -281,13 +263,11 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for disclaimer route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: DISCLAIMER_ROUTE,
-          params: {
-            cityCode: 'nuernberg',
-            languageCode: 'ar'
-          }
+      route: {
+        name: DISCLAIMER_ROUTE,
+        params: {
+          cityCode: 'nuernberg',
+          languageCode: 'ar'
         }
       }
     })
@@ -299,11 +279,9 @@ describe('HeaderContainer', () => {
 
   it('shareUrl should be set correctly for pois overview route', () => {
     const ownProps = mockStackHeaderProps({
-      scene: {
-        route: {
-          name: POIS_ROUTE,
-          key: 'routeKeyPois1'
-        }
+      route: {
+        name: POIS_ROUTE,
+        key: 'routeKeyPois1'
       }
     })
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${POIS_ROUTE}`

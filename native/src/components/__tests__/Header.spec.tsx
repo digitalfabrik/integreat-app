@@ -4,7 +4,6 @@ import React from 'react'
 import { SEARCH_ROUTE } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import buildConfig from '../../constants/buildConfig'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 import Header from '../Header'
@@ -31,8 +30,6 @@ describe('Header', () => {
     goToLanguageChange: () => void
   ): React.ComponentProps<typeof Header> => ({
     ...mockStackHeaderProps(),
-    t,
-    theme: buildConfig().lightTheme,
     peeking,
     categoriesAvailable,
     goToLanguageChange,
@@ -40,7 +37,6 @@ describe('Header', () => {
     language: 'de',
     shareUrl: 'testUrl',
     dispatch,
-    mode,
     navigation
   })
 
