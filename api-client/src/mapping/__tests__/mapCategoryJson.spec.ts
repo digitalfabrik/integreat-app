@@ -42,8 +42,7 @@ describe('categories', () => {
       url:
         'https://cms.integreat-app.de/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-' +
         '%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/',
-      path:
-        '/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/'
+      path: '/augsburg/fa/erste-schritte/%d8%ae%d9%88%d8%b4-%d8%a2%d9%85%d8%af%db%8c%d8%af-%d8%a8%d9%87-%d8%a2%da%af%d8%b2%d8%a8%d9%88%d8%b1%da%af/'
     },
     order: 3,
     available_languages: {

@@ -4,7 +4,7 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { ClearResourcesAndCacheActionType } from '../../redux/StoreActionType'
 import { CACHE_DIR_PATH } from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
@@ -12,11 +12,11 @@ import watchClearResourcesAndCache, { clearResourcesAndCache } from '../watchCle
 
 describe('watchClearResourcesAndCache', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
   })
   it('should delete all data in offline cache', async () => {
     // populate the offline cache
-    await RNFetchBlob.fs.writeFile(
+    await BlobUtil.fs.writeFile(
       path.join(CACHE_DIR_PATH, 'testFile.json'),
       JSON.stringify({
         this: 'is',
@@ -25,7 +25,7 @@ describe('watchClearResourcesAndCache', () => {
       }),
       'utf-8'
     )
-    await RNFetchBlob.fs.writeFile(
+    await BlobUtil.fs.writeFile(
       path.join(CACHE_DIR_PATH, 'notSoSecretDirectory', 'testFile2.json'),
       JSON.stringify({
         this: 'expression',
@@ -39,7 +39,7 @@ describe('watchClearResourcesAndCache', () => {
     }
     const dataContainer = new DefaultDataContainer()
     await expectSaga(clearResourcesAndCache, dataContainer, action).run()
-    expect(await RNFetchBlob.fs.ls(CACHE_DIR_PATH)).toHaveLength(0)
+    expect(await BlobUtil.fs.ls(CACHE_DIR_PATH)).toHaveLength(0)
   })
   it('should delete all data in in-memory caches', async () => {
     const dataContainer = new DefaultDataContainer()

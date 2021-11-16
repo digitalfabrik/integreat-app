@@ -70,114 +70,114 @@ export type PropsType<
   route: RoutePropType<T>
 }
 
-const withPayloadProvider = <
-  S extends {
-    dispatch: Dispatch<StoreActionType>
-  },
-  R extends Record<string, unknown>,
-  T extends RoutesType
->(
-  refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
-  clearRouteOnClose: boolean,
-  noScrollView?: boolean
-): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) => (
-  Component: React.ComponentType<S>
-): React.ComponentType<PropsType<S, R, T>> => {
-  const Wrapper = ({ route, dispatch, ...props }: PropsType<S, R, T>) => {
-    const [timeoutExpired, setTimeoutExpired] = useState(false)
-    // The hook must be used here and not in the route containers since the containers are unmounted on language change
-    // Otherwise the routes are cleared on language change and just a blank screen is displayed
-    useClearRouteOnClose(route, dispatch, clearRouteOnClose)
+const withPayloadProvider =
+  <
+    S extends {
+      dispatch: Dispatch<StoreActionType>
+    },
+    R extends Record<string, unknown>,
+    T extends RoutesType
+  >(
+    refresh: (refreshProps: R, dispatch: Dispatch<StoreActionType>) => void,
+    clearRouteOnClose: boolean,
+    noScrollView?: boolean
+  ): ((Component: React.ComponentType<S>) => React.ComponentType<PropsType<S, R, T>>) =>
+  (Component: React.ComponentType<S>): React.ComponentType<PropsType<S, R, T>> => {
+    const Wrapper = ({ route, dispatch, ...props }: PropsType<S, R, T>) => {
+      const [timeoutExpired, setTimeoutExpired] = useState(false)
+      // The hook must be used here and not in the route containers since the containers are unmounted on language change
+      // Otherwise the routes are cleared on language change and just a blank screen is displayed
+      useClearRouteOnClose(route, dispatch, clearRouteOnClose)
 
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setTimeoutExpired(true)
-      }, LOADING_TIMEOUT)
-      return () => clearTimeout(timer)
-    }, [])
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setTimeoutExpired(true)
+        }, LOADING_TIMEOUT)
+        return () => clearTimeout(timer)
+      }, [])
 
-    const refreshIfPossible = () => {
-      if (
-        props.status === 'routeNotInitialized' ||
-        props.status === 'loading' ||
-        props.status === 'languageNotAvailable'
-      ) {
-        throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
+      const refreshIfPossible = () => {
+        if (
+          props.status === 'routeNotInitialized' ||
+          props.status === 'loading' ||
+          props.status === 'languageNotAvailable'
+        ) {
+          throw Error('Refreshing is not possible because the route is not yet initialized or already loading.')
+        }
+
+        if (props.refreshProps) {
+          refresh(props.refreshProps, dispatch)
+        }
       }
 
-      if (props.refreshProps) {
-        refresh(props.refreshProps, dispatch)
-      }
-    }
+      const changeUnavailableLanguage = (newLanguage: string) => {
+        if (props.status !== 'languageNotAvailable') {
+          throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
+        }
 
-    const changeUnavailableLanguage = (newLanguage: string) => {
-      if (props.status !== 'languageNotAvailable') {
-        throw Error('Call of changeUnavailableLanguage is only possible when language is not available.')
+        props.changeUnavailableLanguage(dispatch, newLanguage)
       }
 
-      props.changeUnavailableLanguage(dispatch, newLanguage)
-    }
-
-    if (props.status === 'routeNotInitialized') {
-      return <LayoutContainer />
-    }
-    if (props.status === 'error') {
-      return (
-        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-          <Failure tryAgain={refreshIfPossible} code={props.code} />
-        </LayoutedScrollView>
-      )
-    }
-    if (props.status === 'languageNotAvailable') {
-      return (
-        <LanguageNotAvailableContainer
-          languages={props.availableLanguages}
-          changeLanguage={changeUnavailableLanguage}
-        />
-      )
-    }
-    if (props.status === 'loading') {
-      const { innerProps } = props
-
-      if (!timeoutExpired) {
-        // Prevent jumpy behaviour by showing nothing until the timeout finishes
+      if (props.status === 'routeNotInitialized') {
         return <LayoutContainer />
       }
-      if (innerProps) {
-        const componentProps = { ...innerProps, dispatch } as S
-        // Display previous content if available
+      if (props.status === 'error') {
         return (
-          <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
-            <Component {...componentProps} />
+          <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
+            <Failure tryAgain={refreshIfPossible} code={props.code} />
           </LayoutedScrollView>
         )
       }
-      // Full screen loading spinner
+      if (props.status === 'languageNotAvailable') {
+        return (
+          <LanguageNotAvailableContainer
+            languages={props.availableLanguages}
+            changeLanguage={changeUnavailableLanguage}
+          />
+        )
+      }
+      if (props.status === 'loading') {
+        const { innerProps } = props
+
+        if (!timeoutExpired) {
+          // Prevent jumpy behaviour by showing nothing until the timeout finishes
+          return <LayoutContainer />
+        }
+        if (innerProps) {
+          const componentProps = { ...innerProps, dispatch } as S
+          // Display previous content if available
+          return (
+            <LayoutedScrollView refreshControl={<RefreshControl refreshing />}>
+              <Component {...componentProps} />
+            </LayoutedScrollView>
+          )
+        }
+        // Full screen loading spinner
+        return (
+          <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
+            <ProgressContainer progress={props.progress} />
+          </LayoutedScrollView>
+        )
+      }
+      const componentProps = { ...props.innerProps, dispatch } as S
+      // props.status === 'success'
+      if (noScrollView) {
+        return (
+          <LayoutContainer>
+            <Component {...componentProps} />
+          </LayoutContainer>
+        )
+      }
+
       return (
-        <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
-          <ProgressContainer progress={props.progress} />
+        <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
+          <Component {...componentProps} />
         </LayoutedScrollView>
       )
     }
-    const componentProps = { ...props.innerProps, dispatch } as S
-    // props.status === 'success'
-    if (noScrollView) {
-      return (
-        <LayoutContainer>
-          <Component {...componentProps} />
-        </LayoutContainer>
-      )
-    }
 
-    return (
-      <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refreshIfPossible} refreshing={false} />}>
-        <Component {...componentProps} />
-      </LayoutedScrollView>
-    )
+    Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')
+    return Wrapper
   }
-
-  Wrapper.displayName = wrapDisplayName(Component, 'withPayloadProvider')
-  return Wrapper
-}
 
 export default withPayloadProvider

@@ -6,6 +6,7 @@ import { ErrorCode, PdfViewModalRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import Failure from '../components/Failure'
+import LoadingSpinner from '../components/LoadingSpinner'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 
@@ -51,10 +52,7 @@ class PDFViewModal extends React.Component<PropsType, StateType> {
             flex: 1,
             backgroundColor: theme.colors.backgroundAccentColor
           }}
-          activityIndicatorProps={{
-            color: theme.colors.themeColor,
-            progressTintColor: theme.colors.themeColor
-          }}
+          renderActivityIndicator={() => <LoadingSpinner />}
           source={{
             uri: url
           }}

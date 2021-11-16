@@ -3,7 +3,7 @@ import { runSaga } from 'redux-saga'
 import { LanguageModel } from 'api-client'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
@@ -30,7 +30,7 @@ jest.mock('api-client', () => {
 })
 describe('loadLanguages', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
   })
   const otherLanguages = new LanguageModelBuilder(2).build()
   const city = 'augsburg'
@@ -54,7 +54,7 @@ describe('loadLanguages', () => {
   it('should fetch languages if the stored JSON is malformatted', async () => {
     const context = new DatabaseContext('augsburg', 'de')
     const path = new DatabaseConnector().getContentPath('languages', context)
-    await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
+    await BlobUtil.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
     const languages = await runSaga({}, loadLanguages, city, dataContainer, false).toPromise()
     expect(languages).toBe(mockLanguages)

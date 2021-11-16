@@ -48,34 +48,29 @@ const News = (props: PropsType): ReactElement => {
   const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
 
   const rendersNewsListItem = useCallback(
-    (cityCode: string, language: string) => ({
-      item,
-      index
-    }: {
-      item: LocalNewsModel | TunewsModel
-      index: number
-    }) => {
-      const navigateToNews = () => {
-        navigateTo({
-          route: NEWS_ROUTE,
-          cityCode,
-          languageCode: language,
-          newsId: item.id.toString(),
-          newsType: selectedNewsType
-        })
-      }
+    (cityCode: string, language: string) =>
+      ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
+        const navigateToNews = () => {
+          navigateTo({
+            route: NEWS_ROUTE,
+            cityCode,
+            languageCode: language,
+            newsId: item.id.toString(),
+            newsType: selectedNewsType
+          })
+        }
 
-      return (
-        <NewsListItem
-          index={index}
-          key={item.id}
-          newsItem={item}
-          language={language}
-          isTunews={selectedNewsType === TU_NEWS_TYPE}
-          navigateToNews={navigateToNews}
-        />
-      )
-    },
+        return (
+          <NewsListItem
+            index={index}
+            key={item.id}
+            newsItem={item}
+            language={language}
+            isTunews={selectedNewsType === TU_NEWS_TYPE}
+            navigateToNews={navigateToNews}
+          />
+        )
+      },
     [selectedNewsType, navigateTo]
   )
 

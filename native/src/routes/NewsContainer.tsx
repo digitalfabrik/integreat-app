@@ -72,18 +72,16 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-const createChangeUnavailableLanguage = (city: string) => (
-  dispatch: Dispatch<StoreActionType>,
-  newLanguage: string
-) => {
-  dispatch({
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {
-      newLanguage,
-      city
-    }
-  })
-}
+const createChangeUnavailableLanguage =
+  (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        newLanguage,
+        city
+      }
+    })
+  }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {
@@ -239,40 +237,41 @@ const NewsContainer = (props: ContainerPropsType) => {
   )
   const fetchMoreNews = useCallback(
     ({
-      hasMoreNews,
-      news,
-      page
-    }: {
-      hasMoreNews: boolean | null | undefined
-      news: NewsModelsType
-      page: number | null
-    }) => () => {
-      if (!hasMoreNews || page === null) {
-        // Already fetching more
-        return
-      }
+        hasMoreNews,
+        news,
+        page
+      }: {
+        hasMoreNews: boolean | null | undefined
+        news: NewsModelsType
+        page: number | null
+      }) =>
+      () => {
+        if (!hasMoreNews || page === null) {
+          // Already fetching more
+          return
+        }
 
-      if (selectedNewsType === TU_NEWS_TYPE) {
-        const fetchNews: FetchMoreNewsActionType = {
-          type: 'FETCH_MORE_NEWS',
-          params: {
-            city: cityModel.code,
-            language,
-            newsId,
-            type: TU_NEWS_TYPE,
-            key: route.key,
-            page: page + 1,
-            previouslyFetchedNews: news,
-            hasMoreNews,
-            criterion: {
-              forceUpdate: false,
-              shouldRefreshResources: false
+        if (selectedNewsType === TU_NEWS_TYPE) {
+          const fetchNews: FetchMoreNewsActionType = {
+            type: 'FETCH_MORE_NEWS',
+            params: {
+              city: cityModel.code,
+              language,
+              newsId,
+              type: TU_NEWS_TYPE,
+              key: route.key,
+              page: page + 1,
+              previouslyFetchedNews: news,
+              hasMoreNews,
+              criterion: {
+                forceUpdate: false,
+                shouldRefreshResources: false
+              }
             }
           }
+          dispatch(fetchNews)
         }
-        dispatch(fetchNews)
-      }
-    },
+      },
     [selectedNewsType, language, cityModel, newsId, dispatch, route]
   )
 
