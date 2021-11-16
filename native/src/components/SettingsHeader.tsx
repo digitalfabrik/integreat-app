@@ -1,11 +1,9 @@
 import { HeaderBackButton } from '@react-navigation/elements'
 import { StackHeaderProps } from '@react-navigation/stack'
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { TFunction } from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
 
@@ -38,30 +36,21 @@ const HeaderText = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
-export type PropsType = StackHeaderProps & {
-  t: TFunction
-  theme: ThemeType
-}
 
-class SettingsHeader extends React.PureComponent<PropsType> {
-  goBack = (): void => {
-    const { navigation } = this.props
-    navigation.goBack()
-  }
+const SettingsHeader = ({ navigation }: StackHeaderProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  const theme = useTheme()
 
-  render(): ReactNode {
-    const { t, theme } = this.props
-    return (
-      <BoxShadow theme={theme}>
-        <Horizontal>
-          <HorizontalLeft>
-            <HeaderBackButton onPress={this.goBack} labelVisible={false} />
-            <HeaderText theme={theme}>{t('settings')}</HeaderText>
-          </HorizontalLeft>
-        </Horizontal>
-      </BoxShadow>
-    )
-  }
+  return (
+    <BoxShadow theme={theme}>
+      <Horizontal>
+        <HorizontalLeft>
+          <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
+          <HeaderText theme={theme}>{t('settings')}</HeaderText>
+        </HorizontalLeft>
+      </Horizontal>
+    </BoxShadow>
+  )
 }
 
 export default SettingsHeader

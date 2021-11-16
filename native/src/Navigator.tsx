@@ -29,7 +29,7 @@ import {
 
 import HeaderContainer from './components/HeaderContainer'
 import RedirectContainer from './components/RedirectContainer'
-import SettingsHeaderContainer from './components/SettingsHeaderContainer'
+import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
@@ -57,7 +57,7 @@ import { initSentry, log } from './utils/sentry'
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...headerProps} />
 
-const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeaderContainer {...headerProps} />
+const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
 
 const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...headerProps} />
 
