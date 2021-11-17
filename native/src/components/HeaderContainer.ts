@@ -57,12 +57,6 @@ const mapStateToProps = (state: StateType, ownProps: OwnProps): StatePropsType =
     routeCity: route.city
   })
   const { language } = route
-  // const routeInformation: NonNullableRouteInformationType = {
-  //   route: route.routeType,
-  //   languageCode: language,
-  //   cityCode: city,
-  //   cityContentPath: route.path || undefined
-  // }
   return {
     peeking,
     routeCityModel,
