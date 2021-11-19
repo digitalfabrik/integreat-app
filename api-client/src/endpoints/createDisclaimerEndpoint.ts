@@ -17,19 +17,17 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
     .withParamsToUrlMapper(
       (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/disclaimer`
     )
-    .withMapper(
-      (json: JsonDisclaimerType | null | undefined, params: ParamsType): PageModel => {
-        if (!json) {
-          throw new NotFoundError({ ...params, type: 'disclaimer', id: '' })
-        }
-
-        return new PageModel({
-          path: normalizePath(json.path),
-          title: json.title,
-          content: json.content,
-          lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
-          hash: json.hash
-        })
+    .withMapper((json: JsonDisclaimerType | null | undefined, params: ParamsType): PageModel => {
+      if (!json) {
+        throw new NotFoundError({ ...params, type: 'disclaimer', id: '' })
       }
-    )
+
+      return new PageModel({
+        path: normalizePath(json.path),
+        title: json.title,
+        content: json.content,
+        lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
+        hash: json.hash
+      })
+    })
     .build()

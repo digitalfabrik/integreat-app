@@ -1,25 +1,23 @@
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import { navigateToDashboard } from '../utils/navigationUtils'
 
-describe('navigateToLeafCategory', () => {
+describe('navigate to leaf category', () => {
   it('should open leaf category', async () => {
     await navigateToDashboard()
 
-    const firstLevelCategory = await $(new Selector().ByText('Language').build())
-    expect(firstLevelCategory).toBeDefined()
+    const firstLevelCategory = $(new Selector().ByText('Language').build())
+    await expect(firstLevelCategory).toExist()
     await firstLevelCategory.click()
 
-    const secondLevelCategory = await $(new Selector().ByText('Language courses').build())
-    expect(secondLevelCategory).toBeDefined()
+    const secondLevelCategory = $(new Selector().ByText('Language courses').build())
+    await expect(secondLevelCategory).toExist()
     await secondLevelCategory.click()
 
-    const leafCategory = await $(new Selector().ByText('Integration Courses').build())
-    expect(leafCategory).toBeDefined()
+    const leafCategory = $(new Selector().ByText('Integration Courses').build())
+    await expect(leafCategory).toExist()
     await leafCategory.click()
 
-    const leafCategoryContent = await $(
-      new Selector().ByText('In the general integration course you will learn').build()
-    )
-    expect(leafCategoryContent).toBeDefined()
+    const leafCategoryContent = $(new Selector().ByContainedText('you will learn German').build())
+    await expect(leafCategoryContent).toExist()
   })
 })

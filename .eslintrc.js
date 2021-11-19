@@ -88,9 +88,8 @@ module.exports = {
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/no-test-prefixes': 'error',
-    'jest/prefer-to-be-null': 'error',
     'jest/prefer-to-have-length': 'error',
-    'jest/valid-describe': 'error',
+    'jest/valid-describe-callback': 'error',
     'jest/valid-expect': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error'

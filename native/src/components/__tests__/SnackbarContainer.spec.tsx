@@ -1,12 +1,13 @@
-import { render } from '@testing-library/react-native'
+import { act, render } from '@testing-library/react-native'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { mocked } from 'ts-jest/utils'
 
 import SnackbarContainer from '../SnackbarContainer'
 
-jest.useFakeTimers()
+jest.useFakeTimers('modern')
 
+jest.mock('react-i18next')
 jest.mock('../../components/Snackbar', () => {
   const { Text } = require('react-native')
 
@@ -35,6 +36,7 @@ describe('SnackbarContainer', () => {
     const { update, queryByText } = render(<SnackbarContainer />)
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeFalsy()
+
     // Simulate two new snackbars have been pushed to the redux store
     mockUseSelector.mockImplementation(() => [
       {
@@ -45,6 +47,8 @@ describe('SnackbarContainer', () => {
       }
     ])
     await update(<SnackbarContainer />)
+
+    // First snackbar should be remove from redux store
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'DEQUEUE_SNACKBAR'
@@ -58,7 +62,13 @@ describe('SnackbarContainer', () => {
     await update(<SnackbarContainer />)
     expect(queryByText(snackbarText1)).toBeTruthy()
     expect(queryByText(snackbarText2)).toBeFalsy()
-    jest.advanceTimersByTime(5000)
+
+    act(() => {
+      // 5000 (show duration) + 300 (animation duration)
+      jest.advanceTimersByTime(5300)
+    })
+
+    // Second snackbar should be shown and removed from redux store
     expect(mockDispatch).toHaveBeenCalledTimes(2)
     expect(mockDispatch).toHaveBeenCalledWith({
       type: 'DEQUEUE_SNACKBAR'
@@ -68,7 +78,13 @@ describe('SnackbarContainer', () => {
     await update(<SnackbarContainer />)
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeTruthy()
-    jest.advanceTimersByTime(5000)
+
+    act(() => {
+      // 5000 (show duration) + 300 (animation duration)
+      jest.advanceTimersByTime(5300)
+    })
+
+    // No snackbar should be shown anymore
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeFalsy()
   })

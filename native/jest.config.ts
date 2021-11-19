@@ -8,7 +8,7 @@ const transformNodeModules = [
   '@react-native-community',
   '@react-navigation',
   'react-navigation-header-buttons',
-  'rn-fetch-blob',
+  'react-native-blob-util',
   'api-client',
   'translations',
   '@sentry/react-native',

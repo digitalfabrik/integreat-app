@@ -1,11 +1,11 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import { CATEGORIES_ROUTE } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
+import { renderWithRouter } from '../../testing/render'
 import FeedbackModal from '../FeedbackModal'
 
 jest.mock('react-i18next')
@@ -22,7 +22,7 @@ describe('FeedbackModal', () => {
   const closeModal = jest.fn()
 
   it('should display thanks message after successfully submitting feedback', async () => {
-    const { getByRole, getByText } = render(
+    const { getByRole, getByText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackModal
           cityCode={cityCode}
@@ -32,8 +32,7 @@ describe('FeedbackModal', () => {
           closeModal={closeModal}
           feedbackRating='up'
         />
-      </ThemeProvider>,
-      { wrapper: MemoryRouter }
+      </ThemeProvider>
     )
     const button = getByRole('button', {
       name: 'feedback:send'

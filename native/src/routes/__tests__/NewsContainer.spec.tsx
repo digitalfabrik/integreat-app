@@ -14,7 +14,7 @@ import NewsContainer from '../NewsContainer'
 
 const mockStore = configureMockStore()
 jest.mock('react-i18next')
-jest.useFakeTimers()
+jest.useFakeTimers('modern')
 jest.mock('../../components/NewsList', () => {
   const { Text } = require('react-native')
 
