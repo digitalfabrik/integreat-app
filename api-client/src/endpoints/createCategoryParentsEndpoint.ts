@@ -24,25 +24,23 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
 
       return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/parents?&url=${cityContentPath}`
     })
-    .withMapper(
-      (json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
-        const basePath = `/${params.city}/${params.language}`
-        const parents = json.map(category => mapCategoryJson(category, basePath))
-        parents.push(
-          new CategoryModel({
-            root: true,
-            path: basePath,
-            title: params.city,
-            parentPath: '',
-            content: '',
-            thumbnail: '',
-            order: -1,
-            availableLanguages: new Map(),
-            lastUpdate: moment(0),
-            hash: ''
-          })
-        )
-        return parents
-      }
-    )
+    .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
+      const basePath = `/${params.city}/${params.language}`
+      const parents = json.map(category => mapCategoryJson(category, basePath))
+      parents.push(
+        new CategoryModel({
+          root: true,
+          path: basePath,
+          title: params.city,
+          parentPath: '',
+          content: '',
+          thumbnail: '',
+          order: -1,
+          availableLanguages: new Map(),
+          lastUpdate: moment(0),
+          hash: ''
+        })
+      )
+      return parents
+    })
     .build()

@@ -51,7 +51,7 @@ to make these changes available in both projects.
 
 - Rate our Integreat app in the [PlayStore](https://play.google.com/store/apps/details?id=tuerantuer.app.integreat)
   and the [Apple App Store](https://apps.apple.com/ae/app/integreat/id1072353915).
-- Install [nodejs](https://nodejs.org/). At least v14 is required.
+- Install [nodejs](https://nodejs.org/). At least v14.17 is required.
 - Install [yarn](https://yarnpkg.com/).
 
 ### Project setup

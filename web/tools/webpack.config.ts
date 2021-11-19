@@ -156,6 +156,7 @@ const createConfig = (
     },
     // The list of plugins for Webpack compiler
     plugins: [
+      // @ts-ignore https://github.com/DefinitelyTyped/DefinitelyTyped/issues/50948
       new BundleAnalyzerPlugin({
         analyzerMode: devServer ? 'disabled' : 'static',
         generateStatsFile: !devServer,
@@ -172,6 +173,7 @@ const createConfig = (
           config: buildConfig
         }
       }),
+      // @ts-ignore https://github.com/DefinitelyTyped/DefinitelyTyped/issues/50948
       new CopyPlugin({
         patterns: [
           { from: wwwDirectory, to: distDirectory },
@@ -192,6 +194,7 @@ const createConfig = (
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
+      // @ts-ignore https://github.com/DefinitelyTyped/DefinitelyTyped/issues/50948
       new AssetsPlugin({
         path: distDirectory,
         filename: 'assets.json',

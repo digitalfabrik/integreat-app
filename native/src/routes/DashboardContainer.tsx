@@ -52,18 +52,16 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-const createChangeUnavailableLanguage = (city: string) => (
-  dispatch: Dispatch<StoreActionType>,
-  newLanguage: string
-) => {
-  dispatch({
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {
-      newLanguage,
-      city
-    }
-  })
-}
+const createChangeUnavailableLanguage =
+  (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        newLanguage,
+        city
+      }
+    })
+  }
 
 const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
   const {

@@ -3,7 +3,7 @@ import { runSaga } from 'redux-saga'
 import { EventModel } from 'api-client'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
@@ -32,7 +32,7 @@ jest.mock('api-client', () => {
 })
 describe('loadEvents', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
   })
   const city = 'augsburg'
   const language = 'de'
@@ -57,7 +57,7 @@ describe('loadEvents', () => {
   it('should fetch events if the stored JSON is malformatted', async () => {
     const context = new DatabaseContext('augsburg', 'de')
     const path = new DatabaseConnector().getContentPath('events', context)
-    await RNFetchBlob.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
+    await BlobUtil.fs.writeFile(path, '{ "i": { "am": "malformatted" } }', 'utf-8')
     const dataContainer = new DefaultDataContainer()
     const events = await runSaga({}, loadEvents, city, language, true, dataContainer, false).toPromise()
     expect(events).toBe(mockEvents)
