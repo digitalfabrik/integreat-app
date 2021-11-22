@@ -210,7 +210,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const viewHeight = realImageHeight
 
     return (
-      <View style={{ width: viewWidth, height: viewHeight, overflow: 'hidden' }}>
+      <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
         <PanGestureHandler
           ref={panHandler}
           simultaneousHandlers={pinchHandler}
@@ -218,7 +218,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
           onHandlerStateChange={this.onPanHandlerStateChange(viewWidth, viewHeight, viewWidth, viewHeight)}
           shouldCancelWhenOutside
           minDist={10}>
-          <Animated.View style={{ flex: 1 }} collapsable={false}>
+          <Animated.View style={{ width: viewWidth, height: realImageHeight }} collapsable={false}>
             <PinchGestureHandler
               ref={pinchHandler}
               simultaneousHandlers={panHandler}
