@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Animated, Dimensions, Image, ImageErrorEventData, NativeSyntheticEvent, View } from 'react-native'
+import { Animated, Image, ImageErrorEventData, NativeSyntheticEvent, View } from 'react-native'
 import {
   PanGestureHandler,
   PinchGestureHandler,
