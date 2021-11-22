@@ -11,16 +11,18 @@ import {
 } from 'react-native-gesture-handler'
 
 const USE_NATIVE_DRIVER = true
+const ANIMATION_DURATION = 150
 
 type PropsType = {
   uri: string
   /**
    * @param error Error returned by react native of type any
    */
-  onError: (error: any) => void
+  onError: (error: unknown) => void
 }
 
 type StateType = {
+  interactive: boolean
   imageDimensions?: { width: number; height: number }
 }
 
@@ -32,18 +34,26 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
   private readonly scaledTranslateX: Animated.AnimatedDivision
   private readonly onPanGestureEvent: (event: PanGestureHandlerGestureEvent) => void
 
+  private lastScale: number
   private readonly baseScale: Animated.Value
   private readonly pinchScale: Animated.Value
   private readonly scale: Animated.AnimatedMultiplication
-  private lastScale: number
   private readonly onPinchGestureEvent: (event: PinchGestureHandlerGestureEvent) => void
 
   constructor(props: PropsType) {
     super(props)
+    this.state = { interactive: true }
 
-    this.state = {}
+    // Setup: Pinching
+    this.baseScale = new Animated.Value(1)
+    this.pinchScale = new Animated.Value(1)
+    this.scale = Animated.multiply(this.baseScale, this.pinchScale)
+    this.lastScale = 1
+    this.onPinchGestureEvent = Animated.event([{ nativeEvent: { scale: this.pinchScale } }], {
+      useNativeDriver: USE_NATIVE_DRIVER
+    })
 
-    // Panning
+    // Setup: Panning
     this.translateX = new Animated.Value(0)
     this.translateY = new Animated.Value(0)
 
@@ -59,137 +69,196 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
       ],
       { useNativeDriver: USE_NATIVE_DRIVER }
     )
-
-    // Pinching
-    this.baseScale = new Animated.Value(1)
-    this.pinchScale = new Animated.Value(1)
-    this.scale = Animated.multiply(this.baseScale, this.pinchScale)
-    this.lastScale = 1
-    this.onPinchGestureEvent = Animated.event([{ nativeEvent: { scale: this.pinchScale } }], {
-      useNativeDriver: USE_NATIVE_DRIVER
-    })
-
     // Make translation depend on scale
     this.scaledTranslateX = Animated.divide(this.translateX, this.scale)
     this.scaledTranslateY = Animated.divide(this.translateY, this.scale)
 
+    // Setup: Initialize image dimensions
     const { uri } = props
     Image.getSize(
       uri,
       (width, height) => {
         this.setState({ imageDimensions: { width, height } })
       },
-      (error: any) => {
+      (error: unknown) => {
         const { onError } = this.props
         onError(error)
       }
     )
   }
 
-  private onPinchHandlerStateChange = (event: PinchGestureHandlerStateChangeEvent) => {
-    if (event.nativeEvent.oldState === State.ACTIVE) {
-      this.lastScale *= event.nativeEvent.scale
-      this.baseScale.setValue(this.lastScale)
-      this.pinchScale.setValue(1)
+  private onImageLoadError = (error: NativeSyntheticEvent<ImageErrorEventData>) => {
+    const { onError } = this.props
+    onError(error.nativeEvent.error)
+  }
 
-      if (this.lastScale <= 1) {
-        Animated.spring(this.baseScale, {
-          toValue: 1,
-          useNativeDriver: USE_NATIVE_DRIVER
-        }).start(({ finished }) => {
-          if (finished) {
-            this.lastScale = 1
-          }
-        })
-      }
+  /**
+   * Animates the translateX and translateY properties if they are out of bounds
+   * @param viewWidth The width of the full area in which the image could appear
+   * @param viewHeight The height of the full area in which the image could appear
+   * @param realImageWidth The non-scaled default image width
+   * @param realImageHeight The non-scaled default image height
+   * @param newX The new x translation accumulated over the time of the pan gestures
+   * @param newY The new y translation accumulated over the time of the pan gestures
+   * @param newScale The new scale accumulated over the time of the pinch gestures
+   * @private
+   */
+  private fixBounds(
+    viewWidth: number,
+    viewHeight: number,
+    realImageWidth: number,
+    realImageHeight: number,
+    newX: number,
+    newY: number,
+    newScale: number
+  ) {
+    // Calculate the minima and maxima which should not be violated
+    const widthIncreaseByScale = (Math.max(0, this.lastScale - 1) * realImageWidth) / 2
+    const heightIncreaseByScale = (Math.max(0, this.lastScale - 1) * realImageHeight) / 2
+    const minX = 0 - widthIncreaseByScale
+    const maxX = viewWidth + widthIncreaseByScale - viewWidth
+    const minY = 0 - heightIncreaseByScale
+    const maxY = viewHeight + heightIncreaseByScale - viewHeight
+
+    if (newX <= minX) {
+      // Disable gesture handler during animation
+      this.setState(state => ({ ...state, interactive: false }))
+
+      const animation: Animated.CompositeAnimation = Animated.timing(this.translateX, {
+        toValue: minX - newX,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: USE_NATIVE_DRIVER
+      })
+
+      animation.start(({ finished }) => {
+        if (finished) {
+          this.lastOffset.x = minX
+          this.translateX.setOffset(minX)
+          this.translateX.setValue(0)
+        }
+        this.setState(state => ({ ...state, interactive: true }))
+      })
+    }
+
+    if (newX >= maxX) {
+      // Disable gesture handler during animation
+      this.setState(state => ({ ...state, interactive: false }))
+
+      const animation: Animated.CompositeAnimation = Animated.timing(this.translateX, {
+        toValue: maxX - newX,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: USE_NATIVE_DRIVER
+      })
+      animation.start(({ finished }) => {
+        if (finished) {
+          this.lastOffset.x = maxX
+          this.translateX.setOffset(maxX)
+          this.translateX.setValue(0)
+        }
+        this.setState(state => ({ ...state, interactive: true }))
+      })
+    }
+
+    if (newY <= minY) {
+      // Disable gesture handler during animation
+      this.setState(state => ({ ...state, interactive: false }))
+
+      const animation: Animated.CompositeAnimation = Animated.timing(this.translateY, {
+        toValue: minY - newY,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: USE_NATIVE_DRIVER
+      })
+      animation.start(({ finished }) => {
+        if (finished) {
+          this.lastOffset.y = minY
+          this.translateY.setOffset(minY)
+          this.translateY.setValue(0)
+        }
+        this.setState(state => ({ ...state, interactive: true }))
+      })
+    }
+
+    if (newY >= maxY) {
+      // Disable gesture handler during animation
+      this.setState(state => ({ ...state, interactive: false }))
+
+      const animation: Animated.CompositeAnimation = Animated.timing(this.translateY, {
+        toValue: maxY - newY,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: USE_NATIVE_DRIVER
+      })
+      animation.start(({ finished }) => {
+        if (finished) {
+          this.lastOffset.y = maxY
+          this.translateY.setOffset(maxY)
+          this.translateY.setValue(0)
+        }
+        this.setState(state => ({ ...state, interactive: true }))
+      })
+    }
+
+    if (newScale <= 1) {
+      // Disable gesture handler during animation
+      this.setState(state => ({ ...state, interactive: false }))
+
+      const animation: Animated.CompositeAnimation = Animated.timing(this.baseScale, {
+        toValue: 1,
+        duration: ANIMATION_DURATION,
+        useNativeDriver: USE_NATIVE_DRIVER
+      })
+      animation.start(({ finished }) => {
+        if (finished) {
+          this.lastScale = 1
+        }
+        this.setState(state => ({ ...state, interactive: true }))
+      })
     }
   }
 
-  private onImageLoadError = (error: NativeSyntheticEvent<ImageErrorEventData>) => {
-    this.props.onError(error.nativeEvent.error)
-  }
-
-  private onPanHandlerStateChange =
-    (viewWidth: number, viewHeight: number, imageWidth: number, imageHeight: number) =>
-    (event: PanGestureHandlerStateChangeEvent) => {
+  private createOnPinchHandlerStateChange =
+    (viewWidth: number, viewHeight: number, realImageWidth: number, realImageHeight: number) =>
+    (event: PinchGestureHandlerStateChangeEvent) => {
+      // If the two fingers were lifted from the screen, then...
       if (event.nativeEvent.oldState === State.ACTIVE) {
-        const yDelta = event.nativeEvent.translationY
-        const xDelta = event.nativeEvent.translationX
+        const scaleDelta = this.lastScale
+        const newScale = scaleDelta * event.nativeEvent.scale
+        this.lastScale = newScale
+        this.baseScale.setValue(newScale)
+        this.pinchScale.setValue(1)
 
-        const widthIncreaseByScale = (Math.max(0, this.lastScale - 1) * viewWidth) / 2
-        const heightIncreaseByScale = (Math.max(0, this.lastScale - 1) * viewHeight) / 2
+        this.fixBounds(
+          viewWidth,
+          viewHeight,
+          realImageWidth,
+          realImageHeight,
+          this.lastOffset.x,
+          this.lastOffset.y,
+          this.lastScale
+        )
+      }
+    }
 
-        const minX = 0 - widthIncreaseByScale
-        const maxX = viewWidth + widthIncreaseByScale - imageWidth
-        const minY = 0 - heightIncreaseByScale
-        const maxY = viewHeight + heightIncreaseByScale - imageHeight
+  private createOnPanHandlerStateChange =
+    (viewWidth: number, viewHeight: number, realImageWidth: number, realImageHeight: number) =>
+    (event: PanGestureHandlerStateChangeEvent) => {
+      if (event.nativeEvent.state === State.END) {
+        // Distances the finger was dragged across the screen
+        const movedInY = event.nativeEvent.translationY
+        const movedInX = event.nativeEvent.translationX
+        const previousY = this.lastOffset.y
+        const previousX = this.lastOffset.x
 
-        this.lastOffset.y += yDelta
-        this.translateY.setOffset(this.lastOffset.y)
+        const newY = previousY + movedInY
+        this.lastOffset.y = newY
+        this.translateY.setOffset(newY)
         this.translateY.setValue(0)
 
-        this.lastOffset.x += xDelta
-        this.translateX.setOffset(this.lastOffset.x)
+        const newX = previousX + movedInX
+        this.lastOffset.x = newX
+        this.translateX.setOffset(newX)
         this.translateX.setValue(0)
 
-        // Fix position if below x = 0
-        if (this.lastOffset.x <= minX) {
-          // todo: what should happen if this animation is interrupted?
-          Animated.spring(this.translateX, {
-            toValue: minX - this.lastOffset.x,
-            useNativeDriver: USE_NATIVE_DRIVER
-          }).start(({ finished }) => {
-            if (finished) {
-              this.lastOffset.x = minX
-              this.translateX.setOffset(minX)
-              this.translateX.setValue(0)
-            }
-          })
-        }
-
-        // Fix position if above x = screen width
-        if (this.lastOffset.x >= maxX) {
-          Animated.spring(this.translateX, {
-            toValue: maxX - this.lastOffset.x,
-            useNativeDriver: USE_NATIVE_DRIVER
-          }).start(({ finished }) => {
-            if (finished) {
-              this.lastOffset.x = maxX
-              this.translateX.setOffset(maxX)
-              this.translateX.setValue(0)
-            }
-          })
-        }
-
-        // Fix position if below y = 0
-        if (this.lastOffset.y <= minY) {
-          Animated.spring(this.translateY, {
-            toValue: minY - this.lastOffset.y,
-            useNativeDriver: USE_NATIVE_DRIVER
-          }).start(({ finished }) => {
-            if (finished) {
-              this.lastOffset.y = minY
-              this.translateY.setOffset(minY)
-              this.translateY.setValue(0)
-            }
-          })
-        }
-
-        // Fix position if above y = screen height
-        if (this.lastOffset.y >= maxY) {
-          Animated.spring(this.translateY, {
-            toValue: maxY - this.lastOffset.y,
-            useNativeDriver: USE_NATIVE_DRIVER
-          }).start(({ finished }) => {
-            if (finished) {
-              this.lastOffset.y = maxY
-              this.translateY.setOffset(maxY)
-              this.translateY.setValue(0)
-            }
-          })
-        }
-
-        // todo: handle for zoom?
+        this.fixBounds(viewWidth, viewHeight, realImageWidth, realImageHeight, newX, newY, this.lastScale)
       }
     }
 
@@ -197,7 +266,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const pinchHandler = React.createRef()
     const panHandler = React.createRef()
     const { uri } = this.props
-    const { imageDimensions } = this.state
+    const { imageDimensions, interactive } = this.state
 
     if (!imageDimensions) {
       return null
@@ -206,29 +275,41 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const { width: imageWidth, height: imageHeight } = imageDimensions
 
     const viewWidth = Dimensions.get('window').width
+    const viewHeight = Dimensions.get('window').height
+    const realImageWidth = viewWidth
     const realImageHeight = imageHeight * (viewWidth / imageWidth)
-    const viewHeight = realImageHeight
 
     return (
       <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
         <PanGestureHandler
           ref={panHandler}
           simultaneousHandlers={pinchHandler}
+          enabled={interactive}
           onGestureEvent={this.onPanGestureEvent}
-          onHandlerStateChange={this.onPanHandlerStateChange(viewWidth, viewHeight, viewWidth, viewHeight)}
+          onHandlerStateChange={this.createOnPanHandlerStateChange(
+            viewWidth,
+            viewHeight,
+            realImageWidth,
+            realImageHeight
+          )}
           shouldCancelWhenOutside
           minDist={10}>
-          <Animated.View style={{ width: viewWidth, height: realImageHeight }} collapsable={false}>
+          <Animated.View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }} collapsable={false}>
             <PinchGestureHandler
               ref={pinchHandler}
               simultaneousHandlers={panHandler}
               onGestureEvent={this.onPinchGestureEvent}
-              onHandlerStateChange={this.onPinchHandlerStateChange}
-              shouldCancelWhenOutside>
+              onHandlerStateChange={this.createOnPinchHandlerStateChange(
+                viewWidth,
+                viewHeight,
+                realImageWidth,
+                realImageHeight
+              )}
+              shouldCancelWhenOutside={false}>
               <Animated.Image
                 style={[
                   {
-                    width: viewWidth,
+                    width: realImageWidth,
                     height: realImageHeight
                   },
                   {
