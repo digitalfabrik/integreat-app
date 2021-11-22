@@ -1,0 +1,7 @@
+issue_key: IGAPP-259
+show_in_stores: true
+platforms:
+   - ios
+  - android
+en: The length of news preview now depends from the screen size
+de: Die Länge der Nachrichtenvorschau ist nun abhängig von der Bildschirmgröße
