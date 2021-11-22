@@ -1,0 +1,7 @@
+issue_key: IGAPP-839
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed faulty display of paragraphs in webview.
+de: Fehlerhafte Darstellung von Paragraphen im Webview wurde behoben.
