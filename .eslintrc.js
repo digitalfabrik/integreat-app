@@ -88,9 +88,8 @@ module.exports = {
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/no-test-prefixes': 'error',
-    'jest/prefer-to-be-null': 'error',
     'jest/prefer-to-have-length': 'error',
-    'jest/valid-describe': 'error',
+    'jest/valid-describe-callback': 'error',
     'jest/valid-expect': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error'
@@ -108,6 +107,13 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off'
+      }
+    },
+    {
+      files: ['**/native/**'],
+      rules: {
+        // This rule does not make sense in react native as we don't have normal anchor tags
+        'jsx-a11y/anchor-is-valid': 'off'
       }
     },
     {

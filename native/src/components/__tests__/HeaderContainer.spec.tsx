@@ -25,7 +25,7 @@ import HeaderContainer from '../HeaderContainer'
 
 const mockStore = configureMockStore<StateType, StoreActionType>()
 jest.mock('react-i18next')
-jest.useFakeTimers()
+jest.useFakeTimers('modern')
 jest.mock('../../components/Header', () => {
   const { Text } = require('react-native')
 

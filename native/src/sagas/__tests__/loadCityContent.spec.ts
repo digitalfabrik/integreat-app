@@ -10,7 +10,7 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
 import { createFetchMap } from '../../testing/builder/util'
 import mockDate from '../../testing/mockDate'
@@ -70,7 +70,7 @@ describe('loadCityContent', () => {
   const mockedDate = moment('2000-01-05T11:10:00.000Z')
   let restoreMockedDate: () => void
   beforeEach(async () => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
 
     await AsyncStorage.clear()
     const { restoreDate } = mockDate(mockedDate)

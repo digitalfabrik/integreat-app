@@ -91,18 +91,16 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   const categoriesWithContent = categories
     .toArray()
     .filter((category: CategoryModel) => !normalizeSearchString(category.title).includes(normalizedFilterText))
-    .map(
-      (category: CategoryModel): CategoryEntryType => {
-        contentWithoutHtml = []
-        parser.write(category.content)
-        parser.end()
-        return {
-          model: category,
-          contentWithoutHtml: contentWithoutHtml.join(' '),
-          subCategories: []
-        }
+    .map((category: CategoryModel): CategoryEntryType => {
+      contentWithoutHtml = []
+      parser.write(category.content)
+
+      return {
+        model: category,
+        contentWithoutHtml: contentWithoutHtml.join(' '),
+        subCategories: []
       }
-    )
+    })
     .filter(
       (categoryEntry: CategoryEntryType) =>
         categoryEntry.contentWithoutHtml &&
@@ -111,6 +109,8 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
     .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
       category1.model.title.localeCompare(category2.model.title)
     )
+
+  parser.end()
 
   // return all categories from above and remove the root category
   const searchResults = categoriesWithTitle

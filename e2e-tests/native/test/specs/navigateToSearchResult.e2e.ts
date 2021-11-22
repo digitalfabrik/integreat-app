@@ -1,25 +1,24 @@
 import { contentSearch } from '../../../shared/constants'
-import { Selector } from '../Selector'
+import { Selector } from '../helpers/Selector'
 import DashboardPage from '../pageobjects/dashboard.page'
 import SearchPage from '../pageobjects/search.page'
 import { navigateToDashboard } from '../utils/navigationUtils'
 
-describe('navigateToSearchResult', () => {
+describe('navigate to search result', () => {
   it('should open and search content', async () => {
     await navigateToDashboard()
-    const searchIcon = await DashboardPage.searchIcon
-    await searchIcon.click()
-    await expect(await SearchPage.exists()).toBeTruthy()
+    DashboardPage.searchIcon.click()
+    await expect(SearchPage.get()).toExist()
 
-    const searchBar = await SearchPage.search
-    expect(searchBar).toBeDefined()
+    const searchBar = SearchPage.search
+    await expect(searchBar).toExist()
     await searchBar.addValue(contentSearch)
 
-    const searchResult = await $(new Selector().ByText('Language').build())
-    expect(searchResult).toBeDefined()
+    const searchResult = $(new Selector().ByText('Language').build())
+    await expect(searchResult).toExist()
     await searchResult.click()
 
-    const categoryItem = await $(new Selector().ByText('Language courses').build())
-    expect(categoryItem).toBeTruthy()
+    const categoryItem = $(new Selector().ByText('Language courses').build())
+    await expect(categoryItem).toExist()
   })
 })
