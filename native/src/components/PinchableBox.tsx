@@ -23,6 +23,7 @@ type PropsType = {
 
 type StateType = {
   interactive: boolean
+  viewDimensions?: { width: number; height: number }
   imageDimensions?: { width: number; height: number }
 }
 
@@ -78,7 +79,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     Image.getSize(
       uri,
       (width, height) => {
-        this.setState({ imageDimensions: { width, height } })
+        this.setState(state => ({ ...state, imageDimensions: { width, height } }))
       },
       (error: unknown) => {
         const { onError } = this.props
@@ -90,6 +91,31 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
   private onImageLoadError = (error: NativeSyntheticEvent<ImageErrorEventData>) => {
     const { onError } = this.props
     onError(error.nativeEvent.error)
+  }
+
+  private fixBound(axis: 'x' | 'y', minValue: number, newValue: number) {
+    this.setState(state => ({ ...state, interactive: false }))
+
+    const animation: Animated.CompositeAnimation = Animated.timing(axis === 'x' ? this.translateX : this.translateY, {
+      toValue: minValue - newValue,
+      duration: ANIMATION_DURATION,
+      useNativeDriver: USE_NATIVE_DRIVER
+    })
+
+    animation.start(({ finished }) => {
+      if (finished) {
+        if (axis === 'x') {
+          this.lastOffset.x = minValue
+          this.translateX.setOffset(minValue)
+          this.translateX.setValue(0)
+        } else {
+          this.lastOffset.y = minValue
+          this.translateY.setOffset(minValue)
+          this.translateY.setValue(0)
+        }
+      }
+      this.setState(state => ({ ...state, interactive: true }))
+    })
   }
 
   /**
@@ -122,79 +148,20 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
 
     if (newX <= minX) {
       // Disable gesture handler during animation
-      this.setState(state => ({ ...state, interactive: false }))
-
-      const animation: Animated.CompositeAnimation = Animated.timing(this.translateX, {
-        toValue: minX - newX,
-        duration: ANIMATION_DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER
-      })
-
-      animation.start(({ finished }) => {
-        if (finished) {
-          this.lastOffset.x = minX
-          this.translateX.setOffset(minX)
-          this.translateX.setValue(0)
-        }
-        this.setState(state => ({ ...state, interactive: true }))
-      })
+      this.fixBound('x', minX, newX)
     }
 
     if (newX >= maxX) {
       // Disable gesture handler during animation
-      this.setState(state => ({ ...state, interactive: false }))
-
-      const animation: Animated.CompositeAnimation = Animated.timing(this.translateX, {
-        toValue: maxX - newX,
-        duration: ANIMATION_DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER
-      })
-      animation.start(({ finished }) => {
-        if (finished) {
-          this.lastOffset.x = maxX
-          this.translateX.setOffset(maxX)
-          this.translateX.setValue(0)
-        }
-        this.setState(state => ({ ...state, interactive: true }))
-      })
+      this.fixBound('x', maxY, newX)
     }
 
     if (newY <= minY) {
-      // Disable gesture handler during animation
-      this.setState(state => ({ ...state, interactive: false }))
-
-      const animation: Animated.CompositeAnimation = Animated.timing(this.translateY, {
-        toValue: minY - newY,
-        duration: ANIMATION_DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER
-      })
-      animation.start(({ finished }) => {
-        if (finished) {
-          this.lastOffset.y = minY
-          this.translateY.setOffset(minY)
-          this.translateY.setValue(0)
-        }
-        this.setState(state => ({ ...state, interactive: true }))
-      })
+      this.fixBound('y', minY, newY)
     }
 
     if (newY >= maxY) {
-      // Disable gesture handler during animation
-      this.setState(state => ({ ...state, interactive: false }))
-
-      const animation: Animated.CompositeAnimation = Animated.timing(this.translateY, {
-        toValue: maxY - newY,
-        duration: ANIMATION_DURATION,
-        useNativeDriver: USE_NATIVE_DRIVER
-      })
-      animation.start(({ finished }) => {
-        if (finished) {
-          this.lastOffset.y = maxY
-          this.translateY.setOffset(maxY)
-          this.translateY.setValue(0)
-        }
-        this.setState(state => ({ ...state, interactive: true }))
-      })
+      this.fixBound('y', maxY, newY)
     }
 
     if (newScale <= 1) {
@@ -266,21 +233,34 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const pinchHandler = React.createRef()
     const panHandler = React.createRef()
     const { uri } = this.props
-    const { imageDimensions, interactive } = this.state
+    const { imageDimensions, viewDimensions, interactive } = this.state
 
-    if (!imageDimensions) {
-      return null
+    if (!imageDimensions || !viewDimensions) {
+      return (
+        <View
+          style={{ flex: 1 }}
+          onLayout={event => {
+            const { width, height } = event.nativeEvent.layout
+            this.setState(state => ({ ...state, viewDimensions: { width, height } }))
+          }}
+        />
+      )
     }
 
+    const { width: viewWidth, height: viewHeight } = viewDimensions
     const { width: imageWidth, height: imageHeight } = imageDimensions
 
-    const viewWidth = Dimensions.get('window').width
-    const viewHeight = Dimensions.get('window').height
-    const realImageWidth = viewWidth
-    const realImageHeight = imageHeight * (viewWidth / imageWidth)
+    const shouldImageBeLandscape = viewWidth < viewHeight
+    const realImageWidth = shouldImageBeLandscape ? viewWidth : imageWidth * (viewHeight / imageHeight)
+    const realImageHeight = shouldImageBeLandscape ? imageHeight * (viewWidth / imageWidth) : viewHeight
 
     return (
-      <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+      <View
+        style={{ flex: 1 }}
+        onLayout={event => {
+          const { width, height } = event.nativeEvent.layout
+          this.setState(state => ({ ...state, viewDimensions: { width, height } }))
+        }}>
         <PanGestureHandler
           ref={panHandler}
           simultaneousHandlers={pinchHandler}
@@ -294,7 +274,9 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
           )}
           shouldCancelWhenOutside
           minDist={10}>
-          <Animated.View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }} collapsable={false}>
+          <Animated.View
+            style={{ flex: 1, flexDirection: shouldImageBeLandscape ? 'column' : 'row', justifyContent: 'center' }}
+            collapsable={false}>
             <PinchGestureHandler
               ref={pinchHandler}
               simultaneousHandlers={panHandler}
