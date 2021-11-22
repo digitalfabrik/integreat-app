@@ -1,6 +1,6 @@
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import { Moment } from 'moment'
-import RNFetchBlob from 'rn-fetch-blob'
+import BlobUtil from 'react-native-blob-util'
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 
@@ -207,7 +207,7 @@ class DefaultDataContainer implements DataContainer {
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         log('Cleaning up the following resources:')
         log(pathsToClean.join(', '))
-        await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
+        await Promise.all(pathsToClean.map(path => BlobUtil.fs.unlink(path)))
       }
     }
 

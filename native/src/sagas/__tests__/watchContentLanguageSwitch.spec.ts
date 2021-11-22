@@ -6,7 +6,7 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
 import appSettings from '../../utils/AppSettings'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
@@ -20,7 +20,7 @@ jest.mock('../loadCityContent')
 
 describe('watchContentLanguageSwitch', () => {
   beforeEach(async () => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
 
     await AsyncStorage.clear()
   })

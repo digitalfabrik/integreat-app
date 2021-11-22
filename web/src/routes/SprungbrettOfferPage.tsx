@@ -57,9 +57,11 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
     return createSprungbrettJobsEndpoint(offer.path).request()
   }, [offer])
 
-  const { data: sprungbrettJobs, loading: sprungbrettLoading, error: sprungbrettError } = useLoadFromEndpoint(
-    requestSprungbrettOffer
-  )
+  const {
+    data: sprungbrettJobs,
+    loading: sprungbrettLoading,
+    error: sprungbrettError
+  } = useLoadFromEndpoint(requestSprungbrettOffer)
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />

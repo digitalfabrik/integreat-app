@@ -20,7 +20,7 @@ export const config: Testrunner = {
 
   bail: 0,
   port: 4723, // default appium port
-  waitforTimeout: 10000,
+  waitforTimeout: 5000,
   waitforInterval: 2000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 2,

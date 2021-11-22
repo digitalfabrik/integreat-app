@@ -99,13 +99,8 @@ const Navigator = (props: PropsType): ReactElement | null => {
         log('App is using Hermes: https://reactnative.dev/docs/hermes')
       }
 
-      const {
-        introShown,
-        selectedCity,
-        contentLanguage,
-        storageVersion,
-        errorTracking
-      } = await appSettings.loadSettings()
+      const { introShown, selectedCity, contentLanguage, storageVersion, errorTracking } =
+        await appSettings.loadSettings()
 
       if (errorTracking) {
         initSentry()

@@ -22,10 +22,8 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoryModel> =>
 
       return `${baseUrl}/${city}/${language}/wp-json/extensions/v3/post?&url=${cityContentPath}`
     })
-    .withMapper(
-      (json: JsonCategoryType, params: ParamsType): CategoryModel => {
-        const basePath = `/${params.city}/${params.language}`
-        return mapCategoryJson(json, basePath)
-      }
-    )
+    .withMapper((json: JsonCategoryType, params: ParamsType): CategoryModel => {
+      const basePath = `/${params.city}/${params.language}`
+      return mapCategoryJson(json, basePath)
+    })
     .build()

@@ -1,10 +1,9 @@
-import { render } from '@testing-library/react'
 import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
 
 import { FetchError, fromError, MappingError, NotFoundError, ResponseError } from 'api-client'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
+import { renderWithRouter } from '../../testing/render'
 import { reportError } from '../../utils/sentry'
 import FailureSwitcher from '../FailureSwitcher'
 
@@ -31,7 +30,7 @@ describe('FailureSwitcher', () => {
     ${'poi'}           | ${'1234'}        | ${'poi'}       | ${'pois'}       | ${'/augsburg/de/locations'}
   `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
     const error = new NotFoundError({ type, id, language, city })
-    const { getByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
 
     expect(getByText(`error:notFound.${notFoundKey}`)).toBeTruthy()
     expect(getByText(`error:goTo.${goToKey}`).closest('a')).toHaveProperty('href', `http://localhost${goToPath}`)
@@ -45,7 +44,7 @@ describe('FailureSwitcher', () => {
       url: 'url',
       requestOptions: { method: 'GET' }
     })
-    const { getByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).not.toHaveBeenCalled()
@@ -53,7 +52,7 @@ describe('FailureSwitcher', () => {
 
   it('should render a failure as default', async () => {
     const error = new Error('error message')
-    const { getByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).toHaveBeenCalledTimes(1)
@@ -62,7 +61,7 @@ describe('FailureSwitcher', () => {
 
   it('should report mapping errors to sentry', async () => {
     const error = new MappingError('category', 'some message')
-    const { getByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).toHaveBeenCalledTimes(1)
@@ -76,7 +75,7 @@ describe('FailureSwitcher', () => {
       url: 'https://example.com',
       requestOptions: { method: 'GET' }
     })
-    const { getByText } = render(<FailureSwitcher error={error} />, { wrapper: MemoryRouter })
+    const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).toHaveBeenCalledTimes(1)
