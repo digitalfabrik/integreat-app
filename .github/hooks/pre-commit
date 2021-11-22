@@ -5,6 +5,12 @@
 # ln -s ../../.github/hooks/pre-commit .git/hooks/pre-commit
 #
 
+if [ ! -x "$(command -v circleci)" ]; then
+  echo "You need to install circleci in order to commit"
+  exit 1
+fi
+
+
 # regenerate circle-ci config-yml
 CONFIG=$(git diff --cached --name-only .circleci/src)
 
