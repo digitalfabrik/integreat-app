@@ -147,12 +147,10 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const maxY = viewHeight + heightIncreaseByScale - viewHeight
 
     if (newX <= minX) {
-      // Disable gesture handler during animation
       this.fixBound('x', minX, newX)
     }
 
     if (newX >= maxX) {
-      // Disable gesture handler during animation
       this.fixBound('x', maxY, newX)
     }
 
