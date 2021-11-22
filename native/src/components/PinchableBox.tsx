@@ -109,92 +109,89 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     this.props.onError(error.nativeEvent.error)
   }
 
-  private onPanHandlerStateChange = (
-    viewWidth: number,
-    viewHeight: number,
-    imageWidth: number,
-    imageHeight: number
-  ) => (event: PanGestureHandlerStateChangeEvent) => {
-    if (event.nativeEvent.oldState === State.ACTIVE) {
-      const yDelta = event.nativeEvent.translationY
-      const xDelta = event.nativeEvent.translationX
+  private onPanHandlerStateChange =
+    (viewWidth: number, viewHeight: number, imageWidth: number, imageHeight: number) =>
+    (event: PanGestureHandlerStateChangeEvent) => {
+      if (event.nativeEvent.oldState === State.ACTIVE) {
+        const yDelta = event.nativeEvent.translationY
+        const xDelta = event.nativeEvent.translationX
 
-      const widthIncreaseByScale = (Math.max(0, this.lastScale - 1) * viewWidth) / 2
-      const heightIncreaseByScale = (Math.max(0, this.lastScale - 1) * viewHeight) / 2
+        const widthIncreaseByScale = (Math.max(0, this.lastScale - 1) * viewWidth) / 2
+        const heightIncreaseByScale = (Math.max(0, this.lastScale - 1) * viewHeight) / 2
 
-      const minX = 0 - widthIncreaseByScale
-      const maxX = viewWidth + widthIncreaseByScale - imageWidth
-      const minY = 0 - heightIncreaseByScale
-      const maxY = viewHeight + heightIncreaseByScale - imageHeight
+        const minX = 0 - widthIncreaseByScale
+        const maxX = viewWidth + widthIncreaseByScale - imageWidth
+        const minY = 0 - heightIncreaseByScale
+        const maxY = viewHeight + heightIncreaseByScale - imageHeight
 
-      this.lastOffset.y += yDelta
-      this.translateY.setOffset(this.lastOffset.y)
-      this.translateY.setValue(0)
+        this.lastOffset.y += yDelta
+        this.translateY.setOffset(this.lastOffset.y)
+        this.translateY.setValue(0)
 
-      this.lastOffset.x += xDelta
-      this.translateX.setOffset(this.lastOffset.x)
-      this.translateX.setValue(0)
+        this.lastOffset.x += xDelta
+        this.translateX.setOffset(this.lastOffset.x)
+        this.translateX.setValue(0)
 
-      // Fix position if below x = 0
-      if (this.lastOffset.x <= minX) {
-        // todo: what should happen if this animation is interrupted?
-        Animated.spring(this.translateX, {
-          toValue: minX - this.lastOffset.x,
-          useNativeDriver: USE_NATIVE_DRIVER
-        }).start(({ finished }) => {
-          if (finished) {
-            this.lastOffset.x = minX
-            this.translateX.setOffset(minX)
-            this.translateX.setValue(0)
-          }
-        })
+        // Fix position if below x = 0
+        if (this.lastOffset.x <= minX) {
+          // todo: what should happen if this animation is interrupted?
+          Animated.spring(this.translateX, {
+            toValue: minX - this.lastOffset.x,
+            useNativeDriver: USE_NATIVE_DRIVER
+          }).start(({ finished }) => {
+            if (finished) {
+              this.lastOffset.x = minX
+              this.translateX.setOffset(minX)
+              this.translateX.setValue(0)
+            }
+          })
+        }
+
+        // Fix position if above x = screen width
+        if (this.lastOffset.x >= maxX) {
+          Animated.spring(this.translateX, {
+            toValue: maxX - this.lastOffset.x,
+            useNativeDriver: USE_NATIVE_DRIVER
+          }).start(({ finished }) => {
+            if (finished) {
+              this.lastOffset.x = maxX
+              this.translateX.setOffset(maxX)
+              this.translateX.setValue(0)
+            }
+          })
+        }
+
+        // Fix position if below y = 0
+        if (this.lastOffset.y <= minY) {
+          Animated.spring(this.translateY, {
+            toValue: minY - this.lastOffset.y,
+            useNativeDriver: USE_NATIVE_DRIVER
+          }).start(({ finished }) => {
+            if (finished) {
+              this.lastOffset.y = minY
+              this.translateY.setOffset(minY)
+              this.translateY.setValue(0)
+            }
+          })
+        }
+
+        // Fix position if above y = screen height
+        if (this.lastOffset.y >= maxY) {
+          Animated.spring(this.translateY, {
+            toValue: maxY - this.lastOffset.y,
+            useNativeDriver: USE_NATIVE_DRIVER
+          }).start(({ finished }) => {
+            if (finished) {
+              this.lastOffset.y = maxY
+              this.translateY.setOffset(maxY)
+              this.translateY.setValue(0)
+            }
+          })
+        }
+
+        // todo: handle for zoom?
       }
-
-      // Fix position if above x = screen width
-      if (this.lastOffset.x >= maxX) {
-        Animated.spring(this.translateX, {
-          toValue: maxX - this.lastOffset.x,
-          useNativeDriver: USE_NATIVE_DRIVER
-        }).start(({ finished }) => {
-          if (finished) {
-            this.lastOffset.x = maxX
-            this.translateX.setOffset(maxX)
-            this.translateX.setValue(0)
-          }
-        })
-      }
-
-      // Fix position if below y = 0
-      if (this.lastOffset.y <= minY) {
-        Animated.spring(this.translateY, {
-          toValue: minY - this.lastOffset.y,
-          useNativeDriver: USE_NATIVE_DRIVER
-        }).start(({ finished }) => {
-          if (finished) {
-            this.lastOffset.y = minY
-            this.translateY.setOffset(minY)
-            this.translateY.setValue(0)
-          }
-        })
-      }
-
-      // Fix position if above y = screen height
-      if (this.lastOffset.y >= maxY) {
-        Animated.spring(this.translateY, {
-          toValue: maxY - this.lastOffset.y,
-          useNativeDriver: USE_NATIVE_DRIVER
-        }).start(({ finished }) => {
-          if (finished) {
-            this.lastOffset.y = maxY
-            this.translateY.setOffset(maxY)
-            this.translateY.setValue(0)
-          }
-        })
-      }
-
-      // todo: handle for zoom?
     }
-  }
 
   render(): ReactElement | null {
     const pinchHandler = React.createRef()
@@ -213,7 +210,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const viewHeight = realImageHeight
 
     return (
-      <View style={{ width: viewWidth, height: viewHeight, overflow: 'hidden' }}>
+      <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
         <PanGestureHandler
           ref={panHandler}
           simultaneousHandlers={pinchHandler}
@@ -221,7 +218,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
           onHandlerStateChange={this.onPanHandlerStateChange(viewWidth, viewHeight, viewWidth, viewHeight)}
           shouldCancelWhenOutside
           minDist={10}>
-          <Animated.View style={{ flex: 1 }} collapsable={false}>
+          <Animated.View style={{ width: viewWidth, height: realImageHeight }} collapsable={false}>
             <PinchGestureHandler
               ref={pinchHandler}
               simultaneousHandlers={panHandler}
