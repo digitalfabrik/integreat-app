@@ -53,7 +53,7 @@ module.exports = {
     'react/static-property-placement': 'off',
 
     curly: ['error', 'all'],
-    'no-console': ['error', { allow: ['error', 'warn'] }],
+    'no-console': 'error',
     'no-magic-numbers': [
       'error',
       {
@@ -88,9 +88,8 @@ module.exports = {
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/no-test-prefixes': 'error',
-    'jest/prefer-to-be-null': 'error',
     'jest/prefer-to-have-length': 'error',
-    'jest/valid-describe': 'error',
+    'jest/valid-describe-callback': 'error',
     'jest/valid-expect': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error'
@@ -102,11 +101,25 @@ module.exports = {
     {
       files: ['*.spec.{ts,tsx}', '**/__mocks__/*.ts'],
       rules: {
+        'no-console': 'off',
         'no-magic-numbers': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'jsx-a11y/no-static-element-interactions': 'off'
+      }
+    },
+    {
+      files: ['**/native/**'],
+      rules: {
+        // This rule does not make sense in react native as we don't have normal anchor tags
+        'jsx-a11y/anchor-is-valid': 'off'
+      }
+    },
+    {
+      files: ['**/tools/**'],
+      rules: {
+        'no-console': 'off'
       }
     }
   ],

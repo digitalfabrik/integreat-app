@@ -5,17 +5,15 @@ import { ErrorCode } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { FetchCategoryActionType } from '../../redux/StoreActionType'
 import mockDate from '../../testing/mockDate'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchFetchCategory, { fetchCategory } from '../watchFetchCategory'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../loadCityContent')
 
 const languages = new LanguageModelBuilder(2).build()
@@ -43,7 +41,7 @@ describe('watchFetchCategory', () => {
   let restoreMockedDate: () => void
 
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate

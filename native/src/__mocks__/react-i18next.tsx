@@ -4,7 +4,7 @@ const realModule = jest.requireActual('react-i18next')
 
 const t = (key: string): string => key
 
-const withTranslation = <T extends unknown>(_unusedNamespace: string) => (
+const withTranslation = <T,>(_unusedNamespace: string) => (
   Component: React.ComponentType<T>
 ): React.ComponentType<T> => (props: T) => <Component {...props} t={t} />
 

@@ -2,7 +2,7 @@ import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { PoiFeature } from 'api-client/src'
+import { PoiFeature } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'

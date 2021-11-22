@@ -55,7 +55,6 @@ export type PropsType = {
   language: string
   cityCode: string
   closeModal: (query: string) => void
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
   t: TFunction<'search'>
 }
 type SearchStateType = {
@@ -164,7 +163,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
   }
 
   renderContent = (): ReactNode => {
-    const { language, cityCode, theme, categories, navigateToLink, t } = this.props
+    const { language, cityCode, theme, categories, t } = this.props
     const { query } = this.state
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
 
@@ -178,16 +177,17 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         contentContainerStyle={{
           flexGrow: 1
         }}
-        keyboardShouldPersistTaps='always'>
+        keyboardShouldPersistTaps='always'
+      >
         {/* The minHeight is needed to circumvent a bug that appears when there is only one search result.
              See NATIVE-430 for reference. */}
         <View
           style={{
             minHeight
-          }}>
+          }}
+        >
           <CategoryList
             categories={filteredCategories}
-            navigateToLink={navigateToLink}
             query={query}
             onItemPress={this.onItemPress}
             theme={theme}
@@ -229,7 +229,8 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={{
             flex: 1
-          }}>
+          }}
+        >
           {this.renderContent()}
         </KeyboardAvoidingView>
       </Wrapper>

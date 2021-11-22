@@ -20,9 +20,6 @@ jest.mock('../../utils/PushNotificationsManager', () => ({
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@react-native-community/geolocation')
-jest.mock('../../utils/helpers', () => ({
-  initSentry: jest.fn()
-}))
 
 const mockRequestPushNotificationPermission = mocked(requestPushNotificationPermission)
 const mockUnsubscribeNews = mocked(unsubscribeNews)
@@ -60,8 +57,8 @@ describe('createSettingsSections', () => {
       languageCode,
       cityCode,
       navigation,
-      setSetting,
       settings: defaultSettings,
+      setSetting,
       showSnackbar
     })[0]!.data
 

@@ -17,6 +17,9 @@ To see and run the E2E tests on Browserstack you need a Browserstack account, wi
 You will need to set `E2E_BROWSERSTACK_KEY` and `E2E_BROWSERSTACK_USER` as environment variables, which you can find when logging in to Browserstack and selecting either the Automate or AppAutomate tab.
 If you don't have this access you can still execute the tests locally with `yarn test:web` or `yarn test:native`.
 For the browserstack tests in web there are several configurations to run the tests in the specified browsers. Preferably you should run these from the commandline, e.g. `yarn wdio run web/browserstack/wdio-browserstack-safari.conf.ts` from the project root. There is also a configuration in the `package.json`, which runs all of the browserstack configurations sequentially.
+For native browserstack tests you also have to set the environment variable `E2E_CONFIG` to either `android` or `ios`.
+You also have to set the `E2E_BROWSERSTACK_APP` variable, which corresponds to the id of a `*.apk` or `*.ipa`, which is already uploaded to browserstack.
+To get such id, you either upload an `*.apk` or `*.ipa` to browserstack or use an already existing one (Checkout other jobs. Using the same `*.apk` will not influence the other test). The id looks something like this: `bs://8ad23ac842b0ed12dafff0461bc3a0b98484234f`.
 
 ## Writing Tests
 
@@ -70,7 +73,7 @@ However, during native development most of the common selectors are not availabl
 Therefore, you should use the accessibility identifier for this.
 Add the accessibility-id to a React component using `testID('Example-Component')`. You can query this component with `$('~Example-Component')` in your test.
 
-For more complex queries you should add/use a custom [Selector]('../e2e/native/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
+For more complex queries you should add/use a custom [Selector](../e2e-tests/native/test/Selector.ts) using [predicate strings](https://github.com/facebookarchive/WebDriverAgent/wiki/Predicate-Queries-Construction-Rules) for iOS and [UiSelectors](https://developer.android.com/reference/androidx/test/uiautomator/UiSelector) for Android.
 
 ## Troubleshooting
 

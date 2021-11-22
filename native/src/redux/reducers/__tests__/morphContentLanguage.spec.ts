@@ -12,6 +12,7 @@ import {
   PoiModel
 } from 'api-client'
 
+import { log } from '../../../utils/sentry'
 import { CityContentStateType } from '../../StateType'
 import { MorphContentLanguageActionType, PushCategoryActionType, PushEventActionType } from '../../StoreActionType'
 import createCityContent from '../createCityContent'
@@ -19,7 +20,12 @@ import morphContentLanguage from '../morphContentLanguage'
 import pushCategory from '../pushCategory'
 import pushEvent from '../pushEvent'
 
+jest.mock('../../../utils/sentry')
+
 describe('morphContentLanguage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   const createCategory = ({
     root,
     path,
@@ -320,7 +326,6 @@ describe('morphContentLanguage', () => {
     expect(newState).toEqual(previous)
   })
   it('should warn if category models are invalid', () => {
-    const spy = jest.spyOn(console, 'warn')
     const action: MorphContentLanguageActionType = {
       type: 'MORPH_CONTENT_LANGUAGE',
       params: {
@@ -339,8 +344,8 @@ describe('morphContentLanguage', () => {
     }
 
     morphContentLanguage(previous, action)
-    expect(spy).toHaveBeenCalled()
-    spy.mockRestore()
+    expect(log).toHaveBeenCalledTimes(1)
+    expect(log).toHaveBeenCalledWith(expect.anything(), 'warning')
   })
   it('should translate route', () => {
     const action: MorphContentLanguageActionType = {

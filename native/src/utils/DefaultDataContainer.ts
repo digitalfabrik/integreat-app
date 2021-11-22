@@ -1,6 +1,6 @@
 import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
 import { Moment } from 'moment'
-import RNFetchBlob from 'rn-fetch-blob'
+import BlobUtil from 'react-native-blob-util'
 
 import { CategoriesMapModel, CityModel, EventModel, LanguageModel, PoiModel } from 'api-client'
 
@@ -13,6 +13,7 @@ import {
 } from '../redux/StateType'
 import { DataContainer } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
+import { log } from './sentry'
 
 type CacheType = {
   pois: Cache<Array<PoiModel>>
@@ -204,11 +205,9 @@ class DefaultDataContainer implements DataContainer {
           this.getFilePathsFromLanguageResourceCache(languageCache)
         )
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
-        // eslint-disable-next-line no-console
-        console.debug('Cleaning up the following resources:')
-        // eslint-disable-next-line no-console
-        console.debug(pathsToClean)
-        await Promise.all(pathsToClean.map(path => RNFetchBlob.fs.unlink(path)))
+        log('Cleaning up the following resources:')
+        log(pathsToClean.join(', '))
+        await Promise.all(pathsToClean.map(path => BlobUtil.fs.unlink(path)))
       }
     }
 

@@ -2,7 +2,7 @@ import { Platform } from 'react-native'
 import { WebViewSource } from 'react-native-webview/lib/WebViewTypes'
 
 export const ERROR_MESSAGE_TYPE = 'error'
-export const WARNING_MESSAGE_TYPE = 'warn'
+export const WARNING_MESSAGE_TYPE = 'warning'
 export const HEIGHT_MESSAGE_TYPE = 'height'
 
 export const URL_PREFIX = 'file://'
@@ -28,8 +28,7 @@ export const createPostSource = (
         In this case Android figures the out which content type to use */
   })
 })
-export const createGetSource = (uri: string, body: string): WebViewSource => ({
+export const createGetSource = (uri: string): WebViewSource => ({
   uri,
-  method: 'GET',
-  body
+  method: 'GET'
 })

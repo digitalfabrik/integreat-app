@@ -38,8 +38,8 @@ export default {
   ),
   ios: browserstackCaps(
     {
-      'appium:platformVersion': '12',
-      'appium:deviceName': 'iPhone 8',
+      'appium:platformVersion': '14',
+      'appium:deviceName': 'iPhone 11',
       'appium:automationName': 'XCUITest',
       // @ts-ignore unknown property
       'appium:waitForIdleTimeout': 10000

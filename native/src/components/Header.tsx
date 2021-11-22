@@ -16,6 +16,7 @@ import navigateToLanding from '../navigation/navigateToLanding'
 import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
@@ -83,10 +84,11 @@ const Header = (props: PropsType): ReactElement => {
     theme,
     goToLanguageChange,
     peeking,
-    categoriesAvailable
+    categoriesAvailable,
+    previous
   } = props
 
-  const canGoBackInStack = (): boolean => !!props.previous
+  const canGoBackInStack = !!previous
 
   const goBackInStack = () => {
     navigation.goBack()
@@ -129,7 +131,7 @@ const Header = (props: PropsType): ReactElement => {
         title: buildConfig().appName
       })
     } catch (e) {
-      console.error(e.message)
+      reportError(e)
     }
   }
 
@@ -189,7 +191,7 @@ const Header = (props: PropsType): ReactElement => {
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {canGoBackInStack() ? (
+          {canGoBackInStack ? (
             <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
           ) : (
             <Icon source={buildConfigAssets().appIcon} />

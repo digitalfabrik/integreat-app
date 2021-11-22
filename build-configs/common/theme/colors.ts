@@ -1,5 +1,6 @@
 export type ColorsType = {
   themeColor: string
+  themeColorLight: string
   backgroundAccentColor: string
   textColor: string
   textSecondaryColor: string

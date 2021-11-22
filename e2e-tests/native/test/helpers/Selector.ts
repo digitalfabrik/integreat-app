@@ -10,6 +10,15 @@ export class Selector {
     return this
   }
 
+  public ByContainedText(text: string): Selector {
+    if (driver.isAndroid) {
+      this.queries.push(`.textContains("${text}")`)
+    } else {
+      this.queries.push(`label CONTAINS '${text}'`)
+    }
+    return this
+  }
+
   public build(): string {
     if (driver.isAndroid) {
       return `android=new UiSelector()${this.queries.join('')}`

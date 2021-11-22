@@ -6,23 +6,21 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { SwitchContentLanguageActionType } from '../../redux/StoreActionType'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchContentLanguageSwitch, { switchContentLanguage } from '../watchContentLanguageSwitch'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../../utils/PushNotificationsManager')
 jest.mock('../loadCityContent')
 
 describe('watchContentLanguageSwitch', () => {
   beforeEach(async () => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
 
     await AsyncStorage.clear()
   })
@@ -64,7 +62,7 @@ describe('watchContentLanguageSwitch', () => {
           }
         })
         .run()
-      expect(await new AppSettings().loadContentLanguage()).toBe(newLanguage)
+      expect(await appSettings.loadContentLanguage()).toBe(newLanguage)
       expect(reportError).not.toHaveBeenCalled()
     })
 

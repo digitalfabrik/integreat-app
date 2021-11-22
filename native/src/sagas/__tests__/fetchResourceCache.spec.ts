@@ -3,28 +3,25 @@ import { expectSaga } from 'redux-saga-test-plan'
 import { ErrorCode } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { createFetchMap } from '../../testing/builder/util'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
 import FetcherModule from '../../utils/FetcherModule'
-import { reportError } from '../../utils/helpers'
+import { log, reportError } from '../../utils/sentry'
 import fetchResourceCache from '../fetchResourceCache'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../../utils/FetcherModule')
 
 describe('fetchResourceCache', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
     jest.clearAllMocks()
   })
   const city = 'augsburg'
   const language = 'en'
 
   it('should fetch and create warning message', async () => {
-    const spy = jest.spyOn(console, 'log')
     const dataContainer = new DefaultDataContainer()
     const categoriesBuilder = new CategoriesMapModelBuilder(city, language)
     const resources = categoriesBuilder.buildResources()
@@ -50,8 +47,7 @@ describe('fetchResourceCache', () => {
       /* A single url is excluded because the
                                          FetcherModule mock produced an error for it */
     )
-    expect(spy).toHaveBeenCalledWith(expect.stringContaining('Failed to download'))
-    spy.mockRestore()
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('Failed to download'))
     expect(reportError).not.toHaveBeenCalled()
   })
 

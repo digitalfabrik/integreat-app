@@ -3,21 +3,19 @@ import { expectSaga, testSaga } from 'redux-saga-test-plan'
 import { ErrorCode } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { FetchCitiesActionType } from '../../redux/StoreActionType'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCities from '../loadCities'
 import watchFetchCities, { fetchCities } from '../watchFetchCities'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../loadCities')
 
 describe('watchFetchCities', () => {
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
     jest.clearAllMocks()
   })
 

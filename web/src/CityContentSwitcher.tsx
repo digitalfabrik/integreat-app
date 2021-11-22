@@ -88,7 +88,8 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
       return (
         <Layout
           header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
-          footer={<GeneralFooter language={languageCode} />}>
+          footer={<GeneralFooter language={languageCode} />}
+        >
           <FailureSwitcher error={error} />
         </Layout>
       )
@@ -97,7 +98,8 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     return (
       <Layout
         header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
-        footer={<GeneralFooter language={languageCode} />}>
+        footer={<GeneralFooter language={languageCode} />}
+      >
         <LanguageFailure
           cities={cities}
           cityCode={cityCode}
@@ -138,7 +140,8 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
         <LocationLayout {...suspenseLayoutProps} route={route}>
           <LoadingSpinner />
         </LocationLayout>
-      }>
+      }
+    >
       <Component {...cityRouteProps} {...props} />
     </Suspense>
   )

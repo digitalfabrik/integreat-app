@@ -10,15 +10,15 @@ import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import PoiModelBuilder from 'api-client/src/testing/PoiModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { ContentLoadCriterion } from '../../models/ContentLoadCriterion'
 import { createFetchMap } from '../../testing/builder/util'
 import mockDate from '../../testing/mockDate'
-import AppSettings from '../../utils/AppSettings'
+import appSettings from '../../utils/AppSettings'
 import { DataContainer } from '../../utils/DataContainer'
 import DatabaseConnector from '../../utils/DatabaseConnector'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import fetchResourceCache from '../fetchResourceCache'
 import loadCategories from '../loadCategories'
 import loadCities from '../loadCities'
@@ -27,10 +27,7 @@ import loadEvents from '../loadEvents'
 import loadLanguages from '../loadLanguages'
 import loadPois from '../loadPois'
 
-jest.mock('../../utils/helpers', () => ({
-  ...jest.requireActual('../../utils/helpers'),
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('@react-native-community/netinfo')
 jest.mock('../fetchResourceCache')
 jest.mock('../loadCategories')
@@ -73,7 +70,7 @@ describe('loadCityContent', () => {
   const mockedDate = moment('2000-01-05T11:10:00.000Z')
   let restoreMockedDate: () => void
   beforeEach(async () => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
 
     await AsyncStorage.clear()
     const { restoreDate } = mockDate(mockedDate)
@@ -88,7 +85,7 @@ describe('loadCityContent', () => {
   it('should set selected city when not peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
-    await new AppSettings().setSelectedCity('nuernberg')
+    await appSettings.setSelectedCity('nuernberg')
     await dataContainer.storeLastUsage(city, false)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
     await expectSaga(
@@ -104,14 +101,14 @@ describe('loadCityContent', () => {
         false
       )
     ).run()
-    expect(await new AppSettings().loadSelectedCity()).toBe('augsburg')
+    expect(await appSettings.loadSelectedCity()).toBe('augsburg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 
   it('should not set selected city when peeking', async () => {
     const dataContainer = new DefaultDataContainer()
     await prepareDataContainer(dataContainer, city, language)
-    await new AppSettings().setSelectedCity('nuernberg')
+    await appSettings.setSelectedCity('nuernberg')
     await dataContainer.storeLastUsage(city, true)
     await dataContainer.setLastUpdate(city, language, lastUpdate)
     await expectSaga(
@@ -127,7 +124,7 @@ describe('loadCityContent', () => {
         true
       )
     ).run()
-    expect(await new AppSettings().loadSelectedCity()).toBe('nuernberg')
+    expect(await appSettings.loadSelectedCity()).toBe('nuernberg')
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
   })
 

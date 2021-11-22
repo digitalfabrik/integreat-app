@@ -1,18 +1,18 @@
 import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'react-i18next'
-import { SectionListData, AccessibilityRole } from 'react-native'
+import { AccessibilityRole, SectionListData } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { SettingsRouteType, JPAL_TRACKING_ROUTE } from 'api-client'
+import { JPAL_TRACKING_ROUTE, SettingsRouteType } from 'api-client'
 
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationPropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
-import { initSentry } from './helpers'
 import openExternalUrl from './openExternalUrl'
 import openPrivacyPolicy from './openPrivacyPolicy'
+import { initSentry } from './sentry'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
@@ -43,7 +43,7 @@ type CreateSettingsSectionsPropsType = {
   cityCode: string | null | undefined
   navigation: NavigationPropType<SettingsRouteType>
   settings: SettingsType
-  showSnackbar: (arg0: string) => void
+  showSnackbar: (message: string) => void
 }
 
 const createSettingsSections = ({
@@ -52,7 +52,8 @@ const createSettingsSections = ({
   languageCode,
   cityCode,
   navigation,
-  settings
+  settings,
+  showSnackbar
 }: CreateSettingsSectionsPropsType): Readonly<Array<SectionListData<SettingsSectionType>>> => [
   {
     title: null,
@@ -126,13 +127,13 @@ const createSettingsSections = ({
         onPress: () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl)
+          openExternalUrl(aboutUrl).catch((error: Error) => showSnackbar(error.message))
         }
       },
       {
         accessibilityRole: 'link',
         title: t('privacyPolicy'),
-        onPress: () => openPrivacyPolicy(languageCode)
+        onPress: () => openPrivacyPolicy(languageCode).catch((error: Error) => showSnackbar(error.message))
       },
       {
         title: t('version', {
@@ -147,21 +148,22 @@ const createSettingsSections = ({
           }
         }
       },
-      ...(!buildConfig().featureFlags.jpalTracking
-        ? []
-        : [
+      // Only show the jpal tracking setting for users that opened it via deep link before
+      ...(buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
+        ? [
             {
               title: t('tracking'),
-              description: t('trackingDescription'),
+              description: t('trackingShortDescription', { appName: buildConfig().appName }),
               getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
               hasBadge: true,
               onPress: () => {
                 navigation.navigate(JPAL_TRACKING_ROUTE, {
-                  trackingCode: settings.jpalTrackingCode
+                  trackingCode: null
                 })
               }
             }
-          ])
+          ]
+        : [])
     ]
   }
 ]

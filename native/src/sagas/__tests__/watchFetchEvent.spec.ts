@@ -5,24 +5,22 @@ import { ErrorCode } from 'api-client'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import { FetchEventActionType } from '../../redux/StoreActionType'
 import mockDate from '../../testing/mockDate'
 import DefaultDataContainer from '../../utils/DefaultDataContainer'
-import { reportError } from '../../utils/helpers'
+import { reportError } from '../../utils/sentry'
 import loadCityContent from '../loadCityContent'
 import watchFetchEvent, { fetchEvent } from '../watchFetchEvent'
 
-jest.mock('../../utils/helpers', () => ({
-  reportError: jest.fn()
-}))
+jest.mock('../../utils/sentry')
 jest.mock('../loadCityContent')
 
 describe('watchFetchEvent', () => {
   const mockedDate = moment('2020-01-01T12:00:00.000Z')
   let restoreMockedDate: () => void
   beforeEach(() => {
-    RNFetchBlob.fs._reset()
+    BlobUtil.fs._reset()
 
     const { restoreDate } = mockDate(mockedDate)
     restoreMockedDate = restoreDate

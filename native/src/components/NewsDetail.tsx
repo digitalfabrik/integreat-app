@@ -43,24 +43,25 @@ const NewsHeadLine = styled.Text`
 type PropsType = {
   language: string
   newsItem: TunewsModel | LocalNewsModel
-  navigateToLink: (url: string, language: string, shareUrl: string) => void
 }
 
-const NewsDetail = ({ newsItem, language, navigateToLink }: PropsType): ReactElement => {
+const NewsDetail = ({ newsItem, language }: PropsType): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const content = newsItem instanceof TunewsModel ? newsItem.content : replaceLinks(newsItem.message)
   return (
     <View
       style={{
         flex: 1
-      }}>
+      }}
+    >
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexGrow: 1,
           marginBottom: 10,
           paddingHorizontal: '5%'
-        }}>
+        }}
+      >
         {newsItem instanceof TunewsModel && (
           <HeaderImageWrapper>
             <HeaderImage source={headerImage} />
@@ -68,7 +69,7 @@ const NewsDetail = ({ newsItem, language, navigateToLink }: PropsType): ReactEle
         )}
         <Container>
           <NewsHeadLine>{newsItem.title}</NewsHeadLine>
-          <NativeHtml language={language} content={content} navigateToLink={navigateToLink} />
+          <NativeHtml language={language} content={content} />
           {newsItem instanceof LocalNewsModel && (
             <TimeStampContent language={language}>
               <TimeStamp formatter={formatter} lastUpdate={newsItem.timestamp} showText={false} format='LLL' />

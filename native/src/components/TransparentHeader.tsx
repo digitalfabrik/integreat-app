@@ -9,6 +9,7 @@ import styled from 'styled-components/native'
 import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
+import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
 const Horizontal = styled.View`
@@ -62,9 +63,8 @@ class TransparentHeader extends React.PureComponent<PropsType> {
         message
       })
     } catch (e) {
-      const errorMessage = e.message ? e.message : t('shareFailDefaultMessage')
       // TODO Show snackbar
-      console.error(errorMessage)
+      reportError(e)
     }
   }
 
