@@ -6,13 +6,19 @@ export type DimensionsType = {
   toolbarWidth: number
   headerHeightLarge: number
   headerHeightSmall: number
+  smallViewportBorderValue : number
+  mediumViewportBorderValue : number
 }
 
+const smallViewportBorderValue = 750
+const mediumViewportBorderValue = 1100
 const dimensions: DimensionsType = {
-  smallViewport: '(max-width: 750px)',
-  mediumViewport: '(min-width: 750px) and (max-width: 1100px)',
-  minMaxWidth: 'screen and (min-width: 1100px)',
-  maxWidth: 1100,
+  smallViewportBorderValue,
+  mediumViewportBorderValue,
+  smallViewport: `(max-width: ${smallViewportBorderValue}px)`,
+  mediumViewport: `(min-width: ${smallViewportBorderValue}px) and (max-width: ${mediumViewportBorderValue}px)`,
+  minMaxWidth: `screen and (min-width: ${mediumViewportBorderValue}px)`,
+  maxWidth: mediumViewportBorderValue,
   toolbarWidth: 125,
   headerHeightLarge: 90,
   headerHeightSmall: 70

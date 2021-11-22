@@ -5,12 +5,15 @@ import styled from 'styled-components'
 
 import { DateFormatter, LOCAL_NEWS_TYPE, NewsType } from 'api-client'
 
+import dimensions from '../constants/dimensions'
 import { textTruncator } from '../utils/stringUtils'
 import CleanLink from './CleanLink'
 import LastUpdateInfo from './LastUpdateInfo'
 import { Description } from './ListItem'
 
-export const NUM_OF_CHARS_ALLOWED = 220
+export const NUM_OF_CHARS_ALLOWED_LARGE_SCREEN = 220
+const NUM_OF_CHARS_ALLOWED_MEDIUM_SCREEN = 150
+const NUM_OF_CHARS_ALLOWED_SMALL_SCREEN = 100
 
 const Link = styled(CleanLink)`
   display: flex;
@@ -58,12 +61,23 @@ type PropsType = {
 const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: PropsType): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
 
+  const maxChars = () => {
+    const width = window.innerWidth
+    if (width < dimensions.mediumViewportBorderValue && width >= dimensions.smallViewportBorderValue) {
+      return NUM_OF_CHARS_ALLOWED_MEDIUM_SCREEN
+    }
+
+    return width < dimensions.smallViewportBorderValue
+      ? NUM_OF_CHARS_ALLOWED_SMALL_SCREEN
+      : NUM_OF_CHARS_ALLOWED_LARGE_SCREEN
+  }
+
   return (
     <StyledNewsListItem>
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED, false)}</Body>
+          <Body>{textTruncator(content, maxChars(), false)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>

@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import dimensions from '../constants/dimensions'
+import dimensions from '../constants/dimensions'  
 
 type FlowType = 'left' | 'right' | 'up' | 'down'
 
