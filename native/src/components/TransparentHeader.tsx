@@ -36,16 +36,18 @@ export type PropsType = StackHeaderProps & {
 
 type RouteParams = { [key: string]: string } | null
 
+
 const TransparentHeader = (props:PropsType) : ReactElement => {
+ const { theme, scene, t, navigation } = props
+ const shareUrl = (scene.route.params as RouteParams)?.shareUrl
+
+
  const goBackInStack = (): void => {
-    const { navigation } = props
     navigation.goBack()
   }
 
   const showSnackbar = useSnackbar()
   const onShare = async (): Promise<void> => {
-    const { scene, t } = props
-    const shareUrl = (scene.route.params as RouteParams)?.shareUrl
 
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -65,13 +67,11 @@ const TransparentHeader = (props:PropsType) : ReactElement => {
       })
     } catch (e) {
       const error = e as Error
-      showSnackbar(error.message)
+      showSnackbar(t('generalError'))
       reportError(error)
     }
   }
 
-    const { theme, scene, t } = props
-    const shareUrl = (scene.route.params as RouteParams)?.shareUrl
     return (
       <BoxShadow theme={theme}>
         <Horizontal>
