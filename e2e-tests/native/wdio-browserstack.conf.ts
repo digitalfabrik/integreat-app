@@ -30,17 +30,27 @@ export const config: Testrunner = {
 
   logLevel: 'info',
 
-  bail: 1,
   baseUrl: 'http://localhost:9000',
+
+  specFileRetries: 2,
+  bail: 1,
+
   waitforTimeout: 100000,
   waitforInterval: 2000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 2,
+
   services: ['browserstack'],
   framework: 'jasmine',
   reporters: ['junit'],
 
   jasmineOpts: {
     defaultTimeoutInterval: 300000
+  },
+
+  before: async (): Promise<void> => {
+    // implicit: time the driver will wait searching for elements ($, $$)
+    const implicitTimeout = 2000
+    driver.setImplicitTimeout(implicitTimeout)
   }
 }
