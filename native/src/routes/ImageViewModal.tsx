@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { ReactElement, useContext, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { ThemeContext } from 'styled-components'
 
-import { ImageViewModalRouteType } from 'api-client'
+import { ErrorCode, ImageViewModalRouteType } from 'api-client'
 
+import Failure from '../components/Failure'
 import PinchableBox from '../components/PinchableBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 
@@ -16,10 +16,9 @@ type PropsType = {
 const ImageViewModal = ({ route }: PropsType): ReactElement => {
   const [isError, setError] = useState(false)
   const theme = useContext(ThemeContext)
-  const { t } = useTranslation('error')
 
   if (isError) {
-    return <Text>{t('imageLoadingFailed')}</Text>
+    return <Failure code={ErrorCode.UnknownError} />
   }
 
   return (
@@ -29,12 +28,7 @@ const ImageViewModal = ({ route }: PropsType): ReactElement => {
         justifyContent: 'center',
         backgroundColor: theme.colors.backgroundAccentColor
       }}>
-      <PinchableBox
-        uri={route.params.url}
-        onError={_ => {
-          setError(true)
-        }}
-      />
+      <PinchableBox uri={route.params.url} onError={_ => setError(true)} />
     </View>
   )
 }

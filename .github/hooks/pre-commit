@@ -10,7 +10,6 @@ if [ ! -x "$(command -v circleci)" ]; then
   exit 1
 fi
 
-
 # regenerate circle-ci config-yml
 CONFIG=$(git diff --cached --name-only .circleci/src)
 

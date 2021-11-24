@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Animated, Image, ImageErrorEventData, NativeSyntheticEvent, View } from 'react-native'
+import { Animated, Image, ImageErrorEventData, NativeSyntheticEvent } from 'react-native'
 import {
   PanGestureHandler,
   PinchGestureHandler,
@@ -9,9 +9,14 @@ import {
   PinchGestureHandlerStateChangeEvent,
   State
 } from 'react-native-gesture-handler'
+import styled from 'styled-components/native'
 
 const USE_NATIVE_DRIVER = true
 const ANIMATION_DURATION = 150
+
+const Container = styled.View`
+  flex: 1;
+`
 
 type PropsType = {
   uri: string
@@ -27,8 +32,9 @@ type StateType = {
   imageDimensions?: { width: number; height: number }
 }
 
-export class PinchableBox extends React.Component<PropsType, StateType> {
+class PinchableBox extends React.Component<PropsType, StateType> {
   private lastOffset: { x: number; y: number }
+  private readonly panHandler: React.RefObject<PanGestureHandler>
   private readonly translateX: Animated.AnimatedValue
   private readonly translateY: Animated.AnimatedValue
   private readonly scaledTranslateY: Animated.AnimatedDivision
@@ -36,6 +42,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
   private readonly onPanGestureEvent: (event: PanGestureHandlerGestureEvent) => void
 
   private lastScale: number
+  private readonly pinchHandler: React.RefObject<PinchGestureHandler>
   private readonly baseScale: Animated.Value
   private readonly pinchScale: Animated.Value
   private readonly scale: Animated.AnimatedMultiplication
@@ -44,6 +51,9 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props)
     this.state = { interactive: true }
+
+    this.pinchHandler = React.createRef()
+    this.panHandler = React.createRef()
 
     // Setup: Pinching
     this.baseScale = new Animated.Value(1)
@@ -228,15 +238,12 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     }
 
   render(): ReactElement | null {
-    const pinchHandler = React.createRef()
-    const panHandler = React.createRef()
     const { uri } = this.props
     const { imageDimensions, viewDimensions, interactive } = this.state
 
     if (!imageDimensions || !viewDimensions) {
       return (
-        <View
-          style={{ flex: 1 }}
+        <Container
           onLayout={event => {
             const { width, height } = event.nativeEvent.layout
             this.setState(state => ({ ...state, viewDimensions: { width, height } }))
@@ -253,15 +260,14 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
     const realImageHeight = shouldImageBeLandscape ? imageHeight * (viewWidth / imageWidth) : viewHeight
 
     return (
-      <View
-        style={{ flex: 1 }}
+      <Container
         onLayout={event => {
           const { width, height } = event.nativeEvent.layout
           this.setState(state => ({ ...state, viewDimensions: { width, height } }))
         }}>
         <PanGestureHandler
-          ref={panHandler}
-          simultaneousHandlers={pinchHandler}
+          ref={this.panHandler}
+          simultaneousHandlers={this.pinchHandler}
           enabled={interactive}
           onGestureEvent={this.onPanGestureEvent}
           onHandlerStateChange={this.createOnPanHandlerStateChange(
@@ -276,8 +282,8 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
             style={{ flex: 1, flexDirection: shouldImageBeLandscape ? 'column' : 'row', justifyContent: 'center' }}
             collapsable={false}>
             <PinchGestureHandler
-              ref={pinchHandler}
-              simultaneousHandlers={panHandler}
+              ref={this.pinchHandler}
+              simultaneousHandlers={this.panHandler}
               onGestureEvent={this.onPinchGestureEvent}
               onHandlerStateChange={this.createOnPinchHandlerStateChange(
                 viewWidth,
@@ -309,7 +315,7 @@ export class PinchableBox extends React.Component<PropsType, StateType> {
             </PinchGestureHandler>
           </Animated.View>
         </PanGestureHandler>
-      </View>
+      </Container>
     )
   }
 }
