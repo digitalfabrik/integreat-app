@@ -172,7 +172,14 @@ export default function* loadCityContent(
     const { categoriesMap, events, _unusedPois } = yield* all({
       categoriesMap: call(loadCategories, newCity, newLanguage, dataContainer, shouldUpdate),
       events: call(loadEvents, newCity, newLanguage, cityModel.eventsEnabled, dataContainer, shouldUpdate),
-      _unusedPois: call(loadPois, newCity, newLanguage, featureFlags.pois, dataContainer, shouldUpdate)
+      _unusedPois: call(
+        loadPois,
+        newCity,
+        newLanguage,
+        featureFlags.pois && cityModel.poisEnabled,
+        dataContainer,
+        shouldUpdate
+      )
     })
 
     // fetchResourceCache should be callable independent of content updates. Even if loadCategories, loadEvents,

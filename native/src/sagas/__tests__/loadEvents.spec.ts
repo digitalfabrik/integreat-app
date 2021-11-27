@@ -62,10 +62,8 @@ describe('loadEvents', () => {
     const events = await runSaga({}, loadEvents, city, language, true, dataContainer, false).toPromise()
     expect(events).toBe(mockEvents)
   })
-  it('should set empty array if events are disabled', async () => {
+  it('should return empty array if events are disabled', async () => {
     const dataContainer = new DefaultDataContainer()
-    await dataContainer.setEvents(city, language, otherEvents)
     await runSaga({}, loadEvents, city, language, false, dataContainer, true).toPromise()
-    expect(await dataContainer.getEvents(city, language)).toStrictEqual([])
   })
 })

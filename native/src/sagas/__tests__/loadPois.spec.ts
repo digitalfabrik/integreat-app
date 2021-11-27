@@ -60,10 +60,8 @@ describe('loadPois', () => {
     const pois = await runSaga({}, loadPois, city, language, true, dataContainer, false).toPromise()
     expect(pois).toBe(mockPois)
   })
-  it('should set empty array if pois are disabled', async () => {
+  it('should return empty array if pois are disabled', async () => {
     const dataContainer = new DefaultDataContainer()
-    await dataContainer.setPois(city, language, otherPois)
     await runSaga({}, loadPois, city, language, false, dataContainer, true).toPromise()
-    expect(await dataContainer.getPois(city, language)).toStrictEqual([])
   })
 })

@@ -13,6 +13,11 @@ function* loadPois(
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): SagaGenerator<Array<PoiModel>> {
+  if (!poisEnabled) {
+    log('Pois disabled')
+    return []
+  }
+
   const poisAvailable = yield* call(dataContainer.poisAvailable, city, language)
 
   if (poisAvailable && !forceRefresh) {
@@ -25,11 +30,6 @@ function* loadPois(
     }
   }
 
-  if (!poisEnabled) {
-    log('Pois disabled')
-    yield* call(dataContainer.setPois, city, language, [])
-    return []
-  }
   log('Fetching pois')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>

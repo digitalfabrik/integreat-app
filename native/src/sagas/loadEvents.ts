@@ -13,6 +13,11 @@ function* loadEvents(
   dataContainer: DataContainer,
   forceRefresh: boolean
 ): SagaGenerator<Array<EventModel>> {
+  if (!eventsEnabled) {
+    log('Events disabled')
+    return []
+  }
+
   const eventsAvailable = yield* call(dataContainer.eventsAvailable, city, language)
 
   if (eventsAvailable && !forceRefresh) {
@@ -25,11 +30,6 @@ function* loadEvents(
     }
   }
 
-  if (!eventsEnabled) {
-    log('Events disabled')
-    yield* call(dataContainer.setEvents, city, language, [])
-    return []
-  }
   log('Fetching events')
   const apiUrl = yield* call(determineApiUrl)
   const payload = yield* call(() =>
