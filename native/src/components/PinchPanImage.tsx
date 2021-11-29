@@ -284,7 +284,6 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
             realImageWidth,
             realImageHeight
           )}
-          shouldCancelWhenOutside
           minDist={10}>
           <Animated.View
             style={{ flex: 1, flexDirection: shouldImageBeLandscape ? 'column' : 'row', justifyContent: 'center' }}
