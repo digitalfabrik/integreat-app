@@ -40,10 +40,14 @@ type StateType = {
 class PinchPanImage extends React.Component<PropsType, StateType> {
   private lastOffset: { x: number; y: number }
   private readonly panHandler: React.RefObject<PanGestureHandler>
+  // Used to hold the a translation of the image which has been recorded via panning
   private readonly translateX: Animated.AnimatedValue
   private readonly translateY: Animated.AnimatedValue
-  private readonly scaledTranslateY: Animated.AnimatedDivision
-  private readonly scaledTranslateX: Animated.AnimatedDivision
+  // Used for applying an the lastOffset to the position of the image
+  private readonly translateXOffset: Animated.AnimatedValue
+  private readonly translateYOffset: Animated.AnimatedValue
+  private readonly scaledTranslateYWithOffset: Animated.AnimatedDivision
+  private readonly scaledTranslateXWithOffset: Animated.AnimatedDivision
   private readonly onPanGestureEvent: (event: PanGestureHandlerGestureEvent) => void
 
   private lastScale: number
@@ -85,9 +89,12 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
       ],
       { useNativeDriver: USE_NATIVE_DRIVER }
     )
-    // Make translation depend on scale
-    this.scaledTranslateX = Animated.divide(this.translateX, this.scale)
-    this.scaledTranslateY = Animated.divide(this.translateY, this.scale)
+    this.translateXOffset = new Animated.Value(0)
+    this.translateYOffset = new Animated.Value(0)
+
+    // Make translation depend on scale and offset
+    this.scaledTranslateXWithOffset = Animated.divide(Animated.add(this.translateX, this.translateXOffset), this.scale)
+    this.scaledTranslateYWithOffset = Animated.divide(Animated.add(this.translateY, this.translateYOffset), this.scale)
 
     // Setup: Initialize image dimensions
     const { uri, onError } = props
@@ -124,11 +131,11 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
       if (finished) {
         if (axis === 'x') {
           this.lastOffset.x = minValue
-          this.translateX.setOffset(minValue)
+          this.translateXOffset.setValue(minValue)
           this.translateX.setValue(0)
         } else {
           this.lastOffset.y = minValue
-          this.translateY.setOffset(minValue)
+          this.translateYOffset.setValue(minValue)
           this.translateY.setValue(0)
         }
       }
@@ -233,12 +240,12 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
 
         const newY = previousY + movedInY
         this.lastOffset.y = newY
-        this.translateY.setOffset(newY)
+        this.translateYOffset.setValue(newY)
         this.translateY.setValue(0)
 
         const newX = previousX + movedInX
         this.lastOffset.x = newX
-        this.translateX.setOffset(newX)
+        this.translateXOffset.setValue(newX)
         this.translateX.setValue(0)
 
         this.fixBounds(viewWidth, viewHeight, realImageWidth, realImageHeight, newX, newY, this.lastScale)
@@ -309,8 +316,8 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
                   {
                     transform: [
                       { scale: this.scale },
-                      { translateX: this.scaledTranslateX },
-                      { translateY: this.scaledTranslateY }
+                      { translateX: this.scaledTranslateXWithOffset },
+                      { translateY: this.scaledTranslateYWithOffset }
                     ]
                   }
                 ]}
