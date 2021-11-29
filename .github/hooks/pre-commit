@@ -9,7 +9,7 @@
 if [[ $(git status --short | grep .circleci) ]]; then
   # Abort if circleci command line tools are not installed
   if [ ! -x "$(command -v circleci)" ]; then
-    echo "You need to install circleci in order to commit"
+    echo "You need to install circleci in order to commit and update the circleci config"
     exit 1
   fi
 
