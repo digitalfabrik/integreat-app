@@ -6,7 +6,7 @@ import { ThemeContext } from 'styled-components'
 import { ErrorCode, ImageViewModalRouteType } from 'api-client'
 
 import Failure from '../components/Failure'
-import PinchableBox from '../components/PinchableBox'
+import PinchPanImage from '../components/PinchPanImage'
 import { RoutePropType } from '../constants/NavigationTypes'
 
 type PropsType = {
@@ -28,7 +28,7 @@ const ImageViewModal = ({ route }: PropsType): ReactElement => {
         justifyContent: 'center',
         backgroundColor: theme.colors.backgroundAccentColor
       }}>
-      <PinchableBox uri={route.params.url} onError={_ => setError(true)} />
+      <PinchPanImage uri={route.params.url} onError={() => setError(true)} />
     </View>
   )
 }
