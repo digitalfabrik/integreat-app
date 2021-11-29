@@ -27,6 +27,11 @@ type PropsType = {
 }
 
 type StateType = {
+  /**
+   * We do not allow to interact (pinch/pan) while an animation is in progress. The reason for this is that we do not
+   * have a way to get the current position of an element when the animation is cancelled through an interaction.
+   * Therefore, we disable animation.
+   */
   interactive: boolean
   viewDimensions?: { width: number; height: number }
   imageDimensions?: { width: number; height: number }
@@ -85,14 +90,13 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
     this.scaledTranslateY = Animated.divide(this.translateY, this.scale)
 
     // Setup: Initialize image dimensions
-    const { uri } = props
+    const { uri, onError } = props
     Image.getSize(
       uri,
       (width, height) => {
         this.setState(state => ({ ...state, imageDimensions: { width, height } }))
       },
       (error: unknown) => {
-        const { onError } = this.props
         onError(error)
       }
     )
@@ -103,6 +107,10 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
     onError(error.nativeEvent.error)
   }
 
+  /**
+   * Moves the image along some axis back into the view. This animates the translateX and translateY properties
+   * if they are out of bounds
+   */
   private fixBound(axis: 'x' | 'y', minValue: number, newValue: number) {
     this.setState(state => ({ ...state, interactive: false }))
 
@@ -283,6 +291,7 @@ class PinchPanImage extends React.Component<PropsType, StateType> {
             collapsable={false}>
             <PinchGestureHandler
               ref={this.pinchHandler}
+              enabled={interactive}
               simultaneousHandlers={this.panHandler}
               onGestureEvent={this.onPinchGestureEvent}
               onHandlerStateChange={this.createOnPinchHandlerStateChange(
