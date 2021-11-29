@@ -32,7 +32,7 @@ type StateType = {
   imageDimensions?: { width: number; height: number }
 }
 
-class PinchableBox extends React.Component<PropsType, StateType> {
+class PinchPanImage extends React.Component<PropsType, StateType> {
   private lastOffset: { x: number; y: number }
   private readonly panHandler: React.RefObject<PanGestureHandler>
   private readonly translateX: Animated.AnimatedValue
@@ -320,4 +320,4 @@ class PinchableBox extends React.Component<PropsType, StateType> {
   }
 }
 
-export default PinchableBox
+export default PinchPanImage
