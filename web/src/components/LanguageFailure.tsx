@@ -14,12 +14,11 @@ const ChooseLanguage = styled.p`
 
 type PropsType = {
   cityModel: CityModel
-  pathname: string
   languageCode: string
   languageChangePaths: Array<{ code: string; path: string | null; name: string }>
 }
 
-const LanguageFailure = ({ cityModel, pathname, languageCode, languageChangePaths }: PropsType): ReactElement => {
+const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: PropsType): ReactElement => {
   const { t } = useTranslation('error')
   return (
     <>
@@ -27,7 +26,7 @@ const LanguageFailure = ({ cityModel, pathname, languageCode, languageChangePath
       <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
       <LanguageSelector
         isHeaderActionItem={false}
-        pathname={pathname}
+        pathname={null}
         languageCode={languageCode}
         languageChangePaths={languageChangePaths}
       />
