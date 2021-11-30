@@ -4,7 +4,7 @@ parameters:
     type: string
     description: the name of the artifact to upload
 docker:
-  - image: circleci/node:14.18.0
+  - image: cimg/ruby:3.0.3
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
