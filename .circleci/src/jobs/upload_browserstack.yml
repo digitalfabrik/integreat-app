@@ -1,0 +1,23 @@
+# Deliver the app to Browserstack.
+parameters:
+  artifact_name:
+    type: string
+    description: the name of the artifact to upload
+docker:
+  - image: circleci/node:14.18.0
+resource_class: small
+shell: /bin/bash -eo pipefail
+environment:
+  FASTLANE_SKIP_UPDATE_CHECK: true
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  - restore_ruby_cache:
+      directory: native
+  - run:
+      name: '[FL] Browserstack Upload Live'
+      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.artifact_name >>
+      working_directory: native
+  - notify
