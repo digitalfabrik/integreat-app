@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useState } from 'react'
 
 import { CityModel, SEARCH_ROUTE } from 'api-client'
 
@@ -24,76 +24,47 @@ type PropsType = {
   pathname: string
 }
 
-type LocalStateType = {
-  asideStickyTop: number
-  feedbackModalRating: FeedbackRatingType | null
-}
+const LocationLayout = (props: PropsType): ReactElement => {
+  const [asideStickyTop, setAsideStickyTop] = useState<number>(0)
+  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
-export class LocationLayout extends React.Component<PropsType, LocalStateType> {
-  constructor(props: PropsType) {
-    super(props)
-    this.state = { asideStickyTop: 0, feedbackModalRating: null }
-  }
+  const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route, toolbar: toolbarProp } = props
+  const { feedbackTargetInformation, cityModel, pathname } = props
 
-  handleStickyTopChanged = (asideStickyTop: number): void => this.setState({ asideStickyTop })
-
-  renderFeedbackModal = (): React.ReactNode => {
-    const { feedbackModalRating } = this.state
-    if (!feedbackModalRating) {
-      return null
-    }
-
-    const { cityModel, languageCode, route, feedbackTargetInformation } = this.props
-    return (
+  const feedbackModal =
+    route !== SEARCH_ROUTE && feedbackModalRating ? (
       <FeedbackModal
         cityCode={cityModel.code}
         language={languageCode}
         routeType={route}
         feedbackRating={feedbackModalRating}
-        closeModal={this.closeFeedbackModal}
+        closeModal={() => setFeedbackModalRating(null)}
         {...feedbackTargetInformation}
       />
-    )
-  }
+    ) : null
 
-  openFeedbackModal = (rating: FeedbackRatingType): void => this.setState({ feedbackModalRating: rating })
+  const toolbar = toolbarProp && !isLoading ? toolbarProp(setFeedbackModalRating) : null
 
-  closeFeedbackModal = (): void => this.setState({ feedbackModalRating: null })
-
-  renderToolbar = (): ReactNode => {
-    const { toolbar, isLoading } = this.props
-    if (toolbar && !isLoading) {
-      return toolbar(this.openFeedbackModal)
-    }
-    return null
-  }
-
-  render(): ReactNode {
-    const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route } = this.props
-    const { pathname, cityModel } = this.props
-    const { asideStickyTop } = this.state
-
-    return (
-      <Layout
-        asideStickyTop={asideStickyTop}
-        header={
-          <LocationHeader
-            cityModel={cityModel}
-            languageChangePaths={languageChangePaths}
-            viewportSmall={viewportSmall}
-            onStickyTopChanged={this.handleStickyTopChanged}
-            languageCode={languageCode}
-            pathname={pathname}
-            route={route}
-          />
-        }
-        footer={!isLoading ? <LocationFooter city={cityModel.code} language={languageCode} /> : null}
-        modal={route !== SEARCH_ROUTE && this.renderFeedbackModal()}
-        toolbar={this.renderToolbar()}>
-        {children}
-      </Layout>
-    )
-  }
+  return (
+    <Layout
+      asideStickyTop={asideStickyTop}
+      header={
+        <LocationHeader
+          cityModel={cityModel}
+          languageChangePaths={languageChangePaths}
+          viewportSmall={viewportSmall}
+          onStickyTopChanged={setAsideStickyTop}
+          languageCode={languageCode}
+          pathname={pathname}
+          route={route}
+        />
+      }
+      footer={!isLoading ? <LocationFooter city={cityModel.code} language={languageCode} /> : null}
+      modal={feedbackModal}
+      toolbar={toolbar}>
+      {children}
+    </Layout>
+  )
 }
 
 export default LocationLayout

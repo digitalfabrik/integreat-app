@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import { CATEGORIES_ROUTE, CityModelBuilder } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
-import { LocationLayout, ToolbarPropType } from '../LocationLayout'
+import LocationLayout, { ToolbarPropType } from '../LocationLayout'
 
 jest.mock('../LocationFooter', () => () => <div>LocationFooter</div>)
 jest.mock('../LocationHeader', () => () => <div>LocationHeader</div>)
