@@ -6,7 +6,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
 type PropsType = {
-  pathname: string
+  pathname: string | null
   languageCode: string
   isHeaderActionItem: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null

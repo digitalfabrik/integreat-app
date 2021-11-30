@@ -145,7 +145,6 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
           language={languageCode}>
           <LanguageFailure
             cityModel={cityModel}
-            pathname={location.pathname}
             languageCode={languageCode}
             languageChangePaths={languageChangePaths}
           />
