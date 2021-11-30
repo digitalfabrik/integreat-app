@@ -1,0 +1,7 @@
+issue_key: IGAPP-839
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed faulty display in certain cases.
+de: Fehlerhafte Darstellung in bestimmten Fällen wurde behoben.
