@@ -58,8 +58,8 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
   }, [language, page, updateData])
 
   const loadMore = useCallback(() => {
-    // Only load more news if not already loading and it is possible that we have more news (i.e. each page is full)
-    if (!loading && data?.length === page * TUNEWS_FETCH_COUNT_LIMIT) {
+    const hasMoreNews = data?.length === page * TUNEWS_FETCH_COUNT_LIMIT
+    if (!loading && hasMoreNews) {
       setPage(page + 1)
     }
   }, [page, data, loading])
