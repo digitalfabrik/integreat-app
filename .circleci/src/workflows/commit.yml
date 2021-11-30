@@ -5,15 +5,6 @@ jobs:
         - mattermost
       delivery: none
 
-  - check:
-      context:
-        - mattermost
-  - e2e_web:
-      context:
-        - mattermost
-      requires:
-        - bump_version
-        - check
   - build_web:
       name: build_ig_test_cms_web
       build_config_name: integreat-test-cms
@@ -21,40 +12,32 @@ jobs:
         - mattermost
       requires:
         - bump_version
-        - check
-  - build_web:
-      name: build_malte_web
-      build_config_name: malte
-      context:
-        - mattermost
-      requires:
-        - bump_version
-        - check
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-        - check
-  - deliver_web:
+
+  # On feature branches
+
+  - check:
       filters:
         branches:
-          only:
+          ignore:
             - main
       context:
         - mattermost
-        - sentry
-      production_delivery: false
+  - e2e_web:
+      filters:
+        branches:
+          ignore:
+            - main
+      context:
+        - mattermost
       requires:
+        - bump_version
         - check
-        - e2e_web
-        - build_ig_test_cms_web
-        - build_malte_web
-        - build_aschaffenburg_web
 
   - build_android:
+      filters:
+        branches:
+          ignore:
+            - main
       name: build_e2e_android
       build_config_name: integreat-e2e
       context:
@@ -65,6 +48,10 @@ jobs:
         - bump_version
         - check
   - e2e_android:
+      filters:
+        branches:
+          ignore:
+            - main
       context:
         - mattermost
         - browserstack
@@ -72,6 +59,10 @@ jobs:
         - build_e2e_android
 
   - build_ios:
+      filters:
+        branches:
+          ignore:
+            - main
       name: build_e2e_ios
       build_config_name: integreat-e2e
       context:
@@ -82,8 +73,50 @@ jobs:
         - bump_version
         - check
   - e2e_ios:
+      filters:
+        branches:
+          ignore:
+            - main
       context:
         - mattermost
         - browserstack
       requires:
         - build_e2e_ios
+
+  # On main branch
+
+  - build_web:
+      filters:
+        branches:
+          only:
+            - main
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      filters:
+        branches:
+          only:
+            - main
+      name: build_aschaffenburg_web
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - deliver_web:
+      filters:
+        branches:
+          only:
+            - main
+      context:
+        - mattermost
+        - sentry
+      production_delivery: false
+      requires:
+        - build_ig_test_cms_web
+        - build_malte_web
+        - build_aschaffenburg_web
