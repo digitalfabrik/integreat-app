@@ -893,6 +893,29 @@ jobs:
                 name: '[FL] App Store Connect Promotion'
                 working_directory: native
             - notify
+    upload_browserstack:
+        docker:
+            - image: circleci/node:14.18.0
+        environment:
+            FASTLANE_SKIP_UPDATE_CHECK: true
+        parameters:
+            artifact_name:
+                description: the name of the artifact to upload
+                type: string
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - checkout
+            - prepare_workspace
+            - restore_environment_variables
+            - restore_ruby_cache:
+                directory: native
+            - run:
+                command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.artifact_name >>
+                name: '[FL] Browserstack Upload Live'
+                working_directory: native
+            - notify
 parameters:
     api_triggered:
         default: false
@@ -1023,6 +1046,56 @@ workflows:
                     - build_ig_test_cms_web
                     - build_malte_web
                     - build_aschaffenburg_web
+            - build_android:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                filters:
+                    branches:
+                        only:
+                            - main
+                name: build_ig_test_cms_android
+                requires:
+                    - bump_version
+            - upload_browserstack:
+                artifact_name: integreat-test-cms.apk
+                context:
+                    - mattermost
+                    - browserstack
+                filters:
+                    branches:
+                        only:
+                            - main
+                name: upload_ig_test_cms_android_browserstack
+                requires:
+                    - build_ig_test_cms_android
+            - build_ios:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                filters:
+                    branches:
+                        only:
+                            - main
+                name: build_ig_test_cms_ios
+                requires:
+                    - bump_version
+            - upload_browserstack:
+                artifact_name: integreat-test-cms.ipa
+                context:
+                    - mattermost
+                    - browserstack
+                filters:
+                    branches:
+                        only:
+                            - main
+                name: upload_ig_test_cms_ios_browserstack
+                requires:
+                    - build_ig_test_cms_ios
         unless: << pipeline.parameters.api_triggered >>
     scheduled_delivery:
         jobs:
