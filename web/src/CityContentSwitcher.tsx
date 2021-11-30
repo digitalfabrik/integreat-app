@@ -36,17 +36,18 @@ import {
   TU_NEWS_DETAIL_ROUTE,
   TU_NEWS_ROUTE
 } from './routes'
+import lazyWithRetry from './utils/retryImport'
 
-const TuNewsDetailPage = React.lazy(() => import('./routes/TuNewsDetailPage'))
-const TuNewsPage = React.lazy(() => import('./routes/TuNewsPage'))
-const OffersPage = React.lazy(() => import('./routes/OffersPage'))
-const EventsPage = React.lazy(() => import('./routes/EventsPage'))
-const CategoriesPage = React.lazy(() => import('./routes/CategoriesPage'))
-const LocalNewsPage = React.lazy(() => import('./routes/LocalNewsPage'))
-const SprungbrettOfferPage = React.lazy(() => import('./routes/SprungbrettOfferPage'))
-const PoisPage = React.lazy(() => import('./routes/PoisPage'))
-const SearchPage = React.lazy(() => import('./routes/SearchPage'))
-const DisclaimerPage = React.lazy(() => import('./routes/DisclaimerPage'))
+const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
+const TuNewsPage = lazyWithRetry(() => import('./routes/TuNewsPage'))
+const OffersPage = lazyWithRetry(() => import('./routes/OffersPage'))
+const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
+const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
+const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
+const SprungbrettOfferPage = lazyWithRetry(() => import('./routes/SprungbrettOfferPage'))
+const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
+const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
+const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
 
 type PropsType = {
   cities: CityModel[]
