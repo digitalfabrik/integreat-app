@@ -696,14 +696,15 @@ class DatabaseConnector {
   async readFile<T>(path: string): Promise<T> {
     const jsonString: number[] | string = await BlobUtil.fs.readFile(path, 'utf8')
 
-    if (typeof jsonString !== 'string') {
-      throw new Error('readFile did not return a string')
-    }
-
     try {
+      if (typeof jsonString !== 'string') {
+        throw new Error('readFile did not return a string')
+      }
+
       return JSON.parse(jsonString)
     } catch (e) {
       log(`An error occurred while trying to parse json '${jsonString}' from path '${path}'`, 'warning')
+      deleteIfExists(path)
       throw e
     }
   }
