@@ -704,7 +704,7 @@ class DatabaseConnector {
       return JSON.parse(jsonString)
     } catch (e) {
       log(`An error occurred while trying to parse json '${jsonString}' from path '${path}'`, 'warning')
-      deleteIfExists(path)
+      await deleteIfExists(path)
       throw e
     }
   }
