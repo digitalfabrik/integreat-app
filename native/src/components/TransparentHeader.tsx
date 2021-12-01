@@ -11,6 +11,8 @@ import dimensions from '../constants/dimensions'
 import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 import useSnackbar from '../hooks/useSnackbar'
+import buildConfig from '../constants/buildConfig'
+
 
 const Horizontal = styled.View`
   flex: 1;
@@ -63,12 +65,12 @@ const TransparentHeader = (props:PropsType) : ReactElement => {
 
     try {
       await Share.share({
-        message
+        message,
+        title: buildConfig().appName
       })
     } catch (e) {
-      const error = e as Error
       showSnackbar(t('generalError'))
-      reportError(error)
+      reportError(e)
     }
   }
 
