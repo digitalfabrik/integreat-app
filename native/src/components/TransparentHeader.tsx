@@ -13,7 +13,6 @@ import MaterialHeaderButtons from './MaterialHeaderButtons'
 import useSnackbar from '../hooks/useSnackbar'
 import buildConfig from '../constants/buildConfig'
 
-
 const Horizontal = styled.View`
   flex: 1;
   flex-direction: row;
