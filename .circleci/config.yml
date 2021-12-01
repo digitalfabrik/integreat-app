@@ -912,9 +912,12 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.file_name >>
+                command: |
+                    file="attached_workspace/<< parameters.file_name >>"
+                    file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
+                    cp $file $file_with_commit_sha
+                    bundle exec fastlane browserstack_upload_live path:$file_with_commit_sha
                 name: '[FL] Browserstack Upload Live'
-                working_directory: native
             - notify
 parameters:
     api_triggered:
