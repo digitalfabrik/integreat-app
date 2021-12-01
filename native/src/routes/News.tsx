@@ -81,7 +81,7 @@ const News = (props: PropsType): ReactElement => {
   }
 
   if (loading) {
-    return <LoadingSpinner />
+    return <LoadingSpinner testID='loadingSpinner' />
   }
 
   const news = data ?? []

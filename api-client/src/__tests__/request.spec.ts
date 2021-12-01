@@ -22,7 +22,7 @@ describe('request', () => {
     expect(fetch).toHaveBeenCalledWith(url2, requestOptions2)
   })
 
-  it('should set user agent correclty', async () => {
+  it('should set user agent correctly', async () => {
     setUserAgent('my-user-agent')
     const requestOptions = { method: 'POST', body: JSON.stringify(body) }
     await request(url, { ...requestOptions, headers: { custom: 'custom' } })
