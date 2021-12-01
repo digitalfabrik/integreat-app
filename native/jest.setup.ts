@@ -5,6 +5,8 @@ import path from 'path'
 
 import { I18nManager } from './src/testing/I18nManagerMock'
 
+global.fetch = require('jest-fetch-mock')
+
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
 // react-navigation jest setup
