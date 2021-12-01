@@ -304,7 +304,7 @@ class DatabaseConnector {
       throw Error("cityCode mustn't be null")
     }
 
-    const metaData = await this._loadMetaCities()
+    const metaData = await this._loadMetaCities().catch(() => ({} as MetaCitiesType))
     metaData[city] = {
       lastUsage: moment(),
       languages: metaData[city]?.languages || {}

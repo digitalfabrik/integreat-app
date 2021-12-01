@@ -78,11 +78,10 @@ describe('DatabaseConnector', () => {
       const moment = await databaseConnector.loadLastUpdate(context)
       expect(moment).toBeNull()
     })
-    it('should return null if persisted data is malformatted for a given city-language pair', async () => {
+    it('should throw if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      BlobUtil.fs.writeFile(databaseConnector.getMetaCitiesPath(), '{ "i": "am": "malformatted" } }', 'utf8')
-      const moment = await databaseConnector.loadLastUpdate(context)
-      expect(moment).toBeNull()
+      BlobUtil.fs.writeFile(databaseConnector.getMetaCitiesPath(), '{ "i": "am": "malformed" } }', 'utf8')
+      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
@@ -399,10 +398,10 @@ describe('DatabaseConnector', () => {
       })
       restoreDate()
     })
-    it('should override if persisted data is malformatted for a given city-language pair', async () => {
+    it('should override if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const path = databaseConnector.getMetaCitiesPath()
-      BlobUtil.fs.writeFile(path, '{ "i": "am": "malformatted" } }', 'utf8')
+      BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.storeLastUsage(context, false)
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
@@ -465,11 +464,10 @@ describe('DatabaseConnector', () => {
         }
       ])
     })
-    it('should return empty array if persisted data is malformatted', async () => {
+    it('should throw array if persisted data is malformed', async () => {
       const path = databaseConnector.getMetaCitiesPath()
-      BlobUtil.fs.writeFile(path, '{ "i": "am": "malformatted" } }', 'utf8')
-      const usages = await databaseConnector.loadLastUsages()
-      expect(usages).toEqual([])
+      BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
+      await expect(databaseConnector.loadLastUsages()).rejects.toThrow()
     })
   })
   describe('deleteOldFiles', () => {
