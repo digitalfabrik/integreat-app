@@ -576,4 +576,21 @@ describe('DatabaseConnector', () => {
       })
     })
   })
+
+  describe('readFile', () => {
+    it('should correctly read file and parse json content', async () => {
+      const content = ['this', 'is', 'my', 'custom', { content: 'CONTENT' }]
+      const path = 'my-path'
+      await BlobUtil.fs.writeFile(path, JSON.stringify(content), 'utf8')
+      const readContent = await databaseConnector.readFile<typeof content>(path)
+      expect(readContent).toEqual(content)
+    })
+
+    it('should delete file if json is corrupted', async () => {
+      const path = 'my-path'
+      await BlobUtil.fs.writeFile(path, '[', 'utf8')
+      await expect(databaseConnector.readFile(path)).rejects.toEqual(new SyntaxError('Unexpected end of JSON input'))
+      expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
+    })
+  })
 })
