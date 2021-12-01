@@ -50,7 +50,7 @@ jobs:
         - bump_version
   - upload_browserstack:
       name: upload_ig_test_cms_android_browserstack
-      artifact_name: integreat-test-cms.apk
+      file_name: integreat-test-cms.apk
       context:
         - mattermost
         - browserstack
@@ -68,7 +68,7 @@ jobs:
         - bump_version
   - upload_browserstack:
       name: upload_ig_test_cms_ios_browserstack
-      artifact_name: integreat-test-cms.ipa
+      file_name: integreat-test-cms.ipa
       context:
         - mattermost
         - browserstack

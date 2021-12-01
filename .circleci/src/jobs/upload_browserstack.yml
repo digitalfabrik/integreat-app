@@ -1,8 +1,8 @@
 # Deliver the app to Browserstack.
 parameters:
-  artifact_name:
+  file_name:
     type: string
-    description: the name of the artifact to upload
+    description: the name of the file to upload
 docker:
   - image: cimg/ruby:3.0.3
 resource_class: small
@@ -18,6 +18,6 @@ steps:
       directory: native
   - run:
       name: '[FL] Browserstack Upload Live'
-      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.artifact_name >>
+      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.file_name >>
       working_directory: native
   - notify
