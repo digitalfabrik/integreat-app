@@ -3,8 +3,7 @@ import React from 'react'
 import { withTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { CityModel } from 'api-client'
-import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE, NewsType } from 'api-client/src/routes'
+import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import activeInternational from '../assets/tu-news-active.svg'
@@ -69,12 +68,15 @@ class NewsHeader extends React.PureComponent<PropsType> {
         <Caption title={t('news')} theme={theme} />
         {cityModel.pushNotificationsEnabled && cityModel.tunewsEnabled && (
           <HeaderContainer>
-            <TouchableWrapper onPress={this.navigateToLocalNews}>
+            <TouchableWrapper
+              onPress={this.navigateToLocalNews}
+              accessibilityRole='button'
+              accessibilityLabel={t('local')}>
               <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE} theme={theme}>
                 <LocalText theme={theme}>{t('local')}</LocalText>
               </LocalTabWrapper>
             </TouchableWrapper>
-            <TouchableWrapper onPress={this.navigateToTunews}>
+            <TouchableWrapper onPress={this.navigateToTunews} accessibilityRole='button' accessibilityLabel='TüNews'>
               <NewsTypeIcon source={selectedNewsType === TU_NEWS_TYPE ? activeInternational : inactiveInternational} />
             </TouchableWrapper>
           </HeaderContainer>
