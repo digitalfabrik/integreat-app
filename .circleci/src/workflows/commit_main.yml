@@ -1,0 +1,76 @@
+when:
+  and:
+    - equal: [main, << pipeline.git.branch >>]
+    - not: << pipeline.parameters.api_triggered >>
+jobs:
+  - bump_version:
+      context:
+        - mattermost
+      delivery: none
+
+  - build_web:
+      name: build_ig_test_cms_web
+      build_config_name: integreat-test-cms
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_aschaffenburg_web
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - deliver_web:
+      context:
+        - mattermost
+        - sentry
+      production_delivery: false
+      requires:
+        - build_ig_test_cms_web
+        - build_malte_web
+        - build_aschaffenburg_web
+
+  - build_android:
+      name: build_ig_test_cms_android
+      build_config_name: integreat-test-cms
+      context:
+        - mattermost
+        - tuerantuer-google-play
+        - tuerantuer-android
+      requires:
+        - bump_version
+  - upload_browserstack:
+      name: upload_ig_test_cms_android_browserstack
+      artifact_name: integreat-test-cms.apk
+      context:
+        - mattermost
+        - browserstack
+      requires:
+        - build_ig_test_cms_android
+
+  - build_ios:
+      name: build_ig_test_cms_ios
+      build_config_name: integreat-test-cms
+      context:
+        - mattermost
+        - tuerantuer-apple
+        - tuerantuer-ios
+      requires:
+        - bump_version
+  - upload_browserstack:
+      name: upload_ig_test_cms_ios_browserstack
+      artifact_name: integreat-test-cms.ipa
+      context:
+        - mattermost
+        - browserstack
+      requires:
+        - build_ig_test_cms_ios

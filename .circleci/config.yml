@@ -936,6 +936,55 @@ workflows:
     commit:
         jobs:
             - bump_version:
+                delivery: none
+            - check
+            - build_web:
+                build_config_name: integreat-test-cms
+                name: build_ig_test_cms_web
+                requires:
+                    - bump_version
+                    - check
+            - e2e_web:
+                requires:
+                    - bump_version
+                    - check
+            - build_android:
+                build_config_name: integreat-e2e
+                context:
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_e2e_android
+                requires:
+                    - bump_version
+                    - check
+            - e2e_android:
+                context:
+                    - browserstack
+                requires:
+                    - build_e2e_android
+            - build_ios:
+                build_config_name: integreat-e2e
+                context:
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_e2e_ios
+                requires:
+                    - bump_version
+                    - check
+            - e2e_ios:
+                context:
+                    - browserstack
+                requires:
+                    - build_e2e_ios
+        unless:
+            or:
+                - equal:
+                    - main
+                    - << pipeline.git.branch >>
+                - << pipeline.parameters.api_triggered >>
+    commit_main:
+        jobs:
+            - bump_version:
                 context:
                     - mattermost
                 delivery: none
@@ -946,79 +995,10 @@ workflows:
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
-            - check:
-                context:
-                    - mattermost
-                filters:
-                    branches:
-                        ignore:
-                            - main
-            - e2e_web:
-                context:
-                    - mattermost
-                filters:
-                    branches:
-                        ignore:
-                            - main
-                requires:
-                    - bump_version
-                    - check
-            - build_android:
-                build_config_name: integreat-e2e
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                    - tuerantuer-android
-                filters:
-                    branches:
-                        ignore:
-                            - main
-                name: build_e2e_android
-                requires:
-                    - bump_version
-                    - check
-            - e2e_android:
-                context:
-                    - mattermost
-                    - browserstack
-                filters:
-                    branches:
-                        ignore:
-                            - main
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - tuerantuer-ios
-                filters:
-                    branches:
-                        ignore:
-                            - main
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-                    - check
-            - e2e_ios:
-                context:
-                    - mattermost
-                    - browserstack
-                filters:
-                    branches:
-                        ignore:
-                            - main
-                requires:
-                    - build_e2e_ios
             - build_web:
                 build_config_name: malte
                 context:
                     - mattermost
-                filters:
-                    branches:
-                        only:
-                            - main
                 name: build_malte_web
                 requires:
                     - bump_version
@@ -1026,10 +1006,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                filters:
-                    branches:
-                        only:
-                            - main
                 name: build_aschaffenburg_web
                 requires:
                     - bump_version
@@ -1037,10 +1013,6 @@ workflows:
                 context:
                     - mattermost
                     - sentry
-                filters:
-                    branches:
-                        only:
-                            - main
                 production_delivery: false
                 requires:
                     - build_ig_test_cms_web
@@ -1052,10 +1024,6 @@ workflows:
                     - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
-                filters:
-                    branches:
-                        only:
-                            - main
                 name: build_ig_test_cms_android
                 requires:
                     - bump_version
@@ -1064,10 +1032,6 @@ workflows:
                 context:
                     - mattermost
                     - browserstack
-                filters:
-                    branches:
-                        only:
-                            - main
                 name: upload_ig_test_cms_android_browserstack
                 requires:
                     - build_ig_test_cms_android
@@ -1077,10 +1041,6 @@ workflows:
                     - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
-                filters:
-                    branches:
-                        only:
-                            - main
                 name: build_ig_test_cms_ios
                 requires:
                     - bump_version
@@ -1089,14 +1049,15 @@ workflows:
                 context:
                     - mattermost
                     - browserstack
-                filters:
-                    branches:
-                        only:
-                            - main
                 name: upload_ig_test_cms_ios_browserstack
                 requires:
                     - build_ig_test_cms_ios
-        unless: << pipeline.parameters.api_triggered >>
+        when:
+            and:
+                - equal:
+                    - main
+                    - << pipeline.git.branch >>
+                - not: << pipeline.parameters.api_triggered >>
     scheduled_delivery:
         jobs:
             - bump_version:
