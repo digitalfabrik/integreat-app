@@ -15,11 +15,11 @@ import {
   TunewsModel
 } from 'api-client'
 
-import Failure from '../components/Failure'
-import LoadingSpinner from '../components/LoadingSpinner'
-import NewsDetail from '../components/NewsDetail'
-import NewsList from '../components/NewsList'
-import NewsListItem from '../components/NewsListItem'
+import Failure from './Failure'
+import LoadingSpinner from './LoadingSpinner'
+import NewsDetail from './NewsDetail'
+import NewsList from './NewsList'
+import NewsListItem from './NewsListItem'
 
 type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
