@@ -918,6 +918,7 @@ jobs:
                     cp ~/$file ~/$file_with_commit_sha
                     bundle exec fastlane browserstack_upload_live path:$file_with_commit_sha
                 name: '[FL] Browserstack Upload Live'
+                working_directory: native
             - notify
 parameters:
     api_triggered:
