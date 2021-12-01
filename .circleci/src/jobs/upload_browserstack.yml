@@ -21,6 +21,6 @@ steps:
       command: |
           file="attached_workspace/<< parameters.file_name >>"
           file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
-          cp $file $file_with_commit_sha
+          cp ~/$file ~/$file_with_commit_sha
           bundle exec fastlane browserstack_upload_live path:$file_with_commit_sha
   - notify
