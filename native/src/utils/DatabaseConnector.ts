@@ -24,7 +24,7 @@ import {
   PageResourceCacheStateType
 } from '../redux/StateType'
 import { deleteIfExists } from './helpers'
-import { log, reportError } from './sentry'
+import { log } from './sentry'
 
 export const CONTENT_VERSION = 'v1'
 export const RESOURCE_CACHE_VERSION = 'v1'
@@ -213,12 +213,14 @@ class DatabaseConnector {
     }
 
     const metaData = await this._loadMetaCities()
+    const cityMetaData = metaData[cityCode]
 
-    if (!metaData[cityCode]) {
+    if (!cityMetaData) {
+      log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, 'warning')
       throw Error('cannot store last update for unused city')
     }
 
-    metaData[cityCode]!.languages[languageCode] = {
+    cityMetaData.languages[languageCode] = {
       lastUpdate
     }
 
@@ -247,31 +249,26 @@ class DatabaseConnector {
 
   async _loadMetaCities(): Promise<MetaCitiesType> {
     const path = this.getMetaCitiesPath()
-    const fileExists: boolean = await BlobUtil.fs.exists(path)
+    const fileExists = await BlobUtil.fs.exists(path)
 
-    if (fileExists) {
-      try {
-        const citiesMetaJson: MetaCitiesJsonType = JSON.parse(await this.readFile(path))
-        return mapValues(citiesMetaJson, cityMeta => ({
-          languages: mapValues(
-            cityMeta.languages,
-            ({
-              last_update: jsonLastUpdate
-            }): {
-              lastUpdate: Moment
-            } => ({
-              lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
-            })
-          ),
-          lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
-        }))
-      } catch (e) {
-        log('An error occurred while loading cities from JSON', 'warning')
-        reportError(e)
-      }
+    if (!fileExists) {
+      return {}
     }
 
-    return {}
+    const citiesMetaJson = await this.readFile<MetaCitiesJsonType>(path)
+    return mapValues(citiesMetaJson, cityMeta => ({
+      languages: mapValues(
+        cityMeta.languages,
+        ({
+          last_update: jsonLastUpdate
+        }): {
+          lastUpdate: Moment
+        } => ({
+          lastUpdate: moment(jsonLastUpdate, moment.ISO_8601)
+        })
+      ),
+      lastUsage: moment(cityMeta.last_usage, moment.ISO_8601)
+    }))
   }
 
   async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {
@@ -307,7 +304,7 @@ class DatabaseConnector {
       throw Error("cityCode mustn't be null")
     }
 
-    const metaData = await this._loadMetaCities()
+    const metaData = await this._loadMetaCities().catch(() => ({} as MetaCitiesType))
     metaData[city] = {
       lastUsage: moment(),
       languages: metaData[city]?.languages || {}
@@ -349,9 +346,9 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const json = JSON.parse(await this.readFile(path))
+    const json = await this.readFile<ContentCategoryJsonType[]>(path)
     return new CategoriesMapModel(
-      json.map((jsonObject: ContentCategoryJsonType) => {
+      json.map(jsonObject => {
         const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
         return new CategoryModel({
           root: jsonObject.root,
@@ -377,7 +374,7 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const languages: Array<LanguageModel> = JSON.parse(await this.readFile(path))
+    const languages = await this.readFile<LanguageModel[]>(path)
     return languages.map(language => new LanguageModel(language._code, language._name))
   }
 
@@ -422,8 +419,8 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const json = JSON.parse(await this.readFile(path))
-    return json.map((jsonObject: ContentPoiJsonType) => {
+    const json = await this.readFile<ContentPoiJsonType[]>(path)
+    return json.map(jsonObject => {
       const jsonLocation = jsonObject.location
       const availableLanguages = new Map<string, string>(Object.entries(jsonObject.availableLanguages))
       return new PoiModel({
@@ -481,9 +478,9 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const json = JSON.parse(await this.readFile(path))
+    const json = await this.readFile<ContentCityJsonType[]>(path)
     return json.map(
-      (jsonObject: ContentCityJsonType) =>
+      jsonObject =>
         new CityModel({
           name: jsonObject.name,
           code: jsonObject.code,
@@ -553,8 +550,8 @@ class DatabaseConnector {
       throw Error(`File ${path} does not exist`)
     }
 
-    const json = JSON.parse(await this.readFile(path))
-    return json.map((jsonObject: ContentEventJsonType) => {
+    const json = await this.readFile<ContentEventJsonType[]>(path)
+    return json.map(jsonObject => {
       const jsonDate = jsonObject.date
       const jsonLocation = jsonObject.location
       const availableLanguages = new Map<string, string>(Object.entries(jsonObject.available_languages))
@@ -605,8 +602,8 @@ class DatabaseConnector {
       return {}
     }
 
-    const json: CityResourceCacheJsonType = JSON.parse(await this.readFile(path))
-    return mapValues(json, (languageResourceCache: LanguageResourceCacheJsonType) =>
+    const json = await this.readFile<CityResourceCacheJsonType>(path)
+    return mapValues(json, languageResourceCache =>
       mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
         mapValues(
           fileResourceCache,
@@ -663,6 +660,7 @@ class DatabaseConnector {
     await Promise.all(
       cachesToDelete.map(cityLastUpdate => {
         const { city } = cityLastUpdate
+        log(`Deleting content and resource cache of city '${city}'`)
         const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
         const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
         return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])
@@ -695,14 +693,20 @@ class DatabaseConnector {
     return BlobUtil.fs.exists(path)
   }
 
-  async readFile(path: string): Promise<string> {
+  async readFile<T>(path: string): Promise<T> {
     const jsonString: number[] | string = await BlobUtil.fs.readFile(path, 'utf8')
 
-    if (typeof jsonString !== 'string') {
-      throw new Error('readFile did not return a string')
-    }
+    try {
+      if (typeof jsonString !== 'string') {
+        throw new Error('readFile did not return a string')
+      }
 
-    return jsonString
+      return JSON.parse(jsonString)
+    } catch (e) {
+      log(`An error occurred while trying to parse json '${jsonString}' from path '${path}'`, 'warning')
+      await deleteIfExists(path)
+      throw e
+    }
   }
 
   async writeFile(path: string, data: string): Promise<void> {
