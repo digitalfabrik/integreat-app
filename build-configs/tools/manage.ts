@@ -1,4 +1,4 @@
-import program from 'commander'
+import { program } from 'commander'
 import decamelize from 'decamelize'
 import flat from 'flat'
 import fs from 'fs'

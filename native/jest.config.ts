@@ -8,7 +8,7 @@ const transformNodeModules = [
   '@react-native-community',
   '@react-navigation',
   'react-navigation-header-buttons',
-  'rn-fetch-blob',
+  'react-native-blob-util',
   'api-client',
   'translations',
   '@sentry/react-native',
@@ -36,8 +36,7 @@ export default {
   moduleDirectories: ['node_modules'],
   coverageDirectory: '<rootDir>/../reports/coverage',
   transform: {
-    ...tsjPreset.transform,
-    '\\.js$': '<rootDir>/../node_modules/react-native/jest/preprocessor.js'
+    ...tsjPreset.transform
   },
   reporters: [
     'default',

@@ -17,7 +17,7 @@ describe('navigateToOtherLocation', () => {
     expect(parsedLandingUrl.pathname).toContain(landingPath)
 
     const filteredCity = await LandingPage.city('Stadt Augsburg')
-    expect(filteredCity).toBeDefined()
+    expect(filteredCity).toExist()
 
     await filteredCity.click()
 

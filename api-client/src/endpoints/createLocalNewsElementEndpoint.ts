@@ -20,26 +20,24 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
       (params: ParamsType): string =>
         `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/fcm?id=${params.id}`
     )
-    .withMapper(
-      (localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
-        const localNewsModel = localNews[0]
+    .withMapper((localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
+      const localNewsModel = localNews[0]
 
-        if (!localNewsModel) {
-          throw new NotFoundError({ ...params, type: LOCAL_NEWS_TYPE })
-        } else if (localNews.length > 1) {
-          throw new MappingError(
-            LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
-            `Expected count of local news to be one. Received ${localNews.length} instead`
-          )
-        }
-
-        const { id, timestamp, title, message } = localNewsModel
-        return new LocalNewsModel({
-          id,
-          timestamp: moment.tz(timestamp, 'GMT'),
-          title,
-          message
-        })
+      if (!localNewsModel) {
+        throw new NotFoundError({ ...params, type: LOCAL_NEWS_TYPE })
+      } else if (localNews.length > 1) {
+        throw new MappingError(
+          LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
+          `Expected count of local news to be one. Received ${localNews.length} instead`
+        )
       }
-    )
+
+      const { id, timestamp, title, message } = localNewsModel
+      return new LocalNewsModel({
+        id,
+        timestamp: moment.tz(timestamp, 'GMT'),
+        title,
+        message
+      })
+    })
     .build()

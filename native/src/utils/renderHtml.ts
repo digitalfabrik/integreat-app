@@ -13,7 +13,7 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
 
     window.ReactNativeWebView.postMessage(JSON.stringify({ type, message: message }))
   }
-  
+
   // Catching occurring errors
   (function() {
     window.onerror = function(msg, url, lineNo, columnNo, error) {
@@ -21,7 +21,8 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
       var string = msg.toLowerCase()
       var substring = "script error"
       if (string.indexOf(substring) > -1) {
-        reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error), '${ERROR_MESSAGE_TYPE}')
+        reportError('Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
+          '${ERROR_MESSAGE_TYPE}')
       } else {
         var message = [
           'Message: ' + msg,
@@ -52,7 +53,8 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
           item.href = newResource
         }
       } catch (e) {
-        reportError(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary', '${WARNING_MESSAGE_TYPE}')
+        reportError(e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary',
+          '${WARNING_MESSAGE_TYPE}')
       }
     }
 
@@ -64,7 +66,8 @@ const renderJS = (cacheDictionary: Record<string, string>) => `
           item.src = newResource
         }
       } catch (e) {
-        reportError(e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary', '${WARNING_MESSAGE_TYPE}')
+        reportError(e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary',
+          '${WARNING_MESSAGE_TYPE}')
       }
     }
   })();
@@ -170,6 +173,7 @@ const renderHtml = (
 
       p {
         margin: ${theme.fonts.standardParagraphMargin} 0;
+        overflow: auto;
       }
 
       img {

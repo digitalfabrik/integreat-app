@@ -60,8 +60,9 @@ export type PropsType = {
 }
 
 const Feedback = (props: PropsType): ReactElement => {
+  const { theme, t, isSearchFeedback, isPositiveFeedback, comment, contactMail, sendingStatus } = props
+  const { onFeedbackContactMailChanged, onCommentChanged, onSubmit } = props
   const renderBox = (): React.ReactNode => {
-    const { theme, t, isSearchFeedback, isPositiveFeedback, comment, contactMail, sendingStatus } = props
     const feedbackModalDescription = isPositiveFeedback ? 'positiveComment' : 'negativeComment'
     const description = isSearchFeedback ? 'wantedInformation' : feedbackModalDescription
 
@@ -75,7 +76,7 @@ const Feedback = (props: PropsType): ReactElement => {
           </DescriptionContainer>
           <Input
             theme={theme}
-            onChangeText={props.onCommentChanged}
+            onChangeText={onCommentChanged}
             value={comment}
             multiline
             numberOfLines={3}
@@ -88,7 +89,7 @@ const Feedback = (props: PropsType): ReactElement => {
           <MailInput
             theme={theme}
             keyboardType='email-address'
-            onChangeText={props.onFeedbackContactMailChanged}
+            onChangeText={onFeedbackContactMailChanged}
             value={contactMail}
           />
           {sendingStatus === 'failed' && <Description theme={theme}>{t('failedSendingFeedback')}</Description>}
@@ -102,7 +103,7 @@ const Feedback = (props: PropsType): ReactElement => {
               marginTop: 15
             }}
             disabled={!isPositiveFeedback && !comment}
-            onPress={props.onSubmit}
+            onPress={onSubmit}
             title={t('send')}
           />
         </>
@@ -125,7 +126,6 @@ const Feedback = (props: PropsType): ReactElement => {
     )
   }
 
-  const { theme } = props
   return (
     <ScrollView
       keyboardShouldPersistTaps='handled'

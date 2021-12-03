@@ -85,10 +85,11 @@ const Header = (props: PropsType): ReactElement => {
     theme,
     goToLanguageChange,
     peeking,
-    categoriesAvailable
+    categoriesAvailable,
+    previous
   } = props
 
-  const canGoBackInStack = (): boolean => !!props.previous
+  const canGoBackInStack = !!previous
 
   const goBackInStack = () => {
     navigation.goBack()
@@ -193,7 +194,7 @@ const Header = (props: PropsType): ReactElement => {
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          {canGoBackInStack() ? (
+          {canGoBackInStack ? (
             <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
           ) : (
             <Icon source={buildConfigAssets().appIcon} />

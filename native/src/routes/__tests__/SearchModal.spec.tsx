@@ -35,18 +35,19 @@ describe('SearchModal', () => {
     t,
     theme: buildConfig().lightTheme
   }
+
   it('should send tracking signal when closing search site', async () => {
     const { getByPlaceholderText, getAllByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <SearchModal {...props} />
       </ThemeProvider>
     )
-    const button = getAllByRole('button')[0]!
+    const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
-    await fireEvent.press(button)
-    await waitFor(() => expect(button).not.toBeDisabled())
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    await fireEvent.press(goBackButton)
+    await waitFor(() => expect(goBackButton).not.toBeDisabled())
+    await waitFor(() => expect(sendTrackingSignal).toHaveBeenCalledTimes(1))
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: SEARCH_FINISHED_SIGNAL_NAME,
@@ -55,18 +56,19 @@ describe('SearchModal', () => {
       }
     })
   })
+
   it('should send tracking signal when opening a search result', async () => {
     const { getByText, getByPlaceholderText, getAllByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <SearchModal {...props} />
       </ThemeProvider>
     )
-    const button = getAllByRole('button')[0]!
+    const goBackButton = getAllByRole('button')[0]!
     const categoryListItem = getByText('Category with id 1')
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
     await fireEvent.press(categoryListItem)
-    await waitFor(() => expect(button).not.toBeDisabled())
+    await waitFor(() => expect(goBackButton).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     const routeInformation: CategoriesRouteInformationType = {
       route: CATEGORIES_ROUTE,
