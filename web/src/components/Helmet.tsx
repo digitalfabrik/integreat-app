@@ -22,16 +22,23 @@ const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: 
   const previewImageUrl = new URL(`https://${buildConfig().hostName}`)
   previewImageUrl.pathname = buildConfig().icons.socialMediaPreview
 
+  const noIndex =
+    cityModel && !cityModel.live && !buildConfig().featureFlags.fixedCity ? (
+      <meta name='robots' content='noindex' />
+    ) : null
+
+  const description = metaDescription ?? pageTitle
+
   return (
     <ReactHelmet>
-      {pageTitle && <title>{pageTitle}</title>}
-      {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
-      <meta name='description' content={metaDescription ?? pageTitle} />
+      <title>{pageTitle}</title>
+      <meta name='description' content={description} />
+      {noIndex}
       {languageLinks}
       {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
-      {pageTitle && <meta property='og:title' content={pageTitle} />}
+      <meta property='og:title' content={pageTitle} />
       <meta property='og:image' content={previewImageUrl.href} />
-      <meta property='og:description' content={metaDescription ?? pageTitle} />
+      <meta property='og:description' content={description} />
       <meta property='og:url' content={window.location.href} />
       <meta property='og:type' content='website' />
     </ReactHelmet>
