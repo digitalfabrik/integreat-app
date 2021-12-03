@@ -36,17 +36,18 @@ import {
   TU_NEWS_DETAIL_ROUTE,
   TU_NEWS_ROUTE
 } from './routes'
+import lazyWithRetry from './utils/retryImport'
 
-const TuNewsDetailPage = React.lazy(() => import('./routes/TuNewsDetailPage'))
-const TuNewsPage = React.lazy(() => import('./routes/TuNewsPage'))
-const OffersPage = React.lazy(() => import('./routes/OffersPage'))
-const EventsPage = React.lazy(() => import('./routes/EventsPage'))
-const CategoriesPage = React.lazy(() => import('./routes/CategoriesPage'))
-const LocalNewsPage = React.lazy(() => import('./routes/LocalNewsPage'))
-const SprungbrettOfferPage = React.lazy(() => import('./routes/SprungbrettOfferPage'))
-const PoisPage = React.lazy(() => import('./routes/PoisPage'))
-const SearchPage = React.lazy(() => import('./routes/SearchPage'))
-const DisclaimerPage = React.lazy(() => import('./routes/DisclaimerPage'))
+const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
+const TuNewsPage = lazyWithRetry(() => import('./routes/TuNewsPage'))
+const OffersPage = lazyWithRetry(() => import('./routes/OffersPage'))
+const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
+const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
+const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
+const SprungbrettOfferPage = lazyWithRetry(() => import('./routes/SprungbrettOfferPage'))
+const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
+const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
+const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
 
 type PropsType = {
   cities: CityModel[]
@@ -64,9 +65,10 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   const { cityCode, languageCode } = match.params
   const cityModel = cities.find(it => it.code === cityCode)
 
-  const requestLanguages = useCallback(async () => createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode }), [
-    cityCode
-  ])
+  const requestLanguages = useCallback(
+    async () => createLanguagesEndpoint(cmsApiBaseUrl).request({ city: cityCode }),
+    [cityCode]
+  )
   const { data: languages, loading, error: loadingError } = useLoadFromEndpoint<LanguageModel[]>(requestLanguages)
   const languageModel = languages?.find(it => it.code === languageCode)
 
@@ -129,19 +131,22 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
     isLoading: true
   }
 
-  const render = <S extends RouteType>(
-    route: S,
-    Component: FunctionComponent<CityRouteProps & RouteProps<S>>
-  ): ((p: RouteProps<S>) => ReactNode) => (props: RouteProps<S>): ReactNode => (
-    <Suspense
-      fallback={
-        <LocationLayout {...suspenseLayoutProps} route={route}>
-          <LoadingSpinner />
-        </LocationLayout>
-      }>
-      <Component {...cityRouteProps} {...props} />
-    </Suspense>
-  )
+  const render =
+    <S extends RouteType>(
+      route: S,
+      Component: FunctionComponent<CityRouteProps & RouteProps<S>>
+    ): ((p: RouteProps<S>) => ReactNode) =>
+    (props: RouteProps<S>): ReactNode =>
+      (
+        <Suspense
+          fallback={
+            <LocationLayout {...suspenseLayoutProps} route={route}>
+              <LoadingSpinner />
+            </LocationLayout>
+          }>
+          <Component {...cityRouteProps} {...props} />
+        </Suspense>
+      )
 
   const routes: ReactElement[] = []
   if (eventsEnabled) {

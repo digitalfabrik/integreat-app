@@ -1,6 +1,6 @@
 import { last } from 'lodash'
 import normalizeStrings from 'normalize-strings'
-import RNFetchBlob from 'rn-fetch-blob'
+import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 
 import buildConfig from '../constants/buildConfig'
@@ -10,8 +10,8 @@ import { log } from './sentry'
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
 export const deleteIfExists = async (path: string): Promise<void> => {
-  if (await RNFetchBlob.fs.exists(path)) {
-    await RNFetchBlob.fs.unlink(path)
+  if (await BlobUtil.fs.exists(path)) {
+    await BlobUtil.fs.unlink(path)
   } else {
     log(`File or directory ${path} does not exist and was therefore not deleted.`, 'warning')
   }

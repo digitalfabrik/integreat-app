@@ -17,25 +17,23 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
     .withParamsToUrlMapper(
       (params: ParamsType): string => `${baseUrl}/${params.city}/${params.language}/wp-json/extensions/v3/pages`
     )
-    .withMapper(
-      (json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
-        const basePath = `/${params.city}/${params.language}`
-        const categories = json.map(category => mapCategoryJson(category, basePath))
-        categories.push(
-          new CategoryModel({
-            root: true,
-            path: basePath,
-            title: params.city,
-            parentPath: '',
-            content: '',
-            thumbnail: '',
-            order: -1,
-            availableLanguages: new Map(),
-            lastUpdate: moment(0),
-            hash: ''
-          })
-        )
-        return new CategoriesMapModel(categories)
-      }
-    )
+    .withMapper((json: Array<JsonCategoryType>, params: ParamsType): CategoriesMapModel => {
+      const basePath = `/${params.city}/${params.language}`
+      const categories = json.map(category => mapCategoryJson(category, basePath))
+      categories.push(
+        new CategoryModel({
+          root: true,
+          path: basePath,
+          title: params.city,
+          parentPath: '',
+          content: '',
+          thumbnail: '',
+          order: -1,
+          availableLanguages: new Map(),
+          lastUpdate: moment(0),
+          hash: ''
+        })
+      )
+      return new CategoriesMapModel(categories)
+    })
     .build()

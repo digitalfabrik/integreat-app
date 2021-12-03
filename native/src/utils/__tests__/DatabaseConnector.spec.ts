@@ -5,14 +5,14 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 
-import RNFetchBlob from '../../__mocks__/rn-fetch-blob'
+import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import mockDate from '../../testing/mockDate'
 import DatabaseConnector from '../DatabaseConnector'
 
 const databaseConnector = new DatabaseConnector()
 afterEach(() => {
-  RNFetchBlob.fs._reset()
+  BlobUtil.fs._reset()
 
   jest.clearAllMocks()
 })
@@ -55,7 +55,7 @@ describe('DatabaseConnector', () => {
   describe('storeCities', () => {
     it('should store the json file in the correct path', async () => {
       await databaseConnector.storeCities(testCities)
-      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toBeCalledWith(
         expect.stringContaining('/cities.json'),
         expect.any(String),
         expect.any(String)
@@ -78,11 +78,10 @@ describe('DatabaseConnector', () => {
       const moment = await databaseConnector.loadLastUpdate(context)
       expect(moment).toBeNull()
     })
-    it('should return null if persisted data is malformatted for a given city-language pair', async () => {
+    it('should throw if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      RNFetchBlob.fs.writeFile(databaseConnector.getMetaCitiesPath(), '{ "i": "am": "malformatted" } }', 'utf8')
-      const moment = await databaseConnector.loadLastUpdate(context)
-      expect(moment).toBeNull()
+      BlobUtil.fs.writeFile(databaseConnector.getMetaCitiesPath(), '{ "i": "am": "malformed" } }', 'utf8')
+      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
@@ -130,7 +129,7 @@ describe('DatabaseConnector', () => {
       const date = moment('2011-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUsage(context, false)
       await databaseConnector.storeLastUpdate(date, context)
-      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toBeCalledWith(
         expect.stringContaining('cities-meta.json'),
         expect.any(String),
         expect.any(String)
@@ -154,7 +153,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeCategories(testCategoriesMap, context)
-      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toBeCalledWith(
         expect.stringContaining('tcc/de/categories.json'),
         expect.any(String),
         expect.any(String)
@@ -190,7 +189,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeLanguages(testLanguages, context)
-      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toBeCalledWith(
         expect.stringContaining('tcc/de/languages.json'),
         expect.any(String),
         expect.any(String)
@@ -226,7 +225,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents(testEvents, context)
-      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toBeCalledWith(
         expect.stringContaining('tcc/de/events.json'),
         expect.any(String),
         expect.any(String)
@@ -249,7 +248,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeResourceCache(testResources, context)
-      expect(RNFetchBlob.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toBeCalledWith(
         expect.stringContaining('tcc/files.json'),
         expect.any(String),
         expect.any(String)
@@ -271,7 +270,7 @@ describe('DatabaseConnector', () => {
   })
 
   const expectExists = async (path: string, exists = true) => {
-    const doesExist = await RNFetchBlob.fs.exists(path)
+    const doesExist = await BlobUtil.fs.exists(path)
     expect(doesExist).toBe(exists)
   }
 
@@ -295,7 +294,7 @@ describe('DatabaseConnector', () => {
       const { restoreDate } = mockDate(date)
       const context = new DatabaseContext('augsburg')
       await databaseConnector.storeLastUsage(context, false)
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
           last_usage: date.toISOString(),
           languages: {}
@@ -309,7 +308,7 @@ describe('DatabaseConnector', () => {
       await populateCityContent('ansbach')
       await populateCityContent('regensburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
-      await RNFetchBlob.fs.writeFile(
+      await BlobUtil.fs.writeFile(
         databaseConnector.getMetaCitiesPath(),
         JSON.stringify({
           muenchen: {
@@ -333,7 +332,7 @@ describe('DatabaseConnector', () => {
       await expectCityFilesExist('dortmund')
       await expectCityFilesExist('ansbach')
       await expectCityFilesExist('regensburg')
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         muenchen: {
           languages: {},
           last_usage: '2010-05-04T00:00:00.000Z'
@@ -359,7 +358,7 @@ describe('DatabaseConnector', () => {
       await populateCityContent('ansbach')
       await populateCityContent('regensburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
-      await RNFetchBlob.fs.writeFile(
+      await BlobUtil.fs.writeFile(
         databaseConnector.getMetaCitiesPath(),
         JSON.stringify({
           muenchen: {
@@ -383,7 +382,7 @@ describe('DatabaseConnector', () => {
       await expectCityFilesExist('dortmund')
       await expectCityFilesExist('ansbach')
       await expectCityFilesExist('regensburg')
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
           last_usage: '2012-05-04T00:00:00.000Z'
@@ -399,13 +398,13 @@ describe('DatabaseConnector', () => {
       })
       restoreDate()
     })
-    it('should override if persisted data is malformatted for a given city-language pair', async () => {
+    it('should override if persisted data is malformed for a given city-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const path = databaseConnector.getMetaCitiesPath()
-      RNFetchBlob.fs.writeFile(path, '{ "i": "am": "malformatted" } }', 'utf8')
+      BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
       const { restoreDate } = mockDate(moment('2013-05-04T00:00:00.000Z'))
       await databaseConnector.storeLastUsage(context, false)
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(path, 'utf8'))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
           languages: {},
           last_usage: '2013-05-04T00:00:00.000Z'
@@ -416,7 +415,7 @@ describe('DatabaseConnector', () => {
   })
   describe('loadLastUsages', () => {
     it('should load last usages', async () => {
-      await RNFetchBlob.fs.writeFile(
+      await BlobUtil.fs.writeFile(
         databaseConnector.getMetaCitiesPath(),
         JSON.stringify({
           muenchen: {
@@ -465,11 +464,10 @@ describe('DatabaseConnector', () => {
         }
       ])
     })
-    it('should return empty array if persisted data is malformatted', async () => {
+    it('should throw array if persisted data is malformed', async () => {
       const path = databaseConnector.getMetaCitiesPath()
-      RNFetchBlob.fs.writeFile(path, '{ "i": "am": "malformatted" } }', 'utf8')
-      const usages = await databaseConnector.loadLastUsages()
-      expect(usages).toEqual([])
+      BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
+      await expect(databaseConnector.loadLastUsages()).rejects.toThrow()
     })
   })
   describe('deleteOldFiles', () => {
@@ -480,7 +478,7 @@ describe('DatabaseConnector', () => {
       await populateCityContent('regensburg')
       await populateCityContent('augsburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
-      await RNFetchBlob.fs.writeFile(
+      await BlobUtil.fs.writeFile(
         databaseConnector.getMetaCitiesPath(),
         JSON.stringify({
           muenchen: {
@@ -512,7 +510,7 @@ describe('DatabaseConnector', () => {
       await expectCityFilesExist('ansbach')
       await expectCityFilesExist('regensburg')
       await expectCityFilesExist('augsburg')
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
           last_usage: '2012-05-04T00:00:00.000Z'
@@ -533,7 +531,7 @@ describe('DatabaseConnector', () => {
       await populateCityContent('ansbach')
       await populateCityContent('regensburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
-      await RNFetchBlob.fs.writeFile(
+      await BlobUtil.fs.writeFile(
         databaseConnector.getMetaCitiesPath(),
         JSON.stringify({
           augsburg: {
@@ -560,7 +558,7 @@ describe('DatabaseConnector', () => {
       await expectCityFilesExist('ansbach')
       await expectCityFilesExist('regensburg')
       await expectCityFilesExist('augsburg')
-      expect(JSON.parse(await RNFetchBlob.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
           last_usage: '2012-05-04T00:00:00.000Z'
@@ -574,6 +572,23 @@ describe('DatabaseConnector', () => {
           last_usage: '2013-05-04T00:00:00.000Z'
         }
       })
+    })
+  })
+
+  describe('readFile', () => {
+    it('should correctly read file and parse json content', async () => {
+      const content = ['this', 'is', 'my', 'custom', { content: 'CONTENT' }]
+      const path = 'my-path'
+      await BlobUtil.fs.writeFile(path, JSON.stringify(content), 'utf8')
+      const readContent = await databaseConnector.readFile<typeof content>(path)
+      expect(readContent).toEqual(content)
+    })
+
+    it('should delete file if json is corrupted', async () => {
+      const path = 'my-path'
+      await BlobUtil.fs.writeFile(path, '[', 'utf8')
+      await expect(databaseConnector.readFile(path)).rejects.toEqual(new SyntaxError('Unexpected end of JSON input'))
+      expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(path)
     })
   })
 })

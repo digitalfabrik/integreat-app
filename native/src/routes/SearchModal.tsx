@@ -87,27 +87,25 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = categoriesArray
       .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
-      .map(
-        (category: CategoryModel): ListEntryType => {
-          const contentWithoutHtml: string[] = []
-          const parser = new Parser({
-            ontext: (data: string) => {
-              contentWithoutHtml.push(data)
-            }
-          })
-          parser.write(category.content)
-          parser.end()
-          return {
-            model: {
-              path: category.path,
-              thumbnail: category.thumbnail,
-              title: category.title,
-              contentWithoutHtml: contentWithoutHtml.join(' ')
-            },
-            subCategories: []
+      .map((category: CategoryModel): ListEntryType => {
+        const contentWithoutHtml: string[] = []
+        const parser = new Parser({
+          ontext: (data: string) => {
+            contentWithoutHtml.push(data)
           }
+        })
+        parser.write(category.content)
+        parser.end()
+        return {
+          model: {
+            path: category.path,
+            thumbnail: category.thumbnail,
+            title: category.title,
+            contentWithoutHtml: contentWithoutHtml.join(' ')
+          },
+          subCategories: []
         }
-      )
+      })
       .filter(
         category =>
           category.model.contentWithoutHtml &&

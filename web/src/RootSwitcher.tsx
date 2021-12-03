@@ -21,14 +21,15 @@ import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, createPath, RoutePatterns } from './routes'
+import lazyWithRetry from './utils/retryImport'
 
 type PropsType = {
   setContentLanguage: (languageCode: string) => void
 }
 
-const MainDisclaimerPage = React.lazy(() => import('./routes/MainDisclaimerPage'))
-const LandingPage = React.lazy(() => import('./routes/LandingPage'))
-const NotFoundPage = React.lazy(() => import('./routes/NotFoundPage'))
+const MainDisclaimerPage = lazyWithRetry(() => import('./routes/MainDisclaimerPage'))
+const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
+const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 
 const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])

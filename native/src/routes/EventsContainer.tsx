@@ -37,19 +37,17 @@ type RefreshPropsType = NavigationPropsType & {
 }
 type StatePropsType = StatusPropsType<ContainerPropsType, RefreshPropsType>
 
-const createChangeUnavailableLanguage = (city: string) => (
-  dispatch: Dispatch<StoreActionType>,
-  newLanguage: string
-) => {
-  const switchContentLanguage: SwitchContentLanguageActionType = {
-    type: 'SWITCH_CONTENT_LANGUAGE',
-    params: {
-      newLanguage,
-      city
+const createChangeUnavailableLanguage =
+  (city: string) => (dispatch: Dispatch<StoreActionType>, newLanguage: string) => {
+    const switchContentLanguage: SwitchContentLanguageActionType = {
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        newLanguage,
+        city
+      }
     }
+    dispatch(switchContentLanguage)
   }
-  dispatch(switchContentLanguage)
-}
 
 const routeHasOldContent = (route: EventRouteStateType) => 'models' in route && route.allAvailableLanguages
 
