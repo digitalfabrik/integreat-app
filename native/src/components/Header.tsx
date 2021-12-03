@@ -158,7 +158,6 @@ const Header = (props: PropsType): ReactElement => {
       iconName={iconName}
       onPress={visible ? onPress : () => undefined}
       style={{ opacity: visible ? 1 : 0 }}
-      // @ts-ignore accessibilityLabel missing in props
       accessibilityLabel={t(title)}
     />
   )
