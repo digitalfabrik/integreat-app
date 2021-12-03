@@ -6,8 +6,11 @@ import { HiddenItem } from 'react-navigation-header-buttons'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import { SHARE_SIGNAL_NAME } from 'api-client'
+
 import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
@@ -51,6 +54,12 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
         escapeValue: false
       }
     })
+    sendTrackingSignal({
+      signal: {
+        name: SHARE_SIGNAL_NAME,
+        url: shareUrl
+      }
+    })
 
     try {
       await Share.share({
@@ -62,18 +71,18 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
     }
   }, [shareUrl, t])
 
+  const overflowItems = shareUrl
+    ? // @ts-ignore accessibilityLabel missing in props
+      [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
+    : []
+
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
           <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
         </HorizontalLeft>
-        <MaterialHeaderButtons
-          cancelLabel={t('cancel')}
-          theme={theme}
-          items={[]}
-          overflowItems={shareUrl ? [<HiddenItem key='share' title={t('share')} onPress={onShare} />] : []}
-        />
+        <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme} items={[]} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )
