@@ -1,16 +1,16 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
+import React, { ComponentProps } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { Provider, useDispatch } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { ThemeProvider } from 'styled-components/native'
 import { mocked } from 'ts-jest/utils'
 
 import { CityModel, LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 import NewsContainer from '../NewsContainer'
+import TuNews from '../TuNews'
 
 jest.mock('react-i18next')
 jest.mock('react-redux', () => ({
@@ -21,17 +21,7 @@ jest.mock('../LocalNews', () => () => <Text>LocalNewsContent</Text>)
 jest.mock(
   '../TuNews',
   () =>
-    ({
-      changeUnavailableLanguage,
-      selectNews,
-      language,
-      newsId
-    }: {
-      selectNews: (newsId: string | null) => void
-      changeUnavailableLanguage: (newLanguage: string) => void
-      language: string
-      newsId: string | null | undefined
-    }) =>
+    ({ changeUnavailableLanguage, selectNews, language, newsId }: ComponentProps<typeof TuNews>) =>
       (
         <View>
           <Text>TuNewsContent</Text>
@@ -100,10 +90,9 @@ describe('NewsContainer', () => {
     }
     return render(
       <Provider store={store}>
-        <ThemeProvider theme={buildConfig().lightTheme}>
-          <NewsContainer route={route} navigation={navigation} />
-        </ThemeProvider>
-      </Provider>
+        <NewsContainer route={route} navigation={navigation} />
+      </Provider>,
+      { wrapper: wrapWithTheme }
     )
   }
 
