@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { act, render } from '@testing-library/react-native'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -183,7 +183,7 @@ describe('NewsContainer', () => {
         <NewsContainer navigation={navigation} route={route} />
       </Provider>
     )
-    jest.advanceTimersByTime(LOADING_TIMEOUT)
+    act(() => jest.advanceTimersByTime(LOADING_TIMEOUT))
     expect(getByText('Loading')).toBeTruthy()
   }
 
