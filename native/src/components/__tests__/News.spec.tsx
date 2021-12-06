@@ -2,7 +2,6 @@ import { fireEvent, render } from '@testing-library/react-native'
 import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
-import { ThemeProvider } from 'styled-components/native'
 
 import {
   CityModel,
@@ -14,13 +13,13 @@ import {
   TuNewsType
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 import News from '../News'
 
 jest.mock('react-i18next')
 jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 
-const news = [
+const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
     id: 9902,
     title: 'Was ist ein Verein?',
@@ -87,9 +86,8 @@ describe('News', () => {
     })
     const props = { cityModel, language, selectNews, loadMore, refresh, selectedNewsType }
     return render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <News {...props} loading={loading} data={data} newsId={newsId} error={error} loadingMore={loadingMore} />
-      </ThemeProvider>
+      <News {...props} loading={loading} data={data} newsId={newsId} error={error} loadingMore={loadingMore} />,
+      { wrapper: wrapWithTheme }
     )
   }
 
@@ -119,38 +117,38 @@ describe('News', () => {
   })
 
   it('should show news detail', () => {
-    const { queryByText } = renderNews({ newsId: news[0]!.id.toString() })
-    expect(queryByText(news[0]!.title)).toBeTruthy()
-    expect(queryByText(news[0]!.content)).toBeTruthy()
+    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
+    expect(queryByText(news[0].title)).toBeTruthy()
+    expect(queryByText(news[0].content)).toBeTruthy()
 
-    expect(queryByText(news[1]!.title)).toBeFalsy()
+    expect(queryByText(news[1].title)).toBeFalsy()
   })
 
   it('should show news list', () => {
     const { getByText } = renderNews({})
-    expect(getByText(news[0]!.title)).toBeTruthy()
-    expect(getByText(news[0]!.content)).toBeTruthy()
+    expect(getByText(news[0].title)).toBeTruthy()
+    expect(getByText(news[0].content)).toBeTruthy()
 
-    expect(getByText(news[1]!.title)).toBeTruthy()
-    expect(getByText(news[1]!.content)).toBeTruthy()
+    expect(getByText(news[1].title)).toBeTruthy()
+    expect(getByText(news[1].content)).toBeTruthy()
 
-    fireEvent.press(getByText(news[1]!.title))
-    expect(selectNews).toHaveBeenCalledWith(news[1]!.id.toString())
+    fireEvent.press(getByText(news[1].title))
+    expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
   })
 
   it('should show currently no news', () => {
     const { queryByText } = renderNews({ data: [] })
     expect(queryByText('currentlyNoNews')).toBeTruthy()
 
-    expect(queryByText(news[0]!.title)).toBeFalsy()
-    expect(queryByText(news[1]!.title)).toBeFalsy()
+    expect(queryByText(news[0].title)).toBeFalsy()
+    expect(queryByText(news[1].title)).toBeFalsy()
   })
 
   it('should show loading spinner if loading more', () => {
     const { getByText, getByTestId } = renderNews({ loadingMore: true })
     expect(getByTestId('loadingSpinner')).toBeTruthy()
 
-    expect(getByText(news[0]!.title)).toBeTruthy()
-    expect(getByText(news[1]!.title)).toBeTruthy()
+    expect(getByText(news[0].title)).toBeTruthy()
+    expect(getByText(news[1].title)).toBeTruthy()
   })
 })

@@ -19,7 +19,7 @@ jest.mock('api-client', () => ({
   useLoadFromEndpoint: jest.fn()
 }))
 
-const news = [
+const news: [TunewsModel, TunewsModel] = [
   new TunewsModel({
     id: 9902,
     title: 'Was ist ein Verein?',
@@ -82,11 +82,11 @@ describe('TuNews', () => {
     mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
 
     const { getByText } = renderNews({})
-    expect(getByText(news[0]!.title)).toBeTruthy()
-    expect(getByText(news[1]!.title)).toBeTruthy()
+    expect(getByText(news[0].title)).toBeTruthy()
+    expect(getByText(news[1].title)).toBeTruthy()
 
-    fireEvent.press(getByText(news[1]!.title))
-    expect(selectNews).toHaveBeenCalledWith(news[1]!.id.toString())
+    fireEvent.press(getByText(news[1].title))
+    expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
   })
 
   it('should show language selector if language not available', () => {
@@ -96,7 +96,7 @@ describe('TuNews', () => {
     const { getByText, queryByText } = renderNews({ language: 'es' })
     expect(getByText('languageNotAvailable')).toBeTruthy()
 
-    expect(queryByText(news[0]!.title)).toBeFalsy()
+    expect(queryByText(news[0].title)).toBeFalsy()
 
     fireEvent.press(getByText(availableLanguages[0]!.name))
     expect(changeUnavailableLanguage).toHaveBeenCalledWith(availableLanguages[0]!.code)
@@ -106,10 +106,10 @@ describe('TuNews', () => {
     mocked(useLoadFromEndpoint).mockImplementation(() => elementResponse)
     mocked(useLoadTuNews).mockImplementation(() => tuNewsResponse)
 
-    const { queryByText } = renderNews({ newsId: news[0]!.id.toString() })
-    expect(queryByText(news[0]!.title)).toBeTruthy()
-    expect(queryByText(news[0]!.content)).toBeTruthy()
+    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
+    expect(queryByText(news[0].title)).toBeTruthy()
+    expect(queryByText(news[0].content)).toBeTruthy()
 
-    expect(queryByText(news[1]!.title)).toBeFalsy()
+    expect(queryByText(news[1].title)).toBeFalsy()
   })
 })

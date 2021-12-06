@@ -2,20 +2,19 @@ import { fireEvent, render } from '@testing-library/react-native'
 import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
-import { ThemeProvider } from 'styled-components/native'
 import { mocked } from 'ts-jest/utils'
 
 import { CityModel, LocalNewsModel } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import useLoadLocalNews from '../../hooks/useLoadLocalNews'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 import LocalNews from '../LocalNews'
 
 jest.mock('react-i18next')
 jest.mock('../../components/NativeHtml', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('../../hooks/useLoadLocalNews')
 
-const news = [
+const news: [LocalNewsModel, LocalNewsModel] = [
   new LocalNewsModel({
     id: 9902,
     title: 'Local news 1',
@@ -56,11 +55,7 @@ describe('LocalNews', () => {
       boundingBox: null
     })
     const props = { cityModel, language: 'de', selectNews }
-    return render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <LocalNews {...props} newsId={newsId} />
-      </ThemeProvider>
-    )
+    return render(<LocalNews {...props} newsId={newsId} />, { wrapper: wrapWithTheme })
   }
   const response = { data: news, error: null, loading: false, refresh }
 
@@ -68,20 +63,20 @@ describe('LocalNews', () => {
     mocked(useLoadLocalNews).mockImplementation(() => response)
 
     const { getByText } = renderNews({})
-    expect(getByText(news[0]!.title)).toBeTruthy()
-    expect(getByText(news[1]!.title)).toBeTruthy()
+    expect(getByText(news[0].title)).toBeTruthy()
+    expect(getByText(news[1].title)).toBeTruthy()
 
-    fireEvent.press(getByText(news[1]!.title))
-    expect(selectNews).toHaveBeenCalledWith(news[1]!.id.toString())
+    fireEvent.press(getByText(news[1].title))
+    expect(selectNews).toHaveBeenCalledWith(news[1].id.toString())
   })
 
   it('should show news detail', () => {
     mocked(useLoadLocalNews).mockImplementation(() => response)
 
-    const { queryByText } = renderNews({ newsId: news[0]!.id.toString() })
-    expect(queryByText(news[0]!.title)).toBeTruthy()
-    expect(queryByText(news[0]!.message)).toBeTruthy()
+    const { queryByText } = renderNews({ newsId: news[0].id.toString() })
+    expect(queryByText(news[0].title)).toBeTruthy()
+    expect(queryByText(news[0].message)).toBeTruthy()
 
-    expect(queryByText(news[1]!.title)).toBeFalsy()
+    expect(queryByText(news[1].title)).toBeFalsy()
   })
 })
