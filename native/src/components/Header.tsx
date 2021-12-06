@@ -12,6 +12,7 @@ import { ThemeType } from 'build-configs'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useSnackbar from '../hooks/useSnackbar'
 import navigateToLanding from '../navigation/navigateToLanding'
 import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
@@ -106,6 +107,7 @@ const Header = (props: PropsType): ReactElement => {
     navigation.navigate(SETTINGS_ROUTE)
   }
 
+  const showSnackbar = useSnackbar()
   const onShare = async () => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
@@ -131,7 +133,8 @@ const Header = (props: PropsType): ReactElement => {
         title: buildConfig().appName
       })
     } catch (e) {
-      reportError(e)
+      showSnackbar(t('generalError'))
+      reportError(e as Error)
     }
   }
 
