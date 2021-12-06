@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import { Helmet as ReactHelmet } from 'react-helmet'
 
 import { CityModel } from 'api-client'
@@ -12,39 +12,37 @@ type PropsType = {
   cityModel?: CityModel
 }
 
-class Helmet extends React.PureComponent<PropsType> {
-  getLanguageLinks(): ReactNode {
-    const { languageChangePaths } = this.props
-    if (!languageChangePaths) {
-      return null
-    }
+const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: PropsType): ReactElement => {
+  const languageLinks =
+    languageChangePaths?.map(
+      ({ code, path }) =>
+        path && <link key={code} rel='alternate' hrefLang={code} href={`${window.location.origin}${path}`} />
+    ) ?? null
 
-    return languageChangePaths.map(languageChangePath => {
-      const { code, path } = languageChangePath
-      return path && <link key={code} rel='alternate' hrefLang={code} href={`${window.location.origin}${path}`} />
-    })
-  }
+  const previewImageUrl = new URL(`https://${buildConfig().hostName}`)
+  previewImageUrl.pathname = buildConfig().icons.socialMediaPreview
 
-  render(): ReactNode {
-    const { pageTitle, cityModel, metaDescription } = this.props
-    const previewImageUrl = new URL(`https://${buildConfig().hostName}`)
-    previewImageUrl.pathname = buildConfig().icons.socialMediaPreview
+  const noIndex =
+    cityModel && !cityModel.live && !buildConfig().featureFlags.fixedCity ? (
+      <meta name='robots' content='noindex' />
+    ) : null
 
-    return (
-      <ReactHelmet>
-        {pageTitle && <title>{pageTitle}</title>}
-        {cityModel && !cityModel.live && <meta name='robots' content='noindex' />}
-        <meta name='description' content={metaDescription ?? pageTitle} />
-        {this.getLanguageLinks()}
-        {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
-        {pageTitle && <meta property='og:title' content={pageTitle} />}
-        <meta property='og:image' content={previewImageUrl.href} />
-        <meta property='og:description' content={metaDescription ?? pageTitle} />
-        <meta property='og:url' content={window.location.href} />
-        <meta property='og:type' content='website' />
-      </ReactHelmet>
-    )
-  }
+  const description = metaDescription ?? pageTitle
+
+  return (
+    <ReactHelmet>
+      <title>{pageTitle}</title>
+      <meta name='description' content={description} />
+      {noIndex}
+      {languageLinks}
+      {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
+      <meta property='og:title' content={pageTitle} />
+      <meta property='og:image' content={previewImageUrl.href} />
+      <meta property='og:description' content={description} />
+      <meta property='og:url' content={window.location.href} />
+      <meta property='og:type' content='website' />
+    </ReactHelmet>
+  )
 }
 
 export default Helmet
