@@ -1,6 +1,6 @@
 import { groupBy, transform } from 'lodash'
 import * as React from 'react'
-import { ReactNode } from 'react'
+import { memo } from 'react'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 import { Button } from 'react-native-elements'
@@ -51,9 +51,8 @@ const checkAliases = (cityModel: CityModel, normalizedFilter: string): boolean =
 const byNameAndAliases = (name: string) => (city: CityModel) =>
   normalizeSearchString(city.name).includes(name) || checkAliases(city, name)
 
-class CitySelector extends React.PureComponent<PropsType> {
-  _filter(): Array<CityModel> {
-    const { cities, filterText } = this.props
+const CitySelector = ({ cities, filterText, theme, navigateToDashboard, locationInformation, t }: PropsType) => {
+  const filter = () => {
     const normalizedFilter = normalizeSearchString(filterText)
 
     if (normalizedFilter === 'wirschaffendas') {
@@ -66,8 +65,8 @@ class CitySelector extends React.PureComponent<PropsType> {
   }
 
   // Landkreis should come before Stadt
-  _sort(cities: Array<CityModel>): Array<CityModel> {
-    return cities.sort((a, b) => {
+  const sort = (cities: Array<CityModel>) =>
+    cities.sort((a, b) => {
       // There is currently a bug in hermes crashing the app if using localeCompare on empty string
       // Therefore the following does not work if there are two cities with the same sortingName of which one has no prefix set:
       // return a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
@@ -84,25 +83,22 @@ class CitySelector extends React.PureComponent<PropsType> {
       }
       return a.prefix.localeCompare(b.prefix)
     })
-  }
 
-  _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
-    const { theme, filterText, navigateToDashboard } = this.props
-    const sorted = this._sort(cities)
+  const renderFilteredLocations = (cities: Array<CityModel>) => {
+    const sorted = sort(cities)
     const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
     return transform(
       groups,
       (result: React.ReactNode[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
-            <CityGroup theme={theme}>{key}</CityGroup>
+            <CityGroup>{key}</CityGroup>
             {cities.map(city => (
               <CityEntry
                 key={city.code}
                 city={city}
                 filterText={filterText}
                 navigateToDashboard={navigateToDashboard}
-                theme={theme}
               />
             ))}
           </CityGroupContainer>
@@ -112,8 +108,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     )
   }
 
-  _renderNearbyLocations(): React.ReactNode {
-    const { cities, t, theme, navigateToDashboard, filterText, locationInformation } = this.props
+  const renderNearbyLocations = () => {
     const { location, locationState, requestAndDetermineLocation } = locationInformation
 
     if (location !== null) {
@@ -127,14 +122,13 @@ class CitySelector extends React.PureComponent<PropsType> {
       if (nearbyCities.length > 0) {
         return (
           <CityGroupContainer>
-            <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+            <CityGroup>{t('nearbyPlaces')}</CityGroup>
             {nearbyCities.map(city => (
               <CityEntry
                 key={city.code}
                 city={city}
                 filterText={filterText}
                 navigateToDashboard={navigateToDashboard}
-                theme={theme}
               />
             ))}
           </CityGroupContainer>
@@ -142,9 +136,9 @@ class CitySelector extends React.PureComponent<PropsType> {
       }
       return (
         <CityGroupContainer>
-          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <CityGroup>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
-            <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
+            <NearbyMessage>{t('noNearbyPlaces')}</NearbyMessage>
           </NearbyMessageContainer>
         </CityGroupContainer>
       )
@@ -152,11 +146,9 @@ class CitySelector extends React.PureComponent<PropsType> {
     const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
     return (
       <CityGroupContainer>
-        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+        <CityGroup>{t('nearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
-          <NearbyMessage theme={theme}>
-            {locationState.status === 'unavailable' ? t(locationState.message) : ''}
-          </NearbyMessage>
+          <NearbyMessage>{locationState.status === 'unavailable' ? t(locationState.message) : ''}</NearbyMessage>
           <RetryButtonContainer>
             {shouldShowRetry && (
               <Button
@@ -174,14 +166,12 @@ class CitySelector extends React.PureComponent<PropsType> {
     )
   }
 
-  render(): ReactNode {
-    return (
-      <View>
-        {this._renderNearbyLocations()}
-        {this._renderFilteredLocations(this._filter())}
-      </View>
-    )
-  }
+  return (
+    <View>
+      {renderNearbyLocations()}
+      {renderFilteredLocations(filter())}
+    </View>
+  )
 }
 
-export default CitySelector
+export default memo(CitySelector)

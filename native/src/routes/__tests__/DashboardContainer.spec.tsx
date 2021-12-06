@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render, act } from '@testing-library/react-native'
 import { reduce } from 'lodash'
 import moment from 'moment'
 import React from 'react'
@@ -200,7 +200,7 @@ describe('DashboardContainer', () => {
         <DashboardContainer navigation={navigation} route={route} />
       </Provider>
     )
-    jest.advanceTimersByTime(LOADING_TIMEOUT)
+    act(() => jest.advanceTimersByTime(LOADING_TIMEOUT))
     expect(getByText('loading')).toBeTruthy()
   }
 
