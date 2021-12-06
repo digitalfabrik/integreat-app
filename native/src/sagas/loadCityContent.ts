@@ -2,11 +2,14 @@ import NetInfo from '@react-native-community/netinfo'
 import moment from 'moment'
 import { all, call, put, SagaGenerator, spawn } from 'typed-redux-saga'
 
-import { CategoriesMapModel, CategoryModel, EventModel, fromError } from 'api-client'
+import { CategoriesMapModel, CategoryModel, EventModel, fromError, NotFoundError } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../redux/StoreActionType'
+import {
+  FetchLanguagesFailedActionType,
+  PushLanguagesActionType
+} from '../redux/StoreActionType'
 import appSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
@@ -157,7 +160,7 @@ export default function* loadCityContent(
     const cityModel = cities.find(city => city.code === newCity)
 
     if (!cityModel) {
-      throw new Error(`City '${newCity}' was not found.`)
+      throw new NotFoundError({ type: 'city', id: newCity, city: newCity, language: newLanguage })
     }
 
     if (criterion.shouldLoadLanguages()) {
