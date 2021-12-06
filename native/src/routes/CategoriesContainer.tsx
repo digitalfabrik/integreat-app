@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, DASHBOARD_ROUTE, ErrorCode } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api-client'
 
 import Categories from '../components/Categories'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
@@ -203,11 +203,12 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
 }
 
 const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  const { language, cityModel, stateView } = rest
   useSetShareUrl(navigation, {
     route: CATEGORIES_ROUTE,
-    languageCode: rest.language,
-    cityCode: rest.cityModel.code,
-    cityContentPath: rest.stateView.root().path
+    languageCode: language,
+    cityCode: cityModel.code,
+    cityContentPath: stateView.root().path
   })
 
   return (
