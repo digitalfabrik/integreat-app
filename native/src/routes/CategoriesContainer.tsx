@@ -7,6 +7,7 @@ import { CATEGORIES_ROUTE, CategoriesRouteType, CityModel, ErrorCode } from 'api
 import Categories from '../components/Categories'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -201,13 +202,24 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
   )
 }
 
-const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => (
-  <Categories
-    {...rest}
-    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    navigateTo={createNavigate(dispatch, navigation)}
-  />
-)
+const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
+  const { language, cityModel, stateView } = rest
+  const routeInformation = {
+    route: CATEGORIES_ROUTE,
+    languageCode: language,
+    cityCode: cityModel.code,
+    cityContentPath: stateView.root().path
+  }
+  useSetShareUrl({ navigation, routeInformation, route })
+
+  return (
+    <Categories
+      {...rest}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateTo={createNavigate(dispatch, navigation)}
+    />
+  )
+}
 
 export default connect(
   mapStateToProps,

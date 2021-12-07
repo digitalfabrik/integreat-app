@@ -19,6 +19,7 @@ import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBarContainer from './components/StatusBarContainer'
+import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
@@ -36,14 +37,14 @@ enableScreens(true)
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
 })
-const linking: LinkingOptions = {
+const linking: LinkingOptions<RoutesParamsType> = {
   prefixes: ['https://', 'integreat://'],
   config: {
     screens: {
       [REDIRECT_ROUTE]: '*'
     }
   },
-  getStateFromPath: path => ({
+  getStateFromPath: (path: string) => ({
     index: 0,
     routes: [
       {
