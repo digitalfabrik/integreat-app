@@ -8,19 +8,20 @@ import {
   fromError,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
-  NotFoundError,
-  TunewsModel,
-  NEWS_ROUTE,
-  TU_NEWS_TYPE,
   NewsType,
-  RouteInformationType
+  NotFoundError,
+  ReturnType,
+  TU_NEWS_TYPE,
+  TunewsModel
 } from 'api-client'
 
 import Failure from '../components/Failure'
+import LoadingSpinner from '../components/LoadingSpinner'
 import NewsDetail from '../components/NewsDetail'
 import NewsList from '../components/NewsList'
 import NewsListItem from '../components/NewsListItem'
-import { NewsModelsType } from '../redux/StateType'
+
+type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
 const NoNews = styled.Text`
   color: ${props => props.theme.colors.textColor};
@@ -28,61 +29,62 @@ const NoNews = styled.Text`
   align-self: center;
   margin-top: 20px;
 `
-export type PropsType = {
+export type PropsType = ReturnType<NewsModelsType> & {
+  selectNews: (newsId: string | null) => void
   newsId: string | null | undefined
-  news: NewsModelsType
   cityModel: CityModel
   language: string
   selectedNewsType: NewsType
-  isFetchingMore: boolean
-  fetchMoreNews: () => void
-  navigateTo: (arg0: RouteInformationType) => void
-  routeKey: string
+  loadMore?: () => void
+  loadingMore?: boolean
 }
 
 const News = (props: PropsType): ReactElement => {
-  const { news, newsId, language, fetchMoreNews, isFetchingMore, selectedNewsType, routeKey } = props
-  const { navigateTo, cityModel } = props
+  const { data, loading, loadMore, error, newsId, language, selectedNewsType, refresh, selectNews, cityModel } = props
+  const { loadingMore } = props
   const { t } = useTranslation('news')
 
   const renderNoItemsComponent = (): React.ReactElement => <NoNews>{t('currentlyNoNews')}</NoNews>
 
   const rendersNewsListItem = useCallback(
-    (cityCode: string, language: string) =>
-      ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
-        const navigateToNews = () => {
-          navigateTo({
-            route: NEWS_ROUTE,
-            cityCode,
-            languageCode: language,
-            newsId: item.id.toString(),
-            newsType: selectedNewsType
-          })
-        }
+    (params: { item: LocalNewsModel | TunewsModel; index: number }) => {
+      const { item, index } = params
+      const navigateToNews = () => selectNews(item.id.toString())
 
-        return (
-          <NewsListItem
-            index={index}
-            key={item.id}
-            newsItem={item}
-            language={language}
-            isTunews={selectedNewsType === TU_NEWS_TYPE}
-            navigateToNews={navigateToNews}
-          />
-        )
-      },
-    [selectedNewsType, navigateTo]
+      return (
+        <NewsListItem
+          index={index}
+          key={item.id}
+          newsItem={item}
+          language={language}
+          isTunews={selectedNewsType === TU_NEWS_TYPE}
+          navigateToNews={navigateToNews}
+        />
+      )
+    },
+    [selectedNewsType, selectNews, language]
   )
 
-  if (selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled) {
-    const error = new NotFoundError({
-      type: 'category',
-      id: selectedNewsType,
-      city: cityModel.code,
-      language
-    })
-    return <Failure code={fromError(error)} />
+  const isDisabled =
+    selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled
+  const errorToShow = isDisabled
+    ? new NotFoundError({
+        type: 'category',
+        id: selectedNewsType,
+        city: cityModel.code,
+        language
+      })
+    : error
+
+  if (errorToShow) {
+    return <Failure code={fromError(errorToShow)} />
   }
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  const news = data ?? []
 
   if (newsId) {
     const selectedNewsItem = news.find(_newsItem => _newsItem.id.toString() === newsId)
@@ -107,15 +109,10 @@ const News = (props: PropsType): ReactElement => {
       <NewsList
         renderNoItemsComponent={renderNoItemsComponent}
         items={news}
-        isFetchingMore={isFetchingMore}
-        fetchMoreItems={fetchMoreNews}
-        renderItem={rendersNewsListItem(cityModel.code, language)}
-        navigateTo={navigateTo}
-        selectedNewsType={selectedNewsType}
-        newsId={newsId}
-        routeKey={routeKey}
-        cityCode={cityModel.code}
-        language={language}
+        isFetchingMore={loadingMore ?? false}
+        fetchMoreItems={loadMore}
+        renderItem={rendersNewsListItem}
+        refresh={refresh}
       />
     </View>
   )

@@ -101,9 +101,7 @@ const createNavigate =
           navigateToNews({
             ...params,
             type: routeInformation.newsType,
-            newsId: routeInformation.newsId,
-            key,
-            forceRefresh
+            newsId: routeInformation.newsId
           })
           return
 

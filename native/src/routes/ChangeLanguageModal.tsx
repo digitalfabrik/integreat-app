@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { InteractionManager } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ChangeLanguageModalRouteType, NewsType, LanguageModel } from 'api-client'
+import { ChangeLanguageModalRouteType, LanguageModel } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import Selector from '../components/Selector'
@@ -18,18 +18,17 @@ type PropsType = {
   currentLanguage: string
   languages: Array<LanguageModel>
   availableLanguages: Array<string>
-  changeLanguage: (newLanguage: string, newsType: NewsType | undefined) => void
+  changeLanguage: (newLanguage: string) => void
   route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>
-  newsType: NewsType | undefined
 }
 
 class ChangeLanguageModal extends React.Component<PropsType> {
   onPress = (model: LanguageModel): void => {
-    const { changeLanguage, newsType } = this.props
+    const { changeLanguage } = this.props
     this.closeModal()
     InteractionManager.runAfterInteractions(() => {
-      changeLanguage(model.code, newsType)
+      changeLanguage(model.code)
     })
   }
 
