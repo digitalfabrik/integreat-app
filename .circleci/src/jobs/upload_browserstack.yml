@@ -1,0 +1,27 @@
+# Deliver the app to Browserstack.
+parameters:
+  file_name:
+    type: string
+    description: the name of the file to upload
+docker:
+  - image: cimg/ruby:3.0.3
+resource_class: small
+shell: /bin/bash -eo pipefail
+environment:
+  FASTLANE_SKIP_UPDATE_CHECK: true
+steps:
+  - skip_job
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  - restore_ruby_cache:
+      directory: native
+  - run:
+      name: '[FL] Browserstack Upload Live'
+      command: |
+        file="attached_workspace/<< parameters.file_name >>"
+        file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
+        cp ~/$file ~/$file_with_commit_sha
+        bundle exec fastlane browserstack_upload_live path:$file_with_commit_sha
+      working_directory: native
+  - notify
