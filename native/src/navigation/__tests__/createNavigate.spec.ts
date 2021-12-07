@@ -267,9 +267,7 @@ describe('createNavigate', () => {
       navigation,
       ...params,
       type: LOCAL_NEWS_TYPE,
-      newsId: '1234',
-      key,
-      forceRefresh
+      newsId: '1234'
     })
   })
 

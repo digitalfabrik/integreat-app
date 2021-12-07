@@ -1,6 +1,6 @@
 import { omit } from 'lodash'
 
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'api-client'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, POIS_ROUTE } from 'api-client'
 
 import { CityContentStateType, defaultCityContentState } from '../StateType'
 import { StoreActionType } from '../StoreActionType'
@@ -8,7 +8,6 @@ import createCityContent from './createCityContent'
 import morphContentLanguage from './morphContentLanguage'
 import pushCategory from './pushCategory'
 import pushEvent from './pushEvent'
-import pushNews from './pushNews'
 import pushPoi from './pushPoi'
 
 export default (
@@ -38,43 +37,6 @@ export default (
       routeMapping: {
         ...initializedState.routeMapping,
         [key]: { ...oldContent, routeType: EVENTS_ROUTE, status: 'loading', language, city, path }
-      }
-    }
-  }
-  if (action.type === 'FETCH_NEWS') {
-    const { language, newsId, key, city, type } = action.params
-    const initializedState = state || createCityContent(city)
-    return {
-      ...initializedState,
-      routeMapping: {
-        ...initializedState.routeMapping,
-        [key]: {
-          routeType: NEWS_ROUTE,
-          status: 'loading',
-          language,
-          city,
-          newsId,
-          type
-        }
-      }
-    }
-  }
-  if (action.type === 'FETCH_MORE_NEWS') {
-    const { language, newsId, key, city, type, previouslyFetchedNews } = action.params
-    const initializedState = state || createCityContent(city)
-    return {
-      ...initializedState,
-      routeMapping: {
-        ...initializedState.routeMapping,
-        [key]: {
-          routeType: NEWS_ROUTE,
-          status: 'loadingMore',
-          models: previouslyFetchedNews,
-          language,
-          city,
-          newsId,
-          type
-        }
       }
     }
   }
@@ -147,36 +109,6 @@ export default (
 
     case 'PUSH_EVENT':
       return pushEvent(state, action)
-
-    case 'PUSH_NEWS':
-      return pushNews(state, action)
-
-    case 'FETCH_NEWS_FAILED': {
-      const { message, key, allAvailableLanguages, newsId, type, ...rest } = action.params
-      return {
-        ...state,
-        routeMapping: {
-          ...state.routeMapping,
-          [key]: allAvailableLanguages
-            ? {
-                routeType: NEWS_ROUTE,
-                status: 'languageNotAvailable',
-                type,
-                newsId,
-                allAvailableLanguages,
-                ...rest
-              }
-            : {
-                routeType: NEWS_ROUTE,
-                status: 'error',
-                message,
-                newsId,
-                type,
-                ...rest
-              }
-        }
-      }
-    }
 
     case 'CLEAR_ROUTE': {
       const { key } = action.params

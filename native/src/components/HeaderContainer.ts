@@ -7,8 +7,8 @@ import {
   OFFERS_ROUTE,
   DISCLAIMER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
-  NEWS_ROUTE,
-  NonNullableRouteInformationType
+  NonNullableRouteInformationType,
+  NEWS_ROUTE
 } from 'api-client'
 
 import Header, { PropsType as HeaderPropsType } from '../components/Header'
@@ -47,6 +47,18 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
           route: routeName as typeof simpleRoutes extends (infer U)[] ? U : never
         })
       : null
+  const newsRouteShareUrl =
+    ownProps.scene.route.name === NEWS_ROUTE
+      ? urlFromRouteInformation({
+          cityCode,
+          languageCode,
+          route: NEWS_ROUTE,
+          // @ts-ignore
+          newsType: ownProps.scene.route.params.newsType,
+          // @ts-ignore
+          newsId: ownProps.scene.route.params.newsId
+        })
+      : null
   const languages = state.cityContent?.languages
   // prevent re-rendering when city is there.
   const cities = state.cities.status === 'ready' ? state.cities.models : []
@@ -69,7 +81,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
       routeCityModel,
       peeking: false,
       categoriesAvailable: false,
-      shareUrl: simpleRouteShareUrl
+      shareUrl: simpleRouteShareUrl ?? newsRouteShareUrl
     }
   }
 
@@ -91,24 +103,13 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     routeCity: route.city
   })
   const { language, city } = route
-  // @ts-ignore route.newsId is checked for
-  const newsId = route.newsId || undefined
   // @ts-ignore route.path is always defined if relevant
-  const routeInformation: NonNullableRouteInformationType =
-    route.routeType === NEWS_ROUTE
-      ? {
-          route: NEWS_ROUTE,
-          languageCode: language,
-          cityCode: city,
-          newsType: route.type,
-          newsId
-        }
-      : {
-          route: route.routeType,
-          languageCode: language,
-          cityCode: city,
-          cityContentPath: route.path || undefined
-        }
+  const routeInformation: NonNullableRouteInformationType = {
+    route: route.routeType,
+    languageCode: language,
+    cityCode: city,
+    cityContentPath: route.path || undefined
+  }
   const shareUrl = urlFromRouteInformation(routeInformation)
   return {
     peeking,

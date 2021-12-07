@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import { merge } from 'lodash'
 import * as React from 'react'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
@@ -15,7 +14,8 @@ import {
   NEWS_ROUTE,
   OFFERS_ROUTE,
   POIS_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE
+  SPRUNGBRETT_OFFER_ROUTE,
+  TU_NEWS_TYPE
 } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
@@ -87,18 +87,6 @@ describe('HeaderContainer', () => {
           city: city.code,
           allAvailableLanguages: new Map(),
           models: []
-        },
-        routeKeyNews1: {
-          routeType: NEWS_ROUTE,
-          status: 'ready',
-          models: [],
-          hasMoreNews: false,
-          page: 1,
-          newsId: null,
-          language: language.code,
-          city: city.code,
-          type: LOCAL_NEWS_TYPE,
-          allAvailableLanguages: new Map()
         }
       },
       searchRoute: null,
@@ -184,7 +172,12 @@ describe('HeaderContainer', () => {
       scene: {
         route: {
           name: NEWS_ROUTE,
-          key: 'routeKeyNews1'
+          key: 'routeKeyNews1',
+          params: {
+            cityCode: city.code,
+            languageCode: language.code,
+            newsType: LOCAL_NEWS_TYPE
+          }
         }
       }
     })
@@ -199,21 +192,63 @@ describe('HeaderContainer', () => {
       scene: {
         route: {
           name: NEWS_ROUTE,
-          key: 'routeKeyNews1'
+          key: 'routeKeyNews1',
+          params: {
+            cityCode: city.code,
+            languageCode: language.code,
+            newsType: LOCAL_NEWS_TYPE,
+            newsId: '12345'
+          }
         }
       }
     })
-    const state = prepareState()
-    const newState = merge(state, { cityContent: { routeMapping: { routeKeyNews1: { newsId: '12345' } } } })
 
     const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/12345`
-    assertProps(
-      ownProps,
-      {
-        shareUrl: expectedShareUrl
-      },
-      mockStore(newState)
-    )
+    assertProps(ownProps, {
+      shareUrl: expectedShareUrl
+    })
+  })
+
+  it('shareUrl should be set correctly for tunews route', () => {
+    const ownProps = mockStackHeaderProps({
+      scene: {
+        route: {
+          name: NEWS_ROUTE,
+          key: 'routeKeyNews1',
+          params: {
+            cityCode: city.code,
+            languageCode: language.code,
+            newsType: TU_NEWS_TYPE
+          }
+        }
+      }
+    })
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
+    assertProps(ownProps, {
+      shareUrl: expectedShareUrl
+    })
+  })
+
+  it('shareUrl should be set correctly for tunews details route', () => {
+    const ownProps = mockStackHeaderProps({
+      scene: {
+        route: {
+          name: NEWS_ROUTE,
+          key: 'routeKeyNews1',
+          params: {
+            cityCode: city.code,
+            languageCode: language.code,
+            newsType: TU_NEWS_TYPE,
+            newsId: '12345'
+          }
+        }
+      }
+    })
+
+    const expectedShareUrl = `https://integreat.app/${city.code}/${language.code}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/12345`
+    assertProps(ownProps, {
+      shareUrl: expectedShareUrl
+    })
   })
 
   it('shareUrl should be set correctly for offers route', () => {
