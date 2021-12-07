@@ -9,7 +9,9 @@ import styled from 'styled-components/native'
 import { SHARE_SIGNAL_NAME } from 'api-client'
 
 import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useSnackbar from '../hooks/useSnackbar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
@@ -39,6 +41,7 @@ type PropsType = {
 const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
+  const showSnackbar = useSnackbar()
 
   const shareUrl = route.params?.shareUrl
 
@@ -63,13 +66,14 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
 
     try {
       await Share.share({
-        message
+        message,
+        title: buildConfig().appName
       })
     } catch (e) {
-      // TODO Show snackbar
+      showSnackbar(t('generalError'))
       reportError(e)
     }
-  }, [shareUrl, t])
+  }, [showSnackbar, shareUrl, t])
 
   const overflowItems = shareUrl
     ? // @ts-ignore accessibilityLabel missing in props
