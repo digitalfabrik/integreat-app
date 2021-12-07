@@ -893,6 +893,33 @@ jobs:
                 name: '[FL] App Store Connect Promotion'
                 working_directory: native
             - notify
+    upload_browserstack:
+        docker:
+            - image: cimg/ruby:3.0.3
+        environment:
+            FASTLANE_SKIP_UPDATE_CHECK: true
+        parameters:
+            file_name:
+                description: the name of the file to upload
+                type: string
+        resource_class: small
+        shell: /bin/bash -eo pipefail
+        steps:
+            - skip_job
+            - checkout
+            - prepare_workspace
+            - restore_environment_variables
+            - restore_ruby_cache:
+                directory: native
+            - run:
+                command: |
+                    file="attached_workspace/<< parameters.file_name >>"
+                    file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
+                    cp ~/$file ~/$file_with_commit_sha
+                    bundle exec fastlane browserstack_upload_live path:$file_with_commit_sha
+                name: '[FL] Browserstack Upload Live'
+                working_directory: native
+            - notify
 parameters:
     api_triggered:
         default: false
@@ -913,61 +940,21 @@ workflows:
     commit:
         jobs:
             - bump_version:
-                context:
-                    - mattermost
                 delivery: none
-            - check:
-                context:
-                    - mattermost
-            - e2e_web:
-                context:
-                    - mattermost
-                requires:
-                    - bump_version
-                    - check
+            - check
             - build_web:
                 build_config_name: integreat-test-cms
-                context:
-                    - mattermost
                 name: build_ig_test_cms_web
                 requires:
                     - bump_version
                     - check
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
+            - e2e_web:
                 requires:
                     - bump_version
                     - check
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-                    - check
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                filters:
-                    branches:
-                        only:
-                            - main
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_web
-                    - build_ig_test_cms_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - tuerantuer-android
                 name: build_e2e_android
@@ -976,14 +963,12 @@ workflows:
                     - check
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - tuerantuer-ios
                 name: build_e2e_ios
@@ -992,11 +977,91 @@ workflows:
                     - check
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_e2e_ios
-        unless: << pipeline.parameters.api_triggered >>
+        unless:
+            or:
+                - equal:
+                    - main
+                    - << pipeline.git.branch >>
+                - << pipeline.parameters.api_triggered >>
+    commit_main:
+        jobs:
+            - bump_version:
+                context:
+                    - mattermost
+                delivery: none
+            - build_web:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                name: build_ig_test_cms_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
+            - deliver_web:
+                context:
+                    - mattermost
+                    - sentry
+                production_delivery: false
+                requires:
+                    - build_ig_test_cms_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+            - build_android:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - tuerantuer-android
+                name: build_ig_test_cms_android
+                requires:
+                    - bump_version
+            - upload_browserstack:
+                context:
+                    - mattermost
+                    - browserstack
+                file_name: integreat-test-cms.apk
+                name: upload_ig_test_cms_android_browserstack
+                requires:
+                    - build_ig_test_cms_android
+            - build_ios:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - tuerantuer-ios
+                name: build_ig_test_cms_ios
+                requires:
+                    - bump_version
+            - upload_browserstack:
+                context:
+                    - mattermost
+                    - browserstack
+                file_name: integreat-test-cms.ipa
+                name: upload_ig_test_cms_ios_browserstack
+                requires:
+                    - build_ig_test_cms_ios
+        when:
+            and:
+                - equal:
+                    - main
+                    - << pipeline.git.branch >>
+                - not: << pipeline.parameters.api_triggered >>
     scheduled_delivery:
         jobs:
             - bump_version:

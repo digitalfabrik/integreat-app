@@ -9,9 +9,7 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 import Header from '../Header'
 
-jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
-  default: jest.fn(() => ({ width: 1234 }))
-}))
+jest.mock('../../hooks/useSnackbar')
 
 describe('Header', () => {
   beforeEach(() => {
