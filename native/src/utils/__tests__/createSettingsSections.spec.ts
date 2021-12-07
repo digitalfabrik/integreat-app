@@ -27,16 +27,16 @@ const mockSubscribeNews = mocked(subscribeNews)
 const mockedBuildConfig = mocked(buildConfig)
 
 type changeSettingFnType = (settings: SettingsType) => Partial<SettingsType>
-type changeActionFnType = void | ((newSettings: SettingsType) => Promise<void>)
+type changeActionFnType = void | ((newSettings: SettingsType) => Promise<boolean>)
 
 describe('createSettingsSections', () => {
   let changeSetting: changeSettingFnType
-  let changeAction: void | ((newSettings: SettingsType) => Promise<void>)
+  let changeAction: void | ((newSettings: SettingsType) => Promise<boolean>)
 
   beforeEach(() => {
     jest.clearAllMocks()
     changeSetting = settings => settings
-    changeAction = async () => undefined
+    changeAction = async () => true
   })
 
   const setSetting = async (newChangeSetting: changeSettingFnType, newChangeAction: changeActionFnType) => {
@@ -105,10 +105,12 @@ describe('createSettingsSections', () => {
       const newSettings = defaultSettings
       newSettings.allowPushNotifications = false
 
-      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<void>
+      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<boolean>
 
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
-      await assertedChangeAction(newSettings)
+
+      const successful = await assertedChangeAction(newSettings)
+      expect(successful).toBe(true)
       expect(mockUnsubscribeNews).toHaveBeenCalledTimes(1)
       expect(mockUnsubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
       expect(mockSubscribeNews).not.toHaveBeenCalled()
@@ -124,19 +126,21 @@ describe('createSettingsSections', () => {
       const newSettings = defaultSettings
       newSettings.allowPushNotifications = true
 
-      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<void>
+      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<boolean>
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       mockRequestPushNotificationPermission.mockImplementationOnce(async () => true)
-      await assertedChangeAction(newSettings)
+
+      const successful = await assertedChangeAction(newSettings)
+      expect(successful).toBe(true)
       expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
     })
 
-    it('should open settings and throw if permissions not granted', async () => {
+    it('should open settings and return false if permissions not granted', async () => {
       mockBuildConfig(true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
@@ -145,12 +149,14 @@ describe('createSettingsSections', () => {
       const newSettings = defaultSettings
       newSettings.allowPushNotifications = true
 
-      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<void>
+      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<boolean>
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       mockRequestPushNotificationPermission.mockImplementationOnce(async () => false)
-      await expect(assertedChangeAction(newSettings)).rejects.toThrowError()
+
+      const successful = await assertedChangeAction(newSettings)
+      expect(successful).toBe(false)
       expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
       expect(openSettings).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).not.toHaveBeenCalled()
