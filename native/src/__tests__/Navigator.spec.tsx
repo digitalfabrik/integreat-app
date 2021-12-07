@@ -12,9 +12,6 @@ import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
-jest.mock('@react-navigation/native/lib/commonjs/useLinking', () => () => ({
-  getInitialState: async () => undefined
-}))
 jest.mock('react-i18next')
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
@@ -96,7 +93,7 @@ jest.mock('../routes/ImageViewModal', () => {
 
   return () => <Text>ImageView</Text>
 })
-jest.mock('../components/SettingsHeaderContainer', () => {
+jest.mock('../components/SettingsHeader', () => {
   const { Text } = require('react-native')
 
   return () => <Text>SettingsHeader</Text>
@@ -106,7 +103,7 @@ jest.mock('../components/HeaderContainer', () => {
 
   return () => <Text>Header</Text>
 })
-jest.mock('../components/TransparentHeaderContainer', () => {
+jest.mock('../components/TransparentHeader', () => {
   const { Text } = require('react-native')
 
   return () => <Text>TransparentHeader</Text>
