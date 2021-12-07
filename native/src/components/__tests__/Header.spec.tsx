@@ -8,9 +8,7 @@ import mockStackHeaderProps from '../../testing/mockStackHeaderProps'
 import wrapWithTheme from '../../testing/wrapWithTheme'
 import Header from '../Header'
 
-jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
-  default: jest.fn(() => ({ width: 1234 }))
-}))
+jest.mock('../../hooks/useSnackbar')
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => `t_${key}`

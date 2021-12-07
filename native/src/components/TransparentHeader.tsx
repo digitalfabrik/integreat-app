@@ -7,7 +7,9 @@ import { HiddenItem } from 'react-navigation-header-buttons'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
@@ -31,6 +33,7 @@ const BoxShadow = styled.View`
 const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
+  const showSnackbar = useSnackbar()
 
   const shareUrl = (route.params as { shareUrl?: string } | undefined)?.shareUrl
 
@@ -49,13 +52,14 @@ const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElemen
 
     try {
       await Share.share({
-        message
+        message,
+        title: buildConfig().appName
       })
     } catch (e) {
-      // TODO Show snackbar
+      showSnackbar(t('generalError'))
       reportError(e)
     }
-  }, [shareUrl, t])
+  }, [showSnackbar, shareUrl, t])
 
   return (
     <BoxShadow theme={theme}>
