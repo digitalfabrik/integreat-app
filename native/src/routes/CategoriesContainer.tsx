@@ -204,12 +204,13 @@ const refresh = async (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreA
 
 const CategoriesContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
   const { language, cityModel, stateView } = rest
-  useSetShareUrl(navigation, {
+  const routeInformation = {
     route: CATEGORIES_ROUTE,
     languageCode: language,
     cityCode: cityModel.code,
     cityContentPath: stateView.root().path
-  })
+  }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   return (
     <Categories

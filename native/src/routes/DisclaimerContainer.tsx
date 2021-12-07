@@ -33,7 +33,8 @@ const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => 
   const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
   const theme = useTheme()
 
-  useSetShareUrl(navigation, { route: DISCLAIMER_ROUTE, languageCode, cityCode })
+  const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()

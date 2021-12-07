@@ -16,8 +16,8 @@ type NavigationPropsType = {
   navigation: NavigationPropType<NewsRouteType>
 }
 
-const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): ReactElement => {
-  const { cityCode, languageCode, newsType: routeNewsType, newsId: routeNewsId } = params
+const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement => {
+  const { cityCode, languageCode, newsType: routeNewsType, newsId: routeNewsId } = route.params
   const [newsType, setNewsType] = useState<NewsType>(routeNewsType)
   const [newsId, setNewsId] = useState<string | null>(routeNewsId)
   const [selectedLanguage, setSelectedLanguage] = useState<string>(languageCode)
@@ -27,13 +27,14 @@ const NewsContainer = ({ route: { params }, navigation }: NavigationPropsType): 
 
   const cityModel = cities?.find(model => model.code === cityCode)
 
-  useSetShareUrl(navigation, {
+  const routeInformation = {
     route: NEWS_ROUTE,
     cityCode,
     languageCode: selectedLanguage,
     newsType,
     newsId: newsId ?? undefined
-  })
+  }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   useEffect(
     // Handle back navigation: If we are at a news detail screen navigate back to overview instead of closing the route
