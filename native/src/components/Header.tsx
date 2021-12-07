@@ -163,8 +163,7 @@ const Header = (props: PropsType): ReactElement => {
   )
 
   const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    // @ts-ignore accessibilityLabel missing in props
-    <HiddenItem key={title} title={t(title)} onPress={onPress} accessibilityLabel={t(title)} />
+    <HiddenItem key={title} title={t(title)} onPress={onPress} />
   )
 
   const showShare = !!shareUrl
