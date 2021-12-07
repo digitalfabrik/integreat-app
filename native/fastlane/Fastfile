@@ -5,28 +5,28 @@ require_relative "read_build_config"
 require "yaml"
 require "base64"
 
-platform :android do
-  # The following parameters have to be passed:
-  # apk_path: The path of the apk to upload (relative to home dir)
-  desc "Upload the APK to BrowserStack Live"
-  lane :browserstack_upload_live do |options|
-    ensure_env_vars(
-        env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
-    )
+# The following parameters have to be passed:
+# path: The path of the artifact (apk or ipa) to upload (relative to home dir)
+desc "Upload the artifact to BrowserStack Live"
+lane :browserstack_upload_live do |options|
+  ensure_env_vars(
+    env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
+  )
 
-    apk_path = options[:apk_path]
+  path = options[:path]
 
-    if [apk_path].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    upload_to_browserstack_app_live(
-        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
-        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "#{ENV['HOME']}/#{apk_path}"
-    )
+  if [path].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
   end
 
+  upload_to_browserstack_app_live(
+    browserstack_username: ENV["BROWSERSTACK_USERNAME"],
+    browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
+    file_path: "#{ENV['HOME']}/#{path}"
+  )
+end
+
+platform :android do
   # The following parameters have to be passed:
   # apk_path: The path of the apk to upload (relative to home dir)
   desc "Upload the APK and run E2E tests on BrowserStack"
@@ -165,27 +165,6 @@ platform :ios do
       key_id: ENV['APP_STORE_CONNECT_API_KEY_ID'],
       issuer_id: ENV['APP_STORE_CONNECT_API_ISSUER_ID'],
       key_content: Base64.decode64(ENV['APP_STORE_CONNECT_API_KEY_CONTENT'])
-    )
-  end
-
-  # The following parameters have to be passed:
-  # ipa_path: The path of the ipa to upload (relative to home dir)
-  desc "Upload the IPA to BrowserStack Live"
-  lane :browserstack_upload_live do |options|
-    ensure_env_vars(
-        env_vars: ["BROWSERSTACK_USERNAME", "BROWSERSTACK_ACCESS_KEY"]
-    )
-
-    ipa_path = options[:ipa_path]
-
-    if [ipa_path].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    upload_to_browserstack_app_live(
-        browserstack_username: ENV["BROWSERSTACK_USERNAME"],
-        browserstack_access_key: ENV["BROWSERSTACK_ACCESS_KEY"],
-        file_path: "#{ENV['HOME']}/#{ipa_path}"
     )
   end
 
