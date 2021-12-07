@@ -6,6 +6,7 @@ import {
   FeedbackType as ImportedFeedbackType,
   ParamsType as ImportedFeedbackParamsType
 } from './endpoints/createFeedbackEndpoint'
+import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
 
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
@@ -13,6 +14,7 @@ export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType
 export type FeedbackType = ImportedFeedbackType
 export type FeedbackCategoryType = ImportedFeedbackCategoryType
+export type ReturnType<T> = ImportedReturnType<T>
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'
 export * from './routes/RouteInformationTypes'

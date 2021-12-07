@@ -1,38 +1,34 @@
-import React, { ReactElement, useContext } from 'react'
+import * as React from 'react'
+import { ReactElement, useContext, useState } from 'react'
 import { View } from 'react-native'
-import { ImageViewer } from 'react-native-image-zoom-viewer'
 import { ThemeContext } from 'styled-components'
 
-import { ImageViewModalRouteType } from 'api-client'
+import { ErrorCode, ImageViewModalRouteType } from 'api-client'
 
-import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
+import Failure from '../components/Failure'
+import PinchPanImage from '../components/PinchPanImage'
+import { RoutePropType } from '../constants/NavigationTypes'
 
 type PropsType = {
   route: RoutePropType<ImageViewModalRouteType>
-  navigation: NavigationPropType<ImageViewModalRouteType>
 }
 
 const ImageViewModal = ({ route }: PropsType): ReactElement => {
+  const [isError, setError] = useState(false)
   const theme = useContext(ThemeContext)
+
+  if (isError) {
+    return <Failure code={ErrorCode.UnknownError} />
+  }
 
   return (
     <View
       style={{
-        flex: 1
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: theme.colors.backgroundAccentColor
       }}>
-      <ImageViewer
-        style={{
-          flex: 1
-        }}
-        renderIndicator={() => <></>}
-        backgroundColor={theme.colors.backgroundAccentColor}
-        saveToLocalByLongPress={false}
-        imageUrls={[
-          {
-            url: route.params.url
-          }
-        ]}
-      />
+      <PinchPanImage uri={route.params.url} onError={() => setError(true)} />
     </View>
   )
 }

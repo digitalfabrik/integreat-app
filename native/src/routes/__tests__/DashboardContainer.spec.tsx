@@ -47,7 +47,7 @@ jest.mock('react-native/Libraries/Components/RefreshControl/RefreshControl', () 
 })
 const route = {
   key: 'route-id-0',
-  params: undefined,
+  params: {},
   name: DASHBOARD_ROUTE
 }
 describe('DashboardContainer', () => {

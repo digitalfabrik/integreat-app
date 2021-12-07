@@ -11,7 +11,6 @@ import watchContentLanguageSwitch from '../sagas/watchContentLanguageSwitch'
 import watchFetchCategory from '../sagas/watchFetchCategory'
 import watchFetchCities from '../sagas/watchFetchCities'
 import watchFetchEvent from '../sagas/watchFetchEvent'
-import watchFetchNews from '../sagas/watchFetchNews'
 import watchFetchPoi from '../sagas/watchFetchPoi'
 import { DataContainer } from '../utils/DataContainer'
 import { defaultCitiesState, defaultCityContentState, defaultContentLanguageState, StateType } from './StateType'
@@ -28,7 +27,6 @@ function* rootSaga(dataContainer: DataContainer) {
     call(watchFetchEvent, dataContainer),
     call(watchFetchPoi, dataContainer),
     call(watchFetchCities, dataContainer),
-    call(watchFetchNews, dataContainer),
     call(watchClearCity),
     call(watchContentLanguageSwitch, dataContainer),
     call(watchClearResourcesAndCache, dataContainer)
