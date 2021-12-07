@@ -32,7 +32,7 @@ const NewsList = (props: PropType): ReactElement => {
       refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       onEndReached={fetchMoreItems}
       ListEmptyComponent={renderNoItemsComponent}
-      ListFooterComponent={isFetchingMore ? <LoadingSpinner /> : null}
+      ListFooterComponent={isFetchingMore ? <LoadingSpinner testID='loadingSpinner' /> : null}
       onEndReachedThreshold={1}
       keyExtractor={keyExtractor}
       renderItem={renderItem}

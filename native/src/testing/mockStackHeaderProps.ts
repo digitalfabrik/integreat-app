@@ -1,18 +1,27 @@
 import { StackHeaderProps } from '@react-navigation/stack'
 import { merge } from 'lodash'
 
+import { DASHBOARD_ROUTE } from 'api-client'
+
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import createNavigationMock from './createNavigationPropMock'
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
+type PropsType = {
+  route: RoutePropType<RoutesType>
+  navigation: NavigationPropType<RoutesType>
+}
 
-const mockStackHeaderProps = (props: DeepPartial<StackHeaderProps> = {}, routeIndex = 0): StackHeaderProps =>
+const mockStackHeaderProps = (props: DeepPartial<PropsType> = {}, routeIndex = 0): PropsType =>
   merge(
     {
       navigation: createNavigationMock(routeIndex),
       route: {
-        key: 'key-0'
+        key: 'key-0',
+        name: DASHBOARD_ROUTE,
+        params: {}
       },
       options: {},
       layout: {

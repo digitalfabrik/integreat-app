@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react'
 
 import { CityModel, LOCAL_NEWS_TYPE } from 'api-client'
 
+import News from '../components/News'
 import useLoadLocalNews from '../hooks/useLoadLocalNews'
-import News from './News'
 
 export type PropsType = {
   newsId: string | null | undefined

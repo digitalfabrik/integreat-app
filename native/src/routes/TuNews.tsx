@@ -10,9 +10,9 @@ import {
 } from 'api-client'
 
 import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
+import News from '../components/News'
 import { tunewsApiUrl } from '../constants/endpoint'
 import useLoadTuNews from '../hooks/useLoadTuNews'
-import News from './News'
 
 export type PropsType = {
   newsId: string | null | undefined
