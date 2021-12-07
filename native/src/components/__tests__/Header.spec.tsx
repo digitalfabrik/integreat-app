@@ -14,15 +14,10 @@ import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('react-navigation-header-buttons', () => {
-  type Props = { title: string; accessibilityLabel: string }
-  return {
-    Item: ({ title, accessibilityLabel }: Props) => <Text accessibilityLabel={accessibilityLabel}>{title}</Text>,
-    HiddenItem: ({ title, accessibilityLabel }: Props) => (
-      <Text accessibilityLabel={`hidden: ${accessibilityLabel}`}>hidden: {title}</Text>
-    )
-  }
-})
+jest.mock('react-navigation-header-buttons', () => ({
+  ...jest.requireActual('react-navigation-header-buttons'),
+  HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>
+}))
 jest.mock(
   '../MaterialHeaderButtons',
   () =>
@@ -133,9 +128,9 @@ describe('Header', () => {
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
 
-    const { getByLabelText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
+    const { getByText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
 
-    fireEvent.press(getByLabelText(`hidden: ${t('share')}`))
+    fireEvent.press(getByText(`hidden: ${t('share')}`))
 
     expect(share).toHaveBeenCalledWith({ message: t('shareMessage'), title: 'Integreat' })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
