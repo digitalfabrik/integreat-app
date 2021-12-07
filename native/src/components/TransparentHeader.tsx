@@ -1,11 +1,11 @@
-import { HeaderBackButton, StackHeaderProps } from '@react-navigation/stack'
-import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { HeaderBackButton } from '@react-navigation/elements'
+import { StackHeaderProps } from '@react-navigation/stack'
+import React, { ReactElement, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
@@ -30,22 +30,14 @@ const BoxShadow = styled.View`
 }
 `
 
-export type PropsType = StackHeaderProps & {
-  theme: ThemeType
-  t: TFunction<'layout'>
-}
-
-type RouteParams = { [key: string]: string } | null
-
-const TransparentHeader = (props: PropsType): ReactElement => {
-  const { theme, scene, t, navigation } = props
-  const shareUrl = (scene.route.params as RouteParams)?.shareUrl
-  const goBackInStack = (): void => {
-    navigation.goBack()
-  }
-
+const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  const theme = useTheme()
   const showSnackbar = useSnackbar()
-  const onShare = async (): Promise<void> => {
+
+  const shareUrl = (route.params as { shareUrl?: string } | undefined)?.shareUrl
+
+  const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
       // The share option should only be shown if there is a shareUrl
       return
@@ -67,13 +59,13 @@ const TransparentHeader = (props: PropsType): ReactElement => {
       showSnackbar(t('generalError'))
       reportError(e)
     }
-  }
+  }, [showSnackbar, shareUrl, t])
 
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          <HeaderBackButton onPress={goBackInStack} labelVisible={false} />
+          <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
         </HorizontalLeft>
         <MaterialHeaderButtons
           cancelLabel={t('cancel')}
