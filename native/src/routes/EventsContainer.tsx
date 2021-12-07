@@ -190,12 +190,13 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 })
 
 const EventsContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  useSetShareUrl(navigation, {
+  const routeInformation = {
     route: EVENTS_ROUTE,
     languageCode: rest.language,
     cityCode: rest.cityModel.code,
     cityContentPath: rest.path ?? undefined
-  })
+  }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   return (
     <Events

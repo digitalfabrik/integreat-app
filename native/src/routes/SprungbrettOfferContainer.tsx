@@ -41,7 +41,8 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE
 
-  useSetShareUrl(navigation, { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode })
+  const routeInformation = { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   const requestJobs = useCallback(async () => {
     const apiUrl = await determineApiUrl()

@@ -4,7 +4,6 @@ import { RefreshControl } from 'react-native'
 
 import {
   createOffersEndpoint,
-  DISCLAIMER_ROUTE,
   EXTERNAL_OFFER_ROUTE,
   fromError,
   NotFoundError,
@@ -44,7 +43,8 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const { cityCode, languageCode } = route.params
   const cities = useCities()
 
-  useSetShareUrl(navigation, { route: OFFERS_ROUTE, languageCode, cityCode })
+  const routeInformation = { route: OFFERS_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()

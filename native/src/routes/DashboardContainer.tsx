@@ -10,7 +10,6 @@ import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { cityContentPath } from '../navigation/url'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
@@ -204,16 +203,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
 })
 
 const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
-  const {
-    cityModel: { code: cityCode },
-    language: languageCode
-  } = rest
-  useSetShareUrl(navigation, {
+  const { cityModel, language, stateView } = rest
+  const routeInformation = {
     route: DASHBOARD_ROUTE,
-    languageCode,
-    cityCode,
-    cityContentPath: cityContentPath({ cityCode, languageCode })
-  })
+    languageCode: language,
+    cityCode: cityModel.code,
+    cityContentPath: stateView.root().path
+  }
+  useSetShareUrl({ navigation, routeInformation, route: rest.route })
 
   return (
     <Dashboard
