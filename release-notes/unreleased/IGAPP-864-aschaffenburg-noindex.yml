@@ -1,0 +1,5 @@
+issue_key: IGAPP-864
+show_in_stores: false
+platforms:
+  - web
+en: Make halloaschaffenburg indexable by crawlers.
