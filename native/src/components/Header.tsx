@@ -1,5 +1,4 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import { StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
@@ -10,6 +9,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
@@ -53,13 +53,14 @@ const BoxShadow = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
-type PropsType = StackHeaderProps & {
+type PropsType = {
+  route: RoutePropType<RoutesType>
+  navigation: NavigationPropType<RoutesType>
   peeking: boolean
   categoriesAvailable: boolean
   goToLanguageChange?: () => void
   routeCityModel?: CityModel
   language: string
-  shareUrl: string | null | undefined
   dispatch: Dispatch<StoreActionType>
 }
 
@@ -75,13 +76,14 @@ enum HeaderButtonTitle {
 const Header = (props: PropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
-  const { navigation, dispatch, shareUrl, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } =
+  const { route, navigation, dispatch, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } =
     props
+
+  const shareUrl = route.params?.shareUrl
 
   const goToLanding = () => {
     navigateToLanding({
       dispatch,
-      // @ts-ignore Navigation type of the header does not match that of screens.
       navigation
     })
   }
@@ -159,14 +161,12 @@ const Header = (props: PropsType): ReactElement => {
       iconName={iconName}
       onPress={visible ? onPress : () => undefined}
       style={{ opacity: visible ? 1 : 0 }}
-      // @ts-ignore accessibilityLabel missing in props
       accessibilityLabel={t(title)}
     />
   )
 
   const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    // @ts-ignore accessibilityLabel missing in props
-    <HiddenItem key={title} title={t(title)} onPress={onPress} accessibilityLabel={t(title)} />
+    <HiddenItem key={title} title={t(title)} onPress={onPress} />
   )
 
   const showShare = !!shareUrl

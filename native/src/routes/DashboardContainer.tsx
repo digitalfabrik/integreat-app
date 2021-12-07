@@ -6,6 +6,7 @@ import { CATEGORIES_ROUTE, CityModel, DASHBOARD_ROUTE, DashboardRouteType, Error
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import CategoriesRouteStateView from '../models/CategoriesRouteStateView'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -201,13 +202,24 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
-  <Dashboard
-    {...rest}
-    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    navigateTo={createNavigate(dispatch, navigation)}
-  />
-)
+const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => {
+  const { cityModel, language, stateView } = rest
+  const routeInformation = {
+    route: DASHBOARD_ROUTE,
+    languageCode: language,
+    cityCode: cityModel.code,
+    cityContentPath: stateView.root().path
+  }
+  useSetShareUrl({ navigation, routeInformation, route: rest.route })
+
+  return (
+    <Dashboard
+      {...rest}
+      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+      navigateTo={createNavigate(dispatch, navigation)}
+    />
+  )
+}
 
 export default connect(
   mapStateToProps,

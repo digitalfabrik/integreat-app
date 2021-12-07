@@ -21,6 +21,7 @@ import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
@@ -41,6 +42,10 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = route.params
   const cities = useCities()
+
+  const routeInformation = { route: OFFERS_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
+
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
     return createOffersEndpoint(apiUrl).request({

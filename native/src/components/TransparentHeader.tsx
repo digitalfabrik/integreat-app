@@ -1,5 +1,4 @@
 import { HeaderBackButton } from '@react-navigation/elements'
-import { StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
@@ -7,9 +6,13 @@ import { HiddenItem } from 'react-navigation-header-buttons'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
+import { SHARE_SIGNAL_NAME } from 'api-client'
+
+import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
+import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import MaterialHeaderButtons from './MaterialHeaderButtons'
 
@@ -30,12 +33,17 @@ const BoxShadow = styled.View`
 }
 `
 
-const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElement => {
+type PropsType = {
+  route: RoutePropType<RoutesType>
+  navigation: NavigationPropType<RoutesType>
+}
+
+const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const showSnackbar = useSnackbar()
 
-  const shareUrl = (route.params as { shareUrl?: string } | undefined)?.shareUrl
+  const shareUrl = route.params?.shareUrl
 
   const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
@@ -47,6 +55,12 @@ const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElemen
       message: shareUrl,
       interpolation: {
         escapeValue: false
+      }
+    })
+    sendTrackingSignal({
+      signal: {
+        name: SHARE_SIGNAL_NAME,
+        url: shareUrl
       }
     })
 
@@ -61,18 +75,18 @@ const TransparentHeader = ({ navigation, route }: StackHeaderProps): ReactElemen
     }
   }, [showSnackbar, shareUrl, t])
 
+  const overflowItems = shareUrl
+    ? // @ts-ignore accessibilityLabel missing in props
+      [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
+    : []
+
   return (
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
           <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
         </HorizontalLeft>
-        <MaterialHeaderButtons
-          cancelLabel={t('cancel')}
-          theme={theme}
-          items={[]}
-          overflowItems={shareUrl ? [<HiddenItem key='share' title={t('share')} onPress={onShare} />] : []}
-        />
+        <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme} items={[]} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )

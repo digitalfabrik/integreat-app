@@ -31,7 +31,7 @@ import HeaderContainer from './components/HeaderContainer'
 import RedirectContainer from './components/RedirectContainer'
 import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
-import { RoutesParamsType } from './constants/NavigationTypes'
+import { NavigationPropType, RoutePropType, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import CategoriesContainer from './routes/CategoriesContainer'
@@ -55,11 +55,16 @@ import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
 import { initSentry, log } from './utils/sentry'
 
-const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...headerProps} />
+type HeaderProps = {
+  route: RoutePropType<RoutesType>
+  navigation: NavigationPropType<RoutesType>
+}
+
+const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
 const settingsHeader = (headerProps: StackHeaderProps) => <SettingsHeader {...headerProps} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...headerProps} />
+const defaultHeader = (headerProps: StackHeaderProps) => <HeaderContainer {...(headerProps as HeaderProps)} />
 
 type PropsType = {
   fetchCategory: (cityCode: string, language: string, key: string, forceUpdate: boolean) => void

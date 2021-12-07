@@ -70,42 +70,47 @@ export type RoutesType =
 type ShareUrlType = {
   shareUrl: string
 }
+
 type CityContentParamsType = {
   cityCode: string
   languageCode: string
 }
+type BasicParams = {
+  shareUrl?: string
+}
 
 export type RoutesParamsType = {
-  [REDIRECT_ROUTE]: {
+  [REDIRECT_ROUTE]: BasicParams & {
     url: string
   }
-  [INTRO_ROUTE]: {
+  [INTRO_ROUTE]: BasicParams & {
     deepLink?: string
   }
   [LANDING_ROUTE]: undefined
-  [DASHBOARD_ROUTE]: undefined
-  [CATEGORIES_ROUTE]: undefined
-  [POIS_ROUTE]: {
+  [DASHBOARD_ROUTE]: BasicParams
+  [CATEGORIES_ROUTE]: BasicParams
+  [POIS_ROUTE]: BasicParams & {
     urlSlug?: string
   }
-  [EVENTS_ROUTE]: undefined
-  [NEWS_ROUTE]: CityContentParamsType & {
-    newsId: string | null
-    newsType: NewsType
-  }
-  [DISCLAIMER_ROUTE]: CityContentParamsType
-  [OFFERS_ROUTE]: CityContentParamsType
-  [JPAL_TRACKING_ROUTE]: {
+  [EVENTS_ROUTE]: BasicParams
+  [NEWS_ROUTE]: BasicParams &
+    CityContentParamsType & {
+      newsId: string | null
+      newsType: NewsType
+    }
+  [DISCLAIMER_ROUTE]: BasicParams & CityContentParamsType
+  [OFFERS_ROUTE]: BasicParams & CityContentParamsType
+  [JPAL_TRACKING_ROUTE]: BasicParams & {
     trackingCode: string | null
   }
-  [EXTERNAL_OFFER_ROUTE]: ShareUrlType & {
+  [EXTERNAL_OFFER_ROUTE]: BasicParams & {
     url: string
     postData: Map<string, string> | null | undefined
   }
-  [SPRUNGBRETT_OFFER_ROUTE]: CityContentParamsType
+  [SPRUNGBRETT_OFFER_ROUTE]: BasicParams & CityContentParamsType
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: undefined
-  [CHANGE_LANGUAGE_MODAL_ROUTE]: {
+  [CHANGE_LANGUAGE_MODAL_ROUTE]: BasicParams & {
     currentLanguage: string
     previousKey: string
     cityCode: string
@@ -118,7 +123,7 @@ export type RoutesParamsType = {
   [IMAGE_VIEW_MODAL_ROUTE]: ShareUrlType & {
     url: string
   }
-  [FEEDBACK_MODAL_ROUTE]: FeedbackInformationType
+  [FEEDBACK_MODAL_ROUTE]: BasicParams & FeedbackInformationType
 }
 export type RoutePropType<T extends RoutesType> = RouteProp<RoutesParamsType, T>
 export type NavigationPropType<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T>
