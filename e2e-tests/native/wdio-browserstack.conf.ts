@@ -42,7 +42,7 @@ export const config: Testrunner = {
 
   services: ['browserstack'],
   framework: 'jasmine',
-  reporters: ['junit'],
+  reporters: ['spec'],
 
   jasmineOpts: {
     defaultTimeoutInterval: 300000
