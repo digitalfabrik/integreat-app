@@ -1,4 +1,5 @@
 import { PoiFeature } from '../maps'
+import {Position} from "geojson";
 
 class LocationModel {
   _id: number
@@ -111,6 +112,13 @@ class LocationModel {
       this.longitude === other.longitude &&
       this.latitude === other.latitude
     )
+  }
+
+  get coordinates(): Position | null {
+    if (this.longitude == null || this.latitude == null) {
+      return null
+    }
+    return [Number(this.longitude), Number(this.latitude)]
   }
 
   convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
