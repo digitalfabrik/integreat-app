@@ -7,7 +7,7 @@ import SelectorItemModel from '../../models/SelectorItemModel'
 import { renderWithRouter } from '../../testing/render'
 import Selector from '../Selector'
 
-const selectorItems = [
+const selectorItems: [SelectorItemModel, SelectorItemModel, SelectorItemModel] = [
   new SelectorItemModel({
     code: 'en',
     href: '/augsburg/en/',
@@ -32,7 +32,7 @@ describe('Selector', () => {
   const closeDropDown = jest.fn()
 
   it('should render items', () => {
-    const { getByText } = renderWithRouter(
+    const { getAllByText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Selector
           verticalLayout={false}
@@ -43,7 +43,7 @@ describe('Selector', () => {
       </ThemeProvider>
     )
     selectorItems.forEach(({ name, href }) => {
-      const item = getByText(name)
+      const item = getAllByText(name)[0]!
       if (href) {
         expect(item.closest('a')).toHaveProperty('href', `http://localhost${href}`)
       } else {
@@ -53,7 +53,7 @@ describe('Selector', () => {
   })
 
   it('should close dropdown', () => {
-    const { getByText } = renderWithRouter(
+    const { getAllByText } = renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <Selector
           verticalLayout={false}
@@ -63,7 +63,7 @@ describe('Selector', () => {
         />
       </ThemeProvider>
     )
-    fireEvent.click(getByText(selectorItems[0]!.name))
+    fireEvent.click(getAllByText(selectorItems[0].name)[0]!)
     expect(closeDropDown).toHaveBeenCalledTimes(1)
   })
 })
