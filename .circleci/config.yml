@@ -1174,8 +1174,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - credentials-repo
-                    - credentials-integreat
                 name: deliver_malte_android
                 production_delivery: false
                 requires:
