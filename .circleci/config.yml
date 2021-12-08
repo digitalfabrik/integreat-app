@@ -955,7 +955,6 @@ workflows:
             - build_android:
                 build_config_name: integreat-e2e
                 context:
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_e2e_android
@@ -1027,8 +1026,8 @@ workflows:
                 build_config_name: integreat-test-cms
                 context:
                     - mattermost
-                    - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_ig_test_cms_android
                 requires:
                     - bump_version
@@ -1045,7 +1044,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_ig_test_cms_ios
                 requires:
                     - bump_version
@@ -1122,7 +1121,6 @@ workflows:
                 build_config_name: integreat-e2e
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_e2e_android
@@ -1138,7 +1136,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_integreat_android
@@ -1161,7 +1158,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_malte_android
@@ -1184,7 +1180,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_aschaffenburg_android
@@ -1377,7 +1372,6 @@ workflows:
                 build_config_name: integreat-e2e
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_e2e_android
@@ -1393,7 +1387,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_integreat_android
@@ -1416,7 +1409,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_malte_android
@@ -1439,7 +1431,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_aschaffenburg_android
@@ -1621,7 +1612,6 @@ workflows:
                 build_config_name: integreat-e2e
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_e2e_android
@@ -1637,7 +1627,6 @@ workflows:
                 build_config_name: integreat
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_integreat_android
@@ -1660,7 +1649,6 @@ workflows:
                 build_config_name: malte
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_malte_android
@@ -1683,7 +1671,6 @@ workflows:
                 build_config_name: aschaffenburg
                 context:
                     - mattermost
-                    - tuerantuer-google-play
                     - credentials-repo
                     - credentials-integreat
                 name: build_aschaffenburg_android

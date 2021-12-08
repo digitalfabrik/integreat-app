@@ -64,7 +64,6 @@ jobs:
       build_config_name: integreat-e2e
       context:
         - mattermost
-        - tuerantuer-google-play
         - credentials-repo
         - credentials-integreat
       requires:
@@ -81,7 +80,6 @@ jobs:
       build_config_name: integreat
       context:
         - mattermost
-        - tuerantuer-google-play
         - credentials-repo
         - credentials-integreat
       requires:
@@ -105,7 +103,6 @@ jobs:
       build_config_name: malte
       context:
         - mattermost
-        - tuerantuer-google-play
         - credentials-repo
         - credentials-integreat
       requires:
@@ -129,7 +126,6 @@ jobs:
       build_config_name: aschaffenburg
       context:
         - mattermost
-        - tuerantuer-google-play
         - credentials-repo
         - credentials-integreat
       requires:
