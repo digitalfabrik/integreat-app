@@ -61,7 +61,7 @@
     "react-i18next": "11.14.1",
     "react-infinite-scroller": "^1.2.4",
     "react-map-gl": "^6.1.17",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.0.2",
     "react-styled-flexboxgrid": "^3.1.0",
     "styled-components": "^5.3.3",
     "translations": "0.0.1",

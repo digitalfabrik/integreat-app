@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement, ReactNode, Suspense, useCallback } from 'react'
-import { Route, RouteComponentProps, Switch } from 'react-router-dom'
+import { Route, Routes, RouteComponentProps, Switch } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
@@ -151,7 +151,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
   const routes: ReactElement[] = []
   if (eventsEnabled) {
     routes.push(
-      <Route key={EVENTS_ROUTE} render={render(EVENTS_ROUTE, EventsPage)} path={RoutePatterns[EVENTS_ROUTE]} exact />
+      <Route key={EVENTS_ROUTE} element={render(EVENTS_ROUTE, EventsPage)} path={RoutePatterns[EVENTS_ROUTE]} />
     )
   }
   if (offersEnabled) {
@@ -208,7 +208,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
       path={RoutePatterns[CATEGORIES_ROUTE]}
     />
   )
-  return <Switch>{routes}</Switch>
+  return <Routes>{routes}</Routes>
 }
 
 export default CityContentSwitcher
