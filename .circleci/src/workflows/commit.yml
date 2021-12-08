@@ -24,7 +24,6 @@ jobs:
       name: build_e2e_android
       build_config_name: integreat-e2e
       context:
-        - tuerantuer-google-play
         - credentials-repo
         - credentials-integreat
       requires:
