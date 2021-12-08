@@ -21,7 +21,6 @@ type PropsType = {
   isLoading: boolean
   cityModel: CityModel
   languageCode: string
-  pathname: string
 }
 
 const LocationLayout = (props: PropsType): ReactElement => {
@@ -29,7 +28,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route, toolbar: toolbarProp } = props
-  const { feedbackTargetInformation, cityModel, pathname } = props
+  const { feedbackTargetInformation, cityModel } = props
 
   const feedbackModal =
     route !== SEARCH_ROUTE && feedbackModalRating ? (
@@ -55,7 +54,6 @@ const LocationLayout = (props: PropsType): ReactElement => {
           viewportSmall={viewportSmall}
           onStickyTopChanged={setAsideStickyTop}
           languageCode={languageCode}
-          pathname={pathname}
           route={route}
         />
       }

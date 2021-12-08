@@ -28,7 +28,6 @@ import LanguageSelector from './LanguageSelector'
 
 type PropsType = {
   cityModel: CityModel
-  pathname: string
   route: RouteType
   languageCode: string
   viewportSmall: boolean
@@ -37,7 +36,7 @@ type PropsType = {
 }
 
 const LocationHeader = (props: PropsType): ReactElement => {
-  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths, route } = props
+  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, languageChangePaths, route } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
@@ -60,7 +59,6 @@ const LocationHeader = (props: PropsType): ReactElement => {
       key='language'
       languageChangePaths={languageChangePaths}
       isHeaderActionItem
-      pathname={pathname}
       languageCode={languageCode}
     />
   ]
