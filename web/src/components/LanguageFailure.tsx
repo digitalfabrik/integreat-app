@@ -26,7 +26,6 @@ const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: Props
       <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
       <LanguageSelector
         isHeaderActionItem={false}
-        pathname={null}
         languageCode={languageCode}
         languageChangePaths={languageChangePaths}
       />

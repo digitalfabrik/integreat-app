@@ -5,16 +5,16 @@ import { WebMercatorViewport } from 'react-map-gl'
 
 import {
   createPOIsEndpoint,
+  defaultViewportConfig,
+  embedInCollection,
+  locationName,
+  MapViewViewport,
   normalizePath,
   NotFoundError,
-  PoiModel,
-  useLoadFromEndpoint,
-  POIS_ROUTE,
-  embedInCollection,
-  MapViewViewport,
-  defaultViewportConfig,
   PoiFeature,
-  locationName
+  PoiModel,
+  POIS_ROUTE,
+  useLoadFromEndpoint
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -37,11 +37,10 @@ import { createPath, RouteProps } from './index'
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
-  const vp = mercatorVp.fitBounds([
+  return mercatorVp.fitBounds([
     [bBox[0], bBox[1]],
     [bBox[2], bBox[3]]
   ])
-  return vp
 }
 
 type PropsType = CityRouteProps & RouteProps<typeof POIS_ROUTE>
@@ -68,9 +67,13 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(POIS_ROUTE, { cityCode, languageCode: code })
+    const isCurrentLanguage = code === languageCode
+    const path = poi
+      ? poi.availableLanguages.get(code) || null
+      : createPath(POIS_ROUTE, { cityCode, languageCode: code })
+
     return {
-      path: poi ? poi.availableLanguages.get(code) || null : rootPath,
+      path: isCurrentLanguage ? pathname : path,
       name,
       code
     }
@@ -83,7 +86,6 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     languageChangePaths,
     route: POIS_ROUTE,
     languageCode,
-    pathname,
     toolbar
   }
 
