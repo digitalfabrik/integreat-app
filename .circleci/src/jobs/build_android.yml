@@ -15,7 +15,7 @@ steps:
       build_config_name: << parameters.build_config_name >>
   - add_ssh_keys: # Needed for credentials repo
       fingerprints:
-        - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
+        - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
   - checkout
   - prepare_workspace
   - restore_environment_variables

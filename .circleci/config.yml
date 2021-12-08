@@ -293,7 +293,7 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
-                    - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
+                    - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -371,7 +371,7 @@ jobs:
                 build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
-                    - 61:d8:94:00:53:5f:3b:19:fd:88:6b:fa:cd:ca:df:5d
+                    - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
             - checkout
             - prepare_workspace
             - restore_environment_variables
@@ -956,7 +956,8 @@ workflows:
                 build_config_name: integreat-e2e
                 context:
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_e2e_android
                 requires:
                     - bump_version
@@ -970,7 +971,7 @@ workflows:
                 build_config_name: integreat-e2e
                 context:
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_e2e_ios
                 requires:
                     - bump_version
@@ -1122,7 +1123,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_e2e_android
                 requires:
                     - bump_version
@@ -1137,7 +1139,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_integreat_android
                 requires:
                     - bump_version
@@ -1148,7 +1151,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_integreat_android
                 production_delivery: false
                 requires:
@@ -1160,7 +1162,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_malte_android
                 requires:
                     - bump_version
@@ -1171,7 +1174,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_malte_android
                 production_delivery: false
                 requires:
@@ -1183,7 +1185,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_aschaffenburg_android
                 requires:
                     - bump_version
@@ -1194,7 +1197,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_aschaffenburg_android
                 production_delivery: false
                 requires:
@@ -1215,7 +1217,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_e2e_ios
                 requires:
                     - bump_version
@@ -1230,7 +1232,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_integreat_ios
                 requires:
                     - bump_version
@@ -1241,7 +1243,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_integreat_ios
                 production_delivery: false
                 requires:
@@ -1253,7 +1254,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_malte_ios
                 requires:
                     - bump_version
@@ -1264,7 +1265,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_malte_ios
                 production_delivery: false
                 requires:
@@ -1276,7 +1276,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_aschaffenburg_ios
                 requires:
                     - bump_version
@@ -1287,7 +1287,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_aschaffenburg_ios
                 production_delivery: false
                 requires:
@@ -1379,7 +1378,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_e2e_android
                 requires:
                     - bump_version
@@ -1394,7 +1394,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_integreat_android
                 requires:
                     - bump_version
@@ -1405,7 +1406,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_integreat_android
                 production_delivery: false
                 requires:
@@ -1417,7 +1417,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_malte_android
                 requires:
                     - bump_version
@@ -1428,7 +1429,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_malte_android
                 production_delivery: false
                 requires:
@@ -1440,7 +1440,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_aschaffenburg_android
                 requires:
                     - bump_version
@@ -1451,7 +1452,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_aschaffenburg_android
                 production_delivery: false
                 requires:
@@ -1472,7 +1472,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_e2e_ios
                 requires:
                     - bump_version
@@ -1487,7 +1487,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_integreat_ios
                 requires:
                     - bump_version
@@ -1498,7 +1498,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_integreat_ios
                 production_delivery: false
                 requires:
@@ -1510,7 +1509,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_malte_ios
                 requires:
                     - bump_version
@@ -1521,7 +1520,7 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: deliver_malte_ios
                 production_delivery: false
                 requires:
@@ -1533,7 +1532,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_aschaffenburg_ios
                 requires:
                     - bump_version
@@ -1544,7 +1543,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_aschaffenburg_ios
                 production_delivery: false
                 requires:
@@ -1624,7 +1622,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_e2e_android
                 requires:
                     - bump_version
@@ -1639,7 +1638,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_integreat_android
                 requires:
                     - bump_version
@@ -1650,7 +1650,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_integreat_android
                 production_delivery: true
                 requires:
@@ -1662,7 +1661,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_malte_android
                 requires:
                     - bump_version
@@ -1673,7 +1673,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_malte_android
                 production_delivery: true
                 requires:
@@ -1685,7 +1684,8 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
-                    - tuerantuer-android
+                    - credentials-repo
+                    - credentials-integreat
                 name: build_aschaffenburg_android
                 requires:
                     - bump_version
@@ -1696,7 +1696,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-google-play
-                    - tuerantuer-android
                 name: deliver_aschaffenburg_android
                 production_delivery: true
                 requires:
@@ -1717,7 +1716,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_e2e_ios
                 requires:
                     - bump_version
@@ -1732,7 +1731,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_integreat_ios
                 requires:
                     - bump_version
@@ -1743,7 +1742,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_integreat_ios
                 production_delivery: true
                 requires:
@@ -1755,7 +1753,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_malte_ios
                 requires:
                     - bump_version
@@ -1766,7 +1764,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_malte_ios
                 production_delivery: true
                 requires:
@@ -1778,7 +1775,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
-                    - tuerantuer-ios
+                    - fastlane-match
                 name: build_aschaffenburg_ios
                 requires:
                     - bump_version
@@ -1789,7 +1786,6 @@ workflows:
                     - sentry
                     - browserstack
                     - tuerantuer-apple
-                    - tuerantuer-ios
                 name: deliver_aschaffenburg_ios
                 production_delivery: true
                 requires:
