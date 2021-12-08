@@ -102,15 +102,18 @@ describe('TuNewsPage', () => {
 
   it('should render language failure if language is not available', () => {
     mocked(loadFromEndpoint).mockImplementation()
-    const { getByText } = renderTuNewsRoute(languages[2]!)
-    expect(getByText('error:notFound.language error:chooseALanguage')).toBeTruthy()
+    const { getAllByText, queryByText } = renderTuNewsRoute(languages[2]!)
+    expect(getAllByText('error:notFound.language error:chooseALanguage')).toBeTruthy()
     // Available languages
     tuNewsLanguages.forEach(({ name, code }) => {
-      expect(getByText(name).closest('a')).toHaveProperty('href', `http://localhost/augsburg/${code}/news/tu-news`)
+      expect(getAllByText(name)[0]!.closest('a')).toHaveProperty(
+        'href',
+        `http://localhost/augsburg/${code}/news/tu-news`
+      )
     })
 
     // Unavailable language is not a link
-    expect(getByText(languages[2]!.name).closest('a')).toBeFalsy()
+    expect(queryByText(languages[2]!.name)).toBeFalsy()
   })
 
   it('should render tunews list', () => {
