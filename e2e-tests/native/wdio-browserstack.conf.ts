@@ -36,7 +36,7 @@ export const config: Testrunner = {
   bail: 1,
 
   waitforTimeout: 100000,
-  waitforInterval: 2000,
+  waitforInterval: 100000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 2,
 
