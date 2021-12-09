@@ -27,7 +27,7 @@ steps:
       command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
   - run:
       name: '[FL] Browserstack Upload Live'
-      command: bundle exec fastlane browserstack_upload_live ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
+      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.ipa
       working_directory: native
   - when:
       condition: << parameters.production_delivery >>
