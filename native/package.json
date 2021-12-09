@@ -77,7 +77,7 @@
     "react-native-localize": "^2.1.5",
     "react-native-pdf": "6.4.0",
     "react-native-permissions": "3.1.0",
-    "react-native-reanimated": "2.2.4",
+    "react-native-reanimated": "2.3.0",
     "react-native-render-html": "^6.3.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.9.0",
