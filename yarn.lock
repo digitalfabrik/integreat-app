@@ -3455,10 +3455,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
-"@react-native-community/netinfo@^6.1.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-6.1.0.tgz#a7dd574bc5b20ecad1e6ae6494abffa2e0a4949e"
-  integrity sha512-SrO+EJYR1FhGqCoKSkvddIKB0waySXapW4inW2IQgpjBYCdCTJyKFLlvZHTVg/3N0vodR4WBGdKraECl9aVS5Q==
+"@react-native-community/netinfo@^7.1.5":
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-7.1.5.tgz#65c07505b1b211275b77879f4234c7a0ee67a2de"
+  integrity sha512-ang81EGRileiqrwWCHkrIBuxrhl0ocWIWYPMTHox3c6L1tDZkhtk8PkNRMWkDWsEQHLF/A0vR3DV4dSYCC/gxQ==
 
 "@react-native-community/progress-bar-android@1.0.4":
   version "1.0.4"
