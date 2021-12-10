@@ -73,9 +73,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
 
   // Apply side effects
   useEffect(() => {
-    if (document.documentElement) {
-      document.documentElement.lang = language
-    }
+    document.documentElement.lang = language
   }, [language])
 
   if (errorMessage) {
