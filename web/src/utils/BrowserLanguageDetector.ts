@@ -41,19 +41,25 @@ const languageDetector: LanguageDetectorModule = {
 
     // Adapted from:
     // https://github.com/i18next/i18next-browser-languageDetector/blob/a84df47faf3603ece04bc224e8e0f6f0ca1df923/src/browserLookups/navigator.js
-    // chrome only; not an array, so can't use .push.apply instead of iterating
-    for (let i = 0; i < navigator.languages.length; i += 1) {
-      bcp47Tags.push(navigator.languages[i]!)
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (typeof navigator !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (navigator.languages) {
+        // chrome only; not an array, so can't use .push.apply instead of iterating
+        for (let i = 0; i < navigator.languages.length; i += 1) {
+          bcp47Tags.push(navigator.languages[i]!)
+        }
+      }
 
-    // IE only
-    const userLanguage = (navigator as { userLanguage?: string }).userLanguage
-    if (userLanguage) {
-      bcp47Tags.push(userLanguage)
-    }
+      // IE only
+      const userLanguage = (navigator as { userLanguage?: string }).userLanguage
+      if (userLanguage) {
+        bcp47Tags.push(userLanguage)
+      }
 
-    if (navigator.language) {
-      bcp47Tags.push(navigator.language)
+      if (navigator.language) {
+        bcp47Tags.push(navigator.language)
+      }
     }
 
     return bcp47Tags.length > 0 ? bcp47Tags : undefined
