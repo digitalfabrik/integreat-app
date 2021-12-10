@@ -100,7 +100,7 @@
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
     "@testing-library/jest-native": "^4.0.4",
-    "@testing-library/react-native": "^8.0.0",
+    "@testing-library/react-native": "^9.0.0",
     "@types/geojson": "^7946.0.8",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.178",
