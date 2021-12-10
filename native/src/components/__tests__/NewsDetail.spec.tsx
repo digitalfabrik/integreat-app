@@ -66,7 +66,7 @@ describe('NewsDetail', () => {
     })
     const { getByText, queryByText } = renderNewsDetail(localNews)
     expect(getByText(localNews.title)).toBeTruthy()
-    expect(getByText('Some test text ')).toBeTruthy()
+    expect(getByText('Some test text')).toBeTruthy()
     expect(getByText('mailto:app@integreat-app.de')).toBeTruthy()
     expect(getByText(' with lots of links ')).toBeTruthy()
     expect(getByText('https://integreat.app')).toBeTruthy()
