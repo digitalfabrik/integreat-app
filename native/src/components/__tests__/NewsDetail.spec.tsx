@@ -68,7 +68,7 @@ describe('NewsDetail', () => {
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('Some test text')).toBeTruthy()
     expect(getByText('mailto:app@integreat-app.de')).toBeTruthy()
-    expect(getByText(' with lots of links ')).toBeTruthy()
+    expect(getByText('with lots of links')).toBeTruthy()
     expect(getByText('https://integreat.app')).toBeTruthy()
     expect(getByText(timestamp)).toBeTruthy()
     expect(queryByText('Last Update')).toBeNull()
