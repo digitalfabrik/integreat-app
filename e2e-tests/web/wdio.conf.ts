@@ -15,9 +15,9 @@ const getCapabilities = (): Array<Capabilities> => {
 
 export const config: Testrunner = {
   runner: 'local',
-  specs: ['./web/test/specs/**/*.ts'],
+  specs: ['./web/test/specs/**/navigateToSearchResults.e2e.ts'],
   exclude: [],
-  maxInstances: 1,
+  maxInstancesPerCapability: 1,
 
   capabilities: getCapabilities(),
   logLevel: 'info',
