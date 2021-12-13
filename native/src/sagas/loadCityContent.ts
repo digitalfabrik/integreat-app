@@ -6,10 +6,7 @@ import { CategoriesMapModel, CategoryModel, EventModel, fromError, NotFoundError
 
 import buildConfig from '../constants/buildConfig'
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import {
-  FetchLanguagesFailedActionType,
-  PushLanguagesActionType
-} from '../redux/StoreActionType'
+import { FetchLanguagesFailedActionType, PushLanguagesActionType } from '../redux/StoreActionType'
 import appSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
