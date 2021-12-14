@@ -115,14 +115,14 @@ class LocationModel {
   }
 
   get coordinates(): Position | null {
-    if (this.longitude == null || this.latitude == null) {
+    if (this.longitude === null || this.longitude === undefined || this.latitude === null || this.latitude === undefined) {
       return null
     }
     return [Number(this.longitude), Number(this.latitude)]
   }
 
   convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
-    if (this.longitude == null || this.latitude == null) {
+    if (this.coordinates == null) {
       return null
     }
 
