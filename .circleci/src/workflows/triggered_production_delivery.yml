@@ -64,8 +64,8 @@ jobs:
       build_config_name: integreat-e2e
       context:
         - mattermost
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
   - e2e_android:
@@ -80,8 +80,8 @@ jobs:
       build_config_name: integreat
       context:
         - mattermost
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
   - deliver_android:
@@ -92,7 +92,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-        - tuerantuer-android
       production_delivery: true
       requires:
         - check
@@ -104,8 +103,8 @@ jobs:
       build_config_name: malte
       context:
         - mattermost
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
   - deliver_android:
@@ -116,7 +115,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-        - tuerantuer-android
       production_delivery: true
       requires:
         - check
@@ -128,8 +126,8 @@ jobs:
       build_config_name: aschaffenburg
       context:
         - mattermost
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
   - deliver_android:
@@ -140,7 +138,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-        - tuerantuer-android
       production_delivery: true
       requires:
         - check
@@ -163,7 +160,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
   - e2e_ios:
@@ -179,7 +176,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
   - deliver_ios:
@@ -190,7 +187,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-        - tuerantuer-ios
       production_delivery: true
       requires:
         - check
@@ -203,7 +199,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
   - deliver_ios:
@@ -214,7 +210,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-        - tuerantuer-ios
       production_delivery: true
       requires:
         - check
@@ -227,7 +222,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
   - deliver_ios:
@@ -238,7 +233,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-        - tuerantuer-ios
       production_delivery: true
       requires:
         - check
