@@ -9,7 +9,6 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
-import normalizePath from 'api-client/src/normalizePath'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -25,9 +24,8 @@ import { createPath, RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof OFFERS_ROUTE>
 
-const OffersPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
+const OffersPage = ({ cityModel, match, languages }: PropsType): ReactElement => {
   const { languageCode, cityCode } = match.params
-  const pathname = normalizePath(location.pathname)
   const { t } = useTranslation('offers')
   const viewportSmall = false
 
@@ -77,7 +75,6 @@ const OffersPage = ({ cityModel, match, location, languages }: PropsType): React
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
-    pathname,
     toolbar
   }
 
