@@ -59,7 +59,6 @@ describe('LocationHeader', () => {
   ]
 
   const languageCode = 'de'
-  const pathname = '/augsburg/de/willkommen'
   const onStickyTopChanged = () => undefined
 
   type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
@@ -92,7 +91,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(false, false, false, false, false)}
@@ -109,7 +107,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(false, true, false, false, false)}
@@ -126,7 +123,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(false, false, false, false, true)}
@@ -143,7 +139,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -160,7 +155,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={CATEGORIES_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -181,7 +175,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={LOCAL_NEWS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -202,7 +195,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={TU_NEWS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -223,7 +215,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={TU_NEWS_DETAIL_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -244,7 +235,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={EVENTS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -265,7 +255,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={OFFERS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -286,7 +275,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={SPRUNGBRETT_OFFER_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
@@ -307,7 +295,6 @@ describe('LocationHeader', () => {
         <ThemeProvider theme={theme}>
           <LocationHeader
             languageCode={languageCode}
-            pathname={pathname}
             route={POIS_ROUTE}
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
