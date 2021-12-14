@@ -68,6 +68,20 @@ describe('pushPoi', () => {
     return { ...defaultState, ...state }
   }
 
+  const createPushAction = (params: Partial<PushPoiActionType['params']> = {}): PushPoiActionType => ({
+    type: 'PUSH_POI',
+    params: {
+      pois: [poi],
+      path: null,
+      key: 'route-id-0',
+      resourceCache: {},
+      cityLanguages: languageModels,
+      language: 'de',
+      city: 'augsburg',
+      ...params
+    }
+  })
+
   it('should add general pois route to poisRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
       resourceCache: {
@@ -76,18 +90,7 @@ describe('pushPoi', () => {
         value: {}
       }
     })
-    const pushEventAction: PushPoiActionType = {
-      type: 'PUSH_POI',
-      params: {
-        pois: [poi],
-        path: null,
-        key: 'route-id-0',
-        resourceCache: {},
-        cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
-        language: 'de',
-        city: 'augsburg'
-      }
-    }
+    const pushEventAction = createPushAction()
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -115,18 +118,8 @@ describe('pushPoi', () => {
         value: {}
       }
     })
-    const pushPoiAction: PushPoiActionType = {
-      type: 'PUSH_POI',
-      params: {
-        pois: [poi],
-        path: '/augsburg/de/locations/test',
-        key: 'route-id-0',
-        resourceCache: {},
-        cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
-        language: 'de',
-        city: 'augsburg'
-      }
-    }
+
+    const pushPoiAction = createPushAction({ path: '/augsburg/de/locations/test' })
     expect(cityContentReducer(prevState, pushPoiAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -163,42 +156,31 @@ describe('pushPoi', () => {
         }
       }
     }
-    const pushEventAction: PushPoiActionType = {
-      type: 'PUSH_POI',
-      params: {
-        resourceCache,
-        pois: [
-          new PoiModel({
-            path: '/augsburg/de/locations/test',
-            title: 'Different Title',
-            content: 'test',
-            thumbnail: 'test',
-            availableLanguages: new Map([['de', '/augsburg/de/locations/test']]),
-            excerpt: 'test',
-            location: new LocationModel({
-              id: 1,
-              country: 'country',
-              region: 'region',
-              state: 'state',
-              address: 'address',
-              town: 'town',
-              postcode: 'postcode',
-              latitude: '15',
-              longitude: '15',
-              name: 'name'
-            }),
-            lastUpdate: moment('2011-02-04T00:00:00.000Z'),
-            hash: 'test'
-          })
-        ],
-        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
-        city: 'testumgebung',
-        language: 'de',
-        path: '/testumgebung/de/locations/test',
-        key: 'route-id-0'
-      }
-    }
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+    const poi2 = new PoiModel({
+      path: '/augsburg/de/locations/test',
+      title: 'Different Title',
+      content: 'test',
+      thumbnail: 'test',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/test']]),
+      excerpt: 'test',
+      location: new LocationModel({
+        id: 1,
+        country: 'country',
+        region: 'region',
+        state: 'state',
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode',
+        latitude: '15',
+        longitude: '15',
+        name: 'name'
+      }),
+      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      hash: 'test'
+    })
+    const pushPoiAction = createPushAction({ path: '/testumgebung/de/locations/test', pois: [poi2], resourceCache })
+
+    expect(cityContentReducer(prevState, pushPoiAction)).toEqual(
       expect.objectContaining({
         city: 'augsburg',
         resourceCache: {
@@ -219,18 +201,7 @@ describe('pushPoi', () => {
       }
     })
     const nonExistingPath = '/augsburg/de/locations/test2'
-    const pushEventAction: PushPoiActionType = {
-      type: 'PUSH_POI',
-      params: {
-        pois: [poi],
-        path: nonExistingPath,
-        key: 'route-id-0',
-        resourceCache: {},
-        cityLanguages: [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')],
-        language: 'de',
-        city: 'augsburg'
-      }
-    }
+    const pushEventAction = createPushAction({ path: nonExistingPath })
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -240,7 +211,7 @@ describe('pushPoi', () => {
             language: 'de',
             city: 'augsburg',
             status: 'error',
-            message: `Could not find a poi with path '${'/augsburg/de/locations/test2'}'.`,
+            message: `Could not find a poi with path '${nonExistingPath}'.`,
             code: ErrorCode.PageNotFound
           }
         }

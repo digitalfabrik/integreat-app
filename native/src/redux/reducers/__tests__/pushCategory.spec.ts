@@ -7,63 +7,43 @@ import { PushCategoryActionType } from '../../StoreActionType'
 import cityContentReducer from '../cityContentReducer'
 
 describe('pushCategory', () => {
-  const rootCategory = new CategoryModel({
-    root: true,
-    path: '/augsburg/de',
-    title: 'Stadt Augsburg',
-    content: 'lul',
-    thumbnail: '',
-    parentPath: '',
-    order: 0,
-    availableLanguages: new Map(),
-    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-    hash: '123456'
-  })
-  const subCategory = new CategoryModel({
-    root: false,
-    path: '/augsburg/de/sub',
-    title: 'Subkategorie',
-    content: 'lul',
-    thumbnail: '',
-    parentPath: '/augsburg/de',
-    order: 0,
-    availableLanguages: new Map([['en', '/augsburg/en/sub']]),
-    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-    hash: '123456'
-  })
-  const subSubCategory = new CategoryModel({
-    root: false,
-    path: '/augsburg/de/sub/sub',
-    title: 'Subsubkategorie',
-    content: 'lul',
-    thumbnail: '',
-    parentPath: '/augsburg/de/sub',
-    order: 0,
-    availableLanguages: new Map([['en', '/augsburg/en/sub/sub']]),
-    lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-    hash: '123456'
-  })
+  const buildCategory = (root: boolean, path: string, title: string, parentPath: string, availableLanguages: Map<string, string>): CategoryModel => (
+    new CategoryModel({
+      root,
+      path,
+      title,
+      content: 'lul',
+      thumbnail: '',
+      parentPath,
+      order: 0,
+      availableLanguages,
+      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
+      hash: '123456'
+    }))
+
+  const rootCategory = buildCategory(true, '/augsburg/de', 'Stadt Augsburg', '', new Map())
+  const subCategory = buildCategory(false, '/augsburg/de/sub', 'Subkategorie', '/augsburg/de', new Map([['en', '/augsburg/en/sub']]))
+  const subSubCategory = buildCategory(false, '/augsburg/de/sub/sub', 'Subsubkategorie', '/augsburg/de/sub', new Map([['en', '/augsburg/en/sub/sub']]))
+
   const categoriesMap = new CategoriesMapModel([rootCategory, subCategory, subSubCategory])
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
 
-  const createPushAction = (params: Partial<PushCategoryActionType['params']> = {}): PushCategoryActionType => {
-    return {
-      type: 'PUSH_CATEGORY',
-      params: {
-        categoriesMap,
-        resourceCache: {},
-        cityLanguages: languageModels,
-        city: 'augsburg',
-        language: 'de',
-        path: '/augsburg/de',
-        depth: 1,
-        key: 'route-id-0',
-        refresh: false,
-        ...params
-      }
+  const createPushAction = (params: Partial<PushCategoryActionType['params']> = {}): PushCategoryActionType => ({
+    type: 'PUSH_CATEGORY',
+    params: {
+      categoriesMap,
+      resourceCache: {},
+      cityLanguages: languageModels,
+      city: 'augsburg',
+      language: 'de',
+      path: '/augsburg/de',
+      depth: 1,
+      key: 'route-id-0',
+      refresh: false,
+      ...params
     }
-  }
+  })
 
 
   const prepareState = (state: Partial<CityContentStateType> = {}): CityContentStateType => {
@@ -195,18 +175,8 @@ describe('pushCategory', () => {
     }
 
     const prevResources = prevState.resourceCache.value
-    const testumgebungRootCategory = new CategoryModel({
-      root: true,
-      path: '/testumgebung/de',
-      title: 'T',
-      content: 'rofl',
-      thumbnail: '',
-      parentPath: '',
-      order: 0,
-      availableLanguages: new Map(),
-      lastUpdate: moment('2000-01-05T10:10:00.000Z'),
-      hash: '123456'
-    })
+    const testumgebungRootCategory = buildCategory(true, '/testumgebung/de', 'Title', '', new Map())
+
     const testumgebungCategoriesMap = new CategoriesMapModel([testumgebungRootCategory])
     const resourceCache = {
       '/testumgebung/de': {
