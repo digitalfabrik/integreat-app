@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesMapModel, CategoryModel, LanguageModel, ErrorCode } from 'api-client'
 
 import { CityContentStateType } from '../../StateType'
 import { PushCategoryActionType } from '../../StoreActionType'
@@ -46,7 +46,27 @@ describe('pushCategory', () => {
   const categoriesMap = new CategoriesMapModel([rootCategory, subCategory, subSubCategory])
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
-  const prepareState = (state: Partial<CityContentStateType>): CityContentStateType => {
+
+  const createPushAction = (params: Partial<PushCategoryActionType['params']> = {}): PushCategoryActionType => {
+    return {
+      type: 'PUSH_CATEGORY',
+      params: {
+        categoriesMap,
+        resourceCache: {},
+        cityLanguages: languageModels,
+        city: 'augsburg',
+        language: 'de',
+        path: '/augsburg/de',
+        depth: 1,
+        key: 'route-id-0',
+        refresh: false,
+        ...params
+      }
+    }
+  }
+
+
+  const prepareState = (state: Partial<CityContentStateType> = {}): CityContentStateType => {
     const defaultState: CityContentStateType = {
       city: 'augsburg',
       routeMapping: {
@@ -103,20 +123,8 @@ describe('pushCategory', () => {
         value: {}
       }
     })
-    const pushCategoryAction: PushCategoryActionType = {
-      type: 'PUSH_CATEGORY',
-      params: {
-        categoriesMap,
-        resourceCache: {},
-        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
-        city: 'augsburg',
-        language: 'de',
-        path: '/augsburg/de',
-        depth: 1,
-        key: 'route-id-0',
-        refresh: false
-      }
-    }
+    const pushCategoryAction = createPushAction()
+
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -151,20 +159,8 @@ describe('pushCategory', () => {
         value: {}
       }
     })
-    const pushCategoryAction: PushCategoryActionType = {
-      type: 'PUSH_CATEGORY',
-      params: {
-        categoriesMap,
-        resourceCache: {},
-        cityLanguages: languageModels,
-        city: 'augsburg',
-        language: 'de',
-        path: '/augsburg/de/sub',
-        depth: 1,
-        key: 'route-id-1',
-        refresh: false
-      }
-    }
+    const pushCategoryAction = createPushAction({ path: '/augsburg/de/sub', key: 'route-id-1' })
+
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
@@ -192,7 +188,7 @@ describe('pushCategory', () => {
     )
   })
   it("should merge the resource cache if there's already one", () => {
-    const prevState = prepareState({})
+    const prevState = prepareState()
 
     if (prevState.resourceCache.status !== 'ready') {
       throw new Error('Preparation failed')
@@ -221,20 +217,14 @@ describe('pushCategory', () => {
         }
       }
     }
-    const pushCategoryAction: PushCategoryActionType = {
-      type: 'PUSH_CATEGORY',
-      params: {
-        categoriesMap: testumgebungCategoriesMap,
-        resourceCache,
-        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
-        city: 'testumgebung',
-        language: 'de',
-        path: '/testumgebung/de',
-        depth: 1,
-        key: 'route-id-0',
-        refresh: false
-      }
-    }
+    const pushCategoryAction = createPushAction({
+      categoriesMap: testumgebungCategoriesMap,
+      resourceCache,
+      city: 'testumgebung',
+      path: '/testumgebung/de',
+      key: 'route-id-0'
+    })
+
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         city: 'augsburg',
@@ -246,6 +236,7 @@ describe('pushCategory', () => {
       })
     )
   })
+
   it('should add categoriesMap to the searchRoute', () => {
     const prevState: CityContentStateType = prepareState({
       searchRoute: null,
@@ -255,24 +246,42 @@ describe('pushCategory', () => {
         value: {}
       }
     })
-    const pushCategoryAction: PushCategoryActionType = {
-      type: 'PUSH_CATEGORY',
-      params: {
-        categoriesMap,
-        resourceCache: {},
-        cityLanguages: [new LanguageModel('en', 'English'), new LanguageModel('de', 'Deutsch')],
-        city: 'augsburg',
-        language: 'de',
-        path: '/augsburg/de',
-        depth: 1,
-        key: 'route-id-0',
-        refresh: false
-      }
-    }
+
+    const pushCategoryAction = createPushAction()
     expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
       expect.objectContaining({
         searchRoute: {
           categoriesMap
+        }
+      })
+    )
+  })
+
+  it('should return an error for a nonexisting category', () => {
+    const prevState: CityContentStateType = prepareState({
+      routeMapping: {},
+      resourceCache: {
+        status: 'ready',
+        progress: 0,
+        value: {}
+      }
+    })
+
+    const nonExistingPath = '/augsburg/de/nonexisting'
+    const pushCategoryAction = createPushAction({ path: nonExistingPath })
+    expect(cityContentReducer(prevState, pushCategoryAction)).toEqual(
+      expect.objectContaining({
+        routeMapping: {
+          'route-id-0': {
+            routeType: CATEGORIES_ROUTE,
+            path: nonExistingPath,
+            depth: 1,
+            language: 'de',
+            city: 'augsburg',
+            status: 'error',
+            message: `Could not find a category with path '${nonExistingPath}'.`,
+            code: ErrorCode.PageNotFound
+          }
         }
       })
     )

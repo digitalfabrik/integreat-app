@@ -235,12 +235,12 @@ describe('pushPoi', () => {
       expect.objectContaining({
         routeMapping: {
           'route-id-0': {
-            routeType: EVENTS_ROUTE,
+            routeType: POIS_ROUTE,
             path: nonExistingPath,
             language: 'de',
             city: 'augsburg',
             status: 'error',
-            message: `Could not find an event with path '${'/augsburg/de/locations/test2'}'.`,
+            message: `Could not find a poi with path '${'/augsburg/de/locations/test2'}'.`,
             code: ErrorCode.PageNotFound
           }
         }

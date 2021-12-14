@@ -53,7 +53,7 @@ const pushCategory = (state: CityContentStateType, action: PushCategoryActionTyp
   // If there is an error in the old resourceCache, we want to override it
   const newResourceCache =
     state.resourceCache.status === 'ready' ? { ...state.resourceCache.value, ...resourceCache } : resourceCache
-  const root: CategoryModel | null | undefined = categoriesMap.findCategoryByPath(path)
+  const root = categoriesMap.findCategoryByPath(path)
 
   if (!root) {
     const route: CategoryRouteStateType = {
