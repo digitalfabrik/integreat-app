@@ -20,11 +20,11 @@ describe('navigateToSearchResult', () => {
     expect(searchBar).toExist()
     await browser.keys(contentSearch)
 
-    const firstResult = await $('*=Language')
-    const secondResult = await $('*=Language courses')
+    const firstResult = $('=Language')
+    const secondResult = $('=Language courses')
 
-    expect(firstResult).toExist()
-    expect(secondResult).toExist()
+    await expect(firstResult).toExist()
+    await expect(secondResult).toExist()
 
     await firstResult.click()
     const resultUrl = await browser.getUrl()
