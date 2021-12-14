@@ -24,8 +24,8 @@ jobs:
       name: build_e2e_android
       build_config_name: integreat-e2e
       context:
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
         - check
@@ -40,7 +40,7 @@ jobs:
       build_config_name: integreat-e2e
       context:
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
         - check
