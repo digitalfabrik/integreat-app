@@ -46,16 +46,20 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   )
   const { data: events, loading, error: eventsError } = useLoadFromEndpoint(requestEvents)
 
-  const event = eventId && events?.find((event: EventModel) => event.path === pathname)
+  const event = eventId ? events?.find((event: EventModel) => event.path === pathname) : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(EVENTS_ROUTE, { cityCode, languageCode: code })
+    const isCurrentLanguage = code === languageCode
+    const path = event
+      ? event.availableLanguages.get(code) || null
+      : createPath(EVENTS_ROUTE, { cityCode, languageCode: code })
+
     return {
-      path: event ? event.availableLanguages.get(code) || null : rootPath,
+      path: isCurrentLanguage ? pathname : path,
       name,
       code
     }
@@ -68,7 +72,6 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    pathname,
     toolbar
   }
 
