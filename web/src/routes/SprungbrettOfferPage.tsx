@@ -80,7 +80,6 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
     languageChangePaths,
     route: SPRUNGBRETT_OFFER_ROUTE,
     languageCode,
-    pathname,
     toolbar
   }
 
