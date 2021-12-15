@@ -72,8 +72,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
     feedbackTargetInformation: null,
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
-    languageCode,
-    pathname
+    languageCode
   }
 
   if (loading) {
