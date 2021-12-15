@@ -2,7 +2,6 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 import '@testing-library/jest-native/extend-expect'
 import fs from 'fs'
 import path from 'path'
-
 import { I18nManager } from './src/testing/I18nManagerMock'
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
