@@ -35,10 +35,7 @@ export default {
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   coverageDirectory: '<rootDir>/../reports/coverage',
-  transform: {
-    ...tsjPreset.transform
-  },
-  reporters: [
+    reporters: [
     'default',
     [
       'jest-junit',
