@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, Text } from 'react-native'
+import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { PoiFeature, PoiModel } from 'api-client'
@@ -10,6 +10,7 @@ import { mockContent } from '../__mocks__/poiCMSContent'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import useSnackbar from '../hooks/useSnackbar'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
+import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import NativeHtml from './NativeHtml'
 import PoiDetailItem from './PoiDetailItem'
@@ -75,11 +76,12 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { location, address, postcode, town } = poi.location
   const { distance, title } = feature.properties
 
-  // TODO refactor to use a get coordinates method IGAPP-806
   const onNavigate = () => {
-    if (location && poi.featureLocation?.geometry.coordinates) {
-      const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('navigationApplication')))
+    if (location) {
+      const navigationUrl = getNavigationDeepLinks(location, poi.location)
+      if (navigationUrl) {
+        openExternalUrl(navigationUrl).catch(() => showSnackbar(t('navigationApplication')))
+      }
     }
   }
 
