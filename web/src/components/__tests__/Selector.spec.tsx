@@ -1,10 +1,13 @@
-import { shallow } from 'enzyme'
+import { fireEvent } from '@testing-library/react'
 import React from 'react'
+import { ThemeProvider } from 'styled-components'
 
+import buildConfig from '../../constants/buildConfig'
 import SelectorItemModel from '../../models/SelectorItemModel'
+import { renderWithRouter } from '../../testing/render'
 import Selector from '../Selector'
 
-const selectorItems = [
+const selectorItems: [SelectorItemModel, SelectorItemModel, SelectorItemModel] = [
   new SelectorItemModel({
     code: 'en',
     href: '/augsburg/en/',
@@ -23,29 +26,44 @@ const selectorItems = [
 ]
 
 describe('Selector', () => {
-  it('should match snapshot', () => {
-    const wrapper = shallow(
-      <Selector
-        verticalLayout={false}
-        closeDropDown={() => undefined}
-        items={selectorItems}
-        activeItemCode='de'
-        disabledItemTooltip='random tooltip'
-      />
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+  const closeDropDown = jest.fn()
+
+  it('should render items', () => {
+    const { getAllByText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Selector
+          verticalLayout={false}
+          items={selectorItems}
+          disabledItemTooltip='tooltip'
+          closeDropDown={closeDropDown}
+        />
+      </ThemeProvider>
     )
-    expect(wrapper).toMatchSnapshot()
+    selectorItems.forEach(({ name, href }) => {
+      const item = getAllByText(name)[0]!
+      if (href) {
+        expect(item.closest('a')).toHaveProperty('href', `http://localhost${href}`)
+      } else {
+        expect(item.closest('a')).toBeFalsy()
+      }
+    })
   })
 
-  it('should be vertical and match snapshot', () => {
-    const wrapper = shallow(
-      <Selector
-        verticalLayout
-        closeDropDown={() => undefined}
-        items={selectorItems}
-        activeItemCode='de'
-        disabledItemTooltip='random tooltip'
-      />
+  it('should close dropdown', () => {
+    const { getAllByText } = renderWithRouter(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <Selector
+          verticalLayout={false}
+          items={selectorItems}
+          disabledItemTooltip='tooltip'
+          closeDropDown={closeDropDown}
+        />
+      </ThemeProvider>
     )
-    expect(wrapper).toMatchSnapshot()
+    fireEvent.click(getAllByText(selectorItems[0].name)[0]!)
+    expect(closeDropDown).toHaveBeenCalledTimes(1)
   })
 })
