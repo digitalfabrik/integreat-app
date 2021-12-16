@@ -52,8 +52,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
     feedbackTargetInformation: null,
     languageChangePaths,
     route: SEARCH_ROUTE,
-    languageCode,
-    pathname: location.pathname
+    languageCode
   }
 
   if (loading) {

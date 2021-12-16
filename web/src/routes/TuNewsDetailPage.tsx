@@ -78,8 +78,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
-    languageCode,
-    pathname
+    languageCode
   }
 
   if (loading) {
