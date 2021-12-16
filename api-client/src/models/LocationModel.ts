@@ -1,5 +1,5 @@
-import { PoiFeature } from '../maps'
 import {Position} from "geojson";
+import { PoiFeature } from '../maps'
 
 class LocationModel {
   _id: number
