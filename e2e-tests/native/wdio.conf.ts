@@ -26,7 +26,7 @@ export const config: Testrunner = {
   connectionRetryCount: 2,
   services: ['appium'],
   framework: 'jasmine',
-  reporters: ['junit'],
+  reporters: ['spec'],
 
   jasmineOpts: {
     defaultTimeoutInterval: 100000

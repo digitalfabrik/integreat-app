@@ -17,6 +17,8 @@ const browserstackCaps = (config: BrowserStackCapabilities): Capabilities => {
   }
 }
 
+export const browsers = ['chrome', 'firefox', 'safari', 'edge'] as const
+
 export const browserstackCapabilities = {
   chrome: browserstackCaps({
     browserVersion: '80',
@@ -36,16 +38,11 @@ export const browserstackCapabilities = {
     browserName: 'Safari',
     browserVersion: '14.0'
   })
-}
+} as Record<typeof browsers[number], Capabilities>
 
-export const localCapabilities = {
-  browser: {
-    browserName: 'chrome'
-  },
-  ci: {
-    browserName: 'chrome',
-    'goog:chromeOptions': {
-      args: ['--no-sandbox', '--disable-infobars', '--headless']
-    }
+export const ciCapabilities = {
+  browserName: 'chrome',
+  'goog:chromeOptions': {
+    args: ['--no-sandbox', '--disable-infobars', '--headless']
   }
 }
