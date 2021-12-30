@@ -4,6 +4,7 @@ import { fromError } from 'api-client'
 
 import { FetchCitiesActionType, FetchCitiesFailedActionType, PushCitiesActionType } from '../redux/StoreActionType'
 import { DataContainer } from '../utils/DataContainer'
+import { getErrorMessage } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
 import loadCities from './loadCities'
 
@@ -22,7 +23,7 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
     const failed: FetchCitiesFailedActionType = {
       type: 'FETCH_CITIES_FAILED',
       params: {
-        message: `Error in fetchCities: ${e.message}`,
+        message: `Error in fetchCities: ${getErrorMessage(e)}`,
         code: fromError(e)
       }
     }

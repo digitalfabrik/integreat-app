@@ -18,7 +18,7 @@ export const sendRequest = async (signal: SignalType): Promise<void> => {
       await createTrackingEndpoint().request(signal)
     }
   } catch (e) {
-    if (fromError(e) === ErrorCode.NetworkConnectionFailed) {
+    if (e instanceof Error && fromError(e) === ErrorCode.NetworkConnectionFailed) {
       // Offline usage, save signal to be sent later
       await appSettings.pushJpalSignal({ ...signal, offline: true })
     } else {
