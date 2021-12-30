@@ -12,6 +12,7 @@ import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
 import ResourceURLFinder from '../utils/ResourceURLFinder'
 import buildResourceFilePath from '../utils/buildResourceFilePath'
+import { getErrorMessage } from '../utils/helpers'
 import { log, reportError } from '../utils/sentry'
 import fetchResourceCache from './fetchResourceCache'
 import loadCategories from './loadCategories'
@@ -111,7 +112,7 @@ function* prepareLanguages(
     const languagesFailed: FetchLanguagesFailedActionType = {
       type: 'FETCH_LANGUAGES_FAILED',
       params: {
-        message: `Error while fetching languages: ${e.message}`,
+        message: `Error while fetching languages: ${getErrorMessage(e)}`,
         code: fromError(e)
       }
     }
