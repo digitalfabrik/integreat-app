@@ -21,12 +21,8 @@ import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TileModel from '../models/TileModel'
-import { RouteProps } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof OFFERS_ROUTE>
-
-const OffersPage = ({ cityModel, match, languages }: PropsType): ReactElement => {
-  const { languageCode, cityCode } = match.params
+const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
   const viewportSmall = false
 
