@@ -1,12 +1,11 @@
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
   createEventsEndpoint,
   EventModel,
   EVENTS_ROUTE,
-  normalizePath,
   NotFoundError,
   pathnameFromRouteInformation,
   useLoadFromEndpoint
@@ -29,17 +28,20 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-import { RouteProps } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof EVENTS_ROUTE>
-
-const EventsPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
-  const { cityCode, languageCode, eventId } = match.params
-  const pathname = normalizePath(location.pathname)
-  const history = useHistory()
+const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+  const previousPathname = useRef<string | null>(null)
+  const { eventId } = useParams()
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // Hooks are only run after render, therefore if the user navigates, the old data is still valid for a moment.
+    // To prevent flickering, render a loading spinner if the pathname has changed since the last render.
+    previousPathname.current = pathname
+  }, [pathname])
 
   const requestEvents = useCallback(
     async () => createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
@@ -76,7 +78,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
     toolbar
   }
 
-  if (loading) {
+  if (loading || pathname !== previousPathname.current) {
     return (
       <LocationLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
@@ -117,7 +119,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
           content={content}
           title={title}
           formatter={formatter}
-          onInternalLinkClick={history.push}>
+          onInternalLinkClick={navigate}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
             {location.location && <PageDetail identifier={t('location')} information={location.location} />}
