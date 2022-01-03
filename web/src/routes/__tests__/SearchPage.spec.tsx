@@ -1,8 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 import moment from 'moment'
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 
 import {
   CategoriesMapModel,
@@ -15,8 +13,7 @@ import {
 } from 'api-client'
 import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
 
@@ -42,27 +39,28 @@ describe('SearchPage', () => {
     cityCode: cityModel.code,
     languageCode: languageModel.code
   })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SEARCH_ROUTE]}`
+
+  const renderSearch = ({ query }: { query?: string } = {}) => {
+    const pathnameWithQuery = query ? `${pathname}${query}` : pathname
+    return renderRoute(
+      <SearchPage
+        cities={cities}
+        cityModel={cityModel}
+        languages={languages}
+        languageModel={languageModel}
+        pathname={pathname}
+        cityCode={cityModel.code}
+        languageCode={languageModel.code}
+      />,
+      { routePattern, pathname: pathnameWithQuery, wrapWithTheme: true }
+    )
+  }
 
   it('should filter correctly', () => {
     mockUseLoadFromEndpointWithData(categoriesMap)
 
-    const { getByText, queryByText, getByPlaceholderText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[SEARCH_ROUTE]}
-          render={props => (
-            <SearchPage
-              cities={cities}
-              cityModel={cityModel}
-              languages={languages}
-              languageModel={languageModel}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: pathname }
-    )
+    const { getByText, queryByText, getByPlaceholderText } = renderSearch()
 
     // the root category should not be returned
     expect(queryByText(category0.title)).toBeFalsy()
@@ -114,23 +112,7 @@ describe('SearchPage', () => {
     const categoriesMap = new CategoriesMapModel(categoryModels)
     mockUseLoadFromEndpointWithData(categoriesMap)
 
-    const { getByPlaceholderText, getAllByLabelText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[SEARCH_ROUTE]}
-          render={props => (
-            <SearchPage
-              cities={cities}
-              cityModel={cityModel}
-              languages={languages}
-              languageModel={languageModel}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: pathname }
-    )
+    const { getByPlaceholderText, getAllByLabelText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -150,48 +132,15 @@ describe('SearchPage', () => {
     mockUseLoadFromEndpointWithData(categoriesMap)
     it('should set state from url', () => {
       const query = '?query=SearchForThis'
-      const url = `${pathname}${query}`
 
-      const { getByPlaceholderText } = renderWithBrowserRouter(
-        <ThemeProvider theme={buildConfig().lightTheme}>
-          <Route
-            path={RoutePatterns[SEARCH_ROUTE]}
-            render={props => (
-              <SearchPage
-                cities={cities}
-                cityModel={cityModel}
-                languages={languages}
-                languageModel={languageModel}
-                {...props}
-              />
-            )}
-          />
-        </ThemeProvider>,
-        { route: url }
-      )
+      const { getByPlaceholderText } = renderSearch({ query })
 
       expect((getByPlaceholderText('search:searchPlaceholder') as HTMLInputElement).value).toBe('SearchForThis')
     })
   })
 
   it('should set url when state changes', () => {
-    const { getByPlaceholderText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[SEARCH_ROUTE]}
-          render={props => (
-            <SearchPage
-              cities={cities}
-              cityModel={cityModel}
-              languages={languages}
-              languageModel={languageModel}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: pathname }
-    )
+    const { getByPlaceholderText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -204,25 +153,8 @@ describe('SearchPage', () => {
 
   it('should remove ?query= when filteredText is empty', () => {
     const query = '?query=RemoveThis'
-    const url = `${pathname}${query}`
 
-    const { getByPlaceholderText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[SEARCH_ROUTE]}
-          render={props => (
-            <SearchPage
-              cities={cities}
-              cityModel={cityModel}
-              languages={languages}
-              languageModel={languageModel}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: url }
-    )
+    const { getByPlaceholderText } = renderSearch({ query })
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
