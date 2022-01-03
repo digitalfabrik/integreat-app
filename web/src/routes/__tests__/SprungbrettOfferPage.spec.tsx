@@ -8,6 +8,7 @@ import {
   CityModelBuilder,
   LanguageModelBuilder,
   OffersModelBuilder,
+  pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   useLoadFromEndpoint
@@ -16,7 +17,7 @@ import {
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -64,6 +65,11 @@ describe('SprungbrettOfferPage', () => {
       url: 'http://awesome-jobs.domain'
     })
   ]
+  const pathname = pathnameFromRouteInformation({
+    route: SPRUNGBRETT_OFFER_ROUTE,
+    cityCode: city.code,
+    languageCode: language.code
+  })
 
   const renderSprungbrett = (): RenderResult =>
     renderWithBrowserRouter(
@@ -81,7 +87,7 @@ describe('SprungbrettOfferPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
+      { route: pathname }
     )
 
   it('should render page with title and content', () => {

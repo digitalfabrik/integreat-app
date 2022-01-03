@@ -3,6 +3,7 @@ import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
+  cityContentPath,
   CityModel,
   createLanguagesEndpoint,
   DISCLAIMER_ROUTE,
@@ -27,15 +28,7 @@ import LocationLayout from './components/LocationLayout'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
-import {
-  createPath,
-  LOCAL_NEWS_ROUTE,
-  RoutePatterns,
-  RouteProps,
-  RouteType,
-  TU_NEWS_DETAIL_ROUTE,
-  TU_NEWS_ROUTE
-} from './routes'
+import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteProps, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
 import lazyWithRetry from './utils/retryImport'
 
 const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
@@ -106,7 +99,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
           languageChangePaths={languages.map(({ code, name }) => ({
             code,
             name,
-            path: createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code })
+            path: cityContentPath({ cityCode, languageCode: code })
           }))}
         />
       </Layout>

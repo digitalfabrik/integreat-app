@@ -11,7 +11,8 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   useLoadFromEndpoint,
-  OfferModel
+  OfferModel,
+  pathnameFromRouteInformation
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -27,7 +28,7 @@ import LocationToolbar from '../components/LocationToolbar'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath, RouteProps } from './index'
+import { RouteProps } from './index'
 
 const Image = styled.img`
   display: block;
@@ -68,7 +69,7 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode: code }),
+    path: pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode: code }),
     name,
     code
   }))
