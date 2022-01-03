@@ -6,10 +6,12 @@ import {
   createLocalNewsEndpoint,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
-  normalizePath,
+  NEWS_ROUTE,
   NotFoundError,
+  pathnameFromRouteInformation,
   replaceLinks,
-  useLoadFromEndpoint
+  useLoadFromEndpoint,
+  normalizePath
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -23,7 +25,7 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { createPath, LOCAL_NEWS_ROUTE, RouteProps } from './index'
+import { LOCAL_NEWS_ROUTE, RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof LOCAL_NEWS_ROUTE>
 
@@ -51,7 +53,13 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
         content={message}
         timestamp={timestamp}
         key={id}
-        link={createPath(LOCAL_NEWS_ROUTE, { cityCode, languageCode, newsId: id })}
+        link={pathnameFromRouteInformation({
+          route: NEWS_ROUTE,
+          newsType: LOCAL_NEWS_TYPE,
+          cityCode,
+          languageCode,
+          newsId: id.toString()
+        })}
         t={t}
         formatter={formatter}
         type={LOCAL_NEWS_TYPE}
@@ -61,7 +69,9 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
 
   // Language change is not possible between local news detail views because we don't know the id of other languages
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: newsId ? null : createPath(LOCAL_NEWS_ROUTE, { cityCode, languageCode: code }),
+    path: newsId
+      ? null
+      : pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, cityCode, languageCode: code }),
     name,
     code
   }))

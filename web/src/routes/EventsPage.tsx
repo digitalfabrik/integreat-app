@@ -8,6 +8,7 @@ import {
   EVENTS_ROUTE,
   normalizePath,
   NotFoundError,
+  pathnameFromRouteInformation,
   useLoadFromEndpoint
 } from 'api-client'
 
@@ -28,7 +29,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-import { createPath, RouteProps } from './index'
+import { RouteProps } from './index'
 
 type PropsType = CityRouteProps & RouteProps<typeof EVENTS_ROUTE>
 
@@ -56,7 +57,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
     const isCurrentLanguage = code === languageCode
     const path = event
       ? event.availableLanguages.get(code) || null
-      : createPath(EVENTS_ROUTE, { cityCode, languageCode: code })
+      : pathnameFromRouteInformation({ route: EVENTS_ROUTE, cityCode, languageCode: code })
 
     return {
       path: isCurrentLanguage ? pathname : path,

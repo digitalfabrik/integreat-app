@@ -11,6 +11,7 @@ import {
   MapViewViewport,
   normalizePath,
   NotFoundError,
+  pathnameFromRouteInformation,
   PoiFeature,
   PoiModel,
   POIS_ROUTE,
@@ -33,7 +34,7 @@ import PoiListItem from '../components/PoiListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath, RouteProps } from './index'
+import { RouteProps } from './index'
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
@@ -70,7 +71,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     const isCurrentLanguage = code === languageCode
     const path = poi
       ? poi.availableLanguages.get(code) || null
-      : createPath(POIS_ROUTE, { cityCode, languageCode: code })
+      : pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode: code })
 
     return {
       path: isCurrentLanguage ? pathname : path,
@@ -119,7 +120,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
     const pageTitle = `${title} - ${cityModel.name}`
 
     const mapUrlParams = new URLSearchParams({ [locationName]: urlSlug })
-    const mapLink = `${createPath(POIS_ROUTE, { cityCode, languageCode })}?${mapUrlParams}`
+    const mapLink = `${pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode })}?${mapUrlParams}`
 
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>

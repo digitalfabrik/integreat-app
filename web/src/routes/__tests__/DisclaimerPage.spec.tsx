@@ -3,13 +3,19 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
-import { CityModelBuilder, DISCLAIMER_ROUTE, LanguageModelBuilder, PageModel } from 'api-client'
+import {
+  CityModelBuilder,
+  DISCLAIMER_ROUTE,
+  LanguageModelBuilder,
+  PageModel,
+  pathnameFromRouteInformation
+} from 'api-client'
 import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import DisclaimerPage from '../DisclaimerPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -36,6 +42,12 @@ describe('DisclaimerPage', () => {
     const city = cities[0]!
     const language = languages[0]!
 
+    const pathname = pathnameFromRouteInformation({
+      route: DISCLAIMER_ROUTE,
+      cityCode: city.code,
+      languageCode: language.code
+    })
+
     mockUseLoadFromEndpointOnceWithData(disclaimer)
     const { getByText } = renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -52,7 +64,7 @@ describe('DisclaimerPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(DISCLAIMER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
+      { route: pathname }
     )
 
     expect(getByText(disclaimer.title)).toBeTruthy()
