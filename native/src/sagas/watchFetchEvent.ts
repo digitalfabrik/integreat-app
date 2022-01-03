@@ -1,9 +1,8 @@
 import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
 
-import { ErrorCode, EVENTS_ROUTE, fromError } from 'api-client'
+import { cityContentPath, ErrorCode, EVENTS_ROUTE, fromError } from 'api-client'
 
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import { cityContentPath } from '../navigation/url'
 import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
