@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
+  CITY_NOT_COOPERATING_ROUTE,
   createCitiesEndpoint,
   LANDING_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
@@ -21,6 +22,7 @@ import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, createPath, RoutePatterns } from './routes'
+import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import lazyWithRetry from './utils/retryImport'
 
 type PropsType = {
@@ -78,6 +80,11 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
           exact
           path={RoutePatterns[LANDING_ROUTE]}
           render={props => <LandingPage cities={relevantCities} {...props} />}
+        />
+        <Route
+          exact
+          path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
+          render={props => <CityNotCooperatingPage {...props} />}
         />
         <Route
           exact

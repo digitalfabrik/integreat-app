@@ -3,6 +3,7 @@ import { generatePath, RouteComponentProps } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
+  CITY_NOT_COOPERATING_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
@@ -24,6 +25,7 @@ export const TU_NEWS_DETAIL_ROUTE = `${TU_NEWS_ROUTE}-detail` as const
 export const cityContentPattern = `/:cityCode/:languageCode`
 export const RoutePatterns = {
   [LANDING_ROUTE]: `/${LANDING_ROUTE}/:languageCode`,
+  [CITY_NOT_COOPERATING_ROUTE]: `/${CITY_NOT_COOPERATING_ROUTE}/:languageCode`,
   [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
 
