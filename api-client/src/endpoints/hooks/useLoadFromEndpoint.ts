@@ -23,7 +23,7 @@ export const loadFromEndpoint = async <T>(
       setError(null)
     }
   } catch (e) {
-    setError(e instanceof Error ? e : null)
+    setError(e instanceof Error ? e : new Error())
     setData(null)
   } finally {
     setLoading(false)
