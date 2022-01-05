@@ -13,6 +13,7 @@ import {
 import appSettings from '../utils/AppSettings'
 import { DataContainer } from '../utils/DataContainer'
 import * as NotificationsManager from '../utils/PushNotificationsManager'
+import { getErrorMessage } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
@@ -82,7 +83,7 @@ export function* switchContentLanguage(
     const failed: SwitchContentLanguageFailedActionType = {
       type: 'SWITCH_CONTENT_LANGUAGE_FAILED',
       params: {
-        message: `Error in switchContentLanguage: ${e.message}`
+        message: `Error in switchContentLanguage: ${getErrorMessage(e)}`
       }
     }
     yield* put(failed)

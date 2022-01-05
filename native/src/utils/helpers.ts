@@ -83,3 +83,6 @@ export const getExtension = (urlString: string): string => {
 }
 
 export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase()
+
+export const getErrorMessage = (error: unknown): string =>
+  error instanceof Error ? error.message : 'No error message available'
