@@ -1,4 +1,3 @@
-import { Position } from 'geojson'
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
@@ -48,14 +47,11 @@ const Placeholder = styled.div`
 `
 
 type MapPopupProps = {
-  coordinates: Position
   properties: GeoJsonPoiProperties
 }
 
-const MapPopup: React.FC<MapPopupProps> = (props: MapPopupProps): ReactElement => {
-  const {
-    properties: { distance, address, thumbnail, title, path }
-  } = props
+const MapPopup: React.FC<MapPopupProps> = ({ properties }: MapPopupProps): ReactElement => {
+  const { distance, address, thumbnail, title, path } = properties
 
   return (
     <CleanLink to={path}>
