@@ -8,6 +8,7 @@ import { config } from 'translations'
 
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigateToLink from '../hooks/useNavigateToLink'
+import { getErrorMessage } from '../utils/helpers'
 import { log, reportError } from '../utils/sentry'
 
 type PropsType = {
@@ -46,7 +47,7 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
           }
         } catch (e) {
           log(
-            `${e.message} occurred while decoding and looking for ${
+            `${getErrorMessage(e)} occurred while decoding and looking for ${
               element.attribs.href || element.attribs.src
             } in the dictionary`,
             'error'
