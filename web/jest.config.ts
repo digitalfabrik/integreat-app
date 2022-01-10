@@ -30,8 +30,10 @@ const config: Config.InitialOptions = {
       }
     ]
   ],
+  testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
   globals: {
+    'ts-jest': {},
     __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig,
     __VERSION_NAME__: '0.0.0',
     __COMMIT_SHA__: 123456789
