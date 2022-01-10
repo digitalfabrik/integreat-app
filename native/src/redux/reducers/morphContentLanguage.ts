@@ -206,18 +206,16 @@ const translateRoutes = (state: CityContentStateType, action: MorphContentLangua
   const categoryTranslator = categoryRouteTranslator(newCategoriesMap, city, newLanguage)
   const eventTranslator = eventRouteTranslator(newEvents, newLanguage)
   const poiTranslator = poiRouteTranslator(newPois, newLanguage)
+  // eslint-disable-next-line consistent-return
   return mapValues(routeMapping, (route: RouteStateType) => {
-    if (route.routeType === CATEGORIES_ROUTE) {
-      return categoryTranslator(route)
+    switch (route.routeType) {
+      case CATEGORIES_ROUTE:
+        return categoryTranslator(route)
+      case EVENTS_ROUTE:
+        return eventTranslator(route)
+      case POIS_ROUTE:
+        return poiTranslator(route)
     }
-    if (route.routeType === EVENTS_ROUTE) {
-      return eventTranslator(route)
-    }
-    if (route.routeType === POIS_ROUTE) {
-      return poiTranslator(route)
-    }
-    // We currently don't support language change for news
-    return route
   })
 }
 

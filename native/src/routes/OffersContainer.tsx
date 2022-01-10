@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
-import { useSelector } from 'react-redux'
 
 import {
-  CityModel,
   createOffersEndpoint,
   EXTERNAL_OFFER_ROUTE,
   fromError,
@@ -21,11 +19,12 @@ import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
+import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import useSnackbar from '../hooks/useSnackbar'
 import TileModel from '../models/TileModel'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
 import openExternalUrl from '../utils/openExternalUrl'
 import Offers from './Offers'
@@ -42,9 +41,11 @@ type OffersPropsType = OwnPropsType & {
 const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = route.params
-  const cities = useSelector<StateType, Readonly<Array<CityModel>> | null>((state: StateType) =>
-    state.cities.status === 'ready' ? state.cities.models : null
-  )
+  const cities = useCities()
+
+  const routeInformation = { route: OFFERS_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
+
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
     return createOffersEndpoint(apiUrl).request({

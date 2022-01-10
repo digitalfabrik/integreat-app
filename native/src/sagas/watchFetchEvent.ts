@@ -7,6 +7,7 @@ import { cityContentPath } from '../navigation/url'
 import { FetchEventActionType, FetchEventFailedActionType, PushEventActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
+import { getErrorMessage } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
@@ -74,7 +75,7 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
     const failed: FetchEventFailedActionType = {
       type: 'FETCH_EVENT_FAILED',
       params: {
-        message: `Error in fetchEvent: ${e.message}`,
+        message: `Error in fetchEvent: ${getErrorMessage(e)}`,
         code: fromError(e),
         key,
         city,

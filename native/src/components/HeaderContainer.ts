@@ -1,123 +1,69 @@
-import { StackHeaderProps } from '@react-navigation/stack'
-import { TFunction, withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 
-import {
-  CityModel,
-  OFFERS_ROUTE,
-  DISCLAIMER_ROUTE,
-  SPRUNGBRETT_OFFER_ROUTE,
-  NEWS_ROUTE,
-  NonNullableRouteInformationType
-} from 'api-client'
+import { CityModel } from 'api-client'
 
-import Header, { PropsType as HeaderPropsType } from '../components/Header'
-import withTheme from '../hocs/withTheme'
+import Header from '../components/Header'
+import { RoutesType, RoutePropType, NavigationPropType } from '../constants/NavigationTypes'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import { urlFromRouteInformation } from '../navigation/url'
 import { StateType } from '../redux/StateType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 
-type OwnPropsType = StackHeaderProps & {
-  t: TFunction
+type OwnProps = {
+  route: RoutePropType<RoutesType>
+  navigation: NavigationPropType<RoutesType>
 }
+
 type StatePropsType = {
   language: string
   goToLanguageChange?: () => void
   peeking: boolean
   categoriesAvailable: boolean
   routeCityModel?: CityModel
-  shareUrl: string | null | undefined
 }
 
-const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsType => {
-  const routeKey = ownProps.scene.route.key
-  // @ts-ignore
-  const cityCode = ownProps.scene.route.params?.cityCode || state.cityContent?.city
-  // @ts-ignore
-  const languageCode = ownProps.scene.route.params?.languageCode || state.contentLanguage
-  const route = state.cityContent?.routeMapping[routeKey]
-  const simpleRoutes = [OFFERS_ROUTE, DISCLAIMER_ROUTE, SPRUNGBRETT_OFFER_ROUTE]
-  const routeName = ownProps.scene.route.name
-  const simpleRouteShareUrl =
-    typeof cityCode === 'string' && typeof languageCode === 'string' && (simpleRoutes as string[]).includes(routeName)
-      ? urlFromRouteInformation({
-          cityCode,
-          languageCode,
-          route: routeName as typeof simpleRoutes extends (infer U)[] ? U : never
-        })
-      : null
-  const languages = state.cityContent?.languages
-  // prevent re-rendering when city is there.
-  const cities = state.cities.status === 'ready' ? state.cities.models : []
-  const categoriesAvailable = state.cityContent?.searchRoute !== null
-  const routeCityModel = route ? cities.find(city => city.code === route.city) : undefined
+const mapStateToProps = (state: StateType, ownProps: OwnProps): StatePropsType => {
+  const { key: routeKey } = ownProps.route
+  const { cityContent, contentLanguage, cities } = state
+  const route = cityContent?.routeMapping[routeKey]
 
-  if (
-    !route ||
-    route.status !== 'ready' ||
-    state.cities.status !== 'ready' ||
-    !state.cityContent ||
-    !languages ||
-    languages.status !== 'ready' ||
-    !cityCode
-  ) {
+  const languages = cityContent?.languages
+  const categoriesAvailable = cityContent?.searchRoute !== null
+  const routeCityModel =
+    route && cities.status === 'ready' ? cities.models.find(city => city.code === route.city) : undefined
+
+  if (!cityContent || route?.status !== 'ready' || cities.status !== 'ready' || languages?.status !== 'ready') {
     // Route does not exist yet. In this case it is not really defined whether we are peek or not because
     // we do not yet know the city of the route.
     return {
-      language: state.contentLanguage,
+      language: contentLanguage,
       routeCityModel,
       peeking: false,
-      categoriesAvailable: false,
-      shareUrl: simpleRouteShareUrl
+      categoriesAvailable: false
     }
   }
 
   const goToLanguageChange = () => {
-    if (typeof cityCode === 'string' && typeof languageCode === 'string') {
-      navigateToLanguageChange({
-        // @ts-ignore Wrong navigation type
-        navigation: ownProps.navigation,
-        languageCode,
-        languages: Array.from(languages.models),
-        cityCode,
-        availableLanguages: Array.from(route.allAvailableLanguages.keys()),
-        previousKey: routeKey
-      })
-    }
+    navigateToLanguageChange({
+      navigation: ownProps.navigation,
+      languageCode: contentLanguage,
+      languages: Array.from(languages.models),
+      cityCode: cityContent.city,
+      availableLanguages: Array.from(route.allAvailableLanguages.keys()),
+      previousKey: routeKey
+    })
   }
 
   const peeking = isPeekingRoute(state, {
     routeCity: route.city
   })
-  const { language, city } = route
-  // @ts-ignore route.newsId is checked for
-  const newsId = route.newsId || undefined
-  // @ts-ignore route.path is always defined if relevant
-  const routeInformation: NonNullableRouteInformationType =
-    route.routeType === NEWS_ROUTE
-      ? {
-          route: NEWS_ROUTE,
-          languageCode: language,
-          cityCode: city,
-          newsType: route.type,
-          newsId
-        }
-      : {
-          route: route.routeType,
-          languageCode: language,
-          cityCode: city,
-          cityContentPath: route.path || undefined
-        }
-  const shareUrl = urlFromRouteInformation(routeInformation)
+  const { language } = route
   return {
     peeking,
     routeCityModel,
     language,
     goToLanguageChange,
-    categoriesAvailable,
-    shareUrl
+    categoriesAvailable
   }
 }
 
-export default withTranslation('layout')(connect(mapStateToProps)(withTheme<HeaderPropsType>(Header)))
+export default connect(mapStateToProps)(Header)

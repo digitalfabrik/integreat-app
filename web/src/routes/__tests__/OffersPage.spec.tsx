@@ -3,7 +3,14 @@ import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { mocked } from 'ts-jest/utils'
 
-import { CityModelBuilder, LanguageModelBuilder, OfferModel, OFFERS_ROUTE, useLoadFromEndpoint } from 'api-client'
+import {
+  CityModelBuilder,
+  LanguageModelBuilder,
+  OfferModel,
+  OFFERS_ROUTE,
+  ReturnType,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
@@ -52,14 +59,7 @@ describe('OffersPage', () => {
     })
   ]
 
-  type UseLoadFromEndpointReturnType<T> = {
-    data: T | null
-    error: Error | null
-    loading: boolean
-    refresh: () => void
-  }
-
-  const renderOffersRoute = (mockData: UseLoadFromEndpointReturnType<OfferModel[]>) => {
+  const renderOffersRoute = (mockData: ReturnType<OfferModel[]>) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData)
     return renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
