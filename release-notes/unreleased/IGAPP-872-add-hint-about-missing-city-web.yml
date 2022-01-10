@@ -2,5 +2,5 @@ issue_key: IGAPP-872
 show_in_stores: false
 platforms:
   - web
-en: A hint is now shown when a city can't be found in Integreat.
-de: Es wird nun ein Hinweis angezeigt, wenn eine Stadt in Integreat nicht gefunden wird.
+en: A hint is now shown, if a city can't be found in Integreat.
+de: Es wird nun ein Hinweis angezeigt, falls eine Stadt in Integreat nicht gefunden wird.

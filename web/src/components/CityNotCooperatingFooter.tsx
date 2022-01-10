@@ -18,14 +18,11 @@ const FooterContainer = styled.div`
   border-bottom: 2px solid black;
 `
 
-const IconContainer = styled.div``
-
 const Icon = styled.img`
   width: calc(20px + 5vw);
   height: calc(20px + 5vw);
   flex-shrink: 0;
   padding: 8px;
-  /* object-fit: contain; */
 `
 
 const Button = styled(Link)`
@@ -50,10 +47,10 @@ const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => 
 
   return (
     <FooterContainer>
-      <IconContainer>
+      <div>
         <Icon alt='' src={placeholderIcon} />
         <Icon alt='' src={placeholderIcon2} />
-      </IconContainer>
+      </div>
 
       <Question>{t('cityNotCooperating')}</Question>
 

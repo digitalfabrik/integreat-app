@@ -9,6 +9,7 @@ import placeholderIcon from '../assets/magnifier.svg'
 import BackNavigationHeader from '../components/BackNavigationHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
+import { template } from '../constants/cityNotCooperatingTemplate'
 import ScrollToTopOnMount from '../utils/scrollToTop'
 import { RouteProps } from './index'
 
@@ -93,7 +94,7 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
 
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(t('template'))
+      .writeText(template)
       .then(() => {
         setIsCopied(true)
       })
@@ -122,7 +123,7 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
             <StepExplanation>{t('sendText')}</StepExplanation>
           </ListItem>
           <Button onClick={() => copyToClipboard()}>{isCopied ? t('textCopied') : t('copyText')}</Button>
-          <TemplateText>{t('template')}</TemplateText>
+          <TemplateText>{template}</TemplateText>
         </Container>
       </Layout>
     </>

@@ -24,19 +24,17 @@ const LandingPage = ({ cities, match }: PropsType): ReactElement => {
   const metaDescription = t('metaDescription', { appName: buildConfig().appName })
 
   return (
-    <>
-      <Layout
-        footer={
-          <>
-            <CityNotCooperatingFooter languageCode={languageCode} />
-            <GeneralFooter language={languageCode} />
-          </>
-        }>
-        <ScrollToTopOnMount />
-        <Helmet pageTitle={pageTitle} metaDescription={metaDescription} />
-        <FilterableCitySelector cities={cities} language={languageCode} />
-      </Layout>
-    </>
+    <Layout
+      footer={
+        <>
+          <CityNotCooperatingFooter languageCode={languageCode} />
+          <GeneralFooter language={languageCode} />
+        </>
+      }>
+      <ScrollToTopOnMount />
+      <Helmet pageTitle={pageTitle} metaDescription={metaDescription} />
+      <FilterableCitySelector cities={cities} language={languageCode} />
+    </Layout>
   )
 }
 
