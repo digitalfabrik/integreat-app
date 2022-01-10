@@ -46,3 +46,5 @@ export const defaultViewportConfig: MapViewViewport = {
 
 export const detailZoom = 15
 export const locationName = 'name'
+export const markerSymbol = 'marker_15'
+export const markerActiveSymbol = 'marker_15_active'

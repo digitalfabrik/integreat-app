@@ -5,7 +5,14 @@ import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig, PoiFeature, PoiFeatureCollection } from 'api-client'
+import {
+  defaultViewportConfig,
+  detailZoom,
+  mapConfig,
+  markerActiveSymbol,
+  PoiFeature,
+  PoiFeatureCollection
+} from 'api-client'
 
 const MapContainer = styled.View`
   flex: 1;
@@ -33,6 +40,7 @@ type MapViewPropsType = {
 
 const textOffsetY = 1.25
 const featureLayerId = 'point'
+const iconSize = 1.75
 
 // Has to be set even if we use map libre
 MapboxGL.setAccessToken(mapConfig.accessToken)
@@ -56,8 +64,14 @@ const MapView = ({
       symbolPlacement: 'point',
       symbolZOrder: 'source',
       iconAllowOverlap: true,
+      iconSize,
       iconIgnorePlacement: true,
-      iconImage: ['case', ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1], '6', ['get', 'symbol']],
+      iconImage: [
+        'case',
+        ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
+        markerActiveSymbol,
+        ['get', 'symbol']
+      ],
       textField: ['get', 'title'],
       textFont: ['Roboto Regular'],
       textOffset: [0, textOffsetY],
