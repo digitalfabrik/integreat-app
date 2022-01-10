@@ -11,10 +11,12 @@ import wrapWithTheme from '../../testing/wrapWithTheme'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import Landing from '../Landing'
 
+const mockTheme = buildConfig().lightTheme
+
 jest.mock('react-i18next')
 jest.mock('styled-components', () => ({
   ...jest.requireActual('styled-components'),
-  useTheme: () => buildConfig().lightTheme
+  useTheme: () => mockTheme
 }))
 jest.mock('react-native-system-setting', () => undefined)
 jest.mock('../../utils/LocationPermissionManager', () => ({

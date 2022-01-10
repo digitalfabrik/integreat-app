@@ -29,7 +29,7 @@ describe('SnackbarContainer', () => {
     mockUseDispatch.mockImplementation(() => mockDispatch)
   })
 
-  it('should show a snackbar if included in the state', async () => {
+  it('should show a snackbar if included in the state', () => {
     mockUseSelector.mockImplementation(() => [])
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
@@ -46,7 +46,7 @@ describe('SnackbarContainer', () => {
         text: snackbarText2
       }
     ])
-    await update(<SnackbarContainer />)
+    update(<SnackbarContainer />)
 
     // First snackbar should be remove from redux store
     expect(mockDispatch).toHaveBeenCalledTimes(1)
@@ -59,7 +59,7 @@ describe('SnackbarContainer', () => {
         text: snackbarText2
       }
     ])
-    await update(<SnackbarContainer />)
+    update(<SnackbarContainer />)
     expect(queryByText(snackbarText1)).toBeTruthy()
     expect(queryByText(snackbarText2)).toBeFalsy()
 
@@ -75,7 +75,7 @@ describe('SnackbarContainer', () => {
     })
     // Simulate pop of snackbar from the redux store (triggered by DEQUEUE_SNACKBAR action)
     mockUseSelector.mockImplementation(() => [])
-    await update(<SnackbarContainer />)
+    update(<SnackbarContainer />)
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeTruthy()
 
