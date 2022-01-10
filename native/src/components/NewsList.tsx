@@ -1,44 +1,25 @@
 import React, { ReactElement } from 'react'
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native'
 
-import { LocalNewsModel, NEWS_ROUTE, NewsType, RouteInformationType, TunewsModel } from 'api-client'
+import { LocalNewsModel, TunewsModel } from 'api-client'
 
-import { NewsModelsType } from '../redux/StateType'
 import LoadingSpinner from './LoadingSpinner'
 
 const keyExtractor = (item: unknown, index: number) => `${index}`
+
+type NewsModelsType = Array<LocalNewsModel | TunewsModel>
 
 type PropType = {
   items: NewsModelsType
   renderItem: ListRenderItem<LocalNewsModel | TunewsModel>
   isFetchingMore: boolean
-  fetchMoreItems: () => void
+  fetchMoreItems?: () => void
   renderNoItemsComponent: React.ComponentType<unknown>
-  routeKey: string
-  navigateTo: (arg0: RouteInformationType, arg1: string, arg2: boolean) => void
-  selectedNewsType: NewsType
-  newsId: string | null | undefined
-  cityCode: string
-  language: string
+  refresh: () => void
 }
 
 const NewsList = (props: PropType): ReactElement => {
-  const { items, renderItem, isFetchingMore, fetchMoreItems, renderNoItemsComponent } = props
-
-  const onRefresh = () => {
-    const { routeKey, navigateTo, cityCode, language, newsId, selectedNewsType } = props
-    navigateTo(
-      {
-        route: NEWS_ROUTE,
-        cityCode,
-        newsType: selectedNewsType,
-        languageCode: language,
-        newsId: newsId || undefined
-      },
-      routeKey,
-      true
-    )
-  }
+  const { items, renderItem, isFetchingMore, fetchMoreItems, renderNoItemsComponent, refresh } = props
 
   return (
     <FlatList
@@ -48,10 +29,10 @@ const NewsList = (props: PropType): ReactElement => {
         flexGrow: 1,
         paddingHorizontal: 10
       }}
-      refreshControl={<RefreshControl refreshing={false} onRefresh={onRefresh} />}
+      refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       onEndReached={fetchMoreItems}
       ListEmptyComponent={renderNoItemsComponent}
-      ListFooterComponent={isFetchingMore ? <LoadingSpinner /> : null}
+      ListFooterComponent={isFetchingMore ? <LoadingSpinner testID='loadingSpinner' /> : null}
       onEndReachedThreshold={1}
       keyExtractor={keyExtractor}
       renderItem={renderItem}

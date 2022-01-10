@@ -1,0 +1,7 @@
+issue_key: IGAPP-784
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed occasional crashes in TüNews.
+de: Vereinzelte Abstürze bei den TüNews wurden behoben.

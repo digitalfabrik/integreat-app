@@ -6,7 +6,6 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
 type PropsType = {
-  pathname: string
   languageCode: string
   isHeaderActionItem: boolean
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
@@ -16,28 +15,30 @@ type PropsType = {
  * Displays a dropDown menu to handle changing of the language
  */
 const LanguageSelector = (props: PropsType): ReactElement => {
-  const { isHeaderActionItem, languageChangePaths, languageCode, pathname } = props
+  const { isHeaderActionItem, languageChangePaths, languageCode } = props
   const activeItemCode = languageCode
   const { t } = useTranslation('layout')
 
   const selectorItems =
-    languageChangePaths?.map(languageChangePath => {
-      const { code, name, path } = languageChangePath
-      return new SelectorItemModel({
-        code,
-        name,
-        href: code !== activeItemCode ? path : pathname
-      })
-    }) ?? []
+    languageChangePaths?.map(
+      ({ code, name, path }) =>
+        new SelectorItemModel({
+          code,
+          name,
+          href: path
+        })
+    ) ?? []
 
   if (isHeaderActionItem) {
     return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} t={t} />
   }
 
+  const availableItems = selectorItems.filter(item => item.href !== null)
+
   return (
     <Selector
       verticalLayout
-      items={selectorItems}
+      items={availableItems}
       activeItemCode={activeItemCode}
       disabledItemTooltip={t('noTranslation')}
     />

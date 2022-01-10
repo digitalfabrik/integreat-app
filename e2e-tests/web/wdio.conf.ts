@@ -1,23 +1,34 @@
+import { Capabilities } from '@wdio/types/build/Capabilities'
 import { Testrunner } from '@wdio/types/build/Options'
 
-import { localCapabilities } from './capabilities'
+import { browsers, ciCapabilities } from './capabilities'
+
+const getCapabilities = (): Array<Capabilities> => {
+  if (process.env.CI) {
+    return [ciCapabilities]
+  }
+  const parsedCapabilies = browsers
+    .filter(browser => process.argv.includes(`--${browser}`))
+    .map(browser => ({ browserName: browser }))
+  return parsedCapabilies.length > 0 ? parsedCapabilies : [{ browserName: 'chrome' }]
+}
 
 export const config: Testrunner = {
   runner: 'local',
-  specs: ['./web/test/specs/**/*.ts'],
+  specs: ['./web/test/specs/**/*.e2e.ts'],
   exclude: [],
-  maxInstances: 1,
+  maxInstancesPerCapability: 1,
 
-  capabilities: [process.env.CI ? localCapabilities.ci : localCapabilities.browser],
+  capabilities: getCapabilities(),
   logLevel: 'info',
   bail: 0,
   baseUrl: 'http://localhost:9000',
-  waitforTimeout: 100000,
+  waitforTimeout: 2000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
   services: process.env.CI ? [] : ['selenium-standalone'],
   framework: 'jasmine',
-  reporters: ['junit'],
+  reporters: ['spec'],
 
   jasmineOpts: {
     defaultTimeoutInterval: 300000

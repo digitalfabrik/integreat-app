@@ -1,10 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
-import { useSelector } from 'react-redux'
 
 import {
-  CityModel,
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
   fromError,
@@ -21,9 +19,10 @@ import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withTheme from '../hocs/withTheme'
+import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
 import SprungbrettOffer from './SprungbrettOffer'
 
@@ -37,12 +36,14 @@ type SprungbrettPropsType = OwnPropsType & {
 }
 
 const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettPropsType) => {
-  const cities = useSelector<StateType, Readonly<Array<CityModel>> | null>((state: StateType) =>
-    state.cities.status === 'ready' ? state.cities.models : null
-  )
+  const cities = useCities()
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE
+
+  const routeInformation = { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
+
   const requestJobs = useCallback(async () => {
     const apiUrl = await determineApiUrl()
     const offersPayload = await createOffersEndpoint(apiUrl).request({

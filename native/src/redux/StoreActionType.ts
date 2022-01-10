@@ -1,17 +1,7 @@
-import {
-  CategoriesMapModel,
-  CityModel,
-  ErrorCode,
-  EventModel,
-  LanguageModel,
-  LocalNewsModel,
-  PoiModel,
-  TunewsModel,
-  NewsType
-} from 'api-client'
+import { CategoriesMapModel, CityModel, ErrorCode, EventModel, LanguageModel, PoiModel } from 'api-client'
 
 import { ContentLoadCriterionType } from '../models/ContentLoadCriterion'
-import { CategoryRouteConfigType, LanguageResourceCacheStateType, NewsModelsType, SnackbarType } from './StateType'
+import { CategoryRouteConfigType, LanguageResourceCacheStateType, SnackbarType } from './StateType'
 
 // Starts fetching all available cities
 export type FetchCitiesActionType = {
@@ -88,70 +78,6 @@ export type PushCategoryActionType = {
   }
 }
 export type CategoriesActionType = FetchCategoryActionType | PushCategoryActionType | FetchCategoryFailedActionType
-// Adds a new news route to the state and starts fetching relevant data
-export type FetchNewsActionType = {
-  type: 'FETCH_NEWS'
-  readonly params: {
-    readonly city: string
-    readonly language: string
-    readonly newsId: string | null | undefined
-    readonly key: string
-    readonly criterion: ContentLoadCriterionType
-    readonly type: NewsType
-  }
-}
-// Starts fetching the next page of news for a selected city and language
-export type FetchMoreNewsActionType = {
-  type: 'FETCH_MORE_NEWS'
-  readonly params: {
-    readonly city: string
-    readonly language: string
-    readonly previouslyFetchedNews: ReadonlyArray<LocalNewsModel | TunewsModel>
-    readonly newsId: string | null | undefined
-    readonly key: string
-    readonly criterion: ContentLoadCriterionType
-    readonly type: NewsType
-    readonly page: number
-    readonly hasMoreNews: boolean
-  }
-}
-// Pushes fetched news to the corresponding route the state
-export type PushNewsActionType = {
-  type: 'PUSH_NEWS'
-  readonly params: {
-    readonly news: NewsModelsType
-    readonly previouslyFetchedNews?: NewsModelsType
-    // in case if there is old news then concat old news with new ones
-    readonly newsId: string | null | undefined
-    readonly key: string
-    readonly availableLanguages: ReadonlyArray<LanguageModel>
-    readonly language: string
-    readonly city: string
-    readonly hasMoreNews: boolean
-    // stop loading more when no items are coming from response
-    readonly type: NewsType
-    readonly page: number
-  }
-}
-// Sets an occurred error to the corresponding news route
-export type FetchNewsFailedActionType = {
-  type: 'FETCH_NEWS_FAILED'
-  readonly params: {
-    readonly message: string
-    readonly code: ErrorCode
-    readonly key: string
-    readonly allAvailableLanguages: ReadonlyMap<string, string | null | undefined> | null | undefined
-    readonly language: string
-    readonly newsId: string | null | undefined
-    readonly type: NewsType
-    readonly city: string
-  }
-}
-export type NewsActionType =
-  | FetchNewsActionType
-  | FetchMoreNewsActionType
-  | FetchNewsFailedActionType
-  | PushNewsActionType
 // Adds a new pois route to the state and starts fetching relevant data
 export type FetchPoiActionType = {
   type: 'FETCH_POI'
@@ -294,7 +220,6 @@ export type CityContentActionType =
   | FetchLanguagesFailedActionType
   | ResourcesFetchProgressActionType
   | ResourcesFetchFailedActionType
-  | NewsActionType
 
 // Removes all downloaded resources and files
 export type ClearResourcesAndCacheActionType = {
