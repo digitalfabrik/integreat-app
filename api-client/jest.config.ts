@@ -7,6 +7,7 @@ export default {
   moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   coverageDirectory: '<rootDir>/../reports/coverage',
+  testEnvironment: 'node',
   reporters: [
     'default',
     [

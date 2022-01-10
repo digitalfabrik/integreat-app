@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { CityModelBuilder, LanguageModelBuilder, OfferModel, OFFERS_ROUTE, useLoadFromEndpoint } from 'api-client'
 
