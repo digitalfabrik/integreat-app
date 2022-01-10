@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components'
 import { CITY_NOT_COOPERATING_ROUTE } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
+import { template } from '../../constants/cityNotCooperatingTemplate'
 import { renderWithBrowserRouter } from '../../testing/render'
 import CityNotCooperatingPage from '../CityNotCooperatingPage'
 import { createPath, RoutePatterns } from '../index'
@@ -36,7 +37,7 @@ describe('CityNotCooperatingPage', () => {
     const { getByText } = renderPage()
     expect(getByText('callToAction')).toBeDefined()
     expect(getByText('explanation')).toBeDefined()
-    expect(getByText('template')).toBeDefined()
+    expect(template).toBeDefined()
   })
 
   it('should handle button click correctly', async () => {

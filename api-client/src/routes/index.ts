@@ -2,8 +2,8 @@
 export type LandingRouteType = 'landing'
 export const LANDING_ROUTE: LandingRouteType = 'landing'
 
-export type CityNotCooperatingRouteType = 'citynotCooperating'
-export const CITY_NOT_COOPERATING_ROUTE: CityNotCooperatingRouteType = 'citynotCooperating'
+export type CityNotCooperatingRouteType = 'cityNotCooperating'
+export const CITY_NOT_COOPERATING_ROUTE: CityNotCooperatingRouteType = 'cityNotCooperating'
 
 export type DashboardRouteType = 'dashboard'
 export const DASHBOARD_ROUTE: DashboardRouteType = 'dashboard'

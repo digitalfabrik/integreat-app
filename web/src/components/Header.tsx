@@ -98,19 +98,17 @@ export const Header = ({
   return (
     <Headroom onStickyTopChanged={onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
       <HeaderContainer>
-        <>
-          <Row hasTitle={!!cityName}>
-            <HeaderLogo link={logoHref} />
-            {!viewportSmall && cityName && <HeaderSeparator />}
-            {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
-            <ActionBar>{actionItems}</ActionBar>
+        <Row hasTitle={!!cityName}>
+          <HeaderLogo link={logoHref} />
+          {!viewportSmall && cityName && <HeaderSeparator />}
+          {(!viewportSmall || cityName) && <HeaderTitle>{cityName}</HeaderTitle>}
+          <ActionBar>{actionItems}</ActionBar>
+        </Row>
+        {hasNavigationBar && (
+          <Row>
+            <NavigationBar>{navigationItems}</NavigationBar>
           </Row>
-          {hasNavigationBar && (
-            <Row>
-              <NavigationBar>{navigationItems}</NavigationBar>
-            </Row>
-          )}
-        </>
+        )}
       </HeaderContainer>
     </Headroom>
   )

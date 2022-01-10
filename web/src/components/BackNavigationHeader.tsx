@@ -15,9 +15,7 @@ const BackNavigationHeader = (): ReactElement => {
   const history = useHistory()
   return (
     <HeaderContainer>
-      <>
-        <BackButton alt='' src={BackIcon} onClick={() => history.goBack()} />
-      </>
+      <BackButton alt='backNavigation' src={BackIcon} onClick={() => history.goBack()} />
     </HeaderContainer>
   )
 }

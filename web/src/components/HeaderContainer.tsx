@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -20,7 +20,7 @@ const Header = styled.header`
 `
 
 type PropsType = {
-  children: ReactElement
+  children: ReactNode
 }
 
 const HeaderContainer = ({ children }: PropsType): ReactElement => <Header>{children}</Header>
