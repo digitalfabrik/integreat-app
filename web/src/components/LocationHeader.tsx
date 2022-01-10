@@ -114,7 +114,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
           key='pois'
           href={poisPath}
           active={route === POIS_ROUTE}
-          text={t('pois')}
+          text={t('map')}
           icon={poisIcon}
         />
       )
