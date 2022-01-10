@@ -2,6 +2,7 @@ import { Dispatch } from 'redux'
 import Url from 'url-parse'
 
 import {
+  cityContentPath as createCityContentPath,
   DASHBOARD_ROUTE,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -18,7 +19,6 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import createNavigate from './createNavigate'
 import navigateToCategory from './navigateToCategory'
-import { cityContentPath as createCityContentPath } from './url'
 
 const navigateToDeepLink = async <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,

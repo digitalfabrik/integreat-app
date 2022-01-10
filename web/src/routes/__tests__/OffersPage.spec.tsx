@@ -8,6 +8,7 @@ import {
   LanguageModelBuilder,
   OfferModel,
   OFFERS_ROUTE,
+  pathnameFromRouteInformation,
   ReturnType,
   useLoadFromEndpoint
 } from 'api-client'
@@ -15,7 +16,7 @@ import {
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import OffersPage from '../OffersPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -59,6 +60,12 @@ describe('OffersPage', () => {
     })
   ]
 
+  const pathname = pathnameFromRouteInformation({
+    route: OFFERS_ROUTE,
+    cityCode: city.code,
+    languageCode: language.code
+  })
+
   const renderOffersRoute = (mockData: ReturnType<OfferModel[]>) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData)
     return renderWithBrowserRouter(
@@ -70,7 +77,7 @@ describe('OffersPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(OFFERS_ROUTE, { languageCode: language.code, cityCode: city.code }) }
+      { route: pathname }
     )
   }
 
