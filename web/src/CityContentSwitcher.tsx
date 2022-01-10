@@ -111,7 +111,15 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
     )
   }
 
-  const cityRouteProps = { cities, languages, cityModel, languageModel, pathname, cityCode, languageCode }
+  const cityRouteProps: CityRouteProps = {
+    cities,
+    languages,
+    cityModel,
+    languageModel,
+    pathname,
+    cityCode,
+    languageCode
+  }
   const { eventsEnabled, offersEnabled } = cityModel
   const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.pushNotificationsEnabled
   const tuNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.tunewsEnabled
