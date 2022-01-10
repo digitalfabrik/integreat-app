@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -30,18 +30,11 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
 const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
-  const previousPathname = useRef<string | null>(null)
   const { eventId } = useParams()
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    // Hooks are only run after render, therefore if the user navigates, the old data is still valid for a moment.
-    // To prevent flickering, render a loading spinner if the pathname has changed since the last render.
-    previousPathname.current = pathname
-  }, [pathname])
 
   const requestEvents = useCallback(
     async () => createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
@@ -78,7 +71,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
     toolbar
   }
 
-  if (loading || pathname !== previousPathname.current) {
+  if (loading) {
     return (
       <LocationLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
