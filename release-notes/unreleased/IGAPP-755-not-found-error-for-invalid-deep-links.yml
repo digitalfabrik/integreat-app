@@ -1,0 +1,6 @@
+issue_key: IGAPP-755
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Opening invalid links is nw handled correctly.
