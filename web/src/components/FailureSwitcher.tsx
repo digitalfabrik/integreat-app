@@ -10,7 +10,7 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE
 } from 'api-client'
-import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
+import { LANDING_ROUTE, LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 import { createPath } from '../routes'
 import { reportError } from '../utils/sentry'
@@ -74,6 +74,11 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
             goToPath: createPath(POIS_ROUTE, params),
             goToMessage: 'goTo.pois',
             errorMessage: 'notFound.poi'
+          }
+        case 'city':
+          return {
+            goToPath: createPath(LANDING_ROUTE, params),
+            errorMessage: 'notFound.city'
           }
       }
     }

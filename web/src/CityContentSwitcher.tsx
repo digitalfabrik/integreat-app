@@ -83,7 +83,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
 
     if (loadingError || !cityModel || !languages) {
       const cityError = !cityModel
-        ? new NotFoundError({ type: 'category', id: cityCode, city: cityCode, language: languageCode })
+        ? new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
         : null
       const error = cityError || loadingError || new Error('Languages should not be null!')
 
