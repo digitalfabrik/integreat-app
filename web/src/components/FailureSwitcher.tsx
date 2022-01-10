@@ -78,7 +78,7 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
           }
         case 'city':
           return {
-            goToPath: createPath(LANDING_ROUTE, params),
+            goToPath: pathnameFromRouteInformation({ route: LANDING_ROUTE, ...params }),
             errorMessage: 'notFound.city'
           }
       }
