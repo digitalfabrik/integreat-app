@@ -6,6 +6,7 @@ import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
 import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
+import { getErrorMessage } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
@@ -71,7 +72,7 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
     const failed: FetchPoiFailedActionType = {
       type: 'FETCH_POI_FAILED',
       params: {
-        message: `Error in fetchPoi: ${e.message}`,
+        message: `Error in fetchPoi: ${getErrorMessage(e)}`,
         code: fromError(e),
         key,
         city,
