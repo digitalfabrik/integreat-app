@@ -1,47 +1,34 @@
 import moment from 'moment'
 
-import { DateModel, EventModel, EVENTS_ROUTE, LanguageModel, LocationModel, ErrorCode } from 'api-client'
+import { ErrorCode, PoiModel, EVENTS_ROUTE, LanguageModel, LocationModel, POIS_ROUTE } from 'api-client'
 
 import { CityContentStateType } from '../../StateType'
-import { PushEventActionType } from '../../StoreActionType'
+import { PushPoiActionType } from '../../StoreActionType'
 import cityContentReducer from '../cityContentReducer'
 
-describe('pushEvent', () => {
-  const location = new LocationModel({
-    id: 1,
-    name: 'name',
-    address: 'address',
-    town: 'town',
-    state: 'state',
-    postcode: 'postcode',
-    region: 'region',
-    country: 'country',
-    longitude: null,
-    latitude: null
+describe('pushPoi', () => {
+  const poi = new PoiModel({
+    path: '/augsburg/de/locations/test',
+    title: 'test',
+    content: 'test',
+    thumbnail: 'test',
+    availableLanguages: new Map([['de', '/augsburg/de/locations/test']]),
+    excerpt: 'test',
+    location: new LocationModel({
+      id: 1,
+      country: 'country',
+      region: 'region',
+      state: 'state',
+      address: 'address',
+      town: 'town',
+      postcode: 'postcode',
+      latitude: '15',
+      longitude: '15',
+      name: 'name'
+    }),
+    lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+    hash: 'test'
   })
-
-  const buildEvent = (path: string, title: string, availableLanguages: Map<string, string>) =>
-    new EventModel({
-      path,
-      title,
-      content: 'lul',
-      excerpt: 'lul',
-      thumbnail: '',
-      featuredImage: null,
-      availableLanguages,
-      lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
-      date: new DateModel({
-        startDate: moment('2000-01-05T10:10:00.000Z'),
-        endDate: moment('2000-01-05T10:10:00.000Z'),
-        allDay: false
-      }),
-      hash: '123456',
-      location
-    })
-
-  const event1 = buildEvent('/augsburg/de/events/ev1', 'Event1', new Map([['en', '/augsburg/en/events/ev1']]))
-  const event2 = buildEvent('/testumgebung/de/events/ev1', 'Event2', new Map([['de', '/testumgebung/de/events/ev1']]))
-
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
 
   const prepareState = (state: Partial<CityContentStateType>): CityContentStateType => {
@@ -49,13 +36,13 @@ describe('pushEvent', () => {
       city: 'augsburg',
       routeMapping: {
         'route-id-0': {
-          routeType: EVENTS_ROUTE,
+          routeType: POIS_ROUTE,
           status: 'ready',
-          models: [event1],
+          models: [poi],
           city: 'augsburg',
           language: 'de',
           path: '/augsburg/de/events/ev1',
-          allAvailableLanguages: new Map([['en', '/augsburg/en/events/ev1']])
+          allAvailableLanguages: new Map([['en', '/augsburg/en/locations/test']])
         }
       },
       languages: {
@@ -66,7 +53,7 @@ describe('pushEvent', () => {
         status: 'ready',
         progress: 1,
         value: {
-          '/augsburg/de/events/ev1': {
+          '/augsburg/de/locations/test': {
             'some-url': {
               filePath: 'some-path',
               lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
@@ -81,22 +68,21 @@ describe('pushEvent', () => {
     return { ...defaultState, ...state }
   }
 
-  const createPushAction = (params: Partial<PushEventActionType['params']> = {}): PushEventActionType => ({
-    type: 'PUSH_EVENT',
+  const createPushAction = (params: Partial<PushPoiActionType['params']> = {}): PushPoiActionType => ({
+    type: 'PUSH_POI',
     params: {
-      events: [event1],
+      pois: [poi],
       path: null,
       key: 'route-id-0',
       resourceCache: {},
       cityLanguages: languageModels,
       language: 'de',
       city: 'augsburg',
-      refresh: false,
       ...params
     }
   })
 
-  it('should add general events route to eventsRouteMapping', () => {
+  it('should add general pois route to poisRouteMapping', () => {
     const prevState: CityContentStateType = prepareState({
       resourceCache: {
         status: 'ready',
@@ -109,22 +95,22 @@ describe('pushEvent', () => {
       expect.objectContaining({
         routeMapping: {
           'route-id-0': {
-            routeType: EVENTS_ROUTE,
+            routeType: POIS_ROUTE,
             status: 'ready',
             path: null,
             allAvailableLanguages: new Map([
-              ['en', '/augsburg/en/events/ev1'],
-              ['de', '/augsburg/de/events/ev1']
+              ['en', '/augsburg/en/locations/test'],
+              ['de', '/augsburg/de/locations/test']
             ]),
             city: 'augsburg',
             language: 'de',
-            models: [event1]
+            models: [poi]
           }
         }
       })
     )
   })
-  it('should add specific event routeMapping', () => {
+  it('should add specific poi routeMapping', () => {
     const prevState = prepareState({
       resourceCache: {
         status: 'ready',
@@ -132,21 +118,22 @@ describe('pushEvent', () => {
         value: {}
       }
     })
-    const pushEventAction = createPushAction({ path: '/augsburg/de/events/ev1' })
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+
+    const pushPoiAction = createPushAction({ path: '/augsburg/de/locations/test' })
+    expect(cityContentReducer(prevState, pushPoiAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
           'route-id-0': {
-            routeType: EVENTS_ROUTE,
+            routeType: POIS_ROUTE,
             status: 'ready',
-            path: '/augsburg/de/events/ev1',
+            path: '/augsburg/de/locations/test',
             allAvailableLanguages: new Map([
-              ['en', '/augsburg/en/events/ev1'],
-              ['de', '/augsburg/de/events/ev1']
+              ['en', '/augsburg/en/locations/test'],
+              ['de', '/augsburg/de/locations/test']
             ]),
             city: 'augsburg',
             language: 'de',
-            models: [event1]
+            models: [poi]
           }
         }
       })
@@ -161,7 +148,7 @@ describe('pushEvent', () => {
 
     const prevResources = prevState.resourceCache.value
     const resourceCache = {
-      '/testumgebung/de/events/ev2': {
+      '/testumgebung/de/locations/test2': {
         'another-url': {
           filePath: 'another-path',
           lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
@@ -169,16 +156,31 @@ describe('pushEvent', () => {
         }
       }
     }
-
-    const pushEventAction = createPushAction({
-      events: [event2],
-      city: 'testumgebung',
-      language: 'de',
-      path: '/testumgebung/de/events/ev1',
-      resourceCache
+    const poi2 = new PoiModel({
+      path: '/augsburg/de/locations/test',
+      title: 'Different Title',
+      content: 'test',
+      thumbnail: 'test',
+      availableLanguages: new Map([['de', '/augsburg/de/locations/test']]),
+      excerpt: 'test',
+      location: new LocationModel({
+        id: 1,
+        country: 'country',
+        region: 'region',
+        state: 'state',
+        address: 'address',
+        town: 'town',
+        postcode: 'postcode',
+        latitude: '15',
+        longitude: '15',
+        name: 'name'
+      }),
+      lastUpdate: moment('2011-02-04T00:00:00.000Z'),
+      hash: 'test'
     })
+    const pushPoiAction = createPushAction({ path: '/testumgebung/de/locations/test', pois: [poi2], resourceCache })
 
-    expect(cityContentReducer(prevState, pushEventAction)).toEqual(
+    expect(cityContentReducer(prevState, pushPoiAction)).toEqual(
       expect.objectContaining({
         city: 'augsburg',
         resourceCache: {
@@ -190,7 +192,7 @@ describe('pushEvent', () => {
     )
   })
 
-  it('should return an error for a nonexisting event', () => {
+  it('should return an error for a nonexisting poi', () => {
     const prevState: CityContentStateType = prepareState({
       resourceCache: {
         status: 'ready',
@@ -198,18 +200,18 @@ describe('pushEvent', () => {
         value: {}
       }
     })
-    const nonExistingPath = '/augsburg/de/events/ev2'
+    const nonExistingPath = '/augsburg/de/locations/test2'
     const pushEventAction = createPushAction({ path: nonExistingPath })
     expect(cityContentReducer(prevState, pushEventAction)).toEqual(
       expect.objectContaining({
         routeMapping: {
           'route-id-0': {
-            routeType: EVENTS_ROUTE,
+            routeType: POIS_ROUTE,
             path: nonExistingPath,
             language: 'de',
             city: 'augsburg',
             status: 'error',
-            message: `Could not find an event with path '${'/augsburg/de/events/ev2'}'.`,
+            message: `Could not find a poi with path '${nonExistingPath}'.`,
             code: ErrorCode.PageNotFound
           }
         }
