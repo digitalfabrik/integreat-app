@@ -101,9 +101,7 @@ const CityContentSwitcher = ({ cities, match, location }: PropsType): ReactEleme
         header={<GeneralHeader languageCode={languageCode} viewportSmall={viewportSmall} />}
         footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
-          cities={cities}
-          cityCode={cityCode}
-          pathname={location.pathname}
+          cityModel={cityModel}
           languageCode={languageCode}
           languageChangePaths={languages.map(({ code, name }) => ({
             code,

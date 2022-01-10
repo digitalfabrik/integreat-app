@@ -9,6 +9,7 @@
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "useDefineForClassFields": false
   }
 }

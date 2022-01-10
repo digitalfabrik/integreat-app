@@ -12,7 +12,7 @@ export enum ErrorCode {
   UnknownError = 'unknownError'
 }
 
-export const fromError = (error: Error): ErrorCode => {
+export const fromError = (error: unknown): ErrorCode => {
   if (error instanceof ResponseError) {
     return ErrorCode.NetworkRequestFailed
   }
