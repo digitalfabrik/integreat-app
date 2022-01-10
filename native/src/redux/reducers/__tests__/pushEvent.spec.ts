@@ -20,8 +20,8 @@ describe('pushEvent', () => {
     latitude: null
   })
 
-  const buildEvent = (path: string, title: string, availableLanguages: Map<string, string>) => {
-    return new EventModel({
+  const buildEvent = (path: string, title: string, availableLanguages: Map<string, string>) =>
+    new EventModel({
       path,
       title,
       content: 'lul',
@@ -38,7 +38,6 @@ describe('pushEvent', () => {
       hash: '123456',
       location
     })
-  }
 
   const event1 = buildEvent('/augsburg/de/events/ev1', 'Event1', new Map([['en', '/augsburg/en/events/ev1']]))
   const event2 = buildEvent('/testumgebung/de/events/ev1', 'Event2', new Map([['de', '/testumgebung/de/events/ev1']]))
@@ -170,8 +169,6 @@ describe('pushEvent', () => {
         }
       }
     }
-
-    const event2 = buildEvent('/testumgebung/de/events/ev1', 'Event2', new Map([['de', '/testumgebung/de/events/ev1']]))
 
     const pushEventAction = createPushAction({
       events: [event2],
