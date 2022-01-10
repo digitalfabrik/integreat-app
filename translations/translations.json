@@ -1580,203 +1580,175 @@
   },
   "events": {
     "de": {
-      "location": "Standort",
+      "address": "Adresse",
       "date": "Datum",
       "events": "Veranstaltungen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
       "pageTitle": "Veranstaltungen"
     },
     "am": {
-      "location": "ቦታ",
       "date": "ቀን",
       "events": "ዝግጅቶች",
       "currentlyNoEvents": "በአሁኑ ሰዐት ምንም ዝግጅቶች የሉም።",
       "pageTitle": "ዝግጅቶች"
     },
     "ar": {
-      "location": "الموقع",
       "date": "التاريخ",
       "events": "الفعاليات",
       "currentlyNoEvents": "ليست هناك فعاليات متوفرة حاليًا.",
       "pageTitle": "الفعاليات"
     },
     "bg": {
-      "location": "Място",
       "date": "Дата",
       "events": "Събития",
       "currentlyNoEvents": "В момента няма събития.",
       "pageTitle": "Събития"
     },
     "ckb": {
-      "location": "شوێن",
       "date": "ڕێکەوت",
       "events": "ڕووداوەکان",
       "currentlyNoEvents": "لەئێستادا هیچ ڕووداوێکی تیدا نییە.",
       "pageTitle": "ڕووداوەکان"
     },
     "el": {
-      "location": "Τοποθεσία",
       "date": "Ημερομηνία",
       "events": "Εκδηλώσεις",
       "currentlyNoEvents": "Προς το παρόν δεν υπάρχουν εκδηλώσεις.",
       "pageTitle": "Εκδηλώσεις"
     },
     "en": {
-      "location": "Location",
       "date": "Date",
       "events": "Events",
       "currentlyNoEvents": "No events are currently available.",
       "pageTitle": "Events"
     },
     "es": {
-      "location": "Ubicación",
       "date": "Fecha",
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades.",
       "pageTitle": "Actividades"
     },
     "fr": {
-      "location": "Lieu",
       "date": "Date",
       "events": "Événements",
       "currentlyNoEvents": "Il n'y a actuellement aucun événement.",
       "pageTitle": "Événements"
     },
     "hr": {
-      "location": "Lokacija",
       "date": "Datum",
       "events": "Događanja",
       "currentlyNoEvents": "Trenutačno nema događanja.",
       "pageTitle": "Događanja"
     },
     "hu": {
-      "location": "Helyszín",
       "date": "Dátum",
       "events": "Események",
       "currentlyNoEvents": "Jelenleg nincsenek események.",
       "pageTitle": "Események"
     },
     "it": {
-      "location": "Posizione",
       "date": "Data",
       "events": "Eventi",
       "currentlyNoEvents": "Al momento non ci sono eventi.",
       "pageTitle": "Eventi"
     },
     "ka": {
-      "location": "ადგილმდებარეობა",
       "date": "თარიღი",
       "events": "ღონისძიებები",
       "currentlyNoEvents": "ამჟამად არ არის ღონისძიბები.",
       "pageTitle": "ღონისძიებები"
     },
     "kmr": {
-      "location": "Mekan",
       "date": "Roj",
       "events": "Rûdan",
       "currentlyNoEvents": "Di dema nika da tu rûdanek tuneye.",
       "pageTitle": "Rûdan"
     },
     "mk": {
-      "location": "Локација",
       "date": "Датум",
       "events": "Настани",
       "currentlyNoEvents": "Моментално нема настани.",
       "pageTitle": "Настани"
     },
     "pes": {
-      "location": "محل",
       "date": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد.",
       "pageTitle": "رویدادها"
     },
     "pl": {
-      "location": "Placówka",
       "date": "Data",
       "events": "Wydarzenia",
       "currentlyNoEvents": "Obecnie nie ma żadnych wydarzeń.",
       "pageTitle": "Wydarzenia"
     },
     "prs": {
-      "location": "محل",
       "date": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد‎.",
       "pageTitle": "رویدادها"
     },
     "ps": {
-      "location": "ځای",
       "date": "نېټه",
       "events": "غونډې",
       "currentlyNoEvents": "دا مهال کومې غونډې نشته.",
       "pageTitle": "غونډې"
     },
     "ro": {
-      "location": "Locație",
       "date": "Data",
       "events": "Evenimente",
       "currentlyNoEvents": "Actualmente nu există nici un fel de eveniment.",
       "pageTitle": "Evenimente"
     },
     "ru": {
-      "location": "Место",
       "date": "Дата",
       "events": "Мероприятия",
       "currentlyNoEvents": "Актуальные мероприятия отсутствуют.",
       "pageTitle": "Мероприятия"
     },
     "so": {
-      "location": "Goobta",
       "date": "taariikhda",
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan.",
       "pageTitle": "Dhacdooyinka"
     },
     "sq": {
-      "location": "Vendi",
       "date": "Data",
       "events": "Evenimentet",
       "currentlyNoEvents": "Aktualisht nuk ka asnjë eveniment.",
       "pageTitle": "Evenimentet"
     },
     "sr-Cyrl": {
-      "location": "Локација",
       "date": "Датум",
       "events": "Догађаји",
       "currentlyNoEvents": "Тренутно нема догађаја.",
       "pageTitle": "Догађаји"
     },
     "sr-Latn": {
-      "location": "Lokacija",
       "date": "Datum",
       "events": "Događaji",
       "currentlyNoEvents": "Trenutno nema događaja.",
       "pageTitle": "Događaji"
     },
     "ti": {
-      "location": "ቦታ",
       "date": "ዕለት",
       "events": "ኣጋጣሚታት",
       "currentlyNoEvents": "ኣብዚ እዋን’ዚ ኣጋጣሚታት የለዉን።",
       "pageTitle": "ኣጋጣሚታት"
     },
     "tr": {
-      "location": "Konum",
       "date": "Tarih",
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok.",
       "pageTitle": "Etkinlikler"
     },
     "ur": {
-      "location": "مقام",
       "date": "تاریخ",
       "events": "ایونٹس",
       "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
       "pageTitle": "ایونٹس"
     },
     "zh-CN": {
-      "location": "位置",
       "date": "日期",
       "events": "活动",
       "currentlyNoEvents": "目前没有活动。",

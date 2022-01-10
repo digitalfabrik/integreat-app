@@ -119,7 +119,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
           onInternalLinkClick={history.push}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
-            {location.location && <PageDetail identifier={t('location')} information={location.location} />}
+            {location.location && <PageDetail identifier={t('address')} information={location.location} />}
           </>
         </Page>
       </LocationLayout>
