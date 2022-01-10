@@ -65,7 +65,7 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
  */
 
 const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('map')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
@@ -194,11 +194,11 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
           selectedFeature={selectedFeature}
           locationPermissionGranted={location !== null}
           onRequestLocationPermission={requestAndDetermineLocation}
-          fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
+          fabPosition={snapPoints[sheetSnapPointIndex] ?? 0}
         />
       )}
       <BottomActionsSheet
-        title={selectedFeature ? selectedFeature.properties.title : t('sheetTitle')}
+        title={selectedFeature ? selectedFeature.properties.title : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
@@ -213,7 +213,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         ) : (
           <List
             CustomStyledList={CustomSheetList}
-            noItemsMessage={t('currentlyNoPois')}
+            noItemsMessage={t('noPois')}
             items={featureLocations}
             renderItem={renderPoiListItem(cityModel.code, language)}
             theme={theme}

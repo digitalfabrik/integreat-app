@@ -48,7 +48,7 @@ type PropsType = CityRouteProps & RouteProps<typeof POIS_ROUTE>
 const PoisPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
   const { cityCode, languageCode, poiId } = match.params
   const pathname = normalizePath(location.pathname)
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('map')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   // eslint-disable-next-line no-console
@@ -133,7 +133,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
           onInternalLinkClick={history.push}>
           {location.location && (
             <PageDetail
-              identifier={t('location')}
+              identifier={t('address')}
               information={location.location}
               link={featureLocation ? mapLink : undefined}
               linkLabel={t('map')}
@@ -151,7 +151,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      <Caption title={t('pois')} />
+      <Caption title={t('map')} />
       {cityModel.boundingBox && (
         <MapView
           featureCollection={embedInCollection(featureLocations)}

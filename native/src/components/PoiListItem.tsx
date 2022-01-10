@@ -54,7 +54,7 @@ type PoiListItemProps = {
 
 export const PoiListItem: React.FC<PoiListItemProps> = memo(
   ({ poi, navigateToPoi, language, theme }: PoiListItemProps): ReactElement => {
-    const { t } = useTranslation('pois')
+    const { t } = useTranslation('map')
     const thumbnail = poi.properties.thumbnail ?? EventPlaceholder1
     return (
       <StyledTouchableOpacity onPress={navigateToPoi} theme={theme} activeOpacity={1} language={language}>
@@ -62,9 +62,7 @@ export const PoiListItem: React.FC<PoiListItemProps> = memo(
         <Description theme={theme}>
           <Title theme={theme}>{poi.properties.title}</Title>
           {poi.properties.distance && (
-            <Distance theme={theme}>
-              {poi.properties.distance} {t('unit')} {t('distanceText')}
-            </Distance>
+            <Distance theme={theme}>{t('distanceKilometer', { distance: poi.properties.distance })}</Distance>
           )}
         </Description>
       </StyledTouchableOpacity>

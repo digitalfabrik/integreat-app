@@ -67,7 +67,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   navigateToPois,
   language
 }: PoiDetailsProps): ReactElement => {
-  const { t } = useTranslation<['pois', 'error']>(['pois', 'error'])
+  const { t } = useTranslation('map')
   const showSnackbar = useSnackbar()
 
   // TODO this has to be removed when we get proper images from CMS IGAPP-805
@@ -79,13 +79,13 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const onNavigate = () => {
     if (location && poi.featureLocation?.geometry.coordinates) {
       const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('navigationApplication')))
+      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppAvailable')))
     }
   }
 
   const copyToClipboard = (text: string) => (): void => {
     Clipboard.setString(text)
-    showSnackbar(t('detailAddressClipboardMessage'))
+    showSnackbar(t('addressCopied'))
   }
 
   return (
@@ -99,9 +99,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         )}
         {distance && (
           <PoiDetailItem icon='place' language={language} onPress={detailPage ? navigateToPois : undefined}>
-            <Text>
-              {distance} {t('unit')} {t('distanceText')}
-            </Text>
+            <Text>{t('distanceKilometer', { distance })}</Text>
           </PoiDetailItem>
         )}
         <PoiDetailItem
@@ -114,7 +112,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
             {postcode} {town}
           </Text>
         </PoiDetailItem>
-        <CollapsibleItem initExpanded headerText={t('detailInformationHeader')} language={language}>
+        <CollapsibleItem initExpanded headerText={t('description')} language={language}>
           <NativeHtml content={mockContent} language={language} />
         </CollapsibleItem>
       </InformationContainer>
