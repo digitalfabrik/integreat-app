@@ -6,7 +6,7 @@ import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'

@@ -1,6 +1,6 @@
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 

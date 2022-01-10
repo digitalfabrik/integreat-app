@@ -1,7 +1,7 @@
 import * as React from 'react'
 import TestRenderer from 'react-test-renderer'
 import { ThemeProvider } from 'styled-components'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { CityModel } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
