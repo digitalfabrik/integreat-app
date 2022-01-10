@@ -1,4 +1,4 @@
-import { PoiFeature } from '../maps'
+import { markerSymbol, PoiFeature } from '../maps'
 
 class LocationModel {
   _id: number
@@ -128,7 +128,7 @@ class LocationModel {
         title: this.name,
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
-        symbol: '9',
+        symbol: markerSymbol,
         thumbnail,
         path,
         urlSlug,
