@@ -9,8 +9,10 @@ import buildConfig from '../../constants/buildConfig'
 import navigateToLink from '../../navigation/navigateToLink'
 import NewsDetail from '../NewsDetail'
 
+const mockNavigation = jest.fn()
+const mockTheme = buildConfig().lightTheme
+
 jest.mock('react-i18next')
-const navigation = jest.fn()
 jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
@@ -20,12 +22,12 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn()
 }))
 jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => navigation
+  useNavigation: () => mockNavigation
 }))
 
 jest.mock('styled-components', () => ({
   ...jest.requireActual('styled-components'),
-  useTheme: () => buildConfig().lightTheme
+  useTheme: () => mockTheme
 }))
 
 const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
@@ -75,7 +77,7 @@ describe('NewsDetail', () => {
     fireEvent.press(getByText('mailto:app@integreat-app.de'))
     expect(navigateToLink).toHaveBeenCalledWith(
       'mailto:app@integreat-app.de',
-      navigation,
+      mockNavigation,
       language,
       expect.anything(),
       'mailto:app@integreat-app.de'
@@ -83,7 +85,7 @@ describe('NewsDetail', () => {
     fireEvent.press(getByText('https://integreat.app'))
     expect(navigateToLink).toHaveBeenCalledWith(
       'https://integreat.app/',
-      navigation,
+      mockNavigation,
       language,
       expect.anything(),
       'https://integreat.app/'
@@ -104,7 +106,7 @@ describe('NewsDetail', () => {
     fireEvent.press(getByText('Aktuelle Informationen zu Corona: Hier klicken'))
     expect(navigateToLink).toHaveBeenCalledWith(
       'https://tunewsinternational.com/category/corona-deutsch/',
-      navigation,
+      mockNavigation,
       language,
       expect.anything(),
       'https://tunewsinternational.com/category/corona-deutsch/'
