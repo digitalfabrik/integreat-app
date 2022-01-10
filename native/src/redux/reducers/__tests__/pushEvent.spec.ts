@@ -174,8 +174,10 @@ describe('pushEvent', () => {
     const event2 = buildEvent('/testumgebung/de/events/ev1', 'Event2', new Map([['de', '/testumgebung/de/events/ev1']]))
 
     const pushEventAction = createPushAction({
-      events: [event2], city: 'testumgebung',
-      language: 'de', path: '/testumgebung/de/events/ev1',
+      events: [event2],
+      city: 'testumgebung',
+      language: 'de',
+      path: '/testumgebung/de/events/ev1',
       resourceCache
     })
 
