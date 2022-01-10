@@ -299,204 +299,175 @@
       "offers": "Angebote",
       "events": "Veranstaltungen",
       "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten",
       "map": "Karte"
     },
     "am": {
       "localInformation": "አካባቢያዊ መረጃ",
       "offers": "ግብዣዎች/ መጥሪያዎች",
       "events": "ዝግጅቶች",
-      "news": "ዜናዎች",
-      "newsAlternative": "ዜናዎች"
+      "news": "ዜናዎች"
     },
     "ar": {
       "localInformation": "معلومات محلية",
       "offers": "العروض",
       "events": "الفعاليات",
-      "news": "الأخبار",
-      "newsAlternative": "المستجدات"
+      "news": "الأخبار"
     },
     "bg": {
       "localInformation": "Местна информация",
       "offers": "Оферти",
       "events": "Събития",
-      "news": "Новини",
-      "newsAlternative": "Новости"
+      "news": "Новини"
     },
     "ckb": {
       "localInformation": "زانیارییە خۆجییەکان",
       "offers": "پێشنیارەکان",
       "events": "ڕووداوەکان",
-      "news": "هەواڵ",
-      "newsAlternative": "نوێترین هەوڵاکان"
+      "news": "هەواڵ"
     },
     "el": {
       "localInformation": "Τοπικές πληροφορίες",
       "offers": "Προσφορές",
       "events": "Εκδηλώσεις",
-      "news": "Ειδήσεις",
-      "newsAlternative": "Νέα"
+      "news": "Ειδήσεις"
     },
     "en": {
       "localInformation": "Local information",
       "offers": "Offers",
       "events": "Events",
-      "news": "News",
-      "newsAlternative": "News"
+      "news": "News"
     },
     "es": {
       "localInformation": "Información local",
       "offers": "Ofertas",
       "events": "Actividades",
-      "news": "Noticias",
-      "newsAlternative": "Novedades"
+      "news": "Noticias"
     },
     "fr": {
       "localInformation": "Informations locales",
       "offers": "Offres",
       "events": "Événements",
-      "news": "Nouvelles",
-      "newsAlternative": "Nouveautés"
+      "news": "Nouvelles"
     },
     "hr": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Događanja",
-      "news": "Vijesti",
-      "newsAlternative": "Novosti"
+      "news": "Vijesti"
     },
     "hu": {
       "localInformation": "Helyi információk",
       "offers": "Ajánlatok",
       "events": "Események",
-      "news": "Hírek",
-      "newsAlternative": "Újdonságok"
+      "news": "Hírek"
     },
     "it": {
       "localInformation": "Informazioni locali",
       "offers": "Offerte",
       "events": "Eventi",
-      "news": "Messaggi",
-      "newsAlternative": "Novità"
+      "news": "Messaggi"
     },
     "ka": {
       "localInformation": "ადგილობრივი ინფორმაციები",
       "offers": "შეთავაზებები",
       "events": "ღონისძიებები",
-      "news": "ინფორმაციები",
-      "newsAlternative": "სიახლეები"
+      "news": "ინფორმაციები"
     },
     "kmr": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
       "events": "Rûdan",
-      "news": "Nûçe",
-      "newsAlternative": "Nûçe"
+      "news": "Nûçe"
     },
     "mk": {
       "localInformation": "Локални информации",
       "offers": "Понуди",
       "events": "Настани",
-      "news": "Вести",
-      "newsAlternative": "Новости"
+      "news": "Вести"
     },
     "pes": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
       "events": "رویدادها",
-      "news": "اخبار",
-      "newsAlternative": "تازه‌ها"
+      "news": "اخبار"
     },
     "pl": {
       "localInformation": "Informacje lokalne",
       "offers": "Oferty",
       "events": "Wydarzenia",
-      "news": "Wiadomości",
-      "newsAlternative": "Aktualności"
+      "news": "Wiadomości"
     },
     "prs": {
       "localInformation": "معلومات محلی",
       "offers": "پیشنهادات",
       "events": "رویدادها",
-      "news": "اخبار",
-      "newsAlternative": "جدیدترین اخبار"
+      "news": "اخبار"
     },
     "ps": {
       "localInformation": "سیمه ییز معلومات",
       "offers": "وړاندیزونه",
       "events": "غونډې",
-      "news": "خبرونه",
-      "newsAlternative": "نوې زړې"
+      "news": "خبرونه"
     },
     "ro": {
       "localInformation": "Informații locale",
       "offers": "Oferte",
       "events": "Evenimente",
-      "news": "Știri",
-      "newsAlternative": "Noutăți"
+      "news": "Știri"
     },
     "ru": {
       "localInformation": "Местная информация",
       "offers": "Предложения",
       "events": "Мероприятия",
-      "news": "Новости",
-      "newsAlternative": "Новое"
+      "news": "Новости"
     },
     "so": {
       "localInformation": "Macluumaadka deegaanka",
       "offers": "Heshiisyo",
       "events": "Dhacdooyinka",
-      "news": "war",
-      "newsAlternative": "war"
+      "news": "war"
     },
     "sq": {
       "localInformation": "Informata lokale",
       "offers": "Ofertat",
       "events": "Evenimentet",
-      "news": "Lajme",
-      "newsAlternative": "Risi"
+      "news": "Lajme"
     },
     "sr-Cyrl": {
       "localInformation": "Локалне информације",
       "offers": "Понуде",
       "events": "Догађаји",
-      "news": "Вести",
-      "newsAlternative": "Новости"
+      "news": "Вести"
     },
     "sr-Latn": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Događaji",
-      "news": "Vesti",
-      "newsAlternative": "Novosti"
+      "news": "Vesti"
     },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
       "offers": "ውዕላት",
       "events": "ኣጋጣሚታት",
-      "news": "ዜና",
-      "newsAlternative": "ዜና"
+      "news": "ዜና"
     },
     "tr": {
       "localInformation": "Yerel bilgiler",
       "offers": "Teklifler",
       "events": "Etkinlikler",
-      "news": "Mesajlar",
-      "newsAlternative": "Yenilikler"
+      "news": "Mesajlar"
     },
     "ur": {
       "localInformation": "مقامی معلومات",
       "offers": "پیش کشیں",
       "events": "ایونٹس",
-      "news": "خبریں",
-      "newsAlternative": "خبریں"
+      "news": "خبریں"
     },
     "zh-CN": {
       "localInformation": "本地信息",
       "offers": "提供项目",
       "events": "活动",
-      "news": "新闻",
-      "newsAlternative": "新消息"
+      "news": "新闻"
     }
   },
   "disclaimer": {
@@ -3889,7 +3860,6 @@
   "news": {
     "de": {
       "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten",
       "localNews": {
         "localNews": "Lokale Nachrichten",
         "pageTitle": "Lokale Nachrichten"
@@ -3897,7 +3867,6 @@
       "local": "Lokal",
       "readMore": "Weiterlesen",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
-      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3905,7 +3874,6 @@
     },
     "am": {
       "news": "ዜናዎች",
-      "newsAlternative": "ዜናዎች",
       "localNews": {
         "localNews": "አካባቢያዊ ዜናዎች",
         "pageTitle": "አካባቢያዊ ዜናዎች"
@@ -3913,7 +3881,6 @@
       "local": "አካባቢያዊ",
       "readMore": "ተጨማሪ ያንብቡ",
       "currentlyNoNews": "በአሁኑ ሰዐት ምንም ዜናዎች የሉም።",
-      "currentlyNoNewsAlternative": "በዚህ ቅጽበት ምንም ዜናዎች የሉም።",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3921,7 +3888,6 @@
     },
     "ar": {
       "news": "الأخبار",
-      "newsAlternative": "المستجدات",
       "localNews": {
         "localNews": "اخبار محلية",
         "pageTitle": "الأخبار المحلية"
@@ -3929,7 +3895,6 @@
       "local": "محلي",
       "readMore": "متابعة القراءة",
       "currentlyNoNews": "لا تُوجد أخبار حاليًا.",
-      "currentlyNoNewsAlternative": "لا تُوجد مستجدات حاليًا.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3937,7 +3902,6 @@
     },
     "bg": {
       "news": "Новини",
-      "newsAlternative": "Новости",
       "localNews": {
         "localNews": "Местни новини",
         "pageTitle": "Местни новини"
@@ -3945,7 +3909,6 @@
       "local": "Локално",
       "readMore": "Продължи с четенето",
       "currentlyNoNews": "В момента няма новини.",
-      "currentlyNoNewsAlternative": "В момента няма новости.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3953,7 +3916,6 @@
     },
     "ckb": {
       "news": "هەواڵ",
-      "newsAlternative": "نوێترین هەوڵاکان",
       "localNews": {
         "localNews": "هەواڵی خۆجێی",
         "pageTitle": "هەواڵی خۆجێی"
@@ -3961,7 +3923,6 @@
       "local": "خۆجێی",
       "readMore": "درێژەی خوێندنەوە",
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە.",
-      "currentlyNoNewsAlternative": "لەئێستادا هیچ نوێترین هەواڵەکانی تێدا نییە.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3969,7 +3930,6 @@
     },
     "el": {
       "news": "Ειδήσεις",
-      "newsAlternative": "Νέα",
       "localNews": {
         "localNews": "Τοπικές ειδήσεις",
         "pageTitle": "Τοπικά νέα"
@@ -3977,7 +3937,6 @@
       "local": "Τοπικά",
       "readMore": "Διαβάστε παρακάτω",
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις.",
-      "currentlyNoNewsAlternative": "Προς το παρόν δεν υπάρχουν νέα.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3985,7 +3944,6 @@
     },
     "en": {
       "news": "News",
-      "newsAlternative": "News",
       "localNews": {
         "localNews": "Local news",
         "pageTitle": "Local news"
@@ -3993,7 +3951,6 @@
       "local": "Local",
       "readMore": "Continue",
       "currentlyNoNews": "There is no news at the moment.",
-      "currentlyNoNewsAlternative": "Currently there are no news.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4001,7 +3958,6 @@
     },
     "es": {
       "news": "Noticias",
-      "newsAlternative": "Novedades",
       "localNews": {
         "localNews": "Noticias locales",
         "pageTitle": "Noticias locales"
@@ -4009,7 +3965,6 @@
       "local": "Local",
       "readMore": "Seguir leyendo",
       "currentlyNoNews": "En la actualidad no hay noticias",
-      "currentlyNoNewsAlternative": "En la actualidad no hay novedades",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4017,7 +3972,6 @@
     },
     "fr": {
       "news": "Nouvelles",
-      "newsAlternative": "Nouvelles",
       "localNews": {
         "localNews": "Nouvelles locales",
         "pageTitle": "Nouvelles locales"
@@ -4025,7 +3979,6 @@
       "local": "Localement",
       "readMore": "Poursuivre la lecture",
       "currentlyNoNews": "Aucune nouvelle pour l'instant",
-      "currentlyNoNewsAlternative": "Aucune nouveauté pour l'instant",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4033,7 +3986,6 @@
     },
     "hr": {
       "news": "Vijesti",
-      "newsAlternative": "Novosti",
       "localNews": {
         "localNews": "Lokalne vijesti",
         "pageTitle": "Lokalne vijesti"
@@ -4041,7 +3993,6 @@
       "local": "Lokalno",
       "readMore": "Nastavi čitati",
       "currentlyNoNews": "Trenutačno nema nikakvih vijesti.",
-      "currentlyNoNewsAlternative": "Trenutačno nema nikakvih novosti.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4049,7 +4000,6 @@
     },
     "hu": {
       "news": "Hírek",
-      "newsAlternative": "Újdonságok",
       "localNews": {
         "localNews": "Helyi hírek",
         "pageTitle": "Helyi hírek"
@@ -4057,7 +4007,6 @@
       "local": "Helyi",
       "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek.",
-      "currentlyNoNewsAlternative": "Jelenleg nincsenek újdonságok.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4065,7 +4014,6 @@
     },
     "it": {
       "news": "Messaggi",
-      "newsAlternative": "Novità",
       "localNews": {
         "localNews": "Notizie locali",
         "pageTitle": "Notizie locali"
@@ -4073,7 +4021,6 @@
       "local": "Locale",
       "readMore": "Continua",
       "currentlyNoNews": "Attualmente non ci sono notizie.",
-      "currentlyNoNewsAlternative": "Attualmente non ci sono novità.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4081,7 +4028,6 @@
     },
     "ka": {
       "news": "ინფორმაციები",
-      "newsAlternative": "სიახლეები",
       "localNews": {
         "localNews": "ადგილობრივი ინფორმაციები",
         "pageTitle": "ადგილობრივი ამბები"
@@ -4089,7 +4035,6 @@
       "local": "ადგილობრივი",
       "readMore": "გააგრძელე კითხვა",
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები.",
-      "currentlyNoNewsAlternative": "ამჟამად არ არსებობს არანაირი სიახლეები.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4097,7 +4042,6 @@
     },
     "kmr": {
       "news": "Nûçe",
-      "newsAlternative": "Nûçe",
       "localNews": {
         "localNews": "Nûçeyên herêmî",
         "pageTitle": "Nûçeyên herêmî"
@@ -4105,7 +4049,6 @@
       "local": "Herêmî",
       "readMore": "Xwendina xwe bidomîne",
       "currentlyNoNews": "Niha nûçe tune.",
-      "currentlyNoNewsAlternative": "Niha nûçe tune.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4113,7 +4056,6 @@
     },
     "mk": {
       "news": "Вести",
-      "newsAlternative": "Новости",
       "localNews": {
         "localNews": "Локални вести",
         "pageTitle": "Локални вести"
@@ -4121,7 +4063,6 @@
       "local": "Локално",
       "readMore": "Продолжи со читање",
       "currentlyNoNews": "Моментално нема вести.",
-      "currentlyNoNewsAlternative": "Моментално нема новости.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4129,7 +4070,6 @@
     },
     "pes": {
       "news": "اخبار",
-      "newsAlternative": "تازه‌ها",
       "localNews": {
         "localNews": "اخبار محلی",
         "pageTitle": "اخبار محلی"
@@ -4137,7 +4077,6 @@
       "local": "محل",
       "readMore": "ادامه",
       "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد.",
-      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4145,7 +4084,6 @@
     },
     "pl": {
       "news": "Wiadomości",
-      "newsAlternative": "Aktualności",
       "localNews": {
         "localNews": "Wiadomości lokalne",
         "pageTitle": "Wiadomości lokalne"
@@ -4153,7 +4091,6 @@
       "local": "Lokalnie",
       "readMore": "Czytaj dalej",
       "currentlyNoNews": "Obecnie nie ma żadnej wiadomości.",
-      "currentlyNoNewsAlternative": "Obecnie nie ma żadnej wiadomości.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4161,7 +4098,6 @@
     },
     "prs": {
       "news": "اخبار",
-      "newsAlternative": "جدیدترین اخبار",
       "localNews": {
         "localNews": "اخبار محلی",
         "pageTitle": "اخبار محلی"
@@ -4169,7 +4105,6 @@
       "local": "محلی",
       "readMore": "ادامه خواندن",
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎.",
-      "currentlyNoNewsAlternative": "در حال حاضر هیچ جدیدترین خبری وجود ندارد‎.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4177,7 +4112,6 @@
     },
     "ps": {
       "news": "خبرونه",
-      "newsAlternative": "نوې زړې",
       "localNews": {
         "localNews": "سیمه ییز خبرونه",
         "pageTitle": "سیمه ییز خبرونه"
@@ -4185,7 +4119,6 @@
       "local": "سیمه ییز",
       "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته.",
-      "currentlyNoNewsAlternative": "دا مهال کومې نوې زړې نشته.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4193,7 +4126,6 @@
     },
     "ro": {
       "news": "Știri",
-      "newsAlternative": "Noutăți",
       "localNews": {
         "localNews": "Știri locale",
         "pageTitle": "Știri locale"
@@ -4201,7 +4133,6 @@
       "local": "Local",
       "readMore": "Citire mai departe",
       "currentlyNoNews": "În prezent nu există nicio știre.",
-      "currentlyNoNewsAlternative": "În prezent nu există noutăți.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4209,7 +4140,6 @@
     },
     "ru": {
       "news": "Новости",
-      "newsAlternative": "Новое",
       "localNews": {
         "localNews": "Местные новости",
         "pageTitle": "Местные новости"
@@ -4217,7 +4147,6 @@
       "local": "Местная информация",
       "readMore": "Подробнее",
       "currentlyNoNews": "В настоящий момент новости отсутствуют.",
-      "currentlyNoNewsAlternative": "В настоящий момент ничего нового.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4225,7 +4154,6 @@
     },
     "so": {
       "news": "War",
-      "newsAlternative": "War",
       "localNews": {
         "localNews": "Wararka deegaanka",
         "pageTitle": "Wararka deegaanka"
@@ -4233,7 +4161,6 @@
       "local": "Deegaanka",
       "readMore": "Sii wad akhriska",
       "currentlyNoNews": "Hada wax war ah ma jiraan.",
-      "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4241,7 +4168,6 @@
     },
     "sq": {
       "news": "Lajme",
-      "newsAlternative": "Risi",
       "localNews": {
         "localNews": "Lajme lokale",
         "pageTitle": "Lajme lokale"
@@ -4249,7 +4175,6 @@
       "local": "Lokal",
       "readMore": "Lexo më tej",
       "currentlyNoNews": "Aktualisht nuk ka asnjë lajm.",
-      "currentlyNoNewsAlternative": "Aktualisht nuk ka asnjë risi.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4257,7 +4182,6 @@
     },
     "sr-Cyrl": {
       "news": "Вести",
-      "newsAlternative": "Новости",
       "localNews": {
         "localNews": "Локалне вести",
         "pageTitle": "Локалне вести"
@@ -4265,7 +4189,6 @@
       "local": "Локално",
       "readMore": "Настави са читањем",
       "currentlyNoNews": "Тренутно нема вести.",
-      "currentlyNoNewsAlternative": "Тренутно нема новости.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4273,7 +4196,6 @@
     },
     "sr-Latn": {
       "news": "Vesti",
-      "newsAlternative": "Novosti",
       "localNews": {
         "localNews": "Lokalne vesti",
         "pageTitle": "Lokalne vesti"
@@ -4281,7 +4203,6 @@
       "local": "Lokalno",
       "readMore": "Nastavi sa čitanjem",
       "currentlyNoNews": "Trenutno nema vesti.",
-      "currentlyNoNewsAlternative": "Trenutno nema novosti.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4289,7 +4210,6 @@
     },
     "ti": {
       "news": "ዜና",
-      "newsAlternative": "ዜና",
       "localNews": {
         "localNews": "ዜና ውሽጢ  ዓዲ",
         "pageTitle": "ዜና ውሽጢ  ዓዲ"
@@ -4297,7 +4217,6 @@
       "local": "ውሽጢ ዓዲ",
       "readMore": "ምንባብ ቀጽል",
       "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።",
-      "currentlyNoNewsAlternative": "ኣብዚ እዋን’ዚ ዜና የለን።",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4305,7 +4224,6 @@
     },
     "tr": {
       "news": "Bildirimler",
-      "newsAlternative": "Yenilikler",
       "localNews": {
         "localNews": "yerel bildirimler",
         "pageTitle": "yerel bildirimler"
@@ -4313,7 +4231,6 @@
       "local": "Yerel",
       "readMore": "Okumaya devam edin",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır.",
-      "currentlyNoNewsAlternative": "Şu an yenilik bulunmamaktadır.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4321,7 +4238,6 @@
     },
     "ur": {
       "news": "خبریں",
-      "newsAlternative": "خبریں",
       "localNews": {
         "localNews": "مقامی خبریں",
         "pageTitle": "مقامی خبریں"
@@ -4329,7 +4245,6 @@
       "local": "مقامی",
       "readMore": "مطالعہ جاری رکھیں",
       "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔",
-      "currentlyNoNewsAlternative": "فی الحال کوئی خبریں نہیں ہیں۔",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4337,7 +4252,6 @@
     },
     "zh-CN": {
       "news": "新闻",
-      "newsAlternative": "新消息",
       "localNews": {
         "localNews": "本地新闻",
         "pageTitle": "本地新闻"
@@ -4345,7 +4259,6 @@
       "local": "本地",
       "readMore": "继续阅读",
       "currentlyNoNews": "目前没有新闻。",
-      "currentlyNoNewsAlternative": "目前没有新消息。",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
