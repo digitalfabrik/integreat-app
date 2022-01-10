@@ -9,7 +9,10 @@ import {
   LanguageModel,
   LanguageModelBuilder,
   loadFromEndpoint,
+  NEWS_ROUTE,
+  pathnameFromRouteInformation,
   ReturnType,
+  TU_NEWS_TYPE,
   TunewsModel,
   useLoadFromEndpoint
 } from 'api-client'
@@ -17,7 +20,7 @@ import {
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import TuNewsPage from '../TuNewsPage'
-import { createPath, RoutePatterns, TU_NEWS_ROUTE } from '../index'
+import { RoutePatterns, TU_NEWS_ROUTE } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -68,6 +71,12 @@ describe('TuNewsPage', () => {
   }
 
   const renderTuNewsRoute = (languageModel = language, tuNewsLanguages = languagesReturn) => {
+    const pathname = pathnameFromRouteInformation({
+      route: NEWS_ROUTE,
+      newsType: TU_NEWS_TYPE,
+      cityCode: city.code,
+      languageCode: languageModel.code
+    })
     mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages)
     return renderWithBrowserRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
@@ -84,7 +93,7 @@ describe('TuNewsPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(TU_NEWS_ROUTE, { languageCode: languageModel.code, cityCode: city.code }) }
+      { route: pathname }
     )
   }
 

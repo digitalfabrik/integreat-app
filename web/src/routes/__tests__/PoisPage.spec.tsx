@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
-import { CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
+import { cityContentPath, CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithError
@@ -11,7 +11,7 @@ import {
 import buildConfig from '../../constants/buildConfig'
 import { renderWithBrowserRouter } from '../../testing/render'
 import PoisPage from '../PoisPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -43,7 +43,7 @@ describe('PoisPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code }) }
+      { route: cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code }) }
     )
 
     expect(getByText(poi0.title)).toBeTruthy()
@@ -61,7 +61,14 @@ describe('PoisPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code, poiId: 'test_path_2' }) }
+      {
+        route: cityContentPath({
+          route: POIS_ROUTE,
+          cityCode: city.code,
+          languageCode: language.code,
+          path: 'test_path_2'
+        })
+      }
     )
 
     expect(getByText(poi1.title)).toBeTruthy()
@@ -80,7 +87,9 @@ describe('PoisPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code, poiId: 'invalid' }) }
+      {
+        route: cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code, path: 'inavlid' })
+      }
     )
 
     expect(getByText('error:notFound.poi')).toBeTruthy()
@@ -97,7 +106,14 @@ describe('PoisPage', () => {
           )}
         />
       </ThemeProvider>,
-      { route: createPath(POIS_ROUTE, { cityCode: city.code, languageCode: language.code, poiId: 'test_path_2' }) }
+      {
+        route: cityContentPath({
+          route: POIS_ROUTE,
+          cityCode: city.code,
+          languageCode: language.code,
+          path: 'test-path_2'
+        })
+      }
     )
 
     expect(getByText('error:unknownError')).toBeTruthy()

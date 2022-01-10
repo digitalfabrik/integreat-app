@@ -2,7 +2,13 @@ import { Parser } from 'htmlparser2'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CategoryModel, createCategoriesEndpoint, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
+import {
+  CategoryModel,
+  createCategoriesEndpoint,
+  pathnameFromRouteInformation,
+  SEARCH_ROUTE,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CategoryList from '../components/CategoryList'
@@ -15,7 +21,7 @@ import SearchInput from '../components/SearchInput'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { normalizeSearchString } from '../utils/stringUtils'
-import { createPath, RouteProps } from './index'
+import { RouteProps } from './index'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
@@ -41,7 +47,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
 
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: createPath(SEARCH_ROUTE, { cityCode, languageCode: code }),
+    path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
     name,
     code
   }))

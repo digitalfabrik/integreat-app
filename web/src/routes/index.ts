@@ -1,5 +1,5 @@
 import { ExtractRouteParams } from 'react-router'
-import { generatePath, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
@@ -46,11 +46,3 @@ type ExpectedParams<S extends RouteType> = ExtractedParams<S> extends { [K in ke
   ? ExtractedParams<S>
   : never
 export type RouteProps<S extends RouteType> = RouteComponentProps<ExpectedParams<S>>
-
-export const createPath = <S extends RouteType>(
-  route: S,
-  params?: ExtractRouteParams<typeof RoutePatterns[S]>
-): string => generatePath(RoutePatterns[route], params)
-
-export const routeFromPattern = (pattern: string): RouteType | undefined =>
-  (Object.keys(RoutePatterns) as Array<RouteType>).find(route => RoutePatterns[route] === pattern)

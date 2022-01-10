@@ -1,9 +1,8 @@
 import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
 
-import { ErrorCode, fromError } from 'api-client'
+import { cityContentPath, ErrorCode, fromError } from 'api-client'
 
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import { cityContentPath } from '../navigation/url'
 import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
