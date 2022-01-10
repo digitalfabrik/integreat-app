@@ -2,7 +2,7 @@ import { RenderResult } from '@testing-library/react'
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import {
   CityModelBuilder,

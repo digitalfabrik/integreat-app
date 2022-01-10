@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import React from 'react'
 
 import useWindowDimensions from '../useWindowDimensions'
@@ -34,10 +34,11 @@ describe('useWindowDimensions', () => {
 
     const newWidth = 749
     const newHeight = 600
-    Object.defineProperty(window, 'innerWidth', { value: newWidth })
-    Object.defineProperty(window, 'innerHeight', { value: newHeight })
-    window.dispatchEvent(new Event('resize'))
-    rerender(<MockComponent />)
+    act(() => {
+      Object.defineProperty(window, 'innerWidth', { value: newWidth })
+      Object.defineProperty(window, 'innerHeight', { value: newHeight })
+      window.dispatchEvent(new Event('resize'))
+    })
 
     expect(getByText(newWidth, { exact: false })).toBeTruthy()
     expect(getByText(newHeight, { exact: false })).toBeTruthy()
