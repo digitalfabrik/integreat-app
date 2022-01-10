@@ -40,9 +40,9 @@ To add a release note:
 
 This gives users, members of other teams and us developers a simple overview over which changes and features belong to which release.
 The release notes can be found [here](../release-notes) and are automatically moved to a new release directory during a release.
-They are also shown in the stores and the [release section of github](https://github.com/Integreat/integreat-react-native-app/releases).
+They are also shown in the stores and the [release section of github](https://github.com/digitalfabrik/integreat-app/releases).
 
 ## Bug reporting
 
-You can [view our issues](https://issues.integreat-app.de/projects/IGAPP) or
-[create new ones](https://issues.integreat-app.de/secure/CreateIssue!default.jspa) on our jira.
+You can [view our issues](https://issues.tuerantuer.org/projects/IGAPP/issues) or
+[create new ones](https://issues.tuerantuer.org/secure/CreateIssue!default.jspa) on our jira.

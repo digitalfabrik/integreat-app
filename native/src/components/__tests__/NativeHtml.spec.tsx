@@ -43,7 +43,7 @@ describe('NativeHtml', () => {
     expect(getByText(content1)).toBeTruthy()
     expect(getByText(content2)).toBeTruthy()
     expect(getByText('Click me!')).toBeTruthy()
-    expect(getByText(' with a link')).toBeTruthy()
+    expect(getByText('with a link')).toBeTruthy()
     expect(() => getByText('href=')).toThrow()
   })
 

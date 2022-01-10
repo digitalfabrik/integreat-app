@@ -2,7 +2,7 @@ import NetInfo from '@react-native-community/netinfo'
 import messaging from '@react-native-firebase/messaging'
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
-import { Linking } from 'react-native'
+import { Linking, LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { OverflowMenuProvider } from 'react-navigation-header-buttons'
@@ -19,6 +19,7 @@ import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBarContainer from './components/StatusBarContainer'
+import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
@@ -33,17 +34,19 @@ import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
 
+LogBox.ignoreLogs(['NativeEventEmitter'])
+
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping'
 })
-const linking: LinkingOptions = {
+const linking: LinkingOptions<RoutesParamsType> = {
   prefixes: ['https://', 'integreat://'],
   config: {
     screens: {
       [REDIRECT_ROUTE]: '*'
     }
   },
-  getStateFromPath: path => ({
+  getStateFromPath: (path: string) => ({
     index: 0,
     routes: [
       {
@@ -58,7 +61,7 @@ const linking: LinkingOptions = {
     ? (listener: (url: string) => void) => {
         const onReceiveURL = ({ url }: { url: string }) => listener(url)
 
-        Linking.addEventListener('url', onReceiveURL)
+        const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
         // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
         const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
@@ -78,7 +81,7 @@ const linking: LinkingOptions = {
         })
 
         return () => {
-          Linking.removeEventListener('url', onReceiveURL)
+          onReceiveURLListener.remove()
           unsubscribeNotification()
         }
       }

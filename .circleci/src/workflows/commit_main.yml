@@ -44,8 +44,8 @@ jobs:
       build_config_name: integreat-test-cms
       context:
         - mattermost
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
   - upload_browserstack:
@@ -63,7 +63,7 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
   - upload_browserstack:
