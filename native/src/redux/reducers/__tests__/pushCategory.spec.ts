@@ -7,7 +7,13 @@ import { PushCategoryActionType } from '../../StoreActionType'
 import cityContentReducer from '../cityContentReducer'
 
 describe('pushCategory', () => {
-  const buildCategory = (root: boolean, path: string, title: string, parentPath: string, availableLanguages: Map<string, string>): CategoryModel => (
+  const buildCategory = (
+    root: boolean,
+    path: string,
+    title: string,
+    parentPath: string,
+    availableLanguages: Map<string, string>
+  ): CategoryModel =>
     new CategoryModel({
       root,
       path,
@@ -19,15 +25,26 @@ describe('pushCategory', () => {
       availableLanguages,
       lastUpdate: moment('2017-11-18 19:30:00', moment.ISO_8601),
       hash: '123456'
-    }))
+    })
 
   const rootCategory = buildCategory(true, '/augsburg/de', 'Stadt Augsburg', '', new Map())
-  const subCategory = buildCategory(false, '/augsburg/de/sub', 'Subkategorie', '/augsburg/de', new Map([['en', '/augsburg/en/sub']]))
-  const subSubCategory = buildCategory(false, '/augsburg/de/sub/sub', 'Subsubkategorie', '/augsburg/de/sub', new Map([['en', '/augsburg/en/sub/sub']]))
+  const subCategory = buildCategory(
+    false,
+    '/augsburg/de/sub',
+    'Subkategorie',
+    '/augsburg/de',
+    new Map([['en', '/augsburg/en/sub']])
+  )
+  const subSubCategory = buildCategory(
+    false,
+    '/augsburg/de/sub/sub',
+    'Subsubkategorie',
+    '/augsburg/de/sub',
+    new Map([['en', '/augsburg/en/sub/sub']])
+  )
 
   const categoriesMap = new CategoriesMapModel([rootCategory, subCategory, subSubCategory])
   const languageModels = [new LanguageModel('de', 'Deutsch'), new LanguageModel('en', 'English')]
-
 
   const createPushAction = (params: Partial<PushCategoryActionType['params']> = {}): PushCategoryActionType => ({
     type: 'PUSH_CATEGORY',
@@ -44,7 +61,6 @@ describe('pushCategory', () => {
       ...params
     }
   })
-
 
   const prepareState = (state: Partial<CityContentStateType> = {}): CityContentStateType => {
     const defaultState: CityContentStateType = {
