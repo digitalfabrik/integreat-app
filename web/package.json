@@ -19,7 +19,7 @@
     "build:aschaffenburg": "yarn run webpack-ts --env config_name=aschaffenburg",
     "build:integreat-test-cms": "yarn run webpack-ts --env config_name=integreat-test-cms",
     "check:build": "yarn es-check es2020 ./dist/**/*.js --verbose",
-    "test": "jest --config jest.config.ts",
+    "test": "jest --config jest.config.ts --maxWorkers=50%",
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
