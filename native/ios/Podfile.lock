@@ -336,7 +336,7 @@ PODS:
   - React-jsinspector (0.66.4)
   - React-logger (0.66.4):
     - glog
-  - react-native-blob-util (0.13.17):
+  - react-native-blob-util (0.13.18):
     - React-Core
   - react-native-flipper (0.93.0):
     - React-Core
@@ -772,7 +772,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 94ce921e1d8ce7023366873ec371f3441383b396
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
-  react-native-blob-util: d2919a2243cba497cd5713f72faeec283c69fde4
+  react-native-blob-util: 600972b1782380a5a7d5db61a3817ea32349dae9
   react-native-flipper: d6e247954bd180572acd775dabecaef6ce967b1e
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
   react-native-mapbox-gl: 9dfd5a5927ae29672d4b00bb74839a81bb2b1401
