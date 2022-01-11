@@ -44,6 +44,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
 
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
+  floss: false,
   splashScreen: false,
   applicationId: 'app.aschaffenburg',
   googleServices: null

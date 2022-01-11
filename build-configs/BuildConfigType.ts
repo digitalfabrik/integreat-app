@@ -110,7 +110,8 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
   // Shows the app icon as splash screen on app start.
   applicationId: string
   // Android application identifier.
-  googleServices: AndroidGoogleServicesConfigType | null | undefined
+  googleServices: AndroidGoogleServicesConfigType | null
+  floss: boolean
 }
 // Firebase config for iOS
 // These values can be retrieved from the GoogleService-Info.plist.

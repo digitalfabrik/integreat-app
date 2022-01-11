@@ -42,6 +42,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
 
 const androidMalteBuildConfig: AndroidBuildConfigType = {
   ...commonMalteBuildConfig,
+  floss: false,
   splashScreen: false,
   applicationId: 'de.malteapp',
   googleServices: {
