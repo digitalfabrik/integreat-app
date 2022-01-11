@@ -2,6 +2,7 @@ import { BBox } from 'geojson'
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
   createPOIsEndpoint,
@@ -9,7 +10,6 @@ import {
   embedInCollection,
   locationName,
   MapViewViewport,
-  normalizePath,
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
@@ -34,7 +34,6 @@ import PoiListItem from '../components/PoiListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { RouteProps } from './index'
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
@@ -44,14 +43,12 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport
   ])
 }
 
-type PropsType = CityRouteProps & RouteProps<typeof POIS_ROUTE>
-
-const PoisPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
-  const { cityCode, languageCode, poiId } = match.params
-  const pathname = normalizePath(location.pathname)
+const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
+  const { poiId } = useParams()
   const { t } = useTranslation('pois')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
+  const navigate = useNavigate()
   // eslint-disable-next-line no-console
   console.log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
 
@@ -131,7 +128,7 @@ const PoisPage = ({ match, cityModel, location, languages, history }: PropsType)
           content={content}
           title={title}
           formatter={formatter}
-          onInternalLinkClick={history.push}>
+          onInternalLinkClick={navigate}>
           {location.location && (
             <PageDetail
               identifier={t('location')}

@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
   createLocalNewsEndpoint,
@@ -10,8 +10,7 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   replaceLinks,
-  useLoadFromEndpoint,
-  normalizePath
+  useLoadFromEndpoint
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -25,16 +24,13 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { LOCAL_NEWS_ROUTE, RouteProps } from './index'
+import { LOCAL_NEWS_ROUTE } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof LOCAL_NEWS_ROUTE>
-
-const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
-  const { cityCode, languageCode, newsId } = match.params
-  const pathname = normalizePath(location.pathname)
-  const history = useHistory()
+const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+  const { newsId } = useParams()
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
+  const navigate = useNavigate()
   const viewportSmall = false
 
   const requestLocalNews = useCallback(
@@ -131,7 +127,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
           lastUpdateFormat='LLL'
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
-          onInternalLinkClick={history.push}
+          onInternalLinkClick={navigate}
         />
       </LocationLayout>
     )

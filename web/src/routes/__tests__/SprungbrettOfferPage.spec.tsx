@@ -1,7 +1,5 @@
 import { RenderResult } from '@testing-library/react'
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { mocked } from 'ts-jest/utils'
 
 import {
@@ -14,8 +12,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
 import { RoutePatterns } from '../index'
 
@@ -70,24 +67,20 @@ describe('SprungbrettOfferPage', () => {
     cityCode: city.code,
     languageCode: language.code
   })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}`
 
   const renderSprungbrett = (): RenderResult =>
-    renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
-          render={props => (
-            <SprungbrettOfferPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: pathname }
+    renderRoute(
+      <SprungbrettOfferPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={language}
+        pathname={pathname}
+        cityCode={city.code}
+        languageCode={language.code}
+      />,
+      { routePattern, pathname, wrapWithTheme: true }
     )
 
   it('should render page with title and content', () => {
