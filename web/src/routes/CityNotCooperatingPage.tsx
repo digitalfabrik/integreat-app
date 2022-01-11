@@ -4,8 +4,7 @@ import styled from 'styled-components'
 
 import { CITY_NOT_COOPERATING_ROUTE } from 'api-client/src'
 
-import placeholderIcon2 from '../assets/location-icon.svg'
-import placeholderIcon from '../assets/magnifier.svg'
+import cityNotCooperationIcon from '../assets/cityNotCooperating.svg'
 import BackNavigationHeader from '../components/BackNavigationHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
@@ -32,17 +31,11 @@ const Text = styled.p`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
-const IconContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const Icon = styled.img`
-  width: calc(20px + 5vw);
-  height: calc(20px + 5vw);
+  width: calc(40px + 10vw);
+  height: calc(40px + 10vw);
   flex-shrink: 0;
-  padding: 8px;
-  /* object-fit: contain; */
+  align-self: center;
 `
 
 const ListHeading = styled(Heading)`
@@ -109,10 +102,7 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
         <Container>
           <Heading>{t('callToAction')}</Heading>
           <Text>{t('explanation')}</Text>
-          <IconContainer>
-            <Icon alt='' src={placeholderIcon} />
-            <Icon alt='' src={placeholderIcon2} />
-          </IconContainer>
+          <Icon alt='' src={cityNotCooperationIcon} />
           <ListHeading>{t('whatToDo')}</ListHeading>
           <ListItem>
             <StepNumber>1</StepNumber>
