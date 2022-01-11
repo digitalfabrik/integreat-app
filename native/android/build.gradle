@@ -31,7 +31,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        // TODO IGAPP-874 Remove. Still required for mapbox-android-accounts:0.7.0.(maplibre.gl:android-sdk:9.2.1)
         jcenter()
         maven {
             url = "https://dl.bintray.com/maplibre/maplibre-gl-native"
@@ -50,7 +49,6 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
-        // TODO IGAPP-874 Remove. Still required for mapbox-android-accounts:0.7.0.(maplibre.gl:android-sdk:9.2.1)
         jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
