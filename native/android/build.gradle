@@ -14,7 +14,6 @@ buildscript {
         rnmbglMapboxLibs = {
             implementation("org.maplibre.gl:android-sdk:9.2.1")
             implementation ("com.mapbox.mapboxsdk:mapbox-sdk-turf:5.8.0")
-            implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'
         }
         rnmbglMapboxPlugins = {
             implementation("com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0")
