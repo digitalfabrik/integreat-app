@@ -18,8 +18,8 @@ const FooterContainer = styled.div`
 `
 
 const Icon = styled.img`
-  width: calc(40px + 10vw);
-  height: calc(40px + 10vw);
+  width: calc(30px + 8vw);
+  height: calc(30px + 8vw);
   flex-shrink: 0;
 `
 
