@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 import { CITY_NOT_COOPERATING_ROUTE } from 'api-client/src'
 
-import placeholderIcon2 from '../assets/location-icon.svg'
-import placeholderIcon from '../assets/magnifier.svg'
+import cityNotCooperatingIcon from '../assets/cityNotCooperating.svg'
 import { createPath } from '../routes'
 
 const FooterContainer = styled.div`
@@ -19,10 +18,9 @@ const FooterContainer = styled.div`
 `
 
 const Icon = styled.img`
-  width: calc(20px + 5vw);
-  height: calc(20px + 5vw);
+  width: calc(40px + 10vw);
+  height: calc(40px + 10vw);
   flex-shrink: 0;
-  padding: 8px;
 `
 
 const Button = styled(Link)`
@@ -47,13 +45,8 @@ const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => 
 
   return (
     <FooterContainer>
-      <div>
-        <Icon alt='' src={placeholderIcon} />
-        <Icon alt='' src={placeholderIcon2} />
-      </div>
-
+      <Icon alt='' src={cityNotCooperatingIcon} />
       <Question>{t('cityNotCooperating')}</Question>
-
       <Button to={createPath(CITY_NOT_COOPERATING_ROUTE, { languageCode })}>{t('cityNotCooperatingButton')}</Button>
     </FooterContainer>
   )
