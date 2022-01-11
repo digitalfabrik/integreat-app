@@ -41,6 +41,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
 }
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
+  floss: false,
   splashScreen: true,
   applicationId: 'tuerantuer.app.integreat',
   googleServices: {
