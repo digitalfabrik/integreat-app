@@ -27,6 +27,12 @@ export type GeoJsonPoiProperties = {
   thumbnail?: string
 }
 
+export type MarkerConfig = {
+  symbol: string
+  symbolActive: string
+  iconSize: number
+}
+
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
 export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
 export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
@@ -46,5 +52,9 @@ export const defaultViewportConfig: MapViewViewport = {
 
 export const detailZoom = 15
 export const locationName = 'name'
-export const markerSymbol = 'marker_15'
-export const markerActiveSymbol = 'marker_15_active'
+
+export const mapMarker: MarkerConfig = {
+  iconSize: 1.75,
+  symbol: 'marker_15',
+  symbolActive: 'marker_15_active'
+}
