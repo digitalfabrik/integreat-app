@@ -3,10 +3,9 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { withTheme } from 'styled-components'
 
-import { CATEGORIES_ROUTE, CityModel } from 'api-client'
+import { cityContentPath, CityModel } from 'api-client'
 import type { ThemeType } from 'build-configs'
 
-import { createPath } from '../routes'
 import { normalizeSearchString } from '../utils/stringUtils'
 
 const MAX_NUMBER_OF_ALIASES = 3
@@ -50,7 +49,7 @@ class CityEntry extends React.PureComponent<PropsType> {
     const normalizedFilter = normalizeSearchString(filterText)
     const aliases = this.getMatchedAliases(city, normalizedFilter)
     return (
-      <CityListItem to={createPath(CATEGORIES_ROUTE, { cityCode: city.code, languageCode: language })}>
+      <CityListItem to={cityContentPath({ cityCode: city.code, languageCode: language })}>
         <Highlighter
           searchWords={[filterText]}
           sanitize={normalizeSearchString}

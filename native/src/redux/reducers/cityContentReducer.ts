@@ -18,7 +18,7 @@ export default (
     const { language, path, depth, key, city } = action.params
     const initializedState = state || createCityContent(city)
     const reuseOldContent = state?.routeMapping[key]?.routeType === CATEGORIES_ROUTE
-    const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
+    const oldContent = reuseOldContent ? state.routeMapping[key] : {}
     return {
       ...initializedState,
       routeMapping: {
@@ -31,7 +31,7 @@ export default (
     const { language, path, key, city } = action.params
     const initializedState = state || createCityContent(city)
     const reuseOldContent = state?.routeMapping[key]?.routeType === EVENTS_ROUTE
-    const oldContent = reuseOldContent ? state?.routeMapping[key] : {}
+    const oldContent = reuseOldContent ? state.routeMapping[key] : {}
     return {
       ...initializedState,
       routeMapping: {

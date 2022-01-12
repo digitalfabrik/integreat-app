@@ -1,15 +1,15 @@
 import moment from 'moment'
 import React, { ReactElement, useCallback, useContext, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import {
   CATEGORIES_ROUTE,
   CategoriesMapModel,
   CategoryModel,
+  cityContentPath,
   createCategoryChildrenEndpoint,
   createCategoryParentsEndpoint,
-  normalizePath,
   NotFoundError,
   Payload,
   ResponseError,
@@ -32,7 +32,6 @@ import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import { urlFromPath } from '../utils/stringUtils'
-import { createPath, RouteProps } from './index'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
@@ -49,12 +48,9 @@ const getBreadcrumb = (category: CategoryModel, cityName: string) => {
   })
 }
 
-type PropsType = CityRouteProps & RouteProps<typeof CATEGORIES_ROUTE>
-
-const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
-  const previousPathname = useRef<string | null | undefined>(null)
-  const { cityCode, languageCode, categoryId } = match.params
-  const pathname = normalizePath(location.pathname)
+const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode }: CityRouteProps): ReactElement => {
+  const previousPathname = useRef<string | null>(null)
+  const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
   const formatter = useContext(DateFormatterContext)
   const uiDirection = config.getScriptDirection(languageCode)
@@ -125,7 +121,7 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
-      ? createPath(CATEGORIES_ROUTE, { cityCode, languageCode: code })
+      ? cityContentPath({ cityCode, languageCode: code })
       : category?.availableLanguages.get(code) || null
 
     return {
@@ -172,7 +168,7 @@ const CategoriesPage = ({ cityModel, match, location, languages }: PropsType): R
     .reverse()
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, cityModel.name))
 
-  const metaDescription = t('metaDescription', { appName: buildConfig().appName })
+  const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
   const pageTitle = `${!category.isRoot() ? `${category.title} - ` : ''}${cityModel.name}`
 
   return (

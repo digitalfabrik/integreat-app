@@ -7,6 +7,7 @@ import { Dispatch } from 'redux'
 
 import { SetResourceCacheUrlActionType, StoreActionType } from '../redux/StoreActionType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
+import { getErrorMessage } from '../utils/helpers'
 
 type OwnPropsType = {
   children: React.ReactNode
@@ -53,7 +54,7 @@ class StaticServerProvider extends React.Component<
     } catch (e) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
-        errorMessage: e.message
+        errorMessage: getErrorMessage(e)
       })
     }
   }
