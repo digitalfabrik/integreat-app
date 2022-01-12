@@ -53,7 +53,7 @@ const StepNumber = styled.div`
   float: left;
   border-radius: 50%;
   line-height: 2rem;
-  width: 2rem;
+  min-width: 2rem;
   height: 2rem;
   text-align: center;
   background-color: ${props => props.theme.colors.themeColor};

@@ -9,6 +9,7 @@ const BackButton = styled.img`
   width: 20px;
   height: 20px;
   padding: 40px 0 10px 10px;
+  cursor: pointer;
 `
 
 const BackNavigationHeader = (): ReactElement => {
