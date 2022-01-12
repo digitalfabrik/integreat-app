@@ -19,17 +19,20 @@ export type FixedCityType =
       fixedCity: null
     }
 export type FeatureFlagsType = FixedCityType & {
-  pois: boolean
+  // Whether the build should be floss. If set to true, proprietary libraries and features like firebase are stripped.
+  floss: boolean
   // Enables POIs and maps, can be disabled via our api on a per city basis.
-  newsStream: boolean
+  pois: boolean
   // Enables local news and tünews, can be disabled via our api on a per city basis.
-  pushNotifications: boolean
+  newsStream: boolean
   // Enables firebase push notifications, can be disabled by users.
-  jpalTracking: boolean
+  pushNotifications: boolean
   // Enables tracking campaign for the jpal evaluation.
-  sentry: boolean
+  jpalTracking: boolean
   // Enables error tracking to sentry, can be disabled by users.
-  developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  sentry: boolean
+  // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  developerFriendly: boolean
 }
 // Available on all platforms
 export type CommonBuildConfigType = {
@@ -111,7 +114,6 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
   applicationId: string
   // Android application identifier.
   googleServices: AndroidGoogleServicesConfigType | null
-  floss: boolean
 }
 // Firebase config for iOS
 // These values can be retrieved from the GoogleService-Info.plist.

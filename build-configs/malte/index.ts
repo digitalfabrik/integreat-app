@@ -23,6 +23,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern: 'https?:\\/\\/(cms\\.)?malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
+    floss: false,
     pois: false,
     newsStream: true,
     pushNotifications: true,
@@ -42,7 +43,6 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
 
 const androidMalteBuildConfig: AndroidBuildConfigType = {
   ...commonMalteBuildConfig,
-  floss: false,
   splashScreen: false,
   applicationId: 'de.malteapp',
   googleServices: {

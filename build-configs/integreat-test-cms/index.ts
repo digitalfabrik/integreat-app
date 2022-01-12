@@ -11,6 +11,7 @@ const integreatTestCms = {
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
   featureFlags: {
+    floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: true,
