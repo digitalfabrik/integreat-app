@@ -32,8 +32,8 @@ export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
 export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>
 
 export const mapConfig: MapConfigProps = {
-  styleJSON: 'https://integreat.github.io/integreat-osm-liberty/style.json',
-  accessToken: 'test'
+  styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
+  accessToken: 'dummy'
 }
 
 export const defaultViewportConfig: MapViewViewport = {

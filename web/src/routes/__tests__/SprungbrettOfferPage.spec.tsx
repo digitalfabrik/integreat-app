@@ -1,22 +1,20 @@
 import { RenderResult } from '@testing-library/react'
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { mocked } from 'ts-jest/utils'
 
 import {
   CityModelBuilder,
   LanguageModelBuilder,
   OffersModelBuilder,
+  pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   useLoadFromEndpoint
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import SprungbrettOfferPage from '../SprungbrettOfferPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -64,24 +62,25 @@ describe('SprungbrettOfferPage', () => {
       url: 'http://awesome-jobs.domain'
     })
   ]
+  const pathname = pathnameFromRouteInformation({
+    route: SPRUNGBRETT_OFFER_ROUTE,
+    cityCode: city.code,
+    languageCode: language.code
+  })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}`
 
   const renderSprungbrett = (): RenderResult =>
-    renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[SPRUNGBRETT_OFFER_ROUTE]}
-          render={props => (
-            <SprungbrettOfferPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
+    renderRoute(
+      <SprungbrettOfferPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={language}
+        pathname={pathname}
+        cityCode={city.code}
+        languageCode={language.code}
+      />,
+      { routePattern, pathname, wrapWithTheme: true }
     )
 
   it('should render page with title and content', () => {

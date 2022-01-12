@@ -11,6 +11,7 @@ const localStorageAvailable = () => {
 
   try {
     const localStorage = window.localStorage
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     hasLocalStorageSupport = localStorage !== null
     const testKey = 'i18next.translate.boo'
     localStorage.setItem(testKey, 'foo')
@@ -40,7 +41,9 @@ const languageDetector: LanguageDetectorModule = {
 
     // Adapted from:
     // https://github.com/i18next/i18next-browser-languageDetector/blob/a84df47faf3603ece04bc224e8e0f6f0ca1df923/src/browserLookups/navigator.js
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (typeof navigator !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (navigator.languages) {
         // chrome only; not an array, so can't use .push.apply instead of iterating
         for (let i = 0; i < navigator.languages.length; i += 1) {

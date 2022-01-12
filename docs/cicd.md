@@ -176,7 +176,7 @@ You can control which jobs should be skipped through environment variables.
 Set the variable `SKIP_JOB_deliver_aschaffenburg_ios` to `"aschaffenburg"` to skip the job with the name `deliver_aschaffenburg_ios`.
 You can also set it to `"malte|aschaffenburg"` in order to match multiple build configs or to `"all"` to match all build configs.
 
-Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/Integreat/integreat-app/environment-variables) of CircleCI.
+Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/digitalbarik/integreat-app/environment-variables) of CircleCI.
 
 **Note: Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`.**
 

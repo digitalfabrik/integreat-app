@@ -5,6 +5,8 @@ import {
   createTunewsEndpoint,
   createTunewsLanguagesEndpoint,
   loadFromEndpoint,
+  NEWS_ROUTE,
+  pathnameFromRouteInformation,
   TU_NEWS_TYPE,
   TunewsModel,
   useLoadFromEndpoint
@@ -21,15 +23,12 @@ import NewsTabs from '../components/NewsTabs'
 import TuNewsList from '../components/TuNewsList'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { createPath, RouteProps, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './index'
+import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
-type PropsType = CityRouteProps & RouteProps<typeof TU_NEWS_ROUTE>
-
-const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement => {
-  const { cityCode, languageCode } = match.params
+const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const viewportSmall = false
@@ -79,7 +78,13 @@ const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement =>
         content={content}
         timestamp={date}
         key={id}
-        link={createPath(TU_NEWS_DETAIL_ROUTE, { cityCode, languageCode, newsId: id })}
+        link={pathnameFromRouteInformation({
+          route: NEWS_ROUTE,
+          newsType: TU_NEWS_TYPE,
+          cityCode,
+          languageCode,
+          newsId: id.toString()
+        })}
         t={t}
         formatter={formatter}
         type={TU_NEWS_TYPE}
@@ -124,7 +129,9 @@ const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement =>
   const languageChangePaths = languages.map(({ code, name }) => {
     const isLanguageAvailable = tuNewsLanguages.find(language => language.code === code)
     return {
-      path: isLanguageAvailable ? createPath(TU_NEWS_ROUTE, { cityCode, languageCode: code }) : null,
+      path: isLanguageAvailable
+        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
+        : null,
       name,
       code
     }
