@@ -226,12 +226,17 @@ android {
             }
 
         }
-    }
 
-    // Exclude mapbox-android-accounts because of its proprietary license
-    applicationVariants.all { variant ->
+        // Exclude mapbox-android-accounts because of its proprietary license
         variant.getCompileConfiguration().exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-accounts'
         variant.getRuntimeConfiguration().exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-accounts'
+    }
+
+    // Exclude firebase if there is no firebase config or it is a floss build
+    if (buildConfig.googleServices == null || buildConfig.floss == true) {
+        configurations {
+            all*.exclude group: 'com.google.firebase'
+        }
     }
 
     // Used for react-native-pdf
