@@ -233,7 +233,7 @@ android {
     }
 
     // Exclude proprietary firebase for floss builds
-    if (buildConfig.floss) {
+    if (buildConfig.featureFlags.floss) {
         configurations {
             all*.exclude group: 'com.google.firebase'
         }
