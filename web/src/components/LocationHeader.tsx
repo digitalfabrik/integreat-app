@@ -40,10 +40,10 @@ type PropsType = {
 
 const LocationHeader = (props: PropsType): ReactElement => {
   const { viewportSmall, onStickyTopChanged, cityModel, languageCode, languageChangePaths, route } = props
-  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
+  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
-  const newsType = pushNotificationsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
+  const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
   const categoriesPath = cityContentPath(params)
   const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
   const offersPath = pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params })
@@ -68,7 +68,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
   ]
 
   const getNavigationItems = (): Array<ReactNode> => {
-    const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)
+    const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
     const isOffersVisible = offersEnabled
