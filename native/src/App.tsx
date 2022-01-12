@@ -30,6 +30,7 @@ import createReduxStore from './redux/createReduxStore'
 import appSettings from './utils/AppSettings'
 import { DataContainer } from './utils/DataContainer'
 import DefaultDataContainer from './utils/DefaultDataContainer'
+import { pushNotificationsEnabled } from './utils/PushNotificationsManager'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
@@ -57,7 +58,7 @@ const linking: LinkingOptions<RoutesParamsType> = {
       }
     ]
   }),
-  subscribe: buildConfig().featureFlags.pushNotifications
+  subscribe: pushNotificationsEnabled()
     ? (listener: (url: string) => void) => {
         const onReceiveURL = ({ url }: { url: string }) => listener(url)
 

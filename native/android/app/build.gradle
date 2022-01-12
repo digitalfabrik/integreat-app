@@ -232,8 +232,8 @@ android {
         variant.getRuntimeConfiguration().exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-accounts'
     }
 
-    // Exclude firebase if there is no firebase config or it is a floss build
-    if (buildConfig.googleServices == null || buildConfig.floss == true) {
+    // Exclude proprietary firebase for floss builds
+    if (buildConfig.floss) {
         configurations {
             all*.exclude group: 'com.google.firebase'
         }
