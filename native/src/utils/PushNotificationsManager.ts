@@ -3,10 +3,11 @@ import messaging from '@react-native-firebase/messaging'
 import buildConfig from '../constants/buildConfig'
 import { log, reportError } from './sentry'
 
-const pushNotificationsDisabled = (): boolean => !buildConfig().featureFlags.pushNotifications
+export const pushNotificationsEnabled = (): boolean =>
+  buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
 
 export const requestPushNotificationPermission = async (): Promise<boolean> => {
-  if (pushNotificationsDisabled()) {
+  if (!pushNotificationsEnabled()) {
     log('Push notifications disabled, no permissions requested.')
     return false
   }
@@ -20,7 +21,7 @@ export const requestPushNotificationPermission = async (): Promise<boolean> => {
 const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
 
 export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
-  if (pushNotificationsDisabled()) {
+  if (!pushNotificationsEnabled()) {
     log('Push notifications disabled, unsubscription skipped.')
     return
   }
@@ -35,7 +36,7 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   log(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
-  if (pushNotificationsDisabled()) {
+  if (!pushNotificationsEnabled()) {
     log('Push notifications disabled, subscription skipped.')
     return
   }
