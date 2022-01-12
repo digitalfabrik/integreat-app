@@ -21,6 +21,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
+    floss: false,
     pois: false,
     newsStream: true,
     pushNotifications: true,
@@ -41,7 +42,6 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
 }
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
-  floss: false,
   splashScreen: true,
   applicationId: 'tuerantuer.app.integreat',
   googleServices: {

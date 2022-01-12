@@ -24,6 +24,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
+    floss: false,
     pois: false,
     newsStream: false,
     pushNotifications: false,
@@ -44,7 +45,6 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
 
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
-  floss: false,
   splashScreen: false,
   applicationId: 'app.aschaffenburg',
   googleServices: null

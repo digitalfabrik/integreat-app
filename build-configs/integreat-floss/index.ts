@@ -1,15 +1,22 @@
-import { AndroidBuildConfigType } from '../BuildConfigType'
+import { AndroidBuildConfigType, CommonBuildConfigType } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
 
-export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
+const commonIntegreatFlossBuildConfig: CommonBuildConfigType = {
+  ...integreatPlatformBuildConfigs.common,
+  featureFlags: {
+    ...integreatPlatformBuildConfigs.common.featureFlags,
+    floss: true
+  }
+}
+const androidIntegreatFlossBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   googleServices: null,
   // TODO Use correct applicationId
-  applicationId: 'tuerantuer.app.integreat',
-  floss: true
+  applicationId: 'tuerantuer.app.integreat'
 }
 const platformBuildConfigs = {
   ...integreatPlatformBuildConfigs,
-  android: androidIntegreatBuildConfig
+  common: commonIntegreatFlossBuildConfig,
+  android: androidIntegreatFlossBuildConfig
 }
 export default platformBuildConfigs
