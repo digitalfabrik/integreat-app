@@ -1,15 +1,18 @@
 import moment from 'moment'
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 
-import { CityModelBuilder, DISCLAIMER_ROUTE, LanguageModelBuilder, PageModel } from 'api-client'
+import {
+  CityModelBuilder,
+  DISCLAIMER_ROUTE,
+  LanguageModelBuilder,
+  PageModel,
+  pathnameFromRouteInformation
+} from 'api-client'
 import { mockUseLoadFromEndpointOnceWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import DisclaimerPage from '../DisclaimerPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -32,28 +35,34 @@ describe('DisclaimerPage', () => {
     hash: '2fe6283485a93932'
   })
 
-  it('should render page with title and content', () => {
-    const city = cities[0]!
-    const language = languages[0]!
+  const city = cities[0]!
+  const language = languages[0]!
 
+  const pathname = pathnameFromRouteInformation({
+    route: DISCLAIMER_ROUTE,
+    cityCode: city.code,
+    languageCode: language.code
+  })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[DISCLAIMER_ROUTE]}`
+
+  const renderDisclaimerPage = () => {
     mockUseLoadFromEndpointOnceWithData(disclaimer)
-    const { getByText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[DISCLAIMER_ROUTE]}
-          render={props => (
-            <DisclaimerPage
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={language}
-              {...props}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: createPath(DISCLAIMER_ROUTE, { cityCode: city.code, languageCode: language.code }) }
+    return renderRoute(
+      <DisclaimerPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={language}
+        languageCode={language.code}
+        cityCode={city.code}
+        pathname={pathname}
+      />,
+      { routePattern, pathname, wrapWithTheme: true }
     )
+  }
+
+  it('should render page with title and content', () => {
+    const { getByText } = renderDisclaimerPage()
 
     expect(getByText(disclaimer.title)).toBeTruthy()
     expect(getByText(disclaimer.content)).toBeTruthy()

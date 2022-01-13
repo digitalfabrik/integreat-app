@@ -87,7 +87,7 @@ const Events = ({
   }
 
   if (path) {
-    const event: EventModel | null | undefined = events.find(_event => _event.path === path)
+    const event = events.find(_event => _event.path === path)
 
     if (event) {
       const { location } = event.location
