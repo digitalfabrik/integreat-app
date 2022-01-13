@@ -1,4 +1,4 @@
-import { ErrorCode, EventModel, EVENTS_ROUTE } from 'api-client'
+import { ErrorCode, EVENTS_ROUTE } from 'api-client'
 
 import { CityContentStateType, EventRouteStateType } from '../StateType'
 import { PushEventActionType } from '../StoreActionType'
@@ -45,7 +45,7 @@ const getEventRouteState = (
     }
   }
 
-  const event: EventModel | null | undefined = events.find(event => event.path === currentPath)
+  const event = events.find(event => event.path === currentPath)
 
   if (!event) {
     return {

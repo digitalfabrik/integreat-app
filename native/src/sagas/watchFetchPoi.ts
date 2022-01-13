@@ -1,9 +1,8 @@
 import { all, call, put, SagaGenerator, select, takeLatest } from 'typed-redux-saga'
 
-import { ErrorCode, fromError, POIS_ROUTE } from 'api-client'
+import { cityContentPath, ErrorCode, fromError, POIS_ROUTE } from 'api-client'
 
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import { cityContentPath } from '../navigation/url'
 import { FetchPoiActionType, FetchPoiFailedActionType, PushPoiActionType } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'

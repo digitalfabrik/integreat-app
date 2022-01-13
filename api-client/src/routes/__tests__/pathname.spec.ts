@@ -12,12 +12,11 @@ import {
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   TU_NEWS_TYPE
-} from 'api-client'
-import InternalPathnameParser from 'api-client/src/routes/InternalPathnameParser'
+} from '..'
 
-import { cityContentPath, urlFromRouteInformation } from '../url'
+import { cityContentPath, pathnameFromRouteInformation } from '../pathname'
 
-describe('url', () => {
+describe('pathname', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
 
@@ -55,172 +54,165 @@ describe('url', () => {
       expect(pathname).toBe('/augsburg/de')
     })
   })
-  describe('urlFromRouteInformation', () => {
-    it('should return right url for landing route', () => {
+  describe('pathnameFromRouteInformation', () => {
+    it('should return right pathname for landing route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: LANDING_ROUTE,
           languageCode
         })
-      ).toBe(`https://integreat.app`)
+      ).toBe(`/${LANDING_ROUTE}/${languageCode}`)
     })
     it('should match landing route if pathname with tracking code', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: JPAL_TRACKING_ROUTE,
           trackingCode: 'abcdef12345'
         })
-      ).toBe(`https://integreat.app/jpal`)
+      ).toBe('/jpal')
     })
     it('should match dashboard route if pathname is a city with a language', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: DASHBOARD_ROUTE,
           languageCode: 'ar',
           cityCode,
           cityContentPath: `/${cityCode}/ar`
         })
-      ).toBe(`https://integreat.app/${cityCode}/ar`)
+      ).toBe(`/${cityCode}/ar`)
     })
     it('should match events route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
           cityContentPath: undefined
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
     it('should match single events route', () => {
       const pathname = `/${cityCode}/${languageCode}/${EVENTS_ROUTE}/1234`
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: EVENTS_ROUTE,
           languageCode,
           cityCode,
           cityContentPath: pathname
         })
-      ).toBe(`https://integreat.app${pathname}`)
+      ).toBe(pathname)
     })
     it('should match pois route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
           cityCode,
           cityContentPath: undefined
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${POIS_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
     it('should match single pois route', () => {
       const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/1234`
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
           cityCode,
           cityContentPath: pathname
         })
-      ).toBe(`https://integreat.app${pathname}`)
+      ).toBe(pathname)
     })
     it('should match disclaimer route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: DISCLAIMER_ROUTE,
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
     })
     it('should match offers route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: OFFERS_ROUTE,
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${OFFERS_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}`)
     })
     it('should match sprungbrett offers route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: SPRUNGBRETT_OFFER_ROUTE,
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${OFFERS_ROUTE}/${SPRUNGBRETT_OFFER_ROUTE}`)
     })
     it('should match search route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: SEARCH_ROUTE,
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${SEARCH_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${SEARCH_ROUTE}`)
     })
     it('should match local news route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: LOCAL_NEWS_TYPE,
           newsId: undefined,
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
     })
     it('should match single local news route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: LOCAL_NEWS_TYPE,
           newsId: '1234',
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
+      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
     })
     it('should match tunews route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: TU_NEWS_TYPE,
           newsId: undefined,
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
     })
     it('should match single tunews route', () => {
       expect(
-        urlFromRouteInformation({
+        pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: TU_NEWS_TYPE,
           newsId: '1234',
           languageCode,
           cityCode
         })
-      ).toBe(`https://integreat.app/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
+      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
     })
     it('should match categories route', () => {
-      const pathname1 = `/${cityCode}/${languageCode}/some-category`
-      const parser1 = new InternalPathnameParser(pathname1, languageCode, null)
-      expect(parser1.route()).toEqual({
-        route: CATEGORIES_ROUTE,
-        languageCode,
-        cityCode,
-        cityContentPath: pathname1
-      })
-      const pathname2 = `/${cityCode}/${languageCode}/some-category/2nd-level/3rd-level`
-      const parser2 = new InternalPathnameParser(pathname2, languageCode, null)
-      expect(parser2.route()).toEqual({
-        route: CATEGORIES_ROUTE,
-        languageCode,
-        cityCode,
-        cityContentPath: pathname2
-      })
+      const pathname = `/${cityCode}/${languageCode}/my/custom/category`
+      expect(
+        pathnameFromRouteInformation({
+          route: CATEGORIES_ROUTE,
+          languageCode,
+          cityCode,
+          cityContentPath: pathname
+        })
+      ).toBe(pathname)
     })
   })
 })

@@ -5,6 +5,7 @@ import {
   createOffersEndpoint,
   OfferModel,
   OFFERS_ROUTE,
+  pathnameFromRouteInformation,
   SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
@@ -20,12 +21,8 @@ import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TileModel from '../models/TileModel'
-import { createPath, RouteProps } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof OFFERS_ROUTE>
-
-const OffersPage = ({ cityModel, match, languages }: PropsType): ReactElement => {
-  const { languageCode, cityCode } = match.params
+const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
   const viewportSmall = false
 
@@ -45,7 +42,7 @@ const OffersPage = ({ cityModel, match, languages }: PropsType): ReactElement =>
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
-          path = createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode })
+          path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
         }
 
         return new TileModel({
@@ -60,7 +57,7 @@ const OffersPage = ({ cityModel, match, languages }: PropsType): ReactElement =>
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const offersPath = createPath(OFFERS_ROUTE, { cityCode, languageCode: code })
+    const offersPath = pathnameFromRouteInformation({ route: OFFERS_ROUTE, cityCode, languageCode: code })
     return {
       path: offersPath,
       name,
@@ -71,7 +68,7 @@ const OffersPage = ({ cityModel, match, languages }: PropsType): ReactElement =>
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
-    feedbackTargetInformation: { path: createPath(OFFERS_ROUTE, { cityCode, languageCode }) },
+    feedbackTargetInformation: { path: pathnameFromRouteInformation({ route: OFFERS_ROUTE, cityCode, languageCode }) },
     languageChangePaths,
     route: OFFERS_ROUTE,
     languageCode,
