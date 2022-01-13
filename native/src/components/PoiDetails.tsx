@@ -79,7 +79,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const onNavigate = () => {
     if (location && poi.featureLocation?.geometry.coordinates) {
       const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppAvailable')))
+      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
   }
 
@@ -99,7 +99,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         )}
         {distance && (
           <PoiDetailItem icon='place' language={language} onPress={detailPage ? navigateToPois : undefined}>
-            <Text>{t('distanceKilometer', { distance })}</Text>
+            <Text>{t('distanceKilometre', { distance })}</Text>
           </PoiDetailItem>
         )}
         <PoiDetailItem
