@@ -194,7 +194,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
           selectedFeature={selectedFeature}
           locationPermissionGranted={location !== null}
           onRequestLocationPermission={requestAndDetermineLocation}
-          fabPosition={snapPoints[sheetSnapPointIndex] ?? 0}
+          fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
         />
       )}
       <BottomActionsSheet
