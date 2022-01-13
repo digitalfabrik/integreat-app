@@ -573,7 +573,7 @@
         "pageTitle": "Seite nicht gefunden"
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
-      "noSuitableAppAvailable": "Keine passende App verfügbar.",
+      "noSuitableAppInstalled": "Keine passende App installiert.",
       "networkConnectionFailed": "Die Verbindung zum Server ist fehlgeschlagen.",
       "networkRequestFailed": "Die Anfrage konnte nicht bearbeitet werden.",
       "responseMappingFailed": "Die Antwort des Servers konnte nicht verarbeitet werden.",
@@ -5146,22 +5146,22 @@
       "map": "Karte",
       "showOnMap": "Auf der Karte anzeigen",
       "noPois": "Keine Orte gefunden.",
-      "unitKilometer": "km",
-      "unitMeter": "m",
-      "distanceKilometer": "{{distance}} km entfernt",
-      "distanceKilometerAlternative": "{{distance}} km",
-      "distanceMeter": "{{distance}} m entfernt",
-      "distanceMeterAlternative": "{{distance}} m",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km entfernt",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m entfernt",
+      "distanceMetreAlternative": "{{distance}} m",
       "address": "Adresse",
       "phone": "Telefonnummer",
-      "eMail": "E-Mail Adresse",
-      "website": "Website",
+      "eMail": "E-Mail-Adresse",
+      "website": "Webseite",
       "openingHours": "Öffnungszeiten",
       "description": "Beschreibung",
       "addressCopied": "Adresse in Zwischenablage kopiert",
       "phoneCopied": "Telefonnummer in Zwischenablage kopiert",
-      "eMailCopied": "E-Mail Adresse in Zwischenablage kopiert",
-      "websiteCopied": "Website in Zwischenablage kopiert"
+      "eMailCopied": "E-Mail-Adresse in Zwischenablage kopiert",
+      "websiteCopied": "Webseite in Zwischenablage kopiert"
     }
   }
 }

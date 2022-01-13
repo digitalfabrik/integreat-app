@@ -62,7 +62,7 @@ export const PoiListItem: React.FC<PoiListItemProps> = memo(
         <Description theme={theme}>
           <Title theme={theme}>{poi.properties.title}</Title>
           {poi.properties.distance && (
-            <Distance theme={theme}>{t('distanceKilometer', { distance: poi.properties.distance })}</Distance>
+            <Distance theme={theme}>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
           )}
         </Description>
       </StyledTouchableOpacity>
