@@ -58,7 +58,7 @@ describe('TuNews', () => {
       eventsEnabled: true,
       offersEnabled: true,
       poisEnabled: false,
-      pushNotificationsEnabled: true,
+      localNewsEnabled: true,
       tunewsEnabled: true,
       sortingName: 'Oldtown',
       prefix: 'GoT',
