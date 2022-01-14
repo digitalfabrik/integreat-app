@@ -67,7 +67,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   navigateToPois,
   language
 }: PoiDetailsProps): ReactElement => {
-  const { t } = useTranslation('map')
+  const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
   // TODO this has to be removed when we get proper images from CMS IGAPP-805
