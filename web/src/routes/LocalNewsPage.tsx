@@ -88,7 +88,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
           type={LOCAL_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LoadingSpinner />
@@ -142,7 +142,7 @@ const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode 
         type={LOCAL_NEWS_TYPE}
         city={cityCode}
         tunewsEnabled={cityModel.tunewsEnabled}
-        localNewsEnabled={cityModel.pushNotificationsEnabled}
+        localNewsEnabled={cityModel.localNewsEnabled}
         t={t}
         language={languageCode}>
         <LocalNewsList
