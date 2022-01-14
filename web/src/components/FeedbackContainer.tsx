@@ -143,7 +143,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
         {isSearchFeedback && (
           <IconTextContainer>
             <FontAwesomeIcon icon={faFrown} size='4x' />
-            <Text>{t('nothingFound')}</Text>
+            <Text role="alert">{t('nothingFound')}</Text>
           </IconTextContainer>
         )}
         <Feedback
