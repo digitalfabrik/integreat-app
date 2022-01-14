@@ -134,7 +134,7 @@ describe('OffersContainer', () => {
       eventsEnabled: true,
       offersEnabled: false,
       poisEnabled: true,
-      pushNotificationsEnabled: true,
+      localNewsEnabled: true,
       tunewsEnabled: true,
       sortingName: 'Augsburg',
       prefix: 'Stadt',

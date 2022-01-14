@@ -117,7 +117,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           type={TU_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LoadingSpinner />
@@ -144,7 +144,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           type={TU_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LanguageFailure
@@ -166,7 +166,7 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
         type={TU_NEWS_TYPE}
         city={cityCode}
         tunewsEnabled={cityModel.tunewsEnabled}
-        localNewsEnabled={cityModel.pushNotificationsEnabled}
+        localNewsEnabled={cityModel.localNewsEnabled}
         t={t}
         language={languageCode}>
         <TuNewsList

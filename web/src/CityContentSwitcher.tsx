@@ -121,7 +121,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
     languageCode
   }
   const { eventsEnabled, offersEnabled } = cityModel
-  const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.pushNotificationsEnabled
+  const localNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.localNewsEnabled
   const tuNewsEnabled = buildConfig().featureFlags.newsStream && cityModel.tunewsEnabled
   const poisEnabled = buildConfig().featureFlags.pois && cityModel.poisEnabled
 
