@@ -1,25 +1,24 @@
-import { shallow } from 'enzyme'
 import moment from 'moment'
 import React from 'react'
 
 import { CategoryModel } from 'api-client'
 
+import { renderWithRouter } from '../../testing/render'
 import CategoryList from '../CategoryList'
 
 const modelWithTitle = new CategoryModel({
   root: false,
   path: '/augsburg/de/erste-schritte/asylantrag',
   parentPath: '/augsburg/de/erste-schritte',
-  title: 'Willkommen',
+  title: 'Asylantrag',
   order: 3,
   availableLanguages: new Map(),
-  content: 'test content',
+  content: '<div>This is some special test content</div>',
   lastUpdate: moment('2016-01-07 10:36:24'),
-  thumbnail: 'thumb-nail',
+  thumbnail: 'title-thumbnail',
   hash: '91d435afbc7aa83437e81fd2832e3'
 })
-
-const categoryModels = [
+const categoryModels: [CategoryModel, CategoryModel, CategoryModel, CategoryModel] = [
   new CategoryModel({
     root: true,
     path: '/augsburg/de',
@@ -30,7 +29,7 @@ const categoryModels = [
     lastUpdate: moment('2016-01-07 10:36:24'),
     order: 0,
     thumbnail: 'thumb-nail',
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    hash: '91d435afbc7aa83496157e81fd2832e3'
   }),
   new CategoryModel({
     root: false,
@@ -42,7 +41,7 @@ const categoryModels = [
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    hash: '91d435afbc5aa83496137e81fd2832e3'
   }),
   new CategoryModel({
     root: false,
@@ -54,7 +53,7 @@ const categoryModels = [
     content: 'exampleContent0',
     lastUpdate: moment('2016-01-07 10:36:24'),
     thumbnail: 'thumb-nail',
-    hash: '91d435afbc7aa83496137e81fd2832e3'
+    hash: '91d435afbc7aa83496l37e81fd2832e3'
   }),
   new CategoryModel({
     root: false,
@@ -72,25 +71,38 @@ const categoryModels = [
 
 const categories = [
   {
-    model: categoryModels[0]!,
-    subCategories: [categoryModels[1]!, categoryModels[2]!]
+    model: categoryModels[0],
+    subCategories: [categoryModels[1], categoryModels[2]]
   },
   {
-    model: categoryModels[2]!,
-    subCategories: [categoryModels[3]!]
+    model: categoryModels[2],
+    subCategories: [categoryModels[3]]
   }
 ]
 
 describe('CategoryList', () => {
-  it('should render and display a caption', () => {
-    const wrapper = shallow(
-      <CategoryList categories={categories} onInternalLinkClick={() => undefined} category={modelWithTitle} />
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+  const onInternalLinkClick = jest.fn()
+
+  it('should render category list', () => {
+    const { getByText } = renderWithRouter(
+      <CategoryList onInternalLinkClick={onInternalLinkClick} categories={categories} />,
+      { wrapWithTheme: true }
     )
-    expect(wrapper).toMatchSnapshot()
+    categoryModels.forEach(() => {
+      expect(getByText(categoryModels[0].title)).toBeTruthy()
+    })
   })
 
-  it('should render and not display a caption', () => {
-    const wrapper = shallow(<CategoryList categories={categories} onInternalLinkClick={() => undefined} />)
-    expect(wrapper).toMatchSnapshot()
+  it('should render title, content and thumbnail of category', () => {
+    const { getByText, getByRole } = renderWithRouter(
+      <CategoryList onInternalLinkClick={onInternalLinkClick} categories={[]} category={modelWithTitle} />,
+      { wrapWithTheme: true }
+    )
+    expect(getByText('Asylantrag')).toBeTruthy()
+    expect(getByText('This is some special test content')).toBeTruthy()
+    expect(getByRole('img')).toHaveProperty('src', `http://localhost/${modelWithTitle.thumbnail}`)
   })
 })

@@ -29,7 +29,7 @@ describe('LocationHeader', () => {
     eventsEnabled: boolean,
     poisEnabled: boolean,
     tunewsEnabled: boolean,
-    pushNotificationsEnabled: boolean
+    localNewsEnabled: boolean
   ) =>
     new CityModel({
       name: 'Stadt Augsburg',
@@ -38,7 +38,7 @@ describe('LocationHeader', () => {
       eventsEnabled,
       offersEnabled,
       poisEnabled,
-      pushNotificationsEnabled,
+      localNewsEnabled,
       tunewsEnabled,
       sortingName: 'Augsburg',
       prefix: 'Stadt',
