@@ -56,8 +56,8 @@ const Dashboard = ({
 
   const getNavigationTileModels = useCallback((): Array<TileModel> => {
     const { featureFlags } = buildConfig()
-    const { tunewsEnabled, pushNotificationsEnabled, code: cityCode } = cityModel
-    const isNewsEnabled = tunewsEnabled || pushNotificationsEnabled
+    const { tunewsEnabled, localNewsEnabled, code: cityCode } = cityModel
+    const isNewsEnabled = tunewsEnabled || localNewsEnabled
     const tiles = []
 
     if (featureFlags.newsStream && isNewsEnabled) {
@@ -72,7 +72,7 @@ const Dashboard = ({
               route: NEWS_ROUTE,
               cityCode,
               languageCode: language,
-              newsType: pushNotificationsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE
+              newsType: localNewsEnabled ? LOCAL_NEWS_TYPE : TU_NEWS_TYPE
             }),
           notifications: 0
         })
