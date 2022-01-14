@@ -45,7 +45,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const { poiId } = useParams()
-  const { t } = useTranslation('map')
+  const { t } = useTranslation('pois')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()

@@ -299,7 +299,7 @@
       "offers": "Angebote",
       "events": "Veranstaltungen",
       "news": "Nachrichten",
-      "map": "Karte"
+      "pois": "Karte"
     },
     "am": {
       "localInformation": "አካባቢያዊ መረጃ",
@@ -586,7 +586,7 @@
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
         "offers": "Zu den Angeboten",
-        "map": "Zur Karte",
+        "pois": "Zur Karte",
         "localNews": "Zu den Nachrichten",
         "tunews": "Zu den tünews"
       },
@@ -3079,7 +3079,7 @@
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
       "search": "Suchen",
-      "map": "Karte",
+      "pois": "Karte",
       "changeLocation": "Standort wechseln",
       "changeLanguage": "Sprache wechseln",
       "settings": "Einstellungen",
@@ -5138,7 +5138,7 @@
       "noOffersAvailable": "目前没有提供项目"
     }
   },
-  "map": {
+  "pois": {
     "de": {
       "pageTitle": "Karte",
       "poi": "Ort",

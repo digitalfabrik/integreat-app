@@ -73,7 +73,7 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
         case 'poi':
           return {
             goToPath: pathnameFromRouteInformation({ route: POIS_ROUTE, ...params }),
-            goToMessage: 'goTo.map',
+            goToMessage: 'goTo.pois',
             errorMessage: 'notFound.poi'
           }
         case 'city':

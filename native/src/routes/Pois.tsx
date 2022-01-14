@@ -65,7 +65,7 @@ const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationT
  */
 
 const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
-  const { t } = useTranslation('map')
+  const { t } = useTranslation('pois')
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)

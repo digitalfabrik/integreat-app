@@ -118,7 +118,7 @@ const Dashboard = ({
     if (cityModel.poisEnabled && featureFlags.pois) {
       tiles.push(
         new TileModel({
-          title: t('map'),
+          title: t('pois'),
           path: 'pois',
           thumbnail: poisIcon,
           isExternalUrl: false,
