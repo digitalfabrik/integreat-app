@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
+    "module": "es2020",
     "outDir": "dist",
     "paths": {
       "api-client/*": ["../api-client/*"],
