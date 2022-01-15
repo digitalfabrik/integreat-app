@@ -8,8 +8,8 @@ import urlFromRouteInformation from '../navigation/url'
 import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
 
-// @ts-ignore The type of the import is wrong
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
+  // @ts-ignore The type of the import is wrong
   import('@react-native-firebase/messaging')
 
 export const pushNotificationsEnabled = (): boolean =>
