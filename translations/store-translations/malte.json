@@ -15,6 +15,9 @@
     "fr": {
       "keywords": "Allemagne,Malteser,aide,apprendre l'allemand,Règles,Cours d'allemand,Nouvelles,Conseil,Intégration"
     },
+    "hr": {
+      "keywords": "Malteser,Deutschland,Hilfe,Deutsch lernen,Regeln,Deutschkurs,Nachrichten,Beratung,Informationen,Asyl"
+    },
     "ka": {
       "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
     },
@@ -65,6 +68,11 @@
       "name": "Malte-App",
       "description": "Avec Malte, nous vous offrons un service numérique vous permettant d’obtenir en permanence et partout les informations les plus récentes de votre établissement ! \nMalte vous fournit une assistance pour :\n - la prise de rendez-vous auprès de médecins\n - les horaires d’ouverture des administrations\n - les plans de desserte locale\n - les offres de conseil\n - les informations sur des cours d’allemand, la vie en Allemagne, la vie dans votre établissement, etc.\nEt bien plus encore ! \nSoyez toujours informé(e) avec Malte ! \nL’appli fonctionne aussi hors connexion sans Internet mobile",
       "defaultReleaseNote": "Nous avons encore amélioré l'application et supprimé quelques bugs. "
+    },
+    "hr": {
+      "name": "Malte",
+      "description": "Mit Malte machen wir Ihnen ein digitales Angebot, um immer und überall die neuesten Informationen aus Ihrer Einrichtung zu erhalten! \nMalte liefert Ihnen Hilfe bei: \n - Der Terminvereinbarung bei Ärzten\n - Den Öffnungszeiten der Ämter\n - Nahverkehrsplänen\n - Beratungsangeboten\n - Informationen über Deutschkurse, das Leben in Deutschland, das Leben in der Einrichtung, …\nUnd vieles mehr! \nSei immer informiert, mit Malte! \nDie App funktioniert auch offline ohne mobiles Internet",
+      "defaultReleaseNote": "Wir haben die App weiter für Sie verbessert und einige Fehler entfernt."
     },
     "ka": {
       "name": "Malte",
@@ -118,6 +126,9 @@
     "fr": {
       "short_description": "Malte est l’appli d’orientation des établissements pour réfugiés du Malteser"
     },
+    "hr": {
+      "short_description": "Malte ist die Orientierungs-App für Flüchtlingseinrichtungen der Malteser Werke"
+    },
     "ka": {
       "short_description": "მალტე ლტოლვილთა თავშესაფრების საორიენტაციო აპლიკაციაა მალტეზერებისაგან"
     },
@@ -158,6 +169,9 @@
     },
     "fr": {
       "placeholder_key": "Malte vous fournit des informations locales concernant votre localité"
+    },
+    "hr": {
+      "placeholder_key": "Malte bietet Ihnen lokale Informationen zu Ihrem Standort"
     },
     "ka": {
       "placeholder_key": "მალტე გთავაზობთ ინფორმაციებს თქვენს ადგილსამყოფელთან დაკავშირებით"

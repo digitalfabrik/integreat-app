@@ -1,6 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { mocked } from 'ts-jest/utils'
 
 import {
@@ -13,8 +11,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import OffersPage from '../OffersPage'
 import { RoutePatterns } from '../index'
 
@@ -65,19 +62,21 @@ describe('OffersPage', () => {
     cityCode: city.code,
     languageCode: language.code
   })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[OFFERS_ROUTE]}`
 
   const renderOffersRoute = (mockData: ReturnType<OfferModel[]>) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData)
-    return renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[OFFERS_ROUTE]}
-          render={props => (
-            <OffersPage {...props} cities={cities} cityModel={city} languages={languages} languageModel={language} />
-          )}
-        />
-      </ThemeProvider>,
-      { route: pathname }
+    return renderRoute(
+      <OffersPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={language}
+        pathname={pathname}
+        cityCode={city.code}
+        languageCode={language.code}
+      />,
+      { routePattern, pathname, wrapWithTheme: true }
     )
   }
 

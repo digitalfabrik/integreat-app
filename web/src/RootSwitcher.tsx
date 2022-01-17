@@ -1,8 +1,9 @@
-import React, { ReactElement, Suspense, useCallback } from 'react'
+import React, { ReactElement, Suspense, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
 import {
+  cityContentPath,
   createCitiesEndpoint,
   LANDING_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
@@ -36,19 +37,20 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
   const { i18n } = useTranslation()
   const fixedCity = buildConfig().featureFlags.fixedCity
-  // LanguageCode is always the second param (if there is one)
-  const languageCode = useRouteMatch<{ languageCode?: string }>('/:slug/:languageCode')?.params.languageCode
+  const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode
   const { viewportSmall } = useWindowDimensions()
 
   const detectedLanguageCode = i18n.language
   const language = languageCode ?? detectedLanguageCode
 
-  if (language !== detectedLanguageCode) {
-    setContentLanguage(language)
-  }
+  useEffect(() => {
+    if (language !== detectedLanguageCode) {
+      setContentLanguage(language)
+    }
+  }, [language, detectedLanguageCode, setContentLanguage])
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
-  const cityContentPath = `/${fixedCity ?? ':cityCode'}/${language}`
+  const fixedCityPath = fixedCity ? cityContentPath({ cityCode: fixedCity, languageCode: language }) : null
 
   if (loading) {
     return (
@@ -69,27 +71,25 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   }
   const relevantCities = fixedCity ? cities.filter(city => city.code === fixedCity) : cities
 
+  const props = {
+    cities: relevantCities,
+    languageCode: language
+  }
+
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <Switch>
-        {fixedCity && <Redirect exact from={RoutePatterns[LANDING_ROUTE]} to={cityContentPath} />}
+      <Routes>
+        <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
+        <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
+        <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
+        <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
 
-        <Route
-          exact
-          path={RoutePatterns[LANDING_ROUTE]}
-          render={props => <LandingPage cities={relevantCities} {...props} />}
-        />
-        <Route
-          exact
-          path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}
-          render={() => <MainDisclaimerPage languageCode={language} />}
-        />
-        <Route exact path={RoutePatterns[NOT_FOUND_ROUTE]} component={NotFoundPage} />
-        <Route path={cityContentPattern} render={props => <CityContentSwitcher cities={relevantCities} {...props} />} />
-        <Redirect exact from='/' to={landingPath} />
-        <Redirect exact from={`/${LANDING_ROUTE}`} to={landingPath} />
-        <Redirect exact from='/:cityCode' to={cityContentPath} />
-      </Switch>
+        {/* Redirects */}
+        <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} />} />
+        <Route path={LANDING_ROUTE} element={<Navigate to={fixedCityPath ?? landingPath} />} />
+        <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} />} />
+        {fixedCityPath && <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} />} />}
+      </Routes>
     </Suspense>
   )
 }
