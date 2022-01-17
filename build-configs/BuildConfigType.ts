@@ -30,6 +30,8 @@ export type FeatureFlagsType = FixedCityType & {
   sentry: boolean
   // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  // Enables the option for users to suggest Integreat to their city
+  cityNotCooperating: boolean
 }
 // Available on all platforms
 export type CommonBuildConfigType = {

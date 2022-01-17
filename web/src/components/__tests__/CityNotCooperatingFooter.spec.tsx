@@ -16,8 +16,8 @@ describe('CityNotCooperatingFooter', () => {
       </BrowserRouter>,
       { wrapper: wrapWithTheme }
     )
-    expect(getByText('cityNotCooperating')).toBeDefined()
-    expect(getByText('cityNotCooperatingButton')).toBeDefined()
+    expect(getByText('cityNotFound')).toBeDefined()
+    expect(getByText('clickHere')).toBeDefined()
   })
 
   it('should navigate on button click', () => {
@@ -28,7 +28,7 @@ describe('CityNotCooperatingFooter', () => {
       </Router>,
       { wrapper: wrapWithTheme }
     )
-    const button = getByText('cityNotCooperatingButton')
+    const button = getByText('clickHere')
     fireEvent.click(button)
     expect(history.location.pathname).toEqual(`/${CITY_NOT_COOPERATING_ROUTE}/de`)
   })

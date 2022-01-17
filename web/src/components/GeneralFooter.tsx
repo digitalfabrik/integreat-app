@@ -14,7 +14,7 @@ type PropsType = {
 
 const GeneralFooter = ({ language }: PropsType): ReactElement => {
   const { aboutUrls, privacyUrls } = buildConfig()
-  const { t } = useTranslation(['layout', 'settings'])
+  const { t } = useTranslation('layout')
 
   const aboutUrl = aboutUrls[language] || aboutUrls.default
   const privacyUrl = privacyUrls[language] || privacyUrls.default

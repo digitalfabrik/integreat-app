@@ -17,7 +17,8 @@ const integreatE2e = {
     jpalTracking: false,
     sentry: false,
     developerFriendly: false,
-    fixedCity: null
+    fixedCity: null,
+    cityNotCooperating: true
   }
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {
