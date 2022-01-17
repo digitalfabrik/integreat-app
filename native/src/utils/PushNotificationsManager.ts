@@ -9,8 +9,7 @@ import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
-  // @ts-ignore The type of the import is wrong
-  import('@react-native-firebase/messaging')
+  import('@react-native-firebase/messaging').then(firebase => firebase.default)
 
 export const pushNotificationsEnabled = (): boolean =>
   buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
