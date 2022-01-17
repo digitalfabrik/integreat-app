@@ -2634,6 +2634,7 @@
   "landing": {
     "de": {
       "searchCity": "Region suchen",
+      "noCitiesFound": "Keine Regionen gefunden.",
       "nearbyCities": "In der Nähe",
       "noNearbyCities": "Keine Regionen in der Nähe gefunden.",
       "alert": "Hinweis",
