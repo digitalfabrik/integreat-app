@@ -1,9 +1,8 @@
-import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
-const Header = styled.header`
+const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -18,11 +17,5 @@ const Header = styled.header`
     padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
-
-type PropsType = {
-  children: ReactNode
-}
-
-const HeaderContainer = ({ children }: PropsType): ReactElement => <Header>{children}</Header>
 
 export default HeaderContainer

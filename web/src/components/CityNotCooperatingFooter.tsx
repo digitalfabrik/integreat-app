@@ -14,7 +14,7 @@ const FooterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid ${props => props.theme.colors.textColor};
 `
 
 const Icon = styled.img`
