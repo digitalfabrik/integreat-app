@@ -49,8 +49,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
-  // eslint-disable-next-line no-console
-  console.log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
 
   const requestPois = useCallback(
     async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
