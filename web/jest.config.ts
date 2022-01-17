@@ -32,6 +32,7 @@ const config: Config.InitialOptions = {
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   globals: {
+    __BUILD_CONFIG_NAME__: 'integreat-test-cms',
     __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig,
     __VERSION_NAME__: '0.0.0',
     __COMMIT_SHA__: 123456789
