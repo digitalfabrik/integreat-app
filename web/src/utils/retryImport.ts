@@ -21,12 +21,12 @@ const retry = async <T>(
   interval = DEFAULT_INTERVAL
 ): Promise<{ default: ComponentType<T> }> => {
   try {
-    const component = componentImport()
+    const component = await componentImport()
     window.localStorage.setItem(PAGE_FORCE_REFRESHED_KEY, JSON.stringify(false))
     return component
   } catch (error: unknown) {
-    log(`Failed to import, ${retriesLeft} retries left.`, 'warn')
-    log(error instanceof Error ? error.message : 'Unknown error', 'warn')
+    log(`Failed to import, ${retriesLeft} retries left.`, 'warning')
+    log(error instanceof Error ? error.message : 'Unknown error', 'warning')
     await wait(interval)
     if (retriesLeft === 0) {
       const json = window.localStorage.getItem(PAGE_FORCE_REFRESHED_KEY)
@@ -34,7 +34,7 @@ const retry = async <T>(
 
       if (!pageForceRefreshed) {
         // Try force refreshing the page once
-        log('Force refreshing now', 'warn')
+        log('Force refreshing now', 'warning')
         window.localStorage.setItem(PAGE_FORCE_REFRESHED_KEY, JSON.stringify(true))
         window.location.reload()
       } else {
