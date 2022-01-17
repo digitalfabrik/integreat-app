@@ -12,7 +12,7 @@ import { ThemeType } from 'build-configs'
 
 import buildConfig from '../constants/buildConfig'
 import { LocationInformationType } from '../hooks/useUserLocation'
-import getNearbyPlaces from '../utils/getNearbyPlaces'
+import getNearbyCities from '../utils/getNearbyCities'
 import { normalizeSearchString } from '../utils/helpers'
 import CityEntry from './CityEntry'
 import CityGroup from './CityGroup'
@@ -118,7 +118,7 @@ class CitySelector extends React.PureComponent<PropsType> {
 
     if (location !== null) {
       const [longitude, latitude] = location
-      const nearbyCities = getNearbyPlaces(
+      const nearbyCities = getNearbyCities(
         cities.filter(city => city.live),
         longitude,
         latitude
