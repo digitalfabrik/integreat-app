@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow', 'styled-components-a11y'],
   extends: [
     'standard',
     'airbnb',
@@ -9,7 +9,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'prettier'
+    'prettier',
+    'plugin:styled-components-a11y/strict'
   ],
   env: {
     es6: true,
@@ -42,6 +43,16 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
+    'styled-components-a11y/label-has-for': [
+      2,
+      {
+        components: ['Label'],
+        required: {
+          every: ['id']
+        },
+        allowChildren: false
+      }
+    ],
 
     // Disabling since better @typescript-eslint rules available
     'default-case': 'off',
