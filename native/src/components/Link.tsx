@@ -16,7 +16,7 @@ type LinkProps = {
 }
 
 const Link = ({ url, text }: LinkProps): ReactElement => (
-  <Touchable onPress={() => openExternalUrl(url)} accessibilityRole='link'>
+  <Touchable onPress={() => openExternalUrl(url)} accessibilityRole='link' underlayColor='transparent'>
     <LinkText>{text}</LinkText>
   </Touchable>
 )
