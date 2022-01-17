@@ -1,6 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 
 import { cityContentPath, CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
@@ -8,8 +6,7 @@ import {
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import PoisPage from '../PoisPage'
 import { RoutePatterns } from '../index'
 
@@ -32,44 +29,34 @@ describe('PoisPage', () => {
   const poi0 = pois[0]!
   const poi1 = pois[1]!
 
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`
+
+  const renderPois = ({ id }: { id?: string } = {}) => {
+    const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code, path: id })
+    return renderRoute(
+      <PoisPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={language}
+        pathname={pathname}
+        languageCode={language.code}
+        cityCode={city.code}
+      />,
+      { routePattern, pathname, wrapWithTheme: true, childRoute: ':poiId' }
+    )
+  }
+
   it('should render a list with all pois', () => {
     mockUseLoadFromEndpointOnceWithData(pois)
-    const { getByText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[POIS_ROUTE]}
-          render={props => (
-            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
-          )}
-        />
-      </ThemeProvider>,
-      { route: cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code }) }
-    )
-
+    const { getByText } = renderPois()
     expect(getByText(poi0.title)).toBeTruthy()
     expect(getByText(poi1.title)).toBeTruthy()
   })
 
   it('should render a page with poi information', () => {
     mockUseLoadFromEndpointOnceWithData(pois)
-    const { getByText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[POIS_ROUTE]}
-          render={props => (
-            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
-          )}
-        />
-      </ThemeProvider>,
-      {
-        route: cityContentPath({
-          route: POIS_ROUTE,
-          cityCode: city.code,
-          languageCode: language.code,
-          path: 'test_path_2'
-        })
-      }
-    )
+    const { getByText } = renderPois({ id: 'test_path_2' })
 
     expect(getByText(poi1.title)).toBeTruthy()
     expect(getByText(poi1.content)).toBeTruthy()
@@ -78,43 +65,14 @@ describe('PoisPage', () => {
 
   it('should render a not found error', () => {
     mockUseLoadFromEndpointOnceWithData(pois)
-    const { getByText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[POIS_ROUTE]}
-          render={props => (
-            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
-          )}
-        />
-      </ThemeProvider>,
-      {
-        route: cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code, path: 'inavlid' })
-      }
-    )
+    const { getByText } = renderPois({ id: 'invalid' })
 
     expect(getByText('error:notFound.poi')).toBeTruthy()
   })
 
   it('should render an error', () => {
     mockUseLoadFromEndpointWithError('Something went wrong')
-    const { getByText } = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[POIS_ROUTE]}
-          render={props => (
-            <PoisPage cities={cities} cityModel={city} languages={languages} languageModel={language} {...props} />
-          )}
-        />
-      </ThemeProvider>,
-      {
-        route: cityContentPath({
-          route: POIS_ROUTE,
-          cityCode: city.code,
-          languageCode: language.code,
-          path: 'test-path_2'
-        })
-      }
-    )
+    const { getByText } = renderPois({ id: 'test_path_2' })
 
     expect(getByText('error:unknownError')).toBeTruthy()
   })

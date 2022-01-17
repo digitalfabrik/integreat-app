@@ -23,15 +23,12 @@ import NewsTabs from '../components/NewsTabs'
 import TuNewsList from '../components/TuNewsList'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { RouteProps, TU_NEWS_ROUTE } from './index'
+import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
-type PropsType = CityRouteProps & RouteProps<typeof TU_NEWS_ROUTE>
-
-const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement => {
-  const { cityCode, languageCode } = match.params
+const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const viewportSmall = false
@@ -120,7 +117,7 @@ const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement =>
           type={TU_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LoadingSpinner />
@@ -147,7 +144,7 @@ const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement =>
           type={TU_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LanguageFailure
@@ -169,7 +166,7 @@ const TuNewsPage = ({ match, cityModel, languages }: PropsType): ReactElement =>
         type={TU_NEWS_TYPE}
         city={cityCode}
         tunewsEnabled={cityModel.tunewsEnabled}
-        localNewsEnabled={cityModel.pushNotificationsEnabled}
+        localNewsEnabled={cityModel.localNewsEnabled}
         t={t}
         language={languageCode}>
         <TuNewsList

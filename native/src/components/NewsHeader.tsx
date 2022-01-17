@@ -66,7 +66,7 @@ class NewsHeader extends React.PureComponent<PropsType> {
     return (
       <>
         <Caption title={t('news')} theme={theme} />
-        {cityModel.pushNotificationsEnabled && cityModel.tunewsEnabled && (
+        {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
           <HeaderContainer>
             <TouchableWrapper
               onPress={this.navigateToLocalNews}

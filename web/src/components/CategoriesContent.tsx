@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 import * as React from 'react'
 import { ReactElement } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { CategoriesMapModel, CategoryModel, DateFormatter } from 'api-client'
 
@@ -35,7 +35,7 @@ type PropsType = {
  */
 const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsType): ReactElement => {
   const children = categories.getChildren(categoryModel)
-  const history = useHistory()
+  const navigate = useNavigate()
 
   if (categories.isLeaf(categoryModel)) {
     // last level, our category is a simple page
@@ -45,7 +45,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
         formatter={formatter}
-        onInternalLinkClick={history.push}
+        onInternalLinkClick={navigate}
       />
     )
   }
@@ -61,7 +61,7 @@ const CategoriesContent = ({ categories, categoryModel, formatter, t }: PropsTyp
         subCategories: categories.getChildren(model)
       }))}
       category={categoryModel}
-      onInternalLinkClick={history.push}
+      onInternalLinkClick={navigate}
       formatter={formatter}
     />
   )

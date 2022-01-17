@@ -1,7 +1,5 @@
 import moment from 'moment'
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { mocked } from 'ts-jest/utils'
 
 import {
@@ -17,8 +15,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import TuNewsPage from '../TuNewsPage'
 import { RoutePatterns, TU_NEWS_ROUTE } from '../index'
 
@@ -70,30 +67,27 @@ describe('TuNewsPage', () => {
     refresh: () => undefined
   }
 
+  const pathname = pathnameFromRouteInformation({
+    route: NEWS_ROUTE,
+    newsType: TU_NEWS_TYPE,
+    cityCode: city.code,
+    languageCode: language.code
+  })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[TU_NEWS_ROUTE]}`
+
   const renderTuNewsRoute = (languageModel = language, tuNewsLanguages = languagesReturn) => {
-    const pathname = pathnameFromRouteInformation({
-      route: NEWS_ROUTE,
-      newsType: TU_NEWS_TYPE,
-      cityCode: city.code,
-      languageCode: languageModel.code
-    })
     mocked(useLoadFromEndpoint).mockImplementation(() => tuNewsLanguages)
-    return renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[TU_NEWS_ROUTE]}
-          render={props => (
-            <TuNewsPage
-              {...props}
-              cities={cities}
-              cityModel={city}
-              languages={languages}
-              languageModel={languageModel}
-            />
-          )}
-        />
-      </ThemeProvider>,
-      { route: pathname }
+    return renderRoute(
+      <TuNewsPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={languageModel}
+        pathname={pathname}
+        cityCode={city.code}
+        languageCode={languageModel.code}
+      />,
+      { routePattern, pathname, wrapWithTheme: true }
     )
   }
 
