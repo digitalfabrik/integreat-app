@@ -46,8 +46,8 @@ const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => 
   return (
     <FooterContainer>
       <Icon alt='' src={cityNotCooperatingIcon} />
-      <Question>{t('cityNotCooperating')}</Question>
-      <Button to={createPath(CITY_NOT_COOPERATING_ROUTE, { languageCode })}>{t('cityNotCooperatingButton')}</Button>
+      <Question>{t('cityNotFound')}</Question>
+      <Button to={createPath(CITY_NOT_COOPERATING_ROUTE, { languageCode })}>{t('clickHere')}</Button>
     </FooterContainer>
   )
 }

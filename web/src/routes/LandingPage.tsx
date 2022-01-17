@@ -29,7 +29,7 @@ const LandingPage = ({ cities, match }: PropsType): ReactElement => {
     <Layout
       footer={
         <>
-          {buildConfig().appName.startsWith('Integreat') && <CityNotCooperatingFooter languageCode={languageCode} />}
+          {buildConfig().featureFlags.cityNotCooperating && <CityNotCooperatingFooter languageCode={languageCode} />}
           <GeneralFooter language={languageCode} />
         </>
       }>
