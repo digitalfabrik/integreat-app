@@ -563,7 +563,7 @@
     "de": {
       "notFound": {
         "language": "Diese Sprache ist hier leider nicht verfügbar.",
-        "city": "Diese Stadt wurde leider nicht gefunden.",
+        "city": "Diese Region wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "offer": "Dieses Angebot wurde leider nicht gefunden.",
@@ -599,7 +599,6 @@
     "am": {
       "notFound": {
         "language": "ይቅርታ፣ ይህ ቋንቋ እዚህ ላይ የለም።",
-        "city": "ይቅርታ፣ ይህ ከተማ አልተገኘም።",
         "category": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
         "offer": "ይቅርታ፣ ይህ ግብዣ/መጥሪያ አልተገኘም።",
@@ -631,7 +630,6 @@
     "ar": {
       "notFound": {
         "language": "للأسف، هذه اللغة ليست متاحة.",
-        "city": "للأسف، تعذر العثور على هذه المدينة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
         "offer": "للأسف، تعذر العثور على هذا العرض.",
@@ -663,7 +661,6 @@
     "bg": {
       "notFound": {
         "language": "За съжаление този език не е наличен тук.",
-        "city": "За съжаление този град не беше намерен.",
         "category": "За съжаление тази страница не беше намерена.",
         "event": "За съжаление това събитие не беше намерено.",
         "offer": "За съжаление тази оферта не беше намерена.",
@@ -695,7 +692,6 @@
     "ckb": {
       "notFound": {
         "language": "بەداخەوە ئەم زمانەی تێدا نییە.",
-        "city": "بەداخەوە ئەم شارە نەدۆزراوە.",
         "category": "بەداخەوە ئەم لاپەڕە نەدۆزراوە.",
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزراوە.",
         "offer": "بەداخەوە ئەم پێشنیارە نەدۆزراوە.",
@@ -727,7 +723,6 @@
     "el": {
       "notFound": {
         "language": "Δυστυχώς, αυτή η γλώσσα δεν είναι διαθέσιμη εδώ.",
-        "city": "Δυστυχώς, αυτή η πόλη δεν βρέθηκε.",
         "category": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
         "offer": "Δυστυχώς, αυτή η προσφορά δεν βρέθηκε.",
@@ -759,7 +754,6 @@
     "en": {
       "notFound": {
         "language": "Sorry, but this language is not available here.",
-        "city": "Sorry, but this city could not be found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
@@ -791,7 +785,6 @@
     "es": {
       "notFound": {
         "language": "Tu idioma no está disponible aquí.",
-        "city": "No se ha encontrado esta ciudad.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
         "offer": "No se ha encontrado esta oferta.",
@@ -823,7 +816,6 @@
     "fr": {
       "notFound": {
         "language": "Malheureusement, cette langue n'est pas disponible ici.",
-        "city": "Malheureusement, cette ville est introuvable.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
         "offer": "Malheureusement, cette offre est introuvable.",
@@ -855,7 +847,6 @@
     "hr": {
       "notFound": {
         "language": "Tvoj jezik ovdje nažalost nije dostupan.",
-        "city": "Ovaj grad nažalost nije pronađen.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
         "offer": "Ova ponuda nažalost nije pronađena.",
@@ -887,7 +878,6 @@
     "hu": {
       "notFound": {
         "language": "A nyelved itt sajnos nem elérhető.",
-        "city": "Ez a város sajnos nem található.",
         "category": "Ez az oldal sajnos nem található.",
         "event": "Ez az esemény sajnos nem található.",
         "offer": "Ez az ajánlat sajnos nem található.",
@@ -919,7 +909,6 @@
     "it": {
       "notFound": {
         "language": "Purtroppo questa lingua non è disponibile qui.",
-        "city": "Purtroppo questa città non è stata trovata.",
         "category": "Purtroppo questa pagina non è stata trovata.",
         "event": "Purtroppo questo evento non è stato trovato.",
         "offer": "Purtroppo questa offerta non è stata trovata.",
@@ -951,7 +940,6 @@
     "ka": {
       "notFound": {
         "language": "სამწუხაროდ ეს ენა აქ არ გამოიყენება.",
-        "city": "სამწუხაროდ ეს ქალაქი ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
         "offer": "სამწუხაროდ ეს შეთავაზება ვერ მოიძებნა.",
@@ -983,7 +971,6 @@
     "kmr": {
       "notFound": {
         "language": "Mixabin zimanê te li vir li ber dest nîne.",
-        "city": "Mixabin ev bajar nehat vedîtin.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
         "offer": "Mixabin ev xizmet peyde nebû.",
@@ -1015,7 +1002,6 @@
     "mk": {
       "notFound": {
         "language": "За жал твојот јазик не е достапен.",
-        "city": "За жал овој град не е пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
         "offer": "За жал оваа понуда не е пронајдена.",
@@ -1047,7 +1033,6 @@
     "pes": {
       "notFound": {
         "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
-        "city": "متاسفانه این شهر یافت نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
         "offer": "متأسفانه این خدمات یافت نشد.",
@@ -1079,7 +1064,6 @@
     "pl": {
       "notFound": {
         "language": "Niestety ten język nie jest tutaj dostępny.",
-        "city": "Niestety nie znaleziono tego miasta.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
         "offer": "Niestety nie znaleziono tej oferty.",
@@ -1111,7 +1095,6 @@
     "prs": {
       "notFound": {
         "language": "متاسفانه این لسان در اینجا موجود نیست‎.",
-        "city": "متاسفانه این شهر پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
         "offer": "متاسفانه این پیشنهاد پیدا نشد‎.",
@@ -1143,7 +1126,6 @@
     "ps": {
       "notFound": {
         "language": "دا ژبه له بده مرغه دلته موجوده نده.",
-        "city": "دا ښار له بده مرغه پیدا نشو.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
         "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
@@ -1175,7 +1157,6 @@
     "ro": {
       "notFound": {
         "language": "Aici nu este disponibilă această limbă, din păcate.",
-        "city": "Acest oraș nu a fost găsit, din păcate.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
         "offer": "Această ofertă nu a fost găsită, din păcate.",
@@ -1207,7 +1188,6 @@
     "ru": {
       "notFound": {
         "language": "К сожалению, этот язык не поддерживается.",
-        "city": "К сожалению, этот город не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
         "offer": "К сожалению, это предложение не найдено.",
@@ -1239,7 +1219,6 @@
     "so": {
       "notFound": {
         "language": "Nasiib darro, luuqadan halkan lagama heli karo.",
-        "city": "Nasiib darro, magaaladan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
         "offer": "Nasiib darro, dalabkan lama helin.",
@@ -1271,7 +1250,6 @@
     "sq": {
       "notFound": {
         "language": "Fatkeqësisht, kjo gjuhë nuk është në dispozicion këtu.",
-        "city": "Ky qytet për fat të keq nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
         "offer": "Kjo ofertë për fat të keq nuk u gjet.",
@@ -1303,7 +1281,6 @@
     "sr-Cyrl": {
       "notFound": {
         "language": "Нажалост, овај језик овде није доступан.",
-        "city": "Нажалост, овај град није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
         "offer": "Нажалост, ова понуда није пронађена.",
@@ -1335,7 +1312,6 @@
     "sr-Latn": {
       "notFound": {
         "language": "Nažalost, ovaj jezik ovde nije dostupan.",
-        "city": "Nažalost, ovaj grad nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
         "offer": "Nažalost, ova ponuda nije pronađena.",
@@ -1367,7 +1343,6 @@
     "ti": {
       "notFound": {
         "language": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ቋንቋ’ዚ ኣብዚ የለን።",
-        "city": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዛ ከተማ እዚኣ ኣይተረኽበትን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
         "offer": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
@@ -1399,7 +1374,6 @@
     "tr": {
       "notFound": {
         "language": "Bu dil burada maalesef mevcut değil.",
-        "city": "Bu şehir maalesef bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
         "offer": "Bu teklif maalesef bulunamadı.",
@@ -1431,7 +1405,6 @@
     "ur": {
       "notFound": {
         "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
-        "city": "معذرت، یہ شہر نہیں ملا۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
         "offer": "معذرت، یہ پیش کش نہیں ملی۔",
@@ -1464,7 +1437,6 @@
     "zh-CN": {
       "notFound": {
         "language": "很抱歉，这里没有提供该语言。",
-        "city": "很抱歉，找不到此城市。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
         "offer": "很抱歉，找不到此提供项目。",
@@ -2661,409 +2633,241 @@
   },
   "landing": {
     "de": {
-      "searchCity": "Ort suchen",
-      "nearbyPlaces": "Orte in der Nähe",
-      "noNearbyPlaces": "Keine Orte in der Nähe gefunden.",
+      "searchCity": "Region suchen",
+      "nearbyCities": "In der Nähe",
+      "noNearbyCities": "Keine Regionen in der Nähe gefunden.",
       "alert": "Hinweis",
-      "locationError": "Um Orte in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
+      "locationError": "Um Regionen in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
       "noPermission": "Standortzugriff erforderlich",
       "loading": "Bestimme Standort...",
       "notAvailable": "Standortbestimmung deaktiviert",
       "timeout": "Standortbestimmung fehlgeschlagen",
-      "refresh": "Liste der Orte aktualisieren",
-      "pageTitle": "Ortsauswahl",
+      "refresh": "Liste der nahegelegenen Regionen aktualisieren",
+      "pageTitle": "Regionen",
       "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
     },
     "am": {
-      "searchCity": "ቦታ ፈልግ",
-      "nearbyPlaces": "በቅርብ የሚገኙ ቦታዎች",
-      "noNearbyPlaces": "ምንም የቅርብ ቦታዎች አልተገኙም።",
       "alert": "ማስታወሻ",
-      "locationError": "በቅርብ የሚገኙ ቦታዎችን ለማግኘት የቦታ አገልግሎቶች መስራት አለባቸው።",
       "noPermission": "የቦታ ማግኛ ያስፈልጋል",
       "loading": "ቦታ ወስን...",
       "notAvailable": "የቦታ አገልግሎቶች እንዳይሰሩ ተደርገዋል",
       "timeout": "ቦታ መወሰን አልተሳካም",
-      "refresh": "የቦታዎች ዝርዝርን ሪፍረሽ አድርግ/አፍጥን",
-      "pageTitle": "ቦታ ይምረጡ",
       "metaDescription": "{{appName}} የእርስዎ የጀርመን የዲጂታል መሪዎ ነው። አካባቢያዊ መረጃዎችን፣ ዝግጅቶች እና ምክር ያግኙ። ሁልጊዜም ወቅታዊና በእርስዎ ቋንቋ የሚቀርብ ነው።"
     },
     "ar": {
-      "searchCity": "البحث عن مكان",
-      "nearbyPlaces": "الأماكن القريبة",
-      "noNearbyPlaces": "لم يتم العثور على أماكن قريبة.",
       "alert": "ملاحظة",
-      "locationError": "يتعين تفعيل خدمات تحديد الموقع، حتى يُمكن عرض الأماكن القريبة.",
       "noPermission": "مطلوب إذن بالوصول إلى الموقع",
       "loading": "جار تحديد الموقع...",
       "notAvailable": "تحديد الموقع غير مُفعَّل",
       "timeout": "فشل في تحديد الموقع",
-      "refresh": "تحديث قائمة الأماكن",
-      "pageTitle": "اختيار المكان",
       "metaDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا. اعثر على المعلومات والفعاليات والمشورة المحلية. مُحدَّثة دائمًا وبلغتك."
     },
     "bg": {
-      "searchCity": "Търсене на място",
-      "nearbyPlaces": "Места наблизо",
-      "noNearbyPlaces": "Не са намерени места наблизо.",
       "alert": "Указание",
-      "locationError": "Услугите за местоположение трябва да бъдат активирани за преглед на близките местоположения.",
       "noPermission": "Изисква се достъп до местоположението",
       "loading": "Определи местоположението...",
       "notAvailable": "Определянето на местоположението е деактивирано",
       "timeout": "Неуспешно определяне на местоположението",
-      "refresh": "Актуализиране на списъка с места",
-      "pageTitle": "Избор на местоположение",
       "metaDescription": "{{appName}} е Вашето дигитално ръководство за Германия. Открийте местни центрове за информация, събития и консултации. Винаги актуални и на Вашия език."
     },
     "ckb": {
-      "searchCity": "گەران لە شار",
-      "nearbyPlaces": "شوێنە نزیکەکان",
-      "noNearbyPlaces": "هیچ شوێنێک لەم نزیکانە نەدۆزراوە.",
       "alert": "ڕێنمایی",
-      "locationError": "بۆ بینینی شوێنەکانی دەورووپشتت دەبێ خزمەتگوزاریی دۆزینەوەی شوێن چالاک بێت.",
       "noPermission": "دەستڕاگەیشتن بە شوێنی پێویست",
       "loading": "دیاریکردنی شوێن...",
       "notAvailable": "دیاریکردنی شوێن ناچالاک کرا",
       "timeout": "دیاریکردنی شوێن سەرکەوتوو نەبوو",
-      "refresh": "لیستەی شوێنەکان بەڕۆژ بکەوە",
-      "pageTitle": "هەڵبژاردنی شوێن",
       "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەلمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت."
     },
     "el": {
-      "searchCity": "Αναζήτηση τοποθεσίας",
-      "nearbyPlaces": "Κοντινές τοποθεσίες",
-      "noNearbyPlaces": "Δεν βρέθηκαν κοντινές τοποθεσίες.",
       "alert": "Υπόδειξη",
-      "locationError": "Οι υπηρεσίες τοποθεσίας πρέπει να ενεργοποιηθούν για να δείτε κοντινές τοποθεσίες.",
       "noPermission": "Απαιτείται πρόσβαση τοποθεσίας",
       "loading": "Προσδιορισμός τοποθεσίας ...",
       "notAvailable": "Οι υπηρεσίες τοποθεσίας απενεργοποιήθηκαν",
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
-      "refresh": "Ενημερώστε τη λίστα με τις τοποθεσίες",
-      "pageTitle": "Επιλογή τοποθεσίας",
       "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας."
     },
     "en": {
-      "searchCity": "Search for a city",
-      "nearbyPlaces": "Nearby locations",
-      "noNearbyPlaces": "No nearby locations found.",
       "alert": "Note",
-      "locationError": "To display nearby locations, location services must be active.",
       "noPermission": "Location access required",
       "loading": "Determining location...",
       "notAvailable": "Location determination is deactivated",
       "timeout": "Location determination failed",
-      "refresh": "Refresh nearby locations",
-      "pageTitle": "Location selection",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
     },
     "es": {
-      "searchCity": "Buscar ubicación",
-      "nearbyPlaces": "Ubicaciones cercanas",
-      "noNearbyPlaces": "No se han encontrado ubicaciones cercanas.",
       "alert": "Aviso",
-      "locationError": "Para poder mostrar ubicaciones cercanas tiene que activarse la ubicación del dispositivo.",
       "noPermission": "Se requiere acceso a la ubicación",
       "loading": "Determine ubicación...",
       "notAvailable": "Localización desactivada",
       "timeout": "La localización falló",
-      "refresh": "Actualizar lista de ubicaciones",
-      "pageTitle": "Elegir ubicación",
       "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
     },
     "fr": {
-      "searchCity": "Chercher un lieu",
-      "nearbyPlaces": "Lieux à proximité",
-      "noNearbyPlaces": "Aucun lieu trouvé à proximité.",
       "alert": "Remarque",
-      "locationError": "Afin de pouvoir afficher les lieux à proximité, la géolocalisation doit être activée.",
       "noPermission": "Accès au lieu requis",
       "loading": "Définis le lieu ...",
       "notAvailable": "Localisation désactivée",
       "timeout": "Échec de la localisation",
-      "refresh": "Actualiser la liste des lieux",
-      "pageTitle": "Sélection du lieu",
       "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue."
     },
     "hr": {
-      "searchCity": "Traži mjesto",
-      "nearbyPlaces": "Mjesta u blizini",
-      "noNearbyPlaces": "Nisu pronađena mjesta u blizini.",
       "alert": "Napomena",
-      "locationError": "Za prikaz mjesta u blizini mora biti aktivirana usluga geolokacije.",
       "noPermission": "Potreban je pristup lokaciji",
       "loading": "Određivanje lokacije...",
       "notAvailable": "Deaktivirano je određivanje lokacije",
       "timeout": "Neuspješno određivanje lokacije",
-      "refresh": "Ažuriraj popis mjesta",
-      "pageTitle": "Odabir mjesta",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
     },
     "hu": {
-      "searchCity": "Hely keresése",
-      "nearbyPlaces": "Helyek a közelben",
-      "noNearbyPlaces": "Nincsenek helyek a közelben.",
       "alert": "Megjegyzés",
-      "locationError": "A közeli helyek megtekintéséhez engedélyezni kell a helymeghatározási szolgáltatásokat.",
       "noPermission": "Helyhozzáférés szükséges",
       "loading": "Meghatározott helyszín...",
       "notAvailable": "Helymeghatározás deaktiválva",
       "timeout": "Helymeghatározás sikertelen",
-      "refresh": "Helyek listájának aktualizálása",
-      "pageTitle": "Hely kiválasztása",
       "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
     },
     "it": {
-      "searchCity": "Cerca luogo",
-      "nearbyPlaces": "Luoghi nelle vicinanze",
-      "noNearbyPlaces": "Non è stato trovato nessun luogo nelle vicinanze.",
       "alert": "Nota",
-      "locationError": "I servizi di localizzazione devono essere attivati per visualizzare i luoghi nelle vicinanze.",
       "noPermission": "È necessario l’accesso alla posizione",
       "loading": "Determina la posizione...",
       "notAvailable": "Geolocalizzazione disattivata",
       "timeout": "Geolocalizzazione non riuscita",
-      "refresh": "Aggiorna l’elenco dei luoghi",
-      "pageTitle": "Selezione della posizione",
       "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
     },
     "ka": {
-      "searchCity": "ადგილის ძიება",
-      "nearbyPlaces": "ახლოს მდებარე ადგილები",
-      "noNearbyPlaces": "სიახლოვეს ვერ მოიძებნა ადგილები.",
       "alert": "მითითება",
-      "locationError": "ახლომდებარე ადგილების პოვნისათვის, უნდა გააქტიუროთ მდებარეობის დამადასტურებელი ღილაკი ",
       "noPermission": "საჭიროა წვდომა მდებარეობის ადგილზე",
       "loading": "განსაზღვრე მდებარეობის ადგილი...",
       "notAvailable": "მდებარეობის ადგილის განსაზღვრა დეაქტივირებულია",
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
-      "refresh": "ადგილთა სიის აქტუალიზირება",
-      "pageTitle": "ადგილის არჩევანი",
       "metaDescription": "‎{{აპპ სახელი}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
     },
     "kmr": {
-      "searchCity": "Lêgerîna li Mekan",
-      "nearbyPlaces": "Cihên nêzik",
-      "noNearbyPlaces": "Tu cihek li vê nêzikatiyê nehat dîtin.",
       "alert": "Rênîşandan",
-      "locationError": "Jibo dîtina cihên nêzik divê xizmeta Mekanbînê were çalakkirin.",
       "noPermission": "Destgihîştina mekanê hewce ye",
       "loading": "Mekan diyar bike...",
       "notAvailable": "Diyarkirina mekan neçalak e",
       "timeout": "Diyarkirinê mekanê serketî nebû",
-      "refresh": "Lîsta mekanan nûve bike",
-      "pageTitle": "Bijartina cih",
       "metaDescription": "{{appName}}' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe."
     },
     "mk": {
-      "searchCity": "Пребарување локација",
-      "nearbyPlaces": "Локации во близина",
-      "noNearbyPlaces": "Не се пронајдени локации во близина.",
       "alert": "Упатство",
-      "locationError": "За да може да се прикажат локации во близина, мора да се активира услугата за локација.",
       "noPermission": "Потребен е пристап до локацијата",
       "loading": "Одредена локација...",
       "notAvailable": "Деактивирана е опцијата за одредување на локацијата",
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
-      "refresh": "Ажурирање на листата на локации",
-      "pageTitle": "Избор на локација",
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик."
     },
     "pes": {
-      "searchCity": "جستجوی مکان",
-      "nearbyPlaces": "مکان های نزدیک",
-      "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
       "alert": "راهنمایی",
-      "locationError": "برای مشاهده مکان های نزدیک باید خدمات موقعیت مکانی فعال شوند.",
       "noPermission": "دسترسی به مکان موفقیت‌آمیز بود",
       "loading": "موقعیت مکانی را مشخص کنید...",
       "notAvailable": "تعیین موقعیت مکانی غیرفعال شده است",
       "timeout": "تعیین موقعیت مکانی انجام نشد",
-      "refresh": "به روز رسانی فهرست مکان‌ها",
-      "pageTitle": "انتخاب محل",
       "metaDescription": "{{appName}} راهنمای دیجیتال شما برای آلمان است. اطلاعات محلی، رویدادها و مشاوره را بیابید. همواره به روز و به زبان شما."
     },
     "pl": {
-      "searchCity": "Znajdź lokalizację",
-      "nearbyPlaces": "lokalizacje w pobliżu",
-      "noNearbyPlaces": "Nie znaleziono lokalizacji w pobliżu.",
       "alert": "Wskazówka",
-      "locationError": "Usługi lokalizacyjne muszą być włączone, aby wyświetlić lokalizacje w pobliżu.",
       "noPermission": "Wymagany dostęp do placówki",
       "loading": "Ustal placówkę...",
       "notAvailable": "Ustalenie placówki wyłączone",
       "timeout": "Ustalenie placówki nie powiodło się",
-      "refresh": "Aktualizuj listę placówek",
-      "pageTitle": "Wybór lokalizacji",
       "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku."
     },
     "prs": {
-      "searchCity": "جستجوی شهر",
-      "nearbyPlaces": "مکان های نزدیک",
-      "noNearbyPlaces": "هیچ مکانی در این نزدیکی پیدا نشد‎.",
       "alert": "رهنمایی",
-      "locationError": "برای مشاهده مکان های اطراف باید خدمات مکان یابی فعال شوند‎.",
       "noPermission": "دسترسی به مکان مورد ضرورت است",
       "loading": "تعیین محل...",
       "notAvailable": "تعیین مکان غیرفعال شد",
       "timeout": "تعیین مکان ناموفق بود",
-      "refresh": "لیست مکان ها را به‎​روز کنید",
-      "pageTitle": "انتخاب محل",
       "metaDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است. معلومات محلی، رویدادها و مشاوره را پیدا نمایید. همواره به‎​روز و به لسان شما."
     },
     "ps": {
-      "searchCity": "ځای لټول",
-      "nearbyPlaces": "شاوخوا نږدې ځایونه",
-      "noNearbyPlaces": "شاوخوا کې نږدې ځایونه پیدا نشول.",
       "alert": "یادونه",
-      "locationError": "ددې لپاره چې شاوخوا نږدې ځایونه وښودل شي، د ځای خدمت باید فعال کړی شوی وي.",
       "noPermission": "موقعیت ته لاسرسی لازمي دی",
       "loading": "موقعیت تعین کړه...",
       "notAvailable": "د موقعیت تعینول غیر فعال شوي",
       "timeout": "د موقعیت تعینول ناکام شو",
-      "refresh": "د ځایونو لیسټ تازه کول",
-      "pageTitle": "د ځای انتخاب",
       "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات، غونډې او مشورې موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې."
     },
     "ro": {
-      "searchCity": "Căutare locație",
-      "nearbyPlaces": "Locații în apropiere",
-      "noNearbyPlaces": "Nu s-au găsit locații în apropiere.",
       "alert": "Indicație",
-      "locationError": "Pentru a putea să arătăm locații în apropiere, trebuie să se activeze servicii de localizare.",
       "noPermission": "Este necesară accesarea locației",
       "loading": "Anumită locație...",
       "notAvailable": "Identificare locație dezactivată",
       "timeout": "Identificare locație eșuată",
-      "refresh": "Actualizare listă de locații",
-      "pageTitle": "Alegerea locației",
       "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs."
     },
     "ru": {
-      "searchCity": "Поиск населенного пункта",
-      "nearbyPlaces": "Близлежащие населенные пункты",
-      "noNearbyPlaces": "Близлежащих населенных пунктов не найдено.",
       "alert": "Примечание",
-      "locationError": "Для отображения близлежащих населенных пунктов активируйте службу геолокации.",
       "noPermission": "Необходим доступ к данным о местоположении",
       "loading": "Определить местоположение...",
       "notAvailable": "Определение местоположения деактивировано",
       "timeout": "Не удалось определить местоположение",
-      "refresh": "Обновить список населенных пунктов",
-      "pageTitle": "Выбор места",
       "metaDescription": "{{appName}} – это ваш виртуальный гид по Германии. Здесь вы узнаете местную информацию и информацию о мероприятиях, а также сможете получить консультации – всегда актуально и на вашем языке."
     },
     "so": {
-      "searchCity": "Raadi Magaalo",
-      "nearbyPlaces": "Meelaha dhaw",
-      "noNearbyPlaces": "Ma jirin meel ku dhowdhow oo la heley.",
       "alert": "Ogeysiis",
-      "locationError": "Adeegyada goobta waa in laga shaqeysiiyaa si loo arko meelaha kuu dhow.",
       "noPermission": "Marin u helida goobta ayaa loo  baahan yahay",
       "loading": "Raadinaya goobta...",
       "notAvailable": "Helitaanka goobta waa la demiyey",
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
-      "refresh": "Cusbooneysii liiska goobaha",
-      "pageTitle": "Doorashada goobta",
       "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
     },
     "sq": {
-      "searchCity": "Kërko vendin",
-      "nearbyPlaces": "Vende në afërsi",
-      "noNearbyPlaces": "Asnjë vend nuk u gjet në afërsi.",
       "alert": "Shënim",
-      "locationError": "Shërbimet e vendndodhjes duhet të aktivizohen për të parë vendet në afërsi.",
       "noPermission": "Kërkohet qasje në vendndodhje",
       "loading": "Cakto vendin...",
       "notAvailable": "Përcaktimi i vendndodhjes i çaktivizuar",
       "timeout": "Përcaktimi i vendndodhjes dështoi",
-      "refresh": "Përditësoni listën e vendeve",
-      "pageTitle": "Përzgjedhje e vendit",
       "metaDescription": "{{appName}} është guida juaj dixhitale për Gjermani. Gjeni informacione lokale, evenimente dhe këshilla. Gjithnjë aktuale dhe në gjuhën tuaj."
     },
     "sr-Cyrl": {
-      "searchCity": "Тражење места",
-      "nearbyPlaces": "Места у близини",
-      "noNearbyPlaces": "Нису пронађена места у близини.",
       "alert": "Напомена",
-      "locationError": "Како би било могуће пронаћи места у близини, морате активирати услуге лоцирања.",
       "noPermission": "Потребан приступ локацији",
       "loading": "Одреди локацију...",
       "notAvailable": "Деактивирано одређивање локације",
       "timeout": "Неуспешно одређивање локације",
-      "refresh": "Ажурирање листе места",
-      "pageTitle": "Избор места",
       "metaDescription": "{{appName}} је ваш дигитални водич за Немачку. Пронађите локалне информације, догађаје и саветовање. Увек актуелно на важем језику."
     },
     "sr-Latn": {
-      "searchCity": "Traženje mesta",
-      "nearbyPlaces": "Mesta u blizini",
-      "noNearbyPlaces": "Nisu pronađena mesta u blizini.",
       "alert": "Napomena",
-      "locationError": "Kako bi bilo moguće pronaći mesta u blizini, morate aktivirati usluge lociranja.",
       "noPermission": "Potreban pristup lokaciji",
       "loading": "Odredi lokaciju...",
       "notAvailable": "Deaktivirano određivanje lokacije",
       "timeout": "Neuspešno određivanje lokacije",
-      "refresh": "Ažuriranje liste mesta",
-      "pageTitle": "Izbor mesta",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, događaje i savetovanje. Uvek aktuelno na važem jeziku."
     },
     "ti": {
-      "searchCity": "ከተማ ርኸብ",
-      "nearbyPlaces": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
-      "noNearbyPlaces": "ኣብ ጥቓኻ ቦታታት ኣይተረኽቡን።",
       "alert": "መዘኻኸሪ",
-      "locationError": "ኣብ ጥቓኻ ዘለዉ ቦታታት ንምርኣይ ናይ ቦታ ኣገልግሎታት ከምዝሰርሕ ክግበር ኣለዎ።",
       "noPermission": "ናብ ቦታ ናይ ምእታው ዕድል ይሕተት",
       "loading": "ቦታ ኣብ ምርካብ ኣሎ ...",
       "notAvailable": "ምርካብ ቦታ ጠፊኡ ኣሎ",
       "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
-      "refresh": "ንአቲ ዝርዝር ናይ ቦታታት ኣሐድሶ",
-      "pageTitle": "ምምራጽ ቦታ",
       "metaDescription": "{{appName}} ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።"
     },
     "tr": {
-      "searchCity": "Konum ara",
-      "nearbyPlaces": "Yakındaki konumlar",
-      "noNearbyPlaces": "Yakında herhangi bir konum bulunamadı.",
       "alert": "Uyarı",
-      "locationError": "Yakındaki konumları görüntüleyebilmek için konum servislerini etkinleştirmeniz gerekir.",
       "noPermission": "Konum erişimi gerekli",
       "loading": "Konum belirle...",
       "notAvailable": "Konum belirlemeyi devre dışı bırak",
       "timeout": "Konum belirleme başarısız",
-      "refresh": "Konum listesini güncelle",
-      "pageTitle": "Konum seçimi",
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
     },
     "ur": {
-      "searchCity": "مقام تلاش کریں",
-      "nearbyPlaces": "قریبی مقامات",
-      "noNearbyPlaces": "کوئی قریبی مقامات نہیں ملے۔",
       "alert": "نوٹ",
-      "locationError": "قریبی مقامات دیکھنے کے لئے ضروری ہے کہ مقام کی خدمات فعال ہوں۔",
       "noPermission": "مقام تک رسائی درکار ہے",
       "loading": "مقام کا تعین کریں ‎…",
       "notAvailable": "مقام کی خدمات غیر فعال کر دی گئیں",
       "timeout": "مقام کا تعین ناکام رہا",
-      "refresh": "مقامات کی فہرست کو تازہ کریں",
-      "pageTitle": "مقام کا انتخاب",
       "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
     },
     "zh-CN": {
-      "searchCity": "搜索地点",
-      "nearbyPlaces": "附近的地点",
-      "noNearbyPlaces": "找不到附近的地点。",
       "alert": "提示",
-      "locationError": "要查看附近的地点，必须启用定位服务。",
       "noPermission": "需要位置访问权限",
       "loading": "定位中。。。",
       "notAvailable": "定位功能已停用",
       "timeout": "定位失败",
-      "refresh": "更新地点清单",
-      "pageTitle": "选择地点",
       "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
     }
   },
