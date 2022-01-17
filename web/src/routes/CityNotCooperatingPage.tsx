@@ -9,12 +9,17 @@ import BackNavigationHeader from '../components/BackNavigationHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
 import { template } from '../constants/cityNotCooperatingTemplate'
-import ScrollToTopOnMount from '../utils/scrollToTop'
+import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import { RouteProps } from './index'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+const HeadingContainer = styled.div`
+  max-width: 300px;
+  margin: 0 auto;
 `
 
 const Heading = styled.p`
@@ -84,6 +89,7 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
   const { languageCode } = match.params
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
+  useScrollToTopOnMount()
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -96,11 +102,13 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
 
   return (
     <>
-      <ScrollToTopOnMount />
       <BackNavigationHeader />
       <Layout footer={<GeneralFooter language={languageCode} />}>
         <Container>
-          <Heading>{t('callToAction')}</Heading>
+          <HeadingContainer>
+            <Heading>{t('callToAction')}</Heading>
+          </HeadingContainer>
+
           <Text>{t('explanation')}</Text>
           <Icon alt='' src={cityNotCooperationIcon} />
           <ListHeading>{t('whatToDo')}</ListHeading>
@@ -112,7 +120,7 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
             <StepNumber>2</StepNumber>
             <StepExplanation>{t('sendText')}</StepExplanation>
           </ListItem>
-          <Button onClick={() => copyToClipboard()}>{isCopied ? t('textCopied') : t('copyText')}</Button>
+          <Button onClick={copyToClipboard}>{isCopied ? t('textCopied') : t('copyText')}</Button>
           <TemplateText>{template}</TemplateText>
         </Container>
       </Layout>

@@ -46,6 +46,6 @@ describe('CityNotCooperatingPage', () => {
     const button = getByText('copyText')
     fireEvent.click(button)
     await waitFor(() => expect(getByText('textCopied')).toBeDefined())
-    expect(navigator.clipboard.writeText).toBeCalled()
+    expect(navigator.clipboard.writeText).toHaveBeenCalled()
   })
 })

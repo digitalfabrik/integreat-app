@@ -14,7 +14,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
   scrollHeight={90}
   zIndex={1}
 >
-  <HeaderContainer>
+  <styled.header>
     <styled.div
       hasTitle={false}
     >
@@ -42,7 +42,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
         />
       </styled.div>
     </styled.div>
-  </HeaderContainer>
+  </styled.header>
 </Headroom>
 `;
 
@@ -60,7 +60,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
   scrollHeight={70}
   zIndex={1}
 >
-  <HeaderContainer>
+  <styled.header>
     <styled.div
       hasTitle={false}
     >
@@ -87,6 +87,6 @@ exports[`Header should match snapshot with smallViewport 1`] = `
         />
       </styled.div>
     </styled.div>
-  </HeaderContainer>
+  </styled.header>
 </Headroom>
 `;

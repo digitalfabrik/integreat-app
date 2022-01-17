@@ -295,10 +295,10 @@
   },
   "cityNotCooperating": {
     "de": {
-      "callToAction": "Schlag Integreat Deiner\nStadt vor!",
+      "callToAction": "Schlag Integreat Deiner Region vor!",
       "explanation": "Das gemeinnützige Konzept der Integreat-App hat Dich überzeugt und Du glaubst, auch Deine Stadt, Dein Landkreis oder Deine Gemeinde könnte von der digitalen Lösung profitieren? Dann kannst Du hiermit ganz einfach aktiv werden.",
       "whatToDo": "Das kannst Du tun:",
-      "findOutMail": "E-Mail Adresse Deiner Stadt herausfinden",
+      "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
       "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
       "copyText": "Text kopieren",
       "textCopied": "Kopiert"
