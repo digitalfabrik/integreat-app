@@ -30,7 +30,6 @@ export default {
     'jest-extended',
     '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'
   ],
-  testRegex: '(/__tests__/.*|\\.(spec))\\.(ts|tsx)$',
   transform: tsjPreset.transform,
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
