@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
@@ -23,24 +23,41 @@ type PropsType = {
   theme: ThemeType
   locationInformation: LocationInformationType
 }
+type StateType = {
+  filterText: string
+}
 
-const FilterableCitySelector = ({ t, theme, ...props }: PropsType): ReactElement => {
-  const [filter, setFilter] = useState('')
+class FilterableCitySelector extends React.Component<PropsType, StateType> {
+  constructor(props: PropsType) {
+    super(props)
+    this.state = {
+      filterText: ''
+    }
+  }
 
-  return (
-    <View>
-      <SearchBar>
-        <SearchInput
-          filterText={filter}
-          onFilterTextChange={setFilter}
-          placeholderText={t('searchCity')}
-          spaceSearch={false}
-          theme={theme}
-        />
-      </SearchBar>
-      <CitySelector {...props} t={t} theme={theme} filterText={filter} />
-    </View>
-  )
+  onFilterTextChange = (filterText: string): void =>
+    this.setState({
+      filterText
+    })
+
+  render(): ReactNode {
+    const { t, theme } = this.props
+    const { filterText } = this.state
+    return (
+      <View>
+        <SearchBar>
+          <SearchInput
+            filterText={filterText}
+            onFilterTextChange={this.onFilterTextChange}
+            placeholderText={t('searchCity')}
+            spaceSearch={false}
+            theme={theme}
+          />
+        </SearchBar>
+        <CitySelector {...this.props} filterText={filterText} />
+      </View>
+    )
+  }
 }
 
 export default FilterableCitySelector
