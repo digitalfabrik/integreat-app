@@ -1,11 +1,13 @@
-import { transform, groupBy } from 'lodash'
-import React, { ReactNode, ReactElement } from 'react'
+import { groupBy, transform } from 'lodash'
+import React, { ReactElement, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { CityModel } from 'api-client'
 
 import { normalizeSearchString } from '../utils/stringUtils'
 import CityEntry from './CityEntry'
+import Failure from './Failure'
 
 const CityListParent = styled.div<{ stickyTop: number }>`
   position: sticky;
@@ -26,6 +28,8 @@ type PropsType = {
 }
 
 const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType): ReactElement => {
+  const { t } = useTranslation('search')
+
   const filter = (): Array<CityModel> => {
     const normalizedFilter = normalizeSearchString(filterText)
 
@@ -52,19 +56,28 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
     const safeCities = cities.filter(city => city.code !== '')
     const sorted = sort(safeCities)
     const groups = groupBy(sorted, city => city.sortCategory)
-    return transform(
-      groups,
-      (result: Array<ReactNode>, cities, key) => {
-        result.push(
-          <div key={key}>
-            <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
-            {cities.map(city => (
-              <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-            ))}
-          </div>
-        )
-      },
-      []
+    const failureProps = {
+      goToPath: null,
+      errorMessage: 'nothingFound'
+    }
+
+    return sorted.length == 0 ? (
+      <Failure {...failureProps} t={t} />
+    ) : (
+      transform(
+        groups,
+        (result: Array<ReactNode>, cities, key) => {
+          result.push(
+            <div key={key}>
+              <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
+              {cities.map(city => (
+                <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+              ))}
+            </div>
+          )
+        },
+        []
+      )
     )
   }
 
