@@ -792,20 +792,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		830B08DDDBCA5F61207E5D42 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+		175F0D9E94CC9085B94AD926 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
 				kind = exactVersion;
-				version = 5.11.0;
+				version = 5.12.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		31AC209F6EB6A8664C2E67D0 /* Mapbox */ = {
+		48EA4BC8E197CB92736A7A36 /* Mapbox */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 830B08DDDBCA5F61207E5D42 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			package = 175F0D9E94CC9085B94AD926 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
 			productName = Mapbox;
 		};
 /* End XCSwiftPackageProductDependency section */

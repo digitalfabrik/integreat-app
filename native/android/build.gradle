@@ -13,7 +13,7 @@ buildscript {
         // Config for MapLibre
         rnmbglMapboxLibs = {
             implementation("org.maplibre.gl:android-sdk:9.2.1")
-            implementation("com.mapbox.mapboxsdk:mapbox-sdk-turf:5.3.0")
+            implementation ("com.mapbox.mapboxsdk:mapbox-sdk-turf:5.8.0")
         }
         rnmbglMapboxPlugins = {
             implementation("com.mapbox.mapboxsdk:mapbox-android-gestures:0.7.0")
@@ -31,7 +31,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        // TODO IGAPP-790 Remove. Still required for mapbox-sdk-turf:5.3.0
         jcenter()
         maven {
             url = "https://dl.bintray.com/maplibre/maplibre-gl-native"
@@ -50,7 +49,6 @@ allprojects {
         mavenLocal()
         google()
         mavenCentral()
-        // TODO IGAPP-790 Remove. Still required for mapbox-sdk-turf:5.3.0
         jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
