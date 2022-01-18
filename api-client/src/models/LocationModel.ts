@@ -116,12 +116,7 @@ class LocationModel {
   }
 
   get coordinates(): Position | null {
-    if (
-      this.longitude === null ||
-      this.longitude === undefined ||
-      this.latitude === null ||
-      this.latitude === undefined
-    ) {
+    if (!this.longitude || !this.latitude) {
       return null
     }
     return [Number(this.longitude), Number(this.latitude)]

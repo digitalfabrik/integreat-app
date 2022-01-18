@@ -8,8 +8,8 @@ import { LocationModel } from 'api-client/src'
  * @param location{LocationModel}: location model with coordinates
  */
 export const getNavigationDeepLinks = (address: string, location: LocationModel): string | undefined => {
-  if (location.coordinates == null) {
-    return undefined
+  if (!location.location && !location.coordinates) {
+    return null
   }
 
   const x = location.coordinates[0]
