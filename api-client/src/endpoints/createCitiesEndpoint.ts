@@ -34,7 +34,7 @@ export default (baseUrl: string): Endpoint<void, Array<CityModel>> =>
               offersEnabled: city.extras,
               poisEnabled: city.pois,
               tunewsEnabled: city.tunews,
-              pushNotificationsEnabled: city.push_notifications,
+              localNewsEnabled: city.push_notifications,
               sortingName: city.name_without_prefix,
               prefix: city.prefix,
               longitude: city.longitude,

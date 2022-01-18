@@ -2,17 +2,18 @@ import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
-  CATEGORIES_ROUTE,
+  cityContentPath,
   EVENTS_ROUTE,
   FetchError,
   fromError,
+  NEWS_ROUTE,
   NotFoundError,
   OFFERS_ROUTE,
+  pathnameFromRouteInformation,
   POIS_ROUTE
 } from 'api-client'
 import { LANDING_ROUTE, LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
-import { createPath } from '../routes'
 import { reportError } from '../utils/sentry'
 import Failure from './Failure'
 import Helmet from './Helmet'
@@ -41,43 +42,43 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
         case 'disclaimer':
         case 'route':
           return {
-            goToPath: createPath(CATEGORIES_ROUTE, params),
+            goToPath: cityContentPath(params),
             goToMessage: 'goTo.categories',
             errorMessage: 'notFound.category'
           }
         case 'event':
           return {
-            goToPath: createPath(EVENTS_ROUTE, params),
+            goToPath: pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params }),
             goToMessage: 'goTo.events',
             errorMessage: 'notFound.event'
           }
         case LOCAL_NEWS_TYPE:
           return {
-            goToPath: createPath(LOCAL_NEWS_TYPE, params),
+            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, ...params }),
             goToMessage: 'goTo.localNews',
             errorMessage: 'notFound.localNews'
           }
         case TU_NEWS_TYPE:
           return {
-            goToPath: createPath(TU_NEWS_TYPE, params),
+            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, ...params }),
             goToMessage: 'goTo.tunews',
             errorMessage: 'notFound.tunews'
           }
         case 'offer':
           return {
-            goToPath: createPath(OFFERS_ROUTE, params),
+            goToPath: pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params }),
             goToMessage: 'goTo.offers',
             errorMessage: 'notFound.offer'
           }
         case 'poi':
           return {
-            goToPath: createPath(POIS_ROUTE, params),
+            goToPath: pathnameFromRouteInformation({ route: POIS_ROUTE, ...params }),
             goToMessage: 'goTo.pois',
             errorMessage: 'notFound.poi'
           }
         case 'city':
           return {
-            goToPath: createPath(LANDING_ROUTE, params),
+            goToPath: pathnameFromRouteInformation({ route: LANDING_ROUTE, ...params }),
             errorMessage: 'notFound.city'
           }
       }
