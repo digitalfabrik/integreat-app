@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/react-native'
 import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { CityModel, LocalNewsModel } from 'api-client'
 

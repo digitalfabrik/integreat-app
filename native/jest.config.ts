@@ -27,7 +27,6 @@ export default {
   },
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',
-    'jest-extended',
     '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'
   ],
   transform: tsjPreset.transform,
