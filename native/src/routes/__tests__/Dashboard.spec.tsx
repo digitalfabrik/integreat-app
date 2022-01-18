@@ -55,7 +55,7 @@ describe('Dashboard', () => {
       live: true,
       eventsEnabled: events,
       offersEnabled: offers,
-      pushNotificationsEnabled: local,
+      localNewsEnabled: local,
       tunewsEnabled: tunews,
       poisEnabled: pois,
       sortingName: 'Augsburg',

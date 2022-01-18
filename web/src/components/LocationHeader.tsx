@@ -3,10 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import {
   CATEGORIES_ROUTE,
+  cityContentPath,
   CityModel,
   EVENTS_ROUTE,
   LANDING_ROUTE,
+  NEWS_ROUTE,
   OFFERS_ROUTE,
+  pathnameFromRouteInformation,
   POIS_ROUTE,
   SEARCH_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
@@ -22,13 +25,12 @@ import poisIcon from '../assets/pois.svg'
 import HeaderActionBarItemLink from '../components/HeaderActionItemLink'
 import HeaderNavigationItem from '../components/HeaderNavigationItem'
 import buildConfig from '../constants/buildConfig'
-import { createPath, LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
+import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import Header from './Header'
 import LanguageSelector from './LanguageSelector'
 
 type PropsType = {
   cityModel: CityModel
-  pathname: string
   route: RouteType
   languageCode: string
   viewportSmall: boolean
@@ -37,17 +39,18 @@ type PropsType = {
 }
 
 const LocationHeader = (props: PropsType): ReactElement => {
-  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, pathname, languageChangePaths, route } = props
-  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, pushNotificationsEnabled } = cityModel
+  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, languageChangePaths, route } = props
+  const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
-  const categoriesPath = createPath(CATEGORIES_ROUTE, params)
-  const eventsPath = createPath(EVENTS_ROUTE, params)
-  const offersPath = createPath(OFFERS_ROUTE, params)
-  const poisPath = createPath(POIS_ROUTE, params)
-  const newsPath = createPath(pushNotificationsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE, params)
-  const searchPath = createPath(SEARCH_ROUTE, params)
-  const landingPath = createPath(LANDING_ROUTE, { languageCode })
+  const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
+  const categoriesPath = cityContentPath(params)
+  const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
+  const offersPath = pathnameFromRouteInformation({ route: OFFERS_ROUTE, ...params })
+  const poisPath = pathnameFromRouteInformation({ route: POIS_ROUTE, ...params })
+  const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
+  const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
+  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, ...{ languageCode } })
 
   const { t } = useTranslation('layout')
 
@@ -60,13 +63,12 @@ const LocationHeader = (props: PropsType): ReactElement => {
       key='language'
       languageChangePaths={languageChangePaths}
       isHeaderActionItem
-      pathname={pathname}
       languageCode={languageCode}
     />
   ]
 
   const getNavigationItems = (): Array<ReactNode> => {
-    const isNewsVisible = buildConfig().featureFlags.newsStream && (pushNotificationsEnabled || tunewsEnabled)
+    const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
     const isOffersVisible = offersEnabled

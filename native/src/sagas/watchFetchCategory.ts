@@ -1,9 +1,8 @@
 import { call, put, SagaGenerator, select, takeEvery } from 'typed-redux-saga'
 
-import { ErrorCode, fromError } from 'api-client'
+import { cityContentPath, ErrorCode, fromError } from 'api-client'
 
 import { ContentLoadCriterion } from '../models/ContentLoadCriterion'
-import { cityContentPath } from '../navigation/url'
 import {
   FetchCategoryActionType,
   FetchCategoryFailedActionType,
@@ -11,6 +10,7 @@ import {
 } from '../redux/StoreActionType'
 import isPeekingRoute from '../redux/selectors/isPeekingRoute'
 import { DataContainer } from '../utils/DataContainer'
+import { getErrorMessage } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
 import loadCityContent from './loadCityContent'
 
@@ -90,7 +90,7 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
     const failed: FetchCategoryFailedActionType = {
       type: 'FETCH_CATEGORY_FAILED',
       params: {
-        message: `Error in fetchCategory: ${e.message}`,
+        message: `Error in fetchCategory: ${getErrorMessage(e)}`,
         code: fromError(e),
         key,
         path,

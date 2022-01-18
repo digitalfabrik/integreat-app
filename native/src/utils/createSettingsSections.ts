@@ -16,7 +16,7 @@ import { initSentry } from './sentry'
 
 export type SetSettingFunctionType = (
   changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-  changeAction?: (newSettings: SettingsType) => Promise<void>
+  changeAction?: (newSettings: SettingsType) => Promise<boolean>
 ) => Promise<void>
 
 export type SettingsSectionType = {
@@ -71,10 +71,10 @@ const createSettingsSections = ({
                   settings => ({
                     allowPushNotifications: !settings.allowPushNotifications
                   }),
-                  async newSettings => {
+                  async (newSettings): Promise<boolean> => {
                     if (!cityCode) {
                       // No city selected so nothing to do here
-                      return
+                      return true
                     }
 
                     if (newSettings.allowPushNotifications) {
@@ -85,12 +85,13 @@ const createSettingsSections = ({
                       } else {
                         // If the user has rejected the permission once, it can only be changed in the system settings
                         openSettings()
-                        // Reset displayed setting in app
-                        throw new Error('No permission for Push Notifications')
+                        // Not successful, reset displayed setting in app
+                        return false
                       }
                     } else {
                       await NotificationsManager.unsubscribeNews(cityCode, languageCode)
                     }
+                    return true
                   }
                 )
               }
@@ -115,6 +116,7 @@ const createSettingsSections = ({
               } else if (client) {
                 client.getOptions().enabled = !!newSettings.errorTracking
               }
+              return true
             }
           )
         }

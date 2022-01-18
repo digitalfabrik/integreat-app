@@ -1,8 +1,13 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { createDisclaimerEndpoint, DISCLAIMER_ROUTE, normalizePath, useLoadFromEndpoint } from 'api-client'
+import {
+  createDisclaimerEndpoint,
+  DISCLAIMER_ROUTE,
+  pathnameFromRouteInformation,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -13,17 +18,11 @@ import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath, RouteProps } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof DISCLAIMER_ROUTE>
-
-const DisclaimerPage = (props: PropsType): ReactElement => {
-  const { match, cityModel, languages, location } = props
-  const { languageCode, cityCode } = match.params
+const DisclaimerPage = ({ cityCode, languageCode, pathname, languages, cityModel }: CityRouteProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const pathname = normalizePath(location.pathname)
   const dateFormatter = useContext(DateFormatterContext)
-  const history = useHistory()
+  const navigate = useNavigate()
   const { t } = useTranslation('disclaimer')
 
   const requestDisclaimer = useCallback(
@@ -38,7 +37,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
   const { data: disclaimer, loading, error: disclaimerError } = useLoadFromEndpoint(requestDisclaimer)
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const disclaimerPath = createPath(DISCLAIMER_ROUTE, { cityCode, languageCode: code })
+    const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
     return { path: disclaimerPath, name, code }
   })
 
@@ -79,7 +78,7 @@ const DisclaimerPage = (props: PropsType): ReactElement => {
         title={disclaimer.title}
         content={disclaimer.content}
         formatter={dateFormatter}
-        onInternalLinkClick={history.push}
+        onInternalLinkClick={navigate}
       />
     </LocationLayout>
   )

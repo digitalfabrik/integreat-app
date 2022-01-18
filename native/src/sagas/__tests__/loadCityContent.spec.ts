@@ -4,6 +4,7 @@ import moment from 'moment'
 import { expectSaga } from 'redux-saga-test-plan'
 import { mocked } from 'jest-mock'
 
+import { NotFoundError } from 'api-client/src'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import EventModelBuilder from 'api-client/src/testing/EventModelBuilder'
@@ -302,6 +303,33 @@ describe('loadCityContent', () => {
       .call(fetchResourceCache, city, language, fetchMap, dataContainer)
       .run()
     expect(await dataContainer.getLastUpdate(city, language)).toBe(lastUpdate)
+  })
+
+  it('should throw error for nonexisting city', async () => {
+    const city = 'abc'
+    const dataContainer = new DefaultDataContainer()
+    await prepareDataContainer(dataContainer, city, language)
+    await dataContainer.storeLastUsage(city, false)
+    await dataContainer.setLastUpdate(city, language, lastUpdate)
+
+    await expect(
+      expectSaga(
+        loadCityContent,
+        dataContainer,
+        city,
+        language,
+        new ContentLoadCriterion(
+          {
+            forceUpdate: false,
+            shouldRefreshResources: true
+          },
+          false
+        )
+      )
+        .call(loadLanguages, city, dataContainer, true)
+        .call(loadCities, dataContainer, true)
+        .run()
+    ).rejects.toThrow(NotFoundError)
   })
 
   it('should put languages failed action and report error to sentry', async () => {

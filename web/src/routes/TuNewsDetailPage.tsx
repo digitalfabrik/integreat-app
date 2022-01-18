@@ -1,14 +1,8 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import {
-  createTunewsElementEndpoint,
-  normalizePath,
-  NotFoundError,
-  TU_NEWS_TYPE,
-  useLoadFromEndpoint
-} from 'api-client'
+import { createTunewsElementEndpoint, NotFoundError, TU_NEWS_TYPE, useLoadFromEndpoint } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import TunewsIcon from '../assets/TunewsActiveLogo.png'
@@ -19,7 +13,7 @@ import LocationLayout from '../components/LocationLayout'
 import Page from '../components/Page'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { RouteProps, TU_NEWS_DETAIL_ROUTE } from './index'
+import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -54,13 +48,10 @@ const StyledTitle = styled.div`
   font-weight: 700;
 `
 
-type PropsType = CityRouteProps & RouteProps<typeof TU_NEWS_DETAIL_ROUTE>
-
-const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
-  const { cityCode, languageCode, newsId } = match.params
-  const pathname = normalizePath(location.pathname)
-  const history = useHistory()
+const TuNewsDetailPage = ({ cityModel, languages, pathname, cityCode, languageCode }: CityRouteProps): ReactElement => {
+  const newsId = useParams().newsId!
   const formatter = useContext(DateFormatterContext)
+  const navigate = useNavigate()
   const viewportSmall = false
 
   const requestTuNews = useCallback(
@@ -78,8 +69,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
     feedbackTargetInformation: null,
     languageChangePaths,
     route: TU_NEWS_DETAIL_ROUTE,
-    languageCode,
-    pathname
+    languageCode
   }
 
   if (loading) {
@@ -126,7 +116,7 @@ const TuNewsDetailPage = ({ match, cityModel, languages, location }: PropsType):
             lastUpdateFormat='LLL'
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
-            onInternalLinkClick={history.push}
+            onInternalLinkClick={navigate}
           />
         </StyledWrapper>
       </StyledContainer>

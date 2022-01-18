@@ -58,7 +58,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
 
   const setSetting = async (
     changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-    changeAction?: (settings: SettingsType) => Promise<void>
+    changeAction?: (settings: SettingsType) => Promise<boolean>
   ) => {
     if (!settings) {
       return
@@ -69,11 +69,13 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
     setSettings(newSettings)
 
     try {
-      if (changeAction) {
-        await changeAction(newSettings)
-      }
+      const successful = changeAction ? await changeAction(newSettings) : true
 
-      await appSettings.setSettings(newSettings)
+      if (successful) {
+        await appSettings.setSettings(newSettings)
+      } else {
+        setSettings(oldSettings)
+      }
     } catch (e) {
       log('Failed to persist settings.', 'error')
       reportError(e)

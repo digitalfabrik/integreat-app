@@ -1,11 +1,21 @@
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { createTunewsEndpoint, loadFromEndpoint, normalizePath, TU_NEWS_TYPE, TunewsModel } from 'api-client'
+import {
+  createTunewsEndpoint,
+  createTunewsLanguagesEndpoint,
+  loadFromEndpoint,
+  NEWS_ROUTE,
+  pathnameFromRouteInformation,
+  TU_NEWS_TYPE,
+  TunewsModel,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
+import LanguageFailure from '../components/LanguageFailure'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
 import NewsListItem from '../components/NewsListItem'
@@ -13,19 +23,18 @@ import NewsTabs from '../components/NewsTabs'
 import TuNewsList from '../components/TuNewsList'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { createPath, RouteProps, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './index'
+import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
-type PropsType = CityRouteProps & RouteProps<typeof TU_NEWS_ROUTE>
-
-const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
-  const { cityCode, languageCode } = match.params
-  const pathname = normalizePath(location.pathname)
+const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteProps): ReactElement => {
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
   const viewportSmall = false
+
+  const loadTuNewsLanguages = useCallback(async () => createTunewsLanguagesEndpoint(tunewsApiBaseUrl).request(), [])
+  const { data: tuNewsLanguages, error: languagesError } = useLoadFromEndpoint(loadTuNewsLanguages)
 
   const [tuNews, setTuNews] = useState<TunewsModel[]>([])
   const [error, setError] = useState<Error | null>(null)
@@ -38,7 +47,7 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
       setLoading(true)
       setPage(page + 1)
       const endpoint = createTunewsEndpoint(tunewsApiBaseUrl)
-      const request = () => endpoint.request({ city: cityCode, language: languageCode, page, count: DEFAULT_COUNT })
+      const request = () => endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
       const addTuNews = (data: TunewsModel[] | null) => {
         if (data !== null) {
           setTuNews(tuNews.concat(data))
@@ -50,7 +59,7 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
       }
       await loadFromEndpoint(request, addTuNews, setError, setLoading)
     }
-  }, [page, cityCode, languageCode, tuNews, setTuNews, setError, setLoading, hasMore])
+  }, [page, languageCode, tuNews, setTuNews, setError, setLoading, hasMore])
 
   useEffect(() => {
     // Reset on language change
@@ -69,7 +78,13 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
         content={content}
         timestamp={date}
         key={id}
-        link={createPath(TU_NEWS_DETAIL_ROUTE, { cityCode, languageCode, newsId: id })}
+        link={pathnameFromRouteInformation({
+          route: NEWS_ROUTE,
+          newsType: TU_NEWS_TYPE,
+          cityCode,
+          languageCode,
+          newsId: id.toString()
+        })}
         t={t}
         formatter={formatter}
         type={TU_NEWS_TYPE}
@@ -77,30 +92,32 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
     )
   }
 
-  const languageChangePaths = languages.map(({ code, name }) => ({
-    path: createPath(TU_NEWS_ROUTE, { cityCode, languageCode: code }),
-    name,
-    code
-  }))
-
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
     feedbackTargetInformation: null,
-    languageChangePaths,
+    languageChangePaths: null,
     route: TU_NEWS_ROUTE,
-    languageCode,
-    pathname
+    languageCode
   }
 
-  if (loading && tuNews.length === 0) {
+  const errorToShow = error || languagesError
+  if (errorToShow) {
+    return (
+      <LocationLayout isLoading={false} {...locationLayoutParams}>
+        <FailureSwitcher error={errorToShow} />
+      </LocationLayout>
+    )
+  }
+
+  if (!tuNewsLanguages || (loading && tuNews.length === 0)) {
     return (
       <LocationLayout isLoading {...locationLayoutParams}>
         <NewsTabs
           type={TU_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LoadingSpinner />
@@ -109,10 +126,33 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
     )
   }
 
-  if (error) {
+  const languageChangePaths = languages.map(({ code, name }) => {
+    const isLanguageAvailable = tuNewsLanguages.find(language => language.code === code)
+    return {
+      path: isLanguageAvailable
+        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
+        : null,
+      name,
+      code
+    }
+  })
+
+  if (!tuNewsLanguages.find(({ code }) => code === languageCode)) {
     return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+      <LocationLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
+        <NewsTabs
+          type={TU_NEWS_TYPE}
+          city={cityCode}
+          tunewsEnabled={cityModel.tunewsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
+          t={t}
+          language={languageCode}>
+          <LanguageFailure
+            cityModel={cityModel}
+            languageCode={languageCode}
+            languageChangePaths={languageChangePaths}
+          />
+        </NewsTabs>
       </LocationLayout>
     )
   }
@@ -120,13 +160,13 @@ const TuNewsPage = ({ match, cityModel, languages, location }: PropsType): React
   const pageTitle = `${t('tuNews.pageTitle')} - ${cityModel.name}`
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <LocationLayout isLoading={false} {...locationLayoutParams} languageChangePaths={languageChangePaths}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <NewsTabs
         type={TU_NEWS_TYPE}
         city={cityCode}
         tunewsEnabled={cityModel.tunewsEnabled}
-        localNewsEnabled={cityModel.pushNotificationsEnabled}
+        localNewsEnabled={cityModel.localNewsEnabled}
         t={t}
         language={languageCode}>
         <TuNewsList

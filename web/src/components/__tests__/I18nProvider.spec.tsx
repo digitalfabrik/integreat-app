@@ -156,7 +156,7 @@ describe('I18nProvider', () => {
       render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     })
     await waitFor(() => screen.getByTestId('direction'))
-    expect(document.documentElement?.lang).toBe('ar')
+    expect(document.documentElement.lang).toBe('ar')
   })
 
   it('should use additional font for arabic', async () => {

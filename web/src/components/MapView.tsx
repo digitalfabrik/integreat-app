@@ -88,9 +88,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
-          {showPopup && currentFeature && (
-            <MapPopup coordinates={currentFeature.geometry.coordinates} properties={currentFeature.properties} />
-          )}
+          {showPopup && currentFeature && <MapPopup properties={currentFeature.properties} />}
         </Source>
       </ReactMapGL>
     </MapContainer>
