@@ -19,7 +19,7 @@ const integreatTestCms = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    cityNotCooperating: true
+    recommendToCityIfNotCooperating: true
   }
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

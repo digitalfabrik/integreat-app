@@ -32,7 +32,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: 'hallo',
-    cityNotCooperating: false
+    recommendToCityIfNotCooperating: false
   },
   aboutUrls: {
     default: 'https://www.aschaffenburg.de/halloaschaffenburg'

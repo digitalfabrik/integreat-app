@@ -18,7 +18,7 @@ const integreatE2e = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperating: true
+    recommendToCityIfNotCooperating: true
   }
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {

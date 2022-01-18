@@ -29,7 +29,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperating: true
+    recommendToCityIfNotCooperating: true
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
