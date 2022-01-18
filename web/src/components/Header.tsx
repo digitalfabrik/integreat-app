@@ -3,7 +3,6 @@ import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import HeaderContainer from './HeaderContainer'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle, { HEADER_TITLE_HEIGHT } from './HeaderTitle'
 
@@ -15,6 +14,22 @@ type PropsType = {
   cityName?: string
   onStickyTopChanged: (stickyTop: number) => void
 }
+
+const HeaderContainer = styled.header`
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.2);
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  user-select: none;
+  flex-direction: column;
+  overflow: visible;
+
+  @media ${dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+  }
+`
 
 const Row = styled.div<{ hasTitle?: boolean }>`
   display: flex;

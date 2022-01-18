@@ -9,7 +9,6 @@ import GeneralFooter from '../components/GeneralFooter'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
 import buildConfig from '../constants/buildConfig'
-import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import { RouteProps } from './index'
 
 type PropsType = {
@@ -23,13 +22,13 @@ const LandingPage = ({ cities, match }: PropsType): ReactElement => {
   const pageTitle = t('pageTitle')
   const metaDescription = t('metaDescription', { appName: buildConfig().appName })
 
-  useScrollToTopOnMount()
-
   return (
     <Layout
       footer={
         <>
-          {buildConfig().featureFlags.cityNotCooperating && <CityNotCooperatingFooter languageCode={languageCode} />}
+          {buildConfig().featureFlags.recommendToCityIfNotCooperating && (
+            <CityNotCooperatingFooter languageCode={languageCode} />
+          )}
           <GeneralFooter language={languageCode} />
         </>
       }>

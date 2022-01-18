@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { CITY_NOT_COOPERATING_ROUTE } from 'api-client/src'
 
 import cityNotCooperationIcon from '../assets/cityNotCooperating.svg'
-import BackNavigationHeader from '../components/BackNavigationHeader'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
 import { template } from '../constants/cityNotCooperatingTemplate'
@@ -101,30 +100,27 @@ const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATIN
   }
 
   return (
-    <>
-      <BackNavigationHeader />
-      <Layout footer={<GeneralFooter language={languageCode} />}>
-        <Container>
-          <HeadingContainer>
-            <Heading>{t('callToAction')}</Heading>
-          </HeadingContainer>
+    <Layout footer={<GeneralFooter language={languageCode} />}>
+      <Container>
+        <HeadingContainer>
+          <Heading>{t('callToAction')}</Heading>
+        </HeadingContainer>
 
-          <Text>{t('explanation')}</Text>
-          <Icon alt='' src={cityNotCooperationIcon} />
-          <ListHeading>{t('whatToDo')}</ListHeading>
-          <ListItem>
-            <StepNumber>1</StepNumber>
-            <StepExplanation>{t('findOutMail')}</StepExplanation>
-          </ListItem>
-          <ListItem>
-            <StepNumber>2</StepNumber>
-            <StepExplanation>{t('sendText')}</StepExplanation>
-          </ListItem>
-          <Button onClick={copyToClipboard}>{isCopied ? t('textCopied') : t('copyText')}</Button>
-          <TemplateText>{template}</TemplateText>
-        </Container>
-      </Layout>
-    </>
+        <Text>{t('explanation')}</Text>
+        <Icon alt='' src={cityNotCooperationIcon} />
+        <ListHeading>{t('whatToDo')}</ListHeading>
+        <ListItem>
+          <StepNumber>1</StepNumber>
+          <StepExplanation>{t('findOutMail')}</StepExplanation>
+        </ListItem>
+        <ListItem>
+          <StepNumber>2</StepNumber>
+          <StepExplanation>{t('sendText')}</StepExplanation>
+        </ListItem>
+        <Button onClick={copyToClipboard}>{isCopied ? t('textCopied') : t('copyText')}</Button>
+        <TemplateText>{template}</TemplateText>
+      </Container>
+    </Layout>
   )
 }
 
