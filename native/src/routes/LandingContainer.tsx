@@ -2,12 +2,11 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
-import { CityModel, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
+import { CityModel, cityContentPath, DASHBOARD_ROUTE, LandingRouteType } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import navigateToCategory from '../navigation/navigateToCategory'
-import { cityContentPath } from '../navigation/url'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import Landing from './Landing'

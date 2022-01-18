@@ -1,9 +1,9 @@
-import { Config } from '@jest/types'
+import { InitialOptionsTsJest } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
 const transformNodeModules = ['api-client', 'build-configs', 'translations']
-const config: Config.InitialOptions = {
+const config: InitialOptionsTsJest = {
   rootDir: 'src',
   preset: 'ts-jest',
   verbose: true,

@@ -54,7 +54,6 @@ describe('Endpoint', () => {
     redirected: false,
     status: 200,
     statusText: 'ok',
-    trailer: new Promise<Headers>(() => headers),
     type: 'default',
     url: 'https://example.com',
     clone: jest.fn(),

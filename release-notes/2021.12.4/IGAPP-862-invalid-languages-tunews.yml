@@ -1,0 +1,5 @@
+issue_key: IGAPP-862
+show_in_stores: false
+platforms:
+  - web
+en: Available languages for tünews are now correctly handled.

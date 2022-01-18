@@ -1,72 +1,36 @@
-unless: << pipeline.parameters.api_triggered >>
+unless:
+  or:
+    - equal: [main, << pipeline.git.branch >>]
+    - << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
-      context:
-        - mattermost
       delivery: none
 
-  - check:
-      context:
-        - mattermost
-  - e2e_web:
-      context:
-        - mattermost
-      requires:
-        - bump_version
-        - check
+  - check
+
   - build_web:
       name: build_ig_test_cms_web
       build_config_name: integreat-test-cms
-      context:
-        - mattermost
       requires:
         - bump_version
         - check
-  - build_web:
-      name: build_malte_web
-      build_config_name: malte
-      context:
-        - mattermost
+
+  - e2e_web:
       requires:
         - bump_version
         - check
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-        - check
-  - deliver_web:
-      filters:
-        branches:
-          only:
-            - main
-      context:
-        - mattermost
-        - sentry
-      production_delivery: false
-      requires:
-        - check
-        - e2e_web
-        - build_ig_test_cms_web
-        - build_malte_web
-        - build_aschaffenburg_web
 
   - build_android:
       name: build_e2e_android
       build_config_name: integreat-e2e
       context:
-        - mattermost
-        - tuerantuer-google-play
-        - tuerantuer-android
+        - credentials-repo
+        - credentials-integreat
       requires:
         - bump_version
         - check
   - e2e_android:
       context:
-        - mattermost
         - browserstack
       requires:
         - build_e2e_android
@@ -75,15 +39,13 @@ jobs:
       name: build_e2e_ios
       build_config_name: integreat-e2e
       context:
-        - mattermost
         - tuerantuer-apple
-        - tuerantuer-ios
+        - fastlane-match
       requires:
         - bump_version
         - check
   - e2e_ios:
       context:
-        - mattermost
         - browserstack
       requires:
         - build_e2e_ios

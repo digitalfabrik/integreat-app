@@ -1,13 +1,14 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
   createLocalNewsEndpoint,
   LOCAL_NEWS_TYPE,
   LocalNewsModel,
-  normalizePath,
+  NEWS_ROUTE,
   NotFoundError,
+  pathnameFromRouteInformation,
   replaceLinks,
   useLoadFromEndpoint
 } from 'api-client'
@@ -23,16 +24,13 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
-import { createPath, LOCAL_NEWS_ROUTE, RouteProps } from './index'
+import { LOCAL_NEWS_ROUTE } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof LOCAL_NEWS_ROUTE>
-
-const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): ReactElement => {
-  const { cityCode, languageCode, newsId } = match.params
-  const pathname = normalizePath(location.pathname)
-  const history = useHistory()
+const LocalNewsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+  const { newsId } = useParams()
   const formatter = useContext(DateFormatterContext)
   const { t } = useTranslation('news')
+  const navigate = useNavigate()
   const viewportSmall = false
 
   const requestLocalNews = useCallback(
@@ -51,7 +49,13 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
         content={message}
         timestamp={timestamp}
         key={id}
-        link={createPath(LOCAL_NEWS_ROUTE, { cityCode, languageCode, newsId: id })}
+        link={pathnameFromRouteInformation({
+          route: NEWS_ROUTE,
+          newsType: LOCAL_NEWS_TYPE,
+          cityCode,
+          languageCode,
+          newsId: id.toString()
+        })}
         t={t}
         formatter={formatter}
         type={LOCAL_NEWS_TYPE}
@@ -61,7 +65,9 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
 
   // Language change is not possible between local news detail views because we don't know the id of other languages
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: newsId ? null : createPath(LOCAL_NEWS_ROUTE, { cityCode, languageCode: code }),
+    path: newsId
+      ? null
+      : pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: LOCAL_NEWS_TYPE, cityCode, languageCode: code }),
     name,
     code
   }))
@@ -72,8 +78,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
     feedbackTargetInformation: null,
     languageChangePaths,
     route: LOCAL_NEWS_ROUTE,
-    languageCode,
-    pathname
+    languageCode
   }
 
   if (loading) {
@@ -83,7 +88,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
           type={LOCAL_NEWS_TYPE}
           city={cityCode}
           tunewsEnabled={cityModel.tunewsEnabled}
-          localNewsEnabled={cityModel.pushNotificationsEnabled}
+          localNewsEnabled={cityModel.localNewsEnabled}
           t={t}
           language={languageCode}>
           <LoadingSpinner />
@@ -122,7 +127,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
           lastUpdateFormat='LLL'
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
-          onInternalLinkClick={history.push}
+          onInternalLinkClick={navigate}
         />
       </LocationLayout>
     )
@@ -137,7 +142,7 @@ const LocalNewsPage = ({ match, cityModel, languages, location }: PropsType): Re
         type={LOCAL_NEWS_TYPE}
         city={cityCode}
         tunewsEnabled={cityModel.tunewsEnabled}
-        localNewsEnabled={cityModel.pushNotificationsEnabled}
+        localNewsEnabled={cityModel.localNewsEnabled}
         t={t}
         language={languageCode}>
         <LocalNewsList

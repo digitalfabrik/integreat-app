@@ -9,7 +9,7 @@ class CityModel {
   _eventsEnabled: boolean
   _offersEnabled: boolean
   _poisEnabled: boolean
-  _pushNotificationsEnabled: boolean
+  _localNewsEnabled: boolean
   _tunewsEnabled: boolean
   _sortingName: string
   _prefix: string | null | undefined
@@ -23,7 +23,7 @@ class CityModel {
     poisEnabled: boolean
     eventsEnabled: boolean
     offersEnabled: boolean
-    pushNotificationsEnabled: boolean
+    localNewsEnabled: boolean
     tunewsEnabled: boolean
     sortingName: string
     prefix: string | null | undefined
@@ -38,7 +38,7 @@ class CityModel {
     this._eventsEnabled = params.eventsEnabled
     this._offersEnabled = params.offersEnabled
     this._poisEnabled = params.poisEnabled
-    this._pushNotificationsEnabled = params.pushNotificationsEnabled
+    this._localNewsEnabled = params.localNewsEnabled
     this._tunewsEnabled = params.tunewsEnabled
     this._sortingName = params.sortingName
     this._prefix = params.prefix
@@ -82,8 +82,8 @@ class CityModel {
     return this._poisEnabled
   }
 
-  get pushNotificationsEnabled(): boolean {
-    return this._pushNotificationsEnabled
+  get localNewsEnabled(): boolean {
+    return this._localNewsEnabled
   }
 
   get tunewsEnabled(): boolean {

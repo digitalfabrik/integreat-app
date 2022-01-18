@@ -1,13 +1,13 @@
 import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useHistory } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
   createEventsEndpoint,
   EventModel,
   EVENTS_ROUTE,
-  normalizePath,
   NotFoundError,
+  pathnameFromRouteInformation,
   useLoadFromEndpoint
 } from 'api-client'
 
@@ -28,17 +28,13 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
-import { createPath, RouteProps } from './index'
 
-type PropsType = CityRouteProps & RouteProps<typeof EVENTS_ROUTE>
-
-const EventsPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
-  const { cityCode, languageCode, eventId } = match.params
-  const pathname = normalizePath(location.pathname)
-  const history = useHistory()
+const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: CityRouteProps): ReactElement => {
+  const { eventId } = useParams()
   const { t } = useTranslation('events')
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
+  const navigate = useNavigate()
 
   const requestEvents = useCallback(
     async () => createEventsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
@@ -46,16 +42,20 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
   )
   const { data: events, loading, error: eventsError } = useLoadFromEndpoint(requestEvents)
 
-  const event = eventId && events?.find((event: EventModel) => event.path === pathname)
+  const event = eventId ? events?.find((event: EventModel) => event.path === pathname) : null
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
     <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} />
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
-    const rootPath = createPath(EVENTS_ROUTE, { cityCode, languageCode: code })
+    const isCurrentLanguage = code === languageCode
+    const path = event
+      ? event.availableLanguages.get(code) || null
+      : pathnameFromRouteInformation({ route: EVENTS_ROUTE, cityCode, languageCode: code })
+
     return {
-      path: event ? event.availableLanguages.get(code) || null : rootPath,
+      path: isCurrentLanguage ? pathname : path,
       name,
       code
     }
@@ -68,7 +68,6 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
     languageChangePaths,
     route: EVENTS_ROUTE,
     languageCode,
-    pathname,
     toolbar
   }
 
@@ -113,7 +112,7 @@ const EventsPage = ({ cityModel, match, location, languages }: PropsType): React
           content={content}
           title={title}
           formatter={formatter}
-          onInternalLinkClick={history.push}>
+          onInternalLinkClick={navigate}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
             {location.location && <PageDetail identifier={t('location')} information={location.location} />}

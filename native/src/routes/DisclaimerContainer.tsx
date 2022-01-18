@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { RefreshControl } from 'react-native'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useTheme } from 'styled-components'
 
 import {
@@ -17,30 +17,24 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useReportError from '../hooks/useReportError'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { StateType } from '../redux/StateType'
 import { determineApiUrl } from '../utils/helpers'
 import Disclaimer from './Disclaimer'
 
-type OwnPropsType = {
+type PropsType = {
   route: RoutePropType<DisclaimerRouteType>
   navigation: NavigationPropType<DisclaimerRouteType>
 }
-type StatePropsType = {
-  resourceCacheUrl: string | null | undefined
-}
 
-const mapStateToProps = (state: StateType): StatePropsType => ({
-  resourceCacheUrl: state.resourceCacheUrl
-})
-
-type DisclaimerPropsType = OwnPropsType & {
-  resourceCacheUrl: string | null | undefined
-}
-
-const DisclaimerContainer = ({ resourceCacheUrl, navigation, route }: DisclaimerPropsType) => {
+const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => {
   const { cityCode, languageCode } = route.params
+  const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
   const theme = useTheme()
+
+  const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }
+  useSetShareUrl({ navigation, routeInformation, route })
 
   const request = useCallback(async () => {
     const apiUrl = await determineApiUrl()
@@ -80,4 +74,4 @@ const DisclaimerContainer = ({ resourceCacheUrl, navigation, route }: Disclaimer
   )
 }
 
-export default connect(mapStateToProps)(DisclaimerContainer)
+export default DisclaimerContainer
