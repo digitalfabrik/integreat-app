@@ -61,7 +61,7 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
       errorMessage: 'nothingFound'
     }
 
-    return sorted.length == 0 ? (
+    return sorted.length === 0 ? (
       <Failure {...failureProps} t={t} />
     ) : (
       transform(

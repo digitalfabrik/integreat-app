@@ -25,7 +25,7 @@ import {
 } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import { faFrown, faSmile } from '../constants/icons'
+import { faSmile } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import { reportError } from '../utils/sentry'
