@@ -1,5 +1,6 @@
 import {
   CategoriesRouteType,
+  CityNotCooperatingRouteType,
   DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
@@ -20,6 +21,10 @@ type ParamsType = {
 }
 export type LandingRouteInformationType = {
   route: LandingRouteType
+  languageCode: string
+}
+export type CityNotCooperatingInformationType = {
+  route: CityNotCooperatingRouteType
   languageCode: string
 }
 export type JpalTrackingRouteInformationType = {
@@ -48,6 +53,7 @@ export type EventsPoisRouteInformationType = ParamsType & {
 }
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType
+  | CityNotCooperatingInformationType
   | JpalTrackingRouteInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
