@@ -1,6 +1,5 @@
 import { Position } from 'geojson'
-
-import { PoiFeature } from '../maps'
+import { mapMarker, PoiFeature } from '../maps'
 
 class LocationModel {
   _id: number
@@ -137,7 +136,7 @@ class LocationModel {
         title: this.name,
         id: this.id,
         // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
-        symbol: '9',
+        symbol: mapMarker.symbol,
         thumbnail,
         path,
         urlSlug,
