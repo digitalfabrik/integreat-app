@@ -1,8 +1,15 @@
 import { Parser } from 'htmlparser2'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import { CategoryModel, createCategoriesEndpoint, SEARCH_ROUTE, useLoadFromEndpoint } from 'api-client'
+import {
+  CategoryModel,
+  createCategoriesEndpoint,
+  pathnameFromRouteInformation,
+  SEARCH_ROUTE,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CategoryList from '../components/CategoryList'
@@ -15,20 +22,15 @@ import SearchInput from '../components/SearchInput'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { normalizeSearchString } from '../utils/stringUtils'
-import { createPath, RouteProps } from './index'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 
-const noop = () => undefined
-
-type PropsType = CityRouteProps & RouteProps<typeof SEARCH_ROUTE>
-
-const SearchPage = ({ match, cityModel, location, languages, history }: PropsType): ReactElement => {
-  const query = new URLSearchParams(location.search).get('query') ?? ''
-  const { cityCode, languageCode } = match.params
+const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: CityRouteProps): ReactElement => {
+  const query = new URLSearchParams(useLocation().search).get('query') ?? ''
   const [filterText, setFilterText] = useState<string>(query)
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('search')
+  const navigate = useNavigate()
 
   const requestCategories = useCallback(
     async () =>
@@ -41,7 +43,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   const { data: categories, loading, error: categoriesError } = useLoadFromEndpoint(requestCategories)
 
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: createPath(SEARCH_ROUTE, { cityCode, languageCode: code }),
+    path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
     name,
     code
   }))
@@ -120,7 +122,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
     const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
-    history.replace(`${location.pathname}${appendToUrl}`)
+    navigate(`${pathname}/${appendToUrl}`, { replace: true })
   }
 
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
@@ -134,7 +136,7 @@ const SearchPage = ({ match, cityModel, location, languages, history }: PropsTyp
         onFilterTextChange={handleFilterTextChanged}
         spaceSearch
       />
-      <CategoryList categories={searchResults} query={filterText} onInternalLinkClick={noop} />
+      <CategoryList categories={searchResults} query={filterText} onInternalLinkClick={navigate} />
       <FeedbackSearch
         cityCode={cityCode}
         languageCode={languageCode}

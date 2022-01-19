@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { CITY_NOT_COOPERATING_ROUTE } from 'api-client/src'
+import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'api-client/src'
 
 import cityNotCooperatingIcon from '../assets/cityNotCooperating.svg'
-import { createPath } from '../routes'
 
 const FooterContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -47,7 +46,9 @@ const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => 
     <FooterContainer>
       <Icon alt='' src={cityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
-      <Button to={createPath(CITY_NOT_COOPERATING_ROUTE, { languageCode })}>{t('clickHere')}</Button>
+      <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
+        {t('clickHere')}
+      </Button>
     </FooterContainer>
   )
 }

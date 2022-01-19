@@ -1,3 +1,4 @@
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import AssetsPlugin from 'assets-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
@@ -6,7 +7,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin'
 import MomentTimezoneDataPlugin from 'moment-timezone-data-webpack-plugin'
 import { join, resolve } from 'path'
-import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize } from 'webpack'
+import ReactRefreshTypeScript from 'react-refresh-typescript'
+import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
 
@@ -76,7 +78,6 @@ const createConfig = (
 
   const buildConfig = loadBuildConfig(buildConfigName, WEB)
 
-  // We have to override the env of the current process, such that babel-loader works with that.
   const NODE_ENV = devServer ? '"development"' : '"production"'
   process.env.NODE_ENV = NODE_ENV
 
@@ -102,6 +103,11 @@ const createConfig = (
   const bundleReportDirectory = resolve(__dirname, '../reports/bundle')
   const manifestPreset = resolve(__dirname, 'manifest.json')
 
+  const plugins: WebpackPluginInstance[] = []
+  if (devServer) {
+    plugins.push(new ReactRefreshPlugin())
+  }
+
   // Add new polyfills here instead of importing them in the JavaScript code.
   // This way it is ensured that polyfills are loaded before any other code which might require them.
   const polyfills = ['whatwg-fetch', 'url-polyfill']
@@ -121,7 +127,6 @@ const createConfig = (
     entry: [
       '!!style-loader!css-loader!normalize.css/normalize.css',
       ...polyfills,
-      'react-hot-loader/patch',
       /* The main entry point of your JavaScript application */
       './index.tsx'
     ],
@@ -213,25 +218,28 @@ const createConfig = (
       new MomentLocalesPlugin({
         localesToKeep: translationsConfig.getSupportedLanguageTags(),
         ignoreInvalidLocales: true
-      })
+      }),
+      ...plugins
     ],
     module: {
       rules: [
         {
           test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true,
+                ...(devServer && {
+                  getCustomTransformers: () => ({
+                    before: [ReactRefreshTypeScript()]
+                  })
+                })
+              }
+            }
+          ]
         },
-        // TODO IGAPP-607: Think about what to do with *.js
-        // {
-        //   test: /\.jsx?$/,
-        //   // https://github.com/webpack/webpack/issues/2031#issuecomment-219040479
-        //   // Packages mentioned here probably use ES6 syntax which IE11 does not support. This is a problem because
-        //   // in development mode webpack bundles the mentioned packages
-        //   exclude: /node_modules\/(?!(strict-uri-encode|strip-ansi|build-configs|api-client)\/).*/,
-        //   loader: 'babel-loader',
-        //   options: babelConfig
-        // },
         {
           test: /\.html$/,
           use: [

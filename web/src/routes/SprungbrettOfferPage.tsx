@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import {
   createOffersEndpoint,
   createSprungbrettJobsEndpoint,
-  normalizePath,
   NotFoundError,
   Payload,
   SPRUNGBRETT_OFFER_ROUTE,
   SprungbrettJobModel,
   useLoadFromEndpoint,
-  OfferModel
+  OfferModel,
+  pathnameFromRouteInformation
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -27,18 +27,19 @@ import LocationToolbar from '../components/LocationToolbar'
 import SprungbrettListItem from '../components/SprungbrettListItem'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { createPath, RouteProps } from './index'
 
 const Image = styled.img`
   display: block;
   margin: 0 auto;
 `
 
-type PropsType = CityRouteProps & RouteProps<typeof SPRUNGBRETT_OFFER_ROUTE>
-
-const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsType): ReactElement => {
-  const { cityCode, languageCode } = match.params
-  const pathname = normalizePath(location.pathname)
+const SprungbrettOfferPage = ({
+  cityModel,
+  cityCode,
+  languageCode,
+  pathname,
+  languages
+}: CityRouteProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('sprungbrett')
 
@@ -68,7 +69,7 @@ const SprungbrettOfferPage = ({ cityModel, match, location, languages }: PropsTy
   )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: createPath(SPRUNGBRETT_OFFER_ROUTE, { cityCode, languageCode: code }),
+    path: pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode: code }),
     name,
     code
   }))
