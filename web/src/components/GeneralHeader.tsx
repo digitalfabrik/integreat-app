@@ -1,11 +1,10 @@
 import React from 'react'
 import { TFunction, withTranslation } from 'react-i18next'
 
-import { LANDING_ROUTE } from 'api-client'
+import { LANDING_ROUTE, pathnameFromRouteInformation } from 'api-client'
 
 import landingIcon from '../assets/location-icon.svg'
 import buildConfig from '../constants/buildConfig'
-import { createPath } from '../routes'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 
@@ -16,7 +15,7 @@ type PropsType = {
 }
 
 const GeneralHeader = ({ languageCode, viewportSmall, t }: PropsType) => {
-  const landingPath = createPath(LANDING_ROUTE, { languageCode })
+  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const actionItems = !buildConfig().featureFlags.fixedCity
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]
     : []

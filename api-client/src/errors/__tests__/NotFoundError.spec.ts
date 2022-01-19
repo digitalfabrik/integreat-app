@@ -20,8 +20,9 @@ describe('NotFoundError', () => {
         city: 'augsburg',
         language: 'language'
       })
-    } catch (error) {
-      expect(error.stack).toMatch(new RegExp(`${escapeRegExp(__filename)}:\\d+:\\d+`))
+    } catch (error: unknown) {
+      expect(error).toBeInstanceOf(Error)
+      expect((error as Error).stack).toMatch(new RegExp(`${escapeRegExp(__filename)}:\\d+:\\d+`))
       /* Matches the first line
                                                                                         in stack */
     }

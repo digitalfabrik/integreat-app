@@ -2,6 +2,8 @@ import { Dispatch } from 'redux'
 import Url from 'url-parse'
 
 import {
+  CITY_NOT_COOPERATING_ROUTE,
+  cityContentPath as createCityContentPath,
   DASHBOARD_ROUTE,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
@@ -18,7 +20,6 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import createNavigate from './createNavigate'
 import navigateToCategory from './navigateToCategory'
-import { cityContentPath as createCityContentPath } from './url'
 
 const navigateToDeepLink = async <T extends RoutesType>(
   dispatch: Dispatch<StoreActionType>,
@@ -48,7 +49,10 @@ const navigateToDeepLink = async <T extends RoutesType>(
     const routeInformation = routeParser.route()
 
     const routeInformationCityCode =
-      routeInformation && routeInformation.route !== LANDING_ROUTE && routeInformation.route !== JPAL_TRACKING_ROUTE
+      routeInformation &&
+      routeInformation.route !== LANDING_ROUTE &&
+      routeInformation.route !== JPAL_TRACKING_ROUTE &&
+      routeInformation.route !== CITY_NOT_COOPERATING_ROUTE
         ? routeInformation.cityCode
         : null
     const routeInformationLanguageCode =

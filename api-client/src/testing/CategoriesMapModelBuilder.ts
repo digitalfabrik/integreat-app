@@ -69,15 +69,15 @@ class CategoriesMapModelBuilder {
       const lastUpdate = moment('2017-11-18T19:30:00.000Z', moment.ISO_8601)
       const resourceUrl1 = `https://cms.integreat-app.de/title_${id}-300x300.png`
       const resourceUrl2 = `https://cms.integreat-app.de/category_${id}-300x300.png`
-      const thumbnail = `http://cms.integreat-app.de/thumbnails/category_${id}.png`
+      const thumbnail = `https://cms.integreat-app.de/thumbnails/category_${id}.png`
       const newChild = new CategoryModel({
         root: false,
         path,
         title: `Category with id ${id}`,
         content: `<h1>This is a sample page</h1>
-                    <img src="${resourceUrl1}"/>
+                    <img src="${resourceUrl1}" alt="" />
                     <p>This is a sample page</p>
-                    <img src="${resourceUrl2}"/>`,
+                    <img src="${resourceUrl2}" alt=""/>`,
         order: i,
         availableLanguages: new Map(),
         thumbnail,

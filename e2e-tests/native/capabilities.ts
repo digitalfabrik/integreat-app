@@ -3,7 +3,7 @@ import { Capabilities } from '@wdio/types'
 import { getGitBranch, getGitHeadReference } from '../shared/git'
 
 const browserstackCaps = (
-  config: Capabilities.AppiumW3CCapabilities,
+  config: Capabilities.AppiumW3CCapabilities | Capabilities.AppiumXCUITestCapabilities,
   platformName: 'ios' | 'android'
 ): Capabilities.Capabilities => {
   // is set by circleci https://github.com/circleci/circleci-docs/blob/master/jekyll/_cci1/environment-variables.md
@@ -41,7 +41,6 @@ export default {
       'appium:platformVersion': '14',
       'appium:deviceName': 'iPhone 11',
       'appium:automationName': 'XCUITest',
-      // @ts-ignore unknown property
       'appium:waitForIdleTimeout': 10000
     },
     'ios'

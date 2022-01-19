@@ -1,15 +1,11 @@
 import { fireEvent, RenderResult, waitFor } from '@testing-library/react'
 import React from 'react'
-import { Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-
-import { CITY_NOT_COOPERATING_ROUTE } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
 import { template } from '../../constants/cityNotCooperatingTemplate'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderWithRouter } from '../../testing/render'
 import CityNotCooperatingPage from '../CityNotCooperatingPage'
-import { createPath, RoutePatterns } from '../index'
 
 Object.assign(navigator, {
   clipboard: {
@@ -21,16 +17,13 @@ describe('CityNotCooperatingPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const languageCode = 'de'
 
   const renderPage = (): RenderResult =>
-    renderWithBrowserRouter(
+    renderWithRouter(
       <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
-          render={props => <CityNotCooperatingPage {...props} />}
-        />
-      </ThemeProvider>,
-      { route: createPath(CITY_NOT_COOPERATING_ROUTE, { languageCode: 'de' }) }
+        <CityNotCooperatingPage languageCode={languageCode} />
+      </ThemeProvider>
     )
 
   it('should render texts', () => {

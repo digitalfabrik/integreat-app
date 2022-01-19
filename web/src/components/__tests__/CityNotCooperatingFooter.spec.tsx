@@ -1,9 +1,6 @@
-import { render, fireEvent } from '@testing-library/react'
-import { createMemoryHistory } from 'history'
+import { render } from '@testing-library/react'
 import React from 'react'
-import { BrowserRouter, Router } from 'react-router-dom'
-
-import { CITY_NOT_COOPERATING_ROUTE } from 'api-client/src'
+import { BrowserRouter } from 'react-router-dom'
 
 import wrapWithTheme from '../../testing/wrapWithTheme'
 import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
@@ -18,18 +15,5 @@ describe('CityNotCooperatingFooter', () => {
     )
     expect(getByText('cityNotFound')).toBeDefined()
     expect(getByText('clickHere')).toBeDefined()
-  })
-
-  it('should navigate on button click', () => {
-    const history = createMemoryHistory()
-    const { getByText } = render(
-      <Router history={history}>
-        <CityNotCooperatingFooter languageCode='de' />
-      </Router>,
-      { wrapper: wrapWithTheme }
-    )
-    const button = getByText('clickHere')
-    fireEvent.click(button)
-    expect(history.location.pathname).toEqual(`/${CITY_NOT_COOPERATING_ROUTE}/de`)
   })
 })

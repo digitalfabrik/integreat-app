@@ -19,10 +19,10 @@ const retry = async <T>(
 ): Promise<{ default: ComponentType<T> }> => {
   try {
     return componentImport()
-  } catch (error) {
+  } catch (error: unknown) {
     await wait(interval)
     if (retriesLeft === 0) {
-      throw new Error(error)
+      throw error instanceof Error ? error : new Error()
     }
     return retry(componentImport, retriesLeft - 1, interval)
   }

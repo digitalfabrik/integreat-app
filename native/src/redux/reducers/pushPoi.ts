@@ -1,4 +1,4 @@
-import { PoiModel, POIS_ROUTE } from 'api-client'
+import { ErrorCode, POIS_ROUTE } from 'api-client'
 
 import { CityContentStateType, PoiRouteStateType } from '../StateType'
 import { PushPoiActionType } from '../StoreActionType'
@@ -25,10 +25,18 @@ const pushPoi = (state: CityContentStateType, action: PushPoiActionType): CityCo
       }
     }
 
-    const poi: PoiModel | null | undefined = pois.find(poi => poi.path === path)
+    const poi = pois.find(poi => poi.path === path)
 
     if (!poi) {
-      throw new Error(`Poi with path ${path} was not found in supplied models.`)
+      return {
+        routeType: POIS_ROUTE,
+        path,
+        language,
+        city,
+        status: 'error',
+        message: `Could not find a poi with path '${path}'.`,
+        code: ErrorCode.PageNotFound
+      }
     }
 
     allAvailableLanguages.set(language, path)

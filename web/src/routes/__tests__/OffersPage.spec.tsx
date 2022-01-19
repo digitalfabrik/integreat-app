@@ -1,6 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 import { mocked } from 'ts-jest/utils'
 
 import {
@@ -8,14 +6,14 @@ import {
   LanguageModelBuilder,
   OfferModel,
   OFFERS_ROUTE,
+  pathnameFromRouteInformation,
   ReturnType,
   useLoadFromEndpoint
 } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
-import { renderWithBrowserRouter } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import OffersPage from '../OffersPage'
-import { createPath, RoutePatterns } from '../index'
+import { RoutePatterns } from '../index'
 
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
@@ -59,18 +57,26 @@ describe('OffersPage', () => {
     })
   ]
 
+  const pathname = pathnameFromRouteInformation({
+    route: OFFERS_ROUTE,
+    cityCode: city.code,
+    languageCode: language.code
+  })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[OFFERS_ROUTE]}`
+
   const renderOffersRoute = (mockData: ReturnType<OfferModel[]>) => {
     mocked(useLoadFromEndpoint).mockImplementationOnce(() => mockData)
-    return renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <Route
-          path={RoutePatterns[OFFERS_ROUTE]}
-          render={props => (
-            <OffersPage {...props} cities={cities} cityModel={city} languages={languages} languageModel={language} />
-          )}
-        />
-      </ThemeProvider>,
-      { route: createPath(OFFERS_ROUTE, { languageCode: language.code, cityCode: city.code }) }
+    return renderRoute(
+      <OffersPage
+        cities={cities}
+        cityModel={city}
+        languages={languages}
+        languageModel={language}
+        pathname={pathname}
+        cityCode={city.code}
+        languageCode={language.code}
+      />,
+      { routePattern, pathname, wrapWithTheme: true }
     )
   }
 

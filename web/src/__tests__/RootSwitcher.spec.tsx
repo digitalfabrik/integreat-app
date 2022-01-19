@@ -1,10 +1,8 @@
-import { RenderResult, waitFor } from '@testing-library/react'
-import { Location } from 'history'
+import { waitFor } from '@testing-library/react'
 import React from 'react'
-import { Route } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
+import { useLocation } from 'react-router-dom'
 
-import { CityModelBuilder } from 'api-client'
+import { CityModelBuilder, normalizePath } from 'api-client'
 import {
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithData
@@ -25,27 +23,23 @@ jest.mock('i18next', () => ({
 }))
 jest.mock('react-i18next')
 
+const MockComponent = () => {
+  const pathname = normalizePath(useLocation().pathname)
+  return <div>{pathname}</div>
+}
+
 describe('RootSwitcher', () => {
   const setContentLanguage = jest.fn()
   const cities = new CityModelBuilder(2).build()
 
-  const renderRootSwitcherWithLocation = (route: string): RenderResult & { location: Location | null } => {
-    let testLocation: Location<unknown> | null = null
-    const rendered = renderWithBrowserRouter(
-      <ThemeProvider theme={buildConfig().lightTheme}>
+  const renderRootSwitcher = (pathname: string) =>
+    renderWithBrowserRouter(
+      <>
         <RootSwitcher setContentLanguage={setContentLanguage} />
-        <Route
-          path='*'
-          render={({ location }) => {
-            testLocation = location
-            return null
-          }}
-        />
-      </ThemeProvider>,
-      { route }
+        <MockComponent />
+      </>,
+      { pathname, wrapWithTheme: true }
     )
-    return { ...rendered, location: testLocation }
-  }
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -54,10 +48,9 @@ describe('RootSwitcher', () => {
   it('should render the landing page', async () => {
     mockUseLoadFromEndpointOnceWithData(cities)
 
-    const { getByText, location } = renderRootSwitcherWithLocation('/landing/de')
+    const { getByText } = renderRootSwitcher('/landing/de')
 
-    expect(location?.pathname).toBe('/landing/de')
-    await waitFor(() => expect(getByText(cities[0]!.name)).toBeTruthy(), { timeout: 5000 })
+    await waitFor(() => expect(getByText('/landing/de')).toBeTruthy())
   })
 
   it.each`
@@ -69,9 +62,9 @@ describe('RootSwitcher', () => {
   `('should redirect from $from to $to', ({ from, to }) => {
     mockUseLoadFromEndpointWithData(cities)
 
-    const { location } = renderRootSwitcherWithLocation(from)
+    const { getByText } = renderRootSwitcher(from)
 
-    expect(location?.pathname).toBe(to)
+    expect(getByText(to)).toBeTruthy()
   })
 
   describe('fixedCity', () => {
@@ -94,12 +87,12 @@ describe('RootSwitcher', () => {
       ${'/augsburg/de'} | ${'/augsburg/de'}
       ${'/oldtown'}     | ${'/augsburg/de'}
       ${'/oldtown/de'}  | ${'/oldtown/de'}
-    `('should redirect from $from to $to for fixedCity', ({ from, to }) => {
+    `('should redirect from $from to $to for fixedCity', async ({ from, to }) => {
       mockUseLoadFromEndpointWithData(cities)
 
-      const { location } = renderRootSwitcherWithLocation(from)
+      const { getByText } = renderRootSwitcher(from)
 
-      expect(location?.pathname).toBe(to)
+      await waitFor(() => expect(getByText(to)).toBeTruthy())
     })
   })
 })

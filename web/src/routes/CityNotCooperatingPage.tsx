@@ -2,14 +2,11 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { CITY_NOT_COOPERATING_ROUTE } from 'api-client/src'
-
 import cityNotCooperationIcon from '../assets/cityNotCooperating.svg'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
 import { template } from '../constants/cityNotCooperatingTemplate'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
-import { RouteProps } from './index'
 
 const Container = styled.div`
   display: flex;
@@ -84,8 +81,11 @@ const TemplateText = styled(Text)`
   white-space: pre-line;
 `
 
-const CityNotCooperatingPage = ({ match }: RouteProps<typeof CITY_NOT_COOPERATING_ROUTE>): ReactElement => {
-  const { languageCode } = match.params
+type PropsType = {
+  languageCode: string
+}
+
+const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   useScrollToTopOnMount()
