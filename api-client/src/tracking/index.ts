@@ -1,6 +1,7 @@
 import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
+  CityNotCooperatingRouteType,
   DashboardRouteType,
   DisclaimerRouteType,
   EventsRouteType,
@@ -32,6 +33,7 @@ export type OpenPageSignalType = {
     | SettingsRouteType
     | FeedbackModalRouteType
     | LandingRouteType
+    | CityNotCooperatingRouteType
     | JpalTrackingRouteType
     | ChangeLanguageModalRouteType
   url: string
