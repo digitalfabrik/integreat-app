@@ -56,28 +56,23 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
     const safeCities = cities.filter(city => city.code !== '')
     const sorted = sort(safeCities)
     const groups = groupBy(sorted, city => city.sortCategory)
-    const failureProps = {
-      goToPath: null,
-      errorMessage: 'nothingFound'
+    if (sorted.length === 0) {
+      return <Failure errorMessage='nothingFound' t={t} />
     }
 
-    return sorted.length === 0 ? (
-      <Failure {...failureProps} t={t} />
-    ) : (
-      transform(
-        groups,
-        (result: Array<ReactNode>, cities, key) => {
-          result.push(
-            <div key={key}>
-              <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
-              {cities.map(city => (
-                <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-              ))}
-            </div>
-          )
-        },
-        []
-      )
+    return transform(
+      groups,
+      (result: Array<ReactNode>, cities, key) => {
+        result.push(
+          <div key={key}>
+            <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
+            {cities.map(city => (
+              <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+            ))}
+          </div>
+        )
+      },
+      []
     )
   }
 

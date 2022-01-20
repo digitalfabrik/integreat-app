@@ -83,7 +83,10 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
           }
       }
     }
-    return { errorMessage: fromError(error) }
+    return {
+      goToPath: '/',
+      errorMessage: fromError(error)
+    }
   }
 
   return (

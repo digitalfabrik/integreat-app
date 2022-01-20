@@ -16,13 +16,12 @@ const Centered = styled.div`
 
 type PropsType = {
   errorMessage: string
-  goToPath?: string | null
+  goToPath?: string
   goToMessage?: string
   t: TFunction<'error'>
 }
 
-// screen reader test
-const Failure = ({ errorMessage, goToPath = '/', goToMessage = 'goTo.start', t }: PropsType): ReactElement => (
+const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', t }: PropsType): ReactElement => (
   <Centered>
     <div>
       <FontAwesomeIcon icon={faFrown} size='4x' />

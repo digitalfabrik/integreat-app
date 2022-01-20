@@ -128,11 +128,6 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
 
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
-  const searchFailureProps = {
-    goToPath: null,
-    errorMessage: 'nothingFound'
-  }
-
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
@@ -143,7 +138,7 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
         spaceSearch
       />
       <CategoryList categories={searchResults} query={filterText} onInternalLinkClick={navigate} />
-      {searchResults.length === 0 && <Failure {...searchFailureProps} t={t} />}
+      {searchResults.length === 0 && <Failure errorMessage='nothingFound' t={t} />}
       <FeedbackSearch
         cityCode={cityCode}
         languageCode={languageCode}
