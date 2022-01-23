@@ -77,12 +77,10 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { distance, title } = feature.properties
 
   const onNavigate = () => {
-    if (location) {
-      const navigationUrl = getNavigationDeepLinks(location, poi.location)
+      const navigationUrl = getNavigationDeepLinks(poi.location)
       if (navigationUrl) {
         openExternalUrl(navigationUrl).catch(() => showSnackbar(t('navigationApplication')))
       }
-    }
   }
 
   const copyToClipboard = (text: string) => (): void => {
