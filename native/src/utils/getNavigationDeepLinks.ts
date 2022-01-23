@@ -2,13 +2,8 @@ import { Platform } from 'react-native'
 
 import { LocationModel } from 'api-client/src'
 
-/**
- * Depending on the platform this function returns the correct deeplink for navigation app
- * @param address{string}: location address
- * @param location{LocationModel}: location model with coordinates
- */
-export const getNavigationDeepLinks = (address: string, location: LocationModel): string | undefined => {
-  if (!location.location && !location.coordinates) {
+export const getNavigationDeepLinks = (location: LocationModel): string | null => {
+  if (!location.location || !location.coordinates) {
     return null
   }
 
@@ -16,7 +11,7 @@ export const getNavigationDeepLinks = (address: string, location: LocationModel)
   const y = location.coordinates[1]
 
   return Platform.select({
-    ios: `maps:${y},${x}?q=${address}`,
-    android: `geo:${y},${x}?q=${address}`
+    ios: `maps:${y},${x}?q=${location.location}`,
+    android: `geo:${y},${x}?q=${location.location}`
   })!
 }

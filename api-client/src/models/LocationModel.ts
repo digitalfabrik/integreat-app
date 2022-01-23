@@ -109,8 +109,7 @@ class LocationModel {
       this.postcode === other.postcode &&
       this.region === other.region &&
       this.country === other.country &&
-      this.longitude === other.longitude &&
-      this.latitude === other.latitude
+      this.coordinates === other.coordinates 
     )
   }
 
@@ -130,7 +129,7 @@ class LocationModel {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [Number(this.longitude), Number(this.latitude)]
+        coordinates: this.coordinates
       },
       properties: {
         title: this.name,
