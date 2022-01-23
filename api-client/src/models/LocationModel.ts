@@ -1,4 +1,5 @@
 import { Position } from 'geojson'
+
 import { mapMarker, PoiFeature } from '../maps'
 
 class LocationModel {
@@ -109,7 +110,7 @@ class LocationModel {
       this.postcode === other.postcode &&
       this.region === other.region &&
       this.country === other.country &&
-      this.coordinates === other.coordinates 
+      this.coordinates === other.coordinates
     )
   }
 
