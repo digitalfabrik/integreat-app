@@ -10,16 +10,9 @@ target 'Integreat' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-
-  # Since Map Libre 5.12.0 is not working yet, we stick to 5.11.0
-  $RNMBGL_Use_SPM = {
-    url: "https://github.com/maplibre/maplibre-gl-native-distribution",
-    requirement: {
-      kind: "exactVersion",
-      version: "5.11.0"
-    },
-    product_name: "Mapbox"
-  }
+    # use maplibre
+    $RNMBGL_Use_SPM = true
+    $RNMGL_USE_MAPLIBRE = true
 
   pre_install do |installer|
     # Required for Mapbox
