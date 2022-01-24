@@ -25,7 +25,7 @@ describe('useWindowDimensions', () => {
     Object.defineProperty(window, 'innerWidth', { value: width })
     Object.defineProperty(window, 'innerHeight', { value: height })
 
-    const { getByText, queryByText, rerender } = render(<MockComponent />)
+    const { getByText, queryByText } = render(<MockComponent />)
 
     expect(getByText(width, { exact: false })).toBeTruthy()
     expect(getByText(height, { exact: false })).toBeTruthy()
