@@ -1,7 +1,7 @@
 import { act, render } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { mocked } from 'jest-mock'
 
 import SnackbarContainer from '../SnackbarContainer'
 

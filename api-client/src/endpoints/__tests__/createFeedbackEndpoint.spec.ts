@@ -2,7 +2,6 @@
  * only needed as FormData is a web-specific type
  * @jest-environment jsdom
  */
-
 import createFeedbackEndponit, {
   CONTENT_FEEDBACK_CATEGORY,
   PAGE_FEEDBACK_TYPE,

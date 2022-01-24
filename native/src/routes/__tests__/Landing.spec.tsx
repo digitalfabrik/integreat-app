@@ -1,8 +1,8 @@
 import Geolocation from '@react-native-community/geolocation'
 import { render, fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import { mocked } from 'jest-mock'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 

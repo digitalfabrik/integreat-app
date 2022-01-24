@@ -35,7 +35,7 @@ export default {
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   coverageDirectory: '<rootDir>/../reports/coverage',
-    reporters: [
+  reporters: [
     'default',
     [
       'jest-junit',
