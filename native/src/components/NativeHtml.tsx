@@ -86,6 +86,16 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
         direction: config.hasRTLScript(language) ? 'rtl' : 'ltr'
       }}
       systemFonts={fonts}
+      tagsStyles={{
+        figure: {
+          margin: 0,
+          marginBottom: 15,
+          maxWidth: '100%',
+          paddingLeft: 15,
+          paddingRight: 15,
+          fontSize: theme.fonts.figCaptionFontSize
+        }
+      }}
     />
   )
 })
