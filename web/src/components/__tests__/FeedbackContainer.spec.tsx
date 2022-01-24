@@ -125,12 +125,12 @@ describe('FeedbackContainer', () => {
   })
 
   it('should display nothing found for search', async () => {
-    const { getByText } = render(
+    const { getByRole } = render(
       <ThemeProvider theme={buildConfig().lightTheme}>
         <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
       </ThemeProvider>
     )
-    expect(getByText('feedback:nothingFound')).toBeTruthy()
+    expect(getByRole('alert')).toContainHTML('feedback:nothingFound')
   })
 
   it('should display error', async () => {
