@@ -1,5 +1,6 @@
 native/android/**/*
 native/ios/**/*
+native/vendor/**/*
 
 web/www/
 
