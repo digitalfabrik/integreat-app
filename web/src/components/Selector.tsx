@@ -92,9 +92,13 @@ const Selector = ({
           <Element
             data-testid={item.code}
             key={item.code}
+            role='option'
             as={Link}
             to={item.href}
             onClick={closeDropDown}
+            onKeyPress={closeDropDown}
+            aria-selected={item.code === activeItemCode}
+            tabIndex={0}
             $enabled
             $selected={item.code === activeItemCode}>
             <BoldSpacer>{item.name}</BoldSpacer>
