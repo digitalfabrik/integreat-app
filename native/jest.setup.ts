@@ -2,6 +2,7 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 import '@testing-library/jest-native/extend-expect'
 import fs from 'fs'
 import path from 'path'
+
 import { I18nManager } from './src/testing/I18nManagerMock'
 
 global.fetch = require('jest-fetch-mock')

@@ -1,5 +1,5 @@
-import React from 'react'
 import { mocked } from 'jest-mock'
+import React from 'react'
 
 import {
   CityModelBuilder,

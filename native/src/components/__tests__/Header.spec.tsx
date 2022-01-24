@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
-import { mocked } from 'jest-mock'
 
 import { DASHBOARD_ROUTE, SEARCH_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'

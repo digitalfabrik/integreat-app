@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { render, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { mocked } from 'jest-mock'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
