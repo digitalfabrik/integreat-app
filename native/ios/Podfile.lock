@@ -775,7 +775,7 @@ SPEC CHECKSUMS:
   react-native-blob-util: 600972b1782380a5a7d5db61a3817ea32349dae9
   react-native-flipper: d6e247954bd180572acd775dabecaef6ce967b1e
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
-  react-native-mapbox-gl: 9dfd5a5927ae29672d4b00bb74839a81bb2b1401
+  react-native-mapbox-gl: 9fc139bea0119fd862c93df0adba1849b053e435
   react-native-netinfo: a3ece35948490a9507da0c56694da525b83357df
   react-native-pdf: a6a5a3f0bdf340eb2eed6c96034424d2cc3f84b0
   react-native-progress-bar-android: be43138ab7da30d51fc038bafa98e9ed594d0c40
@@ -813,6 +813,6 @@ SPEC CHECKSUMS:
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 517fdd0c6c55479759d0adc2dd9a368ade4902e8
+PODFILE CHECKSUM: 07f75eeeaaaab26ae85075d1cc08a85b8c777b97
 
 COCOAPODS: 1.11.2

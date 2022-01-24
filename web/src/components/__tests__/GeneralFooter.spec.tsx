@@ -1,13 +1,20 @@
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
+import wrapWithTheme from '../../testing/wrapWithTheme'
 import GeneralFooter from '../GeneralFooter'
 
-jest.mock('react-i18next')
-
 describe('GeneralFooter', () => {
-  it('should match snapshot', () => {
-    const component = shallow(<GeneralFooter language='de' />)
-    expect(component.dive()).toMatchSnapshot()
+  it('should show links', () => {
+    const { getByText } = render(
+      <BrowserRouter>
+        <GeneralFooter language='de' />
+      </BrowserRouter>,
+      { wrapper: wrapWithTheme }
+    )
+    expect(getByText('imprintAndContact')).toBeDefined()
+    expect(getByText('settings:about')).toBeDefined()
+    expect(getByText('privacy')).toBeDefined()
   })
 })
