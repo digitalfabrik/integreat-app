@@ -43,16 +43,6 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
-    'styled-components-a11y/label-has-for': [
-      2,
-      {
-        components: ['Label'],
-        required: {
-          every: ['id']
-        },
-        allowChildren: false
-      }
-    ],
 
     // Disabling since better @typescript-eslint rules available
     'default-case': 'off',
@@ -103,7 +93,19 @@ module.exports = {
     'jest/valid-describe-callback': 'error',
     'jest/valid-expect': 'error',
 
-    'prefer-arrow/prefer-arrow-functions': 'error'
+    'prefer-arrow/prefer-arrow-functions': 'error',
+
+    //  Facilitate to disable nesting
+    'styled-components-a11y/label-has-for': [
+      'error',
+      {
+        components: ['Label'],
+        required: {
+          every: ['id']
+        },
+        allowChildren: false
+      }
+    ]
   },
   parserOptions: {
     project: './tsconfig.json'

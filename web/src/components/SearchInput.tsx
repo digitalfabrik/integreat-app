@@ -63,7 +63,7 @@ export class SearchInput extends React.PureComponent<PropsType> {
       <Spacer space={spaceSearch}>
         <Wrapper>
           <SearchIcon />
-          {/* eslint-disable-next-line styled-components-a11y/no-autofocus */}
+          {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
           <TextInput
             placeholder={placeholderText}
             aria-label={placeholderText}
