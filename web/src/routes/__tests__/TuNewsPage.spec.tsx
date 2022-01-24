@@ -1,6 +1,6 @@
 import moment from 'moment'
 import React from 'react'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import {
   CityModelBuilder,
