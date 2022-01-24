@@ -14,7 +14,7 @@ class LandingPage extends Page {
   }
 
   city(name: string) {
-    return $(`*=${name}`)
+    return $(`=${name}`)
   }
 
   open() {
