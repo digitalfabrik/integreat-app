@@ -34,7 +34,6 @@
     "@types/normalize-path": "^3.0.0",
     "@types/react": "^17.0.37",
     "@types/seedrandom": "^3.0.1",
-    "jest-mock": "^27.4.6",
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^13.0.0",
     "seedrandom": "^3.0.3"
