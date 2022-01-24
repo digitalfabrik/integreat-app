@@ -72,7 +72,7 @@ const PoiPage = ({
   const { location } = poi.location
   const files = resourceCache[poi.path] || {}
 
-  const navigationUrl = location && getNavigationDeepLinks(poi.location)
+  const navigationUrl = getNavigationDeepLinks(poi.location)
 
   return (
     <Page
