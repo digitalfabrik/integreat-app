@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import { NotFoundError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -47,6 +47,13 @@ const createNavigate =
       })
 
       if (routeInformation.route === LANDING_ROUTE) {
+        navigateToLanding({
+          dispatch,
+          navigation
+        })
+        return
+      }
+      if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
         navigateToLanding({
           dispatch,
           navigation
