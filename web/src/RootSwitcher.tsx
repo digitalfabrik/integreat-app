@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
 import {
+  CITY_NOT_COOPERATING_ROUTE,
   cityContentPath,
   createCitiesEndpoint,
   LANDING_ROUTE,
@@ -22,6 +23,7 @@ import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { cityContentPattern, RoutePatterns } from './routes'
+import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import lazyWithRetry from './utils/retryImport'
 
 type PropsType = {
@@ -80,6 +82,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
+        <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
