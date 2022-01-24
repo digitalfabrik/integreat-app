@@ -123,3 +123,6 @@ dist
 runConfigurations.xml
 
 .tsbuild
+
+# Mac OS X
+.DS_Store
