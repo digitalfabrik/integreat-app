@@ -5,7 +5,7 @@ import { FAB } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import { defaultViewportConfig, detailZoom, mapConfig, PoiFeature, PoiFeatureCollection } from 'api-client'
+import { defaultViewportConfig, detailZoom, mapConfig, mapMarker, PoiFeature, PoiFeatureCollection } from 'api-client'
 
 const MapContainer = styled.View`
   flex: 1;
@@ -56,8 +56,14 @@ const MapView = ({
       symbolPlacement: 'point',
       symbolZOrder: 'source',
       iconAllowOverlap: true,
+      iconSize: mapMarker.iconSize,
       iconIgnorePlacement: true,
-      iconImage: ['case', ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1], '6', ['get', 'symbol']],
+      iconImage: [
+        'case',
+        ['==', ['get', 'id'], selectedFeature?.properties.id ?? -1],
+        mapMarker.symbolActive,
+        ['get', 'symbol']
+      ],
       textField: ['get', 'title'],
       textFont: ['Roboto Regular'],
       textOffset: [0, textOffsetY],

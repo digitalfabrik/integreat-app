@@ -4,7 +4,15 @@ import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } fro
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { detailZoom, mapConfig, locationName, MapViewViewport, PoiFeature, PoiFeatureCollection } from 'api-client'
+import {
+  detailZoom,
+  mapConfig,
+  locationName,
+  MapViewViewport,
+  PoiFeature,
+  PoiFeatureCollection,
+  mapMarker
+} from 'api-client'
 
 import MapPopup from './MapPopup'
 
@@ -14,6 +22,7 @@ const MapContainer = styled.div`
 `
 
 const textOffsetY = 1.25
+
 const layerStyle: LayerProps = {
   id: 'point',
   type: 'symbol',
@@ -21,6 +30,7 @@ const layerStyle: LayerProps = {
   layout: {
     'icon-allow-overlap': true,
     'icon-ignore-placement': true,
+    'icon-size': mapMarker.iconSize,
     'icon-image': ['get', 'symbol'],
     'text-field': ['get', 'title'],
     'text-font': ['Roboto Regular'],
@@ -81,6 +91,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={clickItem}>
+        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
