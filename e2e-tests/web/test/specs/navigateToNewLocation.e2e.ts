@@ -9,15 +9,14 @@ describe('navigateToOtherLocation', () => {
     const landingPath = Routes.landing
     await DashboardPage.open()
 
-    const locationIcon = await DashboardPage.locationIcon
-    await locationIcon.click()
+    await DashboardPage.locationIcon.click()
 
     const landingUrl = await browser.getUrl()
     const parsedLandingUrl = new URL(landingUrl)
     expect(parsedLandingUrl.pathname).toContain(landingPath)
 
-    const filteredCity = await LandingPage.city('Stadt Augsburg')
-    expect(filteredCity).toExist()
+    const filteredCity = LandingPage.city('Stadt Augsburg')
+    await expect(filteredCity).toExist()
 
     await filteredCity.click()
 

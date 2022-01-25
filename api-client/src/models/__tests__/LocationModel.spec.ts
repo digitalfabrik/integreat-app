@@ -71,7 +71,7 @@ describe('convertToPoint', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9',
+      symbol: 'marker_15',
       thumbnail: 'thumbnail',
       path: '/augsburg/de/locations/erster_poi',
       urlSlug,
