@@ -87,11 +87,13 @@ const createConfig = (
   // eslint-disable-next-line no-console
   console.log('Used config: ', buildConfigName)
   // eslint-disable-next-line no-console
-  console.log('Configured as running in dev server: ', devServer)
-  // eslint-disable-next-line no-console
   console.log('Version name: ', versionName)
   // eslint-disable-next-line no-console
-  console.log('Commit SHA ', shortCommitSha)
+  console.log('Commit SHA: ', shortCommitSha)
+  if (devServer) {
+    // eslint-disable-next-line no-console
+    console.log('Configured for running in dev server')
+  }
 
   const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
 
