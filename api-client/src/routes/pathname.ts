@@ -9,7 +9,8 @@ import {
   DASHBOARD_ROUTE,
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
-  LANDING_ROUTE
+  LANDING_ROUTE,
+  CITY_NOT_COOPERATING_ROUTE
 } from '.'
 import { NonNullableRouteInformationType } from '..'
 
@@ -35,6 +36,10 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   if (routeInformation.route === JPAL_TRACKING_ROUTE) {
     // https://integreat.app/jpal
     return constructPathname([routeInformation.route])
+  }
+  if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
+    // https://integreat.app/jpal
+    return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
   }
   if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
