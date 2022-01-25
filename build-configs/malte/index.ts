@@ -30,7 +30,8 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     jpalTracking: false,
     sentry: true,
     developerFriendly: false,
-    fixedCity: null
+    fixedCity: null,
+    recommendToCityIfNotCooperating: false
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app'

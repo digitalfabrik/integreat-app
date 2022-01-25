@@ -16,7 +16,7 @@ describe('geoJson', () => {
     properties: {
       id: 1,
       title: 'Test',
-      symbol: '9',
+      symbol: 'marker_15',
       thumbnail,
       path,
       urlSlug,
