@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow', 'styled-components-a11y'],
   extends: [
     'standard',
     'airbnb',
@@ -9,7 +9,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'prettier'
+    'prettier',
+    'plugin:styled-components-a11y/strict'
   ],
   env: {
     es6: true,
@@ -92,7 +93,19 @@ module.exports = {
     'jest/valid-describe-callback': 'error',
     'jest/valid-expect': 'error',
 
-    'prefer-arrow/prefer-arrow-functions': 'error'
+    'prefer-arrow/prefer-arrow-functions': 'error',
+
+    //  Facilitate to disable nesting
+    'styled-components-a11y/label-has-for': [
+      'error',
+      {
+        components: ['Label'],
+        required: {
+          every: ['id']
+        },
+        allowChildren: false
+      }
+    ]
   },
   parserOptions: {
     project: './tsconfig.json'
