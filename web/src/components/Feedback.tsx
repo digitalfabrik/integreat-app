@@ -35,7 +35,12 @@ const TextInput = styled.input.attrs({
   resize: none;
 `
 
-export const Description = styled.div`
+export const Description = styled.label`
+  padding: 10px 0 5px;
+  font-weight: 700;
+`
+
+export const ErrorSendingStatus = styled.div`
   padding: 10px 0 5px;
   font-weight: 700;
 `
@@ -69,18 +74,20 @@ const Feedback = (props: PropsType): ReactElement => {
   return (
     <Container>
       <TextContainer>
-        <Description>{t(description)}</Description>
+        <Description htmlFor='comment'>{t(description)}</Description>
         {isPositiveFeedback && <div>({t('optionalInfo')})</div>}
       </TextContainer>
-      <CommentField rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
+      <CommentField id='comment' rows={7} value={comment} onChange={event => onCommentChanged(event.target.value)} />
 
       <TextContainer>
-        <Description>{t('contactMailAddress')}</Description>
+        <Description htmlFor='email'>{t('contactMailAddress')}</Description>
         <div>({t('optionalInfo')})</div>
       </TextContainer>
-      <TextInput onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
+      <TextInput id='email' onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
 
-      {sendingStatus === SendingState.ERROR && <Description>{t('failedSendingFeedback')}</Description>}
+      {sendingStatus === SendingState.ERROR && (
+        <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>
+      )}
       <TextButton disabled={!isPositiveFeedback && !comment} onClick={onSubmit} text={t('send')} />
     </Container>
   )

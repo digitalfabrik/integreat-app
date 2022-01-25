@@ -56,7 +56,7 @@ const MapPopup: React.FC<MapPopupProps> = ({ properties }: MapPopupProps): React
   return (
     <CleanLink to={path}>
       <Popup>
-        {thumbnail !== 'null' ? <PopupThumbnail src={thumbnail} /> : <Placeholder />}
+        {thumbnail !== 'null' ? <PopupThumbnail src={thumbnail} alt='' /> : <Placeholder />}
         <TextContainer>
           <PopupTitle>{title}</PopupTitle>
           <PopupText>{address}</PopupText>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FetchError, fromError, MappingError, NotFoundError, ResponseError } from 'api-client'
+import { fromError, MappingError, NotFoundError, ResponseError } from 'api-client'
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'api-client/src/routes'
 
 import { renderWithRouter } from '../../testing/render'
@@ -34,20 +34,7 @@ describe('FailureSwitcher', () => {
 
     expect(getByText(`error:notFound.${notFoundKey}`)).toBeTruthy()
     expect(getByText(`error:goTo.${goToKey}`).closest('a')).toHaveProperty('href', `http://localhost${goToPath}`)
-    expect(reportError).not.toHaveBeenCalled()
-  })
-
-  it('should not report fetch errors to sentry', async () => {
-    const error = new FetchError({
-      endpointName: 'cities',
-      innerError: new Error('asdf'),
-      url: 'url',
-      requestOptions: { method: 'GET' }
-    })
-    const { getByText } = renderWithRouter(<FailureSwitcher error={error} />)
-
-    expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
-    expect(reportError).not.toHaveBeenCalled()
+    expect(reportError).toHaveBeenCalledWith(error)
   })
 
   it('should render a failure as default', async () => {

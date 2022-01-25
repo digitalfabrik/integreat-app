@@ -81,7 +81,7 @@ const FeedbackModal = (props: PropsType): ReactElement => {
   return (
     <FocusTrap>
       <ModalContainer role='dialog' aria-modal>
-        <Overlay onClick={closeModal} />
+        <Overlay onClick={closeModal} role='button' tabIndex={0} onKeyPress={closeModal} />
         <ModalContent>
           <Header>
             <div>{t('feedback')}</div>

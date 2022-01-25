@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as Sentry from '@sentry/react-native'
 
 import { FetchError, NotFoundError } from 'api-client'
@@ -32,23 +33,18 @@ export const log = (message: string, level = 'debug'): void => {
       case Sentry.Severity.Fatal:
       case Sentry.Severity.Critical:
       case Sentry.Severity.Error:
-        // eslint-disable-next-line no-console
         console.error(message)
         break
       case Sentry.Severity.Warning:
-        // eslint-disable-next-line no-console
         console.warn(message)
         break
       case Sentry.Severity.Log:
-        // eslint-disable-next-line no-console
         console.log(message)
         break
       case Sentry.Severity.Info:
-        // eslint-disable-next-line no-console
         console.info(message)
         break
       case Sentry.Severity.Debug:
-        // eslint-disable-next-line no-console
         console.debug(message)
         break
     }
@@ -61,7 +57,6 @@ export const reportError = (err: unknown): void => {
     Sentry.captureException(err)
   }
   if (developerFriendly()) {
-    // eslint-disable-next-line no-console
     console.error(err)
   }
 }
