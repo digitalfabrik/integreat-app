@@ -226,8 +226,10 @@ android {
             }
 
         }
+    }
 
-        // Exclude mapbox-android-accounts because of its proprietary license
+    // Exclude mapbox-android-accounts because of its proprietary license
+    applicationVariants.all { variant ->
         variant.getCompileConfiguration().exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-accounts'
         variant.getRuntimeConfiguration().exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-accounts'
     }
