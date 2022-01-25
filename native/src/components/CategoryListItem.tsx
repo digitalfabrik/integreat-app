@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
+import { View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
@@ -29,9 +30,9 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-const CategoryEntryContainer = styled.View`
+const CategoryEntryContainer = styled(View)<{ language: string }>`
   flex: 1;
-  flex-direction: column;
+  flex-direction: ${props => contentDirection(props.language)};
   align-self: center;
   padding: 15px 5px;
   border-bottom-width: 2px;
@@ -114,7 +115,7 @@ class CategoryListItem extends React.Component<PropsType> {
   renderTitle(): ReactNode {
     const { query, theme, category, language } = this.props
     return (
-      <CategoryEntryContainer theme={theme}>
+      <CategoryEntryContainer theme={theme} language={language}>
         <CategoryTitle
           theme={theme}
           language={language}
