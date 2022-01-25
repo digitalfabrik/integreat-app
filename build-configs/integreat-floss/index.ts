@@ -13,7 +13,7 @@ const androidIntegreatFlossBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatFlossBuildConfig,
   googleServices: null,
   // TODO IGAPP-174 Use correct applicationId
-  applicationId: 'tuerantuer.app.integreat'
+  applicationId: 'app.integreat.floss'
 }
 const platformBuildConfigs = {
   ...integreatPlatformBuildConfigs,
