@@ -93,7 +93,8 @@ const NativeHtml = React.memo(({ content, cacheDictionary, language }: PropsType
           maxWidth: '100%',
           paddingLeft: 15,
           paddingRight: 15,
-          fontSize: theme.fonts.figCaptionFontSize
+          fontSize: theme.fonts.hintFontSize,
+          fontStyle: 'italic'
         }
       }}
     />
