@@ -29,7 +29,8 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     jpalTracking: true,
     sentry: true,
     developerFriendly: false,
-    fixedCity: null
+    fixedCity: null,
+    recommendToCityIfNotCooperating: true
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',

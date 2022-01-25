@@ -32,7 +32,8 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     jpalTracking: false,
     sentry: true,
     developerFriendly: false,
-    fixedCity: 'hallo'
+    fixedCity: 'hallo',
+    recommendToCityIfNotCooperating: false
   },
   aboutUrls: {
     default: 'https://www.aschaffenburg.de/halloaschaffenburg'

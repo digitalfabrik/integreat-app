@@ -65,8 +65,7 @@ const News = (props: PropsType): ReactElement => {
     [selectedNewsType, selectNews, language]
   )
 
-  const isDisabled =
-    selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.pushNotificationsEnabled : !cityModel.tunewsEnabled
+  const isDisabled = selectedNewsType === LOCAL_NEWS_TYPE ? !cityModel.localNewsEnabled : !cityModel.tunewsEnabled
   const errorToShow = isDisabled
     ? new NotFoundError({
         type: 'category',

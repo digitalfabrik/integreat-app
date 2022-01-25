@@ -19,7 +19,8 @@ const integreatTestCms = {
     jpalTracking: true,
     sentry: false,
     developerFriendly: true,
-    fixedCity: null
+    fixedCity: null,
+    recommendToCityIfNotCooperating: true
   }
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

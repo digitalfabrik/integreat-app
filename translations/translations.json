@@ -293,6 +293,17 @@
       "loading": "加载中。。。"
     }
   },
+  "cityNotCooperating": {
+    "de": {
+      "callToAction": "Schlag Integreat Deiner Region vor!",
+      "explanation": "Das gemeinnützige Konzept der Integreat-App hat Dich überzeugt und Du glaubst, auch Deine Stadt, Dein Landkreis oder Deine Gemeinde könnte von der digitalen Lösung profitieren? Dann kannst Du hiermit ganz einfach aktiv werden.",
+      "whatToDo": "Das kannst Du tun:",
+      "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
+      "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
+      "copyText": "Text kopieren",
+      "textCopied": "Kopiert"
+    }
+  },
   "dashboard": {
     "de": {
       "localInformation": "Lokale Informationen",
@@ -2784,7 +2795,9 @@
       "timeout": "Standortbestimmung fehlgeschlagen",
       "refresh": "Liste der Orte aktualisieren",
       "pageTitle": "Ortsauswahl",
-      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache."
+      "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
+      "cityNotFound": "Deine Region nicht gefunden?",
+      "clickHere": "Hier klicken"
     },
     "am": {
       "searchCity": "ቦታ ፈልግ",
