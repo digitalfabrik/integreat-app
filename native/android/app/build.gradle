@@ -232,13 +232,6 @@ android {
         variant.getRuntimeConfiguration().exclude group: 'com.mapbox.mapboxsdk', module: 'mapbox-android-accounts'
     }
 
-    // Exclude proprietary firebase for floss builds
-    if (buildConfig.featureFlags.floss) {
-        configurations {
-            all*.exclude group: 'com.google.firebase'
-        }
-    }
-
     // Used for react-native-pdf
     packagingOptions {
         pickFirst 'lib/x86/libc++_shared.so'
