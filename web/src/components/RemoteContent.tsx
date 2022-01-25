@@ -22,10 +22,12 @@ const SandBox = styled.div<{ centered: boolean }>`
   }
 
   & figure {
-    width: 100% !important;
     margin-inline-start: 0;
-    margin-block-end: 30px;
     text-align: center;
+    margin: 15px auto;
+    @media only screen and (max-width: 640px) {
+      width: 100% !important;
+    }
   }
 
   & figcaption {
