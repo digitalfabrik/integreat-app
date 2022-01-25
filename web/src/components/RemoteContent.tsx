@@ -25,6 +25,7 @@ const SandBox = styled.div<{ centered: boolean }>`
     margin-inline-start: 0;
     text-align: center;
     margin: 15px auto;
+
     @media only screen and (max-width: 640px) {
       width: 100% !important;
     }
