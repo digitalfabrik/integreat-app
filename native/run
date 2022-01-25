@@ -1,0 +1,28 @@
+#!/bin/bash
+
+build_config_name=$1
+mode=$2
+
+if [ "$mode" == "packager" ]; then
+  # Prepare common build config for packager
+  build_config=$(yarn workspace --silent build-configs --silent manage to-bash $build_config_name common)
+  # Start packager
+  cross-env $build_config react-native start --reset-cache
+else
+  # Prepare android build config
+  build_config=$(yarn workspace --silent build-configs --silent manage to-bash $build_config_name android)
+
+  # Extract application id from build config
+  [[ $build_config =~ .*BUILD_CONFIG_APPLICATION_ID=\"([^\"]+) ]]
+  application_id=${BASH_REMATCH[1]}
+
+  if [ "$mode" == "android_development" ]; then
+    # Create an android development build
+    cross-env $build_config react-native run-android --no-packager --appId $application_id
+  elif [ "$mode" == "android_production" ]; then
+    # Create an android production build
+    cross-env $build_config react-native run-android --no-packager  --appId $application_id --variant=release
+  else
+    echo "Invalid mode passed. Can only run packager, android_development or android_production"
+  fi
+fi
