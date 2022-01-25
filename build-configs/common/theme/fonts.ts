@@ -17,7 +17,7 @@ export type FontsType = {
   contentLineHeight: number
   standardParagraphMargin: string
   subTitleFontSize: string
-  figCaptionFontSize: string
+  hintFontSize: string
 }
 export const commonFonts = {
   fontSizeAdjust: 0.55,
@@ -27,5 +27,5 @@ export const commonFonts = {
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
   subTitleFontSize: '1.8rem',
-  figCaptionFontSize: '0.85rem'
+  hintFontSize: '0.85rem'
 }

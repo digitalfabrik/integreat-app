@@ -32,7 +32,7 @@ const SandBox = styled.div<{ centered: boolean }>`
   }
 
   & figcaption {
-    font-size: ${props => props.theme.fonts.figCaptionFontSize};
+    font-size: ${props => props.theme.fonts.hintFontSize};
     font-style: italic;
     padding: 0 15px;
   }
