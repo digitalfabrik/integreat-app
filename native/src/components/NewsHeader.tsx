@@ -65,7 +65,7 @@ class NewsHeader extends React.PureComponent<PropsType> {
     const { cityModel, selectedNewsType, theme, t } = this.props
     return (
       <>
-        <Caption title={t('news')} theme={theme} />
+        <Caption title={t('news')} />
         {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
           <HeaderContainer>
             <TouchableWrapper
