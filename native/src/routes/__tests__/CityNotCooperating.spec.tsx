@@ -11,6 +11,8 @@ jest.mock('styled-components', () => ({
   ...jest.requireActual('styled-components'),
   useTheme: () => lightTheme
 }))
+jest.mock('@react-native-clipboard/clipboard')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 
 describe('CityNotCooperating', () => {
   beforeEach(() => {
@@ -29,7 +31,7 @@ describe('CityNotCooperating', () => {
     expect(queryByText('textCopied')).toBeNull()
   })
 
-  it('should change button text on button click', () => {
+  it('should copy text on button click', () => {
     const { getByText, queryByText } = renderCityNotCooperating()
     expect(queryByText('textCopied')).toBeNull()
     const button = getByText('copyText')
