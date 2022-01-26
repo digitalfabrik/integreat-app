@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import {
   cityContentPath,
   EVENTS_ROUTE,
-  FetchError,
   fromError,
   NEWS_ROUTE,
   NotFoundError,
@@ -26,10 +25,7 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
   const { t } = useTranslation('error')
 
   useEffect(() => {
-    if (!(error instanceof NotFoundError) && !(error instanceof FetchError)) {
-      // eslint-disable-next-line no-console
-      reportError(error).catch(e => console.error(e))
-    }
+    reportError(error)
   }, [error])
 
   const getFailureProps = (error: Error): { goToPath?: string; goToMessage?: string; errorMessage: string } => {
@@ -83,7 +79,10 @@ const FailureSwitcher = ({ error }: PropsType): ReactElement => {
           }
       }
     }
-    return { errorMessage: fromError(error) }
+    return {
+      goToPath: '/',
+      errorMessage: fromError(error)
+    }
   }
 
   return (

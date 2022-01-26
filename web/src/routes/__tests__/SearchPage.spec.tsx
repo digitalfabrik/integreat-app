@@ -128,6 +128,20 @@ describe('SearchPage', () => {
     expect(searchResults[3]!.attributes.getNamedItem('aria-label')?.value).toBe(categoryModels[3]!.title)
   })
 
+  it('should display nothing found for search', async () => {
+    mockUseLoadFromEndpointWithData(categoriesMap)
+
+    const { getByRole, getByPlaceholderText } = renderSearch()
+
+    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
+      target: {
+        value: 'abc'
+      }
+    })
+
+    expect(getByRole('alert')).toContainHTML('search:nothingFound')
+  })
+
   describe('url query', () => {
     mockUseLoadFromEndpointWithData(categoriesMap)
     it('should set state from url', () => {

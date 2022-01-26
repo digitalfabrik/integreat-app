@@ -31,9 +31,11 @@ import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
+import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { log } from '../utils/sentry'
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
@@ -49,8 +51,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
-  // eslint-disable-next-line no-console
-  console.log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
+
+  if (buildConfig().featureFlags.developerFriendly) {
+    log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
+  }
 
   const requestPois = useCallback(
     async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
