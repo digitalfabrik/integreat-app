@@ -1,9 +1,8 @@
 import Geolocation from '@react-native-community/geolocation'
-import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { render, fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
-import { mocked } from 'ts-jest/utils'
-import waitForExpect from 'wait-for-expect'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
@@ -12,10 +11,12 @@ import wrapWithTheme from '../../testing/wrapWithTheme'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import Landing from '../Landing'
 
+const mockTheme = buildConfig().lightTheme
+
 jest.mock('react-i18next')
 jest.mock('styled-components', () => ({
   ...jest.requireActual('styled-components'),
-  useTheme: () => buildConfig().lightTheme
+  useTheme: () => mockTheme
 }))
 jest.mock('react-native-system-setting', () => undefined)
 jest.mock('../../utils/LocationPermissionManager', () => ({
@@ -62,10 +63,10 @@ describe('Landing', () => {
       { wrapper: wrapWithTheme }
     )
 
-  it('should only show non-live cities', () => {
+  it('should only show non-live cities', async () => {
     mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
     const { getByText, queryByText } = renderLanding()
-    expect(getByText('Stadt Augsburg')).toBeTruthy()
+    await waitFor(() => expect(getByText('Stadt Augsburg')).toBeTruthy())
     expect(getByText('City')).toBeTruthy()
     expect(getByText('Other city')).toBeTruthy()
     expect(getByText('Yet another city')).toBeTruthy()
@@ -77,7 +78,7 @@ describe('Landing', () => {
     it('should not request location permission on mount', async () => {
       mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
       const { getByText } = renderLanding()
-      await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
+      await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
       expect(mockCheckLocationPermission).toHaveBeenCalled()
       expect(mockRequestLocationPermission).not.toHaveBeenCalled()
       expect(openSettings).not.toHaveBeenCalled()
@@ -88,7 +89,7 @@ describe('Landing', () => {
       mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryByText, queryAllByText } = renderLanding()
-      await waitForExpect(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(2))
+      await waitFor(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(2))
       expect(queryByText('noPermission')).toBeFalsy()
       expect(mockCheckLocationPermission).toHaveBeenCalled()
       expect(mockRequestLocationPermission).not.toHaveBeenCalled()
@@ -109,7 +110,7 @@ describe('Landing', () => {
         })
       )
       const { queryByText, queryAllByText, getByText } = renderLanding()
-      await waitForExpect(() => expect(getByText('noNearbyPlaces')).toBeTruthy())
+      await waitFor(() => expect(getByText('noNearbyPlaces')).toBeTruthy())
       expect(queryAllByText('Stadt Augsburg')).toHaveLength(1)
       expect(queryByText('noPermission')).toBeFalsy()
       expect(mockCheckLocationPermission).toHaveBeenCalled()
@@ -121,14 +122,14 @@ describe('Landing', () => {
     it('should open settings if permission is blocked on retry clicked', async () => {
       mockCheckLocationPermission.mockImplementation(async () => RESULTS.BLOCKED)
       const { getByText, getByA11yLabel } = renderLanding()
-      await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
+      await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(1)
       expect(openSettings).not.toHaveBeenCalled()
       const retryDetermineLocationButton = getByA11yLabel('refresh')
       fireEvent.press(retryDetermineLocationButton)
       expect(getByText('loading')).toBeTruthy()
-      await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
-      await waitForExpect(() => expect(openSettings).toHaveBeenCalled())
+      await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
+      await waitFor(() => expect(openSettings).toHaveBeenCalled())
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(2)
       expect(mockRequestLocationPermission).toHaveBeenCalled()
       expect(mockGetCurrentPosition).not.toHaveBeenCalled()
@@ -138,14 +139,14 @@ describe('Landing', () => {
       mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryAllByText, getByText, getByA11yLabel } = renderLanding()
-      await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
+      await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(1)
-      await waitForExpect(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(1))
+      await waitFor(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(1))
       mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
       const retryDetermineLocationButton = getByA11yLabel('refresh')
       fireEvent.press(retryDetermineLocationButton)
       expect(getByText('loading')).toBeTruthy()
-      await waitForExpect(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(2))
+      await waitFor(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(2))
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(2)
       expect(mockRequestLocationPermission).not.toHaveBeenCalled()
       expect(mockGetCurrentPosition).toHaveBeenCalledTimes(1)
@@ -157,13 +158,13 @@ describe('Landing', () => {
       mockRequestLocationPermission.mockImplementation(async () => RESULTS.GRANTED)
       mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
       const { queryAllByText, getByText, getByA11yLabel } = renderLanding()
-      await waitForExpect(() => expect(getByText('noPermission')).toBeTruthy())
+      await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(1)
-      await waitForExpect(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(1))
+      await waitFor(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(1))
       const retryDetermineLocationButton = getByA11yLabel('refresh')
       fireEvent.press(retryDetermineLocationButton)
       expect(getByText('loading')).toBeTruthy()
-      await waitForExpect(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(2))
+      await waitFor(() => expect(queryAllByText('Stadt Augsburg')).toHaveLength(2))
       expect(mockCheckLocationPermission).toHaveBeenCalledTimes(2)
       expect(mockRequestLocationPermission).toHaveBeenCalledTimes(1)
       expect(mockGetCurrentPosition).toHaveBeenCalledTimes(1)

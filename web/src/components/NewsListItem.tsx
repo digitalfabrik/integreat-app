@@ -34,7 +34,7 @@ const Body = styled.p`
   white-space: pre-line;
 `
 
-const StyledNewsListItem = styled.div`
+const StyledNewsListItem = styled.article`
   padding-bottom: 2px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `

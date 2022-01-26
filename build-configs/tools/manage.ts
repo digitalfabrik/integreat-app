@@ -14,18 +14,12 @@ const loadBuildConfigAsKeyValue = (buildConfigName: string, platform: PlatformTy
   })
   const assignOperator = `${spaces ? ' ' : ''}=${spaces ? ' ' : ''}`
 
-  const quoteValue = (value: string) => {
-    if (quotes && value.includes('"')) {
-      throw Error("Values in build configs mustn't contain double quotes!")
-    }
-
-    return `${quotes ? '"' : ''}${value}${quotes ? '"' : ''}`
-  }
+  const quoteValue = (value: string) => (quotes ? `"${value.replace(/"/g, '\\"')}"` : value)
 
   const prefixed = Object.keys(xcconfigOptions).map(key => {
-    const value = xcconfigOptions[key]
-    const escaped = typeof value === 'string' ? value.replace(/\n/g, '\\n') : value
-    return `BUILD_CONFIG_${key}${assignOperator}${quoteValue(String(escaped))}`
+    const value = String(xcconfigOptions[key]).replace(/\n/g, '\\n')
+    const escaped = spaces ? value : value.replace(/\s/g, '_')
+    return `BUILD_CONFIG_${key}${assignOperator}${quoteValue(escaped)}`
   })
   prefixed.push(`BUILD_CONFIG_NAME${assignOperator}${quoteValue(buildConfigName)}`)
   return prefixed.join('\n')
