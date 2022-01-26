@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react-native'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { FetchError, NotFoundError } from 'api-client'
 
