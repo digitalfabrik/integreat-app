@@ -10,11 +10,9 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
-  ErrorCode,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   FeedbackParamsType,
-  fromError,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
@@ -123,16 +121,7 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     }
 
     request().catch(err => {
-      // eslint-disable-next-line no-console
-      console.error(err)
-
-      if (fromError(err) !== ErrorCode.NetworkConnectionFailed) {
-        reportError(err).catch(err => {
-          // eslint-disable-next-line no-console
-          console.error(err)
-        })
-      }
-
+      reportError(err)
       setSendingStatus(SendingState.ERROR)
     })
   }
