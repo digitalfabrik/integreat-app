@@ -23,7 +23,7 @@ import {
 } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import { faFrown, faSmile } from '../constants/icons'
+import { faSmile } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import { reportError } from '../utils/sentry'
@@ -128,24 +128,16 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
 
   if (sendingStatus !== SendingState.SUCCESS) {
     return (
-      <>
-        {isSearchFeedback && (
-          <IconTextContainer>
-            <FontAwesomeIcon icon={faFrown} size='4x' />
-            <Text role='alert'>{t('nothingFound')}</Text>
-          </IconTextContainer>
-        )}
-        <Feedback
-          onCommentChanged={setComment}
-          onContactMailChanged={setContactMail}
-          onSubmit={handleSubmit}
-          sendingStatus={sendingStatus}
-          isPositiveFeedback={isPositiveFeedback}
-          isSearchFeedback={isSearchFeedback}
-          comment={comment}
-          contactMail={contactMail}
-        />
-      </>
+      <Feedback
+        onCommentChanged={setComment}
+        onContactMailChanged={setContactMail}
+        onSubmit={handleSubmit}
+        sendingStatus={sendingStatus}
+        isPositiveFeedback={isPositiveFeedback}
+        isSearchFeedback={isSearchFeedback}
+        comment={comment}
+        contactMail={contactMail}
+      />
     )
   }
   return (

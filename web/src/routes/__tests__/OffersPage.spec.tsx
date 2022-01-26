@@ -1,5 +1,5 @@
+import { mocked } from 'jest-mock'
 import React from 'react'
-import { mocked } from 'ts-jest/utils'
 
 import {
   CityModelBuilder,
