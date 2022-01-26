@@ -34,7 +34,7 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
-  maxWorkers: "50%",
+  maxWorkers: '50%',
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',
