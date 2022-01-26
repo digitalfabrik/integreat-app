@@ -30,7 +30,7 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-const CategoryEntryContainer = styled(View)<{ language: string }>`
+const CategoryEntryContainer = styled.View<{ language: string }>`
   flex: 1;
   flex-direction: ${props => contentDirection(props.language)};
   align-self: center;
