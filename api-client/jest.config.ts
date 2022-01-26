@@ -8,7 +8,7 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   coverageDirectory: '<rootDir>/../reports/coverage',
   testEnvironment: 'node',
-  maxWorkers: "50%",
+  maxWorkers: '50%',
   reporters: [
     'default',
     [
