@@ -35,7 +35,7 @@ jest.mock('../../components/Failure', () => {
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
-jest.mock('../../components/LanguageNotAvailableContainer', () => {
+jest.mock('../../components/LanguageNotAvailablePage', () => {
   const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
