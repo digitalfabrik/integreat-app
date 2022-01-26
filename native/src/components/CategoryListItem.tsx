@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { ReactNode } from 'react'
-import { View } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
@@ -113,11 +112,10 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderTitle(): ReactNode {
-    const { query, theme, category, language } = this.props
+    const { query, category, language } = this.props
     return (
-      <CategoryEntryContainer theme={theme} language={language}>
+      <CategoryEntryContainer language={language}>
         <CategoryTitle
-          theme={theme}
           language={language}
           autoEscape
           textToHighlight={category.title}
@@ -137,8 +135,8 @@ class CategoryListItem extends React.Component<PropsType> {
     return (
       <>
         <FlexStyledLink onPress={this.onCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
-          <DirectionContainer theme={theme} language={language}>
-            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} theme={theme} />
+          <DirectionContainer language={language}>
+            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
             {this.renderTitle()}
           </DirectionContainer>
         </FlexStyledLink>
