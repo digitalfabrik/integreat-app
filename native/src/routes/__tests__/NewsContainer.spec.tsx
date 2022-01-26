@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React, { ComponentProps } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { Provider, useDispatch } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { mocked } from 'ts-jest/utils'
 
 import { CityModel, LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'api-client'
 

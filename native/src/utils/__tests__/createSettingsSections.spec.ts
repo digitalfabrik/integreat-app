@@ -1,5 +1,5 @@
+import { mocked } from 'jest-mock'
 import { openSettings } from 'react-native-permissions'
-import { mocked } from 'ts-jest/utils'
 
 import { SettingsRouteType } from 'api-client'
 
