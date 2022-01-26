@@ -1,7 +1,8 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
 import buildConfig from '../../constants/buildConfig'
+import render from '../../testing/render'
 import Feedback from '../Feedback'
 
 describe('Feedback', () => {
