@@ -36,6 +36,7 @@ describe('Landing', () => {
 
   const clearResourcesAndCache = jest.fn()
   const navigateToDashboard = jest.fn()
+  const navigateToCityNotCooperating = jest.fn()
   const language = 'de'
   const cities = new CityModelBuilder(6).build()
   const augsburgCoordinates = {
@@ -57,6 +58,7 @@ describe('Landing', () => {
         cities={cities}
         language={language}
         navigateToDashboard={navigateToDashboard}
+        navigateToCityNotCooperating={navigateToCityNotCooperating}
         clearResourcesAndCache={clearResourcesAndCache}
       />,
       { wrapper: wrapWithTheme }
@@ -71,6 +73,13 @@ describe('Landing', () => {
     expect(getByText('Yet another city')).toBeTruthy()
     expect(queryByText('Notlive')).toBeFalsy()
     expect(queryByText('Oldtown')).toBeFalsy()
+  })
+
+  it('should show footer', () => {
+    mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
+    const { getByText } = renderLanding()
+    expect(getByText('cityNotFound')).toBeTruthy()
+    expect(getByText('clickHere')).toBeTruthy()
   })
 
   describe('nearby locations', () => {
