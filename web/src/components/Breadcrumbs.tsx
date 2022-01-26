@@ -9,7 +9,7 @@ import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
-const Wrapper = styled.div<{ direction: UiDirectionType }>`
+const Wrapper = styled.nav<{ direction: UiDirectionType }>`
   margin: 10px 0;
   text-align: end;
   white-space: nowrap;
