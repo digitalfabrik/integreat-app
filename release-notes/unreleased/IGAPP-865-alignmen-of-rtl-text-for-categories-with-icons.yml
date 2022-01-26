@@ -1,0 +1,6 @@
+issue_key: IGAPP-865
+show_in_stores: true
+platforms:
+  - ios
+en: Fix wrong text alignment.
+de: Fehlerhafte Textanordnung behoben.
