@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { InteractionManager } from 'react-native'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
@@ -39,17 +38,17 @@ const ChangeLanguageModal = ({ navigation, route }: PropsType): ReactElement => 
       name,
       enabled: isLanguageAvailable,
       onPress: () => {
-        navigation.goBack()
-        InteractionManager.runAfterInteractions(() => {
+        if (code !== currentLanguage) {
           changeLanguage(code)
-        })
+        }
+        navigation.goBack()
       }
     })
   })
 
   return (
     <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-      <Selector selectedItemCode={currentLanguage} verticalLayout items={selectorItems} />
+      <Selector selectedItemCode={currentLanguage} items={selectorItems} />
     </Wrapper>
   )
 }

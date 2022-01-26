@@ -1,46 +1,26 @@
-import * as React from 'react'
-import { ReactElement } from 'react'
-import { css } from 'styled-components'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import SelectorItemModel from '../models/SelectorItemModel'
 import SelectorItem from './SelectorItem'
 
-type WrapperPropsType = {
-  vertical: boolean
-  children: React.ReactNode
-  theme: ThemeType
-}
-export const Wrapper = styled.View<WrapperPropsType>`
+export const Wrapper = styled.View`
   display: flex;
   width: 100%;
-  flex-flow: row wrap;
+  flex-flow: column;
   justify-content: center;
   color: ${props => props.theme.colors.textColor};
   text-align: center;
-
-  ${props =>
-    props.vertical
-      ? css`
-          flex-flow: column;
-          align-items: center;
-        `
-      : ''}
+  align-items: center;
 `
 
 type PropsType = {
-  verticalLayout: boolean
   items: Array<SelectorItemModel>
   selectedItemCode: string | null
 }
 
-/**
- * Displays a Selector showing different items
- */
-const Selector = ({ verticalLayout, items, selectedItemCode }: PropsType): ReactElement => (
-  <Wrapper vertical={verticalLayout}>
+const Selector = ({ items, selectedItemCode }: PropsType): ReactElement => (
+  <Wrapper>
     {items.map(item => (
       <SelectorItem key={item.code} model={item} selected={selectedItemCode === item.code} />
     ))}
