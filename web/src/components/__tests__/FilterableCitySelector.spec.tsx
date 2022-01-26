@@ -8,6 +8,8 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouter } from '../../testing/render'
 import FilterableCitySelector from '../FilterableCitySelector'
 
+jest.mock('react-i18next')
+
 describe('FilterableCitySelector', () => {
   const cities = new CityModelBuilder(5).build()
   const city = cities[0]!
@@ -30,7 +32,7 @@ describe('FilterableCitySelector', () => {
       </ThemeProvider>
     )
 
-    fireEvent.change(getByPlaceholderText('searchCity'), {
+    fireEvent.change(getByPlaceholderText('landing:searchCity'), {
       target: {
         value: city.name.slice(2, 5)
       }
