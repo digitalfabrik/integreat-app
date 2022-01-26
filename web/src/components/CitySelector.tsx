@@ -28,7 +28,7 @@ type PropsType = {
 }
 
 const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType): ReactElement => {
-  const { t } = useTranslation('error')
+  const { t } = useTranslation('search')
 
   const filter = (): Array<CityModel> => {
     const normalizedFilter = normalizeSearchString(filterText)
@@ -57,7 +57,7 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
     const sorted = sort(safeCities)
     const groups = groupBy(sorted, city => city.sortCategory)
     if (sorted.length === 0) {
-      return <Failure errorMessage='notFound.city' t={t} />
+      return <Failure errorMessage='nothingFound' t={t} />
     }
 
     return transform(
