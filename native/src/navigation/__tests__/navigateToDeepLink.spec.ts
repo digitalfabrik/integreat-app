@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import {
   DASHBOARD_ROUTE,
@@ -21,9 +21,9 @@ import createNavigate from '../createNavigate'
 import navigateToCategory from '../navigateToCategory'
 import navigateToDeepLink from '../navigateToDeepLink'
 
-const navigateTo = jest.fn()
+const mockNavigateTo = jest.fn()
 
-jest.mock('../createNavigate', () => jest.fn(() => navigateTo))
+jest.mock('../createNavigate', () => jest.fn(() => mockNavigateTo))
 jest.mock('../navigateToCategory')
 jest.mock('../../utils/sendTrackingSignal')
 
@@ -259,8 +259,8 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith(
+      expect(mockNavigateTo).toHaveBeenCalledTimes(1)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           cityCode,
           languageCode: language,
@@ -349,8 +349,8 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith(
+      expect(mockNavigateTo).toHaveBeenCalledTimes(1)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           cityCode,
           languageCode,
@@ -389,8 +389,8 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith(
+      expect(mockNavigateTo).toHaveBeenCalledTimes(1)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           cityCode,
           languageCode,
@@ -430,8 +430,8 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith(
+      expect(mockNavigateTo).toHaveBeenCalledTimes(1)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           cityCode,
           languageCode: 'en',
@@ -462,8 +462,8 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith(
+      expect(mockNavigateTo).toHaveBeenCalledTimes(1)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
           trackingCode: 'abcdef123456'
@@ -501,8 +501,8 @@ describe('navigateToDeepLink', () => {
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(createNavigate).toHaveBeenCalledTimes(1)
       expect(createNavigate).toHaveBeenCalledWith(dispatch, navigation)
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith(
+      expect(mockNavigateTo).toHaveBeenCalledTimes(1)
+      expect(mockNavigateTo).toHaveBeenCalledWith(
         {
           route: JPAL_TRACKING_ROUTE,
           trackingCode: 'abcdef123456'
