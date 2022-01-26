@@ -36,7 +36,7 @@ import { NavigationPropType, RoutePropType, RoutesParamsType, RoutesType } from 
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import CategoriesContainer from './routes/CategoriesContainer'
-import ChangeLanguageModalContainer from './routes/ChangeLanguageModalContainer'
+import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
 import DashboardContainer from './routes/DashboardContainer'
 import DisclaimerContainer from './routes/DisclaimerContainer'
@@ -207,7 +207,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
-        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} />
+        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
