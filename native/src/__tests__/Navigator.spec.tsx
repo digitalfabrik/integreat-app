@@ -13,6 +13,7 @@ import { generateRouteKey } from '../utils/helpers'
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
