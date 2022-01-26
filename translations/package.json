@@ -23,16 +23,13 @@
   "dependencies": {},
   "devDependencies": {
     "@types/flat": "^5.0.2",
-    "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.178",
     "commander": "^8.3.0",
     "csv-parse": "^4.16.3",
     "csv-stringify": "^5.6.5",
     "flat": "^5.0.0",
-    "jest": "^26.6.3",
     "jest-junit": "^13.0.0",
-    "lodash": "^4.17.19",
-    "ts-jest": "^26.5.6"
+    "lodash": "^4.17.19"
   },
   "engines": {
     "node": ">=v10.16",

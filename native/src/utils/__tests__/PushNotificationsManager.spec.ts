@@ -1,5 +1,5 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import buildConfig from '../../constants/buildConfig'
 import * as PushNotificationsManager from '../PushNotificationsManager'
