@@ -20,6 +20,7 @@ const config: InitialOptionsTsJest = {
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
+  maxWorkers: '50%',
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',
