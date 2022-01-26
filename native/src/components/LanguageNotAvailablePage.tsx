@@ -34,7 +34,7 @@ const LanguageNotAvailablePage = ({ languages, changeLanguage }: PropsType): Rea
     <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
       <Caption title={t('languageNotAvailable')} />
       <Text>{t('chooseALanguage')}</Text>
-      <Selector verticalLayout items={selectorItems} selectedItemCode={null} />
+      <Selector items={selectorItems} selectedItemCode={null} />
     </Wrapper>
   )
 }
