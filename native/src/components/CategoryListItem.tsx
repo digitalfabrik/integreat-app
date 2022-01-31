@@ -29,9 +29,9 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-const CategoryEntryContainer = styled.View`
+const CategoryEntryContainer = styled.View<{ language: string }>`
   flex: 1;
-  flex-direction: column;
+  flex-direction: ${props => contentDirection(props.language)};
   align-self: center;
   padding: 15px 5px;
   border-bottom-width: 2px;
@@ -112,11 +112,10 @@ class CategoryListItem extends React.Component<PropsType> {
   }
 
   renderTitle(): ReactNode {
-    const { query, theme, category, language } = this.props
+    const { query, category, language } = this.props
     return (
-      <CategoryEntryContainer theme={theme}>
+      <CategoryEntryContainer language={language}>
         <CategoryTitle
-          theme={theme}
           language={language}
           autoEscape
           textToHighlight={category.title}
@@ -136,8 +135,8 @@ class CategoryListItem extends React.Component<PropsType> {
     return (
       <>
         <FlexStyledLink onPress={this.onCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
-          <DirectionContainer theme={theme} language={language}>
-            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} theme={theme} />
+          <DirectionContainer language={language}>
+            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
             {this.renderTitle()}
           </DirectionContainer>
         </FlexStyledLink>
