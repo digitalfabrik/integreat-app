@@ -43,8 +43,8 @@ describe('TransparentHeader', () => {
     jest.clearAllMocks()
   })
 
-  const buildProps = (shareUrl?: string): React.ComponentProps<typeof TransparentHeader> => ({
-    navigation: createNavigationMock(),
+  const buildProps = (routeIndex: number, shareUrl?: string): React.ComponentProps<typeof TransparentHeader> => ({
+    navigation: createNavigationMock(routeIndex),
     route: {
       key: 'key-0',
       name: DASHBOARD_ROUTE,
@@ -54,15 +54,21 @@ describe('TransparentHeader', () => {
     }
   })
 
-  it('should show back button and navigate back on click', () => {
-    const props = buildProps()
+  it('should show back button and navigate back on click if stack exists', () => {
+    const props = buildProps(1)
     const { getByText } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
     fireEvent.press(getByText('HeaderBackButton'))
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
+  it('should hide back button if there is no navigation stack', () => {
+    const props = buildProps(0)
+    const { queryByText } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
+    expect(queryByText('HeaderBackButton')).toBeNull()
+  })
+
   it('should show snackbar if sharing fails', () => {
-    const props = buildProps('https://example.com/share')
+    const props = buildProps(0, 'https://example.com/share')
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
     const share = jest.fn(() => {
