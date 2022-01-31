@@ -25,7 +25,6 @@ import navigateToCategory from './navigateToCategory'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
 import navigateToJpalTracking from './navigateToJpalTracking'
-import navigateToLanding from './navigateToLanding'
 import navigateToNews from './navigateToNews'
 import navigateToOffers from './navigateToOffers'
 import navigateToPois from './navigateToPois'
@@ -47,17 +46,11 @@ const createNavigate =
       })
 
       if (routeInformation.route === LANDING_ROUTE) {
-        navigateToLanding({
-          dispatch,
-          navigation
-        })
+        navigation.push(LANDING_ROUTE)
         return
       }
       if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
-        navigateToLanding({
-          dispatch,
-          navigation
-        })
+        navigation.push(LANDING_ROUTE)
         return
       }
       if (routeInformation.route === JPAL_TRACKING_ROUTE) {

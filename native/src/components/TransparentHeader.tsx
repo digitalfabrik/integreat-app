@@ -84,7 +84,7 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
     <BoxShadow theme={theme}>
       <Horizontal>
         <HorizontalLeft>
-          <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
+          {navigation.canGoBack() && <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />}
         </HorizontalLeft>
         <MaterialHeaderButtons cancelLabel={t('cancel')} theme={theme} items={[]} overflowItems={overflowItems} />
       </Horizontal>

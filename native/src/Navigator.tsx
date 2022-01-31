@@ -187,7 +187,6 @@ const Navigator = (props: PropsType): ReactElement | null => {
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
-        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
       </Stack.Group>
 
@@ -204,6 +203,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
+        <Stack.Screen name={LANDING_ROUTE} component={LandingContainer} />
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
