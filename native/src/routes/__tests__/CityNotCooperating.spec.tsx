@@ -4,7 +4,7 @@ import React from 'react'
 
 import { lightTheme } from 'build-configs/integreat/theme'
 
-import { template } from '../../constants/cityNotCooperatingTemplate'
+import buildConfig from '../../constants/__mocks__/buildConfig'
 import wrapWithTheme from '../../testing/wrapWithTheme'
 import CityNotCooperating from '../CityNotCooperating'
 
@@ -23,6 +23,7 @@ describe('CityNotCooperating', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
   const renderCityNotCooperating = (): RenderAPI => render(<CityNotCooperating />, { wrapper: wrapWithTheme })
 
   it('should render correctly', () => {

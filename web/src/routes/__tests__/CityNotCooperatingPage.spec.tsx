@@ -3,7 +3,6 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import buildConfig from '../../constants/buildConfig'
-import { template } from '../../constants/cityNotCooperatingTemplate'
 import { renderWithRouter } from '../../testing/render'
 import CityNotCooperatingPage from '../CityNotCooperatingPage'
 
@@ -18,6 +17,7 @@ describe('CityNotCooperatingPage', () => {
     jest.clearAllMocks()
   })
   const languageCode = 'de'
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
 
   const renderPage = (): RenderResult =>
     renderWithRouter(

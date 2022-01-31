@@ -30,8 +30,8 @@ export type FeatureFlagsType = FixedCityType & {
   sentry: boolean
   // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
-  // Enables the option for users to suggest Integreat to their city
-  recommendToCityIfNotCooperating: boolean
+  // Enables the option for users to suggest Integreat to their city and uses this template for the suggestion
+  cityNotCooperatingTemplate: string | null
 }
 // Available on all platforms
 export type CommonBuildConfigType = {
@@ -77,6 +77,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
   icons: {
     appLogo: string
     locationMarker?: string
+    cityNotCooperating?: string
     appleTouchIcon: string
     socialMediaPreview: string
     favicons: string

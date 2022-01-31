@@ -25,7 +25,7 @@ const LandingPage = ({ cities, languageCode }: PropsType): ReactElement => {
     <Layout
       footer={
         <>
-          {buildConfig().featureFlags.recommendToCityIfNotCooperating && (
+          {buildConfig().featureFlags.cityNotCooperatingTemplate && (
             <CityNotCooperatingFooter languageCode={languageCode} />
           )}
           <GeneralFooter language={languageCode} />

@@ -2,10 +2,9 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import cityNotCooperationIcon from '../assets/cityNotCooperating.svg'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
-import { template } from '../constants/cityNotCooperatingTemplate'
+import buildConfig from '../constants/buildConfig'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
 const Container = styled.div`
@@ -88,6 +87,8 @@ type PropsType = {
 const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const cityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
   useScrollToTopOnMount()
 
   const copyToClipboard = () => {
@@ -107,7 +108,8 @@ const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
         </HeadingContainer>
 
         <Text>{t('explanation')}</Text>
-        <Icon alt='' src={cityNotCooperationIcon} />
+        {}
+        <Icon alt='' src={cityNotCooperatingIcon} />
         <ListHeading>{t('whatToDo')}</ListHeading>
         <ListItem>
           <StepNumber>1</StepNumber>
