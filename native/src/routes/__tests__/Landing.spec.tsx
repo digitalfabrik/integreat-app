@@ -82,6 +82,14 @@ describe('Landing', () => {
     expect(getByText('clickHere')).toBeTruthy()
   })
 
+  it('should navigate to cityNotCooperating page on button click', () => {
+    mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
+    const { getByText } = renderLanding()
+    const button = getByText('clickHere')
+    fireEvent.press(button)
+    expect(navigateToCityNotCooperating).toBeCalled()
+  })
+
   describe('nearby locations', () => {
     it('should not request location permission on mount', async () => {
       mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
