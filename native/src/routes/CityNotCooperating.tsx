@@ -5,8 +5,7 @@ import { Button } from 'react-native-elements'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
-import CityIcon from '../assets/cityNotCooperating.svg'
-import { template } from '../constants/cityNotCooperatingTemplate'
+import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.ScrollView`
   display: flex;
@@ -80,8 +79,10 @@ const TemplateText = styled.Text`
 
 const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
+  const { cityNotCooperatingIcon } = buildConfigAssets()
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const theme = useTheme()
+  const template: string = buildConfig().featureFlags.cityNotCooperatingTemplate!
 
   const copyToClipboard = () => {
     Clipboard.setString(template)
@@ -96,7 +97,7 @@ const CityNotCooperating = (): ReactElement => {
       <ListItem />
 
       <Description>{t('explanation')}</Description>
-      <Icon source={CityIcon} />
+      {cityNotCooperatingIcon && <Icon source={cityNotCooperatingIcon} />}
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>

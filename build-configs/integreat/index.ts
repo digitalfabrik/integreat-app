@@ -9,6 +9,13 @@ import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const APPLE_APP_ID = '1072353915'
+const cityNotCooperatingTemplate =
+  'Sehr geehrte Damen und Herren,\n\n' +
+  'Ich wohne seit einiger Zeit in [Ort] und habe neulich versucht, Ihre Kommune in der Integreat-App zu finden. Die App stellt zahlreiche wichtige Informationen über den Alltag und die Region in verschiedenen Sprachen zur Verfügung. Das erleichtert vielen Neuzugezogenen die Eingewöhnung, was ich sehr hilfreich finde.\n\n' +
+  'Ich würde mich daher sehr freuen, wenn auch Sie zukünftig bei Integreat mitmachen.\n\n\n\n' +
+  'Auf der Webseite der erfahren Sie mehr:\n\n' +
+  'https://integreat-app.de\n\n\n\n' +
+  'Herzliche Grüße'
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
@@ -29,7 +36,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    recommendToCityIfNotCooperating: true
+    cityNotCooperatingTemplate
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
@@ -89,6 +96,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.png',
     locationMarker: '/location-marker.svg',
+    cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'
