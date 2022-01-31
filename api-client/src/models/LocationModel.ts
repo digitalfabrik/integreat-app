@@ -110,7 +110,8 @@ class LocationModel {
       this.postcode === other.postcode &&
       this.region === other.region &&
       this.country === other.country &&
-      this.coordinates === other.coordinates
+      this.longitude === other.longitude &&
+      this.latitude === other.latitude
     )
   }
 
