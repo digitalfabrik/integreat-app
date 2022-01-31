@@ -30,7 +30,7 @@ const Description = styled.Text`
 `
 
 const ListHeading = styled(Heading)`
-  text-align: left;
+  align-self: flex-start;
   font-size: 15px;
   padding: 10px 0;
 `
@@ -55,7 +55,7 @@ const StepNumber = styled.Text`
 const StepExplanation = styled.Text`
   align-self: center;
   flex-shrink: 1;
-  padding: 0 0 4px 0;
+  padding-bottom: 4px;
 `
 
 const Icon = styled.Image`
@@ -75,7 +75,7 @@ const TemplateText = styled.Text`
   top: -20px;
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 50px 30px 30px;
-  margin: 0 0 40px;
+  margin-bottom: 40px;
 `
 
 const CityNotCooperating = (): ReactElement => {
