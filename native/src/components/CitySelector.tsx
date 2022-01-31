@@ -95,7 +95,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       (result: React.ReactNode[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
-            <CityGroup theme={theme}>{key}</CityGroup>
+            <CityGroup>{key}</CityGroup>
             {cities.map(city => (
               <CityEntry
                 key={city.code}
@@ -127,7 +127,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       if (nearbyCities.length > 0) {
         return (
           <CityGroupContainer>
-            <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+            <CityGroup>{t('nearbyPlaces')}</CityGroup>
             {nearbyCities.map(city => (
               <CityEntry
                 key={city.code}
@@ -142,7 +142,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       }
       return (
         <CityGroupContainer>
-          <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+          <CityGroup>{t('nearbyPlaces')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>{t('noNearbyPlaces')}</NearbyMessage>
           </NearbyMessageContainer>
@@ -152,7 +152,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
     return (
       <CityGroupContainer>
-        <CityGroup theme={theme}>{t('nearbyPlaces')}</CityGroup>
+        <CityGroup>{t('nearbyPlaces')}</CityGroup>
         <NearbyMessageContainer>
           <NearbyMessage theme={theme}>
             {locationState.status === 'unavailable' ? t(locationState.message) : ''}

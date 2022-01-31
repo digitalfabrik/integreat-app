@@ -124,15 +124,6 @@ describe('FeedbackContainer', () => {
     expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 
-  it('should display nothing found for search', async () => {
-    const { getByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
-      </ThemeProvider>
-    )
-    expect(getByRole('alert')).toContainHTML('feedback:nothingFound')
-  })
-
   it('should display error', async () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()

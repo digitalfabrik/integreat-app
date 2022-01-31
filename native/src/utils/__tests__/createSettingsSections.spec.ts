@@ -1,12 +1,16 @@
+import { mocked } from 'jest-mock'
 import { openSettings } from 'react-native-permissions'
-import { mocked } from 'ts-jest/utils'
 
 import { SettingsRouteType } from 'api-client'
 
-import buildConfig from '../../constants/buildConfig'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { defaultSettings, SettingsType } from '../AppSettings'
-import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
+import {
+  pushNotificationsEnabled,
+  requestPushNotificationPermission,
+  subscribeNews,
+  unsubscribeNews
+} from '../PushNotificationsManager'
 import createSettingsSections from '../createSettingsSections'
 
 jest.mock('../../constants/NativeConstants', () => ({
@@ -14,6 +18,7 @@ jest.mock('../../constants/NativeConstants', () => ({
 }))
 
 jest.mock('../../utils/PushNotificationsManager', () => ({
+  pushNotificationsEnabled: jest.fn(),
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn()
@@ -24,7 +29,7 @@ jest.mock('@react-native-community/geolocation')
 const mockRequestPushNotificationPermission = mocked(requestPushNotificationPermission)
 const mockUnsubscribeNews = mocked(unsubscribeNews)
 const mockSubscribeNews = mocked(subscribeNews)
-const mockedBuildConfig = mocked(buildConfig)
+const mockedPushNotificationsEnabled = mocked(pushNotificationsEnabled)
 
 type changeSettingFnType = (settings: SettingsType) => Partial<SettingsType>
 type changeActionFnType = void | ((newSettings: SettingsType) => Promise<boolean>)
@@ -62,24 +67,16 @@ describe('createSettingsSections', () => {
       showSnackbar
     })[0]!.data
 
-  const mockBuildConfig = (pushNotifications: boolean) => {
-    const previous = buildConfig()
-    mockedBuildConfig.mockImplementation(() => ({
-      ...previous,
-      featureFlags: { ...previous.featureFlags, pushNotifications }
-    }))
-  }
-
   describe('allowPushNotifications', () => {
-    it('should not include push notification setting if disabled in build config', () => {
-      mockBuildConfig(false)
+    it('should not include push notification setting if disabled', () => {
+      mockedPushNotificationsEnabled.mockImplementation(() => false)
       const sections = createSettings()
       expect(sections.find(it => it.title === 'privacyPolicy')).toBeTruthy()
       expect(sections.find(it => it.title === 'pushNewsTitle')).toBeFalsy()
     })
 
     it('should set correct setting on press', () => {
-      mockBuildConfig(true)
+      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
       // Initialize changeSetting and changeAction
@@ -97,7 +94,7 @@ describe('createSettingsSections', () => {
     })
 
     it('should unsubscribe from push notification topic', async () => {
-      mockBuildConfig(true)
+      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
       // Initialize changeSetting and changeAction
@@ -118,7 +115,7 @@ describe('createSettingsSections', () => {
     })
 
     it('should subscribe to push notification topic if permission is granted', async () => {
-      mockBuildConfig(true)
+      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
       // Initialize changeSetting and changeAction
@@ -141,7 +138,7 @@ describe('createSettingsSections', () => {
     })
 
     it('should open settings and return false if permissions not granted', async () => {
-      mockBuildConfig(true)
+      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
       // Initialize changeSetting and changeAction
