@@ -88,7 +88,7 @@ describe('Landing', () => {
     const { getByText } = renderLanding()
     const button = getByText('clickHere')
     fireEvent.press(button)
-    expect(navigateToCityNotCooperating).toBeCalled()
+    expect(navigateToCityNotCooperating).toHaveBeenCalled()
   })
 
   describe('nearby locations', () => {
