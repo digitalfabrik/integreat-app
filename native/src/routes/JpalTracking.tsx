@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Text, View } from 'react-native'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
 
@@ -40,7 +40,6 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
   const { t } = useTranslation('settings')
-  const theme = useTheme()
   const routeTrackingCode = route.params.trackingCode
 
   const updateTrackingEnabled = useCallback((trackingEnabled: boolean) => {
@@ -126,8 +125,8 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
-          <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
-          <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
+          <ThemedText>{t('allowTracking')}</ThemedText>
+          <SettingsSwitch value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>
 
         <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />

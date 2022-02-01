@@ -52,7 +52,7 @@ import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
 import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
-import SettingsContainer from './routes/SettingsContainer'
+import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
 import { initSentry, log } from './utils/sentry'
@@ -215,7 +215,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>
-        <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} />
+        <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
       </Stack.Group>
     </Stack.Navigator>
   )

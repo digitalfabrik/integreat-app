@@ -69,7 +69,7 @@ const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => 
       {disclaimer && resourceCacheUrl && (
         <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} language={languageCode} />
       )}
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
     </LayoutedScrollView>
   )
 }

@@ -79,7 +79,7 @@ const Page = ({
         />
         {!loading && <TimeStamp formatter={formatter} lastUpdate={lastUpdate} />}
       </Container>
-      {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />}
+      {navigateToFeedback && !loading && <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />}
     </SpaceBetween>
   )
 }
