@@ -6,7 +6,7 @@ import { RedirectRouteType } from 'api-client'
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
-import LayoutContainer from './LayoutContainer'
+import Layout from './Layout'
 
 const TIMEOUT = 10
 const INTERVAL_TIMEOUT = 500
@@ -40,7 +40,7 @@ const RedirectContainer = ({ route, navigation }: PropsType): ReactElement => {
     return () => clearInterval(interval)
   }, [url, dispatch, navigation, route, language])
 
-  return <LayoutContainer />
+  return <Layout />
 }
 
 export default RedirectContainer
