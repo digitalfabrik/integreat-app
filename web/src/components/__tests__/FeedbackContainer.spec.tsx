@@ -78,8 +78,8 @@ describe('FeedbackContainer', () => {
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
     await waitFor(() => expect(button).toBeEnabled())
-    expect(mockRequest).toBeCalledTimes(1)
-    expect(mockRequest).toBeCalledWith({
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
       feedbackType,
       city: 'augsburg',
       language: 'de',
