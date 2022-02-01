@@ -24,6 +24,6 @@ describe('SettingsSwitch', () => {
     const button = createTestSwitch(onPressMock)
     expect(button.props.value).toBeFalsy()
     fireEvent(button, 'valueChange', true)
-    expect(onPressMock).toBeCalled()
+    expect(onPressMock).toHaveBeenCalled()
   })
 })

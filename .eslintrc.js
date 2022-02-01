@@ -10,7 +10,9 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier',
-    'plugin:styled-components-a11y/strict'
+    'plugin:styled-components-a11y/strict',
+    'plugin:jest/recommended',
+    'plugin:jest/style'
   ],
   env: {
     es6: true,
@@ -43,6 +45,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
+    'jest/no-mocks-import': 'off',
 
     // Disabling since better @typescript-eslint rules available
     'default-case': 'off',
@@ -85,13 +88,7 @@ module.exports = {
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
 
     'jest/consistent-test-it': 'error',
-    'jest/no-disabled-tests': 'error',
-    'jest/no-focused-tests': 'error',
-    'jest/no-identical-title': 'error',
-    'jest/no-test-prefixes': 'error',
-    'jest/prefer-to-have-length': 'error',
-    'jest/valid-describe-callback': 'error',
-    'jest/valid-expect': 'error',
+    'jest/no-alias-methods': 'error',
 
     'prefer-arrow/prefer-arrow-functions': 'error',
 

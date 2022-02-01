@@ -71,9 +71,7 @@ describe('pois', () => {
     language: 'de'
   }
   it('should map params to url', () => {
-    expect(pois.mapParamsToUrl(params)).toEqual(
-      'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations'
-    )
+    expect(pois.mapParamsToUrl(params)).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/locations')
   })
   const json = [poi1, poi2, poi3, poi4]
   it('should map fetched data to models', () => {
