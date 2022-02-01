@@ -4,9 +4,17 @@ import React from 'react'
 import buildConfig from '../../constants/buildConfig'
 import SettingsSwitch from '../SettingsSwitch'
 
+// https://github.com/callstack/react-native-testing-library/issues/329
+jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
+  const mockComponent = require('react-native/jest/mockComponent')
+  return {
+    default: mockComponent('react-native/Libraries/Components/Switch/Switch')
+  }
+})
+
 describe('SettingsSwitch', () => {
   const lightTheme = buildConfig().lightTheme
-  const createTestSwitch = (onPressMock: jest.Mock<any, any>) => {
+  const createTestSwitch = (onPressMock: jest.Mock) => {
     const { getByA11yRole } = render(<SettingsSwitch theme={lightTheme} value={false} onPress={onPressMock} />)
     return getByA11yRole('switch')
   }
