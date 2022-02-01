@@ -398,7 +398,7 @@ describe('loadCityContent', () => {
 
   it('should not fetch resources if connection type is cellular', async () => {
     const previous = mocked(NetInfo.fetch).getMockImplementation() as typeof NetInfo.fetch
-    // @ts-ignore cannot import enum because it is mocked
+    // @ts-expect-error cannot import enum because it is mocked
     mocked(NetInfo.fetch).mockImplementation(async () => ({
       type: 'cellular',
       isConnected: true,

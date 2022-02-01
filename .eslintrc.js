@@ -9,9 +9,9 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'prettier',
-    'plugin:styled-components-a11y/strict',
     'plugin:jest/recommended',
-    'plugin:jest/style'
+    'plugin:jest/style',
+    'plugin:styled-components-a11y/strict'
   ],
   env: {
     es6: true,
@@ -84,6 +84,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-use-before-define': 'error',
+    '@typescript-eslint/prefer-ts-expect-error': 'error',
     '@typescript-eslint/switch-exhaustiveness-check': 'error',
 
     'jest/consistent-test-it': 'error',
