@@ -2,17 +2,12 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
-import { lightTheme } from 'build-configs/integreat/theme'
-
 import { template } from '../../constants/cityNotCooperatingTemplate'
 import wrapWithTheme from '../../testing/wrapWithTheme'
 import CityNotCooperating from '../CityNotCooperating'
 
 jest.mock('react-i18next')
-jest.mock('styled-components', () => ({
-  ...jest.requireActual('styled-components'),
-  useTheme: () => lightTheme
-}))
+jest.mock('styled-components')
 jest.mock('@react-native-clipboard/clipboard', () => ({
   ...jest.requireActual('@react-native-clipboard/clipboard'),
   setString: jest.fn()
