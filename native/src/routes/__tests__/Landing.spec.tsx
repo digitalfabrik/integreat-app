@@ -1,12 +1,12 @@
 import Geolocation from '@react-native-community/geolocation'
-import { render, fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
+import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import Landing from '../Landing'
 
@@ -55,8 +55,7 @@ describe('Landing', () => {
         navigateToDashboard={navigateToDashboard}
         navigateToCityNotCooperating={navigateToCityNotCooperating}
         clearResourcesAndCache={clearResourcesAndCache}
-      />,
-      { wrapper: wrapWithTheme }
+      />
     )
 
   it('should only show non-live cities', async () => {
