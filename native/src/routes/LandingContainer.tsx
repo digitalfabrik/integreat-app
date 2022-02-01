@@ -101,6 +101,6 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
 }
 
 export default connect(mapStateToProps)(
-  // @ts-ignore
+  // @ts-expect-error
   withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
 )

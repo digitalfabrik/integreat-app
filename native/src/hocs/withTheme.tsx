@@ -14,7 +14,7 @@ const withTheme = <Props extends { theme: ThemeType }>(
     static displayName = wrapDisplayName(Component, 'withTheme')
 
     render() {
-      // @ts-ignore
+      // @ts-expect-error
       return <Component {...this.props} theme={buildConfig().lightTheme} />
     }
   }
