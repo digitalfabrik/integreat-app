@@ -41,6 +41,8 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const fixedCity = buildConfig().featureFlags.fixedCity
   const languageCode = useMatch('/:slug/:languageCode/*')?.params.languageCode
   const { viewportSmall } = useWindowDimensions()
+  const cityCooperatingEnabled =
+    buildConfig().featureFlags.cityNotCooperatingTemplate && buildConfig().icons.cityNotCooperating
 
   const detectedLanguageCode = i18n.language
   const language = languageCode ?? detectedLanguageCode
@@ -82,7 +84,9 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
-        <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
+        {cityCooperatingEnabled && (
+          <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
+        )}
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />

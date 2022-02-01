@@ -106,9 +106,7 @@ const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
         <HeadingContainer>
           <Heading>{t('callToAction')}</Heading>
         </HeadingContainer>
-
         <Text>{t('explanation')}</Text>
-        {}
         <Icon alt='' src={cityNotCooperatingIcon} />
         <ListHeading>{t('whatToDo')}</ListHeading>
         <ListItem>

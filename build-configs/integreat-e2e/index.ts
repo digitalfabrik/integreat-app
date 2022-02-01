@@ -5,14 +5,9 @@ import {
   WebBuildConfigType
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
+import { template } from '../integreat/assets/cityNotCooperatingTemplate'
 
-const cityNotCooperatingTemplate =
-  'Sehr geehrte Damen und Herren,\n\n' +
-  'Ich wohne seit einiger Zeit in [Ort] und habe neulich versucht, Ihre Kommune in der Integreat-App zu finden. Die App stellt zahlreiche wichtige Informationen über den Alltag und die Region in verschiedenen Sprachen zur Verfügung. Das erleichtert vielen Neuzugezogenen die Eingewöhnung, was ich sehr hilfreich finde.\n\n' +
-  'Ich würde mich daher sehr freuen, wenn auch Sie zukünftig bei Integreat mitmachen.\n\n\n\n' +
-  'Auf der Webseite der erfahren Sie mehr:\n\n' +
-  'https://integreat-app.de\n\n\n\n' +
-  'Herzliche Grüße'
+const cityNotCooperatingTemplate = template
 
 const integreatE2e = {
   appName: 'IntegreatE2E',
