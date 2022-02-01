@@ -43,6 +43,6 @@ describe('CityNotCooperating', () => {
     fireEvent.press(button)
     expect(getByText('textCopied')).toBeDefined()
     expect(queryByText('copyText')).toBeNull()
-    expect(Clipboard.setString).toBeCalledWith(template)
+    expect(Clipboard.setString).toHaveBeenCalledWith(template)
   })
 })
