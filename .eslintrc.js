@@ -3,7 +3,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jest', 'prefer-arrow', 'styled-components-a11y'],
   extends: [
-    'standard',
     'airbnb',
     'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
