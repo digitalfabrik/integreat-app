@@ -1,22 +1,19 @@
 import React, { ReactElement } from 'react'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
-
-type WrapperPropsType = {
-  theme: ThemeType
-}
 
 const Wrapper = styled.View`
   flex: 1;
-  background-color: ${(props: WrapperPropsType) => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 type AppPropsType = {
   children?: React.ReactNode
-  theme: ThemeType
 }
 
-const Layout = ({ children, theme }: AppPropsType): ReactElement => <Wrapper theme={theme}>{children}</Wrapper>
+const Layout = ({ children }: AppPropsType): ReactElement => {
+  const theme = useTheme()
+  return <Wrapper theme={theme}>{children}</Wrapper>
+}
 
 export default Layout

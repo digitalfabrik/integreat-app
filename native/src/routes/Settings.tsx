@@ -8,7 +8,7 @@ import styled from 'styled-components/native'
 import { SettingsRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import LayoutContainer from '../components/LayoutContainer'
+import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useSnackbar from '../hooks/useSnackbar'
@@ -102,7 +102,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
   const ThemedItemSeparator = () => <ItemSeparator theme={theme} />
 
   if (!settings) {
-    return <LayoutContainer />
+    return <Layout />
   }
 
   const sections = createSettingsSections({
@@ -116,7 +116,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
   })
 
   return (
-    <LayoutContainer>
+    <Layout>
       <SectionList
         keyExtractor={keyExtractor}
         sections={sections}
@@ -127,7 +127,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
         SectionSeparatorComponent={ThemedItemSeparator}
         stickySectionHeadersEnabled={false}
       />
-    </LayoutContainer>
+    </Layout>
   )
 }
 

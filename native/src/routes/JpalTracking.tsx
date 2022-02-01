@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { JpalTrackingRouteType } from 'api-client'
 
 import Caption from '../components/Caption'
-import LayoutContainer from '../components/LayoutContainer'
+import Layout from '../components/Layout'
 import Link from '../components/Link'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SettingsSwitch from '../components/SettingsSwitch'
@@ -110,14 +110,14 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
   if (!settingsLoaded) {
     return (
-      <LayoutContainer>
+      <Layout>
         <LoadingSpinner />
-      </LayoutContainer>
+      </Layout>
     )
   }
 
   return (
-    <LayoutContainer>
+    <Layout>
       <View
         style={{
           padding: 40
@@ -132,7 +132,7 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
         <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
       </View>
-    </LayoutContainer>
+    </Layout>
   )
 }
 
