@@ -113,7 +113,6 @@ module.exports = {
       files: ['*.spec.{ts,tsx}', '**/__mocks__/*.{ts,tsx}', '**/testing/*.{ts,tsx}', 'jest.setup.ts', 'jest.config.ts'],
       rules: {
         'global-require': 'off',
-        'lines-between-class-members': 'off',
         'no-console': 'off',
         'no-magic-numbers': 'off',
         '@typescript-eslint/no-var-requires': 'off',
