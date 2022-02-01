@@ -10,7 +10,7 @@ import Failure from '../components/Failure'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import ProgressContainer from '../components/ProgressContainer'
+import ProgressSpinner from '../components/ProgressSpinner'
 import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
@@ -152,7 +152,7 @@ const withPayloadProvider =
         // Full screen loading spinner
         return (
           <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
-            <ProgressContainer progress={props.progress} />
+            <ProgressSpinner progress={props.progress} />
           </LayoutedScrollView>
         )
       }

@@ -30,7 +30,7 @@ The data which is received through the restful api of the CMS is "cached" and st
 
 ## Testing
 
-- [Unit/Integration Testing](testing.md)
+- Unit tests: For testing of React components the [testing-library](https://testing-library.com) should be used whenever possible.
 - [E2E Testing](e2e-testing.md)
 
 The app supports opening deep links in the app. To test deep links manually, you can:
