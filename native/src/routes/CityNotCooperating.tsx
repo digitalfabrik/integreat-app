@@ -82,7 +82,7 @@ const CityNotCooperating = (): ReactElement => {
   const { cityNotCooperatingIcon } = buildConfigAssets()
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const theme = useTheme()
-  const template: string = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
 
   const copyToClipboard = () => {
     Clipboard.setString(template)
