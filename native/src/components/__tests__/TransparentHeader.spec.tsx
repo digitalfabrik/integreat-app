@@ -61,14 +61,14 @@ describe('TransparentHeader', () => {
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
-  it('should hide back button if there is no navigation stack', () => {
+  it('should hide header if there is no navigation stack', () => {
     const props = buildProps(0)
-    const { queryByText } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
-    expect(queryByText('HeaderBackButton')).toBeNull()
+    const { queryByTestId } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
+    expect(queryByTestId('transparent-header')).toBeNull()
   })
 
   it('should show snackbar if sharing fails', () => {
-    const props = buildProps(0, 'https://example.com/share')
+    const props = buildProps(1, 'https://example.com/share')
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
     const share = jest.fn(() => {
