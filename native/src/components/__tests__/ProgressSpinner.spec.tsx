@@ -3,6 +3,8 @@ import React from 'react'
 
 import ProgressSpinner from '../ProgressSpinner'
 
+jest.mock('styled-components')
+
 describe('ProgressSpinner', () => {
   it('should display a progress text', () => {
     const { queryByText } = render(<ProgressSpinner progress={0.9} />)

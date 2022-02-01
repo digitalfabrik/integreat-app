@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
 import { JPAL_TRACKING_ROUTE, JpalTrackingRouteType } from 'api-client'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import appSettings from '../../utils/AppSettings'
 import JpalTracking from '../JpalTracking'
 
@@ -35,9 +35,7 @@ describe('JpalTracking', () => {
   it('should persist route tracking code', async () => {
     const oldSettings = await appSettings.loadSettings()
     expect(oldSettings.jpalTrackingCode).toBeNull()
-    const { getByText } = render(<JpalTracking route={route(trackingCode)} navigation={navigation} />, {
-      wrapper: wrapWithTheme
-    })
+    const { getByText } = render(<JpalTracking route={route(trackingCode)} navigation={navigation} />)
     await waitFor(() => expect(getByText('tracking')).toBeTruthy())
     const settings = await appSettings.loadSettings()
     await waitFor(() => expect(settings.jpalTrackingCode).toBe(trackingCode))
@@ -48,9 +46,7 @@ describe('JpalTracking', () => {
     const oldSettings = await appSettings.loadSettings()
     expect(oldSettings.jpalTrackingCode).toBe(trackingCode)
 
-    const { getByText } = render(<JpalTracking route={route(null)} navigation={navigation} />, {
-      wrapper: wrapWithTheme
-    })
+    const { getByText } = render(<JpalTracking route={route(null)} navigation={navigation} />)
     await waitFor(() => expect(getByText('tracking')).toBeTruthy())
     const settings = await appSettings.loadSettings()
     expect(settings.jpalTrackingCode).toBe(trackingCode)
@@ -60,9 +56,7 @@ describe('JpalTracking', () => {
     const oldSettings = await appSettings.loadSettings()
     expect(oldSettings.jpalTrackingEnabled).toBeNull()
 
-    const { getByText } = render(<JpalTracking route={defaultRoute} navigation={navigation} />, {
-      wrapper: wrapWithTheme
-    })
+    const { getByText } = render(<JpalTracking route={defaultRoute} navigation={navigation} />)
     await waitFor(() => expect(getByText('tracking')).toBeTruthy())
 
     fireEvent.press(getByText('allowTracking'))

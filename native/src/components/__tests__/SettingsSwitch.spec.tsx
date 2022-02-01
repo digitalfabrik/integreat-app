@@ -3,6 +3,7 @@ import React from 'react'
 
 import SettingsSwitch from '../SettingsSwitch'
 
+jest.mock('styled-components')
 // https://github.com/callstack/react-native-testing-library/issues/329
 jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   const mockComponent = require('react-native/jest/mockComponent')
