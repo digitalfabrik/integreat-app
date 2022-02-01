@@ -27,6 +27,7 @@ export type CityNotCooperatingInformationType = {
   route: CityNotCooperatingRouteType
   languageCode: string
 }
+
 export type JpalTrackingRouteInformationType = {
   route: JpalTrackingRouteType
   trackingCode: string | null
