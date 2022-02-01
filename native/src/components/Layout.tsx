@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 const Wrapper = styled.View`
@@ -11,9 +10,6 @@ type AppPropsType = {
   children?: React.ReactNode
 }
 
-const Layout = ({ children }: AppPropsType): ReactElement => {
-  const theme = useTheme()
-  return <Wrapper theme={theme}>{children}</Wrapper>
-}
+const Layout = ({ children }: AppPropsType): ReactElement => <Wrapper>{children}</Wrapper>
 
 export default Layout
