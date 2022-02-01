@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import CleanLink from './CleanLink'
 
-const ListItemContainer = styled.div`
+const ListItemContainer = styled.article`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   display: flex;
 `

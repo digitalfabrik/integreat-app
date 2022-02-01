@@ -27,17 +27,15 @@ export default {
   },
   setupFilesAfterEnv: [
     '<rootDir>/../jest.setup.ts',
-    'jest-extended',
     '<rootDir>/../node_modules/@testing-library/jest-native/extend-expect'
   ],
+  transform: tsjPreset.transform,
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
+  maxWorkers: '50%',
   coverageDirectory: '<rootDir>/../reports/coverage',
-  transform: {
-    ...tsjPreset.transform
-  },
   reporters: [
     'default',
     [
