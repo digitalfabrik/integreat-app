@@ -44,6 +44,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
+    'jest/expect-expect': 'off',
 
     // Disabling since better @typescript-eslint rules available or they make no sense for ts projects
     'default-case': 'off',
