@@ -33,6 +33,8 @@ export type MarkerConfig = {
   iconSize: number
 }
 
+export type LocationType = [number, number]
+
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
 export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
 export type PoiFeatureCollection = FeatureCollection<Point, GeoJsonPoiProperties>

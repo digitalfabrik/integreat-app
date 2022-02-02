@@ -2,6 +2,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useEffect, useState } from 'react'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
+import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
@@ -14,9 +15,12 @@ import {
   mapMarker
 } from 'api-client'
 
-import MapPopup from './MapPopup'
+import { getSnapPoints } from '../utils/getSnapPoints'
 
+// TODO refactor height
 const MapContainer = styled.div`
+  ${`height: calc(100vh - 190px);`}
+  width: 100%;
   display: flex;
   justify-content: center;
 `
@@ -47,18 +51,18 @@ const geolocateControlStyle: React.CSSProperties = {
 
 type MapViewProps = {
   bboxViewport: MapViewViewport
-  featureCollection: PoiFeatureCollection
+  featureCollection: PoiFeatureCollection | null
+  currentFeature: PoiFeature | null
+  setCurrentFeature: (feature: PoiFeature) => void
 }
 
-const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const { featureCollection, bboxViewport } = props
+const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<BottomSheetRef>): ReactElement => {
+  const { featureCollection, bboxViewport, setCurrentFeature } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
-  const [showPopup, togglePopup] = useState<boolean>(false)
-  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
   const queryLocation = new URLSearchParams(useLocation().search).get(locationName)
 
   useEffect(() => {
-    if (queryLocation) {
+    if (queryLocation && featureCollection) {
       const currentFeature = featureCollection.features.find(feature => feature.properties.urlSlug === queryLocation)
       if (currentFeature?.geometry.coordinates) {
         const { geometry } = currentFeature
@@ -69,17 +73,18 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
           zoom: detailZoom
         }))
         setCurrentFeature(currentFeature)
-        togglePopup(true)
       }
     }
   }, [featureCollection, queryLocation])
 
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
+      // @ts-ignore
+      ref?.current.snapTo(({ maxHeight }: { maxHeight: number }) => getSnapPoints(maxHeight)[1])
       setCurrentFeature(e.features[0])
-      togglePopup(true)
     } else {
-      togglePopup(false)
+      // @ts-ignore
+      setCurrentFeature(null)
     }
   }
 
@@ -88,22 +93,25 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
       <ReactMapGL
         interactiveLayerIds={[layerStyle.id!]}
         {...viewport}
+        height='100%'
+        width='100%'
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
-        onClick={clickItem}>
+        onClick={clickItem}
+        // @ts-ignore
+        onTouchMove={() => ref?.current.snapTo(({ maxHeight }: { maxHeight: number }) => getSnapPoints(maxHeight)[0])}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
         />
-        <Source id='location-pois' type='geojson' data={featureCollection}>
+        <Source id='location-pois' type='geojson' data={featureCollection!}>
           <Layer {...layerStyle} />
-          {showPopup && currentFeature && <MapPopup properties={currentFeature.properties} />}
         </Source>
       </ReactMapGL>
     </MapContainer>
   )
-}
+})
 
 export default MapView
