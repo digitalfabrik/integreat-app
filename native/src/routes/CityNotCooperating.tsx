@@ -79,7 +79,6 @@ const TemplateText = styled.Text`
 
 const CityNotCooperating = (): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
-  const { cityNotCooperatingIcon } = buildConfigAssets()
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const theme = useTheme()
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
@@ -97,7 +96,7 @@ const CityNotCooperating = (): ReactElement => {
       <ListItem />
 
       <Description>{t('explanation')}</Description>
-      {cityNotCooperatingIcon && <Icon source={cityNotCooperatingIcon} />}
+      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
       <ListHeading>{t('whatToDo')}</ListHeading>
       <ListItem>
         <StepNumber>1</StepNumber>
