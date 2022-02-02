@@ -7,7 +7,7 @@ import { Dispatch } from 'redux'
 import { ErrorCode, LanguageModel } from 'api-client'
 
 import Failure from '../components/Failure'
-import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
+import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import LayoutContainer from '../components/LayoutContainer'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressContainer from '../components/ProgressContainer'
@@ -130,10 +130,7 @@ const withPayloadProvider =
       }
       if (props.status === 'languageNotAvailable') {
         return (
-          <LanguageNotAvailableContainer
-            languages={props.availableLanguages}
-            changeLanguage={changeUnavailableLanguage}
-          />
+          <LanguageNotAvailablePage languages={props.availableLanguages} changeLanguage={changeUnavailableLanguage} />
         )
       }
       if (props.status === 'loading') {

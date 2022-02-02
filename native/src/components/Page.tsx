@@ -66,7 +66,7 @@ const Page = ({
   return (
     <SpaceBetween>
       <Container>
-        <Caption title={title} theme={theme} />
+        <Caption title={title} />
         {children}
         <RemoteContent
           theme={theme}
