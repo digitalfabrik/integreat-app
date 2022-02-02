@@ -1,4 +1,4 @@
-import { FetchMock } from 'jest-fetch-mock'
+import fetch from 'jest-fetch-mock'
 
 import { DASHBOARD_ROUTE } from '../../routes'
 import { OPEN_PAGE_SIGNAL_NAME } from '../../tracking'
@@ -25,14 +25,14 @@ describe('createTrackingEndpoint', () => {
   }
   it('should throw fetch error if fetch fails', async () => {
     const error = new Error('Das Internet ist kaputt!!!1!!!11elf!')
-    ;(fetch as unknown as FetchMock).mockRejectOnce(() => Promise.reject(error))
+    fetch.mockRejectOnce(() => Promise.reject(error))
 
     await expect(createTrackingEndpoint().request(signal)).rejects.toThrow(
       'FetchError: Failed to POST the request for the tracking endpoint with the url'
     )
   })
   it('should throw response error if response is not ok', async () => {
-    ;(fetch as unknown as FetchMock).mockResponseOnce('Invalid endpoint', {
+    fetch.mockResponseOnce('Invalid endpoint', {
       status: 500,
       statusText: ' not ok'
     })
