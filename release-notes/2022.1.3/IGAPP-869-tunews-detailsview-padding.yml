@@ -1,7 +1,8 @@
 issue_key: IGAPP-869
 show_in_stores: true
 platforms:
-  - native
+  - ios
+  - android
   - web
 en: Fixed display of figure descriptions.
 de: Fehler bei der Darstellung von Bildbeschreibungen behoben.

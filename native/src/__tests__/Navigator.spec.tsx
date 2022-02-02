@@ -54,7 +54,7 @@ jest.mock('../routes/NewsContainer', () => {
 
   return () => <Text>News</Text>
 })
-jest.mock('../routes/ChangeLanguageModalContainer', () => {
+jest.mock('../routes/ChangeLanguageModal', () => {
   const { Text } = require('react-native')
 
   return () => <Text>ChangeLanguage</Text>
