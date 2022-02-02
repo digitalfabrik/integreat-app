@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CityModel } from 'api-client'
 
+import { cityNotCooperatingEnabled } from '../RootSwitcher'
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import GeneralFooter from '../components/GeneralFooter'
@@ -25,9 +26,7 @@ const LandingPage = ({ cities, languageCode }: PropsType): ReactElement => {
     <Layout
       footer={
         <>
-          {buildConfig().featureFlags.cityNotCooperatingTemplate && (
-            <CityNotCooperatingFooter languageCode={languageCode} />
-          )}
+          {cityNotCooperatingEnabled && <CityNotCooperatingFooter languageCode={languageCode} />}
           <GeneralFooter language={languageCode} />
         </>
       }>

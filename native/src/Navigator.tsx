@@ -85,6 +85,9 @@ type InitialRouteType =
     }
 const Stack = createStackNavigator<RoutesParamsType>()
 
+export const cityNotCooperatingEnabled =
+  buildConfig().featureFlags.cityNotCooperatingTemplate && buildConfigAssets().cityNotCooperatingIcon
+
 const Navigator = (props: PropsType): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null | undefined>(null)
@@ -93,8 +96,6 @@ const Navigator = (props: PropsType): ReactElement | null => {
   })
   const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
-  const cityCooperatingEnabled =
-    buildConfig().featureFlags.cityNotCooperatingTemplate && buildConfigAssets().cityNotCooperatingIcon
 
   useEffect(() => {
     fetchCities(false)
@@ -213,7 +214,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
-        {cityCooperatingEnabled && <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />}
+        {cityNotCooperatingEnabled && <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />}
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>
