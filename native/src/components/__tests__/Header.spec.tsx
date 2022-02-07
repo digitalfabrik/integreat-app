@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
@@ -8,7 +8,7 @@ import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import Header from '../Header'
 
@@ -72,7 +72,7 @@ describe('Header', () => {
 
   it('search header button should be enabled and visible after loading was finished', async () => {
     const props = buildProps(false, true, goToLanguageChange)
-    const { getByLabelText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
+    const { getByLabelText } = render(<Header {...props} />)
     expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(props.navigation.navigate).toHaveBeenCalledTimes(1))
@@ -80,9 +80,7 @@ describe('Header', () => {
   })
 
   it('language header button should be enabled and visible after loading was finished', async () => {
-    const { getByLabelText } = render(<Header {...buildProps(false, true, goToLanguageChange)} />, {
-      wrapper: wrapWithTheme
-    })
+    const { getByLabelText } = render(<Header {...buildProps(false, true, goToLanguageChange)} />)
     expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(goToLanguageChange).toHaveBeenCalledTimes(1))
@@ -90,16 +88,14 @@ describe('Header', () => {
 
   it('search header button should be disabled and invisible while loading', () => {
     const props = buildProps(true, true, goToLanguageChange)
-    const { getByLabelText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
+    const { getByLabelText } = render(<Header {...props} />)
     expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 0 })
     fireEvent.press(getByLabelText(t('search')))
     expect(props.navigation.navigate).not.toHaveBeenCalled()
   })
 
   it('language header button should be disabled and invisible while loading', () => {
-    const { getByLabelText } = render(<Header {...buildProps(true, true, goToLanguageChange)} />, {
-      wrapper: wrapWithTheme
-    })
+    const { getByLabelText } = render(<Header {...buildProps(true, true, goToLanguageChange)} />)
     expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 0 })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(goToLanguageChange).not.toHaveBeenCalled()
@@ -107,14 +103,14 @@ describe('Header', () => {
 
   it('should show back button and navigate back on click', () => {
     const props = buildProps(true, true, goToLanguageChange, 1)
-    const { getByText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
+    const { getByText } = render(<Header {...props} />)
     fireEvent.press(getByText('HeaderBackButton'))
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the only route', () => {
     const props = buildProps(true, true, goToLanguageChange, 0)
-    const { queryByText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
+    const { queryByText } = render(<Header {...props} />)
     expect(queryByText('HeaderBackButton')).toBeFalsy()
   })
 
@@ -128,7 +124,7 @@ describe('Header', () => {
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
 
-    const { getByText } = render(<Header {...props} />, { wrapper: wrapWithTheme })
+    const { getByText } = render(<Header {...props} />)
 
     fireEvent.press(getByText(`hidden: ${t('share')}`))
 

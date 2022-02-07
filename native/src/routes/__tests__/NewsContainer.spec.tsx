@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { ComponentProps } from 'react'
 import { Pressable, Text, View } from 'react-native'
@@ -8,7 +8,7 @@ import configureMockStore from 'redux-mock-store'
 import { CityModel, LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'api-client'
 
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import NewsContainer from '../NewsContainer'
 import TuNews from '../TuNews'
 
@@ -91,8 +91,7 @@ describe('NewsContainer', () => {
     return render(
       <Provider store={store}>
         <NewsContainer route={route} navigation={navigation} />
-      </Provider>,
-      { wrapper: wrapWithTheme }
+      </Provider>
     )
   }
 

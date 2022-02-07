@@ -29,7 +29,7 @@ jest.mock('../routes/DashboardContainer', () => {
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../routes/SettingsContainer', () => {
+jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Settings</Text>
@@ -54,7 +54,7 @@ jest.mock('../routes/NewsContainer', () => {
 
   return () => <Text>News</Text>
 })
-jest.mock('../routes/ChangeLanguageModalContainer', () => {
+jest.mock('../routes/ChangeLanguageModal', () => {
   const { Text } = require('react-native')
 
   return () => <Text>ChangeLanguage</Text>

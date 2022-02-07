@@ -1,27 +1,12 @@
-import * as React from 'react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { Text, View, AccessibilityRole } from 'react-native'
 import { Badge, Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 import SettingsSwitch from './SettingsSwitch'
 import Touchable from './Touchable'
 
-type PropType = {
-  title: string
-  description?: string
-  onPress: () => void
-  theme: ThemeType
-  t: TFunction
-  bigTitle?: boolean
-  accessibilityRole?: AccessibilityRole
-  hasSwitch?: boolean
-  hasBadge?: boolean
-  value: boolean
-}
 const PadView = styled.View`
   padding: 16px;
   flex-direction: row;
@@ -48,25 +33,35 @@ const Description = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
+type PropType = {
+  title: string
+  description?: string
+  onPress: () => void
+  t: TFunction<'settings'>
+  bigTitle?: boolean
+  accessibilityRole?: AccessibilityRole
+  hasSwitch?: boolean
+  hasBadge?: boolean
+  value: boolean
+}
+
 const SettingItem = (props: PropType): ReactElement => {
-  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, theme, accessibilityRole, t } = props
+  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, accessibilityRole, t } = props
   return (
     <Touchable onPress={onPress} accessibilityRole={accessibilityRole}>
-      <PadView theme={theme}>
+      <PadView>
         <ContentContainer>
           <View>
-            <Title theme={theme} bigTitle={bigTitle || false}>
-              {title}
-            </Title>
+            <Title bigTitle={bigTitle || false}>{title}</Title>
           </View>
           {description && (
             <View>
-              <Description theme={theme}>{description}</Description>
+              <Description>{description}</Description>
             </View>
           )}
         </ContentContainer>
         <RightContentContainer>
-          {hasSwitch && <SettingsSwitch theme={theme} value={value} onPress={onPress} />}
+          {hasSwitch && <SettingsSwitch value={value} onPress={onPress} />}
           {hasBadge && (
             <View
               style={{
