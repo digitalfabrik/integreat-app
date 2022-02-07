@@ -60,5 +60,5 @@ jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   return mockComponent('react-native/Libraries/Components/Switch/Switch')
 })
 
-// @ts-ignore https://github.com/software-mansion/react-native-reanimated/issues/1380#issuecomment-865143328
+// @ts-expect-error https://github.com/software-mansion/react-native-reanimated/issues/1380#issuecomment-865143328
 global.__reanimatedWorkletInit = jest.fn()

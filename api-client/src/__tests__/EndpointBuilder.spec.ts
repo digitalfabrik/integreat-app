@@ -28,9 +28,9 @@ describe('EndpointBuilder', () => {
   })
   it('should throw errors if used incorrectly', () => {
     const builder = new EndpointBuilder('endpoint')
-    expect(() => builder.build()).toThrowErrorMatchingSnapshot()
+    expect(() => builder.build()).toThrow('You have to set a url mapper to build an endpoint!')
     builder.withParamsToUrlMapper(() => 'https://someurl')
-    expect(() => builder.build()).toThrowErrorMatchingSnapshot()
+    expect(() => builder.build()).toThrow('You have to set a mapper to build an endpoint!')
     builder.withMapper(json => json)
     expect(() => builder.build()).not.toThrow()
   })

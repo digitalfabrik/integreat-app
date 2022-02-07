@@ -73,7 +73,7 @@ describe('LocationModel', () => {
         region: 'Schwaben',
         country: 'DE'
       })
-      expect(location.location).toEqual('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
+      expect(location.location).toBe('Café Tür an Tür, Wertachstr. 29, 86353 Augsburg')
     })
     it('should be transformed to GeoJson type', () => {
       const location = new LocationModel({
@@ -90,7 +90,7 @@ describe('LocationModel', () => {
       })
       expect(location.convertToPoint(path, thumbnail, urlSlug)).toEqual(expectedGeoJsonMarkerFeature)
     })
-    it('should return null when latitude is null ', () => {
+    it('should return null when latitude is null', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
@@ -105,7 +105,7 @@ describe('LocationModel', () => {
       })
       expect(location.convertToPoint(path, thumbnail, urlSlug)).toBeNull()
     })
-    it('should return null when longitude is null ', () => {
+    it('should return null when longitude is null', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
@@ -138,7 +138,7 @@ describe('LocationModel', () => {
       })
       expect(location.convertToPoint(path, thumbnail, urlSlug)).toEqual(expectedGeoJsonMarkerFeature)
     })
-    it('should return null when latitude is null ', () => {
+    it('should return null when latitude is null', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
@@ -153,7 +153,7 @@ describe('LocationModel', () => {
       })
       expect(location.convertToPoint(path, thumbnail, urlSlug)).toBeNull()
     })
-    it('should return null when longitude is null ', () => {
+    it('should return null when longitude is null', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
@@ -170,7 +170,7 @@ describe('LocationModel', () => {
     })
   })
   describe('get coordinates', () => {
-    it('should return Position containing longitude and latitude ', () => {
+    it('should return Position containing longitude and latitude', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
@@ -185,7 +185,7 @@ describe('LocationModel', () => {
       })
       expect(location.coordinates).toEqual([Number(location.longitude), Number(location.latitude)])
     })
-    it('should return null if longitude is null ', () => {
+    it('should return null if longitude is null', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
@@ -200,7 +200,7 @@ describe('LocationModel', () => {
       })
       expect(location.coordinates).toBeNull()
     })
-    it('should return null if latitude is null ', () => {
+    it('should return null if latitude is null', () => {
       const location = new LocationModel({
         id: 1,
         name: 'Test',
