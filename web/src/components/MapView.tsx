@@ -53,7 +53,7 @@ type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: PoiFeatureCollection | null
   currentFeature: PoiFeature | null
-  setCurrentFeature: (feature: PoiFeature) => void
+  setCurrentFeature: (feature: PoiFeature | null) => void
 }
 
 const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<BottomSheetRef>): ReactElement => {
@@ -79,11 +79,10 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<BottomShee
 
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
-      // @ts-ignore
+      // @ts-ignore BottomSheetRef does not provide current
       ref?.current.snapTo(({ maxHeight }: { maxHeight: number }) => getSnapPoints(maxHeight)[1])
       setCurrentFeature(e.features[0])
     } else {
-      // @ts-ignore
       setCurrentFeature(null)
     }
   }
@@ -98,7 +97,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<BottomShee
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={clickItem}
-        // @ts-ignore
+        // @ts-ignore BottomSheetRef does not provide current
         onTouchMove={() => ref?.current.snapTo(({ maxHeight }: { maxHeight: number }) => getSnapPoints(maxHeight)[0])}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
