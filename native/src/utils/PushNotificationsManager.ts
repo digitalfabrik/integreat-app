@@ -65,7 +65,7 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   log(`Subscribed to ${topic} topic!`)
 }
 
-export const quitPushNotificationListener = async (
+export const quitAppStatePushNotificationListener = async (
   dispatch: Dispatch,
   navigation: NavigationPropType<RoutesType>
 ): Promise<void> => {
@@ -88,7 +88,7 @@ export const quitPushNotificationListener = async (
   }
 }
 
-export const backgroundPushNotificationListener = (listener: (url: string) => void): (() => void) | void => {
+export const backgroundAppStatePushNotificationListener = (listener: (url: string) => void): (() => void) | void => {
   if (pushNotificationsEnabled()) {
     importFirebaseMessaging()
       .then(messaging => {

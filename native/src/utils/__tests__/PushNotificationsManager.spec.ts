@@ -187,7 +187,7 @@ describe('PushNotificationsManager', () => {
     })
   })
 
-  describe('quitPushNotificationsListener', () => {
+  describe('quitAppStatePushNotificationsListener', () => {
     it('should go to news if there is an initial message', async () => {
       const url = 'https://integreat.app/augsburg/de/news/local'
       mockedFirebaseMessaging.mockImplementation(() => {
@@ -199,7 +199,7 @@ describe('PushNotificationsManager', () => {
       await appSettings.setSelectedCity('augsburg')
       await appSettings.setContentLanguage('de')
 
-      await PushNotificationsManager.quitPushNotificationListener(jest.fn(), navigation)
+      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
       expect(navigateToDeepLink).toHaveBeenCalledWith(expect.any(Function), navigation, url, 'de')
     })
@@ -214,7 +214,7 @@ describe('PushNotificationsManager', () => {
       await appSettings.setSelectedCity('augsburg')
       await appSettings.setContentLanguage('de')
 
-      await PushNotificationsManager.quitPushNotificationListener(jest.fn(), navigation)
+      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
       expect(navigateToDeepLink).not.toHaveBeenCalled()
     })
 
@@ -227,7 +227,7 @@ describe('PushNotificationsManager', () => {
 
       await appSettings.setContentLanguage('de')
 
-      await PushNotificationsManager.quitPushNotificationListener(jest.fn(), navigation)
+      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
       expect(navigateToDeepLink).not.toHaveBeenCalled()
     })
   })

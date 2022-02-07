@@ -57,7 +57,7 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
-import { quitPushNotificationListener } from './utils/PushNotificationsManager'
+import { quitAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import { initSentry, log } from './utils/sentry'
 
 type HeaderProps = {
@@ -104,7 +104,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
   }, [fetchCities])
 
   useEffect(() => {
-    quitPushNotificationListener(dispatch, navigation)
+    quitAppStatePushNotificationListener(dispatch, navigation)
   }, [dispatch, navigation])
 
   useEffect(() => {
