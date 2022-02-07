@@ -5,12 +5,11 @@ import {
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
-import { template } from './assets/cityNotCooperatingTemplate'
+import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const APPLE_APP_ID = '1072353915'
-const cityNotCooperatingTemplate = template
 
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',

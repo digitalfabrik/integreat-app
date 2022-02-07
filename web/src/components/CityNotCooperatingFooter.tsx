@@ -5,7 +5,6 @@ import styled from 'styled-components'
 
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'api-client/src'
 
-import { cityNotCooperatingEnabled } from '../RootSwitcher'
 import buildConfig from '../constants/buildConfig'
 
 const FooterContainer = styled.div`
@@ -43,7 +42,7 @@ type PropsType = {
 const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
 
-  if (cityNotCooperatingEnabled) {
+  if (!buildConfig().featureFlags.cityNotCooperating) {
     return <></>
   }
 

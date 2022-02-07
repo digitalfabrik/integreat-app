@@ -7,10 +7,10 @@ import styled from 'styled-components/native'
 
 import { CityModel } from 'api-client'
 
-import { cityNotCooperatingEnabled } from '../Navigator'
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import Heading from '../components/Heading'
+import buildConfig from '../constants/buildConfig'
 import useUserLocation from '../hooks/useUserLocation'
 import testID from '../testing/testID'
 
@@ -59,7 +59,7 @@ const Landing = ({
           navigateToDashboard={navigateTo}
         />
       </Wrapper>
-      {cityNotCooperatingEnabled && (
+      {buildConfig().featureFlags.cityNotCooperating && (
         <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
       )}
     </>
