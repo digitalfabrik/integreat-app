@@ -8,7 +8,7 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 
 import Navigator from '../Navigator'
 import appSettings from '../utils/AppSettings'
-import { quitPushNotificationListener } from '../utils/PushNotificationsManager'
+import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../utils/sentry')
@@ -112,7 +112,7 @@ jest.mock('../components/TransparentHeader', () => {
 })
 jest.mock('../utils/PushNotificationsManager', () => ({
   pushNotificationsSupported: jest.fn(() => true),
-  quitPushNotificationListener: jest.fn()
+  quitAppStatePushNotificationListener: jest.fn()
 }))
 jest.mock('react-redux')
 
@@ -244,6 +244,6 @@ describe('Navigator', () => {
     )
 
     await findByText('Dashboard')
-    expect(quitPushNotificationListener).toHaveBeenCalledTimes(1)
+    expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })
