@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - ios
   - android
-en: Possibility to go back on location change added.
+en: Possibility addedto go back on location change.
 de: Möglichkeit bei Standortwechsel zurück zu gehen hinzugefügt.

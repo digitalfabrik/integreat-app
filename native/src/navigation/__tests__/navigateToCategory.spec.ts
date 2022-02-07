@@ -129,4 +129,22 @@ describe('navigateToCategory', () => {
       }
     })
   })
+  it('should dispatch a CLEAR_CITY action and delete the content', () => {
+    const dispatch = jest.fn()
+    const navigation = createNavigationScreenPropMock()
+    navigateToCategory({
+      dispatch,
+      navigation,
+      routeName: CATEGORIES_ROUTE,
+      cityCode: 'augsburg',
+      languageCode: 'de',
+      cityContentPath: '/augsburg/de/schule',
+      key: 'route-id-1',
+      forceRefresh: true,
+      resetNavigation: true
+    })
+    expect(dispatch).toHaveBeenCalledWith({
+      type: 'CLEAR_CITY'
+    })
+  })
 })
