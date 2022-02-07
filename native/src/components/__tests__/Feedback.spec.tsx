@@ -1,7 +1,8 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
 import buildConfig from '../../constants/buildConfig'
+import render from '../../testing/render'
 import Feedback from '../Feedback'
 
 describe('Feedback', () => {
@@ -72,7 +73,7 @@ describe('Feedback', () => {
     const { getByText } = render(<Feedback {...buildProps(false, true, 'My test comment')} />)
     const button = getByText('send')
     fireEvent.press(button)
-    expect(onSubmit).toBeCalled()
+    expect(onSubmit).toHaveBeenCalled()
   })
   it('should call callback on comment changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(
@@ -83,7 +84,7 @@ describe('Feedback', () => {
     expect(onCommentChanged).not.toHaveBeenCalled()
     fireEvent.changeText(getByDisplayValue('my old comment'), 'my new comment')
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
-    expect(onCommentChanged).toBeCalledWith('my new comment')
+    expect(onCommentChanged).toHaveBeenCalledWith('my new comment')
   })
   it('should call callback on contact mail changed', async () => {
     const { getByDisplayValue, queryByDisplayValue } = render(<Feedback {...buildProps(false, false, 'my comment')} />)
@@ -92,6 +93,6 @@ describe('Feedback', () => {
     expect(onFeedbackContactMailChanged).not.toHaveBeenCalled()
     fireEvent.changeText(getByDisplayValue('test@example.com'), 'new@example.com')
     expect(onFeedbackContactMailChanged).toHaveBeenCalledTimes(1)
-    expect(onFeedbackContactMailChanged).toBeCalledWith('new@example.com')
+    expect(onFeedbackContactMailChanged).toHaveBeenCalledWith('new@example.com')
   })
 })

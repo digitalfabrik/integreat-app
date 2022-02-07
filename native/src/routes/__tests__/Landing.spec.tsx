@@ -1,23 +1,17 @@
 import Geolocation from '@react-native-community/geolocation'
-import { render, fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
+import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
-import buildConfig from '../../constants/buildConfig'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import Landing from '../Landing'
 
-const mockTheme = buildConfig().lightTheme
-
 jest.mock('react-i18next')
-jest.mock('styled-components', () => ({
-  ...jest.requireActual('styled-components'),
-  useTheme: () => mockTheme
-}))
+jest.mock('styled-components')
 jest.mock('react-native-system-setting', () => undefined)
 jest.mock('../../utils/LocationPermissionManager', () => ({
   checkLocationPermission: jest.fn(),
@@ -61,8 +55,7 @@ describe('Landing', () => {
         navigateToDashboard={navigateToDashboard}
         navigateToCityNotCooperating={navigateToCityNotCooperating}
         clearResourcesAndCache={clearResourcesAndCache}
-      />,
-      { wrapper: wrapWithTheme }
+      />
     )
 
   it('should only show non-live cities', async () => {
@@ -88,7 +81,7 @@ describe('Landing', () => {
     const { getByText } = renderLanding()
     const button = getByText('clickHere')
     fireEvent.press(button)
-    expect(navigateToCityNotCooperating).toBeCalled()
+    expect(navigateToCityNotCooperating).toHaveBeenCalled()
   })
 
   describe('nearby locations', () => {

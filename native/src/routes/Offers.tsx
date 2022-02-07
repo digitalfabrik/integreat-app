@@ -43,7 +43,7 @@ const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, languag
         language={language}
       />
     </View>
-    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
   </SpaceBetween>
 )
 

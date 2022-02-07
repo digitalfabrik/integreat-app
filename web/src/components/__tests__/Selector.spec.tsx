@@ -42,14 +42,14 @@ describe('Selector', () => {
         />
       </ThemeProvider>
     )
-    selectorItems.forEach(({ name, href }) => {
-      const item = getAllByText(name)[0]!
-      if (href) {
-        expect(item.closest('a')).toHaveProperty('href', `http://localhost${href}`)
-      } else {
-        expect(item.closest('a')).toBeFalsy()
-      }
-    })
+    const hrefItem1 = getAllByText(selectorItems[0].name)[0]!
+    expect(hrefItem1.closest('a')).toHaveProperty('href', `http://localhost${selectorItems[0].href}`)
+
+    const hrefItem2 = getAllByText(selectorItems[1].name)[0]!
+    expect(hrefItem2.closest('a')).toHaveProperty('href', `http://localhost${selectorItems[1].href}`)
+
+    const noHrefItem = getAllByText(selectorItems[2].name)[0]!
+    expect(noHrefItem.closest('a')).toBeFalsy()
   })
 
   it('should close dropdown', () => {

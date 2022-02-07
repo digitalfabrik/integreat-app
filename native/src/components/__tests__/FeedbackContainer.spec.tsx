@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
 import {
@@ -9,6 +9,7 @@ import {
 } from 'api-client'
 
 import buildConfig from '../../constants/buildConfig'
+import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
 

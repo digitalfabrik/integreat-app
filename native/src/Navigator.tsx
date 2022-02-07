@@ -36,7 +36,7 @@ import { NavigationPropType, RoutePropType, RoutesParamsType, RoutesType } from 
 import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import CategoriesContainer from './routes/CategoriesContainer'
-import ChangeLanguageModalContainer from './routes/ChangeLanguageModalContainer'
+import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
 import DashboardContainer from './routes/DashboardContainer'
 import DisclaimerContainer from './routes/DisclaimerContainer'
@@ -52,7 +52,7 @@ import OffersContainer from './routes/OffersContainer'
 import PDFViewModal from './routes/PDFViewModal'
 import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
-import SettingsContainer from './routes/SettingsContainer'
+import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
 import { initSentry, log } from './utils/sentry'
@@ -207,7 +207,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
-        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModalContainer} />
+        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
@@ -215,7 +215,7 @@ const Navigator = (props: PropsType): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>
-        <Stack.Screen name={SETTINGS_ROUTE} component={SettingsContainer} />
+        <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
       </Stack.Group>
     </Stack.Navigator>
   )
