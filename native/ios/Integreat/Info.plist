@@ -24,7 +24,7 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>FIREBASE_ANALYTICS_COLLECTION_DISABLED</key>
+	<key>FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED</key>
 	<true/>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>
