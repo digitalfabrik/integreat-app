@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import { PoiFeature, PoiModel } from 'api-client'
 
 import { mockContent } from '../__mocks__/poiCMSContent'
-import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -72,7 +72,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const showSnackbar = useSnackbar()
 
   // TODO this has to be removed when we get proper images from CMS IGAPP-805
-  const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? EventPlaceholder1
+  const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { location, address, postcode, town } = poi.location
   const { distance, title } = feature.properties
 

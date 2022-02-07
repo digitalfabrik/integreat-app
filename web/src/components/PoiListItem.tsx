@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { GeoJsonPoiProperties } from 'api-client'
 
-import PoiPlaceholder from '../assets/POIPlaceholder500x500.jpg'
+import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import CleanLink from './CleanLink'
 
 const ListItemContainer = styled.article`
