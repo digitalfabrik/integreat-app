@@ -10,7 +10,7 @@ import {
   PLATFORM_IOS,
   PLATFORM_WEB,
   RELEASE_NOTES_DIR,
-  UNRELEASED_DIR // @ts-ignore
+  UNRELEASED_DIR // @ts-expect-error
 } from './constants'
 
 const loadStoreTranslations = (appName: string) =>
@@ -144,7 +144,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
   // Load all notes not belonging to a release
   const relevantNotes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
-    // @ts-ignore
+    // @ts-expect-error
     .map((fileName: string): NoteType => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
     .filter(note => isNoteRelevant({ note, platforms }))
 
@@ -194,7 +194,7 @@ program
   .description(
     'parse the release notes and outputs the release notes as JSON string and writes them to the specified file'
   )
-  // @ts-ignore
+  // @ts-expect-error
   .action(() => parseNotesProgram({ ...program }))
 
 // General store metadata
