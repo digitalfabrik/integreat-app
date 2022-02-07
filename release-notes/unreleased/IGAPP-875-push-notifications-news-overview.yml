@@ -1,0 +1,7 @@
+issue_key: IGAPP-875
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The news overview is now always opened if clicking on a push notification.
+de: Beim Anklicken einer Push Notification wird nun immer die Nachrichtenübersicht geöffnet.
