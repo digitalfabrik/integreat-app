@@ -22,7 +22,7 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import PoiPlaceholder from '../assets/POIPlaceholder500x500.jpg'
+import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import BottomActionSheet from '../components/BottomActionSheet'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'

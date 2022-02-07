@@ -1,4 +1,5 @@
 /* BottomActionSheet Overrides */
+/* stylelint-disable */
 [data-rsbs-header] {
   box-shadow: none;
 }
