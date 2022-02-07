@@ -80,8 +80,7 @@ const Aside = styled.aside<{ asideStickyTop: number; hideSidebar: boolean }>`
   margin-top: 105px;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
-  // TODO revert to 10 after styling bottom action sheet
-  z-index: 2;
+  z-index: 10;
 
   &:empty {
     display: none;

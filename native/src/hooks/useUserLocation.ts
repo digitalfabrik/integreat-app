@@ -3,17 +3,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import SystemSetting from 'react-native-system-setting'
 
+import { LocationStateType, LocationType, UnavailableLocationState } from 'api-client'
+
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
-
-type SuccessfulLocationState = { status: 'ready' }
-type UnavailableLocationState = {
-  status: 'unavailable'
-  message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
-}
-
-type LocationStateType = SuccessfulLocationState | UnavailableLocationState
-
-export type LocationType = [number, number]
 
 const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
   if (error.code === error.PERMISSION_DENIED) {
@@ -51,7 +43,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
         setLocation([position.coords.longitude, position.coords.latitude])
-        setLocationState({ status: 'ready' })
+        setLocationState({ status: 'ready', message: 'localized' })
       },
       (error: GeolocationError) => {
         setLocationState(locationStateOnError(error))

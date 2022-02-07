@@ -3,6 +3,7 @@ import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import styled from 'styled-components'
 
+import '../styles/BottomActionSheet.css'
 import { getSnapPoints } from '../utils/getSnapPoints'
 
 const ListContainer = styled.div`

@@ -1,14 +1,46 @@
 import { useEffect, useState } from 'react'
 
-import { LocationType } from 'api-client'
+import { LocationStateType, LocationType, UnavailableLocationState, UserLocationType } from 'api-client'
 
-export const useUserLocation = (): LocationType | null => {
-  const [userLocation, setUserLocation] = useState<LocationType | null>(null)
+const locationStateOnError = (error: GeolocationPositionError): UnavailableLocationState => {
+  const { code } = error
+  switch (code) {
+    case GeolocationPositionError.PERMISSION_DENIED:
+      return {
+        status: 'unavailable',
+        message: 'noPermission'
+      }
+    case GeolocationPositionError.POSITION_UNAVAILABLE:
+      return {
+        status: 'unavailable',
+        message: 'notAvailable'
+      }
+    default:
+      return {
+        status: 'unavailable',
+        message: 'timeout'
+      }
+  }
+}
+
+export const useUserLocation = (): UserLocationType => {
+  const [userCoordinates, setUserCoordinates] = useState<LocationType | null>(null)
+  const [locationState, setLocationState] = useState<LocationStateType>({
+    status: 'unavailable',
+    message: 'loading'
+  })
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(({ coords }) => {
-      const { latitude, longitude } = coords
-      setUserLocation([latitude, longitude])
-    })
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const { latitude, longitude } = coords
+        setUserCoordinates([latitude, longitude])
+        setLocationState({ status: 'ready', message: 'localized' })
+      },
+      (error: GeolocationPositionError) => {
+        setLocationState(locationStateOnError(error))
+      },
+      { timeout: 50000 }
+    )
   }, [])
-  return userLocation
+  return { locationState, userCoordinates }
 }
