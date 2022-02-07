@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react'
-import { TFunction, withTranslation } from 'react-i18next'
+import React, { ReactElement, useCallback, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
+import { useTheme } from 'styled-components'
 
 import {
   createOffersEndpoint,
@@ -13,12 +14,10 @@ import {
   SprungbrettOfferRouteType,
   useLoadFromEndpoint
 } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withTheme from '../hocs/withTheme'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -26,20 +25,19 @@ import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbac
 import { determineApiUrl } from '../utils/helpers'
 import SprungbrettOffer from './SprungbrettOffer'
 
-type OwnPropsType = {
+type Props = {
   route: RoutePropType<SprungbrettOfferRouteType>
   navigation: NavigationPropType<SprungbrettOfferRouteType>
 }
-type SprungbrettPropsType = OwnPropsType & {
-  theme: ThemeType
-  t: TFunction
-}
 
-const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettPropsType) => {
+const SprungbrettOfferContainer = ({ route, navigation }: Props): ReactElement => {
   const cities = useCities()
   const [title, setTitle] = useState<string>('')
   const { cityCode, languageCode } = route.params
   const alias = SPRUNGBRETT_OFFER_ROUTE
+
+  const { t } = useTranslation('sprungbrett')
+  const theme = useTheme()
 
   const routeInformation = { route: SPRUNGBRETT_OFFER_ROUTE, languageCode, cityCode }
   useSetShareUrl({ navigation, routeInformation, route })
@@ -123,4 +121,4 @@ const SprungbrettOfferContainer = ({ route, navigation, theme, t }: SprungbrettP
   )
 }
 
-export default withTranslation('sprungbrett')(withTheme<SprungbrettPropsType>(SprungbrettOfferContainer))
+export default SprungbrettOfferContainer

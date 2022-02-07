@@ -17,7 +17,7 @@ import I18nProvider from './components/I18nProvider'
 import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
-import StatusBarContainer from './components/StatusBarContainer'
+import StatusBar from './components/StatusBar'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
@@ -95,7 +95,7 @@ const App = (): ReactElement => {
           <I18nProvider>
             <SafeAreaProvider>
               <>
-                <StatusBarContainer />
+                <StatusBar />
                 <IOSSafeAreaView>
                   <NavigationContainer onStateChange={onStateChange} linking={linking}>
                     <OverflowMenuProvider>

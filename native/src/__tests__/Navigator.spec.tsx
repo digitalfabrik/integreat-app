@@ -29,7 +29,7 @@ jest.mock('../routes/DashboardContainer', () => {
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../routes/SettingsContainer', () => {
+jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Settings</Text>
