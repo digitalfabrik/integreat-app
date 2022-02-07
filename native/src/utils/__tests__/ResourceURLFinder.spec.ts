@@ -1,5 +1,7 @@
 import ResourceURLFinder from '../ResourceURLFinder'
 
+jest.mock('react-i18next')
+
 describe('ResourceURLFinder', () => {
   it('should find urls ending on png,jpg,jpeg,pdf in src and href tags', () => {
     const finder = new ResourceURLFinder(['ex.am'])

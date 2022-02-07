@@ -8,9 +8,9 @@ import { ErrorCode, LanguageModel } from 'api-client'
 
 import Failure from '../components/Failure'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
-import LayoutContainer from '../components/LayoutContainer'
+import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import ProgressContainer from '../components/ProgressContainer'
+import ProgressSpinner from '../components/ProgressSpinner'
 import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import wrapDisplayName from '../hocs/wrapDisplayName'
 import useClearRouteOnClose from '../hooks/useClearRouteOnClose'
@@ -119,7 +119,7 @@ const withPayloadProvider =
       }
 
       if (props.status === 'routeNotInitialized') {
-        return <LayoutContainer />
+        return <Layout />
       }
       if (props.status === 'error') {
         return (
@@ -138,7 +138,7 @@ const withPayloadProvider =
 
         if (!timeoutExpired) {
           // Prevent jumpy behaviour by showing nothing until the timeout finishes
-          return <LayoutContainer />
+          return <Layout />
         }
         if (innerProps) {
           const componentProps = { ...innerProps, dispatch } as S
@@ -152,7 +152,7 @@ const withPayloadProvider =
         // Full screen loading spinner
         return (
           <LayoutedScrollView refreshControl={<RefreshControl refreshing={false} />}>
-            <ProgressContainer progress={props.progress} />
+            <ProgressSpinner progress={props.progress} />
           </LayoutedScrollView>
         )
       }
@@ -160,9 +160,9 @@ const withPayloadProvider =
       // props.status === 'success'
       if (noScrollView) {
         return (
-          <LayoutContainer>
+          <Layout>
             <Component {...componentProps} />
-          </LayoutContainer>
+          </Layout>
         )
       }
 

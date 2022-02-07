@@ -156,7 +156,7 @@ const Categories = ({
         <View>
           <Tiles tiles={getTileModels(children)} language={language} onTilePress={onTilePress} theme={theme} />
         </View>
-        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} theme={theme} />
+        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
       </SpaceBetween>
     )
   }
@@ -182,7 +182,7 @@ const Categories = ({
           theme={theme}
         />
       </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} theme={theme} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
     </SpaceBetween>
   )
 }
