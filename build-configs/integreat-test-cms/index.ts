@@ -5,9 +5,7 @@ import {
   WebBuildConfigType
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
-import { template } from '../integreat/assets/cityNotCooperatingTemplate'
-
-const cityNotCooperatingTemplate = template
+import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
 
 const integreatTestCms = {
   appName: 'IntegreatTestCms',

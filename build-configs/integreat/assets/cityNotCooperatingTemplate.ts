@@ -5,3 +5,5 @@ export const template =
   'Auf der Webseite der erfahren Sie mehr:\n\n' +
   'https://integreat-app.de\n\n\n\n' +
   'Herzliche Grüße'
+
+export default template

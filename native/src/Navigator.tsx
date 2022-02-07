@@ -33,7 +33,7 @@ import RedirectContainer from './components/RedirectContainer'
 import SettingsHeader from './components/SettingsHeader'
 import TransparentHeader from './components/TransparentHeader'
 import { NavigationPropType, RoutePropType, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
-import buildConfig, { buildConfigAssets } from './constants/buildConfig'
+import buildConfig from './constants/buildConfig'
 import { ASYNC_STORAGE_VERSION } from './constants/settings'
 import CategoriesContainer from './routes/CategoriesContainer'
 import ChangeLanguageModalContainer from './routes/ChangeLanguageModalContainer'
@@ -84,9 +84,6 @@ type InitialRouteType =
       languageCode: string
     }
 const Stack = createStackNavigator<RoutesParamsType>()
-
-export const cityNotCooperatingEnabled =
-  buildConfig().featureFlags.cityNotCooperatingTemplate && buildConfigAssets().cityNotCooperatingIcon
 
 const Navigator = (props: PropsType): ReactElement | null => {
   const [waitingForSettings, setWaitingForSettings] = useState<boolean>(true)
@@ -214,7 +211,9 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
-        {cityNotCooperatingEnabled && <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />}
+        {buildConfig().featureFlags.cityNotCooperating && (
+          <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        )}
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>

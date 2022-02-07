@@ -34,9 +34,6 @@ const MainDisclaimerPage = lazyWithRetry(() => import('./routes/MainDisclaimerPa
 const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 
-export const cityNotCooperatingEnabled =
-  buildConfig().featureFlags.cityNotCooperatingTemplate && buildConfig().icons.cityNotCooperating
-
 const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
   const requestCities = useCallback(async () => createCitiesEndpoint(cmsApiBaseUrl).request(), [])
   const { data: cities, loading, error } = useLoadFromEndpoint(requestCities)
@@ -85,7 +82,7 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
-        {cityNotCooperatingEnabled && (
+        {buildConfig().featureFlags.cityNotCooperating && (
           <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
         )}
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />

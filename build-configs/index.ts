@@ -59,6 +59,9 @@ const loadBuildConfig = <T extends PlatformType>(
     throw Error(`Invalid platform supplied: ${platform}`)
   }
 
+  buildConfig.common.featureFlags.cityNotCooperating =
+    !!buildConfig.common.featureFlags.cityNotCooperatingTemplate && !!buildConfig.web.icons.cityNotCooperating
+
   return buildConfig[platform]
 }
 

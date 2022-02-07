@@ -5,7 +5,18 @@ import { BrowserRouter } from 'react-router-dom'
 import wrapWithTheme from '../../testing/wrapWithTheme'
 import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
 
+jest.mock('../../constants/buildConfig', () =>
+  jest.fn(() => ({
+    featureFlags: {
+      cityNotCooperating: true
+    }
+  }))
+)
+
 describe('CityNotCooperatingFooter', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should render text and button', () => {
     const { getByText } = render(
       <BrowserRouter>

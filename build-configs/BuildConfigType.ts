@@ -31,6 +31,7 @@ export type FeatureFlagsType = FixedCityType & {
   // Enables error tracking to sentry, can be disabled by users.
   developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
   // Enables the option for users to suggest Integreat to their city and uses this template for the suggestion
+  cityNotCooperating?: boolean
   cityNotCooperatingTemplate: string | null
 }
 // Available on all platforms
