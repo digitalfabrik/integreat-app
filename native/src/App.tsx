@@ -27,7 +27,7 @@ import { StoreActionType } from './redux/StoreActionType'
 import createReduxStore from './redux/createReduxStore'
 import { DataContainer } from './utils/DataContainer'
 import DefaultDataContainer from './utils/DefaultDataContainer'
-import { initializePushNotificationListener } from './utils/PushNotificationsManager'
+import { backgroundPushNotificationListener } from './utils/PushNotificationsManager'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
@@ -55,7 +55,7 @@ const linking: LinkingOptions<RoutesParamsType> = {
       }
     ]
   }),
-  subscribe: initializePushNotificationListener
+  subscribe: backgroundPushNotificationListener
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
