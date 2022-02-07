@@ -64,7 +64,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
-  const userLocation = useUserLocation()
+  const { locationState, userCoordinates } = useUserLocation()
   const sheetRef = useRef<BottomSheetRef>(null)
 
   const requestPois = useCallback(
@@ -77,10 +77,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [featureLocations, setFeatureLocations] = useState<PoiFeature[] | null>(null)
 
   useEffect(() => {
-    if (pois) {
-      setFeatureLocations(prepareFeatureLocations(pois, userLocation))
+    if (pois && locationState.message !== 'loading') {
+      setFeatureLocations(prepareFeatureLocations(pois, userCoordinates))
     }
-  }, [pois, userLocation])
+  }, [pois, locationState.message])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
@@ -197,6 +197,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             </ListWrapper>
           )
         )}
+        {/* TODO add feedback toolbar IGAPP-914 */}
       </BottomActionSheet>
     </LocationLayout>
   )
