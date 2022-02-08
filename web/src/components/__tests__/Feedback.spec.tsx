@@ -92,7 +92,7 @@ describe('Feedback', () => {
     )
     const button = getByText('feedback:send')
     fireEvent.click(button)
-    expect(onSubmit).toBeCalled()
+    expect(onSubmit).toHaveBeenCalled()
   })
 
   it('should call callback on contact mail changed', () => {
@@ -111,7 +111,7 @@ describe('Feedback', () => {
       }
     })
     expect(onContactMailChanged).toHaveBeenCalledTimes(1)
-    expect(onContactMailChanged).toBeCalledWith('new@example.com')
+    expect(onContactMailChanged).toHaveBeenCalledWith('new@example.com')
   })
 
   it('should call callback on comment changed', () => {
@@ -129,6 +129,6 @@ describe('Feedback', () => {
       }
     })
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
-    expect(onCommentChanged).toBeCalledWith('new comment')
+    expect(onCommentChanged).toHaveBeenCalledWith('new comment')
   })
 })

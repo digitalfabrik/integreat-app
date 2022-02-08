@@ -224,5 +224,5 @@ const PurePoisContainer = memo(
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  // @ts-ignore
+  // @ts-expect-error
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true, true)(PurePoisContainer))

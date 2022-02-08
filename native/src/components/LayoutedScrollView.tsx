@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ReactElement } from 'react'
 import { RefreshControlProps, ScrollView } from 'react-native'
 
-import LayoutContainer from './LayoutContainer'
+import Layout from './Layout'
 
 type ScrollViewPropsType = {
   children?: React.ReactNode
@@ -12,7 +12,7 @@ type ScrollViewPropsType = {
 const LayoutedScrollView = (props: ScrollViewPropsType): ReactElement => {
   const { children, refreshControl } = props
   return (
-    <LayoutContainer>
+    <Layout>
       <ScrollView
         keyboardShouldPersistTaps='always'
         refreshControl={refreshControl}
@@ -21,7 +21,7 @@ const LayoutedScrollView = (props: ScrollViewPropsType): ReactElement => {
         }}>
         {children}
       </ScrollView>
-    </LayoutContainer>
+    </Layout>
   )
 }
 

@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react-native'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -12,6 +11,7 @@ import {
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import render from '../../testing/render'
 import { reportError } from '../../utils/sentry'
 import OffersContainer from '../OffersContainer'
 

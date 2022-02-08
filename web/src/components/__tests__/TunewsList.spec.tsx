@@ -91,6 +91,6 @@ describe('TuNewsList', () => {
     ).dive()
 
     const noItemsMessage = tunewsList.text()
-    expect(noItemsMessage).toEqual('currentlyNoTunews')
+    expect(noItemsMessage).toBe('currentlyNoTunews')
   })
 })
