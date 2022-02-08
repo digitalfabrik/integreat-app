@@ -22,20 +22,24 @@ const retry = async <T>(
 ): Promise<{ default: ComponentType<T> }> => {
   try {
     const component = await componentImport()
-    window.localStorage.setItem(PAGE_FORCE_REFRESHED_KEY, JSON.stringify(false))
+    // Local storage may be null on some devices
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    window.localStorage?.setItem(PAGE_FORCE_REFRESHED_KEY, JSON.stringify(false))
     return component
   } catch (error: unknown) {
     log(`Failed to import, ${retriesLeft} retries left.`, 'warning')
     log(error instanceof Error ? error.message : 'Unknown error', 'warning')
     await wait(interval)
     if (retriesLeft === 0) {
-      const json = window.localStorage.getItem(PAGE_FORCE_REFRESHED_KEY)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      const json = window.localStorage?.getItem(PAGE_FORCE_REFRESHED_KEY)
       const pageForceRefreshed = json ? JSON.parse(json) : false
 
       if (!pageForceRefreshed) {
         // Try force refreshing the page once
         log('Force refreshing now', 'warning')
-        window.localStorage.setItem(PAGE_FORCE_REFRESHED_KEY, JSON.stringify(true))
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        window.localStorage?.setItem(PAGE_FORCE_REFRESHED_KEY, JSON.stringify(true))
         window.location.reload()
       } else {
         throw error instanceof Error ? error : new Error()
