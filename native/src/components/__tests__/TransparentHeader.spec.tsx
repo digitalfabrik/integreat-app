@@ -8,6 +8,7 @@ import { DASHBOARD_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
+import wrapWithTheme from '../../testing/wrapWithTheme'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import TransparentHeader from '../TransparentHeader'
 
