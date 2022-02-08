@@ -1,27 +1,6 @@
 import { LanguageDetectorModule } from 'i18next'
 
-let hasLocalStorageSupport: boolean | null = null
-
-// Adapted from:
-// https://github.com/i18next/i18next-browser-languageDetector/blob/90284ca924353de0e6991bc51a0453f90fac3a04/src/browserLookups/localStorage.js
-const localStorageAvailable = () => {
-  if (hasLocalStorageSupport !== null) {
-    return hasLocalStorageSupport
-  }
-
-  try {
-    const localStorage = window.localStorage
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    hasLocalStorageSupport = localStorage !== null
-    const testKey = 'i18next.translate.boo'
-    localStorage.setItem(testKey, 'foo')
-    localStorage.removeItem(testKey)
-  } catch (e) {
-    hasLocalStorageSupport = false
-  }
-
-  return hasLocalStorageSupport
-}
+import safeLocalStorage from './safeLocalStorage'
 
 const LANGUAGE_LOCAL_STORAGE = 'i18nextLng'
 const languageDetector: LanguageDetectorModule = {
@@ -31,12 +10,10 @@ const languageDetector: LanguageDetectorModule = {
   detect: () => {
     const bcp47Tags: string[] = []
 
-    if (localStorageAvailable()) {
-      const localStorageLanguage = window.localStorage.getItem(LANGUAGE_LOCAL_STORAGE)
+    const localStorageLanguage = safeLocalStorage.getItem(LANGUAGE_LOCAL_STORAGE)
 
-      if (localStorageLanguage) {
-        bcp47Tags.push(localStorageLanguage)
-      }
+    if (localStorageLanguage) {
+      bcp47Tags.push(localStorageLanguage)
     }
 
     // Adapted from:
@@ -65,9 +42,7 @@ const languageDetector: LanguageDetectorModule = {
     return bcp47Tags.length > 0 ? bcp47Tags : undefined
   },
   cacheUserLanguage: (language: string) => {
-    if (localStorageAvailable()) {
-      window.localStorage.setItem(LANGUAGE_LOCAL_STORAGE, language)
-    }
+    safeLocalStorage.setItem(LANGUAGE_LOCAL_STORAGE, language)
   }
 }
 

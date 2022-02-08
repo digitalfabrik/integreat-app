@@ -1,5 +1,5 @@
+import safeLocalStorage from '../utils/safeLocalStorage'
 import buildConfig from './buildConfig'
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-export const cmsApiBaseUrl = window.localStorage?.getItem('api-url') || buildConfig().cmsUrl
+export const cmsApiBaseUrl = safeLocalStorage.getItem('api-url') || buildConfig().cmsUrl
 export const tunewsApiBaseUrl = 'https://tunews.integreat-app.de'
