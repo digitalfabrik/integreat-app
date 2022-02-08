@@ -1,5 +1,4 @@
-import normalizePath from 'normalize-path'
-
+import normalizePath from '../normalizePath'
 import CategoryModel from './CategoryModel'
 
 /**
@@ -31,7 +30,7 @@ class CategoriesMapModel {
    * @return {CategoryModel | undefined} The category
    */
   findCategoryByPath(path: string): CategoryModel | null | undefined {
-    return this._categories.get(decodeURIComponent(normalizePath(path)))
+    return this._categories.get(normalizePath(path))
   }
 
   /**

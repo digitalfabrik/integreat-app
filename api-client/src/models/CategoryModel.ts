@@ -1,5 +1,6 @@
 import { Moment } from 'moment'
 
+import normalizePath from '../normalizePath'
 import ExtendedPageModel from './ExtendedPageModel'
 import PageModel from './PageModel'
 
@@ -23,7 +24,7 @@ class CategoryModel extends ExtendedPageModel {
     const { order, parentPath, root, ...other } = params
     super(other)
     this._root = root
-    this._parentPath = parentPath
+    this._parentPath = normalizePath(parentPath)
     this._order = order
   }
 
