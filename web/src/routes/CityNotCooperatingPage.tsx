@@ -39,7 +39,7 @@ const Icon = styled.img`
 `
 
 const ListHeading = styled(Heading)`
-  text-align: left;
+  float: left;
   padding: 0;
   font-size: ${props => props.theme.fonts.decorativeFontSize};
 `
@@ -60,7 +60,7 @@ const StepNumber = styled.div`
 `
 
 const StepExplanation = styled(Text)`
-  padding-left: 10px;
+  padding: 0 10px;
 `
 
 const Button = styled.button`
@@ -74,6 +74,7 @@ const Button = styled.button`
 
 const TemplateText = styled(Text)`
   position: relative;
+  direction: ltr;
   top: -30px;
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 50px 30px 30px;
