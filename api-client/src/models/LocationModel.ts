@@ -1,3 +1,5 @@
+import { Position } from 'geojson'
+
 import { mapMarker, PoiFeature } from '../maps'
 
 class LocationModel {
@@ -113,8 +115,15 @@ class LocationModel {
     )
   }
 
+  get coordinates(): Position | null {
+    if (!this.longitude || !this.latitude) {
+      return null
+    }
+    return [Number(this.longitude), Number(this.latitude)]
+  }
+
   convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
-    if (this.longitude == null || this.latitude == null) {
+    if (this.coordinates == null) {
       return null
     }
 
@@ -122,7 +131,7 @@ class LocationModel {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [Number(this.longitude), Number(this.latitude)]
+        coordinates: this.coordinates
       },
       properties: {
         title: this.name,

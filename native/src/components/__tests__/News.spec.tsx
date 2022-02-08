@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
@@ -13,7 +13,7 @@ import {
   TuNewsType
 } from 'api-client'
 
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import News from '../News'
 
 jest.mock('react-i18next')
@@ -86,8 +86,7 @@ describe('News', () => {
     })
     const props = { cityModel, language, selectNews, loadMore, refresh, selectedNewsType }
     return render(
-      <News {...props} loading={loading} data={data} newsId={newsId} error={error} loadingMore={loadingMore} />,
-      { wrapper: wrapWithTheme }
+      <News {...props} loading={loading} data={data} newsId={newsId} error={error} loadingMore={loadingMore} />
     )
   }
 

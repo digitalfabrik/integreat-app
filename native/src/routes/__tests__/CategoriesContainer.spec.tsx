@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { act } from '@testing-library/react-native'
 import { reduce } from 'lodash'
 import moment from 'moment'
 import React from 'react'
@@ -20,9 +20,11 @@ import {
   StateType
 } from '../../redux/StateType'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import render from '../../testing/render'
 import CategoriesContainer from '../CategoriesContainer'
 
 const mockStore = configureMockStore()
+jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.useFakeTimers('modern')
 jest.mock('../../components/Categories', () => {
@@ -35,7 +37,7 @@ jest.mock('../../components/Failure', () => {
 
   return ({ code }: { code: string }) => <Text>Failure {code}</Text>
 })
-jest.mock('../../components/LanguageNotAvailableContainer', () => {
+jest.mock('../../components/LanguageNotAvailablePage', () => {
   const { Text } = require('react-native')
 
   return () => <Text>LanguageNotAvailable</Text>
@@ -200,7 +202,7 @@ describe('CategoriesContainer', () => {
         <CategoriesContainer navigation={navigation} route={route} />
       </Provider>
     )
-    jest.advanceTimersByTime(LOADING_TIMEOUT)
+    act(() => jest.advanceTimersByTime(LOADING_TIMEOUT))
     expect(getByText('loading')).toBeTruthy()
   }
 

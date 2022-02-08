@@ -22,6 +22,7 @@ import { StoreActionType } from '../redux/StoreActionType'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import navigateToCategory from './navigateToCategory'
+import navigateToCityNotCooperating from './navigateToCityNotCooperating'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
 import navigateToJpalTracking from './navigateToJpalTracking'
@@ -50,7 +51,9 @@ const createNavigate =
         return
       }
       if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
-        navigation.navigate(LANDING_ROUTE)
+        navigateToCityNotCooperating({
+          navigation
+        })
         return
       }
       if (routeInformation.route === JPAL_TRACKING_ROUTE) {

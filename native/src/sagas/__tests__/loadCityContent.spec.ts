@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from '@react-native-community/netinfo'
+import { mocked } from 'jest-mock'
 import moment from 'moment'
 import { expectSaga } from 'redux-saga-test-plan'
-import { mocked } from 'ts-jest/utils'
 
 import { NotFoundError } from 'api-client/src'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
@@ -397,8 +397,8 @@ describe('loadCityContent', () => {
   })
 
   it('should not fetch resources if connection type is cellular', async () => {
-    const previous = mocked(NetInfo.fetch).getMockImplementation()
-    // @ts-ignore cannot import enum because it is mocked
+    const previous = mocked(NetInfo.fetch).getMockImplementation() as typeof NetInfo.fetch
+    // @ts-expect-error cannot import enum because it is mocked
     mocked(NetInfo.fetch).mockImplementation(async () => ({
       type: 'cellular',
       isConnected: true,

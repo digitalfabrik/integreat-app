@@ -7,6 +7,7 @@ import styled from 'styled-components/native'
 
 import { CityModel } from 'api-client'
 
+import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import FilterableCitySelector from '../components/FilterableCitySelector'
 import Heading from '../components/Heading'
 import useUserLocation from '../hooks/useUserLocation'
@@ -23,10 +24,17 @@ export type PropsType = {
   cities: Array<CityModel>
   language: string
   navigateToDashboard: (cityCode: string, language: string) => void
+  navigateToCityNotCooperating: () => void
   clearResourcesAndCache: () => void
 }
 
-const Landing = ({ cities, language, navigateToDashboard, clearResourcesAndCache }: PropsType): ReactElement => {
+const Landing = ({
+  cities,
+  language,
+  navigateToDashboard,
+  navigateToCityNotCooperating,
+  clearResourcesAndCache
+}: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
   const theme = useTheme()
   const locationInformation = useUserLocation()
@@ -39,16 +47,19 @@ const Landing = ({ cities, language, navigateToDashboard, clearResourcesAndCache
   )
 
   return (
-    <Wrapper {...testID('Landing-Page')}>
-      <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-      <FilterableCitySelector
-        theme={theme}
-        cities={cities}
-        t={t}
-        locationInformation={locationInformation}
-        navigateToDashboard={navigateTo}
-      />
-    </Wrapper>
+    <>
+      <Wrapper {...testID('Landing-Page')}>
+        <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
+        <FilterableCitySelector
+          theme={theme}
+          cities={cities}
+          t={t}
+          locationInformation={locationInformation}
+          navigateToDashboard={navigateTo}
+        />
+      </Wrapper>
+      <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
+    </>
   )
 }
 

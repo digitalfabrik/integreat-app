@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { render, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React, { useContext } from 'react'
 import { Translation } from 'react-i18next'
 import { Text } from 'react-native'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { mocked } from 'ts-jest/utils'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
@@ -84,7 +84,7 @@ describe('I18nProvider', () => {
       </Provider>
     )
     await waitFor(() => undefined)
-    expect(await appSettings.loadContentLanguage()).toEqual('kmr')
+    expect(await appSettings.loadContentLanguage()).toBe('kmr')
     expect(setSystemLanguage).toHaveBeenCalledTimes(1)
     expect(setSystemLanguage).toHaveBeenCalledWith('kmr')
   })

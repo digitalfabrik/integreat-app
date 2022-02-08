@@ -19,12 +19,12 @@ describe('disclaimer', () => {
     language: 'de'
   }
   it('should map router to url', () => {
-    expect(disclaimer.mapParamsToUrl(params)).toEqual(
+    expect(disclaimer.mapParamsToUrl(params)).toBe(
       'https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/disclaimer'
     )
   })
   it('should throw if there is no disclaimer', () => {
-    expect(() => disclaimer.mapResponse(null, params)).toThrowErrorMatchingSnapshot()
+    expect(() => disclaimer.mapResponse(null, params)).toThrow('The disclaimer  does not exist here.')
   })
   it('should map fetched data to models', () => {
     const disclaimerModel = disclaimer.mapResponse(pageJson, params)

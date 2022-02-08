@@ -58,4 +58,5 @@ describe('contentDirection', () => {
   })
 })
 
+// eslint-disable-next-line jest/no-export
 export {}

@@ -225,6 +225,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  // @ts-ignore
+  // @ts-expect-error
   withPayloadProvider<ContainerPropsType, RefreshPropsType, CategoriesRouteType>(refresh, true)(CategoriesContainer)
 )

@@ -78,8 +78,8 @@ describe('FeedbackContainer', () => {
     fireEvent.click(button)
     // Needed as submitFeedback is asynchronous
     await waitFor(() => expect(button).toBeEnabled())
-    expect(mockRequest).toBeCalledTimes(1)
-    expect(mockRequest).toBeCalledWith({
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
       feedbackType,
       city: 'augsburg',
       language: 'de',
@@ -122,15 +122,6 @@ describe('FeedbackContainer', () => {
     await waitFor(() => expect(button).toBeEnabled())
     expect(queryByRole('button', { name: 'feedback:close' })).toBeNull()
     expect(getByText('feedback:thanksMessage')).toBeTruthy()
-  })
-
-  it('should display nothing found for search', async () => {
-    const { getByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, true, true)} />
-      </ThemeProvider>
-    )
-    expect(getByRole('alert')).toContainHTML('feedback:nothingFound')
   })
 
   it('should display error', async () => {

@@ -13,6 +13,7 @@ import { generateRouteKey } from '../utils/helpers'
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
@@ -28,7 +29,7 @@ jest.mock('../routes/DashboardContainer', () => {
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../routes/SettingsContainer', () => {
+jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Settings</Text>
@@ -53,7 +54,7 @@ jest.mock('../routes/NewsContainer', () => {
 
   return () => <Text>News</Text>
 })
-jest.mock('../routes/ChangeLanguageModalContainer', () => {
+jest.mock('../routes/ChangeLanguageModal', () => {
   const { Text } = require('react-native')
 
   return () => <Text>ChangeLanguage</Text>
