@@ -69,7 +69,7 @@ const Feedback = (props: PropsType): ReactElement => {
     if (['idle', 'failed'].includes(sendingStatus)) {
       return (
         <>
-          {!isSearchFeedback && <Caption theme={theme} title={t('feedback')} />}
+          {!isSearchFeedback && <Caption title={t('feedback')} />}
           <DescriptionContainer theme={theme}>
             <Description theme={theme}>{t(description)}</Description>
             {isPositiveFeedback && <Text>({t('optionalInfo')})</Text>}
@@ -116,7 +116,7 @@ const Feedback = (props: PropsType): ReactElement => {
     return (
       <>
         <HappyIconContainer source={HappyIcon} />
-        <Caption theme={theme} title={t('feedback:feedbackSent')} />
+        <Caption title={t('feedback:feedbackSent')} />
         <ThemedText theme={theme}>
           {t('feedback:thanksMessage', {
             appName: buildConfig().appName

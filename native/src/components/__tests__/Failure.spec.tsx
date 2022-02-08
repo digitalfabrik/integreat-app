@@ -1,16 +1,16 @@
-import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import * as React from 'react'
+import { fireEvent, RenderAPI } from '@testing-library/react-native'
+import React from 'react'
 
 import { ErrorCode } from 'api-client'
 
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import Failure from '../Failure'
 
 jest.mock('react-i18next')
 
 describe('Failure', () => {
   const renderFailure = (tryAgain?: () => void, code: ErrorCode = ErrorCode.UnknownError): RenderAPI =>
-    render(<Failure code={code} tryAgain={tryAgain} />, { wrapper: wrapWithTheme })
+    render(<Failure code={code} tryAgain={tryAgain} />)
 
   it('should render a retry button if tryAgain is passed', () => {
     const { getByTestId } = renderFailure(() => undefined)

@@ -69,7 +69,7 @@ const HeaderSeparator = styled.div`
   }
 `
 
-const ActionBar = styled.div`
+const ActionBar = styled.nav`
   order: 3;
   display: flex;
   align-items: center;
@@ -81,7 +81,7 @@ const ActionBar = styled.div`
   }
 `
 
-const NavigationBar = styled.div`
+const NavigationBar = styled.nav`
   display: flex;
   padding: 0 10px;
   flex: 1 1 0%; /* The % unit is necessary for IE11 */

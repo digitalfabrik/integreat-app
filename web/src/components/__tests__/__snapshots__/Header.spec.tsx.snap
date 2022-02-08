@@ -22,17 +22,17 @@ exports[`Header should match snapshot with largeViewport 1`] = `
         link="/random_route"
       />
       <HeaderTitle />
-      <styled.div>
+      <styled.nav>
         <HeaderActionItemLink
           href="/random_route"
           iconSrc="icon"
           key="0"
           text="text"
         />
-      </styled.div>
+      </styled.nav>
     </styled.div>
     <styled.div>
-      <styled.div>
+      <styled.nav>
         <HeaderNavigationItem
           active={true}
           href="/another_route"
@@ -40,7 +40,7 @@ exports[`Header should match snapshot with largeViewport 1`] = `
           key="0"
           text="text1"
         />
-      </styled.div>
+      </styled.nav>
     </styled.div>
   </styled.header>
 </Headroom>
@@ -67,17 +67,17 @@ exports[`Header should match snapshot with smallViewport 1`] = `
       <HeaderLogo
         link="/random_route"
       />
-      <styled.div>
+      <styled.nav>
         <HeaderActionItemLink
           href="/random_route"
           iconSrc="/icon.jpg"
           key="0"
           text="random route"
         />
-      </styled.div>
+      </styled.nav>
     </styled.div>
     <styled.div>
-      <styled.div>
+      <styled.nav>
         <HeaderNavigationItem
           active={true}
           href="/another_route"
@@ -85,7 +85,7 @@ exports[`Header should match snapshot with smallViewport 1`] = `
           key="0"
           text="text1"
         />
-      </styled.div>
+      </styled.nav>
     </styled.div>
   </styled.header>
 </Headroom>

@@ -1,12 +1,12 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Text, View } from 'react-native'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'api-client'
 
 import Caption from '../components/Caption'
-import LayoutContainer from '../components/LayoutContainer'
+import Layout from '../components/Layout'
 import Link from '../components/Link'
 import LoadingSpinner from '../components/LoadingSpinner'
 import SettingsSwitch from '../components/SettingsSwitch'
@@ -40,7 +40,6 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
   const [trackingEnabled, setTrackingEnabled] = useState<boolean | null>(null)
   const [settingsLoaded, setSettingsLoaded] = useState<boolean>(false)
   const { t } = useTranslation('settings')
-  const theme = useTheme()
   const routeTrackingCode = route.params.trackingCode
 
   const updateTrackingEnabled = useCallback((trackingEnabled: boolean) => {
@@ -110,29 +109,29 @@ const JpalTracking = ({ navigation, route }: PropsType): ReactElement => {
 
   if (!settingsLoaded) {
     return (
-      <LayoutContainer>
+      <Layout>
         <LoadingSpinner />
-      </LayoutContainer>
+      </Layout>
     )
   }
 
   return (
-    <LayoutContainer>
+    <Layout>
       <View
         style={{
           padding: 40
         }}>
-        <Caption title={t('tracking')} theme={theme} />
+        <Caption title={t('tracking')} />
         <Text>{t('trackingDescription', { appName: buildConfig().appName })}</Text>
 
         <DescriptionContainer onPress={toggleTrackingEnabled}>
-          <ThemedText theme={theme}>{t('allowTracking')}</ThemedText>
-          <SettingsSwitch theme={theme} value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
+          <ThemedText>{t('allowTracking')}</ThemedText>
+          <SettingsSwitch value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>
 
         <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
       </View>
-    </LayoutContainer>
+    </Layout>
   )
 }
 

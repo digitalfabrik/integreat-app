@@ -225,5 +225,5 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  // @ts-ignore
+  // @ts-expect-error
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true)(EventsContainer))
