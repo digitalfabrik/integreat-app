@@ -80,7 +80,7 @@ const Header = (props: PropsType): ReactElement => {
   const shareUrl = route.params?.shareUrl
 
   const goToLanding = () => {
-    navigation.push(LANDING_ROUTE)
+    navigation.navigate(LANDING_ROUTE)
   }
 
   const goToSettings = () => {
