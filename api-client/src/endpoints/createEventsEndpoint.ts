@@ -8,7 +8,6 @@ import DateModel from '../models/DateModel'
 import EventModel from '../models/EventModel'
 import FeaturedImageModel from '../models/FeaturedImageModel'
 import LocationModel from '../models/LocationModel'
-import normalizePath from '../normalizePath'
 import { JsonEventType } from '../types'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
@@ -30,7 +29,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<EventModel>> =>
             const startTime = allDay ? '00:00:00' : eventData.start_time
             const endTime = allDay ? '23:59:59' : eventData.end_time
             return new EventModel({
-              path: normalizePath(event.path),
+              path: event.path,
               title: event.title,
               content: event.content,
               thumbnail: event.thumbnail,
