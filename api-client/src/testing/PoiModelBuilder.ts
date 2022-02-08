@@ -48,7 +48,7 @@ const pois = [
       postcode: 'test postcode 2',
       latitude: '15',
       longitude: '15',
-      name: 'name'
+      name: 'name 2'
     }),
     lastUpdate: moment('2011-02-04T00:00:00.000Z'),
     hash: 'test hash'
