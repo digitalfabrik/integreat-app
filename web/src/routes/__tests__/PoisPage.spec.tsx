@@ -2,7 +2,7 @@ import React from 'react'
 
 import { cityContentPath, CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
-  mockUseLoadFromEndpointOnceWithData,
+  mockUseLoadFromEndpointWithData,
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
@@ -15,6 +15,21 @@ jest.mock('api-client', () => ({
   useLoadFromEndpoint: jest.fn()
 }))
 jest.mock('react-i18next')
+
+const mockGeolocation = {
+  getCurrentPosition: jest.fn().mockImplementationOnce(success =>
+    Promise.resolve(
+      success({
+        coords: {
+          latitude: 51.1,
+          longitude: 45.3
+        }
+      })
+    )
+  )
+}
+// @ts-ignore -- ignore readOnly var
+navigator.geolocation = mockGeolocation
 
 describe('PoisPage', () => {
   beforeEach(() => {
@@ -48,14 +63,15 @@ describe('PoisPage', () => {
   }
 
   it('should render a list with all pois', () => {
-    mockUseLoadFromEndpointOnceWithData(pois)
-    const { getByText } = renderPois()
-    expect(getByText(poi0.title)).toBeTruthy()
-    expect(getByText(poi1.title)).toBeTruthy()
+    mockUseLoadFromEndpointWithData(pois)
+    const { getByText, debug } = renderPois()
+    debug()
+    expect(getByText(poi0.location.name)).toBeTruthy()
+    expect(getByText(poi1.location.name)).toBeTruthy()
   })
 
   it('should render a page with poi information', () => {
-    mockUseLoadFromEndpointOnceWithData(pois)
+    mockUseLoadFromEndpointWithData(pois)
     const { getByText } = renderPois({ id: 'test_path_2' })
 
     expect(getByText(poi1.title)).toBeTruthy()
@@ -64,7 +80,7 @@ describe('PoisPage', () => {
   })
 
   it('should render a not found error', () => {
-    mockUseLoadFromEndpointOnceWithData(pois)
+    mockUseLoadFromEndpointWithData(pois)
     const { getByText } = renderPois({ id: 'invalid' })
 
     expect(getByText('error:notFound.poi')).toBeTruthy()
