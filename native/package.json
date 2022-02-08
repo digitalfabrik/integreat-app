@@ -30,7 +30,7 @@
     "android:reinit": "adb shell pm clear com.integreat && adb shell am start com.integreat/com.integreat.MainActivity",
     "android:start-avd": "bash -c '$ANDROID_HOME/emulator/emulator -avd $($ANDROID_HOME/emulator/emulator -list-avds | head -n 1)'",
     "test": "cross-env BUILD_CONFIG_NAME='integreat-test-cms' jest --config ./jest.config.ts",
-    "test:changed" : "yarn run test -o",
+    "test:changed": "yarn run test -o",
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test:coverage --ci",
     "test:watch": "yarn run test --watchAll",
