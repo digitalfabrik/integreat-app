@@ -5,7 +5,6 @@ import EndpointBuilder from '../EndpointBuilder'
 import mapAvailableLanguages from '../mapAvailableLanguages'
 import LocationModel from '../models/LocationModel'
 import PoiModel from '../models/PoiModel'
-import normalizePath from '../normalizePath'
 import { JsonPoiType } from '../types'
 
 export const POIS_ENDPOINT_NAME = 'pois'
@@ -25,7 +24,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<PoiModel>> =>
           .map(
             poi =>
               new PoiModel({
-                path: normalizePath(poi.path),
+                path: poi.path,
                 title: poi.title,
                 content: poi.content,
                 thumbnail: poi.thumbnail,
