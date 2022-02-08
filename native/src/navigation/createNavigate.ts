@@ -46,11 +46,11 @@ const createNavigate =
       })
 
       if (routeInformation.route === LANDING_ROUTE) {
-        navigation.push(LANDING_ROUTE)
+        navigation.navigate(LANDING_ROUTE)
         return
       }
       if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
-        navigation.push(LANDING_ROUTE)
+        navigation.navigate(LANDING_ROUTE)
         return
       }
       if (routeInformation.route === JPAL_TRACKING_ROUTE) {
