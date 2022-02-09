@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { ReactNode } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
@@ -23,7 +22,6 @@ const FlexStyledLink = styled(StyledLink)`
 type DirectionContainerPropsType = {
   language: string
   children: React.ReactNode
-  theme: ThemeType
 }
 const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
@@ -65,7 +63,14 @@ type PropsType = {
  * Displays a single CategoryListItem
  */
 
-const CategoryListItem = ({ language, subCategories, onItemPress, query, category, theme }: PropsType) => {
+const CategoryListItem = ({
+  language,
+  subCategories,
+  onItemPress,
+  query,
+  category,
+  theme
+}: PropsType): React.ReactElement => {
   const contentMatcher = new ContentMatcher()
   const onCategoryPress = (): void => {
     onItemPress(category)
@@ -103,23 +108,21 @@ const CategoryListItem = ({ language, subCategories, onItemPress, query, categor
     )
   }
 
-  const renderTitle = () => {
-    return (
-      <CategoryEntryContainer language={language}>
-        <CategoryTitle
-          language={language}
-          autoEscape
-          textToHighlight={category.title}
-          sanitize={normalizeSearchString}
-          searchWords={query ? [query] : []}
-          highlightStyle={{
-            fontWeight: 'bold'
-          }}
-        />
-        {getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
-      </CategoryEntryContainer>
-    )
-  }
+  const renderTitle = () => (
+    <CategoryEntryContainer language={language}>
+      <CategoryTitle
+        language={language}
+        autoEscape
+        textToHighlight={category.title}
+        sanitize={normalizeSearchString}
+        searchWords={query ? [query] : []}
+        highlightStyle={{
+          fontWeight: 'bold'
+        }}
+      />
+      {getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
+    </CategoryEntryContainer>
+  )
 
   return (
     <>

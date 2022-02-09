@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
-import { useTheme } from 'styled-components'
 
 import {
   createOffersEndpoint,
@@ -38,7 +37,6 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
   const { cityCode, languageCode } = route.params
   const cities = useCities()
   const { t } = useTranslation('offers')
-  const theme = useTheme()
 
   const routeInformation = { route: OFFERS_ROUTE, languageCode, cityCode }
   useSetShareUrl({ navigation, routeInformation, route })
@@ -116,7 +114,6 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
         <Offers
           offers={offers}
           navigateToOffer={navigateToOffer}
-          theme={theme}
           t={t}
           navigateToFeedback={navigateToFeedback}
           language={languageCode}
