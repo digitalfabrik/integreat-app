@@ -27,8 +27,26 @@ describe('CategoryModel', () => {
     lastUpdate: moment('2016-01-07 10:36:24'),
     hash: '91d435afbc7aa83496137e81fd2832e3'
   })
+
   it('should be conscious about being a root', () => {
     expect(category.isRoot()).toBe(false)
     expect(rootCategory.isRoot()).toBe(true)
+  })
+
+  it('should normalize paths', () => {
+    const normalizedCategory = new CategoryModel({
+      root: false,
+      path: '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1/',
+      title: 'Welcome',
+      content: '',
+      parentPath: '/augsburg/fa/erste-schritte/',
+      order: 75,
+      availableLanguages: new Map([['de', '/augsburg/de/willkommen']]),
+      thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
+      lastUpdate: moment('2016-01-07 10:36:24'),
+      hash: '91d435afbc7aa83496137e81fd2832e3'
+    })
+    expect(normalizedCategory.path).toBe('/augsburg/fa/erste-schritte/نقشه-شهر')
+    expect(normalizedCategory.parentPath).toBe('/augsburg/fa/erste-schritte')
   })
 })
