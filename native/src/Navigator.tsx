@@ -220,7 +220,9 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
-        <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        {buildConfig().featureFlags.cityNotCooperating && (
+          <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        )}
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>

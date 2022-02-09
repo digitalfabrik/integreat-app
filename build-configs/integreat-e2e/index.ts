@@ -5,6 +5,7 @@ import {
   WebBuildConfigType
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
+import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
 
 const integreatE2e = {
   appName: 'IntegreatE2E',
@@ -19,7 +20,7 @@ const integreatE2e = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    recommendToCityIfNotCooperating: true
+    cityNotCooperatingTemplate
   }
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {

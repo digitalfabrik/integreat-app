@@ -2,7 +2,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { template } from '../../constants/cityNotCooperatingTemplate'
+import buildConfig from '../../constants/__mocks__/buildConfig'
 import render from '../../testing/render'
 import CityNotCooperating from '../CityNotCooperating'
 
@@ -18,6 +18,7 @@ describe('CityNotCooperating', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   it('should render correctly', () => {
     const { getByText, queryByText } = render(<CityNotCooperating />)
     expect(getByText('callToAction')).toBeDefined()
@@ -36,6 +37,6 @@ describe('CityNotCooperating', () => {
     fireEvent.press(button)
     expect(getByText('textCopied')).toBeDefined()
     expect(queryByText('copyText')).toBeNull()
-    expect(Clipboard.setString).toHaveBeenCalledWith(template)
+    expect(Clipboard.setString).toHaveBeenCalledWith(buildConfig().featureFlags.cityNotCooperatingTemplate)
   })
 })
