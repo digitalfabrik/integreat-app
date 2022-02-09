@@ -82,7 +82,9 @@ const RootSwitcher = ({ setContentLanguage }: PropsType): ReactElement => {
     <Suspense fallback={<LoadingSpinner />}>
       <Routes>
         <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage {...props} />} />
-        <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
+        {buildConfig().featureFlags.cityNotCooperating && (
+          <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage {...props} />} />
+        )}
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage {...props} />} />
         <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
         <Route path={cityContentPattern} element={<CityContentSwitcher {...props} />} />
