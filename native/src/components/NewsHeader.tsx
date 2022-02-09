@@ -1,14 +1,11 @@
-import { TFunction } from 'i18next'
-import React from 'react'
-import { withTranslation } from 'react-i18next'
+import React, { memo, ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { CityModel, LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import activeInternational from '../assets/tu-news-active.svg'
 import inactiveInternational from '../assets/tu-news-inactive.svg'
-import withTheme from '../hocs/withTheme'
 import Caption from './Caption'
 
 const NewsTypeIcon = styled.Image`
@@ -46,44 +43,30 @@ type PropsType = {
   cityModel: CityModel
   selectedNewsType: NewsType
   navigateToNews: (newsType: NewsType) => void
-  theme: ThemeType
-  t: TFunction
 }
 
-class NewsHeader extends React.PureComponent<PropsType> {
-  navigateToLocalNews = () => {
-    const { navigateToNews } = this.props
-    navigateToNews(LOCAL_NEWS_TYPE)
-  }
+const NewsHeader = ({ cityModel, selectedNewsType, navigateToNews }: PropsType): ReactElement => {
+  const { t } = useTranslation('news')
+  const navigateToLocalNews = () => navigateToNews(LOCAL_NEWS_TYPE)
+  const navigateToTuNews = () => navigateToNews(TU_NEWS_TYPE)
 
-  navigateToTunews = () => {
-    const { navigateToNews } = this.props
-    navigateToNews(TU_NEWS_TYPE)
-  }
-
-  render() {
-    const { cityModel, selectedNewsType, theme, t } = this.props
-    return (
-      <>
-        <Caption title={t('news')} theme={theme} />
-        {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
-          <HeaderContainer>
-            <TouchableWrapper
-              onPress={this.navigateToLocalNews}
-              accessibilityRole='button'
-              accessibilityLabel={t('local')}>
-              <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE} theme={theme}>
-                <LocalText theme={theme}>{t('local')}</LocalText>
-              </LocalTabWrapper>
-            </TouchableWrapper>
-            <TouchableWrapper onPress={this.navigateToTunews} accessibilityRole='button' accessibilityLabel='TüNews'>
-              <NewsTypeIcon source={selectedNewsType === TU_NEWS_TYPE ? activeInternational : inactiveInternational} />
-            </TouchableWrapper>
-          </HeaderContainer>
-        )}
-      </>
-    )
-  }
+  return (
+    <>
+      <Caption title={t('news')} />
+      {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
+        <HeaderContainer>
+          <TouchableWrapper onPress={navigateToLocalNews} accessibilityRole='button' accessibilityLabel={t('local')}>
+            <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
+              <LocalText>{t('local')}</LocalText>
+            </LocalTabWrapper>
+          </TouchableWrapper>
+          <TouchableWrapper onPress={navigateToTuNews} accessibilityRole='button' accessibilityLabel='TüNews'>
+            <NewsTypeIcon source={selectedNewsType === TU_NEWS_TYPE ? activeInternational : inactiveInternational} />
+          </TouchableWrapper>
+        </HeaderContainer>
+      )}
+    </>
+  )
 }
 
-export default withTranslation('news')(withTheme<PropsType>(NewsHeader))
+export default memo(NewsHeader)

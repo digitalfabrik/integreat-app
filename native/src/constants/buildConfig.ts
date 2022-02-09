@@ -1,4 +1,4 @@
-// @ts-ignore This module does not really exist but is instead proxied by the metro.config.js
+// @ts-expect-error This module does not really exist but is instead proxied by the metro.config.js
 // to the directory in the corresponding build config to allow passing the selected build config to the runtime code.
 // More information can be found in native/docs/build-configs.md#technical-information
 import name from 'build-config-name'

@@ -8,6 +8,8 @@ import LanguageModelBuilder from 'api-client/src/testing/LanguageModelBuilder'
 import Page from '../../components/Page'
 import Events from '../Events'
 
+jest.mock('react-i18next')
+
 jest.mock('../../components/Page', () => {
   const { Text } = require('react-native')
 

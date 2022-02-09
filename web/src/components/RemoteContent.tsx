@@ -8,17 +8,33 @@ const SandBox = styled.div<{ centered: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
+
   ${props =>
     props.centered &&
     css`
       text-align: center;
       list-style-position: inside;
     `}
-
   & img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+  }
+
+  & figure {
+    margin-inline-start: 0;
+    text-align: center;
+    margin: 15px auto;
+
+    @media only screen and (max-width: 640px) {
+      width: 100% !important;
+    }
+  }
+
+  & figcaption {
+    font-size: ${props => props.theme.fonts.hintFontSize};
+    font-style: italic;
+    padding: 0 15px;
   }
 
   & table {

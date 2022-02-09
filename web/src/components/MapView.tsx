@@ -91,6 +91,7 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={clickItem}>
+        {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}

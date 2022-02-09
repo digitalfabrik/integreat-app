@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE } from 'api-client/src/routes'
 

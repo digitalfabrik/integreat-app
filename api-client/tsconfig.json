@@ -5,6 +5,6 @@
     "lib": ["ES5", "ES6", "dom"],
     "outDir": "dist",
     "types": ["jest", "node"],
-    "typeRoots": ["src/@types", "node_modules/@types"]
+    "typeRoots": ["src/@types", "node_modules/@types", "../node_modules/@types"]
   }
 }

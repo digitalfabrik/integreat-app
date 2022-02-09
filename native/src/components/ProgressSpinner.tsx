@@ -1,10 +1,9 @@
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Dimensions } from 'react-native'
 import Svg, { Circle, G, Image } from 'react-native-svg'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import { buildConfigAssets } from '../constants/buildConfig'
 
@@ -34,28 +33,31 @@ const circumference = radius * 2 * Math.PI
 
 export type PropsType = {
   progress: number
-  theme: ThemeType
-  t: TFunction
 }
 
-const ProgressSpinner = ({ t, progress, theme }: PropsType): ReactElement => (
-  <Container>
-    <Svg width={svgSize} height={svgSize} testID='loading-image'>
-      <G transform={`translate(${logoXY}, ${logoXY})`}>
-        <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
-      </G>
-      <Circle
-        stroke={theme.colors.themeColor}
-        strokeDasharray={circumference}
-        strokeDashoffset={circumference - progress * circumference}
-        strokeWidth={svgSize * STROKE_WIDTH_FRACTION}
-        cx={svgSize / 2}
-        cy={svgSize / 2}
-        r={radius}
-      />
-    </Svg>
-    <Text>{t('loading')}</Text>
-  </Container>
-)
+const ProgressSpinner = ({ progress }: PropsType): ReactElement => {
+  const { t } = useTranslation('common')
+  const theme = useTheme()
+
+  return (
+    <Container>
+      <Svg width={svgSize} height={svgSize} testID='loading-image'>
+        <G transform={`translate(${logoXY}, ${logoXY})`}>
+          <Image width={logoSize} height={logoSize} xlinkHref={buildConfigAssets().loadingImage} />
+        </G>
+        <Circle
+          stroke={theme.colors.themeColor}
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - progress * circumference}
+          strokeWidth={svgSize * STROKE_WIDTH_FRACTION}
+          cx={svgSize / 2}
+          cy={svgSize / 2}
+          r={radius}
+        />
+      </Svg>
+      <Text>{t('loading')}</Text>
+    </Container>
+  )
+}
 
 export default ProgressSpinner

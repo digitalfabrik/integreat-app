@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 const GroupText = styled.Text`
   margin-top: 5px;
   padding: 10px 0;
@@ -19,13 +17,12 @@ const BorderWrapper = styled.View`
 `
 
 type PropsType = {
-  theme: ThemeType
   children: string
 }
 
-const CityGroup = ({ theme, children }: PropsType): ReactElement => (
-  <BorderWrapper theme={theme}>
-    <GroupText theme={theme}>{children}</GroupText>
+const CityGroup = ({ children }: PropsType): ReactElement => (
+  <BorderWrapper>
+    <GroupText>{children}</GroupText>
   </BorderWrapper>
 )
 

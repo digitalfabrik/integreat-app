@@ -193,7 +193,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
         {filteredCategories.length === 0 && (
           <>
             <SadIconContainer source={SadIcon} />
-            <Heading theme={theme}>{t('feedback:nothingFound')}</Heading>
+            <Heading theme={theme}>{t('search:nothingFound')}</Heading>
           </>
         )}
         <FeedbackContainer

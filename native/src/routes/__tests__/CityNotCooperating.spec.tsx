@@ -1,18 +1,13 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { lightTheme } from 'build-configs/integreat/theme'
-
 import buildConfig from '../../constants/__mocks__/buildConfig'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import CityNotCooperating from '../CityNotCooperating'
 
 jest.mock('react-i18next')
-jest.mock('styled-components', () => ({
-  ...jest.requireActual('styled-components'),
-  useTheme: () => lightTheme
-}))
+jest.mock('styled-components')
 jest.mock('@react-native-clipboard/clipboard', () => ({
   ...jest.requireActual('@react-native-clipboard/clipboard'),
   setString: jest.fn()
@@ -23,11 +18,9 @@ describe('CityNotCooperating', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
-  const renderCityNotCooperating = (): RenderAPI => render(<CityNotCooperating />, { wrapper: wrapWithTheme })
 
   it('should render correctly', () => {
-    const { getByText, queryByText } = renderCityNotCooperating()
+    const { getByText, queryByText } = render(<CityNotCooperating />)
     expect(getByText('callToAction')).toBeDefined()
     expect(getByText('explanation')).toBeDefined()
     expect(getByText('whatToDo')).toBeDefined()
@@ -38,12 +31,12 @@ describe('CityNotCooperating', () => {
   })
 
   it('should call setString and copy text on button click', () => {
-    const { getByText, queryByText } = renderCityNotCooperating()
+    const { getByText, queryByText } = render(<CityNotCooperating />)
     expect(queryByText('textCopied')).toBeNull()
     const button = getByText('copyText')
     fireEvent.press(button)
     expect(getByText('textCopied')).toBeDefined()
     expect(queryByText('copyText')).toBeNull()
-    expect(Clipboard.setString).toBeCalledWith(template)
+    expect(Clipboard.setString).toHaveBeenCalledWith(buildConfig().featureFlags.cityNotCooperatingTemplate)
   })
 })

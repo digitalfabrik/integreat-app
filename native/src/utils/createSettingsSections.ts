@@ -10,6 +10,7 @@ import { NavigationPropType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { SettingsType } from './AppSettings'
 import * as NotificationsManager from './PushNotificationsManager'
+import { pushNotificationsEnabled } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
 import openPrivacyPolicy from './openPrivacyPolicy'
 import { initSentry } from './sentry'
@@ -58,7 +59,7 @@ const createSettingsSections = ({
   {
     title: null,
     data: [
-      ...(!buildConfig().featureFlags.pushNotifications
+      ...(!pushNotificationsEnabled()
         ? []
         : [
             {

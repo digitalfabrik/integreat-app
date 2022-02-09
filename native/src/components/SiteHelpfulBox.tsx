@@ -1,10 +1,7 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { TFunction, withTranslation } from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Text, TouchableOpacity, View } from 'react-native'
 import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
 
 import happyIcon from '../assets/smile-happy.svg'
 import sadIcon from '../assets/smile-sad.svg'
@@ -54,43 +51,35 @@ const Thumbnail = styled(SimpleImage)`
   height: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
   width: ${MAXIMAL_ICON_SIZE * ICON_SCALE_FACTOR}px;
 `
+
 type PropsType = {
   navigateToFeedback: (positive: boolean) => void
-  theme: ThemeType
-  t: TFunction
   backgroundColor?: string
 }
 
-class SiteHelpfulBox extends React.Component<PropsType> {
-  navigateToFeedback = (positive: boolean) => () => {
-    const { navigateToFeedback } = this.props
-    navigateToFeedback(positive)
-  }
-
-  render(): ReactNode {
-    const { theme, t, backgroundColor } = this.props
-    return (
-      <FeedbackBoxContainer>
-        <FeedbackBox theme={theme} backgroundColor={backgroundColor}>
-          <HelpfulText theme={theme}>{t('isThisSiteUseful')}</HelpfulText>
-          <FeedbackButtons>
-            <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(true)}>
-              <Circle theme={theme}>
-                <Thumbnail source={happyIcon} />
-              </Circle>
-              <FeedbackText theme={theme}>{t('useful')}</FeedbackText>
-            </FeedbackTouchableOpacity>
-            <FeedbackTouchableOpacity theme={theme} onPress={this.navigateToFeedback(false)}>
-              <Circle theme={theme}>
-                <Thumbnail source={sadIcon} />
-              </Circle>
-              <FeedbackText theme={theme}>{t('notUseful')}</FeedbackText>
-            </FeedbackTouchableOpacity>
-          </FeedbackButtons>
-        </FeedbackBox>
-      </FeedbackBoxContainer>
-    )
-  }
+const SiteHelpfulBox = ({ navigateToFeedback, backgroundColor }: PropsType): ReactElement => {
+  const { t } = useTranslation('feedback')
+  return (
+    <FeedbackBoxContainer>
+      <FeedbackBox backgroundColor={backgroundColor}>
+        <HelpfulText>{t('isThisSiteUseful')}</HelpfulText>
+        <FeedbackButtons>
+          <FeedbackTouchableOpacity onPress={() => navigateToFeedback(true)}>
+            <Circle>
+              <Thumbnail source={happyIcon} />
+            </Circle>
+            <FeedbackText>{t('useful')}</FeedbackText>
+          </FeedbackTouchableOpacity>
+          <FeedbackTouchableOpacity onPress={() => navigateToFeedback(false)}>
+            <Circle>
+              <Thumbnail source={sadIcon} />
+            </Circle>
+            <FeedbackText>{t('notUseful')}</FeedbackText>
+          </FeedbackTouchableOpacity>
+        </FeedbackButtons>
+      </FeedbackBox>
+    </FeedbackBoxContainer>
+  )
 }
 
-export default withTranslation('feedback')(SiteHelpfulBox)
+export default SiteHelpfulBox
