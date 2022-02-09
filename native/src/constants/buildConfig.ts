@@ -10,6 +10,7 @@ import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-ic
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.png'
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.png'
+import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
 import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
 import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
 import integreatIntroOffersIcon from 'build-configs/integreat/assets/intro-slides/Offers.svg'
@@ -27,6 +28,7 @@ type AssetsType = {
   appIcon: number
   loadingImage: number
   locationMarker?: number
+  cityNotCooperatingIcon?: number
   intro?: {
     events: number
     language: number
@@ -45,6 +47,7 @@ export const buildConfigAssets = (): AssetsType => {
       appIcon: integreatAppIcon,
       loadingImage: integreatLoadingImage,
       locationMarker: integreatLocationMarker,
+      cityNotCooperatingIcon: integreatCityNotCooperatingIcon,
       intro: {
         events: integreatIntroEventsIcon,
         language: integreatIntroLanguageIcon,
