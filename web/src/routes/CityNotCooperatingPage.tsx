@@ -2,10 +2,9 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import cityNotCooperationIcon from '../assets/cityNotCooperating.svg'
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
-import { template } from '../constants/cityNotCooperatingTemplate'
+import buildConfig from '../constants/buildConfig'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
 const Container = styled.div`
@@ -35,7 +34,7 @@ const Icon = styled.img`
 `
 
 const ListHeading = styled(Heading)`
-  text-align: left;
+  float: left;
   padding: 0;
   font-size: ${props => props.theme.fonts.decorativeFontSize};
 `
@@ -56,7 +55,7 @@ const StepNumber = styled.div`
 `
 
 const StepExplanation = styled(Text)`
-  padding-left: 10px;
+  padding: 0 10px;
 `
 
 const Button = styled.button`
@@ -70,6 +69,7 @@ const Button = styled.button`
 
 const TemplateText = styled(Text)`
   position: relative;
+  direction: ltr;
   top: -30px;
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 50px 30px 30px;
@@ -83,6 +83,8 @@ type PropsType = {
 const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
+  const template = buildConfig().featureFlags.cityNotCooperatingTemplate!
+  const cityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
   useScrollToTopOnMount()
 
   const copyToClipboard = () => {
@@ -98,9 +100,8 @@ const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
     <Layout footer={<GeneralFooter language={languageCode} />}>
       <Container>
         <Heading>{t('callToAction')}</Heading>
-
         <Text>{t('explanation')}</Text>
-        <Icon alt='' src={cityNotCooperationIcon} />
+        <Icon alt='' src={cityNotCooperatingIcon} />
         <ListHeading>{t('whatToDo')}</ListHeading>
         <ListItem>
           <StepNumber>1</StepNumber>
