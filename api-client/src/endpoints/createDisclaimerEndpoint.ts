@@ -4,7 +4,6 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import NotFoundError from '../errors/NotFoundError'
 import PageModel from '../models/PageModel'
-import normalizePath from '../normalizePath'
 import { JsonDisclaimerType } from '../types'
 
 export const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
@@ -23,7 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
       }
 
       return new PageModel({
-        path: normalizePath(json.path),
+        path: json.path,
         title: json.title,
         content: json.content,
         lastUpdate: moment.tz(json.modified_gmt, 'GMT'),
