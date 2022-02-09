@@ -13,11 +13,6 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-const HeadingContainer = styled.div`
-  max-width: 300px;
-  margin: 0 auto;
-`
-
 const Heading = styled.p`
   font-weight: 600;
   text-align: center;
@@ -102,9 +97,7 @@ const CityNotCooperatingPage = ({ languageCode }: PropsType): ReactElement => {
   return (
     <Layout footer={<GeneralFooter language={languageCode} />}>
       <Container>
-        <HeadingContainer>
-          <Heading>{t('callToAction')}</Heading>
-        </HeadingContainer>
+        <Heading>{t('callToAction')}</Heading>
 
         <Text>{t('explanation')}</Text>
         <Icon alt='' src={cityNotCooperationIcon} />
