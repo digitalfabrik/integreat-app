@@ -24,6 +24,6 @@ describe('Payload', () => {
     expect(() => {
       // eslint-disable-next-line no-new
       new Payload(true, fetchUrl, data, error, fetchDate)
-    }).toThrowErrorMatchingSnapshot()
+    }).toThrow('data and error can not be set at the same time')
   })
 })

@@ -1,13 +1,13 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React from 'react'
 import { Text } from 'react-native'
-import { mocked } from 'ts-jest/utils'
 
 import { CityModel, LocalNewsModel } from 'api-client'
 
 import useLoadLocalNews from '../../hooks/useLoadLocalNews'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import LocalNews from '../LocalNews'
 
 jest.mock('react-i18next')
@@ -55,7 +55,7 @@ describe('LocalNews', () => {
       boundingBox: null
     })
     const props = { cityModel, language: 'de', selectNews }
-    return render(<LocalNews {...props} newsId={newsId} />, { wrapper: wrapWithTheme })
+    return render(<LocalNews {...props} newsId={newsId} />)
   }
   const response = { data: news, error: null, loading: false, refresh }
 

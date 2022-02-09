@@ -1,13 +1,13 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, Text, View } from 'react-native'
-import { mocked } from 'ts-jest/utils'
 
 import { DASHBOARD_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import TransparentHeader from '../TransparentHeader'
 
@@ -56,7 +56,7 @@ describe('TransparentHeader', () => {
 
   it('should show back button and navigate back on click', () => {
     const props = buildProps()
-    const { getByText } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
+    const { getByText } = render(<TransparentHeader {...props} />)
     fireEvent.press(getByText('HeaderBackButton'))
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
@@ -71,7 +71,7 @@ describe('TransparentHeader', () => {
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
 
-    const { getByLabelText } = render(<TransparentHeader {...props} />, { wrapper: wrapWithTheme })
+    const { getByLabelText } = render(<TransparentHeader {...props} />)
 
     fireEvent.press(getByLabelText('hidden: share'))
 

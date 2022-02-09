@@ -12,15 +12,10 @@ const Container = styled.ScrollView`
   padding: 30px;
 `
 
-const HeadingContainer = styled.View`
-  max-width: 70%;
-  align-self: center;
-`
-
 const Heading = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 18px;
-  padding: 20px;
+  padding: 20px 20px 40px;
   text-align: center;
 `
 
@@ -90,10 +85,7 @@ const CityNotCooperating = (): ReactElement => {
 
   return (
     <Container>
-      <HeadingContainer>
-        <Heading>{t('callToAction')}</Heading>
-      </HeadingContainer>
-      <ListItem />
+      <Heading>{t('callToAction')}</Heading>
 
       <Description>{t('explanation')}</Description>
       <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />

@@ -72,10 +72,7 @@ const PoiPage = ({
   const { location } = poi.location
   const files = resourceCache[poi.path] || {}
 
-  const navigationUrl =
-    location && poi.featureLocation?.geometry.coordinates
-      ? getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      : null
+  const navigationUrl = getNavigationDeepLinks(poi.location)
 
   return (
     <Page

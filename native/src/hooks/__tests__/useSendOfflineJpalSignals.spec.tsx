@@ -1,7 +1,7 @@
 import { useNetInfo, NetInfoStateType } from '@react-native-community/netinfo'
 import { render, waitFor } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
-import { mocked } from 'ts-jest/utils'
 
 import { CATEGORIES_ROUTE, DASHBOARD_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 

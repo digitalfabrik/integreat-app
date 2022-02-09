@@ -6,6 +6,8 @@ import { CityModel, CityModelBuilder } from 'api-client'
 import buildConfig from '../../constants/buildConfig'
 import Helmet from '../Helmet'
 
+type LanguageChangePath = { code: string; path: string | null; name: string }
+
 describe('Helmet', () => {
   const config = buildConfig()
 
@@ -13,7 +15,7 @@ describe('Helmet', () => {
   const liveCity = cities[0]!
   const hiddenCity = cities[1]!
 
-  const languageChangePaths = [
+  const languageChangePaths: [LanguageChangePath, LanguageChangePath, LanguageChangePath] = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: null },
     { code: 'ar', name: 'Arabic', path: '/augsburg/ar' }
@@ -24,7 +26,7 @@ describe('Helmet', () => {
 
   type Props = {
     city?: CityModel
-    languageChangePaths?: Array<{ code: string; path: string | null; name: string }>
+    languageChangePaths?: LanguageChangePath[]
     metaDescription?: string
   }
   const renderHelmet = ({ city, languageChangePaths, metaDescription }: Props) =>
@@ -79,20 +81,20 @@ describe('Helmet', () => {
   it('should not set noindex if no city model passed', async () => {
     renderHelmet({})
     await waitFor(() => expect(document.title).toBe(pageTitle))
-    expect(meta('robots')).toBe(undefined)
+    expect(meta('robots')).toBeUndefined()
   })
 
   it('should not set noindex if city is live', async () => {
     renderHelmet({ city: liveCity })
     await waitFor(() => expect(document.title).toBe(pageTitle))
-    expect(meta('robots')).toBe(undefined)
+    expect(meta('robots')).toBeUndefined()
   })
 
   it('should not set noindex if fixed city set in build config', async () => {
     config.featureFlags.fixedCity = 'oldtown'
     renderHelmet({ city: hiddenCity })
     await waitFor(() => expect(document.title).toBe(pageTitle))
-    expect(meta('robots')).toBe(undefined)
+    expect(meta('robots')).toBeUndefined()
     config.featureFlags.fixedCity = null
   })
 
@@ -104,16 +106,18 @@ describe('Helmet', () => {
 
   it('should set alternate languages correctly', async () => {
     renderHelmet({ languageChangePaths })
-    await waitFor(() => expect(linkByHrefLang(languageChangePaths[0]!.code)).toBeTruthy())
+    await waitFor(() => expect(linkByHrefLang(languageChangePaths[0].code)).toBeTruthy())
 
-    languageChangePaths.forEach(({ code, path }) => {
-      const link = linkByHrefLang(code)
-      if (path) {
-        expect(link?.getAttribute('rel')).toBe('alternate')
-        expect(link?.getAttribute('href')).toBe(`http://localhost${path}`)
-      } else {
-        expect(link).toBe(null)
-      }
-    })
+    expect(linkByHrefLang(languageChangePaths[0].code)?.getAttribute('rel')).toBe('alternate')
+    expect(linkByHrefLang(languageChangePaths[0].code)?.getAttribute('href')).toBe(
+      `http://localhost${languageChangePaths[0].path}`
+    )
+
+    expect(linkByHrefLang(languageChangePaths[2].code)?.getAttribute('rel')).toBe('alternate')
+    expect(linkByHrefLang(languageChangePaths[2].code)?.getAttribute('href')).toBe(
+      `http://localhost${languageChangePaths[2].path}`
+    )
+
+    expect(linkByHrefLang(languageChangePaths[1].code)).toBeNull()
   })
 })

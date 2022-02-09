@@ -129,10 +129,10 @@ const Events = ({
   return (
     <SpaceBetween>
       <View>
-        <Caption title={t('events')} theme={theme} />
+        <Caption title={t('events')} />
         <List noItemsMessage={t('currentlyNoEvents')} items={events} renderItem={renderEventListItem} theme={theme} />
       </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} theme={theme} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForEvents} />
     </SpaceBetween>
   )
 }

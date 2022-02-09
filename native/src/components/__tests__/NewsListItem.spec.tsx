@@ -1,10 +1,10 @@
-import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import moment from 'moment'
 import React from 'react'
 
 import { LocalNewsModel, TunewsModel } from 'api-client'
 
-import wrapWithTheme from '../../testing/wrapWithTheme'
+import render from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
 jest.mock('react-i18next')
@@ -35,8 +35,7 @@ describe('NewsListItem', () => {
         language={language}
         navigateToNews={navigateToNews}
         isTunews={isTuNews}
-      />,
-      { wrapper: wrapWithTheme }
+      />
     )
 
   beforeEach(() => {

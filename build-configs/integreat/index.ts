@@ -23,6 +23,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
+    floss: false,
     pois: false,
     newsStream: true,
     pushNotifications: true,

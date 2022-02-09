@@ -34,7 +34,7 @@ const Body = styled.p`
   white-space: pre-line;
 `
 
-const StyledNewsListItem = styled.div`
+const StyledNewsListItem = styled.article`
   padding-bottom: 2px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `
@@ -63,7 +63,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED, false)}</Body>
+          <Body>{textTruncator(content.trim(), NUM_OF_CHARS_ALLOWED, false)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>

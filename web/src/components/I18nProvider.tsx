@@ -9,6 +9,7 @@ import { config, loadTranslations } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
+import { log, reportError } from '../utils/sentry'
 
 type PropsType = {
   contentLanguage: string | undefined
@@ -47,8 +48,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
       setLanguage(i18nextInstance.language)
 
       i18nextInstance.on('languageChanged', () => {
-        // eslint-disable-next-line no-console
-        console.log(i18nextInstance.languages)
+        log(i18nextInstance.languages.toString())
         // A language mentioned in the supportedLanguages array of the config.js in the translations package
         const matchedLanguage = i18nextInstance.languages[0]!
         setLanguage(matchedLanguage)
@@ -57,8 +57,7 @@ const I18nProvider = ({ children, contentLanguage }: PropsType): ReactElement =>
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      // eslint-disable-next-line no-console
-      console.error(e)
+      reportError(e)
     })
   }, [])
 

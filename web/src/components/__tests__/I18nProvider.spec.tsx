@@ -1,8 +1,8 @@
 import { act, render, screen, waitFor } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
 import Helmet from 'react-helmet'
 import { Translation } from 'react-i18next'
-import { mocked } from 'ts-jest/utils'
 
 import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
 import I18nProvider from '../I18nProvider'
