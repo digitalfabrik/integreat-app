@@ -1,6 +1,6 @@
 issue_key: IGAPP-924
 show_in_stores: true
-platforms: 
+platforms:
   - android
   - ios
 en: Improved output of category search.
