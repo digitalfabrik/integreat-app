@@ -1,15 +1,25 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { mocked } from 'jest-mock'
 
 import buildConfig from '../../constants/buildConfig'
+import navigateToDeepLink from '../../navigation/navigateToDeepLink'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import appSettings from '../AppSettings'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 
 jest.mock('@react-native-firebase/messaging', () => jest.fn(() => ({})))
+jest.mock('../../navigation/navigateToDeepLink')
 
 describe('PushNotificationsManager', () => {
+  beforeEach(() => {
+    AsyncStorage.clear()
+    jest.clearAllMocks()
+  })
   const mockedFirebaseMessaging = mocked<() => FirebaseMessagingTypes.Module>(messaging)
   const mockedBuildConfig = mocked(buildConfig)
   const previousFirebaseMessaging = mockedFirebaseMessaging()
+  const navigation = createNavigationScreenPropMock()
 
   const mockBuildConfig = (pushNotifications: boolean, floss: boolean) => {
     const previous = buildConfig()
@@ -174,6 +184,51 @@ describe('PushNotificationsManager', () => {
       await PushNotificationsManager.subscribeNews('augsburg', 'de')
       expect(mockSubscribeToTopic).toHaveBeenCalledWith('augsburg-de-news')
       expect(mockSubscribeToTopic).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('quitAppStatePushNotificationsListener', () => {
+    it('should go to news if there is an initial message', async () => {
+      const url = 'https://integreat.app/augsburg/de/news/local'
+      mockedFirebaseMessaging.mockImplementation(() => {
+        const previous = previousFirebaseMessaging
+        previous.getInitialNotification = async () => ({ notification: { title: 'Test PN' } })
+        return previous
+      })
+
+      await appSettings.setSelectedCity('augsburg')
+      await appSettings.setContentLanguage('de')
+
+      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
+      expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
+      expect(navigateToDeepLink).toHaveBeenCalledWith(expect.any(Function), navigation, url, 'de')
+    })
+
+    it('should not go to news if there is no initial message', async () => {
+      mockedFirebaseMessaging.mockImplementation(() => {
+        const previous = previousFirebaseMessaging
+        previous.getInitialNotification = async () => null
+        return previous
+      })
+
+      await appSettings.setSelectedCity('augsburg')
+      await appSettings.setContentLanguage('de')
+
+      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
+      expect(navigateToDeepLink).not.toHaveBeenCalled()
+    })
+
+    it('should not go to news if there is no selected city or language', async () => {
+      mockedFirebaseMessaging.mockImplementation(() => {
+        const previous = previousFirebaseMessaging
+        previous.getInitialNotification = async () => ({ notification: { title: 'Test PN' } })
+        return previous
+      })
+
+      await appSettings.setContentLanguage('de')
+
+      await PushNotificationsManager.quitAppStatePushNotificationListener(jest.fn(), navigation)
+      expect(navigateToDeepLink).not.toHaveBeenCalled()
     })
   })
 })
