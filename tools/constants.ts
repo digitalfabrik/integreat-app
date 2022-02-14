@@ -10,7 +10,7 @@ const PLATFORM_WEB = 'web'
 const PLATFORMS = [PLATFORM_WEB, PLATFORM_IOS, PLATFORM_ANDROID]
 
 type ReleaseInformation = {
-  platform: typeof PLATFORMS[number],
+  platform: typeof PLATFORMS[number]
   versionName: string
 }
 const tagId = ({ platform, versionName }: ReleaseInformation): string => `${versionName}-${platform}`

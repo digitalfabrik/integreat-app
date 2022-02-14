@@ -225,4 +225,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-expect-error TODO: IGAPP-636
-  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, false)(DashboardContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, false)(DashboardContainer))
