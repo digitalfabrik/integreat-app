@@ -127,7 +127,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
     android ? PLATFORM_ANDROID : undefined,
     ios ? PLATFORM_IOS : undefined,
     web ? PLATFORM_WEB : undefined
-  ].filter(Boolean)
+  ].filter((platform): platform is string => !!platform)
 
   if (platforms.length === 0) {
     throw new Error('No platforms selected! Use --ios, --android and --web flags.')
@@ -141,11 +141,12 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
     console.warn(`No release notes found in source ${source}. Using default notes.`)
   }
 
+  const asNoteType = (as: unknown): NoteType  => (as as NoteType)
+
   // Load all notes not belonging to a release
   const relevantNotes = fileNames
     .filter(fileName => fileName !== GITKEEP_FILE)
-    // @ts-expect-error
-    .map((fileName: string): NoteType => yaml.safeLoad(fs.readFileSync(`${source}/${fileName}`)))
+    .map(fileName => asNoteType(yaml.load(fs.readFileSync(`${source}/${fileName}`, 'utf-8'))))
     .filter(note => isNoteRelevant({ note, platforms }))
 
   // If the production flag is set, hide information that is irrelevant for users
