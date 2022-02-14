@@ -3,7 +3,7 @@
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 
-;(function() {
+;(function warnIE() {
   /**
    * detect IE
    * returns version of IE or false, if browser is not Internet Explorer

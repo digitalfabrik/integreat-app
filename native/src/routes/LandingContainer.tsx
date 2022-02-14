@@ -66,7 +66,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
   }
 }
 
-const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerPropsType) => {
+const LandingContainer = ({ navigation, dispatch, cities, language, route: _route }: ContainerPropsType) => {
   const navigateToDashboard = (cityCode: string, languageCode: string) => {
     navigateToCategory({
       routeName: DASHBOARD_ROUTE,
@@ -101,6 +101,6 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
 }
 
 export default connect(mapStateToProps)(
-  // @ts-expect-error
+  // @ts-expect-error TODO: IGAPP-636
   withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
 )
