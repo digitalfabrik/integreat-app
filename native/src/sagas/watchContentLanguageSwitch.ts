@@ -90,6 +90,6 @@ export function* switchContentLanguage(
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+export default function* switchContentLanguageSaga(dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('SWITCH_CONTENT_LANGUAGE', switchContentLanguage, dataContainer)
 }

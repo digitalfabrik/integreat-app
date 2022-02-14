@@ -224,5 +224,5 @@ const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsTyp
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  // @ts-expect-error
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, false)(DashboardContainer))
+  // @ts-expect-error TODO: IGAPP-636
+  )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, false)(DashboardContainer))

@@ -10,7 +10,7 @@ import {
   PLATFORM_IOS,
   PLATFORM_WEB,
   RELEASE_NOTES_DIR,
-  UNRELEASED_DIR // @ts-expect-error
+  UNRELEASED_DIR
 } from './constants'
 
 const loadStoreTranslations = (appName: string) =>
