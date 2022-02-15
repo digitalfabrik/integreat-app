@@ -1,9 +1,9 @@
-import { Config } from '@jest/types'
+import { InitialOptionsTsJest } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
 const transformNodeModules = ['api-client', 'build-configs', 'translations']
-const config: Config.InitialOptions = {
+const config: InitialOptionsTsJest = {
   rootDir: 'src',
   preset: 'ts-jest',
   verbose: true,
@@ -20,6 +20,7 @@ const config: Config.InitialOptions = {
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   moduleDirectories: ['node_modules'],
+  maxWorkers: '50%',
   coverageDirectory: '<rootDir>/../reports/coverage',
   reporters: [
     'default',
@@ -30,8 +31,11 @@ const config: Config.InitialOptions = {
       }
     ]
   ],
+  testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
   globals: {
+    'ts-jest': {},
+    __BUILD_CONFIG_NAME__: 'integreat-test-cms',
     __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig,
     __VERSION_NAME__: '0.0.0',
     __COMMIT_SHA__: 123456789

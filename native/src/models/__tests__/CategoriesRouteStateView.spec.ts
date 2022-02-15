@@ -50,11 +50,11 @@ describe('CategoriesRouteStateView', () => {
   }
   it('should throw if accessing root while the root model is not available', () => {
     const stateView = new CategoriesRouteStateView('/augsburg/de/erste-hilfe', {}, {})
-    expect(() => stateView.root()).toThrowError()
+    expect(() => stateView.root()).toThrow()
   })
   it('should throw if accessing children while children are not available', () => {
     const stateView = new CategoriesRouteStateView('/augsburg/de/erste-hilfe', {}, {})
-    expect(() => stateView.children()).toThrowError()
+    expect(() => stateView.children()).toThrow()
   })
   it('should return models of children when calling children', () => {
     const stateView = new CategoriesRouteStateView('/augsburg/de', models, children)

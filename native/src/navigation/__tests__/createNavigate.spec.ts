@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import { OPEN_PAGE_SIGNAL_NAME } from 'api-client'
 import {

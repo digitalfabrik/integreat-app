@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
+    "module": "es2020",
     "outDir": "dist",
     "paths": {
       "api-client/*": ["../api-client/*"],
@@ -16,7 +17,7 @@
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
     "skipLibCheck": true,
-    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node", "react-native", "styled-components-react-native"]
   },
   "include": ["src/**/*", "./jest.setup.ts", "index.ts", "jest.config.ts", "metro.config.ci.js", "metro.config.js"],

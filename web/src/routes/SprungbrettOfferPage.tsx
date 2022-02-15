@@ -122,7 +122,7 @@ const SprungbrettOfferPage = ({
       <Caption title={offer.title} />
       <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={sprungbrettJobs} />
       <CleanLink to='https://www.sprungbrett-intowork.de'>
-        <Image src={offer.thumbnail} />
+        <Image src={offer.thumbnail} alt='' />
       </CleanLink>
     </LocationLayout>
   )

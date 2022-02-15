@@ -1,10 +1,8 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
-import { InteractionManager } from 'react-native'
+import React, { ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 
-import { ChangeLanguageModalRouteType, LanguageModel } from 'api-client'
-import { ThemeType } from 'build-configs'
+import { ChangeLanguageModalRouteType } from 'api-client'
 
 import Selector from '../components/Selector'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
@@ -13,56 +11,46 @@ import SelectorItemModel from '../models/SelectorItemModel'
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
+
 type PropsType = {
-  theme: ThemeType
-  currentLanguage: string
-  languages: Array<LanguageModel>
-  availableLanguages: Array<string>
-  changeLanguage: (newLanguage: string) => void
   route: RoutePropType<ChangeLanguageModalRouteType>
   navigation: NavigationPropType<ChangeLanguageModalRouteType>
 }
 
-class ChangeLanguageModal extends React.Component<PropsType> {
-  onPress = (model: LanguageModel): void => {
-    const { changeLanguage } = this.props
-    this.closeModal()
-    InteractionManager.runAfterInteractions(() => {
-      changeLanguage(model.code)
+const ChangeLanguageModal = ({ navigation, route }: PropsType): ReactElement => {
+  const { currentLanguage, languages, availableLanguages, cityCode } = route.params
+  const dispatch = useDispatch()
+
+  const changeLanguage = (newLanguage: string) => {
+    dispatch({
+      type: 'SWITCH_CONTENT_LANGUAGE',
+      params: {
+        newLanguage,
+        city: cityCode
+      }
     })
   }
 
-  closeModal = (): void => {
-    const { navigation } = this.props
-    navigation.goBack()
-  }
+  const selectorItems = languages.map(({ code, name }) => {
+    const isLanguageAvailable = availableLanguages.includes(code)
+    return new SelectorItemModel({
+      code,
+      name,
+      enabled: isLanguageAvailable,
+      onPress: () => {
+        if (code !== currentLanguage) {
+          changeLanguage(code)
+        }
+        navigation.goBack()
+      }
+    })
+  })
 
-  render(): ReactNode {
-    const { theme, languages, availableLanguages, currentLanguage } = this.props
-    return (
-      <Wrapper
-        theme={theme}
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: 'center'
-        }}>
-        <Selector
-          theme={theme}
-          selectedItemCode={currentLanguage}
-          verticalLayout
-          items={languages.map(languageModel => {
-            const isLanguageAvailable = availableLanguages.includes(languageModel.code)
-            return new SelectorItemModel({
-              code: languageModel.code,
-              name: languageModel.name,
-              enabled: isLanguageAvailable,
-              onPress: () => this.onPress(languageModel)
-            })
-          })}
-        />
-      </Wrapper>
-    )
-  }
+  return (
+    <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+      <Selector selectedItemCode={currentLanguage} items={selectorItems} />
+    </Wrapper>
+  )
 }
 
 export default ChangeLanguageModal

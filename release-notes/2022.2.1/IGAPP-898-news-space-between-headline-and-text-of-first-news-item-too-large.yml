@@ -1,0 +1,6 @@
+issue_key: IGAPP-898
+show_in_stores: true
+platforms:
+  - web
+en: Fixed display of news content.
+de: Fehler bei der Textdarstellung von Nachrichten behoben.

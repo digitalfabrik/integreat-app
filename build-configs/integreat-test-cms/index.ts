@@ -5,12 +5,14 @@ import {
   WebBuildConfigType
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
+import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
 
 const integreatTestCms = {
   appName: 'IntegreatTestCms',
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
   featureFlags: {
+    floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: true,
@@ -19,7 +21,7 @@ const integreatTestCms = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    recommendToCityIfNotCooperating: true
+    cityNotCooperatingTemplate
   }
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

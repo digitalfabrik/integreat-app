@@ -1665,7 +1665,6 @@
       "isThisSiteUseful": "Ist diese Seite hilfreich?",
       "useful": "Hilfreich",
       "notUseful": "Nicht hilfreich",
-      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
       "informationNotFound": "Nicht das Richtige gefunden?",
       "wantedInformation": "Welche Informationen fehlen hier?",
       "feedbackSent": "Feedback abgeschickt",
@@ -1686,7 +1685,6 @@
       "isThisSiteUseful": "ይህ ገጽ ጠቃሚ ነው?",
       "useful": "ጠቃሚ ነው",
       "notUseful": "ጠቃሚ አይደለም",
-      "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።",
       "informationNotFound": "የሚፈልጉት ነገር አልተገኘም?",
       "wantedInformation": "እዚህ ላይ የጎደለው መረጃ ምንድን ነው?",
       "feedbackSent": "ግብረ መልሱ ተልኳል",
@@ -1707,7 +1705,6 @@
       "isThisSiteUseful": "هل هذه الصفحة مفيدة؟",
       "useful": "مفيدة",
       "notUseful": "غير مفيدة",
-      "nothingFound": "للأسف تعذر العثور على نتائج مناسبة.",
       "informationNotFound": "لم يتم العثور على المعلومة المناسبة؟",
       "wantedInformation": "ما هي المعلومات المفقودة هنا؟",
       "feedbackSent": "تم إرسال الملاحظة",
@@ -1728,7 +1725,6 @@
       "isThisSiteUseful": "Полезна ли е тази страница?",
       "useful": "Полезна е",
       "notUseful": "Не е полезна",
-      "nothingFound": "За съжаление не бяха намерени съответстващи резултати.",
       "informationNotFound": "Не сте намерили правилната?",
       "wantedInformation": "Каква информация липсва тук?",
       "feedbackSent": "Отзивът е изпратен",
@@ -1749,7 +1745,6 @@
       "isThisSiteUseful": "ئاخۆ ئەم لاپەڕەیە بەکەڵکە؟",
       "useful": "بەکەڵکە",
       "notUseful": "بەکەڵ نییە",
-      "nothingFound": "بەداخەوە هیچ ئەنجامێکی بەکەڵک نەدۆزراوە.",
       "informationNotFound": "بڕگەی گونجاوت نەدۆزییەوە؟",
       "wantedInformation": "چ زانیارییەک لێرەدا نییە؟",
       "feedbackSent": "بۆچوون ناردرا",
@@ -1770,7 +1765,6 @@
       "isThisSiteUseful": "Είναι χρήσιμη αυτή η σελίδα;",
       "useful": "Χρήσιμη",
       "notUseful": "Μη χρήσιμη",
-      "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα.",
       "informationNotFound": "Δεν βρήκατε το σωστό;",
       "wantedInformation": "Ποιες πληροφορίες λείπουν;",
       "feedbackSent": "Τα σχόλια στάλθηκαν",
@@ -1791,7 +1785,6 @@
       "isThisSiteUseful": "Is this site useful?",
       "useful": "Useful",
       "notUseful": "Not useful",
-      "nothingFound": "Sorry, we could not find any matching results.",
       "informationNotFound": "Not found what you were looking for?",
       "wantedInformation": "What information is missing?",
       "feedbackSent": "Feedback sent",
@@ -1812,7 +1805,6 @@
       "isThisSiteUseful": "¿Esta página sirve de ayuda?",
       "useful": "Sirve de ayuda",
       "notUseful": "No sirve de ayuda",
-      "nothingFound": "No se ha encontrado ningún resultado.",
       "informationNotFound": "¿No ha encontrado lo que buscaba?",
       "wantedInformation": "¿Qué información falta aquí?",
       "feedbackSent": "Comentarios enviados",
@@ -1833,7 +1825,6 @@
       "isThisSiteUseful": "Est-ce que cette page est utile ?",
       "useful": "Utile",
       "notUseful": "Pas utile",
-      "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
       "informationNotFound": "Vous n'avez pas trouvé ce qu'il vous faut ?",
       "wantedInformation": "Quelles sont les informations manquantes ici ?",
       "feedbackSent": "Avis envoyé",
@@ -1854,7 +1845,6 @@
       "isThisSiteUseful": "Je li ova stranica korisna?",
       "useful": "Korisna je",
       "notUseful": "Nije korisna",
-      "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati.",
       "informationNotFound": "Niste pronašli pravu stvar?",
       "wantedInformation": "Koje informacije nedostaju?",
       "feedbackSent": "Feedback poslan",
@@ -1875,7 +1865,6 @@
       "isThisSiteUseful": "Hasznos ez az oldal?",
       "useful": "Hasznos",
       "notUseful": "Nem hasznos",
-      "nothingFound": "Sajnos nem találtunk megfelelő eredményt.",
       "informationNotFound": "Nem találtad meg a megfelelőt?",
       "wantedInformation": "Mely információk hiányoznak itt?",
       "feedbackSent": "A visszajelzést elküldtük",
@@ -1896,7 +1885,6 @@
       "isThisSiteUseful": "Questa pagina è utile?",
       "useful": "Utile",
       "notUseful": "Non utile",
-      "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
       "informationNotFound": "Non hai trovato quello che cercavi?",
       "wantedInformation": "Quali informazioni mancano qui?",
       "feedbackSent": "Feedback inviato",
@@ -1917,7 +1905,6 @@
       "isThisSiteUseful": "გეხმარებათ თუ არა ეს გვერდი?",
       "useful": "დამხმარე",
       "notUseful": "გამოუსადეგარი",
-      "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა.",
       "informationNotFound": "ვერ იპოვეთ შესაბამისი?",
       "wantedInformation": "რა ინფორმაციები აკლია აქ?",
       "feedbackSent": "შეფასება გაიგზავნა",
@@ -1938,7 +1925,6 @@
       "isThisSiteUseful": "Gelo ev rûpel sûdmend e?",
       "useful": "Sûdewer",
       "notUseful": "Bêkêr (Ne-Sûdewer)",
-      "nothingFound": "Mixabin tu encameka guncan peyde nebû.",
       "informationNotFound": "Gelo tiştê ku lê digeriyayî, nehat dîtin?",
       "wantedInformation": "Çi cûre zanyarî li vir tunene?",
       "feedbackSent": "'Feedback' hat şandin",
@@ -1959,7 +1945,6 @@
       "isThisSiteUseful": "Дали ти помогна оваа страница?",
       "useful": "Ми помогна",
       "notUseful": "Не ми помогна",
-      "nothingFound": "За жал не се пронајдени соодветни резултати.",
       "informationNotFound": "Не го пронајде тоа што ти е потребно?",
       "wantedInformation": "Кои информации недостасуваат тука?",
       "feedbackSent": "Испратена е повратната информација",
@@ -1980,7 +1965,6 @@
       "isThisSiteUseful": "آیا این صفحه مفید است؟",
       "useful": "مفید",
       "notUseful": "غیر مفید",
-      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
       "informationNotFound": "آنچه را که جستجو می کردید پیدا نکردید؟",
       "wantedInformation": "چه اطلاعاتی در اینجا موجود نیست؟",
       "feedbackSent": "بازخورد ارسال شد",
@@ -2001,7 +1985,6 @@
       "isThisSiteUseful": "Czy ta strona jest pomocna?",
       "useful": "Przydatne",
       "notUseful": "Nie przydatne",
-      "nothingFound": "Niestety nie znaleziono odpowiednich wyników.",
       "informationNotFound": "Nie znalazłeś właściwej rzeczy?",
       "wantedInformation": "Jakich informacji tutaj brakuje?",
       "feedbackSent": "Wysłano opinię",
@@ -2022,7 +2005,6 @@
       "isThisSiteUseful": "آیا این صفحه موثر است؟",
       "useful": "موثر است",
       "notUseful": "موثر نیست",
-      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد‎.",
       "informationNotFound": "مورد مناسب را پیدا نکردید؟",
       "wantedInformation": "کدام نوع معلومات در اینجا موجود نیست؟",
       "feedbackSent": "فیدبک ارسال شد",
@@ -2043,7 +2025,6 @@
       "isThisSiteUseful": "آیا دا پاڼه ګټوره ده؟",
       "useful": "ګټوره ده",
       "notUseful": "ګټوره نده",
-      "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې.",
       "informationNotFound": "آیا صحیح پیدا نشو؟",
       "wantedInformation": "کوم معلومات پکې نشته؟",
       "feedbackSent": "تبصره ولېږل شوه",
@@ -2064,7 +2045,6 @@
       "isThisSiteUseful": "A fost utilă această pagină?",
       "useful": "utilă",
       "notUseful": "inutilă",
-      "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
       "informationNotFound": "Nu ați găsit ce ați căutat?",
       "wantedInformation": "Ce informații lipsesc aici?",
       "feedbackSent": "Feedback expediat",
@@ -2085,7 +2065,6 @@
       "isThisSiteUseful": "Содержит ли эта страница полезную информацию?",
       "useful": "Да",
       "notUseful": "Нет",
-      "nothingFound": "К сожалению, подходящие результаты не найдены.",
       "informationNotFound": "Не нашли того, что искали?",
       "wantedInformation": "Какая информация здесь отсутствует?",
       "feedbackSent": "Отзыв отправлен",
@@ -2106,7 +2085,6 @@
       "isThisSiteUseful": "Boggan waxtar ma leeyahay?",
       "useful": "Waxtar leh",
       "notUseful": "Aan waxtar lahayn",
-      "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin.",
       "informationNotFound": "Ma aanan helin midka saxda ah?",
       "wantedInformation": "Macluumaad noocee ah ayaa halkan ka maqan?",
       "feedbackSent": "Jawaab celinta waa la diray",
@@ -2127,7 +2105,6 @@
       "isThisSiteUseful": "A është kjo faqe e dobishme?",
       "useful": "E dobishme",
       "notUseful": "Jo e dobishme",
-      "nothingFound": "Fatkeqësisht nuk u gjetën rezultate që përputhen.",
       "informationNotFound": "Nuk gjetët atë që kërkonit?",
       "wantedInformation": "Çfarë informacioni mungon këtu?",
       "feedbackSent": "Komenti u dërgua",
@@ -2148,7 +2125,6 @@
       "isThisSiteUseful": "Да ли је ова страница била корисна?",
       "useful": "Корисно",
       "notUseful": "Није корисно",
-      "nothingFound": "Нажалост, нису пронађени одговарајући резултати.",
       "informationNotFound": "Нисте пронашло одговарајућу информацију?",
       "wantedInformation": "Које информације недостају овде?",
       "feedbackSent": "Послата повратна информација",
@@ -2169,7 +2145,6 @@
       "isThisSiteUseful": "Da li je ova stranica od pomoći?",
       "useful": "Od pomoći",
       "notUseful": "Nije od pomoći",
-      "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati.",
       "informationNotFound": "Niste pronašli ono pravo?",
       "wantedInformation": "Koje informacije ovde nedostaju?",
       "feedbackSent": "Povratne informacije poslane",
@@ -2188,7 +2163,6 @@
       "isThisSiteUseful": "እዚ ገጽ’ዚ ሓግዚ ድዩ፧",
       "useful": "ሓጋዚ",
       "notUseful": "ሓጋዚ ኣይኮነን",
-      "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
       "informationNotFound": "ነቲ ቅኑዕ ኣይረኸቦን፧",
       "wantedInformation": "እንታይ ሓበሬታ እዩ ኣብዚ ጎዲሉ ዘሎ፧",
       "feedbackSent": "መልሰ-ሓበሬታ ተሰዲዱ",
@@ -2209,7 +2183,6 @@
       "isThisSiteUseful": "Bu sayfa yardımcı oldu mu?",
       "useful": "Yardımcı",
       "notUseful": "Yardımcı değil",
-      "nothingFound": "Maalesef uygun sonuç bulunamadı.",
       "informationNotFound": "Doğru şeyi bulamadınız mı?",
       "wantedInformation": "Burada hangi bilgiler eksik?",
       "feedbackSent": "Geri bildirim gönderildi",
@@ -2230,7 +2203,6 @@
       "isThisSiteUseful": "کیا یہ صفحہ مددگار رہا؟",
       "useful": "مددگار",
       "notUseful": "غیر مددگار",
-      "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔",
       "informationNotFound": "درست والا نہیں ملا؟",
       "wantedInformation": "یہاں کون سی معلومات موجود نہیں؟",
       "feedbackSent": "رائے بھیج دی گئی",
@@ -2251,7 +2223,6 @@
       "isThisSiteUseful": "这个网站对您有帮助吗？",
       "useful": "有帮助",
       "notUseful": "没有帮助",
-      "nothingFound": "很抱歉，找不到匹配的结果。",
       "informationNotFound": "找不到您要找的？",
       "wantedInformation": "这里缺少什么信息？",
       "feedbackSent": "反馈已发送",
@@ -4202,119 +4173,148 @@
   "search": {
     "de": {
       "searchPlaceholder": "Suche",
-      "pageTitle": "Suche"
+      "pageTitle": "Suche",
+      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden."
     },
     "am": {
       "searchPlaceholder": "ፍለጋ",
-      "pageTitle": "ፍለጋ"
+      "pageTitle": "ፍለጋ",
+      "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።"
     },
     "ar": {
       "searchPlaceholder": "بحث",
-      "pageTitle": "البحث"
+      "pageTitle": "البحث",
+      "nothingFound": "للأسف تعذر العثور على نتائج مناسبة."
     },
     "bg": {
       "searchPlaceholder": "Търсене",
-      "pageTitle": "Търсене"
+      "pageTitle": "Търсене",
+      "nothingFound": "За съжаление не бяха намерени съответстващи резултати."
     },
     "ckb": {
       "searchPlaceholder": "گەڕان",
-      "pageTitle": "گەڕان"
+      "pageTitle": "گەڕان",
+      "nothingFound": "بەداخەوە هیچ ئەنجامێکی بەکەڵک نەدۆزراوە."
     },
     "el": {
       "searchPlaceholder": "Αναζήτηση ",
-      "pageTitle": "Αναζήτηση"
+      "pageTitle": "Αναζήτηση",
+      "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα."
     },
     "en": {
       "searchPlaceholder": "Search",
-      "pageTitle": "Search"
+      "pageTitle": "Search",
+      "nothingFound": "Sorry, we could not find any matching results."
     },
     "es": {
       "searchPlaceholder": "Búsqueda",
-      "pageTitle": "Búsqueda"
+      "pageTitle": "Búsqueda",
+      "nothingFound": "No se ha encontrado ningún resultado."
     },
     "fr": {
       "searchPlaceholder": "Recherche",
-      "pageTitle": "Recherche"
+      "pageTitle": "Recherche",
+      "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat."
     },
     "hr": {
       "searchPlaceholder": "Pretraživanje",
-      "pageTitle": "Pretraživanje"
+      "pageTitle": "Pretraživanje",
+      "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati."
     },
     "hu": {
       "searchPlaceholder": "Keresés",
-      "pageTitle": "Keresés"
+      "pageTitle": "Keresés",
+      "nothingFound": "Sajnos nem találtunk megfelelő eredményt."
     },
     "it": {
       "searchPlaceholder": "Ricerca",
-      "pageTitle": "Ricerca"
+      "pageTitle": "Ricerca",
+      "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti."
     },
     "ka": {
       "searchPlaceholder": "ძებნა",
-      "pageTitle": "ძიება"
+      "pageTitle": "ძიება",
+      "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა."
     },
     "kmr": {
       "searchPlaceholder": "Lêgerîn",
-      "pageTitle": "Lêgerîn"
+      "pageTitle": "Lêgerîn",
+      "nothingFound": "Mixabin tu encameka guncan peyde nebû."
     },
     "mk": {
       "searchPlaceholder": "Пребарај",
-      "pageTitle": "Пребарај"
+      "pageTitle": "Пребарај",
+      "nothingFound": "За жал не се пронајдени соодветни резултати."
     },
     "pes": {
       "searchPlaceholder": "جستجو",
-      "pageTitle": "جستجو"
+      "pageTitle": "جستجو",
+      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد."
     },
     "pl": {
       "searchPlaceholder": "Wyszukaj",
-      "pageTitle": "Wyszukiwarka"
+      "pageTitle": "Wyszukiwarka",
+      "nothingFound": "Niestety nie znaleziono odpowiednich wyników."
     },
     "prs": {
       "searchPlaceholder": "جستجو",
-      "pageTitle": "جستجو"
+      "pageTitle": "جستجو",
+      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد‎."
     },
     "ps": {
       "searchPlaceholder": "لټون",
-      "pageTitle": "لټون"
+      "pageTitle": "لټون",
+      "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې."
     },
     "ro": {
       "searchPlaceholder": "Căutare",
-      "pageTitle": "Căutare"
+      "pageTitle": "Căutare",
+      "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile."
     },
     "ru": {
       "searchPlaceholder": "Поиск",
-      "pageTitle": "Поиск"
+      "pageTitle": "Поиск",
+      "nothingFound": "К сожалению, подходящие результаты не найдены."
     },
     "so": {
       "searchPlaceholder": "Raadin",
-      "pageTitle": "Raadin"
+      "pageTitle": "Raadin",
+      "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin."
     },
     "sq": {
       "searchPlaceholder": "Kërkim",
-      "pageTitle": "Kërkim"
+      "pageTitle": "Kërkim",
+      "nothingFound": "Fatkeqësisht nuk u gjetën rezultate që përputhen."
     },
     "sr-Cyrl": {
       "searchPlaceholder": "Претраживање",
-      "pageTitle": "Претраживање"
+      "pageTitle": "Претраживање",
+      "nothingFound": "Нажалост, нису пронађени одговарајући резултати."
     },
     "sr-Latn": {
       "searchPlaceholder": "Pretraživanje",
-      "pageTitle": "Pretraživanje"
+      "pageTitle": "Pretraživanje",
+      "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati."
     },
     "ti": {
       "searchPlaceholder": "ፈትሽ",
-      "pageTitle": "ፈትሽ"
+      "pageTitle": "ፈትሽ",
+      "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።"
     },
     "tr": {
       "searchPlaceholder": "Arama",
-      "pageTitle": "Arama"
+      "pageTitle": "Arama",
+      "nothingFound": "Maalesef uygun sonuç bulunamadı."
     },
     "ur": {
       "searchPlaceholder": "تلاش کریں",
-      "pageTitle": "تلاش کریں"
+      "pageTitle": "تلاش کریں",
+      "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔"
     },
     "zh-CN": {
       "searchPlaceholder": "搜索",
-      "pageTitle": "搜索"
+      "pageTitle": "搜索",
+      "nothingFound": "很抱歉，找不到匹配的结果。"
     }
   },
   "settings": {

@@ -186,14 +186,13 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             categories={filteredCategories}
             query={query}
             onItemPress={this.onItemPress}
-            theme={theme}
             language={language}
           />
         </View>
         {filteredCategories.length === 0 && (
           <>
             <SadIconContainer source={SadIcon} />
-            <Heading theme={theme}>{t('feedback:nothingFound')}</Heading>
+            <Heading theme={theme}>{t('search:nothingFound')}</Heading>
           </>
         )}
         <FeedbackContainer

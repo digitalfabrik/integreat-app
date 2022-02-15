@@ -23,6 +23,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern: 'https?:\\/\\/(cms\\.)?malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
+    floss: false,
     pois: false,
     newsStream: true,
     pushNotifications: true,
@@ -31,7 +32,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    recommendToCityIfNotCooperating: false
+    cityNotCooperatingTemplate: null
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app'

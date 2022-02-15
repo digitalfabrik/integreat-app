@@ -76,7 +76,7 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
   }, [showSnackbar, shareUrl, t])
 
   const overflowItems = shareUrl
-    ? // @ts-ignore accessibilityLabel missing in props
+    ? // @ts-expect-error accessibilityLabel missing in props
       [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
     : []
 

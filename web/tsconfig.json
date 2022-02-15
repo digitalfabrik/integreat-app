@@ -19,7 +19,7 @@
     },
     "skipLibCheck": true,
     "target": "ES2019",
-    "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
   "include": ["src/**/*", "tools/*", "./jest.setup.ts", "jest.config.ts", "www/warn-ie.js"],

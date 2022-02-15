@@ -1,0 +1,7 @@
+issue_key: IGAPP-882
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed the language selection if there are many options.
+de: Ein Problem mit der Sprachauswahl bei vielen Auswahlmöglichkeiten wurde behoben.

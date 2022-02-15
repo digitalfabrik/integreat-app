@@ -1,6 +1,6 @@
+import { mocked } from 'jest-mock'
 import moment from 'moment'
 import React from 'react'
-import { mocked } from 'ts-jest/utils'
 
 import {
   CityModelBuilder,
@@ -104,7 +104,7 @@ describe('TuNewsPage', () => {
   })
 
   it('should render language failure if language is not available', () => {
-    mocked(loadFromEndpoint).mockImplementation()
+    mocked(loadFromEndpoint).mockImplementation(async (_, setData) => setData(tuNews))
     const { getAllByText, queryByText } = renderTuNewsRoute(languages[2]!)
     expect(getAllByText('error:notFound.language error:chooseALanguage')).toBeTruthy()
     // Available languages

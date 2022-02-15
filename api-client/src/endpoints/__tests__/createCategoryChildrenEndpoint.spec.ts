@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils'
+import { mocked } from 'jest-mock'
 
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import CategoriesMapModelBuilder from '../../testing/CategoriesMapModelBuilder'

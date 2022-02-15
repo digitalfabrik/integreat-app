@@ -1,0 +1,8 @@
+issue_key: IGAPP-900
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: Fixed a typo.
+de: Ein Rechtschreibfehler wurde korrigiert.

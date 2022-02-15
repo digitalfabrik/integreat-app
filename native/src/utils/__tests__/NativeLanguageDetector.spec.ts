@@ -1,5 +1,5 @@
+import { mocked } from 'jest-mock'
 import { getLocales } from 'react-native-localize'
-import { mocked } from 'ts-jest/utils'
 
 import NativeLanguageDetector from '../NativeLanguageDetector'
 
@@ -39,38 +39,38 @@ describe('NativeLanguageDetector', () => {
 
   it('should detect correctly if language tag is directly supported', () => {
     mocked(getLocales).mockImplementation(() => [srLocale, pesLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('sr-Cyrl')
+    expect(NativeLanguageDetector.detect()).toBe('sr-Cyrl')
   })
 
   it('should detect correctly if language code is directly supported', () => {
     mocked(getLocales).mockImplementation(() => [enLocale, pesLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('en')
+    expect(NativeLanguageDetector.detect()).toBe('en')
   })
 
   it('should detect fallback if language tag is indirectly supported via fallback', () => {
     mocked(getLocales).mockImplementation(() => [prsLocale, enLocale, unsupportedLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('prs')
+    expect(NativeLanguageDetector.detect()).toBe('prs')
   })
 
   it('should detect fallback if language code is indirectly supported via fallback', () => {
     mocked(getLocales).mockImplementation(() => [pesLocale, unsupportedLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('pes')
+    expect(NativeLanguageDetector.detect()).toBe('pes')
   })
 
   it('should return first supported language', () => {
     mocked(getLocales).mockImplementation(() => [unsupportedLocale, unsupportedLocale, prsLocale, enLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('prs')
+    expect(NativeLanguageDetector.detect()).toBe('prs')
   })
 
   it('should return fallback if no locale is supported', () => {
     mocked(getLocales).mockImplementation(() => [unsupportedLocale, unsupportedLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('de')
+    expect(NativeLanguageDetector.detect()).toBe('de')
   })
 
   it('should not respond to language changes', () => {
     mocked(getLocales).mockImplementation(() => [enLocale])
-    expect(NativeLanguageDetector.detect()).toStrictEqual('en')
+    expect(NativeLanguageDetector.detect()).toBe('en')
     NativeLanguageDetector.cacheUserLanguage('de')
-    expect(NativeLanguageDetector.detect()).toStrictEqual('en')
+    expect(NativeLanguageDetector.detect()).toBe('en')
   })
 })

@@ -59,10 +59,10 @@ class CitySelector extends React.PureComponent<PropsType> {
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     }
-    if (buildConfig().featureFlags.developerFriendly) {
-      return cities
-    }
-    return cities.filter(_city => _city.live).filter(byNameAndAliases(normalizedFilter))
+
+    return cities
+      .filter(_city => _city.live || buildConfig().featureFlags.developerFriendly)
+      .filter(byNameAndAliases(normalizedFilter))
   }
 
   // Landkreis should come before Stadt
@@ -95,7 +95,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       (result: React.ReactNode[], cities: CityModel[], key: string) => {
         result.push(
           <CityGroupContainer key={key}>
-            <CityGroup theme={theme}>{key}</CityGroup>
+            <CityGroup>{key}</CityGroup>
             {cities.map(city => (
               <CityEntry
                 key={city.code}
@@ -127,7 +127,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       if (nearbyCities.length > 0) {
         return (
           <CityGroupContainer>
-            <CityGroup theme={theme}>{t('nearbyCities')}</CityGroup>
+            <CityGroup>{t('nearbyCities')}</CityGroup>
             {nearbyCities.map(city => (
               <CityEntry
                 key={city.code}
@@ -142,7 +142,7 @@ class CitySelector extends React.PureComponent<PropsType> {
       }
       return (
         <CityGroupContainer>
-          <CityGroup theme={theme}>{t('nearbyCities')}</CityGroup>
+          <CityGroup>{t('nearbyCities')}</CityGroup>
           <NearbyMessageContainer>
             <NearbyMessage theme={theme}>{t('noNearbyCities')}</NearbyMessage>
           </NearbyMessageContainer>
@@ -152,7 +152,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
     return (
       <CityGroupContainer>
-        <CityGroup theme={theme}>{t('nearbyCities')}</CityGroup>
+        <CityGroup>{t('nearbyCities')}</CityGroup>
         <NearbyMessageContainer>
           <NearbyMessage theme={theme}>
             {locationState.status === 'unavailable' ? t(locationState.message) : ''}

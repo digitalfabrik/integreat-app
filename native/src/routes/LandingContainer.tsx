@@ -7,6 +7,7 @@ import { CityModel, cityContentPath, DASHBOARD_ROUTE, LandingRouteType } from 'a
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
 import navigateToCategory from '../navigation/navigateToCategory'
+import navigateToCityNotCooperating from '../navigation/navigateToCityNotCooperating'
 import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import Landing from './Landing'
@@ -93,12 +94,13 @@ const LandingContainer = ({ navigation, dispatch, cities, language }: ContainerP
       cities={cities}
       language={language}
       navigateToDashboard={navigateToDashboard}
+      navigateToCityNotCooperating={() => navigateToCityNotCooperating({ navigation })}
       clearResourcesAndCache={clearResourcesAndCache}
     />
   )
 }
 
 export default connect(mapStateToProps)(
-  // @ts-ignore
+  // @ts-expect-error
   withPayloadProvider<ContainerPropsType, Record<string, never>, LandingRouteType>(refresh, false)(LandingContainer)
 )

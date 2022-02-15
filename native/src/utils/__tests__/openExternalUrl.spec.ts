@@ -1,6 +1,6 @@
+import { mocked } from 'jest-mock'
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
-import { mocked } from 'ts-jest/utils'
 
 import { NotFoundError, OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'api-client'
 
@@ -71,7 +71,7 @@ describe('openExternalUrl', () => {
   it('should show snackbar if opening url is not supported', async () => {
     const url = 'mor:erando.mstu.ff'
     mocked(Linking.canOpenURL).mockImplementation(async () => false)
-    await expect(openExternalUrl(url)).rejects.toThrowError(
+    await expect(openExternalUrl(url)).rejects.toThrow(
       new NotFoundError({
         type: 'route',
         id: url,
