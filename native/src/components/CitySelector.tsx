@@ -59,10 +59,10 @@ class CitySelector extends React.PureComponent<PropsType> {
     if (normalizedFilter === 'wirschaffendas') {
       return cities.filter(_city => !_city.live)
     }
-    if (buildConfig().featureFlags.developerFriendly) {
-      return cities
-    }
-    return cities.filter(_city => _city.live).filter(byNameAndAliases(normalizedFilter))
+
+    return cities
+      .filter(_city => _city.live || buildConfig().featureFlags.developerFriendly)
+      .filter(byNameAndAliases(normalizedFilter))
   }
 
   // Landkreis should come before Stadt

@@ -81,7 +81,6 @@ const PoiPage = ({
       lastUpdate={poi.lastUpdate}
       language={language}
       files={files}
-      theme={theme}
       resourceCacheUrl={resourceCacheUrl}
       navigateToFeedback={createNavigateToFeedbackForPoi(poi)}>
       <>
