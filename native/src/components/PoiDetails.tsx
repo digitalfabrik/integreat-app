@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 
 import { PoiFeature, PoiModel } from 'api-client'
 
-import { mockContent } from '../__mocks__/poiCMSContent'
 import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
