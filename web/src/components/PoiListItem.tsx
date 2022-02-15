@@ -8,6 +8,7 @@ import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import CleanLink from './CleanLink'
 
 const ListItemContainer = styled.article`
+  font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
   border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
   padding: 22px 0;
