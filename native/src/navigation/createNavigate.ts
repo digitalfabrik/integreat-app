@@ -26,7 +26,6 @@ import navigateToCityNotCooperating from './navigateToCityNotCooperating'
 import navigateToDisclaimer from './navigateToDisclaimer'
 import navigateToEvents from './navigateToEvents'
 import navigateToJpalTracking from './navigateToJpalTracking'
-import navigateToLanding from './navigateToLanding'
 import navigateToNews from './navigateToNews'
 import navigateToOffers from './navigateToOffers'
 import navigateToPois from './navigateToPois'
@@ -48,10 +47,7 @@ const createNavigate =
       })
 
       if (routeInformation.route === LANDING_ROUTE) {
-        navigateToLanding({
-          dispatch,
-          navigation
-        })
+        navigation.navigate(LANDING_ROUTE)
         return
       }
       if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
