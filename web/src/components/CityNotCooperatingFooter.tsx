@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'api-client/src'
 
-import cityNotCooperatingIcon from '../assets/cityNotCooperating.svg'
+import buildConfig from '../constants/buildConfig'
 
 const FooterContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -42,9 +42,13 @@ type PropsType = {
 const CityNotCooperatingFooter = ({ languageCode }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
 
+  if (!buildConfig().featureFlags.cityNotCooperating) {
+    return <></>
+  }
+
   return (
     <FooterContainer>
-      <Icon alt='' src={cityNotCooperatingIcon} />
+      <Icon alt='' src={buildConfig().icons.cityNotCooperating!} />
       <Question>{t('cityNotFound')}</Question>
       <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
         {t('clickHere')}

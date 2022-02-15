@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react'
-import { TFunction, withTranslation } from 'react-i18next'
+import React, { ReactElement, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 
 import {
@@ -13,12 +13,10 @@ import {
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
-import withTheme from '../hocs/withTheme'
 import useCities from '../hooks/useCities'
 import useReportError from '../hooks/useReportError'
 import useSetShareUrl from '../hooks/useSetShareUrl'
@@ -29,19 +27,16 @@ import { determineApiUrl } from '../utils/helpers'
 import openExternalUrl from '../utils/openExternalUrl'
 import Offers from './Offers'
 
-type OwnPropsType = {
+type Props = {
   route: RoutePropType<OffersRouteType>
   navigation: NavigationPropType<OffersRouteType>
 }
-type OffersPropsType = OwnPropsType & {
-  theme: ThemeType
-  t: TFunction
-}
 
-const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
+const OffersContainer = ({ navigation, route }: Props): ReactElement => {
   const showSnackbar = useSnackbar()
   const { cityCode, languageCode } = route.params
   const cities = useCities()
+  const { t } = useTranslation('offers')
 
   const routeInformation = { route: OFFERS_ROUTE, languageCode, cityCode }
   useSetShareUrl({ navigation, routeInformation, route })
@@ -119,7 +114,6 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
         <Offers
           offers={offers}
           navigateToOffer={navigateToOffer}
-          theme={theme}
           t={t}
           navigateToFeedback={navigateToFeedback}
           language={languageCode}
@@ -129,4 +123,4 @@ const OffersContainer = ({ theme, t, navigation, route }: OffersPropsType) => {
   )
 }
 
-export default withTranslation('offers')(withTheme<OffersPropsType>(OffersContainer))
+export default OffersContainer

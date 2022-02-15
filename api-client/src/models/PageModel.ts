@@ -1,5 +1,7 @@
 import { Moment } from 'moment'
 
+import normalizePath from '../normalizePath'
+
 class PageModel {
   _path: string
   _title: string
@@ -20,7 +22,7 @@ class PageModel {
     lastUpdate: Moment
     hash: string
   }) {
-    this._path = path
+    this._path = normalizePath(path)
     this._title = title
     this._content = content
     this._lastUpdate = lastUpdate

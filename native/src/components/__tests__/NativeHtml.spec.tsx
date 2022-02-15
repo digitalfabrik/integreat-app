@@ -1,13 +1,11 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 
-import buildConfig from '../../constants/buildConfig'
 import navigateToLink from '../../navigation/navigateToLink'
 import CategoryListContent from '../CategoryListContent'
 import NativeHtml from '../NativeHtml'
 
 const mockNavigation = jest.fn()
-const mockTheme = buildConfig().lightTheme
 
 jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
 jest.mock('../../hooks/useSnackbar')
@@ -20,11 +18,7 @@ jest.mock('react-redux', () => ({
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => mockNavigation
 }))
-
-jest.mock('styled-components', () => ({
-  ...jest.requireActual('styled-components'),
-  useTheme: () => mockTheme
-}))
+jest.mock('styled-components')
 
 describe('NativeHtml', () => {
   const dictUrl = 'https://my.cust/om/dict/url'

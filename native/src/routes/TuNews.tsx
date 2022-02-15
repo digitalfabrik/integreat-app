@@ -9,7 +9,7 @@ import {
   useLoadFromEndpoint
 } from 'api-client'
 
-import LanguageNotAvailableContainer from '../components/LanguageNotAvailableContainer'
+import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import News from '../components/News'
 import { tunewsApiUrl } from '../constants/endpoint'
 import useLoadTuNews from '../hooks/useLoadTuNews'
@@ -45,7 +45,7 @@ const TuNewsNews = ({
   } = useLoadFromEndpoint(requestTuNewsElement)
 
   if (availableLanguages && !availableLanguages.find(model => model.code === language)) {
-    return <LanguageNotAvailableContainer languages={availableLanguages} changeLanguage={changeUnavailableLanguage} />
+    return <LanguageNotAvailablePage languages={availableLanguages} changeLanguage={changeUnavailableLanguage} />
   }
 
   const response = newsId

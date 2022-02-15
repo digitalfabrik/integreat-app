@@ -21,7 +21,7 @@ describe('feedback', () => {
         feedbackCategory: TECHNICAL_FEEDBACK_CATEGORY,
         isPositiveRating: true
       })
-    ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
+    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
   it('should overwrite wrong feedback type for the root category', () => {
     expect(
@@ -34,7 +34,7 @@ describe('feedback', () => {
         isPositiveRating: true,
         permalink: `/augsburg/de/willkommen`
       })
-    ).toEqual('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
+    ).toBe('https://integreat-api-url.de/augsburg/de/wp-json/extensions/v3/feedback')
   })
   it('should map the params to the body', () => {
     const formData = new FormData()
@@ -45,7 +45,7 @@ describe('feedback', () => {
     formData.append('alias', 'alias')
     formData.append('category', 'Inhalte')
     expect(feedback.mapParamsToBody).not.toBeNull()
-    expect(feedback.mapParamsToBody).not.toBeUndefined()
+    expect(feedback.mapParamsToBody).toBeDefined()
 
     if (!feedback.mapParamsToBody) {
       throw new Error('Feedback Check for Typescript failed - Check your test')

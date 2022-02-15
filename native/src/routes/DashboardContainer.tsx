@@ -166,7 +166,7 @@ const mapStateToProps = (state: StateType, ownProps: OwnPropsType): StatePropsTy
     }
   }
 
-  // @ts-ignore ts does not get that models and children cannot be undefined as it is already checked above
+  // @ts-expect-error ts does not get that models and children cannot be undefined as it is already checked above
   const stateView = new CategoriesRouteStateView(route.path, models, children)
   const cityModel = state.cities.models.find(city => city.code === route.city)
 
@@ -224,5 +224,5 @@ const DashboardContainer = ({ dispatch, navigation, ...rest }: ContainerPropsTyp
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  // @ts-ignore
+  // @ts-expect-error
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, DashboardRouteType>(refresh, false)(DashboardContainer))

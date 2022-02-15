@@ -10,7 +10,6 @@ import navigateToLink from '../../navigation/navigateToLink'
 import NewsDetail from '../NewsDetail'
 
 const mockNavigation = jest.fn()
-const mockTheme = buildConfig().lightTheme
 
 jest.mock('react-i18next')
 jest.mock('../../navigation/navigateToLink', () => jest.fn(Promise.resolve))
@@ -24,11 +23,7 @@ jest.mock('react-redux', () => ({
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => mockNavigation
 }))
-
-jest.mock('styled-components', () => ({
-  ...jest.requireActual('styled-components'),
-  useTheme: () => mockTheme
-}))
+jest.mock('styled-components')
 
 const testHTML = `<main><p>ArbeitnehmerInnen in Quarant&#228;ne haben nicht zwangsl&#228;ufig frei.</p>\n<p>tun21033101</p>\n
   <h1><a href='https://tunewsinternational.com/category/corona-deutsch/'>Aktuelle Informationen zu Corona: Hier klicken</a></h1>\n</main>\n`

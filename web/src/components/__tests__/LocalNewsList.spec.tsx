@@ -58,6 +58,6 @@ describe('LocalNewsList', () => {
     ).dive()
 
     const noItemsMessage = localNewsList.text()
-    expect(noItemsMessage).toEqual('No items')
+    expect(noItemsMessage).toBe('No items')
   })
 })

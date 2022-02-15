@@ -155,7 +155,6 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
           <SiteHelpfulBox
             backgroundColor={theme.colors.backgroundColor}
             navigateToFeedback={createNavigateToFeedbackForPoi(poi)}
-            theme={theme}
           />
         </ScrollView>
       )
@@ -206,11 +205,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
             theme={theme}
           />
         )}
-        <SiteHelpfulBox
-          backgroundColor={theme.colors.backgroundColor}
-          navigateToFeedback={navigateToFeedbackForPois}
-          theme={theme}
-        />
+        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedbackForPois} />
       </BottomActionsSheet>
     </ScrollView>
   )

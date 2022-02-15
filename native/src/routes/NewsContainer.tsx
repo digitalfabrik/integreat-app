@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType } from 'api-client'
 
-import LayoutContainer from '../components/LayoutContainer'
+import Layout from '../components/Layout'
 import NewsHeader from '../components/NewsHeader'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useCities from '../hooks/useCities'
@@ -49,7 +49,7 @@ const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement
   )
 
   if (!cityModel) {
-    return <LayoutContainer />
+    return <Layout />
   }
 
   const navigateToNews = (newsType: NewsType) => {
@@ -71,7 +71,7 @@ const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement
   }
 
   return (
-    <LayoutContainer>
+    <Layout>
       <NewsHeader selectedNewsType={newsType} cityModel={cityModel} navigateToNews={navigateToNews} />
       {isLocalNews ? (
         <LocalNews newsId={newsId} selectNews={setNewsId} cityModel={cityModel} language={selectedLanguage} />
@@ -84,7 +84,7 @@ const NewsContainer = ({ route, navigation }: NavigationPropsType): ReactElement
           changeUnavailableLanguage={changeUnavailableLanguage}
         />
       )}
-    </LayoutContainer>
+    </Layout>
   )
 }
 

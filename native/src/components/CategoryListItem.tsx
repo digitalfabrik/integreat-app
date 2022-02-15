@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { ReactNode } from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
@@ -23,7 +22,6 @@ const FlexStyledLink = styled(StyledLink)`
 type DirectionContainerPropsType = {
   language: string
   children: React.ReactNode
-  theme: ThemeType
 }
 const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
@@ -31,7 +29,7 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
 `
 const CategoryEntryContainer = styled.View<{ language: string }>`
   flex: 1;
-  flex-direction: ${props => contentDirection(props.language)};
+  flex-direction: column;
   align-self: center;
   padding: 15px 5px;
   border-bottom-width: 2px;
@@ -65,16 +63,21 @@ type PropsType = {
  * Displays a single CategoryListItem
  */
 
-class CategoryListItem extends React.Component<PropsType> {
-  contentMatcher = new ContentMatcher()
-  onCategoryPress = (): void => {
-    const { onItemPress, category } = this.props
+const CategoryListItem = ({
+  language,
+  subCategories,
+  onItemPress,
+  query,
+  category,
+  theme
+}: PropsType): React.ReactElement => {
+  const contentMatcher = new ContentMatcher()
+  const onCategoryPress = (): void => {
     onItemPress(category)
   }
 
-  renderSubCategories(): Array<React.ReactNode> {
-    const { language, subCategories, theme, onItemPress } = this.props
-    return subCategories.map(subCategory => (
+  const renderSubCategories = () =>
+    subCategories.map(subCategory => (
       <SubCategoryListItem
         key={subCategory.path}
         subCategory={subCategory}
@@ -83,15 +86,9 @@ class CategoryListItem extends React.Component<PropsType> {
         theme={theme}
       />
     ))
-  }
 
-  getMatchedContent(numWordsSurrounding: number): ReactNode {
-    const { query, theme, category } = this.props
-    const textToHighlight = this.contentMatcher.getMatchedContent(
-      query,
-      category.contentWithoutHtml,
-      numWordsSurrounding
-    )
+  const getMatchedContent = (numWordsSurrounding: number) => {
+    const textToHighlight = contentMatcher.getMatchedContent(query, category.contentWithoutHtml, numWordsSurrounding)
 
     if (textToHighlight === null || !query) {
       return null
@@ -111,39 +108,33 @@ class CategoryListItem extends React.Component<PropsType> {
     )
   }
 
-  renderTitle(): ReactNode {
-    const { query, category, language } = this.props
-    return (
-      <CategoryEntryContainer language={language}>
-        <CategoryTitle
-          language={language}
-          autoEscape
-          textToHighlight={category.title}
-          sanitize={normalizeSearchString}
-          searchWords={query ? [query] : []}
-          highlightStyle={{
-            fontWeight: 'bold'
-          }}
-        />
-        {this.getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
-      </CategoryEntryContainer>
-    )
-  }
+  const renderTitle = () => (
+    <CategoryEntryContainer language={language}>
+      <CategoryTitle
+        language={language}
+        autoEscape
+        textToHighlight={category.title}
+        sanitize={normalizeSearchString}
+        searchWords={query ? [query] : []}
+        highlightStyle={{
+          fontWeight: 'bold'
+        }}
+      />
+      {getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
+    </CategoryEntryContainer>
+  )
 
-  render(): ReactNode {
-    const { language, category, theme } = this.props
-    return (
-      <>
-        <FlexStyledLink onPress={this.onCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
-          <DirectionContainer language={language}>
-            <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
-            {this.renderTitle()}
-          </DirectionContainer>
-        </FlexStyledLink>
-        {this.renderSubCategories()}
-      </>
-    )
-  }
+  return (
+    <>
+      <FlexStyledLink onPress={onCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
+        <DirectionContainer language={language}>
+          <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
+          {renderTitle()}
+        </DirectionContainer>
+      </FlexStyledLink>
+      {renderSubCategories()}
+    </>
+  )
 }
 
 export default CategoryListItem

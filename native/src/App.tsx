@@ -17,7 +17,7 @@ import I18nProvider from './components/I18nProvider'
 import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
-import StatusBarContainer from './components/StatusBarContainer'
+import StatusBar from './components/StatusBar'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
@@ -27,7 +27,7 @@ import { StoreActionType } from './redux/StoreActionType'
 import createReduxStore from './redux/createReduxStore'
 import { DataContainer } from './utils/DataContainer'
 import DefaultDataContainer from './utils/DefaultDataContainer'
-import { initializePushNotificationListener } from './utils/PushNotificationsManager'
+import { backgroundAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
@@ -55,7 +55,7 @@ const linking: LinkingOptions<RoutesParamsType> = {
       }
     ]
   }),
-  subscribe: initializePushNotificationListener
+  subscribe: backgroundAppStatePushNotificationListener
 }
 const dataContainer: DataContainer = new DefaultDataContainer()
 const store: Store<StateType, StoreActionType> = createReduxStore(dataContainer)
@@ -95,7 +95,7 @@ const App = (): ReactElement => {
           <I18nProvider>
             <SafeAreaProvider>
               <>
-                <StatusBarContainer />
+                <StatusBar />
                 <IOSSafeAreaView>
                   <NavigationContainer onStateChange={onStateChange} linking={linking}>
                     <OverflowMenuProvider>

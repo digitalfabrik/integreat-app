@@ -33,11 +33,11 @@ describe('config', () => {
 
   describe('getLanguageTagIfSupported', () => {
     it('should get language tag if directly supported', () => {
-      expect(config.getLanguageTagIfSupported('sr-Cyrl')).toStrictEqual('sr-Cyrl')
+      expect(config.getLanguageTagIfSupported('sr-Cyrl')).toBe('sr-Cyrl')
     })
 
     it('should get language tag if directly supported with a fallback', () => {
-      expect(config.getLanguageTagIfSupported('fa-AF')).toStrictEqual('prs')
+      expect(config.getLanguageTagIfSupported('fa-AF')).toBe('prs')
     })
 
     it('should return undefined if not supported', () => {

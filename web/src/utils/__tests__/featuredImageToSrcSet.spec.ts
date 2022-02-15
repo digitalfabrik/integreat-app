@@ -15,6 +15,6 @@ describe('featuredImageToSrcSet', () => {
       20
     )
 
-    expect(srcSet).toEqual('thumbnail%20 0.5x, medium 1x, large 1.5x, full 2x')
+    expect(srcSet).toBe('thumbnail%20 0.5x, medium 1x, large 1.5x, full 2x')
   })
 })
