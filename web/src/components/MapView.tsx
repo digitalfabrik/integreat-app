@@ -2,7 +2,6 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useEffect, useState } from 'react'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
-import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
@@ -15,9 +14,7 @@ import {
   mapMarker
 } from 'api-client'
 
-import { getSnapPoints } from '../utils/getSnapPoints'
-
-// Workaround since nothing is rendered if height is set to 100% 
+// Workaround since nothing is rendered if height is set to 100%
 const MapContainer = styled.div`
   ${`height: calc(100vh - 190px);`}
   width: 100%;
@@ -53,11 +50,11 @@ type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: PoiFeatureCollection | null
   currentFeature: PoiFeature | null
-  setCurrentFeature: (feature: PoiFeature | null) => void
+  selectFeature: (feature: PoiFeature | null, snapPoint?: number) => void
 }
 
-const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<BottomSheetRef>): ReactElement => {
-  const { featureCollection, bboxViewport, setCurrentFeature } = props
+const MapView = (props: MapViewProps): ReactElement => {
+  const { featureCollection, bboxViewport, selectFeature } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const queryLocation = new URLSearchParams(useLocation().search).get(locationName)
 
@@ -72,45 +69,44 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<BottomShee
           latitude: geometry.coordinates[1]!,
           zoom: detailZoom
         }))
-        setCurrentFeature(currentFeature)
+        selectFeature(currentFeature)
       }
     }
   }, [featureCollection, queryLocation])
 
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
-      // @ts-ignore BottomSheetRef does not provide current
-      ref?.current.snapTo(({ maxHeight }: { maxHeight: number }) => getSnapPoints(maxHeight)[1])
-      setCurrentFeature(e.features[0])
+      selectFeature(e.features[0], 1)
     } else {
-      setCurrentFeature(null)
+      selectFeature(null)
     }
   }
 
   return (
     <MapContainer>
       <ReactMapGL
-        interactiveLayerIds={[layerStyle.id!]}
+        interactiveLayerIds={featureCollection ? [layerStyle.id!] : undefined}
         {...viewport}
         height='100%'
         width='100%'
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={clickItem}
-        // @ts-ignore BottomSheetRef does not provide current
-        onTouchMove={() => ref?.current.snapTo(({ maxHeight }: { maxHeight: number }) => getSnapPoints(maxHeight)[0])}>
+        onTouchMove={() => selectFeature(null, 0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
         />
-        <Source id='location-pois' type='geojson' data={featureCollection!}>
-          <Layer {...layerStyle} />
-        </Source>
+        {featureCollection && (
+          <Source id='location-pois' type='geojson' data={featureCollection}>
+            <Layer {...layerStyle} />
+          </Source>
+        )}
       </ReactMapGL>
     </MapContainer>
   )
-})
+}
 
 export default MapView

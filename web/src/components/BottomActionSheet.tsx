@@ -12,10 +12,11 @@ const ListContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 1.25rem;
+  font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 type BottomActionSheetProps = {
-  title: string
+  title?: string
   children: ReactNode
 }
 
@@ -25,7 +26,7 @@ const BottomActionSheet = React.forwardRef(
       ref={ref}
       open
       blocking={false}
-      header={<Title>{title}</Title>}
+      header={title && <Title>{title}</Title>}
       snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
       defaultSnap={({ snapPoints }) => snapPoints[1]!}>
       <ListContainer>{children}</ListContainer>
