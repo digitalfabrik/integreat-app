@@ -1,6 +1,8 @@
+import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Platform, Text } from 'react-native'
+import { useDispatch } from 'react-redux'
 
 import {
   CATEGORIES_ROUTE,
@@ -26,7 +28,7 @@ import {
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
-} from 'api-client/src/routes'
+} from 'api-client'
 
 import HeaderContainer from './components/HeaderContainer'
 import RedirectContainer from './components/RedirectContainer'
@@ -55,6 +57,7 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import SprungbrettOfferContainer from './routes/SprungbrettOfferContainer'
 import appSettings from './utils/AppSettings'
+import { quitAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import { initSentry, log } from './utils/sentry'
 
 type HeaderProps = {
@@ -93,10 +96,16 @@ const Navigator = (props: PropsType): ReactElement | null => {
   })
   const previousRouteKey = useRef<string | null | undefined>(null)
   const { fetchCities, fetchCategory, routeKey, routeName } = props
+  const navigation = useNavigation() as NavigationPropType<RoutesType>
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchCities(false)
   }, [fetchCities])
+
+  useEffect(() => {
+    quitAppStatePushNotificationListener(dispatch, navigation)
+  }, [dispatch, navigation])
 
   useEffect(() => {
     const initialize = async () => {
@@ -211,7 +220,9 @@ const Navigator = (props: PropsType): ReactElement | null => {
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
-        <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        {buildConfig().featureFlags.cityNotCooperating && (
+          <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        )}
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: settingsHeader }}>

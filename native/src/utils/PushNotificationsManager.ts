@@ -1,9 +1,12 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { Linking } from 'react-native'
+import { Dispatch } from 'redux'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE } from 'api-client'
 
+import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
+import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import urlFromRouteInformation from '../navigation/url'
 import appSettings from './AppSettings'
 import { log, reportError } from './sentry'
@@ -62,7 +65,30 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   log(`Subscribed to ${topic} topic!`)
 }
 
-export const initializePushNotificationListener = (listener: (url: string) => void): (() => void) | void => {
+export const quitAppStatePushNotificationListener = async (
+  dispatch: Dispatch,
+  navigation: NavigationPropType<RoutesType>
+): Promise<void> => {
+  const messaging = await importFirebaseMessaging()
+  const message = await messaging().getInitialNotification()
+
+  if (message) {
+    // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
+    const settings = await appSettings.loadSettings()
+    const { selectedCity, contentLanguage } = settings
+    if (selectedCity && contentLanguage) {
+      const url = urlFromRouteInformation({
+        cityCode: selectedCity,
+        languageCode: contentLanguage,
+        newsType: LOCAL_NEWS_TYPE,
+        route: NEWS_ROUTE
+      })
+      navigateToDeepLink(dispatch, navigation, url, contentLanguage)
+    }
+  }
+}
+
+export const backgroundAppStatePushNotificationListener = (listener: (url: string) => void): (() => void) | void => {
   if (pushNotificationsEnabled()) {
     importFirebaseMessaging()
       .then(messaging => {
@@ -70,8 +96,8 @@ export const initializePushNotificationListener = (listener: (url: string) => vo
 
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
-        // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
         const unsubscribeNotification = messaging().onNotificationOpenedApp(() => {
+          // TODO IGAPP-263: Temporary workaround until cityCode, languageCode and newsId are part of the push notifications
           appSettings.loadSettings().then(settings => {
             const { selectedCity, contentLanguage } = settings
             if (selectedCity && contentLanguage) {
