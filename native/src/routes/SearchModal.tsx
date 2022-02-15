@@ -186,7 +186,6 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             categories={filteredCategories}
             query={query}
             onItemPress={this.onItemPress}
-            theme={theme}
             language={language}
           />
         </View>

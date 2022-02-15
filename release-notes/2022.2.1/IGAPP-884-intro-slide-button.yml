@@ -1,0 +1,7 @@
+issue_key: IGAPP-884
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Fixed the position of a button on the intro slides.
+de: Die Position eines Buttons auf den Intro Slides wurde behoben.

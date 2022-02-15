@@ -6,6 +6,7 @@ import { openSettings, RESULTS } from 'react-native-permissions'
 
 import CityModelBuilder from 'api-client/src/testing/CityModelBuilder'
 
+import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'
 import { checkLocationPermission, requestLocationPermission } from '../../utils/LocationPermissionManager'
 import Landing from '../Landing'
@@ -18,6 +19,7 @@ jest.mock('../../utils/LocationPermissionManager', () => ({
   requestLocationPermission: jest.fn()
 }))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
+
 jest.mock('@react-native-community/geolocation')
 
 const mockCheckLocationPermission = mocked(checkLocationPermission)
@@ -46,6 +48,14 @@ describe('Landing', () => {
     },
     timestamp: 1234566789
   }
+  const mockedBuildConfig = mocked(buildConfig)
+  const mockBuildConfig = (cityNotCooperating: boolean) => {
+    const previous = buildConfig()
+    mockedBuildConfig.mockImplementation(() => ({
+      ...previous,
+      featureFlags: { ...previous.featureFlags, cityNotCooperating }
+    }))
+  }
 
   const renderLanding = (): RenderAPI =>
     render(
@@ -69,14 +79,23 @@ describe('Landing', () => {
     expect(queryByText('Oldtown')).toBeFalsy()
   })
 
-  it('should show footer', () => {
+  it('should show footer if enabled', () => {
+    mockBuildConfig(true)
     mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
     const { getByText } = renderLanding()
     expect(getByText('cityNotFound')).toBeTruthy()
     expect(getByText('clickHere')).toBeTruthy()
   })
 
+  it('should not show footer if disabled', () => {
+    mockBuildConfig(false)
+    mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
+    const { queryByText } = renderLanding()
+    expect(queryByText('cityNotFound')).toBeNull()
+  })
+
   it('should navigate to cityNotCooperating page on button click', () => {
+    mockBuildConfig(true)
     mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
     const { getByText } = renderLanding()
     const button = getByText('clickHere')

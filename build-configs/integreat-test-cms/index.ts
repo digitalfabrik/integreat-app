@@ -5,6 +5,7 @@ import {
   WebBuildConfigType
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
+import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
 
 const integreatTestCms = {
   appName: 'IntegreatTestCms',
@@ -20,7 +21,7 @@ const integreatTestCms = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    recommendToCityIfNotCooperating: true
+    cityNotCooperatingTemplate
   }
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

@@ -8,6 +8,7 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 
 import Navigator from '../Navigator'
 import appSettings from '../utils/AppSettings'
+import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../utils/sentry')
@@ -110,8 +111,10 @@ jest.mock('../components/TransparentHeader', () => {
   return () => <Text>TransparentHeader</Text>
 })
 jest.mock('../utils/PushNotificationsManager', () => ({
-  pushNotificationsSupported: jest.fn(() => true)
+  pushNotificationsSupported: jest.fn(() => true),
+  quitAppStatePushNotificationListener: jest.fn()
 }))
+jest.mock('react-redux')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
@@ -224,5 +227,23 @@ describe('Navigator', () => {
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
     })
+  })
+
+  it('should listen for push notification press in quit state', async () => {
+    await appSettings.setSelectedCity(cityCode)
+    await appSettings.setContentLanguage(languageCode)
+    await appSettings.setIntroShown()
+    const { findByText } = render(
+      <NavigationContainer>
+        <Navigator
+          {...props({
+            routeName: null
+          })}
+        />
+      </NavigationContainer>
+    )
+
+    await findByText('Dashboard')
+    expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })
