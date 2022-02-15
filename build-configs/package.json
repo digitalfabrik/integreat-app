@@ -17,6 +17,7 @@
     "manage": "ts-node tools/manage.ts",
     "ts:check": "tsc --build",
     "lint": "yarn run eslint .",
+    "lint:changed": "eslint . -c ../.eslintrc_changed.js",
     "lint:fix": "yarn run eslint --fix",
     "lint:ci": "yarn run eslint --quiet --format junit -o reports/lint/junit-lint.xml"
   }
