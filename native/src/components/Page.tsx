@@ -4,8 +4,6 @@ import * as React from 'react'
 import { ReactElement, useCallback, useContext, useState } from 'react'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
@@ -24,7 +22,6 @@ export type ParsedCacheDictionaryType = Record<string, string>
 type PropsType = {
   title: string
   content: string
-  theme: ThemeType
   navigateToFeedback?: (positive: boolean) => void
   files: PageResourceCacheStateType
   children?: React.ReactNode
@@ -44,7 +41,6 @@ const Page = ({
   title,
   children,
   content,
-  theme,
   language,
   resourceCacheUrl,
   lastUpdate,
@@ -69,7 +65,6 @@ const Page = ({
         <Caption title={title} />
         {children}
         <RemoteContent
-          theme={theme}
           content={content}
           cacheDirectory={cacheDict}
           onLinkPress={onLinkPress}

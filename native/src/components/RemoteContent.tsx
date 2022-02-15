@@ -2,9 +2,9 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Text, useWindowDimensions } from 'react-native'
 import WebView, { WebViewMessageEvent } from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
+import { useTheme } from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import dimensions from '../constants/dimensions'
 import { userAgent } from '../constants/endpoint'
@@ -26,7 +26,6 @@ export const renderWebviewError = (
 
 type PropType = {
   content: string
-  theme: ThemeType
   cacheDirectory: ParsedCacheDictionaryType
   language: string
   resourceCacheUrl: string
@@ -35,7 +34,8 @@ type PropType = {
 }
 
 const RemoteContent = (props: PropType): ReactElement | null => {
-  const { onLoad, content, cacheDirectory, theme, resourceCacheUrl, language, onLinkPress } = props
+  const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress } = props
+  const theme = useTheme()
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
   const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)

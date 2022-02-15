@@ -1,10 +1,7 @@
 import { mapValues } from 'lodash'
 import { Moment } from 'moment'
 import * as React from 'react'
-import { ReactNode } from 'react'
-import styled from 'styled-components/native'
-
-import { ThemeType } from 'build-configs'
+import styled, { useTheme } from 'styled-components/native'
 
 import { PageResourceCacheEntryStateType, PageResourceCacheStateType } from '../redux/StateType'
 import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
@@ -36,7 +33,6 @@ type PropsType = {
 
   /** A search query to highlight in the categories titles */
   query?: string
-  theme: ThemeType
   onItemPress: (tile: CategoryListModelType) => void
   language: string
   thumbnail?: string
@@ -52,9 +48,18 @@ const CategoryThumbnail = styled(SimpleImage)`
  * Displays a ContentList which is a list of categories, a caption and a thumbnail
  */
 
-class CategoryList extends React.Component<PropsType> {
-  getListContent(listContent: ListContentModelType): React.ReactNode {
-    const { language } = this.props
+const CategoryList = ({
+  categories,
+  title,
+  listContent,
+  query,
+  onItemPress,
+  language,
+  thumbnail
+}: PropsType): React.ReactElement => {
+  const theme = useTheme()
+
+  const getListContent = (listContent: ListContentModelType) => {
     const cacheDictionary = mapValues(listContent.files, (file: PageResourceCacheEntryStateType) =>
       file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
         ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, listContent.resourceCacheUrl)
@@ -70,27 +75,24 @@ class CategoryList extends React.Component<PropsType> {
     )
   }
 
-  render(): ReactNode {
-    const { categories, title, listContent, query, theme, onItemPress, language, thumbnail } = this.props
-    return (
-      <>
-        {thumbnail && <CategoryThumbnail source={thumbnail} />}
-        {title && <CategoryListCaption title={title} theme={theme} withThumbnail={!!thumbnail} />}
-        {listContent && this.getListContent(listContent)}
-        {categories.map(({ model, subCategories }) => (
-          <CategoryListItem
-            key={model.path}
-            category={model}
-            language={language}
-            subCategories={subCategories}
-            query={query}
-            theme={theme}
-            onItemPress={onItemPress}
-          />
-        ))}
-      </>
-    )
-  }
+  return (
+    <>
+      {thumbnail && <CategoryThumbnail source={thumbnail} />}
+      {title && <CategoryListCaption title={title} withThumbnail={!!thumbnail} />}
+      {listContent && getListContent(listContent)}
+      {categories.map(({ model, subCategories }) => (
+        <CategoryListItem
+          key={model.path}
+          category={model}
+          language={language}
+          subCategories={subCategories}
+          query={query}
+          theme={theme}
+          onItemPress={onItemPress}
+        />
+      ))}
+    </>
+  )
 }
 
 export default CategoryList
