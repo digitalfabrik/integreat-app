@@ -17,7 +17,7 @@ import {
 
 import { getSnapPoints } from '../utils/getSnapPoints'
 
-// TODO refactor height
+// Workaround since nothing is rendered if height is set to 100% 
 const MapContainer = styled.div`
   ${`height: calc(100vh - 190px);`}
   width: 100%;
