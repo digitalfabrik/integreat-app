@@ -28,7 +28,7 @@ const mockGeolocation = {
     )
   )
 }
-// @ts-ignore -- ignore readOnly var
+// @ts-expect-error -- ignore readOnly var
 navigator.geolocation = mockGeolocation
 
 describe('PoisPage', () => {
