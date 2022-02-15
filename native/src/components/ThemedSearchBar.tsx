@@ -32,7 +32,7 @@ const ThemedSearchBar = ({ theme: { colors }, onChangeText, value, autofocus, t 
     inputStyle={{
       backgroundColor: colors.backgroundColor
     }}
-    // @ts-ignore on change text is currently not typed correctly
+    // @ts-expect-error on change text is currently not typed correctly
     onChangeText={onChangeText}
     value={value}
     autoFocus={autofocus}

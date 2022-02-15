@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 
 import { ThemeType } from 'build-configs/ThemeType'
 
-import CityIcon from '../assets/cityNotCooperating.svg'
+import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const FooterContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -37,9 +37,14 @@ type PropsType = {
 
 const CityNotCooperatingFooter = ({ navigateToCityNotCooperating, theme }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
+
+  if (!buildConfig().featureFlags.cityNotCooperating) {
+    return <></>
+  }
+
   return (
     <FooterContainer>
-      <Icon source={CityIcon} />
+      <Icon source={buildConfigAssets().cityNotCooperatingIcon!} />
       <Question>{t('cityNotFound')}</Question>
       <ButtonContainer>
         <Button

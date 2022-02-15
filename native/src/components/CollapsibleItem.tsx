@@ -1,4 +1,3 @@
-// @ts-ignore already opened a pr to fix the missing module declaration https://github.com/marouanekadiri/Accordion-Collapse-react-native/issues/31
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'

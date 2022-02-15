@@ -97,7 +97,7 @@ describe('Dashboard', () => {
   it('should show navigation tiles if there are is at least one feature enabled', () => {
     const cityModel = createCityModel(true, false, false, false, false)
     const result = renderDashboard(cityModel)
-    expect(() => result.root.findByType(NavigationTiles)).not.toThrowError()
+    expect(() => result.root.findByType(NavigationTiles)).not.toThrow()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'events')).toBeTruthy()
   })
@@ -105,7 +105,7 @@ describe('Dashboard', () => {
   it('should not show navigation tiles if there are no features enabled', () => {
     const cityModel = createCityModel(false, false, false, false, false)
     const result = renderDashboard(cityModel)
-    expect(() => result.root.findByType(NavigationTiles)).toThrowError()
+    expect(() => result.root.findByType(NavigationTiles)).toThrow()
   })
 
   it('should show news tile if at least one news feature is enabled', () => {
@@ -124,7 +124,7 @@ describe('Dashboard', () => {
     mockBuildConfig(true, true)
     const cityModel = createCityModel(true, true, true, true, true)
     const result = renderDashboard(cityModel)
-    expect(() => result.root.findByType(NavigationTiles)).not.toThrowError()
+    expect(() => result.root.findByType(NavigationTiles)).not.toThrow()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles).toHaveLength(4)
   })
@@ -133,7 +133,7 @@ describe('Dashboard', () => {
     mockBuildConfig(false, false)
     const cityModel = createCityModel(true, true, true, true, true)
     const result = renderDashboard(cityModel)
-    expect(() => result.root.findByType(NavigationTiles)).not.toThrowError()
+    expect(() => result.root.findByType(NavigationTiles)).not.toThrow()
     const navigationTiles = result.root.findByType(NavigationTiles)
     expect(navigationTiles.props.tiles).toHaveLength(2)
     expect(navigationTiles.props.tiles.some((tile: TileModel) => tile.path === 'news')).toBeFalsy()

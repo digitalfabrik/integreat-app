@@ -46,6 +46,6 @@ describe('determineApiUrl', () => {
   it('should return the overrideApiUrl if it is set', async () => {
     appSettings.setApiUrlOverride('https://super-cool-override-cms.url.com')
     const apiUrl = await determineApiUrl()
-    expect(apiUrl).toEqual('https://super-cool-override-cms.url.com')
+    expect(apiUrl).toBe('https://super-cool-override-cms.url.com')
   })
 })

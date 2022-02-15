@@ -63,7 +63,7 @@ const NewsListItem = ({ title, content, timestamp, formatter, t, type, link }: P
       <Link to={link}>
         <Description>
           <Title>{title}</Title>
-          <Body>{textTruncator(content, NUM_OF_CHARS_ALLOWED, false)}</Body>
+          <Body>{textTruncator(content.trim(), NUM_OF_CHARS_ALLOWED, false)}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} formatter={formatter} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
