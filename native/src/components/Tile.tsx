@@ -3,15 +3,12 @@ import { ReactNode } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 
-import { ThemeType } from 'build-configs'
-
 import TileModel from '../models/TileModel'
 import SimpleImage from './SimpleImage'
 
 type PropsType = {
   tile: TileModel
   onTilePress: (tile: TileModel) => void
-  theme: ThemeType
 }
 const ThumbnailContainer = styled(SimpleImage)`
   height: 150px;
@@ -37,13 +34,13 @@ class Tile extends React.Component<PropsType> {
   }
 
   render(): ReactNode {
-    const { tile, theme } = this.props
+    const { tile } = this.props
 
     return (
       <TileContainer>
         <TouchableOpacity onPress={this.onTilePress}>
           <ThumbnailContainer source={tile.thumbnail} />
-          <TileTitle theme={theme}>{tile.title}</TileTitle>
+          <TileTitle>{tile.title}</TileTitle>
         </TouchableOpacity>
       </TileContainer>
     )
