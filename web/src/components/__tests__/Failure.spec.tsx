@@ -8,7 +8,7 @@ describe('Failure', () => {
 
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
-    const { getByText } = renderWithRouter(<Failure errorMessage={errorMessage} t={mockTranslate} />)
+    const { getByText } = renderWithRouter(<Failure errorMessage={errorMessage} goToPath='/' t={mockTranslate} />)
 
     const link = getByText('goTo.start')
     expect(link.closest('a')).toHaveAttribute('href', '/')

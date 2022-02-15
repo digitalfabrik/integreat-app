@@ -1,0 +1,6 @@
+issue_key: IGAPP-867
+show_in_stores: false
+platforms:
+  - web
+en: The hint text for "no search results" now supports screenreaders and is also shown in city search.
+de: Der Hinweistext für "Keine Suchergebnisse" unterstützt jetzt Screenreader und wird auch in der Stadtsuche angezeigt.

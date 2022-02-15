@@ -1,7 +1,6 @@
 import React, { ReactElement, useCallback } from 'react'
 import { RefreshControl } from 'react-native'
 import { useSelector } from 'react-redux'
-import { useTheme } from 'styled-components'
 
 import {
   createDisclaimerEndpoint,
@@ -31,7 +30,6 @@ type PropsType = {
 const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => {
   const { cityCode, languageCode } = route.params
   const resourceCacheUrl = useSelector<StateType, string | null>(state => state.resourceCacheUrl)
-  const theme = useTheme()
 
   const routeInformation = { route: DISCLAIMER_ROUTE, languageCode, cityCode }
   useSetShareUrl({ navigation, routeInformation, route })
@@ -67,9 +65,9 @@ const DisclaimerContainer = ({ navigation, route }: PropsType): ReactElement => 
   return (
     <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={loading} />}>
       {disclaimer && resourceCacheUrl && (
-        <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} theme={theme} language={languageCode} />
+        <Disclaimer resourceCacheUrl={resourceCacheUrl} disclaimer={disclaimer} language={languageCode} />
       )}
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
     </LayoutedScrollView>
   )
 }

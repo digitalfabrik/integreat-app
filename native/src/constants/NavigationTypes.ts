@@ -41,7 +41,9 @@ import {
   CHANGE_LANGUAGE_MODAL_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
-  FEEDBACK_MODAL_ROUTE
+  FEEDBACK_MODAL_ROUTE,
+  CITY_NOT_COOPERATING_ROUTE,
+  CityNotCooperatingRouteType
 } from 'api-client'
 
 import { FeedbackInformationType } from '../components/FeedbackContainer'
@@ -51,6 +53,7 @@ export type RoutesType =
   | JpalTrackingRouteType
   | IntroRouteType
   | LandingRouteType
+  | CityNotCooperatingRouteType
   | DashboardRouteType
   | CategoriesRouteType
   | PoisRouteType
@@ -87,6 +90,7 @@ export type RoutesParamsType = {
     deepLink?: string
   }
   [LANDING_ROUTE]: undefined
+  [CITY_NOT_COOPERATING_ROUTE]: undefined
   [DASHBOARD_ROUTE]: BasicParams
   [CATEGORIES_ROUTE]: BasicParams
   [POIS_ROUTE]: BasicParams & {

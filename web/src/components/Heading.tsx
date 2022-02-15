@@ -20,7 +20,8 @@ const Heading = (): ReactElement => {
       throw new Error('This error was thrown for testing purposes.')
     }
   }
-
+  // Disable a11y linting since it is a hidden dev tool
+  // eslint-disable-next-line styled-components-a11y/click-events-have-key-events,styled-components-a11y/no-noninteractive-element-interactions
   return <Logo src={buildConfig().icons.locationMarker} alt='' onClick={increment} />
 }
 

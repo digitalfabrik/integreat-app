@@ -19,19 +19,23 @@ export type FixedCityType =
       fixedCity: null
     }
 export type FeatureFlagsType = FixedCityType & {
-  pois: boolean
+  // Whether the build should be floss. If set to true, proprietary libraries and features like firebase are stripped.
+  floss: boolean
   // Enables POIs and maps, can be disabled via our api on a per city basis.
-  newsStream: boolean
+  pois: boolean
   // Enables local news and tünews, can be disabled via our api on a per city basis.
-  pushNotifications: boolean
+  newsStream: boolean
   // Enables firebase push notifications, can be disabled by users.
-  jpalTracking: boolean
+  pushNotifications: boolean
   // Enables tracking campaign for the jpal evaluation.
-  sentry: boolean
+  jpalTracking: boolean
   // Enables error tracking to sentry, can be disabled by users.
-  developerFriendly: boolean // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
-  // Enables the option for users to suggest Integreat to their city
-  recommendToCityIfNotCooperating: boolean
+  sentry: boolean
+  // Enables additional debugging output for devs (i18n, redux, hidden cities, version).
+  developerFriendly: boolean
+  // Enables the option for users to suggest Integreat to their city and uses this template for the suggestion
+  cityNotCooperating?: boolean
+  cityNotCooperatingTemplate: string | null
 }
 // Available on all platforms
 export type CommonBuildConfigType = {
@@ -77,6 +81,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
   icons: {
     appLogo: string
     locationMarker?: string
+    cityNotCooperating?: string
     appleTouchIcon: string
     socialMediaPreview: string
     favicons: string
@@ -112,7 +117,7 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
   // Shows the app icon as splash screen on app start.
   applicationId: string
   // Android application identifier.
-  googleServices: AndroidGoogleServicesConfigType | null | undefined
+  googleServices: AndroidGoogleServicesConfigType | null
 }
 // Firebase config for iOS
 // These values can be retrieved from the GoogleService-Info.plist.

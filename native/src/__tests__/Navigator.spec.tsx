@@ -8,11 +8,13 @@ import { DASHBOARD_ROUTE } from 'api-client/src/routes'
 
 import Navigator from '../Navigator'
 import appSettings from '../utils/AppSettings'
+import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
 import { generateRouteKey } from '../utils/helpers'
 
 jest.mock('../utils/sentry')
 jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
@@ -28,7 +30,7 @@ jest.mock('../routes/DashboardContainer', () => {
 
   return () => <Text>Dashboard</Text>
 })
-jest.mock('../routes/SettingsContainer', () => {
+jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native')
 
   return () => <Text>Settings</Text>
@@ -53,7 +55,7 @@ jest.mock('../routes/NewsContainer', () => {
 
   return () => <Text>News</Text>
 })
-jest.mock('../routes/ChangeLanguageModalContainer', () => {
+jest.mock('../routes/ChangeLanguageModal', () => {
   const { Text } = require('react-native')
 
   return () => <Text>ChangeLanguage</Text>
@@ -109,8 +111,10 @@ jest.mock('../components/TransparentHeader', () => {
   return () => <Text>TransparentHeader</Text>
 })
 jest.mock('../utils/PushNotificationsManager', () => ({
-  pushNotificationsSupported: jest.fn(() => true)
+  pushNotificationsSupported: jest.fn(() => true),
+  quitAppStatePushNotificationListener: jest.fn()
 }))
+jest.mock('react-redux')
 
 const cityCode = 'augsburg'
 const languageCode = 'de'
@@ -223,5 +227,23 @@ describe('Navigator', () => {
       )
       await waitForExpect(() => expect(fetchCategory).toHaveBeenCalledWith(cityCode, languageCode, routeKey, false))
     })
+  })
+
+  it('should listen for push notification press in quit state', async () => {
+    await appSettings.setSelectedCity(cityCode)
+    await appSettings.setContentLanguage(languageCode)
+    await appSettings.setIntroShown()
+    const { findByText } = render(
+      <NavigationContainer>
+        <Navigator
+          {...props({
+            routeName: null
+          })}
+        />
+      </NavigationContainer>
+    )
+
+    await findByText('Dashboard')
+    expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
   })
 })

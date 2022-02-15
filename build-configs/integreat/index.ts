@@ -5,10 +5,12 @@ import {
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
+import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
 const APPLE_APP_ID = '1072353915'
+
 const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appName: 'Integreat',
   appIcon: 'app_icon_integreat',
@@ -21,6 +23,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   internalLinksHijackPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   featureFlags: {
+    floss: false,
     pois: false,
     newsStream: true,
     pushNotifications: true,
@@ -29,7 +32,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    recommendToCityIfNotCooperating: true
+    cityNotCooperatingTemplate
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
@@ -89,6 +92,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.png',
     locationMarker: '/location-marker.svg',
+    cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/'

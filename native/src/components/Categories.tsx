@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { ReactElement, useCallback } from 'react'
 import { View } from 'react-native'
-import { useTheme } from 'styled-components'
 
 import { CategoryModel, CityModel } from 'api-client'
 import { CATEGORIES_ROUTE } from 'api-client/src/routes'
@@ -41,8 +40,6 @@ const Categories = ({
   resourceCache,
   resourceCacheUrl
 }: PropsType): ReactElement => {
-  const theme = useTheme()
-
   const category = stateView.root()
   const children = stateView.children()
 
@@ -141,7 +138,6 @@ const Categories = ({
         title={category.title}
         content={category.content}
         lastUpdate={category.lastUpdate}
-        theme={theme}
         files={files}
         language={language}
         navigateToFeedback={navigateToFeedbackForCategory}
@@ -154,9 +150,9 @@ const Categories = ({
     return (
       <SpaceBetween>
         <View>
-          <Tiles tiles={getTileModels(children)} language={language} onTilePress={onTilePress} theme={theme} />
+          <Tiles tiles={getTileModels(children)} language={language} onTilePress={onTilePress} />
         </View>
-        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} theme={theme} />
+        <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
       </SpaceBetween>
     )
   }
@@ -179,10 +175,9 @@ const Categories = ({
           listContent={getListContentModel(category)}
           language={language}
           onItemPress={onItemPress}
-          theme={theme}
         />
       </View>
-      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} theme={theme} />
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedbackForCategory} />
     </SpaceBetween>
   )
 }

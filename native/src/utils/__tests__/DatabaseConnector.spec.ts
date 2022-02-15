@@ -55,7 +55,7 @@ describe('DatabaseConnector', () => {
   describe('storeCities', () => {
     it('should store the json file in the correct path', async () => {
       await databaseConnector.storeCities(testCities)
-      expect(BlobUtil.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('/cities.json'),
         expect.any(String),
         expect.any(String)
@@ -64,7 +64,7 @@ describe('DatabaseConnector', () => {
   })
   describe('loadCities', () => {
     it('should throw exception if cities are not persisted', async () => {
-      await expect(databaseConnector.loadCities()).rejects.toThrowError()
+      await expect(databaseConnector.loadCities()).rejects.toThrow()
     })
     it('should return a value that matches the one that was stored', async () => {
       await databaseConnector.storeCities(testCities)
@@ -85,11 +85,11 @@ describe('DatabaseConnector', () => {
     })
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
-      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
     it('should throw error if currentLanguage is null', async () => {
       const context = new DatabaseContext('tcc')
-      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
     it('should return a moment that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -103,17 +103,17 @@ describe('DatabaseConnector', () => {
     it('should throw error if currentCity in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
       const date = moment('2011-05-04T00:00:00.000Z')
-      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
     it('should throw error if currentLanguage in context is null', async () => {
       const context = new DatabaseContext('tcc')
       const date = moment('2011-05-04T00:00:00.000Z')
-      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
     it('should throw error if meta of city is null', async () => {
       const context = new DatabaseContext('tcc')
       const date = moment('2011-05-04T00:00:00.000Z')
-      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrowError()
+      await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
     it('should override multiple lastUpdates of the same context', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -129,7 +129,7 @@ describe('DatabaseConnector', () => {
       const date = moment('2011-05-04T00:00:00.000Z')
       await databaseConnector.storeLastUsage(context, false)
       await databaseConnector.storeLastUpdate(date, context)
-      expect(BlobUtil.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('cities-meta.json'),
         expect.any(String),
         expect.any(String)
@@ -153,7 +153,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeCategories(testCategoriesMap, context)
-      expect(BlobUtil.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/de/categories.json'),
         expect.any(String),
         expect.any(String)
@@ -163,7 +163,7 @@ describe('DatabaseConnector', () => {
   describe('loadCategories', () => {
     it('should throw error if categories are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await expect(databaseConnector.loadCategories(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadCategories(context)).rejects.toThrow()
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -189,7 +189,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeLanguages(testLanguages, context)
-      expect(BlobUtil.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/de/languages.json'),
         expect.any(String),
         expect.any(String)
@@ -199,7 +199,7 @@ describe('DatabaseConnector', () => {
   describe('loadLanguages', () => {
     it('should throw error if languages are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await expect(databaseConnector.loadLanguages(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadLanguages(context)).rejects.toThrow()
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -225,7 +225,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeEvents(testEvents, context)
-      expect(BlobUtil.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/de/events.json'),
         expect.any(String),
         expect.any(String)
@@ -235,7 +235,7 @@ describe('DatabaseConnector', () => {
   describe('loadEvents', () => {
     it('should throw error if events are not persisted', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      await expect(databaseConnector.loadEvents(context)).rejects.toThrowError()
+      await expect(databaseConnector.loadEvents(context)).rejects.toThrow()
     })
     it('should return a value that matches the one that was stored', async () => {
       const context = new DatabaseContext('tcc', 'de')
@@ -248,7 +248,7 @@ describe('DatabaseConnector', () => {
     it('should store the json file in the correct path', async () => {
       const context = new DatabaseContext('tcc', 'de')
       await databaseConnector.storeResourceCache(testResources, context)
-      expect(BlobUtil.fs.writeFile).toBeCalledWith(
+      expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
         expect.stringContaining('tcc/files.json'),
         expect.any(String),
         expect.any(String)

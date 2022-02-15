@@ -10,21 +10,16 @@ describe('NotFoundError', () => {
       city: 'augsburg',
       language: 'language'
     })
-    expect(error.message).toMatchSnapshot()
+    expect(error.message).toBe('The category /augsburg/de/test does not exist here.')
   })
   it('should produce a stacktrace', () => {
-    try {
-      throw new NotFoundError({
-        type: 'category',
-        id: '/augsburg/de/test',
-        city: 'augsburg',
-        language: 'language'
-      })
-    } catch (error: unknown) {
-      expect(error).toBeInstanceOf(Error)
-      expect((error as Error).stack).toMatch(new RegExp(`${escapeRegExp(__filename)}:\\d+:\\d+`))
-      /* Matches the first line
-                                                                                        in stack */
-    }
+    const error = new NotFoundError({
+      type: 'category',
+      id: '/augsburg/de/test',
+      city: 'augsburg',
+      language: 'language'
+    })
+    // Matches the first line in stack
+    expect((error as Error).stack).toMatch(new RegExp(`${escapeRegExp(__filename)}:\\d+:\\d+`))
   })
 })

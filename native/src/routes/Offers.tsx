@@ -3,7 +3,6 @@ import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 
 import { SPRUNGBRETT_OFFER_ROUTE, OfferModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
@@ -14,7 +13,6 @@ type PropsType = {
   offers: Array<OfferModel>
   navigateToFeedback: (isPositiveFeedback: boolean) => void
   navigateToOffer: (tile: TileModel) => void
-  theme: ThemeType
   t: TFunction
   language: string
 }
@@ -32,18 +30,12 @@ const toTileModels = (offer: Array<OfferModel>): Array<TileModel> =>
     })
   })
 
-const Offers = ({ offers, navigateToFeedback, navigateToOffer, theme, t, language }: PropsType): ReactElement => (
+const Offers = ({ offers, navigateToFeedback, navigateToOffer, t, language }: PropsType): ReactElement => (
   <SpaceBetween>
     <View>
-      <Tiles
-        title={t('offers')}
-        tiles={toTileModels(offers)}
-        onTilePress={navigateToOffer}
-        theme={theme}
-        language={language}
-      />
+      <Tiles title={t('offers')} tiles={toTileModels(offers)} onTilePress={navigateToOffer} language={language} />
     </View>
-    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} theme={theme} />
+    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
   </SpaceBetween>
 )
 

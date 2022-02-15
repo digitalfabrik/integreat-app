@@ -1,15 +1,15 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking, Text } from 'react-native'
+import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { PoiFeature, PoiModel } from 'api-client'
 
-import { mockContent } from '../__mocks__/poiCMSContent'
 import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
 import useSnackbar from '../hooks/useSnackbar'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
+import openExternalUrl from '../utils/openExternalUrl'
 import CollapsibleItem from './CollapsibleItem'
 import NativeHtml from './NativeHtml'
 import PoiDetailItem from './PoiDetailItem'
@@ -60,6 +60,23 @@ const PoiDetailsContainer = styled.View`
   flex: 1;
 `
 
+// TODO IGAPP-805 receive POI content from cms
+const mockContent = `<div id='cc-m-7871392056' class='j-module n j-text '><p>
+    <span style='font-size: 14px; color: #000000;'>Das Konzept, mit dem Sie, ohne Geld zu spenden, helfen können: Sicher haben Sie einiges zu Hause, was Sie nicht mehr brauchen. Geben Sie es
+    uns!</span>
+</p>
+
+<p >
+    <span style='font-size: 14px; color: #000000;'>Wir freuen uns über gespendete, gut erhaltene und saubere Kleidung, Bücher, Möbel, Hausrat, Elektrogeräte, Lampen usw. Wir machen auch
+    Haushaltsauflösungen.</span>
+</p>
+
+<p >
+    <span style='font-size: 14px; color: #000000;'>Mit den gespendeten Dingen schaffen wir günstige Einkaufsmöglichkeiten für sozial schwache und benachteiligte Menschen, aber auch für Leute, die
+    Spass an Second-Hand Waren haben und damit Umwelt und ihren Geldbeutel schonen wollen. Jeder, der bei uns einkauft, hilft uns, die Kosten zu decken und die Preise niedrig halten zu können. Nähere
+    Infos bei "<a href='/verein/' title='Verein'>Verein</a>" und "<a href='/konzept/' title='Konzept'>Konzept</a>"</span>
+</p></div>`
+
 const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   feature,
@@ -75,11 +92,10 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   const { location, address, postcode, town } = poi.location
   const { distance, title } = feature.properties
 
-  // TODO refactor to use a get coordinates method IGAPP-806
   const onNavigate = () => {
-    if (location && poi.featureLocation?.geometry.coordinates) {
-      const navigationUrl = getNavigationDeepLinks(location, poi.featureLocation.geometry.coordinates)
-      Linking.openURL(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
+    const navigationUrl = getNavigationDeepLinks(poi.location)
+    if (navigationUrl) {
+      openExternalUrl(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
   }
 

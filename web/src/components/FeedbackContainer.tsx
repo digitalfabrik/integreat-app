@@ -10,11 +10,9 @@ import {
   CONTENT_FEEDBACK_CATEGORY,
   createFeedbackEndpoint,
   DISCLAIMER_ROUTE,
-  ErrorCode,
   EVENTS_FEEDBACK_TYPE,
   EVENTS_ROUTE,
   FeedbackParamsType,
-  fromError,
   OFFER_FEEDBACK_TYPE,
   OFFERS_FEEDBACK_TYPE,
   OFFERS_ROUTE,
@@ -25,7 +23,7 @@ import {
 } from 'api-client'
 
 import buildConfig from '../constants/buildConfig'
-import { faFrown, faSmile } from '../constants/icons'
+import { faSmile } from '../constants/icons'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { RouteType } from '../routes'
 import { reportError } from '../utils/sentry'
@@ -123,40 +121,23 @@ export const FeedbackContainer = (props: PropsType): ReactElement => {
     }
 
     request().catch(err => {
-      // eslint-disable-next-line no-console
-      console.error(err)
-
-      if (fromError(err) !== ErrorCode.NetworkConnectionFailed) {
-        reportError(err).catch(err => {
-          // eslint-disable-next-line no-console
-          console.error(err)
-        })
-      }
-
+      reportError(err)
       setSendingStatus(SendingState.ERROR)
     })
   }
 
   if (sendingStatus !== SendingState.SUCCESS) {
     return (
-      <>
-        {isSearchFeedback && (
-          <IconTextContainer>
-            <FontAwesomeIcon icon={faFrown} size='4x' />
-            <Text role='alert'>{t('nothingFound')}</Text>
-          </IconTextContainer>
-        )}
-        <Feedback
-          onCommentChanged={setComment}
-          onContactMailChanged={setContactMail}
-          onSubmit={handleSubmit}
-          sendingStatus={sendingStatus}
-          isPositiveFeedback={isPositiveFeedback}
-          isSearchFeedback={isSearchFeedback}
-          comment={comment}
-          contactMail={contactMail}
-        />
-      </>
+      <Feedback
+        onCommentChanged={setComment}
+        onContactMailChanged={setContactMail}
+        onSubmit={handleSubmit}
+        sendingStatus={sendingStatus}
+        isPositiveFeedback={isPositiveFeedback}
+        isSearchFeedback={isSearchFeedback}
+        comment={comment}
+        contactMail={contactMail}
+      />
     )
   }
   return (

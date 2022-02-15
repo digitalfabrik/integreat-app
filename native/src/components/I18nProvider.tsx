@@ -47,7 +47,7 @@ export default ({ children }: PropsType): ReactElement | null => {
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
-      const i18nextInstance = await i18next.createInstance().use(NativeLanguageDetector)
+      const i18nextInstance = i18next.createInstance().use(NativeLanguageDetector)
       await i18nextInstance.init({
         resources,
         fallbackLng: { ...config.fallbacks, default: [config.defaultFallback] },

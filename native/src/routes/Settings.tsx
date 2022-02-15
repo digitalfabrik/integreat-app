@@ -1,17 +1,19 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useState } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { SectionList, SectionListData, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
 import styled from 'styled-components/native'
 
 import { SettingsRouteType } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import LayoutContainer from '../components/LayoutContainer'
+import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import useSnackbar from '../hooks/useSnackbar'
+import { StateType } from '../redux/StateType'
 import { StoreActionType } from '../redux/StoreActionType'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
@@ -19,9 +21,6 @@ import { log, reportError } from '../utils/sentry'
 
 export type PropsType = {
   theme: ThemeType
-  languageCode: string
-  cityCode: string | null | undefined
-  t: TFunction
   route: RoutePropType<SettingsRouteType>
   navigation: NavigationPropType<SettingsRouteType>
   dispatch: Dispatch<StoreActionType>
@@ -40,9 +39,12 @@ const SectionHeader = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): ReactElement => {
+const Settings = ({ navigation }: PropsType): ReactElement => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
+  const languageCode = useSelector<StateType, string>((state: StateType) => state.contentLanguage)
+  const cityCode = useSelector<StateType, string | null>((state: StateType) => state.cityContent?.city ?? null)
   const showSnackbar = useSnackbar()
+  const { t } = useTranslation('settings')
 
   useFocusEffect(
     useCallback(() => {
@@ -86,7 +88,7 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
     const { getSettingValue, ...otherProps } = item
     const value = !!(settings && getSettingValue && getSettingValue(settings))
-    return <SettingItem value={value} theme={theme} t={t} {...otherProps} />
+    return <SettingItem value={value} t={t} {...otherProps} />
   }
 
   const renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
@@ -94,15 +96,13 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
       return null
     }
 
-    return <SectionHeader theme={theme}>{title}</SectionHeader>
+    return <SectionHeader>{title}</SectionHeader>
   }
 
   const keyExtractor = (item: SettingsSectionType, index: number): string => index.toString()
 
-  const ThemedItemSeparator = () => <ItemSeparator theme={theme} />
-
   if (!settings) {
-    return <LayoutContainer />
+    return <Layout />
   }
 
   const sections = createSettingsSections({
@@ -116,18 +116,18 @@ const Settings = ({ navigation, t, languageCode, cityCode, theme }: PropsType): 
   })
 
   return (
-    <LayoutContainer>
+    <Layout>
       <SectionList
         keyExtractor={keyExtractor}
         sections={sections}
         extraData={settings}
         renderItem={renderItem}
         renderSectionHeader={renderSectionHeader}
-        ItemSeparatorComponent={ThemedItemSeparator}
-        SectionSeparatorComponent={ThemedItemSeparator}
+        ItemSeparatorComponent={ItemSeparator}
+        SectionSeparatorComponent={ItemSeparator}
         stickySectionHeadersEnabled={false}
       />
-    </LayoutContainer>
+    </Layout>
   )
 }
 
