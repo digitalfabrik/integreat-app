@@ -48,7 +48,7 @@ const geolocateControlStyle: React.CSSProperties = {
 
 type MapViewProps = {
   bboxViewport: MapViewViewport
-  featureCollection: PoiFeatureCollection | null
+  featureCollection: PoiFeatureCollection
   currentFeature: PoiFeature | null
   selectFeature: (feature: PoiFeature | null, snapPoint?: number) => void
 }
@@ -59,7 +59,7 @@ const MapView = (props: MapViewProps): ReactElement => {
   const queryLocation = new URLSearchParams(useLocation().search).get(locationName)
 
   useEffect(() => {
-    if (queryLocation && featureCollection) {
+    if (queryLocation) {
       const currentFeature = featureCollection.features.find(feature => feature.properties.urlSlug === queryLocation)
       if (currentFeature?.geometry.coordinates) {
         const { geometry } = currentFeature
@@ -85,7 +85,7 @@ const MapView = (props: MapViewProps): ReactElement => {
   return (
     <MapContainer>
       <ReactMapGL
-        interactiveLayerIds={featureCollection ? [layerStyle.id!] : undefined}
+        interactiveLayerIds={[layerStyle.id!]}
         {...viewport}
         height='100%'
         width='100%'
@@ -99,11 +99,9 @@ const MapView = (props: MapViewProps): ReactElement => {
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation
         />
-        {featureCollection && (
-          <Source id='location-pois' type='geojson' data={featureCollection}>
-            <Layer {...layerStyle} />
-          </Source>
-        )}
+        <Source id='location-pois' type='geojson' data={featureCollection}>
+          <Layer {...layerStyle} />
+        </Source>
       </ReactMapGL>
     </MapContainer>
   )

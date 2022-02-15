@@ -1,5 +1,5 @@
 import { BBox } from 'geojson'
-import React, { ReactElement, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,7 +7,6 @@ import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
-  createPOIsEndpoint,
   defaultViewportConfig,
   embedInCollection,
   locationName,
@@ -16,9 +15,7 @@ import {
   pathnameFromRouteInformation,
   PoiFeature,
   PoiModel,
-  POIS_ROUTE,
-  prepareFeatureLocations,
-  useLoadFromEndpoint
+  POIS_ROUTE
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -35,10 +32,9 @@ import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import { cmsApiBaseUrl } from '../constants/urls'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { useUserLocation } from '../hooks/useUserLocation'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import DateFormatterContext from '../contexts/DteFormatterContext'
+import { useFeatureLocations } from '../hooks/seFeatureLocations'
+import useWindowDimensions from '../hooks/seWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
 
@@ -63,23 +59,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
-  const { locationState, userCoordinates } = useUserLocation()
+  const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
   const sheetRef = useRef<BottomSheetRef>(null)
 
-  const requestPois = useCallback(
-    async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
-
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
-  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>([])
-
-  useEffect(() => {
-    if (pois && locationState.message !== 'loading') {
-      setFeatureLocations(prepareFeatureLocations(pois, userCoordinates))
-    }
-  }, [pois, locationState.message])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
