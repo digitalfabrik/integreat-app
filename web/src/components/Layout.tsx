@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { POIS_ROUTE } from 'api-client/src'
-
 import dimensions from '../constants/dimensions'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
@@ -72,7 +70,7 @@ const Main = styled.main`
   }
 `
 
-const Aside = styled.aside<{ asideStickyTop: number; hideSidebar: boolean }>`
+const Aside = styled.aside<{ asideStickyTop: number }>`
   top: ${props => props.asideStickyTop}px;
   display: inline-block;
   position: sticky;
@@ -92,7 +90,6 @@ const Aside = styled.aside<{ asideStickyTop: number; hideSidebar: boolean }>`
   }
 
   @media ${dimensions.smallViewport} {
-    display: ${props => (props.hideSidebar ? 'none' : 'block')};
     position: static;
     width: 100%;
     max-width: initial;
@@ -116,16 +113,13 @@ type PropsType = {
  */
 const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }: PropsType): JSX.Element => {
   const modalVisible = !!modal
-  const hideSidebar = window.location.href.includes(POIS_ROUTE)
   return (
     <FlexWrapper>
       <RichLayout>
         <div aria-hidden={modalVisible}>
           {header}
           <Body>
-            <Aside asideStickyTop={asideStickyTop} hideSidebar={hideSidebar}>
-              {toolbar}
-            </Aside>
+            <Aside asideStickyTop={asideStickyTop}>{toolbar}</Aside>
             <Main>{children}</Main>
           </Body>
         </div>

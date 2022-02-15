@@ -10,7 +10,6 @@ exports[`Layout should render all components 1`] = `
       <styled.div>
         <styled.aside
           asideStickyTop={40}
-          hideSidebar={false}
         >
           <div>
             toolybar

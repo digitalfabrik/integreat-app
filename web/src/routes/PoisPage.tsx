@@ -25,12 +25,10 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import BottomActionSheet from '../components/BottomActionSheet'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
@@ -41,6 +39,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { useUserLocation } from '../hooks/useUserLocation'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
 
 const ListWrapper = styled.div`
@@ -74,7 +73,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
 
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
-  const [featureLocations, setFeatureLocations] = useState<PoiFeature[] | null>(null)
+  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>([])
 
   useEffect(() => {
     if (pois && locationState.message !== 'loading') {
@@ -87,10 +86,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)
-
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
-  )
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
@@ -105,14 +100,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   })
 
+  const selectFeature = (feature: PoiFeature | null, snapPoint?: number) => {
+    setCurrentFeature(feature)
+    if (snapPoint !== undefined) {
+      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+    }
+  }
+
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
     feedbackTargetInformation: poi ? { path: poi.path } : null,
     languageChangePaths,
     route: POIS_ROUTE,
-    languageCode,
-    toolbar
+    languageCode
   }
 
   if (loading) {
@@ -169,7 +170,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       </LocationLayout>
     )
   }
-  const sortedPois = featureLocations?.sort((poi1: PoiFeature, poi2: PoiFeature) =>
+  const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
     poi1.properties.title.localeCompare(poi2.properties.title)
   )
   const renderPoiListItem = (poi: PoiFeature) => <PoiListItem key={poi.properties.path} properties={poi.properties} />
@@ -180,22 +181,17 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       {cityModel.boundingBox && (
         <MapView
-          featureCollection={featureLocations && embedInCollection(featureLocations)}
+          selectFeature={selectFeature}
+          featureCollection={embedInCollection(sortedPois)}
           bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
-          ref={sheetRef}
           currentFeature={currentFeature}
-          setCurrentFeature={setCurrentFeature}
         />
       )}
-      <BottomActionSheet title={currentFeature ? '' : t('sheetTitle')} ref={sheetRef}>
-        {currentFeature ? (
-          <div>{currentFeature.properties.title}</div>
-        ) : (
-          sortedPois && (
-            <ListWrapper>
-              <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-            </ListWrapper>
-          )
+      <BottomActionSheet title={currentFeature?.properties.title} ref={sheetRef}>
+        {sortedPois.length > 0 && !currentFeature && (
+          <ListWrapper>
+            <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
+          </ListWrapper>
         )}
         {/* TODO add feedback toolbar IGAPP-914 */}
       </BottomActionSheet>
