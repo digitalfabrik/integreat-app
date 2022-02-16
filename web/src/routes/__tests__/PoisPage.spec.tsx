@@ -64,8 +64,7 @@ describe('PoisPage', () => {
 
   it('should render a list with all pois', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getByText, debug } = renderPois()
-    debug()
+    const { getByText } = renderPois()
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi1.location.name)).toBeTruthy()
   })
