@@ -9,7 +9,7 @@ import buildConfig from '../constants/buildConfig'
 import navigateToDeepLink from '../navigation/navigateToDeepLink'
 import urlFromRouteInformation from '../navigation/url'
 import appSettings from './AppSettings'
-import { log, reportError } from './sentry'
+import { log } from './sentry'
 
 const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
   import('@react-native-firebase/messaging').then(firebase => firebase.default)
@@ -43,10 +43,10 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   try {
     const messaging = await importFirebaseMessaging()
     await messaging().unsubscribeFromTopic(topic)
+    log(`Unsubscribed from ${topic} topic!`)
   } catch (e) {
-    reportError(e)
+    log(`Failed to unsubscribe from ${topic} topic: ${e instanceof Error ? e.message : 'Unknown Error'}`)
   }
-  log(`Unsubscribed from ${topic} topic!`)
 }
 export const subscribeNews = async (city: string, language: string): Promise<void> => {
   if (!pushNotificationsEnabled()) {
@@ -59,10 +59,10 @@ export const subscribeNews = async (city: string, language: string): Promise<voi
   try {
     const messaging = await importFirebaseMessaging()
     await messaging().subscribeToTopic(topic)
+    log(`Subscribed to ${topic} topic!`)
   } catch (e) {
-    reportError(e)
+    log(`Failed to subscribe to ${topic} topic: ${e instanceof Error ? e.message : 'Unknown Error'}`)
   }
-  log(`Subscribed to ${topic} topic!`)
 }
 
 export const quitAppStatePushNotificationListener = async (
