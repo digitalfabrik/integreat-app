@@ -141,7 +141,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
     console.warn(`No release notes found in source ${source}. Using default notes.`)
   }
 
-  const asNoteType = (as: unknown): NoteType  => (as as NoteType)
+  const asNoteType = (as: unknown): NoteType => as as NoteType
 
   // Load all notes not belonging to a release
   const relevantNotes = fileNames
