@@ -24,14 +24,12 @@ import navigateToCategory from '../navigateToCategory'
 import navigateToDisclaimer from '../navigateToDisclaimer'
 import navigateToEvents from '../navigateToEvents'
 import navigateToJpalTracking from '../navigateToJpalTracking'
-import navigateToLanding from '../navigateToLanding'
 import navigateToNews from '../navigateToNews'
 import navigateToOffers from '../navigateToOffers'
 import navigateToPois from '../navigateToPois'
 import navigateToSearch from '../navigateToSearch'
 
 jest.mock('../navigateToDisclaimer', () => jest.fn())
-jest.mock('../navigateToLanding', () => jest.fn())
 jest.mock('../navigateToOffers', () => jest.fn())
 jest.mock('../navigateToEvents', () => jest.fn())
 jest.mock('../navigateToPois', () => jest.fn())
@@ -81,7 +79,6 @@ describe('createNavigate', () => {
     navigateToCategory,
     navigateToPois,
     navigateToDisclaimer,
-    navigateToLanding,
     navigateToOffers
   ]
 
@@ -110,7 +107,6 @@ describe('createNavigate', () => {
       route: LANDING_ROUTE,
       languageCode
     })
-    assertOnlyCalled([navigateToLanding])
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_PAGE_SIGNAL_NAME,

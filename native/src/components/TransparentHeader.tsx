@@ -38,7 +38,7 @@ type PropsType = {
   navigation: NavigationPropType<RoutesType>
 }
 
-const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
+const TransparentHeader = ({ navigation, route }: PropsType): ReactElement | null => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const showSnackbar = useSnackbar()
@@ -80,8 +80,12 @@ const TransparentHeader = ({ navigation, route }: PropsType): ReactElement => {
       [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
     : []
 
+  if (!navigation.canGoBack()) {
+    return null
+  }
+
   return (
-    <BoxShadow theme={theme}>
+    <BoxShadow theme={theme} testID='transparent-header'>
       <Horizontal>
         <HorizontalLeft>
           <HeaderBackButton onPress={navigation.goBack} labelVisible={false} />
