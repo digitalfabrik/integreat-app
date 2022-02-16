@@ -99,7 +99,6 @@ const Events = ({
           lastUpdate={event.lastUpdate}
           language={language}
           files={files}
-          theme={theme}
           resourceCacheUrl={resourceCacheUrl}
           navigateToFeedback={createNavigateToFeedbackForEvent(event)}>
           <>
