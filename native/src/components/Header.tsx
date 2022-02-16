@@ -6,14 +6,13 @@ import { HiddenItem, Item } from 'react-navigation-header-buttons'
 import { Dispatch } from 'redux'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CityModel, SHARE_SIGNAL_NAME } from 'api-client'
+import { CityModel, LANDING_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
 import { DISCLAIMER_ROUTE, SEARCH_ROUTE, SETTINGS_ROUTE } from 'api-client/src/routes'
 
 import { NavigationPropType, RoutePropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
-import navigateToLanding from '../navigation/navigateToLanding'
 import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -76,16 +75,12 @@ enum HeaderButtonTitle {
 const Header = (props: PropsType): ReactElement => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
-  const { route, navigation, dispatch, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } =
-    props
+  const { route, navigation, language, routeCityModel, goToLanguageChange, peeking, categoriesAvailable } = props
 
   const shareUrl = route.params?.shareUrl
 
   const goToLanding = () => {
-    navigateToLanding({
-      dispatch,
-      navigation
-    })
+    navigation.navigate(LANDING_ROUTE)
   }
 
   const goToSettings = () => {

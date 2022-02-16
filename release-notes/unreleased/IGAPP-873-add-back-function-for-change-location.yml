@@ -1,0 +1,7 @@
+issue_key: IGAPP-873
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Possibility added to go back on location change.
+de: Möglichkeit bei Standortwechsel zurück zu gehen hinzugefügt.
