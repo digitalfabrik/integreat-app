@@ -32,6 +32,8 @@ const HeaderText = styled.Text`
   flex-direction: column;
   text-align-vertical: center;
   height: 50px;
+  /* fix text-align-vertical for ios, line-height has to be added */
+  line-height: 50px;
   font-size: 20px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
