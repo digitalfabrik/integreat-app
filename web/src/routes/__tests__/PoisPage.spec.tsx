@@ -6,6 +6,7 @@ import {
   mockUseLoadFromEndpointWithError
 } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
+import { mockGeolocationSuccess } from '../../__mocks__/geoLocation'
 import { renderRoute } from '../../testing/render'
 import PoisPage from '../PoisPage'
 import { RoutePatterns } from '../index'
@@ -16,20 +17,8 @@ jest.mock('api-client', () => ({
 }))
 jest.mock('react-i18next')
 
-const mockGeolocation = {
-  getCurrentPosition: jest.fn().mockImplementationOnce(success =>
-    Promise.resolve(
-      success({
-        coords: {
-          latitude: 51.1,
-          longitude: 45.3
-        }
-      })
-    )
-  )
-}
 // @ts-expect-error -- ignore readOnly var
-navigator.geolocation = mockGeolocation
+navigator.geolocation = mockGeolocationSuccess
 
 describe('PoisPage', () => {
   beforeEach(() => {

@@ -32,9 +32,11 @@ export const useUserLocation = (): UserLocationType => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
-        const { latitude, longitude } = coords
-        setUserCoordinates([latitude, longitude])
-        setLocationState({ status: 'ready', message: 'localized' })
+        if (coords) {
+          const { latitude, longitude } = coords
+          setUserCoordinates([latitude, longitude])
+          setLocationState({ status: 'ready', message: 'localized' })
+        }
       },
       (error: GeolocationPositionError) => {
         setLocationState(locationStateOnError(error))
