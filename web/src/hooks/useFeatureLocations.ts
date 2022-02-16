@@ -25,7 +25,7 @@ export const useFeatureLocations = (cityCode: string, languageCode: string): Use
     if (pois && locationState.message !== 'loading') {
       setFeatureLocations(prepareFeatureLocations(pois, userCoordinates))
     }
-  }, [pois, locationState.message])
+  }, [pois, locationState.message, userCoordinates])
 
   return { featureLocations, loading, poisError, pois }
 }

@@ -72,7 +72,7 @@ const MapView = (props: MapViewProps): ReactElement => {
         selectFeature(currentFeature)
       }
     }
-  }, [featureCollection, queryLocation])
+  }, [featureCollection, queryLocation, selectFeature])
 
   const clickItem = (e: MapEvent) => {
     if (e.features?.length) {
