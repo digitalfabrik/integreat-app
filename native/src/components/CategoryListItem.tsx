@@ -40,7 +40,13 @@ const TitleDirectionContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
 `
 
-const CategoryTitle = styled(Highlighter)<{ language: string }>`
+const CategoryTitle = styled.Text<{ language: string }>`
+  flex-direction: ${props => contentDirection(props.language)};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.colors.textColor};
+`
+
+const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.textColor};
@@ -80,42 +86,28 @@ const CategoryListItem = ({
     onItemPress(category)
   }
 
-  const renderSubCategories = () =>
-    subCategories.map(subCategory => (
-      <SubCategoryListItem
-        key={subCategory.path}
-        subCategory={subCategory}
-        onItemPress={onItemPress}
-        language={language}
-        theme={theme}
-      />
-    ))
+  const textToHighlight = contentMatcher.getMatchedContent(
+    query,
+    category.contentWithoutHtml,
+    NUM_WORDS_SURROUNDING_MATCH
+  )
+  const matchedContent = textToHighlight && query && (
+    <Highlighter
+      searchWords={[query]}
+      sanitize={normalizeSearchString}
+      textToHighlight={textToHighlight}
+      autoEscape
+      highlightStyle={{
+        backgroundColor: theme.colors.backgroundColor,
+        fontWeight: 'bold'
+      }}
+    />
+  )
 
-  const getMatchedContent = (numWordsSurrounding: number) => {
-    const textToHighlight = contentMatcher.getMatchedContent(query, category.contentWithoutHtml, numWordsSurrounding)
-
-    if (textToHighlight === null || !query) {
-      return null
-    }
-
-    return (
-      <Highlighter
-        searchWords={[query]}
-        sanitize={normalizeSearchString}
-        textToHighlight={textToHighlight}
-        autoEscape
-        highlightStyle={{
-          backgroundColor: theme.colors.backgroundColor,
-          fontWeight: 'bold'
-        }}
-      />
-    )
-  }
-
-  const renderTitle = () => (
+  const title = query ? (
     <CategoryEntryContainer>
       <TitleDirectionContainer language={language}>
-        <CategoryTitle
+        <HighlighterCategoryTitle
           language={language}
           autoEscape
           textToHighlight={category.title}
@@ -126,7 +118,15 @@ const CategoryListItem = ({
           }}
         />
       </TitleDirectionContainer>
-      {getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
+      {matchedContent}
+    </CategoryEntryContainer>
+  ) : (
+    <CategoryEntryContainer>
+      <TitleDirectionContainer language={language}>
+        <CategoryTitle language={language} android_hyphenationFrequency='full'>
+          {category.title}
+        </CategoryTitle>
+      </TitleDirectionContainer>
     </CategoryEntryContainer>
   )
 
@@ -135,10 +135,18 @@ const CategoryListItem = ({
       <FlexStyledLink onPress={onCategoryPress} underlayColor={theme.colors.backgroundAccentColor}>
         <DirectionContainer language={language}>
           <CategoryThumbnail source={category.thumbnail || iconPlaceholder} />
-          {renderTitle()}
+          {title}
         </DirectionContainer>
       </FlexStyledLink>
-      {renderSubCategories()}
+      {subCategories.map(subCategory => (
+        <SubCategoryListItem
+          key={subCategory.path}
+          subCategory={subCategory}
+          onItemPress={onItemPress}
+          language={language}
+          theme={theme}
+        />
+      ))}
     </>
   )
 }
