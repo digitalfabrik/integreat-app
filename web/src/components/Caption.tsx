@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -17,6 +17,6 @@ type PropsType = {
   title: string
 }
 
-const Caption = ({ title }: PropsType): ReactNode => <H1>{title}</H1>
+const Caption = ({ title }: PropsType): ReactElement => <H1>{title}</H1>
 
 export default Caption
