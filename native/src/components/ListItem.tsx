@@ -59,7 +59,9 @@ class ListItem extends React.PureComponent<PropsType> {
         <ListItemView language={language} theme={theme}>
           {thumbnail && <Thumbnail source={thumbnail} />}
           <Description theme={theme}>
-            <Title theme={theme}>{title}</Title>
+            <Title theme={theme} android_hyphenationFrequency='full'>
+              {title}
+            </Title>
             {children}
           </Description>
         </ListItemView>
