@@ -4,6 +4,7 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import TunewsModel from '../models/TunewsModel'
 import { JsonTunewsType } from '../types'
+import { parseHTML } from '../utils/helpers'
 
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {
@@ -25,7 +26,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<TunewsModel>> =>
               title: tunews.title,
               tags: tunews.tags,
               date: moment.tz(tunews.date, 'GMT'),
-              content: tunews.content,
+              content: parseHTML(tunews.content),
               eNewsNo: tunews.enewsno
             })
         )
