@@ -4,7 +4,7 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import TunewsModel from '../models/TunewsModel'
 import { JsonTunewsType } from '../types'
-import { parseHTML } from '../utils/helpers'
+import parseHTML from '../utils/parseHTML'
 
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {
