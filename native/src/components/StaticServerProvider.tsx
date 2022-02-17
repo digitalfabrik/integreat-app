@@ -1,7 +1,7 @@
+import StaticServer from '@dr.pogodin/react-native-static-server'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { Text } from 'react-native'
-import StaticServer from 'react-native-static-server'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
