@@ -69,6 +69,7 @@
     "build-configs": "0.0.1",
     "events": "^3.2.0",
     "fbjs": "^0.8.18",
+    "htmlparser2": "^7.2.0",
     "i18next": "^20.6.1",
     "lodash": "^4.17.19",
     "metro-resolver": "^0.66.2",
