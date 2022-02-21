@@ -2,10 +2,7 @@
 /* stylelint-disable */
 [data-rsbs-header] {
   box-shadow: none;
-}
-
-[data-rsbs-has-header='false'] [data-rsbs-header] {
-  padding: calc(18px + env(safe-area-inset-top)) 0;
+  padding-top: calc(24px + env(safe-area-inset-top));
 }
 
 [data-rsbs-header]:before {
