@@ -83,11 +83,12 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   })
 
-  const selectFeature = (feature: PoiFeature | null, snapPoint?: number) => {
+  const selectFeature = (feature: PoiFeature | null) => {
     setCurrentFeature(feature)
-    if (snapPoint !== undefined) {
-      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
-    }
+  }
+
+  const changeSnapPoint = (snapPoint: number) => {
+    sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
   }
 
   const locationLayoutParams = {
@@ -165,6 +166,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       {cityModel.boundingBox && (
         <MapView
           selectFeature={selectFeature}
+          changeSnapPoint={changeSnapPoint}
           featureCollection={embedInCollection(sortedPois)}
           bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
           currentFeature={currentFeature}

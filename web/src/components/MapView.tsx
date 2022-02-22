@@ -14,7 +14,9 @@ import {
   mapMarker
 } from 'api-client'
 
-// Workaround since nothing is rendered if height is set to 100%
+import updateQueryParams from '../utils/updateQueryParams'
+
+// Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
   ${`height: calc(100vh - 190px);`}
   width: 100%;
@@ -50,13 +52,15 @@ type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: PoiFeatureCollection
   currentFeature: PoiFeature | null
-  selectFeature: (feature: PoiFeature | null, snapPoint?: number) => void
+  selectFeature: (feature: PoiFeature | null) => void
+  changeSnapPoint: (snapPoint: number) => void
 }
 
 const MapView = (props: MapViewProps): ReactElement => {
-  const { featureCollection, bboxViewport, selectFeature } = props
+  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
-  const queryLocation = new URLSearchParams(useLocation().search).get(locationName)
+  const queryParams = new URLSearchParams(useLocation().search)
+  const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
 
   useEffect(() => {
     if (queryLocation) {
@@ -74,11 +78,16 @@ const MapView = (props: MapViewProps): ReactElement => {
     }
   }, [featureCollection, queryLocation, selectFeature])
 
-  const clickItem = (e: MapEvent) => {
+  const onSelectFeature = (e: MapEvent) => {
     if (e.features?.length) {
-      selectFeature(e.features[0], 1)
+      selectFeature(e.features[0])
+      changeSnapPoint(1)
+      queryParams.set(locationName, e.features[0].properties.urlSlug)
+      updateQueryParams(queryParams)
     } else {
+      setQueryLocation(null)
       selectFeature(null)
+      updateQueryParams()
     }
   }
 
@@ -91,8 +100,8 @@ const MapView = (props: MapViewProps): ReactElement => {
         width='100%'
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
-        onClick={clickItem}
-        onTouchMove={() => selectFeature(null, 0)}>
+        onClick={onSelectFeature}
+        onTouchMove={() => changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={geolocateControlStyle}
