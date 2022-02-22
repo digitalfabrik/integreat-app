@@ -2211,7 +2211,7 @@
       "informationNotFound": "ვერ იპოვეთ შესაბამისი?",
       "wantedInformation": "რა ინფორმაციები აკლია აქ?",
       "feedbackSent": "შეფასება გაიგზავნა",
-      "thanksMessage": "დიდი მადლობა შეფასებისათვის. თქვენ ამით გვეხმარებით ჩვენ, რათა გავაუმჯობესოთ {{აპპ სახელი}}- და შინაარსი. გაგვახარებს მომდევნო შეფასება.",
+      "thanksMessage": "დიდი მადლობა შეფასებისათვის. თქვენ ამით გვეხმარებით ჩვენ, რათა გავაუმჯობესოთ {{appName}}- და შინაარსი. გაგვახარებს მომდევნო შეფასება.",
       "close": "დახურვა",
       "negativeRating": "ეს გვერდი გამოუსადეგარია",
       "positiveRating": "ეს გვერდი ეხმარება",
@@ -2693,7 +2693,7 @@
       "next": "Avanti"
     },
     "ka": {
-      "appDescription": "‎{{აპპ დასახელება}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის",
+      "appDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის",
       "search": "ძიება",
       "searchDescription": "საძიებო სიტყვების მეშვეობით სწრაფად სწორი ინფორმაციის პოვნა",
       "languageChange": "ენის ცვლილება",
@@ -3125,7 +3125,7 @@
       "loading": "განსაზღვრე მდებარეობის ადგილი...",
       "notAvailable": "მდებარეობის ადგილის განსაზღვრა დეაქტივირებულია",
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
-      "metaDescription": "‎{{აპპ სახელი}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
+      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
     },
     "kmr": {
       "searchCity": "Lêgerîn",
@@ -3597,7 +3597,7 @@
       "settings": "რეგულაციები",
       "share": "გაყოფა",
       "cancel": "გაწყვეტა",
-      "shareMessage": "ეხლა ნაპოვნი: {{მესიჯი}}",
+      "shareMessage": "ეხლა ნაპოვნი: {{appName}}",
       "shareFailDefaultMessage": "შინაარსის გაზიარება ჩაიშალა",
       "disclaimer": "მისამართი"
     },
@@ -3968,7 +3968,7 @@
       "pageTitle": "Impressum e contatti - {{appName}}"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{აპპ სახელი}}"
+      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{appName}}"
     },
     "kmr": {
       "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
@@ -4069,8 +4069,8 @@
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
     },
     "ka": {
-      "NSPhotoLibraryAddUsageDescription": "სურათების შესანახავად საჭიროა {{აპპ სახელი}} წვდომა გალერეაზე.",
-      "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{აპპ სახელი}} წვდომა ქონდეს მდებარეობის ადგილზე"
+      "NSPhotoLibraryAddUsageDescription": "სურათების შესანახავად საჭიროა {{appName}} წვდომა გალერეაზე.",
+      "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{appName}} წვდომა ქონდეს მდებარეობის ადგილზე"
     },
     "kmr": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
@@ -4697,10 +4697,10 @@
       "noPois": "ምንም ቦታዎች ኣልትገኙም።",
       "unitKilometre": "ኪሎሜትር",
       "unitMetre": "ሜትር",
-      "distanceKilometre": "{{ርቀት}} ኪሎሜትር ርቀት",
-      "distanceKilometreAlternative": "{{ርቀት}} ኪሎሜትር",
-      "distanceMetre": "{{ርቀት}} ሜትር ርቀት",
-      "distanceMetreAlternative": "{{ርቀት}} ሜትር",
+      "distanceKilometre": "{{distance}} ኪሎሜትር ርቀት",
+      "distanceKilometreAlternative": "{{distance}} ኪሎሜትር",
+      "distanceMetre": "{{distance}} ሜትር ርቀት",
+      "distanceMetreAlternative": "{{distance}} ሜትር",
       "address": "ኣድራሻ",
       "phone": "የተሌፎን ቁጥር",
       "eMail": "ኢ-ሜይል ኣድራሻ",
@@ -4985,10 +4985,10 @@
       "noPois": "محلی یافت نشد.",
       "unitKilometre": "کیلومتر",
       "unitMetre": "متر",
-      "distanceKilometre": "در فاصله {{فاصله}} کیلومتری",
-      "distanceKilometreAlternative": "{{فاصله}} کیلومتر",
-      "distanceMetre": "در فاصله {{فاصله}} متری",
-      "distanceMetreAlternative": "{{فاصله}} متر",
+      "distanceKilometre": "در فاصله {{distance}} کیلومتری",
+      "distanceKilometreAlternative": "{{distance}} کیلومتر",
+      "distanceMetre": "در فاصله {{distance}} متری",
+      "distanceMetreAlternative": "{{distance}} متر",
       "address": "نشانی",
       "phone": "شماره تلفن",
       "eMail": "نشانی ایمیل",
@@ -5324,11 +5324,11 @@
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
       "tracking": "የJ-PAL ግምገማ",
       "allowTracking": "ክትትሉን ይፍቀዱ",
-      "trackingShortDescription": "በ J-PAL የግምገማ ጥናት ላይ ተሳተፉ፣ የ {{የኣፕ ስም}} ለማሻሻል።",
+      "trackingShortDescription": "በ J-PAL የግምገማ ጥናት ላይ ተሳተፉ፣ የ {{appName}} ለማሻሻል።",
       "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ  ",
-      "trackingDescription": "{{የኣፕ ስም}} በዚህ ኣፕ ውስጥ የመጠቀምን ዱካ ለመከታተል፣ ፈቃድ ይጠየቃል። የርስዎ ዳታ በሚስጢር በተያዘ መንገድና ዓላማው ለጥናት ለሆነና ኣፑን ለማሻሻል ተብሎ ብቻ ጥቅም ላይ ይውላል። የዱካ መከታተል ዳታዎች ለሌላ ተላልፈው ኣይሰጡም ወይ ደግሞ ለማስታወቂያ ወይም ለሌላ ንግዳዊ ለሆነ ዓላማ ተብለው ኣይሰሩም። ",
+      "trackingDescription": "{{appName}} በዚህ ኣፕ ውስጥ የመጠቀምን ዱካ ለመከታተል፣ ፈቃድ ይጠየቃል። የርስዎ ዳታ በሚስጢር በተያዘ መንገድና ዓላማው ለጥናት ለሆነና ኣፑን ለማሻሻል ተብሎ ብቻ ጥቅም ላይ ይውላል። የዱካ መከታተል ዳታዎች ለሌላ ተላልፈው ኣይሰጡም ወይ ደግሞ ለማስታወቂያ ወይም ለሌላ ንግዳዊ ለሆነ ዓላማ ተብለው ኣይሰሩም። ",
       "trackingLeaveTitle": "ዱካ መከታተልን መፍቀድ?",
-      "trackingLeaveDescription": "ዱካ መከታተሉን ኣልፈቀዱም።ዱካ መከታተሉ እኛን የሚረዳን፣ የ {{የኣፕ ስም}}-ኣፕ ለማሻሻልና ወደ ኣገር እንግዳ ለሆኑ የተሻለ መረጃ ለማዘጋጀት ነው። የዱካ መከታተሉን ሳይፈቅዱ ከስክሪኑ ለመለየት እርግጠኛ ነዎት?                                                                                                                                                                                                                          ",
+      "trackingLeaveDescription": "ዱካ መከታተሉን ኣልፈቀዱም።ዱካ መከታተሉ እኛን የሚረዳን፣ የ {{appName}}-ኣፕ ለማሻሻልና ወደ ኣገር እንግዳ ለሆኑ የተሻለ መረጃ ለማዘጋጀት ነው። የዱካ መከታተሉን ሳይፈቅዱ ከስክሪኑ ለመለየት እርግጠኛ ነዎት?                                                                                                                                                                                                                          ",
       "enabled": "ሰርቷል",
       "disabled": "አይሰራም",
       "decline": "አትቀበል"
@@ -5535,12 +5535,12 @@
     },
     "ka": {
       "sentryTitle": "აპპ-სტაბილურობა",
-      "sentryDescription": "სისტემის გაჭედვის  მოხსენებათა ავტომატური გადამისამართებით {{აპპ სახელი}} აპპს გაუმჯობესება",
+      "sentryDescription": "სისტემის გაჭედვის  მოხსენებათა ავტომატური გადამისამართებით {{appName}} აპპს გაუმჯობესება",
       "pushNewsTitle": "ინფორმაციის მაუწყებელი",
       "pushNewsDescription": "ინფორმაციის მაუწყებლი უახლესი ადგილობრივი ამბებისათვის",
-      "about": "შესახებ {{აპპ სახელი}}",
+      "about": "შესახებ {{appName}}",
       "privacyPolicy": "მონაცემთა დაცვის შესახებ ახსნა-განმარტება",
-      "version": "ვერსია: {{ვერსია}}",
+      "version": "ვერსია: {{version}}",
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
       "tracking": "J-PAL ევალუაცია",
       "allowTracking": "თვალთვალის ჩართვა",
@@ -5792,11 +5792,11 @@
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
       "tracking": "ግምገማ J-PAL",
       "allowTracking": "ክትትል ኣፍቅድ",
-      "trackingShortDescription": "ኣብ ናይ J-PAL ናይ ግምገማ መጽናዕቲ ተሳተፉ፣ ነቲ {{ሽም ኣፕ}} ንምምሕያሽ።",
+      "trackingShortDescription": "ኣብ ናይ J-PAL ናይ ግምገማ መጽናዕቲ ተሳተፉ፣ ነቲ {{appName}} ንምምሕያሽ።",
       "trackingMoreInformation": "ተወሳኺ ሓበሬታ ብዛዕባ ናይ J-Pal ግምገማ መጽናዕቲን ናይ መጽናዕቲ ዕላማን  ",
       "trackingDescription": "{{appName}} ኣብ ውሽጢ እዚ ኣፕ ናይ ምጥቃም ኣሰር ንምክትታል፣ ፍቓድ ይሓትት። ናትኩም ዳታ ብሚስጢር እዩ ዝተሓዝ ከምኡ ድማ ንመጽናዕታዊ ዕላማን ነዚ ኣፕ ንምምሕያሽን ጥራሕ እዩ ኣብ ስራሕ ዝውዕል። ናይ ኣሰር ምክትታል ዳታ ንካልእ ኣካል ሓሊፉ ኣይወሃብን እዩ ወይ ድማ ንሬክላም ወይ ድማ ንኻልእ ሸቐጣዊ ኣገልግሎት ኣይውዕልን እዩ።.",
       "trackingLeaveTitle": "ኣሰር ንምክትታል ምፍቃድ?",
-      "trackingLeaveDescription": "እስኩም ነቲ ምክትታል ኣሰር ኣይፈቐድኩምን። እቲ ምክትታል ኣሰር ንዓና ዝጠቕመና፣ ነቲ {{ሽም ኣፕ}} ንምምሕያሽን ነቶም ኣጋይሽ ሃገር ዝሓሸ ሓበሬታ ንምድላው እዩ። ርግጸኛ ዲኹም፣ ኣሰር ምክትታል ከይፈቐድኩም ካብ ስክሪን ክትፍለዩ?  ",
+      "trackingLeaveDescription": "እስኩም ነቲ ምክትታል ኣሰር ኣይፈቐድኩምን። እቲ ምክትታል ኣሰር ንዓና ዝጠቕመና፣ ነቲ {{appName}} ንምምሕያሽን ነቶም ኣጋይሽ ሃገር ዝሓሸ ሓበሬታ ንምድላው እዩ። ርግጸኛ ዲኹም፣ ኣሰር ምክትታል ከይፈቐድኩም ካብ ስክሪን ክትፍለዩ?  ",
       "enabled": "ከምዝነጥፍ ተገይሩ",
       "disabled": "ከምዘይነጥፍ ተገይሩ",
       "decline": "ንጸግ"
