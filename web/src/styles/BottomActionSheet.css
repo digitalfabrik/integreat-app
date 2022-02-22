@@ -1,5 +1,4 @@
 /* BottomActionSheet Overrides */
-/* stylelint-disable */
 [data-rsbs-header] {
   box-shadow: none;
   padding-top: calc(24px + env(safe-area-inset-top));

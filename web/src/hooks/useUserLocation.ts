@@ -32,6 +32,7 @@ export const useUserLocation = (): UserLocationType => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
+        // eslint-disable-next-line -- check needed for tests
         if (coords) {
           const { latitude, longitude } = coords
           setUserCoordinates([latitude, longitude])
