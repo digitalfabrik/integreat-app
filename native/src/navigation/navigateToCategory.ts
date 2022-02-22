@@ -37,6 +37,9 @@ const navigateToCategory = <T extends RoutesType>({
       index: 0,
       routes: [route]
     })
+    dispatch({
+      type: 'CLEAR_CITY'
+    })
   } else {
     navigation.navigate(route)
   }
