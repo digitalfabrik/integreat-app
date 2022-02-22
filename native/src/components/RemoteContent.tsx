@@ -29,19 +29,30 @@ type PropType = {
   cacheDirectory: ParsedCacheDictionaryType
   language: string
   resourceCacheUrl: string
-  onLinkPress: (arg0: string) => void
-  onLoad: (arg0: void) => void
+  onLinkPress: (url: string) => void
+  onLoad: () => void
 }
 
 const RemoteContent = (props: PropType): ReactElement | null => {
   const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress } = props
-  const theme = useTheme()
+  const [error, setError] = useState<string | null>(null)
+  const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
   const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)
-  const [error, setError] = useState<string | null>(null)
   const { width } = useWindowDimensions()
   const webViewWidth = width - 2 * dimensions.page.horizontalMargin
+  const theme = useTheme()
+
+  useEffect(() => {
+    // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway.
+    // Therefore only set it to state and execute onLinkPress in useEffect.
+    const url = pressedUrl
+    if (url) {
+      setPressedUrl(null)
+      onLinkPress(url)
+    }
+  }, [onLinkPress, pressedUrl])
 
   useEffect(() => {
     if (webViewHeight !== defaultWebviewHeight) {
@@ -72,11 +83,12 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       if (event.url === new URL(resourceCacheUrl).href) {
         return true
       }
-
-      onLinkPress(event.url)
+      // If it takes too long returning false the webview loads the pressed url anyway.
+      // Therefore only set it to state and execute onLinkPress in useEffect.
+      setPressedUrl(event.url)
       return false
     },
-    [resourceCacheUrl, onLinkPress]
+    [resourceCacheUrl]
   )
 
   if (content.length === 0) {
@@ -103,6 +115,9 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       onMessage={onMessage}
       renderError={renderWebviewError}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+      // To allow custom handling of link clicks
+      // https://github.com/react-native-webview/react-native-webview/issues/1869
+      setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
         width: webViewWidth
