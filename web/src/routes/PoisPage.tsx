@@ -1,11 +1,12 @@
 import { BBox } from 'geojson'
-import React, { ReactElement, useCallback, useContext } from 'react'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
 import { useNavigate, useParams } from 'react-router-dom'
+import { BottomSheetRef } from 'react-spring-bottom-sheet'
+import styled from 'styled-components'
 
 import {
-  createPOIsEndpoint,
   defaultViewportConfig,
   embedInCollection,
   locationName,
@@ -14,28 +15,35 @@ import {
   pathnameFromRouteInformation,
   PoiFeature,
   PoiModel,
-  POIS_ROUTE,
-  useLoadFromEndpoint
+  POIS_ROUTE
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import Caption from '../components/Caption'
+import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
+import BottomActionSheet from '../components/BottomActionSheet'
 import FailureSwitcher from '../components/FailureSwitcher'
-import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
-import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import buildConfig from '../constants/buildConfig'
-import { cmsApiBaseUrl } from '../constants/urls'
+import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
+import { useFeatureLocations } from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
+
+const ListWrapper = styled.div`
+  @media ${dimensions.minMaxWidth} {
+    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+  }
+`
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
@@ -51,22 +59,16 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const formatter = useContext(DateFormatterContext)
   const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
+  const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
+  const sheetRef = useRef<BottomSheetRef>(null)
+
+  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const requestPois = useCallback(
-    async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
-
   const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)
-
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={false} />
-  )
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
@@ -81,14 +83,21 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   })
 
+  const selectFeature = (feature: PoiFeature | null) => {
+    setCurrentFeature(feature)
+  }
+
+  const changeSnapPoint = (snapPoint: number) => {
+    sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+  }
+
   const locationLayoutParams = {
     cityModel,
     viewportSmall,
     feedbackTargetInformation: poi ? { path: poi.path } : null,
     languageChangePaths,
     route: POIS_ROUTE,
-    languageCode,
-    toolbar
+    languageCode
   }
 
   if (loading) {
@@ -127,7 +136,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       <LocationLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
         <Page
-          defaultThumbnailSrc={thumbnail}
+          defaultThumbnailSrc={thumbnail || PoiPlaceholder}
           lastUpdate={lastUpdate}
           content={content}
           title={title}
@@ -145,22 +154,32 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       </LocationLayout>
     )
   }
-  const sortedPois = pois.sort((poi1: PoiModel, poi2: PoiModel) => poi1.title.localeCompare(poi2.title))
-  const renderPoiListItem = (poi: PoiModel) => <PoiListItem key={poi.path} poi={poi} />
+  const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
+    poi1.properties.title.localeCompare(poi2.properties.title)
+  )
+  const renderPoiListItem = (poi: PoiFeature) => <PoiListItem key={poi.properties.path} properties={poi.properties} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
-  const featureLocations = pois.map(poi => poi.featureLocation).filter((feature): feature is PoiFeature => !!feature)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      <Caption title={t('pois')} />
       {cityModel.boundingBox && (
         <MapView
-          featureCollection={embedInCollection(featureLocations)}
+          selectFeature={selectFeature}
+          changeSnapPoint={changeSnapPoint}
+          featureCollection={embedInCollection(sortedPois)}
           bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
+          currentFeature={currentFeature}
         />
       )}
-      <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} />
+      <BottomActionSheet title={currentFeature?.properties.title || t('sheetTitle')} ref={sheetRef}>
+        {sortedPois.length > 0 && !currentFeature && (
+          <ListWrapper>
+            <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
+          </ListWrapper>
+        )}
+        {/* TODO add feedback toolbar IGAPP-914 */}
+      </BottomActionSheet>
     </LocationLayout>
   )
 }
