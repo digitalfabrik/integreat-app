@@ -45,12 +45,11 @@ const RemoteContent = (props: PropType): ReactElement | null => {
   const theme = useTheme()
 
   useEffect(() => {
-    // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway.
+    // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.
     // Therefore only set it to state and execute onLinkPress in useEffect.
-    const url = pressedUrl
-    if (url) {
+    if (pressedUrl) {
+      onLinkPress(pressedUrl)
       setPressedUrl(null)
-      onLinkPress(url)
     }
   }, [onLinkPress, pressedUrl])
 
@@ -79,11 +78,11 @@ const RemoteContent = (props: PropType): ReactElement | null => {
 
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
-      // Needed on iOS for the initial load
       if (event.url === new URL(resourceCacheUrl).href) {
+        // Needed on iOS for the initial load
         return true
       }
-      // If it takes too long returning false the webview loads the pressed url anyway.
+      // If it takes too long returning false the webview loads the pressed url anyway on android.
       // Therefore only set it to state and execute onLinkPress in useEffect.
       setPressedUrl(event.url)
       return false
@@ -111,11 +110,11 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       domStorageEnabled={false}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
-      scrollEnabled={false} // to disable scrolling in iOS
+      scrollEnabled={false} // To disable scrolling in iOS
       onMessage={onMessage}
       renderError={renderWebviewError}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-      // To allow custom handling of link clicks
+      // To allow custom handling of link clicks in android
       // https://github.com/react-native-webview/react-native-webview/issues/1869
       setSupportMultipleWindows={false}
       style={{
