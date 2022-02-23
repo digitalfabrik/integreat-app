@@ -18,9 +18,11 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   lightTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
-  allowedHostNames: ['cms.malteapp.de'],
+  switchCmsUrl: 'https://malte-test.tuerantuer.org',
+  allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
   translationsOverride: malteOverrideTranslations,
-  internalLinksHijackPattern: 'https?:\\/\\/(cms\\.)?malteapp\\.de(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+  internalLinksHijackPattern:
+    'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
     floss: false,
