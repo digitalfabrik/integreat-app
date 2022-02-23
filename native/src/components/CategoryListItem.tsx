@@ -27,13 +27,17 @@ const DirectionContainer = styled.View<DirectionContainerPropsType>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
 `
-const CategoryEntryContainer = styled.View<{ language: string }>`
+const CategoryEntryContainer = styled.View`
   flex: 1;
   flex-direction: column;
   align-self: center;
   padding: 15px 5px;
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.themeColor};
+`
+
+const TitleDirectionContainer = styled.View<{ language: string }>`
+  flex-direction: ${props => contentDirection(props.language)};
 `
 
 const CategoryTitle = styled(Highlighter)<{ language: string }>`
@@ -109,17 +113,19 @@ const CategoryListItem = ({
   }
 
   const renderTitle = () => (
-    <CategoryEntryContainer language={language}>
-      <CategoryTitle
-        language={language}
-        autoEscape
-        textToHighlight={category.title}
-        sanitize={normalizeSearchString}
-        searchWords={query ? [query] : []}
-        highlightStyle={{
-          fontWeight: 'bold'
-        }}
-      />
+    <CategoryEntryContainer>
+      <TitleDirectionContainer language={language}>
+        <CategoryTitle
+          language={language}
+          autoEscape
+          textToHighlight={category.title}
+          sanitize={normalizeSearchString}
+          searchWords={query ? [query] : []}
+          highlightStyle={{
+            fontWeight: 'bold'
+          }}
+        />
+      </TitleDirectionContainer>
       {getMatchedContent(NUM_WORDS_SURROUNDING_MATCH)}
     </CategoryEntryContainer>
   )
