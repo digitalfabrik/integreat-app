@@ -3,7 +3,11 @@
   "name": "tools",
   "private": true,
   "scripts": {
-    "manage-metadata": "ts-node manage-metadata.ts"
+    "manage-metadata": "ts-node manage-metadata.ts",
+    "git-version": "ts-node git-version.ts",
+    "github-release": "ts-node github-release.ts",
+    "move-release-notes": "ts-node move-release-notes.ts",
+    "next-version": "ts-node next-version.ts"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.3",
