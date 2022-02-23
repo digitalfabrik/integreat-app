@@ -1,18 +1,17 @@
-#!/usr/bin/env node
+import { program } from 'commander'
+import fs from 'fs'
 
-const fs = require('fs')
-const { VERSION_FILE } = require('./constants')
-const { program } = require('commander')
+import { VERSION_FILE } from './constants'
 
 const calculateNewVersion = () => {
-  const versionFile = fs.readFileSync(VERSION_FILE)
+  const versionFile = fs.readFileSync(VERSION_FILE, 'utf-8')
   // versionCode is just used in the integreat-react-native-app
   const { versionName, versionCode } = JSON.parse(versionFile)
-  const versionNameParts = versionName.split('.').map(it => parseInt(it))
+  const versionNameParts = versionName.split('.').map((it: string) => parseInt(it, 10))
 
   const date = new Date()
   const year = date.getFullYear()
-  const month = (date.getMonth() + 1)
+  const month = date.getMonth() + 1
 
   const versionNameCounter = year === versionNameParts[0] && month === versionNameParts[1] ? versionNameParts[2] + 1 : 0
   const newVersionName = `${year}.${month}.${versionNameCounter}`

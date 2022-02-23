@@ -7,8 +7,8 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.3",
-    "@octokit/rest": "^17.11.0",
-    "@octokit/auth-app": "^2.4.5",
+    "@octokit/rest": "^18.12.0",
+    "@octokit/auth-app": "^3.6.1",
     "commander": "^5.1.0",
     "js-yaml": "^4.1.0",
     "node-fetch": "2.6.7",
