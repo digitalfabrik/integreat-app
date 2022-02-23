@@ -239,7 +239,7 @@ commands:
                     - malte
                     - integreat-e2e
                     - integreat-test-cms
-                    - aschaffenburg
+                    - malte-test-cms aschaffenburg
                     - all
                 type: enum
         steps:
@@ -428,6 +428,7 @@ jobs:
                     - integreat
                     - malte
                     - integreat-test-cms
+                    - malte-test-cms
                     - aschaffenburg
                 type: enum
         resource_class: medium
@@ -680,7 +681,7 @@ jobs:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
                         name: Integreat development delivery
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
+                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte-test-cms/*"
                         name: Malte development delivery
                     - run:
                         command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
@@ -689,8 +690,8 @@ jobs:
                         command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
                         name: 'Sentry Upload: integreat-test-cms'
                     - run:
-                        command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                        name: 'Sentry Upload: malte'
+                        command: tools/sentry-release web-malte-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte-test-cms
+                        name: 'Sentry Upload: malte-test-cms'
                     - run:
                         command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
                         name: 'Sentry Upload: aschaffenburg'
@@ -1000,10 +1001,10 @@ workflows:
                 requires:
                     - bump_version
             - build_web:
-                build_config_name: malte
+                build_config_name: malte-test-cms
                 context:
                     - mattermost
-                name: build_malte_web
+                name: build_malte_test_cms_web
                 requires:
                     - bump_version
             - build_web:
@@ -1020,7 +1021,7 @@ workflows:
                 production_delivery: false
                 requires:
                     - build_ig_test_cms_web
-                    - build_malte_web
+                    - build_malte_test_cms_web
                     - build_aschaffenburg_web
             - build_android:
                 build_config_name: integreat-test-cms
