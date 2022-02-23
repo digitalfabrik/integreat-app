@@ -4,7 +4,7 @@ import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 
 const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationPropType<T> => ({
   dispatch: jest.fn(),
-  canGoBack: jest.fn(),
+  canGoBack: jest.fn(() => routeIndex > 0),
   goBack: jest.fn(),
   getParent: jest.fn(),
   getState: jest.fn(() => ({
