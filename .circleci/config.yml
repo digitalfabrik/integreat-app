@@ -239,7 +239,8 @@ commands:
                     - malte
                     - integreat-e2e
                     - integreat-test-cms
-                    - malte-test-cms aschaffenburg
+                    - malte-test-cms
+                    - aschaffenburg
                     - all
                 type: enum
         steps:
