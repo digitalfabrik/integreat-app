@@ -140,7 +140,7 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
       throw err
     }
 
-    const csvs = files.map(file => `${translations}/${file}`).filter(file => path.extname(file) === '.csv')
+    const csvs = files.map(file => `${translations}${file}`).filter(file => path.extname(file) === '.csv')
 
     if (isEmpty(csvs)) {
       throw new Error('A minimum of one CSV is required in order to build a JSON!')
@@ -188,7 +188,8 @@ const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: 
     )
     fs.writeFileSync(toPath, `${JSON.stringify(json, null, 2)}\n`, 'utf-8')
     const logMessages = Object.entries(json).map(
-      ([moduleKey, module]) => `Languages in module ${moduleKey}: ${Object.keys(module).length}`
+      ([moduleKey, module]) =>
+        `Languages in module ${moduleKey}: ${Object.keys(module).length} (${Object.keys(module)})`
     )
     logMessages.forEach(message => console.log(message))
   })

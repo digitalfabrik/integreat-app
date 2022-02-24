@@ -109,7 +109,7 @@ const Events = ({
               language={language}
             />
             {location && (
-              <PageDetail identifier={t('location')} information={location} theme={theme} language={language} />
+              <PageDetail identifier={t('address')} information={location} theme={theme} language={language} />
             )}
           </>
         </Page>

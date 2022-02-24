@@ -115,7 +115,7 @@ const EventsPage = ({ cityModel, languages, pathname, languageCode, cityCode }: 
           onInternalLinkClick={navigate}>
           <>
             <PageDetail identifier={t('date')} information={date.toFormattedString(formatter)} />
-            {location.location && <PageDetail identifier={t('location')} information={location.location} />}
+            {location.location && <PageDetail identifier={t('address')} information={location.location} />}
           </>
         </Page>
       </LocationLayout>
