@@ -64,9 +64,9 @@ describe('SearchModal', () => {
       </ThemeProvider>
     )
     const goBackButton = getAllByRole('button')[0]!
-    const categoryListItem = getByText('Category with id 1')
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
+    const categoryListItem = getByText('with id 1')
     await fireEvent.press(categoryListItem)
     await waitFor(() => expect(goBackButton).not.toBeDisabled())
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)

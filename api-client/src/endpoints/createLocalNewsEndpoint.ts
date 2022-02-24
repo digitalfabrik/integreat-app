@@ -4,7 +4,6 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import LocalNewsModel from '../models/LocalNewsModel'
 import { JsonLocalNewsType } from '../types'
-import { parseHTMLEntities } from '../utils/helpers'
 
 export const LOCAL_NEWS_ENDPOINT_NAME = 'localNews'
 type ParamsType = {
@@ -19,16 +18,14 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<LocalNewsModel>> =>
     )
     .withMapper(
       (json: Array<JsonLocalNewsType>): Array<LocalNewsModel> =>
-        json.map((localNews: JsonLocalNewsType) => {
-          const decodedTitle = parseHTMLEntities(localNews.title)
-          const decodedMessage = parseHTMLEntities(localNews.message)
-
-          return new LocalNewsModel({
-            id: localNews.id,
-            timestamp: moment.tz(localNews.timestamp, 'GMT'),
-            title: decodedTitle,
-            message: decodedMessage
-          })
-        })
+        json.map(
+          (localNews: JsonLocalNewsType) =>
+            new LocalNewsModel({
+              id: localNews.id,
+              timestamp: moment.tz(localNews.timestamp, 'GMT'),
+              title: localNews.title,
+              message: localNews.message
+            })
+        )
     )
     .build()

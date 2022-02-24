@@ -1,3 +1,4 @@
+import { decodeHTML } from 'entities'
 import { Moment } from 'moment'
 
 class TunewsModel {
@@ -18,7 +19,7 @@ class TunewsModel {
   }) {
     const { id, date, title, tags, content, eNewsNo } = params
     this._id = id
-    this._title = title
+    this._title = decodeHTML(title)
     this._tags = tags
     this._date = date
     this._content = content
