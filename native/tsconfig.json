@@ -13,7 +13,7 @@
       "build-configs/*": ["../build-configs/*"],
       "translations/*": ["../translations/*"],
       "normalize-strings": ["src/@types/normalize-strings"],
-      "react-native-static-server": ["src/@types/react-native-static-server"],
+      "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
     "skipLibCheck": true,

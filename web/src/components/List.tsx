@@ -2,8 +2,8 @@ import { isEmpty } from 'lodash'
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
-const StyledList = styled.div`
-  border-top: 2px solid ${props => props.theme.colors.themeColor};
+const StyledList = styled.div<{ borderless: boolean }>`
+  border-top: 2px solid ${props => (props.borderless ? 'transparent' : props.theme.colors.themeColor)};
 `
 
 const NoItemsMessage = styled.div`
@@ -15,16 +15,17 @@ type PropsType<T> = {
   items: Array<T>
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
+  borderless?: boolean
 }
 
 class List<T> extends React.PureComponent<PropsType<T>> {
   render(): ReactNode {
-    const { items, renderItem, noItemsMessage } = this.props
+    const { items, renderItem, noItemsMessage, borderless = false } = this.props
     if (isEmpty(items)) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledList>{items.map(item => renderItem(item))}</StyledList>
+    return <StyledList borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
   }
 }
 
