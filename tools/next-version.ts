@@ -22,11 +22,6 @@ const calculateNewVersion = () => {
   }
   const newVersionCode = versionCode ? versionCode + 1 : undefined
 
-  console.warn(`New version name: ${newVersionName}`)
-  if (newVersionCode) {
-    console.warn(`New version name: ${newVersionCode}`)
-  }
-
   return {
     versionName: newVersionName,
     versionCode: newVersionCode
