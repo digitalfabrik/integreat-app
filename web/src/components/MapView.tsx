@@ -14,9 +14,12 @@ import {
   mapMarker
 } from 'api-client'
 
-import MapPopup from './MapPopup'
+import updateQueryParams from '../utils/updateQueryParams'
 
+// Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
+  ${`height: calc(100vh - 190px);`}
+  width: 100%;
   display: flex;
   justify-content: center;
 `
@@ -48,14 +51,16 @@ const geolocateControlStyle: React.CSSProperties = {
 type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: PoiFeatureCollection
+  currentFeature: PoiFeature | null
+  selectFeature: (feature: PoiFeature | null) => void
+  changeSnapPoint: (snapPoint: number) => void
 }
 
-const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): ReactElement => {
-  const { featureCollection, bboxViewport } = props
+const MapView = (props: MapViewProps): ReactElement => {
+  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint } = props
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
-  const [showPopup, togglePopup] = useState<boolean>(false)
-  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
-  const queryLocation = new URLSearchParams(useLocation().search).get(locationName)
+  const queryParams = new URLSearchParams(useLocation().search)
+  const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
 
   useEffect(() => {
     if (queryLocation) {
@@ -68,18 +73,21 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
           latitude: geometry.coordinates[1]!,
           zoom: detailZoom
         }))
-        setCurrentFeature(currentFeature)
-        togglePopup(true)
+        selectFeature(currentFeature)
       }
     }
-  }, [featureCollection, queryLocation])
+  }, [featureCollection, queryLocation, selectFeature])
 
-  const clickItem = (e: MapEvent) => {
+  const onSelectFeature = (e: MapEvent) => {
     if (e.features?.length) {
-      setCurrentFeature(e.features[0])
-      togglePopup(true)
+      selectFeature(e.features[0])
+      changeSnapPoint(1)
+      queryParams.set(locationName, e.features[0].properties.urlSlug)
+      updateQueryParams(queryParams)
     } else {
-      togglePopup(false)
+      setQueryLocation(null)
+      selectFeature(null)
+      updateQueryParams()
     }
   }
 
@@ -88,9 +96,12 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
       <ReactMapGL
         interactiveLayerIds={[layerStyle.id!]}
         {...viewport}
+        height='100%'
+        width='100%'
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
-        onClick={clickItem}>
+        onClick={onSelectFeature}
+        onTouchMove={() => changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <GeolocateControl
           style={geolocateControlStyle}
@@ -99,7 +110,6 @@ const MapView: React.FunctionComponent<MapViewProps> = (props: MapViewProps): Re
         />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
-          {showPopup && currentFeature && <MapPopup properties={currentFeature.properties} />}
         </Source>
       </ReactMapGL>
     </MapContainer>

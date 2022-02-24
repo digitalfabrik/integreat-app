@@ -32,6 +32,23 @@ export type MarkerConfig = {
   symbolActive: string
   iconSize: number
 }
+// GeoLocation Types for useUserLocation hooks
+export type LocationType = [number, number]
+export type UserLocationType = {
+  locationState: LocationStateType
+  userCoordinates: LocationType | null
+}
+
+export type SuccessfulLocationState = {
+  status: 'ready'
+  message: 'localized'
+}
+export type UnavailableLocationState = {
+  status: 'unavailable'
+  message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
+}
+
+export type LocationStateType = SuccessfulLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
 export type PoiFeature = Feature<Point, GeoJsonPoiProperties>
