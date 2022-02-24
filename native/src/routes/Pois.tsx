@@ -184,7 +184,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         />
       )}
       <BottomActionsSheet
-        title={selectedFeature ? selectedFeature.properties.title : undefined}
+        title={selectedFeature ? selectedFeature.properties.title : t('listTitle')}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
