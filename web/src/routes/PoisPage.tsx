@@ -172,7 +172,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
           currentFeature={currentFeature}
         />
       )}
-      <BottomActionSheet title={currentFeature?.properties.title || t('sheetTitle')} ref={sheetRef}>
+      <BottomActionSheet title={currentFeature?.properties.title || t('listTitle')} ref={sheetRef}>
         {sortedPois.length > 0 && !currentFeature && (
           <ListWrapper>
             <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
