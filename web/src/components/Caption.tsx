@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -15,14 +15,8 @@ const H1 = styled.h1`
 
 type PropsType = {
   title: string
-  className?: string
 }
 
-class Caption extends React.PureComponent<PropsType> {
-  render(): ReactNode {
-    const { title, className } = this.props
-    return <H1 className={className}>{title}</H1>
-  }
-}
+const Caption = ({ title }: PropsType): ReactElement => <H1>{title}</H1>
 
 export default Caption
