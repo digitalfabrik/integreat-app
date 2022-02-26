@@ -139,7 +139,7 @@ describe('Landing', () => {
         })
       )
       const { queryByText, queryAllByText, getByText } = renderLanding()
-      await waitFor(() => expect(getByText('noNearbyPlaces')).toBeTruthy())
+      await waitFor(() => expect(getByText('noNearbyCities')).toBeTruthy())
       expect(queryAllByText('Stadt Augsburg')).toHaveLength(1)
       expect(queryByText('noPermission')).toBeFalsy()
       expect(mockCheckLocationPermission).toHaveBeenCalled()

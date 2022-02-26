@@ -29,19 +29,29 @@ type PropType = {
   cacheDirectory: ParsedCacheDictionaryType
   language: string
   resourceCacheUrl: string
-  onLinkPress: (arg0: string) => void
-  onLoad: (arg0: void) => void
+  onLinkPress: (url: string) => void
+  onLoad: () => void
 }
 
 const RemoteContent = (props: PropType): ReactElement | null => {
   const { onLoad, content, cacheDirectory, resourceCacheUrl, language, onLinkPress } = props
-  const theme = useTheme()
+  const [error, setError] = useState<string | null>(null)
+  const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
   const [webViewHeight, setWebViewHeight] = useState<number>(defaultWebviewHeight)
-  const [error, setError] = useState<string | null>(null)
   const { width } = useWindowDimensions()
   const webViewWidth = width - 2 * dimensions.page.horizontalMargin
+  const theme = useTheme()
+
+  useEffect(() => {
+    // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.
+    // Therefore only set it to state and execute onLinkPress in useEffect.
+    if (pressedUrl) {
+      onLinkPress(pressedUrl)
+      setPressedUrl(null)
+    }
+  }, [onLinkPress, pressedUrl])
 
   useEffect(() => {
     if (webViewHeight !== defaultWebviewHeight) {
@@ -68,15 +78,16 @@ const RemoteContent = (props: PropType): ReactElement | null => {
 
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
-      // Needed on iOS for the initial load
       if (event.url === new URL(resourceCacheUrl).href) {
+        // Needed on iOS for the initial load
         return true
       }
-
-      onLinkPress(event.url)
+      // If it takes too long returning false the webview loads the pressed url anyway on android.
+      // Therefore only set it to state and execute onLinkPress in useEffect.
+      setPressedUrl(event.url)
       return false
     },
-    [resourceCacheUrl, onLinkPress]
+    [resourceCacheUrl]
   )
 
   if (content.length === 0) {
@@ -99,10 +110,13 @@ const RemoteContent = (props: PropType): ReactElement | null => {
       domStorageEnabled={false}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
-      scrollEnabled={false} // to disable scrolling in iOS
+      scrollEnabled={false} // To disable scrolling in iOS
       onMessage={onMessage}
       renderError={renderWebviewError}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+      // To allow custom handling of link clicks in android
+      // https://github.com/react-native-webview/react-native-webview/issues/1869
+      setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
         width: webViewWidth

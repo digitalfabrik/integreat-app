@@ -1,3 +1,4 @@
+import { decodeHTML } from 'entities'
 import { Moment } from 'moment'
 
 import DateModel from './DateModel'
@@ -29,7 +30,7 @@ class EventModel extends ExtendedPageModel {
     super(other)
     this._date = date
     this._location = location
-    this._excerpt = excerpt
+    this._excerpt = decodeHTML(excerpt)
     this._featuredImage = featuredImage
   }
 

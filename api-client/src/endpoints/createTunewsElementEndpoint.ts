@@ -6,7 +6,6 @@ import NotFoundError from '../errors/NotFoundError'
 import TunewsModel from '../models/TunewsModel'
 import { TU_NEWS_TYPE } from '../routes'
 import { JsonTunewsType } from '../types'
-import { parseHTMLEntities } from '../utils/helpers'
 
 export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
 
@@ -28,11 +27,9 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
         })
       }
 
-      const decodedTitle = parseHTMLEntities(json.title)
-
       return new TunewsModel({
         id: json.id,
-        title: decodedTitle,
+        title: json.title,
         tags: json.tags,
         date: moment.tz(json.date, 'GMT'),
         content: json.content,
