@@ -1,4 +1,3 @@
-import { Parser } from 'htmlparser2'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { TFunction } from 'react-i18next'
@@ -12,7 +11,8 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
-  RouteInformationType
+  RouteInformationType,
+  parseHTML
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
@@ -87,25 +87,17 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
     // find all categories whose contents but not titles include the filter text and sort them lexicographically
     const categoriesWithContent = categoriesArray
       .filter(category => !normalizeSearchString(category.title).includes(normalizedFilter) && !category.isRoot())
-      .map((category: CategoryModel): ListEntryType => {
-        const contentWithoutHtml: string[] = []
-        const parser = new Parser({
-          ontext: (data: string) => {
-            contentWithoutHtml.push(data)
-          }
-        })
-        parser.write(category.content)
-        parser.end()
-        return {
+      .map(
+        (category: CategoryModel): ListEntryType => ({
           model: {
             path: category.path,
             thumbnail: category.thumbnail,
             title: category.title,
-            contentWithoutHtml: contentWithoutHtml.join(' ')
+            contentWithoutHtml: parseHTML(category.content)
           },
           subCategories: []
-        }
-      })
+        })
+      )
       .filter(
         category =>
           category.model.contentWithoutHtml &&

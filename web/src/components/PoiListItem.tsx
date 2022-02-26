@@ -64,7 +64,7 @@ const PoiListItem = ({ properties }: PropsType): ReactElement => {
         <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
         <Description>
           <Title>{title}</Title>
-          {distance && <Distance>{`${distance} ${t('unit')} ${t('distanceText')}`}</Distance>}
+          {distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
         </Description>
       </CleanLink>
     </ListItemContainer>

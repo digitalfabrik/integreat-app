@@ -184,7 +184,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         />
       )}
       <BottomActionsSheet
-        title={selectedFeature ? selectedFeature.properties.title : t('sheetTitle')}
+        title={selectedFeature ? selectedFeature.properties.title : t('listTitle')}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
@@ -199,7 +199,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         ) : (
           <List
             CustomStyledList={CustomSheetList}
-            noItemsMessage={t('currentlyNoPois')}
+            noItemsMessage={t('noPois')}
             items={featureLocations}
             renderItem={renderPoiListItem(cityModel.code, language)}
             theme={theme}
