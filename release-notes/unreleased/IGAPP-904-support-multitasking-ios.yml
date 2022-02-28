@@ -1,0 +1,6 @@
+issue_key: IGAPP-904
+show_in_stores: true
+platforms:
+  - ios
+en: Multitasking with split view and slide over is now supported on iPads.
+de: Multitasking mit Split View und Slide Over wird nun auf iPads unterstützt.
