@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
 
-import { CityModel, SEARCH_ROUTE } from 'api-client'
+import { CityModel, POIS_ROUTE, SEARCH_ROUTE } from 'api-client'
 
 import Layout from '../components/Layout'
 import LocationFooter from '../components/LocationFooter'
@@ -46,6 +46,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
 
   return (
     <Layout
+      fullWidth={route === POIS_ROUTE}
       asideStickyTop={asideStickyTop}
       header={
         <LocationHeader
