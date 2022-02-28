@@ -113,6 +113,9 @@ class Config {
     ur: {
       rtl: true,
       additionalFont: 'noto-sans-arabic'
+    },
+    uk: {
+      rtl: false
     }
   }
 
