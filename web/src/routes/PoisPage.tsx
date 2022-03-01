@@ -41,21 +41,23 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
 
-const PoisPageWrapper = styled.div<{ panelHeight: number }>`
+const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
-  ${({ panelHeight }) => `height: calc(100vh - ${panelHeight}px);`};
+  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `
 
-const ListViewWrapper = styled.div<{ panelHeight: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number }>`
+  min-width: 370px;
   padding: 0 32px;
   overflow: auto;
-  ${({ panelHeight }) => `height: calc(100vh - ${panelHeight}px - ${dimensions.toolbarHeight}px);`};
+  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
   display: flex;
   justify-content: center;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  box-shadow: 1px 0px 4px 0px rgba(0, 0, 0, 0.2);
 `
 
 const ListHeader = styled.div`
@@ -212,13 +214,13 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   )
 
   const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-  // To get the map fullheight we have reduce it by header, footer, navMenu
-  const panelHeight = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
+  // To get the map fullheight its reduced by header, footer, navMenu
+  const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      <PoisPageWrapper panelHeight={panelHeight}>
+      <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
           <>
             {mapView}
@@ -227,22 +229,19 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
               toolbar={toolbar(setFeedbackModalRating)}
               ref={sheetRef}>
               {sortedPois.length > 0 && !currentFeature && poiList}
-              {/* TODO add feedback toolbar IGAPP-914 */}
             </BottomActionSheet>
           </>
         ) : (
-          sortedPois.length > 0 && (
-            <>
-              <div>
-                <ListViewWrapper panelHeight={panelHeight}>
-                  <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
-                  {!currentFeature && poiList}
-                </ListViewWrapper>
-                <ToolbarContainer> {toolbar(setFeedbackModalRating)}</ToolbarContainer>
-              </div>
-              {mapView}
-            </>
-          )
+          <>
+            <div>
+              <ListViewWrapper panelHeights={panelHeights}>
+                <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
+                {!currentFeature && sortedPois.length > 0 && poiList}
+              </ListViewWrapper>
+              <ToolbarContainer> {toolbar(setFeedbackModalRating)}</ToolbarContainer>
+            </div>
+            {mapView}
+          </>
         )}
         {feedbackModal}
       </PoisPageWrapper>
