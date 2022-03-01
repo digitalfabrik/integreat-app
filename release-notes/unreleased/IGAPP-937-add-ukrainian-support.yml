@@ -1,0 +1,8 @@
+issue_key: IGAPP-937
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: Added support for Ukrainian.
+de: Unterstützung für Ukrainisch hinzugefügt.
