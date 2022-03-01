@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import React from 'react'
 import { ThemeProvider } from 'styled-components/native'
 
-import { CategoriesRouteInformationType, CATEGORIES_ROUTE, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
@@ -84,5 +84,17 @@ describe('SearchModal', () => {
         url: expectedUrl
       }
     })
+  })
+
+  it('should show nothing found if there are no search results', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <ThemeProvider theme={buildConfig().lightTheme}>
+        <SearchModal {...props} />
+      </ThemeProvider>
+    )
+
+    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'invalid query')
+
+    expect(getByText('search:nothingFound')).toBeTruthy()
   })
 })

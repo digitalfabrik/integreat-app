@@ -16,6 +16,7 @@ import getNearbyCities from '../utils/getNearbyCities'
 import { normalizeSearchString } from '../utils/helpers'
 import CityEntry from './CityEntry'
 import CityGroup from './CityGroup'
+import NothingFound from './NothingFound'
 
 const CityGroupContainer = styled.View`
   flex: 0;
@@ -88,6 +89,9 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
     const { theme, filterText, navigateToDashboard } = this.props
+    if (cities.length === 0) {
+      return <NothingFound />
+    }
     const sorted = this._sort(cities)
     const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
     return transform(
