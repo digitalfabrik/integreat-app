@@ -10,7 +10,7 @@ import CleanLink from './CleanLink'
 const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
-  border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
+  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
   padding: 22px 0;
 
   &:first-child {

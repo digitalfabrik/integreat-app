@@ -22,29 +22,40 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import BottomActionSheet from '../components/BottomActionSheet'
 import FailureSwitcher from '../components/FailureSwitcher'
+import FeedbackModal from '../components/FeedbackModal'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import buildConfig from '../constants/buildConfig'
+import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { useFeatureLocations } from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
 
-const MapViewDesktopWrapper = styled.div`
+const PoisPageWrapper = styled.div<{ panelHeight: number }>`
   display: flex;
-  ${`height: calc(100vh - 190px);`};
+  ${({ panelHeight }) => `height: calc(100vh - ${panelHeight}px);`};
 `
 
-const ListViewWrapper = styled.div`
-  overflow: auto;
+const ListViewWrapper = styled.div<{ panelHeight: number }>`
   padding: 0 32px;
+  overflow: auto;
+  ${({ panelHeight }) => `height: calc(100vh - ${panelHeight}px - ${dimensions.toolbarHeight}px);`};
+`
+
+const ToolbarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const ListHeader = styled.div`
@@ -55,7 +66,7 @@ const ListHeader = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
+  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
   margin-bottom: 20px;
 `
 
@@ -75,6 +86,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
+  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
 
@@ -104,6 +116,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const changeSnapPoint = (snapPoint: number) => {
     sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
   }
+
+  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
+    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} direction='row' />
+  )
+
+  const feedbackModal = feedbackModalRating ? (
+    <FeedbackModal
+      cityCode={cityModel.code}
+      language={languageCode}
+      routeType={POIS_ROUTE}
+      feedbackRating={feedbackModalRating}
+      closeModal={() => setFeedbackModalRating(null)}
+    />
+  ) : null
 
   const locationLayoutParams = {
     cityModel,
@@ -185,31 +211,41 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     />
   )
 
+  const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
+  // To get the map fullheight we have reduce it by header, footer, navMenu
+  const panelHeight = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      {viewportSmall
-        ? mapView
-        : sortedPois.length > 0 && (
-            <MapViewDesktopWrapper>
-              <ListViewWrapper>
-                <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
-                {!currentFeature && (
-                  <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-                )}
-              </ListViewWrapper>
+      <PoisPageWrapper panelHeight={panelHeight}>
+        {viewportSmall ? (
+          <>
+            {mapView}
+            <BottomActionSheet
+              title={currentFeature?.properties.title || t('listTitle')}
+              toolbar={toolbar(setFeedbackModalRating)}
+              ref={sheetRef}>
+              {sortedPois.length > 0 && !currentFeature && poiList}
+              {/* TODO add feedback toolbar IGAPP-914 */}
+            </BottomActionSheet>
+          </>
+        ) : (
+          sortedPois.length > 0 && (
+            <>
+              <div>
+                <ListViewWrapper panelHeight={panelHeight}>
+                  <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
+                  {!currentFeature && poiList}
+                </ListViewWrapper>
+                <ToolbarContainer> {toolbar(setFeedbackModalRating)}</ToolbarContainer>
+              </div>
               {mapView}
-            </MapViewDesktopWrapper>
-          )}
-
-      {viewportSmall && (
-        <BottomActionSheet title={currentFeature?.properties.title || t('listTitle')} ref={sheetRef}>
-          {sortedPois.length > 0 && !currentFeature && (
-            <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-          )}
-          {/* TODO add feedback toolbar IGAPP-914 */}
-        </BottomActionSheet>
-      )}
+            </>
+          )
+        )}
+        {feedbackModal}
+      </PoisPageWrapper>
     </LocationLayout>
   )
 }
