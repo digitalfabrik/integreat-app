@@ -43,8 +43,10 @@ const Body = styled.div<{ fullWidth: boolean }>`
       @media ${dimensions.minMaxWidth} {
         padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
         padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
-      }
-    `} @media ${dimensions.smallViewport} {
+      } ;
+    `};
+
+  @media ${dimensions.smallViewport} {
     display: flex;
     flex-direction: column-reverse;
   }
