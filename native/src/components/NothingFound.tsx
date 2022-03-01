@@ -23,7 +23,7 @@ const NothingFound = (): ReactElement => {
   return (
     <>
       <SadIconContainer source={SadIcon} />
-      <Description>{t('search:nothingFound')}</Description>
+      <Description accessibilityRole='alert'>{t('search:nothingFound')}</Description>
     </>
   )
 }
