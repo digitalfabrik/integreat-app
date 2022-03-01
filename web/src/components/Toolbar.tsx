@@ -1,14 +1,13 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { TFunction, withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
-const ToolbarContainer = styled.div`
+const ToolbarContainer = styled.div<{ direction: string }>`
   display: flex;
-  width: 75px;
   box-sizing: border-box;
-  flex-direction: column;
+  flex-direction: ${props => props.direction};
   align-items: center;
   padding: 15px 0;
 
@@ -36,18 +35,28 @@ const Headline = styled.h5`
   font-size: 90%;
 `
 
-type PropsType = {
+type ToolbarProps = {
   className?: string
   children?: ReactNode
   viewportSmall: boolean
-  t: TFunction
+  direction?: 'row' | 'column'
 }
 
-const Toolbar = ({ children, className, t, viewportSmall }: PropsType): ReactElement => (
-  <ToolbarContainer className={className}>
-    {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
-    {children}
-  </ToolbarContainer>
-)
+const Toolbar: React.FC<ToolbarProps> = ({
+  children,
+  className,
+  viewportSmall,
+  direction = 'column'
+}: ToolbarProps): ReactElement => {
+  const { t } = useTranslation('feedback')
+  return (
+    <div>
+      <ToolbarContainer className={className} direction={direction}>
+        {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
+        {children}
+      </ToolbarContainer>
+    </div>
+  )
+}
 
-export default withTranslation('feedback')(Toolbar)
+export default Toolbar
