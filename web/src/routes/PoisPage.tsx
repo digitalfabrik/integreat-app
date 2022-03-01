@@ -120,7 +120,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} direction='row' />
+    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} iconDirection='row' />
   )
 
   const feedbackModal = feedbackModalRating ? (

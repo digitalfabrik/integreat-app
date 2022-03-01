@@ -7,15 +7,15 @@ type PropsType = {
   openFeedbackModal: (rating: FeedbackRatingType) => void
   children?: ReactNode
   viewportSmall: boolean
-  direction?: 'row' | 'column'
+  iconDirection?: 'row' | 'column'
 }
 
 class LocationToolbar extends React.PureComponent<PropsType> {
   render(): ReactNode {
-    const { viewportSmall, children, openFeedbackModal, direction = 'column' } = this.props
+    const { viewportSmall, children, openFeedbackModal, iconDirection = 'column' } = this.props
 
     return (
-      <Toolbar viewportSmall={viewportSmall} direction={direction}>
+      <Toolbar viewportSmall={viewportSmall} iconDirection={iconDirection}>
         {children}
         <FeedbackToolbarItem isPositiveRatingLink openFeedbackModal={openFeedbackModal} viewportSmall={viewportSmall} />
         <FeedbackToolbarItem
