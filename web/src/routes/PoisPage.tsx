@@ -20,7 +20,6 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
-import BottomActionSheet from '../components/BottomActionSheet'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -33,6 +32,8 @@ import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
+import PoisDesktop from '../components/PoisDesktop'
+import PoisMobile from '../components/PoisMobile'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -44,32 +45,6 @@ import { log } from '../utils/sentry'
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
-`
-
-const ListViewWrapper = styled.div<{ panelHeights: number }>`
-  min-width: 370px;
-  padding: 0 32px;
-  overflow: auto;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
-`
-
-const ToolbarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
-  box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
-`
-
-const ListHeader = styled.div`
-  padding-top: 32px;
-  padding-bottom: 20px;
-  text-align: center;
-  font-size: 18px;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  line-height: ${props => props.theme.fonts.decorativeLineHeight};
-  font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
-  margin-bottom: 20px;
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
@@ -222,26 +197,23 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (
-          <>
-            {mapView}
-            <BottomActionSheet
-              title={currentFeature?.properties.title || t('listTitle')}
-              toolbar={toolbar(setFeedbackModalRating)}
-              ref={sheetRef}>
-              {sortedPois.length > 0 && !currentFeature && poiList}
-            </BottomActionSheet>
-          </>
+          <PoisMobile
+            currentFeature={currentFeature}
+            toolbar={toolbar(setFeedbackModalRating)}
+            ref={sheetRef}
+            sortedPois={sortedPois}
+            mapView={mapView}
+            poiList={poiList}
+          />
         ) : (
-          <>
-            <div>
-              <ListViewWrapper panelHeights={panelHeights}>
-                <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
-                {!currentFeature && sortedPois.length > 0 && poiList}
-              </ListViewWrapper>
-              <ToolbarContainer> {toolbar(setFeedbackModalRating)}</ToolbarContainer>
-            </div>
-            {mapView}
-          </>
+          <PoisDesktop
+            currentFeature={currentFeature}
+            toolbar={toolbar(setFeedbackModalRating)}
+            panelHeights={panelHeights}
+            sortedPois={sortedPois}
+            mapView={mapView}
+            poiList={poiList}
+          />
         )}
         {feedbackModal}
       </PoisPageWrapper>
