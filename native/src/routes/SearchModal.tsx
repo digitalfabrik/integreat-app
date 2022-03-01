@@ -16,9 +16,9 @@ import {
 } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import SadIcon from '../assets/smile-sad.svg'
 import CategoryList, { ListEntryType } from '../components/CategoryList'
 import FeedbackContainer from '../components/FeedbackContainer'
+import NothingFound from '../components/NothingFound'
 import SearchHeader from '../components/SearchHeader'
 import dimensions from '../constants/dimensions'
 import { urlFromRouteInformation } from '../navigation/url'
@@ -34,23 +34,10 @@ const Wrapper = styled.View`
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-const ThemedText = styled.Text`
-  display: flex;
-  text-align: left;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-`
-const Heading = styled(ThemedText)`
-  font-size: 16px;
-  text-align: center;
-  padding: 10px 30px 30px;
-`
-const SadIconContainer = styled.Image`
-  margin: 0px auto 10px;
-`
+
 export type PropsType = {
   categories: CategoriesMapModel | null
-  navigateTo: (arg0: RouteInformationType) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
   theme: ThemeType
   language: string
   cityCode: string
@@ -181,12 +168,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
             language={language}
           />
         </View>
-        {filteredCategories.length === 0 && (
-          <>
-            <SadIconContainer source={SadIcon} />
-            <Heading theme={theme}>{t('search:nothingFound')}</Heading>
-          </>
-        )}
+        {filteredCategories.length === 0 && <NothingFound />}
         <FeedbackContainer
           routeType={SEARCH_ROUTE}
           isSearchFeedback

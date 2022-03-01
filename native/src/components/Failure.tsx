@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { ErrorCode } from 'api-client'
 
-import FailureIcon from '../assets/FailureIcon.svg'
+import FailureIcon from '../assets/smile-sad.svg'
 
 const ViewContainer = styled.View`
   flex: 1;
