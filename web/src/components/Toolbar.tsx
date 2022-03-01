@@ -39,19 +39,19 @@ type ToolbarProps = {
   className?: string
   children?: ReactNode
   viewportSmall: boolean
-  direction?: 'row' | 'column'
+  iconDirection?: 'row' | 'column'
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
   children,
   className,
   viewportSmall,
-  direction = 'column'
+  iconDirection = 'column'
 }: ToolbarProps): ReactElement => {
   const { t } = useTranslation('feedback')
   return (
     <div>
-      <ToolbarContainer className={className} direction={direction}>
+      <ToolbarContainer className={className} direction={iconDirection}>
         {viewportSmall && <Headline>{t('isThisSiteUseful')}</Headline>}
         {children}
       </ToolbarContainer>
