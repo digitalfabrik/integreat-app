@@ -1,3 +1,4 @@
+import { decodeHTML } from 'entities'
 import { Moment } from 'moment'
 
 import normalizePath from '../normalizePath'
@@ -23,7 +24,7 @@ class PageModel {
     hash: string
   }) {
     this._path = normalizePath(path)
-    this._title = title
+    this._title = decodeHTML(title)
     this._content = content
     this._lastUpdate = lastUpdate
     this._hash = hash

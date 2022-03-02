@@ -1,0 +1,7 @@
+issue_key: IGAPP-906
+show_in_stores: false
+platforms:
+  - ios
+  - android
+  - web
+en: Support wrapping of long titles with &shy; property. Android only works under certain conditions.

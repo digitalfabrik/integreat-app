@@ -1,4 +1,4 @@
-declare module 'react-native-static-server' {
+declare module '@dr.pogodin/react-native-static-server' {
   type Options = {
     localOnly?: boolean
     keepAlive?: boolean
