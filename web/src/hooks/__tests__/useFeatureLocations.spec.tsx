@@ -11,7 +11,7 @@ import { useFeatureLocations } from '../useFeatureLocations'
 navigator.geolocation = mockGeolocationSuccess
 
 // calculated distance from the coordinates of the mocked geolocation to the poi
-const distance = 4766.6
+const distance = 3722.8
 jest.mock('api-client', () => ({
   ...jest.requireActual('api-client'),
   useLoadFromEndpoint: jest.fn()
@@ -45,7 +45,8 @@ describe('useFeatureLocations', () => {
   }
 
   it('should correctly receive featureLocation properties', () => {
-    const { getByText } = render(<MockComponent />)
+    const { getByText, debug } = render(<MockComponent />)
+    debug()
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(distance)).toBeTruthy()
   })
