@@ -1,4 +1,3 @@
-import { Parser } from 'htmlparser2'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -6,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import {
   CategoryModel,
   createCategoriesEndpoint,
+  parseHTML,
   pathnameFromRouteInformation,
   SEARCH_ROUTE,
   useLoadFromEndpoint
@@ -84,25 +84,16 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     .sort((category1: CategoryModel, category2: CategoryModel) => category1.title.localeCompare(category2.title))
 
   // find all categories whose contents but not titles include the filter text and sort them lexicographically
-  let contentWithoutHtml: string[] = []
-  const parser = new Parser({
-    ontext: (text: string) => {
-      contentWithoutHtml.push(text)
-    }
-  })
   const categoriesWithContent = categories
     .toArray()
     .filter((category: CategoryModel) => !normalizeSearchString(category.title).includes(normalizedFilterText))
-    .map((category: CategoryModel): CategoryEntryType => {
-      contentWithoutHtml = []
-      parser.write(category.content)
-
-      return {
+    .map(
+      (category: CategoryModel): CategoryEntryType => ({
         model: category,
-        contentWithoutHtml: contentWithoutHtml.join(' '),
+        contentWithoutHtml: parseHTML(category.content),
         subCategories: []
-      }
-    })
+      })
+    )
     .filter(
       (categoryEntry: CategoryEntryType) =>
         categoryEntry.contentWithoutHtml &&
@@ -111,8 +102,6 @@ const SearchPage = ({ cityModel, languages, cityCode, languageCode, pathname }: 
     .sort((category1: CategoryEntryType, category2: CategoryEntryType) =>
       category1.model.title.localeCompare(category2.model.title)
     )
-
-  parser.end()
 
   // return all categories from above and remove the root category
   const searchResults = categoriesWithTitle
