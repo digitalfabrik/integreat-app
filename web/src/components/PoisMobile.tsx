@@ -10,21 +10,17 @@ type PoisMobileProps = {
   mapView: ReactElement | null
   currentFeature: PoiFeature | null
   poiList: ReactElement
-  sortedPois: PoiFeature[]
   toolbar: ReactElement
 }
 
 const PoisMobile = React.forwardRef(
-  (
-    { mapView, currentFeature, toolbar, sortedPois, poiList }: PoisMobileProps,
-    ref: React.Ref<BottomSheetRef>
-  ): ReactElement => {
+  ({ mapView, currentFeature, toolbar, poiList }: PoisMobileProps, ref: React.Ref<BottomSheetRef>): ReactElement => {
     const { t } = useTranslation('pois')
     return (
       <>
         {mapView}
         <BottomActionSheet title={currentFeature?.properties.title || t('listTitle')} toolbar={toolbar} ref={ref}>
-          {sortedPois.length > 0 && !currentFeature && poiList}
+          {!currentFeature && poiList}
         </BottomActionSheet>
       </>
     )

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
-const ToolbarContainer = styled.div<{ direction: string }>`
+const ToolbarContainer = styled.div<{ direction: 'row' | 'column' }>`
   display: flex;
   box-sizing: border-box;
   flex-direction: ${props => props.direction};
