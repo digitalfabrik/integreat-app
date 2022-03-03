@@ -189,11 +189,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   )
 
   const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-  // To calculate the height of the PoisPage containterp, we have to reduce 100vh by header, footer, navMenu
+  // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
 
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <LocationLayout isLoading={false} {...locationLayoutParams} fullWidth>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <PoisPageWrapper panelHeights={panelHeights}>
         {viewportSmall ? (

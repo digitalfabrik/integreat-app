@@ -2,7 +2,6 @@
 
 exports[`LocationToolbar should match snapshot 1`] = `
 <Toolbar
-  iconDirection="column"
   viewportSmall={true}
 >
   <div>
