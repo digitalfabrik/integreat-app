@@ -94,11 +94,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
   }
 
-  const toolbar = (openFeedback: (rating: FeedbackRatingType) => void) => (
-    <LocationToolbar openFeedbackModal={openFeedback} viewportSmall={viewportSmall} iconDirection='row' />
+  const toolbar = (
+    <LocationToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
   )
 
-  const feedbackModal = feedbackModalRating ? (
+  const feedbackModal = feedbackModalRating && (
     <FeedbackModal
       cityCode={cityModel.code}
       language={languageCode}
@@ -106,7 +106,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       feedbackRating={feedbackModalRating}
       closeModal={() => setFeedbackModalRating(null)}
     />
-  ) : null
+  )
 
   const locationLayoutParams = {
     cityModel,
@@ -189,7 +189,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   )
 
   const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-  // To get the map fullheight its reduced by header, footer, navMenu
+  // To calculate the height of the PoisPage containterp, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
 
   return (
@@ -199,18 +199,16 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
         {viewportSmall ? (
           <PoisMobile
             currentFeature={currentFeature}
-            toolbar={toolbar(setFeedbackModalRating)}
+            toolbar={toolbar}
             ref={sheetRef}
-            sortedPois={sortedPois}
             mapView={mapView}
             poiList={poiList}
           />
         ) : (
           <PoisDesktop
             currentFeature={currentFeature}
-            toolbar={toolbar(setFeedbackModalRating)}
+            toolbar={toolbar}
             panelHeights={panelHeights}
-            sortedPois={sortedPois}
             mapView={mapView}
             poiList={poiList}
           />

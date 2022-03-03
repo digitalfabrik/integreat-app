@@ -7,8 +7,8 @@ import { PoiFeature } from 'api-client'
 import dimensions from '../constants/dimensions'
 
 const ListViewWrapper = styled.div<{ panelHeights: number }>`
-  min-width: 370px;
-  padding: 0 32px;
+  min-width: 150px;
+  padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
 `
@@ -22,20 +22,20 @@ const ToolbarContainer = styled.div`
 
 const ListHeader = styled.div`
   padding-top: 32px;
-  padding-bottom: 20px;
+  padding-top: clamp(16px, 1.4vh, 32px);
+  padding-bottom: clamp(10px, 1vh, 20px);
   text-align: center;
   font-size: 18px;
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
   border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 1vh, 20px);
 `
 type PoisDesktopProps = {
   panelHeights: number
   currentFeature: PoiFeature | null
   poiList: ReactElement
-  sortedPois: PoiFeature[]
   mapView: ReactElement | null
   toolbar: ReactElement
 }
@@ -44,7 +44,6 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   panelHeights,
   currentFeature,
   poiList,
-  sortedPois,
   mapView,
   toolbar
 }: PoisDesktopProps): ReactElement => {
@@ -54,7 +53,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
       <div>
         <ListViewWrapper panelHeights={panelHeights}>
           <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
-          {!currentFeature && sortedPois.length > 0 && poiList}
+          {!currentFeature && poiList}
         </ListViewWrapper>
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       </div>
