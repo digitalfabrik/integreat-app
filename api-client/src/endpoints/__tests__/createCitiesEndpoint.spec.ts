@@ -74,7 +74,7 @@ describe('cities', () => {
             latitude: 48.3705449
           }
         },
-        boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
+        boundingBox: [48.447238, 10.7880103, 48.297834, 11.0174493]
       }),
       new CityModel({
         name: city2.name,

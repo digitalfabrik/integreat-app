@@ -119,7 +119,7 @@ class LocationModel {
     if (!this.longitude || !this.latitude) {
       return null
     }
-    return [Number(this.longitude), Number(this.latitude)]
+    return [Number(this.latitude), Number(this.longitude)]
   }
 
   convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
