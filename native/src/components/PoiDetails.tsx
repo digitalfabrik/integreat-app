@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 
 import { PoiFeature, PoiModel } from 'api-client'
 
-import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import Placeholder from '../assets/PoiPlaceholderLarge.jpg'
 import useSnackbar from '../hooks/useSnackbar'
 import { getNavigationDeepLinks } from '../utils/getNavigationDeepLinks'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -60,23 +60,6 @@ const PoiDetailsContainer = styled.View`
   flex: 1;
 `
 
-// TODO IGAPP-805 receive POI content from cms
-const mockContent = `<div id='cc-m-7871392056' class='j-module n j-text '><p>
-    <span style='font-size: 14px; color: #000000;'>Das Konzept, mit dem Sie, ohne Geld zu spenden, helfen können: Sicher haben Sie einiges zu Hause, was Sie nicht mehr brauchen. Geben Sie es
-    uns!</span>
-</p>
-
-<p >
-    <span style='font-size: 14px; color: #000000;'>Wir freuen uns über gespendete, gut erhaltene und saubere Kleidung, Bücher, Möbel, Hausrat, Elektrogeräte, Lampen usw. Wir machen auch
-    Haushaltsauflösungen.</span>
-</p>
-
-<p >
-    <span style='font-size: 14px; color: #000000;'>Mit den gespendeten Dingen schaffen wir günstige Einkaufsmöglichkeiten für sozial schwache und benachteiligte Menschen, aber auch für Leute, die
-    Spass an Second-Hand Waren haben und damit Umwelt und ihren Geldbeutel schonen wollen. Jeder, der bei uns einkauft, hilft uns, die Kosten zu decken und die Preise niedrig halten zu können. Nähere
-    Infos bei "<a href='/verein/' title='Verein'>Verein</a>" und "<a href='/konzept/' title='Konzept'>Konzept</a>"</span>
-</p></div>`
-
 const PoiDetails: React.FC<PoiDetailsProps> = ({
   poi,
   feature,
@@ -84,24 +67,24 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
   navigateToPois,
   language
 }: PoiDetailsProps): ReactElement => {
-  const { t } = useTranslation<['pois', 'error']>(['pois', 'error'])
+  const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
 
-  // TODO this has to be removed when we get proper images from CMS IGAPP-805
-  const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? EventPlaceholder1
+  // TODO IGAPP-920: this has to be removed when we get proper images from CMS
+  const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { location, address, postcode, town } = poi.location
   const { distance, title } = feature.properties
 
   const onNavigate = () => {
     const navigationUrl = getNavigationDeepLinks(poi.location)
     if (navigationUrl) {
-      openExternalUrl(navigationUrl).catch(() => showSnackbar(t('navigationApplication')))
+      openExternalUrl(navigationUrl).catch(() => showSnackbar(t('error:noSuitableAppInstalled')))
     }
   }
 
   const copyToClipboard = (text: string) => (): void => {
     Clipboard.setString(text)
-    showSnackbar(t('detailAddressClipboardMessage'))
+    showSnackbar(t('addressCopied'))
   }
 
   return (
@@ -115,9 +98,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
         )}
         {distance && (
           <PoiDetailItem icon='place' language={language} onPress={detailPage ? navigateToPois : undefined}>
-            <Text>
-              {distance} {t('unit')} {t('distanceText')}
-            </Text>
+            <Text>{t('distanceKilometre', { distance })}</Text>
           </PoiDetailItem>
         )}
         <PoiDetailItem
@@ -130,8 +111,8 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({
             {postcode} {town}
           </Text>
         </PoiDetailItem>
-        <CollapsibleItem initExpanded headerText={t('detailInformationHeader')} language={language}>
-          <NativeHtml content={mockContent} language={language} />
+        <CollapsibleItem initExpanded headerText={t('description')} language={language}>
+          <NativeHtml content={poi.content} language={language} />
         </CollapsibleItem>
       </InformationContainer>
     </PoiDetailsContainer>

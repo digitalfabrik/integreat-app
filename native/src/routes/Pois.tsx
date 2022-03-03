@@ -1,4 +1,3 @@
-import distance from '@turf/distance'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
@@ -14,7 +13,8 @@ import {
   PoiModel,
   POIS_ROUTE,
   PoisRouteType,
-  RouteInformationType
+  RouteInformationType,
+  prepareFeatureLocations
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
@@ -27,7 +27,7 @@ import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import { RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import useUserLocation, { LocationType } from '../hooks/useUserLocation'
+import useUserLocation from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export type PropsType = {
@@ -45,19 +45,6 @@ export type PropsType = {
 const CustomSheetList = styled.View`
   margin: 0 32px;
 `
-
-// Calculate distance for all Feature Locations
-const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: LocationType | null): PoiFeature[] =>
-  pois
-    .map(poi => {
-      const { featureLocation } = poi
-      if (userLocation && featureLocation?.geometry.coordinates) {
-        const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
-        return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
-      }
-      return poi.featureLocation
-    })
-    .filter((feature): feature is PoiFeature => !!feature)
 
 /**
  * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
@@ -197,7 +184,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         />
       )}
       <BottomActionsSheet
-        title={selectedFeature ? selectedFeature.properties.title : t('sheetTitle')}
+        title={selectedFeature ? selectedFeature.properties.title : t('listTitle')}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={snapPoints}>
@@ -212,7 +199,7 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
         ) : (
           <List
             CustomStyledList={CustomSheetList}
-            noItemsMessage={t('currentlyNoPois')}
+            noItemsMessage={t('noPois')}
             items={featureLocations}
             renderItem={renderPoiListItem(cityModel.code, language)}
             theme={theme}

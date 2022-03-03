@@ -5,7 +5,7 @@ import styled from 'styled-components/native'
 import { PoiFeature } from 'api-client'
 import { ThemeType } from 'build-configs'
 
-import EventPlaceholder1 from '../assets/EventPlaceholder1.jpg'
+import Placeholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage from './SimpleImage'
 
@@ -55,16 +55,14 @@ type PoiListItemProps = {
 export const PoiListItem: React.FC<PoiListItemProps> = memo(
   ({ poi, navigateToPoi, language, theme }: PoiListItemProps): ReactElement => {
     const { t } = useTranslation('pois')
-    const thumbnail = poi.properties.thumbnail ?? EventPlaceholder1
+    const thumbnail = poi.properties.thumbnail ?? Placeholder
     return (
       <StyledTouchableOpacity onPress={navigateToPoi} theme={theme} activeOpacity={1} language={language}>
         <Thumbnail source={thumbnail} />
         <Description theme={theme}>
           <Title theme={theme}>{poi.properties.title}</Title>
           {poi.properties.distance && (
-            <Distance theme={theme}>
-              {poi.properties.distance} {t('unit')} {t('distanceText')}
-            </Distance>
+            <Distance theme={theme}>{t('distanceKilometre', { distance: poi.properties.distance })}</Distance>
           )}
         </Description>
       </StyledTouchableOpacity>

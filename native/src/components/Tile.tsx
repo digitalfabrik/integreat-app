@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -24,27 +23,13 @@ const TileContainer = styled.View`
   width: 50%;
 `
 
-/**
- * Displays a single Tile
- */
-class Tile extends React.Component<PropsType> {
-  onTilePress = (): void => {
-    const { onTilePress, tile } = this.props
-    onTilePress(tile)
-  }
-
-  render(): ReactNode {
-    const { tile } = this.props
-
-    return (
-      <TileContainer>
-        <TouchableOpacity onPress={this.onTilePress}>
-          <ThumbnailContainer source={tile.thumbnail} />
-          <TileTitle>{tile.title}</TileTitle>
-        </TouchableOpacity>
-      </TileContainer>
-    )
-  }
-}
+const Tile = ({ onTilePress, tile }: PropsType): ReactElement => (
+  <TileContainer>
+    <TouchableOpacity onPress={() => onTilePress(tile)}>
+      <ThumbnailContainer source={tile.thumbnail} />
+      <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
+    </TouchableOpacity>
+  </TileContainer>
+)
 
 export default Tile

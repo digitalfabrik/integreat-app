@@ -1,3 +1,4 @@
+import { decodeHTML } from 'entities'
 import { Moment } from 'moment'
 
 class LocalNewsModel {
@@ -10,8 +11,8 @@ class LocalNewsModel {
     const { id, timestamp, title, message } = params
     this._id = id
     this._timestamp = timestamp
-    this._title = title
-    this._message = message
+    this._title = decodeHTML(title)
+    this._message = decodeHTML(message)
   }
 
   get timestamp(): Moment {
