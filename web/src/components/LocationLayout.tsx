@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
 
-import { CityModel, POIS_ROUTE, SEARCH_ROUTE } from 'api-client'
+import { CityModel, SEARCH_ROUTE } from 'api-client'
 
 import Layout from '../components/Layout'
 import LocationFooter from '../components/LocationFooter'
@@ -21,13 +21,23 @@ type PropsType = {
   isLoading: boolean
   cityModel: CityModel
   languageCode: string
+  fullWidth?: boolean
 }
 
 const LocationLayout = (props: PropsType): ReactElement => {
   const [asideStickyTop, setAsideStickyTop] = useState<number>(0)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
-  const { viewportSmall, children, languageCode, languageChangePaths, isLoading, route, toolbar: toolbarProp } = props
+  const {
+    viewportSmall,
+    children,
+    languageCode,
+    languageChangePaths,
+    isLoading,
+    route,
+    toolbar: toolbarProp,
+    fullWidth = false
+  } = props
   const { feedbackTargetInformation, cityModel } = props
 
   const feedbackModal =
@@ -46,7 +56,7 @@ const LocationLayout = (props: PropsType): ReactElement => {
 
   return (
     <Layout
-      fullWidth={route === POIS_ROUTE}
+      fullWidth={fullWidth}
       asideStickyTop={asideStickyTop}
       header={
         <LocationHeader
