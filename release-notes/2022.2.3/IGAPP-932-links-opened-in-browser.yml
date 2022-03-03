@@ -1,0 +1,6 @@
+issue_key: IGAPP-932
+show_in_stores: true
+platforms:
+  - android
+en: Links are now opened correctly again.
+de: Links werden nun wieder korrekt geöffnet.

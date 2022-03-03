@@ -21,6 +21,7 @@
     "react": "17.0.2"
   },
   "dependencies": {
+    "@turf/distance": "^6.5.0",
     "entities": "^3.0.1",
     "htmlparser2": "^7.2.0",
     "js-md5": "^0.7.3",
