@@ -140,7 +140,7 @@ class SearchModal extends React.Component<PropsType, SearchStateType> {
   }
 
   renderContent = (): ReactNode => {
-    const { language, cityCode, theme, categories, t } = this.props
+    const { language, cityCode, theme, categories } = this.props
     const { query } = this.state
     const minHeight = dimensions.categoryListItem.iconSize + dimensions.categoryListItem.margin * 2
 
