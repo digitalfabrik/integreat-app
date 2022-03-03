@@ -15,6 +15,8 @@ import integreatTestCmsBuildConfig from './integreat-test-cms'
 import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name'
 import integreatBuildConfigName from './integreat/build-config-name'
 import malteBuildConfig from './malte'
+import malteTestCmsBuildConfig from './malte-test-cms'
+import malteTestCmsBuildConfigName from './malte-test-cms/build-config-name'
 import malteBuildConfigName from './malte/build-config-name'
 
 export type { ThemeType } from './ThemeType'
@@ -41,6 +43,7 @@ export const buildConfigs: Record<string, BuildConfigPlatformType> = {
   [integreatTestCmsBuildConfigName]: integreatTestCmsBuildConfig,
   [integreatE2eBuildConfigName]: integreatE2eBuildConfig,
   [malteBuildConfigName]: malteBuildConfig,
+  [malteTestCmsBuildConfigName]: malteTestCmsBuildConfig,
   [aschaffenburgBuildConfigName]: aschaffenburgBuildConfig
 }
 
