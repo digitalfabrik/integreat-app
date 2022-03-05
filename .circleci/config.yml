@@ -354,7 +354,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 12.5.1
+            xcode: 13.2.1
         parameters:
             build_config_name:
                 default: integreat
@@ -587,7 +587,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 12.5.1
+            xcode: 13.2.1
         parameters:
             build_config_name:
                 default: integreat
@@ -872,7 +872,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 12.5.1
+            xcode: 13.2.1
         parameters:
             build_config_name:
                 default: integreat
