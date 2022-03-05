@@ -47,6 +47,8 @@ export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
   splashScreen: true,
   applicationId: 'tuerantuer.app.integreat',
+  sha256CertFingerprint:
+    '66:2E:43:DC:9C:75:DE:7D:99:C5:BA:A9:19:DA:0F:BB:5E:6C:13:3D:03:E8:1D:FB:EF:87:F5:4B:F1:80:D4:B1',
   googleServices: {
     googleAppId: '1:164298278764:android:3fc1f67f3883df306fd549',
     gcmDefaultSenderId: '164298278764',
