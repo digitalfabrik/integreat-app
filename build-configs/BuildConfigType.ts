@@ -116,6 +116,8 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
   splashScreen: boolean
   // Shows the app icon as splash screen on app start.
   applicationId: string
+  // SHA-256 certificate fingerprint of the app signing key certificate
+  sha256CertFingerprint: string
   // Android application identifier.
   googleServices: AndroidGoogleServicesConfigType | null
 }
