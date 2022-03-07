@@ -90,7 +90,7 @@ class CitySelector extends React.PureComponent<PropsType> {
   _renderFilteredLocations(cities: Array<CityModel>): React.ReactNode {
     const { theme, filterText, navigateToDashboard } = this.props
     if (cities.length === 0) {
-      return <NothingFound />
+      return <NothingFound paddingTop />
     }
     const sorted = this._sort(cities)
     const groups = groupBy(sorted, (city: CityModel) => city.sortCategory)
