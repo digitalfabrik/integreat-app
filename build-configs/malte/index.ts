@@ -48,6 +48,8 @@ const androidMalteBuildConfig: AndroidBuildConfigType = {
   ...commonMalteBuildConfig,
   splashScreen: false,
   applicationId: 'de.malteapp',
+  sha256CertFingerprint:
+    '35:0C:AC:0B:70:EC:81:3A:35:41:30:03:27:FE:C1:E4:4A:93:F2:58:FF:C3:C9:BB:6F:08:47:0B:56:80:6B:81',
   googleServices: {
     googleAppId: '1:146599424234:android:b110d70b79ff7ce351a793',
     gcmDefaultSenderId: '146599424234',
