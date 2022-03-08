@@ -4,8 +4,11 @@ export type DimensionsType = {
   minMaxWidth: string
   maxWidth: number
   toolbarWidth: number
+  toolbarHeight: number
   headerHeightLarge: number
   headerHeightSmall: number
+  footerHeight: number
+  navigationMenuHeight: number
 }
 
 const dimensions: DimensionsType = {
@@ -14,8 +17,11 @@ const dimensions: DimensionsType = {
   minMaxWidth: 'screen and (min-width: 1100px)',
   maxWidth: 1100,
   toolbarWidth: 125,
+  toolbarHeight: 73,
   headerHeightLarge: 90,
-  headerHeightSmall: 70
+  headerHeightSmall: 70,
+  footerHeight: 50,
+  navigationMenuHeight: 90
 }
 
 export default dimensions
