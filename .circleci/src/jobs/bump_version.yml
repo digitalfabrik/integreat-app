@@ -14,17 +14,20 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
-      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
+      command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+      working_directory: tools
   - run:
       name: Calculate next version code
-      command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> ${BASH_ENV}
+      command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+      working_directory: tools
   - unless:
       condition:
         equal: [none, << parameters.delivery >>]
       steps:
         - run:
             name: Bump git version
-            command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+            command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+            working_directory: tools
   - when:
       condition:
         equal: [production, << parameters.delivery >>]

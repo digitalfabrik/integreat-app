@@ -477,11 +477,13 @@ jobs:
             - checkout
             - restore_yarn_tools_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
+                working_directory: tools
             - run:
-                command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
+                working_directory: tools
             - unless:
                 condition:
                     equal:
@@ -489,8 +491,9 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                        command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
+                        working_directory: tools
             - when:
                 condition:
                     equal:
@@ -763,8 +766,9 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: tools/move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                command: yarn move-release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Move release notes
+                working_directory: tools
             - notify
     notify_android:
         docker:
@@ -785,8 +789,9 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+                command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
                 name: Create github release
+                working_directory: tools
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
@@ -812,8 +817,9 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: tools/github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent --cwd tools manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
+                command: yarn github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${IOS_ARTIFACT_URLS}"
                 name: Create github release
+                working_directory: tools
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
@@ -831,8 +837,9 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: tools/github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)"
+                command: yarn github-release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --web --language en)"
                 name: Create github release
+                working_directory: tools
             - run:
                 command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
