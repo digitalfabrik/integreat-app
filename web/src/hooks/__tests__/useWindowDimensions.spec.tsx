@@ -20,7 +20,7 @@ describe('useWindowDimensions', () => {
   })
 
   it('should correctly set all properties', () => {
-    const width = 750
+    const width = 768
     const height = 400
     Object.defineProperty(window, 'innerWidth', { value: width })
     Object.defineProperty(window, 'innerHeight', { value: height })
@@ -32,7 +32,7 @@ describe('useWindowDimensions', () => {
     expect(getByText(false.toString(), { exact: false })).toBeTruthy()
     expect(queryByText(true.toString(), { exact: false })).toBeFalsy()
 
-    const newWidth = 749
+    const newWidth = 767
     const newHeight = 600
     act(() => {
       Object.defineProperty(window, 'innerWidth', { value: newWidth })

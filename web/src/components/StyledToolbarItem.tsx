@@ -10,7 +10,7 @@ const StyledToolbarItem = styled(CleanAnchor)`
   cursor: pointer;
   border: none;
   color: ${props => props.theme.colors.textColor};
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: transparent;
   text-align: center;
 
   @media ${dimensions.smallViewport} {

@@ -20,16 +20,20 @@ import {
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
-import BottomActionSheet from '../components/BottomActionSheet'
 import FailureSwitcher from '../components/FailureSwitcher'
+import FeedbackModal from '../components/FeedbackModal'
+import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
 import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
+import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
+import PoisDesktop from '../components/PoisDesktop'
+import PoisMobile from '../components/PoisMobile'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import DateFormatterContext from '../contexts/DateFormatterContext'
@@ -38,11 +42,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
 
-const ListWrapper = styled.div`
-  @media ${dimensions.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
-  }
+const PoisPageWrapper = styled.div<{ panelHeights: number }>`
+  display: flex;
+  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
@@ -57,10 +59,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { poiId } = useParams()
   const { t } = useTranslation('pois')
   const formatter = useContext(DateFormatterContext)
-  const { viewportSmall } = useWindowDimensions()
   const navigate = useNavigate()
   const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
+  const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
+  const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
 
@@ -90,6 +93,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const changeSnapPoint = (snapPoint: number) => {
     sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
   }
+
+  const toolbar = (
+    <LocationToolbar openFeedbackModal={setFeedbackModalRating} viewportSmall={viewportSmall} iconDirection='row' />
+  )
+
+  const feedbackModal = feedbackModalRating && (
+    <FeedbackModal
+      cityCode={cityModel.code}
+      language={languageCode}
+      routeType={POIS_ROUTE}
+      feedbackRating={feedbackModalRating}
+      closeModal={() => setFeedbackModalRating(null)}
+    />
+  )
 
   const locationLayoutParams = {
     cityModel,
@@ -154,32 +171,50 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       </LocationLayout>
     )
   }
+
   const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
     poi1.properties.title.localeCompare(poi2.properties.title)
   )
   const renderPoiListItem = (poi: PoiFeature) => <PoiListItem key={poi.properties.path} properties={poi.properties} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
+  const mapView = cityModel.boundingBox && (
+    <MapView
+      selectFeature={selectFeature}
+      changeSnapPoint={changeSnapPoint}
+      featureCollection={embedInCollection(sortedPois)}
+      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
+      currentFeature={currentFeature}
+    />
+  )
+
+  const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
+  // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
+  const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
+
   return (
-    <LocationLayout isLoading={false} {...locationLayoutParams}>
+    <LocationLayout isLoading={false} {...locationLayoutParams} fullWidth>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      {cityModel.boundingBox && (
-        <MapView
-          selectFeature={selectFeature}
-          changeSnapPoint={changeSnapPoint}
-          featureCollection={embedInCollection(sortedPois)}
-          bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
-          currentFeature={currentFeature}
-        />
-      )}
-      <BottomActionSheet title={currentFeature?.properties.title || t('listTitle')} ref={sheetRef}>
-        {sortedPois.length > 0 && !currentFeature && (
-          <ListWrapper>
-            <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
-          </ListWrapper>
+      <PoisPageWrapper panelHeights={panelHeights}>
+        {viewportSmall ? (
+          <PoisMobile
+            currentFeature={currentFeature}
+            toolbar={toolbar}
+            ref={sheetRef}
+            mapView={mapView}
+            poiList={poiList}
+          />
+        ) : (
+          <PoisDesktop
+            currentFeature={currentFeature}
+            toolbar={toolbar}
+            panelHeights={panelHeights}
+            mapView={mapView}
+            poiList={poiList}
+          />
         )}
-        {/* TODO add feedback toolbar IGAPP-914 */}
-      </BottomActionSheet>
+        {feedbackModal}
+      </PoisPageWrapper>
     </LocationLayout>
   )
 }

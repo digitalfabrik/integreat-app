@@ -15,13 +15,18 @@ const Title = styled.h1`
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
+const ToolbarContainer = styled.div`
+  margin-top: 10px;
+`
+
 type BottomActionSheetProps = {
   title?: string
   children: ReactNode
+  toolbar: ReactNode
 }
 
 const BottomActionSheet = React.forwardRef(
-  ({ title, children }: BottomActionSheetProps, ref: React.Ref<BottomSheetRef>): ReactElement => (
+  ({ title, children, toolbar }: BottomActionSheetProps, ref: React.Ref<BottomSheetRef>): ReactElement => (
     <BottomSheet
       ref={ref}
       open
@@ -30,6 +35,7 @@ const BottomActionSheet = React.forwardRef(
       snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
       defaultSnap={({ snapPoints }) => snapPoints[1]!}>
       <ListContainer>{children}</ListContainer>
+      <ToolbarContainer>{toolbar}</ToolbarContainer>
     </BottomSheet>
   )
 )
