@@ -111,6 +111,10 @@ export type JsonOfferType = {
   thumbnail: string
   post: JsonOfferPostType | null | undefined
 }
+export type JsonShelterUkraineJsonType = {
+  id: number
+  title: string
+}
 export type JsonSprungbrettJobType = {
   title: string
   zip: string

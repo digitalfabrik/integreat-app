@@ -14,6 +14,7 @@ import {
   OFFERS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
+  SHELTER_URKAINE_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
@@ -29,6 +30,7 @@ import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import useWindowDimensions from './hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import ShelterUkrainePage from './routes/ShelterUkrainePage'
 import lazyWithRetry from './utils/retryImport'
 
 const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
@@ -157,6 +159,8 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
     </Route>
   )
 
+  const shelterUkraineEnabled = cityCode === 'augsburg'
+
   return (
     <Routes>
       {render(SEARCH_ROUTE, SearchPage)}
@@ -164,6 +168,7 @@ const CityContentSwitcher = ({ cities, languageCode }: PropsType): ReactElement 
       {render(CATEGORIES_ROUTE, CategoriesPage)}
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
 
+      {shelterUkraineEnabled && render(SHELTER_URKAINE_ROUTE, ShelterUkrainePage, ':shelterId')}
       {offersEnabled && render(SPRUNGBRETT_OFFER_ROUTE, SprungbrettOfferPage)}
       {offersEnabled && render(OFFERS_ROUTE, OffersPage)}
       {poisEnabled && render(POIS_ROUTE, PoisPage, ':poiId')}
