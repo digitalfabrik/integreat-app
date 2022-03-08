@@ -6,6 +6,7 @@ import CleanLink from './CleanLink'
 const ListItemContainer = styled.article`
   border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   display: flex;
+  flex-direction: column;
 `
 
 const Thumbnail = styled.img`
