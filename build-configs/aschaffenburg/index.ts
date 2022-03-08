@@ -48,6 +48,8 @@ export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   splashScreen: false,
   applicationId: 'app.aschaffenburg',
+  sha256CertFingerprint:
+    '21:BB:E8:40:4D:4E:18:62:68:A8:16:62:64:FB:27:D1:D1:A4:02:F5:96:44:F6:B9:B5:3F:39:14:17:55:50:99',
   googleServices: null
 }
 
