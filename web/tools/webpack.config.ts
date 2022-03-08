@@ -34,6 +34,26 @@ const readVersionName = () => {
   return versionFile.versionName
 }
 
+const generateAssetLinks = (buildConfigName: string) => {
+  // https://developer.android.com/training/app-links/verify-site-associations#manual-verification
+  const androidBuildConfig = loadBuildConfig(buildConfigName, ANDROID)
+
+  return JSON.stringify(
+    [
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: {
+          namespace: 'android_app',
+          package_name: androidBuildConfig.applicationId,
+          sha256_cert_fingerprints: [androidBuildConfig.sha256CertFingerprint]
+        }
+      }
+    ],
+    null,
+    2
+  )
+}
+
 const generateManifest = (content: Buffer, buildConfigName: string) => {
   const manifest = JSON.parse(content.toString())
 
@@ -104,6 +124,8 @@ const createConfig = (
   const srcDirectory = resolve(__dirname, '../src')
   const bundleReportDirectory = resolve(__dirname, '../reports/bundle')
   const manifestPreset = resolve(__dirname, 'manifest.json')
+  const assetLinks = resolve(__dirname, 'assetlinks.json')
+  const assetLinksDirectory = resolve(distDirectory, '.well-known', 'assetlinks.json')
 
   const plugins: WebpackPluginInstance[] = []
   if (devServer) {
@@ -189,6 +211,11 @@ const createConfig = (
             from: manifestPreset,
             to: distDirectory,
             transform: (content: Buffer) => generateManifest(content, buildConfigName)
+          },
+          {
+            from: assetLinks,
+            to: assetLinksDirectory,
+            transform: () => generateAssetLinks(buildConfigName)
           }
         ]
       }),
