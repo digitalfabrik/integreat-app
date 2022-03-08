@@ -1,21 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Toolbar should render 1`] = `
-<Toolbar
-  className="sample"
-  i18n={
-    Object {
-      "language": undefined,
-      "languages": undefined,
-      "options": Object {},
-      "store": undefined,
-    }
-  }
-  t={[Function]}
-  viewportSmall={true}
->
-  <p>
-    test item
-  </p>
-</Toolbar>
+<div>
+  <styled.div
+    className="sample"
+    direction="column"
+  >
+    <styled.h5>
+      feedback:isThisSiteUseful
+    </styled.h5>
+    <p>
+      test item
+    </p>
+  </styled.div>
+</div>
 `;
