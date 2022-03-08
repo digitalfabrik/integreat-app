@@ -10,8 +10,8 @@ import CleanLink from './CleanLink'
 const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
-  border-bottom: 1px solid ${props => props.theme.colors.textSecondaryColor};
-  padding: 22px 0;
+  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
+  padding: clamp(10px, 1vh, 20px) 0;
 
   &:first-child {
     padding-top: 0;
@@ -19,8 +19,8 @@ const ListItemContainer = styled.article`
 `
 
 const Thumbnail = styled.img`
-  width: 100px;
-  height: 100px;
+  width: clamp(70px, 10vh, 100px);
+  height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
   border: 1px solid transparent;
   object-fit: contain;
@@ -28,7 +28,7 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 export const Description = styled.div`
@@ -47,7 +47,7 @@ export const Description = styled.div`
 `
 
 const Title = styled.span`
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
   font-weight: 700;
 `
 
