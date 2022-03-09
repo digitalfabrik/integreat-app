@@ -104,6 +104,6 @@ export function* fetchCategory(dataContainer: DataContainer, action: FetchCatego
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+export default function* fetchCategorySaga(dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeEvery('FETCH_CATEGORY', fetchCategory, dataContainer)
 }

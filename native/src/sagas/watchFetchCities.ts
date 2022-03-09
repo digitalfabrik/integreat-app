@@ -31,6 +31,6 @@ export function* fetchCities(dataContainer: DataContainer, action: FetchCitiesAc
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+export default function* fetchCitiesSaga(dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('FETCH_CITIES', fetchCities, dataContainer)
 }

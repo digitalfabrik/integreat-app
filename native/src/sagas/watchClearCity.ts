@@ -13,6 +13,6 @@ export function* clearCity(): SagaGenerator<void> {
   yield* call(appSettings.clearSelectedCity)
 }
 
-export default function* (): SagaGenerator<void> {
+export default function* clearCitySaga(): SagaGenerator<void> {
   yield* takeLatest('CLEAR_CITY', clearCity)
 }
