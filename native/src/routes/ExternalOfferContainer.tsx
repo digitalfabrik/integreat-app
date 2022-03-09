@@ -10,7 +10,7 @@ type PropsType = {
   navigation: NavigationPropType<ExternalOfferRouteType>
 }
 
-const ExternalOfferContainer = ({ route }: PropsType): ReactElement => {
+const ExternalOfferContainer = ({ route, navigation: _navigation }: PropsType): ReactElement => {
   const { url, postData } = route.params
   return <ExternalOffer url={url} postData={postData} />
 }

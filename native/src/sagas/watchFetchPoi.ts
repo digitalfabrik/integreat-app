@@ -85,6 +85,6 @@ export function* fetchPoi(dataContainer: DataContainer, action: FetchPoiActionTy
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+export default function* fetchPoiSaga(dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('FETCH_POI', fetchPoi, dataContainer)
 }
