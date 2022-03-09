@@ -9,6 +9,7 @@
     "start:integreat": "./run packager integreat",
     "start:integreat-floss": "./run packager integreat-floss",
     "start:malte": "./run packager malte",
+    "start:malte-test-cms": "./run packager malte-test-cms",
     "start:aschaffenburg": "./run packager aschaffenburg",
     "start:integreat-e2e": "./run packager integreat-e2e",
     "android": "yarn android:integreat-test-cms",
@@ -16,6 +17,7 @@
     "android:integreat": "./run android integreat",
     "android:integreat-floss": "./run android integreat-floss",
     "android:malte": "./run android malte",
+    "android:malte-test-cms": "./run android malte-test-cms",
     "android:aschaffenburg": "./run android aschaffenburg",
     "android:integreat-e2e": "./run android integreat-e2e",
     "android:integreat-test-cms:production": "./run android integreat-test-cms --production",
@@ -104,7 +106,7 @@
     "styled-components": "^5.3.3",
     "translations": "0.0.1",
     "typed-redux-saga": "^1.3.1",
-    "url-parse": "^1.5.3"
+    "url-parse": "^1.5.9"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

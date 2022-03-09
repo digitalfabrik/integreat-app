@@ -16,8 +16,8 @@ jobs:
       requires:
         - bump_version
   - build_web:
-      name: build_malte_web
-      build_config_name: malte
+      name: build_malte_test_cms_web
+      build_config_name: malte-test-cms
       context:
         - mattermost
       requires:
@@ -36,7 +36,7 @@ jobs:
       production_delivery: false
       requires:
         - build_ig_test_cms_web
-        - build_malte_web
+        - build_malte_test_cms_web
         - build_aschaffenburg_web
 
   - build_android:

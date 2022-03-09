@@ -18,7 +18,7 @@
     },
     "ckb": {
       "createPdf": "دروستکردنی PDF",
-      "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەلمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت."
+      "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ لەبارەی ئەڵمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت."
     },
     "el": {
       "createPdf": "Δημιουργία PDF",
@@ -38,7 +38,7 @@
     },
     "hr": {
       "createPdf": "Kreiraj PDF",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
+      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podacima i na vašem jeziku."
     },
     "hu": {
       "createPdf": "PDF létrehozása",
@@ -117,6 +117,187 @@
       "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
     }
   },
+  "cityNotCooperating": {
+    "de": {
+      "callToAction": "Schlag Integreat Deiner Region vor!",
+      "explanation": "Das gemeinnützige Konzept der Integreat-App hat Dich überzeugt und Du glaubst, auch Deine Stadt, Dein Landkreis oder Deine Gemeinde könnte von der digitalen Lösung profitieren? Dann kannst Du hiermit ganz einfach aktiv werden.",
+      "whatToDo": "Das kannst Du tun:",
+      "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
+      "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
+      "copyText": "Text kopieren",
+      "textCopied": "Kopiert"
+    },
+    "am": {
+      "callToAction": "የኣከባቢህን መወሃድ የሚመለከት ሃሳብ ኣቅርብ!",
+      "explanation": "ይህ ኣትራፊ ያልሆነ የመዋሃድ ኣፕ ጽንሰ ሃሳብ ኣንተን ኣሳምኖሃል፣ እንደዚሁም በዚሁ የዲጊታል መፍትሔ ያንተ ከተማ፣ ያንተ ወረዳ ወይ ያንተ ኣገር ሊጠቀም ይችላል ብለህ ታምናለህ? ስለዚህ በቀላሉ እዚህ መንቀሳቀስ ትችላለህ።",
+      "whatToDo": "ይሄንን ማድረግ ትችላለህ:",
+      "findOutMail": "ያንተን ኣከባቢ ኢ-ሜይል ኣድራሻ ማግኘት ",
+      "sendText": "ያንተን ጽሑፍ መቅዳት፣ የ [ ]-ይዞታውን በራስህ ቃል ሞልተህ መላክ ",
+      "copyText": "ጽሑፍ መቅዳት",
+      "textCopied": "ተቀድቷል"
+    },
+    "ar": {
+      "callToAction": "اقترح تطبيق Integreat في منطقتك!",
+      "explanation": "هل أقنعك المبدأ الخيري لتطبيق Integreat وتعتقد أيضًا بانه يمكن لمدينتك أو دائرتك او بلديتك الاستفادة أيضًا من الحل الرقمي الذي يقدمه التطبيق؟ يمكنك إذًا المشاركة بشكل فعال وبسيط.",
+      "whatToDo": "الذي يمكنك فعله:",
+      "findOutMail": "الحصول على البريد الإليكتروني لمنطقتك",
+      "sendText": "نسخ هذا النص وتعبئة المحتويات [] ببياناتك وإسالها",
+      "copyText": "نسخ النص",
+      "textCopied": "تم النسخ"
+    },
+    "bg": {
+      "callToAction": "Предложете Integreat на Вашия регион!",
+      "explanation": "Концепцията за нестопанска цел на приложението Integreat Ви е убедила и смятате, че Вашият град, окръг или община също биха могли да се възползват от цифровото решение? Тогава можете лесно да се включите в тази дейност.",
+      "whatToDo": "Можете да направите това:",
+      "findOutMail": "Да намерите имейл адреса на Вашия регион",
+      "sendText": "Копирайте този текст, попълнете съдържанието в  [ ] с вашите данни и изпратете.",
+      "copyText": "Копирайте текста",
+      "textCopied": "Копиран"
+    },
+    "ckb": {
+      "callToAction": "Integreat پێشنیار بدە بە ناوچەکەت!",
+      "explanation": "ئایا ئەوەی کە Integreat خێرنەخواز و بەلاشە تۆی ڕازی کردووە و پێتوایە کە شارەکەت، ناوچەکەت یان شارەوانیەکەت دەتوانن سوود وەربگرن لەم ڕێکارە دیجیتاڵیە؟ ئەگەر وایە، ئەوا دەتوانی ئەم ئەپە بە کار بهێنیت بۆ ئەوەی چالاک ببیت.",
+      "whatToDo": "تۆ دەتوانی ئەم کارانەی خوارەوە بکەیت:",
+      "findOutMail": "ناونیشانی ئیمەیلی ناوچەکەت بدۆزەوە",
+      "sendText": "ئەم تێکستە کۆپی بکە، پاشان بەشی [ ] بە زانیاریی خۆت پڕ بکەوە و بینێرە.",
+      "copyText": "تێکست کۆپی بکە",
+      "textCopied": "کۆپی کرا"
+    },
+    "el": {
+      "callToAction": "Προτείνετε το Integreat στην περιοχή σας! ",
+      "whatToDo": "Μπορείτε να κάνετε το εξής:",
+      "findOutMail": "Μάθετε τη διεύθυνση e-mail στην περιοχή σας",
+      "sendText": "Αντιγράψτε αυτό το κείμενο, συμπληρώστε το περιεχόμενο [ ] με τα στοιχεία σας και στείλτε το",
+      "copyText": "Αντιγραφή κειμένου",
+      "textCopied": "Αντιγράφηκε"
+    },
+    "en": {
+      "callToAction": "Suggest your region to Integreat!",
+      "explanation": "This charitable concept of the Integreat-App has convinced you and you think that also your town,\nyour district or your community could benefit from this digital solution? In this case you can simply become active here now.",
+      "whatToDo": "This is what you can do:",
+      "findOutMail": "Get the e-mail address of your region",
+      "sendText": "Copy this text, complete the [ ]-contents with your details and send off",
+      "copyText": "Copy text",
+      "textCopied": "Copied"
+    },
+    "es": {
+      "callToAction": "¡Proponga Integreat en su región!",
+      "explanation": "¿Le ha convencido el concepto sin ánimo de lucro de la aplicación Integreat y piensa que en su ciudad, distrito o municipio se podría aprovechar esta solución digital? Entonces puede volverse activo de una manera muy sencilla.",
+      "whatToDo": "Esto es lo que debe de hacer:",
+      "findOutMail": "Encontrar el correo electrónico de su región",
+      "sendText": "Copiar este texto, rellenar los [ ] con sus datos y enviar",
+      "copyText": "Copiar texto",
+      "textCopied": "Copiado"
+    },
+    "fr": {
+      "callToAction": "Propose Integreat à ta région !",
+      "explanation": "Le concept d’utilité publique de l’application Integreat t’a convaincu(e) et tu penses que ta ville, ton district ou ta commune pourrait également profiter de cette solution numérique ? Dans ce cas, tu peux devenir actif en toute simplicité.",
+      "whatToDo": "Voici ce que tu peux faire :",
+      "findOutMail": "Trouver l’adresse électronique de ta région",
+      "sendText": "Copier ce texte, remplir les contenus [ ] avec tes données et envoyer",
+      "copyText": "Copier le texte",
+      "textCopied": "Copié"
+    },
+    "hr": {
+      "callToAction": "Predloži Integreat svojoj regiji!",
+      "explanation": "Uvjerio si se u opće koristan koncept aplikacije Integreat i smatraš da bi i tvoj grad, tvoj okrug ili tvoja općina mogli profitirati od digitalnog rješenja? U tom slučaju možeš ovdje sasvim jednostavno postati aktivan.",
+      "whatToDo": "Ovo možeš napraviti:",
+      "findOutMail": "pronaći adresu e-pošte svoje regije",
+      "sendText": "kopirati ovaj tekst, ispuniti sadržaje [ ] svojim podacima i poslati",
+      "copyText": "Kopiraj tekst",
+      "textCopied": "kopirano"
+    },
+    "hu": {
+      "callToAction": "Add meg az Integreatnek a régiódat!",
+      "explanation": "Az Integreat alkalmazás közhasznú koncepciója meggyőzött és úgy gondolod, hogy városod, járásod vagy önkormányzatod is profitálhat egy ilyen digitális megoldásból? Akkor itt nagyon egyszerűen kiveheted a részed belőle.",
+      "whatToDo": "A következőt teheted:",
+      "findOutMail": "Érdeklődd meg régiód e-mail címét",
+      "sendText": "Másold be ezt a szöveget, [ ]-töltsd ki a tartalmat az adataiddal és küldd el",
+      "copyText": "Szöveg bemásolása",
+      "textCopied": "Bemásolva"
+    },
+    "it": {
+      "callToAction": "Suggerisci Integreat nella tua regione!",
+      "explanation": "Il concetto no-profit dell'app Integreat ti ha convinto e credi che anche la tua città, circondario o comune potrebbe beneficiare della soluzione digitale? Allora qui puoi attivarti in modo molto semplice",
+      "whatToDo": "Cosa puoi fare:",
+      "findOutMail": "Scopri l'indirizzo email della tua regione",
+      "sendText": "Copia questo testo, compila i contenuti [ ] con i tuoi dati e invia",
+      "copyText": "Copia testo",
+      "textCopied": "Copiato"
+    },
+    "kmr": {
+      "callToAction": "Integreatê pêşniyarî navçeya xwe bike!",
+      "explanation": "Gelo têgeha ne-qezencê ya Appa Integreat hûn qanih kirine û hûn difikirin ku bajar, kanton an şaredariya we jî dikare ji çareseriya dîjîtal sûd werbigire? Wê hingê hûn dikarin bi hêsanî vê yekê bi kar bînin ku çalak bibin.",
+      "whatToDo": "Hûn dikarin van karan bikin:",
+      "findOutMail": "Navnîşana navçeya xwe peyda bikin",
+      "sendText": "Vê nivîsê kopî bikin, piştre beşa [ ] bi zanebûna xwe tijî bike û bişînin.",
+      "copyText": "Nivîsê kopî bike",
+      "textCopied": "Kopî bû"
+    },
+    "pes": {
+      "callToAction": "Integreat را به منطقه خود معرفی کنید!",
+      "explanation": "مفهوم عام‌المنفعه اپلیکیشن Integreat شما را قانع کرده و معتقدید شهرتان، ناحیه‌تان یا بخش‌تان نیز می‌تواند از راهکار دیجیتال سود ببرد؟ در این صورت به این وسیله می‌توانید به سادگی فعال شوید.",
+      "whatToDo": "این کار را می‌توانید انجام دهید:",
+      "findOutMail": "نشانی ایمیل منطقه‌تان را پیدا کنید",
+      "sendText": "این متن را کپی کنید، محتوای [ ] را با مشخصات خود پر کنید و بفرستید",
+      "copyText": "متن را کپی کنید",
+      "textCopied": "کپی شد"
+    },
+    "pl": {
+      "callToAction": "Zaproponuj Integreat w swoim regionie!",
+      "explanation": "Przekonała Cię koncepcja służącej dobru publicznemu aplikacji Integreat i uważasz, że Twoje miasto, powiat lub gmina również mogłyby skorzystać z tego cyfrowego rozwiązania? Wówczas możesz z łatwością podjąć działania w tym kierunku.",
+      "whatToDo": "To możesz zrobić:",
+      "findOutMail": "Dowiedz się, jaki jest adres mailowy Twojego regionu",
+      "sendText": "Skopiuj ten tekst, wypełnij część w [ ] swoimi danymi i wyślij go",
+      "copyText": "Skopiuj tekst",
+      "textCopied": "Skopiowano"
+    },
+    "ro": {
+      "callToAction": "Propuneți Integreat pentru regiunea dumneavoastră!",
+      "explanation": "Conceptul non-profit al aplicației Integreat v-a convins și credeți că și orașul, districtul sau municipalitatea dumneavoastră ar putea beneficia de această soluție digitală? Atunci puteți deveni cu ușurință activi în acest sens aici.",
+      "whatToDo": "Iată ce puteți face:",
+      "findOutMail": "Aflați adresa de e-mail a regiunii dvs.",
+      "sendText": "Copiați acest text, completați conținutul [ ] cu datele dumneavoastră și trimiteți-l.",
+      "copyText": "Copiați textul",
+      "textCopied": "Copiat"
+    },
+    "ru": {
+      "callToAction": "Предложите Integreat своему региону!",
+      "explanation": "Вас впечатлила некоммерческая концепция приложения Integreat, и вы считаете, что ваш город, район или муниципалитет мог бы воспользоваться преимуществами этого цифрового решения? Тогда нужно действовать!",
+      "whatToDo": "Вам нужно выполнить следующие простые шаги:",
+      "findOutMail": "найти адрес электронной почты вашего региона;",
+      "sendText": "скопировать этот текст, заполнить содержимое [ ], указав ваши данные, и отправить.",
+      "copyText": "Копировать текст",
+      "textCopied": "Скопировано"
+    },
+    "so": {
+      "callToAction": "Ablikeeshinka Recomment Integreat ee gobolkaaga!",
+      "explanation": "Fikradda ah in ablikeeshinka Integreat uu yahay mid aan faa’iido doon ahayn miyay ku qancisay oo miyaad u malaynaysaa in magaaladaada, degmadaada ama deegaankaaga ay sidoo kale ka faa'iideysan karaan xalka dhijitaalka ah? Hadday sidaas tahay si fudud ayaad halkan uga noqon kartaa qof firfircoon.",
+      "whatToDo": "Halkaan waxaa ku qoran waxa aad sameyn karto:",
+      "findOutMail": "Ka hel ciwaanka iimaylka ee gobolkaaga",
+      "sendText": "Koobiyeyso qoraalkan, buuxi qeybta [ ] adigoo isticmaalaya macluumaadkaaga kadibna dir",
+      "copyText": "Koobiyeey qoraalka",
+      "textCopied": "la koobiyeeyay"
+    },
+    "ti": {
+      "callToAction": "ናይ ከባቢኻ ምጽንባር ሓሳብ ኣቕርብ!",
+      "explanation": "እዚ ንምኽሳብ ዘይኮነ ናይ ምጽንባር ኣፕ ጽንሰ ሓሳብ ንዓኻ ኣእሚንካዶ፣ ከምኡ ከኣ በዚ ናይ ዲጂታል ፍታሕ ንከተማኻ፣ ንከባቢኻ ወይ ድማ ንማሕበር መንበሪ ዓድኻ ክጠቅም ይኽእል ትብልዶ? ስለዚ ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል።  ",
+      "whatToDo": "ነዚ ክትገብር ትኽእል:",
+      "findOutMail": "ናይ ከባቢኻ ኢ-ሜይል ኣድራሻ ምርካብ",
+      "sendText": "ነዚ ጽሑፍ ምቕዳሕ፣ ነዚ [ ]-ትሕዝቶ ብናትካ ቃላት መሊእካ ምልኣኽ ",
+      "copyText": "ጽሑፍ ምቕዳሕ",
+      "textCopied": "ተቐዲሑ"
+    },
+    "tr": {
+      "callToAction": "Bölgen için Integreat uygulamasını öner!",
+      "explanation": "Integreat uygulamasının kamuya yararlı olan konsepti seni ikna etti, ve şehrinin, ilçenin veya belediyenin de dijital çözümden yararlanabileceğini mi düşünüyorsun? ",
+      "whatToDo": "Bunu yapabilirsin:",
+      "findOutMail": "Bölgenin e-posta adresini öğrenebilirsin",
+      "sendText": "Bu metni kopyala, [ ]-içerikleri kendi bilgilerinle doldur ve gönder",
+      "copyText": "Metni kopyala",
+      "textCopied": "kopyalandı"
+    }
+  },
   "common": {
     "de": {
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
@@ -146,7 +327,7 @@
       "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
       "chooseALanguage": "زمانێک هەڵبژێرە.",
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
-      "loading": "خەریکی بارکردن..."
+      "loading": "خەریکی بارکردنە..."
     },
     "el": {
       "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
@@ -293,220 +474,200 @@
       "loading": "加载中。。。"
     }
   },
-  "cityNotCooperating": {
-    "de": {
-      "callToAction": "Schlag Integreat Deiner Region vor!",
-      "explanation": "Das gemeinnützige Konzept der Integreat-App hat Dich überzeugt und Du glaubst, auch Deine Stadt, Dein Landkreis oder Deine Gemeinde könnte von der digitalen Lösung profitieren? Dann kannst Du hiermit ganz einfach aktiv werden.",
-      "whatToDo": "Das kannst Du tun:",
-      "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
-      "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
-      "copyText": "Text kopieren",
-      "textCopied": "Kopiert"
-    }
-  },
   "dashboard": {
     "de": {
       "localInformation": "Lokale Informationen",
       "offers": "Angebote",
       "events": "Veranstaltungen",
       "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten"
+      "pois": "Karte"
     },
     "am": {
       "localInformation": "አካባቢያዊ መረጃ",
       "offers": "ግብዣዎች/ መጥሪያዎች",
       "events": "ዝግጅቶች",
       "news": "ዜናዎች",
-      "newsAlternative": "ዜናዎች"
+      "pois": "ካርታ"
     },
     "ar": {
       "localInformation": "معلومات محلية",
       "offers": "العروض",
       "events": "الفعاليات",
       "news": "الأخبار",
-      "newsAlternative": "المستجدات"
+      "pois": "الخريطة"
     },
     "bg": {
       "localInformation": "Местна информация",
       "offers": "Оферти",
       "events": "Събития",
       "news": "Новини",
-      "newsAlternative": "Новости"
+      "pois": "Карта"
     },
     "ckb": {
       "localInformation": "زانیارییە خۆجییەکان",
       "offers": "پێشنیارەکان",
       "events": "ڕووداوەکان",
       "news": "هەواڵ",
-      "newsAlternative": "نوێترین هەوڵاکان"
+      "pois": "نەخشە"
     },
     "el": {
       "localInformation": "Τοπικές πληροφορίες",
       "offers": "Προσφορές",
       "events": "Εκδηλώσεις",
       "news": "Ειδήσεις",
-      "newsAlternative": "Νέα"
+      "pois": "Χάρτης"
     },
     "en": {
       "localInformation": "Local information",
       "offers": "Offers",
       "events": "Events",
       "news": "News",
-      "newsAlternative": "News"
+      "pois": "Map"
     },
     "es": {
       "localInformation": "Información local",
       "offers": "Ofertas",
       "events": "Actividades",
       "news": "Noticias",
-      "newsAlternative": "Novedades"
+      "pois": "Mapa"
     },
     "fr": {
       "localInformation": "Informations locales",
       "offers": "Offres",
       "events": "Événements",
       "news": "Nouvelles",
-      "newsAlternative": "Nouveautés"
+      "pois": "Carte"
     },
     "hr": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Događanja",
       "news": "Vijesti",
-      "newsAlternative": "Novosti"
+      "pois": "Karta"
     },
     "hu": {
       "localInformation": "Helyi információk",
       "offers": "Ajánlatok",
       "events": "Események",
       "news": "Hírek",
-      "newsAlternative": "Újdonságok"
+      "pois": "Térkép"
     },
     "it": {
       "localInformation": "Informazioni locali",
       "offers": "Offerte",
       "events": "Eventi",
       "news": "Messaggi",
-      "newsAlternative": "Novità"
+      "pois": "Mappa"
     },
     "ka": {
       "localInformation": "ადგილობრივი ინფორმაციები",
       "offers": "შეთავაზებები",
       "events": "ღონისძიებები",
-      "news": "ინფორმაციები",
-      "newsAlternative": "სიახლეები"
+      "news": "ინფორმაციები"
     },
     "kmr": {
       "localInformation": "Zanyariyên xwecihî",
       "offers": "Xizmet",
       "events": "Rûdan",
       "news": "Nûçe",
-      "newsAlternative": "Nûçe"
+      "pois": "Nexşe"
     },
     "mk": {
       "localInformation": "Локални информации",
       "offers": "Понуди",
       "events": "Настани",
-      "news": "Вести",
-      "newsAlternative": "Новости"
+      "news": "Вести"
     },
     "pes": {
       "localInformation": "اطلاعات محلی",
       "offers": "خدمات",
       "events": "رویدادها",
       "news": "اخبار",
-      "newsAlternative": "تازه‌ها"
+      "pois": "نقشه"
     },
     "pl": {
       "localInformation": "Informacje lokalne",
       "offers": "Oferty",
       "events": "Wydarzenia",
       "news": "Wiadomości",
-      "newsAlternative": "Aktualności"
+      "pois": "Mapa"
     },
     "prs": {
       "localInformation": "معلومات محلی",
       "offers": "پیشنهادات",
       "events": "رویدادها",
-      "news": "اخبار",
-      "newsAlternative": "جدیدترین اخبار"
+      "news": "اخبار"
     },
     "ps": {
       "localInformation": "سیمه ییز معلومات",
       "offers": "وړاندیزونه",
       "events": "غونډې",
-      "news": "خبرونه",
-      "newsAlternative": "نوې زړې"
+      "news": "خبرونه"
     },
     "ro": {
       "localInformation": "Informații locale",
       "offers": "Oferte",
       "events": "Evenimente",
       "news": "Știri",
-      "newsAlternative": "Noutăți"
+      "pois": "Hartă"
     },
     "ru": {
       "localInformation": "Местная информация",
       "offers": "Предложения",
       "events": "Мероприятия",
       "news": "Новости",
-      "newsAlternative": "Новое"
+      "pois": "Карта"
     },
     "so": {
       "localInformation": "Macluumaadka deegaanka",
       "offers": "Heshiisyo",
       "events": "Dhacdooyinka",
       "news": "war",
-      "newsAlternative": "war"
+      "pois": "khariidad"
     },
     "sq": {
       "localInformation": "Informata lokale",
       "offers": "Ofertat",
       "events": "Evenimentet",
-      "news": "Lajme",
-      "newsAlternative": "Risi"
+      "news": "Lajme"
     },
     "sr-Cyrl": {
       "localInformation": "Локалне информације",
       "offers": "Понуде",
       "events": "Догађаји",
-      "news": "Вести",
-      "newsAlternative": "Новости"
+      "news": "Вести"
     },
     "sr-Latn": {
       "localInformation": "Lokalne informacije",
       "offers": "Ponude",
       "events": "Događaji",
-      "news": "Vesti",
-      "newsAlternative": "Novosti"
+      "news": "Vesti"
     },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
       "offers": "ውዕላት",
       "events": "ኣጋጣሚታት",
       "news": "ዜና",
-      "newsAlternative": "ዜና"
+      "pois": "ካርታ"
     },
     "tr": {
       "localInformation": "Yerel bilgiler",
       "offers": "Teklifler",
       "events": "Etkinlikler",
       "news": "Mesajlar",
-      "newsAlternative": "Yenilikler"
+      "pois": "Harita"
     },
     "ur": {
       "localInformation": "مقامی معلومات",
       "offers": "پیش کشیں",
       "events": "ایونٹس",
-      "news": "خبریں",
-      "newsAlternative": "خبریں"
+      "news": "خبریں"
     },
     "zh-CN": {
       "localInformation": "本地信息",
       "offers": "提供项目",
       "events": "活动",
-      "news": "新闻",
-      "newsAlternative": "新消息"
+      "news": "新闻"
     }
   },
   "disclaimer": {
@@ -602,17 +763,17 @@
     "de": {
       "notFound": {
         "language": "Diese Sprache ist hier leider nicht verfügbar.",
-        "city": "Diese Stadt wurde leider nicht gefunden.",
+        "city": "Diese Region wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "offer": "Dieses Angebot wurde leider nicht gefunden.",
-        "poi": "Dieser Point of Interest wurde leider nicht gefunden.",
+        "poi": "Dieser Ort wurde leider nicht gefunden.",
         "localNews": "Diese Nachricht wurde leider nicht gefunden.",
         "tunews": "Diese tünews wurde leider nicht gefunden.",
         "pageTitle": "Seite nicht gefunden"
       },
       "pageNotFound": "Diese Seite wurde leider nicht gefunden.",
-      "navigationApplication": "Keine Navigationsapplikation gefunden.",
+      "noSuitableAppInstalled": "Keine passende App installiert.",
       "networkConnectionFailed": "Die Verbindung zum Server ist fehlgeschlagen.",
       "networkRequestFailed": "Die Anfrage konnte nicht bearbeitet werden.",
       "responseMappingFailed": "Die Antwort des Servers konnte nicht verarbeitet werden.",
@@ -625,7 +786,7 @@
         "categories": "Zu den Kategorien",
         "events": "Zu den Veranstaltungen",
         "offers": "Zu den Angeboten",
-        "pois": "Zu den Points of Interest",
+        "pois": "Zur Karte",
         "localNews": "Zu den Nachrichten",
         "tunews": "Zu den tünews"
       },
@@ -638,16 +799,17 @@
     "am": {
       "notFound": {
         "language": "ይቅርታ፣ ይህ ቋንቋ እዚህ ላይ የለም።",
-        "city": "ይቅርታ፣ ይህ ከተማ አልተገኘም።",
+        "city": "ይህ ወረዳ ሊገኝ ኣልቻለም።",
         "category": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
         "offer": "ይቅርታ፣ ይህ ግብዣ/መጥሪያ አልተገኘም።",
-        "poi": "ይቅርታ፣ ይህ የዝንባሌ ነጥብ አልተገኘም።",
+        "poi": "ይህ ቦታ ሊገኝ ኣልቻለም።",
         "localNews": "ይቅርታ፣ ይህ ዜና አልተገኘም።",
         "tunews": "ይቅርታ፣ ይህ tünews አልተገኘም።",
         "pageTitle": "ገጹ አልተገኘም"
       },
       "pageNotFound": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
+      "noSuitableAppInstalled": "የሚስማማ ኣፕ ኣልተገጠመም።",
       "networkConnectionFailed": "ከሰርቨሩ ጋር መገናኘት አልተቻለም።",
       "networkRequestFailed": "ጥያቄውን ማስተናገድ አልተቻለም።",
       "responseMappingFailed": "የሰርቨሩን ምላሽ ማስተናገድ አልተቻለም።",
@@ -660,28 +822,30 @@
         "categories": "ወደ ምድቦች",
         "events": "ወደ ዝግጅቶች",
         "offers": "ወደ ግብዣዎች/መጥሪያዎች",
-        "pois": "ወደ ዝንባሌ ነጥቦች",
+        "pois": "ወደ ካርታ",
         "localNews": "ወደ ዜናዎች",
         "tunews": "ወደ tünews"
       },
       "pageTitle": "ስህተት",
       "generalError": "ስህተት ተፈጥሯል",
+      "notSupportedByDevice": "የዚህ ኣሰራር በዚህ ዕቃ ድጋፍ ኣያገኝም።",
       "languageSwitchFailedTitle": "ከይቅርታ ጋር ቋንቋ መቀየሩ አልተሳካም።",
       "languageSwitchFailedMessage": "የተመረጠው ቋንቋ በኦፍላይን ላይ አይገኝም። ፈጣን የኢንተርኔት ግንኙነት ያስፈልጋል።"
     },
     "ar": {
       "notFound": {
         "language": "للأسف، هذه اللغة ليست متاحة.",
-        "city": "للأسف، تعذر العثور على هذه المدينة.",
+        "city": "للأسف لم يتم العثور على هذه المنطقة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
         "offer": "للأسف، تعذر العثور على هذا العرض.",
-        "poi": "للأسف، تعذر العثور على هذه النقطة المثيرة للاهتمام.",
+        "poi": "للأسف لم يتم العثور على هذا المكان.",
         "localNews": "للأسف، لم يتم العثور على هذا الخبر.",
         "tunews": "للأسف، لم يتم العثور على tünews.",
         "pageTitle": "تعذر العثور على الصفحة"
       },
       "pageNotFound": "للأسف، تعذر العثور على هذه الصفحة.",
+      "noSuitableAppInstalled": "لم يتم تسطيب تطبيق مناسب.",
       "networkConnectionFailed": "فشل في الاتصال بالخادم.",
       "networkRequestFailed": "تعذر معالجة هذا الاستفسار.",
       "responseMappingFailed": "تعذر معالجة استجابة الخادم.",
@@ -694,28 +858,30 @@
         "categories": "إلى الفئات",
         "events": "إلى الفعاليات",
         "offers": "إلى العروض",
-        "pois": "إلى النقاط المثيرة للاهتمام",
+        "pois": "إلى الخريطة",
         "localNews": "إلى الأخبار",
         "tunews": "إلى tünews"
       },
       "pageTitle": "خطأ",
       "generalError": "حدث خطأ ما",
+      "notSupportedByDevice": "لا يتم دعم هذه الوظيفة على هذا الجهاز.",
       "languageSwitchFailedTitle": "للأسف، فشل في تغيير اللغة.",
       "languageSwitchFailedMessage": "اللغة المُختارة غير متاحة دون الاتصال بالإنترنت. يلزم وجود اتصال نشط بالإنترنت."
     },
     "bg": {
       "notFound": {
         "language": "За съжаление този език не е наличен тук.",
-        "city": "За съжаление този град не беше намерен.",
+        "city": "За съжаление този регион не беше намерен.",
         "category": "За съжаление тази страница не беше намерена.",
         "event": "За съжаление това събитие не беше намерено.",
         "offer": "За съжаление тази оферта не беше намерена.",
-        "poi": "За съжаление това интересно място не беше намерено.",
+        "poi": "За съжаление това населено място не беше намерено.",
         "localNews": "За съжаление това съобщение не бе намерено.",
         "tunews": "За съжаление тези tünews не бяха намерени.",
         "pageTitle": "Страницата не е намерена"
       },
       "pageNotFound": "За съжаление тази страница не беше намерена.",
+      "noSuitableAppInstalled": "Не е инсталирано подходящо приложение.",
       "networkConnectionFailed": "Връзката със сървъра не бе успешна.",
       "networkRequestFailed": "Запитването не можа да бъде обработено.",
       "responseMappingFailed": "Отговорът от сървъра не можа да бъде обработен.",
@@ -728,31 +894,33 @@
         "categories": "Към категориите",
         "events": "Към събитията",
         "offers": "Към офертите",
-        "pois": "Към интересните места",
+        "pois": "Към картата",
         "localNews": "Към новините",
         "tunews": "Към tünews"
       },
       "pageTitle": "Грешка",
       "generalError": "Възникна грешка",
+      "notSupportedByDevice": "Тази функция не се поддържа от това устройство.",
       "languageSwitchFailedTitle": "За съжаление промяната на езика не бе успешна.",
       "languageSwitchFailedMessage": "Избраният език не е наличен офлайн. Необходима е активна интернет връзка."
     },
     "ckb": {
       "notFound": {
         "language": "بەداخەوە ئەم زمانەی تێدا نییە.",
-        "city": "بەداخەوە ئەم شارە نەدۆزراوە.",
-        "category": "بەداخەوە ئەم لاپەڕە نەدۆزراوە.",
-        "event": "بەداخەوە ئەم ڕووداوە نەدۆزراوە.",
-        "offer": "بەداخەوە ئەم پێشنیارە نەدۆزراوە.",
-        "poi": "بەداخەوە ئەم خاڵە جێی سرنجە نەدۆزراوە.",
-        "localNews": "بەداخەوە ئەم هەواڵە نەدۆزراوە.",
-        "tunews": "بەداخەوە ئەم توبینگێنە نەدۆزراوە.",
-        "pageTitle": "لاپەڕە نەدۆزراوە"
+        "city": "بەداخەوە، ئەم ناوچەیە نەدۆزرایەوە.",
+        "category": "بەداخەوە ئەم لاپەڕەیە نەدۆزرایەوە.",
+        "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
+        "offer": "بەداخەوە ئەم پێشنیارە نەدۆزرایەوە.",
+        "poi": "بەداخەوە ئەم شوێنە نەدۆزرایەوە.",
+        "localNews": "بەداخەوە ئەم هەواڵە نەدۆزرایەوە.",
+        "tunews": "بەداخەوە ئەم هەواڵی توبینگێنە نەدۆزرایەوە.",
+        "pageTitle": "لاپەڕە نەدۆزرایەوە"
       },
-      "pageNotFound": "بەداخەوە ئەم لاپەڕە نەدۆزراوە.",
+      "pageNotFound": "بەداخەوە ئەم لاپەڕە نەدۆزرایەوە.",
+      "noSuitableAppInstalled": "هیچ ئەپێکی گونجاو دانەمەزرێنراوە",
       "networkConnectionFailed": "پەیوەندی بە سێرڤەر ئەنجام نەدرا.",
-      "networkRequestFailed": "داواکارییەکە قابیلی لێکدانەوە نییە.",
-      "responseMappingFailed": "وەڵامی سێرڤەر لێکدانەوەی بۆ نەکرا.",
+      "networkRequestFailed": "نەمانتوانی داواکاریەکە لێک بدەینەوە.",
+      "responseMappingFailed": "نەمانتوانی وەڵامی سێرڤەر لێک بدەینەوە.",
       "unknownError": "هەڵەیەکی نەناسراو ڕووی دا.",
       "tryAgain": "دووبارە تاقی بکەوە",
       "loadingFailed": "بەداخەوە لاپەڕەکە بار نەکرا.",
@@ -762,28 +930,30 @@
         "categories": "بۆ کۆمەڵەکان",
         "events": "بۆ ڕووداوەکان",
         "offers": "بۆ پێشنیارەکان",
-        "pois": "بۆ خاڵە جێی سرنجەکان",
+        "pois": "بۆ نەخشە",
         "localNews": "بۆ هەواڵ",
         "tunews": "بۆ هەواڵی توبینگێن"
       },
       "pageTitle": "هەڵە",
       "generalError": "هەڵەیەک ڕووی داوە",
-      "languageSwitchFailedTitle": "بەداخەوە گۆڕینی زمان سەرکەوتوو نەبوو.",
-      "languageSwitchFailedMessage": "زمانە هەلبژێردراوەکە بەشێوەی ئۆفلاین لەبەردەستدا نییە. پەیوەندی بە ئینتەرنەتی چالاک پێویستە."
+      "notSupportedByDevice": "ئەم تواناییە لەم ئامێرەدا پاڵپشتی ناکرێت.",
+      "languageSwitchFailedTitle": "بەداخەوە گۆڕینی زمان جێبەجێ نەبوو.",
+      "languageSwitchFailedMessage": "زمانی هەلبژێردراو بەشێوەی ئۆفلاین لەبەردەست نییە. پێویستی بە ئینتەرنەتی چالاکە."
     },
     "el": {
       "notFound": {
         "language": "Δυστυχώς, αυτή η γλώσσα δεν είναι διαθέσιμη εδώ.",
-        "city": "Δυστυχώς, αυτή η πόλη δεν βρέθηκε.",
+        "city": "Δυστυχώς δεν βρέθηκε αυτή η περιοχή.",
         "category": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
         "offer": "Δυστυχώς, αυτή η προσφορά δεν βρέθηκε.",
-        "poi": "Δυστυχώς, αυτό το σημείο ενδιαφέροντος δεν βρέθηκε.",
+        "poi": "Δυστυχώς δεν βρέθηκε αυτή η τοποθεσία.",
         "localNews": "Δυστυχώς, αυτό το μήνυμα δεν βρέθηκε.",
         "tunews": "Δυστυχώς, δεν βρέθηκαν αυτά τα νέα.",
         "pageTitle": "Η σελίδα δεν βρέθηκε"
       },
       "pageNotFound": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
+      "noSuitableAppInstalled": "Δεν έχει γίνει εγκατάσταση κατάλληλης εφαρμογής.",
       "networkConnectionFailed": "Η σύνδεση με το διακομιστή απέτυχε.",
       "networkRequestFailed": "Δεν ήταν δυνατή η επεξεργασία του αιτήματος.",
       "responseMappingFailed": "Δεν ήταν δυνατή η επεξεργασία της απόκρισης από το διακομιστή.",
@@ -796,28 +966,30 @@
         "categories": "Προς κατηγορίες",
         "events": "Προς εκδηλώσεις",
         "offers": "Προς προσφορές",
-        "pois": "Προς σημεία ενδιαφέροντος",
+        "pois": "Μετάβαση στο χάρτη",
         "localNews": "Προς ειδήσεις",
         "tunews": "Προς νέα"
       },
       "pageTitle": "Σφάλμα",
       "generalError": "Παρουσιάστηκε σφάλμα",
+      "notSupportedByDevice": "Αυτή η λειτουργία δεν υποστηρίζεται σε αυτή τη συσκευή.",
       "languageSwitchFailedTitle": "Δυστυχώς, η αλλαγή γλώσσας απέτυχε.",
       "languageSwitchFailedMessage": "Η επιλεγμένη γλώσσα δεν είναι διαθέσιμη εκτός σύνδεσης. Απαιτείται ενεργή σύνδεση στο Διαδίκτυο."
     },
     "en": {
       "notFound": {
         "language": "Sorry, but this language is not available here.",
-        "city": "Sorry, but this city could not be found.",
+        "city": "Sorry this region was not found. ",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
-        "poi": "Sorry, but this point of interest could not be found.",
+        "poi": "Sorry, this place was not found. ",
         "localNews": "Sorry, but this message could not be found.",
         "tunews": "Sorry, but this tünews could not be found.",
         "pageTitle": "Page not found"
       },
       "pageNotFound": "Sorry, but the requested page could not be found.",
+      "noSuitableAppInstalled": "No suitable app installed. ",
       "networkConnectionFailed": "The connection to the server failed.",
       "networkRequestFailed": "The request could not be processed.",
       "responseMappingFailed": "An error occurred while processing the server's response.",
@@ -830,28 +1002,30 @@
         "categories": "Go to categories",
         "events": "Go to events",
         "offers": "Go to offers",
-        "pois": "Go to points of interest",
+        "pois": "Go to map",
         "localNews": "Go to news",
         "tunews": "Go to tünews"
       },
       "pageTitle": "Error",
       "generalError": "An error occurred",
+      "notSupportedByDevice": "This function is not supported on this device.",
       "languageSwitchFailedTitle": "Unfortunately, changing the language failed.",
       "languageSwitchFailedMessage": "The selected language is not available if you are offline. An active internet connection is required."
     },
     "es": {
       "notFound": {
         "language": "Tu idioma no está disponible aquí.",
-        "city": "No se ha encontrado esta ciudad.",
+        "city": "No se ha encontrado esta región.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
         "offer": "No se ha encontrado esta oferta.",
-        "poi": "No se ha encontrado este punto de interés.",
+        "poi": "No se ha encontrado esta localidad.",
         "localNews": "No se ha encontrado este mensaje.",
         "tunews": "No se ha encontrado este tünews.",
         "pageTitle": "No se ha encontrado la página"
       },
       "pageNotFound": "No se ha encontrado esta página.",
+      "noSuitableAppInstalled": "No ha instalado ninguna aplicación adecuada.",
       "networkConnectionFailed": "No se ha establecido la conexión con el servidor.",
       "networkRequestFailed": "No se ha podido editar la consulta.",
       "responseMappingFailed": "No se ha podido procesar la respuesta del servidor.",
@@ -864,28 +1038,30 @@
         "categories": "Ir a las categorías",
         "events": "Ir a las actividades",
         "offers": "Ir a las ofertas",
-        "pois": "Ir a los puntos de interés",
+        "pois": "Ir al mapa",
         "localNews": "Ir a los mensajes",
         "tunews": "Ir a los tünews"
       },
       "pageTitle": "Error",
       "generalError": "Se ha producido un error",
+      "notSupportedByDevice": "Esta función no es compatible con este dispositivo.",
       "languageSwitchFailedTitle": "No se ha podido cambiar el idioma.",
       "languageSwitchFailedMessage": "El idioma seleccionado no está disponible sin conexión. Se necesita una conexión a internet activada."
     },
     "fr": {
       "notFound": {
         "language": "Malheureusement, cette langue n'est pas disponible ici.",
-        "city": "Malheureusement, cette ville est introuvable.",
+        "city": "Cette région n’a malheureusement pas été trouvée.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
         "offer": "Malheureusement, cette offre est introuvable.",
-        "poi": "Malheureusement, ce point d'intérêt est introuvable.",
+        "poi": "Cette localité n’a malheureusement pas été trouvée.",
         "localNews": "Malheureusement, ce message est introuvable.",
         "tunews": "Malheureusement, cette tünews est introuvable.",
         "pageTitle": "Page introuvable"
       },
       "pageNotFound": "Malheureusement, cette page est introuvable.",
+      "noSuitableAppInstalled": "Aucune application appropriée n’est installée.",
       "networkConnectionFailed": "Échec de la connexion au serveur.",
       "networkRequestFailed": "Impossible de traiter la demande.",
       "responseMappingFailed": "Impossible de traiter la réponse du serveur.",
@@ -898,28 +1074,30 @@
         "categories": "Vers les catégories",
         "events": "Vers les événements",
         "offers": "Vers les offres",
-        "pois": "Accéder aux points d'intérêt",
+        "pois": "Aller à la carte",
         "localNews": "Accéder aux messages",
         "tunews": "Accéder aux tünews"
       },
       "pageTitle": "Erreur",
       "generalError": "Une erreur s'est produite",
+      "notSupportedByDevice": "Cette fonction n’est pas prise en charge sur cet appareil.",
       "languageSwitchFailedTitle": "Malheureusement, le changement de langue a échoué.",
       "languageSwitchFailedMessage": "La langue sélectionnée n'est pas disponible hors ligne. Une connexion Internet active est requise."
     },
     "hr": {
       "notFound": {
         "language": "Tvoj jezik ovdje nažalost nije dostupan.",
-        "city": "Ovaj grad nažalost nije pronađen.",
+        "city": "Ta regija nažalost nije pronađena.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
         "offer": "Ova ponuda nažalost nije pronađena.",
-        "poi": "Ova zanimljiva točka nažalost nije pronađena.",
+        "poi": "To mjesto nažalost nije pronađeno.",
         "localNews": "Ova vijest nažalost nije pronađena.",
         "tunews": "Ova vijest tünews nažalost nije pronađena.",
         "pageTitle": "Stranica nije pronađena"
       },
       "pageNotFound": "Ova stranica nažalost nije pronađena.",
+      "noSuitableAppInstalled": "Nije instalirana odgovarajuća aplikacija.",
       "networkConnectionFailed": "Veza sa serverom se prekinula.",
       "networkRequestFailed": "Upit se nije mogao obraditi.",
       "responseMappingFailed": "Odgovor servera se nije mogao obraditi.",
@@ -932,28 +1110,30 @@
         "categories": "Na kategorije",
         "events": "Na događanja",
         "offers": "Na ponude",
-        "pois": "Na zanimljive točke",
+        "pois": "Idi na kartu",
         "localNews": "Na vijesti",
         "tunews": "Na tünews"
       },
       "pageTitle": "Pogreške",
       "generalError": "Došlo je do pogreške",
+      "notSupportedByDevice": "Na ovom uređaju ta funkcija nije podržana.",
       "languageSwitchFailedTitle": "Promjena jezika nažalost nije uspjela.",
       "languageSwitchFailedMessage": "Odabrani jezik nije dostupan offline. Potrebna je aktivna internetska veza."
     },
     "hu": {
       "notFound": {
         "language": "A nyelved itt sajnos nem elérhető.",
-        "city": "Ez a város sajnos nem található.",
+        "city": "Ez a régió nem található.",
         "category": "Ez az oldal sajnos nem található.",
         "event": "Ez az esemény sajnos nem található.",
         "offer": "Ez az ajánlat sajnos nem található.",
-        "poi": "Ez az érdekesség sajnos nem található.",
+        "poi": "Ez a hely nem található.",
         "localNews": "Ez az üzenet sajnos nem található.",
         "tunews": "Ez a tünews sajnos nem található.",
         "pageTitle": "Az oldal nem található"
       },
       "pageNotFound": "Ez az oldal sajnos nem található.",
+      "noSuitableAppInstalled": "A hozzá illő alkalmazás nincs telepítve.",
       "networkConnectionFailed": "Kapcsolódás a szerverhez sikertelen.",
       "networkRequestFailed": "A kérése nem került feldolgozásra.",
       "responseMappingFailed": "A szerver válasza nem volt feldolgozható.",
@@ -966,28 +1146,30 @@
         "categories": "A Kategóriákhoz",
         "events": "Az Eseményekhez",
         "offers": "Az Ajánlatokhoz",
-        "pois": "Az Érdekességekhez",
+        "pois": "A térképhez",
         "localNews": "A hírekhez",
         "tunews": "A tünews-hoz"
       },
       "pageTitle": "Hiba",
       "generalError": "Hiba lépett fel.",
+      "notSupportedByDevice": "Ez az eszköz nem támogatja ezt a funkciót.",
       "languageSwitchFailedTitle": "Sikertelen nyelvváltoztatás.",
       "languageSwitchFailedMessage": "A kiválasztott nyelv offline nem elérhető. Aktív internetkapcsolat szükséges."
     },
     "it": {
       "notFound": {
         "language": "Purtroppo questa lingua non è disponibile qui.",
-        "city": "Purtroppo questa città non è stata trovata.",
+        "city": "Purtroppo questa regione non è stata trovata.",
         "category": "Purtroppo questa pagina non è stata trovata.",
         "event": "Purtroppo questo evento non è stato trovato.",
         "offer": "Purtroppo questa offerta non è stata trovata.",
-        "poi": "Purtroppo questo Point of Interest non è stato trovato.",
+        "poi": "Purtroppo questa località non è stata trovata.",
         "localNews": "Purtroppo questo messaggio non è stato trovato.",
         "tunews": "Purtroppo questo tünews non è stato trovato.",
         "pageTitle": "Pagina non trovata"
       },
       "pageNotFound": "Purtroppo questa pagina non è stata trovata.",
+      "noSuitableAppInstalled": "Nessuna app adatta installata",
       "networkConnectionFailed": "La connessione al server non è riuscita.",
       "networkRequestFailed": "La richiesta non può essere elaborata.",
       "responseMappingFailed": "La risposta del server non può essere elaborata.",
@@ -1000,23 +1182,22 @@
         "categories": "Vai su Categorie",
         "events": "Vai su Eventi",
         "offers": "Vai su Offerte",
-        "pois": "Vai su Points of Interest",
+        "pois": "Vai alla mappa",
         "localNews": "Vai su Messaggi",
         "tunews": "Vai su tünews"
       },
       "pageTitle": "Errore",
       "generalError": "Si è verificato un errore",
+      "notSupportedByDevice": "Questa funzione non è supportata su questo dispositivo",
       "languageSwitchFailedTitle": "Purtroppo il cambio di lingua non è riuscito.",
       "languageSwitchFailedMessage": "La lingua selezionata non è disponibile offline. È necessaria una connessione Internet attiva."
     },
     "ka": {
       "notFound": {
         "language": "სამწუხაროდ ეს ენა აქ არ გამოიყენება.",
-        "city": "სამწუხაროდ ეს ქალაქი ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
         "offer": "სამწუხაროდ ეს შეთავაზება ვერ მოიძებნა.",
-        "poi": "ეს ღირსშესანიშნავი ადგილი ვერ მოიძებნა",
         "localNews": "სამწუხაროდ ეს ინფორმაცია ვერ მოიძებნა.",
         "tunews": "ეს ტუნიუს ინფორმაციები სამწუხაროდ ვერ მოიძებნა",
         "pageTitle": "გვერდი არ იძებნება"
@@ -1034,7 +1215,6 @@
         "categories": "კატეგორიებისაკენ",
         "events": "ღონისძიებებისაკენ",
         "offers": "შეთავაზებებისაკენ",
-        "pois": "ღირშესანიშნაობებისაკენ",
         "localNews": "ინფორმაციებისაკენ",
         "tunews": "ტუნიუსისაკენ"
       },
@@ -1046,16 +1226,17 @@
     "kmr": {
       "notFound": {
         "language": "Mixabin zimanê te li vir li ber dest nîne.",
-        "city": "Mixabin ev bajar nehat vedîtin.",
+        "city": "Mixabin, ev navçe peyda nebû.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
         "offer": "Mixabin ev xizmet peyde nebû.",
-        "poi": "Mixabin ev babetên balkêş peyde nebûn.",
+        "poi": "Mixabin, ev der peyda nebû.",
         "localNews": "Mixabin ev peyam nehat peydakirin.",
         "tunews": "Mixabin, ev nûçeyta taybet (tünews) nehat dîtin.",
         "pageTitle": "Rûpel nehat dîtin"
       },
       "pageNotFound": "Mixabin ev rûpel peyde nebû.",
+      "noSuitableAppInstalled": "Tu Appeke guncaw nehatiye barkirin.",
       "networkConnectionFailed": "Girêdana bi Server'ê pêk nehat.",
       "networkRequestFailed": "Daxwaz nikare were proseskirin.",
       "responseMappingFailed": "Bersiva Serverê nikare were proseskirin.",
@@ -1068,23 +1249,22 @@
         "categories": "Ber bi destebendiyan va",
         "events": "Ber bi rûdanan va",
         "offers": "Ber bi xizmetan va",
-        "pois": "Bo cihên balkêş",
+        "pois": "Bo nexşeyê",
         "localNews": "Bo nûçeyan",
         "tunews": "Bo nûçeyên taybet (tünews)"
       },
       "pageTitle": "Şaşitî (Eror)",
       "generalError": "Şaşitiyek qewimiye",
+      "notSupportedByDevice": "Ev şiyana li vê amûrê de nayê piştevanîkirin.",
       "languageSwitchFailedTitle": "Mixabin guhertina Ziman pêk nehat.",
       "languageSwitchFailedMessage": "Zimanê bijartî bi awayê ne-serxet (Offline) li ber dest nîne. Girêdana Înterneta çalak pêwîst e."
     },
     "mk": {
       "notFound": {
         "language": "За жал твојот јазик не е достапен.",
-        "city": "За жал овој град не е пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
         "offer": "За жал оваа понуда не е пронајдена.",
-        "poi": "За жал оваа тема на инстерес не е пронајдена.",
         "localNews": "За жал оваа вест не е пронајдена.",
         "tunews": "За жал овие tünews не се пронајдени.",
         "pageTitle": "Страницата не е пронајдена"
@@ -1102,7 +1282,6 @@
         "categories": "Кон категориите",
         "events": "Кон настаните",
         "offers": "Кон понудите",
-        "pois": "Кон темите од интерес",
         "localNews": "Кон вестите",
         "tunews": "Кон tünews"
       },
@@ -1114,16 +1293,17 @@
     "pes": {
       "notFound": {
         "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
-        "city": "متاسفانه این شهر یافت نشد.",
+        "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
         "offer": "متأسفانه این خدمات یافت نشد.",
-        "poi": "متأسفانه این موارد مورد علاقه یافت نشد.",
+        "poi": "متاسفانه این محل پیدا نشد.",
         "localNews": "متاسفانه این خبر یافت نشد.",
         "tunews": "متاسفانه این اخبار توبینگن یافت نشد.",
         "pageTitle": "صفحه یافت نشد"
       },
       "pageNotFound": "متاسفانه این صفحه یافت نشد.",
+      "noSuitableAppInstalled": "اپلیکیشن مناسب نصب نشده است.",
       "networkConnectionFailed": "اتصال به سرور انجام نشد.",
       "networkRequestFailed": "درخواست قابل پردازش نیست.",
       "responseMappingFailed": "پاسخ سرور قابل پردازش نیست.",
@@ -1136,28 +1316,30 @@
         "categories": "به سوی دسته بندی ها",
         "events": "به سوی رویدادها",
         "offers": "به سوی خدمات",
-        "pois": "به نقاط مورد علاقه",
+        "pois": "به نقشه",
         "localNews": "به اخبار",
         "tunews": "به اخبار توبینگن"
       },
       "pageTitle": "خطا",
       "generalError": "خطایی رخ داده است",
+      "notSupportedByDevice": "این عملکرد در این دستگاه پشتیبانی نمی‌شود.",
       "languageSwitchFailedTitle": "متأسفانه تغییر زبان انجام نشد.",
       "languageSwitchFailedMessage": "زبان انتخابی بصورت آفلاین در دسترس نیست. اتصال اینترنت فعال ضروری است."
     },
     "pl": {
       "notFound": {
         "language": "Niestety ten język nie jest tutaj dostępny.",
-        "city": "Niestety nie znaleziono tego miasta.",
+        "city": "Niestety ten region nie został znaleziony.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
         "offer": "Niestety nie znaleziono tej oferty.",
-        "poi": "Niestety nie znaleziono tego Point of Interest.",
+        "poi": "Niestety ta miejscowość nie została znaleziona.",
         "localNews": "Niestety nie znaleziono tej wiadomości.",
         "tunews": "Niestety nie znaleziono tej tünews.",
         "pageTitle": "Nie znaleziono strony"
       },
       "pageNotFound": "Niestety nie znaleziono tej strony.",
+      "noSuitableAppInstalled": "Nie zainstalowano odpowiedniej aplikacji.",
       "networkConnectionFailed": "Połączenie z serwerem nie powiodło się.",
       "networkRequestFailed": "Nie udało się przetworzyć żądania.",
       "responseMappingFailed": "Nie udało się przetworzyć odpowiedzi serwera.",
@@ -1170,23 +1352,22 @@
         "categories": "Do kategorii",
         "events": "Do wydarzeń",
         "offers": "Do ofert",
-        "pois": "Do Points of Interest",
+        "pois": "Przejdź do mapy",
         "localNews": "Do wiadomości",
         "tunews": "Do tünews"
       },
       "pageTitle": "Błąd",
       "generalError": "Wystąpił błąd",
+      "notSupportedByDevice": "Ta funkcja nie jest obsługiwana przez to urządzenie.",
       "languageSwitchFailedTitle": "Niestety zmiana języka się nie powiodła.",
       "languageSwitchFailedMessage": "Wybrany język nie jest dostępny offline. Konieczne jest aktywne połączenie z Internetem."
     },
     "prs": {
       "notFound": {
         "language": "متاسفانه این لسان در اینجا موجود نیست‎.",
-        "city": "متاسفانه این شهر پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
         "offer": "متاسفانه این پیشنهاد پیدا نشد‎.",
-        "poi": "متاسفانه این نقطه مورد علاقه پیدا نشد‎.",
         "localNews": "متاسفانه این خبر پیدا نشد‎.",
         "tunews": "متاسفانه این‎ ‎اخبار توبینگن‎ ‎پیدا نشد‎.",
         "pageTitle": "صفحه پیدا نشد"
@@ -1204,7 +1385,6 @@
         "categories": "به دسته ها",
         "events": "به رویدادها",
         "offers": "به پیشنهادات",
-        "pois": "به نقاط مورد علاقه",
         "localNews": "به اخبار",
         "tunews": "به اخبار توبینگن"
       },
@@ -1216,11 +1396,9 @@
     "ps": {
       "notFound": {
         "language": "دا ژبه له بده مرغه دلته موجوده نده.",
-        "city": "دا ښار له بده مرغه پیدا نشو.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
         "offer": "دا وړاندیز له بده مرغه پیدا نشو.",
-        "poi": "دا د علاقې نکته له بده مرغه پیدا نشوه.",
         "localNews": "په خواشینۍ سره دا خبر پیدا نشو.",
         "tunews": "په خواشینۍ سره دا توبینګن خبر پیدا نشو.",
         "pageTitle": "پاڼه پیدا نشوه"
@@ -1238,7 +1416,6 @@
         "categories": "کټګوریو ته تلل",
         "events": "غونډو ته تلل",
         "offers": "وړاندیزونو ته تلل",
-        "pois": "د خوښې وړ ځایونو ته",
         "localNews": "خبرونو ته",
         "tunews": "توبینګن خبرونو ته"
       },
@@ -1250,16 +1427,17 @@
     "ro": {
       "notFound": {
         "language": "Aici nu este disponibilă această limbă, din păcate.",
-        "city": "Acest oraș nu a fost găsit, din păcate.",
+        "city": "Ne pare rău, această regiune nu a fost găsită.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
         "offer": "Această ofertă nu a fost găsită, din păcate.",
-        "poi": "Acest Point of Interest nu a fost găsit, din păcate.",
+        "poi": "Ne pare rău, această localitate nu a fost găsită.",
         "localNews": "Această știre nu a fost găsită, din păcate.",
         "tunews": "Această tünews nu a fost găsită, din păcate.",
         "pageTitle": "Pagină nu a fost găsită"
       },
       "pageNotFound": "Această pagină nu a fost găsită, din păcate.",
+      "noSuitableAppInstalled": "Nu este instalată nicio aplicație adecvată.",
       "networkConnectionFailed": "Conectarea la server a eșuat.",
       "networkRequestFailed": "Cererea nu a putut fi prelucrată.",
       "responseMappingFailed": "Răspunsul serverului nu putut fi prelucrat.",
@@ -1272,28 +1450,30 @@
         "categories": "Spre categorii",
         "events": "Spre evenimente",
         "offers": "Spre oferte",
-        "pois": "Spre puncte de interes",
+        "pois": "Spre hartă",
         "localNews": "Spre știri",
         "tunews": "Spre tünews"
       },
       "pageTitle": "Erori",
       "generalError": "A apărut o eroare",
+      "notSupportedByDevice": "Această funcție nu este susținută pe acest dispozitiv.",
       "languageSwitchFailedTitle": "Din păcate, schimbarea limbii a eșuat.",
       "languageSwitchFailedMessage": "Limba selectată nu este disponibilă offline. Este necesară o conexiune activă la internet."
     },
     "ru": {
       "notFound": {
         "language": "К сожалению, этот язык не поддерживается.",
-        "city": "К сожалению, этот город не найден.",
+        "city": "К сожалению, этот регион не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
         "offer": "К сожалению, это предложение не найдено.",
-        "poi": "К сожалению, эта достопримечательность не найдена.",
+        "poi": "К сожалению, этот населенный пункт не найден.",
         "localNews": "К сожалению, это сообщение не найдено.",
         "tunews": "К сожалению, эта новость tünews не найдена.",
         "pageTitle": "Страница не найдена"
       },
       "pageNotFound": "К сожалению, эта страница не найдена.",
+      "noSuitableAppInstalled": "Подходящее приложение не установлено.",
       "networkConnectionFailed": "Не удалось соединиться с сервером.",
       "networkRequestFailed": "Не удалось обработать запрос.",
       "responseMappingFailed": "Не удалось обработать ответ сервера.",
@@ -1306,28 +1486,30 @@
         "categories": "К категориям",
         "events": "К мероприятиям",
         "offers": "К предложениям",
-        "pois": "Перейти к достопримечательностям",
+        "pois": "К карте",
         "localNews": "К сообщениям",
         "tunews": "К новостям tünews"
       },
       "pageTitle": "Ошибка",
       "generalError": "Произошла ошибка",
+      "notSupportedByDevice": "Эта функция не поддерживается на данном устройстве.",
       "languageSwitchFailedTitle": "К сожалению, сменить язык не удалось.",
       "languageSwitchFailedMessage": "Выбранный язык недоступен в автономном режиме. Необходимо подключение к Интернету."
     },
     "so": {
       "notFound": {
         "language": "Nasiib darro, luuqadan halkan lagama heli karo.",
-        "city": "Nasiib darro, magaaladan lama helin.",
+        "city": "Nasiib darro, gobolkan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
         "offer": "Nasiib darro, dalabkan lama helin.",
-        "poi": "Nasiib darro, qodobkaan xiisaha leh lama helin.",
+        "poi": "Nasiib darro, goobtan lama helin.",
         "localNews": "Nasiib daro, fariintaan lama helin.",
         "tunews": "Nasiib daro, aqbaarahaan gaarka ah (tünews) lama helin.",
         "pageTitle": "Bogga lama helin"
       },
       "pageNotFound": "Nasiib darro, boggan lama helin.",
+      "noSuitableAppInstalled": "Ablikeeshin kugu habboon ma aadan soo degsan.",
       "networkConnectionFailed": "Xiriirinta server-ka ayaa lagu guuldaraystay.",
       "networkRequestFailed": "Codsiga lagama shaqeysiin karin.",
       "responseMappingFailed": "Jawaabta server-ka lagama shaqeysiin karin.",
@@ -1340,23 +1522,22 @@
         "categories": "Aad Qaybaha",
         "events": "Aad dhacdooyinka",
         "offers": "Ku saabsan dalabyada",
-        "pois": "Ee Qodobada xiisaha ah",
+        "pois": "Aad khariidadda",
         "localNews": "Ee aqbaaraha",
         "tunews": "Ee aqbaaraha gaarka ah (tünews)"
       },
       "pageTitle": "Qalad",
       "generalError": "Khalad ayaa dhacay",
+      "notSupportedByDevice": "Qeybtaan kuma shaqeynayso aaladan.",
       "languageSwitchFailedTitle": "Nasiib darro, bedelidda luqadda ayaa lagu guuldareystay.",
       "languageSwitchFailedMessage": "Luqadda aad dooratay laguma heli karo ofleen(offline) ahaan. Xiriir internet oo shaqeeya ayaa loo baahan yahay."
     },
     "sq": {
       "notFound": {
         "language": "Fatkeqësisht, kjo gjuhë nuk është në dispozicion këtu.",
-        "city": "Ky qytet për fat të keq nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
         "offer": "Kjo ofertë për fat të keq nuk u gjet.",
-        "poi": "Kjo pikë interesi për fat të keq nuk u gjet.",
         "localNews": "Ky lajm për fat të keq nuk u gjet.",
         "tunews": "Ky tünews për fat të keq nuk u gjet.",
         "pageTitle": "Faqja nuk u gjet"
@@ -1374,7 +1555,6 @@
         "categories": "Tek kategoritë",
         "events": "Tek evenimentet",
         "offers": "Tek ofertat",
-        "pois": "Tek pikat e interesit",
         "localNews": "Tek lajmet",
         "tunews": "Tek tünews"
       },
@@ -1386,11 +1566,9 @@
     "sr-Cyrl": {
       "notFound": {
         "language": "Нажалост, овај језик овде није доступан.",
-        "city": "Нажалост, овај град није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
         "offer": "Нажалост, ова понуда није пронађена.",
-        "poi": "Нажалост, ово место од значаја није пронађено.",
         "localNews": "Нажалост, ова порука није пронађена.",
         "tunews": "Ове tünews вести нажалост нису пронађене.",
         "pageTitle": "Страна није пронађена"
@@ -1408,7 +1586,6 @@
         "categories": "Ка категоријама",
         "events": "Ка догађајима",
         "offers": "Ка понудама",
-        "pois": "Ка местима од значаја",
         "localNews": "Ка вестима",
         "tunews": "Ка tünews"
       },
@@ -1420,11 +1597,9 @@
     "sr-Latn": {
       "notFound": {
         "language": "Nažalost, ovaj jezik ovde nije dostupan.",
-        "city": "Nažalost, ovaj grad nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
         "offer": "Nažalost, ova ponuda nije pronađena.",
-        "poi": "Nažalost, ovo mesto od značaja nije pronađeno.",
         "localNews": "Nažalost, ova poruka nije pronađena.",
         "tunews": "Ove tünews vesti nažalost nisu pronađene.",
         "pageTitle": "Strana nije pronađena"
@@ -1442,7 +1617,6 @@
         "categories": "Ka kategorijama",
         "events": "Ka događajima",
         "offers": "Ka ponudama",
-        "pois": "Ka mestima od značaja",
         "localNews": "Ka vestima",
         "tunews": "Ka tünews"
       },
@@ -1454,16 +1628,17 @@
     "ti": {
       "notFound": {
         "language": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ቋንቋ’ዚ ኣብዚ የለን።",
-        "city": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዛ ከተማ እዚኣ ኣይተረኽበትን።",
+        "city": "እዚ ከባቢ ክርከብ ኣይተኸኣለን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
         "offer": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣቕርቦት’ዚ ኣይተረኽበን።",
-        "poi": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ዘገድስ ነጥቢ እዚ ኣይተረኽበን።",
+        "poi": "እዚ ቦታ ክርከብ ኣይተኸኣለን።",
         "localNews": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ መልእኽቲ እዚ ኣይተረኽበን።",
         "tunews": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ ፍሉይ ዜና'ዚ (tünews) ኣየተረኽበን።",
         "pageTitle": "ገጽ ኣይተረኽበን"
       },
       "pageNotFound": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
+      "noSuitableAppInstalled": "ዝሰማማዕ ኣፕ ኣይተገጠመን።",
       "networkConnectionFailed": "እቲ ርክብ ምስቲ ሰርቨር ኣይተዓወተን።",
       "networkRequestFailed": "እቲ ጠለብ ክምስራሕ ኣይተኻልእለን።",
       "responseMappingFailed": "ናይቲ ሰርቨር ግብረመልሲ ክምስራሕ ኣይተኻእለን።",
@@ -1476,28 +1651,30 @@
         "categories": "ናብቶም ምድባት",
         "events": "ናብቶም ኣጋጣሚታት",
         "offers": "ብዛዕባ እቶም ኣቕርቦታት",
-        "pois": "ነቶም ኣገደስቲ ነጥብታት",
+        "pois": "ናብ ካርታ",
         "localNews": "ነቲ ዜና",
         "tunews": "ነቲ ፍሉይ ዜና (tünews)"
       },
       "pageTitle": "ጌጋ",
       "generalError": "ሓደ ጌጋ ተኸሲቱ ኣሎ",
+      "notSupportedByDevice": "እዚ ኣሰራርሓ በዚ ናውቲ ኣይድገፍን እዩ።",
       "languageSwitchFailedTitle": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እቲ ናይ ቋንቋ ለውጢ ኣይተዓወተን።",
       "languageSwitchFailedMessage": "እቲ ዝተመርጸ ቋንቋ ካብ መስመር ኢንተርነት ወጻኢ የለን። ንጡፍ ናይ ኢንተርነት መስመር ኣድላዪ እዩ።"
     },
     "tr": {
       "notFound": {
         "language": "Bu dil burada maalesef mevcut değil.",
-        "city": "Bu şehir maalesef bulunamadı.",
+        "city": "Maalesef, bu bölge bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
         "offer": "Bu teklif maalesef bulunamadı.",
-        "poi": "Bu ilgi alanı maalesef bulunamadı.",
+        "poi": "Maalesef, bu yer bulunamadı.",
         "localNews": "Bu mesaj ne yazık ki bulunamadı.",
         "tunews": "Bu tünews ne yazık ki bulunamadı.",
         "pageTitle": "Sayfa bulunamadı"
       },
       "pageNotFound": "Bu sayfa maalesef bulunamadı.",
+      "noSuitableAppInstalled": "Uygun uygulama yüklü değil.",
       "networkConnectionFailed": "Sunucu bağlantısı başarısız.",
       "networkRequestFailed": "Talebiniz işlenemedi.",
       "responseMappingFailed": "Sunucu cevabı işlenemedi.",
@@ -1510,23 +1687,22 @@
         "categories": "Kategorilere git",
         "events": "Etkinliklere git",
         "offers": "Tekliflere git",
-        "pois": "İlgi alanlarına git",
+        "pois": "Haritaya git",
         "localNews": "Mesajlara git",
         "tunews": "tünews'a git"
       },
       "pageTitle": "Hata",
       "generalError": "Bir hata oluştu",
+      "notSupportedByDevice": "Bu özellik bu cihazda desteklenmiyor.",
       "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
       "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
     },
     "ur": {
       "notFound": {
         "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
-        "city": "معذرت، یہ شہر نہیں ملا۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
         "offer": "معذرت، یہ پیش کش نہیں ملی۔",
-        "poi": "معذرت، یہ دلچسپی کا مقام نہیں ملا۔",
         "localNews": "معذرت، یہ خبر نہیں ملی۔",
         "tunews": "معذرت، یہ tünews نہیں ملا۔",
         "pageTitle": "صفحہ نہیں ملا"
@@ -1544,7 +1720,6 @@
         "categories": "زمروں پر",
         "events": "ایونٹس پر",
         "offers": "پیش کشوں کے متعلق",
-        "pois": "دلچسپی کے مقامات پر",
         "localNews": "خبروں پر",
         "tunews": "Tünews پر"
       },
@@ -1557,11 +1732,9 @@
     "zh-CN": {
       "notFound": {
         "language": "很抱歉，这里没有提供该语言。",
-        "city": "很抱歉，找不到此城市。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
         "offer": "很抱歉，找不到此提供项目。",
-        "poi": "很抱歉，找不到此 Point of Interest。",
         "localNews": "很抱歉，找不到此新闻。",
         "tunews": "很抱歉，找不到此 tünews。",
         "pageTitle": "未找到网页"
@@ -1579,7 +1752,6 @@
         "categories": "前往类别",
         "events": "前往活动",
         "offers": "前往提供项目",
-        "pois": "前往 Points of Interest",
         "localNews": "前往新闻",
         "tunews": "前往 tünews"
       },
@@ -1591,203 +1763,194 @@
   },
   "events": {
     "de": {
-      "location": "Standort",
+      "address": "Adresse",
       "date": "Datum",
       "events": "Veranstaltungen",
       "currentlyNoEvents": "Es gibt aktuell keine Veranstaltungen.",
       "pageTitle": "Veranstaltungen"
     },
     "am": {
-      "location": "ቦታ",
+      "address": "ኣድራሻ",
       "date": "ቀን",
       "events": "ዝግጅቶች",
       "currentlyNoEvents": "በአሁኑ ሰዐት ምንም ዝግጅቶች የሉም።",
       "pageTitle": "ዝግጅቶች"
     },
     "ar": {
-      "location": "الموقع",
+      "address": "العنوان",
       "date": "التاريخ",
       "events": "الفعاليات",
       "currentlyNoEvents": "ليست هناك فعاليات متوفرة حاليًا.",
       "pageTitle": "الفعاليات"
     },
     "bg": {
-      "location": "Място",
+      "address": "Адрес",
       "date": "Дата",
       "events": "Събития",
       "currentlyNoEvents": "В момента няма събития.",
       "pageTitle": "Събития"
     },
     "ckb": {
-      "location": "شوێن",
+      "address": "ناونیشان",
       "date": "ڕێکەوت",
       "events": "ڕووداوەکان",
       "currentlyNoEvents": "لەئێستادا هیچ ڕووداوێکی تیدا نییە.",
       "pageTitle": "ڕووداوەکان"
     },
     "el": {
-      "location": "Τοποθεσία",
+      "address": "Διεύθυνση",
       "date": "Ημερομηνία",
       "events": "Εκδηλώσεις",
       "currentlyNoEvents": "Προς το παρόν δεν υπάρχουν εκδηλώσεις.",
       "pageTitle": "Εκδηλώσεις"
     },
     "en": {
-      "location": "Location",
+      "address": "Address",
       "date": "Date",
       "events": "Events",
       "currentlyNoEvents": "No events are currently available.",
       "pageTitle": "Events"
     },
     "es": {
-      "location": "Ubicación",
+      "address": "Dirección",
       "date": "Fecha",
       "events": "Actividades",
       "currentlyNoEvents": "Actualmente no hay actividades.",
       "pageTitle": "Actividades"
     },
     "fr": {
-      "location": "Lieu",
+      "address": "Adresse",
       "date": "Date",
       "events": "Événements",
       "currentlyNoEvents": "Il n'y a actuellement aucun événement.",
       "pageTitle": "Événements"
     },
     "hr": {
-      "location": "Lokacija",
+      "address": "Adresa",
       "date": "Datum",
       "events": "Događanja",
       "currentlyNoEvents": "Trenutačno nema događanja.",
       "pageTitle": "Događanja"
     },
     "hu": {
-      "location": "Helyszín",
+      "address": "Cím",
       "date": "Dátum",
       "events": "Események",
       "currentlyNoEvents": "Jelenleg nincsenek események.",
       "pageTitle": "Események"
     },
     "it": {
-      "location": "Posizione",
+      "address": "Indirizzo",
       "date": "Data",
       "events": "Eventi",
       "currentlyNoEvents": "Al momento non ci sono eventi.",
       "pageTitle": "Eventi"
     },
     "ka": {
-      "location": "ადგილმდებარეობა",
       "date": "თარიღი",
       "events": "ღონისძიებები",
       "currentlyNoEvents": "ამჟამად არ არის ღონისძიბები.",
       "pageTitle": "ღონისძიებები"
     },
     "kmr": {
-      "location": "Mekan",
+      "address": "Navnîşan",
       "date": "Roj",
       "events": "Rûdan",
       "currentlyNoEvents": "Di dema nika da tu rûdanek tuneye.",
       "pageTitle": "Rûdan"
     },
     "mk": {
-      "location": "Локација",
       "date": "Датум",
       "events": "Настани",
       "currentlyNoEvents": "Моментално нема настани.",
       "pageTitle": "Настани"
     },
     "pes": {
-      "location": "محل",
+      "address": "نشانی",
       "date": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد.",
       "pageTitle": "رویدادها"
     },
     "pl": {
-      "location": "Placówka",
+      "address": "Adres",
       "date": "Data",
       "events": "Wydarzenia",
       "currentlyNoEvents": "Obecnie nie ma żadnych wydarzeń.",
       "pageTitle": "Wydarzenia"
     },
     "prs": {
-      "location": "محل",
       "date": "تاریخ",
       "events": "رویدادها",
       "currentlyNoEvents": "در حال حاضر هیچ رویدادی وجود ندارد‎.",
       "pageTitle": "رویدادها"
     },
     "ps": {
-      "location": "ځای",
       "date": "نېټه",
       "events": "غونډې",
       "currentlyNoEvents": "دا مهال کومې غونډې نشته.",
       "pageTitle": "غونډې"
     },
     "ro": {
-      "location": "Locație",
+      "address": "Adresa",
       "date": "Data",
       "events": "Evenimente",
       "currentlyNoEvents": "Actualmente nu există nici un fel de eveniment.",
       "pageTitle": "Evenimente"
     },
     "ru": {
-      "location": "Место",
+      "address": "Адрес",
       "date": "Дата",
       "events": "Мероприятия",
       "currentlyNoEvents": "Актуальные мероприятия отсутствуют.",
       "pageTitle": "Мероприятия"
     },
     "so": {
-      "location": "Goobta",
+      "address": "ciwaanka",
       "date": "taariikhda",
       "events": "Dhacdooyinka",
       "currentlyNoEvents": "Waqti xaadirkan dhacdooyin ma jiraan.",
       "pageTitle": "Dhacdooyinka"
     },
     "sq": {
-      "location": "Vendi",
       "date": "Data",
       "events": "Evenimentet",
       "currentlyNoEvents": "Aktualisht nuk ka asnjë eveniment.",
       "pageTitle": "Evenimentet"
     },
     "sr-Cyrl": {
-      "location": "Локација",
       "date": "Датум",
       "events": "Догађаји",
       "currentlyNoEvents": "Тренутно нема догађаја.",
       "pageTitle": "Догађаји"
     },
     "sr-Latn": {
-      "location": "Lokacija",
       "date": "Datum",
       "events": "Događaji",
       "currentlyNoEvents": "Trenutno nema događaja.",
       "pageTitle": "Događaji"
     },
     "ti": {
-      "location": "ቦታ",
+      "address": "ኣድራሻ",
       "date": "ዕለት",
       "events": "ኣጋጣሚታት",
       "currentlyNoEvents": "ኣብዚ እዋን’ዚ ኣጋጣሚታት የለዉን።",
       "pageTitle": "ኣጋጣሚታት"
     },
     "tr": {
-      "location": "Konum",
+      "address": "Adres",
       "date": "Tarih",
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok.",
       "pageTitle": "Etkinlikler"
     },
     "ur": {
-      "location": "مقام",
       "date": "تاریخ",
       "events": "ایونٹس",
       "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
       "pageTitle": "ایونٹس"
     },
     "zh-CN": {
-      "location": "位置",
       "date": "日期",
       "events": "活动",
       "currentlyNoEvents": "目前没有活动。",
@@ -1888,7 +2051,7 @@
       "informationNotFound": "بڕگەی گونجاوت نەدۆزییەوە؟",
       "wantedInformation": "چ زانیارییەک لێرەدا نییە؟",
       "feedbackSent": "بۆچوون ناردرا",
-      "thanksMessage": "سپاس لە بۆچوونی تۆ. بەو کارەت یارمەتیمان دەدەی بۆ ئەوەی ناوەرۆک و - {{appName}} ئەپڵیکەیشنی خۆت باشتر بکە. ئێمە چاوەڕوانی بۆچوونی تۆین.",
+      "thanksMessage": "سپاس بۆ بۆچوونەکەت. بەو کارەت یارمەتیمان دەدەی بۆ ئەوەی ناوەرۆک و - {{appName}} ئەپڵیکەیشنی خۆت باشتر بکە. ئێمە چاوەڕوانی بۆچوونی تۆین.",
       "close": "داخستن",
       "negativeRating": "ئەم لاپەڕەیە بەکەڵک نییە",
       "positiveRating": "ئەم لاپەڕەیە بەکەڵکە",
@@ -1978,8 +2141,8 @@
     "hr": {
       "disclaimer": "Kontakt i impresum",
       "send": "Pošalji",
-      "failedSendingFeedback": "Pri slanju feedbacka došlo je do pogreške.",
-      "feedback": "Feedback",
+      "failedSendingFeedback": "Pri slanju povratne informacije došlo je do pogreške.",
+      "feedback": "Povratna informacija",
       "positiveComment": "Što je bilo korisno?",
       "negativeComment": "Što možemo poboljšati?",
       "isThisSiteUseful": "Je li ova stranica korisna?",
@@ -1987,8 +2150,8 @@
       "notUseful": "Nije korisna",
       "informationNotFound": "Niste pronašli pravu stvar?",
       "wantedInformation": "Koje informacije nedostaju?",
-      "feedbackSent": "Feedback poslan",
-      "thanksMessage": "Zahvaljujemo na slanju feedbacka. Time nam pomažete da poboljšamo naše sadržaje i aplikaciju {{appName}}. Razveselili bi ste nas i dodatnim feedbackom.",
+      "feedbackSent": "Povratna informacija poslana",
+      "thanksMessage": "Zahvaljujemo na slanju povratne informacije. Time nam pomažete da poboljšamo naše sadržaje i aplikaciju {{appName}}. Razveselili biste nas i dodatnom povratnom informacijom.",
       "close": "Zatvori",
       "negativeRating": "Ova stranica nije korisna",
       "positiveRating": "Ova stranica je korisna",
@@ -2048,7 +2211,7 @@
       "informationNotFound": "ვერ იპოვეთ შესაბამისი?",
       "wantedInformation": "რა ინფორმაციები აკლია აქ?",
       "feedbackSent": "შეფასება გაიგზავნა",
-      "thanksMessage": "დიდი მადლობა შეფასებისათვის. თქვენ ამით გვეხმარებით ჩვენ, რათა გავაუმჯობესოთ {{აპპ სახელი}}- და შინაარსი. გაგვახარებს მომდევნო შეფასება.",
+      "thanksMessage": "დიდი მადლობა შეფასებისათვის. თქვენ ამით გვეხმარებით ჩვენ, რათა გავაუმჯობესოთ {{appName}}- და შინაარსი. გაგვახარებს მომდევნო შეფასება.",
       "close": "დახურვა",
       "negativeRating": "ეს გვერდი გამოუსადეგარია",
       "positiveRating": "ეს გვერდი ეხმარება",
@@ -2530,8 +2693,7 @@
       "next": "Avanti"
     },
     "ka": {
-      "appName": "‎{{აპპ დასახელება}}",
-      "appDescription": "‎{{აპპ დასახელება}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის",
+      "appDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის",
       "search": "ძიება",
       "searchDescription": "საძიებო სიტყვების მეშვეობით სწრაფად სწორი ინფორმაციის პოვნა",
       "languageChange": "ენის ცვლილება",
@@ -2726,7 +2888,6 @@
       "next": "Devam"
     },
     "ur": {
-      "appName": "‎{{appName}}‎ کے متعلق",
       "appDescription": "‎{{appName}}‎ جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے",
       "search": "تلاش کریں",
       "searchDescription": "کلیدی الفاظ استعمال کرتے ہوئے تیزی سے درست معلومات تلاش کریں",
@@ -2755,411 +2916,415 @@
   },
   "landing": {
     "de": {
-      "searchCity": "Ort suchen",
-      "nearbyPlaces": "Orte in der Nähe",
-      "noNearbyPlaces": "Keine Orte in der Nähe gefunden.",
+      "searchCity": "Suche",
+      "noCitiesFound": "Keine Ergebnisse",
+      "nearbyCities": "In der Nähe",
+      "noNearbyCities": "Keine Regionen in der Nähe gefunden.",
       "alert": "Hinweis",
-      "locationError": "Um Orte in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
+      "locationError": "Um Regionen in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
       "noPermission": "Standortzugriff erforderlich",
       "loading": "Bestimme Standort...",
       "notAvailable": "Standortbestimmung deaktiviert",
       "timeout": "Standortbestimmung fehlgeschlagen",
-      "refresh": "Liste der Orte aktualisieren",
-      "pageTitle": "Ortsauswahl",
+      "refresh": "Liste der nahegelegenen Regionen aktualisieren",
+      "pageTitle": "Regionen",
       "metaDescription": "{{appName}} ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
       "cityNotFound": "Deine Region nicht gefunden?",
       "clickHere": "Hier klicken"
     },
     "am": {
-      "searchCity": "ቦታ ፈልግ",
-      "nearbyPlaces": "በቅርብ የሚገኙ ቦታዎች",
-      "noNearbyPlaces": "ምንም የቅርብ ቦታዎች አልተገኙም።",
+      "searchCity": "መፈለግ",
+      "noCitiesFound": "ውጤት የለም",
+      "nearbyCities": "በኣጠገብ ",
+      "noNearbyCities": "በኣጠገቡ ምንም ኣከባቢ ኣልተገኘም።",
       "alert": "ማስታወሻ",
-      "locationError": "በቅርብ የሚገኙ ቦታዎችን ለማግኘት የቦታ አገልግሎቶች መስራት አለባቸው።",
+      "locationError": "ኣጠገብ ላይ ያለውን ኣከባቢ ማሳየት እንዲቻል፣ የቦታ ማሳያ ኣገልግሎቶች መከፈት ኣለባቸው።",
       "noPermission": "የቦታ ማግኛ ያስፈልጋል",
       "loading": "ቦታ ወስን...",
       "notAvailable": "የቦታ አገልግሎቶች እንዳይሰሩ ተደርገዋል",
       "timeout": "ቦታ መወሰን አልተሳካም",
-      "refresh": "የቦታዎች ዝርዝርን ሪፍረሽ አድርግ/አፍጥን",
-      "pageTitle": "ቦታ ይምረጡ",
-      "metaDescription": "{{appName}} የእርስዎ የጀርመን የዲጂታል መሪዎ ነው። አካባቢያዊ መረጃዎችን፣ ዝግጅቶች እና ምክር ያግኙ። ሁልጊዜም ወቅታዊና በእርስዎ ቋንቋ የሚቀርብ ነው።"
+      "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
+      "pageTitle": "ኣከባቢዎች",
+      "metaDescription": "{{appName}} የእርስዎ የጀርመን የዲጂታል መሪዎ ነው። አካባቢያዊ መረጃዎችን፣ ዝግጅቶች እና ምክር ያግኙ። ሁልጊዜም ወቅታዊና በእርስዎ ቋንቋ የሚቀርብ ነው።",
+      "cityNotFound": "ያንተ ኣከባቢ ኣልተገኘምን?",
+      "clickHere": "እዚህ ተጫን"
     },
     "ar": {
-      "searchCity": "البحث عن مكان",
-      "nearbyPlaces": "الأماكن القريبة",
-      "noNearbyPlaces": "لم يتم العثور على أماكن قريبة.",
+      "searchCity": "بحث",
+      "noCitiesFound": "لا توجد نتائج",
+      "nearbyCities": "بالقرب",
+      "noNearbyCities": "لم يتم العثور على مناطق بالقرب من المكان.",
       "alert": "ملاحظة",
-      "locationError": "يتعين تفعيل خدمات تحديد الموقع، حتى يُمكن عرض الأماكن القريبة.",
+      "locationError": "لكي يمكن عرض مناطق بالقرب من المكان يجب تفعيل خدمة تحديدة الموقع.",
       "noPermission": "مطلوب إذن بالوصول إلى الموقع",
       "loading": "جار تحديد الموقع...",
       "notAvailable": "تحديد الموقع غير مُفعَّل",
       "timeout": "فشل في تحديد الموقع",
-      "refresh": "تحديث قائمة الأماكن",
-      "pageTitle": "اختيار المكان",
-      "metaDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا. اعثر على المعلومات والفعاليات والمشورة المحلية. مُحدَّثة دائمًا وبلغتك."
+      "refresh": "تحديث قائمة المناطق القريبة",
+      "pageTitle": "المناطق",
+      "metaDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا. اعثر على المعلومات والفعاليات والمشورة المحلية. مُحدَّثة دائمًا وبلغتك.",
+      "cityNotFound": "لم يتم العثور على منطقتك؟",
+      "clickHere": "اضغط هنا"
     },
     "bg": {
-      "searchCity": "Търсене на място",
-      "nearbyPlaces": "Места наблизо",
-      "noNearbyPlaces": "Не са намерени места наблизо.",
+      "searchCity": "Търсене",
+      "noCitiesFound": "Няма резултати",
+      "nearbyCities": "В близост",
+      "noNearbyCities": "В близост не са открити региони",
       "alert": "Указание",
-      "locationError": "Услугите за местоположение трябва да бъдат активирани за преглед на близките местоположения.",
+      "locationError": "За да могат да се показват регионите в близост, трябва да са активирани услугите за местоположение.",
       "noPermission": "Изисква се достъп до местоположението",
       "loading": "Определи местоположението...",
       "notAvailable": "Определянето на местоположението е деактивирано",
       "timeout": "Неуспешно определяне на местоположението",
-      "refresh": "Актуализиране на списъка с места",
-      "pageTitle": "Избор на местоположение",
-      "metaDescription": "{{appName}} е Вашето дигитално ръководство за Германия. Открийте местни центрове за информация, събития и консултации. Винаги актуални и на Вашия език."
+      "refresh": "Актуализиране на списъка с близки региони",
+      "pageTitle": "Региони",
+      "metaDescription": "{{appName}} е Вашето дигитално ръководство за Германия. Открийте местни центрове за информация, събития и консултации. Винаги актуални и на Вашия език.",
+      "cityNotFound": "Вашият регион не е намерен?",
+      "clickHere": "Кликнете тук"
     },
     "ckb": {
-      "searchCity": "گەران لە شار",
-      "nearbyPlaces": "شوێنە نزیکەکان",
-      "noNearbyPlaces": "هیچ شوێنێک لەم نزیکانە نەدۆزراوە.",
+      "searchCity": "گەڕان",
+      "noCitiesFound": "هیچ ئەنجامێک نەدۆزرایەوە",
+      "nearbyCities": "نزیک",
+      "noNearbyCities": "هیچ ناوچەیەکی نزیک نەدۆزرایەوە",
       "alert": "ڕێنمایی",
-      "locationError": "بۆ بینینی شوێنەکانی دەورووپشتت دەبێ خزمەتگوزاریی دۆزینەوەی شوێن چالاک بێت.",
+      "locationError": "بۆ ئەوەی بتوانیت ناوچە نزیکەکان ببینی دەبێ خزمەتەکانی شوێن چالاک بێت.",
       "noPermission": "دەستڕاگەیشتن بە شوێنی پێویست",
       "loading": "دیاریکردنی شوێن...",
       "notAvailable": "دیاریکردنی شوێن ناچالاک کرا",
       "timeout": "دیاریکردنی شوێن سەرکەوتوو نەبوو",
-      "refresh": "لیستەی شوێنەکان بەڕۆژ بکەوە",
-      "pageTitle": "هەڵبژاردنی شوێن",
-      "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەلمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت."
+      "refresh": "لیستی ناوچە نزیکەکان بەڕۆژ بکەوە",
+      "pageTitle": "ناوچەکان",
+      "metaDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەلمانیایە. زانیارییە خۆجێیەکان، ڕووداوەکان و ڕاوێژکاری بدۆزەوە. هەمیشە بەڕۆژ و بە زمانی خۆت.",
+      "cityNotFound": "ناوچەکەت نەدۆزرایەوە؟",
+      "clickHere": "لێرە کرتە بکە"
     },
     "el": {
-      "searchCity": "Αναζήτηση τοποθεσίας",
-      "nearbyPlaces": "Κοντινές τοποθεσίες",
-      "noNearbyPlaces": "Δεν βρέθηκαν κοντινές τοποθεσίες.",
+      "searchCity": "Αναζήτηση",
+      "noCitiesFound": "Δεν βρέθηκαν αποτελέσματα",
+      "nearbyCities": "Κοντινές περιοχές",
+      "noNearbyCities": "Δεν βρέθηκαν κοντινές περιοχές.",
       "alert": "Υπόδειξη",
-      "locationError": "Οι υπηρεσίες τοποθεσίας πρέπει να ενεργοποιηθούν για να δείτε κοντινές τοποθεσίες.",
+      "locationError": "Για να είναι δυνατή η εμφάνιση κοντινών περιοχών, πρέπει να είναι ενεργοποιημένες οι υπηρεσίες τοποθεσίας.",
       "noPermission": "Απαιτείται πρόσβαση τοποθεσίας",
       "loading": "Προσδιορισμός τοποθεσίας ...",
       "notAvailable": "Οι υπηρεσίες τοποθεσίας απενεργοποιήθηκαν",
       "timeout": "Ο προσδιορισμός της τοποθεσίας απέτυχε",
-      "refresh": "Ενημερώστε τη λίστα με τις τοποθεσίες",
-      "pageTitle": "Επιλογή τοποθεσίας",
-      "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας."
+      "refresh": "Ενημέρωση της λίστας κοντινών περιοχών ",
+      "pageTitle": "Περιοχές",
+      "metaDescription": "Το {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένο και στη γλώσσα σας.",
+      "cityNotFound": "Δεν μπορείτε να βρείτε την περιοχή σας;",
+      "clickHere": "Κάντε κλικ εδώ"
     },
     "en": {
-      "searchCity": "Search for a city",
-      "nearbyPlaces": "Nearby locations",
-      "noNearbyPlaces": "No nearby locations found.",
+      "searchCity": "Search",
+      "noCitiesFound": "No results",
+      "nearbyCities": "In the vicinity",
+      "noNearbyCities": "No region found in the vicinity.",
       "alert": "Note",
-      "locationError": "To display nearby locations, location services must be active.",
+      "locationError": "To display regions in the vicinity, tracking services must be activated. ",
       "noPermission": "Location access required",
       "loading": "Determining location...",
       "notAvailable": "Location determination is deactivated",
       "timeout": "Location determination failed",
-      "refresh": "Refresh nearby locations",
-      "pageTitle": "Location selection",
-      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
+      "refresh": "Update list of regions close-by",
+      "pageTitle": "Regions",
+      "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
+      "cityNotFound": "Your region not found?",
+      "clickHere": "Click here"
     },
     "es": {
-      "searchCity": "Buscar ubicación",
-      "nearbyPlaces": "Ubicaciones cercanas",
-      "noNearbyPlaces": "No se han encontrado ubicaciones cercanas.",
+      "searchCity": "Búsqueda",
+      "noCitiesFound": "Ningún resultado",
+      "nearbyCities": "En las proximidades",
+      "noNearbyCities": "No se han encontrado regiones en las proximidades.",
       "alert": "Aviso",
-      "locationError": "Para poder mostrar ubicaciones cercanas tiene que activarse la ubicación del dispositivo.",
+      "locationError": "Para poder mostrar regiones en las proximidades debe activar la ubicación del dispositivo.",
       "noPermission": "Se requiere acceso a la ubicación",
       "loading": "Determine ubicación...",
       "notAvailable": "Localización desactivada",
       "timeout": "La localización falló",
-      "refresh": "Actualizar lista de ubicaciones",
-      "pageTitle": "Elegir ubicación",
-      "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma."
+      "refresh": "Actualizar la lista de las regiones cercanas",
+      "pageTitle": "Regiones",
+      "metaDescription": "{{appName}} es su guía digital para Alemania. Encuentre información local, eventos y consejos. Siempre actualizados y en su idioma.",
+      "cityNotFound": "¿No ha encontrado su región?",
+      "clickHere": "Haga clic aquí"
     },
     "fr": {
-      "searchCity": "Chercher un lieu",
-      "nearbyPlaces": "Lieux à proximité",
-      "noNearbyPlaces": "Aucun lieu trouvé à proximité.",
+      "searchCity": "Recherche",
+      "noCitiesFound": "Aucun résultat",
+      "nearbyCities": "À proximité",
+      "noNearbyCities": "Aucune région n’a été trouvée à proximité.",
       "alert": "Remarque",
-      "locationError": "Afin de pouvoir afficher les lieux à proximité, la géolocalisation doit être activée.",
+      "locationError": "Pour pouvoir afficher les régions à proximité, les services de localisation doivent être activés.",
       "noPermission": "Accès au lieu requis",
       "loading": "Définis le lieu ...",
       "notAvailable": "Localisation désactivée",
       "timeout": "Échec de la localisation",
-      "refresh": "Actualiser la liste des lieux",
-      "pageTitle": "Sélection du lieu",
-      "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue."
+      "refresh": "Mettre à jour la liste des régions proches",
+      "pageTitle": "Régions",
+      "metaDescription": "{{appName}} est votre guide numérique pour l'Allemagne. Vous y trouverez des informations locales, des événements et des conseils, toujours à jour et dans votre langue.",
+      "cityNotFound": "Ta région n’a pas été trouvée ?",
+      "clickHere": "Cliquer ici"
     },
     "hr": {
-      "searchCity": "Traži mjesto",
-      "nearbyPlaces": "Mjesta u blizini",
-      "noNearbyPlaces": "Nisu pronađena mjesta u blizini.",
+      "searchCity": "Pretraživanje",
+      "noCitiesFound": "Nema rezultata",
+      "nearbyCities": "U blizini",
+      "noNearbyCities": "Nisu pronađene regije u blizini.",
       "alert": "Napomena",
-      "locationError": "Za prikaz mjesta u blizini mora biti aktivirana usluga geolokacije.",
+      "locationError": "Da bi mogle biti prikazane regije u blizini, potrebno je aktivirati uslugu geolociranja.",
       "noPermission": "Potreban je pristup lokaciji",
       "loading": "Određivanje lokacije...",
       "notAvailable": "Deaktivirano je određivanje lokacije",
       "timeout": "Neuspješno određivanje lokacije",
-      "refresh": "Ažuriraj popis mjesta",
-      "pageTitle": "Odabir mjesta",
-      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podatcima i na vašem jeziku."
+      "refresh": "Ažuriraj popis obližnjih regija",
+      "pageTitle": "Regije",
+      "metaDescription": "{{appName}} je vaš digitalni vodič za Njemačku. Pronađite lokalne informacije, događanja i savjetovanje. Uvijek s najaktualnijim podacima i na vašem jeziku.",
+      "cityNotFound": "Nije pronađena tvoja regija?",
+      "clickHere": "Kliknite ovdje"
     },
     "hu": {
-      "searchCity": "Hely keresése",
-      "nearbyPlaces": "Helyek a közelben",
-      "noNearbyPlaces": "Nincsenek helyek a közelben.",
+      "searchCity": "Keresés",
+      "noCitiesFound": "Nincs eredmény",
+      "nearbyCities": "A közelben",
+      "noNearbyCities": "Nem talált régiót a közelben.",
       "alert": "Megjegyzés",
-      "locationError": "A közeli helyek megtekintéséhez engedélyezni kell a helymeghatározási szolgáltatásokat.",
+      "locationError": "A környékbeli régiók megjelenítéséhez aktiválni kell a helymeghatározási szolgáltatásokat.",
       "noPermission": "Helyhozzáférés szükséges",
       "loading": "Meghatározott helyszín...",
       "notAvailable": "Helymeghatározás deaktiválva",
       "timeout": "Helymeghatározás sikertelen",
-      "refresh": "Helyek listájának aktualizálása",
-      "pageTitle": "Hely kiválasztása",
-      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden."
+      "refresh": "A környékbeli régiók listájának aktualizálása",
+      "pageTitle": "Régiók",
+      "metaDescription": "{{appName}} a digitális idegenvezetőd Németországban. Helyi információk, események és tanácsadás. Mindig naprakészen és a te nyelveden.",
+      "cityNotFound": "Nem találtad meg a régiódat?",
+      "clickHere": "Kattints ide"
     },
     "it": {
-      "searchCity": "Cerca luogo",
-      "nearbyPlaces": "Luoghi nelle vicinanze",
-      "noNearbyPlaces": "Non è stato trovato nessun luogo nelle vicinanze.",
+      "searchCity": "Ricerca",
+      "noCitiesFound": "Nessun risultato",
+      "nearbyCities": "Nelle vicinanze",
+      "noNearbyCities": "Nessuna regione trovata nelle vicinanze",
       "alert": "Nota",
-      "locationError": "I servizi di localizzazione devono essere attivati per visualizzare i luoghi nelle vicinanze.",
+      "locationError": "Per poter visualizzare le regioni vicine, è necessario abilitare i servizi di localizzazione.",
       "noPermission": "È necessario l’accesso alla posizione",
       "loading": "Determina la posizione...",
       "notAvailable": "Geolocalizzazione disattivata",
       "timeout": "Geolocalizzazione non riuscita",
-      "refresh": "Aggiorna l’elenco dei luoghi",
-      "pageTitle": "Selezione della posizione",
-      "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua."
+      "refresh": "Aggiorna l'elenco delle regioni vicine",
+      "pageTitle": "Regioni",
+      "metaDescription": "{{appName}} è la tua guida digitale per la Germania. Qui troverai informazioni locali, eventi e consigli. Sempre aggiornata e nella tua lingua.",
+      "cityNotFound": "Non hai trovato la tua regione?",
+      "clickHere": "Clicca qui"
     },
     "ka": {
-      "searchCity": "ადგილის ძიება",
-      "nearbyPlaces": "ახლოს მდებარე ადგილები",
-      "noNearbyPlaces": "სიახლოვეს ვერ მოიძებნა ადგილები.",
       "alert": "მითითება",
-      "locationError": "ახლომდებარე ადგილების პოვნისათვის, უნდა გააქტიუროთ მდებარეობის დამადასტურებელი ღილაკი ",
       "noPermission": "საჭიროა წვდომა მდებარეობის ადგილზე",
       "loading": "განსაზღვრე მდებარეობის ადგილი...",
       "notAvailable": "მდებარეობის ადგილის განსაზღვრა დეაქტივირებულია",
       "timeout": "ვერ განისაზღვრა მდებარეობის ადგილი",
-      "refresh": "ადგილთა სიის აქტუალიზირება",
-      "pageTitle": "ადგილის არჩევანი",
-      "metaDescription": "‎{{აპპ სახელი}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
+      "metaDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის. იპოვეთ ადგილობრივი ინფორმაციები, ღონისძიებები და მიიღეთ რჩევები მუდამ აქტუალური და თქვენს გვერდით."
     },
     "kmr": {
-      "searchCity": "Lêgerîna li Mekan",
-      "nearbyPlaces": "Cihên nêzik",
-      "noNearbyPlaces": "Tu cihek li vê nêzikatiyê nehat dîtin.",
+      "searchCity": "Lêgerîn",
+      "noCitiesFound": "Tu encamek peyda nebû",
+      "nearbyCities": "Nêzîk",
+      "noNearbyCities": "Tu navçeyeke nêzîk peyda nebû.",
       "alert": "Rênîşandan",
-      "locationError": "Jibo dîtina cihên nêzik divê xizmeta Mekanbînê were çalakkirin.",
+      "locationError": "Bo bikarin navçeyên nêzîk bibînin divê xizmetên cih çalak bibe.",
       "noPermission": "Destgihîştina mekanê hewce ye",
       "loading": "Mekan diyar bike...",
       "notAvailable": "Diyarkirina mekan neçalak e",
       "timeout": "Diyarkirinê mekanê serketî nebû",
-      "refresh": "Lîsta mekanan nûve bike",
-      "pageTitle": "Bijartina cih",
-      "metaDescription": "{{appName}}' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe."
+      "refresh": "Lîsteya navçeyên nêzîk biroj bike",
+      "pageTitle": "Navçe",
+      "metaDescription": "{{appName}}' rêbera te ya dîcîtal li Almanyayê ye. Zzanyarî, rûdan û şêwirîna xwecihî peyde bike. Hertim birojkirî û bi zimanê te bixwe.",
+      "cityNotFound": "Navçeya we peyda nebû?",
+      "clickHere": "Vir bitikîne"
     },
     "mk": {
-      "searchCity": "Пребарување локација",
-      "nearbyPlaces": "Локации во близина",
-      "noNearbyPlaces": "Не се пронајдени локации во близина.",
       "alert": "Упатство",
-      "locationError": "За да може да се прикажат локации во близина, мора да се активира услугата за локација.",
       "noPermission": "Потребен е пристап до локацијата",
       "loading": "Одредена локација...",
       "notAvailable": "Деактивирана е опцијата за одредување на локацијата",
       "timeout": "Не може да се активира опцијата за одредување на локацијата",
-      "refresh": "Ажурирање на листата на локации",
-      "pageTitle": "Избор на локација",
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Пронајдете локални информации, настани и совети. Секогаш актуелно и на вашиот јазик."
     },
     "pes": {
-      "searchCity": "جستجوی مکان",
-      "nearbyPlaces": "مکان های نزدیک",
-      "noNearbyPlaces": "هیچ مکانی در این نزدیکی یافت نشد.",
+      "searchCity": "جستجو",
+      "noCitiesFound": "نتیجه‌ای یافت نشد",
+      "nearbyCities": "در نزدیکی",
+      "noNearbyCities": "منطقه‌ای در نزدیکی یافت نشد.",
       "alert": "راهنمایی",
-      "locationError": "برای مشاهده مکان های نزدیک باید خدمات موقعیت مکانی فعال شوند.",
+      "locationError": "برای این که مناطق نزدیک نشان داده شوند، خدمات موقعیت‌یابی باید فعال شوند.",
       "noPermission": "دسترسی به مکان موفقیت‌آمیز بود",
       "loading": "موقعیت مکانی را مشخص کنید...",
       "notAvailable": "تعیین موقعیت مکانی غیرفعال شده است",
       "timeout": "تعیین موقعیت مکانی انجام نشد",
-      "refresh": "به روز رسانی فهرست مکان‌ها",
-      "pageTitle": "انتخاب محل",
-      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای آلمان است. اطلاعات محلی، رویدادها و مشاوره را بیابید. همواره به روز و به زبان شما."
+      "refresh": "فهرست مناطق نزدیک را فعال کنید",
+      "pageTitle": "مناطق",
+      "metaDescription": "{{appName}} راهنمای دیجیتال شما برای آلمان است. اطلاعات محلی، رویدادها و مشاوره را بیابید. همواره به روز و به زبان شما.",
+      "cityNotFound": "منطقه شما یافت نشد؟",
+      "clickHere": "اینجا را کلیک کنید"
     },
     "pl": {
-      "searchCity": "Znajdź lokalizację",
-      "nearbyPlaces": "lokalizacje w pobliżu",
-      "noNearbyPlaces": "Nie znaleziono lokalizacji w pobliżu.",
+      "searchCity": "Wyszukaj",
+      "noCitiesFound": "Brak wyników",
+      "nearbyCities": "W pobliżu",
+      "noNearbyCities": "Nie znaleziono regionów w pobliżu.",
       "alert": "Wskazówka",
-      "locationError": "Usługi lokalizacyjne muszą być włączone, aby wyświetlić lokalizacje w pobliżu.",
+      "locationError": "Aby wyświetlić regiony w pobliżu, muszą być włączone usługi lokalizacji.",
       "noPermission": "Wymagany dostęp do placówki",
       "loading": "Ustal placówkę...",
       "notAvailable": "Ustalenie placówki wyłączone",
       "timeout": "Ustalenie placówki nie powiodło się",
-      "refresh": "Aktualizuj listę placówek",
-      "pageTitle": "Wybór lokalizacji",
-      "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku."
+      "refresh": "Aktualizuje listę regionów w pobliżu",
+      "pageTitle": "Regiony",
+      "metaDescription": "{{appName}} to e-przewodnik po Niemczech. Znajdziesz tu aktualne informacje, najnowsze wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
+      "cityNotFound": "Twój region nie został znaleziony?",
+      "clickHere": "Kliknij tutaj"
     },
     "prs": {
-      "searchCity": "جستجوی شهر",
-      "nearbyPlaces": "مکان های نزدیک",
-      "noNearbyPlaces": "هیچ مکانی در این نزدیکی پیدا نشد‎.",
       "alert": "رهنمایی",
-      "locationError": "برای مشاهده مکان های اطراف باید خدمات مکان یابی فعال شوند‎.",
       "noPermission": "دسترسی به مکان مورد ضرورت است",
       "loading": "تعیین محل...",
       "notAvailable": "تعیین مکان غیرفعال شد",
       "timeout": "تعیین مکان ناموفق بود",
-      "refresh": "لیست مکان ها را به‎​روز کنید",
-      "pageTitle": "انتخاب محل",
       "metaDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است. معلومات محلی، رویدادها و مشاوره را پیدا نمایید. همواره به‎​روز و به لسان شما."
     },
     "ps": {
-      "searchCity": "ځای لټول",
-      "nearbyPlaces": "شاوخوا نږدې ځایونه",
-      "noNearbyPlaces": "شاوخوا کې نږدې ځایونه پیدا نشول.",
       "alert": "یادونه",
-      "locationError": "ددې لپاره چې شاوخوا نږدې ځایونه وښودل شي، د ځای خدمت باید فعال کړی شوی وي.",
       "noPermission": "موقعیت ته لاسرسی لازمي دی",
       "loading": "موقعیت تعین کړه...",
       "notAvailable": "د موقعیت تعینول غیر فعال شوي",
       "timeout": "د موقعیت تعینول ناکام شو",
-      "refresh": "د ځایونو لیسټ تازه کول",
-      "pageTitle": "د ځای انتخاب",
       "metaDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی. په دې کې تاسو سیمه ییز معلومات، غونډې او مشورې موندلی شئ. همېشه تازه معلومات ستاسو په ژبه کې."
     },
     "ro": {
-      "searchCity": "Căutare locație",
-      "nearbyPlaces": "Locații în apropiere",
-      "noNearbyPlaces": "Nu s-au găsit locații în apropiere.",
+      "searchCity": "Căutare",
+      "noCitiesFound": "Nu există rezultate",
+      "nearbyCities": "În apropiere",
+      "noNearbyCities": "Nu s-au găsit regiuni învecinate.",
       "alert": "Indicație",
-      "locationError": "Pentru a putea să arătăm locații în apropiere, trebuie să se activeze servicii de localizare.",
+      "locationError": "Pentru a vizualiza regiunile din apropiere, serviciile de localizare trebuie să fie activate.",
       "noPermission": "Este necesară accesarea locației",
       "loading": "Anumită locație...",
       "notAvailable": "Identificare locație dezactivată",
       "timeout": "Identificare locație eșuată",
-      "refresh": "Actualizare listă de locații",
-      "pageTitle": "Alegerea locației",
-      "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs."
+      "refresh": "Actualizați lista de regiuni din apropiere",
+      "pageTitle": "Regiuni",
+      "metaDescription": "{{appName}} este ghidul dvs. digital pentru Germania. Găsiți informații locale, evenimente și consiliere. Acestea sunt întotdeauna la zi și în limba dvs.",
+      "cityNotFound": "Regiunea dvs. nu a fost găsită?",
+      "clickHere": "Faceți clic aici"
     },
     "ru": {
-      "searchCity": "Поиск населенного пункта",
-      "nearbyPlaces": "Близлежащие населенные пункты",
-      "noNearbyPlaces": "Близлежащих населенных пунктов не найдено.",
+      "searchCity": "Поиск",
+      "noCitiesFound": "Результаты не найдены",
+      "nearbyCities": "Близлежащие регионы",
+      "noNearbyCities": "Близлежащие регионы не найдены.",
       "alert": "Примечание",
-      "locationError": "Для отображения близлежащих населенных пунктов активируйте службу геолокации.",
+      "locationError": "Для определения близлежащих регионов следует включить геолокацию.",
       "noPermission": "Необходим доступ к данным о местоположении",
       "loading": "Определить местоположение...",
       "notAvailable": "Определение местоположения деактивировано",
       "timeout": "Не удалось определить местоположение",
-      "refresh": "Обновить список населенных пунктов",
-      "pageTitle": "Выбор места",
-      "metaDescription": "{{appName}} – это ваш виртуальный гид по Германии. Здесь вы узнаете местную информацию и информацию о мероприятиях, а также сможете получить консультации – всегда актуально и на вашем языке."
+      "refresh": "Обновить список близлежащих регионов",
+      "pageTitle": "Регионы",
+      "metaDescription": "{{appName}} – это ваш виртуальный гид по Германии. Здесь вы узнаете местную информацию и информацию о мероприятиях, а также сможете получить консультации – всегда актуально и на вашем языке.",
+      "cityNotFound": "Не найден ваш регион?",
+      "clickHere": "Нажмите здесь"
     },
     "so": {
-      "searchCity": "Raadi Magaalo",
-      "nearbyPlaces": "Meelaha dhaw",
-      "noNearbyPlaces": "Ma jirin meel ku dhowdhow oo la heley.",
+      "searchCity": "Raadi",
+      "noCitiesFound": "Wax natiijooyin ah kama soo bixin",
+      "nearbyCities": "Soo dhow",
+      "noNearbyCities": "Gobolo soo dhow lama helin.",
       "alert": "Ogeysiis",
-      "locationError": "Adeegyada goobta waa in laga shaqeysiiyaa si loo arko meelaha kuu dhow.",
+      "locationError": "Si aad u aragto gobollada kuu dhow, adeegyada goobta waa in laga shaqeysiiyaa.",
       "noPermission": "Marin u helida goobta ayaa loo  baahan yahay",
       "loading": "Raadinaya goobta...",
       "notAvailable": "Helitaanka goobta waa la demiyey",
       "timeout": "Helitaanka goobta waa lagu guuldareystay",
-      "refresh": "Cusbooneysii liiska goobaha",
-      "pageTitle": "Doorashada goobta",
-      "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah."
+      "refresh": "Cusbooneysii liiska gobollada iigu dhow",
+      "pageTitle": "gobolada",
+      "metaDescription": "{{appName}} waa tusahaaga dijitaalka ah ee Jarmalka. Raadi macluumaadka deegaanka, dhacdooyin iyo talobixino. Had iyo jeer cusbooneysan/casriyeysan oo luuqadaada ah.",
+      "cityNotFound": "Lama helin gobolkaaga?",
+      "clickHere": "Halkan guji"
     },
     "sq": {
-      "searchCity": "Kërko vendin",
-      "nearbyPlaces": "Vende në afërsi",
-      "noNearbyPlaces": "Asnjë vend nuk u gjet në afërsi.",
       "alert": "Shënim",
-      "locationError": "Shërbimet e vendndodhjes duhet të aktivizohen për të parë vendet në afërsi.",
       "noPermission": "Kërkohet qasje në vendndodhje",
       "loading": "Cakto vendin...",
       "notAvailable": "Përcaktimi i vendndodhjes i çaktivizuar",
       "timeout": "Përcaktimi i vendndodhjes dështoi",
-      "refresh": "Përditësoni listën e vendeve",
-      "pageTitle": "Përzgjedhje e vendit",
       "metaDescription": "{{appName}} është guida juaj dixhitale për Gjermani. Gjeni informacione lokale, evenimente dhe këshilla. Gjithnjë aktuale dhe në gjuhën tuaj."
     },
     "sr-Cyrl": {
-      "searchCity": "Тражење места",
-      "nearbyPlaces": "Места у близини",
-      "noNearbyPlaces": "Нису пронађена места у близини.",
       "alert": "Напомена",
-      "locationError": "Како би било могуће пронаћи места у близини, морате активирати услуге лоцирања.",
       "noPermission": "Потребан приступ локацији",
       "loading": "Одреди локацију...",
       "notAvailable": "Деактивирано одређивање локације",
       "timeout": "Неуспешно одређивање локације",
-      "refresh": "Ажурирање листе места",
-      "pageTitle": "Избор места",
       "metaDescription": "{{appName}} је ваш дигитални водич за Немачку. Пронађите локалне информације, догађаје и саветовање. Увек актуелно на важем језику."
     },
     "sr-Latn": {
-      "searchCity": "Traženje mesta",
-      "nearbyPlaces": "Mesta u blizini",
-      "noNearbyPlaces": "Nisu pronađena mesta u blizini.",
       "alert": "Napomena",
-      "locationError": "Kako bi bilo moguće pronaći mesta u blizini, morate aktivirati usluge lociranja.",
       "noPermission": "Potreban pristup lokaciji",
       "loading": "Odredi lokaciju...",
       "notAvailable": "Deaktivirano određivanje lokacije",
       "timeout": "Neuspešno određivanje lokacije",
-      "refresh": "Ažuriranje liste mesta",
-      "pageTitle": "Izbor mesta",
       "metaDescription": "{{appName}} je vaš digitalni vodič za Nemačku. Pronađite lokalne informacije, događaje i savetovanje. Uvek aktuelno na važem jeziku."
     },
     "ti": {
-      "searchCity": "ከተማ ርኸብ",
-      "nearbyPlaces": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
-      "noNearbyPlaces": "ኣብ ጥቓኻ ቦታታት ኣይተረኽቡን።",
+      "searchCity": "ምድላይ",
+      "noCitiesFound": "ውጽኢት የለን",
+      "nearbyCities": "ኣብ ጥቓ",
+      "noNearbyCities": "ኣብ ጥቕኡ ምንም ከባቢ ኣይተረኸበን።",
       "alert": "መዘኻኸሪ",
-      "locationError": "ኣብ ጥቓኻ ዘለዉ ቦታታት ንምርኣይ ናይ ቦታ ኣገልግሎታት ከምዝሰርሕ ክግበር ኣለዎ።",
+      "locationError": "ኣብ ቀረባ ዘለዋ ከባቢታት ምእንቲ ክርኣያ፣ እተን ናይ ቦታ መርኣዪ ኣገልግሎታት ክኽፈታ ኣለወን።",
       "noPermission": "ናብ ቦታ ናይ ምእታው ዕድል ይሕተት",
       "loading": "ቦታ ኣብ ምርካብ ኣሎ ...",
       "notAvailable": "ምርካብ ቦታ ጠፊኡ ኣሎ",
       "timeout": "ምርካብ ቦታ ዕዉት ኣይነበረን",
-      "refresh": "ንአቲ ዝርዝር ናይ ቦታታት ኣሐድሶ",
-      "pageTitle": "ምምራጽ ቦታ",
-      "metaDescription": "{{appName}} ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።"
+      "refresh": "ናይተን ኣብ ቀረባ ዝርከባ ከባቢታት መዝገብ ምሕዳስ",
+      "pageTitle": "ከባቢታት",
+      "metaDescription": "{{appName}} ናይ ጀርመን ዲጂታላዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታ፡ ኣጋጣሚታትን ምኽርን ርኸብ። ኩሉግዜ ዝተሓደሰን ብቋንቋኻን።",
+      "cityNotFound": "ናትካ ከባቢ ኣይተረኸበንድዩ?",
+      "clickHere": "ኣብዚ ጠውቕ"
     },
     "tr": {
-      "searchCity": "Konum ara",
-      "nearbyPlaces": "Yakındaki konumlar",
-      "noNearbyPlaces": "Yakında herhangi bir konum bulunamadı.",
+      "searchCity": "Arama",
+      "noCitiesFound": "Sonuç yok",
+      "nearbyCities": "Yakınında",
+      "noNearbyCities": "Yakınında bölge bulunanamdı",
       "alert": "Uyarı",
-      "locationError": "Yakındaki konumları görüntüleyebilmek için konum servislerini etkinleştirmeniz gerekir.",
+      "locationError": "Yakındaki bölgeleri görüntülemek için konum servislerinin etkinleştirilmesi gerekir.",
       "noPermission": "Konum erişimi gerekli",
       "loading": "Konum belirle...",
       "notAvailable": "Konum belirlemeyi devre dışı bırak",
       "timeout": "Konum belirleme başarısız",
-      "refresh": "Konum listesini güncelle",
-      "pageTitle": "Konum seçimi",
-      "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
+      "refresh": "Yakın bölgelerin listesini güncelleyin",
+      "pageTitle": "Bölge",
+      "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir.",
+      "cityNotFound": "Bölgeni bulamadın mı?",
+      "clickHere": "Buraya tıkla"
     },
     "ur": {
-      "searchCity": "مقام تلاش کریں",
-      "nearbyPlaces": "قریبی مقامات",
-      "noNearbyPlaces": "کوئی قریبی مقامات نہیں ملے۔",
       "alert": "نوٹ",
-      "locationError": "قریبی مقامات دیکھنے کے لئے ضروری ہے کہ مقام کی خدمات فعال ہوں۔",
       "noPermission": "مقام تک رسائی درکار ہے",
       "loading": "مقام کا تعین کریں ‎…",
       "notAvailable": "مقام کی خدمات غیر فعال کر دی گئیں",
       "timeout": "مقام کا تعین ناکام رہا",
-      "refresh": "مقامات کی فہرست کو تازہ کریں",
-      "pageTitle": "مقام کا انتخاب",
       "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
     },
     "zh-CN": {
-      "searchCity": "搜索地点",
-      "nearbyPlaces": "附近的地点",
-      "noNearbyPlaces": "找不到附近的地点。",
       "alert": "提示",
-      "locationError": "要查看附近的地点，必须启用定位服务。",
       "noPermission": "需要位置访问权限",
       "loading": "定位中。。。",
       "notAvailable": "定位功能已停用",
       "timeout": "定位失败",
-      "refresh": "更新地点清单",
-      "pageTitle": "选择地点",
       "metaDescription": "{{appName}}是您在德国生活的数字指南。查找本地信息、活动和建议。信息始终保持最新并以您自己的语言提供。"
     }
   },
@@ -3175,6 +3340,7 @@
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
       "search": "Suchen",
+      "pois": "Karte",
       "changeLocation": "Standort wechseln",
       "changeLanguage": "Sprache wechseln",
       "settings": "Einstellungen",
@@ -3195,6 +3361,7 @@
       "noLanguages": "በሌሎች ቋንቋዎች አይገኝም",
       "noTranslation": "ትርጉም አይቀርብም",
       "search": "ፈልግ",
+      "pois": "ካርታ",
       "changeLocation": "ቦታ ቀይር",
       "changeLanguage": "ቋንቋ ቀይር",
       "settings": "ሴቲንጎች",
@@ -3215,6 +3382,7 @@
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
       "search": "البحث",
+      "pois": "الخريطة",
       "changeLocation": "تغيير الموقع",
       "changeLanguage": "تغيير اللغة",
       "settings": "الإعدادات",
@@ -3235,6 +3403,7 @@
       "noLanguages": "Не се предлага на други езици",
       "noTranslation": "Няма превод",
       "search": "Търсене",
+      "pois": "Карта",
       "changeLocation": "Промяна на местоположението",
       "changeLanguage": "Промяна на езика",
       "settings": "Настройки",
@@ -3255,6 +3424,7 @@
       "noLanguages": "بە زمانەکانی دیکەی تێدا نییە",
       "noTranslation": "وەرگێرانەکەی تێدا نییە",
       "search": "گەڕان",
+      "pois": "نەخشە",
       "changeLocation": "گۆڕینی شوێن",
       "changeLanguage": "گۆڕینی زمان",
       "settings": "ڕێکخستنەکان",
@@ -3275,6 +3445,7 @@
       "noLanguages": "Δεν διατίθεται σε άλλες γλώσσες",
       "noTranslation": "Δεν υπάρχει διαθέσιμη μετάφραση",
       "search": "Αναζήτηση",
+      "pois": "Χάρτης",
       "changeLocation": "Αλλαγή τοποθεσίας",
       "changeLanguage": "Αλλαγή γλώσσας",
       "settings": "Εφαρμογές",
@@ -3295,6 +3466,7 @@
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
       "search": "Search",
+      "pois": "Map",
       "changeLocation": "Change location",
       "changeLanguage": "Change language",
       "settings": "Settings",
@@ -3315,6 +3487,7 @@
       "noLanguages": "No disponible en otros idiomas",
       "noTranslation": "No hay traducción disponible",
       "search": "Buscar",
+      "pois": "Mapa",
       "changeLocation": "Cambiar ubicación",
       "changeLanguage": "Cambiar idioma",
       "settings": "Ajustes",
@@ -3335,6 +3508,7 @@
       "noLanguages": "Non disponible dans d'autres langues",
       "noTranslation": "Aucune traduction disponible",
       "search": "Rechercher",
+      "pois": "Carte",
       "changeLocation": "Modifier le lieu",
       "changeLanguage": "Modifier la langue",
       "settings": "Paramètres",
@@ -3355,6 +3529,7 @@
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Prijevod nije dostupan",
       "search": "Pretraživanje",
+      "pois": "Karta",
       "changeLocation": "Promjena lokacije",
       "changeLanguage": "Promjena jezika",
       "settings": "Postavke",
@@ -3375,6 +3550,7 @@
       "noLanguages": "Más nyelveken nem elérhető",
       "noTranslation": "Nincs fordítás",
       "search": "Keresés",
+      "pois": "Térkép",
       "changeLocation": "Hely változtatás",
       "changeLanguage": "Nyelv változtatás",
       "settings": "Beállítások",
@@ -3395,6 +3571,7 @@
       "noLanguages": "Non disponibile in altre lingue",
       "noTranslation": "Nessuna traduzione disponibile",
       "search": "Cerca",
+      "pois": "Mappa",
       "changeLocation": "Cambia posizione",
       "changeLanguage": "Cambia lingua",
       "settings": "Impostazioni",
@@ -3420,7 +3597,7 @@
       "settings": "რეგულაციები",
       "share": "გაყოფა",
       "cancel": "გაწყვეტა",
-      "shareMessage": "ეხლა ნაპოვნი: {{მესიჯი}}",
+      "shareMessage": "ეხლა ნაპოვნი: {{appName}}",
       "shareFailDefaultMessage": "შინაარსის გაზიარება ჩაიშალა",
       "disclaimer": "მისამართი"
     },
@@ -3435,6 +3612,7 @@
       "noLanguages": "Bi zimanên din tuneye",
       "noTranslation": "Werger tuneye",
       "search": "Lêgerîn",
+      "pois": "Nexşe",
       "changeLocation": "Guhertina mekan",
       "changeLanguage": "Guhertina ziman",
       "settings": "Eyarkirin",
@@ -3475,6 +3653,7 @@
       "noLanguages": "به زبان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
       "search": "جستجو",
+      "pois": "نقشه",
       "changeLocation": "تغییر محل",
       "changeLanguage": "تغییر زبان",
       "settings": "تنظیمات",
@@ -3495,6 +3674,7 @@
       "noLanguages": "Niedostępne w innych językach",
       "noTranslation": "Brak dostępnego tłumaczenia",
       "search": "Wyszukaj",
+      "pois": "Mapa",
       "changeLocation": "Zmień placówkę",
       "changeLanguage": "Zmień język",
       "settings": "Ustawienia",
@@ -3555,6 +3735,7 @@
       "noLanguages": "Indisponibil în alte limbi",
       "noTranslation": "Nicio traducere disponibilă",
       "search": "Căutare",
+      "pois": "Hartă",
       "changeLocation": "Schimbați locația",
       "changeLanguage": "Schimbați limba",
       "settings": "Setări",
@@ -3575,6 +3756,7 @@
       "noLanguages": "Недоступно на других языках",
       "noTranslation": "Перевод недоступен",
       "search": "Поиск",
+      "pois": "Карта",
       "changeLocation": "Изменить местоположение",
       "changeLanguage": "Изменить язык",
       "settings": "Настройки",
@@ -3595,6 +3777,7 @@
       "noLanguages": "Luuqad kale laguma heli karo",
       "noTranslation": "Turjumaad lama heli karo",
       "search": "Raadin",
+      "pois": "khariidad",
       "changeLocation": "Bedel goobta",
       "changeLanguage": "Bedel luuqadda",
       "settings": "Dejinta (setting-ka)",
@@ -3675,6 +3858,7 @@
       "noLanguages": "ብኻልእ ቋንቋታት የለን",
       "noTranslation": "ትርጉም የለን",
       "search": "ፈትሽ",
+      "pois": "ካርታ",
       "changeLocation": "ቦታ ቀይር",
       "changeLanguage": "ቋንቋ ቀይር",
       "settings": "ምትኽኻላት",
@@ -3695,6 +3879,7 @@
       "noLanguages": "Diğer dillerde mevcut değil",
       "noTranslation": "Çeviri yok",
       "search": "Ara",
+      "pois": "Harita",
       "changeLocation": "Konum değiştir",
       "changeLanguage": "Dil değiştir",
       "settings": "Ayarlar",
@@ -3783,7 +3968,7 @@
       "pageTitle": "Impressum e contatti - {{appName}}"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{აპპ სახელი}}"
+      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{appName}}"
     },
     "kmr": {
       "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
@@ -3873,7 +4058,7 @@
     },
     "hr": {
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
-      "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikaciji {{appName}} potreban je pristup lokaciji."
+      "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji."
     },
     "hu": {
       "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzáférésre van szüksége a galériához.",
@@ -3884,8 +4069,8 @@
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione."
     },
     "ka": {
-      "NSPhotoLibraryAddUsageDescription": "სურათების შესანახავად საჭიროა {{აპპ სახელი}} წვდომა გალერეაზე.",
-      "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{აპპ სახელი}} წვდომა ქონდეს მდებარეობის ადგილზე"
+      "NSPhotoLibraryAddUsageDescription": "სურათების შესანახავად საჭიროა {{appName}} წვდომა გალერეაზე.",
+      "NSLocationWhenInUseUsageDescription": "ახლომდებარე ადგილების საპოვნად, საჭიროა {{appName}} წვდომა ქონდეს მდებარეობის ადგილზე"
     },
     "kmr": {
       "NSPhotoLibraryAddUsageDescription": "Jibo zexîrekirin anku xwedankirina wêneyan, {{appName}} hewcetî bi têketina nav galeriyê heye.",
@@ -3955,7 +4140,6 @@
   "news": {
     "de": {
       "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten",
       "localNews": {
         "localNews": "Lokale Nachrichten",
         "pageTitle": "Lokale Nachrichten"
@@ -3963,7 +4147,6 @@
       "local": "Lokal",
       "readMore": "Weiterlesen",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten.",
-      "currentlyNoNewsAlternative": "Aktuell gibt es keine Neuigkeiten.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3971,7 +4154,6 @@
     },
     "am": {
       "news": "ዜናዎች",
-      "newsAlternative": "ዜናዎች",
       "localNews": {
         "localNews": "አካባቢያዊ ዜናዎች",
         "pageTitle": "አካባቢያዊ ዜናዎች"
@@ -3979,7 +4161,6 @@
       "local": "አካባቢያዊ",
       "readMore": "ተጨማሪ ያንብቡ",
       "currentlyNoNews": "በአሁኑ ሰዐት ምንም ዜናዎች የሉም።",
-      "currentlyNoNewsAlternative": "በዚህ ቅጽበት ምንም ዜናዎች የሉም።",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -3987,7 +4168,6 @@
     },
     "ar": {
       "news": "الأخبار",
-      "newsAlternative": "المستجدات",
       "localNews": {
         "localNews": "اخبار محلية",
         "pageTitle": "الأخبار المحلية"
@@ -3995,7 +4175,6 @@
       "local": "محلي",
       "readMore": "متابعة القراءة",
       "currentlyNoNews": "لا تُوجد أخبار حاليًا.",
-      "currentlyNoNewsAlternative": "لا تُوجد مستجدات حاليًا.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4003,7 +4182,6 @@
     },
     "bg": {
       "news": "Новини",
-      "newsAlternative": "Новости",
       "localNews": {
         "localNews": "Местни новини",
         "pageTitle": "Местни новини"
@@ -4011,7 +4189,6 @@
       "local": "Локално",
       "readMore": "Продължи с четенето",
       "currentlyNoNews": "В момента няма новини.",
-      "currentlyNoNewsAlternative": "В момента няма новости.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4019,7 +4196,6 @@
     },
     "ckb": {
       "news": "هەواڵ",
-      "newsAlternative": "نوێترین هەوڵاکان",
       "localNews": {
         "localNews": "هەواڵی خۆجێی",
         "pageTitle": "هەواڵی خۆجێی"
@@ -4027,7 +4203,6 @@
       "local": "خۆجێی",
       "readMore": "درێژەی خوێندنەوە",
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە.",
-      "currentlyNoNewsAlternative": "لەئێستادا هیچ نوێترین هەواڵەکانی تێدا نییە.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4035,7 +4210,6 @@
     },
     "el": {
       "news": "Ειδήσεις",
-      "newsAlternative": "Νέα",
       "localNews": {
         "localNews": "Τοπικές ειδήσεις",
         "pageTitle": "Τοπικά νέα"
@@ -4043,7 +4217,6 @@
       "local": "Τοπικά",
       "readMore": "Διαβάστε παρακάτω",
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις.",
-      "currentlyNoNewsAlternative": "Προς το παρόν δεν υπάρχουν νέα.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4051,7 +4224,6 @@
     },
     "en": {
       "news": "News",
-      "newsAlternative": "News",
       "localNews": {
         "localNews": "Local news",
         "pageTitle": "Local news"
@@ -4059,7 +4231,6 @@
       "local": "Local",
       "readMore": "Continue",
       "currentlyNoNews": "There is no news at the moment.",
-      "currentlyNoNewsAlternative": "Currently there are no news.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4067,7 +4238,6 @@
     },
     "es": {
       "news": "Noticias",
-      "newsAlternative": "Novedades",
       "localNews": {
         "localNews": "Noticias locales",
         "pageTitle": "Noticias locales"
@@ -4075,7 +4245,6 @@
       "local": "Local",
       "readMore": "Seguir leyendo",
       "currentlyNoNews": "En la actualidad no hay noticias",
-      "currentlyNoNewsAlternative": "En la actualidad no hay novedades",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4083,7 +4252,6 @@
     },
     "fr": {
       "news": "Nouvelles",
-      "newsAlternative": "Nouvelles",
       "localNews": {
         "localNews": "Nouvelles locales",
         "pageTitle": "Nouvelles locales"
@@ -4091,7 +4259,6 @@
       "local": "Localement",
       "readMore": "Poursuivre la lecture",
       "currentlyNoNews": "Aucune nouvelle pour l'instant",
-      "currentlyNoNewsAlternative": "Aucune nouveauté pour l'instant",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4099,7 +4266,6 @@
     },
     "hr": {
       "news": "Vijesti",
-      "newsAlternative": "Novosti",
       "localNews": {
         "localNews": "Lokalne vijesti",
         "pageTitle": "Lokalne vijesti"
@@ -4107,7 +4273,6 @@
       "local": "Lokalno",
       "readMore": "Nastavi čitati",
       "currentlyNoNews": "Trenutačno nema nikakvih vijesti.",
-      "currentlyNoNewsAlternative": "Trenutačno nema nikakvih novosti.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4115,7 +4280,6 @@
     },
     "hu": {
       "news": "Hírek",
-      "newsAlternative": "Újdonságok",
       "localNews": {
         "localNews": "Helyi hírek",
         "pageTitle": "Helyi hírek"
@@ -4123,7 +4287,6 @@
       "local": "Helyi",
       "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek.",
-      "currentlyNoNewsAlternative": "Jelenleg nincsenek újdonságok.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4131,7 +4294,6 @@
     },
     "it": {
       "news": "Messaggi",
-      "newsAlternative": "Novità",
       "localNews": {
         "localNews": "Notizie locali",
         "pageTitle": "Notizie locali"
@@ -4139,7 +4301,6 @@
       "local": "Locale",
       "readMore": "Continua",
       "currentlyNoNews": "Attualmente non ci sono notizie.",
-      "currentlyNoNewsAlternative": "Attualmente non ci sono novità.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4147,7 +4308,6 @@
     },
     "ka": {
       "news": "ინფორმაციები",
-      "newsAlternative": "სიახლეები",
       "localNews": {
         "localNews": "ადგილობრივი ინფორმაციები",
         "pageTitle": "ადგილობრივი ამბები"
@@ -4155,7 +4315,6 @@
       "local": "ადგილობრივი",
       "readMore": "გააგრძელე კითხვა",
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები.",
-      "currentlyNoNewsAlternative": "ამჟამად არ არსებობს არანაირი სიახლეები.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4163,7 +4322,6 @@
     },
     "kmr": {
       "news": "Nûçe",
-      "newsAlternative": "Nûçe",
       "localNews": {
         "localNews": "Nûçeyên herêmî",
         "pageTitle": "Nûçeyên herêmî"
@@ -4171,7 +4329,6 @@
       "local": "Herêmî",
       "readMore": "Xwendina xwe bidomîne",
       "currentlyNoNews": "Niha nûçe tune.",
-      "currentlyNoNewsAlternative": "Niha nûçe tune.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4179,7 +4336,6 @@
     },
     "mk": {
       "news": "Вести",
-      "newsAlternative": "Новости",
       "localNews": {
         "localNews": "Локални вести",
         "pageTitle": "Локални вести"
@@ -4187,7 +4343,6 @@
       "local": "Локално",
       "readMore": "Продолжи со читање",
       "currentlyNoNews": "Моментално нема вести.",
-      "currentlyNoNewsAlternative": "Моментално нема новости.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4195,7 +4350,6 @@
     },
     "pes": {
       "news": "اخبار",
-      "newsAlternative": "تازه‌ها",
       "localNews": {
         "localNews": "اخبار محلی",
         "pageTitle": "اخبار محلی"
@@ -4203,7 +4357,6 @@
       "local": "محل",
       "readMore": "ادامه",
       "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد.",
-      "currentlyNoNewsAlternative": "در حال حاضر هیچ تازه‌ای وجود ندارد.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4211,7 +4364,6 @@
     },
     "pl": {
       "news": "Wiadomości",
-      "newsAlternative": "Aktualności",
       "localNews": {
         "localNews": "Wiadomości lokalne",
         "pageTitle": "Wiadomości lokalne"
@@ -4219,7 +4371,6 @@
       "local": "Lokalnie",
       "readMore": "Czytaj dalej",
       "currentlyNoNews": "Obecnie nie ma żadnej wiadomości.",
-      "currentlyNoNewsAlternative": "Obecnie nie ma żadnej wiadomości.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4227,7 +4378,6 @@
     },
     "prs": {
       "news": "اخبار",
-      "newsAlternative": "جدیدترین اخبار",
       "localNews": {
         "localNews": "اخبار محلی",
         "pageTitle": "اخبار محلی"
@@ -4235,7 +4385,6 @@
       "local": "محلی",
       "readMore": "ادامه خواندن",
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎.",
-      "currentlyNoNewsAlternative": "در حال حاضر هیچ جدیدترین خبری وجود ندارد‎.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4243,7 +4392,6 @@
     },
     "ps": {
       "news": "خبرونه",
-      "newsAlternative": "نوې زړې",
       "localNews": {
         "localNews": "سیمه ییز خبرونه",
         "pageTitle": "سیمه ییز خبرونه"
@@ -4251,7 +4399,6 @@
       "local": "سیمه ییز",
       "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته.",
-      "currentlyNoNewsAlternative": "دا مهال کومې نوې زړې نشته.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4259,7 +4406,6 @@
     },
     "ro": {
       "news": "Știri",
-      "newsAlternative": "Noutăți",
       "localNews": {
         "localNews": "Știri locale",
         "pageTitle": "Știri locale"
@@ -4267,7 +4413,6 @@
       "local": "Local",
       "readMore": "Citire mai departe",
       "currentlyNoNews": "În prezent nu există nicio știre.",
-      "currentlyNoNewsAlternative": "În prezent nu există noutăți.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4275,7 +4420,6 @@
     },
     "ru": {
       "news": "Новости",
-      "newsAlternative": "Новое",
       "localNews": {
         "localNews": "Местные новости",
         "pageTitle": "Местные новости"
@@ -4283,7 +4427,6 @@
       "local": "Местная информация",
       "readMore": "Подробнее",
       "currentlyNoNews": "В настоящий момент новости отсутствуют.",
-      "currentlyNoNewsAlternative": "В настоящий момент ничего нового.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4291,7 +4434,6 @@
     },
     "so": {
       "news": "War",
-      "newsAlternative": "War",
       "localNews": {
         "localNews": "Wararka deegaanka",
         "pageTitle": "Wararka deegaanka"
@@ -4299,7 +4441,6 @@
       "local": "Deegaanka",
       "readMore": "Sii wad akhriska",
       "currentlyNoNews": "Hada wax war ah ma jiraan.",
-      "currentlyNoNewsAlternative": "Hada wax war ah ma jiraan.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4307,7 +4448,6 @@
     },
     "sq": {
       "news": "Lajme",
-      "newsAlternative": "Risi",
       "localNews": {
         "localNews": "Lajme lokale",
         "pageTitle": "Lajme lokale"
@@ -4315,7 +4455,6 @@
       "local": "Lokal",
       "readMore": "Lexo më tej",
       "currentlyNoNews": "Aktualisht nuk ka asnjë lajm.",
-      "currentlyNoNewsAlternative": "Aktualisht nuk ka asnjë risi.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4323,7 +4462,6 @@
     },
     "sr-Cyrl": {
       "news": "Вести",
-      "newsAlternative": "Новости",
       "localNews": {
         "localNews": "Локалне вести",
         "pageTitle": "Локалне вести"
@@ -4331,7 +4469,6 @@
       "local": "Локално",
       "readMore": "Настави са читањем",
       "currentlyNoNews": "Тренутно нема вести.",
-      "currentlyNoNewsAlternative": "Тренутно нема новости.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4339,7 +4476,6 @@
     },
     "sr-Latn": {
       "news": "Vesti",
-      "newsAlternative": "Novosti",
       "localNews": {
         "localNews": "Lokalne vesti",
         "pageTitle": "Lokalne vesti"
@@ -4347,7 +4483,6 @@
       "local": "Lokalno",
       "readMore": "Nastavi sa čitanjem",
       "currentlyNoNews": "Trenutno nema vesti.",
-      "currentlyNoNewsAlternative": "Trenutno nema novosti.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4355,7 +4490,6 @@
     },
     "ti": {
       "news": "ዜና",
-      "newsAlternative": "ዜና",
       "localNews": {
         "localNews": "ዜና ውሽጢ  ዓዲ",
         "pageTitle": "ዜና ውሽጢ  ዓዲ"
@@ -4363,7 +4497,6 @@
       "local": "ውሽጢ ዓዲ",
       "readMore": "ምንባብ ቀጽል",
       "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።",
-      "currentlyNoNewsAlternative": "ኣብዚ እዋን’ዚ ዜና የለን።",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4371,7 +4504,6 @@
     },
     "tr": {
       "news": "Bildirimler",
-      "newsAlternative": "Yenilikler",
       "localNews": {
         "localNews": "yerel bildirimler",
         "pageTitle": "yerel bildirimler"
@@ -4379,7 +4511,6 @@
       "local": "Yerel",
       "readMore": "Okumaya devam edin",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır.",
-      "currentlyNoNewsAlternative": "Şu an yenilik bulunmamaktadır.",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4387,7 +4518,6 @@
     },
     "ur": {
       "news": "خبریں",
-      "newsAlternative": "خبریں",
       "localNews": {
         "localNews": "مقامی خبریں",
         "pageTitle": "مقامی خبریں"
@@ -4395,7 +4525,6 @@
       "local": "مقامی",
       "readMore": "مطالعہ جاری رکھیں",
       "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔",
-      "currentlyNoNewsAlternative": "فی الحال کوئی خبریں نہیں ہیں۔",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4403,7 +4532,6 @@
     },
     "zh-CN": {
       "news": "新闻",
-      "newsAlternative": "新消息",
       "localNews": {
         "localNews": "本地新闻",
         "pageTitle": "本地新闻"
@@ -4411,7 +4539,6 @@
       "local": "本地",
       "readMore": "继续阅读",
       "currentlyNoNews": "目前没有新闻。",
-      "currentlyNoNewsAlternative": "目前没有新消息。",
       "tuNews": {
         "tuNews": "tünews INTERNATIONAL",
         "pageTitle": "tünews INTERNATIONAL"
@@ -4536,66 +4663,549 @@
       "pageTitle": "提供项目"
     }
   },
-  "search": {
+  "pois": {
     "de": {
-      "searchPlaceholder": "Suche",
-      "pageTitle": "Suche",
-      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden."
+      "pageTitle": "Karte",
+      "poi": "Ort",
+      "pois": "Orte",
+      "map": "Karte",
+      "showOnMap": "Auf der Karte anzeigen",
+      "noPois": "Keine Orte gefunden.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km entfernt",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m entfernt",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adresse",
+      "phone": "Telefonnummer",
+      "eMail": "E-Mail-Adresse",
+      "website": "Webseite",
+      "openingHours": "Öffnungszeiten",
+      "description": "Beschreibung",
+      "addressCopied": "Adresse in Zwischenablage kopiert",
+      "phoneCopied": "Telefonnummer in Zwischenablage kopiert",
+      "eMailCopied": "E-Mail-Adresse in Zwischenablage kopiert",
+      "websiteCopied": "Webseite in Zwischenablage kopiert",
+      "listTitle": "In deiner Nähe"
     },
     "am": {
-      "searchPlaceholder": "ፍለጋ",
-      "pageTitle": "ፍለጋ",
-      "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።"
+      "pageTitle": "ካርታ",
+      "poi": "ቦታ",
+      "pois": "ቦታዎች",
+      "map": "ካርታ",
+      "showOnMap": "ካርታው ላይ ማሳየት",
+      "noPois": "ምንም ቦታዎች ኣልትገኙም።",
+      "unitKilometre": "ኪሎሜትር",
+      "unitMetre": "ሜትር",
+      "distanceKilometre": "{{distance}} ኪሎሜትር ርቀት",
+      "distanceKilometreAlternative": "{{distance}} ኪሎሜትር",
+      "distanceMetre": "{{distance}} ሜትር ርቀት",
+      "distanceMetreAlternative": "{{distance}} ሜትር",
+      "address": "ኣድራሻ",
+      "phone": "የተሌፎን ቁጥር",
+      "eMail": "ኢ-ሜይል ኣድራሻ",
+      "website": "የድረ ገጽ ጣቢያ",
+      "openingHours": "የመክፈቻ ሰዓታት",
+      "description": "መግለጽ",
+      "addressCopied": "ኣድራሻው በማቆያ ማሕደር ተቀድቷል",
+      "phoneCopied": "የተሌፎን ቁጥር በማቆያ ማሕደር ተቀድቷል",
+      "eMailCopied": "ኢ-ሜይል ኣድራሻ በማቆያ ማሕደር ተቀድቷል",
+      "websiteCopied": "የድረ ገጽ ጣቢያ በማቆያ ማሕደር ተቀድቷል"
     },
     "ar": {
-      "searchPlaceholder": "بحث",
-      "pageTitle": "البحث",
-      "nothingFound": "للأسف تعذر العثور على نتائج مناسبة."
+      "pageTitle": "الخريطة",
+      "poi": "المكان",
+      "pois": "الأماكن",
+      "map": "الخريطة",
+      "showOnMap": "العرض على الخريطة",
+      "noPois": "لم يتم العثور على أماكن",
+      "unitKilometre": "كم",
+      "unitMetre": "م",
+      "distanceKilometre": "على بُعد {{distance}} كم",
+      "distanceKilometreAlternative": "{{distance}} كم",
+      "distanceMetre": "على بُعد {{distance}} م",
+      "distanceMetreAlternative": "{{distance}} م",
+      "address": "العنوان",
+      "phone": "رقم الهاتف",
+      "eMail": "عنوان البريد الإليكتروني",
+      "website": "الموقع الإليكتروني",
+      "openingHours": "أوقات العمل",
+      "description": "وصف",
+      "addressCopied": "تم نسخ العنوان",
+      "phoneCopied": "تم نسخ رقم الهاتف",
+      "eMailCopied": "تم نسخ البريد الإليكتروني",
+      "websiteCopied": "تم نسخ الموقع الإليكتروني"
     },
     "bg": {
-      "searchPlaceholder": "Търсене",
-      "pageTitle": "Търсене",
-      "nothingFound": "За съжаление не бяха намерени съответстващи резултати."
+      "pageTitle": "Карта",
+      "poi": "Населено място",
+      "pois": "Населени места",
+      "map": "Карта",
+      "showOnMap": "Показване на картата",
+      "noPois": "Не са открити локации.",
+      "unitKilometre": "км",
+      "unitMetre": "м",
+      "distanceKilometre": "{{distance}} км разстояние",
+      "distanceKilometreAlternative": "{{distance}} км",
+      "distanceMetre": "{{distance}} м разстояние",
+      "distanceMetreAlternative": "{{distance}} м",
+      "address": "Адрес",
+      "phone": "Телефон",
+      "eMail": "Имейл адрес",
+      "website": "Уебсайт",
+      "openingHours": "Работно време",
+      "description": "Описание",
+      "addressCopied": "Адресът е копиран в клипборда",
+      "phoneCopied": "Телефонният номер е копиран в клипборда",
+      "eMailCopied": "Имейл адресът е копиран в клипборда",
+      "websiteCopied": "Уебсайтът е копиран в клипборда"
     },
     "ckb": {
-      "searchPlaceholder": "گەڕان",
-      "pageTitle": "گەڕان",
-      "nothingFound": "بەداخەوە هیچ ئەنجامێکی بەکەڵک نەدۆزراوە."
+      "pageTitle": "نەخشە",
+      "poi": "شوێن",
+      "pois": "شوێنەکان",
+      "map": "نەخشە",
+      "showOnMap": "لەسەر نەخشە نیشانی بدە",
+      "noPois": "هیچ شوێنێک نەدۆزرایەوە.",
+      "unitKilometre": "کیلۆمەتر",
+      "unitMetre": "مەتر",
+      "distanceKilometre": "{{distance}} کلیۆمەتر دوورە",
+      "distanceKilometreAlternative": "{{distance}} کیلۆمەتر",
+      "distanceMetre": "{{distance}} مەتر دوورە",
+      "distanceMetreAlternative": "{{distance}} مەتر",
+      "address": "ناونیشان",
+      "phone": "ژمارە تەلەفۆن",
+      "eMail": "ناونیشانی ئیمەیل",
+      "website": "ماڵپەڕ",
+      "openingHours": "کاتەکانی کراوەبوون",
+      "description": "ڕوونکردنەوە",
+      "addressCopied": "ناونیشان کۆپی کرایە نێو کلیپبۆرد",
+      "phoneCopied": "ژمارە تەلەفۆن کۆپی کرایە نێو کلیپبۆرد",
+      "eMailCopied": "ناونیشانی ئیمەیل کۆپی کرایە نێو کلیپبۆرد",
+      "websiteCopied": "ماڵپەڕ کۆپی کرایە نێو کلیپبۆرد"
     },
     "el": {
-      "searchPlaceholder": "Αναζήτηση ",
-      "pageTitle": "Αναζήτηση",
-      "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα."
+      "pageTitle": "Χάρτης",
+      "poi": "Τοποθεσία",
+      "pois": "Τοποθεσίες",
+      "map": "Χάρτης",
+      "showOnMap": "Εμφάνιση στο χάρτη",
+      "noPois": "Δεν βρέθηκε κάποια τοποθεσία.",
+      "unitKilometre": "χλμ.",
+      "unitMetre": "μ.",
+      "distanceKilometre": "{{distance}} χλμ.",
+      "distanceKilometreAlternative": "{{distance}} χλμ.",
+      "distanceMetre": "{{distance}} μ.",
+      "distanceMetreAlternative": "{{distance}} μ.",
+      "address": "Διεύθυνση",
+      "phone": "Αριθμός τηλεφώνου",
+      "eMail": "Διεύθυνση e-mail",
+      "website": "Ιστοσελίδα",
+      "openingHours": "Ώρες λειτουργίας",
+      "description": "Περιγραφή",
+      "addressCopied": "Η διεύθυνση αντιγράφηκε στο πρόχειρο",
+      "phoneCopied": "Ο αριθμός τηλεφώνου αντιγράφηκε στο πρόχειρο",
+      "eMailCopied": "Η διεύθυνση e-mail αντιγράφηκε στο πρόχειρο",
+      "websiteCopied": "Η ιστοσελίδα αντιγράφηκε στο πρόχειρο"
     },
     "en": {
-      "searchPlaceholder": "Search",
-      "pageTitle": "Search",
-      "nothingFound": "Sorry, we could not find any matching results."
+      "pageTitle": "Map",
+      "poi": "Place",
+      "pois": "Places",
+      "map": "Map",
+      "showOnMap": "Show on map",
+      "noPois": "No places found.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km away",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m away ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Address",
+      "phone": "Telephone number",
+      "eMail": "E-mail address",
+      "website": "Website",
+      "openingHours": "Opening hours",
+      "description": "Description",
+      "addressCopied": "Address copied to clipboard",
+      "phoneCopied": "Telephone number copied to clipboard",
+      "eMailCopied": "E-mail address copied to ",
+      "websiteCopied": "Website copied to clipboard"
     },
     "es": {
-      "searchPlaceholder": "Búsqueda",
-      "pageTitle": "Búsqueda",
-      "nothingFound": "No se ha encontrado ningún resultado."
+      "pageTitle": "Mapa",
+      "poi": "Localidad",
+      "pois": "Localidades",
+      "map": "Mapa",
+      "showOnMap": "Mostrar en el mapa",
+      "noPois": "No se han encontrado localidades.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "A {{distance}} km de distancia",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "A {{distance}} m de distancia",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Dirección",
+      "phone": "Número de teléfono",
+      "eMail": "Correo electrónico",
+      "website": "Página web",
+      "openingHours": "Horario de apertura",
+      "description": "Descripción",
+      "addressCopied": "Dirección copiada en el portapapeles",
+      "phoneCopied": "Número de teléfono copiado en el portapapeles",
+      "eMailCopied": "Dirección de correo electrónico copiada en el portapapeles",
+      "websiteCopied": "Página web copiada en el portapapeles"
     },
     "fr": {
-      "searchPlaceholder": "Recherche",
-      "pageTitle": "Recherche",
-      "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat."
+      "pageTitle": "Carte",
+      "poi": "Localité",
+      "pois": "Localités",
+      "map": "Carte",
+      "showOnMap": "Afficher sur la carte",
+      "noPois": "Aucune localité n’a été trouvée.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km de distance",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m de distance",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adresse",
+      "phone": "Numéro de téléphone",
+      "eMail": "Adresse électronique",
+      "website": "Site web",
+      "openingHours": "Heures d’ouverture",
+      "description": "Description",
+      "addressCopied": "Adresse copiée dans le presse-papiers",
+      "phoneCopied": "Numéro de téléphone copié dans le presse-papiers",
+      "eMailCopied": "Adresse électronique copiée dans le presse-papiers",
+      "websiteCopied": "Site web copié dans le presse-papiers"
     },
     "hr": {
-      "searchPlaceholder": "Pretraživanje",
-      "pageTitle": "Pretraživanje",
-      "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati."
+      "pageTitle": "Karta",
+      "poi": "Mjesto",
+      "pois": "Mjesta",
+      "map": "Karta",
+      "showOnMap": "Prikaži na karti",
+      "noPois": "Nisu pronađena mjesta.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km udaljeno",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m udaljeno",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adresa",
+      "phone": "Broj telefona",
+      "eMail": "Adresa e-pošte",
+      "website": "Web-mjesto",
+      "openingHours": "Radno vrijeme",
+      "description": "Opis",
+      "addressCopied": "Adresa kopirana u međuspremnik",
+      "phoneCopied": "Broj telefona kopiran u međuspremnik",
+      "eMailCopied": "Adresa e-pošte kopirana u međuspremnik",
+      "websiteCopied": "Web-mjesto kopirano u međuspremnik"
     },
     "hu": {
-      "searchPlaceholder": "Keresés",
-      "pageTitle": "Keresés",
-      "nothingFound": "Sajnos nem találtunk megfelelő eredményt."
+      "pageTitle": "Térkép",
+      "poi": "Hely",
+      "pois": "Helyek",
+      "map": "Térkép",
+      "showOnMap": "Mutassa a térképen",
+      "noPois": "A hely nem található.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} kilométerre",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} kilométerre",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Cím",
+      "phone": "Telefonszám",
+      "eMail": "E-mail címe",
+      "website": "Weboldal",
+      "openingHours": "Nyitvatartási idők",
+      "description": "Leírás",
+      "addressCopied": "Cím vágólapra másolása befejezve",
+      "phoneCopied": "Telefonszám vágólapra másolása befejezve",
+      "eMailCopied": "E-mail cím vágólapra másolása befejezve",
+      "websiteCopied": "Weboldal vágólapra másolása befejezve"
     },
     "it": {
+      "pageTitle": "Mappa",
+      "poi": "Località",
+      "pois": "Località",
+      "map": "Mappa",
+      "showOnMap": "Mostra sulla mappa",
+      "noPois": "Nessuna località trovata",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km di distanza",
+      "distanceKilometreAlternative": "{{distance}} km ",
+      "distanceMetre": "{{distance}} m di distanza",
+      "distanceMetreAlternative": "{{distance}} m ",
+      "address": "Indirizzo",
+      "phone": "Numero telefonico",
+      "eMail": "Indirizzo email",
+      "website": "Pagina Web ",
+      "openingHours": "Orari di apertura",
+      "description": "Descrizione",
+      "addressCopied": "Indirizzo copiato negli appunti",
+      "phoneCopied": "Numero telefonico copiato negli appunti",
+      "eMailCopied": "Indirizzo email copiato negli appunti",
+      "websiteCopied": "Pagina Web copiata negli appunti"
+    },
+    "kmr": {
+      "pageTitle": "Nexşe",
+      "poi": "Cih",
+      "pois": "Cih",
+      "map": "Nexşe",
+      "showOnMap": "Ser nexşeyê nîşan bide",
+      "noPois": "Tu cihek peyda nebû.",
+      "unitKilometre": "Kîlomêtr",
+      "unitMetre": "Mêtr",
+      "distanceKilometre": "{{distance}} km dûr e",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} km dûr e",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Navnîşan",
+      "phone": "Hejmara telefonê",
+      "eMail": "Navnîşana e-nameyê",
+      "website": "Malper",
+      "openingHours": "Demjjimêrên vekirî ye",
+      "description": "Zelalkirin",
+      "addressCopied": "Navnîşan nava klîpboardê kopî bû",
+      "phoneCopied": "Hejmara telefonê nava klîpboardê kopî bû",
+      "eMailCopied": "Navnîşana e-nameyê nava klîpboardê kopî bû",
+      "websiteCopied": "Malper nava klîpboardê kopî bû"
+    },
+    "pes": {
+      "pageTitle": "نقشه",
+      "poi": "محل",
+      "pois": "محل‌ها",
+      "map": "نقشه",
+      "showOnMap": "روی نقشه نشان دهید",
+      "noPois": "محلی یافت نشد.",
+      "unitKilometre": "کیلومتر",
+      "unitMetre": "متر",
+      "distanceKilometre": "در فاصله {{distance}} کیلومتری",
+      "distanceKilometreAlternative": "{{distance}} کیلومتر",
+      "distanceMetre": "در فاصله {{distance}} متری",
+      "distanceMetreAlternative": "{{distance}} متر",
+      "address": "نشانی",
+      "phone": "شماره تلفن",
+      "eMail": "نشانی ایمیل",
+      "website": "وبسایت",
+      "openingHours": "ساعات کار",
+      "description": "توضیح",
+      "addressCopied": "نشانی در کلیپ‌برد کپی شد",
+      "phoneCopied": "شماره تلفن در کلیپ‌برد کپی شد",
+      "eMailCopied": "نشانی ایمیل در کلیپ‌برد کپی شد",
+      "websiteCopied": "وبسایت در کلیپ‌برد کپی شد"
+    },
+    "pl": {
+      "pageTitle": "Mapa",
+      "poi": "Miejscowość",
+      "pois": "Miejscowości",
+      "map": "Mapa",
+      "showOnMap": "Pokaż na mapie",
+      "noPois": "Nie znaleziono żadnych miejscowości.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km odległości",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m odległości",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adres",
+      "phone": "Numer telefonu",
+      "eMail": "Adres mailowy",
+      "website": "Strona www",
+      "openingHours": "Godziny otwarcia",
+      "description": "Opis",
+      "addressCopied": "Adres skopiowany do schowka",
+      "phoneCopied": "Numer telefonu skopiowany do schowka",
+      "eMailCopied": "Adres mailowy skopiowany do schowka",
+      "websiteCopied": "Strona www skopiowana do schowka"
+    },
+    "ro": {
+      "pageTitle": "Harta",
+      "poi": "Localitate",
+      "pois": "Localități",
+      "map": "Hartă",
+      "showOnMap": "Afișați pe hartă",
+      "noPois": "Nu s-au găsit localități.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km distanță",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m distanță",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adresa",
+      "phone": "Numărul de telefon",
+      "eMail": "Adresa de e-mail",
+      "website": "Pagina de internet",
+      "openingHours": "Program de funcționare",
+      "description": "Descriere",
+      "addressCopied": "Adresa copiată în clipboard",
+      "phoneCopied": "Numărul de telefon copiat în clipboard",
+      "eMailCopied": "Adresa de e-mail copiată în clipboard",
+      "websiteCopied": "Pagina de internet copiată în clipboard"
+    },
+    "ru": {
+      "pageTitle": "Карта",
+      "poi": "Населенный пункт",
+      "pois": "Населенные пункты",
+      "map": "Карта",
+      "showOnMap": "Показать на карте",
+      "noPois": "Населенные пункты не найдены.",
+      "unitKilometre": "км",
+      "unitMetre": "м",
+      "distanceKilometre": "удаленность {{distance}} км",
+      "distanceKilometreAlternative": "{{distance}} км",
+      "distanceMetre": "удаленность {{distance}} м",
+      "distanceMetreAlternative": "{{distance}} м",
+      "address": "Адрес",
+      "phone": "Телефон",
+      "eMail": "Адрес эл. почты ",
+      "website": "Сайт",
+      "openingHours": "Часы работы",
+      "description": "Описание",
+      "addressCopied": "Адрес скопирован в буфер обмена",
+      "phoneCopied": "Телефон скопирован в буфер обмена",
+      "eMailCopied": "Адрес эл. почты скопирован в буфер обмена",
+      "websiteCopied": "Ссылка на сайт скопирована в буфер обмена"
+    },
+    "so": {
+      "pageTitle": "khariidad",
+      "poi": "goobta",
+      "pois": "goobaha",
+      "map": "khariidad",
+      "showOnMap": "Ku muuji khariidada",
+      "noPois": "Goobo lama helin",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km kuu jirta",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m kuu jirta",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "ciwaanka",
+      "phone": "lambarka taleefanka",
+      "eMail": "Cinwaanka iimaylka",
+      "website": "websaydka",
+      "openingHours": "saacadaha furitaanka",
+      "description": "sharaxaadda",
+      "addressCopied": "Ciwaanka waxa la koobiyeeyay",
+      "phoneCopied": "Lambarka taleefanka waa la koobiyeeyay",
+      "eMailCopied": "Ciwaanka iimaylka waa la koobiyeeyay ",
+      "websiteCopied": "Bogga websaydhka waa la koobiyeeyay"
+    },
+    "ti": {
+      "pageTitle": "ካርታ",
+      "poi": "ቦታ",
+      "pois": "ቦታታት",
+      "map": "ካርታ",
+      "showOnMap": "ኣብ ካርታ ምርኣይ",
+      "noPois": "ምንም ቦታታት ኣይተረኸቡን።",
+      "unitKilometre": "ኪሎሜትሮ",
+      "unitMetre": "ሜትሮ",
+      "distanceKilometre": "{{distance}} ኪሎሜትሮ ርሕቀት",
+      "distanceKilometreAlternative": "{{distance}} ኪሎሜትሮ",
+      "distanceMetre": "{{distance}} ሜትሮ ርሕቀት",
+      "distanceMetreAlternative": "{{distance}} ሜትሮ",
+      "address": "ኣድራሻ",
+      "phone": "ቁጽሪ ተሌፎን",
+      "eMail": "ኢ-ሜይል ኣድራሻ",
+      "website": "መርበብ ሓበሬታ",
+      "openingHours": "ዝኽፈት ሰዓታት",
+      "description": "ምግላጽ",
+      "addressCopied": "ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
+      "phoneCopied": "ቁጽሪ ተሌፎን ኣብ መጽንሒ ማሕደር ተቐዲሑ",
+      "eMailCopied": "ኢ-ሜይል ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
+      "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ"
+    },
+    "tr": {
+      "pageTitle": "Harita",
+      "poi": "Yer",
+      "pois": "Yerler",
+      "map": "Harita",
+      "showOnMap": "Haritada göster",
+      "noPois": "Yer bulunamadı",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km mesafede",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m mesafede",
+      "distanceMetreAlternative": "{{distance}} m",
+      "address": "Adres",
+      "phone": "Telelfon numarası",
+      "eMail": "E-posta adresi",
+      "website": "İnternet sitesi",
+      "openingHours": "Çalışma saatleri",
+      "description": "Açıklama",
+      "addressCopied": "Adres panoya kopyalandı",
+      "phoneCopied": "Telelfon numarası panoya kopyalandı",
+      "eMailCopied": "E-posta adresi panoya kopyalandı",
+      "websiteCopied": "İnternet sitesi panoya kopyalandı"
+    }
+  },
+  "search": {
+    "de": {
+      "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
+      "searchPlaceholder": "Suche",
+      "pageTitle": "Suche"
+    },
+    "am": {
+      "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።",
+      "searchPlaceholder": "ፍለጋ",
+      "pageTitle": "ፍለጋ"
+    },
+    "ar": {
+      "nothingFound": "للأسف تعذر العثور على نتائج مناسبة.",
+      "searchPlaceholder": "بحث",
+      "pageTitle": "البحث"
+    },
+    "bg": {
+      "nothingFound": "За съжаление не бяха намерени съответстващи резултати.",
+      "searchPlaceholder": "Търсене",
+      "pageTitle": "Търсене"
+    },
+    "ckb": {
+      "nothingFound": "بەداخەوە هیچ ئەنجامێکی بەکەڵک نەدۆزراوە.",
+      "searchPlaceholder": "گەڕان",
+      "pageTitle": "گەڕان"
+    },
+    "el": {
+      "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα.",
+      "searchPlaceholder": "Αναζήτηση",
+      "pageTitle": "Αναζήτηση"
+    },
+    "en": {
+      "nothingFound": "Sorry, we could not find any matching results.",
+      "searchPlaceholder": "Search",
+      "pageTitle": "Search"
+    },
+    "es": {
+      "nothingFound": "No se ha encontrado ningún resultado.",
+      "searchPlaceholder": "Búsqueda",
+      "pageTitle": "Búsqueda"
+    },
+    "fr": {
+      "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
+      "searchPlaceholder": "Recherche",
+      "pageTitle": "Recherche"
+    },
+    "hr": {
+      "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati.",
+      "searchPlaceholder": "Pretraživanje",
+      "pageTitle": "Pretraživanje"
+    },
+    "hu": {
+      "nothingFound": "Sajnos nem találtunk megfelelő eredményt.",
+      "searchPlaceholder": "Keresés",
+      "pageTitle": "Keresés"
+    },
+    "it": {
+      "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
       "searchPlaceholder": "Ricerca",
-      "pageTitle": "Ricerca",
-      "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti."
+      "pageTitle": "Ricerca"
     },
     "ka": {
       "searchPlaceholder": "ძებნა",
@@ -4603,9 +5213,9 @@
       "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა."
     },
     "kmr": {
+      "nothingFound": "Mixabin tu encameka guncan peyde nebû.",
       "searchPlaceholder": "Lêgerîn",
-      "pageTitle": "Lêgerîn",
-      "nothingFound": "Mixabin tu encameka guncan peyde nebû."
+      "pageTitle": "Lêgerîn"
     },
     "mk": {
       "searchPlaceholder": "Пребарај",
@@ -4613,14 +5223,14 @@
       "nothingFound": "За жал не се пронајдени соодветни резултати."
     },
     "pes": {
+      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
       "searchPlaceholder": "جستجو",
-      "pageTitle": "جستجو",
-      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد."
+      "pageTitle": "جستجو"
     },
     "pl": {
+      "nothingFound": "Niestety nie znaleziono odpowiednich wyników.",
       "searchPlaceholder": "Wyszukaj",
-      "pageTitle": "Wyszukiwarka",
-      "nothingFound": "Niestety nie znaleziono odpowiednich wyników."
+      "pageTitle": "Wyszukiwarka"
     },
     "prs": {
       "searchPlaceholder": "جستجو",
@@ -4633,19 +5243,19 @@
       "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې."
     },
     "ro": {
+      "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
       "searchPlaceholder": "Căutare",
-      "pageTitle": "Căutare",
-      "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile."
+      "pageTitle": "Căutare"
     },
     "ru": {
+      "nothingFound": "К сожалению, подходящие результаты не найдены.",
       "searchPlaceholder": "Поиск",
-      "pageTitle": "Поиск",
-      "nothingFound": "К сожалению, подходящие результаты не найдены."
+      "pageTitle": "Поиск"
     },
     "so": {
+      "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin.",
       "searchPlaceholder": "Raadin",
-      "pageTitle": "Raadin",
-      "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin."
+      "pageTitle": "Raadin"
     },
     "sq": {
       "searchPlaceholder": "Kërkim",
@@ -4663,14 +5273,14 @@
       "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati."
     },
     "ti": {
+      "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
       "searchPlaceholder": "ፈትሽ",
-      "pageTitle": "ፈትሽ",
-      "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።"
+      "pageTitle": "ፈትሽ"
     },
     "tr": {
+      "nothingFound": "Maalesef uygun sonuç bulunamadı.",
       "searchPlaceholder": "Arama",
-      "pageTitle": "Arama",
-      "nothingFound": "Maalesef uygun sonuç bulunamadı."
+      "pageTitle": "Arama"
     },
     "ur": {
       "searchPlaceholder": "تلاش کریں",
@@ -4689,8 +5299,6 @@
       "sentryDescription": "Durch das automatische Senden von Absturzberichten die {{appName}}-App verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
       "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen Nachrichten erhalten",
-      "proposeCitiesTitle": "Nahegelegene Orte",
-      "proposeCitiesDescription": "Mithilfe des GPS-Standortes Vorschläge für nahegelegene Orte erhalten",
       "about": "Über {{appName}}",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
@@ -4711,14 +5319,17 @@
       "sentryDescription": "{{appName}} መተግበሪያን የመስበሪያ ሪፖርቶችን በፍጥነት በመላክ ያሻሽሉ።",
       "pushNewsTitle": "የመግፊያ ማሳወቂያዎች",
       "pushNewsDescription": "ለቅርብ አካባቢያዊ ዜናዎች የመግፊያ ማሳወቂያዎች ይቀበሉ።",
-      "proposeCitiesTitle": "በቅርበት የሚገኙ ቦታዎች",
-      "proposeCitiesDescription": "የGPS ቦታን በመጠቀም የቅርብ ቦታዎች ጥቆማዎችን ያግኙ።",
       "about": "ስለ {{appName}}",
       "privacyPolicy": "የግላዊነት ፖሊሲ",
       "version": "ቅጂ: {{version}}",
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
       "tracking": "የJ-PAL ግምገማ",
       "allowTracking": "ክትትሉን ይፍቀዱ",
+      "trackingShortDescription": "በ J-PAL የግምገማ ጥናት ላይ ተሳተፉ፣ የ {{appName}} ለማሻሻል።",
+      "trackingMoreInformation": "የ J-PAL የግምገማ ጥናትን የሚመለከት ተጨማሪ መረጃና የጥናቱ ዓላማ  ",
+      "trackingDescription": "{{appName}} በዚህ ኣፕ ውስጥ የመጠቀምን ዱካ ለመከታተል፣ ፈቃድ ይጠየቃል። የርስዎ ዳታ በሚስጢር በተያዘ መንገድና ዓላማው ለጥናት ለሆነና ኣፑን ለማሻሻል ተብሎ ብቻ ጥቅም ላይ ይውላል። የዱካ መከታተል ዳታዎች ለሌላ ተላልፈው ኣይሰጡም ወይ ደግሞ ለማስታወቂያ ወይም ለሌላ ንግዳዊ ለሆነ ዓላማ ተብለው ኣይሰሩም። ",
+      "trackingLeaveTitle": "ዱካ መከታተልን መፍቀድ?",
+      "trackingLeaveDescription": "ዱካ መከታተሉን ኣልፈቀዱም።ዱካ መከታተሉ እኛን የሚረዳን፣ የ {{appName}}-ኣፕ ለማሻሻልና ወደ ኣገር እንግዳ ለሆኑ የተሻለ መረጃ ለማዘጋጀት ነው። የዱካ መከታተሉን ሳይፈቅዱ ከስክሪኑ ለመለየት እርግጠኛ ነዎት?                                                                                                                                                                                                                          ",
       "enabled": "ሰርቷል",
       "disabled": "አይሰራም",
       "decline": "አትቀበል"
@@ -4728,8 +5339,6 @@
       "sentryDescription": "تحسين تطبيق {{appName}} من خلال الإرسال التلقائي لتقارير الأعطال",
       "pushNewsTitle": "الإخطارات اللحظية",
       "pushNewsDescription": "تلقي الإخطارات اللحظية لأحدث الأخبار المحلية",
-      "proposeCitiesTitle": "الأماكن القريبة",
-      "proposeCitiesDescription": "تلقي اقتراحات الأماكن القريبة بمساعدة موقع الـGPS",
       "about": "حول تطبيق {{appName}}",
       "privacyPolicy": "بيان الخصوصية",
       "version": "الإصدار: {{version}}",
@@ -4750,14 +5359,17 @@
       "sentryDescription": "Подобрете приложението {{appName}}, като автоматично изпращате отчети за сривове",
       "pushNewsTitle": "Изскачащи известия",
       "pushNewsDescription": "Получавайте изскачащи известия за последните местни новини",
-      "proposeCitiesTitle": "Места наблизо",
-      "proposeCitiesDescription": "Получавайте предложения за близки места, използващи GPS местоположение",
       "about": "За {{appName}}",
       "privacyPolicy": "Декларация за поверителност",
       "version": "Версия: {{version}}",
       "openSourceLicenses": "Лицензи с отворен код",
       "tracking": "Оценка на J-PAL",
       "allowTracking": "Разрешаване на проследяване",
+      "trackingShortDescription": "Участвайте в проучването за оценка на J-PAL, за да подобрите {{appName}}.",
+      "trackingMoreInformation": "Повече информация за проучването за оценка на J-Pal и целите на изследването",
+      "trackingDescription": "{{appName}} иска разрешение за проследяване на използването ви в рамките на приложението. Вашите данни ще бъдат анонимизирани и използвани само за изследователски цели и за подобряване на приложението. Данните за проследяване няма да бъдат споделяни или обработвани за рекламни или други търговски цели.",
+      "trackingLeaveTitle": "Разрешаване на проследяването?",
+      "trackingLeaveDescription": "Не сте разрешили проследяване. Проследяването ни помага да подобрим приложението {{appName}} и да предоставим по-добра информация за имигрантите. Сигурни ли сте, че искате да напуснете екрана, без да разрешите проследяването?",
       "enabled": "активирано",
       "disabled": "деактивирано",
       "decline": "Отказване"
@@ -4767,14 +5379,17 @@
       "sentryDescription": "لەڕیگەی ناردنی ئۆتۆماتیکی ڕاپۆڕتەکانی خراپیی ئەپڵیکەیشن {{appName}} باشتر بکە",
       "pushNewsTitle": "ڕاگەیاندنەکان",
       "pushNewsDescription": "ڕاگەیاندنەکان بۆ نوێترین هەواڵی خۆجێی وەربگرە",
-      "proposeCitiesTitle": "شوێنە نزیکەکان",
-      "proposeCitiesDescription": "بەیارمەتیی شوێندۆزەرەوەی GPS پێشنیارەکانی شوێنە نزیکەکان وەربگرە",
       "about": "لەبارەی {{appName}}",
       "privacyPolicy": "ڕاگەیاندنی پاراستنی دێیتاکان",
       "version": "ڤێرژنی {{version}}",
       "openSourceLicenses": "مۆڵەتەکانی سەرچاوەی ئازاد",
       "tracking": "هەڵسەنگاندنی J-PAL",
       "allowTracking": "مۆڵەتی بەدواداچوون",
+      "trackingShortDescription": "لە توێژینەوەی هەڵسەنگاندنی J-PAL بۆ باشترکردنی {{appName}} بەشداری بکە.",
+      "trackingMoreInformation": "بۆ زانیاریی زیاتر لەبارەی توێژینەوەی هەڵسەنگاندنی J-Pal و ئامانجەکانی توێژینەوە.",
+      "trackingDescription": "{{appName}} داوا دەکات ڕێگەی پێ بدرێت کە ڕچەی چۆنیەتی کەڵکوەرگرتنی تۆ لەنێو ئەم ئەپە تۆمار بکات. داتاکانت بێ ناو و نیشان دەکرێن و تەنیا بۆ مەبەستی توێژینەوە و باشترکردنی ئەپەکە بە کار دەهێنرێن. داتای ڕچەتۆمارکردن نادرێت بە لایەنی تر و بە کار ناهێنرێت بۆ مەبەستی رێکلامکردن یان مەبەستی تری بازرگانی.",
+      "trackingLeaveTitle": "ڕێگەی رچەتۆمارکردن دەدەیت؟",
+      "trackingLeaveDescription": "تۆ ڕێگەی رچەتۆمارکردنت نەداوە. ڕچەتۆمارکردن یارمەتیمان دەدات کە ئەپی {{appName}} باشتر بکەین و زانیاریی باشتر بدەین بە کۆچبەران. ئایا دڵنیایت کە دەتەوێت لەم پەنجەرەیە بچیتە دەرەوە بێ ئەوەی ڕێگەی ڕچەتۆمارکردن بدەیت؟",
       "enabled": "چالاک کراوە",
       "disabled": "ناچالاک کراوە",
       "decline": "ڕەتکردنەوە"
@@ -4784,14 +5399,17 @@
       "sentryDescription": "Αυτόματη αποστολή αναφορών σφαλμάτων για βελτίωση του {{appName}}",
       "pushNewsTitle": "Ειδοποιήσεις",
       "pushNewsDescription": "Ειδοποιήσεις για τα τελευταία τοπικά νέα",
-      "proposeCitiesTitle": "Κοντινές τοποθεσίες",
-      "proposeCitiesDescription": "Πρόταση κοντινών τοποθεσιών, χρησιμοποιώντας την τοποθεσία μου ",
       "about": "Πληροφορίες για το {{appName}}",
       "privacyPolicy": "Προστασία δεδομένων",
       "version": "Έκδοση: {{version}}",
       "openSourceLicenses": "Άδειες",
       "tracking": "Αξιολόγηση J-PAL",
       "allowTracking": "Να επιτρέπεται ο εντοπισμός",
+      "trackingShortDescription": "Λάβετε μέρος στην έρευνα αξιολόγησης J-PAL για τη βελτίωση της εφαρμογής {{appName}}.",
+      "trackingMoreInformation": "Μάθετε περισσότερα σχετικά με την έρευνα αξιολόγησης J-Pal και τους ερευνητικούς στόχους",
+      "trackingDescription": "Η εφαρμογή {{appName}} ζητά άδεια παρακολούθησης της χρήσης σας εντός της εφαρμογής. Τα δεδομένα σας θα είναι ανώνυμα και θα χρησιμοποιηθούν μόνο για ερευνητικούς σκοπούς, καθώς και για τη βελτίωση της εφαρμογής. Τα δεδομένα παρακολούθησης δεν θα κοινοποιηθούν ούτε θα υποβληθούν σε επεξεργασία για διαφημιστικούς ή άλλους εμπορικούς σκοπούς.",
+      "trackingLeaveTitle": "Να επιτρέπεται η παρακολούθηση;",
+      "trackingLeaveDescription": "Δεν έχετε επιτρέψει την παρακολούθηση. Η παρακολούθηση μάς βοηθά να βελτιώσουμε την εφαρμογή {{appName}} και να παρέχουμε καλύτερες πληροφορίες για τους μετανάστες. Είστε βέβαιοι ότι θέλετε να φύγετε από την οθόνη χωρίς να επιτρέπεται η παρακολούθηση;",
       "enabled": "ενεργοποιήθηκε",
       "disabled": "απενεργοποιήθηκε",
       "decline": "Απόρριψη"
@@ -4801,8 +5419,6 @@
       "sentryDescription": "Improve the {{appName}} app by automatically sending crash reports",
       "pushNewsTitle": "Push notifications",
       "pushNewsDescription": "Receive push notifications for the latest local news",
-      "proposeCitiesTitle": "Nearby locations",
-      "proposeCitiesDescription": "Receive suggestions for nearby locations with the help of GPS location services",
       "about": "About {{appName}}",
       "privacyPolicy": "Data protection policy",
       "version": "Version: {{version}}",
@@ -4823,14 +5439,17 @@
       "sentryDescription": "Mejorar la app {{appName}} mediante el envío automático de informes de interrupciones del servicio",
       "pushNewsTitle": "Notificaciones push",
       "pushNewsDescription": "Recibir notificaciones push con las últimas noticias locales",
-      "proposeCitiesTitle": "Ubicaciones cercanas",
-      "proposeCitiesDescription": "Recibir recomendaciones de ubicaciones cercanas empleando la ubicación GPS",
       "about": "Acerca de {{appName}}",
       "privacyPolicy": "Declaración de privacidad",
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta",
       "tracking": "Evaluación J-PAL",
       "allowTracking": "Permitir seguimiento",
+      "trackingShortDescription": "Participe en el estudio de evaluación J-PAL para mejorar {{appName}}.",
+      "trackingMoreInformation": "Para más información sobre el estudio de evaluación J-Pal y los objetivos de la investigación",
+      "trackingDescription": "{{appName}} pide permiso para rastrear su uso dentro de la aplicación. Sus datos serán utilizados de manera anónima, únicamente con fines de investigación y para mejorar la aplicación. Los datos de seguimiento no se compartirán ni se procesarán con fines publicitarios u otros fines comerciales.",
+      "trackingLeaveTitle": "¿Permitir el seguimiento?",
+      "trackingLeaveDescription": "Usted no ha permitido el seguimiento. El seguimiento nos ayuda a mejorar la aplicación {{appName}} y a ofrecer mejor información a los inmigrantes.¿Está seguro de que quiere abandonar la pantalla sin permitir el seguimiento?",
       "enabled": "activado",
       "disabled": "desactivado",
       "decline": "Rechazar"
@@ -4840,8 +5459,6 @@
       "sentryDescription": "Améliorer l'application {{appName}} grâce à l'envoi automatique de rapports d'erreur",
       "pushNewsTitle": "Notifications push",
       "pushNewsDescription": "Recevoir des notifications push sur l'actualité locale",
-      "proposeCitiesTitle": "Lieux proches",
-      "proposeCitiesDescription": "Obtenir des propositions des lieux à proximité grâce à la géolocalisation",
       "about": "À propos d'{{appName}}",
       "privacyPolicy": "Déclaration de confidentialité",
       "version": "Version : {{version}}",
@@ -4860,16 +5477,19 @@
     "hr": {
       "sentryTitle": "Stabilnost aplikacije",
       "sentryDescription": "Automatskim slanjem izvještaja o padu sustava aplikacija {{appName}} se poboljšava",
-      "pushNewsTitle": "Push obavijesti",
-      "pushNewsDescription": "Primaj push obavijesti s najnovijim lokalnim vijestima",
-      "proposeCitiesTitle": "Mjesta u blizini",
-      "proposeCitiesDescription": "Primaj prijedloge za mjesta u blizini putem GPS lokacije",
+      "pushNewsTitle": "Automatske obavijesti",
+      "pushNewsDescription": "Primaj automatske obavijesti s najnovijim lokalnim vijestima",
       "about": "O aplikaciji {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licencije otvorenog koda",
-      "tracking": "Procjena J-PAL",
+      "tracking": "Procjena istraživačkog centra J-PAL",
       "allowTracking": "Dopusti praćenje",
+      "trackingShortDescription": "Sudjelujte u evaluacijskoj studiji istraživačkog centra J-PAL da biste poboljšali {{appName}}.",
+      "trackingMoreInformation": "Ostale informacije o evaluacijskoj studiji istraživačkog centra J-Pal te o ciljevima istraživanja",
+      "trackingDescription": "{{appName}} traži dopuštenje za praćenje vaših aktivnosti u aplikaciji. Vaši se podaci anonimiziraju i koriste samo u istraživačke svrhe i radi poboljšanja aplikacije. Praćenje podataka ne dijeli se niti se obrađuje u reklamne ili druge komercijalne svrhe.",
+      "trackingLeaveTitle": "Dopusti praćenje?",
+      "trackingLeaveDescription": "Niste dopustili praćenje. Praćenje nam pomaže da poboljšamo aplikaciju {{appName}} i pružimo bolje informacije useljenicima. Jeste li sigurni da želite napustiti zaslon, a da pritom niste dopustili praćenje?",
       "enabled": "aktivirano",
       "disabled": "deaktivirano",
       "decline": "Odbaci"
@@ -4878,15 +5498,18 @@
       "sentryTitle": "Alkalmazás stabilitása",
       "sentryDescription": "A(z) {{appName}}-App javítása hibajelentések automatikus küldésével",
       "pushNewsTitle": "Push értesítések",
-      "pushNewsDescription": "A legújabb helyi hírekkel kapcsolatos Push értesítések küldése ",
-      "proposeCitiesTitle": "Közeli helyek",
-      "proposeCitiesDescription": "Közeli helyekkel kapcsolatos javaslatok küldése GPS helymeghatározás segítségével",
+      "pushNewsDescription": "A legújabb helyi hírekkel kapcsolatos Push értesítések küldése",
       "about": "A(z) {{appName}} alkalmazásról",
       "privacyPolicy": "Adatvédelmi nyilatkozat",
       "version": "Verzió: {{version}}",
       "openSourceLicenses": "Open-Source-licencek",
       "tracking": "J-PAL Evaluation",
       "allowTracking": "Követés engedélyezése",
+      "trackingShortDescription": "Vegyen részt a J-PAL értékelő tanulmányban az {{appName}} javítása érdekében.",
+      "trackingMoreInformation": "További információk a J-PAL értékelő tanulmányról és a kutatási célokról",
+      "trackingDescription": "{{appName}} engedélyt kér, hogy követhesse az Ön általi használatot az alkalmazáson belül. Az Ön adatait anonimizáljuk, és kizárólag kutatási célokra és az alkalmazás fejlesztésére használjuk fel. A nyomon követési adatokat nem osztjuk meg vagy nem dolgozzuk fel reklám vagy egyéb kereskedelmi célokra.",
+      "trackingLeaveTitle": "Engedélyezi a nyomon követést?",
+      "trackingLeaveDescription": "Nem engedélyezte a nyomon követést. A nyomon követés segít nekünk az {{appName}} alkalmazás fejlesztésében és a bevándorlók jobb tájékoztatásában. Biztos benne, hogy be szeretné zárni a képernyőt anélkül, hogy engedélyezné a nyomon követést?",
       "enabled": "aktiválva",
       "disabled": "deaktiválva",
       "decline": "Elutasítás"
@@ -4896,28 +5519,29 @@
       "sentryDescription": "Migliora l’app {{appName}} inviando automaticamente rapporti sugli arresti anomali",
       "pushNewsTitle": "Notifiche push",
       "pushNewsDescription": "Ricevi notifiche push per le ultime notizie locali",
-      "proposeCitiesTitle": "Luoghi vicini",
-      "proposeCitiesDescription": "Ottieni suggerimenti per luoghi nelle vicinanze utilizzando la posizione GPS",
       "about": "Info su {{appName}}",
       "privacyPolicy": "Informativa sulla privacy",
       "version": "Versione: {{version}}",
       "openSourceLicenses": "Licenze open source",
-      "tracking": "Valutazione J-PAL ",
+      "tracking": "Valutazione J-PAL",
       "allowTracking": "Consenti il tracciamento",
+      "trackingShortDescription": "Partecipa allo studio di valutazione J-PAL per migliorare {{appName}}",
+      "trackingMoreInformation": "Ulteriori informazioni sullo studio di valutazione J-Pal e sugli obiettivi della ricerca",
+      "trackingDescription": "{{appName}} richiede l'autorizzazione per tenere traccia del tuo utilizzo all'interno dell'app. I tuoi dati saranno resi anonimi e utilizzati soltanto per scopi di ricerca e per migliorare l'app. I dati di tracciamento non verranno condivisi o elaborati per scopi pubblicitari o altri scopi commerciali",
+      "trackingLeaveTitle": "Consenti il tracciamento?",
+      "trackingLeaveDescription": "Non hai consentito il tracciamento. Il tracciamento ci aiuta a migliorare l'app {{appName}} e a fornire informazioni migliori per gli immigrati. Sei quindi sicuro di voler uscire dallo schermo senza consentire il tracciamento?",
       "enabled": "attivato",
       "disabled": "disattivato",
       "decline": "Rifiuta"
     },
     "ka": {
       "sentryTitle": "აპპ-სტაბილურობა",
-      "sentryDescription": "სისტემის გაჭედვის  მოხსენებათა ავტომატური გადამისამართებით {{აპპ სახელი}} აპპს გაუმჯობესება",
+      "sentryDescription": "სისტემის გაჭედვის  მოხსენებათა ავტომატური გადამისამართებით {{appName}} აპპს გაუმჯობესება",
       "pushNewsTitle": "ინფორმაციის მაუწყებელი",
       "pushNewsDescription": "ინფორმაციის მაუწყებლი უახლესი ადგილობრივი ამბებისათვის",
-      "proposeCitiesTitle": "ახლო მდებარე ადგილები",
-      "proposeCitiesDescription": "ჯიპიეს ადგილმდებარეობის საშუალებით ახლომდებარე ადგილებზე ინფორმაციის მიღება",
-      "about": "შესახებ {{აპპ სახელი}}",
+      "about": "შესახებ {{appName}}",
       "privacyPolicy": "მონაცემთა დაცვის შესახებ ახსნა-განმარტება",
-      "version": "ვერსია: {{ვერსია}}",
+      "version": "ვერსია: {{version}}",
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
       "tracking": "J-PAL ევალუაცია",
       "allowTracking": "თვალთვალის ჩართვა",
@@ -4930,14 +5554,17 @@
       "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa '{{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
       "pushNewsDescription": "Wergirtina peyamên bilez sa dawîn nûçeyên xwecihî yên nû",
-      "proposeCitiesTitle": "Cihên Nêzik",
-      "proposeCitiesDescription": "Bi bikaranîna Mekanbîna 'GPS'ê, pêşniyaran jibo mekanên nêzik werbigire",
       "about": "Bi rêya {{appName}}",
       "privacyPolicy": "Daxuyaniya Parastina Daneyan",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî",
       "tracking": "Nirxandina J-PAL",
       "allowTracking": "Şopandinê rêpêdayî bike",
+      "trackingShortDescription": "Li lêkolîna nirxandina J-PAL beşdar bibin ku {{appName}} baştir bikin.",
+      "trackingMoreInformation": "Bo zanyariyên pirtir ser lêkolîna nirxandina J-Pal û armancên lêkolînê.",
+      "trackingDescription": "{{appName}} daxwaz dike rê bidin ku şopa sûdwergirtina we li Appê tomar bike. Daneyên we dê bê navnîşan bin û tenê bo mebesta lêkolînê û baştirkirina Appê werin bikaranîn. Daneyên tomara şopê nadin kesên din û bo mebesta reklaman yan mebestên bazirganiyê bi kar nayên.  ",
+      "trackingLeaveTitle": "Rê didin tomara şopê?",
+      "trackingLeaveDescription": "We rê neda tomara şopê. Rêşop dihêle em Appa {{appName}} baştir bikin û zanyariyên baştir bidin koçberan. Gelo hûn piştrast in dixwazin ekranê biterikînin bêyî rê bidin tomara şopê?",
       "enabled": "Çalakbûyî",
       "disabled": "Neçalakbûyî",
       "decline": "Nepejirandin"
@@ -4947,8 +5574,6 @@
       "sentryDescription": "Подобрете ја апликацијата {{appName}} со автоматско испраќање на извештаи за паѓање",
       "pushNewsTitle": "Push известувања",
       "pushNewsDescription": "Добивајте Push известувања за најновите локални вести",
-      "proposeCitiesTitle": "Локации во близина",
-      "proposeCitiesDescription": "Добивајте предлози за локации во близина со помош на GPS-навигацијата",
       "about": "За {{appName}}",
       "privacyPolicy": "Изјава за заштита на лични податоци",
       "version": "Верзија: {{version}}",
@@ -4964,8 +5589,6 @@
       "sentryDescription": "با ارسال خودکار گزارش های خرابی، اپلیکیشن‎ {{appName}} را بهبود بخشید",
       "pushNewsTitle": "پیام های فوری",
       "pushNewsDescription": "دریافت پیام های فوری برای آخرین اخبار محلی جدید",
-      "proposeCitiesTitle": "مکان های نزدیک",
-      "proposeCitiesDescription": "با استفاده از موقعیت GPS، پیشنهادات برای مکان های نزدیک را دریافت کنید",
       "about": "راجع به {{appName}}",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه: {{version}}",
@@ -4975,7 +5598,8 @@
       "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
       "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
-      "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می\u200Cخواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
+      "trackingLeaveTitle": "ردیابی مجاز است؟",
+      "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می‌خواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده",
       "decline": "رد کردن"
@@ -4985,14 +5609,17 @@
       "sentryDescription": "Ulepszanie aplikacji {{appName}} przez automatycznie wysyłanie raportów o awariach",
       "pushNewsTitle": "Powiadomienia typu push",
       "pushNewsDescription": "Otrzymywanie powiadomień typu push o aktualnościach lokalnych",
-      "proposeCitiesTitle": "Lokalizacje w pobliżu",
-      "proposeCitiesDescription": "Uzyskiwanie sugestii dotyczących lokalizacji w pobliżu za pomocą lokalizacji GPS",
       "about": "O {{appName}}",
       "privacyPolicy": "Oświadczenie o ochronie danych",
       "version": "Wersja: {{version}}",
       "openSourceLicenses": "Licencje open source",
       "tracking": "Ocena J-PAL",
       "allowTracking": "Zezwalaj na śledzenie",
+      "trackingShortDescription": "Weź udział w badaniu ewaluacyjnym J-PAL, aby ulepszyć {{appName}}.",
+      "trackingMoreInformation": "Więcej informacji o badaniu ewaluacyjnym J-Pal i celach badania",
+      "trackingDescription": "{{appName}} prosi o pozwolenie na śledzenie Twojej aktywności w aplikacji. Twoje dane zostaną zanonimizowane i wykorzystane wyłącznie do celów badawczych oraz do ulepszenia aplikacji. Dane śledzące nie będą udostępniane ani przetwarzane w celach reklamowych lub innych celach komercyjnych.",
+      "trackingLeaveTitle": "Zezwolić na śledzenie?",
+      "trackingLeaveDescription": "Nie zezwoliłeś(aś) na śledzenie. Śledzenie pomaga nam ulepszać aplikację {{appName}} i udostępniać lepsze informacje dla imigrantów. Czy na pewno chcesz opuścić tę maskę bez udzielania zgody na śledzenie?",
       "enabled": "włączone",
       "disabled": "niewłączone",
       "decline": "Odrzuć"
@@ -5002,8 +5629,6 @@
       "sentryDescription": "از طریق ارسال اتومات راپور های خرابی اپلیکیشن {{appName}} را بهبود بخشید",
       "pushNewsTitle": "اعلان ها",
       "pushNewsDescription": "اعلان ها را برای جدیدترین اخبار محلی دریافت نمایید",
-      "proposeCitiesTitle": "مکان های نزدیک",
-      "proposeCitiesDescription": "با کمک مکان یابی GPS پیشنهاداتی برای مکان های نزدیک دریافت نمایید",
       "about": "راجع به {{appName}}",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه {{version}}",
@@ -5013,7 +5638,7 @@
       "trackingShortDescription": "برای بهبود برنامه {{appName}} در ارزیابی J-PAL شرکت کنید.",
       "trackingMoreInformation": "برای کسب اطلاعات بیشتر در مورد ارزیابی J-Pal و اهداف تحقیق.",
       "trackingDescription": "انتیگریت میخواهد میزان استفاده شما از این اپلیکیشن را پیگیری کند. معلومات شما به شکل نا شناس نگهداری میشود و فقط برای اهداف تحقیق علمی استفاده میشود. معلومات شما که برای پیگیری نگهداری میشود برای تبلیغات یا سایر اهداف تجاری استفاده و پروسس نمیشود.",
-      "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می\u200Cخواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
+      "trackingLeaveDescription": "شما اجازه ردیابی را نداده اید. ردیابی به ما کمک می کند تا برنامه {{appName}} را بهبود بخشیم و اطلاعات بهتری برای مهاجران ارائه دهیم. آیا مطمئن هستید که می‌خواهید بدون اجازه ردیابی صفحه را ترک کنید؟",
       "enabled": "فعال شده",
       "disabled": "غیرفعال شده",
       "decline": "رد نمودن"
@@ -5023,8 +5648,6 @@
       "sentryDescription": "په اتومات ډول د خرابي د پېغامونو په لېږلو سره د {{appName}}--ایپ بهترول",
       "pushNewsTitle": "فشاري خبرتیاوې",
       "pushNewsDescription": "د تازه سیمه ییزو خبرونو لپاره فشاري خبرتیاوې ترلاسه کول",
-      "proposeCitiesTitle": "نږدې ځایونه",
-      "proposeCitiesDescription": "نږدې ځایونو لپاره د جي پي ایس-موقعیتونو په مرسته وړاندیزونه ترلاسه کول",
       "about": "د {{appName}} په اړه",
       "privacyPolicy": "د ډاټا د حفاظت بیانیه",
       "version": "بڼه: {{version}}",
@@ -5044,14 +5667,17 @@
       "sentryDescription": "Îmbunătățiți {{appName}}-App prin trimiterea automată a rapoartelor de blocare",
       "pushNewsTitle": "Notificări push",
       "pushNewsDescription": "Primiți notificări push pentru cele mai recente noutăți locale",
-      "proposeCitiesTitle": "Locații aflate în apropiere",
-      "proposeCitiesDescription": "Primiți pe baza locației GPS propuneri pentru locații aflate în apropiere",
       "about": "Prin intermediul {{appName}}",
       "privacyPolicy": "Declarație privind confidențialitatea",
       "version": "Versiune: {{version}}",
       "openSourceLicenses": "Licențe open source",
       "tracking": "Evaluare J-PAL",
       "allowTracking": "Permitere tracking",
+      "trackingShortDescription": "Participați la studiul de evaluare J-PAL pentru a îmbunătăți {{appName}}.",
+      "trackingMoreInformation": "Informații suplimentare despre studiul de evaluare J-Pal și obiectivele cercetării.",
+      "trackingDescription": "{{appName}}} solicită permisiunea de a vă urmări utilizarea în cadrul aplicației. Datele dvs. vor fi anonimizate și vor fi utilizate numai în scopuri de cercetare și pentru a îmbunătăți aplicația. Datele de tracking nu vor fi partajate sau prelucrate în scopuri publicitare sau în alte scopuri comerciale.",
+      "trackingLeaveTitle": "Permiteți tracking?",
+      "trackingLeaveDescription": "Nu ați permis tracking. Tracking ne ajută să îmbunătățim aplicația {{appName}} și să oferim informații mai bune pentru imigranți. Sunteți sigur că doriți să părăsiți ecranul fără a permite tracking?",
       "enabled": "activat",
       "disabled": "dezactivat",
       "decline": "Refuzați"
@@ -5061,8 +5687,6 @@
       "sentryDescription": "Повышение стабильности работы приложения {{appName}} путем автоматической отправки сообщений о сбоях",
       "pushNewsTitle": "Push-уведомления",
       "pushNewsDescription": "Push-уведомления необходимы для получения самых актуальных местных новостей",
-      "proposeCitiesTitle": "Близлежащие населенные пункты",
-      "proposeCitiesDescription": "При помощи GPS-координат вы будете узнавать о предложениях в близлежащих населенных пунктах",
       "about": "Информация о приложении {{appName}}",
       "privacyPolicy": "Политика конфиденциальности",
       "version": "Версия: {{version}}",
@@ -5083,14 +5707,17 @@
       "sentryDescription": "Hagaaji {{appName}} adigoo si otomatigga ah u diraya warbixinnada ciladaha",
       "pushNewsTitle": "Ogaysiisyada",
       "pushNewsDescription": "Hel ogeysiisyada ku saabsan warbixinada deegaanka ee ugu dambeeyey",
-      "proposeCitiesTitle": "Meelaha dhaw",
-      "proposeCitiesDescription": "Hel soo jeedino ah goobaha ugu dhow adigoo isticmaalaya GPS",
       "about": "Ku saabsan {{appName}}",
       "privacyPolicy": "Ilaalinta xogta",
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan",
       "tracking": "qiimeynta J-PAL",
       "allowTracking": "U ogolow raadraaca",
+      "trackingShortDescription": "Ka qayb qaado daraasadda qiimaynta J-PAL si loo wanaajiyo {{appName}}",
+      "trackingMoreInformation": "Wax badan ka ogow daraasadda qiimaynta J-Pal iyo ujeedooyinka cilmi-baarista",
+      "trackingDescription": "{{appName}} waxa uu codsanayaa ogolaanshahaaga si uu ula socdo isticmaalkaaga ablikeeshinka. Xogtaada waa la qarin doonaa waxaana kaliya loo isticmaali doonaa ujeeddooyin cilmi baaris iyo horumarinta ablikeeshinka. Xogta dabagalka lama wadaagi doono ama looma isticmaali doono xayaysiis ama ujeedooyin kale oo ganacsi.",
+      "trackingLeaveTitle": "Ogolow la socoshada isticmaalkaaga?",
+      "trackingLeaveDescription": "Ma aadan ogolayn la socodka isticmaalkaaga. La socoshada isticmaalkaaga waxay naga caawinaysaa horumarinta ablikeeshinka {{appName}} iyo in aanu bixino macluumaad fiican oo loogu talagalay soogalootiga. Ma hubtaa inaad rabto inaad ka baxdo shaashadda adigoon oggolaan la socoshada isticmaalkaaga?",
       "enabled": "Shaqeynayo",
       "disabled": "Aan shaqeyneynin",
       "decline": "Diid"
@@ -5100,8 +5727,6 @@
       "sentryDescription": "Përmirësoni aplikacionin {{appName}} duke dërguar automatikisht raporte të ndërprerjeve aksidentale",
       "pushNewsTitle": "Push-njoftimet",
       "pushNewsDescription": "Pranoni push-njoftime për lajmet e fundit lokale",
-      "proposeCitiesTitle": "Vendet afër",
-      "proposeCitiesDescription": "Merrni sugjerime për vendet në afërsi duke përdorur vendndodhjen GPS",
       "about": "Rreth {{appName}}",
       "privacyPolicy": "Politika e privatësisë",
       "version": "Versioni: {{version}}",
@@ -5122,8 +5747,6 @@
       "sentryDescription": "Побољшање {{appName}} апликације аутоматским слањем извештаја о прекиду рада",
       "pushNewsTitle": "Искачућа обавештења",
       "pushNewsDescription": "Искачућа обавештења за пријем најновијих локалних вести",
-      "proposeCitiesTitle": "Оближња места",
-      "proposeCitiesDescription": "Пријем предлога за оближња места на основу GPS локације",
       "about": "О {{appName}}",
       "privacyPolicy": "Изјава о заштити података",
       "version": "Верзија: {{version}}",
@@ -5144,8 +5767,6 @@
       "sentryDescription": "Poboljšanje {{appName}} aplikacije automatskim slanjem izveštaja o prekidu rada",
       "pushNewsTitle": "Iskačuća obaveštenja",
       "pushNewsDescription": "Iskačuća obaveštenja za prijem najnovijih lokalnih vesti",
-      "proposeCitiesTitle": "Obližnja mesta",
-      "proposeCitiesDescription": "Prijem predloga za obližnja mesta na osnovu GPS lokacije",
       "about": "O {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
@@ -5154,7 +5775,7 @@
       "allowTracking": "Dozvoljeno praćenje",
       "trackingShortDescription": "Učestvujte u J-PAL istraživanju radi poboljšanja {{appName}} aplikacije.",
       "trackingMoreInformation": "Više informacija o J-Pal istraživanju i svrsi istraživanja.",
-      "trackingDescription": "{{appName}} želi dozvolu da prati Vaše korišćenje unutar aplikacije. Vaši podaci će biti anonimni i koristiće se samo u istraživačke svrhe i za poboljšanje aplikacije. Podaci za praćenje se neće deliti ili obrađivati \u200B\u200Bu reklamne ili druge komercijalne svrhe.",
+      "trackingDescription": "{{appName}} želi dozvolu da prati Vaše korišćenje unutar aplikacije. Vaši podaci će biti anonimni i koristiće se samo u istraživačke svrhe i za poboljšanje aplikacije. Podaci za praćenje se neće deliti ili obrađivati ​​u reklamne ili druge komercijalne svrhe.",
       "trackingLeaveTitle": "Dozvoliti praćenje?",
       "trackingLeaveDescription": "Niste dozvolili praćenje. Praćenje nam pomaže da poboljšamo aplikaciju {{appName}} i pružimo bolje informacije imigrantima. Da li ste sigurni da želite da napustite ekran bez davanja dozvole za praćenje?",
       "enabled": "aktivirano",
@@ -5166,14 +5787,17 @@
       "sentryDescription": "ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንኣፕ {{appName}} ኣመሓይሾ",
       "pushNewsTitle": "ምልክታታት መልእኽቲ",
       "pushNewsDescription": "ነቲ ሓድሽ ከባብያዊ ዜና ዝኾኑ ምልክታታት መልእኽቲ ተቐበል",
-      "proposeCitiesTitle": "ኣብ ጥቓኻ ዘለዎ ቦታታት",
-      "proposeCitiesDescription": "ነቲ ናይ GPS (ጂፒኤስ) ቦታ ብምጥቃም ብዛዕባ ኣብ ጥቓኻ ዘለዉ ቦታታት ሓሳብ ተቐበል",
       "about": "ብዛዕባ {{appName}}",
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ",
       "version": "ዓይነት፥ {{version}}",
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
       "tracking": "ግምገማ J-PAL",
       "allowTracking": "ክትትል ኣፍቅድ",
+      "trackingShortDescription": "ኣብ ናይ J-PAL ናይ ግምገማ መጽናዕቲ ተሳተፉ፣ ነቲ {{appName}} ንምምሕያሽ።",
+      "trackingMoreInformation": "ተወሳኺ ሓበሬታ ብዛዕባ ናይ J-Pal ግምገማ መጽናዕቲን ናይ መጽናዕቲ ዕላማን  ",
+      "trackingDescription": "{{appName}} ኣብ ውሽጢ እዚ ኣፕ ናይ ምጥቃም ኣሰር ንምክትታል፣ ፍቓድ ይሓትት። ናትኩም ዳታ ብሚስጢር እዩ ዝተሓዝ ከምኡ ድማ ንመጽናዕታዊ ዕላማን ነዚ ኣፕ ንምምሕያሽን ጥራሕ እዩ ኣብ ስራሕ ዝውዕል። ናይ ኣሰር ምክትታል ዳታ ንካልእ ኣካል ሓሊፉ ኣይወሃብን እዩ ወይ ድማ ንሬክላም ወይ ድማ ንኻልእ ሸቐጣዊ ኣገልግሎት ኣይውዕልን እዩ።.",
+      "trackingLeaveTitle": "ኣሰር ንምክትታል ምፍቃድ?",
+      "trackingLeaveDescription": "እስኩም ነቲ ምክትታል ኣሰር ኣይፈቐድኩምን። እቲ ምክትታል ኣሰር ንዓና ዝጠቕመና፣ ነቲ {{appName}} ንምምሕያሽን ነቶም ኣጋይሽ ሃገር ዝሓሸ ሓበሬታ ንምድላው እዩ። ርግጸኛ ዲኹም፣ ኣሰር ምክትታል ከይፈቐድኩም ካብ ስክሪን ክትፍለዩ?  ",
       "enabled": "ከምዝነጥፍ ተገይሩ",
       "disabled": "ከምዘይነጥፍ ተገይሩ",
       "decline": "ንጸግ"
@@ -5183,8 +5807,6 @@
       "sentryDescription": "Hata raporlarını otomatik olarak göndererek {{appName}} uygulamasını geliştirin",
       "pushNewsTitle": "Push bildirimleri",
       "pushNewsDescription": "En son yerel haberler için Push bildirimleri alın",
-      "proposeCitiesTitle": "Yakındaki konumlar",
-      "proposeCitiesDescription": "GPS konumunu kullanarak yakındaki konumlar için öneriler alın",
       "about": "{{appName}} hakkında",
       "privacyPolicy": "Gizlilik politikası",
       "version": "Versiyon: {{version}}",
@@ -5205,8 +5827,6 @@
       "sentryDescription": "خودکار طریقے سے ایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
       "pushNewsTitle": "پش نوٹیفیکیشنز",
       "pushNewsDescription": "تازہ مقامی خبروں کے لئے پش نوٹیفیکیشنز وصول کریں",
-      "proposeCitiesTitle": "قریبی مقامات",
-      "proposeCitiesDescription": "GPS مقام استعمال کرتے ہوئے قریبی مقامات کی تجاویز حاصل کریں",
       "about": "‎{{appName}}‎ کے متعلق",
       "privacyPolicy": "رازاداری کی پالیسی",
       "version": "ورژن: {{version}}",
@@ -5222,8 +5842,6 @@
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
       "pushNewsTitle": "推送通知",
       "pushNewsDescription": "获取有关最新本地新闻的推送通知",
-      "proposeCitiesTitle": "附近地点",
-      "proposeCitiesDescription": "通过GPS定位服务获取附近地点的建议",
       "about": "关于{{appName}}",
       "privacyPolicy": "数据保护政策",
       "version": "版本：{{version}}",
@@ -5318,18 +5936,6 @@
     },
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
-    }
-  },
-  "pois": {
-    "de": {
-      "location": "Standort",
-      "map": "Karte",
-      "unit": "km",
-      "distanceText": "entfernt",
-      "navigation": "Navigation",
-      "sheetTitle": "Entdecke deine Stadt",
-      "detailInformationHeader": "Information",
-      "detailAddressClipboardMessage": "Adresse wurde in die Zwischenablage kopiert"
     }
   }
 }
