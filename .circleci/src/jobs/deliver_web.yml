@@ -44,7 +44,7 @@ steps:
             command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
         - run:
             name: Malte development delivery
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
+            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte-test-cms/*"
         - run:
             name: Aschaffenburg development delivery
             command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
@@ -52,8 +52,8 @@ steps:
             name: 'Sentry Upload: integreat-test-cms'
             command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
         - run:
-            name: 'Sentry Upload: malte'
-            command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+            name: 'Sentry Upload: malte-test-cms'
+            command: tools/sentry-release web-malte-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte-test-cms
         - run:
             name: 'Sentry Upload: aschaffenburg'
             command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
