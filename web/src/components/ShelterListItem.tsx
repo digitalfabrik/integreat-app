@@ -14,6 +14,7 @@ import lgbtqiIcon from '../assets/shelter/lgbtqi.svg'
 import petIcon from '../assets/shelter/pet.svg'
 import timerIcon from '../assets/shelter/timer.svg'
 import CleanLink from './CleanLink'
+import Tooltip from './Tooltip'
 
 const Container = styled.article`
   flex: 1;
@@ -58,6 +59,17 @@ const FreeLabel = styled.span`
   font-size: 14px;
 `
 
+type IconWithTooltipProps = {
+  tooltip: string
+  icon: string
+}
+
+const IconWithTooltip = ({ tooltip, icon }: IconWithTooltipProps): ReactElement => (
+  <Tooltip text={tooltip} flow='right'>
+    <img alt={tooltip} src={icon} />
+  </Tooltip>
+)
+
 type ShelterDetailProps = {
   text: string
   icon: string
@@ -100,10 +112,10 @@ const ShelterListItem = ({ shelter }: Props): ReactElement => {
           <ShelterDetail text={startDateText} icon={calendarIcon} />
           <ShelterDetail text={t(period)} icon={timerIcon} />
           <Detail>
-            {info.includes('bad') && <img alt='' src={bathroomIcon} />}
-            {info.includes('lgbtiq') && <img alt='' src={lgbtqiIcon} />}
-            {info.includes('barrierefrei') && <img alt='' src={accessibleIcon} />}
-            {petsAllowed && <img alt='' src={petIcon} />}
+            {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={bathroomIcon} />}
+            {info.includes('lgbtiq') && <IconWithTooltip tooltip={t('lgbtiq')} icon={lgbtqiIcon} />}
+            {info.includes('barrierefrei') && <IconWithTooltip tooltip={t('accessible')} icon={accessibleIcon} />}
+            {petsAllowed && <IconWithTooltip tooltip={t('petsAllowed')} icon={petIcon} />}
           </Detail>
         </Row>
       </Container>
