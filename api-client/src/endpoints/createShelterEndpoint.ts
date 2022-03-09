@@ -27,7 +27,7 @@ export default (): Endpoint<Params, ShelterModel[]> =>
             zipcode: it.zipcode,
             languages: it.languages,
             beds: it.beds,
-            accommodationType: it.accomodation_type,
+            accommodationType: it.accommodation_type,
             info: it.info,
             email: it.email,
             phone: it.phone,
