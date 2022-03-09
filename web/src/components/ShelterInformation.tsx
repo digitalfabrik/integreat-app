@@ -18,20 +18,33 @@ import timerIcon from '../assets/shelter/timer.svg'
 import { uppercaseFirstLetter } from '../utils/stringUtils'
 import Caption from './Caption'
 import ShelterInformationSection from './ShelterInformationSection'
+import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
 
 const Container = styled.article`
   flex: 1;
   margin: 12px;
-  padding: 16px;
+  padding: 16px 12px 28px 12px;
   background-color: #f8f8f8;
   flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
-const Detail = styled.span`
-  padding: 0 10px;
+const DetailButton = styled(StyledButton)`
+  margin-left: 8px;
+  margin-bottom: 0;
+  padding: 8px 24px;
+`
+
+const Detail = styled.div`
+  padding: 0 12px;
+  margin-top: 10px;
   flex-direction: row;
-  width: 220px;
+  display: flex;
+`
+
+const TooltipContainer = styled.div`
+  margin-right: 18px;
 `
 
 type IconWithTooltipProps = {
@@ -40,9 +53,11 @@ type IconWithTooltipProps = {
 }
 
 const IconWithTooltip = ({ tooltip, icon }: IconWithTooltipProps): ReactElement => (
-  <Tooltip text={tooltip} flow='right'>
-    <img alt={tooltip} src={icon} />
-  </Tooltip>
+  <TooltipContainer>
+    <Tooltip text={tooltip} flow='right'>
+      <img alt={tooltip} src={icon} width='20px' height='20px' />
+    </Tooltip>
+  </TooltipContainer>
 )
 
 type Props = {
@@ -131,6 +146,13 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
             />
           </>
         )}
+        <DetailButton
+          onClick={() => {
+            window.location.href = shelter.id.toString()
+          }}
+          disabled={false}>
+          {t('shelterButton')}
+        </DetailButton>
       </Container>
     </>
   )

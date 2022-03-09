@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
+import useWindowDimensions from '../hooks/useWindowDimensions'
+
 const Container = styled.div<{ extended: boolean; separationLine: boolean; elevated: boolean }>`
   ${props => (props.extended ? 'padding-bottom: 24px;' : '')}
   ${props => (props.separationLine ? 'border-bottom: 1px solid #d4d4d4;' : '')}
@@ -14,8 +16,13 @@ const Row = styled.div`
   flex-flow: row wrap;
 `
 
+const RowDetail = styled.div<{ viewportSmall: boolean }>`
+  display: grid;
+  grid-template-columns: ${props => (props.viewportSmall ? `repeat(1, 1fr)` : `repeat(2, 1fr)`)};
+`
+
 const Title = styled.span`
-  padding: 16px 0;
+  padding: 16px 12px;
   font-size: 18px;
   font-weight: 700;
 `
@@ -27,16 +34,21 @@ const TitleHint = styled.span`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const Detail = styled.span<{ extended: boolean }>`
-  padding: 0 10px;
-  flex-direction: row;
+const Detail = styled.div<{ extended: boolean }>`
+  padding: 5px 10px;
+  display: flex;
   ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
+`
+
+const DetailText = styled.span`
+  margin-left: 16px;
+  align-self: center;
 `
 
 const Label = styled.span`
   display: flex;
   padding: 0 8px;
-  margin: auto 0 auto auto;
+  margin: auto 8px auto auto;
   background-color: #74d49e;
   border-radius: 4px;
   color: ${props => props.theme.colors.backgroundColor};
@@ -69,25 +81,28 @@ const ShelterInformationSection = ({
   extended,
   elevated = false,
   separationLine = false
-}: Props): ReactElement => (
-  <Container separationLine={separationLine} extended={extended} elevated={elevated}>
-    <Row>
-      <Title>{title}</Title>
-      {titleHint && <TitleHint>{titleHint}</TitleHint>}
-      {label && <Label>{label}</Label>}
-    </Row>
-    <Row>
-      {information.map(({ text, icon, rightText }) => (
-        <Detail key={text} extended={extended}>
-          {icon && <img alt='' src={icon} />}
-          {/* TODO IGAPP-944: Text should be shown at the right half of the item */}
-          {text}
-          {rightText ?? ''}
-        </Detail>
-      ))}
-      {children}
-    </Row>
-  </Container>
-)
+}: Props): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
+  return (
+    <Container separationLine={separationLine} extended={extended} elevated={elevated}>
+      <Row>
+        <Title>{title}</Title>
+        {titleHint && <TitleHint>{titleHint}</TitleHint>}
+        {label && <Label>{label}</Label>}
+      </Row>
+      <RowDetail viewportSmall={viewportSmall}>
+        {information.map(({ text, icon, rightText }) => (
+          <Detail key={text} extended={extended}>
+            {icon && <img alt='' src={icon} />}
+            {/* TODO IGAPP-944: Text should be shown at the right half of the item */}
+            <DetailText>{text}</DetailText>
+            {rightText ?? ''}
+          </Detail>
+        ))}
+        {children}
+      </RowDetail>
+    </Container>
+  )
+}
 
 export default ShelterInformationSection
