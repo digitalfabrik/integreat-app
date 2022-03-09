@@ -1,9 +1,12 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
-const Container = styled.div<{ extended: boolean; separationLine: boolean }>`
+const Container = styled.div<{ extended: boolean; separationLine: boolean; elevated: boolean }>`
   ${props => (props.extended ? 'padding-bottom: 24px;' : '')}
   ${props => (props.separationLine ? 'border-bottom: 1px solid #d4d4d4;' : '')}
+  ${props => (props.elevated ? `background-color: ${props.theme.colors.backgroundColor};` : '')}
+  ${props => (props.elevated ? `padding: 12px;` : '')}
+  ${props => (props.elevated ? `margin: 16px;` : '')}
 `
 
 const Row = styled.div`
@@ -31,12 +34,6 @@ const Detail = styled.span<{ extended: boolean }>`
   ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
 `
 
-const Description = styled.span`
-  display: flex;
-  flex: 1;
-  width: 50%;
-`
-
 const Label = styled.span`
   display: flex;
   padding: 0 8px;
@@ -60,6 +57,7 @@ type Props = {
   information: InformationType[]
   children?: ReactElement
   extended: boolean
+  elevated?: boolean
   separationLine?: boolean
 }
 
@@ -70,9 +68,10 @@ const ShelterInformationSection = ({
   information,
   children,
   extended,
+  elevated = false,
   separationLine = false
 }: Props): ReactElement => (
-  <Container separationLine={separationLine} extended={extended}>
+  <Container separationLine={separationLine} extended={extended} elevated={elevated}>
     <Row>
       <Title>{title}</Title>
       {titleHint && <TitleHint>{titleHint}</TitleHint>}
