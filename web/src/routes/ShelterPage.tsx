@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { createShelterEndpoint, pathnameFromRouteInformation, SHELTER_ROUTE, ShelterModel } from 'api-client'
@@ -20,6 +21,7 @@ export const SHELTER_ICON =
 const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
+  const { t } = useTranslation('shelter')
 
   const loadShelters = useCallback((page: number) => createShelterEndpoint().request({ type: 'list', page }), [])
 
@@ -38,8 +40,6 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     languageCode
   }
 
-  const pageTitle = `Unterkunft Ukraine - ${cityModel.name}`
-
   if (shelterId) {
     return (
       <ShelterDetail
@@ -54,12 +54,14 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     )
   }
 
+  const pageTitle = `${t('title')} - ${cityModel.name}`
+
   const renderListItem = (shelter: ShelterModel): ReactElement => <ShelterListItem key={shelter.id} shelter={shelter} />
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      <Caption title='Unterkunft Ukraine' />
+      <Caption title={t('title')} />
       <InfiniteScrollList
         noItemsMessage='Keine Unterkünfte verfügbar'
         renderItem={renderListItem}

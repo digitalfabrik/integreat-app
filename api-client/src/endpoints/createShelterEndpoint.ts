@@ -3,7 +3,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import ShelterModel from '../models/ShelterModel'
 import { JsonShelterType } from '../types'
 
-const SHELTER_URL = 'https://wohnraum.tuerantuer.org/wp-json/accomodations/list'
+const SHELTER_URL = 'https://wohnraum.tuerantuer.org/wp-json/accommodations/list'
 
 export const SHELTER_ENDPOINT_NAME = 'shelter'
 type Params = { type: 'detail'; id: string } | { type: 'list'; page: number }

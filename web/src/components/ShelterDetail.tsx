@@ -13,6 +13,7 @@ import {
 import FailureSwitcher from './FailureSwitcher'
 import LoadingSpinner from './LoadingSpinner'
 import LocationLayout from './LocationLayout'
+import ShelterInformation from './ShelterInformation'
 
 type Props = {
   cityModel: CityModel
@@ -77,7 +78,7 @@ const ShelterDetail = ({
   }
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
-      <div>{shelter.quarter}</div>
+      <ShelterInformation shelter={shelter} extended />
     </LocationLayout>
   )
 }
