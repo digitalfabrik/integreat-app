@@ -117,7 +117,7 @@ export type ShelterAccommodationType = 'ges_unterkunft' | 'privatzimmer' | 'geme
 export type ShelterInfo =
   | 'barrierefrei'
   | 'anliegerwohnung'
-  | ' lgbtiq'
+  | 'lgbtiq'
   | 'bad'
   | 'apartment'
   | 'haustier-katze'
