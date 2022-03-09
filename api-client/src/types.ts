@@ -111,9 +111,36 @@ export type JsonOfferType = {
   thumbnail: string
   post: JsonOfferPostType | null | undefined
 }
+
+export type ShelterUkraineLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch'
+export type ShelterUkraineAccommodationType = 'haus' | 'wohnung' | 'zimmer'
+export type ShelterUkraineInfo =
+  | 'barrierefrei'
+  | 'anliegerwohnung'
+  | ' lgbtiq'
+  | 'bad'
+  | 'apartment'
+  | 'haustier-katze'
+  | 'haustier-hund'
+  | 'haustier'
+export type ShelterUkrainePeriod = '7t' | '14t' | '1m' | '6m' | '12m' | '12m_plus'
+export type ShelterUkraineHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg'
 export type JsonShelterUkraineJsonType = {
   id: number
-  title: string
+  name: string
+  quarter: string
+  city: string
+  zipcode: string
+  languages: ShelterUkraineLanguage[]
+  accommodation_type: ShelterUkraineAccommodationType
+  info: ShelterUkraineInfo[]
+  email: string
+  phone: string
+  rooms: string
+  occupants: string
+  start_date: string
+  period: ShelterUkrainePeriod
+  host_type: ShelterUkraineHostType
 }
 export type JsonSprungbrettJobType = {
   title: string
@@ -122,41 +149,6 @@ export type JsonSprungbrettJobType = {
   url: string
   employment: string
   apprenticeship: string
-}
-// Generated with: https://transform.now.sh/json-to-flow-types/
-type AccommodationType = {
-  ofRooms: string[]
-  title: string
-  location: string
-  totalArea: number
-  totalRooms: number
-  moveInDate: string
-  ofRoomsDiff: string[]
-}
-type CostsType = {
-  ofRunningServices: string[]
-  ofAdditionalServices: string[]
-  baseRent: number
-  runningCosts: number
-  hotWaterInHeatingCosts: boolean
-  additionalCosts: number
-  ofRunningServicesDiff: string[]
-  ofAdditionalServicesDiff: string[]
-}
-type LandlordType = {
-  firstName: string
-  lastName: string
-  phone: string
-}
-type FormDataType = {
-  landlord: LandlordType
-  accommodation: AccommodationType
-  costs: CostsType
-}
-export type OfferType = {
-  email: string
-  formData: FormDataType
-  createdDate: string
 }
 export type LanguageDirectionType = 'ltr' | 'rtl'
 export type JsonLanguageType = {
