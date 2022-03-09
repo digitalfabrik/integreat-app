@@ -7,9 +7,9 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
-import ListItem from '../components/ListItem'
 import LocationLayout from '../components/LocationLayout'
 import ShelterDetail from '../components/ShelterDetail'
+import ShelterListItem from '../components/ShelterListItem'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const DEFAULT_PAGE = 1
@@ -54,14 +54,12 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     )
   }
 
-  const renderListItem = ({ id, quarter }: ShelterModel): ReactElement => (
-    <ListItem key={id} title={quarter} path={`${pathname}/${id}`} />
-  )
+  const renderListItem = (shelter: ShelterModel): ReactElement => <ShelterListItem key={shelter.id} shelter={shelter} />
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      <Caption title={'Unterkunft Ukraine'} />
+      <Caption title='Unterkunft Ukraine' />
       <InfiniteScrollList
         noItemsMessage='Keine Unterkünfte verfügbar'
         renderItem={renderListItem}

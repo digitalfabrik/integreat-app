@@ -43,9 +43,8 @@ const ShelterDetail = ({
   )
   const { data: shelters, loading, error } = useLoadFromEndpoint(requestShelter)
 
-  // TODO
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
+    path: `${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code })}/${shelterId}`,
     name,
     code
   }))
