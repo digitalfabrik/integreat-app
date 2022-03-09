@@ -112,9 +112,9 @@ export type JsonOfferType = {
   post: JsonOfferPostType | null | undefined
 }
 
-export type ShelterUkraineLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch'
-export type ShelterUkraineAccommodationType = 'haus' | 'wohnung' | 'zimmer'
-export type ShelterUkraineInfo =
+export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch'
+export type ShelterAccommodationType = 'haus' | 'wohnung' | 'zimmer'
+export type ShelterInfo =
   | 'barrierefrei'
   | 'anliegerwohnung'
   | ' lgbtiq'
@@ -123,24 +123,24 @@ export type ShelterUkraineInfo =
   | 'haustier-katze'
   | 'haustier-hund'
   | 'haustier'
-export type ShelterUkrainePeriod = '7t' | '14t' | '1m' | '6m' | '12m' | '12m_plus'
-export type ShelterUkraineHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
-export type JsonShelterUkraineJsonType = {
+export type ShelterPeriod = '7t' | '14t' | '1m' | '6m' | '12m' | '12m_plus'
+export type ShelterHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
+export type JsonShelterType = {
   id: number
   name: string
   quarter: string | null
   city: string
   zipcode: string
-  languages: ShelterUkraineLanguage[]
-  accommodation_type: ShelterUkraineAccommodationType
-  info: ShelterUkraineInfo[]
+  languages: ShelterLanguage[]
+  accommodation_type: ShelterAccommodationType
+  info: ShelterInfo[]
   email: string
   phone: string | null
   rooms: string | null
   occupants: string | null
   start_date: string
-  period: ShelterUkrainePeriod
-  host_type: ShelterUkraineHostType
+  period: ShelterPeriod
+  host_type: ShelterHostType
 }
 export type JsonSprungbrettJobType = {
   title: string

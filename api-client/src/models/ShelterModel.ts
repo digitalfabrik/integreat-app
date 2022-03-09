@@ -1,27 +1,21 @@
-import {
-  ShelterUkraineAccommodationType,
-  ShelterUkraineHostType,
-  ShelterUkraineInfo,
-  ShelterUkraineLanguage,
-  ShelterUkrainePeriod
-} from '../types'
+import { ShelterAccommodationType, ShelterHostType, ShelterInfo, ShelterLanguage, ShelterPeriod } from '../types'
 
-class ShelterUkraineModel {
+class ShelterModel {
   _id: number
   _name: string
   _quarter: string | null
   _city: string
   _zipcode: string
-  _languages: ShelterUkraineLanguage[]
-  _accommodationType: ShelterUkraineAccommodationType
-  _info: ShelterUkraineInfo[]
+  _languages: ShelterLanguage[]
+  _accommodationType: ShelterAccommodationType
+  _info: ShelterInfo[]
   _email: string
   _phone: string | null
   _rooms: number | null
   _occupants: number | null
   _startDate: string
-  _period: ShelterUkrainePeriod
-  _hostType: ShelterUkraineHostType
+  _period: ShelterPeriod
+  _hostType: ShelterHostType
 
   constructor(params: {
     id: number
@@ -29,16 +23,16 @@ class ShelterUkraineModel {
     quarter: string | null
     city: string
     zipcode: string
-    languages: ShelterUkraineLanguage[]
-    accommodationType: ShelterUkraineAccommodationType
-    info: ShelterUkraineInfo[]
+    languages: ShelterLanguage[]
+    accommodationType: ShelterAccommodationType
+    info: ShelterInfo[]
     email: string
     phone: string | null
     rooms: string | null
     occupants: string | null
     startDate: string
-    period: ShelterUkrainePeriod
-    hostType: ShelterUkraineHostType
+    period: ShelterPeriod
+    hostType: ShelterHostType
   }) {
     this._id = params.id
     this._name = params.name
@@ -77,15 +71,15 @@ class ShelterUkraineModel {
     return this._zipcode
   }
 
-  get languages(): ShelterUkraineLanguage[] {
+  get languages(): ShelterLanguage[] {
     return this._languages
   }
 
-  get accommodationType(): ShelterUkraineAccommodationType {
+  get accommodationType(): ShelterAccommodationType {
     return this._accommodationType
   }
 
-  get info(): ShelterUkraineInfo[] {
+  get info(): ShelterInfo[] {
     return this._info
   }
 
@@ -109,13 +103,13 @@ class ShelterUkraineModel {
     return this._startDate
   }
 
-  get period(): ShelterUkrainePeriod {
+  get period(): ShelterPeriod {
     return this._period
   }
 
-  get hostType(): ShelterUkraineHostType {
+  get hostType(): ShelterHostType {
     return this._hostType
   }
 }
 
-export default ShelterUkraineModel
+export default ShelterModel

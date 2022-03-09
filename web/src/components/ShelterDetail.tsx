@@ -2,11 +2,11 @@ import React, { ReactElement, useCallback } from 'react'
 
 import {
   CityModel,
-  createShelterUkraineEndpoint,
+  createShelterEndpoint,
   LanguageModel,
   NotFoundError,
   pathnameFromRouteInformation,
-  SHELTER_URKAINE_ROUTE,
+  SHELTER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
 
@@ -35,7 +35,7 @@ const ShelterDetail = ({
 }: Props): ReactElement => {
   const requestShelter = useCallback(
     () =>
-      createShelterUkraineEndpoint().request({
+      createShelterEndpoint().request({
         type: 'detail',
         id: shelterId
       }),
@@ -45,7 +45,7 @@ const ShelterDetail = ({
 
   // TODO
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({ route: SHELTER_URKAINE_ROUTE, cityCode, languageCode: code }),
+    path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
     name,
     code
   }))
@@ -54,7 +54,7 @@ const ShelterDetail = ({
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
-    route: SHELTER_URKAINE_ROUTE,
+    route: SHELTER_ROUTE,
     languageCode
   }
 
