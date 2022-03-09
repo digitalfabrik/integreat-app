@@ -60,7 +60,7 @@ const ShelterUkrainePage = ({
     )
   }
 
-  if (cityCode !== 'augsburg' || !shelters) {
+  if (!shelters) {
     const error =
       shelterError ||
       new NotFoundError({
@@ -91,13 +91,13 @@ const ShelterUkrainePage = ({
     }
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
-        <div>{shelter.title}</div>
+        <div>{shelter.quarter}</div>
       </LocationLayout>
     )
   }
 
-  const renderListItem = ({ id, title }: ShelterUkraineModel): ReactElement => (
-    <ListItem key={id} title={title} path={`${pathname}/${id}`} />
+  const renderListItem = ({ id, quarter }: ShelterUkraineModel): ReactElement => (
+    <ListItem key={id} title={quarter} path={`${pathname}/${id}`} />
   )
 
   return (
