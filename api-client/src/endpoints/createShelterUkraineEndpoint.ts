@@ -6,10 +6,16 @@ import { JsonShelterUkraineJsonType } from '../types'
 const SHELTER_UKRAINE_URL = 'https://wohnraum.tuerantuer.org/wp-json/accomodations/list'
 
 export const SHELTER_UKRAINE_ENDPOINT_NAME = 'shelter-ukraine'
+type Params = { type: 'detail'; id: string } | { type: 'list'; page: number }
 
-export default (): Endpoint<void, ShelterUkraineModel[]> =>
-  new EndpointBuilder<void, ShelterUkraineModel[]>(SHELTER_UKRAINE_ENDPOINT_NAME)
-    .withParamsToUrlMapper(() => SHELTER_UKRAINE_URL)
+export default (): Endpoint<Params, ShelterUkraineModel[]> =>
+  new EndpointBuilder<Params, ShelterUkraineModel[]>(SHELTER_UKRAINE_ENDPOINT_NAME)
+    .withParamsToUrlMapper(params => {
+      if (params.type === 'list') {
+        return `${SHELTER_UKRAINE_URL}?page=${params.page}`
+      }
+      return SHELTER_UKRAINE_URL
+    })
     .withMapper((json: JsonShelterUkraineJsonType[]): ShelterUkraineModel[] =>
       json.map(
         it =>

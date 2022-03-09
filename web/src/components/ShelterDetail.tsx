@@ -1,0 +1,86 @@
+import React, { ReactElement, useCallback } from 'react'
+
+import {
+  CityModel,
+  createShelterUkraineEndpoint,
+  LanguageModel,
+  NotFoundError,
+  pathnameFromRouteInformation,
+  SHELTER_URKAINE_ROUTE,
+  useLoadFromEndpoint
+} from 'api-client'
+
+import FailureSwitcher from './FailureSwitcher'
+import LoadingSpinner from './LoadingSpinner'
+import LocationLayout from './LocationLayout'
+
+type Props = {
+  cityModel: CityModel
+  cityCode: string
+  languageCode: string
+  pathname: string
+  languages: LanguageModel[]
+  shelterId: string
+  viewportSmall: boolean
+}
+
+const ShelterDetail = ({
+  cityModel,
+  cityCode,
+  languageCode,
+  pathname,
+  languages,
+  shelterId,
+  viewportSmall
+}: Props): ReactElement => {
+  const requestShelter = useCallback(
+    () =>
+      createShelterUkraineEndpoint().request({
+        type: 'detail',
+        id: shelterId
+      }),
+    [shelterId]
+  )
+  const { data: shelters, loading, error } = useLoadFromEndpoint(requestShelter)
+
+  // TODO
+  const languageChangePaths = languages.map(({ code, name }) => ({
+    path: pathnameFromRouteInformation({ route: SHELTER_URKAINE_ROUTE, cityCode, languageCode: code }),
+    name,
+    code
+  }))
+  const locationLayoutParams = {
+    cityModel,
+    viewportSmall,
+    feedbackTargetInformation: null,
+    languageChangePaths,
+    route: SHELTER_URKAINE_ROUTE,
+    languageCode
+  }
+
+  if (loading) {
+    return (
+      <LocationLayout isLoading {...locationLayoutParams}>
+        <LoadingSpinner />
+      </LocationLayout>
+    )
+  }
+
+  const shelter = shelters?.find(it => it.id.toString() === shelterId)
+
+  if (!shelter) {
+    const notFoundError = new NotFoundError({ type: 'offer', id: pathname, city: cityCode, language: languageCode })
+    return (
+      <LocationLayout isLoading={false} {...locationLayoutParams}>
+        <FailureSwitcher error={error || notFoundError} />
+      </LocationLayout>
+    )
+  }
+  return (
+    <LocationLayout isLoading={false} {...locationLayoutParams}>
+      <div>{shelter.quarter}</div>
+    </LocationLayout>
+  )
+}
+
+export default ShelterDetail
