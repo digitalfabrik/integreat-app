@@ -1,25 +1,25 @@
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
-import ShelterUkraineModel from '../models/ShelterUkraineModel'
-import { JsonShelterUkraineJsonType } from '../types'
+import ShelterModel from '../models/ShelterModel'
+import { JsonShelterType } from '../types'
 
-const SHELTER_UKRAINE_URL = 'https://wohnraum.tuerantuer.org/wp-json/accomodations/list'
+const SHELTER_URL = 'https://wohnraum.tuerantuer.org/wp-json/accomodations/list'
 
-export const SHELTER_UKRAINE_ENDPOINT_NAME = 'shelter-ukraine'
+export const SHELTER_ENDPOINT_NAME = 'shelter'
 type Params = { type: 'detail'; id: string } | { type: 'list'; page: number }
 
-export default (): Endpoint<Params, ShelterUkraineModel[]> =>
-  new EndpointBuilder<Params, ShelterUkraineModel[]>(SHELTER_UKRAINE_ENDPOINT_NAME)
+export default (): Endpoint<Params, ShelterModel[]> =>
+  new EndpointBuilder<Params, ShelterModel[]>(SHELTER_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       if (params.type === 'list') {
-        return `${SHELTER_UKRAINE_URL}?page=${params.page}`
+        return `${SHELTER_URL}?page=${params.page}`
       }
-      return SHELTER_UKRAINE_URL
+      return SHELTER_URL
     })
-    .withMapper((json: JsonShelterUkraineJsonType[]): ShelterUkraineModel[] =>
+    .withMapper((json: JsonShelterType[]): ShelterModel[] =>
       json.map(
         it =>
-          new ShelterUkraineModel({
+          new ShelterModel({
             id: it.id,
             name: it.name,
             quarter: it.quarter,

@@ -29,8 +29,8 @@ export const OFFERS_ROUTE: OffersRouteType = 'offers'
 export type SprungbrettOfferRouteType = 'sprungbrett'
 export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 
-export type ShelterUkraineRouteType = 'shelter-ukraine'
-export const SHELTER_URKAINE_ROUTE: ShelterUkraineRouteType = 'shelter-ukraine'
+export type ShelterRouteType = 'shelter'
+export const SHELTER_ROUTE: ShelterRouteType = 'shelter'
 
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'

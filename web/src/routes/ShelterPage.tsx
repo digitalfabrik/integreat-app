@@ -1,12 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
-import {
-  createShelterUkraineEndpoint,
-  ShelterUkraineModel,
-  pathnameFromRouteInformation,
-  SHELTER_URKAINE_ROUTE
-} from 'api-client'
+import { createShelterEndpoint, pathnameFromRouteInformation, SHELTER_ROUTE, ShelterModel } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -19,24 +14,17 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const DEFAULT_PAGE = 1
 const ITEMS_PER_PAGE = 10
-export const SHELTER_UKRAINE_TITLE = 'Unterkunft Ukraine'
-export const SHELTER_UKRAINE_ICON =
+export const SHELTER_ICON =
   'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2017/03/Unterkunft-Wohnen-150x150.png'
 
-const ShelterUkrainePage = ({
-  cityModel,
-  cityCode,
-  languageCode,
-  pathname,
-  languages
-}: CityRouteProps): ReactElement => {
+const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
 
-  const loadShelters = useCallback((page: number) => createShelterUkraineEndpoint().request({ type: 'list', page }), [])
+  const loadShelters = useCallback((page: number) => createShelterEndpoint().request({ type: 'list', page }), [])
 
   const languageChangePaths = languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({ route: SHELTER_URKAINE_ROUTE, cityCode, languageCode: code }),
+    path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
     name,
     code
   }))
@@ -46,11 +34,11 @@ const ShelterUkrainePage = ({
     viewportSmall,
     feedbackTargetInformation: null,
     languageChangePaths,
-    route: SHELTER_URKAINE_ROUTE,
+    route: SHELTER_ROUTE,
     languageCode
   }
 
-  const pageTitle = `${SHELTER_UKRAINE_TITLE} - ${cityModel.name}`
+  const pageTitle = `Unterkunft Ukraine - ${cityModel.name}`
 
   if (shelterId) {
     return (
@@ -66,14 +54,14 @@ const ShelterUkrainePage = ({
     )
   }
 
-  const renderListItem = ({ id, quarter }: ShelterUkraineModel): ReactElement => (
+  const renderListItem = ({ id, quarter }: ShelterModel): ReactElement => (
     <ListItem key={id} title={quarter} path={`${pathname}/${id}`} />
   )
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-      <Caption title={SHELTER_UKRAINE_TITLE} />
+      <Caption title={'Unterkunft Ukraine'} />
       <InfiniteScrollList
         noItemsMessage='Keine Unterkünfte verfügbar'
         renderItem={renderListItem}
@@ -85,4 +73,4 @@ const ShelterUkrainePage = ({
   )
 }
 
-export default ShelterUkrainePage
+export default ShelterPage
