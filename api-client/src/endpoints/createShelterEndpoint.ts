@@ -3,7 +3,7 @@ import EndpointBuilder from '../EndpointBuilder'
 import ShelterModel from '../models/ShelterModel'
 import { JsonShelterType } from '../types'
 
-const SHELTER_URL = 'https://wohnraum.tuerantuer.org/wp-json/accommodations/list'
+const SHELTER_URL = 'https://wohnraum.tuerantuer.org/wp-json/accommodations'
 
 export const SHELTER_ENDPOINT_NAME = 'shelter'
 type Params = { type: 'detail'; id: string } | { type: 'list'; page: number }
@@ -12,10 +12,9 @@ export default (): Endpoint<Params, ShelterModel[]> =>
   new EndpointBuilder<Params, ShelterModel[]>(SHELTER_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
       if (params.type === 'list') {
-        return `${SHELTER_URL}?page=${params.page}`
+        return `${SHELTER_URL}/list?page=${params.page}`
       }
-      // TODO IGAPP-944: Use correct endpoint
-      return SHELTER_URL
+      return `${SHELTER_URL}/${params.id}`
     })
     .withMapper((json: JsonShelterType[]): ShelterModel[] =>
       json.map(
