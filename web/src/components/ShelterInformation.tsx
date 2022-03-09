@@ -59,7 +59,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
   const location = quarter ?? city
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('shelterTitle', { beds: bedsText, location })
-  const titleHint = `#(${id})`
+  const titleHint = `(#${id})`
   const startDateText = moment(startDate, 'DD.MM.YYYY').isSameOrBefore(moment.now())
     ? t('now')
     : `${t('starting')} ${startDate}`
