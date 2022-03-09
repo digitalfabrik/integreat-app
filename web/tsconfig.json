@@ -22,7 +22,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node", "react"]
   },
-  "include": ["src/**/*", "tools/*", "./jest.setup.ts", "jest.config.ts", "www/warn-ie.js"],
+  "include": ["src/**/*", "tools/*", "./jest.setup.ts", "jest.config.ts"],
   "references": [
     {
       "path": "../translations"
