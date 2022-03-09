@@ -12,6 +12,7 @@ type Props = {
 const ShelterListItem = ({ shelter }: Props): ReactElement => (
   <CleanLink to={shelter.id.toString()}>
     <ShelterInformation shelter={shelter} />
+    {/* TODO Add button "Mehr Informationen" */}
   </CleanLink>
 )
 

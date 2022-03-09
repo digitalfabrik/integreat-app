@@ -5984,7 +5984,8 @@
       "allein_weiblich": "alleinstehend weiblich",
       "familie_kinder": "Familie mit Kindern",
       "paar": "Paar ohne Kinder",
-      "wg": "Wohngemeinschaft"
+      "wg": "Wohngemeinschaft",
+      "comments": "Ergänzende Anmerkungen"
     }
   }
 }

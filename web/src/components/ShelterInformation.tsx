@@ -52,8 +52,7 @@ type Props = {
 
 const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement => {
   const { beds, city, id, accommodationType, period, startDate, info, rooms, occupants, name } = shelter
-  const { zipcode, hostType, languages, email, phone } = shelter
-  const free = true
+  const { zipcode, hostType, languages, email, phone, comments, free } = shelter
   const { t } = useTranslation('shelter')
 
   const quarter = shelter.quarter && shelter.quarter !== 'andere' ? uppercaseFirstLetter(shelter.quarter) : null
@@ -113,6 +112,14 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
                 { text: t('languages'), rightText: languages.map(it => t(it)).join(', ') }
               ]}
             />
+            {comments && (
+              <ShelterInformationSection
+                title={t('comments')}
+                information={[{ text: comments }]}
+                extended={extended}
+                separationLine
+              />
+            )}
             <ShelterInformationSection
               extended={extended}
               title={t('contactInformation').toUpperCase()}

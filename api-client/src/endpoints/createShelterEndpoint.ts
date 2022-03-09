@@ -35,7 +35,9 @@ export default (): Endpoint<Params, ShelterModel[]> =>
             occupants: it.occupants,
             startDate: it.start_date,
             period: it.period,
-            hostType: it.host_type
+            hostType: it.host_type,
+            costs: it.costs,
+            comments: it.comments
           })
       )
     )

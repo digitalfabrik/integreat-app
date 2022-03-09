@@ -1,4 +1,11 @@
-import { ShelterAccommodationType, ShelterHostType, ShelterInfo, ShelterLanguage, ShelterPeriod } from '../types'
+import {
+  ShelterAccommodationType,
+  ShelterCostsType,
+  ShelterHostType,
+  ShelterInfo,
+  ShelterLanguage,
+  ShelterPeriod
+} from '../types'
 
 class ShelterModel {
   _id: number
@@ -17,6 +24,8 @@ class ShelterModel {
   _startDate: string
   _period: ShelterPeriod
   _hostType: ShelterHostType
+  _free: boolean
+  _comments: string | null
 
   constructor(params: {
     id: number
@@ -35,6 +44,8 @@ class ShelterModel {
     startDate: string
     period: ShelterPeriod
     hostType: ShelterHostType
+    costs: ShelterCostsType
+    comments: string | null
   }) {
     this._id = params.id
     this._name = params.name
@@ -52,6 +63,8 @@ class ShelterModel {
     this._startDate = params.startDate
     this._period = params.period
     this._hostType = params.hostType
+    this._free = params.costs !== 'kostenpflichtig'
+    this._comments = params.comments
   }
 
   get id(): number {
@@ -116,6 +129,14 @@ class ShelterModel {
 
   get hostType(): ShelterHostType {
     return this._hostType
+  }
+
+  get free(): boolean {
+    return this._free
+  }
+
+  get comments(): string | null {
+    return this._comments
   }
 }
 
