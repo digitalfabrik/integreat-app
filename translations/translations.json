@@ -5953,7 +5953,13 @@
       "12m": "bis 12 Monate",
       "12m_plus": "länger als 12 Monate",
       "now": "ab sofort",
-      "free": "kostenfrei"
+      "free": "kostenfrei",
+      "accessible": "barrierefrei",
+      "bathroom": "eigenes Bad",
+      "lgbtiq": "LGBTIQ+ freundlich",
+      "petsAllowed": "Haustiere erlaubt",
+      "catAllowed": "Katze erlaubt",
+      "dogAllowed": "Hund erlaubt"
     }
   }
 }
