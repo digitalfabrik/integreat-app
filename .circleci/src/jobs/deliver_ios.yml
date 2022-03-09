@@ -8,7 +8,7 @@ parameters:
     description: Whether to deliver the build to production.
     type: boolean
 macos:
-  xcode: 12.5.1
+  xcode: 13.2.1
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash --login -o pipefail
