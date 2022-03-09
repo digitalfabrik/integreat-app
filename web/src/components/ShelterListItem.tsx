@@ -40,7 +40,7 @@ const ID = styled.span`
 const Detail = styled.span`
   padding: 0 10px;
   flex-direction: row;
-  width: 200px;
+  width: 220px;
 `
 
 const Row = styled.div`
