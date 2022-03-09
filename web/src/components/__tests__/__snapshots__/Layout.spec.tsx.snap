@@ -7,7 +7,9 @@ exports[`Layout should render all components 1`] = `
       aria-hidden={false}
     >
       <header />
-      <styled.div>
+      <styled.div
+        fullWidth={false}
+      >
         <styled.aside
           asideStickyTop={40}
         >
@@ -15,7 +17,9 @@ exports[`Layout should render all components 1`] = `
             toolybar
           </div>
         </styled.aside>
-        <styled.main>
+        <styled.main
+          fullWidth={false}
+        >
           <p>
             content right here
           </p>

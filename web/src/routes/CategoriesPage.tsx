@@ -165,7 +165,7 @@ const CategoriesPage = ({ cityModel, pathname, languages, cityCode, languageCode
   }
 
   const ancestorBreadcrumbs = parents
-    .reverse()
+    .sort((a, b) => a.parentPath.length - b.parentPath.length)
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, cityModel.name))
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })

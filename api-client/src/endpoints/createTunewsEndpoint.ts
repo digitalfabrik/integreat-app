@@ -4,7 +4,7 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import TunewsModel from '../models/TunewsModel'
 import { JsonTunewsType } from '../types'
-import { parseHTMLEntities } from '../utils/helpers'
+import parseHTML from '../utils/parseHTML'
 
 export const TUNEWS_ENDPOINT_NAME = 'tunews'
 type ParamsType = {
@@ -19,18 +19,16 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<TunewsModel>> =>
     )
     .withMapper(
       (json: Array<JsonTunewsType>): Array<TunewsModel> =>
-        json.map((tunews: JsonTunewsType) => {
-          const decodedTitle = parseHTMLEntities(tunews.title)
-          const decodedContent = parseHTMLEntities(tunews.content)
-
-          return new TunewsModel({
-            id: tunews.id,
-            title: decodedTitle,
-            tags: tunews.tags,
-            date: moment.tz(tunews.date, 'GMT'),
-            content: decodedContent,
-            eNewsNo: tunews.enewsno
-          })
-        })
+        json.map(
+          (tunews: JsonTunewsType) =>
+            new TunewsModel({
+              id: tunews.id,
+              title: tunews.title,
+              tags: tunews.tags,
+              date: moment.tz(tunews.date, 'GMT'),
+              content: parseHTML(tunews.content),
+              eNewsNo: tunews.enewsno
+            })
+        )
     )
     .build()
