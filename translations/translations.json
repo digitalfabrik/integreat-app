@@ -5940,9 +5940,14 @@
   },
   "shelter": {
     "de": {
+      "title": "Wohnraum",
+      "shelterTitle": "{{beds}} in {{location}}",
+      "shelterInformation": "Verfügbarer Wohnraum",
+      "additionalInformation": "Weitere Angaben zum Wohnraum",
+      "hostInformation": "Angaben zum Anbietenden",
+      "contactInformation": "Kontaktdaten",
       "bed": "1 Bett",
       "beds": "{{beds}} Betten",
-      "title": "{{beds}} in {{location}}",
       "ges_unterkunft": "Gesamte Unterkunft",
       "gemein_zimmer": "Gemeinsames Zimmer",
       "privatzimmer": "Privatzimmer",
@@ -5952,6 +5957,7 @@
       "6m": "bis 6 Monate",
       "12m": "bis 12 Monate",
       "12m_plus": "länger als 12 Monate",
+      "starting": "ab",
       "now": "ab sofort",
       "free": "kostenfrei",
       "accessible": "barrierefrei",
@@ -5959,7 +5965,26 @@
       "lgbtiq": "LGBTIQ+ freundlich",
       "petsAllowed": "Haustiere erlaubt",
       "catAllowed": "Katze erlaubt",
-      "dogAllowed": "Hund erlaubt"
+      "dogAllowed": "Hund erlaubt",
+      "rooms": "Anzahl der Zimmer (gesamt):",
+      "occupants": "Anzahl der Bewohner:",
+      "notSpecified": "Keine Angabe",
+      "name": "Name:",
+      "zipcode": "Postleitzahl:",
+      "city": "Ort:",
+      "quarter": "Stadtteil:",
+      "hostType": "Hausstand:",
+      "languages": "Sprachkenntnisse:",
+      "deutsch": "deutsch",
+      "englisch": "englisch",
+      "ukrainisch": "ukrainisch",
+      "russisch": "russisch",
+      "polnisch": "polnisch",
+      "allein_maennlich": "alleinstehend männlich",
+      "allein_weiblich": "alleinstehend weiblich",
+      "familie_kinder": "Familie mit Kindern",
+      "paar": "Paar ohne Kinder",
+      "wg": "Wohngemeinschaft"
     }
   }
 }
