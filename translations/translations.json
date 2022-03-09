@@ -5943,6 +5943,7 @@
       "title": "Wohnraum",
       "shelterTitle": "{{beds}} in {{location}}",
       "shelterInformation": "Verfügbarer Wohnraum",
+      "shelterButton": "Anschauen",
       "additionalInformation": "Weitere Angaben zum Wohnraum",
       "hostInformation": "Angaben zum Anbietenden",
       "contactInformation": "Kontaktdaten",
