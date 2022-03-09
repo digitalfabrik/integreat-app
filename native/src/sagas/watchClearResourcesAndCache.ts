@@ -19,6 +19,6 @@ export function* clearResourcesAndCache(
   })
 }
 
-export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+export default function* clearResourcesAndCacheSaga(dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeLatest('CLEAR_RESOURCES_AND_CACHE', clearResourcesAndCache, dataContainer)
 }
