@@ -9,9 +9,11 @@ import accessibleIcon from '../assets/shelter/accessible.svg'
 import bathroomIcon from '../assets/shelter/bathroom.svg'
 import bedIcon from '../assets/shelter/bed.svg'
 import calendarIcon from '../assets/shelter/calendar.svg'
+import emailIcon from '../assets/shelter/email.svg'
 import houseIcon from '../assets/shelter/house.svg'
 import lgbtqiIcon from '../assets/shelter/lgbtqi.svg'
 import petIcon from '../assets/shelter/pet.svg'
+import phoneIcon from '../assets/shelter/phone.svg'
 import timerIcon from '../assets/shelter/timer.svg'
 import { uppercaseFirstLetter } from '../utils/stringUtils'
 import Caption from './Caption'
@@ -109,6 +111,15 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
                 ...(quarter ? [{ text: t('quarter'), rightText: occupants?.toString() ?? t('notSpecified') }] : []),
                 { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') },
                 { text: t('languages'), rightText: languages.map(it => t(it)).join(', ') }
+              ]}
+            />
+            <ShelterInformationSection
+              extended={extended}
+              title={t('contactInformation').toUpperCase()}
+              elevated
+              information={[
+                { icon: emailIcon, text: email },
+                { icon: phoneIcon, text: phone ?? t('notSpecified') }
               ]}
             />
           </>
