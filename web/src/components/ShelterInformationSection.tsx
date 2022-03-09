@@ -11,8 +11,7 @@ const Container = styled.div<{ extended: boolean; separationLine: boolean; eleva
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 `
 
 const Title = styled.span`
