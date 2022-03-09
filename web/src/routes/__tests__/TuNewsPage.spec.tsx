@@ -25,7 +25,7 @@ jest.mock('api-client', () => ({
   useLoadFromEndpoint: jest.fn()
 }))
 jest.mock('react-i18next')
-jest.mock('../../components/TuNewsList')
+jest.mock('../../components/InfiniteScrollList')
 jest.mock('../../components/LocationHeader', () => () => null)
 
 describe('TuNewsPage', () => {
