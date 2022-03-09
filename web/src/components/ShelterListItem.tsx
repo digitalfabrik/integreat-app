@@ -5,9 +5,13 @@ import styled from 'styled-components'
 
 import { ShelterModel } from 'api-client'
 
+import accessibleIcon from '../assets/shelter/accessible.svg'
+import bathroomIcon from '../assets/shelter/bathroom.svg'
 import bedIcon from '../assets/shelter/bed.svg'
 import calendarIcon from '../assets/shelter/calendar.svg'
 import houseIcon from '../assets/shelter/house.svg'
+import lgbtqiIcon from '../assets/shelter/lgbtqi.svg'
+import petIcon from '../assets/shelter/pet.svg'
 import timerIcon from '../assets/shelter/timer.svg'
 import CleanLink from './CleanLink'
 
@@ -71,7 +75,7 @@ type Props = {
 }
 
 const ShelterListItem = ({ shelter }: Props): ReactElement => {
-  const { quarter, beds, city, id, accommodationType, period, startDate } = shelter
+  const { quarter, beds, city, id, accommodationType, period, startDate, info } = shelter
   const free = true
   const { t } = useTranslation('shelter')
 
@@ -79,6 +83,8 @@ const ShelterListItem = ({ shelter }: Props): ReactElement => {
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('title', { beds: bedsText, location })
   const startDateText = moment(startDate, 'DD.MM.YYYY').isSameOrBefore(moment.now()) ? t('now') : startDate
+
+  const petsAllowed = info.some(it => ['haustier-katze', 'haustier-hund', 'haustier'].includes(it))
 
   return (
     <CleanLink to={id.toString()}>
@@ -93,6 +99,12 @@ const ShelterListItem = ({ shelter }: Props): ReactElement => {
           <ShelterDetail text={bedsText} icon={bedIcon} />
           <ShelterDetail text={startDateText} icon={calendarIcon} />
           <ShelterDetail text={t(period)} icon={timerIcon} />
+          <Detail>
+            {info.includes('bad') && <img alt='' src={bathroomIcon} />}
+            {info.includes('lgbtiq') && <img alt='' src={lgbtqiIcon} />}
+            {info.includes('barrierefrei') && <img alt='' src={accessibleIcon} />}
+            {petsAllowed && <img alt='' src={petIcon} />}
+          </Detail>
         </Row>
       </Container>
     </CleanLink>
