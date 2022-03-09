@@ -23,8 +23,8 @@ type PropsType<T> = {
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
   defaultPage: number
-  resetOnLanguageChange: boolean
-  languageCode: string
+  resetOnLanguageChange?: boolean
+  languageCode?: string
   itemsPerPage: number
 }
 
