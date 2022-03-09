@@ -50,7 +50,7 @@ const InfiniteScrollList = <T,>({
       const request = () => loadPage(page)
       const addData = (data: T[] | null) => {
         if (data !== null) {
-          setData(data.concat(data))
+          setData(oldData => oldData.concat(data))
 
           if (data.length !== itemsPerPage) {
             setHasMore(false)

@@ -14,7 +14,8 @@ import ShelterListItem from '../components/ShelterListItem'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const DEFAULT_PAGE = 1
-const ITEMS_PER_PAGE = 10
+// TODO IGAPP-944: Adjust if changed in backend
+const ITEMS_PER_PAGE = 8
 
 const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
   const { shelterId } = useParams()
