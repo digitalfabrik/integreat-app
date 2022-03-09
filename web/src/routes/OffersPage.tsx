@@ -13,6 +13,7 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import shelterIcon from '../assets/shelter/icon.jpg'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
@@ -22,7 +23,6 @@ import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TileModel from '../models/TileModel'
-import { SHELTER_ICON } from './ShelterPage'
 
 const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
@@ -58,12 +58,12 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
 
       if (cityCode === 'augsburg') {
         const path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
-        tiles.push(new TileModel({ title: 'Unterkunft Ukraine', path, thumbnail: SHELTER_ICON }))
+        tiles.push(new TileModel({ title: t('shelter:title'), path, thumbnail: shelterIcon }))
       }
 
       return tiles
     },
-    [cityCode, languageCode]
+    [cityCode, languageCode, t]
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
