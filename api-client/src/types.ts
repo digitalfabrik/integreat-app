@@ -113,7 +113,7 @@ export type JsonOfferType = {
 }
 
 export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch'
-export type ShelterAccommodationType = 'haus' | 'wohnung' | 'zimmer'
+export type ShelterAccommodationType = 'ges_unterkunft' | 'privatzimmer' | 'gemein_zimmer'
 export type ShelterInfo =
   | 'barrierefrei'
   | 'anliegerwohnung'
@@ -133,7 +133,7 @@ export type JsonShelterType = {
   zipcode: string
   languages: ShelterLanguage[]
   beds: string
-  accomodation_type: ShelterAccommodationType
+  accommodation_type: ShelterAccommodationType
   info: ShelterInfo[]
   email: string
   phone: string | null
