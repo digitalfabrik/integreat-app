@@ -9,16 +9,16 @@ import {
 class ShelterUkraineModel {
   _id: number
   _name: string
-  _quarter: string
+  _quarter: string | null
   _city: string
   _zipcode: string
   _languages: ShelterUkraineLanguage[]
   _accommodationType: ShelterUkraineAccommodationType
   _info: ShelterUkraineInfo[]
   _email: string
-  _phone: string
-  _rooms: number
-  _occupants: number
+  _phone: string | null
+  _rooms: number | null
+  _occupants: number | null
   _startDate: string
   _period: ShelterUkrainePeriod
   _hostType: ShelterUkraineHostType
@@ -26,16 +26,16 @@ class ShelterUkraineModel {
   constructor(params: {
     id: number
     name: string
-    quarter: string
+    quarter: string | null
     city: string
     zipcode: string
     languages: ShelterUkraineLanguage[]
     accommodationType: ShelterUkraineAccommodationType
     info: ShelterUkraineInfo[]
     email: string
-    phone: string
-    rooms: string
-    occupants: string
+    phone: string | null
+    rooms: string | null
+    occupants: string | null
     startDate: string
     period: ShelterUkrainePeriod
     hostType: ShelterUkraineHostType
@@ -50,8 +50,8 @@ class ShelterUkraineModel {
     this._info = params.info
     this._email = params.email
     this._phone = params.phone
-    this._rooms = parseInt(params.rooms, 10)
-    this._occupants = parseInt(params.occupants, 10)
+    this._rooms = params.rooms ? parseInt(params.rooms, 10) : null
+    this._occupants = params.occupants ? parseInt(params.occupants, 10) : null
     this._startDate = params.startDate
     this._period = params.period
     this._hostType = params.hostType
@@ -65,7 +65,7 @@ class ShelterUkraineModel {
     return this._name
   }
 
-  get quarter(): string {
+  get quarter(): string | null {
     return this._quarter
   }
 
@@ -93,15 +93,15 @@ class ShelterUkraineModel {
     return this._email
   }
 
-  get phone(): string {
+  get phone(): string | null {
     return this._phone
   }
 
-  get rooms(): number {
+  get rooms(): number | null {
     return this._rooms
   }
 
-  get occupants(): number {
+  get occupants(): number | null {
     return this._occupants
   }
 

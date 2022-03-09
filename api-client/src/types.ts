@@ -124,20 +124,20 @@ export type ShelterUkraineInfo =
   | 'haustier-hund'
   | 'haustier'
 export type ShelterUkrainePeriod = '7t' | '14t' | '1m' | '6m' | '12m' | '12m_plus'
-export type ShelterUkraineHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg'
+export type ShelterUkraineHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
 export type JsonShelterUkraineJsonType = {
   id: number
   name: string
-  quarter: string
+  quarter: string | null
   city: string
   zipcode: string
   languages: ShelterUkraineLanguage[]
   accommodation_type: ShelterUkraineAccommodationType
   info: ShelterUkraineInfo[]
   email: string
-  phone: string
-  rooms: string
-  occupants: string
+  phone: string | null
+  rooms: string | null
+  occupants: string | null
   start_date: string
   period: ShelterUkrainePeriod
   host_type: ShelterUkraineHostType
