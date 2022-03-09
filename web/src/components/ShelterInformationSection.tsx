@@ -80,7 +80,7 @@ const ShelterInformationSection = ({
       {information.map(({ text, icon, rightText }) => (
         <Detail key={text} extended={extended}>
           {icon && <img alt='' src={icon} />}
-          {/* TODO Text should be shown at the right half of the item */}
+          {/* TODO IGAPP-944: Text should be shown at the right half of the item */}
           {text}
           {rightText ?? ''}
         </Detail>

@@ -15,8 +15,6 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const DEFAULT_PAGE = 1
 const ITEMS_PER_PAGE = 10
-export const SHELTER_ICON =
-  'https://cms.integreat-app.de/augsburg/wp-content/uploads/sites/2/2017/03/Unterkunft-Wohnen-150x150.png'
 
 const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
   const { shelterId } = useParams()

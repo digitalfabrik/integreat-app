@@ -14,6 +14,7 @@ export default (): Endpoint<Params, ShelterModel[]> =>
       if (params.type === 'list') {
         return `${SHELTER_URL}?page=${params.page}`
       }
+      // TODO IGAPP-944: Use correct endpoint
       return SHELTER_URL
     })
     .withMapper((json: JsonShelterType[]): ShelterModel[] =>
