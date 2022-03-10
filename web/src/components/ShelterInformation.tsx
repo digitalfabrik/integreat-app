@@ -146,13 +146,15 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
             />
           </>
         )}
-        <DetailButton
-          onClick={() => {
-            window.location.href = shelter.id.toString()
-          }}
-          disabled={false}>
-          {t('shelterButton')}
-        </DetailButton>
+        {!extended && (
+          <DetailButton
+            onClick={() => {
+              window.location.href = shelter.id.toString()
+            }}
+            disabled={false}>
+            {t('shelterButton')}
+          </DetailButton>
+        )}
       </Container>
     </>
   )

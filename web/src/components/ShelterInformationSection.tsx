@@ -40,9 +40,14 @@ const Detail = styled.div<{ extended: boolean }>`
   ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
 `
 
-const DetailText = styled.span`
+const DetailText = styled.span<{ bold: boolean }>`
   margin-left: 16px;
   align-self: center;
+  ${props => props.bold && ` font-weight: bold;`};
+`
+
+const RightTextContainer = styled.span`
+  margin-left: 8px;
 `
 
 const Label = styled.span`
@@ -95,8 +100,8 @@ const ShelterInformationSection = ({
           <Detail key={text} extended={extended}>
             {icon && <img alt='' src={icon} />}
             {/* TODO IGAPP-944: Text should be shown at the right half of the item */}
-            <DetailText>{text}</DetailText>
-            {rightText ?? ''}
+            <DetailText bold={rightText}>{text}</DetailText>
+            {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
           </Detail>
         ))}
         {children}
