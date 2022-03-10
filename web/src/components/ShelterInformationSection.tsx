@@ -100,7 +100,7 @@ const ShelterInformationSection = ({
           <Detail key={text} extended={extended}>
             {icon && <img alt='' src={icon} />}
             {/* TODO IGAPP-944: Text should be shown at the right half of the item */}
-            <DetailText bold={rightText}>{text}</DetailText>
+            <DetailText bold={!!rightText}>{text}</DetailText>
             {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
           </Detail>
         ))}
