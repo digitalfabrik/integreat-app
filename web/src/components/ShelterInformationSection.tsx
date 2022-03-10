@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import CleanLink from './CleanLink'
 
 const Container = styled.div<{ extended: boolean; separationLine: boolean; elevated: boolean }>`
   ${props => (props.extended ? 'padding-bottom: 24px;' : '')}
@@ -34,7 +35,7 @@ const TitleHint = styled.span`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const Detail = styled.div<{ extended: boolean }>`
+const Detail = styled.div<{ extended: boolean; to?: string }>`
   padding: 5px 10px;
   display: flex;
   ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
@@ -64,6 +65,7 @@ type InformationType = {
   icon?: string
   text: string
   rightText?: string
+  link?: string
 }
 
 type Props = {
@@ -96,8 +98,8 @@ const ShelterInformationSection = ({
         {label && <Label>{label}</Label>}
       </Row>
       <RowDetail viewportSmall={viewportSmall}>
-        {information.map(({ text, icon, rightText }) => (
-          <Detail key={text} extended={extended}>
+        {information.map(({ text, icon, rightText, link }) => (
+          <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
             {icon && <img alt='' src={icon} />}
             <DetailText bold={!!rightText}>{text}</DetailText>
             {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
