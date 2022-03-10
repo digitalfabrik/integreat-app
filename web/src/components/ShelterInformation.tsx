@@ -144,8 +144,8 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
               title={t('contactInformation').toUpperCase()}
               elevated
               information={[
-                { icon: emailIcon, text: email },
-                { icon: phoneIcon, text: phone ?? t('notSpecified') }
+                { icon: emailIcon, text: email, link: `mailto:${email}` },
+                { icon: phoneIcon, text: phone ?? t('notSpecified'), link: phone ? `tel:${phone}` : undefined }
               ]}
             />
           </>
