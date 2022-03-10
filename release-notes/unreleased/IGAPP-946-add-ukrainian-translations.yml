@@ -1,0 +1,8 @@
+issue_key: IGAPP-946
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: The user interface is now also available in Ukrainian.
+de: Die Benutzeroberfläche ist nun auch in Ukrainisch verfügbar.
