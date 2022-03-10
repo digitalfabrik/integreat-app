@@ -6116,7 +6116,8 @@
       "familie_kinder": "Familie mit Kind(ern)",
       "paar": "Paar ohne Kinder",
       "wg": "Wohngemeinschaft",
-      "comments": "Ergänzende Anmerkungen"
+      "comments": "Ergänzende Anmerkungen",
+      "noSheltersAvailable": "Keine Unterkünfte verfügbar"
     },
     "en": {
       "title": "Housing",
@@ -6166,7 +6167,8 @@
       "familie_kinder": "Family with child(ren)",
       "paar": "Family without children",
       "wg": "Flat-sharing community",
-      "comments": "Complementary comments"
+      "comments": "Complementary comments",
+      "noSheltersAvailable": "No accommodations available"
     },
     "uk": {
       "title": "Житло",
@@ -6216,7 +6218,8 @@
       "familie_kinder": "Сім'я з дітьми",
       "paar": "Сім'я без дітей",
       "wg": "Комунальна квартира",
-      "comments": "Коментарі"
+      "comments": "Коментарі",
+      "noSheltersAvailable": "Житло немає"
     }
   },
   "sprungbrett": {
