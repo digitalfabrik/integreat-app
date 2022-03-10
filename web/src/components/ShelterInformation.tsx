@@ -80,6 +80,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
     : `${t('starting')} ${startDate}`
 
   const petsAllowed = info.some(it => ['haustier-katze', 'haustier-hund', 'haustier'].includes(it))
+  const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : t('notSpecified')
 
   return (
     <>
@@ -124,7 +125,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
                 { text: t('city'), rightText: city },
                 ...(quarter ? [{ text: t('quarter'), rightText: occupants?.toString() ?? t('notSpecified') }] : []),
                 { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') },
-                { text: t('languages'), rightText: languages.map(it => t(it)).join(', ') }
+                { text: t('languages'), rightText: languagesText }
               ]}
             />
             {comments && (
