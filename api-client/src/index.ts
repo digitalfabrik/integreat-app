@@ -42,6 +42,7 @@ export {
   default as createCategoryParentsEndpoint,
   CATEGORY_PARENTS_ENDPOINT_NAME
 } from './endpoints/createCategoryParentsEndpoint'
+export { default as createShelterEndpoint, SHELTER_ENDPOINT_NAME } from './endpoints/createShelterEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
@@ -104,6 +105,7 @@ export { default as FeaturedImageModel } from './models/FeaturedImageModel'
 export { default as PageModel } from './models/PageModel'
 export { default as PoiModel } from './models/PoiModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
+export { default as ShelterModel } from './models/ShelterModel'
 export { default as normalizePath } from './normalizePath'
 export { ErrorCode, fromError } from './ErrorCodes'
 export { setUserAgent } from './request'

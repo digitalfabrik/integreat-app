@@ -16,3 +16,13 @@ export const normalizeSearchString = (str: string): string => normalizeStrings(s
  * @returns {string} the url of the current host and the specified path
  */
 export const urlFromPath = (path: string): string => `${window.location.origin}${path}`
+
+export const uppercaseFirstLetter = (text: string): string => {
+  if (text.length === 0) {
+    return ''
+  }
+  const firstLetter = text.charAt(0).toUpperCase()
+  const rest = text.slice(1)
+
+  return `${firstLetter}${rest}`
+}

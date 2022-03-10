@@ -6,12 +6,14 @@ import {
   OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
+  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import shelterIcon from '../assets/shelter/icon.jpg'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
@@ -21,6 +23,7 @@ import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TileModel from '../models/TileModel'
+import { shelterOfferEnabled } from './ShelterPage'
 
 const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
@@ -37,8 +40,8 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
   const { data: offers, loading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const toTileModels = useCallback(
-    (offers: Array<OfferModel>): Array<TileModel> =>
-      offers.map(offer => {
+    (offers: Array<OfferModel>): Array<TileModel> => {
+      const tiles = offers.map(offer => {
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
@@ -52,8 +55,16 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
           thumbnail: offer.thumbnail,
           postData: offer.postData
         })
-      }),
-    [cityCode, languageCode]
+      })
+
+      if (shelterOfferEnabled(cityCode)) {
+        const path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
+        tiles.push(new TileModel({ title: t('shelter:title'), path, thumbnail: shelterIcon }))
+      }
+
+      return tiles
+    },
+    [cityCode, languageCode, t]
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {
