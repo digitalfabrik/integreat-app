@@ -79,7 +79,10 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
     ? t('now')
     : `${t('starting')} ${startDate}`
 
-  const petsAllowed = info.some(it => ['haustier-katze', 'haustier-hund', 'haustier'].includes(it))
+  const allowedPets = info.filter(it => it.includes('haustier'))
+  const petsTooltip = allowedPets.length === 2 ? t('haustier') : t(allowedPets[0])
+  const petsAllowed = allowedPets.length !== 0
+
   const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : t('notSpecified')
 
   return (
@@ -101,7 +104,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
             {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={bathroomIcon} />}
             {info.includes('lgbtiq') && <IconWithTooltip tooltip={t('lgbtiq')} icon={lgbtqiIcon} />}
             {info.includes('barrierefrei') && <IconWithTooltip tooltip={t('accessible')} icon={accessibleIcon} />}
-            {petsAllowed && <IconWithTooltip tooltip={t('petsAllowed')} icon={petIcon} />}
+            {petsAllowed && <IconWithTooltip tooltip={petsTooltip} icon={petIcon} />}
           </Detail>
         </ShelterInformationSection>
         {extended && (
