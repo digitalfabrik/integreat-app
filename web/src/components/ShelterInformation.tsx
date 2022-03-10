@@ -80,7 +80,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
     : `${t('starting')} ${startDate}`
 
   const allowedPets = info.filter(it => it.includes('haustier'))
-  const petsTooltip = allowedPets.length === 2 ? t('haustier') : t(allowedPets[0])
+  const petsTooltip = allowedPets.length === 2 ? t('haustier') : t(allowedPets[0] ?? 'notSpecified')
   const petsAllowed = allowedPets.length !== 0
 
   const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : t('notSpecified')

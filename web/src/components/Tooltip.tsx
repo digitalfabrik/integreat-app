@@ -72,7 +72,7 @@ const pseudosMixin = (flow: FlowType, color: string) => css`
 const MAX_HEIGHT = 50
 const MAX_WIDTH = 300
 
-const TooltipContainer = styled.span<{
+const TooltipContainer = styled.div<{
   text: string
   flow: FlowType
   smallViewportFlow: FlowType
