@@ -949,46 +949,54 @@ workflows:
     commit:
         jobs:
             - bump_version:
-                delivery: none
-            - check
-            - build_web:
-                build_config_name: integreat-test-cms
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-                    - check
+                context:
+                    - mattermost
+                    - deliverino
+                    - jira
+                delivery: production
             - e2e_web:
+                context:
+                    - mattermost
                 requires:
                     - bump_version
-                    - check
-            - build_android:
-                build_config_name: integreat-e2e
+            - build_web:
+                build_config_name: integreat
                 context:
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_e2e_android
+                    - mattermost
+                name: build_integreat_web
                 requires:
                     - bump_version
-                    - check
-            - e2e_android:
+            - build_web:
+                build_config_name: malte
                 context:
-                    - browserstack
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_e2e_ios
+                    - mattermost
+                name: build_malte_web
                 requires:
                     - bump_version
-                    - check
-            - e2e_ios:
+            - build_web:
+                build_config_name: aschaffenburg
                 context:
-                    - browserstack
+                    - mattermost
+                name: build_aschaffenburg_web
                 requires:
-                    - build_e2e_ios
+                    - bump_version
+            - deliver_web:
+                context:
+                    - mattermost
+                    - sentry
+                production_delivery: true
+                requires:
+                    - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+            - notify_web:
+                context:
+                    - mattermost
+                    - deliverino
+                requires:
+                    - bump_version
+                    - deliver_web
         unless:
             or:
                 - equal:
