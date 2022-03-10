@@ -13,8 +13,11 @@ import ShelterDetail from '../components/ShelterDetail'
 import ShelterListItem from '../components/ShelterListItem'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
+const SHELTER_ENABLED_CITIES = ['augsburg', 'testumgebung']
 const DEFAULT_PAGE = 1
 const ITEMS_PER_PAGE = 10
+
+export const shelterOfferEnabled = (cityCode: string): boolean => SHELTER_ENABLED_CITIES.includes(cityCode)
 
 const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
   const { shelterId } = useParams()
