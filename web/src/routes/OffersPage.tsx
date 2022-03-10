@@ -23,6 +23,7 @@ import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TileModel from '../models/TileModel'
+import { shelterOfferEnabled } from './ShelterPage'
 
 const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
@@ -56,7 +57,7 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
         })
       })
 
-      if (cityCode === 'augsburg') {
+      if (shelterOfferEnabled(cityCode)) {
         const path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
         tiles.push(new TileModel({ title: t('shelter:title'), path, thumbnail: shelterIcon }))
       }
