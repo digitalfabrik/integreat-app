@@ -5,11 +5,13 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
 
 const Container = styled.div<{ extended: boolean; separationLine: boolean; elevated: boolean }>`
-  ${props => (props.extended ? 'padding-bottom: 24px;' : '')}
   ${props => (props.separationLine ? 'border-bottom: 1px solid #d4d4d4;' : '')}
   ${props => (props.elevated ? `background-color: ${props.theme.colors.backgroundColor};` : '')}
   ${props => (props.elevated ? `padding: 12px;` : '')}
   ${props => (props.elevated ? `margin: 16px;` : '')}
+  ${props => (props.elevated ? `border-radius: 5px;` : '')}
+  ${props => (props.elevated ? `box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);` : '')}
+  ${props => (props.extended ? 'padding-bottom: 32px;' : '')}
 `
 
 const Row = styled.div`
@@ -41,10 +43,10 @@ const Detail = styled.div<{ extended: boolean; to?: string }>`
   ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
 `
 
-const DetailText = styled.span<{ bold: boolean }>`
+const DetailText = styled.span<{ hasText: boolean }>`
   margin-left: 16px;
-  align-self: center;
-  ${props => props.bold && ` font-weight: bold;`};
+  align-self: ${props => (props.hasText ? 'flex-start' : 'center')};
+  ${props => props.hasText && ` font-weight: bold;`};
 `
 
 const RightTextContainer = styled.span`
@@ -59,6 +61,7 @@ const Label = styled.span`
   border-radius: 4px;
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
 type InformationType = {
@@ -101,7 +104,7 @@ const ShelterInformationSection = ({
         {information.map(({ text, icon, rightText, link }) => (
           <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
             {icon && <img alt='' src={icon} />}
-            <DetailText bold={!!rightText}>{text}</DetailText>
+            <DetailText hasText={!!rightText}>{text}</DetailText>
             {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
           </Detail>
         ))}
