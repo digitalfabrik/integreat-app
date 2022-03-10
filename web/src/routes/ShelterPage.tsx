@@ -66,7 +66,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('title')} />
       <InfiniteScrollList
-        noItemsMessage='Keine Unterkünfte verfügbar'
+        noItemsMessage={t('noSheltersAvailable')}
         renderItem={renderListItem}
         loadPage={loadShelters}
         defaultPage={DEFAULT_PAGE}
