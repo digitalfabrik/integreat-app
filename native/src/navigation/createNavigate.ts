@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME, SHELTER_ROUTE } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -36,7 +36,7 @@ import { urlFromRouteInformation } from './url'
 const createNavigate =
   <T extends RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) =>
   (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
-    if (routeInformation) {
+    if (routeInformation && routeInformation.route !== SHELTER_ROUTE) {
       const url = urlFromRouteInformation(routeInformation)
       sendTrackingSignal({
         signal: {

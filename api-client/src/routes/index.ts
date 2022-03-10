@@ -29,6 +29,9 @@ export const OFFERS_ROUTE: OffersRouteType = 'offers'
 export type SprungbrettOfferRouteType = 'sprungbrett'
 export const SPRUNGBRETT_OFFER_ROUTE: SprungbrettOfferRouteType = 'sprungbrett'
 
+export type ShelterRouteType = 'wohnraum'
+export const SHELTER_ROUTE: ShelterRouteType = 'wohnraum'
+
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
