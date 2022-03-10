@@ -108,6 +108,10 @@
       "createPdf": "PDF oluşturun",
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir."
     },
+    "uk": {
+      "createPdf": "Створити PDF",
+      "metaDescription": "{{appName}} - це ваш цифровий путівник у Німеччині. Тут ви знайдете місцеву інформацію, події та поради. Завжди актуально і вашою мовою."
+    },
     "ur": {
       "createPdf": "PDF بنائیں",
       "metaDescription": "‎{{appName}}‎، جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے۔ یہاں مقامی معلومات، ایونٹس اور مشورے حاصل کریں۔ ہمیشہ تازہ ترین اور آپ کی زبان میں۔"
@@ -296,6 +300,15 @@
       "sendText": "Bu metni kopyala, [ ]-içerikleri kendi bilgilerinle doldur ve gönder",
       "copyText": "Metni kopyala",
       "textCopied": "kopyalandı"
+    },
+    "uk": {
+      "callToAction": "Запропонуйте підключити Integreat у вашому регіоні!",
+      "explanation": "Вам сподобалася некомерційна концепція програми Integreat, і ви думаєте, що наше цифрове рішення змогло бути корисним у вашому місті, районі або муніципалітеті? Тоді ви легко можете стати активним користувачем нашої програми.",
+      "whatToDo": "Ось що ви можете зробити:",
+      "findOutMail": "Дізнайтесь адресу електронної пошти вашого регіону",
+      "sendText": "Скопіюйте цей текст, заповніть пропуски [ ] вашими даними та надішліть його.",
+      "copyText": "Скопіюйте текст",
+      "textCopied": "Копіювати"
     }
   },
   "common": {
@@ -460,6 +473,12 @@
       "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ..."
+    },
+    "uk": {
+      "languageNotAvailable": "Ваша мова тут недоступна.",
+      "chooseALanguage": "Виберіть мову.",
+      "lastUpdate": "Останнє оновлення:",
+      "loading": "Завантаження ..."
     },
     "ur": {
       "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
@@ -657,6 +676,13 @@
       "news": "Mesajlar",
       "pois": "Harita"
     },
+    "uk": {
+      "localInformation": "Місцева інформація",
+      "offers": "Пропозиції",
+      "events": "Події",
+      "news": "Новини",
+      "pois": "Мапа"
+    },
     "ur": {
       "localInformation": "مقامی معلومات",
       "offers": "پیش کشیں",
@@ -751,6 +777,9 @@
     },
     "tr": {
       "pageTitle": "Künye ve iletişim"
+    },
+    "uk": {
+      "pageTitle": "Імпресум та контакт"
     },
     "ur": {
       "pageTitle": "چھاپ اور رابطہ"
@@ -979,7 +1008,7 @@
     "en": {
       "notFound": {
         "language": "Sorry, but this language is not available here.",
-        "city": "Sorry this region was not found. ",
+        "city": "Sorry this region was not found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "offer": "Sorry, but this offer could not be found.",
@@ -989,7 +1018,7 @@
         "pageTitle": "Page not found"
       },
       "pageNotFound": "Sorry, but the requested page could not be found.",
-      "noSuitableAppInstalled": "No suitable app installed. ",
+      "noSuitableAppInstalled": "No suitable app installed.",
       "networkConnectionFailed": "The connection to the server failed.",
       "networkRequestFailed": "The request could not be processed.",
       "responseMappingFailed": "An error occurred while processing the server's response.",
@@ -1697,6 +1726,42 @@
       "languageSwitchFailedTitle": "Dil değişimi maalesef başarısız.",
       "languageSwitchFailedMessage": "Seçilen dil çevrimdışı mevcut değil. Etkin bir internet bağlantısı gereklidir."
     },
+    "uk": {
+      "notFound": {
+        "language": "Вибачте, ця мова тут недоступна.",
+        "city": "Вибачте, цей регіон не знайдено.",
+        "category": "Вибачте, ця сторінка не знайдено.",
+        "event": "Вибачте, це не знайдено.",
+        "offer": "Вибачте, ця пропозиція не знайдена.",
+        "poi": "Вибачте, це місце не знайдено.",
+        "localNews": "На жаль, ця новина не знайдена.",
+        "tunews": "На жаль, це повідомлення не було знайдено.",
+        "pageTitle": "Сторінка не знайдена"
+      },
+      "pageNotFound": "Вибачте, ця сторінка не знайдено.",
+      "noSuitableAppInstalled": "Не встановлена ​​відповідна програма.",
+      "networkConnectionFailed": "З'єднання з сервером не вдалося.",
+      "networkRequestFailed": "Запит може бути оброблений.",
+      "responseMappingFailed": "Відповідь сервера не вдалося обробити.",
+      "unknownError": "Сталася невідома помилка.",
+      "tryAgain": "спробуйте ще раз",
+      "loadingFailed": "Вибачте, сторінка не може бути завантажена.",
+      "chooseALanguage": "Виберіть мову:",
+      "goTo": {
+        "start": "На головну сторінку",
+        "categories": "До категорій",
+        "events": "До подій",
+        "offers": "До пропозицій",
+        "pois": "До карти",
+        "localNews": "До новин",
+        "tunews": "До tünews"
+      },
+      "pageTitle": "Помилка",
+      "generalError": "Виникла помилка",
+      "notSupportedByDevice": "Ця функція не підтримується на цьому пристрої.",
+      "languageSwitchFailedTitle": "На жаль, зміни мови не вдалося.",
+      "languageSwitchFailedMessage": "Вибрана мова недоступна в автономному режимі. Потрібне активне підключення до Інтернету."
+    },
     "ur": {
       "notFound": {
         "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
@@ -1943,6 +2008,13 @@
       "events": "Etkinlikler",
       "currentlyNoEvents": "Güncel bir etkinlik yok.",
       "pageTitle": "Etkinlikler"
+    },
+    "uk": {
+      "address": "Адреса",
+      "date": "Дата",
+      "events": "Події",
+      "currentlyNoEvents": "Нині немає жодних подій.",
+      "pageTitle": "Події"
     },
     "ur": {
       "date": "تاریخ",
@@ -2496,6 +2568,26 @@
       "contactMailAddress": "Sorularınız için e-posta",
       "optionalInfo": "isteğe bağlı"
     },
+    "uk": {
+      "disclaimer": "Контакт та імпресум",
+      "send": "Відправити",
+      "failedSendingFeedback": "При надсиланні відгуку сталася помилка.",
+      "feedback": "Зворотній зв'язок",
+      "positiveComment": "Що було корисним?",
+      "negativeComment": "Що ми можемо зробити краще?",
+      "isThisSiteUseful": "Чи корисна ця сторінка?",
+      "useful": "Корисна",
+      "notUseful": "Не допомагає",
+      "informationNotFound": "Чи не знайшли те, що шукали?",
+      "wantedInformation": "Якої інформації тут не вистачає?",
+      "feedbackSent": "Відгук надіслано",
+      "thanksMessage": "Дякуем за ваш відгук. Це допоможе нам покращити наш контент та програму {{appName}}. Ми будемо раді отримати відгуки і надалі.",
+      "close": "Закрити",
+      "negativeRating": "Ця сторінка не є корисною",
+      "positiveRating": "Ця сторінка корисна",
+      "contactMailAddress": "Електронна пошта для запитів",
+      "optionalInfo": "додатково"
+    },
     "ur": {
       "disclaimer": "رابطہ اور چھاپ",
       "send": "بھیجیں",
@@ -2886,6 +2978,19 @@
       "offersDescription": "Çevrenizde iş arama, staj arama ve daha fazlası",
       "skip": "Atla",
       "next": "Devam"
+    },
+    "uk": {
+      "appDescription": "{{appName}} - ваш цифровий путівник у Німеччині",
+      "search": "Пошук",
+      "searchDescription": "Швидко знаходите потрібну інформацію, використовуючи ключові слова",
+      "languageChange": "Змінити мову",
+      "languageChangeDescription": "Легко змінити мову окремих сторінок",
+      "events": "Події",
+      "eventsDescription": "Поточні події та дати в регіоні",
+      "offers": "Пропозиції",
+      "offersDescription": "Пошук роботи, стажування та багато іншого в регіоні",
+      "skip": "Пропустити",
+      "next": "Наступний"
     },
     "ur": {
       "appDescription": "‎{{appName}}‎ جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے",
@@ -3310,6 +3415,23 @@
       "metaDescription": "{{appName}}, Almanya'daki dijital rehberinizdir. Burada yerel bilgiler, etkinlikler ve öneriler bulabilirsiniz. Her zaman günceldir ve kendi dilinizdedir.",
       "cityNotFound": "Bölgeni bulamadın mı?",
       "clickHere": "Buraya tıkla"
+    },
+    "uk": {
+      "searchCity": "Пошук",
+      "noCitiesFound": "Немає результатів",
+      "nearbyCities": "Сусідні регіони",
+      "noNearbyCities": "Поблизу не знайдено жодного регіону.",
+      "alert": "Примітка",
+      "locationError": "Для перегляду сусідніх регіонів необхідно увімкнути служби визначення розташування.",
+      "noPermission": "Потрібен доступ до місця розташування",
+      "loading": "Визначте місце розташування...",
+      "notAvailable": "Служби розташування відключені",
+      "timeout": "Розташування не вдалося встановити",
+      "refresh": "Оновлення списку сусідніх регіонів",
+      "pageTitle": "Регіони",
+      "metaDescription": "{{appName}} - це ваш цифровий путівник у Німеччині. Знайдіть місцеву інформацію, події та поради. Завжди актуально і вашою мовою.",
+      "cityNotFound": "Ваш регіон не знайдено?",
+      "clickHere": "Натисніть тут"
     },
     "ur": {
       "alert": "نوٹ",
@@ -3889,6 +4011,27 @@
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
       "disclaimer": "Künye"
     },
+    "uk": {
+      "imprintAndContact": "Імпресум та контакт",
+      "privacy": "Захист даних",
+      "offers": "Пропозиції",
+      "localInformation": "Місцева інформація",
+      "events": "Події",
+      "noEvents": "Немає подій",
+      "news": "Новини",
+      "noLanguages": "Недоступно іншими мовами",
+      "noTranslation": "Переклад відсутній",
+      "search": "Пошук",
+      "pois": "Мапа",
+      "changeLocation": "Змінити розташування",
+      "changeLanguage": "Змінити мову",
+      "settings": "Налаштування",
+      "share": "Поділитися",
+      "cancel": "Cкасування",
+      "shareMessage": "Щойно знайдено: {{message}}",
+      "shareFailDefaultMessage": "Вибачте, поділитися вмістом не вдалося.",
+      "disclaimer": "Імпресум"
+    },
     "ur": {
       "imprintAndContact": "چھاپ اور رابطہ",
       "privacy": "ڈیٹا کا تحفظ",
@@ -4012,6 +4155,9 @@
     "tr": {
       "pageTitle": "Künye ve iletişim - {{appName}}"
     },
+    "uk": {
+      "pageTitle": "Імпресум та контакт - {{appName}}"
+    },
     "ur": {
       "pageTitle": "چھاپ اور رابطہ - {{appName}}"
     },
@@ -4127,6 +4273,10 @@
     "tr": {
       "NSPhotoLibraryAddUsageDescription": "Resimleri kaydedebilmek için {{appName}}'in galeriye erişimi gerekmektedir.",
       "NSLocationWhenInUseUsageDescription": "Yakınlardaki konumu bulmak için {{appName}}'in konuma erişmesi gerekmektedir."
+    },
+    "uk": {
+      "NSPhotoLibraryAddUsageDescription": "Щоб зберегти зображення, {{appName}} потрібний доступ до галереї.",
+      "NSLocationWhenInUseUsageDescription": "Щоб знайти сусідні населені пункти, {{appName}} потрібен доступ до розташування."
     },
     "ur": {
       "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لئے ‎{{appName}}‎ کو گیلری تک رسائی درکار ہے۔",
@@ -4516,6 +4666,20 @@
         "pageTitle": "tünews INTERNATIONAL"
       }
     },
+    "uk": {
+      "news": "Новини",
+      "localNews": {
+        "localNews": "Місцеві новини",
+        "pageTitle": "Місцеві новини"
+      },
+      "local": "Місцевий",
+      "readMore": "Читати далі",
+      "currentlyNoNews": "Наразі новин немає.",
+      "tuNews": {
+        "tuNews": "tünews INTERNATIONAL",
+        "pageTitle": "tünews INTERNATIONAL"
+      }
+    },
     "ur": {
       "news": "خبریں",
       "localNews": {
@@ -4653,6 +4817,10 @@
     "tr": {
       "offers": "Teklifler",
       "pageTitle": "Teklifler"
+    },
+    "uk": {
+      "offers": "Пропозиції",
+      "pageTitle": "Пропозиції"
     },
     "ur": {
       "offers": "پیش کشیں",
@@ -4830,7 +4998,7 @@
       "description": "Description",
       "addressCopied": "Address copied to clipboard",
       "phoneCopied": "Telephone number copied to clipboard",
-      "eMailCopied": "E-mail address copied to ",
+      "eMailCopied": "E-mail address copied to clipboard",
       "websiteCopied": "Website copied to clipboard"
     },
     "es": {
@@ -5144,6 +5312,31 @@
       "phoneCopied": "Telelfon numarası panoya kopyalandı",
       "eMailCopied": "E-posta adresi panoya kopyalandı",
       "websiteCopied": "İnternet sitesi panoya kopyalandı"
+    },
+    "uk": {
+      "pageTitle": "Мапа",
+      "poi": "Населені пункт",
+      "pois": "Населені пункти",
+      "map": "Мапа",
+      "showOnMap": "Показати на мапі",
+      "noPois": "Розташування не знайдено.",
+      "unitKilometre": "км",
+      "unitMetre": "м",
+      "distanceKilometre": "{{distance}} км",
+      "distanceKilometreAlternative": "{{distance}} км",
+      "distanceMetre": "{{distance}} м",
+      "distanceMetreAlternative": "{{distance}} м",
+      "address": "Адреса",
+      "phone": "Номер телефону",
+      "eMail": "Адреса електронної пошти",
+      "website": "Сайт",
+      "openingHours": "Робочі години",
+      "description": "Опис",
+      "addressCopied": "Адреса скопійована в буфер обміну",
+      "phoneCopied": "Номер телефону скопійовано в буфер обміну",
+      "eMailCopied": "Адреса електронної пошти скопійована в буфер обміну",
+      "websiteCopied": "Сайт скопійований у буфер обміну",
+      "listTitle": "З вами поблизу"
     }
   },
   "search": {
@@ -5208,9 +5401,9 @@
       "pageTitle": "Ricerca"
     },
     "ka": {
+      "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა.",
       "searchPlaceholder": "ძებნა",
-      "pageTitle": "ძიება",
-      "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა."
+      "pageTitle": "ძიება"
     },
     "kmr": {
       "nothingFound": "Mixabin tu encameka guncan peyde nebû.",
@@ -5218,9 +5411,9 @@
       "pageTitle": "Lêgerîn"
     },
     "mk": {
+      "nothingFound": "За жал не се пронајдени соодветни резултати.",
       "searchPlaceholder": "Пребарај",
-      "pageTitle": "Пребарај",
-      "nothingFound": "За жал не се пронајдени соодветни резултати."
+      "pageTitle": "Пребарај"
     },
     "pes": {
       "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد.",
@@ -5233,14 +5426,14 @@
       "pageTitle": "Wyszukiwarka"
     },
     "prs": {
+      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد‎.",
       "searchPlaceholder": "جستجو",
-      "pageTitle": "جستجو",
-      "nothingFound": "متاسفانه هیچ نتیجه مناسبی پیدا نشد‎."
+      "pageTitle": "جستجو"
     },
     "ps": {
+      "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې.",
       "searchPlaceholder": "لټون",
-      "pageTitle": "لټون",
-      "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې."
+      "pageTitle": "لټون"
     },
     "ro": {
       "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
@@ -5258,19 +5451,19 @@
       "pageTitle": "Raadin"
     },
     "sq": {
+      "nothingFound": "Fatkeqësisht nuk u gjetën rezultate që përputhen.",
       "searchPlaceholder": "Kërkim",
-      "pageTitle": "Kërkim",
-      "nothingFound": "Fatkeqësisht nuk u gjetën rezultate që përputhen."
+      "pageTitle": "Kërkim"
     },
     "sr-Cyrl": {
+      "nothingFound": "Нажалост, нису пронађени одговарајући резултати.",
       "searchPlaceholder": "Претраживање",
-      "pageTitle": "Претраживање",
-      "nothingFound": "Нажалост, нису пронађени одговарајући резултати."
+      "pageTitle": "Претраживање"
     },
     "sr-Latn": {
+      "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati.",
       "searchPlaceholder": "Pretraživanje",
-      "pageTitle": "Pretraživanje",
-      "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati."
+      "pageTitle": "Pretraživanje"
     },
     "ti": {
       "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
@@ -5282,15 +5475,20 @@
       "searchPlaceholder": "Arama",
       "pageTitle": "Arama"
     },
+    "uk": {
+      "nothingFound": "На жаль, не знайдено жодного відповідного результату.",
+      "searchPlaceholder": "Пошук",
+      "pageTitle": "Пошук"
+    },
     "ur": {
+      "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔",
       "searchPlaceholder": "تلاش کریں",
-      "pageTitle": "تلاش کریں",
-      "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔"
+      "pageTitle": "تلاش کریں"
     },
     "zh-CN": {
+      "nothingFound": "很抱歉，找不到匹配的结果。",
       "searchPlaceholder": "搜索",
-      "pageTitle": "搜索",
-      "nothingFound": "很抱歉，找不到匹配的结果。"
+      "pageTitle": "搜索"
     }
   },
   "settings": {
@@ -5822,6 +6020,26 @@
       "disabled": "devre dışı",
       "decline": "Sil"
     },
+    "uk": {
+      "sentryTitle": "Стабільність програми",
+      "sentryDescription": "Поліпшіть роботу {{appName}}, автоматично надсилаючи звіти про помилки.",
+      "pushNewsTitle": "Push-сповіщення",
+      "pushNewsDescription": "Отримуйте push-сповіщення про останні місцеві новини",
+      "about": "Про {{appName}}",
+      "privacyPolicy": "Політика конфіденційності",
+      "version": "Версія: {{version}}",
+      "openSourceLicenses": "Ліцензії на відкритий вихідний код",
+      "tracking": "Дослідження J-PAL",
+      "allowTracking": "Дозволити відстеження?",
+      "trackingShortDescription": "Візьміть участь у дослідженні J-PAL, щоб покращити {{appName}}.",
+      "trackingMoreInformation": "Для отримання додаткової інформації про дослідження J-Pal та цілі дослідження",
+      "trackingDescription": "{{appName}} запитує дозвіл на відстеження використання програми. Ваші дані будуть анонімізовані та використані лише в дослідницьких цілях та для покращення програми. Дані відстеження не будуть передаватися або оброблятися з рекламною чи іншою комерційною метою.",
+      "trackingLeaveTitle": "Дозволити відстеження використання програми",
+      "trackingLeaveDescription": "Ви не дозволили відстеження. Відстеження допомагає нам покращити програму {{appName}} та надати найкращу інформацію для іммігрантів. Ви впевнені, що хочете залишити екран без дозволу відстеження? дозволити заборонити Відхилити Пропозиції відсутні",
+      "enabled": "дозволити",
+      "disabled": "заборонити",
+      "decline": "Відхилити"
+    },
     "ur": {
       "sentryTitle": "ایپ کا استحکام",
       "sentryDescription": "خودکار طریقے سے ایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
@@ -5847,6 +6065,155 @@
       "version": "版本：{{version}}",
       "openSourceLicenses": "开源许可证",
       "decline": "拒绝"
+    }
+  },
+  "shelter": {
+    "de": {
+      "title": "Wohnraum",
+      "shelterTitle": "{{beds}} in {{location}}",
+      "shelterInformation": "Verfügbarer Wohnraum",
+      "shelterButton": "Anschauen",
+      "additionalInformation": "Weitere Angaben zum Wohnraum",
+      "hostInformation": "Angaben zum Anbietenden",
+      "contactInformation": "Kontaktdaten",
+      "bed": "1 Bett",
+      "beds": "{{beds}} Betten",
+      "ges_unterkunft": "Gesamte Unterkunft",
+      "gemein_zimmer": "Gemeinsames Zimmer",
+      "privatzimmer": "Privatzimmer",
+      "7t": "bis 7 Tage",
+      "14t": "bis 14 Tage",
+      "1m": "bis 1 Monat",
+      "6m": "bis 6 Monate",
+      "12m": "bis 12 Monate",
+      "12m_plus": "länger als 12 Monate",
+      "starting": "ab",
+      "now": "ab sofort",
+      "free": "kostenfrei",
+      "accessible": "barrierefrei",
+      "bathroom": "eigenes Bad",
+      "lgbtiq": "LGBTIQ+ freundlich",
+      "haustier": "Haustiere erlaubt",
+      "haustier-katze": "Katzen erlaubt",
+      "haustier-hund": "Hunde erlaubt",
+      "rooms": "Anzahl der Zimmer (gesamt):",
+      "occupants": "Anzahl der Bewohner:",
+      "notSpecified": "Keine Angabe",
+      "name": "Name:",
+      "zipcode": "Postleitzahl:",
+      "city": "Ort:",
+      "quarter": "Stadtteil:",
+      "hostType": "Hausstand:",
+      "languages": "Sprachkenntnisse:",
+      "deutsch": "deutsch",
+      "englisch": "englisch",
+      "ukrainisch": "ukrainisch",
+      "russisch": "russisch",
+      "polnisch": "polnisch",
+      "allein_maennlich": "alleinstehend männlich",
+      "allein_weiblich": "alleinstehend weiblich",
+      "familie_kinder": "Familie mit Kind(ern)",
+      "paar": "Paar ohne Kinder",
+      "wg": "Wohngemeinschaft",
+      "comments": "Ergänzende Anmerkungen"
+    },
+    "en": {
+      "title": "Housing",
+      "shelterTitle": "{{beds}} in {{location}}",
+      "shelterInformation": "Available housing",
+      "shelterButton": "View",
+      "additionalInformation": "Further information on the housing",
+      "hostInformation": "Details of the provider",
+      "contactInformation": "Contact details",
+      "bed": "1 bed",
+      "beds": "{{beds}} beds",
+      "ges_unterkunft": "Entire accommodation",
+      "gemein_zimmer": "Shared room",
+      "privatzimmer": "Private room",
+      "7t": "up to 7 days",
+      "14t": "up to 14 days",
+      "1m": "up to 1 months",
+      "6m": "up to 6 months",
+      "12m": "up to 12 months",
+      "12m_plus": "longer than 12 months",
+      "starting": "from",
+      "now": "immediately",
+      "free": "free of charge",
+      "accessible": "accessible",
+      "bathroom": "own bathroom",
+      "lgbtiq": "LGBTIQ+ friendly",
+      "haustier": "Pets allowed",
+      "haustier-katze": "Cats allowed",
+      "haustier-hund": "Dogs allowed",
+      "rooms": "Number of rooms (total):",
+      "occupants": "Number of occupants:",
+      "notSpecified": "Not specified",
+      "name": "Name:",
+      "zipcode": "Zip code:",
+      "city": "Location:",
+      "quarter": "City district:",
+      "hostType": "Household:",
+      "languages": "Language skills:",
+      "deutsch": "German",
+      "englisch": "English",
+      "ukrainisch": "Ukrainian",
+      "russisch": "Russian",
+      "polnisch": "Polish",
+      "allein_maennlich": "single male",
+      "allein_weiblich": "single female",
+      "familie_kinder": "Family with child(ren)",
+      "paar": "Family without children",
+      "wg": "Flat-sharing community",
+      "comments": "Complementary comments"
+    },
+    "uk": {
+      "title": "Житло",
+      "shelterTitle": "{{beds}} y {{location}}",
+      "shelterInformation": "Доступне житло",
+      "shelterButton": "Перегляд",
+      "additionalInformation": "Більше інформації про житло",
+      "hostInformation": "Деталі про господаря",
+      "contactInformation": "Контактна інформація",
+      "bed": "1 Ліжко",
+      "beds": "{{beds}}Ліжка",
+      "ges_unterkunft": "Ціле помешкання",
+      "gemein_zimmer": "Спільна кімната",
+      "privatzimmer": "Власна кімната",
+      "7t": "до 7 днів",
+      "14t": "до 14 днів",
+      "1m": "до 1 місяця",
+      "6m": "до 6 місяців",
+      "12m": "до 12 місяців",
+      "12m_plus": "довше ніж 12 місяців",
+      "starting": "з",
+      "now": "негайно",
+      "free": "безкоштовно",
+      "accessible": "доступно",
+      "bathroom": "власна ванна кімната",
+      "lgbtiq": "LGBTIQ+ ",
+      "haustier": "можна з тваринами",
+      "haustier-katze": "можна з котиками",
+      "haustier-hund": "можна з собаками",
+      "rooms": "Кільксть кімнат (загальна)",
+      "occupants": "Кільксть людей",
+      "notSpecified": "Не вказано",
+      "name": "Ім'я",
+      "zipcode": "Почтовий індекс",
+      "city": "Місто",
+      "quarter": "Район",
+      "hostType": "Господарь",
+      "languages": "Знання мови",
+      "deutsch": "Німецька",
+      "englisch": "Англійська",
+      "ukrainisch": "Українська",
+      "russisch": "Російська",
+      "polnisch": "Польська",
+      "allein_maennlich": "Чоловік",
+      "allein_weiblich": "Жінка",
+      "familie_kinder": "Сім'я з дітьми",
+      "paar": "Сім'я без дітей",
+      "wg": "Комунальна квартира",
+      "comments": "Коментарі"
     }
   },
   "sprungbrett": {
@@ -5931,62 +6298,14 @@
     "tr": {
       "noOffersAvailable": "Teklif yok"
     },
+    "uk": {
+      "noOffersAvailable": "Пропозиції відсутні"
+    },
     "ur": {
       "noOffersAvailable": "کوئی پیش کشیں دستیاب نہیں"
     },
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
-    }
-  },
-  "shelter": {
-    "de": {
-      "title": "Wohnraum",
-      "shelterTitle": "{{beds}} in {{location}}",
-      "shelterInformation": "Verfügbarer Wohnraum",
-      "shelterButton": "Anschauen",
-      "additionalInformation": "Weitere Angaben zum Wohnraum",
-      "hostInformation": "Angaben zum Anbietenden",
-      "contactInformation": "Kontaktdaten",
-      "bed": "1 Bett",
-      "beds": "{{beds}} Betten",
-      "ges_unterkunft": "Gesamte Unterkunft",
-      "gemein_zimmer": "Gemeinsames Zimmer",
-      "privatzimmer": "Privatzimmer",
-      "7t": "bis 7 Tage",
-      "14t": "bis 14 Tage",
-      "1m": "bis 1 Monat",
-      "6m": "bis 6 Monate",
-      "12m": "bis 12 Monate",
-      "12m_plus": "länger als 12 Monate",
-      "starting": "ab",
-      "now": "ab sofort",
-      "free": "kostenfrei",
-      "accessible": "barrierefrei",
-      "bathroom": "eigenes Bad",
-      "lgbtiq": "LGBTIQ+ freundlich",
-      "haustier": "Haustiere erlaubt",
-      "haustier-katze": "Katzen erlaubt",
-      "haustier-hund": "Hunde erlaubt",
-      "rooms": "Anzahl der Zimmer (gesamt):",
-      "occupants": "Anzahl der Bewohner:",
-      "notSpecified": "Keine Angabe",
-      "name": "Name:",
-      "zipcode": "Postleitzahl:",
-      "city": "Ort:",
-      "quarter": "Stadtteil:",
-      "hostType": "Hausstand:",
-      "languages": "Sprachkenntnisse:",
-      "deutsch": "deutsch",
-      "englisch": "englisch",
-      "ukrainisch": "ukrainisch",
-      "russisch": "russisch",
-      "polnisch": "polnisch",
-      "allein_maennlich": "alleinstehend männlich",
-      "allein_weiblich": "alleinstehend weiblich",
-      "familie_kinder": "Familie mit Kindern",
-      "paar": "Paar ohne Kinder",
-      "wg": "Wohngemeinschaft",
-      "comments": "Ergänzende Anmerkungen"
     }
   }
 }
