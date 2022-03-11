@@ -4712,7 +4712,8 @@
   "offers": {
     "de": {
       "offers": "Angebote",
-      "pageTitle": "Angebote"
+      "pageTitle": "Angebote",
+      "Wohnraum": "Wohnraum"
     },
     "am": {
       "offers": "ግብዣዎች/ መጥሪያዎች",
@@ -4736,7 +4737,8 @@
     },
     "en": {
       "offers": "Offers",
-      "pageTitle": "Offers"
+      "pageTitle": "Offers",
+      "Wohnraum": "Housing"
     },
     "es": {
       "offers": "Ofertas",
@@ -4820,7 +4822,8 @@
     },
     "uk": {
       "offers": "Пропозиції",
-      "pageTitle": "Пропозиції"
+      "pageTitle": "Пропозиції",
+      "title": "Житло"
     },
     "ur": {
       "offers": "پیش کشیں",
