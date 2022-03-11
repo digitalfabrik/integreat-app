@@ -43,6 +43,7 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
+          // the url stored in the sprungbrett offer is the url of the endpoint
           path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
         } else if (offer.alias === SHELTER_ROUTE) {
           path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
@@ -50,7 +51,6 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
 
         return new TileModel({
           title: t(offer.title),
-          // the url stored in the sprungbrett offer is the url of the endpoint
           path,
           thumbnail: offer.thumbnail,
           postData: offer.postData

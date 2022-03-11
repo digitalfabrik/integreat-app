@@ -26,32 +26,31 @@ const Offers = ({
   t,
   languageCode,
   cityCode
-}: PropsType): ReactElement => (
-  <SpaceBetween>
-    <View>
-      <Tiles
-        title={t('offers')}
-        tiles={offers.map(offer => {
-          let path = offer.path
-          if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
-            path = offer.alias
-          } else if (offer.alias === SHELTER_ROUTE) {
-            path = urlFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
-          }
-          return new TileModel({
-            title: t(offer.title),
-            path,
-            thumbnail: offer.thumbnail,
-            isExternalUrl: offer.alias !== SPRUNGBRETT_OFFER_ROUTE,
-            postData: offer.postData
-          })
-        })}
-        onTilePress={navigateToOffer}
-        language={languageCode}
-      />
-    </View>
-    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
-  </SpaceBetween>
-)
+}: PropsType): ReactElement => {
+  const tiles = offers.map(offer => {
+    let path = offer.path
+    if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+      path = offer.alias
+    } else if (offer.alias === SHELTER_ROUTE) {
+      path = urlFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
+    }
+    return new TileModel({
+      title: t(offer.title),
+      path,
+      thumbnail: offer.thumbnail,
+      isExternalUrl: offer.alias !== SPRUNGBRETT_OFFER_ROUTE,
+      postData: offer.postData
+    })
+  })
+
+  return (
+    <SpaceBetween>
+      <View>
+        <Tiles title={t('offers')} tiles={tiles} onTilePress={navigateToOffer} language={languageCode} />
+      </View>
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
+    </SpaceBetween>
+  )
+}
 
 export default Offers
