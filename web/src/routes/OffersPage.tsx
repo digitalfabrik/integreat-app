@@ -13,7 +13,6 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import shelterIcon from '../assets/shelter/icon.jpg'
 import FailureSwitcher from '../components/FailureSwitcher'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
 import Helmet from '../components/Helmet'
@@ -23,7 +22,6 @@ import LocationToolbar from '../components/LocationToolbar'
 import Tiles from '../components/Tiles'
 import { cmsApiBaseUrl } from '../constants/urls'
 import TileModel from '../models/TileModel'
-import { shelterOfferEnabled } from './ShelterPage'
 
 const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteProps): ReactElement => {
   const { t } = useTranslation('offers')
@@ -40,8 +38,8 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
   const { data: offers, loading, error: offersError } = useLoadFromEndpoint(requestOffers)
 
   const toTileModels = useCallback(
-    (offers: Array<OfferModel>): Array<TileModel> => {
-      const tiles = offers.map(offer => {
+    (offers: Array<OfferModel>): Array<TileModel> =>
+      offers.map(offer => {
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
@@ -49,21 +47,13 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
         }
 
         return new TileModel({
-          title: offer.title,
+          title: t(offer.title),
           // the url stored in the sprungbrett offer is the url of the endpoint
           path,
           thumbnail: offer.thumbnail,
           postData: offer.postData
         })
-      })
-
-      if (shelterOfferEnabled(cityCode)) {
-        const path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
-        tiles.push(new TileModel({ title: t('shelter:title'), path, thumbnail: shelterIcon }))
-      }
-
-      return tiles
-    },
+      }),
     [cityCode, languageCode, t]
   )
 
