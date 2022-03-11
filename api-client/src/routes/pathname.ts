@@ -44,12 +44,12 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   }
   if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
-    // https://integreat.app/augsburg/de/offers/wohnraum/1234, https://integreat.app/augsburg/de/offers/wohnraum
+    // https://integreat.app/augsburg/de/offers/sprungbrett
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route])
   }
   if (routeInformation.route === SHELTER_ROUTE) {
     const { cityCode, languageCode, route, id } = routeInformation
-    // https://integreat.app/augsburg/de/offers/sprungbrett
+    // https://integreat.app/augsburg/de/offers/wohnraum/1234, https://integreat.app/augsburg/de/offers/wohnraum
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route, id])
   }
   if (
