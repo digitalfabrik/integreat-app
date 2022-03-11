@@ -130,7 +130,6 @@ export type ShelterCostsType = 'uebergang-miete' | 'kostenpflichtig' | 'kostenfr
 export type JsonShelterType = {
   id: number
   name: string
-  quarter: string | null
   city: string
   zipcode: string
   languages: ShelterLanguage[]
