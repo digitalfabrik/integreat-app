@@ -115,7 +115,9 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
               information={[
                 { text: t('rooms'), rightText: rooms?.toString() ?? t('notSpecified') },
                 { text: t('occupants'), rightText: occupants?.toString() ?? t('notSpecified') },
-                { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') }
+                ...(occupants !== 0
+                  ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') }]
+                  : [])
               ]}
             />
             <ShelterInformationSection
