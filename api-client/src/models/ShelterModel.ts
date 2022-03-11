@@ -10,7 +10,6 @@ import {
 class ShelterModel {
   _id: number
   _name: string
-  _quarter: string | null
   _city: string
   _zipcode: string
   _languages: ShelterLanguage[]
@@ -30,7 +29,6 @@ class ShelterModel {
   constructor(params: {
     id: number
     name: string
-    quarter: string | null
     city: string
     zipcode: string
     languages: ShelterLanguage[]
@@ -49,7 +47,6 @@ class ShelterModel {
   }) {
     this._id = params.id
     this._name = params.name
-    this._quarter = params.quarter
     this._city = params.city
     this._zipcode = params.zipcode
     this._languages = params.languages
@@ -73,10 +70,6 @@ class ShelterModel {
 
   get name(): string {
     return this._name
-  }
-
-  get quarter(): string | null {
-    return this._quarter
   }
 
   get city(): string {

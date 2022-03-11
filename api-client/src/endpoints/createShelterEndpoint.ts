@@ -22,7 +22,6 @@ export default (): Endpoint<Params, ShelterModel[]> =>
           new ShelterModel({
             id: it.id,
             name: it.name,
-            quarter: it.quarter,
             city: it.city,
             zipcode: it.zipcode,
             languages: it.languages,

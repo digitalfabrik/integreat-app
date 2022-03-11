@@ -16,7 +16,6 @@ import petIcon from '../assets/shelter/pet.svg'
 import phoneIcon from '../assets/shelter/phone.svg'
 import smokingIcon from '../assets/shelter/smoking.svg'
 import timerIcon from '../assets/shelter/timer.svg'
-import { uppercaseFirstLetter } from '../utils/stringUtils'
 import Caption from './Caption'
 import ShelterInformationSection from './ShelterInformationSection'
 import { StyledButton } from './TextButton'
@@ -71,8 +70,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
   const { zipcode, hostType, languages, email, phone, comments, free } = shelter
   const { t } = useTranslation('shelter')
 
-  const quarter = shelter.quarter && shelter.quarter !== 'andere' ? uppercaseFirstLetter(shelter.quarter) : null
-  const location = quarter ?? city
+  const location = city
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('shelterTitle', { beds: bedsText, location })
   const titleHint = `(#${id})`
@@ -128,7 +126,6 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
-                ...(quarter ? [{ text: t('quarter'), rightText: quarter }] : []),
                 { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') },
                 { text: t('languages'), rightText: languagesText }
               ]}
