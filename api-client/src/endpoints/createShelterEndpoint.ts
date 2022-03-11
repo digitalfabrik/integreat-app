@@ -3,18 +3,19 @@ import EndpointBuilder from '../EndpointBuilder'
 import ShelterModel from '../models/ShelterModel'
 import { JsonShelterType } from '../types'
 
-const SHELTER_URL = 'https://wohnraum.tuerantuer.org/wp-json/accommodations'
+const SHELTER_URL = 'wohnraum.tuerantuer.org/wp-json/accommodations'
 
 export const SHELTER_ENDPOINT_NAME = 'shelter'
-type Params = { type: 'detail'; id: string } | { type: 'list'; page: number }
+type Params = { type: 'detail'; id: string; cityCode: string } | { type: 'list'; page: number; cityCode: string }
 
 export default (): Endpoint<Params, ShelterModel[]> =>
   new EndpointBuilder<Params, ShelterModel[]>(SHELTER_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
+      const baseUrl = `https://${params.cityCode}.${SHELTER_URL}`
       if (params.type === 'list') {
-        return `${SHELTER_URL}/list?page=${params.page}`
+        return `${baseUrl}/list?page=${params.page}`
       }
-      return `${SHELTER_URL}/${params.id}`
+      return `${baseUrl}/${params.id}`
     })
     .withMapper((json: JsonShelterType[]): ShelterModel[] =>
       json.map(

@@ -38,9 +38,10 @@ const ShelterDetail = ({
     () =>
       createShelterEndpoint().request({
         type: 'detail',
-        id: shelterId
+        id: shelterId,
+        cityCode
       }),
-    [shelterId]
+    [shelterId, cityCode]
   )
   const { data: shelters, loading, error } = useLoadFromEndpoint(requestShelter)
 
