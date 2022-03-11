@@ -6074,11 +6074,11 @@
     "de": {
       "title": "Wohnraum",
       "shelterTitle": "{{beds}} in {{location}}",
-      "shelterInformation": "Verfügbarer Wohnraum",
-      "shelterButton": "Anschauen",
-      "additionalInformation": "Weitere Angaben zum Wohnraum",
+      "shelterInformation": "Angebotener Wohnraum",
+      "householdInformation": "Angaben zum gesamten Haushalt",
       "hostInformation": "Angaben zum Anbietenden",
       "contactInformation": "Kontaktdaten",
+      "shelterButton": "Anschauen",
       "bed": "1 Bett",
       "beds": "{{beds}} Betten",
       "ges_unterkunft": "Gesamte Unterkunft",
@@ -6101,7 +6101,7 @@
       "haustier-katze": "Katzen erlaubt",
       "haustier-hund": "Hunde erlaubt",
       "smoking": "Rauchen erlaubt",
-      "rooms": "Anzahl der Zimmer im Wohnobjekt:",
+      "rooms": "Anzahl der Zimmer:",
       "occupants": "Anzahl der Bewohner:",
       "notSpecified": "Keine Angabe",
       "name": "Name:",
@@ -6121,16 +6121,20 @@
       "paar": "Paar ohne Kinder",
       "wg": "Wohngemeinschaft",
       "comments": "Ergänzende Anmerkungen",
-      "noSheltersAvailable": "Keine Unterkünfte verfügbar"
+      "noSheltersAvailable": "Keine Unterkünfte verfügbar",
+      "shelterType": "Art des Wohnraums",
+      "startDate": "frühestens verfügbar",
+      "availableBeds": "verfügbare Betten",
+      "duration": "mögliche Aufenthaltsdauer"
     },
     "en": {
       "title": "Housing",
       "shelterTitle": "{{beds}} in {{location}}",
-      "shelterInformation": "Available housing",
-      "shelterButton": "View",
-      "additionalInformation": "Further information on the housing",
+      "shelterInformation": "Offered housing",
+      "householdInformation": "Information on the entire household",
       "hostInformation": "Details of the provider",
       "contactInformation": "Contact details",
+      "shelterButton": "View",
       "bed": "1 bed",
       "beds": "{{beds}} beds",
       "ges_unterkunft": "Entire accommodation",
@@ -6153,7 +6157,7 @@
       "haustier-katze": "Cats allowed",
       "haustier-hund": "Dogs allowed",
       "smoking": "Smoking allowed",
-      "rooms": "Number of rooms in the residential property:",
+      "rooms": "Number of rooms:",
       "occupants": "Number of occupants:",
       "notSpecified": "Not specified",
       "name": "Name:",
@@ -6173,7 +6177,11 @@
       "paar": "Family without children",
       "wg": "Flat-sharing community",
       "comments": "Complementary comments",
-      "noSheltersAvailable": "No accommodations available"
+      "noSheltersAvailable": "No accommodations available",
+      "shelterType": "Type of living",
+      "startDate": "Earliest available",
+      "availableBeds": "Available beds",
+      "duration": "Possible length of stay"
     },
     "pl": {
       "smoking": "Palenie dozwolone"
@@ -6184,11 +6192,11 @@
     "uk": {
       "title": "Житло",
       "shelterTitle": "{{beds}} y {{location}}",
-      "shelterInformation": "Доступне житло",
-      "shelterButton": "Перегляд",
-      "additionalInformation": "Більше інформації про житло",
+      "shelterInformation": "Пропонували житло",
+      "householdInformation": "Інформація про все домогосподарство",
       "hostInformation": "Деталі про господаря",
       "contactInformation": "Контактна інформація",
+      "shelterButton": "Перегляд",
       "bed": "1 Ліжко",
       "beds": "{{beds}}Ліжка",
       "ges_unterkunft": "Ціле помешкання",
@@ -6211,7 +6219,7 @@
       "haustier-katze": "можна з котиками",
       "haustier-hund": "можна з собаками",
       "smoking": "Палити дозволено",
-      "rooms": "Кількість кімнат у житловому будинку",
+      "rooms": "Кількість кімнат",
       "occupants": "Кільксть людей",
       "notSpecified": "Не вказано",
       "name": "Ім'я",
@@ -6231,7 +6239,11 @@
       "paar": "Сім'я без дітей",
       "wg": "Комунальна квартира",
       "comments": "Коментарі",
-      "noSheltersAvailable": "Житло немає"
+      "noSheltersAvailable": "Житло немає",
+      "shelterType": "вид квартири ",
+      "startDate": "найраніший доступний",
+      "availableBeds": "наявні ліжка",
+      "duration": "можлива тривалість перебування"
     }
   },
   "sprungbrett": {

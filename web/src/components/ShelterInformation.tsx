@@ -43,7 +43,7 @@ const Detail = styled.div`
   display: flex;
 `
 
-const TooltipContainer = styled.div`
+const IconContainer = styled.div`
   margin-right: 18px;
 `
 
@@ -53,11 +53,11 @@ type IconWithTooltipProps = {
 }
 
 const IconWithTooltip = ({ tooltip, icon }: IconWithTooltipProps): ReactElement => (
-  <TooltipContainer>
-    <Tooltip text={tooltip} flow='right'>
+  <IconContainer>
+    <Tooltip text={tooltip} flow='up'>
       <img alt={tooltip} src={icon} width='20px' height='20px' />
     </Tooltip>
-  </TooltipContainer>
+  </IconContainer>
 )
 
 type Props = {
@@ -94,10 +94,10 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
           titleHint={extended ? undefined : titleHint}
           label={free ? t('free') : undefined}
           information={[
-            { text: t(accommodationType), icon: houseIcon },
-            { text: bedsText, icon: bedIcon },
-            { text: startDateText, icon: calendarIcon },
-            { text: t(period), icon: timerIcon }
+            { text: t(accommodationType), icon: houseIcon, tooltip: t('shelterType') },
+            { text: bedsText, icon: bedIcon, tooltip: t('availableBeds') },
+            { text: startDateText, icon: calendarIcon, tooltip: t('startDate') },
+            { text: t(period), icon: timerIcon, tooltip: t('duration') }
           ]}>
           <Detail>
             {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={bathroomIcon} />}
@@ -111,33 +111,26 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
           <>
             <ShelterInformationSection
               extended={extended}
-              title={t('additionalInformation')}
-              separationLine
+              title={t('householdInformation')}
               information={[
                 { text: t('rooms'), rightText: rooms?.toString() ?? t('notSpecified') },
-                { text: t('occupants'), rightText: occupants?.toString() ?? t('notSpecified') }
+                { text: t('occupants'), rightText: occupants?.toString() ?? t('notSpecified') },
+                { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') }
               ]}
             />
             <ShelterInformationSection
               extended={extended}
               title={t('hostInformation')}
-              separationLine
               information={[
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
                 { text: t('street'), rightText: street },
-                { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') },
                 { text: t('languages'), rightText: languagesText }
               ]}
             />
             {comments && (
-              <ShelterInformationSection
-                title={t('comments')}
-                information={[{ text: comments }]}
-                extended={extended}
-                separationLine
-              />
+              <ShelterInformationSection title={t('comments')} information={[{ text: comments }]} extended={extended} />
             )}
             <ShelterInformationSection
               extended={extended}
