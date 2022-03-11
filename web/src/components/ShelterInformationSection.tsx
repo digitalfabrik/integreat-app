@@ -3,15 +3,16 @@ import styled from 'styled-components'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CleanLink from './CleanLink'
+import Tooltip from './Tooltip'
 
-const Container = styled.div<{ extended: boolean; separationLine: boolean; elevated: boolean }>`
-  ${props => (props.separationLine ? 'border-bottom: 1px solid #d4d4d4;' : '')}
+const Container = styled.div<{ extended: boolean; elevated: boolean }>`
   ${props => (props.elevated ? `background-color: ${props.theme.colors.backgroundColor};` : '')}
   ${props => (props.elevated ? `padding: 12px;` : '')}
   ${props => (props.elevated ? `margin: 16px;` : '')}
   ${props => (props.elevated ? `border-radius: 5px;` : '')}
   ${props => (props.elevated ? `box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);` : '')}
   ${props => (props.extended ? 'padding-bottom: 32px;' : '')}
+  ${props => (props.extended ? 'border-bottom: 1px solid #d4d4d4;' : '')}
 `
 
 const Row = styled.div`
@@ -66,6 +67,7 @@ const Label = styled.span`
 
 type InformationType = {
   icon?: string
+  tooltip?: string
   text: string
   rightText?: string
   link?: string
@@ -79,7 +81,6 @@ type Props = {
   children?: ReactElement
   extended: boolean
   elevated?: boolean
-  separationLine?: boolean
 }
 
 const ShelterInformationSection = ({
@@ -89,25 +90,37 @@ const ShelterInformationSection = ({
   information,
   children,
   extended,
-  elevated = false,
-  separationLine = false
+  elevated = false
 }: Props): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   return (
-    <Container separationLine={separationLine} extended={extended} elevated={elevated}>
+    <Container extended={extended} elevated={elevated}>
       <Row>
         <Title>{title}</Title>
         {titleHint && <TitleHint>{titleHint}</TitleHint>}
         {label && <Label>{label}</Label>}
       </Row>
       <RowDetail viewportSmall={viewportSmall}>
-        {information.map(({ text, icon, rightText, link }) => (
-          <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
-            {icon && <img alt='' src={icon} />}
-            <DetailText hasText={!!rightText}>{text}</DetailText>
-            {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
-          </Detail>
-        ))}
+        {information.map(({ text, icon, rightText, link, tooltip }) => {
+          const content = (
+            <>
+              {icon && <img alt={tooltip} src={icon} />}
+              <DetailText hasText={!!rightText}>{text}</DetailText>
+              {rightText && <RightTextContainer>{rightText}</RightTextContainer>}
+            </>
+          )
+          return (
+            <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
+              {tooltip ? (
+                <Tooltip text={tooltip} flow='up'>
+                  {content}
+                </Tooltip>
+              ) : (
+                content
+              )}
+            </Detail>
+          )
+        })}
         {children}
       </RowDetail>
     </Container>
