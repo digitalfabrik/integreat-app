@@ -6107,6 +6107,7 @@
       "name": "Name:",
       "zipcode": "Postleitzahl:",
       "city": "Ort:",
+      "street": "Straße:",
       "hostType": "Hausstand:",
       "languages": "Sprachkenntnisse:",
       "deutsch": "deutsch",
@@ -6158,6 +6159,7 @@
       "name": "Name:",
       "zipcode": "Zip code:",
       "city": "Location:",
+      "street": "Street:",
       "hostType": "Household:",
       "languages": "Language skills:",
       "deutsch": "German",
@@ -6172,12 +6174,6 @@
       "wg": "Flat-sharing community",
       "comments": "Complementary comments",
       "noSheltersAvailable": "No accommodations available"
-    },
-    "pl": {
-      "smoking": "Palenie dozwolone"
-    },
-    "ru": {
-      "smoking": "Курение разрешено"
     },
     "pl": {
       "smoking": "Palenie dozwolone"
@@ -6221,6 +6217,7 @@
       "name": "Ім'я",
       "zipcode": "Почтовий індекс",
       "city": "Місто",
+      "street": "вул",
       "hostType": "Господарь",
       "languages": "Знання мови",
       "deutsch": "Німецька",

@@ -126,6 +126,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
+                { text: t('street'), rightText: street },
                 { text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') },
                 { text: t('languages'), rightText: languagesText }
               ]}
