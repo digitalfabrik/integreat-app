@@ -24,7 +24,10 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
 
-  const loadShelters = useCallback((page: number) => createShelterEndpoint().request({ type: 'list', page }), [])
+  const loadShelters = useCallback(
+    (page: number) => createShelterEndpoint().request({ type: 'list', page, cityCode }),
+    [cityCode]
+  )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
