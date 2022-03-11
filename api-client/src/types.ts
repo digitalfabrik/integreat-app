@@ -112,7 +112,7 @@ export type JsonOfferType = {
   post: JsonOfferPostType | null | undefined
 }
 
-export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch'
+export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch' | 'kroatisch'
 export type ShelterAccommodationType = 'ges_unterkunft' | 'privatzimmer' | 'gemein_zimmer'
 export type ShelterInfo =
   | 'barrierefrei'
