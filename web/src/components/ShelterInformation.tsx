@@ -67,10 +67,10 @@ type Props = {
 
 const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement => {
   const { beds, city, id, accommodationType, period, startDate, info, rooms, occupants, name } = shelter
-  const { zipcode, hostType, languages, email, phone, comments, free } = shelter
+  const { zipcode, hostType, languages, email, phone, comments, free, street } = shelter
   const { t } = useTranslation('shelter')
 
-  const location = city
+  const location = `${city}, ${street}`
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('shelterTitle', { beds: bedsText, location })
   const titleHint = `(#${id})`

@@ -131,6 +131,7 @@ export type JsonShelterType = {
   id: number
   name: string
   city: string
+  street: string
   zipcode: string
   languages: ShelterLanguage[]
   beds: string
