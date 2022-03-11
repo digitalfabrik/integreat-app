@@ -6097,6 +6097,7 @@
       "haustier": "Haustiere erlaubt",
       "haustier-katze": "Katzen erlaubt",
       "haustier-hund": "Hunde erlaubt",
+      "smoking": "Rauchen erlaubt",
       "rooms": "Anzahl der Zimmer im Wohnobjekt:",
       "occupants": "Anzahl der Bewohner:",
       "notSpecified": "Keine Angabe",
@@ -6148,6 +6149,7 @@
       "haustier": "Pets allowed",
       "haustier-katze": "Cats allowed",
       "haustier-hund": "Dogs allowed",
+      "smoking": "Smoking allowed",
       "rooms": "Number of rooms in the residential property:",
       "occupants": "Number of occupants:",
       "notSpecified": "Not specified",
@@ -6169,6 +6171,12 @@
       "wg": "Flat-sharing community",
       "comments": "Complementary comments",
       "noSheltersAvailable": "No accommodations available"
+    },
+    "pl": {
+      "smoking": "Palenie dozwolone"
+    },
+    "ru": {
+      "smoking": "Курение разрешено"
     },
     "uk": {
       "title": "Житло",
@@ -6199,6 +6207,7 @@
       "haustier": "можна з тваринами",
       "haustier-katze": "можна з котиками",
       "haustier-hund": "можна з собаками",
+      "smoking": "Палити дозволено",
       "rooms": "Кількість кімнат у житловому будинку",
       "occupants": "Кільксть людей",
       "notSpecified": "Не вказано",
