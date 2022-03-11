@@ -34,6 +34,7 @@ const DetailButton = styled(StyledButton)`
   margin-left: 8px;
   margin-bottom: 0;
   padding: 8px 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
 const Detail = styled.div`

@@ -19,7 +19,7 @@ type CleanLinkProps = {
 }
 
 const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className, newTab }: CleanLinkProps) => {
-  const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+  const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
   if (isExternalUrl(to)) {
     return (
       <StyledCleanLink
