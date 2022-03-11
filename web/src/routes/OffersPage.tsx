@@ -44,6 +44,8 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
           path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
+        } else if (offer.alias === SHELTER_ROUTE) {
+          path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
         }
 
         return new TileModel({
