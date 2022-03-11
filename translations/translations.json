@@ -6176,6 +6176,12 @@
     "ru": {
       "smoking": "Курение разрешено"
     },
+    "pl": {
+      "smoking": "Palenie dozwolone"
+    },
+    "ru": {
+      "smoking": "Курение разрешено"
+    },
     "uk": {
       "title": "Житло",
       "shelterTitle": "{{beds}} y {{location}}",

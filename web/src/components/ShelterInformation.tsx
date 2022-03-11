@@ -14,6 +14,7 @@ import houseIcon from '../assets/shelter/house.svg'
 import lgbtqiIcon from '../assets/shelter/lgbtqi.svg'
 import petIcon from '../assets/shelter/pet.svg'
 import phoneIcon from '../assets/shelter/phone.svg'
+import smokingIcon from '../assets/shelter/smoking.svg'
 import timerIcon from '../assets/shelter/timer.svg'
 import { uppercaseFirstLetter } from '../utils/stringUtils'
 import Caption from './Caption'
@@ -105,6 +106,7 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
             {info.includes('lgbtiq') && <IconWithTooltip tooltip={t('lgbtiq')} icon={lgbtqiIcon} />}
             {info.includes('barrierefrei') && <IconWithTooltip tooltip={t('accessible')} icon={accessibleIcon} />}
             {petsAllowed && <IconWithTooltip tooltip={petsTooltip} icon={petIcon} />}
+            {info.includes('rauchen') && <IconWithTooltip tooltip={t('smoking')} icon={smokingIcon} />}
           </Detail>
         </ShelterInformationSection>
         {extended && (

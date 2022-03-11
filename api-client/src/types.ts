@@ -123,6 +123,7 @@ export type ShelterInfo =
   | 'haustier-katze'
   | 'haustier-hund'
   | 'haustier'
+  | 'rauchen'
 export type ShelterPeriod = '7t' | '14t' | '1m' | '6m' | '12m' | '12m_plus'
 export type ShelterHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
 export type ShelterCostsType = 'uebergang-miete' | 'kostenpflichtig' | 'kostenfrei'
