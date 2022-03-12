@@ -10,8 +10,8 @@ import {
 class ShelterModel {
   _id: number
   _name: string
-  _quarter: string | null
   _city: string
+  _street: string
   _zipcode: string
   _languages: ShelterLanguage[]
   _beds: number
@@ -30,8 +30,8 @@ class ShelterModel {
   constructor(params: {
     id: number
     name: string
-    quarter: string | null
     city: string
+    street: string
     zipcode: string
     languages: ShelterLanguage[]
     beds: string
@@ -48,23 +48,23 @@ class ShelterModel {
     comments: string | null
   }) {
     this._id = params.id
-    this._name = params.name
-    this._quarter = params.quarter
-    this._city = params.city
-    this._zipcode = params.zipcode
+    this._name = params.name.trim()
+    this._city = params.city.trim()
+    this._street = params.street.trim()
+    this._zipcode = params.zipcode.trim()
     this._languages = params.languages
     this._beds = parseInt(params.beds, 10)
     this._accommodationType = params.accommodationType
     this._info = params.info
-    this._email = params.email
-    this._phone = params.phone
+    this._email = params.email.trim()
+    this._phone = params.phone?.trim() ?? null
     this._rooms = params.rooms ? parseInt(params.rooms, 10) : null
     this._occupants = params.occupants ? parseInt(params.occupants, 10) : null
     this._startDate = params.startDate
     this._period = params.period
     this._hostType = params.hostType
     this._free = params.costs !== 'kostenpflichtig'
-    this._comments = params.comments
+    this._comments = params.comments?.trim() ?? null
   }
 
   get id(): number {
@@ -75,12 +75,12 @@ class ShelterModel {
     return this._name
   }
 
-  get quarter(): string | null {
-    return this._quarter
-  }
-
   get city(): string {
     return this._city
+  }
+
+  get street(): string {
+    return this._street
   }
 
   get zipcode(): string {

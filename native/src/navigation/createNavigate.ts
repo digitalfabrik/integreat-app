@@ -19,6 +19,7 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
+import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import navigateToCategory from './navigateToCategory'
@@ -36,15 +37,17 @@ import { urlFromRouteInformation } from './url'
 const createNavigate =
   <T extends RoutesType>(dispatch: Dispatch<StoreActionType>, navigation: NavigationPropType<T>) =>
   (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
-    if (routeInformation && routeInformation.route !== SHELTER_ROUTE) {
+    if (routeInformation) {
       const url = urlFromRouteInformation(routeInformation)
-      sendTrackingSignal({
-        signal: {
-          name: OPEN_PAGE_SIGNAL_NAME,
-          pageType: routeInformation.route,
-          url
-        }
-      })
+      if (routeInformation.route !== SHELTER_ROUTE) {
+        sendTrackingSignal({
+          signal: {
+            name: OPEN_PAGE_SIGNAL_NAME,
+            pageType: routeInformation.route,
+            url
+          }
+        })
+      }
 
       if (routeInformation.route === LANDING_ROUTE) {
         navigation.navigate(LANDING_ROUTE)
@@ -131,6 +134,11 @@ const createNavigate =
 
         case SEARCH_ROUTE:
           navigateToSearch(params)
+          return
+
+        // Not implemented in native apps, should be opened in InAppBrowser
+        case SHELTER_ROUTE:
+          openExternalUrl(url)
           return
       }
     }

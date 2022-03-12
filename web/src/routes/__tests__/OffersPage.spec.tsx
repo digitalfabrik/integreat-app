@@ -88,7 +88,7 @@ describe('OffersPage', () => {
       refresh: () => undefined
     })
     offers.forEach(offer => {
-      expect(getByText(offer.title)).toBeTruthy()
+      expect(getByText(`offers:${offer.title}`)).toBeTruthy()
     })
   })
 })

@@ -12,7 +12,9 @@ type Props = {
 }
 
 const ShelterListItem = ({ shelter, cityCode, languageCode }: Props): ReactElement => (
-  <CleanLink to={`${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })}/${shelter.id}`}>
+  <CleanLink
+    to={`${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })}/${shelter.id}`}
+    newTab>
     <ShelterInformation shelter={shelter} />
   </CleanLink>
 )
