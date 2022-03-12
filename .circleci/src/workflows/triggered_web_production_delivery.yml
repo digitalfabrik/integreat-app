@@ -1,0 +1,60 @@
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - equal: [web_production_delivery, << pipeline.parameters.workflow_type >>]
+jobs:
+  - bump_version:
+      context:
+        - mattermost
+        - deliverino
+        - jira
+      prepare_delivery: true
+
+  - check:
+      context:
+        - mattermost
+
+  - e2e_web:
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_integreat_web
+      build_config_name: integreat
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_aschaffenburg_web
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - deliver_web:
+      context:
+        - mattermost
+        - sentry
+      production_delivery: true
+      requires:
+        - check
+        - e2e_web
+        - build_integreat_web
+        - build_malte_web
+        - build_aschaffenburg_web
+  - notify_web:
+      context:
+        - mattermost
+        - deliverino
+      requires:
+        - bump_version
+        - deliver_web

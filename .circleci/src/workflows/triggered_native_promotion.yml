@@ -1,0 +1,42 @@
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - equal: [native_promotion, << pipeline.parameters.workflow_type >>]
+jobs:
+  - promote_android:
+      name: promote_integreat_android
+      build_config_name: integreat
+      context:
+        - mattermost
+        - tuerantuer-google-play
+  - promote_android:
+      name: promote_malte_android
+      build_config_name: malte
+      context:
+        - mattermost
+        - tuerantuer-google-play
+  - promote_android:
+      name: promote_aschaffenburg_android
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+        - tuerantuer-google-play
+
+  - promote_ios:
+      name: promote_integreat_ios
+      build_config_name: integreat
+      context:
+        - mattermost
+        - tuerantuer-apple
+  - promote_ios:
+      name: promote_malte_ios
+      build_config_name: malte
+      context:
+        - mattermost
+        - tuerantuer-apple
+  - promote_ios:
+      name: promote_aschaffenburg_ios
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+        - tuerantuer-apple
