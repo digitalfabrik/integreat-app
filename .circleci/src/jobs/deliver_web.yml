@@ -4,7 +4,7 @@ parameters:
     description: Whether to deliver to production or to webnext.
     type: boolean
 docker:
-  - image: cimg/node:15.14.0
+  - image: cimg/node:14.19.0
 resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
