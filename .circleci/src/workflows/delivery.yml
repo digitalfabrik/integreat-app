@@ -1,7 +1,7 @@
 when:
   and:
     - << pipeline.parameters.api_triggered >>
-    - equal: [native_development_delivery, << pipeline.parameters.workflow_type >>]
+    - equal: [<< pipeline.parameters.workflow_type >>, delivery]
 jobs:
   - bump_version:
       context:
@@ -9,9 +9,55 @@ jobs:
         - deliverino
         - jira
       prepare_delivery: true
+
   - check:
       context:
         - mattermost
+
+  - e2e_web:
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_integreat_web
+      build_config_name: integreat
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_malte_web
+      build_config_name: malte
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - build_web:
+      name: build_aschaffenburg_web
+      build_config_name: aschaffenburg
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - deliver_web:
+      context:
+        - mattermost
+        - sentry
+      production_delivery: true
+      requires:
+        - check
+        - e2e_web
+        - build_integreat_web
+        - build_malte_web
+        - build_aschaffenburg_web
+  - notify_web:
+      context:
+        - mattermost
+        - deliverino
+      requires:
+        - bump_version
+        - deliver_web
 
   - build_android:
       name: build_e2e_android
@@ -164,7 +210,6 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-        - fastlane-match
       production_delivery: false
       requires:
         - check
@@ -203,3 +248,12 @@ jobs:
         - deliver_integreat_ios
         - deliver_malte_ios
         - deliver_aschaffenburg_ios
+
+  - move_release_notes:
+      context:
+        - mattermost
+        - deliverino
+      requires:
+        - notify_web
+        - notify_android
+        - notify_ios
