@@ -1,7 +1,7 @@
 when:
   and:
     - << pipeline.parameters.api_triggered >>
-    - not: << pipeline.parameters.production_delivery >>
+    - equal: [native_development_delivery, << pipeline.parameters.workflow_type >>]
 jobs:
   - bump_version:
       context:

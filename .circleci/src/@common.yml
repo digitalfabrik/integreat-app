@@ -5,11 +5,7 @@ parameters:
     type: boolean
     description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
     default: false
-  production_delivery:
-    type: boolean
-    description: Whether to deliver to production or not.
-    default: false
-  project:
+  workflow_type:
     type: enum
-    enum: ['web', 'native']
-    default: 'web'
+    enum: ['native_development_delivery', 'native_production_delivery', 'native_promotion', 'web_production_delivery']
+    default: 'native_development_delivery'

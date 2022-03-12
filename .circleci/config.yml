@@ -921,15 +921,13 @@ parameters:
         default: false
         description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
         type: boolean
-    production_delivery:
-        default: false
-        description: Whether to deliver to production or not.
-        type: boolean
-    project:
-        default: web
+    workflow_type:
+        default: native_development_delivery
         enum:
-            - web
-            - native
+            - native_development_delivery
+            - native_production_delivery
+            - native_promotion
+            - web_production_delivery
         type: enum
 version: 2.1
 workflows:
@@ -1548,8 +1546,10 @@ workflows:
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
-                - not: << pipeline.parameters.production_delivery >>
-    triggered_production_delivery:
+                - equal:
+                    - native_development_delivery
+                    - << pipeline.parameters.workflow_type >>
+    triggered_native_production_delivery:
         jobs:
             - bump_version:
                 context:
@@ -1560,50 +1560,6 @@ workflows:
             - check:
                 context:
                     - mattermost
-            - e2e_web:
-                context:
-                    - mattermost
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - mattermost
-                    - sentry
-                production_delivery: true
-                requires:
-                    - check
-                    - e2e_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-            - notify_web:
-                context:
-                    - mattermost
-                    - deliverino
-                requires:
-                    - bump_version
-                    - deliver_web
             - build_android:
                 build_config_name: integreat-e2e
                 context:
@@ -1784,17 +1740,116 @@ workflows:
                     - deliver_integreat_ios
                     - deliver_malte_ios
                     - deliver_aschaffenburg_ios
-            - move_release_notes:
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - native_production_delivery
+                    - << pipeline.parameters.workflow_type >>
+    triggered_native_promotion:
+        jobs:
+            - promote_android:
+                build_config_name: integreat
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                name: promote_integreat_android
+            - promote_android:
+                build_config_name: malte
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                name: promote_malte_android
+            - promote_android:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                name: promote_aschaffenburg_android
+            - promote_ios:
+                build_config_name: integreat
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                name: promote_integreat_ios
+            - promote_ios:
+                build_config_name: malte
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                name: promote_malte_ios
+            - promote_ios:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                name: promote_aschaffenburg_ios
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - native_promotion
+                    - << pipeline.parameters.workflow_type >>
+    triggered_web_production_delivery:
+        jobs:
+            - bump_version:
+                context:
+                    - mattermost
+                    - deliverino
+                    - jira
+                prepare_delivery: true
+            - check:
+                context:
+                    - mattermost
+            - e2e_web:
+                context:
+                    - mattermost
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: integreat
+                context:
+                    - mattermost
+                name: build_integreat_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: malte
+                context:
+                    - mattermost
+                name: build_malte_web
+                requires:
+                    - bump_version
+            - build_web:
+                build_config_name: aschaffenburg
+                context:
+                    - mattermost
+                name: build_aschaffenburg_web
+                requires:
+                    - bump_version
+            - deliver_web:
+                context:
+                    - mattermost
+                    - sentry
+                production_delivery: true
+                requires:
+                    - check
+                    - e2e_web
+                    - build_integreat_web
+                    - build_malte_web
+                    - build_aschaffenburg_web
+            - notify_web:
                 context:
                     - mattermost
                     - deliverino
                 requires:
-                    - notify_web
-                    - notify_android
-                    - notify_ios
+                    - bump_version
+                    - deliver_web
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
-                - << pipeline.parameters.production_delivery >>
+                - equal:
+                    - web_production_delivery
+                    - << pipeline.parameters.workflow_type >>
     version: 2
 
