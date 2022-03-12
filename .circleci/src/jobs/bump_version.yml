@@ -5,7 +5,7 @@ parameters:
     type: boolean
     default: false
 docker:
-  - image: circleci/node:14.18.0
+  - image: cimg/node:14.18.0
 resource_class: small
 steps:
   - skip_job

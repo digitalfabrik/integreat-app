@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 docker:
-  - image: circleci/android:api-29-node
+  - image: cimg/android:api-29-node
 resource_class: medium+
 environment:
   TOTAL_CPUS: 3 # For resource_class medium+, used in metro.config.ci.js. For memory estimations see IGAPP-557
