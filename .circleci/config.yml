@@ -37,7 +37,7 @@ commands:
                 default: integreat-app
                 type: string
             failure_mentions:
-                default: '@max.ammann @stefanie.metzger @sarah.sporck @steffen.kleinle'
+                default: '@max.ammann @stefanie.metzger @sarah.sporck @steffen.kleinle @andreas.fischer'
                 type: string
             only_for_branch:
                 default: main
@@ -922,12 +922,13 @@ parameters:
         description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
         type: boolean
     workflow_type:
-        default: native_development_delivery
+        default: none
         enum:
             - native_development_delivery
             - native_production_delivery
             - native_promotion
             - web_production_delivery
+            - none
         type: enum
 version: 2.1
 workflows:

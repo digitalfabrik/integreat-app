@@ -7,5 +7,5 @@ parameters:
     default: false
   workflow_type:
     type: enum
-    enum: ['native_development_delivery', 'native_production_delivery', 'native_promotion', 'web_production_delivery']
-    default: 'native_development_delivery'
+    enum: [native_development_delivery, native_production_delivery, native_promotion, web_production_delivery, none]
+    default: none
