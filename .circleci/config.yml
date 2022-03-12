@@ -928,6 +928,7 @@ parameters:
             - native_production_delivery
             - native_promotion
             - web_production_delivery
+            - delivery
             - none
         type: enum
 version: 2.1
@@ -1057,7 +1058,7 @@ workflows:
                     - main
                     - << pipeline.git.branch >>
                 - not: << pipeline.parameters.api_triggered >>
-    scheduled_delivery:
+    delivery:
         jobs:
             - bump_version:
                 context:
@@ -1300,59 +1301,13 @@ workflows:
                     - notify_web
                     - notify_android
                     - notify_ios
-        triggers:
-            - schedule:
-                cron: 0 4 * * 1
-                filters:
-                    branches:
-                        only:
-                            - main
-    scheduled_native_promotion:
-        jobs:
-            - promote_android:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                name: promote_integreat_android
-            - promote_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                name: promote_malte_android
-            - promote_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                name: promote_aschaffenburg_android
-            - promote_ios:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                name: promote_integreat_ios
-            - promote_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                name: promote_malte_ios
-            - promote_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                name: promote_aschaffenburg_ios
-        triggers:
-            - schedule:
-                cron: 0 2 * * 1
-                filters:
-                    branches:
-                        only:
-                            - main
-    triggered_native_development_delivery:
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - delivery
+    native_development_delivery:
         jobs:
             - bump_version:
                 context:
@@ -1548,9 +1503,9 @@ workflows:
             and:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
+                    - << pipeline.parameters.workflow_type >>
                     - native_development_delivery
-                    - << pipeline.parameters.workflow_type >>
-    triggered_native_production_delivery:
+    native_production_delivery:
         jobs:
             - bump_version:
                 context:
@@ -1745,9 +1700,9 @@ workflows:
             and:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
-                    - native_production_delivery
                     - << pipeline.parameters.workflow_type >>
-    triggered_native_promotion:
+                    - native_production_delivery
+    native_promotion:
         jobs:
             - promote_android:
                 build_config_name: integreat
@@ -1789,9 +1744,10 @@ workflows:
             and:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
-                    - native_promotion
                     - << pipeline.parameters.workflow_type >>
-    triggered_web_production_delivery:
+                    - native_promotion
+    version: 2
+    web_production_delivery:
         jobs:
             - bump_version:
                 context:
@@ -1850,7 +1806,6 @@ workflows:
             and:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
-                    - web_production_delivery
                     - << pipeline.parameters.workflow_type >>
-    version: 2
+                    - web_production_delivery
 
