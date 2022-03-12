@@ -273,7 +273,7 @@ commands:
 jobs:
     build_android:
         docker:
-            - image: cimg/android:api-29-node
+            - image: cimg/android:2022.03.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
             TOTAL_CPUS: 3
@@ -419,7 +419,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         environment:
             TOTAL_CPUS: 2
         parameters:
@@ -463,7 +463,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         parameters:
             prepare_delivery:
                 default: false
@@ -496,7 +496,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:14.17.5
+            - image: cimg/node:15.14.0
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -530,7 +530,7 @@ jobs:
             - notify
     deliver_android:
         docker:
-            - image: cimg/android:api-29-node
+            - image: cimg/android:2022.03.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
@@ -629,7 +629,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         parameters:
             production_delivery:
                 description: Whether to deliver to production or to webnext.
@@ -689,7 +689,7 @@ jobs:
             - notify
     e2e_android:
         docker:
-            - image: cimg/android:api-29-node
+            - image: cimg/android:2022.03.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -708,7 +708,7 @@ jobs:
             - notify
     e2e_ios:
         docker:
-            - image: cimg/android:api-29-node
+            - image: cimg/android:2022.03.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         resource_class: small
@@ -727,7 +727,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: cimg/node:14.18.0-browsers
+            - image: cimg/node:15.14.0-browsers
             - image: selenium/standalone-chrome
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -746,7 +746,7 @@ jobs:
             - notify
     move_release_notes:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         resource_class: small
         steps:
             - skip_job
@@ -761,7 +761,7 @@ jobs:
             - notify
     notify_android:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -789,7 +789,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
     notify_ios:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         parameters:
             production_delivery:
                 description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
@@ -817,7 +817,7 @@ jobs:
                 success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
     notify_web:
         docker:
-            - image: cimg/node:14.18.0
+            - image: cimg/node:15.14.0
         resource_class: small
         steps:
             - skip_job
@@ -891,7 +891,7 @@ jobs:
             - notify
     upload_browserstack:
         docker:
-            - image: cimg/ruby:3.0.3
+            - image: cimg/ruby:3.1.1
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
