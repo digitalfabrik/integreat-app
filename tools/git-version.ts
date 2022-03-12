@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import { program } from 'commander'
 
-import { VERSION_FILE, PLATFORMS, tagId } from './constants'
+import { VERSION_FILE, PLATFORMS, tagId, MAIN_BRANCH } from './constants'
 import authenticate from './github-authentication'
 
 program
@@ -57,8 +57,8 @@ const commitAndTag = async (
     branch
   }: { deliverinoPrivateKey: string; owner: string; repo: string; branch: string }
 ) => {
-  if (branch !== 'main') {
-    throw new Error('Version bumps are only allowed on the main branch!')
+  if (branch !== MAIN_BRANCH) {
+    throw new Error(`Version bumps are only allowed on the ${MAIN_BRANCH} branch!`)
   }
 
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
