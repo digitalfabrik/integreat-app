@@ -467,7 +467,7 @@ jobs:
         parameters:
             prepare_delivery:
                 default: false
-                description: If we are preparing for a delivery. If true, the version bump is committed and a JIRA release is created.
+                description: Whether to prepare for a delivery. If true, the version bump is committed and a JIRA release is created.
                 type: boolean
         resource_class: small
         steps:
@@ -1111,7 +1111,6 @@ workflows:
                     - mattermost
                     - deliverino
                 requires:
-                    - bump_version
                     - deliver_web
             - build_android:
                 build_config_name: integreat-e2e
@@ -1800,7 +1799,6 @@ workflows:
                     - mattermost
                     - deliverino
                 requires:
-                    - bump_version
                     - deliver_web
         when:
             and:
