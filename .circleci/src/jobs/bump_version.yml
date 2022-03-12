@@ -1,7 +1,7 @@
 # First step of each workflow. Reads and bumps the current version code and name. For deliveries the bump is committed and a JIRA release is created.
 parameters:
   prepare_delivery:
-    description: If we are preparing for a delivery. If true, the version bump is committed and a JIRA release is created.
+    description: Whether to prepare for a delivery. If true, the version bump is committed and a JIRA release is created.
     type: boolean
     default: false
 docker:

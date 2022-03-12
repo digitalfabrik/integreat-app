@@ -56,7 +56,6 @@ jobs:
         - mattermost
         - deliverino
       requires:
-        - bump_version
         - deliver_web
 
   - build_android:
