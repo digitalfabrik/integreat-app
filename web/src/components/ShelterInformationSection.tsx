@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import CleanLink from './CleanLink'
 import Tooltip from './Tooltip'
 
 const Container = styled.div<{ extended: boolean; elevated: boolean }>`
@@ -38,10 +37,10 @@ const TitleHint = styled.span`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const Detail = styled.div<{ extended: boolean; to?: string }>`
+const Detail = styled.div<{ extended: boolean; elevated: boolean }>`
   padding: 5px 10px;
   display: flex;
-  ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
+  ${props => (props.elevated ? 'cursor: pointer;' : '')}
 `
 
 const DetailText = styled.span<{ hasText: boolean }>`
@@ -63,6 +62,10 @@ const Label = styled.span`
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
+`
+
+const StyledTooltip = styled(Tooltip)`
+  display: flex;
 `
 
 type InformationType = {
@@ -101,7 +104,7 @@ const ShelterInformationSection = ({
         {label && <Label>{label}</Label>}
       </Row>
       <RowDetail viewportSmall={viewportSmall}>
-        {information.map(({ text, icon, rightText, link, tooltip }) => {
+        {information.map(({ text, icon, rightText, tooltip }) => {
           const content = (
             <>
               {icon && <img alt={tooltip} src={icon} />}
@@ -110,11 +113,11 @@ const ShelterInformationSection = ({
             </>
           )
           return (
-            <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
+            <Detail key={text} extended={extended} elevated={elevated}>
               {tooltip ? (
-                <Tooltip text={tooltip} flow='up'>
+                <StyledTooltip text={tooltip} flow='up'>
                   {content}
-                </Tooltip>
+                </StyledTooltip>
               ) : (
                 content
               )}
