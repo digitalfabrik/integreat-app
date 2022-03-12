@@ -1,6 +1,6 @@
 # Last step of a production delivery. Move all unreleased release notes to a new directory.
 docker:
-  - image: cimg/node:14.18.0
+  - image: cimg/node:15.14.0
 resource_class: small
 steps:
   - skip_job

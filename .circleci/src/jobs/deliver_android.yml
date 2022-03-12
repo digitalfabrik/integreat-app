@@ -8,7 +8,7 @@ parameters:
     description: Whether to deliver the build to production.
     type: boolean
 docker:
-  - image: cimg/android:api-29-node
+  - image: cimg/android:2022.03.1-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
