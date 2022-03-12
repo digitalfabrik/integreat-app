@@ -11,7 +11,7 @@ jobs:
         - mattermost
         - deliverino
         - jira
-      delivery: production
+      prepare_delivery: true
 
   - check:
       context:

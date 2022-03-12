@@ -465,14 +465,10 @@ jobs:
         docker:
             - image: circleci/node:14.18.0
         parameters:
-            delivery:
-                default: none
-                description: Which type of delivery is made. If none, the bumped version is not committed.
-                enum:
-                    - none
-                    - development
-                    - production
-                type: enum
+            prepare_delivery:
+                default: false
+                description: If we are preparing for a delivery. If true, the version bump is committed and a JIRA release is created.
+                type: boolean
         resource_class: small
         steps:
             - skip_job
@@ -486,22 +482,13 @@ jobs:
                 command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
                 working_directory: tools
-            - unless:
-                condition:
-                    equal:
-                        - none
-                        - << parameters.delivery >>
+            - when:
+                condition: << parameters.prepare_delivery >>
                 steps:
                     - run:
                         command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
                         working_directory: tools
-            - when:
-                condition:
-                    equal:
-                        - production
-                        - << parameters.delivery >>
-                steps:
                     - run:
                         command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}
                         name: Create jira release
@@ -949,7 +936,7 @@ workflows:
     commit:
         jobs:
             - bump_version:
-                delivery: none
+                prepare_delivery: false
             - check
             - build_web:
                 build_config_name: integreat-test-cms
@@ -1000,7 +987,7 @@ workflows:
             - bump_version:
                 context:
                     - mattermost
-                delivery: none
+                prepare_delivery: false
             - build_web:
                 build_config_name: integreat-test-cms
                 context:
@@ -1078,7 +1065,7 @@ workflows:
                     - mattermost
                     - deliverino
                     - jira
-                delivery: production
+                prepare_delivery: true
             - check:
                 context:
                     - mattermost
@@ -1373,7 +1360,7 @@ workflows:
                     - mattermost
                     - deliverino
                     - jira
-                delivery: development
+                prepare_delivery: true
             - check:
                 context:
                     - mattermost
@@ -1569,7 +1556,7 @@ workflows:
                     - mattermost
                     - deliverino
                     - jira
-                delivery: production
+                prepare_delivery: true
             - check:
                 context:
                     - mattermost
