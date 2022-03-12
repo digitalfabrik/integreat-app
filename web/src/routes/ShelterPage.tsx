@@ -13,18 +13,18 @@ import ShelterDetail from '../components/ShelterDetail'
 import ShelterListItem from '../components/ShelterListItem'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const SHELTER_ENABLED_CITIES = ['augsburg', 'testumgebung']
 const DEFAULT_PAGE = 1
 const ITEMS_PER_PAGE = 10
-
-export const shelterOfferEnabled = (cityCode: string): boolean => SHELTER_ENABLED_CITIES.includes(cityCode)
 
 const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }: CityRouteProps): ReactElement => {
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
 
-  const loadShelters = useCallback((page: number) => createShelterEndpoint().request({ type: 'list', page }), [])
+  const loadShelters = useCallback(
+    (page: number) => createShelterEndpoint().request({ type: 'list', page, cityCode }),
+    [cityCode]
+  )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
     path: pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode: code }),
@@ -66,7 +66,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('title')} />
       <InfiniteScrollList
-        noItemsMessage='Keine Unterkünfte verfügbar'
+        noItemsMessage={t('noSheltersAvailable')}
         renderItem={renderListItem}
         loadPage={loadShelters}
         defaultPage={DEFAULT_PAGE}

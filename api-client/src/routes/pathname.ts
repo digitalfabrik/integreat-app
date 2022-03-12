@@ -42,10 +42,15 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/jpal
     return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
   }
-  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE || routeInformation.route === SHELTER_ROUTE) {
+  if (routeInformation.route === SPRUNGBRETT_OFFER_ROUTE) {
     const { cityCode, languageCode, route } = routeInformation
     // https://integreat.app/augsburg/de/offers/sprungbrett
     return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route])
+  }
+  if (routeInformation.route === SHELTER_ROUTE) {
+    const { cityCode, languageCode, route, id } = routeInformation
+    // https://integreat.app/augsburg/de/offers/wohnraum/1234, https://integreat.app/augsburg/de/offers/wohnraum
+    return constructPathname([cityCode, languageCode, OFFERS_ROUTE, route, id])
   }
   if (
     routeInformation.route === DASHBOARD_ROUTE ||

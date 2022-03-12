@@ -12,6 +12,7 @@ import {
   pathnameFromRouteInformation,
   POIS_ROUTE,
   SEARCH_ROUTE,
+  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER_ROUTE
 } from 'api-client'
 
@@ -129,7 +130,7 @@ const LocationHeader = (props: PropsType): ReactElement => {
         <HeaderNavigationItem
           key='offers'
           href={offersPath}
-          active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE}
+          active={route === OFFERS_ROUTE || route === SPRUNGBRETT_OFFER_ROUTE || route === SHELTER_ROUTE}
           text={t('offers')}
           icon={offersIcon}
         />

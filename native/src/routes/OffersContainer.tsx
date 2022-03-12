@@ -54,12 +54,6 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
   const navigateToOffer = useCallback(
     (tile: TileModel) => {
       const { title, path, isExternalUrl, postData } = tile
-      const offer = offers && offers.find(offer => offer.title === title)
-
-      if (!offer) {
-        return
-      }
-
       if (isExternalUrl && postData) {
         // HTTP POST is neither supported by the InAppBrowser nor by Linking, therefore we have to open it in a webview
         navigation.push(EXTERNAL_OFFER_ROUTE, {
@@ -69,7 +63,7 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
         })
       } else if (isExternalUrl) {
         openExternalUrl(path).catch((error: Error) => showSnackbar(error.message))
-      } else if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+      } else if (offers?.find(offer => offer.title === title)?.alias === SPRUNGBRETT_OFFER_ROUTE) {
         const params = {
           cityCode,
           languageCode
@@ -116,7 +110,8 @@ const OffersContainer = ({ navigation, route }: Props): ReactElement => {
           navigateToOffer={navigateToOffer}
           t={t}
           navigateToFeedback={navigateToFeedback}
-          language={languageCode}
+          languageCode={languageCode}
+          cityCode={cityCode}
         />
       )}
     </LayoutedScrollView>

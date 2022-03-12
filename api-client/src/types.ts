@@ -112,25 +112,24 @@ export type JsonOfferType = {
   post: JsonOfferPostType | null | undefined
 }
 
-export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch'
+export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch' | 'kroatisch'
 export type ShelterAccommodationType = 'ges_unterkunft' | 'privatzimmer' | 'gemein_zimmer'
 export type ShelterInfo =
   | 'barrierefrei'
-  | 'anliegerwohnung'
   | 'lgbtiq'
   | 'bad'
-  | 'apartment'
   | 'haustier-katze'
   | 'haustier-hund'
   | 'haustier'
-export type ShelterPeriod = '7t' | '14t' | '1m' | '6m' | '12m' | '12m_plus'
+  | 'rauchen'
+export type ShelterPeriod = '7t' | '14t' | '1m' | '3m' | '6m' | '12m' | '12m_plus'
 export type ShelterHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
 export type ShelterCostsType = 'uebergang-miete' | 'kostenpflichtig' | 'kostenfrei'
 export type JsonShelterType = {
   id: number
   name: string
-  quarter: string | null
   city: string
+  street: string
   zipcode: string
   languages: ShelterLanguage[]
   beds: string
