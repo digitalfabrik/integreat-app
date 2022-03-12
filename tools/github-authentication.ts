@@ -13,7 +13,7 @@ const authenticate = async ({
   const appId = 59249 // https://github.com/apps/deliverino
   const privateKey = Buffer.from(deliverinoPrivateKey, 'base64').toString('ascii')
 
-  const octokit = new Octokit({ authStrategy: createAppAuth, auth: { id: appId, privateKey } })
+  const octokit = new Octokit({ authStrategy: createAppAuth, auth: { appId, privateKey } })
   const {
     data: { id: installationId }
   } = await octokit.apps.getRepoInstallation({ owner, repo })
