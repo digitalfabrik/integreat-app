@@ -1,5 +1,5 @@
 docker:
-  - image: circleci/android:api-29-node
+  - image: cimg/android:api-29-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:
