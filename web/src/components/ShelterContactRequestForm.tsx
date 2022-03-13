@@ -8,7 +8,7 @@ import ShelterInformationSection from './ShelterInformationSection'
 import { StyledButton } from './TextButton'
 import TextInput from './TextInput'
 
-const Container = styled.div`
+const Container = styled.form`
   padding: 0 12px;
   margin-top: 10px;
   flex-direction: column;
@@ -94,6 +94,7 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactEle
               id='name'
               type='text'
               value={name}
+              role='presentation'
               onChange={event => setName(event.target.value)}
               autoComplete='off'
             />
