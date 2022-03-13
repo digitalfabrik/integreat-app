@@ -38,6 +38,13 @@ const ErrorText = styled.div`
   padding-top: 12px;
 `
 
+const HonigTopf = styled(TextInput)`
+  position: absolute;
+  height: 0;
+  width: 0;
+  z-index: -1;
+`
+
 type Status = ShelterContactStatus | 'idle' | 'sending' | 'error'
 
 type PropsType = {
@@ -49,9 +56,14 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactEle
   const [email, setEmail] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
   const [status, setStatus] = useState<Status>('idle')
+  const [name, setName] = useState<string>('')
   const { t } = useTranslation('shelter')
 
   const postContactRequest = useCallback(async () => {
+    if (name.length > 0) {
+      // Prevent spamming by creating a simple honeypot
+      return
+    }
     try {
       setStatus('sending')
       const status = await createShelterContactEndpoint().request({ id: shelterId, email, phone, cityCode })
@@ -62,9 +74,9 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactEle
       setPhone('')
       setEmail('')
     }
-  }, [email, phone, shelterId, cityCode])
+  }, [email, phone, shelterId, cityCode, name])
 
-  const buttonDisabled = status === 'sending' || (email.length === 0 && phone.length === 0)
+  const buttonDisabled = status === 'sending' || (email.length === 0 && phone.length === 0 && name.length === 0)
 
   return (
     <ShelterInformationSection information={[]} extended title={t('contactRequest.title')} elevated singleColumn>
@@ -77,6 +89,14 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactEle
 
         {status !== 'success' && (
           <>
+            <HonigTopf
+              tabIndex={-1}
+              id='name'
+              type='text'
+              value={name}
+              onChange={event => setName(event.target.value)}
+              autoComplete='off'
+            />
             <TextContainer>
               <Label htmlFor='email'>{t('contactRequest.email')}</Label>
             </TextContainer>
