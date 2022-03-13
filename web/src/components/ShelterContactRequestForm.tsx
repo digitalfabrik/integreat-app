@@ -6,6 +6,7 @@ import { createShelterContactEndpoint, ShelterContactStatus } from 'api-client'
 
 import ShelterInformationSection from './ShelterInformationSection'
 import { StyledButton } from './TextButton'
+import TextInput from './TextInput'
 
 const Container = styled.div`
   padding: 0 12px;
@@ -20,15 +21,8 @@ const TextContainer = styled.div`
   align-items: center;
 `
 
-const TextInput = styled.input.attrs({
-  type: 'text'
-})`
+const StyledTextInput = styled(TextInput)`
   width: 50%;
-  border-radius: 0.25rem;
-  background-clip: padding-box;
-  border: 1px solid ${props => props.theme.colors.textDisabledColor};
-  padding: 0.5rem 0.75rem;
-  resize: none;
 `
 
 const Label = styled.label`
@@ -86,8 +80,9 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactEle
             <TextContainer>
               <Label htmlFor='email'>{t('contactRequest.email')}</Label>
             </TextContainer>
-            <TextInput
+            <StyledTextInput
               id='email'
+              type='email'
               disabled={status === 'sending'}
               onChange={event => setEmail(event.target.value)}
               value={email}
@@ -96,8 +91,9 @@ const ShelterContactRequestForm = ({ shelterId, cityCode }: PropsType): ReactEle
             <TextContainer>
               <Label htmlFor='phone'>{t('contactRequest.phone')}</Label>
             </TextContainer>
-            <TextInput
+            <StyledTextInput
               id='phone'
+              type='tel'
               disabled={status === 'sending'}
               onChange={event => setPhone(event.target.value)}
               value={phone}
