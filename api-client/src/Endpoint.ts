@@ -49,10 +49,14 @@ class Endpoint<P, T> {
       return new Payload(false, url, this.responseOverride, null)
     }
 
-    const requestOptions = this.mapParamsToBody
+    const body = this.mapParamsToBody ? this.mapParamsToBody(params) : null
+    const headers = typeof body === 'string' ? { headers: { 'Content-Type': 'application/json' } } : {}
+
+    const requestOptions = body
       ? {
           method: 'POST',
-          body: this.mapParamsToBody(params)
+          body,
+          ...headers
         }
       : {
           method: 'GET'
