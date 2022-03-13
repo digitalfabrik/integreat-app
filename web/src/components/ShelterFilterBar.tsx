@@ -30,7 +30,7 @@ const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
   updateSearchFilter
 }: ShelterFilterBarProps): ReactElement => {
   const { t } = useTranslation('shelter')
-  const petsAllowed = filter.pets === '1'
+
   return (
     <FilterContainer>
       <FacetInput
@@ -44,9 +44,9 @@ const ShelterFilterBar: React.FC<ShelterFilterBarProps> = ({
       <FacetToggle
         icon={petIcon}
         name='pets'
-        value={petsAllowed}
+        value={filter.pets === '1'}
         updateSearchFilter={updateSearchFilter}
-        tooltip={petsAllowed ? t('haustier') : t('facetPets')}
+        tooltip={t('facetPets')}
       />
     </FilterContainer>
   )
