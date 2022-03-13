@@ -1,8 +1,9 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { createShelterEndpoint, pathnameFromRouteInformation, SHELTER_ROUTE, ShelterModel } from 'api-client'
+import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -10,6 +11,7 @@ import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LocationLayout from '../components/LocationLayout'
 import ShelterDetail from '../components/ShelterDetail'
+import ShelterFilterBar from '../components/ShelterFilterBar'
 import ShelterListItem from '../components/ShelterListItem'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
@@ -20,10 +22,18 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
+  const [filter, setFilter] = useState<FilterProps>({ beds: null })
 
+  // TODO add debounce
   const loadShelters = useCallback(
-    (page: number) => createShelterEndpoint().request({ type: 'list', page, cityCode }),
-    [cityCode]
+    (page: number) =>
+      createShelterEndpoint().request({
+        type: 'list',
+        page,
+        cityCode,
+        filter: { ...filter, beds: filter.beds }
+      }),
+    [cityCode, filter]
   )
 
   const languageChangePaths = languages.map(({ code, name }) => ({
@@ -31,6 +41,12 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     name,
     code
   }))
+
+  const updateSearchFilter = (key: string, val: string) => {
+    if (key === 'beds') {
+      setFilter({ beds: val })
+    }
+  }
 
   const locationLayoutParams = {
     cityModel,
@@ -65,12 +81,14 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
       <Caption title={t('title')} />
+      <ShelterFilterBar filter={filter} updateSearchFilter={updateSearchFilter} />
       <InfiniteScrollList
         noItemsMessage={t('noSheltersAvailable')}
         renderItem={renderListItem}
         loadPage={loadShelters}
         defaultPage={DEFAULT_PAGE}
         itemsPerPage={ITEMS_PER_PAGE}
+        filter={filter}
       />
     </LocationLayout>
   )

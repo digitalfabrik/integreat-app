@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
 
 import { loadFromEndpoint, Payload } from 'api-client/src'
+import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
 
 import FailureSwitcher from './FailureSwitcher'
 
@@ -26,6 +27,7 @@ type PropsType<T> = {
   resetOnLanguageChange?: boolean
   languageCode?: string
   itemsPerPage: number
+  filter?: FilterProps
 }
 
 const InfiniteScrollList = <T,>({
@@ -35,7 +37,8 @@ const InfiniteScrollList = <T,>({
   defaultPage,
   resetOnLanguageChange,
   languageCode,
-  itemsPerPage
+  itemsPerPage,
+  filter
 }: PropsType<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<Error | null>(null)
@@ -51,7 +54,6 @@ const InfiniteScrollList = <T,>({
       const addData = (data: T[] | null) => {
         if (data !== null) {
           setData(oldData => oldData.concat(data))
-
           if (data.length !== itemsPerPage) {
             setHasMore(false)
           }
@@ -62,14 +64,15 @@ const InfiniteScrollList = <T,>({
   }, [page, hasMore, itemsPerPage, loadPage])
 
   useEffect(() => {
-    if (resetOnLanguageChange) {
+    // TODO make more generic check
+    if (resetOnLanguageChange || filter?.beds !== null) {
       setData([])
       setError(null)
       setLoading(false)
       setHasMore(true)
       setPage(defaultPage)
     }
-  }, [languageCode, resetOnLanguageChange, defaultPage])
+  }, [languageCode, resetOnLanguageChange, defaultPage, filter?.beds])
 
   if (error) {
     return <FailureSwitcher error={error} />
