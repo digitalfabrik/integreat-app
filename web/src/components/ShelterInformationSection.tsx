@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import CleanLink from './CleanLink'
 import Tooltip from './Tooltip'
 
 const Container = styled.div<{ extended: boolean; elevated: boolean }>`
@@ -37,10 +38,10 @@ const TitleHint = styled.span`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const Detail = styled.div<{ extended: boolean; elevated: boolean }>`
+const Detail = styled.div<{ extended: boolean; to?: string }>`
   padding: 5px 10px;
   display: flex;
-  ${props => (props.elevated ? 'cursor: pointer;' : '')}
+  ${props => (props.to ? 'cursor: pointer;' : '')}
 `
 
 const DetailText = styled.span<{ hasText: boolean }>`
@@ -104,7 +105,7 @@ const ShelterInformationSection = ({
         {label && <Label>{label}</Label>}
       </Row>
       <RowDetail viewportSmall={viewportSmall}>
-        {information.map(({ text, icon, rightText, tooltip }) => {
+        {information.map(({ text, icon, rightText, link, tooltip }) => {
           const content = (
             <>
               {icon && <img alt={tooltip} src={icon} />}
@@ -113,7 +114,7 @@ const ShelterInformationSection = ({
             </>
           )
           return (
-            <Detail key={text} extended={extended} elevated={elevated}>
+            <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
               {tooltip ? (
                 <StyledTooltip text={tooltip} flow='up'>
                   {content}
