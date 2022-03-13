@@ -6126,7 +6126,8 @@
       "shelterType": "Art des Wohnraums",
       "startDate": "frühestens verfügbar",
       "availableBeds": "verfügbare Betten",
-      "duration": "mögliche Aufenthaltsdauer"
+      "duration": "mögliche Aufenthaltsdauer",
+      "facetBeds": "min. Anzahl Betten"
     },
     "en": {
       "title": "Housing",
