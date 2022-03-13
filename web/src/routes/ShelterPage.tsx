@@ -24,7 +24,6 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { t } = useTranslation('shelter')
   const [filter, setFilter] = useState<FilterProps>({ beds: null, pets: null })
 
-  // TODO add debounce
   const loadShelters = useCallback(
     (page: number) =>
       createShelterEndpoint().request({
@@ -78,11 +77,14 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
 
   const pageTitle = `${t('title')} - ${cityModel.name}`
 
+  const filterValues = Object.values(filter)
+    .map(el => el?.replace('', ' '))
+    .filter(el => el)
+    .join(',')
+
   const renderListItem = (shelter: ShelterModel): ReactElement => (
     <ShelterListItem key={shelter.id} shelter={shelter} cityCode={cityCode} languageCode={languageCode} />
   )
-
-  const hasFilterChanged = Object.values(filter).some(fil => fil !== null)
 
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
@@ -95,8 +97,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         loadPage={loadShelters}
         defaultPage={DEFAULT_PAGE}
         itemsPerPage={ITEMS_PER_PAGE}
-        resetOnLanguageChange={hasFilterChanged}
-        filterValues={Object.values(filter).join(',')}
+        filterValues={filterValues}
       />
     </LocationLayout>
   )

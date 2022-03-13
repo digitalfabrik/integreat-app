@@ -56,7 +56,7 @@ const FacetInput: React.FC<FacetInputProps> = ({
       <FilterIcon>
         <img alt={altTag} src={icon} />
       </FilterIcon>
-      <StyledInput name={name} value={value} placeholder={placeholder} type='number' onChange={onUpdateInput} />
+      <StyledInput min='1' name={name} value={value} placeholder={placeholder} type='number' onChange={onUpdateInput} />
     </FilterFacet>
   )
 }
