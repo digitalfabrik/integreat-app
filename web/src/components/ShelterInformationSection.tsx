@@ -41,7 +41,7 @@ const TitleHint = styled.span`
 const Detail = styled.div<{ extended: boolean; to?: string }>`
   padding: 5px 10px;
   display: flex;
-  ${props => (props.extended ? 'width: 100%;' : 'width: 220px;')}
+  ${props => (props.to ? 'cursor: pointer;' : '')}
 `
 
 const DetailText = styled.span<{ hasText: boolean }>`
@@ -63,6 +63,10 @@ const Label = styled.span`
   color: ${props => props.theme.colors.backgroundColor};
   font-size: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
+`
+
+const StyledTooltip = styled(Tooltip)`
+  display: flex;
 `
 
 type InformationType = {
@@ -114,9 +118,9 @@ const ShelterInformationSection = ({
           return (
             <Detail key={text} extended={extended} as={link ? CleanLink : 'div'} to={link}>
               {tooltip ? (
-                <Tooltip text={tooltip} flow='up'>
+                <StyledTooltip text={tooltip} flow='up'>
                   {content}
-                </Tooltip>
+                </StyledTooltip>
               ) : (
                 content
               )}
