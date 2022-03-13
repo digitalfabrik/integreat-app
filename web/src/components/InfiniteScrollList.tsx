@@ -3,8 +3,7 @@ import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from
 import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
 
-import { loadFromEndpoint, Payload } from 'api-client/src'
-import { FilterProps } from 'api-client/src/endpoints/createShelterEndpoint'
+import { loadFromEndpoint, Payload } from 'api-client'
 
 import FailureSwitcher from './FailureSwitcher'
 
@@ -27,7 +26,7 @@ type PropsType<T> = {
   resetOnLanguageChange?: boolean
   languageCode?: string
   itemsPerPage: number
-  filter?: FilterProps
+  filterValues?: string
 }
 
 const InfiniteScrollList = <T,>({
@@ -38,7 +37,7 @@ const InfiniteScrollList = <T,>({
   resetOnLanguageChange,
   languageCode,
   itemsPerPage,
-  filter
+  filterValues
 }: PropsType<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<Error | null>(null)
@@ -64,15 +63,14 @@ const InfiniteScrollList = <T,>({
   }, [page, hasMore, itemsPerPage, loadPage])
 
   useEffect(() => {
-    // TODO make more generic check
-    if (resetOnLanguageChange || filter?.beds !== null) {
+    if (resetOnLanguageChange || filterValues) {
       setData([])
       setError(null)
       setLoading(false)
       setHasMore(true)
       setPage(defaultPage)
     }
-  }, [languageCode, resetOnLanguageChange, defaultPage, filter?.beds])
+  }, [languageCode, resetOnLanguageChange, defaultPage, filterValues])
 
   if (error) {
     return <FailureSwitcher error={error} />

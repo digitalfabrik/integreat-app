@@ -6127,7 +6127,8 @@
       "startDate": "frühestens verfügbar",
       "availableBeds": "verfügbare Betten",
       "duration": "mögliche Aufenthaltsdauer",
-      "facetBeds": "min. Anzahl Betten"
+      "facetBeds": "min. Anzahl Betten",
+      "facetPets": "Haustiere erlauben"
     },
     "en": {
       "title": "Housing",
