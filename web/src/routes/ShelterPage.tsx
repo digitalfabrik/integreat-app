@@ -22,7 +22,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   const { shelterId } = useParams()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('shelter')
-  const [filter, setFilter] = useState<FilterProps>({ beds: null })
+  const [filter, setFilter] = useState<FilterProps>({ beds: null, pets: null })
 
   // TODO add debounce
   const loadShelters = useCallback(
@@ -31,7 +31,7 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         type: 'list',
         page,
         cityCode,
-        filter: { ...filter, beds: filter.beds }
+        filter
       }),
     [cityCode, filter]
   )
@@ -43,8 +43,13 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
   }))
 
   const updateSearchFilter = (key: string, val: string) => {
-    if (key === 'beds') {
-      setFilter({ beds: val })
+    switch (key) {
+      case 'beds':
+        setFilter({ ...filter, beds: val })
+        break
+      case 'pets':
+        setFilter({ ...filter, pets: val })
+        break
     }
   }
 
@@ -77,6 +82,8 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
     <ShelterListItem key={shelter.id} shelter={shelter} cityCode={cityCode} languageCode={languageCode} />
   )
 
+  const hasFilterChanged = Object.values(filter).some(fil => fil !== null)
+
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
@@ -88,7 +95,8 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         loadPage={loadShelters}
         defaultPage={DEFAULT_PAGE}
         itemsPerPage={ITEMS_PER_PAGE}
-        filter={filter}
+        resetOnLanguageChange={hasFilterChanged}
+        filterValues={Object.values(filter).join(',')}
       />
     </LocationLayout>
   )

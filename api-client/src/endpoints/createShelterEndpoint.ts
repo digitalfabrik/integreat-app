@@ -12,10 +12,14 @@ type Params =
 
 export type FilterProps = {
   beds: string | null
+  pets: string | null
 }
 
 // Map for the filter keys for the endpoint
-const paramMap = new Map([['beds', 'min_beds']])
+const paramMap = new Map([
+  ['beds', 'min_beds'],
+  ['pets', 'pets']
+])
 
 const getFilterQueryParams = (params: FilterProps): string =>
   Object.keys(params)
