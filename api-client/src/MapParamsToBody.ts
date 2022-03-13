@@ -1,1 +1,1 @@
-export type MapParamsToBodyType<P> = (params: P) => FormData
+export type MapParamsToBodyType<P> = (params: P) => FormData | string
