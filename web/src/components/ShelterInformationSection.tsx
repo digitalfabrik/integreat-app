@@ -20,9 +20,9 @@ const Row = styled.div`
   flex-flow: row wrap;
 `
 
-const RowDetail = styled.div<{ viewportSmall: boolean }>`
+const RowDetail = styled.div<{ singleColumn: boolean }>`
   display: grid;
-  grid-template-columns: ${props => (props.viewportSmall ? `repeat(1, 1fr)` : `repeat(2, 1fr)`)};
+  grid-template-columns: ${props => (props.singleColumn ? `repeat(1, 1fr)` : `repeat(2, 1fr)`)};
 `
 
 const Title = styled.span`
@@ -81,6 +81,7 @@ type Props = {
   children?: ReactElement
   extended: boolean
   elevated?: boolean
+  singleColumn?: boolean
 }
 
 const ShelterInformationSection = ({
@@ -90,7 +91,8 @@ const ShelterInformationSection = ({
   information,
   children,
   extended,
-  elevated = false
+  elevated = false,
+  singleColumn = false
 }: Props): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   return (
@@ -100,7 +102,7 @@ const ShelterInformationSection = ({
         {titleHint && <TitleHint>{titleHint}</TitleHint>}
         {label && <Label>{label}</Label>}
       </Row>
-      <RowDetail viewportSmall={viewportSmall}>
+      <RowDetail singleColumn={viewportSmall || singleColumn}>
         {information.map(({ text, icon, rightText, link, tooltip }) => {
           const content = (
             <>

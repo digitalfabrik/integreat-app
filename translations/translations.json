@@ -6126,7 +6126,18 @@
       "shelterType": "Art des Wohnraums",
       "startDate": "frühestens verfügbar",
       "availableBeds": "verfügbare Betten",
-      "duration": "mögliche Aufenthaltsdauer"
+      "duration": "mögliche Aufenthaltsdauer",
+      "contactRequest": {
+        "title": "Kontaktanfrage",
+        "description": "Falls Sie Interesse am angebotenen Wohnraum haben, können wir Ihre Kontaktinformationen an den Anbietenden weiterleiten.",
+        "email": "E-Mail-Adresse",
+        "phone": "Telefonnummer",
+        "success": "Ihre Kontaktinformationen wurden erfolgreich weitergeleitet.",
+        "error": "Etwas ist leider fehlgeschlagen.",
+        "invalid_accommodation": "Dieses Angebot ist nicht mehr verfügbar.",
+        "invalid_contact_data": "Ihre Kontaktinformation waren leider inkorrekt oder wurden bereits zur Kontaktanfrage verwendet.",
+        "send": "Abschicken"
+      }
     },
     "en": {
       "title": "Housing",
