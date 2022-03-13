@@ -15,7 +15,7 @@ const ShelterListItem = ({ shelter, cityCode, languageCode }: Props): ReactEleme
   <CleanLink
     to={`${pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })}/${shelter.id}`}
     newTab>
-    <ShelterInformation shelter={shelter} />
+    <ShelterInformation shelter={shelter} cityCode={cityCode} />
   </CleanLink>
 )
 
