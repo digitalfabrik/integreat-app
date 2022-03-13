@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 const FilterFacet = styled.div`
@@ -45,20 +45,20 @@ const FacetInput: React.FC<FacetInputProps> = ({
   updateSearchFilter,
   name,
   placeholder
-}: FacetInputProps): ReactElement => {
-  const onUpdateInput = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    updateSearchFilter(e.target.name, e.target.value)
-  }
-
-  return (
-    <FilterFacet>
-      <FilterIcon>
-        <img alt={altTag} src={icon} />
-      </FilterIcon>
-      <StyledInput min='1' name={name} value={value} placeholder={placeholder} type='number' onChange={onUpdateInput} />
-    </FilterFacet>
-  )
-}
+}: FacetInputProps): ReactElement => (
+  <FilterFacet>
+    <FilterIcon>
+      <img alt={altTag} src={icon} />
+    </FilterIcon>
+    <StyledInput
+      min='1'
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      type='number'
+      onChange={evt => updateSearchFilter(evt.target.name, evt.target.value)}
+    />
+  </FilterFacet>
+)
 
 export default FacetInput
