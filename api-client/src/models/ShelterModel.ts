@@ -17,7 +17,7 @@ class ShelterModel {
   _beds: number
   _accommodationType: ShelterAccommodationType
   _info: ShelterInfo[]
-  _email: string
+  _email: string | null
   _phone: string | null
   _rooms: number | null
   _occupants: number | null
@@ -37,7 +37,7 @@ class ShelterModel {
     beds: string
     accommodationType: ShelterAccommodationType
     info: ShelterInfo[]
-    email: string
+    email: string | null
     phone: string | null
     rooms: string | null
     occupants: string | null
@@ -56,7 +56,7 @@ class ShelterModel {
     this._beds = parseInt(params.beds, 10)
     this._accommodationType = params.accommodationType
     this._info = params.info
-    this._email = params.email.trim()
+    this._email = params.email?.trim() ?? null
     this._phone = params.phone?.trim() ?? null
     this._rooms = params.rooms ? parseInt(params.rooms, 10) : null
     this._occupants = params.occupants ? parseInt(params.occupants, 10) : null
@@ -103,7 +103,7 @@ class ShelterModel {
     return this._info
   }
 
-  get email(): string {
+  get email(): string | null {
     return this._email
   }
 
