@@ -77,11 +77,6 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
 
   const pageTitle = `${t('title')} - ${cityModel.name}`
 
-  const filterValues = Object.values(filter)
-    .map(el => el?.replace('', ' '))
-    .filter(el => el)
-    .join(',')
-
   const renderListItem = (shelter: ShelterModel): ReactElement => (
     <ShelterListItem key={shelter.id} shelter={shelter} cityCode={cityCode} languageCode={languageCode} />
   )
@@ -97,7 +92,6 @@ const ShelterPage = ({ cityModel, cityCode, languageCode, pathname, languages }:
         loadPage={loadShelters}
         defaultPage={DEFAULT_PAGE}
         itemsPerPage={ITEMS_PER_PAGE}
-        filterValues={filterValues}
       />
     </LocationLayout>
   )

@@ -146,8 +146,6 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
           renderItem={renderTuNewsListItem}
           noItemsMessage={t('currentlyNoNews')}
           defaultPage={DEFAULT_PAGE}
-          resetOnLanguageChange
-          languageCode={languageCode}
           itemsPerPage={DEFAULT_COUNT}
         />
       </NewsTabs>
