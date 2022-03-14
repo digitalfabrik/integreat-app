@@ -17,6 +17,7 @@ import phoneIcon from '../assets/shelter/phone.svg'
 import smokingIcon from '../assets/shelter/smoking.svg'
 import timerIcon from '../assets/shelter/timer.svg'
 import Caption from './Caption'
+import ShelterContactRequestForm from './ShelterContactRequestForm'
 import ShelterInformationSection from './ShelterInformationSection'
 import { StyledButton } from './TextButton'
 import Tooltip from './Tooltip'
@@ -33,8 +34,6 @@ const Container = styled.article`
 const DetailButton = styled(StyledButton)`
   margin-left: 8px;
   margin-bottom: 0;
-  padding: 8px 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.15);
 `
 
 const Detail = styled.div`
@@ -64,9 +63,10 @@ const IconWithTooltip = ({ tooltip, icon }: IconWithTooltipProps): ReactElement 
 type Props = {
   shelter: ShelterModel
   extended?: boolean
+  cityCode: string
 }
 
-const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement => {
+const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): ReactElement => {
   const { beds, city, id, accommodationType, period, startDate, info, rooms, occupants, name } = shelter
   const { zipcode, hostType, languages, email, phone, comments, free, street } = shelter
   const { t } = useTranslation('shelter')
@@ -135,20 +135,23 @@ const ShelterInformation = ({ shelter, extended = false }: Props): ReactElement 
             {comments && (
               <ShelterInformationSection title={t('comments')} information={[{ text: comments }]} extended={extended} />
             )}
-            <ShelterInformationSection
-              extended={extended}
-              title={t('contactInformation').toUpperCase()}
-              elevated
-              information={[
-                { icon: emailIcon, text: email, link: `mailto:${email}` },
-                { icon: phoneIcon, text: phone ?? t('notSpecified'), link: phone ? `tel:${phone}` : undefined }
-              ]}
-            />
+            {email || phone ? (
+              <ShelterInformationSection
+                extended={extended}
+                title={t('contactInformation').toUpperCase()}
+                elevated
+                information={[
+                  { icon: emailIcon, text: email ?? t('notSpecified'), link: email ? `mailto:${email}` : undefined },
+                  { icon: phoneIcon, text: phone ?? t('notSpecified'), link: phone ? `tel:${phone}` : undefined }
+                ]}
+              />
+            ) : (
+              <ShelterContactRequestForm shelterId={id} cityCode={cityCode} />
+            )}
           </>
         )}
         {!extended && (
           <DetailButton onClick={() => undefined} disabled={false}>
-            {' '}
             {t('shelterButton')}
           </DetailButton>
         )}
