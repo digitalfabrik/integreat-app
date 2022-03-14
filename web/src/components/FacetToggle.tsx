@@ -6,7 +6,7 @@ import Tooltip from './Tooltip'
 const FilterIcon = styled.span<{ value: boolean }>`
   display: flex;
   background-color: ${props => (props.value ? props.theme.colors.themeColor : props.theme.colors.themeColorLight)};
-  border: 1px solid #ced4da;
+  border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 0.25rem;
   padding: 0.25rem;
   cursor: pointer;

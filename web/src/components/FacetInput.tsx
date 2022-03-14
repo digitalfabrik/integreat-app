@@ -12,9 +12,8 @@ const StyledInput = styled.input`
   border-radius: 0.25rem;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid ${props => props.theme.colors.textDisabledColor};
   padding: 0.5rem 0.75rem;
   outline: none;
 `
@@ -22,7 +21,7 @@ const StyledInput = styled.input`
 const FilterIcon = styled.span`
   display: flex;
   background-color: ${props => props.theme.colors.themeColor};
-  border: 1px solid #ced4da;
+  border: 1px solid ${props => props.theme.colors.textDisabledColor};
   border-radius: 0.25rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
