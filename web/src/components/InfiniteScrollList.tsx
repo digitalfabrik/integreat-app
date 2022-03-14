@@ -23,10 +23,7 @@ type PropsType<T> = {
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
   defaultPage: number
-  resetOnLanguageChange?: boolean
-  languageCode?: string
   itemsPerPage: number
-  filterValues?: string
 }
 
 const InfiniteScrollList = <T,>({
@@ -34,10 +31,7 @@ const InfiniteScrollList = <T,>({
   noItemsMessage,
   renderItem,
   defaultPage,
-  resetOnLanguageChange,
-  languageCode,
-  itemsPerPage,
-  filterValues
+  itemsPerPage
 }: PropsType<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
   const [error, setError] = useState<Error | null>(null)
@@ -62,15 +56,16 @@ const InfiniteScrollList = <T,>({
     }
   }, [page, hasMore, itemsPerPage, loadPage])
 
-  useEffect(() => {
-    if (resetOnLanguageChange || filterValues) {
+  useEffect(
+    () => () => {
       setData([])
       setError(null)
       setLoading(false)
       setHasMore(true)
       setPage(defaultPage)
-    }
-  }, [languageCode, resetOnLanguageChange, defaultPage, filterValues])
+    },
+    [loadPage, defaultPage]
+  )
 
   if (error) {
     return <FailureSwitcher error={error} />
