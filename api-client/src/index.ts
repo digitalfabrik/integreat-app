@@ -6,8 +6,10 @@ import {
   FeedbackType as ImportedFeedbackType,
   ParamsType as ImportedFeedbackParamsType
 } from './endpoints/createFeedbackEndpoint'
+import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
 import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
 
+export type ShelterContactStatus = ImportedShelterContactStatus
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
@@ -43,6 +45,10 @@ export {
   CATEGORY_PARENTS_ENDPOINT_NAME
 } from './endpoints/createCategoryParentsEndpoint'
 export { default as createShelterEndpoint, SHELTER_ENDPOINT_NAME } from './endpoints/createShelterEndpoint'
+export {
+  default as createShelterContactEndpoint,
+  SHELTER_CONTACT_ENDPOINT_NAME
+} from './endpoints/createShelterContactEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'

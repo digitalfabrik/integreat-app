@@ -79,7 +79,7 @@ const ShelterDetail = ({
   }
   return (
     <LocationLayout isLoading={false} {...locationLayoutParams}>
-      <ShelterInformation shelter={shelter} extended />
+      <ShelterInformation shelter={shelter} cityCode={cityCode} extended />
     </LocationLayout>
   )
 }
