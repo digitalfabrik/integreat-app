@@ -6197,6 +6197,17 @@
       "startDate": "Earliest available",
       "availableBeds": "Available beds",
       "duration": "Possible length of stay",
+      "contactRequest": {
+        "title": "Contact request",
+        "description": "If you are interested in the housing offered, we can forward your contact information to the provider.",
+        "email": "E-mail address",
+        "phone": "Telephone number",
+        "success": "Your contact information has been successfully forwarded.",
+        "error": "Something failed, unfortunately.",
+        "invalid_accommodation": "This offer is no longer available.",
+        "invalid_contact_data": "Sorry, your contact information was incorrect or has already been used.",
+        "send": "Send"
+      },
       "facetBeds": "Number of beds",
       "facetPets": "Pets allowed"
     },
