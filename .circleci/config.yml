@@ -837,7 +837,7 @@ jobs:
                 success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de and aschaffenburg.app!\n${RELEASE_NOTES}
     promote_android:
         docker:
-            - image: cimg/android:api-29-node
+            - image: cimg/android:2022.03.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         parameters:
