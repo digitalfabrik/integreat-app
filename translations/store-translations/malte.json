@@ -39,6 +39,9 @@
     "tr": {
       "keywords": "Almanya,Malteser,Yardım,Almanca öğrenmek,Kurallar,Almanca kursu,Haberler,Danışmanlık,Entegrasyon"
     },
+    "uk": {
+      "keywords": "Мальтезер, Німеччина, Допомога, Вчити німецьку, Правила, Німецьки курси, Новини, Консульство,Інформація, Азюль"
+    },
     "ur": {
       "keywords": "Malteser,Germany,Help,Learn German,Rules,German course,News,Counselling,Information,Asylum"
     }
@@ -104,6 +107,11 @@
       "description": "Malte ile tesisinizden en son bilgileri her zaman, her yerde alabilmeniz için size dijital bir teklif sunuyoruz! \nMalte size şu konularda yardımcı olur:\n - Doktorlardan randevu alınması\n - Büroların çalışma saatleri\n - Yerel ulaşım planları\n - Danışmanlık teklifleri\n - Almanca kursları, Almanya'da yaşam ve tesiste yaşamla ilgili bilgiler, ...\nVe çok daha fazlası! \nMalte ile her zaman haberdar olun! \nUygulama mobil İnternet olmadan, çevrimdışı da çalışır",
       "defaultReleaseNote": "Uygulamayı sizin için daha da iyileştirdik ve bazı hataları giderdik. "
     },
+    "uk": {
+      "name": "Мальте",
+      "description": "З Мальте, Ви зможете отримати найновішу інформацію з вашого місця перебування в будь який момент, електронно!\nМальте допоможе Вам:\n - записатись на прийом до лікаря\n - знайти години роботи організацій\n - подивитись розклад місцевого громадського транспорту\n - в пошуках різних консультацій\n - забезпечить інформацію про курси німецької мови, про життя в Німеччині та в готелях\n\nта багато іншого!\n\nЗалишайтесь проінформованими з Мальте!\n\n\nДодаток також працює в офлайн режимі, без Інтернету\n",
+      "defaultReleaseNote": "Ми додали новинки та виправили деякі помилки"
+    },
     "ur": {
       "name": "Malte",
       "description": "Malte پر ہم آپ کو کبھی بھی، کہیں بھی اپنے ادارے سے تازہ ترین معلومات حاصل کرنے کی ڈیجیٹل پیش کش کرتے ہیں!\nMalte درج ذیل کاموں میں آپ کی مدد کر سکتی ہے:\n - ڈاکٹرز سے اپائنٹمنٹ لینا\n  - عوامی دفاتر کے اوقات کار\n - عوامی ذرائع نقل و حمل کے شیڈول\n - مشاورتی خدمات\n - جرمن کورسز، جرمنی میں زندگی، ادارے میں زندگی وغیرہ کے متعلق معلومات، …\nاور بہت کچھ!\nMalte کے ساتھ ہمیشہ آگاہ رہیں!\nیہ ایپ موبائل انٹرنیٹ کے بغیر آف لائن بھی چلتی ہے"
@@ -149,6 +157,9 @@
     "tr": {
       "short_description": "Malte, Malteser Werke'nin mülteci tesisleri için oryantasyon uygulamasıdır"
     },
+    "uk": {
+      "short_description": "Мальте це додаток, що допомагає біженцям в місцевому орієнтуванні, запроваджений Мальтезером Верке"
+    },
     "ur": {
       "short_description": "Malte‏، Malteser Werke کے ہجرت کے اداروں کی واقفیت کی ایپ ہے"
     }
@@ -192,6 +203,9 @@
     },
     "tr": {
       "placeholder_key": "Malte size konumunuzla ilgili yerel bilgiler sunar"
+    },
+    "uk": {
+      "placeholder_key": "Мальте пропонує Вам інформацію про ваше місцезнаходження"
     },
     "ur": {
       "placeholder_key": "Malte آپ کے مقام کے متعلق مقامی معلومات فراہم کرتی ہے"
