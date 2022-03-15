@@ -2,4 +2,4 @@ issue_key: IGAPP-955
 show_in_stores: false
 platforms:
   - web
-en: Fixed sr-Latn, sr-Cyrl and zh-CN languages.
+en: Fixed Serbian and Chinese.
