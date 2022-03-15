@@ -11,7 +11,7 @@ class ShelterModel {
   _id: number
   _name: string
   _city: string
-  _street: string
+  _street: string | null
   _zipcode: string
   _languages: ShelterLanguage[]
   _beds: number
@@ -31,7 +31,7 @@ class ShelterModel {
     id: number
     name: string
     city: string
-    street: string
+    street: string | null
     zipcode: string
     languages: ShelterLanguage[]
     beds: string
@@ -50,7 +50,7 @@ class ShelterModel {
     this._id = params.id
     this._name = params.name.trim()
     this._city = params.city.trim()
-    this._street = params.street.trim()
+    this._street = params.street?.trim() ?? null
     this._zipcode = params.zipcode.trim()
     this._languages = params.languages
     this._beds = parseInt(params.beds, 10)
@@ -79,7 +79,7 @@ class ShelterModel {
     return this._city
   }
 
-  get street(): string {
+  get street(): string | null {
     return this._street
   }
 
