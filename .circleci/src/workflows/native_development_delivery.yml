@@ -1,14 +1,14 @@
 when:
   and:
     - << pipeline.parameters.api_triggered >>
-    - not: << pipeline.parameters.production_delivery >>
+    - equal: [<< pipeline.parameters.workflow_type >>, native_development_delivery]
 jobs:
   - bump_version:
       context:
         - mattermost
         - deliverino
         - jira
-      delivery: development
+      prepare_delivery: true
   - check:
       context:
         - mattermost

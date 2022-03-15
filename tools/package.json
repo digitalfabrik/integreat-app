@@ -7,12 +7,14 @@
     "git-version": "ts-node git-version.ts",
     "github-release": "ts-node github-release.ts",
     "move-release-notes": "ts-node move-release-notes.ts",
-    "next-version": "ts-node next-version.ts"
+    "next-version": "ts-node next-version.ts",
+    "trigger-workflow": "ts-node trigger-pipeline.ts"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.3",
-    "@octokit/rest": "^18.12.0",
     "@octokit/auth-app": "^3.6.1",
+    "@octokit/rest": "^18.12.0",
+    "@types/js-yaml": "^4.0.3",
+    "@types/node-fetch": "^2.6.1",
     "commander": "^5.1.0",
     "js-yaml": "^4.1.0",
     "node-fetch": "2.6.7",

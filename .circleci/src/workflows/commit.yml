@@ -4,7 +4,7 @@ unless:
     - << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
-      delivery: none
+      prepare_delivery: false
 
   - check
 
