@@ -13,6 +13,7 @@ const FooterContainer = styled.footer`
   justify-content: center;
   padding: 15px 5px;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
+  box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1);
 
   & > * {
     @mixin remove-a;

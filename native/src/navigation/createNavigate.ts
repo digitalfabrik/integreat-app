@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 
-import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME } from 'api-client'
+import { CITY_NOT_COOPERATING_ROUTE, NotFoundError, OPEN_PAGE_SIGNAL_NAME, SHELTER_ROUTE } from 'api-client'
 import {
   CATEGORIES_ROUTE,
   DASHBOARD_ROUTE,
@@ -19,6 +19,7 @@ import { RouteInformationType } from 'api-client/src/routes/RouteInformationType
 import { NavigationPropType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { StoreActionType } from '../redux/StoreActionType'
+import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import showSnackbar from '../utils/showSnackbar'
 import navigateToCategory from './navigateToCategory'
@@ -38,13 +39,15 @@ const createNavigate =
   (routeInformation: RouteInformationType, key?: string, forceRefresh?: boolean): void => {
     if (routeInformation) {
       const url = urlFromRouteInformation(routeInformation)
-      sendTrackingSignal({
-        signal: {
-          name: OPEN_PAGE_SIGNAL_NAME,
-          pageType: routeInformation.route,
-          url
-        }
-      })
+      if (routeInformation.route !== SHELTER_ROUTE) {
+        sendTrackingSignal({
+          signal: {
+            name: OPEN_PAGE_SIGNAL_NAME,
+            pageType: routeInformation.route,
+            url
+          }
+        })
+      }
 
       if (routeInformation.route === LANDING_ROUTE) {
         navigation.navigate(LANDING_ROUTE)
@@ -131,6 +134,11 @@ const createNavigate =
 
         case SEARCH_ROUTE:
           navigateToSearch(params)
+          return
+
+        // Not implemented in native apps, should be opened in InAppBrowser
+        case SHELTER_ROUTE:
+          openExternalUrl(url)
           return
       }
     }

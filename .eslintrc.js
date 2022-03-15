@@ -69,6 +69,7 @@ module.exports = {
     ],
     'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',
+    'func-names': 'error',
 
     'react/no-did-mount-set-state': 'error',
     'react/no-unused-prop-types': 'warn',

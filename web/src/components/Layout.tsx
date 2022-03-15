@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
@@ -28,7 +28,7 @@ const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div`
+const Body = styled.div<{ fullWidth: boolean }>`
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1;
@@ -37,10 +37,14 @@ const Body = styled.div`
   word-wrap: break-word;
 
   /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-  @media ${dimensions.minMaxWidth} {
-    padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
-    padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
-  }
+  ${props =>
+    !props.fullWidth &&
+    css`
+      @media ${dimensions.minMaxWidth} {
+        padding-right: calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+        padding-left: calc((100vw - ${dimensions.maxWidth}px) / 2);
+      } ;
+    `};
 
   @media ${dimensions.smallViewport} {
     display: flex;
@@ -48,13 +52,14 @@ const Body = styled.div`
   }
 `
 
-const Main = styled.main`
+const Main = styled.main<{ fullWidth: boolean }>`
   display: inline-block;
-  width: ${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px;
+  width: ${props => (props.fullWidth ? '100%' : dimensions.maxWidth - 2 * dimensions.toolbarWidth)}px;
   max-width: calc(100% - ${dimensions.toolbarWidth}px);
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0 10px 30px;
+  padding: ${props => (props.fullWidth ? '0' : '0 10px 30px')};
   text-align: start;
   word-wrap: break-word;
 
@@ -104,6 +109,7 @@ type PropsType = {
   toolbar?: ReactNode
   modal?: ReactNode
   children?: ReactNode
+  fullWidth?: boolean
 }
 
 /**
@@ -111,16 +117,25 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const Layout = ({ asideStickyTop = 0, footer, header, toolbar, modal, children }: PropsType): JSX.Element => {
+const Layout = ({
+  asideStickyTop = 0,
+  footer,
+  header,
+  toolbar,
+  modal,
+  children,
+  fullWidth = false
+}: PropsType): JSX.Element => {
   const modalVisible = !!modal
+
   return (
     <FlexWrapper>
       <RichLayout>
         <div aria-hidden={modalVisible}>
           {header}
-          <Body>
+          <Body fullWidth={fullWidth}>
             <Aside asideStickyTop={asideStickyTop}>{toolbar}</Aside>
-            <Main>{children}</Main>
+            <Main fullWidth={fullWidth}>{children}</Main>
           </Body>
         </div>
         {modal}

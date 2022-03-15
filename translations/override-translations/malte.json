@@ -60,6 +60,9 @@
     "tr": {
       "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
     },
+    "uk": {
+      "metaDescription": "{{appName}} - це цифровий помічник від Malteser International. Тут ви можете знайти місцеву інформацію, записатися на прийом та отримати консультацію у вашій установі. Завжди актуально і вашою мовою!"
+    },
     "ur": {
       "metaDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔ یہاں آپ کو مقامی معلومات، ایونٹس اور اپنے ادارے کی جانب سے مشورے ملیں گے۔ ہمیشہ تازہ ترین اور آپ کی زبان میں!"
     }
@@ -124,6 +127,9 @@
     },
     "tr": {
       "events": "Etkinlikler"
+    },
+    "uk": {
+      "events": "Запис на прийом"
     },
     "ur": {
       "events": "ایونٹ"
@@ -290,6 +296,14 @@
         "events": "Etkinliklere bak"
       }
     },
+    "uk": {
+      "notFound": {
+        "event": "На жаль, цю подію (термін) не вдалося знайти."
+      },
+      "goTo": {
+        "events": "До записів на прийом"
+      }
+    },
     "ur": {
       "notFound": {
         "event": "معذرت، یہ ایونٹس نہیں ملے۔"
@@ -400,6 +414,11 @@
       "currentlyNoEvents": "Güncel etkinlik bulunmamaktadır.",
       "pageTitle": "Etkinlikler"
     },
+    "uk": {
+      "events": "Записи на прийом",
+      "currentlyNoEvents": "Нині немає вільних місць на прийом",
+      "pageTitle": "Запис на прийом"
+    },
     "ur": {
       "events": "ایونٹ",
       "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
@@ -466,6 +485,9 @@
     },
     "tr": {
       "contentOfEvent": "\"{{event}}\" etkinliğinin içeriği"
+    },
+    "uk": {
+      "contentOfEvent": "Зміст події \"{{event}}\"."
     },
     "ur": {
       "contentOfEvent": "‎\"{{event}}\"‎ ایونٹ کا مواد"
@@ -572,6 +594,11 @@
       "events": "Etkinlikler",
       "eventsDescription": "Güncel etkinlik ve organizasyonlar"
     },
+    "uk": {
+      "appDescription": "{{appName}} - це цифровий помічник від Malteser International.",
+      "events": "Запис на прийом",
+      "eventsDescription": "Поточні записи на прийом та події"
+    },
     "ur": {
       "appDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔",
       "events": "ایونٹ",
@@ -638,6 +665,9 @@
     },
     "tr": {
       "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
+    },
+    "uk": {
+      "metaDescription": "{{appName}} - це цифровий помічник від Malteser International. Тут ви можете знайти місцеву інформацію, записатися на прийом та отримати консультацію у вашій установі. Завжди актуально і вашою мовою!"
     },
     "ur": {
       "metaDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔ یہاں آپ کو مقامی معلومات، ایونٹس اور اپنے ادارے کی جانب سے مشورے ملیں گے۔ ہمیشہ تازہ ترین اور آپ کی زبان میں!"
@@ -723,6 +753,10 @@
     "tr": {
       "events": "Etkinlikler",
       "noEvents": "Etkinlik yok"
+    },
+    "uk": {
+      "events": "Запис на прийом",
+      "noEvents": "Немає вільних місць на прийом"
     },
     "ur": {
       "events": "ایونٹ",

@@ -14,7 +14,7 @@ type PropsType = {
   navigation: NavigationPropType<PdfViewModalRouteType>
 }
 
-const PDFViewModal = ({ route }: PropsType): ReactElement => {
+const PDFViewModal = ({ route, navigation: _navigation }: PropsType): ReactElement => {
   const [error, setError] = useState<boolean>(false)
   const { url } = route.params
   const theme = useTheme()

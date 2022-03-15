@@ -225,5 +225,5 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  // @ts-expect-error
+  // @ts-expect-error TODO: IGAPP-636
 )(withPayloadProvider<ContainerPropsType, RefreshPropsType, EventsRouteType>(refresh, true)(EventsContainer))

@@ -4,7 +4,7 @@ import { LanguageModel } from 'api-client'
 
 import { DataContainer } from '../../utils/DataContainer'
 
-export default function* (
+export default function* loadLanguages(
   city: string,
   dataContainer: DataContainer,
   forceRefresh: boolean

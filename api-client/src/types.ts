@@ -111,6 +111,40 @@ export type JsonOfferType = {
   thumbnail: string
   post: JsonOfferPostType | null | undefined
 }
+
+export type ShelterLanguage = 'deutsch' | 'englisch' | 'ukrainisch' | 'russisch' | 'polnisch' | 'kroatisch'
+export type ShelterAccommodationType = 'ges_unterkunft' | 'privatzimmer' | 'gemein_zimmer'
+export type ShelterInfo =
+  | 'barrierefrei'
+  | 'lgbtiq'
+  | 'bad'
+  | 'haustier-katze'
+  | 'haustier-hund'
+  | 'haustier'
+  | 'rauchen'
+export type ShelterPeriod = '7t' | '14t' | '1m' | '3m' | '6m' | '12m' | '12m_plus'
+export type ShelterHostType = 'allein_maennlich' | 'allein_weiblich' | 'familie_kinder' | 'paar' | 'wg' | null
+export type ShelterCostsType = 'uebergang-miete' | 'kostenpflichtig' | 'kostenfrei'
+export type JsonShelterType = {
+  id: number
+  name: string
+  city: string
+  street: string
+  zipcode: string
+  languages: ShelterLanguage[]
+  beds: string
+  accommodation_type: ShelterAccommodationType
+  info: ShelterInfo[]
+  email: string | null
+  phone: string | null
+  rooms: string | null
+  occupants: string | null
+  start_date: string
+  period: ShelterPeriod
+  host_type: ShelterHostType
+  costs: ShelterCostsType
+  comments: string | null
+}
 export type JsonSprungbrettJobType = {
   title: string
   zip: string
@@ -118,41 +152,6 @@ export type JsonSprungbrettJobType = {
   url: string
   employment: string
   apprenticeship: string
-}
-// Generated with: https://transform.now.sh/json-to-flow-types/
-type AccommodationType = {
-  ofRooms: string[]
-  title: string
-  location: string
-  totalArea: number
-  totalRooms: number
-  moveInDate: string
-  ofRoomsDiff: string[]
-}
-type CostsType = {
-  ofRunningServices: string[]
-  ofAdditionalServices: string[]
-  baseRent: number
-  runningCosts: number
-  hotWaterInHeatingCosts: boolean
-  additionalCosts: number
-  ofRunningServicesDiff: string[]
-  ofAdditionalServicesDiff: string[]
-}
-type LandlordType = {
-  firstName: string
-  lastName: string
-  phone: string
-}
-type FormDataType = {
-  landlord: LandlordType
-  accommodation: AccommodationType
-  costs: CostsType
-}
-export type OfferType = {
-  email: string
-  formData: FormDataType
-  createdDate: string
 }
 export type LanguageDirectionType = 'ltr' | 'rtl'
 export type JsonLanguageType = {

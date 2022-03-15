@@ -6,6 +6,7 @@ import {
   OfferModel,
   OFFERS_ROUTE,
   pathnameFromRouteInformation,
+  SHELTER_ROUTE,
   SPRUNGBRETT_OFFER,
   SPRUNGBRETT_OFFER_ROUTE,
   useLoadFromEndpoint
@@ -42,18 +43,20 @@ const OffersPage = ({ cityModel, cityCode, languageCode, languages }: CityRouteP
         let path = offer.path
 
         if (offer.alias === SPRUNGBRETT_OFFER) {
+          // the url stored in the sprungbrett offer is the url of the endpoint
           path = pathnameFromRouteInformation({ route: SPRUNGBRETT_OFFER_ROUTE, cityCode, languageCode })
+        } else if (offer.alias === SHELTER_ROUTE) {
+          path = pathnameFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
         }
 
         return new TileModel({
-          title: offer.title,
-          // the url stored in the sprungbrett offer is the url of the endpoint
+          title: t(offer.title),
           path,
           thumbnail: offer.thumbnail,
           postData: offer.postData
         })
       }),
-    [cityCode, languageCode]
+    [cityCode, languageCode, t]
   )
 
   const languageChangePaths = languages.map(({ code, name }) => {

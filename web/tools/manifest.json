@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "This is replaced by webpack.config.babel.js",
-  "short_name": "This is replaced by webpack.config.babel.js",
-  "version": "This is replaced by webpack.config.babel.js",
-  "description": "This is replaced by webpack.config.babel.js",
+  "name": "This is replaced by webpack.config.ts",
+  "short_name": "This is replaced by webpack.config.ts",
+  "version": "This is replaced by webpack.config.ts",
+  "description": "This is replaced by webpack.config.ts",
   "icons": [
     {
       "src": "favicons/favicon-16x16.png",
@@ -29,14 +29,14 @@
   "homepage_url": "",
   "related_applications": [
     {
-      "platform": "This is replaced by webpack.config.babel.js",
-      "id": "This is replaced by webpack.config.babel.js",
-      "url": "This is replaced by webpack.config.babel.js"
+      "platform": "This is replaced by webpack.config.ts",
+      "id": "This is replaced by webpack.config.ts",
+      "url": "This is replaced by webpack.config.ts"
     }
   ],
   "prefer_related_applications": true,
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "This is replaced by webpack.config.babel.js",
+  "theme_color": "This is replaced by webpack.config.ts",
   "background_color": "#ffffff"
 }

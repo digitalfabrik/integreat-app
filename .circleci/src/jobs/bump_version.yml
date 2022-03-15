@@ -1,12 +1,11 @@
-# First step of a new delivery. Bump version name and code, tag the commit and (only for production) create a jira release.
+# First step of each workflow. Reads and bumps the current version code and name. For deliveries the bump is committed and a JIRA release is created.
 parameters:
-  delivery:
-    description: Which type of delivery is made. If none, the bumped version is not committed.
-    type: enum
-    enum: [none, development, production]
-    default: none
+  prepare_delivery:
+    description: Whether to prepare for a delivery. If true, the version bump is committed and a JIRA release is created.
+    type: boolean
+    default: false
 docker:
-  - image: circleci/node:14.18.0
+  - image: cimg/node:14.19.0
 resource_class: small
 steps:
   - skip_job
@@ -14,21 +13,19 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
-      command: echo "export NEW_VERSION_NAME=$(tools/next-version calc | jq .versionName)" >> ${BASH_ENV}
+      command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+      working_directory: tools
   - run:
       name: Calculate next version code
-      command: echo "export NEW_VERSION_CODE=$(tools/next-version calc | jq .versionCode)" >> ${BASH_ENV}
-  - unless:
-      condition:
-        equal: [none, << parameters.delivery >>]
+      command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+      working_directory: tools
+  - when:
+      condition: << parameters.prepare_delivery >>
       steps:
         - run:
             name: Bump git version
-            command: tools/git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-  - when:
-      condition:
-        equal: [production, << parameters.delivery >>]
-      steps:
+            command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+            working_directory: tools
         - run:
             name: Create jira release # The jira project has to have the same name as the github project. Otherwise this has to be configured.
             command: tools/create-jira-release create-release ${NEW_VERSION_NAME} --private-key ${JIRA_PRIVATE_KEY} --access-token ${JIRA_OAUTH_TOKEN} --consumer-key ${JIRA_CONSUMER_KEY} --project-name ${CIRCLE_PROJECT_REPONAME}

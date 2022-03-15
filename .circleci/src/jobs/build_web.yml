@@ -1,10 +1,10 @@
 parameters:
   build_config_name:
     type: enum
-    enum: [integreat, malte, integreat-test-cms, aschaffenburg]
+    enum: [integreat, malte, integreat-test-cms, malte-test-cms, aschaffenburg]
     default: integreat
 docker:
-  - image: circleci/node:14.18.0
+  - image: cimg/node:14.19.0
 resource_class: medium
 environment:
   TOTAL_CPUS: 2 # For resource_class medium

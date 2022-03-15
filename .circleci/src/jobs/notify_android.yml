@@ -4,7 +4,7 @@ parameters:
     description: Whether builds are delivered to the production store. If set to true, jira and github releases are created.
     type: boolean
 docker:
-  - image: circleci/node:14.18.0
+  - image: cimg/node:14.19.0
 resource_class: small
 steps:
   - skip_job
@@ -18,7 +18,8 @@ steps:
       working_directory: ~/attached_workspace
   - run:
       name: Create github release
-      command: tools/github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+      command: yarn github-release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --android --language en)"<<^ parameters.production_delivery >> --development-release<</ parameters.production_delivery >> --download-links "${ANDROID_ARTIFACT_URLS}"
+      working_directory: tools
   - run:
       name: Create release notes
       command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
