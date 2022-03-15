@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from
 import InfiniteScroll from 'react-infinite-scroller'
 import styled from 'styled-components'
 
-import { loadFromEndpoint, Payload } from 'api-client/src'
+import { loadFromEndpoint, Payload } from 'api-client'
 
 import FailureSwitcher from './FailureSwitcher'
 
@@ -23,8 +23,6 @@ type PropsType<T> = {
   noItemsMessage: string
   renderItem: (item: T) => ReactNode
   defaultPage: number
-  resetOnLanguageChange?: boolean
-  languageCode?: string
   itemsPerPage: number
 }
 
@@ -33,8 +31,6 @@ const InfiniteScrollList = <T,>({
   noItemsMessage,
   renderItem,
   defaultPage,
-  resetOnLanguageChange,
-  languageCode,
   itemsPerPage
 }: PropsType<T>): ReactElement => {
   const [data, setData] = useState<T[]>([])
@@ -51,7 +47,6 @@ const InfiniteScrollList = <T,>({
       const addData = (data: T[] | null) => {
         if (data !== null) {
           setData(oldData => oldData.concat(data))
-
           if (data.length !== itemsPerPage) {
             setHasMore(false)
           }
@@ -61,15 +56,16 @@ const InfiniteScrollList = <T,>({
     }
   }, [page, hasMore, itemsPerPage, loadPage])
 
-  useEffect(() => {
-    if (resetOnLanguageChange) {
+  useEffect(
+    () => () => {
       setData([])
       setError(null)
       setLoading(false)
       setHasMore(true)
       setPage(defaultPage)
-    }
-  }, [languageCode, resetOnLanguageChange, defaultPage])
+    },
+    [loadPage, defaultPage]
+  )
 
   if (error) {
     return <FailureSwitcher error={error} />
