@@ -115,11 +115,12 @@ class LocationModel {
     )
   }
 
+  // since there are different coordinate format handlings, we use [long,lat] https://docs.mapbox.com/help/glossary/lat-lon/#coordinate-format-handling
   get coordinates(): Position | null {
     if (!this.longitude || !this.latitude) {
       return null
     }
-    return [Number(this.latitude), Number(this.longitude)]
+    return [Number(this.longitude), Number(this.latitude)]
   }
 
   convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
