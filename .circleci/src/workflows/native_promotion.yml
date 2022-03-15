@@ -1,10 +1,7 @@
-triggers:
-  - schedule:
-      cron: '0 2 * * 1' # For sanity checks for this syntax: https://crontab.guru/
-      filters:
-        branches:
-          only:
-            - main
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - equal: [<< pipeline.parameters.workflow_type >>, native_promotion]
 jobs:
   - promote_android:
       name: promote_integreat_android
