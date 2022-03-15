@@ -15,30 +15,22 @@
 The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflows _triggered_native_development_delivery_ and _triggered_production_delivery_:
 
 - Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
-- Trigger a delivery using the tool [trigger-pipeline](../.circleci/trigger-pipeline).
-  - If no branch is specified, main is used as default. This should normally not be changed.
-  - Per default a development delivery is made.
-  - For more information on how to use it, execute it without parameters to see usage information.
+- Trigger a delivery using the tool [trigger-workflow](../tools/trigger-pipeline.ts):
+  `cd tools && yarn trigger-workflow trigger <workflow-type> --api-token <api-token>`
 
 ## Workflows
 
 Several workflows exist for different purposes:
 
-- **commit**: Executed for all commits of PRs to ensure good code quality and working code. Delivers web development builds to https://webnext.\<domain>.
-- **scheduled_native_promotion**: Promotes the latest native development builds to production. Executed every Thursday morning.
-- **scheduled_delivery**: Delivers native builds to development and web builds to production. Executed every Thursday morning.
-- **triggered_native_development_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers native builds to development.
-- **triggered_production_delivery**: [Manually triggerable](#triggering-a-delivery-using-the-ci) workflow which delivers web and native builds to production.
-
-See the table below for a more detailed overview:
-
-| Workflow                              | Checks             | E2E tests          | native delivery | web delivery            | Version bump       | Move release notes |
-| ------------------------------------- | ------------------ | ------------------ | --------------- | ----------------------- | ------------------ | ------------------ |
-| commit                                | :heavy_check_mark: | :heavy_check_mark: | :x:             | development (main only) | :x:                | :x:                |
-| scheduled_native_promotion            | :x:                | :x:                | promotion       | :x:                     | :x:                | :x:                |
-| scheduled_delivery                    | :heavy_check_mark: | :heavy_check_mark: | development     | production              | :heavy_check_mark: | :heavy_check_mark: |
-| triggered_native_development_delivery | :heavy_check_mark: | :heavy_check_mark: | development     | :x:                     | :heavy_check_mark: | :x:                |
-| triggered_production_delivery         | :heavy_check_mark: | :heavy_check_mark: | production      | production              | :heavy_check_mark: | :heavy_check_mark: |
+| Workflow                    | Schedule/Trigger       | Checks             | native delivery | web delivery | Version bump       | Move release notes |
+| --------------------------- | ---------------------- | ------------------ | --------------- | ------------ | ------------------ | ------------------ |
+| commit                      | commits of PRs         | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
+| commit_main                 | commits on main        | :x:                | browserstack    | development  | :x:                | :x:                |
+| delivery                    | Monday (04:00), script | :heavy_check_mark: | development     | production   | :heavy_check_mark: | :heavy_check_mark: |
+| native_promotion            | Monday (02:00), script | :x:                | promotion       | :x:          | :x:                | :x:                |
+| native_development_delivery | script                 | :heavy_check_mark: | development     | :x:          | :heavy_check_mark: | :x:                |
+| native_production_delivery  | script                 | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
+| web_production_delivery     | script                 | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
 
 Steps executed if _Checks_ is checked :heavy_check_mark::
 
@@ -47,6 +39,7 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 - TypeScript checks
 - Unit testing with jest
 - Building the app
+- E2E tests
 
 Steps executed if _Version bump_ is checked :heavy_check_mark::
 
