@@ -71,7 +71,8 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
   const { zipcode, hostType, languages, email, phone, comments, free, street } = shelter
   const { t } = useTranslation('shelter')
 
-  const location = `${city}, ${street}`
+  const notSpecified = t('notSpecified')
+  const location = street ? `${city}, ${street}` : city
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
   const titleText = t('shelterTitle', { beds: bedsText, location })
   const titleHint = `(#${id})`
@@ -83,7 +84,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
   const petsTooltip = allowedPets.length === 2 ? t('haustier') : t(allowedPets[0] ?? 'notSpecified')
   const petsAllowed = allowedPets.length !== 0
 
-  const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : t('notSpecified')
+  const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : notSpecified
 
   return (
     <>
@@ -114,11 +115,9 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
               extended={extended}
               title={t('householdInformation')}
               information={[
-                { text: t('rooms'), rightText: rooms?.toString() ?? t('notSpecified') },
-                { text: t('occupants'), rightText: occupants?.toString() ?? t('notSpecified') },
-                ...(occupants !== 0
-                  ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : t('notSpecified') }]
-                  : [])
+                { text: t('rooms'), rightText: rooms?.toString() ?? notSpecified },
+                { text: t('occupants'), rightText: occupants?.toString() ?? notSpecified },
+                ...(occupants !== 0 ? [{ text: t('hostType'), rightText: hostType ? t(hostType) : notSpecified }] : [])
               ]}
             />
             <ShelterInformationSection
@@ -128,7 +127,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
-                { text: t('street'), rightText: street },
+                { text: t('street'), rightText: street ?? notSpecified },
                 { text: t('languages'), rightText: languagesText }
               ]}
             />
@@ -141,8 +140,8 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 title={t('contactInformation').toUpperCase()}
                 elevated
                 information={[
-                  { icon: emailIcon, text: email ?? t('notSpecified'), link: email ? `mailto:${email}` : undefined },
-                  { icon: phoneIcon, text: phone ?? t('notSpecified'), link: phone ? `tel:${phone}` : undefined }
+                  { icon: emailIcon, text: email ?? notSpecified, link: email ? `mailto:${email}` : undefined },
+                  { icon: phoneIcon, text: phone ?? notSpecified, link: phone ? `tel:${phone}` : undefined }
                 ]}
               />
             ) : (
