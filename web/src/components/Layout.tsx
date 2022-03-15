@@ -83,7 +83,6 @@ const Aside = styled.aside<{ asideStickyTop: number }>`
   margin-top: 105px;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
-  z-index: 10;
 
   &:empty {
     display: none;
