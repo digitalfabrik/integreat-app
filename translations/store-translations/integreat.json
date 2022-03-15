@@ -95,13 +95,16 @@
       "marketing_url": "https://integreat-app.de",
       "privacy_url": "https://integreat-app.de/datenschutz",
       "support_url": "https://integreat-app.de"
+    },
+    "uk": {
+      "keywords": "Німеччина, Допомога, Вчити німецьку, Правила, Німецьки курси, Новини, Консульство,Інформація, Азюль"
     }
   },
   "common": {
     "de": {
       "name": "Integreat",
       "description": "In Integreat finden Sie lokale Informationen, Veranstaltungen und Beratungsstellen. Wir helfen Ihnen den Überblick zu behalten. Die Informationen werden von Behörden und Organisationen selbst erstellt und laufend aktualisiert.\nKOSTENLOSE HILFE\nIntegreat können Sie kostenlos und ohne Werbung nutzen. Entwickelt wurde es von der gemeinnützigen Organisation \"Tür an Tür\" in Zusammenarbeit mit vielen Städten, Behörden und weiteren gemeinwohlorientierten Organisationen.\nVIELE FUNKTIONEN\nIntegreat ist Ihr digitaler Guide für Ihre Stadt und bietet einzigartige Funktionen:\n- Sie finden lokale Informationen, Veranstaltungen und weitere Angebote in einer App\n- Die lokalen Informationen werden von Ihrer Stadt selbst erstellt und aktualisiert\n- Über die Suchfunktion können Sie Informationen noch schneller finden\n- Im Bereich „Angebote“ finden Sie Arbeitsplätze und Ausbildungsplätze in Ihrer Nähe\n- Integreat zeigt Ihnen interessante Veranstaltungen in Ihrer Stadt an\n- Über Push-Nachrichten benachrichtigt Sie Ihre Stadt über wichtige Neuigkeiten\n- Sie können die Informationen und Veranstaltungen mit Ihren Bekannten teilen\n- Helfen Sie mit Integreat zu verbessern, indem Sie Feedback zur App und den lokalen Informationen geben\nKEIN DATENSAMMELN\nIntegreat sammelt keine Daten über Sie und Ihre Nutzung. Es wird nur gezählt, wie oft die lokalen Inhalte in einer Sprache geöffnet wurden, ohne dass wir Daten über Sie sammeln oder speichern.\nIntegreat benötigt von Ihnen wenige Berechtigungen, damit Sie Integreat bestmöglich nutzen können:\nSpeicher: Die lokalen Informationen über Ihre Stadt werden auf Ihrem Gerät gespeichert, damit Sie auch ohne Internetverbindung darauf zugreifen können\nStandort: Für die Nutzung der Karte in Integreat und die Auswahl der passenden Stadt hilft es, wenn Sie Ihren aktuellen Standort sehen können. Es werden keine Standortdaten ausgewertet.\nWLAN: Integreat lädt speicherintensive Inhalte nur herunter, wenn eine WLAN-Verbindung existiert. Dafür müssen wir prüfen können, ob eine WLAN-Verbindung existiert.",
-      "defaultReleaseNote": "Wir haben die App weiter für Sie verbessert und einige Fehler entfernt. Helfen Sie mit Integreat zu verbessern, indem Sie Feedback zur App und den lokalen Informationen geben"
+      "defaultReleaseNote": "Wir haben die App weiter für Sie verbessert und einige Fehler entfernt. Helfen Sie mit Integreat zu verbessern, indem Sie Feedback zur App und den lokalen Informationen geben."
     },
     "am": {
       "name": "Integreat",
@@ -177,6 +180,11 @@
       "name": "Integreat",
       "description": "Integreat’te yerel bilgiler, etkinlikler ve danışma merkezleri bulacaksınız. Size, genel bir bakış elde etmeniz konusunda yardımcı olacağız. Bu bilgileri yetkililer ve kuruluşlar kendileri oluşturur ve sürekli günceller.\nÜCRETSİZ YARDIM\nIntegreat’i ücretsiz ve reklamsız kullanabilirsiniz. Kâr amacı gütmeyen özel kuruluş “Tür an Tür” tarafından birçok şehir, resmi makam ve diğer kamu yararı kuruluşları ile iş birliği içinde geliştirilmiştir.\nÇOK SAYIDA İŞLEV\nIntegreat, şehrinizdeki dijital rehberinizdir ve eşsiz işlevler sunar:\n- Yerel bilgileri, etkinlikleri ve diğer teklifleri tek bir uygulamada bulursunuz\n- Yerel bilgiler bizzat şehrinizin tarafından derlenir ve güncellenir\n- Arama işlevi sayesinde bilgileri daha da hızlı bulabilirsiniz\n- \"Teklifler\" bölümünde yakınlarınızdaki iş ve meslek eğitimi yerlerini bulabilirsiniz\n- Integreat size şehrinizdeki ilgi çekici etkinlikleri gösterir\n- Anında bildirimlerle şehrinizden önemli haberleri alın\n- Bilgi ve etkinlikleri tanıdıklarınızla paylaşabilirsiniz\n- Uygulama ve yerel bilgiler hakkında geri bildirimde bulunarak Integreat'ın iyileştirilmesine katkıda bulunabilirsiniz\nVERİ TOPLANMAZ\nIntegreat siz ve kullanım alışkanlıklarınız hakkında veri toplamaz. Sadece hakkınızdaki veriler toplanmadan veya saklanmadan bir dildeki yerel içerikleri ne sıklıkla açtığınız sayılır.\nIntegreat, uygulamadan en iyi şekilde yararlanabilmeniz için bazı izinlerinize ihtiyaç duyar:\nSaklama: Şehrinizle ilgili yerel bilgiler İnternet bağlantısı olmadan da erişebilmeniz için cihazınızda saklanır.\nKonum: Mevcut konumunuzu göstermeniz Integreat haritasını kullanmanıza ve uygun şehri seçmenize yardımcı olur. Konum verileri değerlendirmeye tabi tutulmaz.\nKablosuz ağ: Integreat, yüksek miktarda veri içeren içerikleri kablosuz ağa bağlıysanız indirir. Bunun için kablosuz ağa bağlı olup olmadığınızı kontrol edebilmemiz gerekir.",
       "defaultReleaseNote": "Uygulamayı sizin için daha da iyileştirdik ve bazı hataları giderdik. Uygulama ve yerel bilgiler hakkında geri bildirimde bulunarak Integreat'ın iyileştirilmesine katkıda bulunabilirsiniz. "
+    },
+    "uk": {
+      "name": "Integreat",
+      "description": "В додатку Інтегрейт ви можете знайти місцеву інформацію,події та консульскі центри. Ми допомогаємо Вам відслідковувати всю необхідну інформацію.Вся інформація була створена та оновлюється владою та організаціями.\n\nБЕЗКОШТОВНА ДОПОМОГА\nВи можете безкоштовно та без реклами користуватись додатком Інтегрейт. Цей додаток було створено благодійною організацією \"Від дверей до дверей\" та з допомогою іншіх міст, органів влади та соціальних спілок.\n\nПОСЛУГИ\nІнтегрейт є вашим цифровим гідом до найбліжчого міста і пропонує унікальні послуги:\n- Ви зможете знайти місцеву інформацію, події та інші послуги в одному додатку\n- Місцева інформация надходить з органів місцевої влади та постійно буде оновлюватись\n- Ви можете знайти потрібну інформацію з допомогою кнопки Пошук\n- У вкладці \"Послуги\" ви знайдете робочі вакансії та стужвання, які знаходяться біля вас\n- Додаток Інтегрейт показує вам цікаві події у вашому місті\n- Сповіщення на телефон дають Вам важливі новини стосовно вашого міста\n- Ви зможете поширювати інформацію вашим друзям\n- Якщо Ви залишите ваш відгук, це допоможе нам поліпшити додаток\n\nМИ НЕ ЗАПИСУЄМО ВАШІ ДАННІ\nДодаток Інтегрейт не записує ваші дані та як ви користуєтесь додатком. Ми тільки робимо запис як часто сторінка була відкрита на вибраній мові, але ми не записуємо і не передаємо ваші данні.\nІнтегрейт вимагає Ваш дозвіл на повне користування функцій додатка:\nЗберігання: Місцева інформація про ваше місто буде зберігатися на вашому телефоні. Ви зможете користуватись нею навіть без Інтернету\nЛокація:Під час користування картою та вибору Вашого міста в додатку, ви побачите вашу актуальну локацію.Додаток не аналізує вашу локацію.\nВай-Фай: Інтегрейт завантажує контент тільки коли ви підключені до Інтернету через вай фай. Для цього нам потрібно перевіряти чи Ви підключені до вай фаю",
+      "defaultReleaseNote": "Ми додали новинки та виправили деякі помилки. Допоможіть нам поліпшити Інтегрейт, залишивши свій відгук у додатку"
     }
   },
   "playstore": {
@@ -227,6 +235,9 @@
     },
     "tr": {
       "short_description": "Integreat, yeni şehrinizde yolunuzu kolayca bulmanıza yardımcı olur."
+    },
+    "uk": {
+      "short_description": "Інтегрейт допоможе Вам облаштуватись в новому місті"
     }
   },
   "screenshots": {
@@ -277,6 +288,9 @@
     },
     "tr": {
       "placeholder_key": "Integreat, ücretsiz dijital rehberinizdir"
+    },
+    "uk": {
+      "placeholder_key": "Інтегрейт це Ваш безкоштовний цифровий гід"
     }
   }
 }
