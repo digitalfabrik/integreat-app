@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { SendingState } from './FeedbackContainer'
 import TextButton from './TextButton'
+import TextInput from './TextInput'
 
 export const Container = styled.div`
   display: flex;
@@ -27,12 +28,6 @@ const TextContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
-
-const TextInput = styled.input.attrs({
-  type: 'text'
-})`
-  resize: none;
 `
 
 export const Description = styled.label`
@@ -83,7 +78,12 @@ const Feedback = (props: PropsType): ReactElement => {
         <Description htmlFor='email'>{t('contactMailAddress')}</Description>
         <div>({t('optionalInfo')})</div>
       </TextContainer>
-      <TextInput id='email' onChange={event => onContactMailChanged(event.target.value)} value={contactMail} />
+      <TextInput
+        id='email'
+        type='email'
+        onChange={event => onContactMailChanged(event.target.value)}
+        value={contactMail}
+      />
 
       {sendingStatus === SendingState.ERROR && (
         <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>

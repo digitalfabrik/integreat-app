@@ -9,9 +9,15 @@ const PLATFORM_WEB = 'web'
 
 const PLATFORMS = [PLATFORM_WEB, PLATFORM_IOS, PLATFORM_ANDROID]
 
-const tagId = ({ platform, versionName }) => `${versionName}-${platform}`
+const MAIN_BRANCH = 'main'
 
-module.exports = {
+type ReleaseInformation = {
+  platform: typeof PLATFORMS[number]
+  versionName: string
+}
+const tagId = ({ platform, versionName }: ReleaseInformation): string => `${versionName}-${platform}`
+
+export {
   RELEASE_NOTES_DIR,
   UNRELEASED_DIR,
   GITKEEP_FILE,
@@ -20,5 +26,6 @@ module.exports = {
   PLATFORM_IOS,
   PLATFORM_ANDROID,
   PLATFORMS,
+  MAIN_BRANCH,
   tagId
 }

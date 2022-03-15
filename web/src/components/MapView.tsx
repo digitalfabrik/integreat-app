@@ -1,6 +1,6 @@
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useEffect, useState } from 'react'
-import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, Source } from 'react-map-gl'
+import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, NavigationControl, Source } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -14,14 +14,26 @@ import {
   mapMarker
 } from 'api-client'
 
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import updateQueryParams from '../utils/updateQueryParams'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
-  ${`height: calc(100vh - 190px);`}
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
+`
+
+const StyledNavigationControl = styled(NavigationControl)`
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+`
+
+const StyledGeolocateControl = styled(GeolocateControl)`
+  right: 10px;
+  top: 10px;
 `
 
 const textOffsetY = 1.25
@@ -43,10 +55,6 @@ const layerStyle: LayerProps = {
   },
   paint: {}
 }
-const geolocateControlStyle: React.CSSProperties = {
-  right: 10,
-  top: 10
-}
 
 type MapViewProps = {
   bboxViewport: MapViewViewport
@@ -61,6 +69,7 @@ const MapView = (props: MapViewProps): ReactElement => {
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
   const queryParams = new URLSearchParams(useLocation().search)
   const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
+  const { viewportSmall } = useWindowDimensions()
 
   useEffect(() => {
     if (queryLocation) {
@@ -104,15 +113,11 @@ const MapView = (props: MapViewProps): ReactElement => {
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
-        <GeolocateControl
-          auto
-          style={geolocateControlStyle}
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation
-        />
+        <StyledGeolocateControl auto positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
         </Source>
+        {!viewportSmall && <StyledNavigationControl showCompass={false} />}
       </ReactMapGL>
     </MapContainer>
   )

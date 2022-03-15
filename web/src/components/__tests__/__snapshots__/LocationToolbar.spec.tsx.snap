@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocationToolbar should match snapshot 1`] = `
-<Translate(Toolbar)
+<Toolbar
   viewportSmall={true}
 >
   <div>
@@ -17,5 +17,5 @@ exports[`LocationToolbar should match snapshot 1`] = `
     openFeedbackModal={[Function]}
     viewportSmall={true}
   />
-</Translate(Toolbar)>
+</Toolbar>
 `;

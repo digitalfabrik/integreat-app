@@ -87,6 +87,6 @@ export function* fetchEvent(dataContainer: DataContainer, action: FetchEventActi
   }
 }
 
-export default function* (dataContainer: DataContainer): SagaGenerator<void> {
+export default function* fetchEventSaga(dataContainer: DataContainer): SagaGenerator<void> {
   yield* takeEvery('FETCH_EVENT', fetchEvent, dataContainer)
 }
