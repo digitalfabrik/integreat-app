@@ -6137,7 +6137,9 @@
         "invalid_accommodation": "Dieses Angebot ist nicht mehr verfügbar.",
         "invalid_contact_data": "Ihre Kontaktinformation waren leider inkorrekt oder wurden bereits zur Kontaktanfrage verwendet.",
         "send": "Abschicken"
-      }
+      },
+      "facetBeds": "min. Anzahl Betten",
+      "facetPets": "Haustiere erlaubt"
     },
     "en": {
       "title": "Housing",
@@ -6194,7 +6196,9 @@
       "shelterType": "Type of living",
       "startDate": "Earliest available",
       "availableBeds": "Available beds",
-      "duration": "Possible length of stay"
+      "duration": "Possible length of stay",
+      "facetBeds": "Number of beds",
+      "facetPets": "Pets allowed"
     },
     "pl": {
       "smoking": "Palenie dozwolone"
@@ -6257,7 +6261,9 @@
       "shelterType": "вид квартири ",
       "startDate": "найраніший доступний",
       "availableBeds": "наявні ліжка",
-      "duration": "можлива тривалість перебування"
+      "duration": "можлива тривалість перебування",
+      "facetBeds": "кількість ліжок",
+      "facetPets": "Допускаються домашні тварини"
     }
   },
   "sprungbrett": {
