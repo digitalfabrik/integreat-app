@@ -2,41 +2,55 @@ import React, { ReactElement } from 'react'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 
-import { SPRUNGBRETT_OFFER_ROUTE, OfferModel } from 'api-client'
+import { OfferModel, SHELTER_ROUTE, SPRUNGBRETT_OFFER_ROUTE } from 'api-client'
 
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
 import SpaceBetween from '../components/SpaceBetween'
 import Tiles from '../components/Tiles'
 import TileModel from '../models/TileModel'
+import urlFromRouteInformation from '../navigation/url'
 
 type PropsType = {
   offers: Array<OfferModel>
   navigateToFeedback: (isPositiveFeedback: boolean) => void
   navigateToOffer: (tile: TileModel) => void
   t: TFunction
-  language: string
+  languageCode: string
+  cityCode: string
 }
 
-const toTileModels = (offer: Array<OfferModel>): Array<TileModel> =>
-  offer.map(offer => {
-    const isInternalExtra = [SPRUNGBRETT_OFFER_ROUTE as string].includes(offer.alias)
-    const path = isInternalExtra ? offer.alias : offer.path
+const Offers = ({
+  offers,
+  navigateToFeedback,
+  navigateToOffer,
+  t,
+  languageCode,
+  cityCode
+}: PropsType): ReactElement => {
+  const tiles = offers.map(offer => {
+    let path = offer.path
+    if (offer.alias === SPRUNGBRETT_OFFER_ROUTE) {
+      path = offer.alias
+    } else if (offer.alias === SHELTER_ROUTE) {
+      path = urlFromRouteInformation({ route: SHELTER_ROUTE, cityCode, languageCode })
+    }
     return new TileModel({
-      title: offer.title,
+      title: t(offer.title),
       path,
       thumbnail: offer.thumbnail,
-      isExternalUrl: !isInternalExtra,
+      isExternalUrl: offer.alias !== SPRUNGBRETT_OFFER_ROUTE,
       postData: offer.postData
     })
   })
 
-const Offers = ({ offers, navigateToFeedback, navigateToOffer, t, language }: PropsType): ReactElement => (
-  <SpaceBetween>
-    <View>
-      <Tiles title={t('offers')} tiles={toTileModels(offers)} onTilePress={navigateToOffer} language={language} />
-    </View>
-    <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
-  </SpaceBetween>
-)
+  return (
+    <SpaceBetween>
+      <View>
+        <Tiles title={t('offers')} tiles={tiles} onTilePress={navigateToOffer} language={languageCode} />
+      </View>
+      <SiteHelpfulBox navigateToFeedback={navigateToFeedback} />
+    </SpaceBetween>
+  )
+}
 
 export default Offers

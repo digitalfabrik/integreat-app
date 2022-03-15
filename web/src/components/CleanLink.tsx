@@ -15,20 +15,29 @@ type CleanLinkProps = {
   children: ReactNode
   ariaLabel?: string
   className?: string
+  newTab?: boolean
 }
 
-const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className }: CleanLinkProps) => (
-  <>
-    {isExternalUrl(to) ? (
-      <StyledCleanLink href={to} aria-label={ariaLabel} className={className} data-testid='externalLink' as='a'>
+const CleanLink: React.FC<CleanLinkProps> = ({ to, children, ariaLabel, className, newTab }: CleanLinkProps) => {
+  const newTabProps = newTab && { target: '_blank', rel: 'noopener noreferrer' }
+  if (isExternalUrl(to)) {
+    return (
+      <StyledCleanLink
+        href={to}
+        aria-label={ariaLabel}
+        className={className}
+        data-testid='externalLink'
+        as='a'
+        {...newTabProps}>
         {children}
       </StyledCleanLink>
-    ) : (
-      <StyledCleanLink to={to} data-testid='internalLink'>
-        {children}
-      </StyledCleanLink>
-    )}
-  </>
-)
+    )
+  }
+  return (
+    <StyledCleanLink to={to} data-testid='internalLink' {...newTabProps}>
+      {children}
+    </StyledCleanLink>
+  )
+}
 
 export default CleanLink

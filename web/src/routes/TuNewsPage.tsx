@@ -1,10 +1,9 @@
-import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
   createTunewsEndpoint,
   createTunewsLanguagesEndpoint,
-  loadFromEndpoint,
   NEWS_ROUTE,
   pathnameFromRouteInformation,
   TU_NEWS_TYPE,
@@ -15,12 +14,12 @@ import {
 import { CityRouteProps } from '../CityContentSwitcher'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
+import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
 import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
-import TuNewsList from '../components/TuNewsList'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import DateFormatterContext from '../contexts/DateFormatterContext'
 import { TU_NEWS_ROUTE } from './index'
@@ -34,41 +33,15 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
   const viewportSmall = false
 
   const loadTuNewsLanguages = useCallback(async () => createTunewsLanguagesEndpoint(tunewsApiBaseUrl).request(), [])
-  const { data: tuNewsLanguages, error: languagesError } = useLoadFromEndpoint(loadTuNewsLanguages)
+  const { data: tuNewsLanguages, error } = useLoadFromEndpoint(loadTuNewsLanguages)
 
-  const [tuNews, setTuNews] = useState<TunewsModel[]>([])
-  const [error, setError] = useState<Error | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [page, setPage] = useState<number>(DEFAULT_PAGE)
-  const [hasMore, setHasMore] = useState<boolean>(true)
-
-  const loadTuNews = useCallback(async () => {
-    if (hasMore) {
-      setLoading(true)
-      setPage(page + 1)
+  const loadTuNews = useCallback(
+    async (page: number) => {
       const endpoint = createTunewsEndpoint(tunewsApiBaseUrl)
-      const request = () => endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
-      const addTuNews = (data: TunewsModel[] | null) => {
-        if (data !== null) {
-          setTuNews(tuNews.concat(data))
-
-          if (data.length !== DEFAULT_COUNT) {
-            setHasMore(false)
-          }
-        }
-      }
-      await loadFromEndpoint(request, addTuNews, setError, setLoading)
-    }
-  }, [page, languageCode, tuNews, setTuNews, setError, setLoading, hasMore])
-
-  useEffect(() => {
-    // Reset on language change
-    setTuNews([])
-    setError(null)
-    setLoading(false)
-    setHasMore(true)
-    setPage(DEFAULT_PAGE)
-  }, [languageCode, setTuNews, setError, setLoading, setHasMore, setPage])
+      return endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
+    },
+    [languageCode]
+  )
 
   const renderTuNewsListItem = (tuNewsModel: TunewsModel) => {
     const { id, title, content, date } = tuNewsModel
@@ -101,16 +74,15 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
     languageCode
   }
 
-  const errorToShow = error || languagesError
-  if (errorToShow) {
+  if (error) {
     return (
       <LocationLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={errorToShow} />
+        <FailureSwitcher error={error} />
       </LocationLayout>
     )
   }
 
-  if (!tuNewsLanguages || (loading && tuNews.length === 0)) {
+  if (!tuNewsLanguages) {
     return (
       <LocationLayout isLoading {...locationLayoutParams}>
         <NewsTabs
@@ -169,15 +141,12 @@ const TuNewsPage = ({ cityCode, languageCode, cityModel, languages }: CityRouteP
         localNewsEnabled={cityModel.localNewsEnabled}
         t={t}
         language={languageCode}>
-        <TuNewsList
-          items={tuNews}
+        <InfiniteScrollList
+          loadPage={loadTuNews}
           renderItem={renderTuNewsListItem}
-          city={cityCode}
-          fetchMoreTunews={loadTuNews}
-          hasMore={hasMore}
-          isFetching={loading}
-          language={languageCode}
           noItemsMessage={t('currentlyNoNews')}
+          defaultPage={DEFAULT_PAGE}
+          itemsPerPage={DEFAULT_COUNT}
         />
       </NewsTabs>
     </LocationLayout>

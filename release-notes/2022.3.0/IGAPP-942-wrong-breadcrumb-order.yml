@@ -1,0 +1,5 @@
+issue_key: IGAPP-942
+show_in_stores: false
+platforms:
+  - web
+en: Breadcrumb order fixed for malte django cms.

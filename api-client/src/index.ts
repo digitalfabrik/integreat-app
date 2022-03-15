@@ -6,8 +6,10 @@ import {
   FeedbackType as ImportedFeedbackType,
   ParamsType as ImportedFeedbackParamsType
 } from './endpoints/createFeedbackEndpoint'
+import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
 import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
 
+export type ShelterContactStatus = ImportedShelterContactStatus
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
@@ -42,6 +44,11 @@ export {
   default as createCategoryParentsEndpoint,
   CATEGORY_PARENTS_ENDPOINT_NAME
 } from './endpoints/createCategoryParentsEndpoint'
+export { default as createShelterEndpoint, SHELTER_ENDPOINT_NAME } from './endpoints/createShelterEndpoint'
+export {
+  default as createShelterContactEndpoint,
+  SHELTER_CONTACT_ENDPOINT_NAME
+} from './endpoints/createShelterContactEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
@@ -104,6 +111,7 @@ export { default as FeaturedImageModel } from './models/FeaturedImageModel'
 export { default as PageModel } from './models/PageModel'
 export { default as PoiModel } from './models/PoiModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
+export { default as ShelterModel } from './models/ShelterModel'
 export { default as normalizePath } from './normalizePath'
 export { ErrorCode, fromError } from './ErrorCodes'
 export { setUserAgent } from './request'
