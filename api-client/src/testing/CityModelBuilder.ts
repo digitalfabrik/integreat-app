@@ -21,7 +21,7 @@ const cities = [
       }
     },
     // eslint-disable-next-line no-magic-numbers
-    boundingBox: [48.447238, 10.7880103, 48.297834, 11.0174493]
+    boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
   }),
   new CityModel({
     name: 'Oldtown',

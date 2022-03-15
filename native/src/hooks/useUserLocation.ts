@@ -42,7 +42,7 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
   const determineLocation = useCallback(() => {
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
-        setLocation([position.coords.latitude, position.coords.longitude])
+        setLocation([position.coords.longitude, position.coords.latitude])
         setLocationState({ status: 'ready', message: 'localized' })
       },
       (error: GeolocationError) => {
