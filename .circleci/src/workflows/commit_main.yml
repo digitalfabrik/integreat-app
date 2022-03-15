@@ -6,7 +6,7 @@ jobs:
   - bump_version:
       context:
         - mattermost
-      delivery: none
+      prepare_delivery: false
 
   - build_web:
       name: build_ig_test_cms_web

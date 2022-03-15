@@ -1,66 +1,18 @@
-triggers:
-  - schedule:
-      cron: '0 4 * * 1' # For sanity checks for this syntax: https://crontab.guru/
-      filters:
-        branches:
-          only:
-            - main
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - equal: [<< pipeline.parameters.workflow_type >>, native_production_delivery]
 jobs:
   - bump_version:
       context:
         - mattermost
         - deliverino
         - jira
-      delivery: production
+      prepare_delivery: true
 
   - check:
       context:
         - mattermost
-
-  - e2e_web:
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_integreat_web
-      build_config_name: integreat
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_malte_web
-      build_config_name: malte
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - deliver_web:
-      context:
-        - mattermost
-        - sentry
-      production_delivery: true
-      requires:
-        - check
-        - e2e_web
-        - build_integreat_web
-        - build_malte_web
-        - build_aschaffenburg_web
-  - notify_web:
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - bump_version
-        - deliver_web
 
   - build_android:
       name: build_e2e_android
@@ -95,7 +47,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-      production_delivery: false
+      production_delivery: true
       requires:
         - check
         - e2e_android
@@ -118,7 +70,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-      production_delivery: false
+      production_delivery: true
       requires:
         - check
         - e2e_android
@@ -141,7 +93,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-      production_delivery: false
+      production_delivery: true
       requires:
         - check
         - e2e_android
@@ -151,7 +103,7 @@ jobs:
       context:
         - mattermost
         - deliverino
-      production_delivery: false
+      production_delivery: true
       requires:
         - deliver_integreat_android
         - deliver_malte_android
@@ -190,7 +142,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-      production_delivery: false
+      production_delivery: true
       requires:
         - check
         - e2e_ios
@@ -213,7 +165,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-      production_delivery: false
+      production_delivery: true
       requires:
         - check
         - e2e_ios
@@ -236,7 +188,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-      production_delivery: false
+      production_delivery: true
       requires:
         - check
         - e2e_ios
@@ -246,17 +198,8 @@ jobs:
       context:
         - mattermost
         - deliverino
-      production_delivery: false
+      production_delivery: true
       requires:
         - deliver_integreat_ios
         - deliver_malte_ios
         - deliver_aschaffenburg_ios
-
-  - move_release_notes:
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - notify_web
-        - notify_android
-        - notify_ios

@@ -1,14 +1,14 @@
 when:
   and:
     - << pipeline.parameters.api_triggered >>
-    - << pipeline.parameters.production_delivery >>
+    - equal: [<< pipeline.parameters.workflow_type >>, delivery]
 jobs:
   - bump_version:
       context:
         - mattermost
         - deliverino
         - jira
-      delivery: production
+      prepare_delivery: true
 
   - check:
       context:
@@ -56,7 +56,6 @@ jobs:
         - mattermost
         - deliverino
       requires:
-        - bump_version
         - deliver_web
 
   - build_android:
@@ -92,7 +91,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-      production_delivery: true
+      production_delivery: false
       requires:
         - check
         - e2e_android
@@ -115,7 +114,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-      production_delivery: true
+      production_delivery: false
       requires:
         - check
         - e2e_android
@@ -138,7 +137,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-google-play
-      production_delivery: true
+      production_delivery: false
       requires:
         - check
         - e2e_android
@@ -148,7 +147,7 @@ jobs:
       context:
         - mattermost
         - deliverino
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_integreat_android
         - deliver_malte_android
@@ -187,7 +186,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-      production_delivery: true
+      production_delivery: false
       requires:
         - check
         - e2e_ios
@@ -210,7 +209,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-      production_delivery: true
+      production_delivery: false
       requires:
         - check
         - e2e_ios
@@ -233,7 +232,7 @@ jobs:
         - sentry
         - browserstack
         - tuerantuer-apple
-      production_delivery: true
+      production_delivery: false
       requires:
         - check
         - e2e_ios
@@ -243,7 +242,7 @@ jobs:
       context:
         - mattermost
         - deliverino
-      production_delivery: true
+      production_delivery: false
       requires:
         - deliver_integreat_ios
         - deliver_malte_ios
