@@ -1,12 +1,12 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
 
-import { CategoriesRouteInformationType, CATEGORIES_ROUTE, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
+import { CATEGORIES_ROUTE, CategoriesRouteInformationType, SEARCH_FINISHED_SIGNAL_NAME } from 'api-client'
 import CategoriesMapModelBuilder from 'api-client/src/testing/CategoriesMapModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
 import { urlFromRouteInformation } from '../../navigation/url'
+import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import SearchModal from '../SearchModal'
 
@@ -37,11 +37,7 @@ describe('SearchModal', () => {
   }
 
   it('should send tracking signal when closing search site', async () => {
-    const { getByPlaceholderText, getAllByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <SearchModal {...props} />
-      </ThemeProvider>
-    )
+    const { getByPlaceholderText, getAllByRole } = render(<SearchModal {...props} />)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
@@ -58,11 +54,7 @@ describe('SearchModal', () => {
   })
 
   it('should send tracking signal when opening a search result', async () => {
-    const { getByText, getByPlaceholderText, getAllByRole } = render(
-      <ThemeProvider theme={buildConfig().lightTheme}>
-        <SearchModal {...props} />
-      </ThemeProvider>
-    )
+    const { getByText, getByPlaceholderText, getAllByRole } = render(<SearchModal {...props} />)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     await fireEvent.changeText(searchBar, 'Category')
@@ -84,5 +76,13 @@ describe('SearchModal', () => {
         url: expectedUrl
       }
     })
+  })
+
+  it('should show nothing found if there are no search results', () => {
+    const { getByText, getByPlaceholderText } = render(<SearchModal {...props} />)
+
+    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'invalid query')
+
+    expect(getByText('search:nothingFound')).toBeTruthy()
   })
 })
