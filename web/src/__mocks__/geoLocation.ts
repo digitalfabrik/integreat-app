@@ -1,5 +1,5 @@
-export const mockLatitude = 51.1
-export const mockLongitude = 45.3
+export const mockLatitude = 48.3
+export const mockLongitude = 10.8
 
 export const mockGeolocationSuccess = {
   getCurrentPosition: jest.fn().mockImplementationOnce(success =>
