@@ -239,6 +239,7 @@ const appstoreLanguageMap: Record<string, string[]> = {
   ru: ['ru'],
   sq: [],
   tr: ['tr'],
+  uk: ['uk'],
   ur: [],
   'zh-CN': ['zh-Hans']
 }
@@ -266,6 +267,7 @@ const playstoreLanguageMap: Record<string, string[]> = {
   ru: ['ru-RU'],
   sq: ['sq'],
   tr: ['tr-TR'],
+  uk: ['uk'],
   ur: ['ur'],
   'zh-CN': ['zh-CN']
 }
