@@ -15,6 +15,9 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
+  - run:
+      name: Include hidden files for sftp
+      command: shopt -s dotglob
   - when:
       condition: << parameters.production_delivery >>
       steps:
