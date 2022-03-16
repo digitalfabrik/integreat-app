@@ -35,7 +35,7 @@ export const useUserLocation = (): UserLocationType => {
         // eslint-disable-next-line -- check needed for tests
         if (coords) {
           const { latitude, longitude } = coords
-          setUserCoordinates([latitude, longitude])
+          setUserCoordinates([longitude, latitude])
           setLocationState({ status: 'ready', message: 'localized' })
         }
       },

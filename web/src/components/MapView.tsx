@@ -103,6 +103,7 @@ const MapView = (props: MapViewProps): ReactElement => {
   return (
     <MapContainer>
       <ReactMapGL
+        reuseMaps
         interactiveLayerIds={[layerStyle.id!]}
         {...viewport}
         height='100%'
@@ -112,7 +113,7 @@ const MapView = (props: MapViewProps): ReactElement => {
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
-        <StyledGeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
+        <StyledGeolocateControl auto positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
         </Source>
