@@ -2,9 +2,10 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { PoiFeature } from 'api-client'
+import { PoiFeature, PoiModel } from 'api-client'
 
 import dimensions from '../constants/dimensions'
+import PoiDetails from './PoiDetails'
 
 const ListViewWrapper = styled.div<{ panelHeights: number }>`
   min-width: 150px;
@@ -19,6 +20,12 @@ const ToolbarContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
 `
+const NavigationContainer = styled.div`
+  display: flex;
+  box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  justify-content: space-between;
+`
 
 const ListHeader = styled.div`
   padding-top: 32px;
@@ -32,12 +39,15 @@ const ListHeader = styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
+
 type PoisDesktopProps = {
   panelHeights: number
   currentFeature: PoiFeature | null
   poiList: ReactElement
   mapView: ReactElement | null
   toolbar: ReactElement
+  poi?: PoiModel
+  navigation: ReactElement
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -45,17 +55,29 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   currentFeature,
   poiList,
   mapView,
-  toolbar
+  toolbar,
+  poi,
+  navigation
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
+
+  // TODO modulo length für previous next
   return (
     <>
       <div>
         <ListViewWrapper panelHeights={panelHeights}>
-          <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
-          {!currentFeature && poiList}
+          {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
+          {currentFeature && poi ? (
+            <PoiDetails panelHeights={panelHeights} poi={poi} feature={currentFeature} />
+          ) : (
+            poiList
+          )}
         </ListViewWrapper>
-        <ToolbarContainer>{toolbar}</ToolbarContainer>
+        {currentFeature ? (
+          <NavigationContainer>{navigation}</NavigationContainer>
+        ) : (
+          <ToolbarContainer>{toolbar}</ToolbarContainer>
+        )}
       </div>
       {mapView}
     </>

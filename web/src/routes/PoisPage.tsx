@@ -1,15 +1,14 @@
 import { BBox } from 'geojson'
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
   defaultViewportConfig,
   embedInCollection,
-  locationName,
   MapViewViewport,
   NotFoundError,
   pathnameFromRouteInformation,
@@ -19,7 +18,8 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
+import iconArrowBack from '../assets/IconArrowBack.svg'
+import iconArrowForward from '../assets/IconArrowForward.svg'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -29,14 +29,11 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
-import Page from '../components/Page'
-import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import DateFormatterContext from '../contexts/DateFormatterContext'
 import { useFeatureLocations } from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
@@ -45,6 +42,23 @@ import { log } from '../utils/sentry'
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
+`
+
+const Icon = styled.img`
+  width: 16px;
+  height: 14px;
+  flex-shrink: 0;
+  padding: 0 8px;
+  object-fit: contain;
+  align-self: center;
+`
+
+const NavItem = styled.div`
+  display: flex;
+`
+
+const Label = styled.span`
+  align-self: center;
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
@@ -58,8 +72,6 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const { poiId } = useParams()
   const { t } = useTranslation('pois')
-  const formatter = useContext(DateFormatterContext)
-  const navigate = useNavigate()
   const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
@@ -71,7 +83,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
 
-  const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)
+  const poi = currentFeature
+    ? pois?.find((poi: PoiModel) => poi.urlSlug === currentFeature.properties.urlSlug)
+    : undefined
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
@@ -142,36 +156,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (poi) {
-    const { thumbnail, lastUpdate, content, title, location, featureLocation, urlSlug } = poi
-    const pageTitle = `${title} - ${cityModel.name}`
-
-    const mapUrlParams = new URLSearchParams({ [locationName]: urlSlug })
-    const mapLink = `${pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode })}?${mapUrlParams}`
-
-    return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-        <Page
-          defaultThumbnailSrc={thumbnail || PoiPlaceholder}
-          lastUpdate={lastUpdate}
-          content={content}
-          title={title}
-          formatter={formatter}
-          onInternalLinkClick={navigate}>
-          {location.location && (
-            <PageDetail
-              identifier={t('address')}
-              information={location.location}
-              link={featureLocation ? mapLink : undefined}
-              linkLabel={t('map')}
-            />
-          )}
-        </Page>
-      </LocationLayout>
-    )
-  }
-
   const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
     poi1.properties.title.localeCompare(poi2.properties.title)
   )
@@ -186,6 +170,19 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
       currentFeature={currentFeature}
     />
+  )
+
+  const navigation = (
+    <>
+      <NavItem>
+        <Icon src={iconArrowBack} alt='' />
+        <Label>vorheriges</Label>
+      </NavItem>
+      <NavItem>
+        <Label>nächstes</Label>
+        <Icon src={iconArrowForward} alt='' />
+      </NavItem>
+    </>
   )
 
   const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
@@ -206,6 +203,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
           />
         ) : (
           <PoisDesktop
+            navigation={navigation}
+            poi={poi}
             currentFeature={currentFeature}
             toolbar={toolbar}
             panelHeights={panelHeights}
