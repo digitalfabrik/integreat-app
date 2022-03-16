@@ -1,0 +1,5 @@
+issue_key: IGAPP-955
+show_in_stores: false
+platforms:
+  - web
+en: Fixed Serbian and Chinese.
