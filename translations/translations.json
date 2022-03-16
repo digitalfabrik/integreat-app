@@ -4859,7 +4859,11 @@
       "phoneCopied": "Telefonnummer in Zwischenablage kopiert",
       "eMailCopied": "E-Mail-Adresse in Zwischenablage kopiert",
       "websiteCopied": "Webseite in Zwischenablage kopiert",
-      "listTitle": "In deiner Nähe"
+      "listTitle": "In deiner Nähe",
+      "detailsHeader": "zurück zu Übersicht",
+      "detailsAddress": "Wegbeschreibung",
+      "detailsMapLink": "In Google Maps öffnen",
+      "detailsInformation": "Informationen"
     },
     "am": {
       "pageTitle": "ካርታ",
