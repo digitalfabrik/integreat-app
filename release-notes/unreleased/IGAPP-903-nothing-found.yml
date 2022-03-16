@@ -1,0 +1,7 @@
+issue_key: IGAPP-903
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Show message if there are no search results.
+de: Es wird nun eine Meldung angezeigt, wenn es keine Suchergebnisse gibt.
