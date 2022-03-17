@@ -23,7 +23,7 @@ const ToolbarContainer = styled.div`
 const NavigationContainer = styled.div`
   display: flex;
   box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
+  padding: 16px;
   justify-content: space-between;
 `
 
@@ -48,6 +48,8 @@ type PoisDesktopProps = {
   toolbar: ReactElement
   poi?: PoiModel
   navigation: ReactElement
+  selectFeature: (feature: PoiFeature | null) => void
+  setQueryLocation: (location: string | null) => void
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -57,18 +59,24 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   mapView,
   toolbar,
   poi,
-  navigation
+  navigation,
+  selectFeature,
+  setQueryLocation
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
 
-  // TODO modulo length für previous next
   return (
     <>
       <div>
         <ListViewWrapper panelHeights={panelHeights}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
           {currentFeature && poi ? (
-            <PoiDetails panelHeights={panelHeights} poi={poi} feature={currentFeature} />
+            <PoiDetails
+              setQueryLocation={setQueryLocation}
+              poi={poi}
+              feature={currentFeature}
+              selectFeature={selectFeature}
+            />
           ) : (
             poiList
           )}

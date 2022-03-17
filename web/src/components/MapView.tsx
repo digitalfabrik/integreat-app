@@ -1,7 +1,6 @@
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useEffect, useState } from 'react'
 import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, NavigationControl, Source } from 'react-map-gl'
-import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 
 import {
@@ -36,56 +35,72 @@ const StyledGeolocateControl = styled(GeolocateControl)`
   top: 10px;
 `
 
-const textOffsetY = 1.25
-
-const layerStyle: LayerProps = {
-  id: 'point',
-  type: 'symbol',
-  source: 'point',
-  layout: {
-    'icon-allow-overlap': true,
-    'icon-ignore-placement': true,
-    'icon-size': mapMarker.iconSize,
-    'icon-image': ['get', 'symbol'],
-    'text-field': ['get', 'title'],
-    'text-font': ['Roboto Regular'],
-    'text-offset': [0, textOffsetY],
-    'text-anchor': 'top',
-    'text-size': 12
-  },
-  paint: {}
-}
-
 type MapViewProps = {
   bboxViewport: MapViewViewport
   featureCollection: PoiFeatureCollection
   currentFeature: PoiFeature | null
   selectFeature: (feature: PoiFeature | null) => void
   changeSnapPoint: (snapPoint: number) => void
+  queryParams: URLSearchParams
+  queryLocation: string | null
+  setQueryLocation: (location: string | null) => void
 }
 
 const MapView = (props: MapViewProps): ReactElement => {
-  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint } = props
+  const {
+    featureCollection,
+    bboxViewport,
+    selectFeature,
+    changeSnapPoint,
+    queryParams,
+    currentFeature,
+    queryLocation,
+    setQueryLocation
+  } = props
+
+  const textOffsetY = 1.25
+
+  const layerStyle: LayerProps = {
+    id: 'point',
+    type: 'symbol',
+    source: 'point',
+    layout: {
+      'icon-allow-overlap': true,
+      'icon-ignore-placement': true,
+      'icon-size': mapMarker.iconSize,
+      'icon-image': [
+        'case',
+        ['==', ['get', 'id'], currentFeature?.properties.id ?? -1],
+        mapMarker.symbolActive,
+        ['get', 'symbol']
+      ],
+      'text-field': ['get', 'title'],
+      'text-font': ['Roboto Regular'],
+      'text-offset': [0, textOffsetY],
+      'text-anchor': 'top',
+      'text-size': 12
+    },
+    paint: {}
+  }
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
-  const queryParams = new URLSearchParams(useLocation().search)
-  const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
+
   const { viewportSmall } = useWindowDimensions()
 
   useEffect(() => {
-    if (queryLocation) {
-      const currentFeature = featureCollection.features.find(feature => feature.properties.urlSlug === queryLocation)
-      if (currentFeature?.geometry.coordinates) {
-        const { geometry } = currentFeature
+    if (queryLocation && !currentFeature) {
+      const feature = featureCollection.features.find(feature => feature.properties.urlSlug === queryLocation)
+      if (feature?.geometry.coordinates) {
+        const { geometry } = feature
         setViewport(prevState => ({
           ...prevState,
           longitude: geometry.coordinates[0]!,
           latitude: geometry.coordinates[1]!,
           zoom: detailZoom
         }))
-        selectFeature(currentFeature)
+        selectFeature(feature)
       }
     }
-  }, [featureCollection, queryLocation, selectFeature])
+  }, [currentFeature, featureCollection, queryLocation, queryParams, selectFeature])
 
   const onSelectFeature = (e: MapEvent) => {
     if (e.features?.length) {

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { PoiFeature, PoiModel } from 'api-client/src'
@@ -8,10 +9,13 @@ import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
+import updateQueryParams from '../utils/updateQueryParams'
 import CleanLink from './CleanLink'
+import RemoteContent from './RemoteContent'
 
 const DetailsContainer = styled.div`
-  max-width: 320px;
+  width: 290px;
+  font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const ArrowBack = styled.img`
@@ -20,6 +24,7 @@ const ArrowBack = styled.img`
   flex-shrink: 0;
   padding: 0 8px;
   object-fit: contain;
+  align-self: center;
 `
 
 const Marker = styled.img`
@@ -33,24 +38,25 @@ const Marker = styled.img`
 const DetailsHeader = styled.div`
   display: flex;
   padding-top: 12px;
+  cursor: pointer;
 `
 
 const DetailsHeaderTitle = styled.span`
   align-self: center;
   white-space: pre;
   padding-left: 8px;
-  font-size: 12px;
+  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const Spacer = styled.hr`
   color: ${props => props.theme.colors.textDecorationColor};
-  margin: 16px 0;
+  margin: 12px 0;
 `
 
 const Thumbnail = styled.img`
   height: 120px;
-  width: 320px;
+  width: 100%;
   flex-shrink: 0;
   border: 1px solid transparent;
   object-fit: cover;
@@ -58,27 +64,28 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
 `
 
 const AddressContentWrapper = styled.div`
   display: flex;
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
 `
 
 const AddressContent = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 16px;
+  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
 `
 
 const Heading = styled.div`
-  margin: 16px 0;
+  margin: 12px 0;
   font-weight: bold;
 `
 
 const Subheading = styled.div`
-  margin: 16px 0;
+  margin: 12px 0;
   font-weight: bold;
   font-size: ${props => props.theme.fonts.hintFontSize};
 `
@@ -90,32 +97,44 @@ const LinkContainer = styled.div`
 
 const LinkLabel = styled.span`
   color: #0b57d0;
-  font-size: ${props => props.theme.fonts.hintFontSize};
-`
-
-const Content = styled.div`
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  padding-right: 8px;
+  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  align-self: flex-end;
 `
 
 type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
-  panelHeights: number
+  selectFeature: (feature: PoiFeature | null) => void
+  setQueryLocation: (location: string | null) => void
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi }: PoiDetailsProps): ReactElement => {
+const PoiDetails: React.FC<PoiDetailsProps> = ({
+  feature,
+  poi,
+  selectFeature,
+  setQueryLocation
+}: PoiDetailsProps): ReactElement => {
+  const onBackClick = () => {
+    updateQueryParams()
+    selectFeature(null)
+    setQueryLocation(null)
+  }
+
   const { title, thumbnail, distance } = feature.properties
   const { content, location } = poi
   const { t } = useTranslation('pois')
-  const thumb = thumbnail?.replace('-150x150', '') ?? PoiPlaceholder
+  const navigate = useNavigate()
+  // MapEvent parses null to 'null'
+  const thumb = thumbnail === 'null' ? null : thumbnail?.replace('-150x150', '')
   return (
     <DetailsContainer>
-      <DetailsHeader>
+      <DetailsHeader onClick={onBackClick} role='button' tabIndex={0} onKeyPress={onBackClick}>
         <ArrowBack src={iconArrowBack} alt='' />
         <DetailsHeaderTitle>{t('detailsHeader')}</DetailsHeaderTitle>
       </DetailsHeader>
       <Spacer />
-      <Thumbnail alt='' src={thumb} />
+      <Thumbnail alt='' src={thumb ?? PoiPlaceholder} />
       <Heading>{title}</Heading>
       {distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
       <Spacer />
@@ -130,14 +149,14 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi }: PoiDetailsProps
         </AddressContent>
       </AddressContentWrapper>
       <LinkContainer>
-        <CleanLink to='#' newTab>
+        <CleanLink to={`https://maps.google.com?q=${title}`} newTab>
           <LinkLabel>{t('detailsMapLink')}</LinkLabel>
           <Marker src={iconExternalLink} alt='' />
         </CleanLink>
       </LinkContainer>
       <Spacer />
       <Subheading>{t('detailsInformation')}</Subheading>
-      <Content>{content}</Content>
+      <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
     </DetailsContainer>
   )
 }
