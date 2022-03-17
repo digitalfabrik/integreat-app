@@ -139,7 +139,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
         onViewportChange={setViewport}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
-        onTouchMove={() => changeSnapPoint(0)}>
+        onTouchMove={() => viewportSmall && changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <StyledGeolocateControl auto positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         <Source id='location-pois' type='geojson' data={featureCollection}>
