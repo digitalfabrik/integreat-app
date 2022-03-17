@@ -13,7 +13,6 @@ export type FontsType = {
   fontSizeAdjust: number
   decorativeFontSize: string
   decorativeLineHeight: number
-  contentFontSizeSmall: string
   contentFontSize: string
   contentLineHeight: number
   standardParagraphMargin: string
@@ -25,7 +24,6 @@ export const commonFonts = {
   decorativeFontSize: '0.95rem',
   decorativeLineHeight: 1.3,
   contentFontSize: '0.95rem',
-  contentFontSizeSmall: '0.75rem',
   contentLineHeight: 1.4,
   standardParagraphMargin: '0.75rem',
   subTitleFontSize: '1.8rem',

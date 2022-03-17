@@ -10,7 +10,7 @@ import updateQueryParams from '../utils/updateQueryParams'
 const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
-  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
   padding: clamp(10px, 1vh, 20px) 0;
   cursor: pointer;
 
