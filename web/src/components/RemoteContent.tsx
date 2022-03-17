@@ -4,9 +4,9 @@ import styled, { css } from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 
-const SandBox = styled.div<{ centered: boolean }>`
+const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  font-size: ${props => (props.smallText ? props.theme.fonts.contentFontSizeSmall : props.theme.fonts.contentFontSize)};
   line-height: ${props => props.theme.fonts.contentLineHeight};
 
   ${props =>
@@ -80,11 +80,12 @@ type PropsType = {
   html: string
   onInternalLinkClick: (url: string) => void
   centered?: boolean
+  smallText?: boolean
 }
 
 const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
 
-const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsType): ReactElement => {
+const RemoteContent = ({ html, onInternalLinkClick, centered = false, smallText = false }: PropsType): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
 
   const handleClick = useCallback(
@@ -116,7 +117,14 @@ const RemoteContent = ({ html, onInternalLinkClick, centered = false }: PropsTyp
     __html: Dompurify.sanitize(html)
   }
 
-  return <SandBox centered={centered} dangerouslySetInnerHTML={dangerouslySetInnerHTML} ref={sandBoxRef} />
+  return (
+    <SandBox
+      centered={centered}
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      ref={sandBoxRef}
+      smallText={smallText}
+    />
+  )
 }
 
 export default RemoteContent

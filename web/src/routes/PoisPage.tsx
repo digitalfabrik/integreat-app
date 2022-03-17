@@ -2,13 +2,14 @@ import { BBox } from 'geojson'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { WebMercatorViewport } from 'react-map-gl'
-import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
   defaultViewportConfig,
   embedInCollection,
+  locationName,
   MapViewViewport,
   NotFoundError,
   pathnameFromRouteInformation,
@@ -38,6 +39,7 @@ import { useFeatureLocations } from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
+import updateQueryParams from '../utils/updateQueryParams'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
@@ -55,10 +57,12 @@ const Icon = styled.img`
 
 const NavItem = styled.div`
   display: flex;
+  cursor: pointer;
 `
 
 const Label = styled.span`
   align-self: center;
+  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
@@ -70,12 +74,13 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport
 }
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
-  const { poiId } = useParams()
+  const queryParams = new URLSearchParams(useLocation().search)
   const { t } = useTranslation('pois')
   const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
 
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
 
@@ -86,6 +91,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const poi = currentFeature
     ? pois?.find((poi: PoiModel) => poi.urlSlug === currentFeature.properties.urlSlug)
     : undefined
+
+  const poiIndex = currentFeature
+    ? featureLocations.findIndex((poi: PoiFeature) => poi.properties.urlSlug === currentFeature.properties.urlSlug)
+    : null
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
@@ -102,6 +111,30 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const selectFeature = (feature: PoiFeature | null) => {
     setCurrentFeature(feature)
+  }
+
+  const getNewIndex = (step: number, arrayLength: number, currentIndex: number): number => {
+    if (currentIndex === arrayLength - 1 && step > 0) {
+      return 0
+    }
+    if (currentIndex === 0 && step < 0) {
+      return arrayLength - 1
+    }
+
+    return currentIndex + step
+  }
+
+  const switchFeature = (step: number) => {
+    if (poiIndex !== null) {
+      const newIndex = getNewIndex(step, featureLocations.length, poiIndex)
+
+      const feature = featureLocations[newIndex]
+      if (feature) {
+        setCurrentFeature(feature)
+        queryParams.set(locationName, feature.properties.urlSlug)
+        updateQueryParams(queryParams)
+      }
+    }
   }
 
   const changeSnapPoint = (snapPoint: number) => {
@@ -139,7 +172,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (!pois || (poiId && !poi)) {
+  if (!pois || (!poi && poiIndex)) {
     const error =
       poisError ||
       new NotFoundError({
@@ -159,7 +192,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
     poi1.properties.title.localeCompare(poi2.properties.title)
   )
-  const renderPoiListItem = (poi: PoiFeature) => <PoiListItem key={poi.properties.path} properties={poi.properties} />
+  const renderPoiListItem = (poi: PoiFeature) => (
+    <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} queryParams={queryParams} />
+  )
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   const mapView = cityModel.boundingBox && (
@@ -169,17 +204,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       featureCollection={embedInCollection(sortedPois)}
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
       currentFeature={currentFeature}
+      queryParams={queryParams}
+      queryLocation={queryLocation}
+      setQueryLocation={setQueryLocation}
     />
   )
 
   const navigation = (
     <>
-      <NavItem>
+      <NavItem onClick={() => switchFeature(-1)} role='button' tabIndex={0} onKeyPress={() => switchFeature(-1)}>
         <Icon src={iconArrowBack} alt='' />
-        <Label>vorheriges</Label>
+        <Label>{t('detailsPreviousPoi')}</Label>
       </NavItem>
-      <NavItem>
-        <Label>nächstes</Label>
+      <NavItem onClick={() => switchFeature(1)} role='button' tabIndex={0} onKeyPress={() => switchFeature(1)}>
+        <Label>{t('detailsNextPoi')}</Label>
         <Icon src={iconArrowForward} alt='' />
       </NavItem>
     </>
@@ -210,6 +248,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             panelHeights={panelHeights}
             mapView={mapView}
             poiList={poiList}
+            selectFeature={selectFeature}
+            setQueryLocation={setQueryLocation}
           />
         )}
         {feedbackModal}

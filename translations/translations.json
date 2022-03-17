@@ -4863,7 +4863,9 @@
       "detailsHeader": "zurück zu Übersicht",
       "detailsAddress": "Wegbeschreibung",
       "detailsMapLink": "In Google Maps öffnen",
-      "detailsInformation": "Informationen"
+      "detailsInformation": "Informationen",
+      "detailsNextPoi": "nächstes",
+      "detailsPreviousPoi": "vorheriges"
     },
     "am": {
       "pageTitle": "ካርታ",
