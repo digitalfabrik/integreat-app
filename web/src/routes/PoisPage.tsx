@@ -62,7 +62,7 @@ const NavItem = styled.div`
 
 const Label = styled.span`
   align-self: center;
-  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {

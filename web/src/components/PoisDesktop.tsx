@@ -22,7 +22,6 @@ const ToolbarContainer = styled.div`
 `
 const NavigationContainer = styled.div`
   display: flex;
-  box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
   justify-content: space-between;
 `
@@ -36,7 +35,7 @@ const ListHeader = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 

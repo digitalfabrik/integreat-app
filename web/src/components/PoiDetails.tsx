@@ -14,7 +14,7 @@ import CleanLink from './CleanLink'
 import RemoteContent from './RemoteContent'
 
 const DetailsContainer = styled.div`
-  width: 290px;
+  width: 300px;
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
@@ -45,17 +45,17 @@ const DetailsHeaderTitle = styled.span`
   align-self: center;
   white-space: pre;
   padding-left: 8px;
-  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
 const Spacer = styled.hr`
-  color: ${props => props.theme.colors.textDecorationColor};
   margin: 12px 0;
+  border: 1px solid ${props => props.theme.colors.poiBorderColor};
 `
 
 const Thumbnail = styled.img`
-  height: 120px;
+  height: clamp(120px, 14vh, 160px);
   width: 100%;
   flex-shrink: 0;
   border: 1px solid transparent;
@@ -64,19 +64,19 @@ const Thumbnail = styled.img`
 `
 
 const Distance = styled.div`
-  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 const AddressContentWrapper = styled.div`
   display: flex;
-  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 const AddressContent = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 16px;
-  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 const Heading = styled.div`
@@ -87,7 +87,7 @@ const Heading = styled.div`
 const Subheading = styled.div`
   margin: 12px 0;
   font-weight: bold;
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 const LinkContainer = styled.div`
@@ -98,7 +98,7 @@ const LinkContainer = styled.div`
 const LinkLabel = styled.span`
   color: #0b57d0;
   padding-right: 8px;
-  font-size: ${props => props.theme.fonts.contentFontSizeSmall};
+  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
   align-self: flex-end;
 `
 

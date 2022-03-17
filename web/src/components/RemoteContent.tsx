@@ -6,7 +6,8 @@ import buildConfig from '../constants/buildConfig'
 
 const SandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props => (props.smallText ? props.theme.fonts.contentFontSizeSmall : props.theme.fonts.contentFontSize)};
+  font-size: ${props =>
+    props.smallText ? `clamp(0.55rem, 1.6vh, ${props.theme.fonts.hintFontSize})` : props.theme.fonts.contentFontSize};
   line-height: ${props => props.theme.fonts.contentLineHeight};
 
   ${props =>
