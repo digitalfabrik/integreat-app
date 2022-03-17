@@ -1,13 +1,14 @@
-import { BBox } from 'geojson'
+import { BBox, Position } from 'geojson'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { WebMercatorViewport } from 'react-map-gl'
+import { MapRef, WebMercatorViewport } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
   defaultViewportConfig,
+  detailZoom,
   embedInCollection,
   locationName,
   MapViewViewport,
@@ -83,6 +84,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
 
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
+  const mapRef = useRef<MapRef>(null)
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
@@ -124,6 +126,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     return currentIndex + step
   }
 
+  const flyToPoi = (coordinates: Position) => {
+    mapRef.current?.getMap().flyTo({ center: coordinates, zoom: detailZoom, speed: 0.7 })
+  }
+
   const switchFeature = (step: number) => {
     if (poiIndex !== null) {
       const newIndex = getNewIndex(step, featureLocations.length, poiIndex)
@@ -131,6 +137,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       const feature = featureLocations[newIndex]
       if (feature) {
         setCurrentFeature(feature)
+        flyToPoi(feature.geometry.coordinates)
         queryParams.set(locationName, feature.properties.urlSlug)
         updateQueryParams(queryParams)
       }
@@ -193,12 +200,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     poi1.properties.title.localeCompare(poi2.properties.title)
   )
   const renderPoiListItem = (poi: PoiFeature) => (
-    <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} queryParams={queryParams} />
+    <PoiListItem
+      key={poi.properties.path}
+      poi={poi}
+      selectFeature={selectFeature}
+      queryParams={queryParams}
+      flyToPoi={flyToPoi}
+    />
   )
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   const mapView = cityModel.boundingBox && (
     <MapView
+      ref={mapRef}
+      flyToPoi={flyToPoi}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(sortedPois)}
