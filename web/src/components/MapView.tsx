@@ -1,6 +1,15 @@
+import { Position } from 'geojson'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useEffect, useState } from 'react'
-import ReactMapGL, { GeolocateControl, Layer, LayerProps, MapEvent, NavigationControl, Source } from 'react-map-gl'
+import ReactMapGL, {
+  GeolocateControl,
+  Layer,
+  LayerProps,
+  MapEvent,
+  MapRef,
+  NavigationControl,
+  Source
+} from 'react-map-gl'
 import styled from 'styled-components'
 
 import {
@@ -44,9 +53,10 @@ type MapViewProps = {
   queryParams: URLSearchParams
   queryLocation: string | null
   setQueryLocation: (location: string | null) => void
+  flyToPoi: (coordinates: Position) => void
 }
 
-const MapView = (props: MapViewProps): ReactElement => {
+const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
   const {
     featureCollection,
     bboxViewport,
@@ -55,7 +65,8 @@ const MapView = (props: MapViewProps): ReactElement => {
     queryParams,
     currentFeature,
     queryLocation,
-    setQueryLocation
+    setQueryLocation,
+    flyToPoi
   } = props
 
   const textOffsetY = 1.25
@@ -104,6 +115,7 @@ const MapView = (props: MapViewProps): ReactElement => {
 
   const onSelectFeature = (e: MapEvent) => {
     if (e.features?.length) {
+      flyToPoi(e.features[0].geometry.coordinates)
       selectFeature(e.features[0])
       changeSnapPoint(1)
       queryParams.set(locationName, e.features[0].properties.urlSlug)
@@ -118,6 +130,7 @@ const MapView = (props: MapViewProps): ReactElement => {
   return (
     <MapContainer>
       <ReactMapGL
+        ref={ref}
         reuseMaps
         interactiveLayerIds={[layerStyle.id!]}
         {...viewport}
@@ -136,6 +149,6 @@ const MapView = (props: MapViewProps): ReactElement => {
       </ReactMapGL>
     </MapContainer>
   )
-}
+})
 
 export default MapView
