@@ -1,0 +1,5 @@
+issue_key: IGAPP-962
+show_in_stores: false
+platforms:
+  - web
+en: The street is not shown for shelter offers anymore.
