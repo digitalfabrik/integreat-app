@@ -128,9 +128,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const flyToPoi = (coordinates: Position) => {
-    if (coordinates[0] && coordinates[1]) {
+    if (coordinates[0] && coordinates[1] && mapRef.current) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
-      mapRef.current?.getMap().flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
+      mapRef.current.getMap().flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
     }
   }
 

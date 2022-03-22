@@ -110,6 +110,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
 
   const onSelectFeature = useCallback(
     event => {
+      // Since the event is only fired if canvas on layer was clicked, the container propagation has to be stopped on deselect
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
       if (feature) {
