@@ -53,7 +53,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     queryParams,
     currentFeature,
     queryLocation,
-    //  setQueryLocation,
+    setQueryLocation,
     flyToPoi
   } = props
 
@@ -102,8 +102,15 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     }
   }, [currentFeature, featureCollection, queryLocation, queryParams, selectFeature])
 
+  const onDeselectFeature = useCallback(() => {
+    setQueryLocation(null)
+    selectFeature(null)
+    updateQueryParams()
+  }, [selectFeature, setQueryLocation])
+
   const onSelectFeature = useCallback(
     event => {
+      event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
       if (feature) {
         flyToPoi(feature.geometry.coordinates)
@@ -115,17 +122,11 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     },
     [changeSnapPoint, flyToPoi, queryParams, selectFeature]
   )
-  // TODO implement deselection
-  // const onDeselectFeature = () => {
-  //   setQueryLocation(null)
-  //   selectFeature(null)
-  //   updateQueryParams()
-  // }
 
   const changeCursor = useCallback((cursor: 'grab' | 'auto' | 'pointer') => setCursor(cursor), [])
 
   return (
-    <MapContainer>
+    <MapContainer onClick={onDeselectFeature} role='button' tabIndex={-1} onKeyPress={onDeselectFeature}>
       <Map
         mapLib={mapLibreGl}
         ref={ref}
