@@ -1,17 +1,18 @@
+import WebMercatorViewport from '@math.gl/web-mercator'
 import { BBox, Position } from 'geojson'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MapRef, WebMercatorViewport } from 'react-map-gl'
+import { LngLatLike, MapRef } from 'react-map-gl'
 import { useLocation } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
-  defaultViewportConfig,
+  defaultMercatorViewportConfig,
   detailZoom,
   embedInCollection,
   locationName,
-  MapViewViewport,
+  MapViewMercatorViewport,
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
@@ -66,7 +67,7 @@ const Label = styled.span`
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
-const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
+const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
   return mercatorVp.fitBounds([
     [bBox[0], bBox[1]],
@@ -127,7 +128,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const flyToPoi = (coordinates: Position) => {
-    mapRef.current?.getMap().flyTo({ center: coordinates, zoom: detailZoom, speed: 0.7 })
+    if (coordinates[0] && coordinates[1]) {
+      const coords: LngLatLike = [coordinates[0], coordinates[1]]
+      mapRef.current?.getMap().flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
+    }
   }
 
   const switchFeature = (step: number) => {
@@ -217,7 +221,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(sortedPois)}
-      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
+      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       queryParams={queryParams}
       queryLocation={queryLocation}
