@@ -122,9 +122,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
   //   updateQueryParams()
   // }
 
-  const onMouseEnter = useCallback(() => setCursor('pointer'), [])
-  const onMouseLeave = useCallback(() => setCursor('auto'), [])
-  const onDrag = useCallback(() => setCursor('grab'), [])
+  const changeCursor = useCallback((cursor: 'grab' | 'auto' | 'pointer') => setCursor(cursor), [])
 
   return (
     <MapContainer>
@@ -140,9 +138,10 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
           width: '100%'
         }}
         onMove={evt => setViewport(evt.viewState)}
-        onDrag={onDrag}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        onDragStart={() => changeCursor('grab')}
+        onDragEnd={() => changeCursor('auto')}
+        onMouseEnter={() => changeCursor('pointer')}
+        onMouseLeave={() => changeCursor('auto')}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => viewportSmall && changeSnapPoint(0)}>
