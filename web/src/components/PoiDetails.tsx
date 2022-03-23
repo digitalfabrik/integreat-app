@@ -81,12 +81,12 @@ const AddressContent = styled.div`
 
 const Heading = styled.div`
   margin: 12px 0;
-  font-weight: bold;
+  font-weight: 700;
 `
 
 const Subheading = styled.div`
   margin: 12px 0;
-  font-weight: bold;
+  font-weight: 700;
   font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 

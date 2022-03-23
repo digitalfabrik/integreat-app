@@ -1,15 +1,8 @@
 import { Position } from 'geojson'
+import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { ReactElement, useEffect, useState } from 'react'
-import ReactMapGL, {
-  GeolocateControl,
-  Layer,
-  LayerProps,
-  MapEvent,
-  MapRef,
-  NavigationControl,
-  Source
-} from 'react-map-gl'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import Map, { GeolocateControl, Layer, LayerProps, MapRef, NavigationControl, Source } from 'react-map-gl'
 import styled from 'styled-components'
 
 import {
@@ -19,10 +12,12 @@ import {
   MapViewViewport,
   PoiFeature,
   PoiFeatureCollection,
-  mapMarker
+  mapMarker,
+  MapViewMercatorViewport
 } from 'api-client'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import '../styles/MapView.css'
 import updateQueryParams from '../utils/updateQueryParams'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
@@ -33,19 +28,13 @@ const MapContainer = styled.div`
   justify-content: center;
 `
 
-const StyledNavigationControl = styled(NavigationControl)`
-  position: absolute;
-  bottom: 30px;
-  right: 10px;
-`
-
 const StyledGeolocateControl = styled(GeolocateControl)`
   right: 10px;
   top: 10px;
 `
 
 type MapViewProps = {
-  bboxViewport: MapViewViewport
+  bboxViewport: MapViewMercatorViewport
   featureCollection: PoiFeatureCollection
   currentFeature: PoiFeature | null
   selectFeature: (feature: PoiFeature | null) => void
@@ -94,6 +83,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     paint: {}
   }
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
+  const [cursor, setCursor] = useState<string>('auto')
 
   const { viewportSmall } = useWindowDimensions()
 
@@ -113,40 +103,58 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     }
   }, [currentFeature, featureCollection, queryLocation, queryParams, selectFeature])
 
-  const onSelectFeature = (e: MapEvent) => {
-    if (e.features?.length) {
-      flyToPoi(e.features[0].geometry.coordinates)
-      selectFeature(e.features[0])
-      changeSnapPoint(1)
-      queryParams.set(locationName, e.features[0].properties.urlSlug)
-      updateQueryParams(queryParams)
-    } else {
-      setQueryLocation(null)
-      selectFeature(null)
-      updateQueryParams()
-    }
-  }
+  const onDeselectFeature = useCallback(() => {
+    setQueryLocation(null)
+    selectFeature(null)
+    updateQueryParams()
+  }, [selectFeature, setQueryLocation])
+
+  const onSelectFeature = useCallback(
+    event => {
+      // Since the event is only fired if canvas on layer was clicked, the container propagation has to be stopped on deselect
+      event.originalEvent.stopPropagation()
+      const feature = event.features && event.features[0]
+      if (feature) {
+        flyToPoi(feature.geometry.coordinates)
+        selectFeature(feature)
+        changeSnapPoint(1)
+        queryParams.set(locationName, feature.properties?.urlSlug)
+        updateQueryParams(queryParams)
+      }
+    },
+    [changeSnapPoint, flyToPoi, queryParams, selectFeature]
+  )
+
+  const changeCursor = useCallback((cursor: 'grab' | 'auto' | 'pointer') => setCursor(cursor), [])
 
   return (
-    <MapContainer>
-      <ReactMapGL
+    <MapContainer onClick={onDeselectFeature} role='button' tabIndex={-1} onKeyPress={onDeselectFeature}>
+      <Map
+        mapLib={mapLibreGl}
         ref={ref}
         reuseMaps
+        cursor={cursor}
         interactiveLayerIds={[layerStyle.id!]}
         {...viewport}
-        height='100%'
-        width='100%'
-        onViewportChange={setViewport}
+        style={{
+          height: '100%',
+          width: '100%'
+        }}
+        onMove={evt => setViewport(evt.viewState)}
+        onDragStart={() => changeCursor('grab')}
+        onDragEnd={() => changeCursor('auto')}
+        onMouseEnter={() => changeCursor('pointer')}
+        onMouseLeave={() => changeCursor('auto')}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => viewportSmall && changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
-        <StyledGeolocateControl auto positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
+        <StyledGeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         <Source id='location-pois' type='geojson' data={featureCollection}>
           <Layer {...layerStyle} />
         </Source>
-        {!viewportSmall && <StyledNavigationControl showCompass={false} />}
-      </ReactMapGL>
+        {!viewportSmall && <NavigationControl showCompass={false} position='bottom-right' />}
+      </Map>
     </MapContainer>
   )
 })

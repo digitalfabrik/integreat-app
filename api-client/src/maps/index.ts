@@ -6,11 +6,15 @@ type MapConfigProps = {
 }
 
 export type MapViewViewport = {
-  width: number
-  height: number
   latitude: number
   longitude: number
   zoom: number
+}
+
+// type is used to calculate the initial boundingBox using height and width
+export type MapViewMercatorViewport = MapViewViewport & {
+  height: number
+  width: number
 }
 
 /**
@@ -60,6 +64,12 @@ export const mapConfig: MapConfigProps = {
 }
 
 export const defaultViewportConfig: MapViewViewport = {
+  latitude: 48.366512,
+  longitude: 10.894446,
+  zoom: 8
+}
+
+export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
   width: 400,
   height: 400,
   latitude: 48.366512,
