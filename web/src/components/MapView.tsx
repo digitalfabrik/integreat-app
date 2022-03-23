@@ -17,6 +17,7 @@ import {
 } from 'api-client'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import '../styles/MapView.css'
 import updateQueryParams from '../utils/updateQueryParams'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
