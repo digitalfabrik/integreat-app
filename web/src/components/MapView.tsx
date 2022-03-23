@@ -45,6 +45,8 @@ type MapViewProps = {
   flyToPoi: (coordinates: Position) => void
 }
 
+type MapCursorType = 'grab' | 'auto' | 'pointer'
+
 const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
   const {
     featureCollection,
@@ -83,7 +85,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     paint: {}
   }
   const [viewport, setViewport] = useState<MapViewViewport>(bboxViewport)
-  const [cursor, setCursor] = useState<string>('auto')
+  const [cursor, setCursor] = useState<MapCursorType>('auto')
 
   const { viewportSmall } = useWindowDimensions()
 
@@ -111,7 +113,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
 
   const onSelectFeature = useCallback(
     event => {
-      // Since the event is only fired if canvas on layer was clicked, the container propagation has to be stopped on deselect
+      // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
       if (feature) {
@@ -125,7 +127,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     [changeSnapPoint, flyToPoi, queryParams, selectFeature]
   )
 
-  const changeCursor = useCallback((cursor: 'grab' | 'auto' | 'pointer') => setCursor(cursor), [])
+  const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])
 
   return (
     <MapContainer onClick={onDeselectFeature} role='button' tabIndex={-1} onKeyPress={onDeselectFeature}>

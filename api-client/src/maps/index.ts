@@ -72,9 +72,7 @@ export const defaultViewportConfig: MapViewViewport = {
 export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
   width: 400,
   height: 400,
-  latitude: 48.366512,
-  longitude: 10.894446,
-  zoom: 8
+  ...defaultViewportConfig
 }
 
 export const detailZoom = 15
