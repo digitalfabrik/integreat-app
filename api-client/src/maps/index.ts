@@ -11,7 +11,7 @@ export type MapViewViewport = {
   zoom: number
 }
 
-// tpye is used to calculate the initial boundingBox using height and width
+// type is used to calculate the initial boundingBox using height and width
 export type MapViewMercatorViewport = MapViewViewport & {
   height: number
   width: number
