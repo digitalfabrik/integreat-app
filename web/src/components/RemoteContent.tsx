@@ -19,6 +19,20 @@ const SandBox = styled.div<{ centered: boolean }>`
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+
+    &.alignright {
+      float: right;
+    }
+
+    &.alignleft {
+      float: left;
+    }
+
+    &.aligncenter,
+    &.alignnone {
+      display: block;
+      margin: auto;
+    }
   }
 
   & figure {
