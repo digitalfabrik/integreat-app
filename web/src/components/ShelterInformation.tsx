@@ -68,13 +68,12 @@ type Props = {
 
 const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): ReactElement => {
   const { beds, city, id, accommodationType, period, startDate, info, rooms, occupants, name } = shelter
-  const { zipcode, hostType, languages, email, phone, comments, free, street } = shelter
+  const { zipcode, hostType, languages, email, phone, comments, free } = shelter
   const { t } = useTranslation('shelter')
 
   const notSpecified = t('notSpecified')
-  const location = street ? `${city}, ${street}` : city
   const bedsText = beds === 1 ? t('bed') : t('beds', { beds })
-  const titleText = t('shelterTitle', { beds: bedsText, location })
+  const titleText = t('shelterTitle', { beds: bedsText, location: city })
   const titleHint = `(#${id})`
   const startDateText = moment(startDate, 'DD.MM.YYYY').isSameOrBefore(moment.now())
     ? t('now')
@@ -127,7 +126,6 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
                 { text: t('name'), rightText: name },
                 { text: t('zipcode'), rightText: zipcode },
                 { text: t('city'), rightText: city },
-                { text: t('street'), rightText: street ?? notSpecified },
                 { text: t('languages'), rightText: languagesText }
               ]}
             />
