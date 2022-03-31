@@ -13,9 +13,10 @@
  *
  */
 
-
 ;(function iframeResizerContentWindow() {
-  if (typeof window === 'undefined') { return } // don't run for server side render
+  if (typeof window === 'undefined') {
+    return
+  } // don't run for server side render
   var autoResize = true
   var bodyObserver = null
   var eventCancelTimer = 128
@@ -51,7 +52,7 @@
   var getNow =
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     Date.now ||
-    function getNowF () {
+    function getNowF() {
       return new Date().getTime()
     }
 
@@ -171,7 +172,7 @@
   function sendMsg(height, width, triggerEvent, msg, targetOrigin) {
     if (sendPermit === true) {
       var size = `${height}:${width}`
-      var message = `${myID}:${size}:${triggerEvent}${undefined !== msg ? `:${  msg}` : ''}`
+      var message = `${myID}:${size}:${triggerEvent}${undefined !== msg ? `:${msg}` : ''}`
 
       target.postMessage(msgID + message, targetOrigin === undefined ? targetOriginDefault : targetOrigin)
     }
@@ -290,7 +291,7 @@
     observer.observe(target, config)
 
     return {
-      disconnect () {
+      disconnect() {
         if ('disconnect' in observer) {
           observer.disconnect()
           elements.forEach(removeImageLoadListener)
@@ -344,7 +345,7 @@
   }
 
   function getWidth() {
-      return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth)
+    return Math.max(document.body.scrollWidth, document.documentElement.scrollWidth)
   }
 
   function sizeIFrame(triggerEvent) {
