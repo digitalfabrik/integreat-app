@@ -38,7 +38,6 @@
   var width = 1
   var win = window
 
-  var eventHandlersByName = {}
   var passiveSupported = false
 
   function addEventListener(el, evt, func, options) {
@@ -131,53 +130,18 @@
     resizeFrom = undefined !== data[13] ? data[13] : resizeFrom
   }
 
-  function manageTriggerEvent(options) {
-    var listener = {
-      add (eventName) {
-        function handleEvent() {
-          sendSize(options.eventName)
-        }
-
-        eventHandlersByName[eventName] = handleEvent
-
-        addEventListener(window, eventName, handleEvent, { passive: true })
-      },
-      remove (eventName) {
-        var handleEvent = eventHandlersByName[eventName]
-        delete eventHandlersByName[eventName]
-
-        removeEventListener(window, eventName, handleEvent)
-      }
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (options.eventNames && Array.prototype.map) {
-      // eslint-disable-next-line no-param-reassign
-      options.eventName = options.eventNames[0]
-      options.eventNames.map(listener[options.method])
-    } else {
-      listener[options.method](options.eventName)
-    }
-  }
-
   function resetIFrame() {
     lockTrigger()
     triggerReset('reset')
   }
 
-  function manageEventListeners(method) {
-    if (resizeFrom === 'child') {
-      manageTriggerEvent({
-        method,
-        eventType: 'IFrame Resized',
-        eventName: 'resize'
-      })
-    }
+  function resizeEventHandler() {
+    sendSize('resize')
   }
 
   function startEventListeners() {
     if (autoResize) {
-      manageEventListeners('add')
+      addEventListener(window, 'resize', resizeEventHandler, { passive: true })
       setupMutationObserver()
     }
   }
@@ -190,7 +154,7 @@
   }
 
   function stopEventListeners() {
-    manageEventListeners('remove')
+    removeEventListener(window, 'resize', resizeEventHandler)
     disconnectMutationObserver()
     clearInterval(intervalTimer)
   }
@@ -228,7 +192,6 @@
       },
       close: function closeF() {
         sendMsg(0, 0, 'close')
-        // teardown()
       },
 
       getId: function getIdF() {
@@ -247,9 +210,8 @@
         targetOriginDefault = targetOrigin
       },
 
-      size: function sizeF(customHeight, customWidth) {
-        var valString = `${customHeight || ''}${customWidth ? `,${customWidth}` : ''}`
-        sendSize('size', `parentIFrame.size(${valString})`, customHeight, customWidth)
+      size: function sizeF() {
+        sendSize('size')
       }
     }
   }
@@ -257,7 +219,7 @@
   function initInterval() {
     if (interval !== 0) {
       intervalTimer = setInterval(() => {
-        sendSize('interval', `setInterval: ${interval}`)
+        sendSize('interval')
       }, Math.abs(interval))
     }
   }
@@ -293,21 +255,21 @@
       removeFromArray(element)
     }
 
-    function imageEventTriggered(event, type, typeDesc) {
+    function imageEventTriggered(event, type) {
       removeImageLoadListener(event.target)
-      sendSize(type, `${typeDesc}: ${event.target.src}`, undefined, undefined)
+      sendSize(type)
     }
 
     function imageLoaded(event) {
-      imageEventTriggered(event, 'imageLoad', 'Image loaded')
+      imageEventTriggered(event, 'imageLoad')
     }
 
     function imageError(event) {
-      imageEventTriggered(event, 'imageLoadFailed', 'Image load failed')
+      imageEventTriggered(event, 'imageLoadFailed')
     }
 
     function mutationObserved(mutations) {
-      sendSize('mutationObserver', `mutationObserver: ${mutations[0].target} ${mutations[0].type}`)
+      sendSize('mutationObserver')
 
       // Deal with WebKit / Blink asyncing image loading when tags are injected into the page
       mutations.forEach(addImageLoadListners)
@@ -348,7 +310,7 @@
     stopInfiniteResizingOfIFrame()
     setupPublicMethods()
     startEventListeners()
-    sendSize('init', 'Init message from host page')
+    sendSize('init')
   }
 
   function setupMutationObserver() {
@@ -395,20 +357,10 @@
 
       sendMsg(height, width, triggerEvent)
     }
+    currentHeight = getHeight()
+    currentWidth = getWidth()
 
-    function isSizeChangeDetected() {
-      function checkTolerance(a, b) {
-        var retVal = Math.abs(a - b) <= 0
-        return !retVal
-      }
-
-      currentHeight = getHeight()
-      currentWidth = getWidth()
-
-      return checkTolerance(height, currentHeight)
-    }
-
-    if (isSizeChangeDetected() || triggerEvent === 'init') {
+    if (Math.abs(height - currentHeight) > 0 || triggerEvent === 'init') {
       lockTrigger()
       resizeIFrame()
     }
@@ -453,7 +405,7 @@
       },
 
       resize: function resizeFromParent() {
-        sendSize('resizeParent', 'Parent window requested size check')
+        sendSize('resizeParent')
       }
     }
 
