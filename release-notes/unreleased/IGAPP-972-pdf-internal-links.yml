@@ -1,0 +1,5 @@
+issue_key: IGAPP-972
+show_in_stores: false
+platforms:
+  - web
+en: Fix links to django media files.
