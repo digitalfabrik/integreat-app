@@ -38,8 +38,8 @@ const Helmet = ({ pageTitle, metaDescription, languageChangePaths, cityModel }: 
       {/* Tags for a prettier social media preview. See: https://developers.facebook.com/docs/sharing/webmasters */}
       <meta property='og:title' content={pageTitle} />
       <meta property='og:image' content={previewImageUrl.href} />
-      <meta property='og:image:width' content='2400' />
-      <meta property='og:image:height' content='1600' />
+      <meta property='og:image:width' content='1200' />
+      <meta property='og:image:height' content='630' />
       <meta property='og:description' content={description} />
       <meta property='og:url' content={window.location.href} />
       <meta property='og:type' content='website' />
