@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import dimensions from '../constants/dimensions';
+
+import dimensions from '../constants/dimensions'
 
 type WindowDimensionsType = { width: number; height: number; viewportSmall: boolean }
 
