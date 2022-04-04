@@ -129,10 +129,10 @@ commands:
             - attach_workspace:
                 at: ~/attached_workspace
             - run:
-                command: ls ~/attached_workspace
+                command: ls -A ~/attached_workspace
                 name: Attached workspace contents
             - run:
-                command: ls -R ~/attached_workspace
+                command: ls -AR ~/attached_workspace
                 name: Recursively list attached workspace contents
     restore_cocoa_pods_cache:
         description: Restores and saves the cocoa pods cache.
