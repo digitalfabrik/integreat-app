@@ -23,7 +23,7 @@ class ShelterModel {
   _startDate: string
   _period: ShelterPeriod
   _hostType: ShelterHostType
-  _free: boolean
+  _costs: ShelterCostsType
   _comments: string | null
 
   constructor(params: {
@@ -60,7 +60,7 @@ class ShelterModel {
     this._startDate = params.startDate
     this._period = params.period
     this._hostType = params.hostType
-    this._free = params.costs !== 'kostenpflichtig'
+    this._costs = params.costs
     this._comments = params.comments?.trim() ?? null
   }
 
@@ -124,8 +124,8 @@ class ShelterModel {
     return this._hostType
   }
 
-  get free(): boolean {
-    return this._free
+  get costs(): ShelterCostsType {
+    return this._costs
   }
 
   get comments(): string | null {
