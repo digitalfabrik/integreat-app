@@ -10,14 +10,16 @@ import { ThemeType } from './ThemeType'
 // If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
 export type FixedCityType =
   | {
-      introSlides: false
       // Shows intro slides to the users on first app start.
-      fixedCity: string | null // Preselects a city without showing a selection, changing it is not possible for users.
+      introSlides: false
+      // Preselects a city without showing a selection, changing it is not possible for users.
+      fixedCity: string | null
     }
   | {
       introSlides: true
       fixedCity: null
     }
+
 export type FeatureFlagsType = FixedCityType & {
   // Whether the build should be floss. If set to true, proprietary libraries and features like firebase are stripped.
   floss: boolean
@@ -37,6 +39,7 @@ export type FeatureFlagsType = FixedCityType & {
   cityNotCooperating?: boolean
   cityNotCooperatingTemplate: string | null
 }
+
 // Available on all platforms
 export type CommonBuildConfigType = {
   appName: string
@@ -44,40 +47,41 @@ export type CommonBuildConfigType = {
   cmsUrl: string
   // Secondary api url to use, selectable by clicking ten times on the location marker (works only on native).
   switchCmsUrl?: string
-  hostName: string
   // Host name of the web app, used for sharing, deep linking and social media previews.
-  allowedHostNames: Array<string>
+  hostName: string
   // Hostnames from which resources are automatically downloaded for offline usage.
-  internalLinksHijackPattern: string
+  allowedHostNames: Array<string>
   // Regex defining which urls to intercept as they are internal ones.
+  internalLinksHijackPattern: string
   featureFlags: FeatureFlagsType
   lightTheme: ThemeType
-  translationsOverride?: TranslationsType
   // Translations deviating from the standard integreat translations.
-  assets: string
+  translationsOverride?: TranslationsType
   // Assets like icons, logos and imprints.
-  e2e?: boolean
+  assets: string
   // Whether the build config is used for e2e tests.
+  e2e?: boolean
+  // Urls with (localized) information about the app.
   aboutUrls: {
     default: string
     [language: string]: string
   }
-  // Urls with (localized) information about the app.
+  // Urls with (localized) privacy information.
   privacyUrls: {
     default: string
     [language: string]: string
-  } // Urls with (localized) privacy information.
+  }
 }
 // Available only on web
 export type WebBuildConfigType = CommonBuildConfigType & {
-  appDescription: string
   // Used for generating manifest.json
-  mainImprint: string
+  appDescription: string
   // Main imprint of the app.
-  manifestUrl?: string
+  mainImprint: string
   // Url to the manifest.json generated with webpack.
-  itunesAppId?: string
+  manifestUrl?: string
   // Id of the corresponding iOS app in the Apple App Store.
+  itunesAppId?: string
   icons: {
     appLogo: string
     locationMarker?: string
@@ -98,6 +102,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
     endDate: string
   }
 }
+
 // Firebase config for android
 // These values can be retrieved from the google-services.json according to this guide:
 // https://developers.google.com/android/guides/google-services-plugin#processing_the_json_file
@@ -111,6 +116,7 @@ type AndroidGoogleServicesConfigType = {
   googleCrashReportingApiKey: string
   projectId: string
 }
+
 // Only available on android
 export type AndroidBuildConfigType = CommonBuildConfigType & {
   splashScreen: boolean
@@ -121,6 +127,7 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
   // Android application identifier.
   googleServices: AndroidGoogleServicesConfigType | null
 }
+
 // Firebase config for iOS
 // These values can be retrieved from the GoogleService-Info.plist.
 type iOSGoogleServicesConfigType = {
@@ -140,17 +147,18 @@ type iOSGoogleServicesConfigType = {
   googleAppId: string
   databaseUrl: string
 }
+
 // Only available on iOS
 export type iOSBuildConfigType = CommonBuildConfigType & {
-  launchScreen: string
   // Shows the app icon as launch screen on app start.
-  bundleIdentifier: string
+  launchScreen: string
   // iOS application identifier.
-  provisioningProfileSpecifier: string
+  bundleIdentifier: string
   // Provisioning profile to sign the app.
-  appleId: string
+  provisioningProfileSpecifier: string
   // Id of the app in the Apple App Store
+  appleId: string
+  // Unique generated app name of apple, used for generating manifest
   itunesAppName: string
-  // unique generated App Name of apple, used for generating mainfest
   googleServices: iOSGoogleServicesConfigType | null | undefined
 }
