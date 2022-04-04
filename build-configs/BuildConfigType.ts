@@ -160,5 +160,7 @@ export type iOSBuildConfigType = CommonBuildConfigType & {
   appleId: string
   // Unique generated app name of apple, used for generating manifest
   itunesAppName: string
+  // Apple app site association app ids, used for apple-app-site-association
+  appleAppSiteAssociationAppIds: string[]
   googleServices: iOSGoogleServicesConfigType | null | undefined
 }
