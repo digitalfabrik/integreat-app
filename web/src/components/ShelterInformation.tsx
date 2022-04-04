@@ -86,7 +86,7 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
   const petsAllowed = allowedPets.length !== 0
 
   const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : notSpecified
-  const free = costs !== 'kostenpflichtig'
+  const isFree = costs !== 'kostenpflichtig'
   const tenancyPossible = costs === 'uebergang-miete'
 
   return (
@@ -97,13 +97,13 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
           extended={extended}
           title={extended ? t('shelterInformation') : titleText}
           titleHint={extended ? undefined : titleHint}
-          label={free ? t('free') : undefined}
+          label={isFree ? t('free') : undefined}
           information={[
             { text: t(accommodationType), icon: houseIcon, tooltip: t('shelterType') },
             { text: bedsText, icon: bedIcon, tooltip: t('availableBeds') },
             { text: startDateText, icon: calendarIcon, tooltip: t('startDate') },
             { text: t(period), icon: timerIcon, tooltip: t('duration') },
-            ...(extended ? [{ text: t(free ? 'free' : 'withCosts'), icon: euroIcon }] : []),
+            ...(extended ? [{ text: t(isFree ? 'free' : 'withCosts'), icon: euroIcon }] : []),
             ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: keyIcon }] : [])
           ]}>
           <Detail>
