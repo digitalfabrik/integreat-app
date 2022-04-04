@@ -21,8 +21,6 @@ import {
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import iconArrowBack from '../assets/IconArrowBack.svg'
-import iconArrowForward from '../assets/IconArrowForward.svg'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -46,25 +44,6 @@ import updateQueryParams from '../utils/updateQueryParams'
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
-`
-
-const Icon = styled.img`
-  width: 16px;
-  height: 14px;
-  flex-shrink: 0;
-  padding: 0 8px;
-  object-fit: contain;
-  align-self: center;
-`
-
-const NavItem = styled.div`
-  display: flex;
-  cursor: pointer;
-`
-
-const Label = styled.span`
-  align-self: center;
-  font-size: clamp(0.55rem, 1.6vh, ${props => props.theme.fonts.hintFontSize});
 `
 
 const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
@@ -95,7 +74,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     ? pois?.find((poi: PoiModel) => poi.urlSlug === currentFeature.properties.urlSlug)
     : undefined
 
-  const poiIndex = currentFeature
+  const featureIndex = currentFeature
     ? featureLocations.findIndex((poi: PoiFeature) => poi.properties.urlSlug === currentFeature.properties.urlSlug)
     : null
 
@@ -116,14 +95,13 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     setCurrentFeature(feature)
   }
 
-  const getNewIndex = (step: number, arrayLength: number, currentIndex: number): number => {
+  const updateFeatureIndex = (step: number, arrayLength: number, currentIndex: number): number => {
     if (currentIndex === arrayLength - 1 && step > 0) {
       return 0
     }
     if (currentIndex === 0 && step < 0) {
       return arrayLength - 1
     }
-
     return currentIndex + step
   }
 
@@ -135,10 +113,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const switchFeature = (step: number) => {
-    if (poiIndex !== null) {
-      const newIndex = getNewIndex(step, featureLocations.length, poiIndex)
+    if (featureIndex !== null) {
+      const updatedIndex = updateFeatureIndex(step, featureLocations.length, featureIndex)
 
-      const feature = featureLocations[newIndex]
+      const feature = featureLocations[updatedIndex]
       if (feature) {
         setCurrentFeature(feature)
         flyToPoi(feature.geometry.coordinates)
@@ -183,7 +161,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (!pois || (!poi && poiIndex)) {
+  if (!pois || (!poi && featureIndex)) {
     const error =
       poisError ||
       new NotFoundError({
@@ -229,19 +207,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     />
   )
 
-  const navigation = (
-    <>
-      <NavItem onClick={() => switchFeature(-1)} role='button' tabIndex={0} onKeyPress={() => switchFeature(-1)}>
-        <Icon src={iconArrowBack} alt='' />
-        <Label>{t('detailsPreviousPoi')}</Label>
-      </NavItem>
-      <NavItem onClick={() => switchFeature(1)} role='button' tabIndex={0} onKeyPress={() => switchFeature(1)}>
-        <Label>{t('detailsNextPoi')}</Label>
-        <Icon src={iconArrowForward} alt='' />
-      </NavItem>
-    </>
-  )
-
   const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
@@ -260,7 +225,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
           />
         ) : (
           <PoisDesktop
-            navigation={navigation}
+            switchFeature={switchFeature}
             poi={poi}
             currentFeature={currentFeature}
             toolbar={toolbar}

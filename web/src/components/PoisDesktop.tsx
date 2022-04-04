@@ -6,9 +6,10 @@ import { PoiFeature, PoiModel } from 'api-client'
 
 import dimensions from '../constants/dimensions'
 import PoiDetails from './PoiDetails'
+import PoiPanelNavigation from './PoiPanelNavigation'
 
 const ListViewWrapper = styled.div<{ panelHeights: number }>`
-  min-width: 150px;
+  width: 300px;
   padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
@@ -19,11 +20,6 @@ const ToolbarContainer = styled.div`
   justify-content: center;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: 1px 0 4px 0 rgba(0, 0, 0, 0.2);
-`
-const NavigationContainer = styled.div`
-  display: flex;
-  padding: 16px;
-  justify-content: space-between;
 `
 
 const ListHeader = styled.div`
@@ -46,7 +42,7 @@ type PoisDesktopProps = {
   mapView: ReactElement | null
   toolbar: ReactElement
   poi?: PoiModel
-  navigation: ReactElement
+  switchFeature: (step: number) => void
   selectFeature: (feature: PoiFeature | null) => void
   setQueryLocation: (location: string | null) => void
 }
@@ -58,7 +54,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   mapView,
   toolbar,
   poi,
-  navigation,
+  switchFeature,
   selectFeature,
   setQueryLocation
 }: PoisDesktopProps): ReactElement => {
@@ -81,7 +77,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
           )}
         </ListViewWrapper>
         {currentFeature ? (
-          <NavigationContainer>{navigation}</NavigationContainer>
+          <PoiPanelNavigation switchFeature={switchFeature} />
         ) : (
           <ToolbarContainer>{toolbar}</ToolbarContainer>
         )}

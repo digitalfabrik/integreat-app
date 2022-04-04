@@ -14,7 +14,6 @@ import CleanLink from './CleanLink'
 import RemoteContent from './RemoteContent'
 
 const DetailsContainer = styled.div`
-  width: 300px;
   font-family: ${props => props.theme.fonts.web.contentFont};
 `
 
