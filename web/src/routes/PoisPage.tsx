@@ -62,7 +62,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
-
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
   const mapRef = useRef<MapRef>(null)
 
@@ -161,7 +160,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (!pois || (!poi && featureIndex)) {
+  if (!pois) {
     const error =
       poisError ||
       new NotFoundError({
@@ -178,9 +177,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
-    poi1.properties.title.localeCompare(poi2.properties.title)
-  )
   const renderPoiListItem = (poi: PoiFeature) => (
     <PoiListItem
       key={poi.properties.path}
@@ -198,7 +194,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       flyToPoi={flyToPoi}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
-      featureCollection={embedInCollection(sortedPois)}
+      featureCollection={embedInCollection(featureLocations)}
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
       queryParams={queryParams}
@@ -207,7 +203,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     />
   )
 
-  const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
+  const poiList = (
+    <List noItemsMessage={t('noPois')} items={featureLocations} renderItem={renderPoiListItem} borderless />
+  )
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
 

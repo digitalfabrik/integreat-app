@@ -5,6 +5,7 @@ exports[`Toolbar should render 1`] = `
   <styled.div
     className="sample"
     direction="column"
+    hasPadding={true}
   >
     <styled.h5>
       feedback:isThisSiteUseful
