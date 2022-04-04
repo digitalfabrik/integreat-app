@@ -73,7 +73,7 @@ const PoiListItem = ({ poi, selectFeature, queryParams, flyToPoi }: PropsType): 
   }
   return (
     <ListItemContainer>
-      <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem}>
+      <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
         <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
         <Description>
           <Title>{title}</Title>

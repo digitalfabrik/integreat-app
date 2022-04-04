@@ -20,3 +20,4 @@ export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation?: Lo
       return poi.featureLocation
     })
     .filter((feature): feature is PoiFeature => !!feature)
+    .sort((poi1: PoiFeature, poi2: PoiFeature) => poi1.properties.title.localeCompare(poi2.properties.title))
