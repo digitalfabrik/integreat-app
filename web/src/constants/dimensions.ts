@@ -1,5 +1,5 @@
 export type DimensionsType = {
-  maxWidthViewportSmall: number,
+  maxWidthViewportSmall: number
   smallViewport: string
   mediumViewport: string
   minMaxWidth: string
