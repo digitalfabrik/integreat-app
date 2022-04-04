@@ -644,17 +644,20 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
+            - run:
+                command: sudo apt update && sudo apt install rsync
+                name: Install rsync
             - when:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat/*"
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
                         name: Integreat production delivery
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
                         name: Malte production delivery
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
                         name: Aschaffenburg production delivery
                     - run:
                         command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
@@ -669,13 +672,13 @@ jobs:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
                         name: Integreat development delivery
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte-test-cms/*"
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
                         name: Malte development delivery
                     - run:
-                        command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
                         name: Aschaffenburg development delivery
                     - run:
                         command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
