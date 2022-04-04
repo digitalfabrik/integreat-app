@@ -1,12 +1,11 @@
 import { Position } from 'geojson'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import Map, { GeolocateControl, Layer, LayerProps, MapRef, NavigationControl, Source } from 'react-map-gl'
 import styled from 'styled-components'
 
 import {
-  detailZoom,
   mapConfig,
   locationName,
   MapViewViewport,
@@ -40,7 +39,6 @@ type MapViewProps = {
   selectFeature: (feature: PoiFeature | null) => void
   changeSnapPoint: (snapPoint: number) => void
   queryParams: URLSearchParams
-  queryLocation: string | null
   setQueryLocation: (location: string | null) => void
   flyToPoi: (coordinates: Position) => void
 }
@@ -55,7 +53,6 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
     changeSnapPoint,
     queryParams,
     currentFeature,
-    queryLocation,
     setQueryLocation,
     flyToPoi
   } = props
@@ -88,22 +85,6 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
   const [cursor, setCursor] = useState<MapCursorType>('auto')
 
   const { viewportSmall } = useWindowDimensions()
-
-  useEffect(() => {
-    if (queryLocation && !currentFeature) {
-      const feature = featureCollection.features.find(feature => feature.properties.urlSlug === queryLocation)
-      if (feature?.geometry.coordinates) {
-        const { geometry } = feature
-        setViewport(prevState => ({
-          ...prevState,
-          longitude: geometry.coordinates[0]!,
-          latitude: geometry.coordinates[1]!,
-          zoom: detailZoom
-        }))
-        selectFeature(feature)
-      }
-    }
-  }, [currentFeature, featureCollection, queryLocation, queryParams, selectFeature])
 
   const onDeselectFeature = useCallback(() => {
     setQueryLocation(null)
@@ -149,7 +130,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
         onMouseLeave={() => changeCursor('auto')}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
-        onTouchMove={() => viewportSmall && changeSnapPoint(0)}>
+        onTouchMove={() => changeSnapPoint(0)}>
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <StyledGeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         <Source id='location-pois' type='geojson' data={featureCollection}>
