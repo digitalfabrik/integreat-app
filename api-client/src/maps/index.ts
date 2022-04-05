@@ -49,7 +49,7 @@ export type SuccessfulLocationState = {
 }
 export type UnavailableLocationState = {
   status: 'unavailable'
-  message: 'noPermission' | 'notAvailable' | 'timeout'
+  message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
 }
 
 export type LocationStateType = SuccessfulLocationState | UnavailableLocationState
