@@ -115,6 +115,7 @@ class LocationModel {
     )
   }
 
+  // since there are different coordinate format handlings, we use [long,lat] https://docs.mapbox.com/help/glossary/lat-lon/#coordinate-format-handling
   get coordinates(): Position | null {
     if (!this.longitude || !this.latitude) {
       return null

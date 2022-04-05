@@ -24,6 +24,7 @@ module.exports = {
     '**/node_modules/',
     '**/ios/',
     '**/stylelint.config.js',
+    '**/stylelint.config_css.js',
     '**/dist/',
     '**/lib-dist/',
     '.eslintrc.js',
