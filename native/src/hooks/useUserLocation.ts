@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { openSettings, RESULTS } from 'react-native-permissions'
 import SystemSetting from 'react-native-system-setting'
 
-import { LocationStateType, LocationType, UnavailableLocationState } from 'api-client'
+import { LocationStateType, UnavailableLocationState } from 'api-client'
 
 import { checkLocationPermission, requestLocationPermission } from '../utils/LocationPermissionManager'
 
@@ -26,9 +26,7 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
   }
 }
 
-export type LocationInformationType = {
-  location: LocationType | null
-  locationState: LocationStateType
+export type LocationInformationType = LocationStateType & {
   requestAndDetermineLocation: () => Promise<void>
 }
 
@@ -37,13 +35,11 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
     status: 'unavailable',
     message: 'loading'
   })
-  const [location, setLocation] = useState<LocationType | null>(null)
 
   const determineLocation = useCallback(() => {
     Geolocation.getCurrentPosition(
       (position: GeolocationResponse) => {
-        setLocation([position.coords.longitude, position.coords.latitude])
-        setLocationState({ status: 'ready', message: 'localized' })
+        setLocationState({ status: 'ready', coordinates: [position.coords.longitude, position.coords.latitude] })
       },
       (error: GeolocationError) => {
         setLocationState(locationStateOnError(error))
@@ -99,7 +95,6 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
         if (enabled) {
           requestAndDetermineLocation()
         } else {
-          setLocation(null)
           setLocationState({
             status: 'unavailable',
             message: 'notAvailable'
@@ -115,11 +110,8 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
     return () => undefined
   })
 
-  const isReadyOrLoading = locationState.status === 'ready' || locationState.message === 'loading'
-
   return {
-    locationState,
-    location: isReadyOrLoading ? location : null,
+    ...locationState,
     requestAndDetermineLocation
   }
 }

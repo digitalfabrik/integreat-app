@@ -118,10 +118,10 @@ class CitySelector extends React.PureComponent<PropsType> {
 
   _renderNearbyLocations(): React.ReactNode {
     const { cities, t, theme, navigateToDashboard, filterText, locationInformation } = this.props
-    const { location, locationState, requestAndDetermineLocation } = locationInformation
+    const { requestAndDetermineLocation } = locationInformation
 
-    if (location !== null) {
-      const [longitude, latitude] = location
+    if (locationInformation.status === 'ready') {
+      const [longitude, latitude] = locationInformation.coordinates
       const nearbyCities = getNearbyCities(
         cities.filter(city => city.live),
         longitude,
@@ -153,16 +153,13 @@ class CitySelector extends React.PureComponent<PropsType> {
         </CityGroupContainer>
       )
     }
-    const shouldShowRetry = locationState.status === 'ready' || locationState.message !== 'loading'
     return (
       <CityGroupContainer>
         <CityGroup>{t('nearbyCities')}</CityGroup>
         <NearbyMessageContainer>
-          <NearbyMessage theme={theme}>
-            {locationState.status === 'unavailable' ? t(locationState.message) : ''}
-          </NearbyMessage>
+          <NearbyMessage theme={theme}>{t(locationInformation.message)}</NearbyMessage>
           <RetryButtonContainer>
-            {shouldShowRetry && (
+            {locationInformation.message !== 'loading' && (
               <Button
                 icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                 title=''

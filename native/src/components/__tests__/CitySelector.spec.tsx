@@ -11,11 +11,8 @@ jest.mock('react-i18next')
 
 describe('CitySelector', () => {
   const locationInformation: LocationInformationType = {
-    location: null,
-    locationState: {
-      status: 'ready',
-      message: 'localized'
-    },
+    status: 'unavailable',
+    message: 'timeout',
     requestAndDetermineLocation: jest.fn()
   }
   const props = {

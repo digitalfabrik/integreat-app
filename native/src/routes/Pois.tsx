@@ -56,8 +56,10 @@ const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback,
   const theme = useTheme()
   const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
-  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois))
-  const { location, requestAndDetermineLocation } = useUserLocation(path === null)
+  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois, null))
+  const userLocation = useUserLocation(path === null)
+  const { requestAndDetermineLocation } = userLocation
+  const location = userLocation.status === 'ready' ? userLocation.coordinates : null
 
   // set points to snap for bottom sheet
   const snapPoints = [dimensions.bottomSheetHandler.height, '35%', '95%']
