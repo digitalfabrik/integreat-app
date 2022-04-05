@@ -23,7 +23,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern:
-    'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+    'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
     floss: false,

@@ -22,7 +22,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   hostName: 'integreat.app',
   allowedHostNames: ['cms.integreat-app.de', 'cms-test.integreat-app.de'],
   internalLinksHijackPattern:
-    'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+    'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
     floss: false,
     pois: false,
