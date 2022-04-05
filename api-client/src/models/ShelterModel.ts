@@ -11,7 +11,6 @@ class ShelterModel {
   _id: number
   _name: string
   _city: string
-  _street: string | null
   _zipcode: string
   _languages: ShelterLanguage[]
   _beds: number
@@ -24,14 +23,13 @@ class ShelterModel {
   _startDate: string
   _period: ShelterPeriod
   _hostType: ShelterHostType
-  _free: boolean
+  _costs: ShelterCostsType
   _comments: string | null
 
   constructor(params: {
     id: number
     name: string
     city: string
-    street: string | null
     zipcode: string
     languages: ShelterLanguage[]
     beds: string
@@ -50,7 +48,6 @@ class ShelterModel {
     this._id = params.id
     this._name = params.name.trim()
     this._city = params.city.trim()
-    this._street = params.street?.trim() ?? null
     this._zipcode = params.zipcode.trim()
     this._languages = params.languages
     this._beds = parseInt(params.beds, 10)
@@ -63,7 +60,7 @@ class ShelterModel {
     this._startDate = params.startDate
     this._period = params.period
     this._hostType = params.hostType
-    this._free = params.costs !== 'kostenpflichtig'
+    this._costs = params.costs
     this._comments = params.comments?.trim() ?? null
   }
 
@@ -77,10 +74,6 @@ class ShelterModel {
 
   get city(): string {
     return this._city
-  }
-
-  get street(): string | null {
-    return this._street
   }
 
   get zipcode(): string {
@@ -131,8 +124,8 @@ class ShelterModel {
     return this._hostType
   }
 
-  get free(): boolean {
-    return this._free
+  get costs(): ShelterCostsType {
+    return this._costs
   }
 
   get comments(): string | null {
