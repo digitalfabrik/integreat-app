@@ -1,5 +1,7 @@
 import { Feature, FeatureCollection, Point } from 'geojson'
 
+import PoiModel from '../models/PoiModel'
+
 type MapConfigProps = {
   styleJSON: string
   accessToken: string
@@ -29,6 +31,7 @@ export type GeoJsonPoiProperties = {
   address?: string
   distance?: string
   thumbnail?: string
+  poi: PoiModel
 }
 
 export type MarkerConfig = {
@@ -38,18 +41,15 @@ export type MarkerConfig = {
 }
 // GeoLocation Types for useUserLocation hooks
 export type LocationType = [number, number]
-export type UserLocationType = {
-  locationState: LocationStateType
-  userCoordinates: LocationType | null
-}
+export type UserLocationType = SuccessfulLocationState | UnavailableLocationState
 
 export type SuccessfulLocationState = {
   status: 'ready'
-  message: 'localized'
+  coordinates: LocationType
 }
 export type UnavailableLocationState = {
   status: 'unavailable'
-  message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
+  message: 'noPermission' | 'notAvailable' | 'timeout'
 }
 
 export type LocationStateType = SuccessfulLocationState | UnavailableLocationState

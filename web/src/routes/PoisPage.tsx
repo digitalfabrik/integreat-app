@@ -3,7 +3,7 @@ import { BBox, Position } from 'geojson'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LngLatLike, MapRef } from 'react-map-gl'
-import { useLocation } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
@@ -16,7 +16,6 @@ import {
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
-  PoiModel,
   POIS_ROUTE
 } from 'api-client'
 
@@ -39,7 +38,6 @@ import { useFeatureLocations } from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
-import updateQueryParams from '../utils/updateQueryParams'
 
 const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   display: flex;
@@ -55,15 +53,18 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 }
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
-  const queryParams = new URLSearchParams(useLocation().search)
-  const { t } = useTranslation('pois')
-  const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
+  const [queryParams, setQueryParams] = useSearchParams()
+  const { data: featureLocations, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
+  const mapRef = useRef<MapRef>(null)
+  const selectedFeatureSlug = queryParams.get(locationName)
+  const currentFeature =
+    featureLocations?.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
+  const poi = currentFeature?.properties.poi
+
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
-  const [queryLocation, setQueryLocation] = useState<string | null>(queryParams.get(locationName))
-  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
-  const mapRef = useRef<MapRef>(null)
+  const { t } = useTranslation('pois')
 
   const flyToPoi = (coordinates: Position) => {
     if (coordinates[0] && coordinates[1] && mapRef.current) {
@@ -72,21 +73,26 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   }
 
-  useEffect(() => {
-    if (queryLocation) {
-      const currFeature = featureLocations.find((feature: PoiFeature) => feature.properties.urlSlug === queryLocation)
-      if (currFeature) {
-        setCurrentFeature(currFeature)
-        flyToPoi(currFeature.geometry.coordinates)
-      }
+  const setCurrentFeature = (feature: PoiFeature | null) => {
+    const newQueryParams = queryParams
+    if (feature) {
+      newQueryParams.set(locationName, feature.properties.urlSlug)
+    } else {
+      newQueryParams.delete(locationName)
     }
-  }, [featureLocations, queryLocation])
+    setQueryParams(newQueryParams)
+  }
+
+  useEffect(() => {
+    if (currentFeature) {
+      const coordinates = currentFeature.geometry.coordinates
+      flyToPoi(coordinates)
+    }
+  }, [currentFeature])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
-
-  const poi = pois?.find((poi: PoiModel) => poi.urlSlug === currentFeature?.properties.urlSlug)
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
@@ -101,10 +107,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   })
 
-  const selectFeature = (feature: PoiFeature | null) => {
-    setCurrentFeature(feature)
-  }
-
   const updateFeatureIndex = (step: number, arrayLength: number, currentIndex: number): number => {
     if (currentIndex === arrayLength - 1 && step > 0) {
       return 0
@@ -113,21 +115,6 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       return arrayLength - 1
     }
     return currentIndex + step
-  }
-
-  const switchFeature = (step: number) => {
-    const featureIndex = featureLocations.findIndex(
-      (poi: PoiFeature) => poi.properties.urlSlug === currentFeature?.properties.urlSlug
-    )
-    const updatedIndex = updateFeatureIndex(step, featureLocations.length, featureIndex)
-
-    const feature = featureLocations[updatedIndex]
-    if (feature) {
-      setCurrentFeature(feature)
-      flyToPoi(feature.geometry.coordinates)
-      queryParams.set(locationName, feature.properties.urlSlug)
-      updateQueryParams(queryParams)
-    }
   }
 
   const changeSnapPoint = (snapPoint: number) => {
@@ -167,9 +154,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (!pois) {
+  if (!featureLocations) {
     const error =
-      poisError ||
+      featureLocationsError ||
       new NotFoundError({
         type: 'poi',
         id: pathname,
@@ -184,28 +171,29 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
+  const switchFeature = (step: number) => {
+    const featureIndex = featureLocations.findIndex(
+      (poi: PoiFeature) => poi.properties.urlSlug === currentFeature?.properties.urlSlug
+    )
+    const updatedIndex = updateFeatureIndex(step, featureLocations.length, featureIndex)
+
+    const feature = featureLocations[updatedIndex]
+    setCurrentFeature(feature ?? null)
+  }
+
   const renderPoiListItem = (poi: PoiFeature) => (
-    <PoiListItem
-      key={poi.properties.path}
-      poi={poi}
-      selectFeature={selectFeature}
-      queryParams={queryParams}
-      flyToPoi={flyToPoi}
-    />
+    <PoiListItem key={poi.properties.path} poi={poi} selectFeature={setCurrentFeature} />
   )
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   const mapView = cityModel.boundingBox && (
     <MapView
       ref={mapRef}
-      flyToPoi={flyToPoi}
-      selectFeature={selectFeature}
+      selectFeature={setCurrentFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(featureLocations)}
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
-      queryParams={queryParams}
-      setQueryLocation={setQueryLocation}
     />
   )
 
@@ -236,8 +224,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             panelHeights={panelHeights}
             mapView={mapView}
             poiList={poiList}
-            selectFeature={selectFeature}
-            setQueryLocation={setQueryLocation}
+            selectFeature={setCurrentFeature}
           />
         )}
         {feedbackModal}

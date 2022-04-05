@@ -9,7 +9,6 @@ import iconArrowBack from '../assets/IconArrowBackLong.svg'
 import iconExternalLink from '../assets/IconExternalLink.svg'
 import iconMarker from '../assets/IconMarker.svg'
 import PoiPlaceholder from '../assets/PoiPlaceholderLarge.jpg'
-import updateQueryParams from '../utils/updateQueryParams'
 import CleanLink from './CleanLink'
 import RemoteContent from './RemoteContent'
 
@@ -105,19 +104,11 @@ type PoiDetailsProps = {
   feature: PoiFeature
   poi: PoiModel
   selectFeature: (feature: PoiFeature | null) => void
-  setQueryLocation: (location: string | null) => void
 }
 
-const PoiDetails: React.FC<PoiDetailsProps> = ({
-  feature,
-  poi,
-  selectFeature,
-  setQueryLocation
-}: PoiDetailsProps): ReactElement => {
+const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: PoiDetailsProps): ReactElement => {
   const onBackClick = () => {
-    updateQueryParams()
     selectFeature(null)
-    setQueryLocation(null)
   }
 
   const { title, thumbnail, distance } = feature.properties
