@@ -54,6 +54,26 @@ const generateAssetLinks = (buildConfigName: string) => {
   )
 }
 
+const generateAppleAppSiteAssociation = (buildConfigName: string) => {
+  const iosBuildConfig = loadBuildConfig(buildConfigName, IOS)
+
+  return JSON.stringify(
+    {
+      applinks: {
+        apps: [],
+        details: [
+          {
+            appIDs: iosBuildConfig.appleAppSiteAssociationAppIds,
+            paths: ['*', '/']
+          }
+        ]
+      }
+    },
+    null,
+    2
+  )
+}
+
 const generateManifest = (content: Buffer, buildConfigName: string) => {
   const manifest = JSON.parse(content.toString())
 
@@ -122,10 +142,11 @@ const createConfig = (
   const wwwDirectory = resolve(__dirname, '../www')
   const distDirectory = resolve(__dirname, `../dist/${buildConfigName}`)
   const srcDirectory = resolve(__dirname, '../src')
+  const wellKnownDirectory = resolve(distDirectory, '.well-known')
   const bundleReportDirectory = resolve(__dirname, '../reports/bundle')
   const manifestPreset = resolve(__dirname, 'manifest.json')
-  const assetLinks = resolve(__dirname, 'assetlinks.json')
-  const assetLinksDirectory = resolve(distDirectory, '.well-known', 'assetlinks.json')
+  const assetLinksPreset = resolve(__dirname, 'assetlinks.json')
+  const appleAppSiteAssociationPreset = resolve(__dirname, 'apple-app-site-association')
 
   const plugins: WebpackPluginInstance[] = []
   if (devServer) {
@@ -213,9 +234,14 @@ const createConfig = (
             transform: (content: Buffer) => generateManifest(content, buildConfigName)
           },
           {
-            from: assetLinks,
-            to: assetLinksDirectory,
+            from: assetLinksPreset,
+            to: wellKnownDirectory,
             transform: () => generateAssetLinks(buildConfigName)
+          },
+          {
+            from: appleAppSiteAssociationPreset,
+            to: distDirectory,
+            transform: () => generateAppleAppSiteAssociation(buildConfigName)
           }
         ]
       }),
