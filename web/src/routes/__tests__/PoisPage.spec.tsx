@@ -1,31 +1,23 @@
 import { fireEvent } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import { cityContentPath, CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
 import {
-  mockUseLoadFromEndpointWithData,
-  mockUseLoadFromEndpointWithError
-} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+  cityContentPath,
+  CityModelBuilder,
+  LanguageModelBuilder,
+  PoiModelBuilder,
+  POIS_ROUTE,
+  prepareFeatureLocations
+} from 'api-client'
 
-import { mockGeolocationSuccess } from '../../__mocks__/geoLocation'
-import buildConfig from '../../constants/buildConfig'
+import { useFeatureLocations } from '../../hooks/useFeatureLocations'
 import { renderWithRouter } from '../../testing/render'
 import PoisPage from '../PoisPage'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
-}))
-
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key
-  })
-}))
-
-// @ts-expect-error -- ignore readOnly var
-navigator.geolocation = mockGeolocationSuccess
+jest.mock('react-i18next')
+jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
+jest.mock('../../hooks/useFeatureLocations')
 
 describe('PoisPage', () => {
   beforeEach(() => {
@@ -41,8 +33,8 @@ describe('PoisPage', () => {
 
   const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code })
 
-  const renderPois = (
-    <ThemeProvider theme={buildConfig().lightTheme}>
+  const renderPois = () =>
+    renderWithRouter(
       <PoisPage
         cities={cities}
         cityModel={city}
@@ -51,30 +43,45 @@ describe('PoisPage', () => {
         pathname={pathname}
         languageCode={language.code}
         cityCode={city.code}
-      />
-    </ThemeProvider>
-  )
+      />,
+      { wrapWithTheme: true }
+    )
 
   it('should render a list with all pois', () => {
-    mockUseLoadFromEndpointWithData(pois)
-    const { getByText } = renderWithRouter(renderPois)
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: prepareFeatureLocations(pois, null),
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText } = renderPois()
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi1.location.name)).toBeTruthy()
   })
 
-  it('should render an error', () => {
-    mockUseLoadFromEndpointWithError('Something went wrong')
-    const { getByText } = renderWithRouter(renderPois)
-    expect(getByText('error:unknownError')).toBeTruthy()
-  })
-
   it('should render poi details page when list item was clicked', () => {
-    mockUseLoadFromEndpointWithData(pois)
-    const { getByText, getByLabelText, debug } = renderWithRouter(renderPois)
-    fireEvent.click(getByLabelText(poi0.location.name))
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: prepareFeatureLocations(pois, null),
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText, debug } = renderPois()
+    fireEvent.click(getByText(poi0.location.name))
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi0.location.address!)).toBeTruthy()
     expect(getByText(poi0.content)).toBeTruthy()
     debug()
+  })
+
+  it('should render an error', () => {
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: null,
+      loading: false,
+      error: new Error('Something went wrong'),
+      refresh: jest.fn()
+    }))
+    const { getByText } = renderPois()
+    expect(getByText('error:unknownError')).toBeTruthy()
   })
 })
