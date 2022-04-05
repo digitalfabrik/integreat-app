@@ -127,7 +127,11 @@ class Config {
     fa_pr: ['pes'],
     'de-si': ['de'],
     sr: ['sr-Cyrl'],
-    'zh-hans': ['zh-CN']
+    'zh-hans': ['zh-CN'],
+    // Slugs from the CMS are (and have to be) lowercase
+    'sr-cyrl': ['sr-Cyrl'],
+    'sr-latn': ['sr-Latn'],
+    'zh-cn': ['zh-CN']
   }
 
   defaultFallback = 'de' // If the language code is not found in our translations then use this
@@ -144,7 +148,7 @@ class Config {
    * Returns the passed languageTag if it is supported or that of a supported fallback or undefined if not supported
    */
   getLanguageTagIfSupported(languageTag: string): string | undefined {
-    return Object.keys(this.supportedLanguages).find(
+    return this.getSupportedLanguageTags().find(
       key => key === languageTag || this.fallbacks[languageTag]?.includes(key)
     )
   }
