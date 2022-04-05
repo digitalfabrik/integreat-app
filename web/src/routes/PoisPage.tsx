@@ -1,6 +1,6 @@
 import WebMercatorViewport from '@math.gl/web-mercator'
 import { BBox, Position } from 'geojson'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LngLatLike, MapRef } from 'react-map-gl'
 import { useSearchParams } from 'react-router-dom'
@@ -66,29 +66,39 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const { t } = useTranslation('pois')
 
-  const flyToPoi = (coordinates: Position) => {
-    if (coordinates[0] && coordinates[1] && mapRef.current) {
+  const flyTo = useCallback((coordinates: Position) => {
+    if (!mapRef.current) {
+      // The map ref is not available on initial rendering, therefore retry after a short timeout
+      setTimeout(() => flyTo(coordinates), 1)
+      return
+    }
+    if (coordinates[0] && coordinates[1]) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
       mapRef.current.getMap().flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
     }
-  }
+  }, [])
 
   const setCurrentFeature = (feature: PoiFeature | null) => {
     const newQueryParams = queryParams
-    if (feature) {
-      newQueryParams.set(locationName, feature.properties.urlSlug)
-    } else {
-      newQueryParams.delete(locationName)
-    }
+    // Always deselect the old feature to allow flying to the new feature on the map. Otherwise flyTo somehow does not work.
+    newQueryParams.delete(locationName)
     setQueryParams(newQueryParams)
+
+    if (feature) {
+      // Make sure old feature is actually deselected before selecting the new feature to fix flyTo.
+      setTimeout(() => {
+        newQueryParams.set(locationName, feature.properties.urlSlug)
+        setQueryParams(newQueryParams)
+      }, 1)
+    }
   }
 
   useEffect(() => {
     if (currentFeature) {
       const coordinates = currentFeature.geometry.coordinates
-      flyToPoi(coordinates)
+      flyTo(coordinates)
     }
-  }, [currentFeature])
+  }, [currentFeature, flyTo])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
