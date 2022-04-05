@@ -6,19 +6,22 @@
     "manage-metadata": "ts-node manage-metadata.ts",
     "git-version": "ts-node git-version.ts",
     "github-release": "ts-node github-release.ts",
+    "jira-release": "ts-node jira-release.ts",
     "move-release-notes": "ts-node move-release-notes.ts",
     "next-version": "ts-node next-version.ts",
-    "trigger-workflow": "ts-node trigger-pipeline.ts"
+    "trigger-workflow": "ts-node trigger-pipeline.ts",
+    "ts:check": "tsc --build"
   },
   "devDependencies": {
     "@octokit/auth-app": "^3.6.1",
     "@octokit/rest": "^18.12.0",
+    "@types/jira-client": "^7.1.4",
     "@types/js-yaml": "^4.0.3",
     "@types/node-fetch": "^2.6.1",
     "commander": "^5.1.0",
+    "jira-client": "^8.1.0",
     "js-yaml": "^4.1.0",
     "node-fetch": "2.6.7",
-    "oauth": "^0.9.15",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   }

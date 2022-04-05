@@ -2,7 +2,9 @@ native/android/**/*
 native/ios/**/*
 native/vendor/**/*
 
-web/www/
+web/www/icons
+web/www/fonts
+#do not ignore supplied files
 
 **/dist/**
 

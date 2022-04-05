@@ -7,6 +7,7 @@ import {
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
+import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
@@ -59,6 +60,7 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   provisioningProfileSpecifier: 'match Development app.aschaffenburg',
   appleId: APPLE_APP_ID,
   itunesAppName: 'aschaffenburg-app',
+  appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.app.aschaffenburg`],
   googleServices: null,
   launchScreen: 'LaunchScreenDefault'
 }

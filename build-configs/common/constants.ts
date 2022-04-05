@@ -1,0 +1,1 @@
+export const APP_STORE_TEAM_ID = '7272KE28TJ'
