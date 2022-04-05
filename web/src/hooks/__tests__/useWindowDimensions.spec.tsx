@@ -20,7 +20,8 @@ describe('useWindowDimensions', () => {
   })
 
   it('should correctly set all properties', () => {
-    const width = 768
+    // The small viewport media queries kick in with width <= 768.
+    const width = 769
     const height = 400
     Object.defineProperty(window, 'innerWidth', { value: width })
     Object.defineProperty(window, 'innerHeight', { value: height })
@@ -32,7 +33,7 @@ describe('useWindowDimensions', () => {
     expect(getByText(false.toString(), { exact: false })).toBeTruthy()
     expect(queryByText(true.toString(), { exact: false })).toBeFalsy()
 
-    const newWidth = 767
+    const newWidth = 768
     const newHeight = 600
     act(() => {
       Object.defineProperty(window, 'innerWidth', { value: newWidth })

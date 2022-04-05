@@ -127,7 +127,7 @@ const TooltipContainer = styled.div<{
   @media ${dimensions.minMaxWidth} {
     ${props => pseudosMixin(props.flow, props.theme.colors.textSecondaryColor)}
   }
-  /* below 750px */
+  /* below 768px */
   @media screen and ${dimensions.smallViewport} {
     ${props => pseudosMixin(props.smallViewportFlow, props.theme.colors.textSecondaryColor)}
   }

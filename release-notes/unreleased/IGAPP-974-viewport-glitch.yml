@@ -1,0 +1,5 @@
+issue_key: IGAPP-974
+show_in_stores: true
+platforms:
+  - web
+en: Fix visual glitch when transitioning between small and large viewports.

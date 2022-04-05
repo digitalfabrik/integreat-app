@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const VIEWPORT_SMALL_THRESHOLD = 768
+import dimensions from '../constants/dimensions'
 
 type WindowDimensionsType = { width: number; height: number; viewportSmall: boolean }
 
@@ -9,7 +9,7 @@ const getWindowDimensions = (): WindowDimensionsType => {
   return {
     width,
     height,
-    viewportSmall: width < VIEWPORT_SMALL_THRESHOLD
+    viewportSmall: width <= dimensions.maxWidthViewportSmall
   }
 }
 
