@@ -15,18 +15,21 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
+  - run:
+      name: Install rsync
+      command: sudo apt update && sudo apt install rsync
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
             name: Integreat production delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat/*"
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
         - run:
             name: Malte production delivery
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte/*"
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
         - run:
             name: Aschaffenburg production delivery
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
         - run:
             name: 'Sentry Upload: integreat'
             command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
@@ -41,13 +44,13 @@ steps:
       steps:
         - run:
             name: Integreat development delivery
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.integreat.app \<<< "put -r $HOME/attached_workspace/dist/integreat-test-cms/*"
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
         - run:
             name: Malte development delivery
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.malteapp.de \<<< "put -r $HOME/attached_workspace/dist/malte-test-cms/*"
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
         - run:
             name: Aschaffenburg development delivery
-            command: sftp -b - -v -o StrictHostKeyChecking=no web@web.integreat-app.de:/webnext.aschaffenburg.app \<<< "put -r $HOME/attached_workspace/dist/aschaffenburg/*"
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
         - run:
             name: 'Sentry Upload: integreat-test-cms'
             command: tools/sentry-release web-integreat-test-cms "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat-test-cms
