@@ -5,6 +5,7 @@ import {
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
+import { APP_STORE_TEAM_ID } from '../common/constants'
 import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
@@ -66,6 +67,7 @@ export const iosIntegreatBuildConfig: iOSBuildConfigType = {
   provisioningProfileSpecifier: 'match Development de.integreat-app',
   appleId: APPLE_APP_ID,
   itunesAppName: 'integreat',
+  appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.de.integreat-app`, `${APP_STORE_TEAM_ID}.app.integreat.test`],
   googleServices: {
     clientId: '164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.164298278764-pemn49q7v283m0tqml3q8q0ltr5h8pni',

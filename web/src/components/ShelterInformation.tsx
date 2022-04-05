@@ -10,7 +10,9 @@ import bathroomIcon from '../assets/shelter/bathroom.svg'
 import bedIcon from '../assets/shelter/bed.svg'
 import calendarIcon from '../assets/shelter/calendar.svg'
 import emailIcon from '../assets/shelter/email.svg'
+import euroIcon from '../assets/shelter/euro.svg'
 import houseIcon from '../assets/shelter/house.svg'
+import keyIcon from '../assets/shelter/key.svg'
 import lgbtqiIcon from '../assets/shelter/lgbtqi.svg'
 import petIcon from '../assets/shelter/pet.svg'
 import phoneIcon from '../assets/shelter/phone.svg'
@@ -68,7 +70,7 @@ type Props = {
 
 const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): ReactElement => {
   const { beds, city, id, accommodationType, period, startDate, info, rooms, occupants, name } = shelter
-  const { zipcode, hostType, languages, email, phone, comments, free } = shelter
+  const { zipcode, hostType, languages, email, phone, comments, costs } = shelter
   const { t } = useTranslation('shelter')
 
   const notSpecified = t('notSpecified')
@@ -84,6 +86,8 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
   const petsAllowed = allowedPets.length !== 0
 
   const languagesText = languages.length !== 0 ? languages.map(it => t(it)).join(', ') : notSpecified
+  const isFree = costs !== 'kostenpflichtig'
+  const tenancyPossible = costs === 'uebergang-miete'
 
   return (
     <>
@@ -93,12 +97,14 @@ const ShelterInformation = ({ shelter, cityCode, extended = false }: Props): Rea
           extended={extended}
           title={extended ? t('shelterInformation') : titleText}
           titleHint={extended ? undefined : titleHint}
-          label={free ? t('free') : undefined}
+          label={isFree ? t('free') : undefined}
           information={[
             { text: t(accommodationType), icon: houseIcon, tooltip: t('shelterType') },
             { text: bedsText, icon: bedIcon, tooltip: t('availableBeds') },
             { text: startDateText, icon: calendarIcon, tooltip: t('startDate') },
-            { text: t(period), icon: timerIcon, tooltip: t('duration') }
+            { text: t(period), icon: timerIcon, tooltip: t('duration') },
+            ...(extended ? [{ text: t(isFree ? 'free' : 'withCosts'), icon: euroIcon }] : []),
+            ...(extended && tenancyPossible ? [{ text: t('tenancyPossible'), icon: keyIcon }] : [])
           ]}>
           <Detail>
             {info.includes('bad') && <IconWithTooltip tooltip={t('bathroom')} icon={bathroomIcon} />}
