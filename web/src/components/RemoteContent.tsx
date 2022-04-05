@@ -28,8 +28,7 @@ const SandBox = styled.div<{ centered: boolean }>`
       float: left;
     }
 
-    &.aligncenter,
-    &.alignnone {
+    &.aligncenter {
       display: block;
       margin: auto;
     }
