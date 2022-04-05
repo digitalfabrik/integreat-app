@@ -1,0 +1,5 @@
+issue_key: IGAPP-968
+show_in_stores: false
+platforms:
+  - web
+en: Additional information about costs and tenancy added to shelter detail view.
