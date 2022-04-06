@@ -1,0 +1,5 @@
+issue_key: IGAPP-927
+show_in_stores: false
+platforms:
+  - web
+en: Image alignment from cms is now used
