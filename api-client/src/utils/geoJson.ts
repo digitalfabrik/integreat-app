@@ -11,7 +11,7 @@ export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection 
 export const prepareFeatureLocation = (poi: PoiModel, userLocation: LocationType | null): PoiFeature | null => {
   const { featureLocation } = poi
   if (userLocation && featureLocation?.geometry.coordinates) {
-    const distanceValue: string = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
+    const distanceValue = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
     return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
   }
   return featureLocation
