@@ -112,7 +112,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   })
 
-  const updateFeatureIndex = (step: number, arrayLength: number, currentIndex: number): number => {
+  const nextFeatureIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
     if (currentIndex === arrayLength - 1 && step > 0) {
       return 0
     }
@@ -176,11 +176,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  const switchFeature = (step: number) => {
+  const switchFeature = (step: 1 | -1) => {
     const featureIndex = featureLocations.findIndex(
       (poi: PoiFeature) => poi.properties.urlSlug === currentFeature?.properties.urlSlug
     )
-    const updatedIndex = updateFeatureIndex(step, featureLocations.length, featureIndex)
+    const updatedIndex = nextFeatureIndex(step, featureLocations.length, featureIndex)
     const feature = featureLocations[updatedIndex]
     selectFeature(feature ?? null)
   }

@@ -42,7 +42,7 @@ type PoisDesktopProps = {
   mapView: ReactElement | null
   toolbar: ReactElement
   poi?: PoiModel
-  switchFeature: (step: number) => void
+  switchFeature: (step: 1 | -1) => void
   selectFeature: (feature: PoiFeature | null) => void
 }
 

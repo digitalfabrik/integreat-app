@@ -30,7 +30,7 @@ const Icon = styled.img`
   align-self: center;
 `
 
-type PoiPanelNavigationProps = { switchFeature: (step: number) => void }
+type PoiPanelNavigationProps = { switchFeature: (step: 1 | -1) => void }
 
 const PoiPanelNavigation: React.FC<PoiPanelNavigationProps> = ({
   switchFeature
