@@ -1,12 +1,8 @@
-import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { cityContentPath, CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
-import {
-  mockUseLoadFromEndpointWithData,
-  mockUseLoadFromEndpointWithError
-} from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
 
 import { mockGeolocationSuccess } from '../../__mocks__/geoLocation'
 import buildConfig from '../../constants/buildConfig'
@@ -60,21 +56,5 @@ describe('PoisPage', () => {
     const { getByText } = renderWithRouter(renderPois)
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi1.location.name)).toBeTruthy()
-  })
-
-  it('should render an error', () => {
-    mockUseLoadFromEndpointWithError('Something went wrong')
-    const { getByText } = renderWithRouter(renderPois)
-    expect(getByText('error:unknownError')).toBeTruthy()
-  })
-
-  it('should render poi details page when list item was clicked', () => {
-    mockUseLoadFromEndpointWithData(pois)
-    const { getByText, getByLabelText, debug } = renderWithRouter(renderPois)
-    fireEvent.click(getByLabelText(poi0.location.name))
-    expect(getByText(poi0.location.name)).toBeTruthy()
-    expect(getByText(poi0.location.address!)).toBeTruthy()
-    expect(getByText(poi0.content)).toBeTruthy()
-    debug()
   })
 })
