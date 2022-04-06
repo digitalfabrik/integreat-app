@@ -57,10 +57,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { data: featureLocations, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const mapRef = useRef<MapRef>(null)
   const selectedFeatureSlug = queryParams.get(locationName)
-  const currentFeature =
+  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     featureLocations?.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
+  )
   const poi = currentFeature?.properties.poi
-
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
@@ -69,7 +69,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const flyTo = useCallback((coordinates: Position) => {
     if (!mapRef.current) {
       // The map ref is not available on initial rendering, therefore retry after a short timeout
-      setTimeout(() => flyTo(coordinates), 1)
+      setTimeout(() => flyTo(coordinates), 0)
       return
     }
     if (coordinates[0] && coordinates[1]) {
@@ -78,27 +78,22 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   }, [])
 
-  const setCurrentFeature = (feature: PoiFeature | null) => {
-    const newQueryParams = queryParams
-    // Always deselect the old feature to allow flying to the new feature on the map. Otherwise flyTo somehow does not work.
-    newQueryParams.delete(locationName)
-    setQueryParams(newQueryParams)
-
+  const selectFeature = (feature: PoiFeature | null) => {
     if (feature) {
-      // Make sure old feature is actually deselected before selecting the new feature to fix flyTo.
-      setTimeout(() => {
-        newQueryParams.set(locationName, feature.properties.urlSlug)
-        setQueryParams(newQueryParams)
-      }, 1)
+      queryParams.set(locationName, feature.properties.urlSlug)
+    } else {
+      queryParams.delete(locationName)
     }
+    setQueryParams(queryParams)
   }
-
   useEffect(() => {
-    if (currentFeature) {
-      const coordinates = currentFeature.geometry.coordinates
-      flyTo(coordinates)
+    const currFeature =
+      featureLocations?.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
+    if (currFeature) {
+      flyTo(currFeature.geometry.coordinates)
     }
-  }, [currentFeature, flyTo])
+    setCurrentFeature(currFeature)
+  }, [featureLocations, flyTo, selectedFeatureSlug])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
@@ -186,20 +181,19 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
       (poi: PoiFeature) => poi.properties.urlSlug === currentFeature?.properties.urlSlug
     )
     const updatedIndex = updateFeatureIndex(step, featureLocations.length, featureIndex)
-
     const feature = featureLocations[updatedIndex]
-    setCurrentFeature(feature ?? null)
+    selectFeature(feature ?? null)
   }
 
   const renderPoiListItem = (poi: PoiFeature) => (
-    <PoiListItem key={poi.properties.path} poi={poi} selectFeature={setCurrentFeature} />
+    <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} />
   )
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   const mapView = cityModel.boundingBox && (
     <MapView
       ref={mapRef}
-      selectFeature={setCurrentFeature}
+      selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(featureLocations)}
       bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
@@ -234,7 +228,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             panelHeights={panelHeights}
             mapView={mapView}
             poiList={poiList}
-            selectFeature={setCurrentFeature}
+            selectFeature={selectFeature}
           />
         )}
         {feedbackModal}

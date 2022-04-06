@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
@@ -57,21 +56,6 @@ describe('PoisPage', () => {
     const { getByText } = renderPois()
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi1.location.name)).toBeTruthy()
-  })
-
-  it('should render poi details page when list item was clicked', () => {
-    mocked(useFeatureLocations).mockImplementation(() => ({
-      data: prepareFeatureLocations(pois, null),
-      loading: false,
-      error: null,
-      refresh: jest.fn()
-    }))
-    const { getByText, debug } = renderPois()
-    fireEvent.click(getByText(poi0.location.name))
-    expect(getByText(poi0.location.name)).toBeTruthy()
-    expect(getByText(poi0.location.address!)).toBeTruthy()
-    expect(getByText(poi0.content)).toBeTruthy()
-    debug()
   })
 
   it('should render an error', () => {
