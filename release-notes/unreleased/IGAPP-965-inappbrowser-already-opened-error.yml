@@ -1,0 +1,6 @@
+issue_key: IGAPP-965
+show_in_stores: true
+platforms:
+  - ios
+en: Fix multiple inappbrowser opened.
+de: Fehler mit mehreren gleichzeitig geöffneten InAppBrowsern behoben.

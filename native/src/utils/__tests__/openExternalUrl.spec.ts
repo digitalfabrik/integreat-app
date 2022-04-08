@@ -12,6 +12,7 @@ jest.mock('@sentry/react-native', () => ({
 }))
 jest.mock('react-native-inappbrowser-reborn', () => ({
   open: jest.fn(),
+  close: jest.fn(),
   isAvailable: jest.fn(() => true)
 }))
 jest.mock('../../utils/sendTrackingSignal')
@@ -28,6 +29,7 @@ describe('openExternalUrl', () => {
   it('should open http urls in inapp browser', async () => {
     const url = 'https://som.niceli.nk/mor/etext'
     await openExternalUrl(url)
+    expect(InAppBrowser.close).toHaveBeenCalled()
     expect(InAppBrowser.open).toHaveBeenLastCalledWith(url, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
@@ -39,7 +41,8 @@ describe('openExternalUrl', () => {
     })
     const url2 = 'http://som.niceli.nk/les/stext'
     await openExternalUrl(url2)
-    expect(InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
+    expect(InAppBrowser.close).toHaveBeenCalled()
+    expect(await InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
