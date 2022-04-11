@@ -56,7 +56,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const [queryParams, setQueryParams] = useSearchParams()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
-  const [map, setMap] = useState<Map | null>(null)
+  const [mapRef, setMapRef] = useState<Map | null>(null)
   const selectedFeatureSlug = queryParams.get(locationName)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
     data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
@@ -68,8 +68,8 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { t } = useTranslation('pois')
 
   const selectFeature = (feature: PoiFeature | null) => {
-    if (map?.isMoving()) {
-      map.stop()
+    if (mapRef?.isMoving()) {
+      mapRef.stop()
     }
     if (feature) {
       queryParams.set(locationName, feature.properties.urlSlug)
@@ -79,9 +79,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     setQueryParams(queryParams)
   }
 
-  const updateMapFlyTo = useCallback(node => {
+  const updateMapRef = useCallback(node => {
     if (node) {
-      setMap(node.getMap())
+      setMapRef(node.getMap())
     }
   }, [])
 
@@ -92,11 +92,11 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
     const coordinates = currentFeature?.geometry.coordinates ?? []
 
-    if (map && coordinates[0] && coordinates[1]) {
+    if (mapRef && coordinates[0] && coordinates[1]) {
       const coords: LngLatLike = [coordinates[0], coordinates[1]]
-      map.flyTo({ center: coords, zoom: detailZoom })
+      mapRef.flyTo({ center: coords, zoom: detailZoom })
     }
-  }, [map, data, selectedFeatureSlug])
+  }, [mapRef, data, selectedFeatureSlug])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
@@ -195,7 +195,7 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const mapView = cityModel.boundingBox && (
     <MapView
-      ref={updateMapFlyTo}
+      ref={updateMapRef}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
       featureCollection={embedInCollection(data.features)}
