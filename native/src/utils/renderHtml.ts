@@ -171,6 +171,10 @@ const renderHtml = (
         font-size: ${theme.fonts.contentFontSize};
       }
 
+      h1, h2, h3, h4, h5, h6 {
+        overflow-wrap: break-word;
+      }
+
       p {
         margin: ${theme.fonts.standardParagraphMargin} 0;
         overflow: auto;
