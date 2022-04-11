@@ -58,8 +58,7 @@ class PoiModel extends ExtendedPageModel {
         thumbnail: this.thumbnail,
         path: this.path,
         urlSlug: this.urlSlug,
-        address: address ?? undefined,
-        poi: this
+        address: address ?? undefined
       }
     }
   }

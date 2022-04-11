@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 
 import {
   createPOIsEndpoint,
+  FeatureLocationsType,
   Payload,
-  PoiFeature,
   prepareFeatureLocations,
   ReturnType,
   useLoadFromEndpoint
@@ -12,7 +12,7 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import getUserLocation from '../utils/getUserLocation'
 
-export const useFeatureLocations = (cityCode: string, languageCode: string): ReturnType<PoiFeature[]> => {
+export const useFeatureLocations = (cityCode: string, languageCode: string): ReturnType<FeatureLocationsType> => {
   const requestFeatureLocations = useCallback(async () => {
     const userLocation = await getUserLocation()
     const { data, error } = await createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
