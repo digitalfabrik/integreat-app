@@ -3,8 +3,6 @@ import distance from '@turf/distance'
 import { LocationType, PoiModel } from '../index'
 import { PoiFeature, PoiFeatureCollection } from '../maps'
 
-export type FeatureLocationsType = { features: PoiFeature[]; pois: PoiModel[] }
-
 export const embedInCollection = (features: PoiFeature[]): PoiFeatureCollection => ({
   type: 'FeatureCollection',
   features
@@ -20,14 +18,8 @@ export const prepareFeatureLocation = (poi: PoiModel, userLocation: LocationType
 }
 
 // Calculate distance for all Feature Locations
-export const prepareFeatureLocations = (
-  pois: Array<PoiModel>,
-  userLocation: LocationType | null
-): FeatureLocationsType => {
-  const features = pois
+export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation: LocationType | null): PoiFeature[] =>
+  pois
     .map(poi => prepareFeatureLocation(poi, userLocation))
     .filter((feature): feature is PoiFeature => !!feature)
     .sort((poi1: PoiFeature, poi2: PoiFeature) => poi1.properties.title.localeCompare(poi2.properties.title))
-
-  return { features, pois }
-}

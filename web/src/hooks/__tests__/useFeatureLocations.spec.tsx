@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Payload, PoiModelBuilder } from 'api-client'
 
-import { useFeatureLocations } from '../useFeatureLocations'
+import useFeatureLocations from '../useFeatureLocations'
 
 jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
 

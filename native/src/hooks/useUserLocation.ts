@@ -11,18 +11,21 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
   if (error.code === error.PERMISSION_DENIED) {
     return {
       status: 'unavailable',
-      message: 'noPermission'
+      message: 'noPermission',
+      coordinates: null
     }
   }
   if (error.code === error.POSITION_UNAVAILABLE) {
     return {
       status: 'unavailable',
-      message: 'notAvailable'
+      message: 'notAvailable',
+      coordinates: null
     }
   }
   return {
     status: 'unavailable',
-    message: 'timeout'
+    message: 'timeout',
+    coordinates: null
   }
 }
 
@@ -32,8 +35,9 @@ export type LocationInformationType = LocationStateType & {
 
 const useUserLocation = (useSettingsListener = false): LocationInformationType => {
   const [locationState, setLocationState] = useState<LocationStateType>({
-    status: 'unavailable',
-    message: 'loading'
+    status: 'loading',
+    message: 'loading',
+    coordinates: null
   })
 
   const determineLocation = useCallback(() => {
@@ -55,25 +59,28 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
   useEffect(() => {
     checkLocationPermission().then(locationPermissionStatus => {
       if (locationPermissionStatus === RESULTS.GRANTED) {
-        setLocationState({
+        setLocationState(state => ({
+          status: 'loading',
           message: 'loading',
-          status: 'unavailable'
-        })
+          coordinates: state.coordinates
+        }))
         determineLocation()
       } else {
         setLocationState({
           status: 'unavailable',
-          message: 'noPermission'
+          message: 'noPermission',
+          coordinates: null
         })
       }
     })
   }, [determineLocation])
 
   const requestAndDetermineLocation = useCallback(async () => {
-    setLocationState({
+    setLocationState(state => ({
+      status: 'loading',
       message: 'loading',
-      status: 'unavailable'
-    })
+      coordinates: state.coordinates
+    }))
     const locationPermissionStatus = await checkLocationPermission()
 
     if (locationPermissionStatus === RESULTS.GRANTED || (await requestLocationPermission()) === RESULTS.GRANTED) {
@@ -81,7 +88,8 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
     } else {
       setLocationState({
         message: 'noPermission',
-        status: 'unavailable'
+        status: 'unavailable',
+        coordinates: null
       })
       if (locationPermissionStatus === RESULTS.BLOCKED) {
         await openSettings()
@@ -97,7 +105,8 @@ const useUserLocation = (useSettingsListener = false): LocationInformationType =
         } else {
           setLocationState({
             status: 'unavailable',
-            message: 'notAvailable'
+            message: 'notAvailable',
+            coordinates: null
           })
         }
       }
