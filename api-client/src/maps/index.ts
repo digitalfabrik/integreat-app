@@ -1,7 +1,5 @@
 import { Feature, FeatureCollection, Point } from 'geojson'
 
-import PoiModel from '../models/PoiModel'
-
 type MapConfigProps = {
   styleJSON: string
   accessToken: string
@@ -31,7 +29,6 @@ export type GeoJsonPoiProperties = {
   address?: string
   distance?: string
   thumbnail?: string
-  poi: PoiModel
 }
 
 export type MarkerConfig = {
