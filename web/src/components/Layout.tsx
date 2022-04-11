@@ -76,11 +76,14 @@ const Main = styled.main<{ fullWidth: boolean }>`
 `
 
 const Aside = styled.aside<{ asideStickyTop: number }>`
-  top: ${props => props.asideStickyTop}px;
+  top: max(
+    ${props => props.asideStickyTop + dimensions.headerHeightLarge}px,
+    ${dimensions.languageSelectionHeight + dimensions.headerHeightSmall}px
+  );
   display: inline-block;
   position: sticky;
+  padding-top: 32px;
   width: ${dimensions.toolbarWidth}px;
-  top: 35%;
   vertical-align: top;
   transition: top 0.2s ease-in-out;
   z-index: 10;

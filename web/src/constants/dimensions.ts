@@ -10,6 +10,7 @@ export type DimensionsType = {
   headerHeightSmall: number
   footerHeight: number
   navigationMenuHeight: number
+  languageSelectionHeight: number
 }
 
 const dimensions: DimensionsType = {
@@ -23,7 +24,8 @@ const dimensions: DimensionsType = {
   headerHeightLarge: 90,
   headerHeightSmall: 70,
   footerHeight: 50,
-  navigationMenuHeight: 90
+  navigationMenuHeight: 90,
+  languageSelectionHeight: 180
 }
 
 export default dimensions
