@@ -38,7 +38,7 @@ describe('PoiModel', () => {
       hash: 'test'
     })
 
-  const expectedGeoJsonMarkerFeature = (poi: PoiModel) => ({
+  const expectedGeoJsonMarkerFeature = {
     type: 'Feature',
     geometry: {
       type: 'Point',
@@ -51,15 +51,14 @@ describe('PoiModel', () => {
       thumbnail: 'thumbnail',
       path: '/augsburg/de/locations/erster_poi',
       urlSlug: 'erster_poi',
-      address: 'Wertachstr. 29',
-      poi
+      address: 'Wertachstr. 29'
     }
-  })
+  }
 
   describe('featureLocation', () => {
     it('should be transformed to GeoJson type', () => {
       const poi = createPoi({})
-      expect(poi.featureLocation).toEqual(expectedGeoJsonMarkerFeature(poi))
+      expect(poi.featureLocation).toEqual(expectedGeoJsonMarkerFeature)
     })
 
     it('should return null when latitude is null', () => {
