@@ -1,0 +1,6 @@
+issue_key: IGAPP-978
+show_in_stores: true
+platforms:
+  - web
+en: Fix language selection.
+de: Fehler bei der Sprachauswahl behoben.
