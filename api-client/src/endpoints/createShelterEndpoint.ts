@@ -48,7 +48,6 @@ export default (): Endpoint<Params, ShelterModel[]> =>
             id: it.id,
             name: it.name,
             city: it.city,
-            street: it.street,
             zipcode: it.zipcode,
             languages: it.languages,
             beds: it.beds,

@@ -7,6 +7,7 @@ import {
   iOSBuildConfigType,
   WebBuildConfigType
 } from '../BuildConfigType'
+import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
 import { lightTheme } from './theme'
 
@@ -22,7 +23,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
   translationsOverride: malteOverrideTranslations,
   internalLinksHijackPattern:
-    'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
+    'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
     floss: false,
@@ -68,6 +69,7 @@ const iosMalteBuildConfig: iOSBuildConfigType = {
   provisioningProfileSpecifier: 'match Development de.malteapp',
   appleId: APPLE_APP_ID,
   itunesAppName: 'malte',
+  appleAppSiteAssociationAppIds: [`${APP_STORE_TEAM_ID}.de.malteapp`, `${APP_STORE_TEAM_ID}.de.malteapp.test`],
   googleServices: {
     clientId: '146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k.apps.googleusercontent.com',
     reversedClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
