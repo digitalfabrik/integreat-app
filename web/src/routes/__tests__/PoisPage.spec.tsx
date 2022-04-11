@@ -1,3 +1,4 @@
+import { fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
@@ -68,5 +69,37 @@ describe('PoisPage', () => {
     }))
     const { getByText } = renderPois()
     expect(getByText('error:unknownError')).toBeTruthy()
+  })
+  it('should render poi details page when list item was clicked', () => {
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: { pois, features },
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText, getByLabelText } = renderPois()
+    fireEvent.click(getByLabelText(poi0.location.name))
+    expect(getByText(poi0.location.name)).toBeTruthy()
+    expect(getByText(poi0.location.address!)).toBeTruthy()
+    expect(getByText(poi0.content)).toBeTruthy()
+  })
+
+  it('should switch between pois using the PanelNavigation on poi details page', () => {
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: { pois, features },
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText, getByLabelText } = renderPois()
+    fireEvent.click(getByLabelText(poi0.location.name))
+    fireEvent.click(getByText('pois:detailsNextPoi'))
+    expect(getByText(poi1.location.name)).toBeTruthy()
+    expect(getByText(poi1.location.address!)).toBeTruthy()
+    expect(getByText(poi1.content)).toBeTruthy()
+    fireEvent.click(getByText('pois:detailsPreviousPoi'))
+    expect(getByText(poi0.location.name)).toBeTruthy()
+    expect(getByText(poi0.location.address!)).toBeTruthy()
+    expect(getByText(poi0.content)).toBeTruthy()
   })
 })
