@@ -1,5 +1,5 @@
 import WebMercatorViewport from '@math.gl/web-mercator'
-import { BBox, Position } from 'geojson'
+import { BBox } from 'geojson'
 import { Map } from 'maplibre-gl'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -58,14 +58,19 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
   const [map, setMap] = useState<Map | null>(null)
   const selectedFeatureSlug = queryParams.get(locationName)
-  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
-  const poi = data?.pois.find(it => it.urlSlug === currentFeature?.properties.urlSlug)
+  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
+    data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
+  )
+  const poi = data?.pois.find(it => it.urlSlug === selectedFeatureSlug)
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
   const { t } = useTranslation('pois')
 
   const selectFeature = (feature: PoiFeature | null) => {
+    if (map?.isMoving()) {
+      map.stop()
+    }
     if (feature) {
       queryParams.set(locationName, feature.properties.urlSlug)
     } else {
@@ -80,24 +85,18 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   }, [])
 
-  const flyTo = useCallback(
-    (coordinates: Position) => {
-      if (map && coordinates[0] && coordinates[1]) {
-        const coords: LngLatLike = [coordinates[0], coordinates[1]]
-        map.flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
-      }
-    },
-    [map]
-  )
-
   useEffect(() => {
     const currentFeature =
       data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
-    if (currentFeature) {
-      flyTo(currentFeature.geometry.coordinates)
-    }
     setCurrentFeature(currentFeature)
-  }, [flyTo, data, selectedFeatureSlug])
+
+    const coordinates = currentFeature?.geometry.coordinates ?? []
+
+    if (map && coordinates[0] && coordinates[1]) {
+      const coords: LngLatLike = [coordinates[0], coordinates[1]]
+      map.flyTo({ center: coords, zoom: detailZoom })
+    }
+  }, [map, data, selectedFeatureSlug])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
