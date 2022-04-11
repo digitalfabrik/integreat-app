@@ -29,6 +29,7 @@ describe('PoisPage', () => {
   const language = languages[0]!
   const poi0 = pois[0]!
   const poi1 = pois[1]!
+  const features = prepareFeatureLocations(pois, null)
 
   const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code })
 
@@ -48,7 +49,7 @@ describe('PoisPage', () => {
 
   it('should render a list with all pois', () => {
     mocked(useFeatureLocations).mockImplementation(() => ({
-      data: prepareFeatureLocations(pois, null),
+      data: features,
       loading: false,
       error: null,
       refresh: jest.fn()

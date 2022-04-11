@@ -18,8 +18,7 @@ describe('geoJson', () => {
       thumbnail: 'test',
       path: 'test',
       urlSlug: 'test',
-      address: 'address',
-      poi
+      address: 'address'
     }
   }
   describe('embedInCollection', () => {

@@ -16,7 +16,7 @@ export const prepareFeatureLocation = (poi: PoiModel, userLocation: LocationType
     const distanceValue = distance(userLocation, featureLocation.geometry.coordinates).toFixed(1)
     return { ...featureLocation, properties: { ...featureLocation.properties, distance: distanceValue } }
   }
-  return null
+  return featureLocation
 }
 
 // Calculate distance for all Feature Locations
@@ -25,7 +25,6 @@ export const prepareFeatureLocations = (
   userLocation: LocationType | null
 ): FeatureLocationsType => {
   const features = pois
-    .filter(it => it.featureLocation)
     .map(poi => prepareFeatureLocation(poi, userLocation))
     .filter((feature): feature is PoiFeature => !!feature)
     .sort((poi1: PoiFeature, poi2: PoiFeature) => poi1.properties.title.localeCompare(poi2.properties.title))

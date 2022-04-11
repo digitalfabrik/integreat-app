@@ -34,7 +34,7 @@ describe('useFeatureLocations', () => {
     const cityCode = 'testumgebung'
     const languageCode = 'de'
     const { data } = useFeatureLocations(cityCode, languageCode)
-    const featureLocation = data ? data[0] : null
+    const featureLocation = data ? data.features[0] : null
 
     return (
       <div>
