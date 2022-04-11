@@ -10,7 +10,7 @@ import {
   prepareFeatureLocations
 } from 'api-client'
 
-import { useFeatureLocations } from '../../hooks/useFeatureLocations'
+import useFeatureLocations from '../../hooks/useFeatureLocations'
 import { renderWithRouter } from '../../testing/render'
 import PoisPage from '../PoisPage'
 
@@ -49,7 +49,7 @@ describe('PoisPage', () => {
 
   it('should render a list with all pois', () => {
     mocked(useFeatureLocations).mockImplementation(() => ({
-      data: features,
+      data: { pois, features },
       loading: false,
       error: null,
       refresh: jest.fn()

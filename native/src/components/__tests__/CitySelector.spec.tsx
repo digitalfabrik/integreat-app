@@ -13,6 +13,7 @@ describe('CitySelector', () => {
   const locationInformation: LocationInformationType = {
     status: 'unavailable',
     message: 'timeout',
+    coordinates: null,
     requestAndDetermineLocation: jest.fn()
   }
   const props = {

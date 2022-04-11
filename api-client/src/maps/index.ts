@@ -44,12 +44,18 @@ export type SuccessfulLocationState = {
   status: 'ready'
   coordinates: LocationType
 }
+export type LoadingLocationState = {
+  status: 'loading'
+  message: 'loading'
+  coordinates: LocationType | null
+}
 export type UnavailableLocationState = {
   status: 'unavailable'
-  message: 'noPermission' | 'notAvailable' | 'timeout' | 'loading'
+  message: 'noPermission' | 'notAvailable' | 'timeout'
+  coordinates: null
 }
 
-export type LocationStateType = SuccessfulLocationState | UnavailableLocationState
+export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState
 
 // aliases for Features and FeatureCollections using custom GeoJsonProperties and Point
 export type PoiFeature = Feature<Point, GeoJsonPoiProperties>

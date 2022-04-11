@@ -120,7 +120,7 @@ class CitySelector extends React.PureComponent<PropsType> {
     const { cities, t, theme, navigateToDashboard, filterText, locationInformation } = this.props
     const { requestAndDetermineLocation } = locationInformation
 
-    if (locationInformation.status === 'ready') {
+    if (locationInformation.coordinates) {
       const [longitude, latitude] = locationInformation.coordinates
       const nearbyCities = getNearbyCities(
         cities.filter(city => city.live),
@@ -159,7 +159,7 @@ class CitySelector extends React.PureComponent<PropsType> {
         <NearbyMessageContainer>
           <NearbyMessage theme={theme}>{t(locationInformation.message)}</NearbyMessage>
           <RetryButtonContainer>
-            {locationInformation.message !== 'loading' && (
+            {locationInformation.status === 'unavailable' && (
               <Button
                 icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                 title=''

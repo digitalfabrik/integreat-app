@@ -16,7 +16,6 @@ describe('getUserLocation', () => {
     }
     const userLocation = await getUserLocation()
     expect(userLocation.status).toBe('ready')
-    // @ts-expect-error status is ready, coordinates are available
     expect(userLocation.coordinates).toEqual([longitude, latitude])
   })
 })

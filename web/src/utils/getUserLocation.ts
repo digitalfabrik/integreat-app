@@ -6,17 +6,20 @@ const locationStateOnError = (error: GeolocationPositionError): UnavailableLocat
     case GeolocationPositionError.PERMISSION_DENIED:
       return {
         status: 'unavailable',
-        message: 'noPermission'
+        message: 'noPermission',
+        coordinates: null
       }
     case GeolocationPositionError.POSITION_UNAVAILABLE:
       return {
         status: 'unavailable',
-        message: 'notAvailable'
+        message: 'notAvailable',
+        coordinates: null
       }
     default:
       return {
         status: 'unavailable',
-        message: 'timeout'
+        message: 'timeout',
+        coordinates: null
       }
   }
 }

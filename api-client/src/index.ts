@@ -8,9 +8,7 @@ import {
 } from './endpoints/createFeedbackEndpoint'
 import { Status as ImportedShelterContactStatus } from './endpoints/createShelterContactEndpoint'
 import { ReturnType as ImportedReturnType } from './endpoints/hooks/useLoadFromEndpoint'
-import { FeatureLocationsType as ImportedFeatureLocationsType } from './utils/geoJson'
 
-export type FeatureLocationsType = ImportedFeatureLocationsType
 export type ShelterContactStatus = ImportedShelterContactStatus
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
