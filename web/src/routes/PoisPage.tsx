@@ -56,7 +56,7 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapView
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
   const [queryParams, setQueryParams] = useSearchParams()
   const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
-  const [mapRef, setMapRef] = useState<Map | null>(null)
+  const [map, setMap] = useState<Map | null>(null)
   const selectedFeatureSlug = queryParams.get(locationName)
   const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
   const poi = data?.pois.find(it => it.urlSlug === currentFeature?.properties.urlSlug)
@@ -76,18 +76,18 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
 
   const updateMapFlyTo = useCallback(node => {
     if (node) {
-      setMapRef(node.getMap())
+      setMap(node.getMap())
     }
   }, [])
 
   const flyTo = useCallback(
     (coordinates: Position) => {
-      if (mapRef && coordinates[0] && coordinates[1]) {
+      if (map && coordinates[0] && coordinates[1]) {
         const coords: LngLatLike = [coordinates[0], coordinates[1]]
-        mapRef.flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
+        map.flyTo({ center: coords, zoom: detailZoom, speed: 0.7 })
       }
     },
-    [mapRef]
+    [map]
   )
 
   useEffect(() => {
