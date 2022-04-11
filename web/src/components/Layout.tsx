@@ -80,7 +80,7 @@ const Aside = styled.aside<{ asideStickyTop: number }>`
   display: inline-block;
   position: sticky;
   width: ${dimensions.toolbarWidth}px;
-  margin-top: 105px;
+  padding-top: max(35%, 80px);
   vertical-align: top;
   transition: top 0.2s ease-in-out;
   z-index: 10;

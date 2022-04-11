@@ -66,7 +66,7 @@ describe('Helmet', () => {
     await waitFor(() => expect(document.title).toBe(pageTitle))
     expect(meta('description')).toBe(metaDescription)
     expect(metaByProperty('og:title')).toBe(pageTitle)
-    expect(metaByProperty('og:image')).toBe('https://integreat.app/social-media-preview.png')
+    expect(metaByProperty('og:image')).toBe('/social-media-preview.png')
     expect(metaByProperty('og:description')).toBe(metaDescription)
     expect(metaByProperty('og:url')).toBe('http://localhost/')
     expect(metaByProperty('og:type')).toBe('website')
