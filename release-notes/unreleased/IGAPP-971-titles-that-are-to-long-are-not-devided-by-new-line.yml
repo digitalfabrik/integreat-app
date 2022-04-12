@@ -1,0 +1,7 @@
+issue_key: IGAPP-971
+show_in_stores: true
+platforms:
+  - ios
+  - android
+en: Problem with not wrapping headlines was fixed.
+de: Problem beim Umbruch von Überschriften wurde behoben.
