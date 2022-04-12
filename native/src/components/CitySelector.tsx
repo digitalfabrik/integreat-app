@@ -42,7 +42,7 @@ type PropsType = {
 }
 
 const CitySelector = ({ cities, filterText, navigateToDashboard, locationInformation, t }: PropsType): ReactElement => {
-  const { location, locationState, requestAndDetermineLocation } = locationInformation
+  const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
   const theme = useTheme()
 
   const resultCities = cities.filter(cityFilter(filterText)).sort(citySort)
@@ -75,15 +75,17 @@ const CitySelector = ({ cities, filterText, navigateToDashboard, locationInforma
     []
   )
 
-  const nearbyCitiesMessage = <NearbyMessage>{location ? t('noNearbyCities') : t(locationState.message)}</NearbyMessage>
+  const nearbyCitiesErrorMessage = (
+    <NearbyMessage>{t(status === 'unavailable' ? message : 'noNearbyCities')}</NearbyMessage>
+  )
   const nearbyCities =
-    location &&
+    coordinates &&
     getNearbyCities(
       cities.filter(city => city.live),
-      location[0],
-      location[1]
+      coordinates[0],
+      coordinates[1]
     )
-  const retryButton = locationState.status === 'unavailable' && (
+  const retryButton = status === 'unavailable' && (
     <RetryButtonContainer>
       <Button
         icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
@@ -100,11 +102,11 @@ const CitySelector = ({ cities, filterText, navigateToDashboard, locationInforma
     <View>
       <CityGroupContainer>
         <CityGroup>{t('nearbyCities')}</CityGroup>
-        {nearbyCities ? (
+        {nearbyCities?.length ? (
           nearbyCities.map(renderCity)
         ) : (
           <NearbyMessageContainer>
-            {nearbyCitiesMessage}
+            {nearbyCitiesErrorMessage}
             {retryButton}
           </NearbyMessageContainer>
         )}
