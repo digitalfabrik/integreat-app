@@ -1,5 +1,3 @@
-import normalizeStrings from 'normalize-strings'
-
 export const textTruncator = (text: string, numOfCharsAllowed: number, replaceLineBreaks = true): string => {
   const ellipsis = '...'
   const cleanText = replaceLineBreaks ? text.replace(/\n/g, ' ') : text
@@ -8,8 +6,6 @@ export const textTruncator = (text: string, numOfCharsAllowed: number, replaceLi
   }
   return `${cleanText.substring(0, cleanText.lastIndexOf(' ', numOfCharsAllowed))}${ellipsis}`
 }
-
-export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
 
 /**
  * @param path: a slash-prefixed path
