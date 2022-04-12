@@ -1,10 +1,9 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { TFunction } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CityModel } from 'api-client'
-import { ThemeType } from 'build-configs'
 
 import { LocationInformationType } from '../hooks/useUserLocation'
 import CitySelector from './CitySelector'
@@ -20,44 +19,31 @@ type PropsType = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
   t: TFunction<'landing'>
-  theme: ThemeType
   locationInformation: LocationInformationType
 }
-type StateType = {
-  filterText: string
-}
 
-class FilterableCitySelector extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props)
-    this.state = {
-      filterText: ''
-    }
-  }
+const FilterableCitySelector = ({ cities, navigateToDashboard, locationInformation, t }: PropsType): ReactElement => {
+  const [filterText, setFilterText] = useState<string>('')
 
-  onFilterTextChange = (filterText: string): void =>
-    this.setState({
-      filterText
-    })
-
-  render(): ReactNode {
-    const { t, theme } = this.props
-    const { filterText } = this.state
-    return (
-      <View>
-        <SearchBar>
-          <SearchInput
-            filterText={filterText}
-            onFilterTextChange={this.onFilterTextChange}
-            placeholderText={t('searchCity')}
-            spaceSearch={false}
-            theme={theme}
-          />
-        </SearchBar>
-        <CitySelector {...this.props} filterText={filterText} />
-      </View>
-    )
-  }
+  return (
+    <View>
+      <SearchBar>
+        <SearchInput
+          filterText={filterText}
+          onFilterTextChange={setFilterText}
+          placeholderText={t('searchCity')}
+          spaceSearch={false}
+        />
+      </SearchBar>
+      <CitySelector
+        cities={cities}
+        navigateToDashboard={navigateToDashboard}
+        locationInformation={locationInformation}
+        t={t}
+        filterText={filterText}
+      />
+    </View>
+  )
 }
 
 export default FilterableCitySelector

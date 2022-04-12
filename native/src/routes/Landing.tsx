@@ -52,7 +52,6 @@ const Landing = ({
       <Wrapper {...testID('Landing-Page')}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
         <FilterableCitySelector
-          theme={theme}
           cities={cities}
           t={t}
           locationInformation={locationInformation}
