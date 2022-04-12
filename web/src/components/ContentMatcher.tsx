@@ -1,4 +1,4 @@
-import { normalizeSearchString } from '../utils/stringUtils'
+import { normalizeSearchString } from 'api-client'
 
 class ContentMatcher {
   getWords(content: string): Array<string> {
