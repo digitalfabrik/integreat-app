@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react'
-import { withTranslation, TFunction } from 'react-i18next'
+import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { CityModel } from 'api-client'
@@ -15,42 +15,26 @@ const Container = styled.div`
 type PropsType = {
   cities: Array<CityModel>
   language: string
-  t: TFunction
 }
 
-type StateType = {
-  filterText: string
-  stickyTop: number
+const FilterableCitySelector = ({ cities, language }: PropsType): ReactElement => {
+  const [filterText, setFilterText] = useState<string>('')
+  const [stickyTop, setStickyTop] = useState<number>(0)
+  const { t } = useTranslation('landing')
+
+  return (
+    <Container>
+      <Heading />
+      <ScrollingSearchBox
+        filterText={filterText}
+        onFilterTextChange={setFilterText}
+        placeholderText={t('searchCity')}
+        spaceSearch={false}
+        onStickyTopChanged={setStickyTop}>
+        <CitySelector stickyTop={stickyTop} cities={cities} filterText={filterText} language={language} />
+      </ScrollingSearchBox>
+    </Container>
+  )
 }
 
-export class FilterableCitySelector extends React.Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props)
-    this.state = { filterText: '', stickyTop: 0 }
-  }
-
-  handleFilterTextChanged = (filterText: string): void => this.setState({ filterText })
-
-  handleStickyTopChanged = (stickyTop: number): void => this.setState({ stickyTop })
-
-  render(): ReactNode {
-    const { cities, language, t } = this.props
-    const { filterText, stickyTop } = this.state
-
-    return (
-      <Container>
-        <Heading />
-        <ScrollingSearchBox
-          filterText={filterText}
-          onFilterTextChange={this.handleFilterTextChanged}
-          placeholderText={t('searchCity')}
-          spaceSearch={false}
-          onStickyTopChanged={this.handleStickyTopChanged}>
-          <CitySelector stickyTop={stickyTop} cities={cities} filterText={filterText} language={language} />
-        </ScrollingSearchBox>
-      </Container>
-    )
-  }
-}
-
-export default withTranslation('landing')(FilterableCitySelector)
+export default FilterableCitySelector
