@@ -3,9 +3,8 @@ import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { CityModel } from 'api-client'
+import { cityFilter, CityModel, citySort } from 'api-client'
 
-import { normalizeSearchString } from '../utils/stringUtils'
 import CityEntry from './CityEntry'
 import Failure from './Failure'
 
@@ -30,53 +29,30 @@ type PropsType = {
 const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType): ReactElement => {
   const { t } = useTranslation('search')
 
-  const filter = (): Array<CityModel> => {
-    const normalizedFilter = normalizeSearchString(filterText)
+  const resultCities = cities.filter(cityFilter(filterText)).sort(citySort)
 
-    if (normalizedFilter === 'wirschaffendas') {
-      return cities.filter(_city => !_city.live)
-    }
-    return cities
-      .filter(_city => _city.live)
-      .filter(_city => {
-        const isCityName = normalizeSearchString(_city.name).includes(normalizedFilter)
-        const isAlias =
-          _city._aliases &&
-          Object.keys(_city._aliases).some(alias => normalizeSearchString(alias).includes(normalizedFilter))
-        return isCityName || isAlias
-      })
+  if (resultCities.length === 0) {
+    return <Failure errorMessage='nothingFound' t={t} />
   }
 
-  // Landkreis should come before Stadt
-  const sort = (cities: Array<CityModel>): Array<CityModel> =>
-    cities.sort((a, b) => a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || ''))
+  const groups = groupBy(resultCities, city => city.sortCategory)
 
-  const renderList = (cities: Array<CityModel>): ReactNode => {
-    // TODO Remove filter once django has replaced wordpress and there is no city with empty path anymore
-    const safeCities = cities.filter(city => city.code !== '')
-    const sorted = sort(safeCities)
-    const groups = groupBy(sorted, city => city.sortCategory)
-    if (sorted.length === 0) {
-      return <Failure errorMessage='nothingFound' t={t} />
-    }
+  const entries = transform(
+    groups,
+    (result: Array<ReactNode>, cities, key) => {
+      result.push(
+        <div key={key}>
+          <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
+          {cities.map(city => (
+            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+          ))}
+        </div>
+      )
+    },
+    []
+  )
 
-    return transform(
-      groups,
-      (result: Array<ReactNode>, cities, key) => {
-        result.push(
-          <div key={key}>
-            <CityListParent stickyTop={stickyTop}>{key}</CityListParent>
-            {cities.map(city => (
-              <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-            ))}
-          </div>
-        )
-      },
-      []
-    )
-  }
-
-  return <>{renderList(filter())}</>
+  return <>{entries}</>
 }
 
 export default CitySelector
