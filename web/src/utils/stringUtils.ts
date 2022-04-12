@@ -9,7 +9,7 @@ export const textTruncator = (text: string, numOfCharsAllowed: number, replaceLi
   return `${cleanText.substring(0, cleanText.lastIndexOf(' ', numOfCharsAllowed))}${ellipsis}`
 }
 
-export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase()
+export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
 
 /**
  * @param path: a slash-prefixed path
