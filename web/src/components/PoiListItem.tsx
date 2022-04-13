@@ -1,12 +1,10 @@
-import { Position } from 'geojson'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { locationName, PoiFeature } from 'api-client'
+import { PoiFeature } from 'api-client'
 
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
-import updateQueryParams from '../utils/updateQueryParams'
 
 const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -57,20 +55,16 @@ const LinkContainer = styled.div`
 type PropsType = {
   poi: PoiFeature
   selectFeature: (feature: PoiFeature | null) => void
-  queryParams: URLSearchParams
-  flyToPoi: (coordinates: Position) => void
 }
 
-const PoiListItem = ({ poi, selectFeature, queryParams, flyToPoi }: PropsType): ReactElement => {
+const PoiListItem = ({ poi, selectFeature }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
   const { thumbnail, title, distance } = poi.properties
 
   const onClickItem = () => {
     selectFeature(poi)
-    flyToPoi(poi.geometry.coordinates)
-    queryParams.set(locationName, poi.properties.urlSlug)
-    updateQueryParams(queryParams)
   }
+
   return (
     <ListItemContainer>
       <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>

@@ -1,31 +1,32 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
-import { createPOIsEndpoint, PoiFeature, PoiModel, prepareFeatureLocations, useLoadFromEndpoint } from 'api-client/src'
+import {
+  createPOIsEndpoint,
+  Payload,
+  PoiFeature,
+  PoiModel,
+  prepareFeatureLocations,
+  ReturnType,
+  useLoadFromEndpoint
+} from 'api-client'
 
 import { cmsApiBaseUrl } from '../constants/urls'
-import { useUserLocation } from './useUserLocation'
+import getUserLocation from '../utils/getUserLocation'
 
-type UseFeatureLocations = {
-  featureLocations: PoiFeature[]
-  loading: boolean
-  poisError: Error | null
-  pois: PoiModel[] | null
-}
+type FeatureLocationsType = { features: PoiFeature[]; pois: PoiModel[] }
 
-export const useFeatureLocations = (cityCode: string, languageCode: string): UseFeatureLocations => {
-  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>([])
-  const { locationState, userCoordinates } = useUserLocation()
-  const requestPois = useCallback(
-    async () => createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode }),
-    [cityCode, languageCode]
-  )
-  const { data: pois, loading, error: poisError } = useLoadFromEndpoint(requestPois)
+const useFeatureLocations = (cityCode: string, languageCode: string): ReturnType<FeatureLocationsType> => {
+  const requestFeatureLocations = useCallback(async () => {
+    const { coordinates } = await getUserLocation()
+    const { data, error } = await createPOIsEndpoint(cmsApiBaseUrl).request({ city: cityCode, language: languageCode })
 
-  useEffect(() => {
-    if (pois && locationState.message !== 'loading') {
-      setFeatureLocations(prepareFeatureLocations(pois, userCoordinates))
+    if (data) {
+      return new Payload(false, null, { pois: data, features: prepareFeatureLocations(data, coordinates) })
     }
-  }, [pois, locationState.message, userCoordinates])
 
-  return { featureLocations, loading, poisError, pois }
+    throw error
+  }, [cityCode, languageCode])
+  return useLoadFromEndpoint(requestFeatureLocations)
 }
+
+export default useFeatureLocations

@@ -42,9 +42,8 @@ type PoisDesktopProps = {
   mapView: ReactElement | null
   toolbar: ReactElement
   poi?: PoiModel
-  switchFeature: (step: number) => void
+  switchFeature: (step: 1 | -1) => void
   selectFeature: (feature: PoiFeature | null) => void
-  setQueryLocation: (location: string | null) => void
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -55,8 +54,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   toolbar,
   poi,
   switchFeature,
-  selectFeature,
-  setQueryLocation
+  selectFeature
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
 
@@ -66,12 +64,7 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
         <ListViewWrapper panelHeights={panelHeights}>
           {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
           {currentFeature && poi ? (
-            <PoiDetails
-              setQueryLocation={setQueryLocation}
-              poi={poi}
-              feature={currentFeature}
-              selectFeature={selectFeature}
-            />
+            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} />
           ) : (
             poiList
           )}

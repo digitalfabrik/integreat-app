@@ -1,27 +1,23 @@
+import { fireEvent } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
-import { cityContentPath, CityModelBuilder, LanguageModelBuilder, PoiModelBuilder, POIS_ROUTE } from 'api-client'
-import { mockUseLoadFromEndpointWithData } from 'api-client/src/testing/mockUseLoadFromEndpoint'
+import {
+  cityContentPath,
+  CityModelBuilder,
+  LanguageModelBuilder,
+  PoiModelBuilder,
+  POIS_ROUTE,
+  prepareFeatureLocations
+} from 'api-client'
 
-import { mockGeolocationSuccess } from '../../__mocks__/geoLocation'
-import buildConfig from '../../constants/buildConfig'
+import useFeatureLocations from '../../hooks/useFeatureLocations'
 import { renderWithRouter } from '../../testing/render'
 import PoisPage from '../PoisPage'
 
-jest.mock('api-client', () => ({
-  ...jest.requireActual('api-client'),
-  useLoadFromEndpoint: jest.fn()
-}))
-
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key
-  })
-}))
-
-// @ts-expect-error -- ignore readOnly var
-navigator.geolocation = mockGeolocationSuccess
+jest.mock('react-i18next')
+jest.mock('../../utils/getUserLocation', () => async () => ({ status: 'ready', coordinates: [10.8, 48.3] }))
+jest.mock('../../hooks/useFeatureLocations')
 
 describe('PoisPage', () => {
   beforeEach(() => {
@@ -34,11 +30,12 @@ describe('PoisPage', () => {
   const language = languages[0]!
   const poi0 = pois[0]!
   const poi1 = pois[1]!
+  const features = prepareFeatureLocations(pois, null)
 
   const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode: language.code })
 
-  const renderPois = (
-    <ThemeProvider theme={buildConfig().lightTheme}>
+  const renderPois = () =>
+    renderWithRouter(
       <PoisPage
         cities={cities}
         cityModel={city}
@@ -47,14 +44,62 @@ describe('PoisPage', () => {
         pathname={pathname}
         languageCode={language.code}
         cityCode={city.code}
-      />
-    </ThemeProvider>
-  )
+      />,
+      { wrapWithTheme: true }
+    )
 
   it('should render a list with all pois', () => {
-    mockUseLoadFromEndpointWithData(pois)
-    const { getByText } = renderWithRouter(renderPois)
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: { pois, features },
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText } = renderPois()
     expect(getByText(poi0.location.name)).toBeTruthy()
     expect(getByText(poi1.location.name)).toBeTruthy()
+  })
+
+  it('should render an error', () => {
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: null,
+      loading: false,
+      error: new Error('Something went wrong'),
+      refresh: jest.fn()
+    }))
+    const { getByText } = renderPois()
+    expect(getByText('error:unknownError')).toBeTruthy()
+  })
+  it('should render poi details page when list item was clicked', () => {
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: { pois, features },
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText, getByLabelText } = renderPois()
+    fireEvent.click(getByLabelText(poi0.location.name))
+    expect(getByText(poi0.location.name)).toBeTruthy()
+    expect(getByText(poi0.location.address!)).toBeTruthy()
+    expect(getByText(poi0.content)).toBeTruthy()
+  })
+
+  it('should switch between pois using the PanelNavigation on poi details page', () => {
+    mocked(useFeatureLocations).mockImplementation(() => ({
+      data: { pois, features },
+      loading: false,
+      error: null,
+      refresh: jest.fn()
+    }))
+    const { getByText, getByLabelText } = renderPois()
+    fireEvent.click(getByLabelText(poi0.location.name))
+    fireEvent.click(getByText('pois:detailsNextPoi'))
+    expect(getByText(poi1.location.name)).toBeTruthy()
+    expect(getByText(poi1.location.address!)).toBeTruthy()
+    expect(getByText(poi1.content)).toBeTruthy()
+    fireEvent.click(getByText('pois:detailsPreviousPoi'))
+    expect(getByText(poi0.location.name)).toBeTruthy()
+    expect(getByText(poi0.location.address!)).toBeTruthy()
+    expect(getByText(poi0.content)).toBeTruthy()
   })
 })
