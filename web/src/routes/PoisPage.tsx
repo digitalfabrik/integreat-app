@@ -80,6 +80,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
   }
 
   const updateMapRef = useCallback(node => {
+    // This allows us to use the map (ref) as dependency in hooks which is not possible using useRef.
+    // This is needed because on initial render the ref is null such that flyTo is not possible.
+    // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
     if (node) {
       setMapRef(node.getMap())
     }
