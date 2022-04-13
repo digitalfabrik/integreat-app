@@ -1,4 +1,3 @@
-import { Position } from 'geojson'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useCallback, useState } from 'react'
@@ -7,7 +6,6 @@ import styled from 'styled-components'
 
 import {
   mapConfig,
-  locationName,
   MapViewViewport,
   PoiFeature,
   PoiFeatureCollection,
@@ -17,7 +15,6 @@ import {
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
-import updateQueryParams from '../utils/updateQueryParams'
 
 // Workaround since nothing is rendered if height is set to 100%, 190px is the header size
 const MapContainer = styled.div`
@@ -38,24 +35,12 @@ type MapViewProps = {
   currentFeature: PoiFeature | null
   selectFeature: (feature: PoiFeature | null) => void
   changeSnapPoint: (snapPoint: number) => void
-  queryParams: URLSearchParams
-  setQueryLocation: (location: string | null) => void
-  flyToPoi: (coordinates: Position) => void
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): ReactElement => {
-  const {
-    featureCollection,
-    bboxViewport,
-    selectFeature,
-    changeSnapPoint,
-    queryParams,
-    currentFeature,
-    setQueryLocation,
-    flyToPoi
-  } = props
+  const { featureCollection, bboxViewport, selectFeature, changeSnapPoint, currentFeature } = props
 
   const textOffsetY = 1.25
 
@@ -86,11 +71,15 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
 
   const { viewportSmall } = useWindowDimensions()
 
-  const onDeselectFeature = useCallback(() => {
-    setQueryLocation(null)
-    selectFeature(null)
-    updateQueryParams()
-  }, [selectFeature, setQueryLocation])
+  const onDeselectFeature = useCallback(
+    e => {
+      // Currently selected feature should not be deselected if the user clicks on the controls like zoom or user location
+      if (!e.target.className.includes('mapboxgl-ctrl-icon')) {
+        selectFeature(null)
+      }
+    },
+    [selectFeature]
+  )
 
   const onSelectFeature = useCallback(
     event => {
@@ -98,14 +87,11 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
       event.originalEvent.stopPropagation()
       const feature = event.features && event.features[0]
       if (feature) {
-        flyToPoi(feature.geometry.coordinates)
         selectFeature(feature)
         changeSnapPoint(1)
-        queryParams.set(locationName, feature.properties?.urlSlug)
-        updateQueryParams(queryParams)
       }
     },
-    [changeSnapPoint, flyToPoi, queryParams, selectFeature]
+    [changeSnapPoint, selectFeature]
   )
 
   const changeCursor = useCallback((cursor: MapCursorType) => setCursor(cursor), [])

@@ -1,6 +1,6 @@
 import { Moment } from 'moment'
 
-import { PoiFeature } from '../maps'
+import { mapMarker, PoiFeature } from '../maps'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import PageModel from './PageModel'
@@ -39,7 +39,28 @@ class PoiModel extends ExtendedPageModel {
   }
 
   get featureLocation(): PoiFeature | null {
-    return this._location.convertToPoint(this.path, this.thumbnail, this.urlSlug)
+    const { coordinates, name, id, address } = this.location
+    if (coordinates === null) {
+      return null
+    }
+
+    return {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates
+      },
+      properties: {
+        title: name,
+        id,
+        // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
+        symbol: mapMarker.symbol,
+        thumbnail: this.thumbnail,
+        path: this.path,
+        urlSlug: this.urlSlug,
+        address: address ?? undefined
+      }
+    }
   }
 
   isEqual(other: PageModel): boolean {
