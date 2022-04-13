@@ -3,7 +3,6 @@
 exports[`Header should match snapshot with largeViewport 1`] = `
 <Headroom
   height={180}
-  onStickyTopChanged={[Function]}
   parent={
     <html>
       <head />
@@ -49,7 +48,6 @@ exports[`Header should match snapshot with largeViewport 1`] = `
 exports[`Header should match snapshot with smallViewport 1`] = `
 <Headroom
   height={140}
-  onStickyTopChanged={[Function]}
   parent={
     <html>
       <head />
