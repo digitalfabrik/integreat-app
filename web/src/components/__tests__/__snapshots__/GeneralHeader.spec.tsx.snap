@@ -13,7 +13,6 @@ exports[`GeneralHeader should match snapshot 1`] = `
   }
   logoHref="/landing/de"
   navigationItems={Array []}
-  onStickyTopChanged={[Function]}
   viewportSmall={true}
 />
 `;

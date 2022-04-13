@@ -20,17 +20,7 @@ const GeneralHeader = ({ languageCode, viewportSmall, t }: PropsType) => {
     ? [<HeaderActionItemLink key='landing' href={landingPath} iconSrc={landingIcon} text={t('changeLocation')} />]
     : []
 
-  const onStickyTopChanged = () => undefined
-
-  return (
-    <Header
-      viewportSmall={viewportSmall}
-      onStickyTopChanged={onStickyTopChanged}
-      logoHref={landingPath}
-      actionItems={actionItems}
-      navigationItems={[]}
-    />
-  )
+  return <Header viewportSmall={viewportSmall} logoHref={landingPath} actionItems={actionItems} navigationItems={[]} />
 }
 
 export default withTranslation('layout')(GeneralHeader)
