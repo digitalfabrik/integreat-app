@@ -25,7 +25,6 @@ type PropsType = {
 }
 
 const LocationLayout = (props: PropsType): ReactElement => {
-  const [asideStickyTop, setAsideStickyTop] = useState<number>(0)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
 
   const {
@@ -57,13 +56,11 @@ const LocationLayout = (props: PropsType): ReactElement => {
   return (
     <Layout
       fullWidth={fullWidth}
-      asideStickyTop={asideStickyTop}
       header={
         <LocationHeader
           cityModel={cityModel}
           languageChangePaths={languageChangePaths}
           viewportSmall={viewportSmall}
-          onStickyTopChanged={setAsideStickyTop}
           languageCode={languageCode}
           route={route}
         />

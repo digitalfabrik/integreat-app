@@ -29,7 +29,8 @@ module.exports = {
     '**/lib-dist/',
     '.eslintrc.js',
     '**/babel.config.js',
-    '**/react-native.config.js'
+    '**/react-native.config.js',
+    '**/www/iframe.js'
   ],
   rules: {
     // Overly strict rules (for now)

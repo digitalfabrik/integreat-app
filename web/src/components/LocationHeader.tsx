@@ -35,12 +35,11 @@ type PropsType = {
   route: RouteType
   languageCode: string
   viewportSmall: boolean
-  onStickyTopChanged: (stickyTop: number) => void
   languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
 }
 
 const LocationHeader = (props: PropsType): ReactElement => {
-  const { viewportSmall, onStickyTopChanged, cityModel, languageCode, languageChangePaths, route } = props
+  const { viewportSmall, cityModel, languageCode, languageChangePaths, route } = props
   const { eventsEnabled, poisEnabled, offersEnabled, tunewsEnabled, localNewsEnabled } = cityModel
 
   const params = { cityCode: cityModel.code, languageCode }
@@ -147,7 +146,6 @@ const LocationHeader = (props: PropsType): ReactElement => {
       actionItems={getActionItems()}
       cityName={cityModel.name}
       navigationItems={getNavigationItems()}
-      onStickyTopChanged={onStickyTopChanged}
     />
   )
 }
