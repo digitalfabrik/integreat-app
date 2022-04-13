@@ -6,7 +6,7 @@ import Layout from '../Layout'
 describe('Layout', () => {
   it('should render all components', () => {
     const component = shallow(
-      <Layout asideStickyTop={40} footer={<footer />} header={<header />} toolbar={<div>toolybar</div>}>
+      <Layout footer={<footer />} header={<header />} toolbar={<div>toolybar</div>}>
         <p>content right here</p>
       </Layout>
     )
