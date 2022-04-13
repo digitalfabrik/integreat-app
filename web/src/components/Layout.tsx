@@ -124,9 +124,7 @@ const Layout = ({ footer, header, toolbar, modal, children, fullWidth = false }:
 
   useEffect(() => {
     const panelHeight = document.getElementById('languageSelector')?.clientHeight
-    if (panelHeight) {
-      setLanguageSelectorHeight(panelHeight)
-    }
+    setLanguageSelectorHeight(panelHeight ?? 0)
   }, [width])
 
   return (
