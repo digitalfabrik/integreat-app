@@ -74,7 +74,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
   const onDeselectFeature = useCallback(
     e => {
       // Currently selected feature should not be deselected if the user clicks on the controls like zoom or user location
-      if (!e.target.className.includes('mapboxgl-ctrl-icon')) {
+      if (e.target.className.includes('mapboxgl-canvas')) {
         selectFeature(null)
       }
     },
