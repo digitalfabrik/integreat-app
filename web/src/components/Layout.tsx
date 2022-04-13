@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 // Needed for sticky footer on IE - see https://stackoverflow.com/a/31835167
 const FlexWrapper = styled.div`
@@ -75,12 +76,12 @@ const Main = styled.main<{ fullWidth: boolean }>`
   }
 `
 
-const Aside = styled.aside<{ asideStickyTop: number }>`
-  top: ${props => props.asideStickyTop}px;
+const Aside = styled.aside<{ languageSelectorHeight: number }>`
+  top: ${props => props.languageSelectorHeight + dimensions.headerHeightLarge}px;
   display: inline-block;
   position: sticky;
+  padding-top: 32px;
   width: ${dimensions.toolbarWidth}px;
-  padding-top: max(35%, 80px);
   vertical-align: top;
   transition: top 0.2s ease-in-out;
   z-index: 10;
@@ -103,7 +104,6 @@ const Aside = styled.aside<{ asideStickyTop: number }>`
 `
 
 type PropsType = {
-  asideStickyTop?: number
   footer?: ReactNode
   header?: ReactNode
   toolbar?: ReactNode
@@ -117,16 +117,15 @@ type PropsType = {
  * If a footer is supplied and there's not enough content (in header and children) to fill the viewbox, the footer will
  * always stick to the bottom of the viewbox.
  */
-const Layout = ({
-  asideStickyTop = 0,
-  footer,
-  header,
-  toolbar,
-  modal,
-  children,
-  fullWidth = false
-}: PropsType): JSX.Element => {
+const Layout = ({ footer, header, toolbar, modal, children, fullWidth = false }: PropsType): JSX.Element => {
   const modalVisible = !!modal
+  const { width } = useWindowDimensions()
+  const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
+
+  useEffect(() => {
+    const panelHeight = document.getElementById('languageSelector')?.clientHeight
+    setLanguageSelectorHeight(panelHeight ?? 0)
+  }, [width])
 
   return (
     <FlexWrapper>
@@ -134,7 +133,7 @@ const Layout = ({
         <div aria-hidden={modalVisible}>
           {header}
           <Body fullWidth={fullWidth}>
-            <Aside asideStickyTop={asideStickyTop}>{toolbar}</Aside>
+            <Aside languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>
             <Main fullWidth={fullWidth}>{children}</Main>
           </Body>
         </div>

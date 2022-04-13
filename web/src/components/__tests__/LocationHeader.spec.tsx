@@ -59,7 +59,6 @@ describe('LocationHeader', () => {
   ]
 
   const languageCode = 'de'
-  const onStickyTopChanged = () => undefined
 
   type GetByTextType = (text: Matcher, options?: SelectorMatcherOptions) => HTMLElement
   const expectNavigationItem = (getByText: GetByTextType, shouldExist: boolean, text: string) => {
@@ -95,7 +94,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(false, false, false, false, false)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -111,7 +109,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(false, true, false, false, false)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -127,7 +124,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(false, false, false, false, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -143,7 +139,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -159,7 +154,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -179,7 +173,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -199,7 +192,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -219,7 +211,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -239,7 +230,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -259,7 +249,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -279,7 +268,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )
@@ -299,7 +287,6 @@ describe('LocationHeader', () => {
             viewportSmall
             cityModel={cityModel(true, true, true, true, true)}
             languageChangePaths={languageChangePaths}
-            onStickyTopChanged={onStickyTopChanged}
           />
         </ThemeProvider>
       )

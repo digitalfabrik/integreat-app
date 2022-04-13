@@ -85,7 +85,7 @@ const Selector = ({
   closeDropDown,
   disabledItemTooltip
 }: PropsType): ReactElement => (
-  <Wrapper vertical={verticalLayout}>
+  <Wrapper vertical={verticalLayout} id='languageSelector'>
     {items.map(item => {
       if (item.href) {
         return (
