@@ -19,12 +19,9 @@ const cityFilter =
     }
 
     const validCity = cityModel.live || developerFriendly
-    const matchesName = normalizeSearchString(cityModel.name).includes(normalizedFilter)
-    const matchesAlias = Object.keys(cityModel.aliases ?? {}).some(alias =>
-      normalizeSearchString(alias).includes(normalizedFilter)
-    )
-
-    return validCity && (matchesName || matchesAlias)
+    const aliases = Object.keys(cityModel.aliases ?? {})
+    const matchesFilter = [cityModel.name, ...aliases].some(it => normalizeSearchString(it).includes(normalizedFilter))
+    return validCity && matchesFilter
   }
 
 const citySort = (a: CityModel, b: CityModel): number => {

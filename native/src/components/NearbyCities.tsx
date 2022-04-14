@@ -42,8 +42,8 @@ const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText, t }: Props
       <>
         <NearbyMessageContainer>
           <NearbyMessage>{t(message)}</NearbyMessage>
-          {status !== 'loading' && (
-            <RetryButtonContainer>
+          <RetryButtonContainer>
+            {status !== 'loading' && (
               <Button
                 icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
                 title=''
@@ -52,8 +52,8 @@ const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText, t }: Props
                 accessibilityLabel={t('refresh')}
                 accessibilityRole='button'
               />
-            </RetryButtonContainer>
-          )}
+            )}
+          </RetryButtonContainer>
         </NearbyMessageContainer>
       </>
     )

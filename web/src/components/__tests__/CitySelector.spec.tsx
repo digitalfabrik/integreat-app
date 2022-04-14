@@ -62,6 +62,7 @@ describe('CitySelector', () => {
     changeFilterText(getByPlaceholderText, 'Does not exist')
 
     cities.forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
+    expect(getByPlaceholderText('landing:searchCity')).toBeTruthy()
   })
 
   it('should not show any city if filter text does not match a live city', () => {
