@@ -4,8 +4,8 @@ import CityModel from '../models/CityModel'
 
 export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
 
-export const cityFilter =
-  (filterText: string, developerFriendly = false) =>
+const cityFilter =
+  (filterText: string, developerFriendly: boolean) =>
   (cityModel: CityModel): boolean => {
     const normalizedFilter = normalizeSearchString(filterText)
 
@@ -27,7 +27,7 @@ export const cityFilter =
     return validCity && (matchesName || matchesAlias)
   }
 
-export const citySort = (a: CityModel, b: CityModel): number => {
+const citySort = (a: CityModel, b: CityModel): number => {
   // There is currently a bug in hermes crashing the app if using localeCompare on empty string
   // Therefore the following does not work if there are two cities with the same sortingName of which one has no prefix set:
   // return a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
@@ -45,3 +45,6 @@ export const citySort = (a: CityModel, b: CityModel): number => {
   // Landkreis should come before Stadt
   return a.prefix.localeCompare(b.prefix)
 }
+
+export const filterSortCities = (cities: CityModel[], filterText: string, developerFriendly = false): CityModel[] =>
+  cities.filter(cityFilter(filterText, developerFriendly)).sort(citySort)

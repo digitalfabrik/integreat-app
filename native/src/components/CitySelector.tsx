@@ -6,8 +6,9 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled, { useTheme } from 'styled-components/native'
 
-import { cityFilter, CityModel, citySort } from 'api-client'
+import { CityModel, filterSortCities } from 'api-client'
 
+import buildConfig from '../constants/buildConfig'
 import { LocationInformationType } from '../hooks/useUserLocation'
 import getNearbyCities from '../utils/getNearbyCities'
 import CityEntry from './CityEntry'
@@ -45,7 +46,7 @@ const CitySelector = ({ cities, filterText, navigateToDashboard, locationInforma
   const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
   const theme = useTheme()
 
-  const resultCities = cities.filter(cityFilter(filterText)).sort(citySort)
+  const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
   if (resultCities.length === 0) {
     return <NothingFound paddingTop />
