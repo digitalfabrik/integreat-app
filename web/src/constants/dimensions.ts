@@ -19,7 +19,7 @@ const dimensions: DimensionsType = {
   minMaxWidth: 'screen and (min-width: 1100px)',
   maxWidth: 1100,
   toolbarWidth: 125,
-  toolbarHeight: 73,
+  toolbarHeight: 44,
   headerHeightLarge: 90,
   headerHeightSmall: 70,
   footerHeight: 50,
