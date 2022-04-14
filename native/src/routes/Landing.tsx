@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useTheme } from 'styled-components'
@@ -8,10 +7,9 @@ import styled from 'styled-components/native'
 import { CityModel } from 'api-client'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
-import FilterableCitySelector from '../components/FilterableCitySelector'
+import CitySelector from '../components/CitySelector'
 import Heading from '../components/Heading'
 import buildConfig from '../constants/buildConfig'
-import useUserLocation from '../hooks/useUserLocation'
 import testID from '../testing/testID'
 
 const Wrapper = styled(View)`
@@ -38,7 +36,6 @@ const Landing = ({
 }: PropsType): ReactElement => {
   const { t } = useTranslation('landing')
   const theme = useTheme()
-  const locationInformation = useUserLocation()
 
   const navigateTo = useCallback(
     (cityModel: CityModel) => {
@@ -51,12 +48,7 @@ const Landing = ({
     <>
       <Wrapper {...testID('Landing-Page')}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-        <FilterableCitySelector
-          cities={cities}
-          t={t}
-          locationInformation={locationInformation}
-          navigateToDashboard={navigateTo}
-        />
+        <CitySelector cities={cities} t={t} navigateToDashboard={navigateTo} />
       </Wrapper>
       {buildConfig().featureFlags.cityNotCooperating && (
         <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
