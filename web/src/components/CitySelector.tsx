@@ -1,12 +1,19 @@
 import { groupBy, transform } from 'lodash'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { cityFilter, CityModel, citySort } from 'api-client'
+import { CityModel, filterSortCities } from 'api-client'
 
+import buildConfig from '../constants/buildConfig'
 import CityEntry from './CityEntry'
 import Failure from './Failure'
+import Heading from './Heading'
+import ScrollingSearchBox from './ScrollingSearchBox'
+
+const Container = styled.div`
+  padding-top: 22px;
+`
 
 const CityListParent = styled.div<{ stickyTop: number }>`
   position: sticky;
@@ -21,18 +28,18 @@ const CityListParent = styled.div<{ stickyTop: number }>`
 
 type PropsType = {
   cities: Array<CityModel>
-  filterText: string
   language: string
-  stickyTop?: number
 }
 
-const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType): ReactElement => {
-  const { t } = useTranslation('search')
+const CitySelector = ({ cities, language }: PropsType): ReactElement => {
+  const [filterText, setFilterText] = useState<string>('')
+  const [stickyTop, setStickyTop] = useState<number>(0)
+  const { t } = useTranslation('landing')
 
-  const resultCities = cities.filter(cityFilter(filterText)).sort(citySort)
+  const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
   if (resultCities.length === 0) {
-    return <Failure errorMessage='nothingFound' t={t} />
+    return <Failure errorMessage='search:nothingFound' t={t} />
   }
 
   const groups = groupBy(resultCities, city => city.sortCategory)
@@ -52,7 +59,19 @@ const CitySelector = ({ cities, language, filterText, stickyTop = 0 }: PropsType
     []
   )
 
-  return <>{entries}</>
+  return (
+    <Container>
+      <Heading />
+      <ScrollingSearchBox
+        filterText={filterText}
+        onFilterTextChange={setFilterText}
+        placeholderText={t('searchCity')}
+        spaceSearch={false}
+        onStickyTopChanged={setStickyTop}>
+        {entries}
+      </ScrollingSearchBox>
+    </Container>
+  )
 }
 
 export default CitySelector
