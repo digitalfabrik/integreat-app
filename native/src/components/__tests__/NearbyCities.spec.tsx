@@ -143,5 +143,10 @@ describe('NearbyCities', () => {
     expect(mockRequestLocationPermission).toHaveBeenCalledTimes(1)
     expect(mockGetCurrentPosition).toHaveBeenCalledTimes(1)
     expect(openSettings).not.toHaveBeenCalled()
+
+    expect(navigateToDashboard).not.toHaveBeenCalled()
+    fireEvent.press(getByText('Stadt Augsburg'))
+    expect(navigateToDashboard).toHaveBeenCalledTimes(1)
+    expect(navigateToDashboard).toHaveBeenCalledWith(cities[0])
   })
 })

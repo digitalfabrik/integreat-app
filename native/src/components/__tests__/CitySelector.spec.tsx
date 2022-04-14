@@ -26,6 +26,11 @@ describe('CitySelector', () => {
     expect(getByText('NearbyCities')).toBeTruthy()
     cities.filter(city => city.live).forEach(city => expect(getByText(city.name)).toBeTruthy())
     cities.filter(city => !city.live).forEach(city => expect(queryByText(city.name)).toBeFalsy())
+
+    expect(navigateToDashboard).not.toHaveBeenCalled()
+    fireEvent.press(getByText(city.name))
+    expect(navigateToDashboard).toHaveBeenCalledTimes(1)
+    expect(navigateToDashboard).toHaveBeenCalledWith(cities[0])
   })
 
   it('should show live cities matching filter text', () => {
