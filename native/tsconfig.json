@@ -12,6 +12,7 @@
       "api-client/*": ["../api-client/*"],
       "build-configs/*": ["../build-configs/*"],
       "translations/*": ["../translations/*"],
+      "normalize-strings": ["../api-client/src/@types/normalize-strings"],
       "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
       "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
     },
