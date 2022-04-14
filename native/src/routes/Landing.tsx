@@ -9,7 +9,6 @@ import { CityModel } from 'api-client'
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
 import Heading from '../components/Heading'
-import buildConfig from '../constants/buildConfig'
 import testID from '../testing/testID'
 
 const Wrapper = styled(View)`
@@ -50,9 +49,7 @@ const Landing = ({
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
         <CitySelector cities={cities} t={t} navigateToDashboard={navigateTo} />
       </Wrapper>
-      {buildConfig().featureFlags.cityNotCooperating && (
-        <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
-      )}
+      <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
     </>
   )
 }

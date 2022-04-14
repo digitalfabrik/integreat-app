@@ -37,33 +37,33 @@ const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText, t }: Props
   const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
   const theme = useTheme()
 
-  if (status === 'unavailable') {
+  if (!coordinates) {
     return (
       <>
         <NearbyMessageContainer>
           <NearbyMessage>{t(message)}</NearbyMessage>
-          <RetryButtonContainer>
-            <Button
-              icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
-              title=''
-              type='clear'
-              onPress={requestAndDetermineLocation}
-              accessibilityLabel={t('refresh')}
-              accessibilityRole='button'
-            />
-          </RetryButtonContainer>
+          {status !== 'loading' && (
+            <RetryButtonContainer>
+              <Button
+                icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
+                title=''
+                type='clear'
+                onPress={requestAndDetermineLocation}
+                accessibilityLabel={t('refresh')}
+                accessibilityRole='button'
+              />
+            </RetryButtonContainer>
+          )}
         </NearbyMessageContainer>
       </>
     )
   }
 
-  const nearbyCities = coordinates
-    ? getNearbyCities(
-        cities.filter(city => city.live),
-        coordinates[0],
-        coordinates[1]
-      )
-    : []
+  const nearbyCities = getNearbyCities(
+    cities.filter(city => city.live),
+    coordinates[0],
+    coordinates[1]
+  )
 
   if (nearbyCities.length === 0) {
     return (
