@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useCallback } from 'react'
-import type { TFunction } from 'react-i18next'
-import { withTranslation } from 'react-i18next'
+import React, { ReactElement, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { NEGATIVE_RATING, POSITIVE_RATING } from 'api-client'
 
@@ -14,7 +13,6 @@ export type FeedbackRatingType = 'up' | 'down'
 
 type PropsType = {
   isPositiveRatingLink: boolean
-  t: TFunction
   openFeedbackModal: (rating: FeedbackRatingType) => void
   className?: string
   viewportSmall: boolean
@@ -22,7 +20,13 @@ type PropsType = {
 
 const StyledFeedbackToolbarItem = StyledToolbarItem.withComponent('button')
 
-const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, className, viewportSmall }: PropsType) => {
+const FeedbackToolbarItem = ({
+  openFeedbackModal,
+  isPositiveRatingLink,
+  className,
+  viewportSmall
+}: PropsType): ReactElement => {
+  const { t } = useTranslation('feedback')
   const handleLinkClick = useCallback(
     () => openFeedbackModal(isPositiveRatingLink ? POSITIVE_RATING : NEGATIVE_RATING),
     [isPositiveRatingLink, openFeedbackModal]
@@ -39,4 +43,4 @@ const FeedbackToolbarItem = ({ openFeedbackModal, t, isPositiveRatingLink, class
   )
 }
 
-export default withTranslation('feedback')(FeedbackToolbarItem)
+export default FeedbackToolbarItem

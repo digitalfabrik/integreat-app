@@ -1,25 +1,26 @@
+import WebMercatorViewport from '@math.gl/web-mercator'
 import { BBox } from 'geojson'
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import { Map } from 'maplibre-gl'
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { WebMercatorViewport } from 'react-map-gl'
-import { useNavigate, useParams } from 'react-router-dom'
+import { LngLatLike } from 'react-map-gl'
+import { useSearchParams } from 'react-router-dom'
 import { BottomSheetRef } from 'react-spring-bottom-sheet'
 import styled from 'styled-components'
 
 import {
-  defaultViewportConfig,
+  defaultMercatorViewportConfig,
+  detailZoom,
   embedInCollection,
   locationName,
-  MapViewViewport,
+  MapViewMercatorViewport,
   NotFoundError,
   pathnameFromRouteInformation,
   PoiFeature,
-  PoiModel,
   POIS_ROUTE
 } from 'api-client'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
 import FailureSwitcher from '../components/FailureSwitcher'
 import FeedbackModal from '../components/FeedbackModal'
 import { FeedbackRatingType } from '../components/FeedbackToolbarItem'
@@ -29,15 +30,12 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import LocationLayout from '../components/LocationLayout'
 import LocationToolbar from '../components/LocationToolbar'
 import MapView from '../components/MapView'
-import Page from '../components/Page'
-import PageDetail from '../components/PageDetail'
 import PoiListItem from '../components/PoiListItem'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import DateFormatterContext from '../contexts/DateFormatterContext'
-import { useFeatureLocations } from '../hooks/useFeatureLocations'
+import useFeatureLocations from '../hooks/useFeatureLocations'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { log } from '../utils/sentry'
@@ -47,7 +45,7 @@ const PoisPageWrapper = styled.div<{ panelHeights: number }>`
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `
 
-const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport => {
+const moveViewToBBox = (bBox: BBox, defaultVp: MapViewMercatorViewport): MapViewMercatorViewport => {
   const mercatorVp = new WebMercatorViewport(defaultVp)
   return mercatorVp.fitBounds([
     [bBox[0], bBox[1]],
@@ -56,22 +54,56 @@ const moveViewToBBox = (bBox: BBox, defaultVp: MapViewViewport): MapViewViewport
 }
 
 const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: CityRouteProps): ReactElement => {
-  const { poiId } = useParams()
-  const { t } = useTranslation('pois')
-  const formatter = useContext(DateFormatterContext)
-  const navigate = useNavigate()
-  const { featureLocations, pois, poisError, loading } = useFeatureLocations(cityCode, languageCode)
+  const [queryParams, setQueryParams] = useSearchParams()
+  const { data, error: featureLocationsError, loading } = useFeatureLocations(cityCode, languageCode)
+  const [mapRef, setMapRef] = useState<Map | null>(null)
+  const selectedFeatureSlug = queryParams.get(locationName)
+  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(
+    data?.features.find(it => it.properties.urlSlug === selectedFeatureSlug) ?? null
+  )
+  const poi = data?.pois.find(it => it.urlSlug === selectedFeatureSlug)
   const { viewportSmall } = useWindowDimensions()
   const sheetRef = useRef<BottomSheetRef>(null)
   const [feedbackModalRating, setFeedbackModalRating] = useState<FeedbackRatingType | null>(null)
+  const { t } = useTranslation('pois')
 
-  const [currentFeature, setCurrentFeature] = useState<PoiFeature | null>(null)
+  const selectFeature = (feature: PoiFeature | null) => {
+    if (mapRef?.isMoving()) {
+      mapRef.stop()
+    }
+    if (feature) {
+      queryParams.set(locationName, feature.properties.urlSlug)
+    } else {
+      queryParams.delete(locationName)
+    }
+    setQueryParams(queryParams)
+  }
+
+  const updateMapRef = useCallback(node => {
+    // This allows us to use the map (ref) as dependency in hooks which is not possible using useRef.
+    // This is needed because on initial render the ref is null such that flyTo is not possible.
+    // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
+    if (node) {
+      setMapRef(node.getMap())
+    }
+  }, [])
+
+  useEffect(() => {
+    const currentFeature =
+      data?.features.find((feature: PoiFeature) => feature.properties.urlSlug === selectedFeatureSlug) ?? null
+    setCurrentFeature(currentFeature)
+
+    const coordinates = currentFeature?.geometry.coordinates ?? []
+
+    if (mapRef && coordinates[0] && coordinates[1]) {
+      const coords: LngLatLike = [coordinates[0], coordinates[1]]
+      mapRef.flyTo({ center: coords, zoom: detailZoom })
+    }
+  }, [mapRef, data, selectedFeatureSlug])
 
   if (buildConfig().featureFlags.developerFriendly) {
     log('To use geolocation in a development build you have to start the dev server with\n "yarn start --https"')
   }
-
-  const poi = poiId && pois?.find((poi: PoiModel) => poi.path === pathname)
 
   const languageChangePaths = languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
@@ -86,12 +118,20 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     }
   })
 
-  const selectFeature = (feature: PoiFeature | null) => {
-    setCurrentFeature(feature)
+  const nextFeatureIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
+    if (currentIndex === arrayLength - 1 && step > 0) {
+      return 0
+    }
+    if (currentIndex === 0 && step < 0) {
+      return arrayLength - 1
+    }
+    return currentIndex + step
   }
 
   const changeSnapPoint = (snapPoint: number) => {
-    sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+    if (viewportSmall) {
+      sheetRef.current?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+    }
   }
 
   const toolbar = (
@@ -125,9 +165,9 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (!pois || (poiId && !poi)) {
+  if (!data) {
     const error =
-      poisError ||
+      featureLocationsError ||
       new NotFoundError({
         type: 'poi',
         id: pathname,
@@ -142,53 +182,32 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
     )
   }
 
-  if (poi) {
-    const { thumbnail, lastUpdate, content, title, location, featureLocation, urlSlug } = poi
-    const pageTitle = `${title} - ${cityModel.name}`
-
-    const mapUrlParams = new URLSearchParams({ [locationName]: urlSlug })
-    const mapLink = `${pathnameFromRouteInformation({ route: POIS_ROUTE, cityCode, languageCode })}?${mapUrlParams}`
-
-    return (
-      <LocationLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={cityModel} />
-        <Page
-          defaultThumbnailSrc={thumbnail || PoiPlaceholder}
-          lastUpdate={lastUpdate}
-          content={content}
-          title={title}
-          formatter={formatter}
-          onInternalLinkClick={navigate}>
-          {location.location && (
-            <PageDetail
-              identifier={t('address')}
-              information={location.location}
-              link={featureLocation ? mapLink : undefined}
-              linkLabel={t('map')}
-            />
-          )}
-        </Page>
-      </LocationLayout>
+  const switchFeature = (step: 1 | -1) => {
+    const featureIndex = data.features.findIndex(
+      (poi: PoiFeature) => poi.properties.urlSlug === currentFeature?.properties.urlSlug
     )
+    const updatedIndex = nextFeatureIndex(step, data.features.length, featureIndex)
+    const feature = data.features[updatedIndex]
+    selectFeature(feature ?? null)
   }
 
-  const sortedPois = featureLocations.sort((poi1: PoiFeature, poi2: PoiFeature) =>
-    poi1.properties.title.localeCompare(poi2.properties.title)
+  const renderPoiListItem = (poi: PoiFeature) => (
+    <PoiListItem key={poi.properties.path} poi={poi} selectFeature={selectFeature} />
   )
-  const renderPoiListItem = (poi: PoiFeature) => <PoiListItem key={poi.properties.path} properties={poi.properties} />
   const pageTitle = `${t('pageTitle')} - ${cityModel.name}`
 
   const mapView = cityModel.boundingBox && (
     <MapView
+      ref={updateMapRef}
       selectFeature={selectFeature}
       changeSnapPoint={changeSnapPoint}
-      featureCollection={embedInCollection(sortedPois)}
-      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultViewportConfig)}
+      featureCollection={embedInCollection(data.features)}
+      bboxViewport={moveViewToBBox(cityModel.boundingBox, defaultMercatorViewportConfig)}
       currentFeature={currentFeature}
     />
   )
 
-  const poiList = <List noItemsMessage={t('noPois')} items={sortedPois} renderItem={renderPoiListItem} borderless />
+  const poiList = <List noItemsMessage={t('noPois')} items={data.features} renderItem={renderPoiListItem} borderless />
   // To calculate the height of the PoisPage container, we have to reduce 100vh by header, footer, navMenu
   const panelHeights = dimensions.headerHeightLarge + dimensions.footerHeight + dimensions.navigationMenuHeight
 
@@ -206,11 +225,14 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
           />
         ) : (
           <PoisDesktop
+            switchFeature={switchFeature}
+            poi={poi}
             currentFeature={currentFeature}
             toolbar={toolbar}
             panelHeights={panelHeights}
             mapView={mapView}
             poiList={poiList}
+            selectFeature={selectFeature}
           />
         )}
         {feedbackModal}

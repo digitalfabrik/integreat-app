@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { PoiFeature, PoiFeatureCollection } from '../../maps'
-import LocationModel from '../../models/LocationModel'
+import { PoiModelBuilder } from '../../testing'
 import { embedInCollection } from '../geoJson'
 
 describe('geoJson', () => {
-  const path = '/augsburg/de/locations/erster_poi'
-  const thumbnail = 'thumbnail'
-  const urlSlug = 'erster_poi'
+  const poi = new PoiModelBuilder(1).build()[0]!
+
   const expectedGeoJsonMarkerFeature: PoiFeature = {
     type: 'Feature',
     geometry: {
@@ -15,12 +13,12 @@ describe('geoJson', () => {
     },
     properties: {
       id: 1,
-      title: 'Test',
+      title: 'name',
       symbol: 'marker_15',
-      thumbnail,
-      path,
-      urlSlug,
-      address: 'Wertachstr. 29'
+      thumbnail: 'test',
+      path: 'test',
+      urlSlug: 'test',
+      address: 'address'
     }
   }
   describe('embedInCollection', () => {
@@ -28,22 +26,9 @@ describe('geoJson', () => {
       features: [expectedGeoJsonMarkerFeature],
       type: 'FeatureCollection'
     }
+
     it('should embed feature to GeoJson', () => {
-      const location = new LocationModel({
-        id: 1,
-        name: 'Test',
-        address: 'Wertachstr. 29',
-        town: 'Augsburg',
-        state: 'Bayern',
-        postcode: '86353',
-        region: 'Schwaben',
-        latitude: '29.979848',
-        longitude: '31.133859',
-        country: 'DE'
-      })
-      expect(embedInCollection([location.convertToPoint(path, thumbnail, urlSlug)!])).toEqual(
-        expectedGeoJsonFeatureCollection
-      )
+      expect(embedInCollection([poi.featureLocation!])).toEqual(expectedGeoJsonFeatureCollection)
     })
   })
 })
