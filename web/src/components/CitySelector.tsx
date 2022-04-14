@@ -38,10 +38,6 @@ const CitySelector = ({ cities, language }: PropsType): ReactElement => {
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
-  if (resultCities.length === 0) {
-    return <Failure errorMessage='search:nothingFound' t={t} />
-  }
-
   const groups = groupBy(resultCities, city => city.sortCategory)
 
   const entries = transform(
@@ -68,7 +64,7 @@ const CitySelector = ({ cities, language }: PropsType): ReactElement => {
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
-        {entries}
+        {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' t={t} /> : entries}
       </ScrollingSearchBox>
     </Container>
   )

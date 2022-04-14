@@ -55,6 +55,7 @@ describe('CitySelector', () => {
     fireEvent.changeText(getByPlaceholderText('searchCity'), 'Does not exist')
 
     cities.forEach(city => expect(queryByText(city.name)).toBeFalsy())
+    expect(getByPlaceholderText('searchCity')).toBeTruthy()
   })
 
   it('should not show any city if filter text does not match a live city', () => {

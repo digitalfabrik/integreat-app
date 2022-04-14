@@ -37,10 +37,6 @@ const CitySelector = ({ cities, navigateToDashboard, t }: PropsType): ReactEleme
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
-  if (resultCities.length === 0) {
-    return <NothingFound paddingTop />
-  }
-
   const renderCity = (city: CityModel) => (
     <CityEntry
       key={city.code}
@@ -80,7 +76,7 @@ const CitySelector = ({ cities, navigateToDashboard, t }: PropsType): ReactEleme
           <CityGroup>{t('nearbyCities')}</CityGroup>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} t={t} />
         </CityGroupContainer>
-        {cityEntries}
+        {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>
   )
