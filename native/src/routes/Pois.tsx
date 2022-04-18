@@ -7,14 +7,15 @@ import styled from 'styled-components/native'
 import {
   CityModel,
   embedInCollection,
+  ErrorCode,
   fromError,
   NotFoundError,
   PoiFeature,
   PoiModel,
   POIS_ROUTE,
   PoisRouteType,
-  RouteInformationType,
-  prepareFeatureLocations
+  prepareFeatureLocations,
+  RouteInformationType
 } from 'api-client'
 
 import BottomActionsSheet from '../components/BottomActionsSheet'
@@ -31,14 +32,13 @@ import useUserLocation from '../hooks/useUserLocation'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
 
 export type PropsType = {
-  path: string | null | undefined
   pois: Array<PoiModel>
   cityModel: CityModel
   language: string
   resourceCache: LanguageResourceCacheStateType
   resourceCacheUrl: string
-  navigateTo: (arg0: RouteInformationType) => void
-  navigateToFeedback: (arg0: FeedbackInformationType) => void
+  navigateTo: (routeInformation: RouteInformationType) => void
+  navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   route: RoutePropType<PoisRouteType>
 }
 
@@ -46,166 +46,118 @@ const CustomSheetList = styled.View`
   margin: 0 32px;
 `
 
-/**
- * Displays a list of pois or a single poi, matching the route /<location>/<language>/pois(/<id>)
- * cityCode: string, language: string, path: ?string, key?: string, forceRefresh?: boolean
- */
+const BOTTOM_SHEET_SNAP_POINTS = [dimensions.bottomSheetHandler.height, '35%', '95%']
 
-const Pois = ({ pois, language, path, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
+const Pois = ({ pois, language, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
+  const userLocation = useUserLocation(true)
+  const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
+  const [features, setFeatures] = useState<PoiFeature[]>(prepareFeatureLocations(pois, userLocation.coordinates))
+  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
+  const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
+  const poi = pois.find(it => it.urlSlug === urlSlug)
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const [selectedFeature, setSelectedFeature] = useState<PoiFeature | null>(null)
-  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
-  const [featureLocations, setFeatureLocations] = useState<PoiFeature[]>(prepareFeatureLocations(pois, null))
-  const { coordinates: location, requestAndDetermineLocation } = useUserLocation(path === null)
-
-  // set points to snap for bottom sheet
-  const snapPoints = [dimensions.bottomSheetHandler.height, '35%', '95%']
 
   useEffect(() => {
-    const featureLocations = prepareFeatureLocations(pois, location)
-    const urlSlug = route.params.urlSlug
-    if (urlSlug) {
-      const currentFeature = featureLocations.find(feature => feature.properties.urlSlug === urlSlug)
-      setSelectedFeature(currentFeature ?? null)
-    }
-    if (location) {
-      setFeatureLocations(featureLocations)
-    }
-  }, [path, pois, route.params.urlSlug, location])
+    setFeatures(prepareFeatureLocations(pois, userLocation.coordinates))
+  }, [pois, userLocation])
 
-  const navigateToPoi = (cityCode: string, language: string, path: string) => (): void => {
+  const navigateToPois = (urlSlug: string) => (): void => {
     navigateTo({
       route: POIS_ROUTE,
-      cityCode,
-      languageCode: language,
-      cityContentPath: path
-    })
-  }
-
-  const navigateToPois = (cityCode: string, language: string, urlSlug: string) => (): void => {
-    navigateTo({
-      route: POIS_ROUTE,
-      cityCode,
+      cityCode: cityModel.code,
       languageCode: language,
       urlSlug
     })
   }
 
-  const renderPoiListItem =
-    (cityCode: string, language: string) =>
-    (poi: PoiFeature): ReactNode => {
-      const { properties } = poi
-      return (
-        <PoiListItem
-          key={properties.id}
-          poi={poi}
-          language={language}
-          theme={theme}
-          navigateToPoi={navigateToPoi(cityCode, language, properties.path)}
-        />
-      )
-    }
+  const renderPoiListItem = (poi: PoiFeature): ReactNode => (
+    <PoiListItem
+      key={poi.properties.id}
+      poi={poi}
+      language={language}
+      theme={theme}
+      navigateToPoi={navigateToPois(poi.properties.urlSlug)}
+    />
+  )
 
-  const createNavigateToFeedbackForPoi =
-    (poi: PoiModel) =>
-    (isPositiveFeedback: boolean): void => {
-      navigateToFeedback({
-        routeType: POIS_ROUTE,
-        language,
-        path: poi.path,
-        cityCode: cityModel.code,
-        isPositiveFeedback
-      })
-    }
-
-  const navigateToFeedbackForPois = (isPositiveFeedback: boolean) => {
+  const navigateToPoisFeedback = (isPositiveFeedback: boolean) => {
     navigateToFeedback({
       routeType: POIS_ROUTE,
       language,
+      path: poi ? poi.path : undefined,
       cityCode: cityModel.code,
       isPositiveFeedback
     })
   }
+
   const selectPoiFeature = (feature: PoiFeature | null) => {
     if (feature) {
-      setSelectedFeature(feature)
+      setUrlSlug(feature.properties.urlSlug)
       setSheetSnapPointIndex(1)
     } else {
-      setSelectedFeature(null)
+      setUrlSlug(null)
     }
   }
 
-  const sortedPois = pois.sort((poi1, poi2) => poi1.title.localeCompare(poi2.title))
-
-  if (path) {
-    const poi = sortedPois.find(_poi => _poi.path === path)
-    const feature = featureLocations.find(_feature => _feature.properties.path === path)
-
-    if (poi && feature) {
-      return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <PoiDetails
-            language={language}
-            poi={poi}
-            feature={feature}
-            detailPage
-            navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
-          />
-          <SiteHelpfulBox
-            backgroundColor={theme.colors.backgroundColor}
-            navigateToFeedback={createNavigateToFeedbackForPoi(poi)}
-          />
-        </ScrollView>
-      )
-    }
-    const error = new NotFoundError({
-      type: 'poi',
-      id: path,
-      city: cityModel.code,
-      language
-    })
-    return <Failure code={fromError(error)} />
+  if (!cityModel.boundingBox) {
+    return <Failure code={ErrorCode.PageNotFound} />
   }
 
-  const poi = sortedPois.find(_poi => _poi.path === selectedFeature?.properties.path)
+  const selectedFeatureContent =
+    selectedFeature && poi ? (
+      <PoiDetails
+        language={language}
+        poi={poi}
+        feature={selectedFeature}
+        detailPage={false}
+        navigateToPois={navigateToPois(poi.urlSlug)}
+      />
+    ) : (
+      <Failure
+        code={fromError(
+          new NotFoundError({
+            type: 'poi',
+            id: urlSlug ?? '',
+            city: cityModel.code,
+            language
+          })
+        )}
+      />
+    )
+
+  const content = urlSlug ? (
+    selectedFeatureContent
+  ) : (
+    <List
+      CustomStyledList={CustomSheetList}
+      noItemsMessage={t('noPois')}
+      items={features}
+      renderItem={renderPoiListItem}
+      theme={theme}
+    />
+  )
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      {cityModel.boundingBox && (
-        <MapView
-          selectPoiFeature={selectPoiFeature}
-          boundingBox={cityModel.boundingBox}
-          featureCollection={embedInCollection(featureLocations)}
-          selectedFeature={selectedFeature}
-          locationPermissionGranted={location !== null}
-          onRequestLocationPermission={requestAndDetermineLocation}
-          fabPosition={sheetSnapPointIndex < snapPoints.length - 1 ? snapPoints[sheetSnapPointIndex]! : 0}
-        />
-      )}
+      <MapView
+        selectPoiFeature={selectPoiFeature}
+        boundingBox={cityModel.boundingBox}
+        featureCollection={embedInCollection(features)}
+        selectedFeature={selectedFeature ?? null}
+        locationPermissionGranted={userLocation.coordinates !== null}
+        onRequestLocationPermission={userLocation.requestAndDetermineLocation}
+        fabPosition={
+          sheetSnapPointIndex < BOTTOM_SHEET_SNAP_POINTS.length - 1 ? BOTTOM_SHEET_SNAP_POINTS[sheetSnapPointIndex]! : 0
+        }
+      />
       <BottomActionsSheet
         title={selectedFeature ? selectedFeature.properties.title : t('listTitle')}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
-        snapPoints={snapPoints}>
-        {selectedFeature && poi ? (
-          <PoiDetails
-            language={language}
-            poi={poi}
-            feature={selectedFeature}
-            detailPage={false}
-            navigateToPois={navigateToPois(cityModel.code, language, poi.urlSlug)}
-          />
-        ) : (
-          <List
-            CustomStyledList={CustomSheetList}
-            noItemsMessage={t('noPois')}
-            items={featureLocations}
-            renderItem={renderPoiListItem(cityModel.code, language)}
-            theme={theme}
-          />
-        )}
-        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedbackForPois} />
+        snapPoints={BOTTOM_SHEET_SNAP_POINTS}>
+        {content}
+        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToPoisFeedback} />
       </BottomActionsSheet>
     </ScrollView>
   )
