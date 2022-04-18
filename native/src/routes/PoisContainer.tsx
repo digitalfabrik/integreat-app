@@ -7,7 +7,6 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
@@ -180,24 +179,14 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  const routeInformation = {
-    route: POIS_ROUTE,
-    languageCode: rest.language,
-    cityCode: rest.cityModel.code,
-    cityContentPath: rest.path ?? undefined
-  }
-  useSetShareUrl({ navigation, routeInformation, route })
-
-  return (
-    <Pois
-      {...rest}
-      route={route}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    />
-  )
-}
+const PoisContainer = ({ dispatch, navigation, ...rest }: ContainerPropsType) => (
+  <Pois
+    {...rest}
+    navigation={navigation}
+    navigateTo={createNavigate(dispatch, navigation)}
+    navigateToFeedback={createNavigateToFeedbackModal(navigation)}
+  />
+)
 
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
