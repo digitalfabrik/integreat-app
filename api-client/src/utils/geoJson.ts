@@ -17,7 +17,6 @@ export const prepareFeatureLocation = (poi: PoiModel, userLocation: LocationType
   return featureLocation
 }
 
-// Calculate distance for all Feature Locations
 export const prepareFeatureLocations = (pois: Array<PoiModel>, userLocation: LocationType | null): PoiFeature[] =>
   pois
     .map(poi => prepareFeatureLocation(poi, userLocation))
