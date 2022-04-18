@@ -45,7 +45,6 @@ describe('Header', () => {
 
   const t = (key: string) => `t_${key}`
   const goToLanguageChange = jest.fn()
-  const dispatch = jest.fn()
   const [city] = new CityModelBuilder(1).build()
 
   const buildProps = (
@@ -66,8 +65,7 @@ describe('Header', () => {
     categoriesAvailable,
     goToLanguageChange,
     routeCityModel: city,
-    language: 'de',
-    dispatch
+    language: 'de'
   })
 
   it('search header button should be enabled and visible after loading was finished', async () => {
