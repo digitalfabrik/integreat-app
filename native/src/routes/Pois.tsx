@@ -53,8 +53,8 @@ const BOTTOM_SHEET_SNAP_POINTS = [dimensions.bottomSheetHandler.height, '35%', '
 const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): ReactElement => {
   const { coordinates, requestAndDetermineLocation } = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
-  const [features, setFeatures] = useState<PoiFeature[]>(prepareFeatureLocations(pois, coordinates))
   const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState<number>(1)
+  const features = prepareFeatureLocations(pois, coordinates)
   const selectedFeature = urlSlug ? features.find(it => it.properties.urlSlug === urlSlug) : null
   const poi = pois.find(it => it.urlSlug === urlSlug)
   const { t } = useTranslation('pois')
@@ -67,10 +67,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   })
   const shareUrl = urlSlug ? `${baseUrl}?${locationName}=${urlSlug}` : baseUrl
   useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
-
-  useEffect(() => {
-    setFeatures(prepareFeatureLocations(pois, coordinates))
-  }, [pois, coordinates])
 
   useEffect(
     () =>
@@ -103,7 +99,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     />
   )
 
-  const navigateToPoisFeedback = (isPositiveFeedback: boolean) => {
+  const navigateToFeedback = (isPositiveFeedback: boolean) => {
     createNavigateToFeedbackModal(navigation)({
       routeType: POIS_ROUTE,
       language,
@@ -165,7 +161,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         initialIndex={sheetSnapPointIndex}
         snapPoints={BOTTOM_SHEET_SNAP_POINTS}>
         {content}
-        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToPoisFeedback} />
+        <SiteHelpfulBox backgroundColor={theme.colors.backgroundColor} navigateToFeedback={navigateToFeedback} />
       </BottomActionsSheet>
     </ScrollView>
   )
