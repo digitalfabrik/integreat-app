@@ -72,6 +72,18 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
     setFeatures(prepareFeatureLocations(pois, coordinates))
   }, [pois, coordinates])
 
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        if (urlSlug) {
+          // Only deselect currently selected poi if navigating back
+          e.preventDefault()
+          setUrlSlug(null)
+        }
+      }),
+    [navigation, urlSlug]
+  )
+
   const selectPoiFeature = (feature: PoiFeature | null) => {
     if (feature) {
       setUrlSlug(feature.properties.urlSlug)
