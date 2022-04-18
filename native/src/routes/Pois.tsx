@@ -9,6 +9,7 @@ import {
   embedInCollection,
   ErrorCode,
   fromError,
+  locationName,
   NotFoundError,
   PoiFeature,
   PoiModel,
@@ -26,10 +27,13 @@ import MapView from '../components/MapView'
 import PoiDetails from '../components/PoiDetails'
 import { PoiListItem } from '../components/PoiListItem'
 import SiteHelpfulBox from '../components/SiteHelpfulBox'
-import { RoutePropType } from '../constants/NavigationTypes'
+import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
+import useSetShareUrl from '../hooks/useSetShareUrl'
 import useUserLocation from '../hooks/useUserLocation'
+import urlFromRouteInformation from '../navigation/url'
 import { LanguageResourceCacheStateType } from '../redux/StateType'
+import { reportError } from '../utils/sentry'
 
 export type PropsType = {
   pois: Array<PoiModel>
@@ -40,6 +44,7 @@ export type PropsType = {
   navigateTo: (routeInformation: RouteInformationType) => void
   navigateToFeedback: (feedbackInformation: FeedbackInformationType) => void
   route: RoutePropType<PoisRouteType>
+  navigation: NavigationPropType<PoisRouteType>
 }
 
 const CustomSheetList = styled.View`
@@ -48,7 +53,15 @@ const CustomSheetList = styled.View`
 
 const BOTTOM_SHEET_SNAP_POINTS = [dimensions.bottomSheetHandler.height, '35%', '95%']
 
-const Pois = ({ pois, language, cityModel, navigateTo, navigateToFeedback, route }: PropsType): ReactElement => {
+const Pois = ({
+  pois,
+  language,
+  cityModel,
+  navigateTo,
+  navigateToFeedback,
+  route,
+  navigation
+}: PropsType): ReactElement => {
   const userLocation = useUserLocation(true)
   const [urlSlug, setUrlSlug] = useState<string | null>(route.params.urlSlug ?? null)
   const [features, setFeatures] = useState<PoiFeature[]>(prepareFeatureLocations(pois, userLocation.coordinates))
@@ -57,6 +70,14 @@ const Pois = ({ pois, language, cityModel, navigateTo, navigateToFeedback, route
   const poi = pois.find(it => it.urlSlug === urlSlug)
   const { t } = useTranslation('pois')
   const theme = useTheme()
+
+  const baseUrl = urlFromRouteInformation({
+    route: POIS_ROUTE,
+    languageCode: language,
+    cityCode: cityModel.code
+  })
+  const shareUrl = urlSlug ? `${baseUrl}?${locationName}=${urlSlug}` : baseUrl
+  useSetShareUrl({ navigation, shareUrl, route, routeInformation: null })
 
   useEffect(() => {
     setFeatures(prepareFeatureLocations(pois, userLocation.coordinates))
@@ -101,6 +122,7 @@ const Pois = ({ pois, language, cityModel, navigateTo, navigateToFeedback, route
   }
 
   if (!cityModel.boundingBox) {
+    reportError(new Error(`Bounding box not set for city ${cityModel.code}!`))
     return <Failure code={ErrorCode.PageNotFound} />
   }
 
