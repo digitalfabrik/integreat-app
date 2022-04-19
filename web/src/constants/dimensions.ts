@@ -2,7 +2,7 @@ export type DimensionsType = {
   maxWidthViewportSmall: number
   smallViewport: string
   mediumViewport: string
-  largeViewport: string
+  mediumLargeViewport: string
   minMaxWidth: string
   maxWidth: number
   toolbarWidth: number
@@ -16,8 +16,8 @@ export type DimensionsType = {
 const dimensions: DimensionsType = {
   maxWidthViewportSmall: 768,
   smallViewport: '(max-width: 768px)',
-  mediumViewport: '(min-width: 768px) and (max-width: 1100px)',
-  largeViewport: '(min-width: 768px)',
+  mediumViewport: '(min-width: 769px) and (max-width: 1100px)',
+  mediumLargeViewport: '(min-width: 769px)',
   minMaxWidth: 'screen and (min-width: 1100px)',
   maxWidth: 1100,
   toolbarWidth: 125,
