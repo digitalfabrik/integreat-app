@@ -35,7 +35,7 @@ const Marker = styled.img`
   height: 20px;
   flex-shrink: 0;
 
-  @media ${dimensions.largeViewport} {
+  @media ${dimensions.mediumLargeViewport} {
     padding: 0 8px;
   }
   object-fit: contain;
