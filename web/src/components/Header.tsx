@@ -12,7 +12,6 @@ type PropsType = {
   logoHref: string
   viewportSmall: boolean
   cityName?: string
-  onStickyTopChanged: (stickyTop: number) => void
 }
 
 const HeaderContainer = styled.header`
@@ -97,7 +96,6 @@ const NavigationBar = styled.nav`
  */
 export const Header = ({
   viewportSmall,
-  onStickyTopChanged,
   actionItems = [],
   logoHref,
   navigationItems = [],
@@ -111,7 +109,7 @@ export const Header = ({
   const scrollHeight = viewportSmall ? headerHeightSmall + (cityName ? HEADER_TITLE_HEIGHT : 0) : headerHeightLarge
 
   return (
-    <Headroom onStickyTopChanged={onStickyTopChanged} scrollHeight={scrollHeight} height={height}>
+    <Headroom scrollHeight={scrollHeight} height={height}>
       <HeaderContainer>
         <Row hasTitle={!!cityName}>
           <HeaderLogo link={logoHref} />

@@ -2,16 +2,16 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { GeoJsonPoiProperties } from 'api-client'
+import { PoiFeature } from 'api-client'
 
 import PoiPlaceholder from '../assets/PoiPlaceholderThumbnail.jpg'
-import CleanLink from './CleanLink'
 
 const ListItemContainer = styled.article`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
-  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
   padding: clamp(10px, 1vh, 20px) 0;
+  cursor: pointer;
 
   &:first-child {
     padding-top: 0;
@@ -39,11 +39,8 @@ export const Description = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 0 22px;
+  align-self: center;
   word-wrap: break-word;
-
-  > * {
-    padding-bottom: 10px;
-  }
 `
 
 const Title = styled.span`
@@ -51,22 +48,32 @@ const Title = styled.span`
   font-weight: 700;
 `
 
+const LinkContainer = styled.div`
+  display: flex;
+`
+
 type PropsType = {
-  properties: GeoJsonPoiProperties
+  poi: PoiFeature
+  selectFeature: (feature: PoiFeature | null) => void
 }
 
-const PoiListItem = ({ properties }: PropsType): ReactElement => {
+const PoiListItem = ({ poi, selectFeature }: PropsType): ReactElement => {
   const { t } = useTranslation('pois')
-  const { path, thumbnail, title, distance } = properties
+  const { thumbnail, title, distance } = poi.properties
+
+  const onClickItem = () => {
+    selectFeature(poi)
+  }
+
   return (
     <ListItemContainer>
-      <CleanLink to={path}>
+      <LinkContainer onClick={onClickItem} role='button' tabIndex={0} onKeyPress={onClickItem} aria-label={title}>
         <Thumbnail alt='' src={thumbnail || PoiPlaceholder} />
         <Description>
           <Title>{title}</Title>
           {distance && <Distance>{t('distanceKilometre', { distance })}</Distance>}
         </Description>
-      </CleanLink>
+      </LinkContainer>
     </ListItemContainer>
   )
 }
