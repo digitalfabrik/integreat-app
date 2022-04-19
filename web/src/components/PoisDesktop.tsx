@@ -2,12 +2,14 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { PoiFeature } from 'api-client'
+import { PoiFeature, PoiModel } from 'api-client'
 
 import dimensions from '../constants/dimensions'
+import PoiDetails from './PoiDetails'
+import PoiPanelNavigation from './PoiPanelNavigation'
 
 const ListViewWrapper = styled.div<{ panelHeights: number }>`
-  min-width: 150px;
+  width: 300px;
   padding: 0 clamp(16px, 1.4vh, 32px);
   overflow: auto;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px - ${dimensions.toolbarHeight}px);`};
@@ -29,15 +31,19 @@ const ListHeader = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   line-height: ${props => props.theme.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border-bottom: 1px solid ${props => props.theme.colors.poiBorderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
+
 type PoisDesktopProps = {
   panelHeights: number
   currentFeature: PoiFeature | null
   poiList: ReactElement
   mapView: ReactElement | null
   toolbar: ReactElement
+  poi?: PoiModel
+  switchFeature: (step: 1 | -1) => void
+  selectFeature: (feature: PoiFeature | null) => void
 }
 
 const PoisDesktop: React.FC<PoisDesktopProps> = ({
@@ -45,17 +51,29 @@ const PoisDesktop: React.FC<PoisDesktopProps> = ({
   currentFeature,
   poiList,
   mapView,
-  toolbar
+  toolbar,
+  poi,
+  switchFeature,
+  selectFeature
 }: PoisDesktopProps): ReactElement => {
   const { t } = useTranslation('pois')
+
   return (
     <>
       <div>
         <ListViewWrapper panelHeights={panelHeights}>
-          <ListHeader>{currentFeature?.properties.title || t('listTitle')}</ListHeader>
-          {!currentFeature && poiList}
+          {!currentFeature && <ListHeader>{t('listTitle')}</ListHeader>}
+          {currentFeature && poi ? (
+            <PoiDetails poi={poi} feature={currentFeature} selectFeature={selectFeature} />
+          ) : (
+            poiList
+          )}
         </ListViewWrapper>
-        <ToolbarContainer>{toolbar}</ToolbarContainer>
+        {currentFeature ? (
+          <PoiPanelNavigation switchFeature={switchFeature} />
+        ) : (
+          <ToolbarContainer>{toolbar}</ToolbarContainer>
+        )}
       </div>
       {mapView}
     </>

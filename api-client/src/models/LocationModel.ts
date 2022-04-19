@@ -1,7 +1,5 @@
 import { Position } from 'geojson'
 
-import { mapMarker, PoiFeature } from '../maps'
-
 class LocationModel {
   _id: number
   _name: string
@@ -121,30 +119,6 @@ class LocationModel {
       return null
     }
     return [Number(this.longitude), Number(this.latitude)]
-  }
-
-  convertToPoint(path: string, thumbnail: string, urlSlug: string): PoiFeature | null {
-    if (this.coordinates == null) {
-      return null
-    }
-
-    return {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: this.coordinates
-      },
-      properties: {
-        title: this.name,
-        id: this.id,
-        // TODO gonna be replaced by proper mapping category->symbolName IGAPP-736
-        symbol: mapMarker.symbol,
-        thumbnail,
-        path,
-        urlSlug,
-        address: this.address ?? undefined
-      }
-    }
   }
 }
 
