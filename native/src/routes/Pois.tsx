@@ -83,7 +83,6 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
   const selectPoiFeature = (feature: PoiFeature | null) => {
     if (feature) {
       setUrlSlug(feature.properties.urlSlug)
-      setSheetSnapPointIndex(1)
     } else {
       setUrlSlug(null)
     }
@@ -147,6 +146,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
       <MapView
         selectPoiFeature={selectPoiFeature}
         boundingBox={cityModel.boundingBox}
+        setSheetSnapshotIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
         selectedFeature={selectedFeature ?? null}
         locationPermissionGranted={coordinates !== null}
@@ -156,7 +156,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
         }
       />
       <BottomActionsSheet
-        title={selectedFeature ? selectedFeature.properties.title : t('listTitle')}
+        title={!selectedFeature ? t('listTitle') : undefined}
         onChange={setSheetSnapPointIndex}
         initialIndex={sheetSnapPointIndex}
         snapPoints={BOTTOM_SHEET_SNAP_POINTS}>
