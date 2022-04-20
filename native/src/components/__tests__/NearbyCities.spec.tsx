@@ -44,10 +44,9 @@ describe('NearbyCities', () => {
   const cities = new CityModelBuilder(5).build()
   const navigateToDashboard = jest.fn(key => key)
   const filterText = ''
-  const t = jest.fn(key => key)
 
   const renderNearbyCities = () =>
-    render(<NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} t={t} />)
+    render(<NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />)
 
   it('should not request location permission on mount', async () => {
     mockCheckLocationPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)

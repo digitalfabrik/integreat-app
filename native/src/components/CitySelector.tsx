@@ -1,6 +1,6 @@
 import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -28,11 +28,11 @@ const SearchBar = styled.View`
 type PropsType = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
-  t: TFunction<'landing'>
 }
 
-const CitySelector = ({ cities, navigateToDashboard, t }: PropsType): ReactElement => {
+const CitySelector = ({ cities, navigateToDashboard }: PropsType): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
+  const { t } = useTranslation('landing')
   const theme = useTheme()
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
@@ -74,7 +74,7 @@ const CitySelector = ({ cities, navigateToDashboard, t }: PropsType): ReactEleme
       <View>
         <CityGroupContainer>
           <CityGroup>{t('nearbyCities')}</CityGroup>
-          <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} t={t} />
+          <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
