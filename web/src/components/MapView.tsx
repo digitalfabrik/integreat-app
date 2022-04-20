@@ -111,7 +111,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
       const feature = event.features && event.features[0]
       if (feature) {
         selectFeature(feature)
-        changeSnapPoint(1)
+        changeSnapPoint(2)
       }
     },
     [changeSnapPoint, selectFeature]
@@ -140,7 +140,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
-        {currentFeature && (
+        {currentFeature && viewportSmall && (
           <BackNavigation
             onClick={() => selectFeature(null)}
             role='button'
