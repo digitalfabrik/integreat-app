@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
@@ -33,7 +32,6 @@ const Landing = ({
   navigateToCityNotCooperating,
   clearResourcesAndCache
 }: PropsType): ReactElement => {
-  const { t } = useTranslation('landing')
   const theme = useTheme()
 
   const navigateTo = useCallback(
@@ -47,7 +45,7 @@ const Landing = ({
     <>
       <Wrapper {...testID('Landing-Page')}>
         <Heading clearResourcesAndCache={clearResourcesAndCache} theme={theme} />
-        <CitySelector cities={cities} t={t} navigateToDashboard={navigateTo} />
+        <CitySelector cities={cities} navigateToDashboard={navigateTo} />
       </Wrapper>
       <CityNotCooperatingFooter navigateToCityNotCooperating={navigateToCityNotCooperating} theme={theme} />
     </>

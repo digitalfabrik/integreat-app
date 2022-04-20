@@ -16,11 +16,10 @@ describe('CitySelector', () => {
   const cities = new CityModelBuilder(5).build()
   const city = cities[0]!
   const navigateToDashboard = jest.fn()
-  const t = jest.fn(key => key)
 
   it('should show only live cities', () => {
     const { getByText, queryByText } = render(
-      <CitySelector navigateToDashboard={navigateToDashboard} t={t} cities={cities} />
+      <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />
     )
 
     expect(getByText('NearbyCities')).toBeTruthy()
@@ -35,7 +34,7 @@ describe('CitySelector', () => {
 
   it('should show live cities matching filter text', () => {
     const { queryByText, getByText, getByPlaceholderText } = render(
-      <CitySelector navigateToDashboard={navigateToDashboard} t={t} cities={cities} />
+      <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />
     )
 
     fireEvent.changeText(getByPlaceholderText('searchCity'), city.name.slice(5, 9))
@@ -49,7 +48,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match', () => {
     const { queryByText, getByPlaceholderText } = render(
-      <CitySelector navigateToDashboard={navigateToDashboard} t={t} cities={cities} />
+      <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />
     )
 
     fireEvent.changeText(getByPlaceholderText('searchCity'), 'Does not exist')
@@ -60,7 +59,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match a live city', () => {
     const { queryByText, getByPlaceholderText } = render(
-      <CitySelector navigateToDashboard={navigateToDashboard} t={t} cities={cities} />
+      <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />
     )
 
     fireEvent.changeText(getByPlaceholderText('searchCity'), 'oldtown')
@@ -70,7 +69,7 @@ describe('CitySelector', () => {
 
   it('should show all non-live cities if filter text is "wirschaffendas"', () => {
     const { queryByText, getByText, getByPlaceholderText } = render(
-      <CitySelector navigateToDashboard={navigateToDashboard} t={t} cities={cities} />
+      <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />
     )
 
     fireEvent.changeText(getByPlaceholderText('searchCity'), 'wirschaffendas')

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { TFunction } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import styled, { useTheme } from 'styled-components/native'
@@ -29,33 +29,31 @@ type Props = {
   cities: Array<CityModel>
   navigateToDashboard: (city: CityModel) => void
   filterText: string
-  t: TFunction<'landing'>
 }
 
-const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText, t }: Props): ReactElement => {
+const NearbyCitiesGroup = ({ cities, navigateToDashboard, filterText }: Props): ReactElement => {
   const locationInformation = useUserLocation()
   const { status, coordinates, message, requestAndDetermineLocation } = locationInformation
+  const { t } = useTranslation('landing')
   const theme = useTheme()
 
   if (!coordinates) {
     return (
-      <>
-        <NearbyMessageContainer>
-          <NearbyMessage>{t(message)}</NearbyMessage>
-          <RetryButtonContainer>
-            {status !== 'loading' && (
-              <Button
-                icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
-                title=''
-                type='clear'
-                onPress={requestAndDetermineLocation}
-                accessibilityLabel={t('refresh')}
-                accessibilityRole='button'
-              />
-            )}
-          </RetryButtonContainer>
-        </NearbyMessageContainer>
-      </>
+      <NearbyMessageContainer>
+        <NearbyMessage>{t(message)}</NearbyMessage>
+        <RetryButtonContainer>
+          {status !== 'loading' && (
+            <Button
+              icon={<Icon name='refresh' size={30} color={theme.colors.textSecondaryColor} />}
+              title=''
+              type='clear'
+              onPress={requestAndDetermineLocation}
+              accessibilityLabel={t('refresh')}
+              accessibilityRole='button'
+            />
+          )}
+        </RetryButtonContainer>
+      </NearbyMessageContainer>
     )
   }
 
