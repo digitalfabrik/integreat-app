@@ -179,10 +179,14 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: 
           </CleanLink>
         </LinkContainer>
       </DetailSection>
-      <Spacer borderColor={theme.colors.poiBorderColor} />
-      <Collapsible title={t('detailsInformation')} initialCollapsed>
-        <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
-      </Collapsible>
+      {content.length > 0 && (
+        <>
+          <Spacer borderColor={theme.colors.poiBorderColor} />
+          <Collapsible title={t('detailsInformation')} initialCollapsed>
+            <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
+          </Collapsible>
+        </>
+      )}
     </DetailsContainer>
   )
 }
