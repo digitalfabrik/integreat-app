@@ -173,7 +173,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ feature, poi, selectFeature }: 
           </AddressContent>
         </AddressContentWrapper>
         <LinkContainer>
-          <CleanLink to={getNavigationDeepLinks(location, `https://maps.google.com?q=${title}`)} newTab>
+          <CleanLink to={getNavigationDeepLinks(location, title)} newTab>
             {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
             <Marker src={iconExternalLink} alt='' />
           </CleanLink>
