@@ -29,6 +29,7 @@ type MapViewPropsType = {
   locationPermissionGranted: boolean
   fabPosition: string | number
   selectPoiFeature: (feature: PoiFeature | null) => void
+  setSheetSnapshotIndex: (index: number) => void
 }
 
 const textOffsetY = 1.25
@@ -43,7 +44,8 @@ const MapView = ({
   fabPosition,
   onRequestLocationPermission,
   locationPermissionGranted,
-  selectPoiFeature
+  selectPoiFeature,
+  setSheetSnapshotIndex
 }: MapViewPropsType): ReactElement => {
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const mapRef = React.useRef<MapboxGL.MapView | null>(null)
@@ -117,8 +119,10 @@ const MapView = ({
       } = feature
       selectPoiFeature(feature)
       cameraRef.current.flyTo(coordinates)
+      setSheetSnapshotIndex(2)
     } else {
       selectPoiFeature(null)
+      setSheetSnapshotIndex(1)
     }
   }
 
