@@ -1,4 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import {
   defaultOnOverflowMenuPress,
@@ -31,11 +32,13 @@ const MaterialHeaderButtons = (props: {
   theme: ThemeType
 }): ReactElement => {
   const { cancelLabel, theme, items, overflowItems } = props
+  const { t } = useTranslation('common')
   return (
     <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
       {items}
       <OverflowMenu
         onPress={onOverflowMenuPress(cancelLabel)}
+        accessibilityLabel={t('moreOptions')}
         OverflowIcon={<MaterialIcon name='more-vert' size={23} color={theme.colors.textColor} />}>
         {overflowItems}
       </OverflowMenu>
