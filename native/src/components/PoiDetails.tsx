@@ -65,7 +65,7 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
   const thumbnail = feature.properties.thumbnail?.replace('-150x150', '') ?? Placeholder
   const { location, address, postcode, town } = poi.location
   const { distance } = feature.properties
-  const { title } = poi
+  const { title, content } = poi
 
   const onNavigate = () => {
     const navigationUrl = getNavigationDeepLinks(poi.location)
@@ -94,12 +94,16 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
         </TextWrapper>
       </PoiDetailItem>
       <HorizontalLine />
-      <CollapsibleItem initExpanded headerText={t('description')} language={language}>
-        <ContentWrapper>
-          <NativeHtml content={poi.content} language={language} />
-        </ContentWrapper>
-      </CollapsibleItem>
-      <HorizontalLine />
+      {content.length > 0 && (
+        <>
+          <CollapsibleItem initExpanded headerText={t('description')} language={language}>
+            <ContentWrapper>
+              <NativeHtml content={content} language={language} />
+            </ContentWrapper>
+          </CollapsibleItem>
+          <HorizontalLine />
+        </>
+      )}
     </PoiDetailsContainer>
   )
 }
