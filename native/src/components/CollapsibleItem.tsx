@@ -21,9 +21,7 @@ type CollapsibleItemProps = {
 type CollapsibleHeaderIconProps = 'expand-less' | 'expand-more'
 
 const PageContainer = styled.View`
-  padding: 20px 48px;
   align-self: center;
-  min-height: 64px;
 `
 
 const CollapseHeaderText = styled.Text`

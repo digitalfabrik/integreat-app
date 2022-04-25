@@ -25,7 +25,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity<{ language: string }>`
   flex: 1;
   flex-direction: column;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+  border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
   padding: 24px 0;
 `

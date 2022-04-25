@@ -1,5 +1,3 @@
-import * as React from 'react'
-import { memo } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -7,9 +5,7 @@ import { CityModel, ErrorCode, PoiModel, POIS_ROUTE, PoisRouteType } from 'api-c
 
 import { NavigationPropType, RoutePropType } from '../constants/NavigationTypes'
 import withPayloadProvider, { StatusPropsType } from '../hocs/withPayloadProvider'
-import useSetShareUrl from '../hooks/useSetShareUrl'
 import createNavigate from '../navigation/createNavigate'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import { LanguageResourceCacheStateType, StateType } from '../redux/StateType'
 import { StoreActionType, SwitchContentLanguageActionType } from '../redux/StoreActionType'
 import { reportError } from '../utils/sentry'
@@ -180,25 +176,6 @@ const mapDispatchToProps = (dispatch: Dispatch<StoreActionType>): DispatchPropsT
   dispatch
 })
 
-const PoisContainer = ({ dispatch, navigation, route, ...rest }: ContainerPropsType) => {
-  const routeInformation = {
-    route: POIS_ROUTE,
-    languageCode: rest.language,
-    cityCode: rest.cityModel.code,
-    cityContentPath: rest.path ?? undefined
-  }
-  useSetShareUrl({ navigation, routeInformation, route })
-
-  return (
-    <Pois
-      {...rest}
-      route={route}
-      navigateTo={createNavigate(dispatch, navigation)}
-      navigateToFeedback={createNavigateToFeedbackModal(navigation)}
-    />
-  )
-}
-
 const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionType>) => {
   const { navigation, route, cityCode, language, path } = refreshProps
   const navigateTo = createNavigate(dispatch, navigation)
@@ -214,15 +191,8 @@ const refresh = (refreshProps: RefreshPropsType, dispatch: Dispatch<StoreActionT
   )
 }
 
-// Workaround to fix rerender cycle with null path in Poi Detail page
-// TODO IGAPP-758
-const PurePoisContainer = memo(
-  PoisContainer,
-  (prevProps: ContainerPropsType, nextProps: ContainerPropsType) => prevProps.path !== nextProps.path
-)
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
   // @ts-expect-error TODO: IGAPP-636
-)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true, true)(PurePoisContainer))
+)(withPayloadProvider<ContainerPropsType, RefreshPropsType, PoisRouteType>(refresh, true, true)(Pois))
