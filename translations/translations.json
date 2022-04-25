@@ -313,6 +313,7 @@
   },
   "common": {
     "de": {
+      "moreOptions": "Mehr Optionen",
       "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
       "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
@@ -349,6 +350,7 @@
       "loading": "Φόρτωση ..."
     },
     "en": {
+      "moreOptions": "More options",
       "languageNotAvailable": "Sorry, but your language is not available here.",
       "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
