@@ -15,8 +15,8 @@
 The easiest way to deliver a new build to production or development is to trigger the corresponding CircleCI workflows _triggered_native_development_delivery_ and _triggered_production_delivery_:
 
 - Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
-- Trigger a delivery using the tool [trigger-workflow](../tools/trigger-pipeline.ts):
-  `cd tools && yarn trigger-workflow trigger <workflow-type> --api-token <api-token>`
+- Trigger a delivery using the tool [trigger-pipeline](../tools/trigger-pipeline.ts):
+  `cd tools && yarn trigger-pipeline trigger <workflow-type> --api-token <api-token>`
 
 ## Workflows
 

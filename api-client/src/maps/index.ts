@@ -42,6 +42,7 @@ export type UserLocationType = SuccessfulLocationState | UnavailableLocationStat
 
 export type SuccessfulLocationState = {
   status: 'ready'
+  message: 'ready'
   coordinates: LocationType
 }
 export type LoadingLocationState = {

@@ -3,11 +3,10 @@ import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
-import { CityModel } from 'api-client'
+import { CityModel, normalizeSearchString } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import testID from '../testing/testID'
-import { normalizeSearchString } from '../utils/helpers'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 

@@ -9,7 +9,7 @@
     "jira-release": "ts-node jira-release.ts",
     "move-release-notes": "ts-node move-release-notes.ts",
     "next-version": "ts-node next-version.ts",
-    "trigger-workflow": "ts-node trigger-pipeline.ts",
+    "trigger-pipeline": "ts-node trigger-pipeline.ts",
     "ts:check": "tsc --build"
   },
   "devDependencies": {

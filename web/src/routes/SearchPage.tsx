@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import {
   CategoryModel,
   createCategoriesEndpoint,
+  normalizeSearchString,
   parseHTML,
   pathnameFromRouteInformation,
   SEARCH_ROUTE,
@@ -22,7 +23,6 @@ import LocationLayout from '../components/LocationLayout'
 import SearchInput from '../components/SearchInput'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { normalizeSearchString } from '../utils/stringUtils'
 
 type CategoryEntryType = { model: CategoryModel; contentWithoutHtml?: string; subCategories: Array<CategoryModel> }
 

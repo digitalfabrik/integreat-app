@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CityModel } from 'api-client'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
-import FilterableCitySelector from '../components/FilterableCitySelector'
+import CitySelector from '../components/CitySelector'
 import GeneralFooter from '../components/GeneralFooter'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
@@ -30,7 +30,7 @@ const LandingPage = ({ cities, languageCode }: PropsType): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} />
-      <FilterableCitySelector cities={cities} language={languageCode} />
+      <CitySelector cities={cities} language={languageCode} />
     </Layout>
   )
 }
