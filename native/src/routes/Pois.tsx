@@ -94,7 +94,10 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
       poi={poi}
       language={language}
       theme={theme}
-      navigateToPoi={() => selectPoiFeature(poi)}
+      navigateToPoi={() => {
+        setSheetSnapPointIndex(1)
+        selectPoiFeature(poi)
+      }}
     />
   )
 
