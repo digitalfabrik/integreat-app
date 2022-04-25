@@ -29,7 +29,7 @@ const getUserLocation = async (): Promise<UserLocationType> =>
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         const { latitude, longitude } = coords
-        resolve({ coordinates: [longitude, latitude], status: 'ready' })
+        resolve({ coordinates: [longitude, latitude], status: 'ready', message: 'ready' })
       },
       (error: GeolocationPositionError) => {
         resolve(locationStateOnError(error))
