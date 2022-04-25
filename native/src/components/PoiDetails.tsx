@@ -74,9 +74,11 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
     }
   }
 
-  const copyToClipboard = (text: string) => (): void => {
-    Clipboard.setString(text)
-    showSnackbar(t('addressCopied'))
+  const copyLocationToClipboard = (): void => {
+    if (location) {
+      Clipboard.setString(location)
+      showSnackbar(t('addressCopied'))
+    }
   }
 
   return (
@@ -86,11 +88,9 @@ const PoiDetails: React.FC<PoiDetailsProps> = ({ poi, feature, language }: PoiDe
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
       <PoiDetailItem onPress={onNavigate} icon={<ExternalLink source={ExternalLinkIcon} />} language={language}>
-        <TextWrapper onPress={location ? copyToClipboard(location) : undefined}>
+        <TextWrapper onPress={copyLocationToClipboard}>
           <Text>{address}</Text>
-          <Text>
-            {postcode} {town}
-          </Text>
+          <Text>{[postcode, town].filter(it => it).join(' ')}</Text>
         </TextWrapper>
       </PoiDetailItem>
       <HorizontalLine />
