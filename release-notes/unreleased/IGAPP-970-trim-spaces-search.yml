@@ -1,0 +1,8 @@
+issue_key: IGAPP-970
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The search works now after autocompleting words.
+de: Die Suche funktioniert nun nach der Autovervollständigung von Wörtern.

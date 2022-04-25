@@ -14,3 +14,7 @@
 [data-rsbs-overlay] {
   z-index: 20;
 }
+
+[data-rsbs-has-header='false'] [data-rsbs-header] {
+  padding-top: calc(24px + env(safe-area-inset-top));
+}

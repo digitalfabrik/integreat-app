@@ -2,12 +2,12 @@ import * as React from 'react'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
+import { normalizeSearchString } from 'api-client'
 import { ThemeType } from 'build-configs'
 
 import iconPlaceholder from '../assets/IconPlaceholder.png'
 import { contentDirection } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
-import { normalizeSearchString } from '../utils/helpers'
 import { CategoryListModelType } from './CategoryList'
 import ContentMatcher from './ContentMatcher'
 import SimpleImage from './SimpleImage'

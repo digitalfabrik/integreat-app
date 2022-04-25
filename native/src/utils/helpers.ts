@@ -1,5 +1,4 @@
 import { last } from 'lodash'
-import normalizeStrings from 'normalize-strings'
 import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 
@@ -81,8 +80,6 @@ export const getExtension = (urlString: string): string => {
 
   return lastPath.substring(index + 1)
 }
-
-export const normalizeSearchString = (str: string): string => normalizeStrings(str).toLowerCase()
 
 export const getErrorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : 'No error message available'
