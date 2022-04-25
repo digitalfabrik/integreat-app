@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share, useWindowDimensions } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import { Dispatch } from 'redux'
 import styled, { useTheme } from 'styled-components/native'
 
 import { CityModel, LANDING_ROUTE, SHARE_SIGNAL_NAME } from 'api-client'
@@ -13,7 +12,6 @@ import { NavigationPropType, RoutePropType, RoutesType } from '../constants/Navi
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
-import { StoreActionType } from '../redux/StoreActionType'
 import { forceNewlineAfterChar } from '../utils/forceNewLineAfterChar'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
@@ -60,7 +58,6 @@ type PropsType = {
   goToLanguageChange?: () => void
   routeCityModel?: CityModel
   language: string
-  dispatch: Dispatch<StoreActionType>
 }
 
 enum HeaderButtonTitle {
