@@ -25,4 +25,4 @@ steps:
       command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --android --language en)" >> ${BASH_ENV}
   - notify:
       success_message: <<^ parameters.production_delivery >>[Development] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
-      channel: integreat-releases
+      channel: releases
