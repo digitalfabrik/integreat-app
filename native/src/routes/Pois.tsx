@@ -146,7 +146,7 @@ const Pois = ({ pois, language, cityModel, route, navigation }: PropsType): Reac
       <MapView
         selectPoiFeature={selectPoiFeature}
         boundingBox={cityModel.boundingBox}
-        setSheetSnapshotIndex={setSheetSnapPointIndex}
+        setSheetSnapPointIndex={setSheetSnapPointIndex}
         featureCollection={embedInCollection(features)}
         selectedFeature={selectedFeature ?? null}
         locationPermissionGranted={coordinates !== null}
