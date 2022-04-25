@@ -15,7 +15,7 @@
       "api-client/*": ["../api-client/*"],
       "build-configs/*": ["../build-configs/*"],
       "translations/*": ["../translations/*"],
-      "normalize-strings": ["src/@types/normalize-strings"]
+      "normalize-strings": ["../api-client/src/@types/normalize-strings"]
     },
     "skipLibCheck": true,
     "target": "ES2019",
