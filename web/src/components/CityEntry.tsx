@@ -3,10 +3,8 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { withTheme } from 'styled-components'
 
-import { cityContentPath, CityModel } from 'api-client'
+import { cityContentPath, CityModel, normalizeSearchString } from 'api-client'
 import type { ThemeType } from 'build-configs'
-
-import { normalizeSearchString } from '../utils/stringUtils'
 
 const MAX_NUMBER_OF_ALIASES = 3
 

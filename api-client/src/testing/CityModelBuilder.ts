@@ -20,7 +20,6 @@ const cities = [
         longitude: 10.889586
       }
     },
-    // eslint-disable-next-line no-magic-numbers
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834]
   }),
   new CityModel({

@@ -11,6 +11,7 @@ import {
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
   CATEGORIES_ROUTE,
+  normalizeSearchString,
   RouteInformationType,
   parseHTML
 } from 'api-client'
@@ -23,7 +24,6 @@ import SearchHeader from '../components/SearchHeader'
 import dimensions from '../constants/dimensions'
 import { urlFromRouteInformation } from '../navigation/url'
 import testID from '../testing/testID'
-import { normalizeSearchString } from '../utils/helpers'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const Wrapper = styled.View`
