@@ -220,8 +220,10 @@ const PoisPage = ({ cityCode, languageCode, cityModel, pathname, languages }: Ci
             currentFeature={currentFeature}
             toolbar={toolbar}
             ref={sheetRef}
+            poi={poi}
             mapView={mapView}
             poiList={poiList}
+            selectFeature={selectFeature}
           />
         ) : (
           <PoisDesktop
