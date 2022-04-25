@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as mapLibreGl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, { ReactElement, useCallback, useState } from 'react'
@@ -13,6 +14,7 @@ import {
   MapViewMercatorViewport
 } from 'api-client'
 
+import { faArrowLeft } from '../constants/icons'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
 
@@ -27,6 +29,27 @@ const MapContainer = styled.div`
 const StyledGeolocateControl = styled(GeolocateControl)`
   right: 10px;
   top: 10px;
+`
+
+const BackNavigation = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: ${props => props.theme.colors.textDisabledColor};
+  height: 28px;
+  width: 28px;
+  border: 1px solid #818181;
+  border-radius: 50px;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`
+
+const StyledIcon = styled(FontAwesomeIcon)`
+  font-size: 12px;
+  color: white;
 `
 
 type MapViewProps = {
@@ -74,7 +97,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
   const onDeselectFeature = useCallback(
     e => {
       // Currently selected feature should not be deselected if the user clicks on the controls like zoom or user location
-      if (e.target.className.includes('mapboxgl-canvas')) {
+      if (e.target.classList.toString().includes('mapboxgl-canvas')) {
         selectFeature(null)
       }
     },
@@ -88,7 +111,7 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
       const feature = event.features && event.features[0]
       if (feature) {
         selectFeature(feature)
-        changeSnapPoint(1)
+        changeSnapPoint(2)
       }
     },
     [changeSnapPoint, selectFeature]
@@ -117,6 +140,15 @@ const MapView = React.forwardRef((props: MapViewProps, ref: React.Ref<MapRef>): 
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
         onTouchMove={() => changeSnapPoint(0)}>
+        {currentFeature && viewportSmall && (
+          <BackNavigation
+            onClick={() => selectFeature(null)}
+            role='button'
+            tabIndex={-1}
+            onKeyPress={() => selectFeature(null)}>
+            <StyledIcon icon={faArrowLeft} />
+          </BackNavigation>
+        )}
         {/* To use geolocation in a development build you have to start the dev server with "yarn start --https" */}
         <StyledGeolocateControl positionOptions={{ enableHighAccuracy: true }} trackUserLocation />
         <Source id='location-pois' type='geojson' data={featureCollection}>
